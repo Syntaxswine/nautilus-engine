@@ -4,6 +4,8 @@ Nautilus 0.2 adds a headless rules package alongside the map workshop. It keeps 
 
 The [source comparison](reviews/2026-10-28-rules-foundation.md) records the decisions; the [source inventory](reviews/2026-10-28-rules-sources.json) records full commits and hashes. Existing immutable imports supply the reused algorithms. No donor game has been migrated or changed.
 
+The [design evaluation standard](design-evaluation.md) now requires an explicit preference under accuracy, efficiency and narrative for each material difference. [The current assessments](reviews/2026-10-28-design-tradeoffs.md) recommend a direct percentage foundation for general hit decisions, AFT's richer shot model where its consequences serve tactical drama, route-aware climbing for simulated traversal, and richer Tinderbox fire where manipulating fire is central. These preferences guide future adoption; existing explicit API profiles and balance remain as documented below.
+
 ## Designs selected
 
 | Area | Shared foundation | Game-owned policy |

@@ -16,6 +16,8 @@ No remote fetch was performed. Full source paths, byte counts and SHA-256 hashes
 
 ## Findings and choices
 
+The user subsequently established accuracy (true to life), efficiency (processor cost) and narrative (game-specific story, appearance and experience) as the comparison metrics. [The explicit assessments and recommendations](2026-10-28-design-tradeoffs.md) supplement these original findings and explain which design is preferred for each use case. Profile preservation alone is insufficient as a selection rationale.
+
 - The 14-stat system is active in AFT's stat-enabled runtime and Farmyard's solo game. Resource/accuracy/resistance formulas and one-point training are a strong shared foundation. Named mercenary defaults, guard defaults and legacy species progression belong to content profiles rather than the engine's neutral character constructor.
 - AFT's existing dossier has useful labelled stats/resource projection, but `character-screen.js` also imports inventory operations, combat queries, art and DOM construction. Nautilus extracts the data projection into a pure function and leaves the existing UI in place. Farmyard remains the presentation direction for a future shared sheet UI.
 - AFT dialogue has the strongest committed-check design: minimum/chance gates, bounded modifiers, preview tokens, saved random state, pinned content, one-attempt receipts and replay validation. Nautilus retains that full boundary and exposes a smaller preview/resolve API for individual checks.

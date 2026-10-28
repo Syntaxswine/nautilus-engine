@@ -46,6 +46,8 @@ The package runs in Node without a DOM, renderer or browser storage. See [the ar
 
 See [the rules contract and examples](docs/rules.md) and [the comparison of all three games](docs/reviews/2026-10-28-rules-foundation.md). Rolls, world impacts and game scheduling have explicit boundaries. No game has switched to Nautilus rules automatically.
 
+Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.
