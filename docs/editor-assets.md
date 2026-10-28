@@ -16,6 +16,8 @@ Biome terrain swatches crop `ground-atlas-v1.png` with `BIOME_GROUNDS` metadata,
 
 ## Adding reviewed assets
 
+Incoming character work reported by the user on 28 October 2026: a bear is being wired upstream. It is absent from Nautilus's current pinned snapshot and is not included in the library counts above. Intake needs a full reviewed commit containing its model, paint, animation/equipment bindings and dependencies, followed by visual and map-format/consumer compatibility checks. Do not import unfinished worker files or assume that renderer support makes the species placeable.
+
 1. Review a full donor commit and its asset dependencies, source hashes, notices, dimensions, anchors, rotation and collision behavior. Keep donor worktrees read-only and preserve original bytes in a new immutable snapshot.
 2. Update the deliberate source pin and rendering/placement registries together. Preserve one tile per metre and the inherited distinction between renderer floor spacing and tactical floor heights. Do not resize a model merely to match its footprint.
 3. Existing registry families appear in the library automatically. A new asset family needs a deliberate category, preview staging and tool binding in `apps/editor/asset-catalog.js` and `asset-preview.js`. Unsupported content must have an explicit placement restriction; do not route it to an approximate prop or silently discard it on export.
