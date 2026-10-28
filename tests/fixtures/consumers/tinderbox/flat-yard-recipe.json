@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "name": "Tinderbox flat-yard conformance",
+  "policy": {
+    "region": {
+      "x": 10,
+      "y": 20,
+      "width": 20,
+      "height": 16
+    },
+    "playerStart": 0,
+    "markerPolicy": "select-player-preserve-markers",
+    "outsidePolicy": "require-unmodified-yard",
+    "seed": 1947
+  },
+  "starts": [
+    {
+      "x": 20,
+      "y": 25,
+      "z": 0
+    },
+    {
+      "x": 20,
+      "y": 27,
+      "z": 0
+    },
+    {
+      "x": 19,
+      "y": 26,
+      "z": 0
+    },
+    {
+      "x": 19,
+      "y": 28,
+      "z": 0
+    }
+  ],
+  "exits": [
+    {
+      "x": 20,
+      "y": 26,
+      "z": 0
+    }
+  ],
+  "terrain": [
+    {
+      "x": 10,
+      "y": 20,
+      "width": 3,
+      "height": 16,
+      "value": "ground-grass"
+    },
+    {
+      "x": 16,
+      "y": 27,
+      "width": 4,
+      "height": 3,
+      "value": "ground-wood-planks"
+    }
+  ],
+  "walls": [
+    {
+      "id": "north-timber",
+      "a": [
+        15,
+        23
+      ],
+      "b": [
+        25,
+        23
+      ],
+      "z": 0,
+      "stories": 1,
+      "material": "wood"
+    },
+    {
+      "id": "east-brick",
+      "a": [
+        25,
+        23
+      ],
+      "b": [
+        25,
+        31
+      ],
+      "z": 0,
+      "stories": 1,
+      "material": "brick"
+    }
+  ],
+  "metadata": {
+    "purpose": "Pinned Tinderbox conformance fixture",
+    "retainedNote": {
+      "kind": "nonfunctional-authoring-metadata",
+      "value": "Preserved through adapter saves"
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:sloped-roofs:1",
+  "title": "Nautilus sloped roof data version 1",
+  "type": "object",
+  "required": [
+    "version",
+    "roofs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "roofs": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/roof"
+      }
+    }
+  },
+  "$defs": {
+    "roof": {
+      "type": "object",
+      "required": [
+        "id",
+        "x",
+        "y",
+        "width",
+        "depth",
+        "z",
+        "style",
+        "axis",
+        "pitch",
+        "overhang",
+        "material",
+        "seed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_:.-]{1,96}$"
+        },
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 240
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 240
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 240
+        },
+        "depth": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 240
+        },
+        "z": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "style": {
+          "enum": [
+            "gable",
+            "hip",
+            "shed"
+          ]
+        },
+        "axis": {
+          "enum": [
+            "x",
+            "y"
+          ]
+        },
+        "direction": {
+          "enum": [
+            1,
+            -1
+          ],
+          "default": 1
+        },
+        "pitch": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 75
+        },
+        "overhang": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "material": {
+          "enum": [
+            "slate",
+            "clay",
+            "metal"
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "$comment": "roofErrors additionally checks unique IDs and complete expanded footprints against map/block size. Edge-based metres convert to the native tile-centred scene through one -0.5 metre editor offset. Metadata never changes geometry."
+}

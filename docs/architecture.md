@@ -14,7 +14,7 @@
 | `vendor/aft-assets/<commit>/` | Byte-preserved supplemental machine paint closure for the existing AFT snapshot |
 | `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
 | `vendor/tinderbox-prefabs/<commit>/` | Byte-preserved Gross house assemblies, source plates/plans, materials and handoff |
-| `packages/prefab-core/` | Headless building registry, lot validation and deterministic layout placement |
+| `packages/assets/` | Headless shared asset discovery, optional building renderer and model-file URL contracts |
 | `upstream.json` | Reviewed donor pins and their purpose |
 | `tools/snapshot-source.mjs` | Read-only Git-object importer; writes only a new local snapshot |
 | `tools/build.mjs` | Self-contained static editor, recorded deployment patches and isolated storage |
@@ -38,7 +38,7 @@ The [rules contract](rules.md) defines the portable character schema and the bou
 
 ## Public map API
 
-`createMapDocument(name)` and `createBlockDocument(name)` create independent documents. `openDocument(objectOrJSON)` opens the existing portable map or block format. `MapDocument` wraps the inherited editing controller. Its key methods are `preview(command)`, `apply(command)`, `undo()`, `redo()`, `rename(name)`, `replace(map)`, `validate()` and `export()`.
+`createMapDocument(name)` and `createBlockDocument(name)` create independent documents. `openDocument(objectOrJSON)` opens the existing portable map or block format. `MapDocument` exposes an engine-owned document facade preserving the reviewed inherited editing profile. Rendering projections belong to explicit editor/renderer adapters. Its key methods are `preview(command)`, `apply(command)`, `undo()`, `redo()`, `rename(name)`, `replace(map)`, `validate()` and `export()`.
 
 Preview returns a candidate without committing it. Apply commits only accepted commands. Rejected edits leave the blueprint and undo history intact. Validation checks map geometry and reachability; authoring can temporarily disconnect areas until the design is ready to export for gameplay. Import validates before opening a replacement document.
 
@@ -78,6 +78,12 @@ This is an embedding API, not an automatic cross-origin bridge. Consumers own th
 | --- | --- | --- |
 | AFT 3D | Original portable map/block schemas and editor behavior retained | Pin Nautilus, replace its editor entry deliberately, review the game handoff |
 | Farmyard Commando | Existing AFT-import path provides a starting point for flat maps | Bind the adapter; reject upper floors, traversal and unsupported terrain/objects explicitly |
-| Tinderbox | Shared metre scale and suitable visual assets | Translate blueprint objects into Tinderbox content/collision without importing AFT combat rules |
+| Tinderbox | Shared metre scale and conformance-tested flat-yard adapter against pinned real compiler/simulation | Adopt an exact engine pin in the game; extend roofs, whole buildings, doors and other unsupported features deliberately |
 
 The initial catalog and document controller still contain AFT character and scenario conventions. Later extraction can separate catalogs, placement constraints and spawn roles into registries. Consumer pins should be exact releases/commits and updates should run each game's checks. Do not make a consumer silently follow Nautilus main.
+
+## Versioned public contracts and distribution
+
+The [compatibility policy](compatibility.md) defines engine-owned schema/capability IDs, required/optional negotiation, explicit migration and opaque-field preservation. The optional stamped save envelope preserves legacy portable JSON rather than replacing it. A consumer can reject unsupported data with actionable structured diagnostics before gameplay. Public package exports are the supported boundary; implementation donor paths remain replaceable.
+
+The [distribution profiles](distribution.md) separate the headless core, optional renderer, large building assets and standalone editor. An installed-package proof catches incomplete dependency closures. Shared visual asset reuse is independent from map/gameplay capability support. The [Tinderbox adapter](adapters/tinderbox.md) preserves a complete map sidecar, tests the pinned game compiler/simulation, and refuses unsupported content; this is a prepared adoption candidate rather than a production game change.

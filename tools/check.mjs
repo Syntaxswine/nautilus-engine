@@ -1,3 +1,5 @@
+import {distribution} from './distribution.mjs';
+import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
 import path from 'node:path';
@@ -65,3 +67,17 @@ if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw E
 if (core.ENGINE_VERSION !== JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version) throw Error('Engine version mismatch.');
 console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, '+editorAssets.length+' editor assets, headless map/rules APIs, examples, rules-source evidence and '+haloEvidence.referenceFiles+' halo reference files / '+haloEvidence.runtimeModules+' shared rendering modules.');
 await import('./check-building-catalog.mjs');
+
+checkSharedAssets();
+
+if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
+
+const conformance = sources.tinderboxConformance, conformanceRoot = path.resolve(root, conformance.root);
+const conformanceManifest = JSON.parse(fs.readFileSync(path.join(conformanceRoot,'provenance.json')));
+if(conformanceManifest.commit!==conformance.commit)throw Error('Tinderbox conformance pin mismatch.');
+for(const entry of conformanceManifest.files){
+ const file=path.resolve(conformanceRoot,entry.path), relative=(conformance.root+'/'+entry.path);
+ if(!file.startsWith(conformanceRoot+path.sep))throw Error('Invalid conformance fixture path.');
+ const bytes=fs.readFileSync(file);if(bytes.length!==entry.bytes||createHash('sha256').update(bytes).digest('hex')!==entry.sha256)throw Error('Conformance source bytes changed: '+relative);
+ if(tracked){if(!tracked.has(relative))throw Error('Untracked conformance source: '+relative);const indexed=execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',':'+relative],{windowsHide:true});if(createHash('sha256').update(indexed).digest('hex')!==entry.sha256)throw Error('Git would alter conformance source bytes: '+relative);}
+}
