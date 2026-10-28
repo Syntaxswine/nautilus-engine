@@ -6,6 +6,7 @@ import {exampleYard} from '../packages/map-core/example.js';
 import {adaptWallEditor} from './editor-wall-adapter.mjs';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
+import {adaptEditorRoofs} from './editor-roof-adapter.mjs';
 import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE,ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/index.js';
 import {verifyBuild} from './verify-build.mjs';
 import './build-building-assets.mjs';
@@ -50,6 +51,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
       if (donor === 'aft' && entry.path.endsWith('/editor-3d.js')) text = once(text, "await open(JSON.stringify(blankMap('New design')));return;", "const response=await fetch('./nautilus-example.json');if(!response.ok)throw Error('Example yard could not load.');await open(await response.text());return;", 'opening example');
       if (donor === 'aft') text = adaptWallEditor(entry.path, text, once);
       if (donor === 'aft') text = adaptEditorPrefabs(entry.path,text,once);
+      if (donor === 'aft') text = adaptEditorRoofs(entry.path,text,once);
       data = Buffer.from(text);
     }
     if (!data.equals(source)) patches.push({path:folder + '/' + entry.path, sourceSha256:entry.sha256, builtSha256:createHash('sha256').update(data).digest('hex')});
@@ -58,7 +60,9 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
-fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
+// Documentation may contain reproducible Node-only review tools. They remain
+// in source; the browser bundle includes their reports and visual evidence.
+fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});
 fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
