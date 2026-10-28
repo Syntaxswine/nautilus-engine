@@ -41,8 +41,9 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   // same controller for the two other deterministic styles.
   await page.locator('[data-group="roofs"]').click();
   await page.locator('#tool-mode').selectOption('sloped-roof');
+  await page.locator('#roof-exact > summary').click();
   const setRoof=async(id,value)=>{const field=page.locator('#'+id);if(await field.evaluate(el=>el.tagName==='SELECT'))await field.selectOption(String(value));else await field.fill(String(value));};
-  for(const [id,value]of Object.entries({'roof-x':165,'roof-y':80,'roof-width':12,'roof-depth':8,'roof-eaves':1,'roof-style':'gable','roof-axis':'x','roof-direction':1,'roof-pitch':35,'roof-overhang':.3,'roof-material':'slate','roof-seed':42}))await setRoof(id,value);
+  for(const [id,value]of Object.entries({'roof-x':165,'roof-y':80,'roof-width':12,'roof-depth':8,'roof-eaves':1,'roof-style':'gable','roof-axis':'x','roof-pitch':35,'roof-overhang':.3,'roof-material':'slate','roof-seed':42}))await setRoof(id,value);
   const roofBefore=await page.evaluate(()=>window.editor3d.export());
   await page.locator('#roof-preview-exact').click();
   await page.waitForFunction(()=>!document.getElementById('roof-place-exact').disabled);
@@ -89,6 +90,11 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   const modal=await page.locator('#building-library').evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,top:el.getBoundingClientRect().top,bottom:el.getBoundingClientRect().bottom}));
   assert(modal.left>=-1&&modal.right<=391&&modal.top>=-1&&modal.bottom<=845,'Mobile building modal is outside the viewport.');
   await page.screenshot({path:path.join(out,'editor-mobile-library.png')});await page.locator('#building-close').click();
+  await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js'),manifest=core.engineManifest();manifest.id='acceptance-versioned-host';manifest.capabilities=manifest.capabilities.filter(feature=>feature.id!==core.ROOF_FEATURE);window.manifestHostCalls=0;window.manifestDisconnect=window.nautilus.connectGame({manifest,openMap(){window.manifestHostCalls++;}});});
+  await page.locator('#settings-button').click();await page.locator('#playtest').click();
+  await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('nautilus-sloped-roofs-v1'));
+  assert(await page.evaluate(()=>window.manifestHostCalls)===0,'Versioned host missing roof support was called.');
+  await page.locator('#close-settings').click();await page.evaluate(()=>window.manifestDisconnect());
   await page.evaluate(()=>{window.integrationHostChecks={calls:0};window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-sloped-roofs-v1'],openMap(){window.integrationHostChecks.calls++;}});});
   await page.locator('#settings-button').click();await page.locator('#playtest').click();
   await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('original building'));
@@ -102,6 +108,6 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   assert(final.features.includes('nautilus-original-buildings-v1'),'Original feature is absent.');
   assert(final.features.includes('nautilus-sloped-roofs-v1')&&final.roofs===3,'Roof capability or saved geometry is absent.');
   const captures=fs.readdirSync(out).filter(n=>n.endsWith('.png')).map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')}));
-  const record={sourceCommit,buildProvenanceSha256,host,browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,schemaFiles,inventory,seededBuildings:6,proceduralRoofs:3,roofPreview:true,roofUndoRedo:true,roofRejection,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
+  const record={sourceCommit,buildProvenanceSha256,host,versionedUnsupportedHostRejected:true,browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,schemaFiles,inventory,seededBuildings:6,proceduralRoofs:3,roofPreview:true,roofUndoRedo:true,roofRejection,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
   fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(record,null,2));console.log(JSON.stringify(record));
 },{owner,output:'engine-integration',timeoutMs:240000});

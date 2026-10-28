@@ -1,5 +1,5 @@
-import {requiredMapFeatures, parseMap} from './prefab-maps.js';
-import {validateBlock} from './prefab-blocks.js';
+import {requiredMapFeatures, parseMap} from './roof-maps.js';
+import {validateBlock} from './roof-blocks.js';
 import {ENGINE_MANIFEST, SCHEMA_IDS} from './contract-manifest.js';
 
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);

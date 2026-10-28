@@ -1,5 +1,5 @@
-import {EditingDocument} from './prefab-document.js';
-import {parseMap} from './prefab-maps.js';
+import {EditingDocument} from './roof-document.js';
+import {parseMap} from './roof-maps.js';
 import {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS} from './contract-manifest.js';
 import {blueprintRequirements, assertRequirements, CompatibilityError} from './capabilities.js';
 

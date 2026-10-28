@@ -97,3 +97,11 @@ test('public schema URLs resolve every registered document and absolute cross-sc
  function refs(value){if(!value||typeof value!=='object')return;for(const [key,child]of Object.entries(value)){if(key==='$ref'&&!child.startsWith('#'))assert.ok(uris.has(child),'Unregistered schema reference: '+child);else refs(child);}}
  for(const entry of documents){const schema=JSON.parse(fs.readFileSync(new URL(entry.url),'utf8'));assert.equal(schema.$id,entry.uri);refs(schema);}
 });
+
+test('public roof documents, stamps, persistence and capability diagnostics use the same composition',()=>{
+ const document=createMapDocument('Public roof contract');const result=document.apply({tool:'sloped-roof',options:{exact:true,x:30,y:30,width:8,depth:6,eaves:1,style:'gable',axis:'x',direction:1,pitch:35,overhang:.25,material:'slate',seed:42}});assert.equal(result.ok,true,result.error);
+ const map=JSON.parse(document.export());map.slopedRoofs.metadata={author:'Fixture'};map.slopedRoofs.roofs[0].metadata={source:{note:'Keep'}};
+ const saved=createSave(map);assert.ok(saved.requirements.required.some(feature=>feature.id===FEATURE_IDS.slopedRoofs));assert.deepEqual(parseSave(serializeSave(saved)).payload.data,map);
+ assert.throws(()=>assertBlueprintCompatible(map,consumer([])),error=>error instanceof CompatibilityError&&error.diagnostics.some(item=>item.feature===FEATURE_IDS.slopedRoofs));
+ assert.throws(()=>loadBlueprint({...map,slopedRoofs:{version:2,roofs:[]}}));
+});
