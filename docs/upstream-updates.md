@@ -20,7 +20,7 @@ node tools/snapshot-source.mjs --donor aft --repo <read-only-checkout> --commit 
 # Review the dry-run closure before repeating with --write.
 ```
 
-The current importer covers AFT editor dependencies and the selected Farmyard material set. New source categories need an explicit importer extension and provenance evidence. New snapshots do not remove older snapshots while the public API or consumers still depend on them.
+The current importer covers AFT editor dependencies and the selected Farmyard material set. `--donor aft-assets` imports the three dynamically named machine paint atlases as a supplemental closure for the existing immutable snapshot; new full AFT imports include those paints directly. The [editor asset contract](editor-assets.md) describes catalog, preview and placement verification. New source categories need an explicit importer extension and provenance evidence. New snapshots do not remove older snapshots while the public API or consumers still depend on them.
 
 The Sites source Git service currently limits each push to 64 MiB. Large initial imports need bounded cumulative import commits before the final complete source is synchronized. Preserve the GitHub history with a content-identical merge when reconciling that upload chain; never force-push. Partial upload commits are preparation, not reviewed releases or deployments.
 

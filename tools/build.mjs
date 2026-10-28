@@ -3,6 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
+import {editorAssets} from '../apps/editor/asset-catalog.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw Error('Invalid build directory.');
@@ -22,7 +23,7 @@ const storage = [
   ['animal-factory-maps','nautilus-engine-maps']
 ];
 function once(text, needle, replacement, label) {if (!text.includes(needle)) throw Error('Upstream changed: ' + label);return text.replace(needle, replacement);}
-for (const donor of ['aft', 'farmyard']) {
+for (const donor of ['aft', 'farmyard', 'aftAssets']) {
   const folder = sources[donor].root, manifest = JSON.parse(fs.readFileSync(path.join(root, folder, 'provenance.json')));
   for (const entry of manifest.files) {
     if (entry.path.startsWith('tests/')) continue;
@@ -35,7 +36,12 @@ for (const donor of ['aft', 'farmyard']) {
         text = once(text, 'Playtest ↗', 'Send to game', 'game handoff button');
         text = once(text, "$('playtest').disabled=!!d.block", "$('playtest').disabled=!!d.block||!window.nautilus?.hasGameAdapter", 'game handoff availability');
       }
-      if (donor === 'aft' && entry.path.endsWith('/editor-workbench.js')) text = once(text, '▶ Playtest', 'Send to game', 'workbench handoff button');
+      if (donor === 'aft' && entry.path.endsWith('/editor-workbench.js')) {
+        text = once(text, '▶ Playtest', 'Send to game', 'workbench handoff button');
+        text = once(text, "import {tilePreview} from './editor-tool-previews.js';", "import {terrainSwatch} from '../../../../../app/asset-swatches.js';", 'shared terrain swatch adapter');
+        text = once(text, "const img=new Image();img.src=tilePreview(item.id);img.alt='';", "const img=terrainSwatch(item.id);", 'atlas-backed biome swatches');
+      }
+      if (donor === 'aft' && entry.path.endsWith('/factory-machine-paint.js')) text = once(text, "'../assets/environment/factory-machines/'", "new URL('../../../../../" + sources.aftAssets.root + "/dist/assets/environment/factory-machines/',import.meta.url).href", 'supplemental factory machine paint');
       if (donor === 'aft' && entry.path.endsWith('/editor-3d.js')) text = once(text, "await open(JSON.stringify(blankMap('New design')));return;", "const response=await fetch('./nautilus-example.json');if(!response.ok)throw Error('Example yard could not load.');await open(await response.text());return;", 'opening example');
       data = Buffer.from(text);
     }
@@ -59,6 +65,8 @@ html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/edi
 html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
 write('index.html', html);
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
-for (const name of ['editor.js', 'editor.css']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
-write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));
+for (const name of fs.readdirSync(path.join(root, 'apps/editor')).filter(name => /\.(js|css)$/.test(name))) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('../../vendor/', '../vendor/').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
+const assets = editorAssets();
+write('editor-assets.json', JSON.stringify({schemaVersion:1, sources:{aft:sources.aft.commit,farmyard:sources.farmyard.commit,aftAssets:sources.aftAssets.commit}, assets}, null, 2));
+write('build-provenance.json', JSON.stringify({engineVersion: version, sources, editorAssets:{catalog:'editor-assets.json',count:assets.length}, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Catalog-derived asset library with inspection-scene previews','Biome swatches sample the pinned ground atlas'], patches}, null, 2));
 console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches.');
