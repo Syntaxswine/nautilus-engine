@@ -47,6 +47,6 @@ export function checkSearchHalo(root, sources, tracked) {
   const original=fs.readFileSync(path.join(root,pin.root,expected[0]),'utf8').replaceAll('\r\n','\n');
   const shaders=original.slice(original.indexOf('const vertexShader='),original.indexOf('function actuallyVisible'));
   if(!shaders || !fs.readFileSync(path.join(root,manifest.runtimeEntry),'utf8').includes(shaders))throw Error('Search-halo shader adaptation requires a new visual/source review.');
-  for(const name of ['tools/snapshot-search-halo.mjs','tools/check-search-halo.mjs','examples/search-halo.html','examples/search-halo.js'])verifyTracked(name);
+  for(const name of ['tools/snapshot-search-halo.mjs','tools/check-search-halo.mjs','examples/search-halo.html','examples/search-halo.js','examples/halo-wall-fixture.js'])verifyTracked(name);
   return {referenceFiles:manifest.files.length,runtimeModules:visited.size};
 }

@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.2 provides a standalone 3D map workshop, a headless map-authoring package and shared character/skill/combat rules.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.3 provides a standalone 3D map workshop with optional measured wall runs, headless map/rules packages and an optional golden contour effect.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -47,6 +47,10 @@ The package runs in Node without a DOM, renderer or browser storage. See [the ar
 See [the rules contract and examples](docs/rules.md) and [the comparison of all three games](docs/reviews/2026-10-28-rules-foundation.md). Rolls, world impacts and game scheduling have explicit boundaries. No game has switched to Nautilus rules automatically.
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
+
+## Angled wall authoring
+
+The existing square-wall tool is joined by measured native-scale wall runs: exact or snapped endpoints, one-to-five stories, transactional edits and portable map/block transforms. [The wall-run contract](docs/wall-runs.md) explains the optional `nautilus-wall-runs-v1` host capability and unsupported generated seam continuations. Consumer movement, LOS, projectiles and fire remain adapter responsibilities.
 
 ## Optional contour effect
 

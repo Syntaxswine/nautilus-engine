@@ -51,7 +51,7 @@ fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true})
 fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
-const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
+const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
