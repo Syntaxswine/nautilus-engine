@@ -5,6 +5,7 @@
 | Path | Responsibility |
 | --- | --- |
 | `packages/map-core/` | Headless public API and portable example content |
+| `packages/render-effects/` | Optional standard-depth WebGL2 effects and the shared Three entry; game eligibility stays outside |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
@@ -17,6 +18,10 @@
 Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
 
 Design selection follows [accuracy, efficiency and narrative](design-evaluation.md). Reviews must recommend a preferred design for the named game or use case, with reasons and evidence. Shared interfaces can support different simulation detail; [the initial recommendations](reviews/2026-10-28-design-tradeoffs.md) distinguish general percentage attacks, dramatic AFT shot outcomes, detailed Tinderbox fire and cheaper tactical policies.
+
+## Optional rendering effects
+
+The [contour effect contract](render-effects.md) exposes the reviewed Farmyard golden halo with standard and wide profiles. Its separately pinned source is reference evidence; the engine extraction uses the existing Three instance and has no gameplay imports. It does not enable itself in the map workshop or donor games.
 
 ## Character and rules API
 

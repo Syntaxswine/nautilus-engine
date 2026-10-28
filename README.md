@@ -48,6 +48,10 @@ See [the rules contract and examples](docs/rules.md) and [the comparison of all 
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
 
+## Optional contour effect
+
+`./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.

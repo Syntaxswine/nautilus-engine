@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nautilus · Golden contour example</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,sans-serif;background:#17241e;color:#f2e4bd}
+    body{margin:0}canvas{display:block;width:100%;height:100%}#scene{height:70vh;min-height:320px}
+    main{max-width:880px;margin:auto;padding:18px 24px 28px}h1{font-size:22px;margin:0 0 8px}p{color:#c5c8b9;line-height:1.5}
+    fieldset{border:1px solid #6b735d;border-radius:6px;display:flex;flex-wrap:wrap;gap:18px;margin:16px 0;padding:14px}
+    button{font:inherit;border:1px solid #a49b6d;color:inherit;background:#344538;padding:9px 14px;border-radius:4px;margin-right:8px;cursor:pointer}
+    button:focus-visible,input:focus-visible{outline:3px solid #efd681;outline-offset:3px}label{display:flex;align-items:center;gap:6px}
+    output{display:block;font:12px monospace;margin:14px 0;color:#cbd7be}a{color:#efcf77}@media(max-width:500px){main{padding:14px}#scene{height:58vh}fieldset{gap:12px}}
+  </style>
+  <script type="module" src="./search-halo.js"></script>
+</head>
+<body>
+  <div id="scene" aria-label="Painted alpha-cutout prop at left and posed skinned mesh at right"></div>
+  <main>
+    <h1>Golden contour halo</h1>
+    <p>A painted alpha sprite uses the standard rim. The posed mesh uses the wider body profile. Both keep their source appearance as the amber light drifts around the visible contour.</p>
+    <fieldset><legend>Inspect the effect</legend>
+      <label><input id="halo" type="checkbox" checked> Halo</label>
+      <label><input id="motion" type="checkbox" checked> Motion</label>
+      <label><input id="wall" type="checkbox"> Foreground occluder</label>
+      <label><input id="targets" type="checkbox" checked> Targets eligible</label>
+      <label><input id="wide" type="checkbox" checked> Wide mesh profile</label>
+    </fieldset>
+    <button id="phase0" type="button">Phase 0</button><button id="phase3" type="button">Phase 3 seconds</button><button id="resume" type="button">Resume motion</button>
+    <output id="status" aria-live="polite">Loading WebGL2 example…</output>
+    <p><a href="../index.html">Map workshop</a> · <a href="../docs/render-effects.md">Effect contract and integration guide</a></p>
+  </main>
+</body>
+</html>

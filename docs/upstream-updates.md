@@ -30,7 +30,7 @@ node tools/snapshot-source.mjs --donor aft --repo <read-only-checkout> --commit 
 # Review the dry-run closure before repeating with --write.
 ```
 
-The current importer covers AFT editor dependencies and the selected Farmyard material set. New source categories need an explicit importer extension and provenance evidence. New snapshots do not remove older snapshots while the public API or consumers still depend on them.
+The main importer covers AFT editor dependencies and the selected Farmyard material set. `tools/snapshot-search-halo.mjs --repo <read-only-checkout> --commit <full-reviewed-SHA>` separately archives the reviewed halo renderer/tests/guide and verifies its explicit dependency resolutions; `--write` creates its immutable snapshot. Halo source/test files are reference evidence; only the engine-owned extraction is executable. New source categories need an explicit importer extension and provenance evidence. New snapshots do not remove older snapshots while the public API or consumers still depend on them.
 
 The Sites source Git service currently limits each push to 64 MiB. Large initial imports need bounded cumulative import commits before the final complete source is synchronized. Preserve the GitHub history with a content-identical merge when reconciling that upload chain; never force-push. Partial upload commits are preparation, not reviewed releases or deployments.
 

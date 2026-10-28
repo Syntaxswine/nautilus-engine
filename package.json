@@ -8,9 +8,18 @@
     ".": "./packages/map-core/index.js",
     "./rules": "./packages/rules-core/index.js",
     "./rules/dialogue": "./packages/rules-core/dialogue.js",
-    "./rules/aft": "./packages/rules-core/aft-compat.js"
+    "./rules/aft": "./packages/rules-core/aft-compat.js",
+    "./render-effects": "./packages/render-effects/index.js",
+    "./render-effects/three": "./packages/render-effects/three.js"
   },
-  "files": ["packages", "vendor", "docs", "upstream.json", "NOTICE.md"],
+  "files": [
+    "packages",
+    "vendor",
+    "docs",
+    "upstream.json",
+    "NOTICE.md",
+    "examples"
+  ],
   "scripts": {
     "check": "node tools/check.mjs",
     "test": "node --test tests/*.test.mjs",
@@ -18,5 +27,7 @@
     "build": "node tools/build.mjs",
     "serve": "node tools/serve.mjs"
   },
-  "engines": {"node": ">=22"}
+  "engines": {
+    "node": ">=22"
+  }
 }

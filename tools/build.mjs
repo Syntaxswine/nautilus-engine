@@ -46,6 +46,10 @@ for (const donor of ['aft', 'farmyard']) {
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
+fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
+const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
+write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
+const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
@@ -60,5 +64,5 @@ html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/edito
 write('index.html', html);
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of ['editor.js', 'editor.css']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
-write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));
-console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches.');
+write('build-provenance.json', JSON.stringify({engineVersion: version, sources, renderEffects, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));
+console.log('Built Nautilus Engine ' + version + ': independent editor, headless map/rules cores, optional contour effect, ' + patches.length + ' recorded deployment patches.');
