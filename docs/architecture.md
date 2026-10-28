@@ -11,6 +11,8 @@
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
 | `vendor/aft-assets/<commit>/` | Byte-preserved supplemental machine paint closure for the existing AFT snapshot |
 | `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
+| `vendor/tinderbox-prefabs/<commit>/` | Byte-preserved Gross house assemblies, source plates/plans, materials and handoff |
+| `packages/prefab-core/` | Headless building registry, lot validation and deterministic layout placement |
 | `upstream.json` | Reviewed donor pins and their purpose |
 | `tools/snapshot-source.mjs` | Read-only Git-object importer; writes only a new local snapshot |
 | `tools/build.mjs` | Self-contained static editor, recorded deployment patches and isolated storage |
@@ -43,6 +45,8 @@ Preview returns a candidate without committing it. Apply commits only accepted c
 ## Browser and game-host boundary
 
 The [editor asset integration contract](editor-assets.md) defines catalog discovery, shared-renderer previews, placement bindings and future visual intake. The library derives entries from the pinned registries, retains explicit portable-format restrictions and records its built inventory separately from the original vendor snapshots.
+
+The [building prefab contract](building-prefabs.md) adds a separate whole-building library. Gross house assemblies remain fixed source references with complete interiors/exteriors and a declared optional map capability. Their lots can be placed deterministically into full maps. Game adapters must explicitly support this feature; legacy block operations reject data they cannot preserve.
 
 The standalone browser entry exposes `window.nautilus`:
 

@@ -1,8 +1,10 @@
-import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities} from '../packages/map-core/index.js';
-import {exampleYard} from '../packages/map-core/example.js';
+import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities} from '../../packages/map-core/index.js';
+import {exampleYard} from '../../packages/map-core/example.js';
 import {installAssetLibrary} from './assets.js';
+import {installBuildingLibrary} from './buildings.js';
 
 installAssetLibrary();
+installBuildingLibrary();
 
 let gameAdapter = null;
 const status = text => {document.getElementById('status').textContent = text;};
@@ -21,7 +23,7 @@ window.nautilus = {
     const document = openDocument(json), errors = document.validate();
     if (document.block) throw Error('Place this block in a full map first.');
     if (errors.length) throw Error(errors.join(' '));
-    assertMapCapabilities(document.map, gameAdapter.features);
+    assertMapCapabilities(document.map,gameAdapter.features||[]);
     return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
   }
 };

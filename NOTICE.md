@@ -9,3 +9,9 @@ The golden contour contribution additionally preserves the reviewed Farmyard ren
 Nautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.
 
 The `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.
+
+# Gross catalogue building collection
+
+The separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.
+
+Nautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.

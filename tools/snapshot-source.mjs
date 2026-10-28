@@ -7,13 +7,13 @@ import {createHash} from 'node:crypto';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const option = name => { const i = process.argv.indexOf(name); return i < 0 ? null : process.argv[i + 1]; };
 const repo = option('--repo'), requested = option('--commit'), donor = option('--donor');
-if (!repo || !requested || !['aft', 'aft-assets', 'farmyard'].includes(donor)) throw Error('Use --donor aft|aft-assets|farmyard --repo <checkout> --commit <full reviewed SHA> [--write].');
+if (!repo || !requested || !['aft', 'aft-assets', 'farmyard', 'tinderbox-prefabs'].includes(donor)) throw Error('Use --donor aft|aft-assets|farmyard|tinderbox-prefabs --repo <checkout> --commit <full reviewed SHA> [--write].');
 if (!/^[a-f0-9]{40}$/.test(requested)) throw Error('Pin a full commit SHA.');
 const git = args => execFileSync('git', ['-c', 'safe.directory=' + path.resolve(repo).replaceAll('\\', '/'), '-C', repo, ...args], {maxBuffer: 1024 * 1024 * 768, windowsHide: true});
 const commit = git(['rev-parse', requested + '^{commit}']).toString().trim();
-const prefix = donor.startsWith('aft') ? 'dist/' : 'sites/tactical-animal/dist/';
+const prefix = donor === 'tinderbox-prefabs' ? '' : donor.startsWith('aft') ? 'dist/' : 'sites/tactical-animal/dist/';
 const inventory = new Map();
-for (const record of git(['ls-tree', '-r', '-z', commit, prefix, ...(donor === 'aft' ? ['tests'] : [])]).toString().split('\0').filter(Boolean)) {
+for (const record of git(['ls-tree', '-r', '-z', commit, ...(prefix ? [prefix] : []), ...(donor === 'aft' ? ['tests'] : [])]).toString().split('\0').filter(Boolean)) {
   const [meta, name] = record.split('\t');
   const [mode, type, oid] = meta.split(' ');
   if (type === 'blob') inventory.set(name, {oid, mode});
@@ -68,6 +68,14 @@ if (donor === 'aft-assets') {
   for (const name of inventory.keys()) if (/^dist\/tactics\/[^/]+-10k-data\.json$/.test(name) || /^dist\/assets\/characters\/lowpoly-proof\/[^/]+-(?:underlay|tail|red-hat)-paint-v1\.png$/.test(name) || name.startsWith('dist/tactics/sector-library/') && extensions.test(name) || name.startsWith('dist/tactics/vendor/') && /(?:license|notice)/i.test(name)) include(name);
   for (const name of ['editor-3d-editing', 'editor-3d', 'tactics-blocks', 'tactics-connections', 'tactics-feature-plan']) include('tests/' + name + '.test.mjs');
   for (const name of machinePaints) if (inventory.has(name)) include(name);
+} else if (donor === 'tinderbox-prefabs') {
+  include('src/art/gross-housing.js');
+  for (const name of inventory.keys()) if (
+    name.startsWith('assets/art/gross-housing-v1/') && /\.(json|png)$/.test(name) ||
+    name.startsWith('art/source/gross-housing-v1/') ||
+    name.startsWith('docs/art/gross-housing-v1/') && /\.(json|md)$/.test(name) ||
+    /^assets\/art\/exposition-skins-v1\/(brick-sienna|roof-slate)-v1\.png$/.test(name) ||
+    /^(LICENSE|NOTICE)(\.[^/]+)?$/i.test(name)) include(name);
 } else {
   for (const name of ['industrial-switches.css', 'map-frame.css', 'assets/ui/industrial-switches/switch-skins-v2.webp', 'assets/ui/industrial-switches/map-frame-v1.webp', 'assets/ui/industrial-switches/manifest.json']) include(prefix + name);
 }
@@ -79,7 +87,7 @@ const files = names.map(name => {
   const data = bytes.get(name); if (!data) throw Error('Missing tracked source: ' + name);
   return {path: name, sha256: createHash('sha256').update(data).digest('hex'), bytes: data.length};
 });
-const manifest = {schemaVersion: 1, donor, repository: 'https://github.com/Syntaxswine/' + (donor.startsWith('aft') ? 'animal-factory-tactics-3d' : 'farmyard-commando'), commit, sourcePrefix: prefix, files, adaptations: 'None in vendor. Deployment-only patches and Nautilus adapters are separate.', rightsStatus: 'Original embedded licenses retained. Source provenance does not add a license grant.'};
+const manifest = {schemaVersion: 1, donor, repository: 'https://github.com/Syntaxswine/' + (donor.startsWith('aft') ? 'animal-factory-tactics-3d' : donor === 'tinderbox-prefabs' ? 'tinderbox' : 'farmyard-commando'), commit, sourcePrefix: prefix, files, adaptations: 'None in vendor. Deployment-only patches and Nautilus adapters are separate.', rightsStatus: 'Original embedded licenses retained. Source provenance does not add a license grant.'};
 if (process.argv.includes('--write')) {
   if (fs.existsSync(destination)) throw Error('This immutable snapshot already exists; use a new reviewed pin.');
   for (const name of names) { const file = path.join(destination, name); fs.mkdirSync(path.dirname(file), {recursive: true}); fs.writeFileSync(file, bytes.get(name)); }

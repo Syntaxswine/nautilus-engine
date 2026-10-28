@@ -16,7 +16,7 @@ export function installAssetLibrary() {
   for (const name of ASSET_CATEGORIES) $('asset-category').add(new Option(name,name));
   let selected, scene, view, frame = 0, ticket = 0, loading = false;
   const failures = new Map();
-  const canvas = $('asset-preview'), use = $('asset-use');
+  let canvas = $('asset-preview'); const use = $('asset-use');
   function fitPreview() {
     if (!scene?.document || !view) return;
     const bounds = new T.Box3().setFromObject(scene.scene);
@@ -119,10 +119,12 @@ export function installAssetLibrary() {
     $('status').textContent = `${selected.name} selected. Click or drag in the map to place.`;
     tool.focus();
   };
-  function disposePreview() {++ticket; cancelAnimationFrame(frame); frame = 0; scene?.dispose(); scene = null; view = null; failures.clear();}
+  function disposePreview() {++ticket; cancelAnimationFrame(frame); frame = 0; scene?.dispose(); scene?.renderer.forceContextLoss(); scene = null; view = null; failures.clear();
+    const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
+  }
   dialog.addEventListener('close',disposePreview);
   window.addEventListener('pagehide',disposePreview,{once:true});
-  new ResizeObserver(requestDraw).observe(canvas);
+  const resize=new ResizeObserver(requestDraw);resize.observe(canvas);
   // The inherited editor and Nautilus adapters are separate module entries.
   // Enable once controls exist, without a long-lived polling helper.
   const ready = () => {
