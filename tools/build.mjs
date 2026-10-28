@@ -3,6 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
+import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw Error('Invalid build directory.');
@@ -46,6 +47,9 @@ for (const donor of ['aft', 'farmyard']) {
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
+fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
+fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});
+write('buildings/references.json', fs.readFileSync(path.join(root, 'art/buildings/reference-register.json')));
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
@@ -58,6 +62,9 @@ html = html.replace(/<header>[\s\S]*?<\/header>/, `<header class="nautilus-heade
 html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"></head>', 'Nautilus theme');
 html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
 write('index.html', html);
+// Resolve through the inherited document base, just like the editor stylesheet.
+const editorIndex=fs.readFileSync(path.join(output,'index.html'),'utf8');
+write('index.html',editorIndex.replace('<nav aria-label="Workshop actions">','<nav aria-label="Workshop actions"><a href="'+toRoot+'buildings/index.html" style="color:#e6d9a2;margin-right:10px">Building library</a>'));
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of ['editor.js', 'editor.css']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
 write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));

@@ -48,6 +48,12 @@ See [the rules contract and examples](docs/rules.md) and [the comparison of all 
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
 
+## Original building library
+
+The art collection adds **48 original buildings**, 77 floors, 409 described rooms and 16 painterly materials. It spans homes, schools, chapels, shops, factories, a depot, barns and utility buildings. Public developer plans and historic measured drawings informed newly authored designs. Detailed source recipes are preserved alongside simplified glTF meshes, room/opening data and a searchable 3D review gallery.
+
+Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.

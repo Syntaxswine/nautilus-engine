@@ -1,0 +1,2240 @@
+{
+  "schemaVersion": 1,
+  "contract": {
+    "version": 1,
+    "metresPerUnit": 1,
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slab": 0.12,
+    "floorSpacing": 2.12,
+    "doorHeight": 1.65,
+    "doorWidth": 1,
+    "grid": 0.5,
+    "renderAxes": [
+      "x",
+      "height",
+      "z"
+    ],
+    "origin": "front-left ground corner of the main footprint",
+    "status": "Original visual assets and descriptive room/opening data; consumer adapters remain explicit."
+  },
+  "source": "packages/building-catalog/designs.js",
+  "inputs": [
+    {
+      "file": "packages/building-catalog/designs.js",
+      "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
+    },
+    {
+      "file": "packages/building-catalog/index.js",
+      "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
+    },
+    {
+      "file": "packages/building-catalog/three.js",
+      "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
+    },
+    {
+      "file": "tools/build-building-assets.mjs",
+      "sha256": "dcdb070b835f8279ec550b7485fc8ae629c6b478fff9f185a435a0b3b1e1187d"
+    }
+  ],
+  "atlas": {
+    "file": "painted-materials-v2.png",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+  },
+  "buildings": [
+    {
+      "id": "bramble-ranch",
+      "name": "Bramble Ranch",
+      "group": "Homes",
+      "style": "Contemporary ranch",
+      "refs": [
+        "lennar-dover"
+      ],
+      "width": 11,
+      "depth": 10,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 9220,
+      "authoringTriangles": 15760,
+      "reduction": 0.4149746192893401,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -1.9500000476837158
+        ],
+        "max": [
+          11.279999732971191,
+          6.079999923706055,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/bramble-ranch.gltf",
+          "bytes": 32145,
+          "sha256": "01ef73e6848f52479dbba61b1a77cad4406e8bcd11089a4f6ab19c17082042ee"
+        },
+        {
+          "path": "models/bramble-ranch.bin",
+          "bytes": 885120,
+          "sha256": "8a1d4e9cf8d37ea48d1e92309ae24e25b1540f1e93720d8fd17c830ef1d4621b"
+        },
+        {
+          "path": "models/bramble-ranch.blueprint.json",
+          "bytes": 22334,
+          "sha256": "980c4a5c7f7d96d5289d41bb26ff264ed4f7a5f6b741331d0c89fb75506795a6"
+        }
+      ]
+    },
+    {
+      "id": "cedar-split",
+      "name": "Cedar Split-Wing",
+      "group": "Homes",
+      "style": "Split-bedroom ranch",
+      "refs": [
+        "lennar-dover",
+        "horton-cali"
+      ],
+      "width": 14,
+      "depth": 12,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 11770,
+      "authoringTriangles": 24012,
+      "reduction": 0.5098284191237714,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          14.279999732971191,
+          5.595200061798096,
+          12.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/cedar-split.gltf",
+          "bytes": 29011,
+          "sha256": "3d3b25c11452fa7d7277b3eccb0044676167558b4808c998ae31f517e529f7d9"
+        },
+        {
+          "path": "models/cedar-split.bin",
+          "bytes": 1129920,
+          "sha256": "a1c3b0e52203e7308deebb43e4adaefe78d9b665b80383e71aad5c1b68cc6a2c"
+        },
+        {
+          "path": "models/cedar-split.blueprint.json",
+          "bytes": 28857,
+          "sha256": "8b1b48c0c1bc4dafbb5eb256dd608c8d7748366dc912dccba6c52b9ce16cb77c"
+        }
+      ]
+    },
+    {
+      "id": "juniper-suite",
+      "name": "Juniper Suite House",
+      "group": "Homes",
+      "style": "Multigenerational courtyard",
+      "refs": [
+        "lennar-liberty"
+      ],
+      "width": 14,
+      "depth": 12,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 19434,
+      "authoringTriangles": 31464,
+      "reduction": 0.3823417238749046,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -1.649999976158142
+        ],
+        "max": [
+          14.149999618530273,
+          8.199999809265137,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/juniper-suite.gltf",
+          "bytes": 57158,
+          "sha256": "30b9db2255d9515c5eb293311505a032367379ffe76f9fc8af4a9d48985253a3"
+        },
+        {
+          "path": "models/juniper-suite.bin",
+          "bytes": 1865664,
+          "sha256": "4d93d67d4ce353206a90c534b083b22072ab29c1a99cdb8510287c98b8855f15"
+        },
+        {
+          "path": "models/juniper-suite.blueprint.json",
+          "bytes": 49873,
+          "sha256": "9bd2487368fd870d28ddb3485f4743b711b8f9a52189018133c95e1b22a28641"
+        }
+      ]
+    },
+    {
+      "id": "rowan-family",
+      "name": "Rowan Family House",
+      "group": "Homes",
+      "style": "Compact suburban two-storey",
+      "refs": [
+        "lennar-columbia"
+      ],
+      "width": 13,
+      "depth": 10,
+      "stories": 2,
+      "rooms": 14,
+      "gameTriangles": 17692,
+      "authoringTriangles": 31920,
+      "reduction": 0.4457393483709273,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          13.279999732971191,
+          8.119999885559082,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/rowan-family.gltf",
+          "bytes": 65033,
+          "sha256": "f69183bc5a512fba954e1eea249af0108e96422619bdfefad98c482111d92d58"
+        },
+        {
+          "path": "models/rowan-family.bin",
+          "bytes": 1698432,
+          "sha256": "4a22cc854764b55ec35ca914112ec2cf525282fc1c8239034165ca24756be427"
+        },
+        {
+          "path": "models/rowan-family.blueprint.json",
+          "bytes": 42789,
+          "sha256": "9c7a3081ff249dc5a9682354f4f033c1f66537dabd68cd3144d510b19a0f43d3"
+        }
+      ]
+    },
+    {
+      "id": "willow-pair",
+      "name": "Willow Paired House",
+      "group": "Homes",
+      "style": "Shared-vestibule twin home",
+      "refs": [
+        "lennar-liberty",
+        "lennar-columbia"
+      ],
+      "width": 12,
+      "depth": 9,
+      "stories": 2,
+      "rooms": 14,
+      "gameTriangles": 19228,
+      "authoringTriangles": 35058,
+      "reduction": 0.451537452222032,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -1.649999976158142
+        ],
+        "max": [
+          12.329999923706055,
+          8.119999885559082,
+          9.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/willow-pair.gltf",
+          "bytes": 68219,
+          "sha256": "ff82f7194ede4ba25be64c519499f1f767e440e3ce3fa82de34cb4f0ed05aab4"
+        },
+        {
+          "path": "models/willow-pair.bin",
+          "bytes": 1845888,
+          "sha256": "bddf3d32bd6eb638dc223815ca1c2ba3038b4086c5db9895ee133478a8ce50d6"
+        },
+        {
+          "path": "models/willow-pair.blueprint.json",
+          "bytes": 44503,
+          "sha256": "be0d91bc77e4a2e5b9b392601251360f4f0e6c1183fb59bd351a642277fb3f6a"
+        }
+      ]
+    },
+    {
+      "id": "narrow-court",
+      "name": "Narrow Court House",
+      "group": "Homes",
+      "style": "Courtyard townhouse",
+      "refs": [
+        "narrow-modern",
+        "lennar-columbia"
+      ],
+      "width": 8,
+      "depth": 15,
+      "stories": 3,
+      "rooms": 20,
+      "gameTriangles": 22908,
+      "authoringTriangles": 39950,
+      "reduction": 0.4265832290362954,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          8.149999618530273,
+          7.463200092315674,
+          15.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/narrow-court.gltf",
+          "bytes": 76698,
+          "sha256": "d01331c0ed85963058bea605865e94060eead86a70a7a366c9fe1051c150f46b"
+        },
+        {
+          "path": "models/narrow-court.bin",
+          "bytes": 2199168,
+          "sha256": "4bf1ae3706249fc8263960733c4c27df8935fd078f437e77ed6dda1e3cfed7f6"
+        },
+        {
+          "path": "models/narrow-court.blueprint.json",
+          "bytes": 51186,
+          "sha256": "c55637d94c2105f8493bb32d72a3bf44095d4fc7963f01c61d144294f0cfedef"
+        }
+      ]
+    },
+    {
+      "id": "mews-corner",
+      "name": "Mews Corner House",
+      "group": "Homes",
+      "style": "Modern urban infill",
+      "refs": [
+        "narrow-modern"
+      ],
+      "width": 9,
+      "depth": 11,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 15450,
+      "authoringTriangles": 28172,
+      "reduction": 0.45158313218798807,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -2.0350000858306885
+        ],
+        "max": [
+          9.149999618530273,
+          5.563199996948242,
+          11.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/mews-corner.gltf",
+          "bytes": 53947,
+          "sha256": "d6c2513083a9b9f92eaace04f0fa3524f3ab47e21c6be42f48ef59bb4a4ed8a0"
+        },
+        {
+          "path": "models/mews-corner.bin",
+          "bytes": 1483200,
+          "sha256": "6b96bd43aa638a08db9c8dd48fb95125fca52db3bd6fe2feb0d645d658f69c13"
+        },
+        {
+          "path": "models/mews-corner.blueprint.json",
+          "bytes": 32769,
+          "sha256": "87106158458f40d9f63c545e6006304b55579c9d04a8581fc38c991bd3c94453"
+        }
+      ]
+    },
+    {
+      "id": "canal-studio",
+      "name": "Canal Studio",
+      "group": "Homes",
+      "style": "Flat-roof studio",
+      "refs": [
+        "narrow-modern",
+        "lennar-dover"
+      ],
+      "width": 11,
+      "depth": 7,
+      "stories": 1,
+      "rooms": 1,
+      "gameTriangles": 6362,
+      "authoringTriangles": 11030,
+      "reduction": 0.4232094288304624,
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          11.149999618530273,
+          2.4149999618530273,
+          7.150000095367432
+        ]
+      },
+      "files": [
+        {
+          "path": "models/canal-studio.gltf",
+          "bytes": 12208,
+          "sha256": "981dd6dd1f99d6c6a81bfaf37b211b8544eebd7f40d43aa017cd61fa70a2498c"
+        },
+        {
+          "path": "models/canal-studio.bin",
+          "bytes": 610752,
+          "sha256": "d9d1023dbc8053b15b3b86ec993324827e2b691547703e66d075f12f94c4bbbb"
+        },
+        {
+          "path": "models/canal-studio.blueprint.json",
+          "bytes": 13687,
+          "sha256": "0b27bc0b60cb63f11f3194d79fa3464bf26d01452529936447cac35c52d27fd7"
+        }
+      ]
+    },
+    {
+      "id": "ochre-patio",
+      "name": "Ochre Patio Villa",
+      "group": "Homes",
+      "style": "Courtyard villa",
+      "refs": [
+        "lennar-liberty"
+      ],
+      "width": 12,
+      "depth": 12,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 10130,
+      "authoringTriangles": 16634,
+      "reduction": 0.3910063724900805,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          12.279999732971191,
+          4.415200233459473,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/ochre-patio.gltf",
+          "bytes": 21578,
+          "sha256": "045b9f5c9be179968990ad31bda2729b488af6b2393e390719da96e775aa77a2"
+        },
+        {
+          "path": "models/ochre-patio.bin",
+          "bytes": 972480,
+          "sha256": "2ea80d6e617bf1565e12b6b2bc8938a128703c9f527ab8ea2137cbf277ad04c4"
+        },
+        {
+          "path": "models/ochre-patio.blueprint.json",
+          "bytes": 24258,
+          "sha256": "97b8c6051a2c42481fdd77e50f4d8661c85ec9631d7ad09e6c1015adaf402f85"
+        }
+      ]
+    },
+    {
+      "id": "longlight-house",
+      "name": "Longlight House",
+      "group": "Homes",
+      "style": "Low modern pavilion",
+      "refs": [
+        "lennar-dover",
+        "narrow-modern"
+      ],
+      "width": 16,
+      "depth": 11,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 11252,
+      "authoringTriangles": 21474,
+      "reduction": 0.4760175095464282,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.6500000953674316
+        ],
+        "max": [
+          16.280000686645508,
+          3.2095999717712402,
+          11.149999618530273
+        ]
+      },
+      "files": [
+        {
+          "path": "models/longlight-house.gltf",
+          "bytes": 28960,
+          "sha256": "3878a2e68808408d2dbf86b5f78b5a17ea38d57abeed3c5ff820ac73244b19de"
+        },
+        {
+          "path": "models/longlight-house.bin",
+          "bytes": 1080192,
+          "sha256": "c52eb252fb444477d40bb89d1acd07365dac1ab2d2a2100687dee17d92cab3d2"
+        },
+        {
+          "path": "models/longlight-house.blueprint.json",
+          "bytes": 26337,
+          "sha256": "af198f4d5780428b0042ae62e7fb0bcd74b23f3fa723d9a8072a7201a8c01355"
+        }
+      ]
+    },
+    {
+      "id": "dogwood-breezeway",
+      "name": "Dogwood Breezeway",
+      "group": "Homes",
+      "style": "Dogtrot-inspired cottage",
+      "refs": [
+        "ms0041"
+      ],
+      "width": 12,
+      "depth": 8,
+      "stories": 1,
+      "rooms": 2,
+      "gameTriangles": 8296,
+      "authoringTriangles": 16872,
+      "reduction": 0.5082977714556662,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          12.329999923706055,
+          4.965000152587891,
+          8.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/dogwood-breezeway.gltf",
+          "bytes": 17678,
+          "sha256": "482a6a34914dad742eb9691865b70fe04db13469eb868dd674c575d7fb5e0738"
+        },
+        {
+          "path": "models/dogwood-breezeway.bin",
+          "bytes": 796416,
+          "sha256": "c445b8795e30fb03438feb581fc1230a7a365a8e190b347537ae4826a29eb1af"
+        },
+        {
+          "path": "models/dogwood-breezeway.blueprint.json",
+          "bytes": 16131,
+          "sha256": "8721709b86d395015c29c1c964af428a452ab285a0759ac2d8025aa2cb01fda1"
+        }
+      ]
+    },
+    {
+      "id": "saltmarsh-lean-to",
+      "name": "Saltmarsh Lean-to",
+      "group": "Homes",
+      "style": "Saltbox",
+      "refs": [
+        "ma0366",
+        "ny0775"
+      ],
+      "width": 9,
+      "depth": 10,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 15570,
+      "authoringTriangles": 28212,
+      "reduction": 0.44810718843045516,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          9.329999923706055,
+          8.130000114440918,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/saltmarsh-lean-to.gltf",
+          "bytes": 53301,
+          "sha256": "daaba22d31832c0411d69243ebf1903b5a2cfc8d63e87e58d055e550e60bd3ff"
+        },
+        {
+          "path": "models/saltmarsh-lean-to.bin",
+          "bytes": 1494720,
+          "sha256": "18d531463b87506f51a085c4af9cdb9ed42ea8fcfc71b66b22d1e16883297cb3"
+        },
+        {
+          "path": "models/saltmarsh-lean-to.blueprint.json",
+          "bytes": 37175,
+          "sha256": "6f28f9257222f05e16cf9c7b3da575e56ed6a970f49f9033426c6e35bbfa8d4f"
+        }
+      ]
+    },
+    {
+      "id": "hearth-cape",
+      "name": "Hearth Cape",
+      "group": "Homes",
+      "style": "Compact gabled cottage",
+      "refs": [
+        "ny0775",
+        "ma0366"
+      ],
+      "width": 11,
+      "depth": 8,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 8300,
+      "authoringTriangles": 17182,
+      "reduction": 0.5169363287160982,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -1.649999976158142
+        ],
+        "max": [
+          11.329999923706055,
+          6.010000228881836,
+          8.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/hearth-cape.gltf",
+          "bytes": 33308,
+          "sha256": "8a443e95c1c74af76c16e7e43b9bb40f0b0c6cca3b19b86c8fbdc2fb9b50e00b"
+        },
+        {
+          "path": "models/hearth-cape.bin",
+          "bytes": 796800,
+          "sha256": "f8daa88a5fbb1ac663c1135f747b4bf90212fa59d2c414b6f9a42c94a436cb55"
+        },
+        {
+          "path": "models/hearth-cape.blueprint.json",
+          "bytes": 17735,
+          "sha256": "398d56f1f7de15a494d43d79e993acf1da1d3cf057f4e2805fedca2827407936"
+        }
+      ]
+    },
+    {
+      "id": "foxglove-bungalow",
+      "name": "Foxglove Bungalow",
+      "group": "Homes",
+      "style": "Craftsman-inspired bungalow",
+      "refs": [
+        "lennar-dover",
+        "ma0366"
+      ],
+      "width": 10,
+      "depth": 12,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 9602,
+      "authoringTriangles": 19902,
+      "reduction": 0.5175359260375841,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.6500000953674316
+        ],
+        "max": [
+          10.279999732971191,
+          6,
+          12.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/foxglove-bungalow.gltf",
+          "bytes": 31136,
+          "sha256": "3730b2cb34789f33ea474d95f4d049bb8e1b22d193405a1dc8d280ccbfdac766"
+        },
+        {
+          "path": "models/foxglove-bungalow.bin",
+          "bytes": 921792,
+          "sha256": "adb482d99499f62c66d111e551ca917ea42cdd91672a406a7c95f25b87a1b825"
+        },
+        {
+          "path": "models/foxglove-bungalow.blueprint.json",
+          "bytes": 21425,
+          "sha256": "36d7b50cfa7517cf06eb5bd6556583906fd8f1535e44dbf2b85337c7210519a3"
+        }
+      ]
+    },
+    {
+      "id": "elm-cross-gable",
+      "name": "Elm Cross-Gable",
+      "group": "Homes",
+      "style": "Farmhouse",
+      "refs": [
+        "ny0775",
+        "ms0041"
+      ],
+      "width": 13,
+      "depth": 12,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 18346,
+      "authoringTriangles": 34144,
+      "reduction": 0.46268744142455487,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          13.279999732971191,
+          7.7779998779296875,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/elm-cross-gable.gltf",
+          "bytes": 59251,
+          "sha256": "80e48ecf8d3d0093bca210de57bdafc9627567750661f696a3ea47cb04f46bd3"
+        },
+        {
+          "path": "models/elm-cross-gable.bin",
+          "bytes": 1761216,
+          "sha256": "4ba3e99840f664c1261992fe947c81a9fca5fe6680fedb2ce420d3a3812adaf4"
+        },
+        {
+          "path": "models/elm-cross-gable.blueprint.json",
+          "bytes": 45573,
+          "sha256": "e22518eaaf546819b2318054ff512b385991fb27b17ce30fb49fde52a6817b0d"
+        }
+      ]
+    },
+    {
+      "id": "violet-bay-house",
+      "name": "Violet Bay House",
+      "group": "Homes",
+      "style": "Eclectic turreted house",
+      "refs": [
+        "ny0775",
+        "lennar-columbia"
+      ],
+      "width": 13,
+      "depth": 10,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 18950,
+      "authoringTriangles": 34546,
+      "reduction": 0.4514560296416372,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          13.279999732971191,
+          8.619999885559082,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/violet-bay-house.gltf",
+          "bytes": 59215,
+          "sha256": "5c42832fdc16ed4bbcd974161a2c30717dd032bc57751318955356afb04bf015"
+        },
+        {
+          "path": "models/violet-bay-house.bin",
+          "bytes": 1819200,
+          "sha256": "06c1051176fd8d1b729006add1a41bea2b389f902f95b2c928ce93e37f433c89"
+        },
+        {
+          "path": "models/violet-bay-house.blueprint.json",
+          "bytes": 41700,
+          "sha256": "e14e0967bdb91f0d76e84482f7d6f3a72daccfedf076a1c6cb27ac32e0107454"
+        }
+      ]
+    },
+    {
+      "id": "fennel-mansard",
+      "name": "Fennel Mansard",
+      "group": "Homes",
+      "style": "Mansard urban house",
+      "refs": [
+        "lennar-columbia",
+        "ny0775"
+      ],
+      "width": 7,
+      "depth": 11,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 15724,
+      "authoringTriangles": 26418,
+      "reduction": 0.40479975774093424,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -1.350000023841858
+        ],
+        "max": [
+          7.28000020980835,
+          8.199999809265137,
+          11.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/fennel-mansard.gltf",
+          "bytes": 56858,
+          "sha256": "075c10a63cff4c8fd33262ea6110fe6de667ca416f90b9730198078e4f595cb7"
+        },
+        {
+          "path": "models/fennel-mansard.bin",
+          "bytes": 1509504,
+          "sha256": "989c9ab523e611e6c3ee3e3dfa51f3d7a713550d4f069f01e51dff7af158cb7f"
+        },
+        {
+          "path": "models/fennel-mansard.blueprint.json",
+          "bytes": 33215,
+          "sha256": "d8033abd6186408727865a4fbba0e26c2e647d7b91afddfeb2c7efdda982b60c"
+        }
+      ]
+    },
+    {
+      "id": "cypress-shotgun",
+      "name": "Cypress Shotgun",
+      "group": "Homes",
+      "style": "Shotgun-inspired house",
+      "refs": [
+        "la0203"
+      ],
+      "width": 5,
+      "depth": 13,
+      "stories": 1,
+      "rooms": 4,
+      "gameTriangles": 6226,
+      "authoringTriangles": 12582,
+      "reduction": 0.505166110316325,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          5.329999923706055,
+          4.33519983291626,
+          13.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/cypress-shotgun.gltf",
+          "bytes": 19676,
+          "sha256": "aad7ec49a0ca777314a0b4311d7680c3986d8db288e9297d659b34cfdeab3e7f"
+        },
+        {
+          "path": "models/cypress-shotgun.bin",
+          "bytes": 597696,
+          "sha256": "10e72d51239a246f4a5542d083056ee835984f7ee5c9603dff96d0027484c5e7"
+        },
+        {
+          "path": "models/cypress-shotgun.blueprint.json",
+          "bytes": 13461,
+          "sha256": "2bdced0740159d028e2b118addba39c709e60e8952a5b5db9a3d3bc3ca018fd6"
+        }
+      ]
+    },
+    {
+      "id": "sun-well-court",
+      "name": "Sun Well Court",
+      "group": "Homes",
+      "style": "Walled courtyard dwelling",
+      "refs": [
+        "lennar-liberty",
+        "ms0041"
+      ],
+      "width": 11,
+      "depth": 12,
+      "stories": 1,
+      "rooms": 7,
+      "gameTriangles": 11608,
+      "authoringTriangles": 19700,
+      "reduction": 0.410761421319797,
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.11999999731779099,
+          -0.15000000596046448
+        ],
+        "max": [
+          11.149999618530273,
+          2.4149999618530273,
+          12.149999618530273
+        ]
+      },
+      "files": [
+        {
+          "path": "models/sun-well-court.gltf",
+          "bytes": 27783,
+          "sha256": "2b43e977ffa49a122670354c683e310198efe672bdc9c023cc53aa592f8e0280"
+        },
+        {
+          "path": "models/sun-well-court.bin",
+          "bytes": 1114368,
+          "sha256": "55c6d108091da58372286ba4cf1100fcfccafcb998faa4990beeca130f4f1343"
+        },
+        {
+          "path": "models/sun-well-court.blueprint.json",
+          "bytes": 24879,
+          "sha256": "02e68c3d8d5fdb66c4153e04b981c01b12033d4ecb9b757f2b1b039efa7302bb"
+        }
+      ]
+    },
+    {
+      "id": "prairie-corner",
+      "name": "Prairie Corner",
+      "group": "Homes",
+      "style": "Broad-eaved house",
+      "refs": [
+        "lennar-dover",
+        "lennar-columbia"
+      ],
+      "width": 12,
+      "depth": 12,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 17968,
+      "authoringTriangles": 29768,
+      "reduction": 0.39639881752217143,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          12.279999732971191,
+          6.809999942779541,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/prairie-corner.gltf",
+          "bytes": 56209,
+          "sha256": "eb4c2190b5735b91f759236a842c7cb8b680512ba0d9db9fa2e9a970afcd15fe"
+        },
+        {
+          "path": "models/prairie-corner.bin",
+          "bytes": 1724928,
+          "sha256": "e1db52f6a12e50bb3515137b6740d6dfd0bc78c5155f8905360dd81c24621fff"
+        },
+        {
+          "path": "models/prairie-corner.blueprint.json",
+          "bytes": 42871,
+          "sha256": "122c0a15048a07f6fb049e86a9baeff92f1447da013ebfa482b5842d4d54802a"
+        }
+      ]
+    },
+    {
+      "id": "alpine-timber",
+      "name": "Alpine Timber House",
+      "group": "Homes",
+      "style": "Timber chalet",
+      "refs": [
+        "ms0041",
+        "ma0366"
+      ],
+      "width": 9,
+      "depth": 10,
+      "stories": 2,
+      "rooms": 13,
+      "gameTriangles": 16938,
+      "authoringTriangles": 31504,
+      "reduction": 0.4623539867953276,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          9.329999923706055,
+          8.130000114440918,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/alpine-timber.gltf",
+          "bytes": 56845,
+          "sha256": "a6707eb502ddf0627d32505a5306e5da06cc8b3c5afff1e2e18f24eabe3f57c1"
+        },
+        {
+          "path": "models/alpine-timber.bin",
+          "bytes": 1626048,
+          "sha256": "5f2f473b62b8ff49d55f816e06969aad531748f2e0240fb5ed7ecbcc7d025f69"
+        },
+        {
+          "path": "models/alpine-timber.blueprint.json",
+          "bytes": 37219,
+          "sha256": "d880cb1f2d11e8a23e26d6568e574f7e220bc863af1e369df996a715ad9359f0"
+        }
+      ]
+    },
+    {
+      "id": "estuary-cottage",
+      "name": "Estuary Cottage",
+      "group": "Homes",
+      "style": "Veranda cottage",
+      "refs": [
+        "la0203",
+        "ms0041"
+      ],
+      "width": 11,
+      "depth": 8,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 9066,
+      "authoringTriangles": 15710,
+      "reduction": 0.42291534054742197,
+      "bounds": {
+        "min": [
+          -1.149999976158142,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          12.149999618530273,
+          5.67519998550415,
+          8.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/estuary-cottage.gltf",
+          "bytes": 28153,
+          "sha256": "ed2b621d2599f43ffb86818cb9690cc16085c1f9b19d22a0b1d05abfd8d118b8"
+        },
+        {
+          "path": "models/estuary-cottage.bin",
+          "bytes": 870336,
+          "sha256": "ae97f892a7bf252b610b30ad22058a93826819e1b46e29f66d5c5f1d131da9f9"
+        },
+        {
+          "path": "models/estuary-cottage.blueprint.json",
+          "bytes": 18627,
+          "sha256": "b3670422d6d06ca2be72da2e002b9607a89d1b9e783f7842cd32754c0c2332a2"
+        }
+      ]
+    },
+    {
+      "id": "marlow-courtyard-flats",
+      "name": "Marlow Courtyard Flats",
+      "group": "Homes",
+      "style": "Courtyard apartments",
+      "refs": [
+        "lennar-liberty",
+        "lennar-columbia"
+      ],
+      "width": 16,
+      "depth": 14,
+      "stories": 3,
+      "rooms": 27,
+      "gameTriangles": 41048,
+      "authoringTriangles": 65672,
+      "reduction": 0.37495431843099036,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          16.280000686645508,
+          9.435999870300293,
+          14.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/marlow-courtyard-flats.gltf",
+          "bytes": 90345,
+          "sha256": "8c6bfb4cab51a83a31b4a6260d4d4b1b9b2b264f5acbe56237f439858fe4f843"
+        },
+        {
+          "path": "models/marlow-courtyard-flats.bin",
+          "bytes": 3940608,
+          "sha256": "258ca9a1f39960ac532c33701b626032de9870ac50cbe1aa8fe9e69b111fb987"
+        },
+        {
+          "path": "models/marlow-courtyard-flats.blueprint.json",
+          "bytes": 103616,
+          "sha256": "5f282186079c8b4bbff58dfa47be521cef195a823b0bd79592e47e495b1607a2"
+        }
+      ]
+    },
+    {
+      "id": "market-terrace",
+      "name": "Market Terrace",
+      "group": "Homes",
+      "style": "Shop with dwelling above",
+      "refs": [
+        "nj0302"
+      ],
+      "width": 7,
+      "depth": 12,
+      "stories": 3,
+      "rooms": 10,
+      "gameTriangles": 20784,
+      "authoringTriangles": 33326,
+      "reduction": 0.37634279541499127,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          7.28000020980835,
+          9.495200157165527,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/market-terrace.gltf",
+          "bytes": 40964,
+          "sha256": "2faf25d7b6b8bbefbb0375b2eddd2510f71629cd00bd81abaabc3d77678368b9"
+        },
+        {
+          "path": "models/market-terrace.bin",
+          "bytes": 1995264,
+          "sha256": "da95506fb23d31c8efdf4da679562c8ed379cd1daefc27654d0b267b7c5d654b"
+        },
+        {
+          "path": "models/market-terrace.blueprint.json",
+          "bytes": 47319,
+          "sha256": "ac9620c60574ddcb33641a2f9d4e68b7c606999823617544500526d22b239d97"
+        }
+      ]
+    },
+    {
+      "id": "eastfield-school",
+      "name": "Eastfield School",
+      "group": "Civic",
+      "style": "Courtyard school",
+      "refs": [
+        "in0138",
+        "il0922"
+      ],
+      "width": 18,
+      "depth": 14,
+      "stories": 1,
+      "rooms": 7,
+      "gameTriangles": 16348,
+      "authoringTriangles": 33816,
+      "reduction": 0.5165602081854743,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          18.329999923706055,
+          6.269999980926514,
+          14.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/eastfield-school.gltf",
+          "bytes": 30933,
+          "sha256": "bb323e003628ac4d1a82e16375b3370aaea2b312d7eb794889d27554cb16ca3c"
+        },
+        {
+          "path": "models/eastfield-school.bin",
+          "bytes": 1569408,
+          "sha256": "794bd695468a88264a9db6182d3eee06eed89fe5c9cd236f1c83fe1bc5dce20d"
+        },
+        {
+          "path": "models/eastfield-school.blueprint.json",
+          "bytes": 39177,
+          "sha256": "69dd55b80a3c2eff7357c09da059983725fc76eb73794f623ac12fc2fd60a4dc"
+        }
+      ]
+    },
+    {
+      "id": "orchard-schoolhouse",
+      "name": "Orchard Schoolhouse",
+      "group": "Civic",
+      "style": "One-room school",
+      "refs": [
+        "in0138"
+      ],
+      "width": 8,
+      "depth": 12,
+      "stories": 1,
+      "rooms": 1,
+      "gameTriangles": 7362,
+      "authoringTriangles": 15778,
+      "reduction": 0.5334009380149576,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -1.649999976158142
+        ],
+        "max": [
+          8.329999923706055,
+          7.110000133514404,
+          12.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/orchard-schoolhouse.gltf",
+          "bytes": 18139,
+          "sha256": "14e4cbcfc58e20c3d145b932c1cf8198f6bc1908d09d5637229ad6a4829c2213"
+        },
+        {
+          "path": "models/orchard-schoolhouse.bin",
+          "bytes": 706752,
+          "sha256": "39eba623bb502a0ff0db8de3ba7a01e1b04025e52157778e59c4816b51477bc0"
+        },
+        {
+          "path": "models/orchard-schoolhouse.blueprint.json",
+          "bytes": 17619,
+          "sha256": "4a19675dece208ba0234da7e507f092708cfd83a1fd638afb8a7e64e79a1b80e"
+        }
+      ]
+    },
+    {
+      "id": "greywell-chapel",
+      "name": "Greywell Chapel",
+      "group": "Civic",
+      "style": "Small masonry chapel",
+      "refs": [
+        "va0935"
+      ],
+      "width": 13,
+      "depth": 15,
+      "stories": 1,
+      "rooms": 3,
+      "gameTriangles": 10586,
+      "authoringTriangles": 22848,
+      "reduction": 0.5366771708683473,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          13.329999923706055,
+          8.508000373840332,
+          15.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/greywell-chapel.gltf",
+          "bytes": 20510,
+          "sha256": "f858f63e0f6541dd81aa45d1a0810c4dd9a4ef0071dac58902034c6a280617b7"
+        },
+        {
+          "path": "models/greywell-chapel.bin",
+          "bytes": 1016256,
+          "sha256": "10d4fa785682dd45c0133edc1bdc93b85e847c16287e2f4fb942de94232fa74c"
+        },
+        {
+          "path": "models/greywell-chapel.blueprint.json",
+          "bytes": 28965,
+          "sha256": "d797480e33d3ea2ebffa97e71be2abf12b43407803c8ad044081ae2539c1bcf8"
+        }
+      ]
+    },
+    {
+      "id": "bell-court-chapel",
+      "name": "Bell Court Chapel",
+      "group": "Civic",
+      "style": "Mission-inspired chapel",
+      "refs": [
+        "il0922",
+        "va0935"
+      ],
+      "width": 15,
+      "depth": 15,
+      "stories": 1,
+      "rooms": 3,
+      "gameTriangles": 11520,
+      "authoringTriangles": 23294,
+      "reduction": 0.5054520477376148,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          15.279999732971191,
+          8.508000373840332,
+          15.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/bell-court-chapel.gltf",
+          "bytes": 20590,
+          "sha256": "a2efe8194710921b51eb6cf860ddbcb6231394296730f127f18eddb6733922b4"
+        },
+        {
+          "path": "models/bell-court-chapel.bin",
+          "bytes": 1105920,
+          "sha256": "186591a6e33d76639de8afe67c7efce4954aaf3b5ac36034fa7bf15ae00ef772"
+        },
+        {
+          "path": "models/bell-court-chapel.blueprint.json",
+          "bytes": 32696,
+          "sha256": "bba8d865233b68fed194a81d955ba85742f302fd81c0e127cab790e14d520217"
+        }
+      ]
+    },
+    {
+      "id": "copper-watch-firehouse",
+      "name": "Copper Watch Firehouse",
+      "group": "Civic",
+      "style": "Two-bay firehouse",
+      "refs": [
+        "la0072"
+      ],
+      "width": 15,
+      "depth": 13,
+      "stories": 2,
+      "rooms": 7,
+      "gameTriangles": 20346,
+      "authoringTriangles": 32420,
+      "reduction": 0.37242442936458975,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          15.149999618530273,
+          10.628000259399414,
+          13.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/copper-watch-firehouse.gltf",
+          "bytes": 31596,
+          "sha256": "086efa084ab35dd93bf85db5a1666793441ae924e35dc4c75ea5c4a91577e9a1"
+        },
+        {
+          "path": "models/copper-watch-firehouse.bin",
+          "bytes": 1953216,
+          "sha256": "89ff1f00bc32d8b1fff62acde6ad72e2ba6b8a37059438d5b444a54e1d4ca801"
+        },
+        {
+          "path": "models/copper-watch-firehouse.blueprint.json",
+          "bytes": 61394,
+          "sha256": "df60b2a768828a7027dcecaaafae4cb02f8a3fd2a308faca3b3883b49d3162dd"
+        }
+      ]
+    },
+    {
+      "id": "branchline-depot",
+      "name": "Branchline Depot",
+      "group": "Civic",
+      "style": "Rural railway depot",
+      "refs": [
+        "fl0310"
+      ],
+      "width": 16,
+      "depth": 7,
+      "stories": 1,
+      "rooms": 3,
+      "gameTriangles": 9462,
+      "authoringTriangles": 15502,
+      "reduction": 0.389627144884531,
+      "bounds": {
+        "min": [
+          -0.6499999761581421,
+          -0.12999999523162842,
+          -2.6500000953674316
+        ],
+        "max": [
+          16.649999618530273,
+          5.427000045776367,
+          7.28000020980835
+        ]
+      },
+      "files": [
+        {
+          "path": "models/branchline-depot.gltf",
+          "bytes": 20646,
+          "sha256": "502f3c5882fae2bcb5131cb9a7cd213ef4b2d6d37b225860b335fbd08f1692fc"
+        },
+        {
+          "path": "models/branchline-depot.bin",
+          "bytes": 908352,
+          "sha256": "bf41e8e35b32544b890e0d73bc48f3725574dd7619e0cee794e98d9ba597e93d"
+        },
+        {
+          "path": "models/branchline-depot.blueprint.json",
+          "bytes": 21027,
+          "sha256": "49686b442169d65b6e638920c6a5dbda5731bd2f4d8b815848b00ed50a86a28c"
+        }
+      ]
+    },
+    {
+      "id": "alder-reading-room",
+      "name": "Alder Reading Room",
+      "group": "Civic",
+      "style": "Small public library",
+      "refs": [
+        "in0138",
+        "ar0128"
+      ],
+      "width": 12,
+      "depth": 15,
+      "stories": 1,
+      "rooms": 4,
+      "gameTriangles": 10554,
+      "authoringTriangles": 18750,
+      "reduction": 0.43711999999999995,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          12.279999732971191,
+          6.300000190734863,
+          15.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/alder-reading-room.gltf",
+          "bytes": 22387,
+          "sha256": "97dc51f92ea9a5fcfe475cdfbfb96d108dcb30b926db0f995c5bea492981b52a"
+        },
+        {
+          "path": "models/alder-reading-room.bin",
+          "bytes": 1013184,
+          "sha256": "386fe72a2ee55c921cc392c57cb9da53e04594a7c7cba995cf6877854fc0af8f"
+        },
+        {
+          "path": "models/alder-reading-room.blueprint.json",
+          "bytes": 28618,
+          "sha256": "4f632dc31397534999dbf1007cf73924625851fd2a58df3ffb4d1944d9e53ef8"
+        }
+      ]
+    },
+    {
+      "id": "exchange-hall",
+      "name": "Exchange Hall",
+      "group": "Civic",
+      "style": "Town hall and bank",
+      "refs": [
+        "ar0128",
+        "nj0302"
+      ],
+      "width": 13,
+      "depth": 11,
+      "stories": 2,
+      "rooms": 8,
+      "gameTriangles": 19970,
+      "authoringTriangles": 32120,
+      "reduction": 0.37826899128268987,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.6500000953674316
+        ],
+        "max": [
+          13.279999732971191,
+          8.508000373840332,
+          11.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/exchange-hall.gltf",
+          "bytes": 36250,
+          "sha256": "78537a285d2ad18bf971dcdb9c19faaffe43b527f4de0bebd0addf2e75094f5a"
+        },
+        {
+          "path": "models/exchange-hall.bin",
+          "bytes": 1917120,
+          "sha256": "92d89209ed1b1d568f98420453e759e57e77c835bb24c6d81694310925d251b0"
+        },
+        {
+          "path": "models/exchange-hall.blueprint.json",
+          "bytes": 51994,
+          "sha256": "4eb708af5459a75ecf87320450e617476c42003726b16e1b4ad7ebc91ac6ee7f"
+        }
+      ]
+    },
+    {
+      "id": "pepper-corner-shop",
+      "name": "Pepper Corner Shop",
+      "group": "Commerce",
+      "style": "Corner grocery",
+      "refs": [
+        "nj0302"
+      ],
+      "width": 14,
+      "depth": 10,
+      "stories": 2,
+      "rooms": 7,
+      "gameTriangles": 16644,
+      "authoringTriangles": 26700,
+      "reduction": 0.37662921348314604,
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.11999999731779099,
+          -1.3250000476837158
+        ],
+        "max": [
+          14.329999923706055,
+          4.534999847412109,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/pepper-corner-shop.gltf",
+          "bytes": 31268,
+          "sha256": "0448afa6ae2c32551260b87c8371204bbeb5ede03cbf5757d12d650e49dcd32a"
+        },
+        {
+          "path": "models/pepper-corner-shop.bin",
+          "bytes": 1597824,
+          "sha256": "49891d11e1e47cda5a33f255ef44ead32bfaed25cfe6089d4c3e81ad06242f59"
+        },
+        {
+          "path": "models/pepper-corner-shop.blueprint.json",
+          "bytes": 41204,
+          "sha256": "7a97add6d511c4c5deefa6c9e0c93ff10987fb37466b5d18c65e137ed6a561f0"
+        }
+      ]
+    },
+    {
+      "id": "batten-general-store",
+      "name": "Batten General Store",
+      "group": "Commerce",
+      "style": "Country general store",
+      "refs": [
+        "nj0302"
+      ],
+      "width": 9,
+      "depth": 14,
+      "stories": 2,
+      "rooms": 7,
+      "gameTriangles": 19690,
+      "authoringTriangles": 35566,
+      "reduction": 0.44638137547095535,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.6500000953674316
+        ],
+        "max": [
+          9.329999923706055,
+          8.119999885559082,
+          14.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/batten-general-store.gltf",
+          "bytes": 31369,
+          "sha256": "8bc93685b5e6e5facb5d083d50cd696560f12bbddf07027501d360523ea85d90"
+        },
+        {
+          "path": "models/batten-general-store.bin",
+          "bytes": 1890240,
+          "sha256": "e7662f5dc895efe789e3ab634a6a92b4621c99b13943f18ff2a08a78f1f57784"
+        },
+        {
+          "path": "models/batten-general-store.blueprint.json",
+          "bytes": 45815,
+          "sha256": "9c242d586a705c6323741adb6b6ca548212e6659f2c28e3bbca3f6047fb4bbfc"
+        }
+      ]
+    },
+    {
+      "id": "linden-clinic",
+      "name": "Linden Clinic",
+      "group": "Commerce",
+      "style": "Neighbourhood clinic",
+      "refs": [
+        "in0138",
+        "lennar-dover"
+      ],
+      "width": 14,
+      "depth": 14,
+      "stories": 1,
+      "rooms": 6,
+      "gameTriangles": 11480,
+      "authoringTriangles": 18286,
+      "reduction": 0.3721973094170403,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          14.279999732971191,
+          6.079999923706055,
+          14.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/linden-clinic.gltf",
+          "bytes": 29300,
+          "sha256": "f8bf3dc876edf12186460c01ad82370cfa5e5d47e355e6a5e91ed2191fd2e395"
+        },
+        {
+          "path": "models/linden-clinic.bin",
+          "bytes": 1102080,
+          "sha256": "304451a1fed43a342fa31a395e9b6abecf8879d1f4c95d00f6c4ff451ecf5c4a"
+        },
+        {
+          "path": "models/linden-clinic.blueprint.json",
+          "bytes": 30595,
+          "sha256": "29085b5594458989669e8901bb7b4189206577e353c9e86b545e32f2429223db"
+        }
+      ]
+    },
+    {
+      "id": "coach-yard-inn",
+      "name": "Coach Yard Inn",
+      "group": "Commerce",
+      "style": "Courtyard inn",
+      "refs": [
+        "nj0302",
+        "lennar-liberty"
+      ],
+      "width": 16,
+      "depth": 16,
+      "stories": 2,
+      "rooms": 22,
+      "gameTriangles": 31974,
+      "authoringTriangles": 58676,
+      "reduction": 0.45507532892494373,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.12999999523162842,
+          -2.1500000953674316
+        ],
+        "max": [
+          16.329999923706055,
+          7.315999984741211,
+          16.280000686645508
+        ]
+      },
+      "files": [
+        {
+          "path": "models/coach-yard-inn.gltf",
+          "bytes": 73379,
+          "sha256": "010e250bd36e00df02b7ba43097b7b49dd39cd7c705561029fec1715a70ab4c1"
+        },
+        {
+          "path": "models/coach-yard-inn.bin",
+          "bytes": 3069504,
+          "sha256": "3a9455958b491b13df2189ffd911ecc43d07b75ef388a9e38753b4d2066923aa"
+        },
+        {
+          "path": "models/coach-yard-inn.blueprint.json",
+          "bytes": 77691,
+          "sha256": "cce1ff038e5f7d16fb52e850580c18cf36e69427f9fb17cb40631862a35f6cdc"
+        }
+      ]
+    },
+    {
+      "id": "dockside-warehouse",
+      "name": "Dockside Warehouse",
+      "group": "Commerce",
+      "style": "Masonry warehouse",
+      "refs": [
+        "il0699"
+      ],
+      "width": 15,
+      "depth": 20,
+      "stories": 3,
+      "rooms": 9,
+      "gameTriangles": 42822,
+      "authoringTriangles": 65074,
+      "reduction": 0.34194916556535637,
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.11999999731779099,
+          -2.5999999046325684
+        ],
+        "max": [
+          15.149999618530273,
+          6.65500020980835,
+          20.149999618530273
+        ]
+      },
+      "files": [
+        {
+          "path": "models/dockside-warehouse.gltf",
+          "bytes": 41662,
+          "sha256": "c98ce470c23d0b445d95862948ddc5f53b2b30994c8ab3c42c9231b194988dde"
+        },
+        {
+          "path": "models/dockside-warehouse.bin",
+          "bytes": 4110912,
+          "sha256": "4b2a36a12ea7112f6ffa47ea01b1efcd5871bb8f21b44bdbaa48e446f8d49ea5"
+        },
+        {
+          "path": "models/dockside-warehouse.blueprint.json",
+          "bytes": 153637,
+          "sha256": "e0751f3d3baa81e40e9613e2624d111a72f96a7e15409b1c1ac44808336d4638"
+        }
+      ]
+    },
+    {
+      "id": "northlight-works",
+      "name": "Northlight Works",
+      "group": "Commerce",
+      "style": "Sawtooth workshop",
+      "refs": [
+        "il0699",
+        "nh0185"
+      ],
+      "width": 18,
+      "depth": 18,
+      "stories": 1,
+      "rooms": 3,
+      "gameTriangles": 14356,
+      "authoringTriangles": 28850,
+      "reduction": 0.5023916811091854,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          18.280000686645508,
+          6,
+          18.149999618530273
+        ]
+      },
+      "files": [
+        {
+          "path": "models/northlight-works.gltf",
+          "bytes": 20926,
+          "sha256": "50f21d069283435246bcb4790d4737d27ea33fbe97f467a85c0b40a3533b413b"
+        },
+        {
+          "path": "models/northlight-works.bin",
+          "bytes": 1378176,
+          "sha256": "27986e0e6761ad42d3ad7e10022d08e026a4fb7dfc99a4f29e93d410bf299cfd"
+        },
+        {
+          "path": "models/northlight-works.blueprint.json",
+          "bytes": 47950,
+          "sha256": "7977cc226a71ac5e431e469f7494bc6503144bdc56cc8c7f769777274646648c"
+        }
+      ]
+    },
+    {
+      "id": "glass-garden-hall",
+      "name": "Glass Garden Hall",
+      "group": "Commerce",
+      "style": "Conservatory pavilion",
+      "refs": [
+        "il0922",
+        "narrow-modern"
+      ],
+      "width": 16,
+      "depth": 14,
+      "stories": 1,
+      "rooms": 1,
+      "gameTriangles": 11166,
+      "authoringTriangles": 18094,
+      "reduction": 0.3828893555874876,
+      "bounds": {
+        "min": [
+          -0.3100000023841858,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          16.280000686645508,
+          5.980000019073486,
+          14.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/glass-garden-hall.gltf",
+          "bytes": 13107,
+          "sha256": "d8e13dd421ae8befd756f006152e0561aaf0914c3642d373616810f78648b154"
+        },
+        {
+          "path": "models/glass-garden-hall.bin",
+          "bytes": 1071936,
+          "sha256": "1cd948522865ff7d3239f8ea4438ae272736bd04a4f10392b0deb12572381115"
+        },
+        {
+          "path": "models/glass-garden-hall.blueprint.json",
+          "bytes": 29622,
+          "sha256": "5b4088153ced860c0bb220d1d9d737ad961e70da57d504a1e4d5c92ae59ccbd0"
+        }
+      ]
+    },
+    {
+      "id": "post-lane-office",
+      "name": "Post Lane Office",
+      "group": "Commerce",
+      "style": "Village post office",
+      "refs": [
+        "nj0302",
+        "ar0128"
+      ],
+      "width": 11,
+      "depth": 9,
+      "stories": 1,
+      "rooms": 4,
+      "gameTriangles": 8626,
+      "authoringTriangles": 13746,
+      "reduction": 0.37247199185217517,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.12999999523162842,
+          -1.649999976158142
+        ],
+        "max": [
+          11.279999732971191,
+          6.079999923706055,
+          9.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/post-lane-office.gltf",
+          "bytes": 20122,
+          "sha256": "efcb1402f02e2780cb04ef239febacfda874dc6eb8ff308aa4f9c0de56c62f7f"
+        },
+        {
+          "path": "models/post-lane-office.bin",
+          "bytes": 828096,
+          "sha256": "b42694463f8258615b0664e5ba54a80310bb7be7cf13c294ffb2f1c9c61c47ed"
+        },
+        {
+          "path": "models/post-lane-office.blueprint.json",
+          "bytes": 19259,
+          "sha256": "6c9cb310c4527fd23b018484dca26059d270cc144545ad87931caed954b97049"
+        }
+      ]
+    },
+    {
+      "id": "red-crest-barn",
+      "name": "Red Crest Barn",
+      "group": "Farm & utility",
+      "style": "Gambrel barn",
+      "refs": [
+        "wa0112",
+        "tx1081"
+      ],
+      "width": 11,
+      "depth": 18,
+      "stories": 2,
+      "rooms": 14,
+      "gameTriangles": 24810,
+      "authoringTriangles": 44926,
+      "reduction": 0.4477585362596269,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          11.329999923706055,
+          9.869999885559082,
+          18.280000686645508
+        ]
+      },
+      "files": [
+        {
+          "path": "models/red-crest-barn.gltf",
+          "bytes": 59102,
+          "sha256": "fa725abfb444d2aa02c5a23167744adfc780153e4afd4cfc05fd3fe1804b0feb"
+        },
+        {
+          "path": "models/red-crest-barn.bin",
+          "bytes": 2381760,
+          "sha256": "69d4284cde03d44ef774263d05792a87f3ba460d8dcbae09b8d8b1dcbdd8eb4a"
+        },
+        {
+          "path": "models/red-crest-barn.blueprint.json",
+          "bytes": 73256,
+          "sha256": "8be0d5e12053bd5f7773025a8ed06a8018d181b2618cf70d1850c3dc4aef115d"
+        }
+      ]
+    },
+    {
+      "id": "stone-bank-barn",
+      "name": "Stone Bank Barn",
+      "group": "Farm & utility",
+      "style": "Bank barn",
+      "refs": [
+        "tx1081",
+        "wa0112"
+      ],
+      "width": 17,
+      "depth": 16,
+      "stories": 2,
+      "rooms": 12,
+      "gameTriangles": 25412,
+      "authoringTriangles": 45464,
+      "reduction": 0.441052261129685,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          17.329999923706055,
+          8.119999885559082,
+          16.280000686645508
+        ]
+      },
+      "files": [
+        {
+          "path": "models/stone-bank-barn.gltf",
+          "bytes": 51766,
+          "sha256": "c0d9026a72666cf832e18324090fbbee1c4c4f670ea9a125023ceef9376f4ff2"
+        },
+        {
+          "path": "models/stone-bank-barn.bin",
+          "bytes": 2439552,
+          "sha256": "221b17754fb22c3d5c43672a4f5e717013205fe0884a4903bb62df6baebbda03"
+        },
+        {
+          "path": "models/stone-bank-barn.blueprint.json",
+          "bytes": 82872,
+          "sha256": "54af994cc417f6f85e3e02d9904359a5551181dcd67af9f1941b20c039539cfa"
+        }
+      ]
+    },
+    {
+      "id": "longspan-machine-shed",
+      "name": "Longspan Machine Shed",
+      "group": "Farm & utility",
+      "style": "Machinery shed",
+      "refs": [
+        "ndsu-farm",
+        "wa0112"
+      ],
+      "width": 20,
+      "depth": 10,
+      "stories": 1,
+      "rooms": 1,
+      "gameTriangles": 10360,
+      "authoringTriangles": 20742,
+      "reduction": 0.500530324944557,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          20.280000686645508,
+          3.6895999908447266,
+          10.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/longspan-machine-shed.gltf",
+          "bytes": 13303,
+          "sha256": "4a36310b3d3949ed05e4ec744e95ed81150f8865b1718903ff990069589646e4"
+        },
+        {
+          "path": "models/longspan-machine-shed.bin",
+          "bytes": 994560,
+          "sha256": "602ab6942036a393b0b90211f46c2da515c7ca4ada73a45cdd0a3c14d30904e6"
+        },
+        {
+          "path": "models/longspan-machine-shed.blueprint.json",
+          "bytes": 34662,
+          "sha256": "216ada69f2021612ca8c71efcd84bf9d8b6581755caeaf8afcdf1d31053fdb40"
+        }
+      ]
+    },
+    {
+      "id": "whitegate-dairy",
+      "name": "Whitegate Dairy",
+      "group": "Farm & utility",
+      "style": "Milking parlour",
+      "refs": [
+        "tx1081",
+        "ndsu-farm"
+      ],
+      "width": 17,
+      "depth": 13,
+      "stories": 1,
+      "rooms": 9,
+      "gameTriangles": 12532,
+      "authoringTriangles": 24352,
+      "reduction": 0.4853810775295664,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          17.280000686645508,
+          7.110000133514404,
+          13.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/whitegate-dairy.gltf",
+          "bytes": 36291,
+          "sha256": "03c290bb0d42ea2741a1b1c5e9867aca2418a3802720fbf9fe1cf0aa2701e7df"
+        },
+        {
+          "path": "models/whitegate-dairy.bin",
+          "bytes": 1203072,
+          "sha256": "eccd7f0a9a24d45c5335ddf51ba1a7490e00647c444a3543024c877a6174eefa"
+        },
+        {
+          "path": "models/whitegate-dairy.blueprint.json",
+          "bytes": 32269,
+          "sha256": "aec50ab5633e04c0ac8ce6d9242989f89d5a9febd39891957887ded176225b7c"
+        }
+      ]
+    },
+    {
+      "id": "horseshoe-stables",
+      "name": "Horseshoe Stables",
+      "group": "Farm & utility",
+      "style": "Stable yard",
+      "refs": [
+        "wa0112",
+        "tx1081"
+      ],
+      "width": 16,
+      "depth": 15,
+      "stories": 1,
+      "rooms": 11,
+      "gameTriangles": 15066,
+      "authoringTriangles": 30990,
+      "reduction": 0.5138431752178122,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          16.329999923706055,
+          4.33519983291626,
+          15.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/horseshoe-stables.gltf",
+          "bytes": 33890,
+          "sha256": "a76be291da814b5d576f2b08268699d90ddeee3757a0cd578fbf7aee4e97742b"
+        },
+        {
+          "path": "models/horseshoe-stables.bin",
+          "bytes": 1446336,
+          "sha256": "d61a7af5582c8f037fd4285ad041379e3b43218972719b47f685617378a86834"
+        },
+        {
+          "path": "models/horseshoe-stables.blueprint.json",
+          "bytes": 36526,
+          "sha256": "c3801a59355392b7c78e6308a0cdbd6cd0d85cc33b7d1a38a2c5428811395ee9"
+        }
+      ]
+    },
+    {
+      "id": "grainwatch-granary",
+      "name": "Grainwatch Granary",
+      "group": "Farm & utility",
+      "style": "Granary and store",
+      "refs": [
+        "wa0112",
+        "ndsu-farm"
+      ],
+      "width": 12,
+      "depth": 10,
+      "stories": 3,
+      "rooms": 9,
+      "gameTriangles": 19292,
+      "authoringTriangles": 33826,
+      "reduction": 0.4296694850115296,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          12.329999923706055,
+          9.835200309753418,
+          10.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/grainwatch-granary.gltf",
+          "bytes": 41882,
+          "sha256": "72d08380031db7f5c5dea15289a5b350903f4cd8b3075d077bba2b46cdcf015b"
+        },
+        {
+          "path": "models/grainwatch-granary.bin",
+          "bytes": 1852032,
+          "sha256": "830ee2a4ef4c1473c865a4fe36118581fbcaf6d151fad9ac7ac53803bc8da327"
+        },
+        {
+          "path": "models/grainwatch-granary.blueprint.json",
+          "bytes": 50393,
+          "sha256": "92d8562788ac80e2355f41054b91e4969a74518ba567974efe5e990f58fd8f70"
+        }
+      ]
+    },
+    {
+      "id": "carriage-court",
+      "name": "Carriage Court",
+      "group": "Farm & utility",
+      "style": "Carriage house",
+      "refs": [
+        "nj0302",
+        "wa0112"
+      ],
+      "width": 10,
+      "depth": 9,
+      "stories": 2,
+      "rooms": 7,
+      "gameTriangles": 13600,
+      "authoringTriangles": 24816,
+      "reduction": 0.45196647324306893,
+      "bounds": {
+        "min": [
+          -0.2800000011920929,
+          -0.11999999731779099,
+          -0.33000001311302185
+        ],
+        "max": [
+          10.279999732971191,
+          9.649999618530273,
+          9.329999923706055
+        ]
+      },
+      "files": [
+        {
+          "path": "models/carriage-court.gltf",
+          "bytes": 30970,
+          "sha256": "ea8cabc1ea1a9b49e31cf9b8150388b4002538a15e86e8c3434707f028ace831"
+        },
+        {
+          "path": "models/carriage-court.bin",
+          "bytes": 1305600,
+          "sha256": "c37cc13ab289baedf9ae524b7d4c4e9db4f9f3624eae3a2fe76a50e0f8d53650"
+        },
+        {
+          "path": "models/carriage-court.blueprint.json",
+          "bytes": 34072,
+          "sha256": "3e744eabdf44c8456c3ed4122af8e10cfc15ce15427ddce70396d9192cf0f612"
+        }
+      ]
+    },
+    {
+      "id": "millrace-workhouse",
+      "name": "Millrace Workhouse",
+      "group": "Farm & utility",
+      "style": "Mill and pump annex",
+      "refs": [
+        "nh0185"
+      ],
+      "width": 14,
+      "depth": 13,
+      "stories": 2,
+      "rooms": 6,
+      "gameTriangles": 17552,
+      "authoringTriangles": 32560,
+      "reduction": 0.46093366093366095,
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.11999999731779099,
+          -0.2800000011920929
+        ],
+        "max": [
+          14.329999923706055,
+          8.119999885559082,
+          13.279999732971191
+        ]
+      },
+      "files": [
+        {
+          "path": "models/millrace-workhouse.gltf",
+          "bytes": 34941,
+          "sha256": "04b85c8aab0cc4f26e1a194be9a54f54fa81ce9536eb81ae4e52d593919c2b22"
+        },
+        {
+          "path": "models/millrace-workhouse.bin",
+          "bytes": 1684992,
+          "sha256": "a01b5b5aa122eb10f0f310e5e2754eddc26b3bc7f7bcfc5dbe73059c56b3e60b"
+        },
+        {
+          "path": "models/millrace-workhouse.blueprint.json",
+          "bytes": 49165,
+          "sha256": "f9c93f0ee06bd903c4c50f7cfa43bf4a0478c2af986df8892c1f5d69fdca8186"
+        }
+      ]
+    }
+  ]
+}
