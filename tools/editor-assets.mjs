@@ -16,6 +16,8 @@ export function checkEditorAssets(root, sources, tracked = null) {
   const supplementRoot = path.join(root,sources.aftAssets.root);
   const supplement = JSON.parse(fs.readFileSync(path.join(supplementRoot,'provenance.json')));
   for (const entry of supplement.files) declared.add(path.resolve(supplementRoot,entry.path));
+  const prefabRoot=path.join(root,sources.tinderboxPrefabs.root),prefabs=JSON.parse(fs.readFileSync(path.join(prefabRoot,'provenance.json')));
+  for(const entry of prefabs.files)declared.add(path.resolve(prefabRoot,entry.path));
   const requireDeclared = target => {if (!declared.has(target) || !fs.existsSync(target)) throw Error('Editor dependency is outside the reviewed source manifest: ' + target);};
   for (const asset of assets) {
     const key = asset.category + ':' + asset.id;
@@ -27,7 +29,7 @@ export function checkEditorAssets(root, sources, tracked = null) {
     if (tracked && !tracked.has(relative)) throw Error('Editor adapter is not tracked by Git: ' + relative);
     for (const match of text.matchAll(/(?:\bfrom\s*|new URL\(\s*)['"]([^'"]*vendor\/[^'"]+)['"]/g)) {
       const target = path.resolve(path.dirname(file),match[1]), expected = path.join(root,sources.aft.root) + path.sep;
-      if (!target.startsWith(expected) || !fs.existsSync(target)) throw Error('Editor asset dependency does not match the reviewed AFT pin: ' + match[1]);
+      if ((!target.startsWith(expected) && !target.startsWith(prefabRoot+path.sep)) || !fs.existsSync(target)) throw Error('Editor asset dependency does not match a reviewed source pin: ' + match[1]);
       requireDeclared(target);
     }
   }

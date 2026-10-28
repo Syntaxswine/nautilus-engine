@@ -4,11 +4,12 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {checkEditorAssets} from './editor-assets.mjs';
+import {prefabCatalogueSource} from './prefab-catalog.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
 const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
-for (const donor of ['aft', 'farmyard', 'aftAssets']) {
+for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));
   if (manifest.commit !== sources[donor].commit) throw Error('Source pin mismatch: ' + donor);
   for (const entry of manifest.files) {
@@ -28,6 +29,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets']) {
 }
 const core = await import('../packages/map-core/index.js');
 const editorAssets = checkEditorAssets(root,sources,tracked);
+if(fs.readFileSync(path.join(root,'packages/prefab-core/catalogue.js'),'utf8')!==prefabCatalogueSource())throw Error('Building registry differs from the pinned native geometry and source plans.');
 if (globalThis.document || globalThis.window) throw Error('Run checks in a headless Node environment.');
 const demo = (await import('../packages/map-core/example.js')).exampleYard();
 const errors = core.validateMap(demo); if (errors.length) throw Error('Example map: ' + errors.join(' '));
