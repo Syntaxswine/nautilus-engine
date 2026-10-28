@@ -12,7 +12,7 @@ slopedRoofs: {version: 1, roofs: [{
 }]}
 ```
 
-All fields except `direction` are required. A missing extension means no roofs. A present extension must contain exactly `version` and `roofs`; unsupported versions and fields are errors even with an empty array. Each roof must use only the fields above. The one compatibility default is `direction:1` when omitted; `roofsOf` and generated geometry return it explicitly. No other defaults repair imported data.
+All fields shown except `direction` are required. A missing extension means no roofs. A present extension must contain `version` and `roofs`, with optional `metadata`; each roof also accepts optional `metadata`. Other unsupported versions and fields are errors even with an empty array. The one compatibility default is `direction:1` when omitted; `roofsOf` and generated geometry return it explicitly. No other defaults repair imported data.
 
 | Field | Version 1 meaning and limits |
 | --- | --- |
@@ -27,6 +27,11 @@ All fields except `direction` are required. A missing extension means no roofs. 
 | `overhang` | Finite 0–2 m, extending equally beyond all four footprint edges |
 | `material` | `slate`, `clay`, `metal` |
 | `seed` | Integer 0–4,294,967,295, including zero; controls stable paint phase and restrained face tint |
+| `metadata` | Optional opaque plain JSON object for authoring/source/provenance notes; no effect on geometry, UVs, material selection or appearance |
+
+Both `slopedRoofs.metadata` and each `roof.metadata` may contain nested plain objects, dense arrays, strings, booleans, null and finite numbers. The metadata namespace itself must be an object, with the ordinary or null prototype. Cycles, non-finite numbers, undefined, functions, symbols, BigInt, class instances, Dates, Maps/Sets, typed arrays, accessors, hidden/symbol properties and sparse or decorated arrays are rejected without invoking getters or changing the input. Repeated non-cyclic references are accepted. Unknown geometry fields remain errors; putting an opaque geometry-like note inside metadata cannot override any roof parameter.
+
+`roofsOf(map)` returns detached per-roof metadata, and `createSlopedRoof(spec).spec` does the same. Metadata is omitted entirely from those copies when absent, with no undefined placeholder. The envelope metadata stays on the original map; `roofsOf` remains a roofs-only array API, so map serializers must preserve the full `slopedRoofs` envelope. JSON import/export retains nested source notes at both levels.
 
 The envelope holds at most 4,096 roofs. `roofErrors(map, size = 240)` uses a finite 0.5–240 m square world; every expanded footprint must stay inside `[0,size]` on both ground axes, inclusive, with no bounds tolerance or clipping. Pass `24` when validating a native block. Roof positions use edge coordinates; native map tile centres and wall runs use `[-.5,size-.5]`. Core geometry and `createRoofGroup` preserve edge coordinates exactly. The editor's RoofScene applies `group.position.set(-.5,0,-.5)` once: roof `x:10,width:12` then spans native tiles 10–21, physical X 9.5–21.5. Block transforms use their edge boundaries and 24 m offsets. Do not apply the half-metre shift twice.
 
@@ -96,7 +101,7 @@ The parameterized planes are the preserved source for this reusable shell. The e
 
 ## Verification and visual evidence
 
-`tests/roof-core.test.mjs` adds 12 meaningful tests: immutable JSON contracts, malformed/future envelopes (including empty), unsupported enums and numeric bounds, duplicate IDs, map/block overhang limits, measured pitch, both axes and shed signs, long/square/short hip degeneracies, deterministic seeded appearance, physical UV lengths, positive enclosed volume, watertight paired edges, outward normals, host material ownership and partial-failure disposal. The shell checks cover 144 style/axis/direction/aspect/pitch combinations, including 0.5 m and 239 m dimensions and near-square ridges. All **45 local + 32 pinned-upstream tests** pass. `npm run check` validates the unchanged 534 vendor files, 48 original buildings, 48 native maps and 48 native blocks; `npm run build` also passes.
+`tests/roof-core.test.mjs` adds 15 meaningful tests: immutable JSON contracts, metadata round-trip/deep copies and rejection of cyclic/non-JSON metadata, metadata-independent geometry/appearance, malformed/future envelopes (including empty), unsupported enums and numeric bounds, duplicate IDs, map/block overhang limits, measured pitch, both axes and shed signs, long/square/short hip degeneracies, deterministic seeded appearance, physical UV lengths, positive enclosed volume, watertight paired edges, outward normals, host material ownership and partial-failure disposal. The shell checks cover 144 style/axis/direction/aspect/pitch combinations, including 0.5 m and 239 m dimensions and near-square ridges. All **48 local + 32 pinned-upstream tests** pass. `npm run check` validates the unchanged 534 vendor files, 48 original buildings, 48 native maps and 48 native blocks; `npm run build` also passes.
 
 The renderer review uses six specimens spanning every material/style, both axes and both shed signs at 58 CSS px/m, plus matched grey form, wireframe, underside and cropped 110 px/m paint detail. Visual inspection confirms continuous silhouettes, closed visible fascia/soffits, stable repeated paint density and distinct material values. Short-axis hips can expose a steep opposite top face even from the underside camera; this is the documented shape, not a hole. The existing paint has illustrated form values, so the adapter uses restrained roughness/metalness under dynamic lighting; final game lighting still needs its own review.
 
