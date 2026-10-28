@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "collection": "h-plan-buildings-v1",
+  "baseline": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+  "contract": {
+    "version": 1,
+    "metresPerUnit": 1,
+    "grid": 0.5,
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slab": 0.12,
+    "floorSpacing": 2.12,
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "origin": "Front-left footprint corner; facade/cornice extend beyond it",
+    "status": "Original source/art descriptors. No fire, navigation, collision, evacuation or code-compliance claim."
+  },
+  "inputs": [
+    {
+      "file": "packages/h-plan-buildings/designs.js",
+      "sha256": "af77e8cf45525fbd4682a3b91ff1c68423b46021ea2f1711c91d1447da40f706"
+    },
+    {
+      "file": "packages/h-plan-buildings/index.js",
+      "sha256": "6ae44b7453281aa476be468a6ddd081cb78d566b80e7c9b02b099bb571c500ed"
+    },
+    {
+      "file": "packages/h-plan-buildings/mesh.js",
+      "sha256": "6b5db61b5f0c5b94a32c0d09058875f1bb7400f3c1e3cc774259a36e52d570b0"
+    },
+    {
+      "file": "packages/h-plan-buildings/three.js",
+      "sha256": "fdfd5764e45225d52ac41e6a2e1a95fc6e898144b675513f77fcbc334e8104ab"
+    },
+    {
+      "file": "tools/build-h-plan-buildings.mjs",
+      "sha256": "ae217987106d491ef5d5dcadb9fa37a48a27aa2e5585ae83cec106c57bf5f5c9"
+    },
+    {
+      "file": "art/h-plan-buildings/references.json",
+      "sha256": "146d3bd45ef6aac4e014ee5f84f640c924d3b399714269557bc592b02e1e1374"
+    },
+    {
+      "file": "art/h-plan-buildings/skin-prompts.json",
+      "sha256": "5498168816508fe82604df0ad2c4a445570a29dfd24eba22af0c2c57225beb56"
+    }
+  ],
+  "skins": [
+    {
+      "file": "assets/buildings/painted-materials-v2.png",
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+    },
+    {
+      "file": "assets/h-plan-buildings/painted-limestone-v1.png",
+      "sha256": "055a10be667029dfc4c03e157e1fe985f7826184f3acf6bbc1a3a12adbda375e"
+    },
+    {
+      "file": "assets/h-plan-buildings/painted-roof-felt-v1.png",
+      "sha256": "b0352bd601e39d15e221a874c92b73caf39f63fb495010f6634a1b138aea155d"
+    }
+  ],
+  "buildings": [
+    {
+      "id": "alder-court",
+      "name": "Alder Court Walk-up",
+      "period": "c. 1906 inspiration",
+      "width": 18,
+      "depth": 16,
+      "stories": 3,
+      "circulation": "Single central stair / four flats per landing",
+      "courts": [
+        {
+          "id": "front-court",
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "depth": 6,
+          "opensTo": "street"
+        },
+        {
+          "id": "rear-court",
+          "x": 6,
+          "y": 10,
+          "width": 6,
+          "depth": 6,
+          "opensTo": "yard"
+        }
+      ],
+      "apartmentCount": 12,
+      "windowCount": 94,
+      "stairFlights": 4,
+      "engineGame": {
+        "triangles": 20092,
+        "vertices": 60276,
+        "drawCalls": 58,
+        "apartments": 12,
+        "windows": 94
+      },
+      "source": {
+        "triangles": 72012,
+        "vertices": 216036,
+        "drawCalls": 58,
+        "apartments": 12,
+        "windows": 94
+      },
+      "sourceReduction": 0.7209909459534523,
+      "interchange": {
+        "triangles": 76348,
+        "vertices": 229044,
+        "drawCalls": 58,
+        "apartments": 12,
+        "windows": 94
+      },
+      "bounds": {
+        "min": [
+          -0.26,
+          -0.12,
+          -0.26
+        ],
+        "max": [
+          18.26,
+          7.306,
+          16.26
+        ]
+      },
+      "files": [
+        {
+          "file": "assets/h-plan-buildings/models/alder-court.gltf",
+          "bytes": 53703,
+          "sha256": "569361ffa7da39f63ec46c10d16ceba80f2c2670acaf0c342e8d60c01b037b34"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court.bin",
+          "bytes": 5024592,
+          "sha256": "3024f79769cf845fbb2130267601ec8a0c140ced9b00dec9241a55fb70bec1ae"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court.assembly.json",
+          "bytes": 245691,
+          "sha256": "1064e0a07b22683f26f3f49ffc0a2b3fcbe217ed7cb10632e6119c547d9e74d5"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court.game-mesh.json.gz",
+          "bytes": 217365,
+          "sha256": "e38b5bfd7c8034d82ae21245b3e2945ce043cca8047733ae1c8684106819948e"
+        },
+        {
+          "file": "art/h-plan-buildings/sculpts/alder-court.source-mesh.json.gz",
+          "bytes": 788386,
+          "sha256": "dbef1890b0868843637fd4f0c99d57b873d30d26edafa4a6a0fd05830b29a7cd"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court-floor-1.svg",
+          "bytes": 11944,
+          "sha256": "cb25b398bb180c3eac98ef68dfa36b7635970e7ccc548089a7db6c3bb92d193a"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court-floor-2.svg",
+          "bytes": 11567,
+          "sha256": "c896436c48cc3893b857358c601eb3b8b21fbc6ee359299458ef4a06ba211734"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/alder-court-floor-3.svg",
+          "bytes": 11567,
+          "sha256": "ef25174540b80a76dfcb6e107edebc5aa1ec0763cc9c723fa53bb7ba3f06a0d8"
+        }
+      ]
+    },
+    {
+      "id": "bellwether-court",
+      "name": "Bellwether Stone Court",
+      "period": "c. 1913 inspiration",
+      "width": 22,
+      "depth": 20,
+      "stories": 4,
+      "circulation": "Single central stair / four flats per landing",
+      "courts": [
+        {
+          "id": "front-court",
+          "x": 7,
+          "y": 0,
+          "width": 8,
+          "depth": 8,
+          "opensTo": "street"
+        },
+        {
+          "id": "rear-court",
+          "x": 7,
+          "y": 12,
+          "width": 8,
+          "depth": 8,
+          "opensTo": "yard"
+        }
+      ],
+      "apartmentCount": 16,
+      "windowCount": 166,
+      "stairFlights": 6,
+      "engineGame": {
+        "triangles": 34648,
+        "vertices": 103944,
+        "drawCalls": 72,
+        "apartments": 16,
+        "windows": 166
+      },
+      "source": {
+        "triangles": 126640,
+        "vertices": 379920,
+        "drawCalls": 72,
+        "apartments": 16,
+        "windows": 166
+      },
+      "sourceReduction": 0.7264055590650663,
+      "interchange": {
+        "triangles": 131172,
+        "vertices": 393516,
+        "drawCalls": 72,
+        "apartments": 16,
+        "windows": 166
+      },
+      "bounds": {
+        "min": [
+          -0.26,
+          -0.12,
+          -0.26
+        ],
+        "max": [
+          22.26,
+          9.426,
+          20.26
+        ]
+      },
+      "files": [
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court.gltf",
+          "bytes": 66041,
+          "sha256": "d06d4de2d217b93b367bb901f82abc20638cbb88d1bd23d3141affbb102089bf"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court.bin",
+          "bytes": 8641744,
+          "sha256": "3856f2f85bebbee217d7a68dd3293006721c5273be715fdaaf728f08bb17db43"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court.assembly.json",
+          "bytes": 473748,
+          "sha256": "421993405b08e7e0636671bec8618f081aeaedbefb62638cb2e3177611598f08"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court.game-mesh.json.gz",
+          "bytes": 365520,
+          "sha256": "49c6a56bca8156d267d79ab33be8fc52384bf4032a5d9be231aecb6c2de56302"
+        },
+        {
+          "file": "art/h-plan-buildings/sculpts/bellwether-court.source-mesh.json.gz",
+          "bytes": 1326125,
+          "sha256": "766d7fa1a100707fce7aa54dfe3cf5f0c91f9b5fb97bf6c138ffbe636761b849"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court-floor-1.svg",
+          "bytes": 14420,
+          "sha256": "72ec8a26c6d5ee3b66271ef7aab5c8d503e9c310ce91d8a00209353670d099a4"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court-floor-2.svg",
+          "bytes": 14007,
+          "sha256": "f0f03c66e41ecef43ad65b376991acc676d0d629e6dbd41fa752af88e2cb114d"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court-floor-3.svg",
+          "bytes": 14007,
+          "sha256": "27833e8f043bbfdcaf7ca1a7b416b61520ff53dacfdf6c020e64ce80102ddf93"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/bellwether-court-floor-4.svg",
+          "bytes": 14007,
+          "sha256": "4467312c7e2d7469779f33f3bf9a0b3faed38b835179bef99fccf2fcaf5b9546"
+        }
+      ]
+    },
+    {
+      "id": "mercer-courts",
+      "name": "Mercer Linked Courts",
+      "period": "c. 1919 inspiration",
+      "width": 26,
+      "depth": 24,
+      "stories": 5,
+      "circulation": "Two linked point cores / two flats per core landing",
+      "courts": [
+        {
+          "id": "front-court",
+          "x": 8,
+          "y": 0,
+          "width": 10,
+          "depth": 10,
+          "opensTo": "street"
+        },
+        {
+          "id": "rear-court",
+          "x": 8,
+          "y": 14,
+          "width": 10,
+          "depth": 10,
+          "opensTo": "yard"
+        }
+      ],
+      "apartmentCount": 20,
+      "windowCount": 278,
+      "stairFlights": 16,
+      "engineGame": {
+        "triangles": 52396,
+        "vertices": 157188,
+        "drawCalls": 87,
+        "apartments": 20,
+        "windows": 278
+      },
+      "source": {
+        "triangles": 191596,
+        "vertices": 574788,
+        "drawCalls": 87,
+        "apartments": 20,
+        "windows": 278
+      },
+      "sourceReduction": 0.7265287375519323,
+      "interchange": {
+        "triangles": 206882,
+        "vertices": 620646,
+        "drawCalls": 87,
+        "apartments": 20,
+        "windows": 278
+      },
+      "bounds": {
+        "min": [
+          -0.26,
+          -0.12,
+          -0.26
+        ],
+        "max": [
+          26.26,
+          11.546000000000001,
+          24.26
+        ]
+      },
+      "files": [
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts.gltf",
+          "bytes": 79396,
+          "sha256": "3465bb30c8ab6500cc771b7b1c54bc754154a4434188b2dab8b67660586b8ec5"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts.bin",
+          "bytes": 13628312,
+          "sha256": "207f6efaf71d7fbade00720f52417b6e53be225cfe994fe4253fdda6700f81b1"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts.assembly.json",
+          "bytes": 704988,
+          "sha256": "407e6e597f7eef29218221f531dfd913abda348a54563aca928cd1e63074c59a"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts.game-mesh.json.gz",
+          "bytes": 559137,
+          "sha256": "a289f6d34b542673818da221db9fc02251c1e00cd56f7ff7b8546af08b6211bc"
+        },
+        {
+          "file": "art/h-plan-buildings/sculpts/mercer-courts.source-mesh.json.gz",
+          "bytes": 1959598,
+          "sha256": "3eb1f70ec5004975d4c56fa1486ea1c6c67395ab53c4e70f2c8f22b67f2621f6"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts-floor-1.svg",
+          "bytes": 16287,
+          "sha256": "a755d14bff177abbdee369267db7c1d1f0cd9d3f465ed7fe2d06bdfa5d8c66ce"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts-floor-2.svg",
+          "bytes": 15790,
+          "sha256": "fc25db53c6b2038801300a8721437eb9d225e56bd34854498bbd246b29b1dc5c"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts-floor-3.svg",
+          "bytes": 15790,
+          "sha256": "cb4451c47e069363215029afa21c14628e220b7b04d9c682819846dee848efdd"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts-floor-4.svg",
+          "bytes": 15790,
+          "sha256": "c95d623fa56720b494a91ce2b016b50788503b371fddc5bfe9f4f6f511cbba6a"
+        },
+        {
+          "file": "assets/h-plan-buildings/models/mercer-courts-floor-5.svg",
+          "bytes": 15790,
+          "sha256": "2b0fabd43b69b98db7ec9dadd58efa89d32f520b817271fb970b06dd04b47cc6"
+        }
+      ]
+    }
+  ]
+}

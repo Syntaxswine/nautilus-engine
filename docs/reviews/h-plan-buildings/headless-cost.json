@@ -1,0 +1,111 @@
+{
+  "node": "v24.15.0",
+  "platform": "win32",
+  "arch": "x64",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+  "method": "One initial and three subsequent sequential rebuilds per asset in one process; no forced GC; JIT and normal allocation pressure are included. Not an isolated OS or cold-process benchmark.",
+  "records": [
+    {
+      "id": "alder-court",
+      "firstSample": {
+        "compileMs": 12.301300000000005,
+        "meshMs": 87.7044,
+        "triangles": 20092,
+        "drawCalls": 58
+      },
+      "followingSamples": [
+        {
+          "compileMs": 9.677600000000012,
+          "meshMs": 58.24510000000001,
+          "triangles": 20092,
+          "drawCalls": 58
+        },
+        {
+          "compileMs": 5.729099999999988,
+          "meshMs": 62.3792,
+          "triangles": 20092,
+          "drawCalls": 58
+        },
+        {
+          "compileMs": 5.389700000000005,
+          "meshMs": 53.759299999999996,
+          "triangles": 20092,
+          "drawCalls": 58
+        }
+      ],
+      "followingMedian": {
+        "compileMs": 5.729099999999988,
+        "meshMs": 58.24510000000001
+      },
+      "note": "CPU source compilation/mesh arrays only. No GPU, frame time, physics or consumer simulation."
+    },
+    {
+      "id": "bellwether-court",
+      "firstSample": {
+        "compileMs": 9.557500000000005,
+        "meshMs": 102.20730000000003,
+        "triangles": 34648,
+        "drawCalls": 72
+      },
+      "followingSamples": [
+        {
+          "compileMs": 5.545600000000036,
+          "meshMs": 81.12789999999995,
+          "triangles": 34648,
+          "drawCalls": 72
+        },
+        {
+          "compileMs": 6.085100000000011,
+          "meshMs": 88.043,
+          "triangles": 34648,
+          "drawCalls": 72
+        },
+        {
+          "compileMs": 9.350299999999947,
+          "meshMs": 80.3836,
+          "triangles": 34648,
+          "drawCalls": 72
+        }
+      ],
+      "followingMedian": {
+        "compileMs": 6.085100000000011,
+        "meshMs": 81.12789999999995
+      },
+      "note": "CPU source compilation/mesh arrays only. No GPU, frame time, physics or consumer simulation."
+    },
+    {
+      "id": "mercer-courts",
+      "firstSample": {
+        "compileMs": 12.51640000000009,
+        "meshMs": 128.82679999999993,
+        "triangles": 52396,
+        "drawCalls": 87
+      },
+      "followingSamples": [
+        {
+          "compileMs": 12.503499999999917,
+          "meshMs": 125.21350000000007,
+          "triangles": 52396,
+          "drawCalls": 87
+        },
+        {
+          "compileMs": 13.555099999999925,
+          "meshMs": 129.3547000000001,
+          "triangles": 52396,
+          "drawCalls": 87
+        },
+        {
+          "compileMs": 9.583799999999883,
+          "meshMs": 129.05950000000007,
+          "triangles": 52396,
+          "drawCalls": 87
+        }
+      ],
+      "followingMedian": {
+        "compileMs": 12.503499999999917,
+        "meshMs": 129.05950000000007
+      },
+      "note": "CPU source compilation/mesh arrays only. No GPU, frame time, physics or consumer simulation."
+    }
+  ]
+}
