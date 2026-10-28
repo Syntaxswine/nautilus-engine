@@ -12,6 +12,8 @@ The maps are constructed by the pinned game's `createEditor` / `applyBrush` impl
 
 The complete native 3D editor is used when WebGL2 is available. Browsers without 3D, including the observed Codex in-app browser, get an editable plan presentation using the same `EditingDocument` controller, brush semantics, undo/redo and isolated native IndexedDB store. It supports pointer painting, floors, wall/window/door variants, stairs, ladders, roof modules, import/export and saved designs. The complete 3D editor retains its broader scenery, character, block-connection and generation tools. This is a presentation fallback, not a new map format or a claim that every 3D tool was duplicated.
 
+Browser saves belong to the preview's origin. For a deliberate restart, use `node tools/serve-building-library.mjs --building=northlight-works --port=52429` after verifying the previous helper exited and the port is free. Keeping the same local port preserves access to that origin's saved designs. The server still expires after 30 minutes; export JSON for a portable copy.
+
 ![Native game-editor assembly](reviews/editor-buildings/northlight-native-3d.png)
 ![The same building as an editable plan](reviews/editor-buildings/northlight-editable-plan.png)
 
