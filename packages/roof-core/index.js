@@ -6,15 +6,72 @@ export const ROOF_LIMITS = Object.freeze({minDimension: .5, maxDimension: 240,
   maxRoofs: 4096, floorSpacing: 2.12, thickness: .12});
 
 const fields = ['id', 'x', 'y', 'width', 'depth', 'z', 'style', 'axis', 'pitch', 'overhang', 'material', 'seed'];
-const acceptedFields = [...fields, 'direction'];
+const acceptedFields = [...fields, 'direction', 'metadata'];
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const finite = Number.isFinite;
 const between = (n, a, b) => finite(n) && n >= a && n <= b;
 const unknown = (value, keys) => Object.keys(value).filter(key => !keys.includes(key));
-const copySpec = spec => Object.fromEntries(acceptedFields.map(key => {
-  const value = key === 'direction' ? spec.direction ?? 1 : spec[key];
-  return [key, value === 0 ? 0 : value];
-}));
+const plainObject = value => record(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+
+function metadataOK(value) {
+  // Walk ancestor paths, rather than a global visited set: repeated references
+  // are valid JSON values, while a reference back to an ancestor is a cycle.
+  const active = new Set(), pending = [{value}];
+  try {
+    if (!plainObject(value)) return false;
+    while (pending.length) {
+      const {value, leave} = pending.pop();
+      if (leave) {active.delete(value); continue;}
+      if (value === null || typeof value === 'string' || typeof value === 'boolean') continue;
+      if (typeof value === 'number') {if (!finite(value)) return false; continue;}
+      if (typeof value !== 'object') return false;
+      const array = Array.isArray(value);
+      if (!(array ? Object.getPrototypeOf(value) === Array.prototype : plainObject(value)) || active.has(value)) return false;
+      const keys = Reflect.ownKeys(value);
+      if (array && (keys.length !== value.length + 1 || keys.some((key, i) => key !== (i === value.length ? 'length' : String(i))))) return false;
+      active.add(value); pending.push({value, leave: true});
+      for (const key of keys) {
+        if (array && key === 'length') continue;
+        const descriptor = Object.getOwnPropertyDescriptor(value, key);
+        // Reject accessors, symbols and hidden properties instead of invoking
+        // getters/toJSON or silently losing authoring data during serialization.
+        if (typeof key !== 'string' || !descriptor.enumerable || !Object.hasOwn(descriptor, 'value')) return false;
+        pending.push({value: descriptor.value});
+      }
+    }
+    return true;
+  } catch {return false;}
+}
+
+function metadataPropertyOK(owner) {
+  const descriptor = Object.getOwnPropertyDescriptor(owner, 'metadata');
+  return descriptor.enumerable && Object.hasOwn(descriptor, 'value') && metadataOK(descriptor.value);
+}
+
+function copyMetadata(source) {
+  const result = {}, copies = new Map([[source, result]]), pending = [source];
+  while (pending.length) {
+    const value = pending.pop(), target = copies.get(value);
+    for (const key of Object.keys(value)) {
+      let child = Object.getOwnPropertyDescriptor(value, key).value;
+      if (child !== null && typeof child === 'object') {
+        if (!copies.has(child)) {copies.set(child, Array.isArray(child) ? [] : {}); pending.push(child);}
+        child = copies.get(child);
+      }
+      Object.defineProperty(target, key, {value: child, enumerable: true, configurable: true, writable: true});
+    }
+  }
+  return result;
+}
+
+const copySpec = spec => {
+  const result = Object.fromEntries([...fields, 'direction'].map(key => {
+    const value = key === 'direction' ? spec.direction ?? 1 : spec[key];
+    return [key, value === 0 ? 0 : value];
+  }));
+  if (Object.hasOwn(spec, 'metadata')) result.metadata = copyMetadata(Object.getOwnPropertyDescriptor(spec, 'metadata').value);
+  return result;
+};
 
 function specErrors(spec, size) {
   if (!record(spec)) return ['Each sloped roof must be an object.'];
@@ -27,6 +84,7 @@ function specErrors(spec, size) {
   if (!['gable', 'hip', 'shed'].includes(spec.style)) errors.push(`${name} has an unsupported style.`);
   if (!['x', 'y'].includes(spec.axis)) errors.push(`${name} axis must be x or y.`);
   if (Object.hasOwn(spec, 'direction') && spec.direction !== 1 && spec.direction !== -1) errors.push(`${name} direction must be +1 or -1 when supplied.`);
+  if (Object.hasOwn(spec, 'metadata') && !metadataPropertyOK(spec)) errors.push(`${name} metadata must be a finite, acyclic plain JSON object.`);
   if (!between(spec.pitch, 5, 75)) errors.push(`${name} pitch must be 5–75 degrees.`);
   if (!between(spec.overhang, 0, 2)) errors.push(`${name} overhang must be 0–2 metres.`);
   if (!['slate', 'clay', 'metal'].includes(spec.material)) errors.push(`${name} has an unsupported material.`);
@@ -47,10 +105,11 @@ export function roofErrors(map, size = 240) {
   // Validate the envelope even when it contains no roofs. Future features must
   // never become an apparently valid empty map through silent normalization.
   if (!record(data) || data.version !== 1 || !Array.isArray(data.roofs) ||
-    data.roofs.length > ROOF_LIMITS.maxRoofs || unknown(data, ['version', 'roofs']).length) {
-    return ['Expected slopedRoofs version 1 with only version/roofs and at most 4096 roofs.'];
+    data.roofs.length > ROOF_LIMITS.maxRoofs || unknown(data, ['version', 'roofs', 'metadata']).length) {
+    return ['Expected slopedRoofs version 1 with version/roofs, optional metadata, and at most 4096 roofs.'];
   }
   const errors = [], ids = new Set();
+  if (Object.hasOwn(data, 'metadata') && !metadataPropertyOK(data)) errors.push('slopedRoofs.metadata must be a finite, acyclic plain JSON object.');
   for (const spec of data.roofs) {
     errors.push(...specErrors(spec, size));
     if (record(spec) && typeof spec.id === 'string') {

@@ -55,6 +55,80 @@ test('unsupported envelopes are rejected even empty; duplicate IDs and malformed
   }
 });
 
+test('authoring metadata round-trips at envelope and roof levels with detached nested copies', () => {
+  const shared = {url: 'https://example.test/plan', notes: ['Artist interpretation', null, false, 1.25]};
+  const metadata = {source: shared, provenance: {sourceAgain: shared, license: {reviewed: true}}, tags: []};
+  const spec = {...sample, metadata}, map = mapOf(spec);
+  map.slopedRoofs.metadata = {authoring: {sources: [{name: 'Studio notes', revision: 3}]}};
+  const before = JSON.stringify(map);
+  assert.deepEqual(roofErrors(map), []);
+  assert.deepEqual(JSON.parse(before).slopedRoofs.metadata, map.slopedRoofs.metadata);
+  const copy = roofsOf(map)[0], roof = createSlopedRoof(spec);
+  assert.deepEqual(copy.metadata, JSON.parse(JSON.stringify(metadata)));
+  assert.deepEqual(roof.spec.metadata, JSON.parse(JSON.stringify(metadata)));
+  assert.equal(JSON.stringify(roof), JSON.stringify(JSON.parse(JSON.stringify(roof))));
+  copy.metadata.source.notes.push('Edited copy');
+  roof.spec.metadata.provenance.license.reviewed = false;
+  assert.equal(JSON.stringify(map), before);
+  assert.notEqual(copy.metadata, roof.spec.metadata);
+  const absent = createSlopedRoof(sample);
+  assert.equal(Object.hasOwn(absent.spec, 'metadata'), false);
+  assert.equal(Object.hasOwn(roofsOf(mapOf(sample))[0], 'metadata'), false);
+  const nullPrototype = Object.create(null);
+  Object.defineProperty(nullPrototype, '__proto__', {value: {note: 'ordinary JSON key'}, enumerable: true});
+  assert.deepEqual(roofErrors(mapOf({...sample, metadata: nullPrototype})), []);
+  assert.equal(createSlopedRoof({...sample, metadata: nullPrototype}).spec.metadata.__proto__.note, 'ordinary JSON key');
+  assert.equal(Object.prototype.note, undefined);
+});
+
+test('metadata rejects cycles, non-finite or non-JSON values and accessors without mutating or invoking them', () => {
+  const cycle = {}; cycle.parent = cycle;
+  const indirect = {notes: []}; indirect.notes.push(indirect);
+  const sparse = Array(2), extraArray = [1]; extraArray.note = 'not a JSON array element';
+  let invoked = 0;
+  const accessor = Object.defineProperty({}, 'source', {enumerable: true, get() {invoked++; return 'no';}});
+  const hidden = Object.defineProperty({}, 'source', {value: 'hidden', enumerable: false});
+  class Note {constructor() {this.text = 'non-plain';}}
+  const invalid = [null, [], 3, 'notes', undefined, cycle, indirect, accessor, hidden,
+    {[Symbol('note')]: 'lost'}, new Date(), new Map(), new Note(),
+    ...[NaN, Infinity, -Infinity, undefined, () => {}, Symbol('note'), 1n, new Date(), new Set(), /note/, new Uint8Array([1]), sparse, extraArray].map(value => ({nested: {value}}))];
+  for (const metadata of invalid) {
+    const spec = {...sample, metadata}, map = mapOf(spec), reference = spec.metadata;
+    assert.ok(roofErrors(map).some(e => e.includes('metadata')));
+    assert.throws(() => roofsOf(map), TypeError);
+    assert.throws(() => createSlopedRoof(spec), TypeError);
+    assert.equal(spec.metadata, reference);
+    const empty = {slopedRoofs: {version: 1, roofs: [], metadata}};
+    assert.ok(roofErrors(empty).some(e => e.includes('metadata')));
+    assert.throws(() => roofsOf(empty), TypeError);
+  }
+  assert.equal(invoked, 0);
+  for (const descriptor of [{enumerable: true, get() {invoked++; return {};}}, {enumerable: false, value: {source: 'hidden'}}]) {
+    const spec = Object.defineProperty({...sample}, 'metadata', descriptor);
+    assert.ok(roofErrors(mapOf(spec)).length);
+    assert.throws(() => createSlopedRoof(spec), TypeError);
+    const envelope = Object.defineProperty({version: 1, roofs: []}, 'metadata', descriptor);
+    assert.ok(roofErrors({slopedRoofs: envelope}).length);
+    assert.throws(() => roofsOf({slopedRoofs: envelope}), TypeError);
+  }
+  assert.equal(invoked, 0);
+  assert.equal(cycle.parent, cycle); assert.equal(indirect.notes[0], indirect);
+  assert.ok(roofErrors({slopedRoofs: {version: 1, roofs: [], provenance: {}}}).length);
+  assert.ok(roofErrors(mapOf({...sample, source: {}})).length);
+});
+
+test('metadata never affects roof geometry, physical UVs, bounds or seeded appearance', () => {
+  for (const style of ['gable', 'hip', 'shed']) {
+    const plain = createSlopedRoof({...sample, style}), annotated = createSlopedRoof({...sample, style,
+      metadata: {geometry: {pitch: 90, seed: 0}, source: {notes: ['opaque authoring only']}}});
+    const {spec: plainSpec, ...plainData} = plain, {spec: annotatedSpec, ...annotatedData} = annotated;
+    assert.deepEqual(annotatedData, plainData);
+    const {metadata, ...geometrySpec} = annotatedSpec;
+    assert.deepEqual(geometrySpec, plainSpec);
+    assert.equal(metadata.geometry.pitch, 90);
+  }
+});
+
 test('numeric bounds, enums, NaN and infinities are checked before geometry work', () => {
   const invalid = {x: [NaN, Infinity, -Infinity, '10', -.1], y: [NaN, Infinity, false],
     width: [0, .4999, 240.001, NaN, Infinity], depth: [0, -.5, NaN],
