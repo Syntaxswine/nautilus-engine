@@ -8,6 +8,7 @@ import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
 import {BUILDING_ASSETS,PREFAB_CATALOGUE} from '../packages/prefab-core/index.js';
 import {verifyBuild} from './verify-build.mjs';
+import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw Error('Invalid build directory.');
@@ -62,6 +63,9 @@ fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
 const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
+fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
+fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});
+write('buildings/references.json', fs.readFileSync(path.join(root, 'art/buildings/reference-register.json')));
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
@@ -74,6 +78,9 @@ html = html.replace(/<header>[\s\S]*?<\/header>/, `<header class="nautilus-heade
 html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"><script src="' + toRoot + 'app/runtime-errors.js"></script></head>', 'Nautilus theme and failure reporting');
 html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
 write('index.html', html);
+// Resolve through the inherited document base, just like the editor stylesheet.
+const editorIndex=fs.readFileSync(path.join(output,'index.html'),'utf8');
+write('index.html',editorIndex.replace('<nav aria-label="Workshop actions">','<nav aria-label="Workshop actions"><a href="'+toRoot+'buildings/index.html" style="color:#e6d9a2;margin-right:10px">Building library</a>'));
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of fs.readdirSync(path.join(root, 'apps/editor')).filter(name => /\.(js|css)$/.test(name))) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('../../vendor/', '../vendor/').replaceAll('../../packages/', '../packages/').replaceAll('__AFT__', sources.aft.root).replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
 const assets = editorAssets();

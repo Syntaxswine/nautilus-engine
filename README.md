@@ -55,6 +55,11 @@ The existing square-wall tool is joined by measured native-scale wall runs: exac
 ## Optional contour effect
 
 `./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.
+## Original building library
+
+The art collection adds **48 original buildings**, 77 floors, 409 described rooms and 16 painterly materials. It spans homes, schools, chapels, shops, factories, a depot, barns and utility buildings. Public developer plans and historic measured drawings informed newly authored designs. Detailed source recipes are preserved alongside simplified glTF meshes, room/opening data and a searchable 3D review gallery.
+
+Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
 
 ## Compatibility boundaries
 
