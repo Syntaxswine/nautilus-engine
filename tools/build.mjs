@@ -78,9 +78,6 @@ html = html.replace(/<header>[\s\S]*?<\/header>/, `<header class="nautilus-heade
 html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"><script src="' + toRoot + 'app/runtime-errors.js"></script></head>', 'Nautilus theme and failure reporting');
 html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
 write('index.html', html);
-// Resolve through the inherited document base, just like the editor stylesheet.
-const editorIndex=fs.readFileSync(path.join(output,'index.html'),'utf8');
-write('index.html',editorIndex.replace('<nav aria-label="Workshop actions">','<nav aria-label="Workshop actions"><a href="'+toRoot+'buildings/index.html" style="color:#e6d9a2;margin-right:10px">Building library</a>'));
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of fs.readdirSync(path.join(root, 'apps/editor')).filter(name => /\.(js|css)$/.test(name))) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('../../vendor/', '../vendor/').replaceAll('../../packages/', '../packages/').replaceAll('__AFT__', sources.aft.root).replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
 const assets = editorAssets();
