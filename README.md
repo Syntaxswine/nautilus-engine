@@ -46,4 +46,4 @@ This release retains the existing AFT map v2 and block v1 formats, 240 × 240 ma
 
 The standalone workshop does not bundle any game's combat application. **Send to game** becomes available when a host connects an adapter. The three games have not yet switched their editors or toolkit dependencies to Nautilus. Farmyard supports a flat-map subset; Tinderbox's content representation needs an explicit adapter. The inherited strategic overmap generator and a complete procedural campaign are outside this milestone.
 
-Original upstream bytes remain in `vendor/`. `upstream.json` pins full source commits and each snapshot's `provenance.json` records SHA-256 hashes. Build-only adaptations have separate hashes in `dist/build-provenance.json`. See [source notices](NOTICE.md). The GitHub source and Sites review build start private.
+Original upstream bytes remain in `vendor/`. `upstream.json` pins full source commits and each snapshot's `provenance.json` records SHA-256 hashes. Build-only adaptations have separate hashes in `dist/build-provenance.json`. See [source notices](NOTICE.md). The GitHub source is public; the Sites review build uses owner sign-in.
