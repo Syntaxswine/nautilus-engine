@@ -86,8 +86,8 @@ export class InspectionScene extends Legacy {
   }
   loadRoofPaint() {return this.prepareRoofs().catch(()=>{});}
   rebuild() {super.rebuild();if(this.document){this.slopedRoofs?.update(this.document,this.options);if(this.slopedRoofs&&roofsOf(this.document.map).length)this.loadRoofPaint();}}
-  async open(document) {if(roofsOf(document.map).length)await this.prepareRoofs();await super.open(document);this.slopedRoofs.update(document,this.options);}
-  async update(document) {if(roofsOf(document.map).length)await this.prepareRoofs();await super.update(document);this.slopedRoofs.update(document,this.options);}
+  async open(document) {if(this.roofDisposed)return;if(roofsOf(document.map).length)await this.prepareRoofs();if(this.roofDisposed)return;await super.open(document);if(this.roofDisposed)return;this.slopedRoofs.update(document,this.options);}
+  async update(document) {if(this.roofDisposed)return;if(roofsOf(document.map).length)await this.prepareRoofs();if(this.roofDisposed)return;await super.update(document);if(this.roofDisposed)return;this.slopedRoofs.update(document,this.options);}
   preview(result) {
     super.preview(result);
     this.roofPreview?.update({map:{slopedRoofs:{version:1,roofs:result?.ok&&result.roofPreview?[result.roofPreview]:[]}}},{showAllLevels:true,roofs:true});

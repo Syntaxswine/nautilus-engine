@@ -20,7 +20,7 @@ function fixture(t) {
     renderer:{capabilities:{getMaxAnisotropy:()=>16}},slopedRoofs:new RoofLayer(world),roofPreview:new RoofLayer(world,{preview:true})});
   const document={map:{slopedRoofs:{version:1,roofs:[{id:'paint-test',x:4,y:5,width:8,depth:6,z:1,style:'gable',axis:'x',direction:1,pitch:30,overhang:.25,material:'slate',seed:27}]}}};
   scene.slopedRoofs.update(document);scene.roofPreview.update(document);
-  t.after(()=>scene.dispose());return {scene,loader,legacyDispose,get changes(){return changes;}};
+  t.after(()=>scene.dispose());return {scene,loader,document,legacyDispose,get changes(){return changes;}};
 }
 
 test('a failed roof atlas load retires its texture and retries into both roof layers',async t=>{
@@ -71,4 +71,13 @@ test('synchronous loader failure also releases the returned texture and allows a
   assert.equal(loader.attempts.length,2);assert.equal(scene.prepareRoofs(),ready);
   assert.equal(scene.slopedRoofs.atlas,loader.attempts[1].texture);assert.deepEqual(scene.diagnostics,[]);
   scene.dispose();assert.deepEqual(loader.attempts.map(attempt=>attempt.disposed),[1,1]);
+});
+
+for(const method of ['open','update'])test(`pending scene ${method} cannot resume after roof disposal`,async t=>{
+  const {scene,loader,document}=fixture(t),parent=t.mock.method(LegacyScene.prototype,method,async()=>{});
+  const operation=scene[method](document);assert.equal(loader.attempts.length,1);
+  scene.dispose();await operation;assert.equal(parent.mock.callCount(),0);
+  await scene[method](document);assert.equal(parent.mock.callCount(),0);
+  loader.attempts[0].onLoad(loader.attempts[0].texture);
+  assert.equal(loader.attempts[0].disposed,1);assert.equal(scene.scene.children.length,0);
 });
