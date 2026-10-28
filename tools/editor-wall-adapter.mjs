@@ -2,6 +2,7 @@
 export function adaptWallEditor(file, text, once) {
   const core = '../../../../../packages/map-core/', app = '../../../../../app/';
   if (file.endsWith('/editor-3d.js')) {
+    text = once(text, "from './editor-3d-model.js'", `from '${app}inspection-visuals.js'`, 'browser-only inspection footprints');
     text = once(text, "from './editor-3d-controller.js'", `from '${core}document.js'`, 'Nautilus wall document');
     text = once(text, "from './editor-3d-scene.js'", `from '${app}wall-scene.js'`, 'Nautilus wall scene');
     for (const model of ['next', 'documentModel']) text = once(text, '${' + model + '.map.props.length} objects', '${' + model + '.map.props.length} objects · ${' + model + '.map.wallRuns?.segments.length||0} wall runs', model + ' wall count');
@@ -16,6 +17,7 @@ export function adaptWallEditor(file, text, once) {
     text = once(text, "showFor(['site-options']", "showFor(['wall-run-options'],['wall-run']);showFor(['site-options']", 'angled wall options visibility');
   }
   if (file.endsWith('/editor-3d-tools.js')) {
+    text = once(text, "from './editor-3d-controller.js'", `from '${core}editing-document.js'`, 'plain-data brush picking');
     text = `import {installWallTools} from '${app}wall-tools.js';\n` + text;
     text = once(text, 'hoverPoint=null;', 'hoverPoint=null;\n const wallTools=installWallTools({panel,getDocument,getSelection,apply,scene,status,open,isLoading});', 'install angled wall tools');
     text = once(text, 'const options=()=>({foliageMode:', 'const options=()=>({...wallTools.options(),foliageMode:', 'wall brush settings');
