@@ -1,5 +1,8 @@
 import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities} from '../packages/map-core/index.js';
 import {exampleYard} from '../packages/map-core/example.js';
+import {installAssetLibrary} from './assets.js';
+
+installAssetLibrary();
 
 let gameAdapter = null;
 const status = text => {document.getElementById('status').textContent = text;};

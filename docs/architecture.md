@@ -9,6 +9,7 @@
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
+| `vendor/aft-assets/<commit>/` | Byte-preserved supplemental machine paint closure for the existing AFT snapshot |
 | `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
 | `upstream.json` | Reviewed donor pins and their purpose |
 | `tools/snapshot-source.mjs` | Read-only Git-object importer; writes only a new local snapshot |
@@ -40,6 +41,8 @@ Preview returns a candidate without committing it. Apply commits only accepted c
 [Angled wall runs](wall-runs.md) extend this boundary with measured ground endpoints and an explicit consumer capability. They retain native panel dimensions and survive map/block editing, capture, placement, rotation and connected generation. The [design assessment](reviews/2026-10-28-angled-walls.md) explains the choice and its limits.
 
 ## Browser and game-host boundary
+
+The [editor asset integration contract](editor-assets.md) defines catalog discovery, shared-renderer previews, placement bindings and future visual intake. The library derives entries from the pinned registries, retains explicit portable-format restrictions and records its built inventory separately from the original vendor snapshots.
 
 The standalone browser entry exposes `window.nautilus`:
 
