@@ -1,7 +1,7 @@
 // Short-lived, task-owned browser review. Never attaches to user/app browsers.
 import fs from'node:fs';import path from'node:path';import http from'node:http';import{fileURLToPath}from'node:url';import{createRequire}from'node:module';import{execFileSync}from'node:child_process';
 export const projectRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const defaultOwner='01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3';
+const defaultOwner='manual-isolated-review';
 const identity=pid=>process.platform==='win32'?JSON.parse(execFileSync('powershell.exe',['-NoProfile','-Command',`$p=Get-Process -Id ${pid};[pscustomobject]@{pid=$p.Id;creationFiletime=$p.StartTime.ToUniversalTime().ToFileTimeUtc().ToString();executable=$p.Path}|ConvertTo-Json -Compress`],{encoding:'utf8',windowsHide:true})):{pid,executable:process.execPath};
 export async function withArtReview(purpose,callback,{source=false,owner=process.env.CODEX_THREAD_ID||defaultOwner,output='building-catalog',timeoutMs=120000}={}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1000||timeoutMs>600000)throw Error('Use a bounded review lifetime of at most ten minutes.');

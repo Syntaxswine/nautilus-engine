@@ -1,6 +1,9 @@
 import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
-import {withArtReview} from './art-review-browser.mjs';
-const owner='01a18107-b4af-78c0-850f-0235d4df307f';
+import {execFileSync} from 'node:child_process';
+import {withArtReview,projectRoot} from './art-review-browser.mjs';
+const owner=process.env.CODEX_THREAD_ID||'manual-isolated-review';
+const sourceCommit=execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),'-C',projectRoot,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
+const buildProvenanceSha256=createHash('sha256').update(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))).digest('hex');
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
 await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
   page.on('dialog',dialog=>dialog.accept());
@@ -15,7 +18,7 @@ await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,
   await page.locator('#building-use').waitFor({state:'visible'});
   await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
   const inventory=await page.locator('#building-count').innerText();
-  assert(inventory.includes('64'),'Expected 61 assemblies + 3 editable stamps: '+inventory);
+  assert(await page.locator('#building-results button').count()===64,'Expected 61 assemblies + 3 editable stamps: '+inventory);
   await page.locator('.building-generator > summary').click();
   await page.locator('#building-seed').fill('Architect settlement acceptance');
   await page.locator('#building-number').fill('6');
@@ -28,7 +31,7 @@ await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,
   await page.locator('#undo').click();await page.waitForFunction(()=>!window.editor3d.document.map.buildingPrefabs?.instances.length&&!window.editor3d.loading);
   await page.locator('#redo').click();await page.waitForFunction(()=>window.editor3d.document.map.buildingPrefabs?.instances.length===6&&!window.editor3d.loading);
   assert(await page.evaluate(()=>window.editor3d.export())===generated,'Undo/redo changed seeded layout bytes.');
-  const wall=await page.evaluate(async()=>{const r=await window.editor3d.apply({tool:'wall-run',start:{x:175,y:175,z:0},end:{x:186,y:186,z:0},options:{exact:true,stories:2,material:'brick'}});return {ok:r.ok,error:r.error};});
+  const wall=await page.evaluate(async()=>{const r=await window.editor3d.apply({tool:'wall-run',start:{x:135,y:45,z:0},end:{x:146,y:56,z:0},options:{exact:true,stories:2,material:'brick'}});return {ok:r.ok,error:r.error};});
   assert(wall.ok,'Distant wall failed: '+wall.error);
   const rejection=await page.evaluate(async()=>{const doc=window.editor3d.document,b=doc.map.buildingPrefabs.instances[0],before=doc.export(),undo=doc.editor.undo.length,revision=doc.revision;const r=await window.editor3d.apply({tool:'wall-run',start:{x:b.x,y:b.y,z:0},end:{x:b.x+2,y:b.y+2,z:0},options:{exact:true,stories:1,material:'wood'}});return {ok:r.ok,error:r.error,unchanged:before===doc.export()&&undo===doc.editor.undo.length&&revision===doc.revision};});
   assert(!rejection.ok&&rejection.unchanged,'Overlapping wall changed the building map.');
@@ -45,12 +48,12 @@ await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,
   await page.locator('#settings-button').click();await page.locator('#saved-designs').selectOption(savedId);await page.locator('#load-map').click();
   await page.waitForFunction(()=>!window.editor3d.loading&&window.editor3d.document.libraryId);
   await page.locator('#close-settings').click();assert(await page.evaluate(()=>window.editor3d.export())===saved,'Browser save/reload changed references.');
-  await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:72,y:72,span:145,preset:'0'});window.editor3d.scene.changed();});
+  await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:82,y:72,span:155,preset:'0'});window.editor3d.scene.changed();});
   await page.screenshot({path:path.join(out,'editor-desktop.png')});
   await page.locator('#nautilus-buildings').click();await page.locator('#building-search').fill('Bramble');
   await page.locator('#building-results [data-asset="bramble-ranch"]').click();await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
   await page.locator('#building-floor').selectOption('0');await page.screenshot({path:path.join(out,'original-interior.png')});
-  const originalDescription=await page.locator('#building-description').innerText();assert(!originalDescription.includes('furnished interior'),'Original models incorrectly described as furnished.');
+  const originalDescription=await page.locator('#building-description').innerText();assert(!/\bfurnished\s+interiors?\b/i.test(originalDescription),'Original models incorrectly described as furnished.');
   await page.locator('#building-search').fill('Albany');await page.locator('#building-results [data-asset="albany-cottage"]').click();await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
   await page.screenshot({path:path.join(out,'gross-preview.png')});await page.locator('#building-close').click();
   for(let i=0;i<2;i++){
@@ -62,10 +65,18 @@ await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,
   const modal=await page.locator('#building-library').evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,top:el.getBoundingClientRect().top,bottom:el.getBoundingClientRect().bottom}));
   assert(modal.left>=-1&&modal.right<=391&&modal.top>=-1&&modal.bottom<=845,'Mobile building modal is outside the viewport.');
   await page.screenshot({path:path.join(out,'editor-mobile-library.png')});await page.locator('#building-close').click();
+  await page.evaluate(()=>{window.integrationHostChecks={calls:0};window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1'],openMap(){window.integrationHostChecks.calls++;}});});
+  await page.locator('#settings-button').click();await page.locator('#playtest').click();
+  await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('original building'));
+  assert(await page.evaluate(()=>window.integrationHostChecks.calls)===0,'Unsupported host was called.');
+  await page.evaluate(()=>{window.integrationDisconnect();window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1'],async openMap({json,contract}){await Promise.resolve();window.integrationHostChecks.calls++;window.integrationHostChecks.buildings=JSON.parse(json).buildingPrefabs.instances.length;window.integrationHostChecks.contract=contract.optionalFeatures;}});});
+  await page.locator('#playtest').click();await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Map sent'));
+  const host=await page.evaluate(()=>window.integrationHostChecks);assert(host.calls===1&&host.buildings===6,'Declared asynchronous local host handoff failed.');
+  await page.locator('#close-settings').click();await page.evaluate(()=>window.integrationDisconnect());
   const final=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return {buildings:window.editor3d.document.map.buildingPrefabs.instances.length,walls:window.editor3d.document.map.wallRuns.segments.length,features:core.requiredMapFeatures(window.editor3d.document.map),diagnostics:window.editor3d.scene.diagnostics,memory:window.editor3d.scene.renderer.info.memory,drawCalls:window.editor3d.scene.renderer.info.render.calls};});
   assert(!final.diagnostics.length,'Final scene reports missing assets.');
   assert(final.features.includes('nautilus-original-buildings-v1'),'Original feature is absent.');
   const captures=fs.readdirSync(out).filter(n=>n.endsWith('.png')).map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')}));
-  const record={browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,inventory,seededBuildings:6,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
+  const record={sourceCommit,buildProvenanceSha256,host,browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,inventory,seededBuildings:6,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
   fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(record,null,2));console.log(JSON.stringify(record));
 },{owner,output:'engine-integration',timeoutMs:240000});
