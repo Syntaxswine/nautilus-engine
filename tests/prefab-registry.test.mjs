@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {originalCatalogueSource} from '../tools/prefab-original-catalog.mjs';
 import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,ORIGINAL_BUILDING_ASSETS,PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE,ORIGINAL_BUILDING_FEATURE,isPrefabCatalogue,catalogueHasAsset,catalogueForAssets,buildingAsset,DEFAULT_RESIDENTIAL_ASSETS} from '../packages/prefab-core/registry.js';
 
 test('fixed prefab registry preserves Gross identity and adds 48 distinct original models',()=>{
@@ -24,4 +26,7 @@ test('default residential selection is explicit and fits six lots in the UI area
   const span=Math.max(...DEFAULT_RESIDENTIAL_ASSETS.flatMap(id=>{const a=buildingAsset(id);assert.ok(a);return [Math.ceil(a.bounds[2]-a.bounds[0]),Math.ceil(a.bounds[3]-a.bounds[1])];}));
   assert.ok(Math.floor(96/(span+8))**2>=6);
   for(const a of ORIGINAL_BUILDING_ASSETS){assert.ok(a.sources.every(s=>s.id&&s.title&&s.url.startsWith('https://')));assert.equal(a.sourceCommit,'ee7c18ecdc2669168247b94a82156634b2c4ffe5');assert.match(a.envelope,/open door/);}
+});
+test('original registry matches the fixed recipe inputs and open-door envelopes',()=>{
+  assert.equal(fs.readFileSync(new URL('../packages/prefab-core/original-catalogue.js',import.meta.url),'utf8'),originalCatalogueSource());
 });

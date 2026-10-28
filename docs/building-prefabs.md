@@ -1,6 +1,6 @@
 # Prefabricated buildings
 
-The editor's **Building library** contains thirteen Gross catalogue houses from Tinderbox and three existing AFT structures (shed, workshop and checkpoint hut). It provides original-model previews, floor cutaways, source plates, whole-house placement and seeded building lots within full 240 × 240 maps.
+The editor's **Building library** contains thirteen Gross catalogue houses from Tinderbox, 48 original architectural designs, and three existing AFT structures (shed, workshop and checkpoint hut). The 61 whole-building entries provide native-model previews, provider-specific floor cutaways, source information, whole-house placement and seeded building lots within full 240 × 240 maps. The three AFT presets remain editable structure stamps.
 
 The Gross houses retain 29 interior levels and 147 labeled spaces in their original plan JSON. These are catalogue-inspired compositions, not measured reconstructions. The artist explicitly interprets snapped dimensions, colours, furnishings, rear elevations and ornament. The preserved source plates make those decisions inspectable.
 
@@ -9,6 +9,8 @@ The Gross houses retain 29 interior levels and 147 labeled spaces in their origi
 The reviewed Tinderbox pin is `6693bfa3fea2edec77649d830de5ac68ba4c1a50`, recorded as `tinderboxPrefabs` in `upstream.json`. Its separate immutable snapshot contains 66 files: the assembly module and dependency closure, six material images, collection and individual plans, optional wall trace fragments, original plates, generation/source records and artist handoff/reviews. No Tinderbox game runtime or second Three.js is loaded. The assembler receives the editor's existing Three.js module.
 
 The three AFT structures use the existing AFT pin and editing command. They stamp ordinary editable map geometry and objects. The Gross houses remain complete assembly references so polygonal plans, facades, roofs, sills, stairs and furnishings survive unchanged; they are not flattened into approximate tile rooms.
+
+The [original provider adapter review](reviews/2026-10-28-original-prefab-adapter.md) records the fixed 48-building source, combined catalogue helpers, renderer ownership and review scope. Original entries are unfurnished, original game-scale interpretations with their own reference links and blueprint JSON. They do not display Gross source plates. The artist's detailed/source gallery is a clearly named optional action within the modal. An editor build lacking the original-building capability permits inspection but rejects original placement/generation until its core integration is present.
 
 For each future collection:
 
