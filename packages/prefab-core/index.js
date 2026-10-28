@@ -4,6 +4,7 @@ import {terrainAt, edgeCells} from '../../vendor/aft/781246a668c723d5a4c5463e705
 import {propCells, floorTerrain} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 import {canopyCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js';
 import {wallRunErrors,wallRunsOf,WALL_KIT} from '../map-core/wall-runs.js';
+import {roofsOf} from '../roof-core/index.js';
 export * from './registry.js';
 export const PREFAB_FEATURE = 'nautilus-building-prefabs-v1';
 export const MAX_BUILDINGS = 32;
@@ -55,6 +56,9 @@ function wallIntersectsLot(run,lot) {
 // A reusable index for one placement pass; no DOM, renderer or mutable global state.
 function siteIndex(map) {
   const wallErrors=wallRunErrors(map);if(wallErrors.length)fail(wallErrors.join(' '));
+  // Validate even empty envelopes. Use the headless roof contract rather than
+  // the map adapter, which itself depends on this prefab module.
+  const roofs=roofsOf(map).map(roof=>({x:roof.x-roof.overhang,y:roof.y-roof.overhang,width:roof.width+roof.overhang*2,depth:roof.depth+roof.overhang*2}));
   const occupied=new Set(),add=p=>occupied.add(p.x+','+p.y);
   for(const field of ['starts','guards','exits','stairs','climbs'])for(const p of map[field]||[]) {
     add(p);if(field==='climbs')add({x:p.x+p.dx,y:p.y+p.dy});
@@ -66,15 +70,17 @@ function siteIndex(map) {
   for(const layer of map.upper||[])for(const key of Object.keys(layer))if(layer[key]!=='void')occupied.add(key);
   for(const key of Object.keys(map.foliage||{}))occupied.add(key.split(',').slice(0,2).join(','));
   for(const key of Object.keys(map.landPaint||{}))occupied.add(key);
-  return occupied;
+  return {occupied,roofs};
 }
-function instanceError(map,instance,others,occupied) {
+function instanceError(map,instance,others,{occupied,roofs}) {
   if(!instance || typeof instance!=='object' || Array.isArray(instance) || typeof instance.id!=='string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(instance.id))return 'Each building needs a stable ID of 1–64 letters, digits, underscores or hyphens.';
   if(!buildingAsset(instance.asset))return 'Unknown building asset: '+instance.asset;
   if(![instance.x,instance.y,instance.turns,instance.clearance].every(Number.isInteger) || instance.turns<0 || instance.turns>3 || instance.clearance<1 || instance.clearance>8)return 'Use integer building coordinates, 0–3 quarter turns and 1–8 metres of clearance.';
   const lot=buildingLot(instance,instance.clearance),size=map.kind==='red-shift-block'?24:240;
   if(lot.x<0 || lot.y<0 || lot.x+lot.width>size || lot.y+lot.depth>size)return 'The building, overhangs and clearance must fit inside the map.';
   if(wallRunsOf(map).some(run=>wallIntersectsLot(run,lot)))return 'A wall run intersects the building lot or its access clearance. Move the entire wall thickness outside the reserved lot.';
+  // Match the roof editor's footprint and tolerance, on every eaves layer.
+  if(roofs.some(roof=>roof.x<lot.x+lot.width-1e-6&&roof.x+roof.width>lot.x+1e-6&&roof.y<lot.y+lot.depth-1e-6&&roof.y+roof.depth>lot.y+1e-6))return 'A sloped roof or its overhang overlaps a whole-building prefab lot or its access clearance. Move the roof outside the reserved lot.';
   for(const other of others){
     if(other.id===instance.id)return 'Building IDs must be unique.';
     if(lotsOverlap(buildingLot(instance,Math.max(instance.clearance,other.clearance)),buildingLot(other)))return 'Building lots or their access clearance overlap.';
@@ -98,7 +104,7 @@ export function prefabErrors(map) {
   } catch(error) {return [error.message];}
 }
 export function assertPrefabBlock(block) {
-  if(block?.buildingPrefabs!==undefined)fail('Building prefabs cannot be stored in legacy blocks. Keep the full map or use the building library.');
+  if(block?.buildingPrefabs!==undefined)fail('Building prefabs belong to full maps and cannot be stored in legacy blocks. Keep the full map or use the building library.');
   return block;
 }
 export function assertPrefabSector(map,sx,sy) {

@@ -47,6 +47,8 @@ The `nautilus-building-prefabs-v1` feature is **visual map authoring**, not a ga
 
 The optional source wall trace fragments remain source evidence. They are not inserted as complete maps, and their aperture metadata is not mistaken for solid wall collision. The composed wall and prefab adapters permit distant angled walls in the same map. A conservative oriented-thickness test rejects a wall body or boundary contact intersecting a building lot or its clearance, on every authored layer. This authoring reservation is not an interior collision compiler or support for overpasses through a reserved lot.
 
+The public `@nautilus-engine/map-core/prefabs` placement and generation APIs validate sloped-roof envelopes through the headless roof contract. Separate roofs reserve their complete overhang rectangles against whole-building lots and access clearance on every eaves layer, using the editor's shared boundary tolerance. Direct placement rejects a conflict; seeded generation skips blocked candidates and either finds the full requested count or rejects without changing its input. Maps without roofs retain their existing seeded layouts.
+
 Legacy 24 × 24 blocks cannot represent these references. Block import/generation/rotation reject the field; capture and replacement reject a sector intersecting a building or its clearance. Unaffected sectors remain usable. This prevents silent loss of a house, its floors or its source identity.
 
 ## Fixed collections and capabilities
