@@ -28,9 +28,19 @@ Prefer the shared headless placement contract and provider-specific visual assem
 
 ## Acceptance record
 
-The initial composed integrity/build checks passed: 603 pinned source files, 344 asset-browser entries, 48 original models and 322 resolved built modules. The focused 37 wall/prefab regressions and 32 upstream regressions passed after composition. Final worker repair commits and delivery checks are recorded below when settled.
+Approved for the GitHub integration branch as Engine 0.4 after the bounded coder, editor, UI and artist passes. The contribution manifest records the exact worker commits; their audit reports distinguish their own checks from the combined architect review.
 
-The architect inspected the original catalogue contact sheet and interior evidence. The current in-app browser reports GL_RENDERER Disabled and fails WebGL context creation before editor initialization; its initial failure was recorded in the owning task's local review artifacts. That failure is an environment limitation, not evidence that the combined live scene rendered. The initial diagnostic preview was stopped and port 4527 released. Any later visual acceptance must identify the browser/renderer and exact reviewed scope.
+- `npm run check -- --tracked`: passed; 603 pinned source files (146 MiB), 344 asset-browser entries, reviewed module closure, headless map/rules APIs and all 48 original export/source fingerprints.
+- `npm test`: 126 passed, with no failures, skips or cancellations.
+- `npm run test:upstream`: 32 passed, with no failures, skips or cancellations.
+- `npm run build`: passed; 11 recorded donor deployment adaptations and 329 resolved/syntax-checked built modules. Both immutable prefab identities appear in the version-2 inventory; the 61-asset list has the combined identity.
+- Isolated Edge 156.0.4314.50 gallery review: 48 models, 77 floor plans, source/game and interior views, working model downloads, 22 captures and no JavaScript/resource errors. The 390 × 844 layout had no horizontal overflow. [Gallery record](../reviews/evidence/expanded-gallery.json).
+- User-authorized isolated Edge combined acceptance: all 64 library choices (61 assemblies plus three stamps), a deterministic six-house mixed district, an accepted distant two-story angled wall, transactional overlap rejection, undo/redo, browser save/load, actual file export/import and two asset-library close/reopen cycles passed. The asynchronous local test host was never called without the original-building capability and was called once with all required features. [Structured record and capture hashes](../reviews/evidence/expanded-library/acceptance.json).
+- Actual desktop review was 1280 × 900; mobile review was 390 × 844. The header measured 132 px and the mobile modal stayed inside the viewport. The architect visually inspected the district, original cutaway and Gross mobile preview. [District](../reviews/evidence/expanded-library/editor-desktop.png), [original interior](../reviews/evidence/expanded-library/original-interior.png), [mobile library](../reviews/evidence/expanded-library/editor-mobile-library.png).
+
+The combined runtime source candidate is `4fe58e1cd8e261746725b488a7349645bf2d2b38`. The browser harness's Settings-navigation correction is identified by the recorded test-script hash; later delivery edits are evidence/documentation and that harness correction. The normal tracked checks and final GitHub CI cover the delivered commit. Software WebGL establishes rendered correctness in that test environment, not physical-phone or dense-settlement frame-time performance.
+
+The in-app browser still reports GL_RENDERER Disabled; it was not reset or represented as a successful renderer. The isolated review completed with zero JavaScript/resource errors. Its browser and HTTP server closed through their owning APIs in `finally`, and the recorded port was independently confirmed released. The initial local diagnostic preview also stopped. One earlier browser harness pass targeted Export after closing Settings; its source/output/restart record and confirmed natural browser/port exit are preserved in local task artifacts. No task-owned disposable review helper is retained.
 
 ## Adoption scope
 

@@ -38,14 +38,13 @@ await withArtReview('Combined Engine 0.4 editor acceptance',async({page,baseURL,
   await page.locator('#settings-button').click();await page.locator('#save-map').click();
   await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Saved in this browser'));
   const savedId=await page.locator('#saved-designs').inputValue();assert(savedId,'Browser save has no ID.');
-  await page.locator('#close-settings').click();
   const saved=await page.evaluate(()=>window.editor3d.export());
-  const downloaded=page.waitForEvent('download');await page.locator('#export').click();const download=await downloaded;
+  const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#export').click()]);
   const exported=path.join(out,'mixed-map-roundtrip.json');await download.saveAs(exported);assert(fs.readFileSync(exported,'utf8')===saved,'Export bytes changed.');
-  const chooser=page.waitForEvent('filechooser');await page.locator('#import').click();await(await chooser).setFiles(exported);
+  const [chooser]=await Promise.all([page.waitForEvent('filechooser'),page.locator('label.file').click()]);await chooser.setFiles(exported);
   await page.waitForFunction(()=>!window.editor3d.loading&&window.editor3d.document.map.buildingPrefabs?.instances.length===6&&window.editor3d.document.map.wallRuns?.segments.length===1);
   assert(await page.evaluate(()=>window.editor3d.export())===saved,'Import bytes changed.');
-  await page.locator('#settings-button').click();await page.locator('#saved-designs').selectOption(savedId);await page.locator('#load-map').click();
+  if(!await page.locator('#editor-settings').evaluate(el=>el.open))await page.locator('#settings-button').click();await page.locator('#saved-designs').selectOption(savedId);await page.locator('#load-map').click();
   await page.waitForFunction(()=>!window.editor3d.loading&&window.editor3d.document.libraryId);
   await page.locator('#close-settings').click();assert(await page.evaluate(()=>window.editor3d.export())===saved,'Browser save/reload changed references.');
   await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:82,y:72,span:155,preset:'0'});window.editor3d.scene.changed();});
