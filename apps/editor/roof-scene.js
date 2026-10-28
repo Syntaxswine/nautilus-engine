@@ -44,16 +44,47 @@ export class InspectionScene extends Legacy {
   constructor(...args) {super(...args);this.slopedRoofs=new RoofLayer(this.scene);this.roofPreview=new RoofLayer(this.scene,{preview:true});this.roofLoader=new T.TextureLoader();}
   prepareRoofs() {
     if(this.roofDisposed)return Promise.resolve();
-    if(!this.roofPaintReady)this.roofPaintReady=new Promise((resolve,reject)=>{
-      this.roofTexture=this.roofLoader.load(prefabFileURL('assets/buildings/painted-materials-v2.png'),texture=>{
-        if(this.roofDisposed){this.disposeRoofTexture(texture);resolve();return;}
-        texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());
-        this.slopedRoofs.setAtlas(texture);this.roofPreview.setAtlas(texture);this.changed();resolve();
-      },undefined,()=>reject(Error('The shared painted roof atlas could not load.')));
-    });
-    return this.roofPaintReady;
+    if(this.roofPaintReady)return this.roofPaintReady;
+    const attempt={state:'pending',texture:null};
+    const ready=new Promise((resolve,reject)=>{attempt.resolve=resolve;attempt.reject=reject;});
+    this.roofPaintAttempt=attempt;this.roofPaintReady=ready;
+    const fail=cause=>{
+      if(attempt.state!=='pending')return;
+      attempt.state='failed';this.disposeRoofTexture(attempt.texture);
+      const error=Error('The shared painted roof atlas could not load.',{cause});
+      if(this.roofPaintAttempt===attempt) {
+        this.roofPaintAttempt=null;this.roofPaintReady=null;this.roofTexture=null;
+        if(!this.roofDisposed&&!this.roofPaintError) {
+          this.roofPaintError=error;this.roofPaintDiagnostic='Sloped roofs: '+error.message;
+          this.diagnostics.push(this.roofPaintDiagnostic);this.changed();
+        }
+      }
+      attempt.reject(error);
+    };
+    try {
+      const texture=this.roofLoader.load(prefabFileURL('assets/buildings/painted-materials-v2.png'),texture=>{
+        if(attempt.state!=='pending'||this.roofDisposed||this.roofPaintAttempt!==attempt) {
+          if(attempt.state!=='ready'||texture!==attempt.texture)this.disposeRoofTexture(texture);
+          return;
+        }
+        attempt.texture=texture;
+        try {
+          texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());
+          this.slopedRoofs.setAtlas(texture);this.roofPreview.setAtlas(texture);
+        }catch(error){fail(error);return;}
+        attempt.state='ready';this.roofTexture=texture;
+        const diagnostic=this.diagnostics.indexOf(this.roofPaintDiagnostic);
+        if(diagnostic!==-1)this.diagnostics.splice(diagnostic,1);
+        this.roofPaintError=null;this.roofPaintDiagnostic=null;attempt.resolve();this.changed();
+      },undefined,fail);
+      attempt.texture??=texture;
+      // A loader may complete synchronously before returning its owned texture.
+      if(!this.roofDisposed&&this.roofPaintAttempt===attempt)this.roofTexture=attempt.texture;
+      else this.disposeRoofTexture(texture);
+    }catch(error){fail(error);}
+    return ready;
   }
-  loadRoofPaint() {this.prepareRoofs().catch(error=>{if(!this.roofDisposed&&!this.roofPaintError){this.roofPaintError=error;this.diagnostics.push('Sloped roofs: '+error.message);this.changed();}});}
+  loadRoofPaint() {return this.prepareRoofs().catch(()=>{});}
   rebuild() {super.rebuild();if(this.document){this.slopedRoofs?.update(this.document,this.options);if(this.slopedRoofs&&roofsOf(this.document.map).length)this.loadRoofPaint();}}
   async open(document) {if(roofsOf(document.map).length)await this.prepareRoofs();await super.open(document);this.slopedRoofs.update(document,this.options);}
   async update(document) {if(roofsOf(document.map).length)await this.prepareRoofs();await super.update(document);this.slopedRoofs.update(document,this.options);}
@@ -69,6 +100,14 @@ export class InspectionScene extends Legacy {
     const box=new T.BoxGeometry(size.x,size.y,size.z),edges=new T.EdgesGeometry(box);box.dispose();edges.translate(center.x,center.y,center.z);
     this.highlight.geometry.dispose();this.highlight.geometry=edges;this.highlight.material.color.setHex(0xffe5a5);this.changed();
   }
-  disposeRoofTexture(texture=this.roofTexture) {if(texture&&!this.roofTextureDisposed){this.roofTextureDisposed=true;texture.dispose();}}
-  dispose() {if(this.roofDisposed)return;this.roofDisposed=true;this.slopedRoofs.dispose();this.roofPreview.dispose();this.disposeRoofTexture();super.dispose();}
+  disposeRoofTexture(texture=this.roofTexture) {
+    if(!texture)return;this.roofDisposedTextures??=new WeakSet();
+    if(!this.roofDisposedTextures.has(texture)){this.roofDisposedTextures.add(texture);texture.dispose();}
+  }
+  dispose() {
+    if(this.roofDisposed)return;this.roofDisposed=true;
+    const attempt=this.roofPaintAttempt;
+    if(attempt?.state==='pending'){attempt.state='disposed';attempt.resolve();}
+    this.roofPaintAttempt=null;this.slopedRoofs.dispose();this.roofPreview.dispose();this.disposeRoofTexture();super.dispose();
+  }
 }
