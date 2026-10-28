@@ -52,6 +52,7 @@ function ruleClosure(file) {
   }
 }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
+ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
 await import('../packages/rules-core/index.js');
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
 if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw Error('Rules example failed.');
