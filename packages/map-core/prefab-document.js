@@ -1,4 +1,4 @@
-import {EditingDocument as Legacy} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-controller.js';
+import {EditingDocument as Legacy} from './document.js';
 import {validateMap} from './prefab-maps.js';
 import {validateBlock,extractBlock,placeBlock} from './prefab-blocks.js';
 import {prefabErrors,placeBuilding,removeBuilding,buildingAt,buildingCells,generateBuildingLayout} from '../prefab-core/index.js';

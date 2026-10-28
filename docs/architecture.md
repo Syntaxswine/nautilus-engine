@@ -5,6 +5,7 @@
 | Path | Responsibility |
 | --- | --- |
 | `packages/map-core/` | Headless public API and portable example content |
+| `packages/render-effects/` | Optional standard-depth WebGL2 effects and the shared Three entry; game eligibility stays outside |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
@@ -21,19 +22,25 @@ Game working copies remain independent. No runtime URL points to a sibling check
 
 Design selection follows [accuracy, efficiency and narrative](design-evaluation.md). Reviews must recommend a preferred design for the named game or use case, with reasons and evidence. Shared interfaces can support different simulation detail; [the initial recommendations](reviews/2026-10-28-design-tradeoffs.md) distinguish general percentage attacks, dramatic AFT shot outcomes, detailed Tinderbox fire and cheaper tactical policies.
 
+## Optional rendering effects
+
+The [contour effect contract](render-effects.md) exposes the reviewed Farmyard golden halo with standard and wide profiles. Its separately pinned source is reference evidence; the engine extraction uses the existing Three instance and has no gameplay imports. It does not enable itself in the map workshop or donor games.
+
 ## Character and rules API
 
 The [rules contract](rules.md) defines the portable character schema and the boundaries between derived stats, checks, combat decisions, confirmed impacts and consumer scheduling. The [three-game comparison](reviews/2026-10-28-rules-foundation.md) records why each design was selected. Rule modules run without a DOM, renderer, storage or internal clock. They reuse pinned algorithms and return copied state/events; consumers own commit/persistence and world geometry.
 
 ## Public map API
 
-`createMapDocument(name)` and `createBlockDocument(name)` create independent documents. `openDocument(objectOrJSON)` opens the existing portable map or block format. `MapDocument` exposes the inherited editing controller. Its key methods are `preview(command)`, `apply(command)`, `undo()`, `redo()`, `rename(name)`, `replace(map)`, `validate()` and `export()`.
+`createMapDocument(name)` and `createBlockDocument(name)` create independent documents. `openDocument(objectOrJSON)` opens the existing portable map or block format. `MapDocument` wraps the inherited editing controller. Its key methods are `preview(command)`, `apply(command)`, `undo()`, `redo()`, `rename(name)`, `replace(map)`, `validate()` and `export()`.
 
 Preview returns a candidate without committing it. Apply commits only accepted commands. Rejected edits leave the blueprint and undo history intact. Validation checks map geometry and reachability; authoring can temporarily disconnect areas until the design is ready to export for gameplay. Import validates before opening a replacement document.
 
 `generateConnectedMap(designs, seed, plan)` builds from a supplied block library without changing that library. `emptyFeaturePlan`, `seededFeaturePlan`, connection inspection/matching, map/block parsing and validation are also exported. Seeded generation remains bounded, validates its assembled result and reports missing continuations or crossing blocks.
 
 `MAP_CONTRACT` records the inherited dimensions. Ground map coordinates use integer-centred metre positions `(x,y)` with a layer index `z`; the Three.js scene uses `(x,height,y)`. The inherited rendering and tactical floor intervals differ and remain in the pinned conversion helpers. Do not equate layer index with metres or rescale collision separately from visuals.
+
+[Angled wall runs](wall-runs.md) extend this boundary with measured ground endpoints and an explicit consumer capability. They retain native panel dimensions and survive map/block editing, capture, placement, rotation and connected generation. The [design assessment](reviews/2026-10-28-angled-walls.md) explains the choice and its limits.
 
 ## Browser and game-host boundary
 

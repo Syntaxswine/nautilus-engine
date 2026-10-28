@@ -1,5 +1,5 @@
 import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
-import {InspectionScene as OriginalScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
+import {InspectionScene as OriginalScene} from './wall-scene.js';
 import {loadGrossHousing,createGrossHouse} from '../../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
 import {buildingTransform,buildingAsset} from '../../packages/prefab-core/index.js';
 import {batchPrefab} from './prefab-batches.js';

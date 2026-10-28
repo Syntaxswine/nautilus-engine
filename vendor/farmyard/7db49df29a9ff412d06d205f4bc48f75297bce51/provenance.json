@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "donor": "farmyard",
+  "repository": "https://github.com/Syntaxswine/farmyard-commando",
+  "commit": "7db49df29a9ff412d06d205f4bc48f75297bce51",
+  "sourcePrefix": "sites/tactical-animal/",
+  "files": [
+    {
+      "path": "sites/tactical-animal/dist/search-halo.js",
+      "sha256": "cb901e2b6fee8fec75252aa1135dd4e21edbe6348d6cbe5171767ba2b7a06d6b",
+      "bytes": 11005,
+      "role": "reference"
+    },
+    {
+      "path": "sites/tactical-animal/search-halo-porting.md",
+      "sha256": "d3137ffd85814775159804b4d5effacf675f519d6468e7af65aac2d823dd810a",
+      "bytes": 3615,
+      "role": "reference"
+    },
+    {
+      "path": "sites/tactical-animal/tests/search-halo.test.mjs",
+      "sha256": "ca267871d2d893dde2002fab845e5363471b7d19cbede550b1c3d64194a6dece",
+      "bytes": 9107,
+      "role": "reference"
+    }
+  ],
+  "runtimeEntry": "packages/render-effects/search-halo.js",
+  "dependencyResolutions": [
+    {
+      "sourcePath": "sites/tactical-animal/dist/aft/tactics/vendor/three.module.js",
+      "role": "runtime",
+      "resolution": "reuse-existing-engine-file",
+      "engineDonor": "aft",
+      "engineCommit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "sourceSha256": "96cc39e18fde90e5a3896252775a71e8f3d3e946da0035ee27f3ecce09c60e8c",
+      "sourceBytes": 621667,
+      "engineSha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+      "engineBytes": 603412,
+      "comparison": "identical-after-crlf-to-lf",
+      "normalizedLfSha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+      "normalization": "CRLF -> LF for comparison only; original donor and engine bytes remain unchanged."
+    },
+    {
+      "sourcePath": "sites/tactical-animal/dist/aft/tactics/vendor/three.core.js",
+      "role": "runtime",
+      "resolution": "reuse-existing-engine-file",
+      "engineDonor": "aft",
+      "engineCommit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "sourceSha256": "496aa42d1d47b9a40d16eab2864177cb94368a165a7c3e79345c43ad0109e093",
+      "sourceBytes": 1462227,
+      "engineSha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+      "engineBytes": 1403454,
+      "comparison": "identical-after-crlf-to-lf",
+      "normalizedLfSha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+      "normalization": "CRLF -> LF for comparison only; original donor and engine bytes remain unchanged."
+    },
+    {
+      "sourcePath": "sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt",
+      "role": "license",
+      "resolution": "reuse-existing-engine-file",
+      "engineDonor": "aft",
+      "engineCommit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/THREE-LICENSE.txt",
+      "sourceSha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05",
+      "sourceBytes": 1102,
+      "engineSha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "engineBytes": 1081,
+      "comparison": "identical-after-crlf-to-lf",
+      "normalizedLfSha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "normalization": "CRLF -> LF for comparison only; original donor and engine bytes remain unchanged."
+    },
+    {
+      "sourceImport": "./solo-game.js",
+      "sourcePath": "sites/tactical-animal/dist/solo-game.js",
+      "role": "game-policy",
+      "resolution": "excluded-by-renderer-extraction",
+      "reason": "Nautilus extracts SearchHalo and local shaders only; Farmyard selection/knowledge exports and their game imports are archived reference evidence, never engine runtime dependencies."
+    },
+    {
+      "sourceImport": "./world-grid.js",
+      "sourcePath": "sites/tactical-animal/dist/world-grid.js",
+      "role": "game-policy",
+      "resolution": "excluded-by-renderer-extraction",
+      "reason": "Nautilus extracts SearchHalo and local shaders only; Farmyard selection/knowledge exports and their game imports are archived reference evidence, never engine runtime dependencies."
+    }
+  ],
+  "adaptations": [
+    "None in vendor: the three reference files preserve the exact Git blob bytes.",
+    "The engine-owned runtime extracts SearchHalo, its shader strings and actuallyVisible; it replaces the Three import with the single existing AFT-pinned engine instance.",
+    "SEARCH_HALO_LIMIT, searchHaloCandidates, searchHaloTarget, solo-game.js and world-grid.js remain game-owned policy; archived donor tests and guide are not executed or shipped as modules."
+  ],
+  "rightsStatus": "Original embedded notices retained; the reused Three MIT notice remains at its recorded enginePath. Source provenance does not add a license grant."
+}
