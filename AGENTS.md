@@ -6,6 +6,8 @@ For every material difference between donor designs, follow `docs/design-evaluat
 
 Treat all three donor repositories and worker checkouts as read-only. Read `docs/architecture.md` and `upstream.json`. Never import uncommitted files or a moving worker branch. Use full reviewed commits, preserve source hashes and notices, and keep original upstream bytes in `vendor/` distinct from Nautilus adapters. The importer reads Git objects; it must not change donor worktrees. New imports need a deliberate pin, dependency closure, meaningful checks and visual review.
 
+For visual assets, sculpts, skins and painterly textures, follow `docs/art-workflow.md`. Develop and preserve the higher-detail sculpt before deriving the game mesh; paint against the actual model and review both close detail and gameplay-size readability. Use the recorded AFT references for the finish, and preserve scale, attachment points and explicit consumer boundaries.
+
 `packages/map-core` and `packages/rules-core` must load in Node without DOM, storage or a renderer. Read `docs/rules.md` and its source review before changing character, skill or combat rules. Preserve explicit roll profiles, saved random streams, transactional costs and the distinction between a roll and a confirmed impact. Portable character loads must not normalize damage or refill resources. Keep cast, content, turns, clocks, inventory and world geometry behind consumer adapters.
 
 Preserve the inherited portable map/block formats. Editor storage is Nautilus-specific. A game adapter must reject unsupported map features explicitly rather than silently dropping geometry, actors or properties. Do not claim that a game is integrated just because its profile appears in the editor.
