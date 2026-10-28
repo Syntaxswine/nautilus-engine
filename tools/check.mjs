@@ -2,13 +2,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
+const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
 for (const donor of ['aft', 'farmyard']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));
   if (manifest.commit !== sources[donor].commit) throw Error('Source pin mismatch: ' + donor);
   for (const entry of manifest.files) {
+    if (tracked && !tracked.has(sources[donor].root + '/' + entry.path)) throw Error('Required upstream file is not tracked by Git: ' + entry.path);
     const file = path.resolve(folder, entry.path);
     if (!file.startsWith(folder + path.sep)) throw Error('Invalid manifest path.');
     const data = fs.readFileSync(file);
