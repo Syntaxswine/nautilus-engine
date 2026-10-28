@@ -7,6 +7,8 @@ const buildProvenanceSha256=createHash('sha256').update(fs.readFileSync(path.joi
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
 await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
   page.on('dialog',dialog=>dialog.accept());
+  await page.emulateMedia({reducedMotion:'reduce'});
+  const capture=async file=>{console.log('Capturing '+file);await page.screenshot({path:path.join(out,file),animations:'disabled',timeout:60000});};
   await page.setViewportSize({width:1280,height:900});
   await page.goto(baseURL+'/',{waitUntil:'networkidle'});
   await page.waitForFunction(()=>window.editor3d?.document&&!window.editor3d.loading&&!document.getElementById('nautilus-buildings').disabled);
@@ -26,7 +28,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await page.locator('#building-number').fill('6');
   await page.locator('#building-plan').click();
   await page.waitForFunction(()=>!document.getElementById('building-generate').disabled);
-  await page.screenshot({path:path.join(out,'layout-preview.png')});
+  await capture('layout-preview.png');
   await page.locator('#building-generate').click();
   await page.waitForFunction(()=>!document.getElementById('building-library').open&&!window.editor3d.loading&&window.editor3d.document.map.buildingPrefabs?.instances.length===6);
   const generated=await page.evaluate(()=>window.editor3d.export());
@@ -60,7 +62,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   const roofRejection=await page.evaluate(async()=>{const doc=window.editor3d.document,b=doc.map.buildingPrefabs.instances[0],before=doc.export(),history=doc.editor.undo.length,revision=doc.revision;const result=await window.editor3d.apply({tool:'sloped-roof',options:{exact:true,x:b.x+.5,y:b.y+.5,width:2,depth:2,eaves:1,style:'gable',axis:'x',direction:1,pitch:35,overhang:0,material:'slate',seed:42}});return {ok:result.ok,error:result.error,unchanged:doc.export()===before&&doc.editor.undo.length===history&&doc.revision===revision};});
   assert(!roofRejection.ok&&roofRejection.unchanged,'A roof overlapping a whole-building lot changed the map.');
   await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:190,y:84,span:78,preset:'0'});window.editor3d.scene.changed();});
-  await page.screenshot({path:path.join(out,'procedural-roofs.png')});
+  await capture('procedural-roofs.png');
   await page.locator('#settings-button').click();await page.locator('#save-map').click();
   await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Saved in this browser'));
   const savedId=await page.locator('#saved-designs').inputValue();assert(savedId,'Browser save has no ID.');
@@ -74,13 +76,13 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await page.waitForFunction(()=>!window.editor3d.loading&&window.editor3d.document.libraryId);
   await page.locator('#close-settings').click();assert(await page.evaluate(()=>window.editor3d.export())===saved,'Browser save/reload changed references.');
   await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:82,y:72,span:155,preset:'0'});window.editor3d.scene.changed();});
-  await page.screenshot({path:path.join(out,'editor-desktop.png')});
+  await capture('editor-desktop.png');
   await page.locator('#nautilus-buildings').click();await page.locator('#building-search').fill('Bramble');
   await page.locator('#building-results [data-asset="bramble-ranch"]').click();await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
-  await page.locator('#building-floor').selectOption('0');await page.screenshot({path:path.join(out,'original-interior.png')});
+  await page.locator('#building-floor').selectOption('0');await capture('original-interior.png');
   const originalDescription=await page.locator('#building-description').innerText();assert(!/\bfurnished\s+interiors?\b/i.test(originalDescription),'Original models incorrectly described as furnished.');
   await page.locator('#building-search').fill('Albany');await page.locator('#building-results [data-asset="albany-cottage"]').click();await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
-  await page.screenshot({path:path.join(out,'gross-preview.png')});await page.locator('#building-close').click();
+  await capture('gross-preview.png');await page.locator('#building-close').click();
   for(let i=0;i<2;i++){
     await page.locator('#nautilus-assets').click();await page.locator('#asset-search').fill('lathe');await page.locator('#asset-results button').first().click();await page.waitForFunction(()=>!document.getElementById('asset-use').disabled);await page.locator('#asset-close').click();
   }
@@ -89,7 +91,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await page.locator('#nautilus-buildings').click();await page.waitForFunction(()=>!document.getElementById('building-use').disabled);
   const modal=await page.locator('#building-library').evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,top:el.getBoundingClientRect().top,bottom:el.getBoundingClientRect().bottom}));
   assert(modal.left>=-1&&modal.right<=391&&modal.top>=-1&&modal.bottom<=845,'Mobile building modal is outside the viewport.');
-  await page.screenshot({path:path.join(out,'editor-mobile-library.png')});await page.locator('#building-close').click();
+  await capture('editor-mobile-library.png');await page.locator('#building-close').click();
   await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js'),manifest=core.engineManifest();manifest.id='acceptance-versioned-host';manifest.capabilities=manifest.capabilities.filter(feature=>feature.id!==core.ROOF_FEATURE);window.manifestHostCalls=0;window.manifestDisconnect=window.nautilus.connectGame({manifest,openMap(){window.manifestHostCalls++;}});});
   await page.locator('#settings-button').click();await page.locator('#playtest').click();
   await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('nautilus-sloped-roofs-v1'));
@@ -110,4 +112,4 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   const captures=fs.readdirSync(out).filter(n=>n.endsWith('.png')).map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')}));
   const record={sourceCommit,buildProvenanceSha256,host,versionedUnsupportedHostRejected:true,browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,schemaFiles,inventory,seededBuildings:6,proceduralRoofs:3,roofPreview:true,roofUndoRedo:true,roofRejection,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
   fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(record,null,2));console.log(JSON.stringify(record));
-},{owner,output:'engine-integration',timeoutMs:240000});
+},{owner,output:'engine-integration',timeoutMs:300000});

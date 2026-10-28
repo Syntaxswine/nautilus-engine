@@ -59,6 +59,10 @@ The combined browser review uses isolated Edge 156.0.4314.50 and software WebGL 
 
 Disposable review browsers and loopback servers closed through their owning APIs. Exact process lifetimes and released ports were verified; cleanup evidence is retained. No preview or background helper remains running for this intake.
 
+## Hosted tooling follow-up
+
+The initial GitHub runs exposed tooling differences after local acceptance: npm lived under the Linux Node prefix rather than beside the executable, and the separate Chromium headless shell timed out during the roof screenshot after the authoring assertions had passed. The package runner now resolves the active npm CLI plus both standard platform layouts. CI uses the documented [full Chromium headless channel](https://playwright.dev/docs/browsers#chromium-new-headless-mode); the workflow disables motion for deterministic images, bounds each capture to 60 seconds and closes the whole review after at most five minutes. These changes preserve all authoring assertions. The local rerun reproduced the same six image hashes. Engine/runtime payloads and the frozen implementation measurements above are unchanged; GitHub CI is the additional Linux acceptance gate.
+
 ## Design recommendation
 
 **Accuracy:** prefer plain data contracts at the shared boundary and native Tinderbox compilation for its bounded consumer profile. This preserves existing geometry/collision behavior without translating AFT combat or fire assumptions. True pitched planes preserve slope and silhouette more accurately than stepped slabs; they are still stylized architectural shells.

@@ -52,8 +52,11 @@ export function distribution(profile = 'compatibility') {
   return {exports, files, name: profile === 'compatibility' ? source.name : '@nautilus-engine/' + (profile === 'assets' ? 'building-assets' : profile)};
 }
 function npm(args, cwd) {
-  const npmCli = path.join(path.dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js');
-  if (!fs.existsSync(npmCli)) throw Error('Use a Node installation containing npm to create the offline distribution.');
+  const npmCli = [process.env.npm_execpath,
+    path.join(path.dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js'),
+    path.resolve(path.dirname(process.execPath), '../lib/node_modules/npm/bin/npm-cli.js')
+  ].find(file => file && path.basename(file) === 'npm-cli.js' && fs.existsSync(file));
+  if (!npmCli) throw Error('Run through npm, or use a Node installation containing npm, to create the offline distribution.');
   return execFileSync(process.execPath, [npmCli, ...args], {cwd, encoding:'utf8', windowsHide:true, maxBuffer:8*1024*1024});
 }
 export function packProfile(profile) {
