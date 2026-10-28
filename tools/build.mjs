@@ -58,6 +58,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
+fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
 fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));

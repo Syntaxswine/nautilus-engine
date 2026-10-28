@@ -91,3 +91,9 @@ test('plain-data persistence rejects fields JSON would omit and never invokes ge
  let invoked=false;const map=flat();map.metadata=Object.defineProperty({},'getter',{enumerable:true,get(){invoked=true;return 3;}});
  assert.throws(()=>createSave(map),/plain JSON/);assert.equal(invoked,false);
 });
+
+test('public schema URLs resolve every registered document and absolute cross-schema reference',async()=>{
+ const {schemaDocuments}=await import('../packages/map-core/index.js');const documents=schemaDocuments(),uris=new Set(documents.map(item=>item.uri));assert.equal(uris.size,documents.length);
+ function refs(value){if(!value||typeof value!=='object')return;for(const [key,child]of Object.entries(value)){if(key==='$ref'&&!child.startsWith('#'))assert.ok(uris.has(child),'Unregistered schema reference: '+child);else refs(child);}}
+ for(const entry of documents){const schema=JSON.parse(fs.readFileSync(new URL(entry.url),'utf8'));assert.equal(schema.$id,entry.uri);refs(schema);}
+});

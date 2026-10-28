@@ -125,19 +125,7 @@
       }
     },
     "slopedRoofs": {
-      "type": "object",
-      "required": [
-        "version",
-        "roofs"
-      ],
-      "properties": {
-        "version": {
-          "const": 1
-        },
-        "roofs": {
-          "type": "array"
-        }
-      }
+      "$ref": "urn:nautilus:schema:sloped-roofs:1"
     }
   },
   "additionalProperties": true,

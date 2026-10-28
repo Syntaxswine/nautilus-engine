@@ -75,6 +75,7 @@ export function testExternalPackage(profile='core') {
   try {
     fs.writeFileSync(path.join(consumer, 'package.json'), JSON.stringify({name:'nautilus-external-proof',private:true,type:'module'}));
     npm(['install', '--offline', '--ignore-scripts', '--package-lock=false', '--no-audit', '--no-fund', packed.file], consumer);
+    if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).tinderboxConformance.root;if(!/^tests\/fixtures\/consumers\/tinderbox\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'tinderbox-proof'),{recursive:true});}
     const test = profile==='assets' ? `import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {listBuildingAssets,buildingAssetURLs} from '@nautilus-engine/building-assets';
@@ -83,16 +84,24 @@ for(const asset of assets){const files=buildingAssetURLs(asset.id);const model=J
 assert.equal(model.asset.version,'2.0');assert.equal(new URL(model.buffers[0].uri,files.model).href,files.buffer);assert.equal(new URL(model.images[0].uri,files.model).href,files.atlas);
 for(const name of ['buffer','blueprint','atlas'])assert.ok(fs.statSync(new URL(files[name])).size>0);}
 console.log('Installed optional asset package: all 48 model, binary, blueprint and atlas URLs resolve.');` : `import assert from 'node:assert/strict';
-import {createMapDocument,createSave,parseSave,serializeSave,engineManifest} from '@nautilus-engine/core';
+import {createMapDocument,createSave,parseSave,serializeSave,engineManifest,schemaDocuments} from '@nautilus-engine/core';
 import {createTinderboxScene,saveTinderboxScene,loadTinderboxScene,exportNautilusMap} from '@nautilus-engine/core/adapters/tinderbox';
+import fs from 'node:fs';
+import {compileModules} from './tinderbox-proof/src/content/exterior-kit.js';
+import {createSimulation} from './tinderbox-proof/src/simulation/index.js';
+for(const schema of schemaDocuments())assert.equal(JSON.parse(fs.readFileSync(new URL(schema.url))).$id,schema.uri);
 const document=createMapDocument('External package proof');
 assert.equal(document.apply({tool:'floor',start:{x:10,y:10,z:0},end:{x:11,y:11,z:0}}).ok,true);
 assert.equal(document.undo(),true);assert.equal(document.redo(),true);
+assert.equal(document.apply({tool:'wall-run',start:{x:13,y:3,z:0},end:{x:13,y:10,z:0},options:{exact:true,stories:1,material:'brick'}}).ok,true);
 const map=JSON.parse(document.export()), save=parseSave(serializeSave(createSave(map)));
 assert.deepEqual(save.payload.data,map);assert.equal(engineManifest().contractVersion,1);
 const scene=createTinderboxScene(map,{region:{x:0,y:0,width:20,height:16},playerStart:0,markerPolicy:'select-player-preserve-markers',outsidePolicy:'require-unmodified-yard',seed:1947});
 assert.deepEqual(exportNautilusMap(loadTinderboxScene(saveTinderboxScene(scene))),map);
-assert.equal(typeof globalThis.window,'undefined');console.log('Installed external package: authoring, saves, manifests and Tinderbox adapter pass.');`;
+const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compileModules(scene.scenario.modules,scene.scenario).obstacles.length,1);
+function replay(project){const sim=createSimulation({scenario:project.scenario,seed:project.policy.seed,config:{input:{cameraRelative:false}}});try{sim.dispatch({type:'move',x:1,y:0});let state;for(let tick=0;tick<300;tick++)state=sim.advance(1/60);return state;}finally{sim.dispose();}}
+const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
+assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
     fs.writeFileSync(path.join(consumer,'proof.mjs'), test);
     const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
     return {...packed, proof:output.trim()};

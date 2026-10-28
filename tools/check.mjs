@@ -71,3 +71,13 @@ await import('./check-building-catalog.mjs');
 checkSharedAssets();
 
 if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
+
+const conformance = sources.tinderboxConformance, conformanceRoot = path.resolve(root, conformance.root);
+const conformanceManifest = JSON.parse(fs.readFileSync(path.join(conformanceRoot,'provenance.json')));
+if(conformanceManifest.commit!==conformance.commit)throw Error('Tinderbox conformance pin mismatch.');
+for(const entry of conformanceManifest.files){
+ const file=path.resolve(conformanceRoot,entry.path), relative=(conformance.root+'/'+entry.path);
+ if(!file.startsWith(conformanceRoot+path.sep))throw Error('Invalid conformance fixture path.');
+ const bytes=fs.readFileSync(file);if(bytes.length!==entry.bytes||createHash('sha256').update(bytes).digest('hex')!==entry.sha256)throw Error('Conformance source bytes changed: '+relative);
+ if(tracked){if(!tracked.has(relative))throw Error('Untracked conformance source: '+relative);const indexed=execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',':'+relative],{windowsHide:true});if(createHash('sha256').update(indexed).digest('hex')!==entry.sha256)throw Error('Git would alter conformance source bytes: '+relative);}
+}
