@@ -1,13 +1,16 @@
 import fs from 'node:fs';
+import {checkSearchHalo} from './check-search-halo.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import {checkEditorAssets} from './editor-assets.mjs';
+import {prefabCatalogueSource} from './prefab-catalog.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
 const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
-for (const donor of ['aft', 'farmyard']) {
+for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));
   if (manifest.commit !== sources[donor].commit) throw Error('Source pin mismatch: ' + donor);
   for (const entry of manifest.files) {
@@ -25,7 +28,10 @@ for (const donor of ['aft', 'farmyard']) {
     count++; size += entry.bytes;
   }
 }
+const haloEvidence = checkSearchHalo(root, sources, tracked);
 const core = await import('../packages/map-core/index.js');
+const editorAssets = checkEditorAssets(root,sources,tracked);
+if(fs.readFileSync(path.join(root,'packages/prefab-core/catalogue.js'),'utf8')!==prefabCatalogueSource())throw Error('Building registry differs from the pinned native geometry and source plans.');
 if (globalThis.document || globalThis.window) throw Error('Run checks in a headless Node environment.');
 const demo = (await import('../packages/map-core/example.js')).exampleYard();
 const errors = core.validateMap(demo); if (errors.length) throw Error('Example map: ' + errors.join(' '));
@@ -55,4 +61,5 @@ await import('../packages/rules-core/index.js');
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
 if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw Error('Rules example failed.');
 if (core.ENGINE_VERSION !== JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version) throw Error('Engine version mismatch.');
-console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, headless map/rules APIs, examples and rules-source evidence.');
+console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, '+editorAssets.length+' editor assets, headless map/rules APIs, examples, rules-source evidence and '+haloEvidence.referenceFiles+' halo reference files / '+haloEvidence.runtimeModules+' shared rendering modules.');
+await import('./check-building-catalog.mjs');

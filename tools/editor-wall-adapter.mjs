@@ -4,7 +4,7 @@ export function adaptWallEditor(file, text, once) {
   if (file.endsWith('/editor-3d.js')) {
     text = once(text, "from './editor-3d-controller.js'", `from '${core}document.js'`, 'Nautilus wall document');
     text = once(text, "from './editor-3d-scene.js'", `from '${app}wall-scene.js'`, 'Nautilus wall scene');
-    text = text.replaceAll('${documentModel.map.props.length} objects', '${documentModel.map.props.length} objects · ${documentModel.map.wallRuns?.segments.length||0} wall runs');
+    for (const model of ['next', 'documentModel']) text = once(text, '${' + model + '.map.props.length} objects', '${' + model + '.map.props.length} objects · ${' + model + '.map.wallRuns?.segments.length||0} wall runs', model + ' wall count');
   }
   if (file.endsWith('/editor-3d-library.js')) {
     text = once(text, "from './core/blocks.js'", `from '${core}blocks.js'`, 'wall-aware block library');
@@ -28,6 +28,18 @@ export function adaptWallEditor(file, text, once) {
     text = once(text, 'z:s.z,edge:s.edge},options:{}', 'z:s.z,edge:s.edge,id:s.data?.id},options:{}', 'selected wall identity');
     text = once(text, "const s=getSelection();if(s?.type==='tile'", "const s=getSelection();if(s?.type==='wall-run'){wallTools.useSelected();return;}if(s?.type==='tile'", 'copy selected wall settings');
     text = once(text, 'function sync(){const d=getDocument();if(!d)return;', 'function sync(){const d=getDocument();if(!d)return;wallTools.sync();', 'wall history and workspace refresh');
+    text = once(text,
+      "$('playtest').onclick=()=>{try{if(busy||isLoading())return status('Wait for the current operation to finish.');if(getDocument().block)return status('Place the block in a full map to playtest.');if(validate().length)return;launchPlaytest(getDocument().export());status('Playtest opened. Your blueprint and undo history stay here.');}catch(e){status(e.message);}};",
+      `$('playtest').onclick=async()=>{
+        if(busy||isLoading())return status('Wait for the current operation to finish.');
+        try {
+          if(getDocument().block)return status('Place the block in a full map to send it to a game.');
+          if(validate().length)return;
+          busy=true;status('Sending map to the connected game…');
+          await launchPlaytest(getDocument().export());
+          status('Map sent to the connected game. Your blueprint and undo history stay here.');
+        } catch(e) {status(e.message);} finally {busy=false;}
+      };`, 'await game handoff result');
   }
   return text;
 }

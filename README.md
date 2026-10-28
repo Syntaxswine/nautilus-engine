@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.2 provides a standalone 3D map workshop, a headless map-authoring package and shared character/skill/combat rules.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.3 provides a standalone 3D map workshop with optional measured wall runs, headless map/rules packages and an optional golden contour effect.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -47,6 +47,19 @@ The package runs in Node without a DOM, renderer or browser storage. See [the ar
 See [the rules contract and examples](docs/rules.md) and [the comparison of all three games](docs/reviews/2026-10-28-rules-foundation.md). Rolls, world impacts and game scheduling have explicit boundaries. No game has switched to Nautilus rules automatically.
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
+
+## Angled wall authoring
+
+The existing square-wall tool is joined by measured native-scale wall runs: exact or snapped endpoints, one-to-five stories, transactional edits and portable map/block transforms. [The wall-run contract](docs/wall-runs.md) explains the optional `nautilus-wall-runs-v1` host capability and unsupported generated seam continuations. Consumer movement, LOS, projectiles and fire remain adapter responsibilities.
+
+## Optional contour effect
+
+`./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.
+## Original building library
+
+The art collection adds **48 original buildings**, 77 floors, 409 described rooms and 16 painterly materials. It spans homes, schools, chapels, shops, factories, a depot, barns and utility buildings. Public developer plans and historic measured drawings informed newly authored designs. Detailed source recipes are preserved alongside simplified glTF meshes, room/opening data and a searchable 3D review gallery.
+
+Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
 
 ## Compatibility boundaries
 

@@ -1,5 +1,5 @@
-// AFT 781246a editor-3d-generator.js, adapted only at its dependency boundary:
-// Nautilus blocks retain wall runs; spawn and validation see oriented walls.
+// AFT 781246a editor-3d-generator.js seeded solver, retained in this adaptation.
+// Nautilus adds wall-aware dependencies, catalog/seam checks, assembly and spawn validation.
 import {validateFeaturePlan, fitsFeaturePlan, requiredConnections} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js';
 import {blankMap, validateMap, passable, blockedEdge, levelOf} from './maps.js';
 import {validateBlock, openBlock, applyData} from './blocks.js';

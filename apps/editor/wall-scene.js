@@ -1,7 +1,7 @@
-import {InspectionScene as LegacyScene} from '../__AFT__/dist/tactics/editor-3d-scene.js';
-import * as T from '../__AFT__/dist/tactics/vendor/three.module.js';
-import {surfacePixels} from '../__AFT__/dist/tactics/hybrid-materials.js';
-import {wallRunsOf, wallPanels, WALL_KIT} from '../packages/map-core/wall-runs.js';
+import {InspectionScene as LegacyScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
+import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {surfacePixels} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-materials.js';
+import {wallRunsOf, wallPanels, WALL_KIT} from '../../packages/map-core/wall-runs.js';
 
 export class InspectionScene extends LegacyScene {
   constructor(...args) {
@@ -10,7 +10,7 @@ export class InspectionScene extends LegacyScene {
   }
   wallMaterial(kind, z) {
     if (!this.wallMaterials.has(kind)) {
-      const p = surfacePixels(kind === 'wood' ? 'wood' : 'wall-' + kind), map = new T.DataTexture(p.data,p.width,p.height);map.colorSpace = T.SRGBColorSpace;map.wrapS = map.wrapT = T.RepeatWrapping;map.needsUpdate = true;
+      const p = surfacePixels(kind), map = new T.DataTexture(p.data,p.width,p.height);map.colorSpace = T.SRGBColorSpace;map.wrapS = map.wrapT = T.RepeatWrapping;map.needsUpdate = true;
       this.wallMaterials.set(kind,new T.MeshStandardMaterial({map,roughness:1}));
     }
     return this.dim(this.wallMaterials.get(kind),z);
@@ -18,10 +18,10 @@ export class InspectionScene extends LegacyScene {
   rebuild() {super.rebuild();if (this.wallGroup && this.document) this.rebuildWalls();}
   rebuildWalls() {
     for (const mesh of this.wallGroup.children) if (mesh.isInstancedMesh) mesh.dispose();this.wallGroup.clear();
-    const groups = new Map(), matrix = new T.Matrix4(), position = new T.Vector3(), rotation = new T.Quaternion(), scale = new T.Vector3(1,1,1);
+    const groups = new Map(), usedGeometry = new Set(), matrix = new T.Matrix4(), position = new T.Vector3(), rotation = new T.Quaternion(), scale = new T.Vector3(1,1,1);
     if (this.options.walls) for (const run of wallRunsOf(this.document.map)) for (const panel of wallPanels(run)) {
       if (panel.z > this.visibleLevel) continue;
-      const width = panel.size[0], geometryKey = width.toFixed(6);
+      const width = panel.size[0], geometryKey = width.toFixed(6);usedGeometry.add(geometryKey);
       if (!this.wallGeometries.has(geometryKey)) {
         const geometry = new T.BoxGeometry(width,WALL_KIT.height,WALL_KIT.thickness), uv = geometry.attributes.uv;
         // One texture repeat per metre on every face, including cut ends.
@@ -33,12 +33,14 @@ export class InspectionScene extends LegacyScene {
       matrix.compose(position.fromArray(panel.center),rotation.setFromAxisAngle(new T.Vector3(0,1,0),panel.yaw),scale);groups.get(key).matrices.push(matrix.clone());
     }
     for(const {geometry,material,matrices}of groups.values()){const mesh=new T.InstancedMesh(geometry,material,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();this.wallGroup.add(mesh);}
+    // Old instances are gone; retain only geometry used by the current view.
+    for(const [key,geometry]of this.wallGeometries)if(!usedGeometry.has(key)){geometry.dispose();this.wallGeometries.delete(key);}
     if(this.wallDrawing && this.options.walls) {
       const seen=new Set();for(const run of wallRunsOf(this.document.map))if(run.z<=this.options.level&&run.z+run.stories>this.options.level)for(const [x,y]of [run.a,run.b]){const key=x+','+y;if(seen.has(key))continue;seen.add(key);const ring=new T.Mesh(this.anchorGeometry,this.anchorMaterial);ring.rotation.x=-Math.PI/2;ring.position.set(x,this.options.level*WALL_KIT.floorSpacing+.06,y);ring.renderOrder=24;this.wallGroup.add(ring);}
     }
     this.changed();
   }
-  setWallDrawing(active) {this.wallDrawing=active;if(this.document)this.rebuildWalls();}
+  setWallDrawing(active) {if(this.wallDrawing===active)return;this.wallDrawing=active;if(this.document)this.rebuildWalls();}
   outlineWall(run, preview=false) {
     const points=[],a=run.a,b=run.b,z=preview?run.z:Math.max(run.z,this.options.level),bottom=z*WALL_KIT.floorSpacing+.05,top=(run.z+run.stories-1)*WALL_KIT.floorSpacing+WALL_KIT.height;
     const line=(x,y)=>points.push(new T.Vector3(...x),new T.Vector3(...y));

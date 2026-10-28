@@ -4,6 +4,11 @@ import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
 import {adaptWallEditor} from './editor-wall-adapter.mjs';
+import {editorAssets} from '../apps/editor/asset-catalog.js';
+import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
+import {BUILDING_ASSETS,PREFAB_CATALOGUE} from '../packages/prefab-core/index.js';
+import {verifyBuild} from './verify-build.mjs';
+import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw Error('Invalid build directory.');
@@ -23,7 +28,7 @@ const storage = [
   ['animal-factory-maps','nautilus-engine-maps']
 ];
 function once(text, needle, replacement, label) {if (!text.includes(needle)) throw Error('Upstream changed: ' + label);return text.replace(needle, replacement);}
-for (const donor of ['aft', 'farmyard']) {
+for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = sources[donor].root, manifest = JSON.parse(fs.readFileSync(path.join(root, folder, 'provenance.json')));
   for (const entry of manifest.files) {
     if (entry.path.startsWith('tests/')) continue;
@@ -36,9 +41,15 @@ for (const donor of ['aft', 'farmyard']) {
         text = once(text, 'Playtest ↗', 'Send to game', 'game handoff button');
         text = once(text, "$('playtest').disabled=!!d.block", "$('playtest').disabled=!!d.block||!window.nautilus?.hasGameAdapter", 'game handoff availability');
       }
-      if (donor === 'aft' && entry.path.endsWith('/editor-workbench.js')) text = once(text, '▶ Playtest', 'Send to game', 'workbench handoff button');
+      if (donor === 'aft' && entry.path.endsWith('/editor-workbench.js')) {
+        text = once(text, '▶ Playtest', 'Send to game', 'workbench handoff button');
+        text = once(text, "import {tilePreview} from './editor-tool-previews.js';", "import {terrainSwatch} from '../../../../../app/asset-swatches.js';", 'shared terrain swatch adapter');
+        text = once(text, "const img=new Image();img.src=tilePreview(item.id);img.alt='';", "const img=terrainSwatch(item.id);", 'atlas-backed biome swatches');
+      }
+      if (donor === 'aft' && entry.path.endsWith('/factory-machine-paint.js')) text = once(text, "'../assets/environment/factory-machines/'", "new URL('../../../../../" + sources.aftAssets.root + "/dist/assets/environment/factory-machines/',import.meta.url).href", 'supplemental factory machine paint');
       if (donor === 'aft' && entry.path.endsWith('/editor-3d.js')) text = once(text, "await open(JSON.stringify(blankMap('New design')));return;", "const response=await fetch('./nautilus-example.json');if(!response.ok)throw Error('Example yard could not load.');await open(await response.text());return;", 'opening example');
       if (donor === 'aft') text = adaptWallEditor(entry.path, text, once);
+      if (donor === 'aft') text = adaptEditorPrefabs(entry.path,text,once);
       data = Buffer.from(text);
     }
     if (!data.equals(source)) patches.push({path:folder + '/' + entry.path, sourceSha256:entry.sha256, builtSha256:createHash('sha256').update(data).digest('hex')});
@@ -48,6 +59,13 @@ for (const donor of ['aft', 'farmyard']) {
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
+fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
+const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
+write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
+const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
+fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
+fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});
+write('buildings/references.json', fs.readFileSync(path.join(root, 'art/buildings/reference-register.json')));
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
@@ -57,10 +75,17 @@ let html = fs.readFileSync(path.join(root, base, 'editor-3d.html'), 'utf8');
 html = once(html, '<head>', '<head><base href="./' + base + '">', 'document base');
 html = html.replace(/<title>.*?<\/title>/, '<title>Nautilus Engine · Map Workshop</title>');
 html = html.replace(/<header>[\s\S]*?<\/header>/, `<header class="nautilus-header"><a class="engine-brand" href="#" aria-label="Nautilus Engine"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M38 34C47 15 32 3 17 8S0 31 13 40c11 8 25-1 22-13-2-9-14-12-19-5-4 7 2 13 7 10 4-2 2-7-1-6"/><path class="shell-ribs" d="M32 10l-8 8M17 8l3 11M7 16l10 7M5 29l11-1M13 40l6-10M26 42l-3-11"/></svg><span><strong>Nautilus Engine</strong><small>MAP WORKSHOP</small></span></a><span class="engine-edition">Shared worlds. Individual games.</span><nav aria-label="Workshop actions"><button id="nautilus-example">Example yard</button><button id="nautilus-options" aria-controls="nautilus-properties" aria-expanded="false">Tool options</button><button id="nautilus-help">About & shortcuts</button><span class="engine-version">v${version}</span></nav></header>`);
-html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"></head>', 'Nautilus theme');
+html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"><script src="' + toRoot + 'app/runtime-errors.js"></script></head>', 'Nautilus theme and failure reporting');
 html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
 write('index.html', html);
+// Resolve through the inherited document base, just like the editor stylesheet.
+const editorIndex=fs.readFileSync(path.join(output,'index.html'),'utf8');
+write('index.html',editorIndex.replace('<nav aria-label="Workshop actions">','<nav aria-label="Workshop actions"><a href="'+toRoot+'buildings/index.html" style="color:#e6d9a2;margin-right:10px">Building library</a>'));
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
-for (const name of ['editor.js', 'editor.css', 'wall-tools.js', 'wall-scene.js']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist').replaceAll('__AFT__', sources.aft.root));
-write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Portable native-scale wall runs, measured wall tools, oriented preview and block preservation'], patches}, null, 2));
-console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches.');
+for (const name of fs.readdirSync(path.join(root, 'apps/editor')).filter(name => /\.(js|css)$/.test(name))) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('../../vendor/', '../vendor/').replaceAll('../../packages/', '../packages/').replaceAll('__AFT__', sources.aft.root).replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
+const assets = editorAssets();
+write('editor-assets.json', JSON.stringify({schemaVersion:1, sources:{aft:sources.aft.commit,farmyard:sources.farmyard.commit,aftAssets:sources.aftAssets.commit}, assets}, null, 2));
+write('building-prefabs.json',JSON.stringify({schemaVersion:1,catalogue:PREFAB_CATALOGUE,source:sources.tinderboxPrefabs,assets:BUILDING_ASSETS},null,2));
+write('build-provenance.json', JSON.stringify({engineVersion: version, sources, renderEffects, editorAssets:{catalog:'editor-assets.json',count:assets.length}, buildingPrefabs:{catalog:'building-prefabs.json',count:BUILDING_ASSETS.length}, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Portable native-scale wall runs, measured wall tools, oriented preview and block preservation','Optional reviewed golden contour effect and standalone example','Catalog-derived asset library with inspection-scene previews','Biome swatches sample the pinned ground atlas','Whole-building prefab references, native shared-renderer assemblies and deterministic lot placement'], patches}, null, 2));
+const modules=await verifyBuild(output,patches);
+console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches; '+modules+' module paths checked and own/adapted scripts syntax-checked.');
