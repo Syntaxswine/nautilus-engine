@@ -1,14 +1,20 @@
 // Portable, metre-based wall runs. No DOM, storage, renderer or game clock.
 export const WALL_RUN_FEATURE = 'nautilus-wall-runs-v1';
 export const WALL_KIT = Object.freeze({panel: 1, height: 2, thickness: .16, floorSpacing: 2.12, maxStories: 5});
-export const wallRunsOf = map => map.wallRuns?.segments || [];
+export function wallRunsOf(map) {
+  const data = map?.wallRuns;
+  if (data === undefined) return [];
+  if (!data || data.version !== 1 || !Array.isArray(data.segments)) throw Error('Expected wallRuns version 1 with a segments array.');
+  return data.segments;
+}
 const EPS = 1e-6, round = n => Math.round(n * 1e6) / 1e6;
-const pointOK = p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite);
+const pointOK = p => Array.isArray(p) && p.length === 2 && Number.isFinite(p[0]) && Number.isFinite(p[1]);
 export function wallRunErrors(map, size = map?.size || map?.width || 240) {
   if (!map || typeof map !== 'object') return ['Expected a map or block for wall-run validation.'];
   if (map.wallRuns === undefined) return [];
   const data = map.wallRuns, errors = [], ids = new Set(); let panels = 0;
   if (!data || data.version !== 1 || !Array.isArray(data.segments) || data.segments.length > 4096) return ['Expected wallRuns version 1 with at most 4096 segments.'];
+  if (!Number.isFinite(size) || size <= 0 || !Number.isInteger(map.levels) || map.levels < 3 || map.levels > 6) return ['Wall runs need a finite footprint and 3–6 declared layers.'];
   for (const run of data.segments) {
     if (!run || typeof run.id !== 'string' || !/^[\w:.-]{1,96}$/.test(run.id) || ids.has(run.id)) {errors.push('Wall runs need unique, portable IDs.'); continue;}
     ids.add(run.id);
@@ -38,9 +44,11 @@ export function wallPanels(run) {
 }
 export function snapWallPoint(point, {start, step = .5, angleStep = 45, anchors = [], endpointRadius = .3} = {}) {
   if (!Number.isFinite(point?.x) || !Number.isFinite(point?.y)) throw Error('Choose a finite wall endpoint.');
+  if (![0, .1, .25, .5, 1].includes(step) || ![0, 15, 45, 90].includes(angleStep)) throw Error('Unknown wall snap setting.');
+  if (start && (!Number.isFinite(start.x) || !Number.isFinite(start.y))) throw Error('Choose a finite wall start endpoint.');
+  if (!Number.isFinite(endpointRadius) || endpointRadius < 0 || !Array.isArray(anchors) || anchors.some(a => !pointOK(a))) throw Error('Wall endpoint snapping needs finite anchors and a nonnegative radius.');
   const anchor = anchors.filter(a => !start || Math.hypot(a[0] - start.x, a[1] - start.y) > EPS).map(a => ({a, d: Math.hypot(a[0] - point.x, a[1] - point.y)})).filter(p => p.d <= endpointRadius).sort((a, b) => a.d - b.d)[0];
   if (anchor) return {x: anchor.a[0], y: anchor.a[1], z: point.z || 0, snapped: 'endpoint'};
-  if (![0, .1, .25, .5, 1].includes(step) || ![0, 15, 45, 90].includes(angleStep)) throw Error('Unknown wall snap setting.');
   let x = step ? Math.round((point.x + .5) / step) * step - .5 : point.x, y = step ? Math.round((point.y + .5) / step) * step - .5 : point.y;
   if (start && angleStep) {
     const radians = Math.round(Math.atan2(y - start.y, x - start.x) / (angleStep * Math.PI / 180)) * angleStep * Math.PI / 180, ux = Math.cos(radians), uy = Math.sin(radians);
@@ -67,6 +75,8 @@ function intersectsBox(from, to, min, max) {
   }
   return true;
 }
+// A nonzero radius pads local rectangular slabs, including their corners and
+// height. It is conservative clearance, not an exact swept-disc actor solver.
 export function wallRunsIntersect(map, from, to, {radius = 0} = {}) {
   if (![from?.x, from?.y, from?.h, to?.x, to?.y, to?.h, radius].every(Number.isFinite) || radius < 0) throw Error('Wall intersection needs finite world-metre endpoints and a nonnegative radius.');
   return wallRunsOf(map).some(run => {
@@ -80,7 +90,11 @@ export function wallRunsBlockStep(map, a, b) {
   const world = p => ({x: p.x, y: p.y, h: (p.z || 0) * WALL_KIT.floorSpacing + .8});
   return wallRunsIntersect(map, world(a), world(b));
 }
-export const requiredMapFeatures = map => wallRunsOf(map).length ? [WALL_RUN_FEATURE] : [];
+export function requiredMapFeatures(map) {
+  const errors = wallRunErrors(map);
+  if (errors.length) throw Error(errors.join(' '));
+  return wallRunsOf(map).length ? [WALL_RUN_FEATURE] : [];
+}
 export function assertMapCapabilities(map, features = []) {
   const missing = requiredMapFeatures(map).filter(f => !Array.isArray(features) || !features.includes(f));
   if (missing.length) throw Error('Game adapter does not support ' + missing.join(', ') + '. Keep this blueprint in Nautilus or export it for an updated adapter.');
