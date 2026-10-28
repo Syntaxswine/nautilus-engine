@@ -1,5 +1,5 @@
-import {wallRunsOf, snapWallPoint, measureWallRun} from '../packages/map-core/wall-runs.js';
-import {angledBayExample} from '../packages/map-core/wall-example.js';
+import {wallRunsOf, snapWallPoint, measureWallRun} from '../../packages/map-core/wall-runs.js';
+import {angledBayExample} from '../../packages/map-core/wall-example.js';
 
 export function installWallTools({panel,getDocument,getSelection,apply,scene,status,open,isLoading}) {
   const $=id=>document.getElementById(id),box=document.createElement('section');box.id='wall-run-options';

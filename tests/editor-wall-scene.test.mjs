@@ -1,18 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-
-const root = new URL('../', import.meta.url);
-const {aft} = JSON.parse(await readFile(new URL('upstream.json', root), 'utf8'));
-// Expand the build's explicit aliases without constructing a DOM or renderer.
-const source = (await readFile(new URL('apps/editor/wall-scene.js', root), 'utf8')).replace(/from '([^']+)'/g, (_, specifier) => {
-  const relative = specifier.startsWith('../__AFT__/') ? aft.root + '/' + specifier.slice('../__AFT__/'.length) : specifier.startsWith('../packages/') ? specifier.slice(3) : null;
-  assert.ok(relative, 'Unreviewed scene import: ' + specifier);
-  return 'from ' + JSON.stringify(new URL(relative, root).href);
-});
-const {InspectionScene} = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
-const T = await import(new URL(aft.root + '/dist/tactics/vendor/three.module.js', root));
-const {surfacePixels} = await import(new URL(aft.root + '/dist/tactics/hybrid-materials.js', root));
+import {InspectionScene} from '../apps/editor/wall-scene.js';
+import * as T from '../packages/render-effects/three.js';
+import {surfacePixels} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-materials.js';
 const methods = InspectionScene.prototype;
 const release = scene => {
   for (const mesh of scene.wallGroup?.children || []) mesh.dispose();

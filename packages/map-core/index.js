@@ -5,7 +5,7 @@ import {blockCanvas, extractBlock, validateBlock} from './prefab-blocks.js';
 
 export {EditingDocument as MapDocument, blankMap, parseMap, validateMap, blockCanvas, extractBlock, validateBlock};
 export {generateConnectedMap} from './prefab-generator.js';
-export {assertMapCapabilities} from './prefab-maps.js';
+export {assertMapCapabilities,requiredMapFeatures} from './prefab-maps.js';
 export * from '../prefab-core/index.js';
 export * from './wall-runs.js';
 export {blockedEdge, neighbors} from './maps.js';

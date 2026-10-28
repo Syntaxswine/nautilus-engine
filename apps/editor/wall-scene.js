@@ -1,7 +1,7 @@
-import {InspectionScene as LegacyScene} from '../__AFT__/dist/tactics/editor-3d-scene.js';
-import * as T from '../__AFT__/dist/tactics/vendor/three.module.js';
-import {surfacePixels} from '../__AFT__/dist/tactics/hybrid-materials.js';
-import {wallRunsOf, wallPanels, WALL_KIT} from '../packages/map-core/wall-runs.js';
+import {InspectionScene as LegacyScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
+import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {surfacePixels} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-materials.js';
+import {wallRunsOf, wallPanels, WALL_KIT} from '../../packages/map-core/wall-runs.js';
 
 export class InspectionScene extends LegacyScene {
   constructor(...args) {
