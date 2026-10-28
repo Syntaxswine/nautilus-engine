@@ -1,4 +1,4 @@
-import {EditingDocument as LegacyDocument} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-controller.js';
+import {EditingDocument as LegacyDocument} from './editing-document.js';
 import {parseMap, validateMap} from './maps.js';
 import {extractBlock, validateBlock, placeBlock} from './blocks.js';
 import {wallRunErrors, wallRunsOf, snapWallPoint, measureWallRun, distanceToWall} from './wall-runs.js';
