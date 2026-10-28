@@ -9,8 +9,9 @@ import {roofLabel} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a56
 import {FOLIAGE_PRESETS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js';
 import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js';
 import {ANIMAL_MOTION_CATALOG} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js';
+import {WINDOW_BAYS} from '../../packages/window-kit/index.js';
 
-export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
+export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'Windows', 'People', 'Foliage', 'Cliffs', 'Ramps'];
 const readable = id => id.replaceAll('-', ' ').replace(/^./, c => c.toUpperCase());
 const label = (id, name) => name && name !== id ? name : readable(id);
 
@@ -35,6 +36,9 @@ export function editorAssets() {
       note:rule.cliff ? 'Corner mask, contour and sand blend are set in Tool options.' : rule.ramp ? 'Place at the lower level with a clear approach and supported upper landing.' : ''});
   }
   for (const id of Object.keys(EDGES)) assets.push({id, category:'Boundaries', name:readable(id), tool:'wall', bindings:{'edge-kind':id}, w:1, h:1});
+  for (const profile of WINDOW_BAYS) assets.push({id:profile.id,category:'Windows',name:profile.name,tool:'window-sculpture',bindings:{},preview:'window-bay',w:3,h:1,
+    disabled:'Sculpture preview. Map placement and character traversal are the next step.',
+    note:profile.description});
   for (const profile of ANIMAL_MOTION_CATALOG) {
     const id = profile.id;
     assets.push({id, category:'People', name:profile.label, tool:'guard', bindings:{'unit-species':id, 'unit-weapon':profile.unarmed ? 'hands' : 'rifle', 'unit-outfit':'normal'}, w:1, h:1,

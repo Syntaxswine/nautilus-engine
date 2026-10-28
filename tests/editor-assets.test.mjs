@@ -6,6 +6,7 @@ import {createBlockDocument, openDocument} from '../packages/map-core/index.js';
 import {PROPS, GROUNDS, EDGES} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 import {SPECIES} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js';
 import {buildWorld} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-world.js';
+import {compileWindowBay} from '../packages/window-kit/index.js';
 
 test('asset library covers every current placement registry without duplicate identities', () => {
   const assets = editorAssets(), keys = assets.map(a => `${a.category}:${a.id}`);
@@ -35,6 +36,11 @@ test('every catalog entry builds an independent preview using supported renderer
   const live = createBlockDocument('Live blueprint'), before = live.export();
   for (const asset of editorAssets()) {
     const first = assetPreview(asset), second = assetPreview(asset);
+    if(asset.preview==='window-bay') {
+      assert.equal(compileWindowBay(first.document.sculpture.id).metresPerUnit,1);
+      assert.notEqual(first.document.sculpture,second.document.sculpture);
+      assert.ok(asset.disabled);assert.equal(first.document.map,undefined);continue;
+    }
     assert.deepEqual(buildWorld(first.document.map).diagnostics,[],asset.id);
     assert.notEqual(first.document.map,second.document.map);
     assert.ok(Number.isFinite(first.view.span) && first.view.span > 0);

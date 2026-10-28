@@ -3,6 +3,8 @@ import {assetPreview} from './asset-preview.js';
 import {InspectionScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
 import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {DIMENSIONS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-world.js';
+import {WindowPreviewScene} from './window-preview.js';
+import {compileWindowBay} from '../../packages/window-kit/index.js';
 
 export function installAssetLibrary() {
   const $ = id => document.getElementById(id), assets = editorAssets();
@@ -13,8 +15,11 @@ export function installAssetLibrary() {
     <div class="asset-filters"><label>Find an asset<input id="asset-search" type="search" placeholder="Chair, jungle, brick…"></label><label>Category<select id="asset-category"><option value="">All assets</option></select></label></div>
     <p id="asset-count" role="status"></p><div class="asset-body"><div id="asset-results" aria-label="Asset results"></div><section class="asset-inspector" aria-labelledby="asset-name"><div class="asset-stage"><canvas id="asset-preview" aria-label="Selected asset preview"></canvas><span>1 tile = 1 metre</span></div><div class="asset-turns"><button id="asset-turn" aria-label="Turn preview">↻ Turn view</button><span>Preview only</span></div><h2 id="asset-name"></h2><p id="asset-footprint"></p><div id="asset-appearance" class="asset-filters" hidden><label>Preview weapon<select id="asset-weapon"></select></label><label>Preview outfit<select id="asset-outfit"></select></label></div><p id="asset-note"></p><p id="asset-preview-status" role="status"></p><button id="asset-use">Use this asset</button></section></div>`;
   document.body.append(dialog);
+  const windowOptions=document.createElement('div');windowOptions.id='asset-window-options';windowOptions.className='asset-filters';windowOptions.hidden=true;
+  windowOptions.innerHTML=`<label>Wall material<select id="asset-window-wall"><option value="wood">Wood</option><option value="brick">Brick</option><option value="concrete">Concrete</option></select></label><label>Sculpture view<select id="asset-window-finish"><option value="painted">Painted</option><option value="clay">Clay</option></select></label><label>Sashes<select id="asset-window-sashes"><option value="installed">Installed</option><option value="removed">Removed · inspect opening</option></select></label><button id="asset-window-download" type="button">Download sculpture JSON</button>`;
+  $('asset-note').before(windowOptions);
   for (const name of ASSET_CATEGORIES) $('asset-category').add(new Option(name,name));
-  let selected, scene, view, frame = 0, ticket = 0, loading = false;
+  let selected, scene, sceneKind, view, frame = 0, ticket = 0, loading = false;
   const failures = new Map();
   let canvas = $('asset-preview'); const use = $('asset-use');
   function fitPreview() {
@@ -39,16 +44,21 @@ export function installAssetLibrary() {
     const issues = [...new Set(scene.diagnostics)];
     if (issues.length) failures.set(selected,issues.join(' '));
     const failure = failures.get(selected);
-    $('asset-preview-status').textContent = failure ? 'Preview unavailable: ' + failure : loading ? 'Loading preview…' : 'Authored model and paint · workshop lighting';
+    $('asset-preview-status').textContent = failure ? 'Preview unavailable: ' + failure : loading ? 'Loading preview…' : selected?.preview==='window-bay' ? 'Window sculpture · native metres · workshop lighting' : 'Authored model and paint · workshop lighting';
     use.disabled = loading || !!selected?.disabled || !!failure;
     fitPreview();
     requestDraw();
   }
   async function select(asset, appearance = {}) {
+    const kind=asset.preview==='window-bay'?'window':'legacy';
+    if(scene && sceneKind!==kind) disposePreview();
     const current = ++ticket; selected = asset; loading = true; use.disabled = true;
     $('asset-name').textContent = asset.name;
-    $('asset-footprint').textContent = `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
-    $('asset-note').textContent = asset.disabled || asset.note || 'Choose this asset, then click or drag in the map to place it. Placement checks apply.';
+    const sculpture=kind==='window'?compileWindowBay(asset.id):null;
+    $('asset-footprint').textContent = sculpture ? `3 m bay · 1 m centered opening · sill ${sculpture.opening.bottom} m · head ${sculpture.opening.top} m` : `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
+    $('asset-note').textContent = sculpture ? `${asset.note} ${asset.disabled}` : asset.disabled || asset.note || 'Choose this asset, then click or drag in the map to place it. Placement checks apply.';
+    windowOptions.hidden=kind!=='window';
+    if(sculpture) appearance={wall:$('asset-window-wall').value,finish:$('asset-window-finish').value,sashes:$('asset-window-sashes').value==='installed'};
     $('asset-appearance').hidden = asset.category !== 'People';
     if (asset.category === 'People') {
       for (const [id,source,value] of [['asset-weapon','unit-weapon',asset.id === 'hen' ? 'hands' : appearance.weapon || 'rifle'],['asset-outfit','unit-outfit',appearance.outfit || 'normal']]) {
@@ -59,7 +69,7 @@ export function installAssetLibrary() {
     }
     for (const button of $('asset-results').children) button.setAttribute('aria-pressed',String(button.dataset.asset === asset.category+':'+asset.id));
     try {
-      if (!scene) scene = new InspectionScene(canvas,diagnostics);
+      if (!scene) {sceneKind=kind;scene=kind==='window'?new WindowPreviewScene(canvas,diagnostics):new InspectionScene(canvas,diagnostics);}
       const preview = assetPreview(asset,appearance); view = preview.view;
       const aspect = canvas.clientWidth / Math.max(1,canvas.clientHeight);
       view.span /= Math.min(1,aspect);
@@ -92,6 +102,13 @@ export function installAssetLibrary() {
   };
   $('asset-search').oninput = results; $('asset-category').onchange = results;
   for (const id of ['asset-weapon','asset-outfit']) $(id).onchange = () => select(selected,{weapon:$('asset-weapon').value,outfit:$('asset-outfit').value});
+  for(const id of ['asset-window-wall','asset-window-finish','asset-window-sashes']) $(id).onchange=()=>select(selected);
+  $('asset-window-download').onclick=()=>{
+    if(selected?.preview!=='window-bay')return;
+    const data=compileWindowBay(selected.id);data.preview={wall:$('asset-window-wall').value,finish:$('asset-window-finish').value,sashes:$('asset-window-sashes').value==='installed'};
+    const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),link=document.createElement('a');
+    link.href=url;link.download=selected.id+'.window.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),0);
+  };
   $('asset-close').onclick = () => dialog.close();
   $('asset-turn').onclick = () => {if (view) {view.preset = String((Number(view.preset)+1)%4); requestDraw();}};
   use.onclick = () => {
@@ -119,7 +136,7 @@ export function installAssetLibrary() {
     $('status').textContent = `${selected.name} selected. Click or drag in the map to place.`;
     tool.focus();
   };
-  function disposePreview() {++ticket; cancelAnimationFrame(frame); frame = 0; scene?.dispose(); scene?.renderer.forceContextLoss(); scene = null; view = null; failures.clear();
+  function disposePreview() {++ticket; cancelAnimationFrame(frame); frame = 0; scene?.dispose();if(sceneKind==='legacy')scene?.renderer.forceContextLoss();scene=null;sceneKind=null;view=null;failures.clear();
     const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
   }
   dialog.addEventListener('close',disposePreview);
