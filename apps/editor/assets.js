@@ -30,14 +30,16 @@ export function installAssetLibrary() {
   }
   function draw() {
     frame = 0; if (!dialog.open || !scene || !view) return;
-    scene.draw(view,Math.max(1,canvas.clientWidth),Math.max(1,canvas.clientHeight));
-    if (scene.lights?.animated || scene.sceneryAssets?.animated && !scene.reducedMotion?.matches) requestDraw();
+    try {
+      scene.draw(view,Math.max(1,canvas.clientWidth),Math.max(1,canvas.clientHeight));
+      if (scene.lights?.animated || scene.sceneryAssets?.animated && !scene.reducedMotion?.matches) requestDraw();
+    } catch (error) { previewFailed(error); }
   }
   function requestDraw() {if (dialog.open && !frame) frame = requestAnimationFrame(draw);}
   function diagnostics() {
     if (!scene) return;
     const issues = [...new Set(scene.diagnostics)];
-    if (issues.length) failures.set(selected,issues.join(' '));
+    if (issues.length) {previewFailed(new Error(issues.join(' ')));return;}
     const failure = failures.get(selected);
     $('asset-preview-status').textContent = failure ? 'Preview unavailable: ' + failure : loading ? 'Loading preview…' : 'Authored model and paint · workshop lighting';
     use.disabled = loading || !!selected?.disabled || !!failure;
@@ -45,7 +47,10 @@ export function installAssetLibrary() {
     requestDraw();
   }
   async function select(asset, appearance = {}) {
-    const current = ++ticket; selected = asset; loading = true; use.disabled = true;
+    const current = ++ticket;
+    // Pending or failed loads own their renderer; never borrow it for a retry.
+    if (scene && (loading || failures.size)) releaseScene();
+    failures.clear(); selected = asset; loading = true; use.disabled = true;
     $('asset-name').textContent = asset.name;
     $('asset-footprint').textContent = `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
     $('asset-note').textContent = asset.disabled || asset.note || 'Choose this asset, then click or drag in the map to place it. Placement checks apply.';
@@ -59,18 +64,21 @@ export function installAssetLibrary() {
     }
     for (const button of $('asset-results').children) button.setAttribute('aria-pressed',String(button.dataset.asset === asset.category+':'+asset.id));
     try {
-      if (!scene) scene = new InspectionScene(canvas,diagnostics);
+      if (!scene) {
+        let owned;
+        owned = new InspectionScene(canvas,() => {if (scene === owned) diagnostics();});
+        scene = owned;
+      }
       const preview = assetPreview(asset,appearance); view = preview.view;
       const aspect = canvas.clientWidth / Math.max(1,canvas.clientHeight);
       view.span /= Math.min(1,aspect);
-      $('asset-preview-status').textContent = 'Loading preview…'; await scene.open(preview.document);
-      if (current !== ticket) return;
+      const owned = scene;
+      $('asset-preview-status').textContent = 'Loading preview…'; await owned.open(preview.document);
+      if (current !== ticket || scene !== owned) return;
       loading = false; diagnostics();
     } catch (error) {
       if (current !== ticket) return;
-      loading = false; use.disabled = true;
-      failures.set(asset,error.message);
-      $('asset-preview-status').textContent = 'Preview unavailable: ' + error.message;
+      previewFailed(error);
     }
   }
   function results() {
@@ -119,9 +127,23 @@ export function installAssetLibrary() {
     $('status').textContent = `${selected.name} selected. Click or drag in the map to place.`;
     tool.focus();
   };
-  function disposePreview() {++ticket; cancelAnimationFrame(frame); frame = 0; scene?.dispose(); scene?.renderer.forceContextLoss(); scene = null; view = null; failures.clear();
-    const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
+  function releaseScene() {
+    cancelAnimationFrame(frame); frame = 0;
+    const owned = scene; scene = null; view = null;
+    try {owned?.dispose();}
+    finally {
+      try {owned?.renderer.forceContextLoss();}
+      finally {
+        const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
+      }
+    }
   }
+  function previewFailed(error) {
+    loading = false; use.disabled = true; failures.set(selected,error.message);
+    $('asset-preview-status').textContent = 'Preview unavailable: ' + error.message;
+    releaseScene();
+  }
+  function disposePreview() {++ticket;loading=false;use.disabled=true;failures.clear();releaseScene();}
   dialog.addEventListener('close',disposePreview);
   window.addEventListener('pagehide',disposePreview,{once:true});
   const resize=new ResizeObserver(requestDraw);resize.observe(canvas);
