@@ -1,12 +1,12 @@
 // Headless placement contract. Rendering and gameplay compilation belong to consumers.
-import {BUILDING_ASSETS, PREFAB_CATALOGUE} from './catalogue.js';
+import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,PREFAB_CATALOGUE,buildingAsset,isPrefabCatalogue,catalogueHasAsset,catalogueForAssets} from './registry.js';
 import {terrainAt, edgeCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js';
 import {propCells, floorTerrain} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 import {canopyCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js';
-export {BUILDING_ASSETS, PREFAB_CATALOGUE};
+import {wallRunErrors,wallRunsOf,WALL_KIT} from '../map-core/wall-runs.js';
+export * from './registry.js';
 export const PREFAB_FEATURE = 'nautilus-building-prefabs-v1';
 export const MAX_BUILDINGS = 32;
-export const buildingAsset = id => BUILDING_ASSETS.find(asset => asset.id === id);
 const fail = message => {throw Error(message);};
 const rotate = (x,y,turns) => [[x,y],[-y,x],[-x,-y],[y,-x]][turns];
 export function buildingTransform(instance) {
@@ -31,8 +31,30 @@ export function buildingCells(instance) {
 export const lotsOverlap = (a,b) => a.x < b.x+b.width && a.x+a.width > b.x && a.y < b.y+b.depth && a.y+a.depth > b.y;
 const contains = (lot,p) => p.x>=lot.x && p.y>=lot.y && p.x<lot.x+lot.width && p.y<lot.y+lot.depth;
 
+function prefabData(map) {
+  const data=map?.buildingPrefabs;if(data===undefined)return null;
+  if(map.kind==='red-shift-block')fail('Building prefabs belong to full maps. The block format does not support them.');
+  if(map.version!==2||map.width!==240||map.height!==240||!Number.isInteger(map.levels)||map.levels<3||map.levels>6)fail('Building prefabs require the full aft-map-v2 format; legacy maps and placeholder recipes cannot preserve this extension.');
+  if(!data||typeof data!=='object'||Array.isArray(data)||data.version!==1||!isPrefabCatalogue(data.catalogue)||!Array.isArray(data.instances)||data.instances.length>MAX_BUILDINGS)fail('Unsupported building prefab catalogue/version, or more than '+MAX_BUILDINGS+' buildings.');
+  return data;
+}
+// Reserve the complete lot/clearance on every authored layer, like the existing
+// upper-floor reservation. This is conservative authoring occupancy, not actor
+// navigation or a building collision compiler. SAT keeps diagonal empty corners
+// available while including wall thickness and contact at closed boundaries.
+function wallIntersectsLot(run,lot) {
+  const dx=run.b[0]-run.a[0],dy=run.b[1]-run.a[1],length=Math.hypot(dx,dy),u=[dx/length,dy/length],n=[-u[1],u[0]];
+  const offset=[(run.a[0]+run.b[0])/2-(lot.x+(lot.width-1)/2),(run.a[1]+run.b[1])/2-(lot.y+(lot.depth-1)/2)];
+  return [[1,0],[0,1],u,n].every(axis=>{
+    const wall=length/2*Math.abs(axis[0]*u[0]+axis[1]*u[1])+WALL_KIT.thickness/2*Math.abs(axis[0]*n[0]+axis[1]*n[1]);
+    const bounds=lot.width/2*Math.abs(axis[0])+lot.depth/2*Math.abs(axis[1]);
+    return Math.abs(offset[0]*axis[0]+offset[1]*axis[1])<=wall+bounds+1e-6;
+  });
+}
+
 // A reusable index for one placement pass; no DOM, renderer or mutable global state.
 function siteIndex(map) {
+  const wallErrors=wallRunErrors(map);if(wallErrors.length)fail(wallErrors.join(' '));
   const occupied=new Set(),add=p=>occupied.add(p.x+','+p.y);
   for(const field of ['starts','guards','exits','stairs','climbs'])for(const p of map[field]||[]) {
     add(p);if(field==='climbs')add({x:p.x+p.dx,y:p.y+p.dy});
@@ -44,16 +66,15 @@ function siteIndex(map) {
   for(const layer of map.upper||[])for(const key of Object.keys(layer))if(layer[key]!=='void')occupied.add(key);
   for(const key of Object.keys(map.foliage||{}))occupied.add(key.split(',').slice(0,2).join(','));
   for(const key of Object.keys(map.landPaint||{}))occupied.add(key);
-  // Unknown structural extensions cannot safely be treated as vacant ground.
-  if(map.wallRuns?.segments?.length)fail('Place building prefabs in a map without wall-run geometry; a combined collision adapter is required.');
   return occupied;
 }
 function instanceError(map,instance,others,occupied) {
-  if(!instance || typeof instance!=='object' || !/^[a-zA-Z0-9_-]{1,64}$/.test(instance.id||''))return 'Each building needs a stable ID of 1–64 letters, digits, underscores or hyphens.';
+  if(!instance || typeof instance!=='object' || Array.isArray(instance) || typeof instance.id!=='string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(instance.id))return 'Each building needs a stable ID of 1–64 letters, digits, underscores or hyphens.';
   if(!buildingAsset(instance.asset))return 'Unknown building asset: '+instance.asset;
   if(![instance.x,instance.y,instance.turns,instance.clearance].every(Number.isInteger) || instance.turns<0 || instance.turns>3 || instance.clearance<1 || instance.clearance>8)return 'Use integer building coordinates, 0–3 quarter turns and 1–8 metres of clearance.';
   const lot=buildingLot(instance,instance.clearance),size=map.kind==='red-shift-block'?24:240;
   if(lot.x<0 || lot.y<0 || lot.x+lot.width>size || lot.y+lot.depth>size)return 'The building, overhangs and clearance must fit inside the map.';
+  if(wallRunsOf(map).some(run=>wallIntersectsLot(run,lot)))return 'A wall run intersects the building lot or its access clearance. Move the entire wall thickness outside the reserved lot.';
   for(const other of others){
     if(other.id===instance.id)return 'Building IDs must be unique.';
     if(lotsOverlap(buildingLot(instance,Math.max(instance.clearance,other.clearance)),buildingLot(other)))return 'Building lots or their access clearance overlap.';
@@ -67,11 +88,12 @@ function instanceError(map,instance,others,occupied) {
 export function prefabErrors(map) {
   if(map?.buildingPrefabs===undefined)return [];
   try {
-    const data=map.buildingPrefabs;
-    if(map.kind==='red-shift-block')fail('Building prefabs belong to full maps. The block format does not support them.');
-    if(!data || data.version!==1 || data.catalogue!==PREFAB_CATALOGUE || !Array.isArray(data.instances) || data.instances.length>MAX_BUILDINGS)fail('Unsupported building prefab catalogue/version, or more than '+MAX_BUILDINGS+' buildings.');
+    const data=prefabData(map);
     const occupied=siteIndex(map),prior=[];
-    for(const instance of data.instances){const error=instanceError(map,instance,prior,occupied);if(error)fail(error);prior.push(instance);}
+    for(const instance of data.instances){
+      if(!catalogueHasAsset(data.catalogue,instance?.asset))fail('The building asset is not part of this pinned prefab catalogue: '+instance?.asset);
+      const error=instanceError(map,instance,prior,occupied);if(error)fail(error);prior.push(instance);
+    }
     return [];
   } catch(error) {return [error.message];}
 }
@@ -94,21 +116,26 @@ export function placeBuilding(map,{asset,x,y,turns=0,clearance=2}) {
   if(error)fail(error);
   const out=structuredClone(map);
   out.buildingPrefabs??={version:1,catalogue:PREFAB_CATALOGUE,instances:[]};out.buildingPrefabs.instances.push(instance);
+  out.buildingPrefabs.catalogue=catalogueForAssets(out.buildingPrefabs.instances.map(p=>p.asset),out.buildingPrefabs.catalogue);
   return {map:out,instance};
 }
 export function removeBuilding(map,id) {
+  const errors=prefabErrors(map);if(errors.length)fail(errors[0]);
   if(!map.buildingPrefabs?.instances.some(p=>p.id===id))fail('Select an existing building prefab.');
   const out=structuredClone(map);out.buildingPrefabs.instances=out.buildingPrefabs.instances.filter(p=>p.id!==id);
-  if(!out.buildingPrefabs.instances.length)delete out.buildingPrefabs;
+  const metadata=Object.keys(out.buildingPrefabs).some(key=>!['version','catalogue','instances'].includes(key));
+  if(!out.buildingPrefabs.instances.length&&!metadata)delete out.buildingPrefabs;
   return out;
 }
-export function buildingAt(map,x,y) {if(!Number.isFinite(x)||!Number.isFinite(y))return null;const cell={x:Math.floor(x+.5),y:Math.floor(y+.5)};return (map.buildingPrefabs?.instances||[]).find(p=>contains(buildingLot(p),cell));}
+export function buildingAt(map,x,y) {const data=prefabData(map);if(!Number.isFinite(x)||!Number.isFinite(y))return null;const cell={x:Math.floor(x+.5),y:Math.floor(y+.5)};return (data?.instances||[]).find(p=>contains(buildingLot(p),cell));}
 function randomStream(seed) {
   let state=2166136261;for(const c of seed)state=Math.imul(state^c.charCodeAt(0),16777619)>>>0;
   return ()=>{state+=0x6D2B79F5;let n=state;n=Math.imul(n^n>>>15,n|1);n^=n+Math.imul(n^n>>>7,n|61);return ((n^n>>>14)>>>0)/4294967296;};
 }
 function shuffle(items,random) {const out=[...items];for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
-export function generateBuildingLayout(map,{seed='Nautilus',count=6,assets=BUILDING_ASSETS.map(a=>a.id),area={x:24,y:24,width:72,depth:72},clearance=2}={}) {
+// Keep the original implicit pool stable for saved seeds. Consumers can select
+// the combined registry or its explicit residential profile for new districts.
+export function generateBuildingLayout(map,{seed='Nautilus',count=6,assets=GROSS_BUILDING_ASSETS.map(a=>a.id),area={x:24,y:24,width:72,depth:72},clearance=2}={}) {
   const errors=prefabErrors(map);if(errors.length)fail(errors[0]);
   if(map.kind==='red-shift-block')fail('Generate building layouts in a full map.');
   if(typeof seed!=='string'||!seed.trim()||seed.length>80)fail('Use a seed of 1–80 characters.');
@@ -135,6 +162,7 @@ export function generateBuildingLayout(map,{seed='Nautilus',count=6,assets=BUILD
     if(placed.length===count)break;
   }
   if(placed.length!==count)fail('Only '+placed.length+' of '+count+' buildings fit. Enlarge the area, clear obstacles or lower the count. The map was not changed.');
+  out.buildingPrefabs.catalogue=catalogueForAssets(out.buildingPrefabs.instances.map(p=>p.asset),out.buildingPrefabs.catalogue);
   out.buildingPrefabs.generation={algorithm:'lot-grid-v1',seed,count,assets:[...assets],area:{...area},clearance};
   return {map:out,instances:placed};
 }
