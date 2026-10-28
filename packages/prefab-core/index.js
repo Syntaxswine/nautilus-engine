@@ -1,12 +1,13 @@
 // Headless placement contract. Rendering and gameplay compilation belong to consumers.
 import {BUILDING_ASSETS, PREFAB_CATALOGUE} from './catalogue.js';
+import {buildingAsset as registryAsset} from './registry.js';
 import {terrainAt, edgeCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js';
 import {propCells, floorTerrain} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 import {canopyCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js';
 export {BUILDING_ASSETS, PREFAB_CATALOGUE};
 export const PREFAB_FEATURE = 'nautilus-building-prefabs-v1';
 export const MAX_BUILDINGS = 32;
-export const buildingAsset = id => BUILDING_ASSETS.find(asset => asset.id === id);
+export const buildingAsset = id => registryAsset(id);
 const fail = message => {throw Error(message);};
 const rotate = (x,y,turns) => [[x,y],[-y,x],[-x,-y],[y,-x]][turns];
 export function buildingTransform(instance) {

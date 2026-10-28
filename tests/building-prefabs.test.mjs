@@ -94,7 +94,8 @@ test('render batches preserve native geometry and floor visibility while reducin
 test('floor cutaways accept a fractional preview camera height and keep shared copies in sync',()=>{
   const source=createGrossHouse(T,{catalogue,textures:{}},'monroe-row'),batch=batchPrefab(T,source),nodes=[];batch.root.traverse(n=>nodes.push(n));
   const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;}),root=batch.root.clone(true),copies=[];root.traverse(n=>copies.push(n));
-  layer.templates.set('monroe-row',{source,batch,nodes});layer.models.set('one',{root,nodes:copies,asset:'monroe-row'});layer.options={level:1.75,showAllLevels:true,roofs:true,walls:true};
+  const model={root:batch.root,setView(view,options){source.setView(view);batch.sync(options);},dispose(){batch.dispose();source.dispose();}};
+  layer.templates.set('monroe-row',{model,nodes});layer.models.set('one',{root,nodes:copies,asset:'monroe-row'});layer.options={level:1.75,showAllLevels:true,roofs:true,walls:true};
   try {layer.setView({view:'cutaway',level:-1,showFurniture:true});
     assert.deepEqual(copies.map(n=>n.visible),nodes.map(n=>n.visible));assert.ok(copies.some(n=>!n.visible));
     layer.setView({view:'exterior',showFurniture:false});assert.deepEqual(copies.map(n=>n.visible),nodes.map(n=>n.visible));
