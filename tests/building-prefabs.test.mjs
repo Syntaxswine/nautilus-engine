@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createMapDocument,createBlockDocument,openDocument,validateMap,extractBlock,generateConnectedMap,assertMapCapabilities} from '../packages/map-core/index.js';
-import {BUILDING_ASSETS,buildingTransform,buildingLot,placeBuilding,generateBuildingLayout,PREFAB_FEATURE,prefabErrors} from '../packages/prefab-core/index.js';
+import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,buildingTransform,buildingLot,placeBuilding,generateBuildingLayout,PREFAB_FEATURE,prefabErrors} from '../packages/prefab-core/index.js';
 import {placeBlock} from '../packages/map-core/prefab-blocks.js';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {createGrossHouse} from '../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
@@ -13,8 +13,8 @@ const catalogue=JSON.parse(fs.readFileSync(new URL('../vendor/tinderbox-prefabs/
 const command=(asset='albany-cottage',x=40,y=40,turns=0)=>({tool:'building-prefab',start:{x,y,z:0},options:{asset,turns,clearance:2}});
 
 test('every source house fits its recorded lot in all four orientations without scaling',()=>{
-  assert.equal(BUILDING_ASSETS.length,13);let levels=0;
-  for(const asset of BUILDING_ASSETS){const model=createGrossHouse(T,{catalogue,textures:{}},asset.id);levels+=model.levels.length;
+  assert.equal(BUILDING_ASSETS.length,61);assert.equal(GROSS_BUILDING_ASSETS.length,13);let levels=0;
+  for(const asset of GROSS_BUILDING_ASSETS){const model=createGrossHouse(T,{catalogue,textures:{}},asset.id);levels+=model.levels.length;
     try {for(let turns=0;turns<4;turns++){
       const transform=buildingTransform({asset:asset.id,x:30,y:40,turns}),lot=buildingLot({asset:asset.id,x:30,y:40,turns});
       model.root.rotation.y=transform.angle;model.root.position.set(transform.x,0,transform.y);const bounds=new T.Box3().setFromObject(model.root);
@@ -74,7 +74,7 @@ test('game handoff requires the explicit building capability and keeps legacy ma
 });
 
 test('render batches preserve native geometry and floor visibility while reducing submissions',()=>{
-  for(const {id}of BUILDING_ASSETS){
+  for(const {id}of GROSS_BUILDING_ASSETS){
     const source=createGrossHouse(T,{catalogue,textures:{}},id),batch=batchPrefab(T,source);
     try {
       const raw=new T.Box3().setFromObject(source.root),packed=new T.Box3().setFromObject(batch.root);
