@@ -9,6 +9,8 @@ const project = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const root = path.join(project, 'dist');
 const helper = path.join(project, 'artifacts/building-library-preview');
 const owner = '01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3';
+const building = process.argv.find(arg => arg.startsWith('--building='))?.slice('--building='.length);
+if (building && !/^[a-z0-9-]+$/.test(building)) throw Error('Use a building ID from the catalogue.');
 fs.mkdirSync(helper, {recursive: true});
 const stopFile = path.join(helper, 'STOP');
 if (fs.existsSync(stopFile)) throw Error('STOP marker exists. Verify the prior helper exited before removing it.');
@@ -46,7 +48,7 @@ const expiry = setTimeout(() => stop('30 minute review expiry'), expiresAt.getTi
 process.on('SIGINT', () => stop('SIGINT')); process.on('SIGTERM', () => stop('SIGTERM'));
 let record;
 server.listen(0, '127.0.0.1', () => {
-  record = {owner, project:'Nautilus Engine', purpose:'User review of the original building catalogue', process: processIdentity, startedAt: startedAt.toISOString(), expiresAt: expiresAt.toISOString(), port: server.address().port, stopFile, url:'http://127.0.0.1:' + server.address().port + '/buildings/index.html'};
+  record = {owner, project:'Nautilus Engine', purpose:building?'User review of native editable game-map buildings':'User review of the original building catalogue', process: processIdentity, startedAt: startedAt.toISOString(), expiresAt: expiresAt.toISOString(), port: server.address().port, stopFile, url:'http://127.0.0.1:' + server.address().port + (building?'/index.html?building='+building:'/buildings/index.html')};
   fs.writeFileSync(path.join(helper, 'process.json'), JSON.stringify(record, null, 2));
   console.log(JSON.stringify(record));
 });

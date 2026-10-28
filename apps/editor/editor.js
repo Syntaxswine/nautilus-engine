@@ -1,5 +1,6 @@
 import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint} from '../packages/map-core/index.js';
 import {exampleYard} from '../packages/map-core/example.js';
+import {installEditorBuildingLibrary} from './building-library.js';
 
 let gameAdapter = null;
 const status = text => {document.getElementById('status').textContent = text;};
@@ -21,6 +22,7 @@ window.nautilus = {
     return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
   }
 };
+installEditorBuildingLibrary(window.nautilus);
 function refreshHandoff() {
   const button = document.getElementById('playtest');
   if (button) {const disabled = !gameAdapter || !!window.editor3d?.document?.block;if (button.disabled !== disabled) button.disabled = disabled;button.title = gameAdapter ? 'Send a validated copy; keep the blueprint here.' : 'Export JSON for a game, or connect a game adapter.';}

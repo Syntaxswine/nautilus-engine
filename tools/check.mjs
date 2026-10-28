@@ -56,3 +56,4 @@ if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw E
 if (core.ENGINE_VERSION !== JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version) throw Error('Engine version mismatch.');
 console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, headless map/rules APIs, examples and rules-source evidence.');
 await import('./check-building-catalog.mjs');
+await import('./check-editor-buildings.mjs');

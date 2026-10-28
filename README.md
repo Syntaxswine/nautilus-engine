@@ -54,6 +54,8 @@ The art collection adds **48 original buildings**, 77 floors, 409 described room
 
 Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
 
+**Build in map editor** opens a native editable version. The workshop's **Buildings** menu opens all 48 maps and 48 reusable blocks, or places a reusable building into a chosen map sector. Every floor, boundary, opening, stair and roof module uses the actual game-editor brushes. The same editing controller is available in plan view when a browser cannot display the 3D workshop. See [native building editing and adaptations](docs/editor-buildings.md).
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.

@@ -1,0 +1,19 @@
+.building-picker{position:relative;min-width:0;margin-bottom:17px}
+.building-picker>label{margin-bottom:5px}
+.picker-field{position:relative;display:flex}
+.picker-field input{width:100%;min-width:0;padding-right:36px;text-overflow:ellipsis}
+.picker-field input:focus{outline:2px solid var(--gold);outline-offset:2px}
+#picker-toggle{position:absolute;right:1px;top:1px;bottom:1px;width:32px;padding:0;border:0;background:transparent;display:grid;place-items:center}
+#picker-toggle:hover{background:#3c4938}
+#picker-toggle[aria-expanded=true] svg{transform:rotate(180deg)}
+.picker-popup{position:absolute;top:calc(100% + 7px);left:0;z-index:30;width:max(100%,285px);max-width:calc(100vw - 24px);background:#202c25;border:1px solid #8a8f69;border-radius:5px;box-shadow:0 10px 30px #0008;overflow:hidden}
+.picker-popup[hidden]{display:none}
+#catalogue{display:flex;flex-direction:column;gap:3px;max-height:min(380px,55vh);overflow-y:auto;padding:5px;overscroll-behavior:contain}
+#catalogue button{text-align:left;flex:none;line-height:1.4;padding:10px 12px;border:1px solid transparent;background:transparent;white-space:normal}
+#catalogue button small{display:block;color:var(--muted);font-size:10px}
+#catalogue button[aria-selected=true]{border-color:#a89d6b}
+#catalogue button.active,#catalogue button:hover{background:#3c4938}
+.picker-status{margin:0;padding:9px 12px;border-top:1px solid var(--line);font:11px/1.5 system-ui;color:var(--muted)}
+@media(max-width:850px){aside{max-height:none;overflow:visible}.building-picker{margin-bottom:0}.picker-popup{width:max(100%,285px)}}
+
+.building-picker label{display:block;font:11px system-ui;text-transform:uppercase;letter-spacing:.08em}.picker-field input{box-sizing:border-box;font:13px system-ui;padding:9px 36px 9px 10px;color:inherit;background:#29332e;border:1px solid #626c5a;border-radius:4px}.picker-popup button{color:inherit;font:13px system-ui;border-radius:3px}.picker-status{box-sizing:border-box}

@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
 import './build-building-assets.mjs';
+import './build-editor-buildings.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw Error('Invalid build directory.');
@@ -37,7 +38,11 @@ for (const donor of ['aft', 'farmyard']) {
         text = once(text, "$('playtest').disabled=!!d.block", "$('playtest').disabled=!!d.block||!window.nautilus?.hasGameAdapter", 'game handoff availability');
       }
       if (donor === 'aft' && entry.path.endsWith('/editor-workbench.js')) text = once(text, '▶ Playtest', 'Send to game', 'workbench handoff button');
-      if (donor === 'aft' && entry.path.endsWith('/editor-3d.js')) text = once(text, "await open(JSON.stringify(blankMap('New design')));return;", "const response=await fetch('./nautilus-example.json');if(!response.ok)throw Error('Example yard could not load.');await open(await response.text());return;", 'opening example');
+      if (donor === 'aft' && entry.path.endsWith('/editor-3d.js')) {
+        text = once(text, "await open(JSON.stringify(blankMap('New design')));return;", "const response=await fetch('./nautilus-example.json');if(!response.ok)throw Error('Example yard could not load.');await open(await response.text());return;", 'opening example');
+        text = once(text, "const params=new URLSearchParams(location.search),id=params.get('sectorTemplate');", "const params=new URLSearchParams(location.search),id=params.get('sectorTemplate');if(params.has('building')){const {loadEditorBuilding}=await import('../../../../../app/building-library.js');const {map,entry}=await loadEditorBuilding(params.get('building'),params.get('buildingFormat')==='block'?'block':'map');await open(JSON.stringify(map));Object.assign(view,entry.view);view.span+=Math.max(0,entry.occupiedFloors-1)*2;documentModel.changed=false;dirty=true;status(entry.name+' · Editable native map pieces.');return;}", 'editable building entry');
+        text = once(text, 'get loading(){return loading;},get selection()', 'get loading(){return loading;},get hasUnsaved(){return Object.values(workspaces).some(d=>d.changed);},get selection()', 'preserve unsaved map and block workspaces');
+      }
       data = Buffer.from(text);
     }
     if (!data.equals(source)) patches.push({path:folder + '/' + entry.path, sourceSha256:entry.sha256, builtSha256:createHash('sha256').update(data).digest('hex')});
@@ -59,13 +64,14 @@ let html = fs.readFileSync(path.join(root, base, 'editor-3d.html'), 'utf8');
 html = once(html, '<head>', '<head><base href="./' + base + '">', 'document base');
 html = html.replace(/<title>.*?<\/title>/, '<title>Nautilus Engine · Map Workshop</title>');
 html = html.replace(/<header>[\s\S]*?<\/header>/, `<header class="nautilus-header"><a class="engine-brand" href="#" aria-label="Nautilus Engine"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M38 34C47 15 32 3 17 8S0 31 13 40c11 8 25-1 22-13-2-9-14-12-19-5-4 7 2 13 7 10 4-2 2-7-1-6"/><path class="shell-ribs" d="M32 10l-8 8M17 8l3 11M7 16l10 7M5 29l11-1M13 40l6-10M26 42l-3-11"/></svg><span><strong>Nautilus Engine</strong><small>MAP WORKSHOP</small></span></a><span class="engine-edition">Shared worlds. Individual games.</span><nav aria-label="Workshop actions"><button id="nautilus-example">Example yard</button><button id="nautilus-options" aria-controls="nautilus-properties" aria-expanded="false">Tool options</button><button id="nautilus-help">About & shortcuts</button><span class="engine-version">v${version}</span></nav></header>`);
-html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"></head>', 'Nautilus theme');
-html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/editor.js"></script></body>', 'Nautilus host bridge');
+html = once(html, '</head>', '<link rel="stylesheet" href="' + toRoot + 'app/editor.css"><link rel="stylesheet" href="' + toRoot + 'buildings/building-picker.css"></head>', 'Nautilus theme');
+html = once(html, '<script type="module" src="editor-3d.js"></script>', '<script type="module" src="' + toRoot + 'app/workshop-start.js"></script>', 'renderer-aware workshop bootstrap');
+html = once(html, '<button id="nautilus-example">', '<button id="nautilus-buildings">Buildings</button><button id="nautilus-example">', 'editable building library button');
 write('index.html', html);
 // Resolve through the inherited document base, just like the editor stylesheet.
 const editorIndex=fs.readFileSync(path.join(output,'index.html'),'utf8');
 write('index.html',editorIndex.replace('<nav aria-label="Workshop actions">','<nav aria-label="Workshop actions"><a href="'+toRoot+'buildings/index.html" style="color:#e6d9a2;margin-right:10px">Building library</a>'));
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
-for (const name of ['editor.js', 'editor.css']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
-write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));
+for (const name of ['editor.js', 'editor.css', 'building-library.js', 'workshop-start.js', 'plan-workshop.js']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
+write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Native editable building collection and searchable library','Shared-controller plan workshop when WebGL2 is unavailable'], patches}, null, 2));
 console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches.');

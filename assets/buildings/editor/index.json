@@ -1,0 +1,3606 @@
+{
+  "schemaVersion": 1,
+  "format": "aft-map-v2",
+  "blockFormat": "aft-block-v1",
+  "inputs": [
+    {
+      "file": "packages/building-catalog/designs.js",
+      "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
+    },
+    {
+      "file": "packages/building-catalog/index.js",
+      "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
+    },
+    {
+      "file": "packages/building-catalog/editor.js",
+      "sha256": "d45a8f78a81abb6b05c3d1ffdb670a73c890e8429fd8fb9a9e19450e3c708ae7"
+    },
+    {
+      "file": "tools/build-editor-buildings.mjs",
+      "sha256": "b4ffef17852be0ea4068e82fb97cdd9377dcda65b584462d8358bce9ae3f6235"
+    }
+  ],
+  "buildings": [
+    {
+      "id": "bramble-ranch",
+      "name": "Bramble Ranch",
+      "group": "Homes",
+      "style": "Contemporary ranch",
+      "view": {
+        "x": 7,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "lennar-dover"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 7,
+      "interiorCells": 118,
+      "roofCells": 118,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 27,
+      "edges": 80,
+      "commands": 367,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "bramble-ranch.map.json",
+          "bytes": 413597,
+          "sha256": "c66abae48eb0c783e5fc623471e44ce5f1be8af4585502dfebf4208d38bf0c3a"
+        },
+        {
+          "file": "bramble-ranch.recipe.json",
+          "bytes": 35170,
+          "sha256": "57d4e33280856a000c8a7c03ca47d847ff7fba4c4eb6b2655d8ceea73dcdb71b"
+        },
+        {
+          "file": "bramble-ranch.report.json",
+          "bytes": 1234,
+          "sha256": "49ca56cf486f3ebf0add36c498257644a27b4a724aaa9f0f91377ade44d45314"
+        },
+        {
+          "file": "bramble-ranch.block.json",
+          "bytes": 12721,
+          "sha256": "7a4d4885db8f94dc7f02fa99f8eb07c83b9c115aef183e8aa97d2c5c365de578"
+        }
+      ]
+    },
+    {
+      "id": "cedar-split",
+      "name": "Cedar Split-Wing",
+      "group": "Homes",
+      "style": "Split-bedroom ranch",
+      "view": {
+        "x": 8.5,
+        "y": 8.5,
+        "span": 22
+      },
+      "sourceReferences": [
+        "lennar-dover",
+        "horton-cali"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 152,
+      "roofCells": 152,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 35,
+      "edges": 95,
+      "commands": 461,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 15,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "sage-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "cedar-split.map.json",
+          "bytes": 415863,
+          "sha256": "22ac07be81b02e2f3c2ec4888b2100833bf66f3e3a79e84d3ef09d8a20e9be56"
+        },
+        {
+          "file": "cedar-split.recipe.json",
+          "bytes": 44206,
+          "sha256": "af186d13151140018a65ad2014f1de3d11c38d7641240e2bd6408fa67ecb5c03"
+        },
+        {
+          "file": "cedar-split.report.json",
+          "bytes": 1248,
+          "sha256": "0436eaa2c1220386c110872dd89e5f684c6b951e71f64d3f0b8cb5a34fae8de3"
+        },
+        {
+          "file": "cedar-split.block.json",
+          "bytes": 14995,
+          "sha256": "6d5ae935055f788ebb3b951c60a1ad738b3eeb9d4535d2b823bd23180640aa0b"
+        }
+      ]
+    },
+    {
+      "id": "juniper-suite",
+      "name": "Juniper Suite House",
+      "group": "Homes",
+      "style": "Multigenerational courtyard",
+      "view": {
+        "x": 8.5,
+        "y": 8,
+        "span": 22
+      },
+      "sourceReferences": [
+        "lennar-liberty"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 261,
+      "roofCells": 153,
+      "stairs": 1,
+      "roofLadders": 3,
+      "roofModules": 32,
+      "edges": 170,
+      "commands": 669,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 15,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "juniper-suite.map.json",
+          "bytes": 420736,
+          "sha256": "898160193bc856cd685b02b32d1061aefb85b26544fc7f27fb7c9da1167e0cf2"
+        },
+        {
+          "file": "juniper-suite.recipe.json",
+          "bytes": 64238,
+          "sha256": "7971a89ead521072e6845a5987f19f6647ca2d53d1748f744676c79c8ed354de"
+        },
+        {
+          "file": "juniper-suite.report.json",
+          "bytes": 1239,
+          "sha256": "9ef28dd6c19c6a8b21ca0927eac3547268ab21755f0f8a9c49fca6f26ee67fc1"
+        },
+        {
+          "file": "juniper-suite.block.json",
+          "bytes": 19860,
+          "sha256": "724566cd8cd0e0f19ad4240f9e7b323dfedf8c1cff67348a069a6a72616cc0f6"
+        }
+      ]
+    },
+    {
+      "id": "rowan-family",
+      "name": "Rowan Family House",
+      "group": "Homes",
+      "style": "Compact suburban two-storey",
+      "view": {
+        "x": 8,
+        "y": 7.5,
+        "span": 21
+      },
+      "sourceReferences": [
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 14,
+      "interiorCells": 214,
+      "roofCells": 124,
+      "stairs": 1,
+      "roofLadders": 3,
+      "roofModules": 27,
+      "edges": 155,
+      "commands": 572,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "rowan-family.map.json",
+          "bytes": 418402,
+          "sha256": "20535f059998600e48108fd30b442ad8058e5c6f93e0dbeae19f17c9718e6f82"
+        },
+        {
+          "file": "rowan-family.recipe.json",
+          "bytes": 55039,
+          "sha256": "c559a554d4e64fdd1f0e49c7f215c7474656d38663254dfb39985dd42d5356ed"
+        },
+        {
+          "file": "rowan-family.report.json",
+          "bytes": 1243,
+          "sha256": "aaa1f127c46253dabc2a55421b95dd27c1d8e1db987f5404b6ee009091554a3f"
+        },
+        {
+          "file": "rowan-family.block.json",
+          "bytes": 17530,
+          "sha256": "545e98cb5fdb43a826aa7449b6f65d29747213fc26f64619e47c8643a950a3e9"
+        }
+      ]
+    },
+    {
+      "id": "willow-pair",
+      "name": "Willow Paired House",
+      "group": "Homes",
+      "style": "Shared-vestibule twin home",
+      "view": {
+        "x": 7.5,
+        "y": 6.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "lennar-liberty",
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 2,
+      "roomCount": 14,
+      "interiorCells": 222,
+      "roofCells": 114,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 23,
+      "edges": 178,
+      "commands": 593,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "willow-pair.map.json",
+          "bytes": 418557,
+          "sha256": "ca588c7503caa92e2b10e182f4f6bc361a3d29af37980b72407aa994ecea5dca"
+        },
+        {
+          "file": "willow-pair.recipe.json",
+          "bytes": 56799,
+          "sha256": "9ebc166e80166a38336fc5024667afd9630952987bde37447125223d620bfb0f"
+        },
+        {
+          "file": "willow-pair.report.json",
+          "bytes": 1250,
+          "sha256": "2dce38238eb502ea727b65a4a119c39a70490e2c82953bdb930a527678ae0408"
+        },
+        {
+          "file": "willow-pair.block.json",
+          "bytes": 17689,
+          "sha256": "928007cb05ab31f162645c12b453fffa5f0c8e8ae36f4f0d2a00599daba0b843"
+        }
+      ]
+    },
+    {
+      "id": "narrow-court",
+      "name": "Narrow Court House",
+      "group": "Homes",
+      "style": "Courtyard townhouse",
+      "view": {
+        "x": 5.5,
+        "y": 9,
+        "span": 23
+      },
+      "sourceReferences": [
+        "narrow-modern",
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 20,
+      "interiorCells": 240,
+      "roofCells": 90,
+      "stairs": 2,
+      "roofLadders": 2,
+      "roofModules": 16,
+      "edges": 229,
+      "commands": 645,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 9,
+        "maxY": 16
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "narrow-court.map.json",
+          "bytes": 419940,
+          "sha256": "349557639e627e417c6c6f9e58142eb20d413921281f9ab5e6f99b5279a320bb"
+        },
+        {
+          "file": "narrow-court.recipe.json",
+          "bytes": 62342,
+          "sha256": "f4b4d13f848c5f8b8245dbc3276a1de7490113ae281af342c75cc4da7600e9bd"
+        },
+        {
+          "file": "narrow-court.report.json",
+          "bytes": 1252,
+          "sha256": "a96dc85c85c43ba552fbf186626dee54694d44527e8d43cb3e29d75679b7b015"
+        },
+        {
+          "file": "narrow-court.block.json",
+          "bytes": 19068,
+          "sha256": "fe14e9d77eee6febc2db75cc4a24ee186f8dfcd9edbe423b3d1b1b195c0c5a0a"
+        }
+      ]
+    },
+    {
+      "id": "mews-corner",
+      "name": "Mews Corner House",
+      "group": "Homes",
+      "style": "Modern urban infill",
+      "view": {
+        "x": 6,
+        "y": 7,
+        "span": 19
+      },
+      "sourceReferences": [
+        "narrow-modern"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 147,
+      "roofCells": 81,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 16,
+      "edges": 132,
+      "commands": 423,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 10,
+        "maxY": 12
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "concrete",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "mews-corner.map.json",
+          "bytes": 414589,
+          "sha256": "a4212b40c8e235a592cca8300bd83d39f009c1fb4a40230ddd6f7db40068c0d4"
+        },
+        {
+          "file": "mews-corner.recipe.json",
+          "bytes": 40638,
+          "sha256": "b0dc2bde0e1960a8eeba28b4a79778ce1a390ed2443ac03529405ca82291d06a"
+        },
+        {
+          "file": "mews-corner.report.json",
+          "bytes": 1234,
+          "sha256": "dea852362c2709bce508338fa4db80817fea6d6fe992300fb1270b5a76902501"
+        },
+        {
+          "file": "mews-corner.block.json",
+          "bytes": 13721,
+          "sha256": "c3b22d748d8111e945ea694ed4ed2abf944add528ff53a2389dc9c3073db6619"
+        }
+      ]
+    },
+    {
+      "id": "canal-studio",
+      "name": "Canal Studio",
+      "group": "Homes",
+      "style": "Flat-roof studio",
+      "view": {
+        "x": 7,
+        "y": 6,
+        "span": 19
+      },
+      "sourceReferences": [
+        "narrow-modern",
+        "lennar-dover"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 1,
+      "interiorCells": 80,
+      "roofCells": 80,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 16,
+      "edges": 36,
+      "commands": 225,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 10
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "concrete",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "canal-studio.map.json",
+          "bytes": 410181,
+          "sha256": "c99f472cde3436c4ca885301ab5a0b9ee499bb478e8b4174754e46c3f1eaaedc"
+        },
+        {
+          "file": "canal-studio.recipe.json",
+          "bytes": 21313,
+          "sha256": "3730744643966d9c03a3ee63d965e65de2baf8e11a48a441fb41c0c1a4f9a56a"
+        },
+        {
+          "file": "canal-studio.report.json",
+          "bytes": 1242,
+          "sha256": "e7cd7ed43a00e564cfcab1d6dcc828268f51ed3b871c8c170b02a5d27ae1a473"
+        },
+        {
+          "file": "canal-studio.block.json",
+          "bytes": 9309,
+          "sha256": "bbaff6aab2ce6891d9c0d95dba486e0d32e6391a4f044cb1955ee8b511b5d596"
+        }
+      ]
+    },
+    {
+      "id": "ochre-patio",
+      "name": "Ochre Patio Villa",
+      "group": "Homes",
+      "style": "Courtyard villa",
+      "view": {
+        "x": 7.5,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "lennar-liberty"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 116,
+      "roofCells": 116,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 27,
+      "edges": 91,
+      "commands": 377,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "ochre-patio.map.json",
+          "bytes": 413787,
+          "sha256": "ea0a7ee0666f57011a19f03bb232f299c076afb49d7c942b8ec02dfb0ed6b303"
+        },
+        {
+          "file": "ochre-patio.recipe.json",
+          "bytes": 36184,
+          "sha256": "3ba100daffe81d1cc7a7e0c9e4177689805ba93d6d5c817d48f73974f2baa77b"
+        },
+        {
+          "file": "ochre-patio.report.json",
+          "bytes": 1233,
+          "sha256": "8d85dc0e83f43c84fdec4cbf1babe6fd957e7dae20f3224a478669c73e9cf617"
+        },
+        {
+          "file": "ochre-patio.block.json",
+          "bytes": 12919,
+          "sha256": "39a2510fdfd95804d6f686a567b1af52d7314b43e7984451de152c9d4cb4c255"
+        }
+      ]
+    },
+    {
+      "id": "longlight-house",
+      "name": "Longlight House",
+      "group": "Homes",
+      "style": "Low modern pavilion",
+      "view": {
+        "x": 9.5,
+        "y": 8,
+        "span": 24
+      },
+      "sourceReferences": [
+        "lennar-dover",
+        "narrow-modern"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 148,
+      "roofCells": 148,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 31,
+      "edges": 93,
+      "commands": 446,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 17,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "longlight-house.map.json",
+          "bytes": 415366,
+          "sha256": "5179c0f63124761fe3a747cfe7b725e297929e59b8d37807793e108ccac6ca4b"
+        },
+        {
+          "file": "longlight-house.recipe.json",
+          "bytes": 42664,
+          "sha256": "424d6422ab7e90af82d2d213d8ad1f52415f3ee58c94ac332da0f7d271d57039"
+        },
+        {
+          "file": "longlight-house.report.json",
+          "bytes": 1246,
+          "sha256": "910d2be4b041287a11f0101fb636a381ee730cd23440fd3d9de29d063effd183"
+        },
+        {
+          "file": "longlight-house.block.json",
+          "bytes": 14482,
+          "sha256": "6a669bb9d8ece986f3221db06baebd8c267ef09387e81128f5a633374d782ed3"
+        }
+      ]
+    },
+    {
+      "id": "dogwood-breezeway",
+      "name": "Dogwood Breezeway",
+      "group": "Homes",
+      "style": "Dogtrot-inspired cottage",
+      "view": {
+        "x": 7.5,
+        "y": 6.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "ms0041"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 2,
+      "interiorCells": 120,
+      "roofCells": 120,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 26,
+      "edges": 52,
+      "commands": 331,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "dogwood-breezeway.map.json",
+          "bytes": 412844,
+          "sha256": "deb702f26ce03f7bd21aba8250b7f816ee31e6f3b1b46f77c22f852ed8dbb13c"
+        },
+        {
+          "file": "dogwood-breezeway.recipe.json",
+          "bytes": 31443,
+          "sha256": "6440d4963691beb7d851fcf9a136ba3cdd0bcb71ae3a6cf0d79f7fd350a2f592"
+        },
+        {
+          "file": "dogwood-breezeway.report.json",
+          "bytes": 1228,
+          "sha256": "0a6400aa8844c91e8eeb07ec0ba233f38df52d878b70d3981a0250f38cfe536a"
+        },
+        {
+          "file": "dogwood-breezeway.block.json",
+          "bytes": 11952,
+          "sha256": "cfdc94e3f416269d515962303015208aa97586bf71877a2d87786717a87b95a4"
+        }
+      ]
+    },
+    {
+      "id": "saltmarsh-lean-to",
+      "name": "Saltmarsh Lean-to",
+      "group": "Homes",
+      "style": "Saltbox",
+      "view": {
+        "x": 6,
+        "y": 6.5,
+        "span": 18
+      },
+      "sourceReferences": [
+        "ma0366",
+        "ny0775"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 180,
+      "roofCells": 90,
+      "stairs": 1,
+      "roofLadders": 1,
+      "roofModules": 20,
+      "edges": 141,
+      "commands": 475,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 10,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "saltmarsh-lean-to.map.json",
+          "bytes": 416129,
+          "sha256": "a5471a586f789b5325469215abd1ee76412d5cb73b8a5187b96113c4612af3e9"
+        },
+        {
+          "file": "saltmarsh-lean-to.recipe.json",
+          "bytes": 45680,
+          "sha256": "c4c7bf34660b5bdfe15abe799698bba7a74805d75b8b11a1c7369e8c9926918c"
+        },
+        {
+          "file": "saltmarsh-lean-to.report.json",
+          "bytes": 1246,
+          "sha256": "3979a1b2caef03634521b07b865c1093f04758713df0872f03613b4aa5615267"
+        },
+        {
+          "file": "saltmarsh-lean-to.block.json",
+          "bytes": 15237,
+          "sha256": "24f374bc62cca88757b90e38e1a9606050bd828fa62a977ac70c8a69a45db367"
+        }
+      ]
+    },
+    {
+      "id": "hearth-cape",
+      "name": "Hearth Cape",
+      "group": "Homes",
+      "style": "Compact gabled cottage",
+      "view": {
+        "x": 7,
+        "y": 6,
+        "span": 19
+      },
+      "sourceReferences": [
+        "ny0775",
+        "ma0366"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 83,
+      "roofCells": 83,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 17,
+      "edges": 66,
+      "commands": 270,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 10
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "yellow-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "hearth-cape.map.json",
+          "bytes": 411143,
+          "sha256": "d277fee665a340e47175b6e23386e6a90de3ba668972f0c37270a3de05c255c1"
+        },
+        {
+          "file": "hearth-cape.recipe.json",
+          "bytes": 25773,
+          "sha256": "0372b2647a8505d41a789f6ebd16c70feb3037915846511c179a25c58c655595"
+        },
+        {
+          "file": "hearth-cape.report.json",
+          "bytes": 1232,
+          "sha256": "4ae5563d2db8fe56e3ac361bf4536dc1ec8bf54f54b44f01f7df923f8b953541"
+        },
+        {
+          "file": "hearth-cape.block.json",
+          "bytes": 10275,
+          "sha256": "4e2317f7fee8fabbf3881ae13341f76b193adc317cb763c5f5f9192f7579faeb"
+        }
+      ]
+    },
+    {
+      "id": "foxglove-bungalow",
+      "name": "Foxglove Bungalow",
+      "group": "Homes",
+      "style": "Craftsman-inspired bungalow",
+      "view": {
+        "x": 6.5,
+        "y": 8.5,
+        "span": 22
+      },
+      "sourceReferences": [
+        "lennar-dover",
+        "ma0366"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 120,
+      "roofCells": 120,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 27,
+      "edges": 73,
+      "commands": 363,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 11,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "sage-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "foxglove-bungalow.map.json",
+          "bytes": 413487,
+          "sha256": "83f6356f8fd625769fcb2b6f29ebab4d9f1337c8aff4f8b6860262756fa7373f"
+        },
+        {
+          "file": "foxglove-bungalow.recipe.json",
+          "bytes": 34684,
+          "sha256": "d7c9b6803846eb8b1aa07b08087e676e9ef8efe0d7418f27b3129d85126bd8d6"
+        },
+        {
+          "file": "foxglove-bungalow.report.json",
+          "bytes": 1250,
+          "sha256": "12790230b517a43fe16e408aaa1e25a2a60001c8f18ac6f17415a72b35b9ac2c"
+        },
+        {
+          "file": "foxglove-bungalow.block.json",
+          "bytes": 12595,
+          "sha256": "f7c518b23a76f98b8548a439734619c70e24f83be215d9048eface42e5ec7a1c"
+        }
+      ]
+    },
+    {
+      "id": "elm-cross-gable",
+      "name": "Elm Cross-Gable",
+      "group": "Homes",
+      "style": "Farmhouse",
+      "view": {
+        "x": 8,
+        "y": 8.5,
+        "span": 22
+      },
+      "sourceReferences": [
+        "ny0775",
+        "ms0041"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 239,
+      "roofCells": 143,
+      "stairs": 1,
+      "roofLadders": 3,
+      "roofModules": 31,
+      "edges": 167,
+      "commands": 628,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "elm-cross-gable.map.json",
+          "bytes": 419875,
+          "sha256": "a346ccf1cc44601ef31b6fe7312dbaf4e019d81b53a67cd8bc44ea811cc3340c"
+        },
+        {
+          "file": "elm-cross-gable.recipe.json",
+          "bytes": 60352,
+          "sha256": "f53e77e61a2108a5eb6dafb3dbda165fc8dcb17fd35097f93f6115f09b6ce925"
+        },
+        {
+          "file": "elm-cross-gable.report.json",
+          "bytes": 1243,
+          "sha256": "67a6eb59405069f1ef13f60f83f0a1c435d92fb6f7cca5e9f03012162be07c52"
+        },
+        {
+          "file": "elm-cross-gable.block.json",
+          "bytes": 18991,
+          "sha256": "24e165d6883df17ac94d583b964b8b38c4e341e1cf40a865a44839e09798d836"
+        }
+      ]
+    },
+    {
+      "id": "violet-bay-house",
+      "name": "Violet Bay House",
+      "group": "Homes",
+      "style": "Eclectic turreted house",
+      "view": {
+        "x": 8,
+        "y": 7.5,
+        "span": 21
+      },
+      "sourceReferences": [
+        "ny0775",
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 3,
+      "roomCount": 16,
+      "interiorCells": 236,
+      "roofCells": 131,
+      "stairs": 2,
+      "roofLadders": 4,
+      "roofModules": 27,
+      "edges": 185,
+      "commands": 628,
+      "repairs": [
+        {
+          "edge": "e:8:4",
+          "reason": "Connect snapped room to ordinary circulation"
+        },
+        {
+          "edge": "e:8:4:1",
+          "reason": "Connect snapped room to ordinary circulation"
+        }
+      ],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "yellow-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "violet-bay-house.map.json",
+          "bytes": 419924,
+          "sha256": "5914679c2f18389f58aed57eb598136c7850a5c69923821cb2e8d63d756ab300"
+        },
+        {
+          "file": "violet-bay-house.recipe.json",
+          "bytes": 60371,
+          "sha256": "48ed8a02b5d9db20e30a1109ab95b4a4162402519b75b5739f1313163a8bf614"
+        },
+        {
+          "file": "violet-bay-house.report.json",
+          "bytes": 1402,
+          "sha256": "8e4a5ad7a8fe162e706eed822afaa2fc10798c1838da771d80b47518d040a651"
+        },
+        {
+          "file": "violet-bay-house.block.json",
+          "bytes": 19036,
+          "sha256": "97a75c31b66d5d6195f04ccb6cab1477d8a949551e88ec47cb7f8949434f84f3"
+        }
+      ]
+    },
+    {
+      "id": "fennel-mansard",
+      "name": "Fennel Mansard",
+      "group": "Homes",
+      "style": "Mansard urban house",
+      "view": {
+        "x": 5,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "lennar-columbia",
+        "ny0775"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 158,
+      "roofCells": 81,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 15,
+      "edges": 131,
+      "commands": 431,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 8,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "fennel-mansard.map.json",
+          "bytes": 414615,
+          "sha256": "9bed7c48cc6d72d6417d1511177bcf6049beb4eafa74e24556cf9327aa7b727d"
+        },
+        {
+          "file": "fennel-mansard.recipe.json",
+          "bytes": 41100,
+          "sha256": "16249a9e95b9d52e3f84fbf57fefd51d4584d9ef71ea483842fa58c867b063b9"
+        },
+        {
+          "file": "fennel-mansard.report.json",
+          "bytes": 1238,
+          "sha256": "37f062a0acc84c740b2a6462668f9440c609c30af46155f323a1316388067e64"
+        },
+        {
+          "file": "fennel-mansard.block.json",
+          "bytes": 13735,
+          "sha256": "51512bfcd66e5eeb32806fef3cca3fb272e1a0cb0b0d11699fd09a59dcf41c5f"
+        }
+      ]
+    },
+    {
+      "id": "cypress-shotgun",
+      "name": "Cypress Shotgun",
+      "group": "Homes",
+      "style": "Shotgun-inspired house",
+      "view": {
+        "x": 4,
+        "y": 9,
+        "span": 23
+      },
+      "sourceReferences": [
+        "la0203"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 4,
+      "interiorCells": 75,
+      "roofCells": 75,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 14,
+      "edges": 51,
+      "commands": 229,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 6,
+        "maxY": 16
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "sage-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "cypress-shotgun.map.json",
+          "bytes": 410271,
+          "sha256": "a8cab65e6bc48a3ed504c6f0e760c745e105556cded399bb27bfc8cd5e07ea8c"
+        },
+        {
+          "file": "cypress-shotgun.recipe.json",
+          "bytes": 21799,
+          "sha256": "ba0c989ac4e80e8b68728321d1378f2ee09b04712b16be17f2d36004c8f61d77"
+        },
+        {
+          "file": "cypress-shotgun.report.json",
+          "bytes": 1228,
+          "sha256": "f0c86d5ecb46370ebe9835c0b9168a0ce37f1ae085fac3427a8adfc7dd342c68"
+        },
+        {
+          "file": "cypress-shotgun.block.json",
+          "bytes": 9387,
+          "sha256": "391dcbc04c5023142177d31b35659defbf37c783d280e4adada6b3dac7e1041d"
+        }
+      ]
+    },
+    {
+      "id": "sun-well-court",
+      "name": "Sun Well Court",
+      "group": "Homes",
+      "style": "Walled courtyard dwelling",
+      "view": {
+        "x": 7,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "lennar-liberty",
+        "ms0041"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 7,
+      "interiorCells": 117,
+      "roofCells": 117,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 27,
+      "edges": 91,
+      "commands": 382,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "sun-well-court.map.json",
+          "bytes": 413784,
+          "sha256": "36d8a765e9561e1135cbd2983baca1666a3baae25a1ad98ea01af37593901e97"
+        },
+        {
+          "file": "sun-well-court.recipe.json",
+          "bytes": 36607,
+          "sha256": "71a1009a71fa6a6a61d8f3401a06e14acc897d45e74b7ad858ea8e71e8604830"
+        },
+        {
+          "file": "sun-well-court.report.json",
+          "bytes": 1242,
+          "sha256": "2efb27d637a16f8eee5275755873df78206d5fe8ef144eabbe8eba174895972b"
+        },
+        {
+          "file": "sun-well-court.block.json",
+          "bytes": 12904,
+          "sha256": "21a53c43300df9fd0b712596e6cad815149606a0b208eea17ba4f278931ae313"
+        }
+      ]
+    },
+    {
+      "id": "prairie-corner",
+      "name": "Prairie Corner",
+      "group": "Homes",
+      "style": "Broad-eaved house",
+      "view": {
+        "x": 7.5,
+        "y": 8.5,
+        "span": 22
+      },
+      "sourceReferences": [
+        "lennar-dover",
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 226,
+      "roofCells": 130,
+      "stairs": 1,
+      "roofLadders": 3,
+      "roofModules": 30,
+      "edges": 159,
+      "commands": 594,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "prairie-corner.map.json",
+          "bytes": 418852,
+          "sha256": "abc49ba8464bed7d07ee4951efb59d56c9a117bfc8cba3a8371102b6354e4d6a"
+        },
+        {
+          "file": "prairie-corner.recipe.json",
+          "bytes": 56787,
+          "sha256": "8acdee4c9cdee6b881326292977ce5738ea60339b107cb0869463fa874d171ff"
+        },
+        {
+          "file": "prairie-corner.report.json",
+          "bytes": 1246,
+          "sha256": "2827bcbf4f5ad547db36aea7ae9da90cf2ec5968f50c5323d6003829891f5251"
+        },
+        {
+          "file": "prairie-corner.block.json",
+          "bytes": 17972,
+          "sha256": "6af117c525b2bb7befbfefda83ae74b00603084a9c85f94df1092eee38004fc2"
+        }
+      ]
+    },
+    {
+      "id": "alpine-timber",
+      "name": "Alpine Timber House",
+      "group": "Homes",
+      "style": "Timber chalet",
+      "view": {
+        "x": 6,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "ms0041",
+        "ma0366"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 13,
+      "interiorCells": 198,
+      "roofCells": 108,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 24,
+      "edges": 141,
+      "commands": 516,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 10,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "alpine-timber.map.json",
+          "bytes": 417156,
+          "sha256": "6c6e1d1603e4ba056b2bac57f552e024904f51cab0c59743ba52e57603bef711"
+        },
+        {
+          "file": "alpine-timber.recipe.json",
+          "bytes": 49607,
+          "sha256": "e55994c56c2940971a1b8466fdd1dcf3b4f4549ccc8f557cf69c908956b6e00f"
+        },
+        {
+          "file": "alpine-timber.report.json",
+          "bytes": 1237,
+          "sha256": "f46eb004b24e0dac29a96a23c14d1891d76f3eb438e918876c343ad073b65f00"
+        },
+        {
+          "file": "alpine-timber.block.json",
+          "bytes": 16280,
+          "sha256": "57fe3bd3afa262f6ddf2ef87942b40ae3f6e7c9bef1fb92f9718ff5309ecb06d"
+        }
+      ]
+    },
+    {
+      "id": "estuary-cottage",
+      "name": "Estuary Cottage",
+      "group": "Homes",
+      "style": "Veranda cottage",
+      "view": {
+        "x": 8,
+        "y": 6.5,
+        "span": 21
+      },
+      "sourceReferences": [
+        "la0203",
+        "ms0041"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 3,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 114,
+      "roofCells": 114,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 26,
+      "edges": 69,
+      "commands": 345,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "estuary-cottage.map.json",
+          "bytes": 413077,
+          "sha256": "846b35f55ed6508881ce7683588997865a823fbe673745ba7e6499b12ff4729d"
+        },
+        {
+          "file": "estuary-cottage.recipe.json",
+          "bytes": 32973,
+          "sha256": "0382cc82eee14393dfdd768d84c7ece68ef06633be26ee350ddb328b614051ca"
+        },
+        {
+          "file": "estuary-cottage.report.json",
+          "bytes": 1241,
+          "sha256": "3476cfc2ca047bf5241129330636cd94d7425ffde96fba92830cd20e04441f28"
+        },
+        {
+          "file": "estuary-cottage.block.json",
+          "bytes": 12193,
+          "sha256": "7de2f597f4c3163624651e150a5c2ba147f77ad1048a2e7875401f1ec1a97a4d"
+        }
+      ]
+    },
+    {
+      "id": "marlow-courtyard-flats",
+      "name": "Marlow Courtyard Flats",
+      "group": "Homes",
+      "style": "Courtyard apartments",
+      "view": {
+        "x": 9.5,
+        "y": 8.5,
+        "span": 24
+      },
+      "sourceReferences": [
+        "lennar-liberty",
+        "lennar-columbia"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 27,
+      "interiorCells": 528,
+      "roofCells": 176,
+      "stairs": 2,
+      "roofLadders": 1,
+      "roofModules": 39,
+      "edges": 402,
+      "commands": 1253,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 17,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "marlow-courtyard-flats.map.json",
+          "bytes": 434633,
+          "sha256": "8c02357cfd31e4c0762140e58d16e598f1a88e9e63a200bf13795e78cf726e7e"
+        },
+        {
+          "file": "marlow-courtyard-flats.recipe.json",
+          "bytes": 120715,
+          "sha256": "f7e7841e15bbab043e21ba869c9dbacbadc7684151574ffdd83d38ec206f2080"
+        },
+        {
+          "file": "marlow-courtyard-flats.report.json",
+          "bytes": 1265,
+          "sha256": "35fb7c23458a27c109fa0efef8c06587d3997506ec19033ba4bc27fe32249db4"
+        },
+        {
+          "file": "marlow-courtyard-flats.block.json",
+          "bytes": 33721,
+          "sha256": "b31e58bbd2e0e8d2ff2912ce9df055a66398dd2a9cc5dd4a6af6eb9a31c6442d"
+        }
+      ]
+    },
+    {
+      "id": "market-terrace",
+      "name": "Market Terrace",
+      "group": "Homes",
+      "style": "Shop with dwelling above",
+      "view": {
+        "x": 5,
+        "y": 7.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "nj0302"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 10,
+      "interiorCells": 252,
+      "roofCells": 84,
+      "stairs": 2,
+      "roofLadders": 1,
+      "roofModules": 18,
+      "edges": 177,
+      "commands": 581,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 8,
+        "maxY": 13
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "market-terrace.map.json",
+          "bytes": 418509,
+          "sha256": "b65e8f5ad294e9c671088e82300ec133acfb730935f066b84bcd861cc87c2b0d"
+        },
+        {
+          "file": "market-terrace.recipe.json",
+          "bytes": 55343,
+          "sha256": "657883f40971c2b70f5146bd75b706abed1c155f6eaeaadbd62eb138058f94da"
+        },
+        {
+          "file": "market-terrace.report.json",
+          "bytes": 1220,
+          "sha256": "ecac6725980aea7d76bb72fc4c9a8077847f636d5d6a2fe951a7957e37de057d"
+        },
+        {
+          "file": "market-terrace.block.json",
+          "bytes": 17629,
+          "sha256": "b59ee57aea76007cd35454caa7fbb9ddb8eb0f45d75767385333d31511d609a7"
+        }
+      ]
+    },
+    {
+      "id": "eastfield-school",
+      "name": "Eastfield School",
+      "group": "Civic",
+      "style": "Courtyard school",
+      "view": {
+        "x": 10.5,
+        "y": 9.5,
+        "span": 26
+      },
+      "sourceReferences": [
+        "in0138",
+        "il0922"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 7,
+      "interiorCells": 212,
+      "roofCells": 212,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 52,
+      "edges": 134,
+      "commands": 646,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 19,
+        "maxY": 17
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "eastfield-school.map.json",
+          "bytes": 420205,
+          "sha256": "2d7e130ceac694b9da341699ec9be149d43b811b90c0774b861b6f3002bb4073"
+        },
+        {
+          "file": "eastfield-school.recipe.json",
+          "bytes": 61852,
+          "sha256": "2c62e2e7097dd22e8fec3ac3c18ab29157414db9b00aae1005a96dac1ca38410"
+        },
+        {
+          "file": "eastfield-school.report.json",
+          "bytes": 1234,
+          "sha256": "edac789c6f7efe2e52168cbf67848b2699c71d608ce0675331d6c1dda6b09dec"
+        },
+        {
+          "file": "eastfield-school.block.json",
+          "bytes": 19317,
+          "sha256": "b50bcb472dc268ab2d60b2264aaca905119c71bb1aecf6569713edbda269d806"
+        }
+      ]
+    },
+    {
+      "id": "orchard-schoolhouse",
+      "name": "Orchard Schoolhouse",
+      "group": "Civic",
+      "style": "One-room school",
+      "view": {
+        "x": 5.5,
+        "y": 8,
+        "span": 21
+      },
+      "sourceReferences": [
+        "in0138"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 1,
+      "roomCount": 1,
+      "interiorCells": 100,
+      "roofCells": 100,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 23,
+      "edges": 40,
+      "commands": 277,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 9,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "orchard-schoolhouse.map.json",
+          "bytes": 411577,
+          "sha256": "467f16175f7b0a3cc538b864a12790eac7bc02f53e972b437f765adbee37fa04"
+        },
+        {
+          "file": "orchard-schoolhouse.recipe.json",
+          "bytes": 26293,
+          "sha256": "a2249e2d32a59c4781555493cfd7194bf3add96d5925d1e387a72ba26029e8ed"
+        },
+        {
+          "file": "orchard-schoolhouse.report.json",
+          "bytes": 1239,
+          "sha256": "f143a5e98242dfd3d2628218ba0017be29e2a2cc8c8b30cd556450cb18f8d8b5"
+        },
+        {
+          "file": "orchard-schoolhouse.block.json",
+          "bytes": 10677,
+          "sha256": "3fe48ae111e38d3de6b5e78c2f8fd8ee409b4325450ddd575961ec6530c9de0b"
+        }
+      ]
+    },
+    {
+      "id": "greywell-chapel",
+      "name": "Greywell Chapel",
+      "group": "Civic",
+      "style": "Small masonry chapel",
+      "view": {
+        "x": 8,
+        "y": 9,
+        "span": 23
+      },
+      "sourceReferences": [
+        "va0935"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 6,
+      "interiorCells": 173,
+      "roofCells": 155,
+      "stairs": 2,
+      "roofLadders": 2,
+      "roofModules": 31,
+      "edges": 103,
+      "commands": 487,
+      "repairs": [
+        {
+          "edge": "e:1:2",
+          "reason": "Connect snapped room to ordinary circulation"
+        }
+      ],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 16
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "stone",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "greywell-chapel.map.json",
+          "bytes": 416454,
+          "sha256": "a1e59f3c6975a2a74f49ff1c9e626f5fb9e93b5764da01ba6c37ff65477c83ce"
+        },
+        {
+          "file": "greywell-chapel.recipe.json",
+          "bytes": 46441,
+          "sha256": "382c32f1fbede3fd82af4ca23ee79aca25032fd60a15852784bcc90e2110adb7"
+        },
+        {
+          "file": "greywell-chapel.report.json",
+          "bytes": 1298,
+          "sha256": "d78db1d2911c3c319c0f6cad0ec9e246a1ff4931e376932ab07c06e51787b79b"
+        },
+        {
+          "file": "greywell-chapel.block.json",
+          "bytes": 15570,
+          "sha256": "7c73a4d3329bdb0818d8a83ccb83bccd37091a25f9f65da033a3d84f0c37a5e3"
+        }
+      ]
+    },
+    {
+      "id": "bell-court-chapel",
+      "name": "Bell Court Chapel",
+      "group": "Civic",
+      "style": "Mission-inspired chapel",
+      "view": {
+        "x": 9,
+        "y": 9,
+        "span": 23
+      },
+      "sourceReferences": [
+        "il0922",
+        "va0935"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 6,
+      "interiorCells": 207,
+      "roofCells": 189,
+      "stairs": 2,
+      "roofLadders": 2,
+      "roofModules": 41,
+      "edges": 112,
+      "commands": 576,
+      "repairs": [
+        {
+          "edge": "e:11:2",
+          "reason": "Connect snapped room to ordinary circulation"
+        }
+      ],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 16,
+        "maxY": 16
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "bell-court-chapel.map.json",
+          "bytes": 418789,
+          "sha256": "879b114d732c77f23e42f775ac6e028d424532edef3d45bcf0832880aebac878"
+        },
+        {
+          "file": "bell-court-chapel.recipe.json",
+          "bytes": 55102,
+          "sha256": "f968bbce723bdb950d829c11006b74e6e9517c27fd2a12d698a9207b1cf9f004"
+        },
+        {
+          "file": "bell-court-chapel.report.json",
+          "bytes": 1314,
+          "sha256": "dec0636b74254bccffa07d7d4551cae829f8c40b973dc48ba581196a820b2a58"
+        },
+        {
+          "file": "bell-court-chapel.block.json",
+          "bytes": 17897,
+          "sha256": "2412411fddfe5d477c0479ad0f9c5a77751bcbd49eed3ace6e888b3b773d5430"
+        }
+      ]
+    },
+    {
+      "id": "copper-watch-firehouse",
+      "name": "Copper Watch Firehouse",
+      "group": "Civic",
+      "style": "Two-bay firehouse",
+      "view": {
+        "x": 9,
+        "y": 8,
+        "span": 23
+      },
+      "sourceReferences": [
+        "la0072"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 4,
+      "roomCount": 11,
+      "interiorCells": 378,
+      "roofCells": 180,
+      "stairs": 3,
+      "roofLadders": 2,
+      "roofModules": 37,
+      "edges": 203,
+      "commands": 849,
+      "repairs": [
+        {
+          "edge": "e:12:2",
+          "reason": "Connect snapped room to ordinary circulation"
+        },
+        {
+          "edge": "e:12:2:1",
+          "reason": "Connect snapped room to ordinary circulation"
+        }
+      ],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 16,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "copper-watch-firehouse.map.json",
+          "bytes": 424139,
+          "sha256": "aa7f48926a64f59911a7c5418c4efe331f2a0a66a6b49f92809c7cce930b5a11"
+        },
+        {
+          "file": "copper-watch-firehouse.recipe.json",
+          "bytes": 79849,
+          "sha256": "f5bcf2bcceeb255c1593ed7946c1b50e5e508b4e34257bde558caced6d8932b9"
+        },
+        {
+          "file": "copper-watch-firehouse.report.json",
+          "bytes": 1387,
+          "sha256": "33bb8b1551d9290cd80ae9f1aa9b66fb70888abddd6a5d1c1515a50290ae41e3"
+        },
+        {
+          "file": "copper-watch-firehouse.block.json",
+          "bytes": 23227,
+          "sha256": "dfd53c14b8ecdb248bf5e2570a75243dd228422af995f4fc75e69ac609a8d707"
+        }
+      ]
+    },
+    {
+      "id": "branchline-depot",
+      "name": "Branchline Depot",
+      "group": "Civic",
+      "style": "Rural railway depot",
+      "view": {
+        "x": 10,
+        "y": 6,
+        "span": 25
+      },
+      "sourceReferences": [
+        "fl0310"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 3,
+      "interiorCells": 146,
+      "roofCells": 146,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 31,
+      "edges": 62,
+      "commands": 403,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 18,
+        "maxY": 10
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "yellow-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "branchline-depot.map.json",
+          "bytes": 414489,
+          "sha256": "234e121b80a7b9384c5aa1b7386c3d4e7e044098f3ea4372b441daee911f7754"
+        },
+        {
+          "file": "branchline-depot.recipe.json",
+          "bytes": 38368,
+          "sha256": "8de12ac495c299eb9ba2fbbbaf4cab3f7dfd937f833350722988a70155ec81ca"
+        },
+        {
+          "file": "branchline-depot.report.json",
+          "bytes": 1235,
+          "sha256": "8554e70f9b2f16d5fa766fd814e81b7efbeaffec5bccd73eab2e4fe2941eb748"
+        },
+        {
+          "file": "branchline-depot.block.json",
+          "bytes": 13601,
+          "sha256": "ff1df9b223fae8868b9db421550ff2d127a33962c6b6e25143787ffad86089ea"
+        }
+      ]
+    },
+    {
+      "id": "alder-reading-room",
+      "name": "Alder Reading Room",
+      "group": "Civic",
+      "style": "Small public library",
+      "view": {
+        "x": 7.5,
+        "y": 10,
+        "span": 25
+      },
+      "sourceReferences": [
+        "in0138",
+        "ar0128"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 4,
+      "interiorCells": 158,
+      "roofCells": 158,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 37,
+      "edges": 86,
+      "commands": 461,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 18
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "stone",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "alder-reading-room.map.json",
+          "bytes": 416030,
+          "sha256": "d847f89da40a7cf0e06de5edf913a552425f4bdd9fb0d203096a2b322cd14fa4"
+        },
+        {
+          "file": "alder-reading-room.recipe.json",
+          "bytes": 44141,
+          "sha256": "59418148c9cde0b690b1bc03a178405f82ea883310a5e9926590e1da525f807d"
+        },
+        {
+          "file": "alder-reading-room.report.json",
+          "bytes": 1240,
+          "sha256": "61ce920fed07ae993cbeab748591e806b8030f6300dc04d5af69636a1849853b"
+        },
+        {
+          "file": "alder-reading-room.block.json",
+          "bytes": 15134,
+          "sha256": "9b819397205eb2415b8627bd37a3c119edbf0cb037c235e54c8cbedc50849606"
+        }
+      ]
+    },
+    {
+      "id": "exchange-hall",
+      "name": "Exchange Hall",
+      "group": "Civic",
+      "style": "Town hall and bank",
+      "view": {
+        "x": 8,
+        "y": 8,
+        "span": 21
+      },
+      "sourceReferences": [
+        "ar0128",
+        "nj0302"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 3,
+      "roomCount": 11,
+      "interiorCells": 309,
+      "roofCells": 157,
+      "stairs": 2,
+      "roofLadders": 3,
+      "roofModules": 32,
+      "edges": 160,
+      "commands": 704,
+      "repairs": [
+        {
+          "edge": "e:8:10",
+          "reason": "Connect snapped room to ordinary circulation"
+        },
+        {
+          "edge": "e:6:12",
+          "reason": "Connect snapped room to ordinary circulation"
+        },
+        {
+          "edge": "s:5:3:1",
+          "reason": "Connect snapped room to ordinary circulation"
+        },
+        {
+          "edge": "e:6:12:1",
+          "reason": "Connect snapped room to ordinary circulation"
+        }
+      ],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 14,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "exchange-hall.map.json",
+          "bytes": 421975,
+          "sha256": "0137fc49783f9b5eaf8427df4c59c5d66b534b6d6696420e0379285626ac6158"
+        },
+        {
+          "file": "exchange-hall.recipe.json",
+          "bytes": 67520,
+          "sha256": "2bb2864cc91333c09ec4e990c6e53dd39d342e48411849310d8d6a663fceffa1"
+        },
+        {
+          "file": "exchange-hall.report.json",
+          "bytes": 1532,
+          "sha256": "1f613bbcb136011a765224a53becf825511a6a87c205edd1d579b6dbcb66204b"
+        },
+        {
+          "file": "exchange-hall.block.json",
+          "bytes": 21099,
+          "sha256": "63091a4fa0c3acc7ab070067d24c2b77c06226ba388e5b14a233c5342806e5ba"
+        }
+      ]
+    },
+    {
+      "id": "pepper-corner-shop",
+      "name": "Pepper Corner Shop",
+      "group": "Commerce",
+      "style": "Corner grocery",
+      "view": {
+        "x": 8.5,
+        "y": 6.5,
+        "span": 22
+      },
+      "sourceReferences": [
+        "nj0302"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 7,
+      "interiorCells": 220,
+      "roofCells": 120,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 27,
+      "edges": 128,
+      "commands": 535,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 15,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "pepper-corner-shop.map.json",
+          "bytes": 417473,
+          "sha256": "1146348869352825dfa3ac1476d526b4dc4d68d24c39de8883967733b4fec1d6"
+        },
+        {
+          "file": "pepper-corner-shop.recipe.json",
+          "bytes": 50899,
+          "sha256": "ce6ac2cb1d8880fda977ceea0fc4025bcef3544ea51bcee34e69af63784cca10"
+        },
+        {
+          "file": "pepper-corner-shop.report.json",
+          "bytes": 1229,
+          "sha256": "f424aa7169c0a3ed3e6b17cc77470779ec10078f11c4f5c70c4facab9cc4ae0b"
+        },
+        {
+          "file": "pepper-corner-shop.block.json",
+          "bytes": 16577,
+          "sha256": "5d59b4f9c39fc38ebee8ec92c0ee84e8a92cda7070de69caa531ec942614dd61"
+        }
+      ]
+    },
+    {
+      "id": "batten-general-store",
+      "name": "Batten General Store",
+      "group": "Commerce",
+      "style": "Country general store",
+      "view": {
+        "x": 6,
+        "y": 9.5,
+        "span": 24
+      },
+      "sourceReferences": [
+        "nj0302"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 7,
+      "interiorCells": 270,
+      "roofCells": 144,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 32,
+      "edges": 137,
+      "commands": 630,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 10,
+        "maxY": 17
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "batten-general-store.map.json",
+          "bytes": 420067,
+          "sha256": "e8d4d263002eca5e3f0ebfca2d6157cddc4861c548cc189f327aca8d3f7cb116"
+        },
+        {
+          "file": "batten-general-store.recipe.json",
+          "bytes": 60433,
+          "sha256": "8ae1b8364898f623083a070dd52110d12a503c72646754f2c8020ec0d2874f18"
+        },
+        {
+          "file": "batten-general-store.report.json",
+          "bytes": 1243,
+          "sha256": "0c959544d32980ef9dea3685d66cf31596d84a4bf9eb8c47e8c88c8c2fcd4474"
+        },
+        {
+          "file": "batten-general-store.block.json",
+          "bytes": 19163,
+          "sha256": "fcb0d8ccf3a84d6e733495dd98a0b58b523485c1770671bba85751ef6a1cb728"
+        }
+      ]
+    },
+    {
+      "id": "linden-clinic",
+      "name": "Linden Clinic",
+      "group": "Commerce",
+      "style": "Neighbourhood clinic",
+      "view": {
+        "x": 8.5,
+        "y": 9.5,
+        "span": 24
+      },
+      "sourceReferences": [
+        "in0138",
+        "lennar-dover"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 1,
+      "roomCount": 6,
+      "interiorCells": 166,
+      "roofCells": 166,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 40,
+      "edges": 102,
+      "commands": 502,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 15,
+        "maxY": 17
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "linden-clinic.map.json",
+          "bytes": 416963,
+          "sha256": "00ab066a9103adeb9f6f2ec886f7912a7d525c427563f3adc4b70534623733df"
+        },
+        {
+          "file": "linden-clinic.recipe.json",
+          "bytes": 48222,
+          "sha256": "dc671c2fdf0e9e8a6b4396b250da7694e3de2c2464235f0461b19a04fa869bc5"
+        },
+        {
+          "file": "linden-clinic.report.json",
+          "bytes": 1239,
+          "sha256": "b9ca2551e29e81b6773572619d9f1b01436b8855568de78724d522615a56efcf"
+        },
+        {
+          "file": "linden-clinic.block.json",
+          "bytes": 16087,
+          "sha256": "9d6815afb6809081620804aa43c35b9f37143a92c4cede2ce6ffcc2d0a537806"
+        }
+      ]
+    },
+    {
+      "id": "coach-yard-inn",
+      "name": "Coach Yard Inn",
+      "group": "Commerce",
+      "style": "Courtyard inn",
+      "view": {
+        "x": 9.5,
+        "y": 10.5,
+        "span": 26
+      },
+      "sourceReferences": [
+        "nj0302",
+        "lennar-liberty"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 2,
+      "roomCount": 22,
+      "interiorCells": 404,
+      "roofCells": 208,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 45,
+      "edges": 304,
+      "commands": 1042,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 17,
+        "maxY": 19
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "coach-yard-inn.map.json",
+          "bytes": 429982,
+          "sha256": "6ef9a3b7838ec4e8af6a1ed6372d29030bfcaa6352c8787687a8ee413808aa89"
+        },
+        {
+          "file": "coach-yard-inn.recipe.json",
+          "bytes": 100983,
+          "sha256": "41ee86c1bda79bd956469c0eae0bedf8519e511b302918e657ac3e2700dc6415"
+        },
+        {
+          "file": "coach-yard-inn.report.json",
+          "bytes": 1245,
+          "sha256": "b66cf1a8595fef0511bc0777820cdb906ce32e97b9f5fd2e7c828116599fa660"
+        },
+        {
+          "file": "coach-yard-inn.block.json",
+          "bytes": 29102,
+          "sha256": "0a7086971672bc9199e1c62baebf0ecf52bc97c10a26ffc5f128b4c2f2cacc1a"
+        }
+      ]
+    },
+    {
+      "id": "dockside-warehouse",
+      "name": "Dockside Warehouse",
+      "group": "Commerce",
+      "style": "Masonry warehouse",
+      "view": {
+        "x": 9,
+        "y": 12,
+        "span": 31
+      },
+      "sourceReferences": [
+        "il0699"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 4
+      },
+      "occupiedFloors": 3,
+      "roomCount": 9,
+      "interiorCells": 945,
+      "roofCells": 345,
+      "stairs": 2,
+      "roofLadders": 2,
+      "roofModules": 77,
+      "edges": 270,
+      "commands": 1726,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 1,
+        "maxX": 16,
+        "maxY": 23
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "dockside-warehouse.map.json",
+          "bytes": 444629,
+          "sha256": "2bf72ba906c3d861220869e565bd3939f479239be71c5c7146b34dcfbf502ab2"
+        },
+        {
+          "file": "dockside-warehouse.recipe.json",
+          "bytes": 161763,
+          "sha256": "941c625b5d32f8f766ea860dbc39f68e8e904c6f92c1b736061c69851365d2ad"
+        },
+        {
+          "file": "dockside-warehouse.report.json",
+          "bytes": 1230,
+          "sha256": "29a9fa9cc783da754bce49f07256e5b5d7d021dabf4557604e4c676c0c8bb08a"
+        },
+        {
+          "file": "dockside-warehouse.block.json",
+          "bytes": 43733,
+          "sha256": "48b3b7dfbbf8b0d69f29a050b71694db152af93106e24b9206d02b50b5339736"
+        }
+      ]
+    },
+    {
+      "id": "northlight-works",
+      "name": "Northlight Works",
+      "group": "Commerce",
+      "style": "Sawtooth workshop",
+      "view": {
+        "x": 10.5,
+        "y": 10.5,
+        "span": 26
+      },
+      "sourceReferences": [
+        "il0699",
+        "nh0185"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 3,
+      "interiorCells": 276,
+      "roofCells": 276,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 68,
+      "edges": 93,
+      "commands": 739,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 19,
+        "maxY": 19
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "northlight-works.map.json",
+          "bytes": 421977,
+          "sha256": "c16e9091fa5057922a2f982f0ee5da2dafa09f20c9fdda646c020f8238b1009d"
+        },
+        {
+          "file": "northlight-works.recipe.json",
+          "bytes": 69644,
+          "sha256": "82b333730fc8a68f2364c36c98b5f325be9455dfcdca8304830d9c63d7c50f5e"
+        },
+        {
+          "file": "northlight-works.report.json",
+          "bytes": 1233,
+          "sha256": "bef2c8752f3352231ae7b9d7c339200e9857fcf755a820788eb408fa6f07207a"
+        },
+        {
+          "file": "northlight-works.block.json",
+          "bytes": 21089,
+          "sha256": "1f97bf19c204a0361a10bca438d70d45b67b50ab6a2fe35397ad3b03c70ec9c1"
+        }
+      ]
+    },
+    {
+      "id": "glass-garden-hall",
+      "name": "Glass Garden Hall",
+      "group": "Commerce",
+      "style": "Conservatory pavilion",
+      "view": {
+        "x": 9.5,
+        "y": 8.5,
+        "span": 24
+      },
+      "sourceReferences": [
+        "il0922",
+        "narrow-modern"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 1,
+      "interiorCells": 164,
+      "roofCells": 164,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 40,
+      "edges": 60,
+      "commands": 453,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 17,
+        "maxY": 15
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "plaster",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "glass-garden-hall.map.json",
+          "bytes": 415807,
+          "sha256": "1a087196e640f61ae1db9854bf50660b7d228ea841071fc69c884e6bbc1e5109"
+        },
+        {
+          "file": "glass-garden-hall.recipe.json",
+          "bytes": 43268,
+          "sha256": "9c7ab77a321172c741630f9f908683406321f621a48f7424be87711f38626adf"
+        },
+        {
+          "file": "glass-garden-hall.report.json",
+          "bytes": 1247,
+          "sha256": "10375a5400507b9292c6d0ef125f2e810647767c9d5e4f52e1169769e002327f"
+        },
+        {
+          "file": "glass-garden-hall.block.json",
+          "bytes": 14915,
+          "sha256": "6fa90e739aa9c3ea5b8a9e4e9c5b93bafb6867b8d808a277e2dc87990662c864"
+        }
+      ]
+    },
+    {
+      "id": "post-lane-office",
+      "name": "Post Lane Office",
+      "group": "Commerce",
+      "style": "Village post office",
+      "view": {
+        "x": 7,
+        "y": 6.5,
+        "span": 19
+      },
+      "sourceReferences": [
+        "nj0302",
+        "ar0128"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 3
+      },
+      "occupiedFloors": 1,
+      "roomCount": 4,
+      "interiorCells": 104,
+      "roofCells": 104,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 20,
+      "edges": 57,
+      "commands": 305,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "brick",
+        "native": "wall-brick"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "post-lane-office.map.json",
+          "bytes": 411824,
+          "sha256": "caab28096ba3c933b1b3f43d948483bb9db1edc7fd8791d363fac10e74e7c1f8"
+        },
+        {
+          "file": "post-lane-office.recipe.json",
+          "bytes": 28849,
+          "sha256": "9f6561e6319340c346a2a82686c16cff7a36612b276ab38505e4f6b2e4113fcb"
+        },
+        {
+          "file": "post-lane-office.report.json",
+          "bytes": 1233,
+          "sha256": "b695d7b408850f574c8e766eaacfe1c6aa0626699ef41b25ab716133d4764475"
+        },
+        {
+          "file": "post-lane-office.block.json",
+          "bytes": 10936,
+          "sha256": "18b3a26db100204d467cc46f256497c91626a48a73a41f2030e4ed92179d0949"
+        }
+      ]
+    },
+    {
+      "id": "red-crest-barn",
+      "name": "Red Crest Barn",
+      "group": "Farm & utility",
+      "style": "Gambrel barn",
+      "view": {
+        "x": 7,
+        "y": 10.5,
+        "span": 26
+      },
+      "sourceReferences": [
+        "wa0112",
+        "tx1081"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 14,
+      "interiorCells": 396,
+      "roofCells": 198,
+      "stairs": 1,
+      "roofLadders": 1,
+      "roofModules": 45,
+      "edges": 197,
+      "commands": 899,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 12,
+        "maxY": 19
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "red-timber",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "red-crest-barn.map.json",
+          "bytes": 425392,
+          "sha256": "43ce53fe19c8d437e8e4d64d773b8c561333aed491c7ed9fc6a787758c82d61d"
+        },
+        {
+          "file": "red-crest-barn.recipe.json",
+          "bytes": 85161,
+          "sha256": "9622b8d1dda192d187d9962412f92e734f3e533d1aad7c10266816196ced253a"
+        },
+        {
+          "file": "red-crest-barn.report.json",
+          "bytes": 1239,
+          "sha256": "3374c5fcfd2657cce8376cf03e54646a54cc9eaec3dfcdf1a0344f3f15ba399d"
+        },
+        {
+          "file": "red-crest-barn.block.json",
+          "bytes": 24512,
+          "sha256": "3a48cd66dec968929c4049ed82a42234d37bde48623bf1ff0c1723b2cafbd40a"
+        }
+      ]
+    },
+    {
+      "id": "stone-bank-barn",
+      "name": "Stone Bank Barn",
+      "group": "Farm & utility",
+      "style": "Bank barn",
+      "view": {
+        "x": 10,
+        "y": 9.5,
+        "span": 25
+      },
+      "sourceReferences": [
+        "tx1081",
+        "wa0112"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 12,
+      "interiorCells": 456,
+      "roofCells": 248,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 57,
+      "edges": 208,
+      "commands": 1026,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 18,
+        "maxY": 17
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "stone-bank-barn.map.json",
+          "bytes": 428607,
+          "sha256": "0c86032f21ae95334a42f1f26536e552d6d67847185d6e9870ee712eaa4ec53f"
+        },
+        {
+          "file": "stone-bank-barn.recipe.json",
+          "bytes": 97074,
+          "sha256": "04f7852fc5fc23af72de56a1d1ba986e74a3db206cce21f5f458d0e8cc2bacb3"
+        },
+        {
+          "file": "stone-bank-barn.report.json",
+          "bytes": 1236,
+          "sha256": "6ee4893f3d0a041ae86dbdd403e653b5726f9b2f6afa2b0543d5c9c2f22e443c"
+        },
+        {
+          "file": "stone-bank-barn.block.json",
+          "bytes": 27723,
+          "sha256": "93b34592b5bff2470f7715633fb839a26f6124153450065a2d8d36fb1a410315"
+        }
+      ]
+    },
+    {
+      "id": "longspan-machine-shed",
+      "name": "Longspan Machine Shed",
+      "group": "Farm & utility",
+      "style": "Machinery shed",
+      "view": {
+        "x": 11.5,
+        "y": 6.5,
+        "span": 28
+      },
+      "sourceReferences": [
+        "ndsu-farm",
+        "wa0112"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 1,
+      "interiorCells": 200,
+      "roofCells": 200,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 49,
+      "edges": 60,
+      "commands": 531,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 21,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "blue-metal",
+        "native": "wall-corrugated"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "longspan-machine-shed.map.json",
+          "bytes": 417984,
+          "sha256": "311a6549de3b97b5f91997a43287e9e87c7af58eb52ce45163befb048ef9a7a8"
+        },
+        {
+          "file": "longspan-machine-shed.recipe.json",
+          "bytes": 50856,
+          "sha256": "9246a399dd561ccaeef87beffeb7178f3b6be94314ce1ab0eea658fba4813b15"
+        },
+        {
+          "file": "longspan-machine-shed.report.json",
+          "bytes": 1256,
+          "sha256": "e80b6edaab19b4b9c1003cf5434a24f321daea67ae661fdbe718215eac05d8f9"
+        },
+        {
+          "file": "longspan-machine-shed.block.json",
+          "bytes": 17076,
+          "sha256": "a7873adeaae0cac51a8626587ba876a74e7dae2ae08b297081abe8feb3114bf8"
+        }
+      ]
+    },
+    {
+      "id": "whitegate-dairy",
+      "name": "Whitegate Dairy",
+      "group": "Farm & utility",
+      "style": "Milking parlour",
+      "view": {
+        "x": 10,
+        "y": 8,
+        "span": 25
+      },
+      "sourceReferences": [
+        "tx1081",
+        "ndsu-farm"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 9,
+      "interiorCells": 161,
+      "roofCells": 161,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 36,
+      "edges": 116,
+      "commands": 506,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 18,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "cream-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "whitegate-dairy.map.json",
+          "bytes": 416342,
+          "sha256": "020746183e969fb7857a59d62ae4c87c3e1303f44ddeb5df65f9476747cbfec6"
+        },
+        {
+          "file": "whitegate-dairy.recipe.json",
+          "bytes": 48079,
+          "sha256": "6d089829220562c6ade7d0f83a111a614699ac82fda3c0b4bfe3a88d73dea8c9"
+        },
+        {
+          "file": "whitegate-dairy.report.json",
+          "bytes": 1245,
+          "sha256": "80b51bda98d454feda4662c3b7789545b9c27c55114711683104c040062840cf"
+        },
+        {
+          "file": "whitegate-dairy.block.json",
+          "bytes": 15458,
+          "sha256": "5778c29a22e83d89b60ea4db5af0fddba72f9e61093f25da86c28e71845c1fae"
+        }
+      ]
+    },
+    {
+      "id": "horseshoe-stables",
+      "name": "Horseshoe Stables",
+      "group": "Farm & utility",
+      "style": "Stable yard",
+      "view": {
+        "x": 9.5,
+        "y": 9,
+        "span": 24
+      },
+      "sourceReferences": [
+        "wa0112",
+        "tx1081"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 1,
+      "roomCount": 11,
+      "interiorCells": 180,
+      "roofCells": 180,
+      "stairs": 0,
+      "roofLadders": 1,
+      "roofModules": 35,
+      "edges": 140,
+      "commands": 573,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 17,
+        "maxY": 16
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "horseshoe-stables.map.json",
+          "bytes": 417610,
+          "sha256": "6453680853111433e0a3fd8d0c0207fb0e71dd086ceb8831184b701698df13bb"
+        },
+        {
+          "file": "horseshoe-stables.recipe.json",
+          "bytes": 54495,
+          "sha256": "c4ffc4edc96366ff25f68d25f5b9aeb9cd1fd92bd49c18694a6d394f58a618f2"
+        },
+        {
+          "file": "horseshoe-stables.report.json",
+          "bytes": 1239,
+          "sha256": "315b8d419e4332a63e461dc632779a442cb1f6193feaaca9f2b1d60dc5c11a4c"
+        },
+        {
+          "file": "horseshoe-stables.block.json",
+          "bytes": 16718,
+          "sha256": "b62e623a08569035f5b3cc994693dd4e7420821b2c72e16c6bb189d91f87e9df"
+        }
+      ]
+    },
+    {
+      "id": "grainwatch-granary",
+      "name": "Grainwatch Granary",
+      "group": "Farm & utility",
+      "style": "Granary and store",
+      "view": {
+        "x": 7.5,
+        "y": 6.5,
+        "span": 20
+      },
+      "sourceReferences": [
+        "wa0112",
+        "ndsu-farm"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 3,
+      "roomCount": 9,
+      "interiorCells": 268,
+      "roofCells": 108,
+      "stairs": 2,
+      "roofLadders": 2,
+      "roofModules": 24,
+      "edges": 150,
+      "commands": 596,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 13,
+        "maxY": 11
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "red-timber",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "grainwatch-granary.map.json",
+          "bytes": 418518,
+          "sha256": "79eace7da8370d93aa237f7e9e1f8b465232b3b94e078b9b54f71b39b699b4c8"
+        },
+        {
+          "file": "grainwatch-granary.recipe.json",
+          "bytes": 56234,
+          "sha256": "6db7593f2b8ede3a75072cb91317cd752dd2c35f2158c112c0f35af15fcb491f"
+        },
+        {
+          "file": "grainwatch-granary.report.json",
+          "bytes": 1249,
+          "sha256": "aa6b569247f20fd1096de23cdb98b5996027575f030bd64d3c266eca17c5ab86"
+        },
+        {
+          "file": "grainwatch-granary.block.json",
+          "bytes": 17622,
+          "sha256": "6a37895088c39e2336bdfbc7fe0e10b5d13b3770eaaae0262d14c2acffe81d19"
+        }
+      ]
+    },
+    {
+      "id": "carriage-court",
+      "name": "Carriage Court",
+      "group": "Farm & utility",
+      "style": "Carriage house",
+      "view": {
+        "x": 6.5,
+        "y": 6,
+        "span": 18
+      },
+      "sourceReferences": [
+        "nj0302",
+        "wa0112"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 7,
+      "interiorCells": 180,
+      "roofCells": 90,
+      "stairs": 1,
+      "roofLadders": 1,
+      "roofModules": 19,
+      "edges": 108,
+      "commands": 432,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 11,
+        "maxY": 10
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "sage-siding",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "carriage-court.map.json",
+          "bytes": 414681,
+          "sha256": "03dafc6f256289852908f5b39c4a0edb3e6bf977d1fdedef9701216241bb07b5"
+        },
+        {
+          "file": "carriage-court.recipe.json",
+          "bytes": 40837,
+          "sha256": "1fa9f5ca529922e324c9588c2da748e3f7922305720cb0614e30746e0e06d637"
+        },
+        {
+          "file": "carriage-court.report.json",
+          "bytes": 1238,
+          "sha256": "01710f7665181f80aebb2db534093615a48f37c2764802287672f42037309058"
+        },
+        {
+          "file": "carriage-court.block.json",
+          "bytes": 13801,
+          "sha256": "91d8fae61a9fd909938fc9272d18e637c588efd86ce30b967b162991cb356046"
+        }
+      ]
+    },
+    {
+      "id": "millrace-workhouse",
+      "name": "Millrace Workhouse",
+      "group": "Farm & utility",
+      "style": "Mill and pump annex",
+      "view": {
+        "x": 8.5,
+        "y": 8,
+        "span": 22
+      },
+      "sourceReferences": [
+        "nh0185"
+      ],
+      "source": "Original architecture recipe rebuilt with the native game-editor brush implementation",
+      "grid": 1,
+      "metresPerTile": 1,
+      "offset": {
+        "x": 2,
+        "y": 2
+      },
+      "occupiedFloors": 2,
+      "roomCount": 6,
+      "interiorCells": 269,
+      "roofCells": 152,
+      "stairs": 1,
+      "roofLadders": 2,
+      "roofModules": 30,
+      "edges": 127,
+      "commands": 616,
+      "repairs": [],
+      "bounds": {
+        "minX": 2,
+        "minY": 2,
+        "maxX": 15,
+        "maxY": 14
+      },
+      "blockAvailable": true,
+      "blockReason": "",
+      "materialMapping": {
+        "authored": "wood",
+        "native": "wall-concrete"
+      },
+      "adaptations": [
+        "Half-metre interior partitions snap to the one-metre game grid without scaling the building.",
+        "Roofs use supported flat/sloped two-metre editor modules and slab infill; complex sculpted roof profiles are simplified.",
+        "Roof hatches use native ladders. Closed doors retain native opening behavior.",
+        "Towers/turrets are rebuilt as supported grid rooms with stair access; curved outlines become stepped native walls.",
+        "Dormers, domes, cupolas, chimneys, balusters and the mill wheel remain art references rather than unsupported native objects.",
+        "The native editor palette supplies materials; the separate sculpt atlas is not substituted into game collision/rendering identifiers."
+      ],
+      "files": [
+        {
+          "file": "millrace-workhouse.map.json",
+          "bytes": 418904,
+          "sha256": "b800d94ab7114c6fbee4380f729cb3d93cbaef164eb39f639c3ff20ef53d80f1"
+        },
+        {
+          "file": "millrace-workhouse.recipe.json",
+          "bytes": 58126,
+          "sha256": "f73c5a22a813787bfe859625047221b33b493fcd48f77128da630c7fcbe1fc12"
+        },
+        {
+          "file": "millrace-workhouse.report.json",
+          "bytes": 1231,
+          "sha256": "f411270933292b5ab4658a74ce76236d1c8f2cd70c5acff75d5ff6ef76799574"
+        },
+        {
+          "file": "millrace-workhouse.block.json",
+          "bytes": 18008,
+          "sha256": "775d84bb5cd4bdd34fb7ce39efb5f7f4da124f3923baae00e5fab252e8c7044f"
+        }
+      ]
+    }
+  ]
+}
