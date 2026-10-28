@@ -55,7 +55,7 @@ export function installAssetLibrary() {
     const current = ++ticket; selected = asset; loading = true; use.disabled = true;
     $('asset-name').textContent = asset.name;
     const sculpture=kind==='window'?compileWindowBay(asset.id):null;
-    $('asset-footprint').textContent = sculpture ? `3 m bay · 1 m centered opening · sill ${sculpture.opening.bottom} m · head ${sculpture.opening.top} m` : `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
+    $('asset-footprint').textContent = sculpture ? `${sculpture.wall.width} m bay · ${sculpture.opening.width} m centered opening · sill ${sculpture.opening.bottom} m · head ${sculpture.opening.top} m` : `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
     $('asset-note').textContent = sculpture ? `${asset.note} ${asset.disabled}` : asset.disabled || asset.note || 'Choose this asset, then click or drag in the map to place it. Placement checks apply.';
     windowOptions.hidden=kind!=='window';
     if(sculpture) appearance={wall:$('asset-window-wall').value,finish:$('asset-window-finish').value,sashes:$('asset-window-sashes').value==='installed'};

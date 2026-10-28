@@ -12,9 +12,10 @@ await withArtReview('Centered window sculpture and editor library review',async(
   await page.locator('#nautilus-assets').click();
   await page.locator('#asset-category').selectOption('Windows');
   if(await page.locator('#asset-results button').count()!==2)throw Error('Missing window sculptures.');
-  const captures=[];
+  const captures=[],downloads=[];
   async function capture(name){
     await page.waitForFunction(()=>document.getElementById('asset-preview-status').textContent.startsWith('Window sculpture'));
+    if(!(await page.locator('#asset-footprint').textContent()).startsWith('2 m bay · 1 m centered opening'))throw Error('Incorrect displayed bay width.');
     await page.locator('#asset-library .asset-inspector').screenshot({path:path.join(out,name+'.png')});captures.push(name+'.png');
   }
   for(const id of ['window-bay-compact','window-bay-period']){
@@ -28,11 +29,13 @@ await withArtReview('Centered window sculpture and editor library review',async(
     await page.locator('#asset-turn').click();await page.locator('#asset-turn').click();await capture(id+'-back');
     await page.locator('#asset-window-sashes').selectOption('installed');
     await page.locator('#asset-window-finish').selectOption('painted');
+    const downloadPromise=page.waitForEvent('download');await page.locator('#asset-window-download').click();
+    const download=await downloadPromise,file=path.join(out,download.suggestedFilename());await download.saveAs(file);
+    const sculpture=JSON.parse(fs.readFileSync(file));
+    const minX=Math.min(...sculpture.parts.map(p=>p.center[0]-p.size[0]/2)),maxX=Math.max(...sculpture.parts.map(p=>p.center[0]+p.size[0]/2));
+    if(sculpture.id!==id||sculpture.wall.width!==2||sculpture.wall.segmentWidth!==.5||sculpture.opening.width!==1||minX!==-1||maxX!==1||sculpture.anchors.leftJoin[0]!==-1||sculpture.anchors.rightJoin[0]!==1||sculpture.traversal.status!=='deferred'||sculpture.parts.length<30)throw Error('Incorrect sculpture download dimensions.');
+    downloads.push({file:path.basename(file),format:sculpture.format,wallWidth:sculpture.wall.width,openingWidth:sculpture.opening.width,segmentWidth:sculpture.wall.segmentWidth,boundsX:[minX,maxX]});
   }
-  const downloadPromise=page.waitForEvent('download');await page.locator('#asset-window-download').click();
-  const download=await downloadPromise,file=path.join(out,download.suggestedFilename());await download.saveAs(file);
-  const sculpture=JSON.parse(fs.readFileSync(file));
-  if(sculpture.id!=='window-bay-period'||sculpture.opening.width!==1||sculpture.traversal.status!=='deferred'||sculpture.parts.length<30)throw Error('Incomplete sculpture download.');
   for(let repeat=0;repeat<2;repeat++){
     await page.locator('#asset-close').click();await page.locator('#nautilus-assets').click();await capture('reopened-'+repeat);
   }
@@ -47,7 +50,7 @@ await withArtReview('Centered window sculpture and editor library review',async(
   if(overflow)throw Error('Window library overflows on mobile.');
   await page.locator('#asset-close').click();
   const report={browser:browser.version(),renderer:'Isolated software WebGL; visual correctness only',profiles:2,captures:captures.map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')})),
-    views:['painted wood','painted brick','clay','sashes removed','opposite face','concrete'],download:{file:path.basename(file),format:sculpture.format},reopened:2,legacyRendererSwitch:true,mapUnchanged:true,mobileOverflow:overflow,errors,failedRequests};
+    views:['painted wood','painted brick','clay','sashes removed','opposite face','concrete'],downloads,reopened:2,legacyRendererSwitch:true,mapUnchanged:true,mobileOverflow:overflow,errors,failedRequests};
   fs.writeFileSync(path.join(out,'browser-checks.json'),JSON.stringify(report,null,2));
   console.log(JSON.stringify({...report,captures:captures.length}));
 },{owner:'01a1811b-5974-7d83-8cff-136a1d8b02ab',directory:'window-kit',sourceFiles:['tools/review-window-kit.mjs']});

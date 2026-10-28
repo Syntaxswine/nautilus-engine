@@ -9,7 +9,7 @@ export const WINDOW_KIT = freeze({
   version: 1, metresPerUnit: 1, wallWidth: WALL_KIT.panel,
   wallHeight: WALL_KIT.height, wallThickness: WALL_KIT.thickness,
   floorSpacing: WALL_KIT.floorSpacing, openingWidth: 1,
-  frameWidth: .04, span: 3
+  frameWidth: .04, span: 2, segmentWidth: .5
 });
 
 export const WINDOW_BAYS = freeze([
@@ -21,7 +21,7 @@ export const WINDOW_BAYS = freeze([
 
 export const WINDOW_SOURCES = freeze({
   dimensions: {commit: '781246a668c723d5a4c5463e70534cc04b6a5641', path: 'dist/tactics/hybrid-geometry.js',
-    detail: 'Native 2 m wall, 0.16 m thickness, 1 m window width, 0.85–1.55 m compact aperture.'},
+    detail: 'Native 2 m wall height, 0.16 m thickness, 1 m window width, 0.85–1.55 m compact aperture.'},
   periodProfile: {commit: '6693bfa3fea2edec77649d830de5ac68ba4c1a50', path: 'src/art/gross-housing.js',
     detail: 'Preserved 0.35–1.55 m tall sash aperture. New independent window-bay sculpture; no donor geometry altered.'}
 });
@@ -32,13 +32,16 @@ export function compileWindowBay(id) {
   const profile = WINDOW_BAYS.find(p => p.id === id);
   if (!profile) throw Error('Unknown window sculpture: ' + id);
   const {bottom, top, columns, rows} = profile, height = top - bottom;
+  const {span, segmentWidth, openingWidth, wallHeight, wallThickness} = WINDOW_KIT;
+  const segmentCenter = (span-segmentWidth)/2;
   const parts = [], add = (name, group, material, center, size, bevel = 0) => {
     parts.push({name, group, material, shape: 'box', center, size, bevel});
   };
-  add('Left wall segment', 'walls', 'wall', [-1,1,0], [1,2,.16]);
-  add('Right wall segment', 'walls', 'wall', [1,1,0], [1,2,.16]);
-  add('Wall below window', 'walls', 'wall', [0,bottom/2,0], [1,bottom,.16]);
-  add('Wall lintel', 'walls', 'wall', [0,(top+2)/2,0], [1,2-top,.16]);
+  // Cut half-metre flanks; preserve the opening, frame and metre texture scale.
+  add('Left wall segment', 'walls', 'wall', [-segmentCenter,wallHeight/2,0], [segmentWidth,wallHeight,wallThickness]);
+  add('Right wall segment', 'walls', 'wall', [segmentCenter,wallHeight/2,0], [segmentWidth,wallHeight,wallThickness]);
+  add('Wall below window', 'walls', 'wall', [0,bottom/2,0], [openingWidth,bottom,wallThickness]);
+  add('Wall lintel', 'walls', 'wall', [0,(top+wallHeight)/2,0], [openingWidth,wallHeight-top,wallThickness]);
 
   // Fixed jambs line the actual aperture. Face casings sit outside its edges.
   for (const sign of [-1,1]) {
@@ -84,10 +87,10 @@ export function compileWindowBay(id) {
   return {
     format: 'nautilus-window-sculpture-v1', id, name: profile.name, description: profile.description,
     metresPerUnit: 1, axes: {along: 'x', up: 'y', through: 'z'},
-    wall: {width: 3, height: 2, thickness: .16, segmentWidth: 1},
-    opening: {center: [0,(bottom+top)/2,0], width: 1, bottom, top, height,
+    wall: {width: span, height: wallHeight, thickness: wallThickness, segmentWidth},
+    opening: {center: [0,(bottom+top)/2,0], width: openingWidth, bottom, top, height,
       clear: {width: .92, bottom: clearBottom, top: clearTop, height: clearTop-clearBottom}},
-    anchors: {leftJoin: [-1.5,0,0], rightJoin: [1.5,0,0], sill: [0,bottom,0],
+    anchors: {leftJoin: [-span/2,0,0], rightJoin: [span/2,0,0], sill: [0,bottom,0],
       head: [0,top,0], frontNormal: [0,0,1], backNormal: [0,0,-1]},
     traversal: {status: 'deferred', consumerIntegrated: false}, sources: structuredClone(WINDOW_SOURCES), parts
   };

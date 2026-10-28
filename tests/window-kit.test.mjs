@@ -18,22 +18,26 @@ const visibleHits=(model,x,y,rotation=0,back=false)=>{
   model.root.traverseVisible(o=>{if(o.isMesh)meshes.push(o);});return ray.intersectObjects(meshes,false);
 };
 
-test('two equal native wall panels flank the centered aperture and preserve source dimensions',()=>{
+test('a 2 m bay centers the source-sized opening between two half-metre wall sections',()=>{
   assert.equal(globalThis.window,undefined);assert.equal(globalThis.document,undefined);
   assert.equal(WINDOW_KIT.wallHeight,WALL_KIT.height);assert.equal(WINDOW_KIT.wallThickness,WALL_KIT.thickness);
   assert.equal(WINDOW_KIT.floorSpacing,WALL_KIT.floorSpacing);
+  assert.equal(WINDOW_KIT.span,2);assert.equal(WINDOW_KIT.segmentWidth,WALL_KIT.panel/2);
   const original=roomBoxes(),native=compileWindowBay('window-bay-compact');
   close(native.opening.bottom,original.find(b=>b.name==='Window sill').max[1]);
   close(native.opening.top,original.find(b=>b.name==='Window lintel').min[1]);
   for(const {id} of WINDOW_BAYS){
     const s=compileWindowBay(id),[left,right]=s.parts.filter(p=>p.name.endsWith('wall segment'));
-    assert.deepEqual(left.size,[1,2,.16]);assert.deepEqual(right.size,left.size);
+    assert.deepEqual(s.wall,{width:2,height:2,thickness:.16,segmentWidth:.5});
+    assert.deepEqual(left.size,[.5,2,.16]);assert.deepEqual(right.size,left.size);
+    assert.equal(s.opening.width,1);assert.equal(left.size[0]+s.opening.width+right.size[0],2);
     close((left.center[0]+right.center[0])/2,s.opening.center[0]);
     close(left.center[0]+left.size[0]/2,-s.opening.width/2);
     close(right.center[0]-right.size[0]/2,s.opening.width/2);
-    assert.deepEqual(s.anchors.leftJoin,[-1.5,0,0]);assert.deepEqual(s.anchors.rightJoin,[1.5,0,0]);
+    assert.deepEqual(s.anchors.leftJoin,[-1,0,0]);assert.deepEqual(s.anchors.rightJoin,[1,0,0]);
+    close(left.center[0]-left.size[0]/2,s.anchors.leftJoin[0]);close(right.center[0]+right.size[0]/2,s.anchors.rightJoin[0]);
     assert.deepEqual(s.traversal,{status:'deferred',consumerIntegrated:false});
-    s.parts[0].center[0]=99;assert.equal(compileWindowBay(id).parts[0].center[0],-1);
+    s.parts[0].center[0]=99;assert.equal(compileWindowBay(id).parts[0].center[0],-.75);
   }
   assert.throws(()=>compileWindowBay('missing'),/Unknown window/);
 });
@@ -42,7 +46,7 @@ test('every sculpted solid has native bounds, outward normals and closed bevel s
   for(const {id} of WINDOW_BAYS){
     const model=createWindowBayModel(T,id);
     try{
-      assert.deepEqual(model.root.scale.toArray(),[1,1,1]);close(model.bounds.min[0],-1.5);close(model.bounds.max[0],1.5);
+      assert.deepEqual(model.root.scale.toArray(),[1,1,1]);close(model.bounds.min[0],-1);close(model.bounds.max[0],1);
       for(const part of model.sculpture.parts){
         const mesh=model.parts.get(part.group+':'+part.name),g=mesh.geometry,p=g.attributes.position,n=g.attributes.normal;
         for(let a=0;a<3;a++){close(g.boundingBox.min.getComponent(a),part.center[a]-part.size[a]/2);close(g.boundingBox.max.getComponent(a),part.center[a]+part.size[a]/2);}
@@ -71,7 +75,8 @@ test('removing sashes reveals a real hole from either face and at an angled plac
       model.setView({sashes:false});
       for(const angle of [0,Math.PI/4,-Math.PI/2])for(const back of [false,true]){
         for(const x of [-.4,0,.4])assert.equal(visibleHits(model,x,model.sculpture.opening.center[1],angle,back).length,0);
-        for(const x of [-1,1])assert.ok(visibleHits(model,x,1,angle,back).length>0);
+        for(const x of [-.75,.75])assert.ok(visibleHits(model,x,1,angle,back).length>0);
+        for(const x of [-1.05,1.05])assert.equal(visibleHits(model,x,1,angle,back).length,0);
         assert.ok(visibleHits(model,0,model.sculpture.opening.bottom/2,angle,back).length>0);
         assert.ok(visibleHits(model,0,1.85,angle,back).length>0);
       }
@@ -107,6 +112,7 @@ test('model disposal is idempotent and leaves host-owned materials and textures 
 test('window discovery and presentation never substitute a legacy prop or claim placement support',()=>{
   const windows=findAssets(editorAssets(),'centered','Windows');assert.equal(windows.length,2);
   for(const asset of windows){
+    assert.equal(asset.w,2);
     assert.ok(asset.disabled.includes('traversal'));assert.deepEqual(asset.bindings,{});
     const preview=assetPreview(asset,{wall:'brick',finish:'clay',sashes:false});
     assert.deepEqual(preview.document,{sculpture:{id:asset.id,wall:'brick',finish:'clay',sashes:false}});

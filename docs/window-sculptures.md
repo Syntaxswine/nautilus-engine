@@ -1,6 +1,6 @@
 # Centered window sculptures
 
-Open **Asset library → Windows** to inspect the compact and period sash bays. Each bay puts a 1 m opening exactly between two equal, full-size 1 m wall segments. The complete wall assembly is 3 m wide, 2 m high and 0.16 m thick. All coordinates are metres; the host can translate and rotate the assembly without scaling it. Fixed-frame projections extend to −0.14 / +0.15 m through the wall.
+Open **Asset library → Windows** to inspect the compact and period sash bays. Each bay is **2 m wide in total: 0.5 m wall + 1 m centered opening + 0.5 m wall**. The wall sections are cut to width; the opening, frame and texture scale retain their original dimensions. The assembly is 2 m high and 0.16 m thick, with wall joins at local X = −1 m and +1 m. All coordinates are metres; the host can translate and rotate the assembly without scaling it. Fixed-frame projections extend to −0.14 / +0.15 m through the wall.
 
 | Sculpture | Rough opening | Sill / head | Opening inside the fixed frame | Panes |
 | --- | --- | --- | --- | --- |
@@ -12,6 +12,8 @@ The wall has a real aperture. Its separate solids are the left panel, right pane
 Wood, brick and concrete use the existing pinned wall pixels at one texture repeat per metre. The masonry UV phase continues across the panels, sill wall and lintel. Cream casings and muted green sashes follow the workshop's existing visual palette. Clay mode makes the shape readable without wall paint.
 
 ## Reuse
+
+The sculpture recipes and headless JSON compiler are in `packages/window-kit/index.js`; the renderer is in `packages/window-kit/three.js`. The IDs are `window-bay-compact` and `window-bay-period`. Both use the same 2 m overall width.
 
 ```js
 import {compileWindowBay} from '@nautilus-engine/map-core/windows';
