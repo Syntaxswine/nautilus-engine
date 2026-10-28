@@ -41,7 +41,7 @@ A hip uses the same cross-ridge rise as a gable. The inset at either ridge end i
 
 ## Headless API
 
-Import directly from `packages/roof-core/index.js` pending the architect's package-export wiring:
+The public `./roofs` entry exports the headless contract; `./roofs/three` exports the optional host-renderer adapter. These entries are available in the compatibility package and the appropriate core/renderer distribution profiles. From the source checkout:
 
 ```js
 import {ROOF_FEATURE, ROOF_LIMITS, roofErrors, roofsOf, createSlopedRoof}
@@ -77,7 +77,7 @@ The explicit `PAINTED_ROOF_MATERIALS` mapping selects the existing original 4×4
 
 ## Ownership and consumer handoff
 
-This package, its tests and its review evidence are the artist's scope. Map serialization, feature/capability rejection, editor controls and build/package publication belong to the editor and architect. Nothing here edits the 48 native building assets or inserts roof objects into them. Consumers must preserve the extension and reject `ROOF_FEATURE` explicitly if they cannot realize it; an unsupported or future envelope must never disappear on export.
+The integrated public document preserves roofs through edits, history, full-map/block serialization, capture, rotation and seeded block generation. The editor exposes exact or dragged roof placement; capability negotiation rejects hosts that cannot preserve roofs. See [editor controls](editor-roofs.md) and the architect's [combined acceptance](intake/2026-10-28-reusability-roofs.md). The artist's isolated geometry evidence below records the earlier handoff, rather than the final combined suite. Nothing here edits the 48 native building assets or inserts roof objects into them. Consumers must preserve the extension and reject `ROOF_FEATURE` explicitly if they cannot realize it; an unsupported or future envelope must never disappear on export.
 
 Tinderbox is the first deliberate adapter target; all three games can share the portable roof mesh and original painted atlas through their own adapters. No game checkout, consumer pin, published Site, fire substrate or navigation system is changed by this package.
 
@@ -111,4 +111,4 @@ The renderer review uses six specimens spanning every material/style, both axes 
 
 Reproduce with `node docs/reviews/sloped-roofs/review.mjs` using Node 22+, Playwright and Edge. It serves the worktree source in a task-owned loopback harness, launches its own isolated browser, records exact helper identities/restart inputs, and closes the browser/server in `finally` or after 120 seconds. The final run had zero browser/resource errors; both processes exited and the port was released. It never attaches to the user's browser or starts a retained preview. The earlier native-building preview also reached its existing 30-minute expiry and released port 52429.
 
-The report records software WebGL2 in Edge, for correctness only. No frame-time, physics, fire, navigation or game-integration claim follows from these images. Editor save/import/undo/rotation and consumer capability checks require the separate editor/architect changes against the frozen baseline.
+The report records software WebGL2 in Edge, for correctness only. No frame-time, physics, fire, navigation or game-integration claim follows from these images. Editor save/import/undo/rotation and consumer capability checks are covered by the separate integrated acceptance linked above. The narrow Tinderbox map adapter currently rejects roof data until the game has a deliberate roof/fire binding.

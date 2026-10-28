@@ -2,6 +2,8 @@
 
 The public map/rules entrypoints import plain data and rule functions. They do not import Three.js, painted scene factories, DOM/storage APIs, or a renderer, either eagerly or through a deferred renderer import. The browser owns visual inspection resources and receives the existing map, units and logical selection records.
 
+This document records the coder's isolated extraction and its historical measurements. The architect's [combined intake](intake/2026-10-28-reusability-roofs.md) records the final public API closure, package and browser evidence.
+
 This extraction uses reviewed integration **`d9a948fa80328be8dccb560efbb70efcda8ed5b4`** and the immutable AFT snapshot **`781246a668c723d5a4c5463e70534cc04b6a5641`**. The coder merged the reviewed integration normally and verified its exact tree before editing. Donor/vendor bytes, consumer pins, facade contracts, capabilities, persistence, package version and release tools remain unchanged. The guarded editor import adapter changes only how the browser obtains brush picking and preview footprint hints.
 
 ## Data and presentation contracts

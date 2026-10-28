@@ -52,6 +52,12 @@ Designs are selected using [accuracy, efficiency and narrative](docs/design-eval
 
 The existing square-wall tool is joined by measured native-scale wall runs: exact or snapped endpoints, one-to-five stories, transactional edits and portable map/block transforms. [The wall-run contract](docs/wall-runs.md) explains the optional `nautilus-wall-runs-v1` host capability and unsupported generated seam continuations. Consumer movement, LOS, projectiles and fire remain adapter responsibilities.
 
+## Procedural sloped roofs
+
+Choose **Roofs**, select **Sloped roof**, then drag a footprint or open **Measured footprint** for exact dimensions. Preview before placing; gable, hip and shed styles support pitch, overhang, slate/clay/metal paint and a deterministic seed. Roof edits participate in undo/redo, saves, import/export, block capture/rotation and generation.
+
+The headless `./roofs` and optional `./roofs/three` entries let any of the three games borrow the same data and mesh. They are architectural shells; games bind fire, collision and navigation deliberately. See [the roof contract and visual review](docs/sloped-roofs.md) and [combined acceptance](docs/intake/2026-10-28-reusability-roofs.md).
+
 ## Optional contour effect
 
 `./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.

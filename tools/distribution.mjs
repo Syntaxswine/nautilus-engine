@@ -84,7 +84,7 @@ for(const asset of assets){const files=buildingAssetURLs(asset.id);const model=J
 assert.equal(model.asset.version,'2.0');assert.equal(new URL(model.buffers[0].uri,files.model).href,files.buffer);assert.equal(new URL(model.images[0].uri,files.model).href,files.atlas);
 for(const name of ['buffer','blueprint','atlas'])assert.ok(fs.statSync(new URL(files[name])).size>0);}
 console.log('Installed optional asset package: all 48 model, binary, blueprint and atlas URLs resolve.');` : `import assert from 'node:assert/strict';
-import {createMapDocument,createSave,parseSave,serializeSave,engineManifest,schemaDocuments} from '@nautilus-engine/core';
+import {createMapDocument,createSave,parseSave,serializeSave,engineManifest,schemaDocuments,createSlopedRoof,ROOF_FEATURE,blueprintRequirements,negotiateCapabilities} from '@nautilus-engine/core';
 import {createTinderboxScene,saveTinderboxScene,loadTinderboxScene,exportNautilusMap} from '@nautilus-engine/core/adapters/tinderbox';
 import fs from 'node:fs';
 import {compileModules} from './tinderbox-proof/src/content/exterior-kit.js';
@@ -96,6 +96,13 @@ assert.equal(document.undo(),true);assert.equal(document.redo(),true);
 assert.equal(document.apply({tool:'wall-run',start:{x:13,y:3,z:0},end:{x:13,y:10,z:0},options:{exact:true,stories:1,material:'brick'}}).ok,true);
 const map=JSON.parse(document.export()), save=parseSave(serializeSave(createSave(map)));
 assert.deepEqual(save.payload.data,map);assert.equal(engineManifest().contractVersion,1);
+const roofDocument=createMapDocument('Installed roof proof');
+assert.equal(roofDocument.apply({tool:'sloped-roof',options:{exact:true,x:40,y:40,width:12,depth:8,eaves:1,style:'hip',axis:'x',direction:1,pitch:35,overhang:.3,material:'clay',seed:0}}).ok,true);
+const roofMap=JSON.parse(roofDocument.export()),roofSave=parseSave(serializeSave(createSave(roofMap)));
+assert.deepEqual(roofSave.payload.data,roofMap);assert.ok(createSlopedRoof(roofMap.slopedRoofs.roofs[0]).indices.length>0);
+const roofless=engineManifest();roofless.capabilities=roofless.capabilities.filter(feature=>feature.id!==ROOF_FEATURE);
+assert.equal(negotiateCapabilities(blueprintRequirements(roofMap),roofless).ok,false);
+
 const scene=createTinderboxScene(map,{region:{x:0,y:0,width:20,height:16},playerStart:0,markerPolicy:'select-player-preserve-markers',outsidePolicy:'require-unmodified-yard',seed:1947});
 assert.deepEqual(exportNautilusMap(loadTinderboxScene(saveTinderboxScene(scene))),map);
 const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compileModules(scene.scenario.modules,scene.scenario).obstacles.length,1);

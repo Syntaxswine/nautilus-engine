@@ -8,6 +8,8 @@
 | `packages/prefab-core/` | Headless whole-building identities, conservative placement lots and deterministic settlement candidates |
 | `packages/building-catalog/` | Original architectural recipes, descriptive rooms/openings and an optional host-supplied Three renderer |
 | `packages/render-effects/` | Optional standard-depth WebGL2 effects and the shared Three entry; game eligibility stays outside |
+| `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
+| `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
@@ -47,6 +49,8 @@ Preview returns a candidate without committing it. Apply commits only accepted c
 `MAP_CONTRACT` records the inherited dimensions. Ground map coordinates use integer-centred metre positions `(x,y)` with a layer index `z`; the Three.js scene uses `(x,height,y)`. The inherited rendering and tactical floor intervals differ and remain in the pinned conversion helpers. Do not equate layer index with metres or rescale collision separately from visuals.
 
 [Angled wall runs](wall-runs.md) extend this boundary with measured ground endpoints and an explicit consumer capability. They retain native panel dimensions and survive map/block editing, capture, placement, rotation and connected generation. The [design assessment](reviews/2026-10-28-angled-walls.md) explains the choice and its limits.
+
+[Procedural sloped roofs](sloped-roofs.md) add continuous gable, hip and shed shells with explicit metre/pitch/material parameters. Their envelope survives public map/block operations and declares a separate consumer capability. The [editor roof contract](editor-roofs.md) describes authoring and conservative prefab occupancy; visual meshes do not imply fire, collision or traversal support.
 
 ## Browser and game-host boundary
 
