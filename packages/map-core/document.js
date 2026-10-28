@@ -2,12 +2,20 @@ import {EditingDocument as LegacyDocument} from '../../vendor/aft/781246a668c723
 import {parseMap, validateMap} from './maps.js';
 import {extractBlock, validateBlock, placeBlock} from './blocks.js';
 import {wallRunErrors, wallRunsOf, snapWallPoint, measureWallRun, distanceToWall} from './wall-runs.js';
+import {expandPlaceholder} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js';
 const copy = structuredClone;
-function setRuns(map, runs) {if (runs.length) map.wallRuns = {...map.wallRuns, version: 1, segments: runs};else delete map.wallRuns;}
+function setRuns(map, runs) {
+  const metadata = map.wallRuns && Object.keys(map.wallRuns).some(k => k !== 'version' && k !== 'segments');
+  if (runs.length || metadata) map.wallRuns = {...map.wallRuns, version: 1, segments: runs};else delete map.wallRuns;
+}
 export class EditingDocument extends LegacyDocument {
   open(text) {
     if (typeof text !== 'string' || text.length > 4000000) throw Error('Map file is too large (4 MB maximum).');
-    const input = JSON.parse(text);
+    let input = JSON.parse(text);
+    if (input?.kind === 'sector-placeholder') {
+      if (input.wallRuns !== undefined) throw Error('Wall runs require an expanded aft-map-v2 document.');
+      input = expandPlaceholder(input); text = JSON.stringify(input);
+    }
     if (input?.kind === 'red-shift-block') validateBlock(input);else parseMap(text, {allowDisconnected: true});
     super.open(text);
     if (this.block) {if (input.wallRuns) this.editor.map.wallRuns = copy(input.wallRuns);else delete this.editor.map.wallRuns;this.refresh();}

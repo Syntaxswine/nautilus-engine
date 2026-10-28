@@ -4,14 +4,19 @@ import {validateFeaturePlan, fitsFeaturePlan, requiredConnections} from '../../v
 import {blankMap, validateMap, passable, blockedEdge, levelOf} from './maps.js';
 import {validateBlock, openBlock, applyData} from './blocks.js';
 import {connectionSet, connectionsMatch, seamsMatch} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js';
-import {wallRunsBlockStep, wallRunsOf} from './wall-runs.js';
+import {wallRunsBlockStep, wallRunsOf, WALL_KIT} from './wall-runs.js';
 export function generateConnectedMap(designs, seed = 7, plan = null) {
   if (!Number.isInteger(seed) || seed < 0 || seed > 4294967295) throw Error('Use a whole-number seed between 0 and 4294967295.');
   if (!designs.length) throw Error('Save at least one block with all four connections assigned.');
   if (designs.length > 128) throw Error('Use at most 128 connected blocks in the generation library.');
   const catalog = designs.map(d => {
     validateBlock(d);
-    if (wallRunsOf(d).some(r => [r.a,r.b].some(p => p.some(n => Math.abs(n + .5) < 1e-6 || Math.abs(n - 23.5) < 1e-6)))) throw Error('Generated blocks need wall-run endpoints inside their boundary. Angled wall connections across generator seams are not supported yet; place those blocks manually.');
+    const touchesSeam = run => {
+      const dx = run.b[0] - run.a[0], dy = run.b[1] - run.a[1], length = Math.hypot(dx, dy);
+      const pad = [Math.abs(dy), Math.abs(dx)].map(n => n / length * WALL_KIT.thickness / 2);
+      return [0, 1].some(axis => Math.min(run.a[axis], run.b[axis]) - pad[axis] <= -.5 + 1e-6 || Math.max(run.a[axis], run.b[axis]) + pad[axis] >= 23.5 - 1e-6);
+    };
+    if (wallRunsOf(d).some(touchesSeam)) throw Error('Generated blocks need the entire wall thickness inside their boundary. Angled wall connections across generator seams are not supported yet; place those blocks manually.');
     return {d, ports: connectionSet(openBlock(d), 0, 0, d.connections)};
   });
   if (plan) {validateFeaturePlan(plan);const missing = [];for (let y=0;y<10;y++) for (let x=0;x<10;x++) if (!catalog.some(c => fitsFeaturePlan(c.d,c.ports,plan,x,y))) missing.push((x+1)+','+(y+1)+' ['+Object.entries(requiredConnections(plan,x,y)).map(([d,t])=>d+':'+t).join(' ')+']');if(missing.length)throw Error('Missing blocks for '+missing.length+' sectors: '+missing.slice(0,5).join('; '));}
