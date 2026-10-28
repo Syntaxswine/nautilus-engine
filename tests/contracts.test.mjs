@@ -85,3 +85,9 @@ test('save ranges cannot substitute a different feature encoding version and inv
  assert.throws(()=>parseSave(save,{consumer:consumer([{id:FEATURE_IDS.walls,versions:[2]}])}),error=>error instanceof CompatibilityError&&error.diagnostics[0].code==='UNSUPPORTED_REQUIRED_FEATURE');
  assert.throws(()=>assertBlueprintCompatible({version:2},consumer([])),error=>error instanceof CompatibilityError&&error.diagnostics[0].code==='INVALID_BLUEPRINT');
 });
+
+test('plain-data persistence rejects fields JSON would omit and never invokes getters',()=>{
+ for(const make of [()=>({[Symbol('hidden')]:true}),()=>Object.defineProperty({},'hidden',{value:3}),()=>{const array=[];array.note='lost';return array;}]){const map=flat();map.metadata=make();assert.throws(()=>loadBlueprint(map),/plain JSON/);}
+ let invoked=false;const map=flat();map.metadata=Object.defineProperty({},'getter',{enumerable:true,get(){invoked=true;return 3;}});
+ assert.throws(()=>createSave(map),/plain JSON/);assert.equal(invoked,false);
+});

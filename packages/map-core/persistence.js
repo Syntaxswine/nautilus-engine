@@ -6,13 +6,21 @@ import {blueprintRequirements, assertRequirements, CompatibilityError} from './c
 const MAX_BYTES = 4000000;
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const escape = text => text.replaceAll('~', '~0').replaceAll('/', '~1');
-function jsonValue(value, path = '', ancestors = new Set()) {
+function jsonValue(value, path = '', ancestors = new Set(), depth = 0) {
+  if (depth > 64) throw Error('Plain JSON nesting exceeds 64 levels at ' + (path || '/') + '.');
   if (value === null || typeof value === 'string' || typeof value === 'boolean' || (typeof value === 'number' && Number.isFinite(value))) return;
   if (typeof value !== 'object' || ancestors.has(value) || (!Array.isArray(value) && ![Object.prototype, null].includes(Object.getPrototypeOf(value))))
     throw Error('Expected finite, acyclic plain JSON data at ' + (path || '/') + '.');
+  for (const key of Reflect.ownKeys(value)) {
+    if (Array.isArray(value) && key === 'length') continue;
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (typeof key !== 'string' || !descriptor.enumerable || !Object.hasOwn(descriptor, 'value') ||
+        (Array.isArray(value) && (!/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= value.length)))
+      throw Error('Expected enumerable plain JSON data fields at ' + (path || '/') + '.');
+  }
   ancestors.add(value);
-  if (Array.isArray(value)) for (let i = 0; i < value.length; i++) { if (!Object.hasOwn(value, i)) throw Error('Sparse JSON array at ' + path + '.'); jsonValue(value[i], path + '/' + i, ancestors); }
-  else for (const key of Object.keys(value)) jsonValue(value[key], path + '/' + escape(key), ancestors);
+  if (Array.isArray(value)) for (let i = 0; i < value.length; i++) { if (!Object.hasOwn(value, i)) throw Error('Sparse JSON array at ' + path + '.'); jsonValue(value[i], path + '/' + i, ancestors, depth + 1); }
+  else for (const key of Object.keys(value)) jsonValue(value[key], path + '/' + escape(key), ancestors, depth + 1);
   ancestors.delete(value);
 }
 function inputData(input) {

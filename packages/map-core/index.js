@@ -8,6 +8,7 @@ export {generateConnectedMap} from './prefab-generator.js';
 export {assertMapCapabilities,requiredMapFeatures} from './prefab-maps.js';
 export * from '../prefab-core/index.js';
 export * from './wall-runs.js';
+export * from '../roof-core/index.js';
 export {blockedEdge, neighbors} from './maps.js';
 export {openBlock, placeBlock} from './prefab-blocks.js';
 export {rotateSceneryBlock} from './prefab-rotation.js';
@@ -17,7 +18,7 @@ export {emptyFeaturePlan, seededFeaturePlan, validateFeaturePlan} from '../../ve
 export {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS, FEATURE_IDS, engineManifest} from './contract-manifest.js';
 export {CompatibilityError, blueprintRequirements, negotiateCapabilities, assertRequirements, assertBlueprintCompatible} from './capabilities.js';
 export {BlueprintError, loadBlueprint, validateBlueprint, migrateBlueprint, createSave, parseSave, serializeSave} from './persistence.js';
-export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1']});
+export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1']});
 export function createMapDocument(name = 'Untitled map') { return new EditingDocument().open(JSON.stringify(blankMap(name))); }
 export function createBlockDocument(name = 'Untitled block') { return new EditingDocument().open(JSON.stringify(extractBlock(blockCanvas(name)))); }
 export function openDocument(input) {
