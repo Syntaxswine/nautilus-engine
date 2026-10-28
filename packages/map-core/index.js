@@ -14,8 +14,8 @@ export {rotateSceneryBlock} from './prefab-rotation.js';
 export {connectionSet, connectionsMatch} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js';
 export {emptyFeaturePlan, seededFeaturePlan, validateFeaturePlan} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js';
 
-export const ENGINE_VERSION = '0.3.0';
-export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1']});
+export const ENGINE_VERSION = '0.4.0';
+export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1']});
 export function createMapDocument(name = 'Untitled map') { return new EditingDocument().open(JSON.stringify(blankMap(name))); }
 export function createBlockDocument(name = 'Untitled block') { return new EditingDocument().open(JSON.stringify(extractBlock(blockCanvas(name)))); }
 export function openDocument(input) {

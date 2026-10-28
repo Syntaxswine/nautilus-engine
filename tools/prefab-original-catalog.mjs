@@ -3,10 +3,21 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
-import {createBuildingModel} from '../packages/building-catalog/three.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const ORIGINAL_BUILDING_COMMIT='ee7c18ecdc2669168247b94a82156634b2c4ffe5';
+// Fingerprints were verified against the fixed Git objects. Keep CI independent
+// of a historical commit being present in its shallow checkout.
+const fixedFiles={
+  'assets/buildings/catalogue.json':'ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e',
+  'assets/buildings/painted-materials-v2.png':'bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2',
+  'art/buildings/reference-register.json':'70eec5f387f94fd1a1df88a8a9a6af73b84f19dfde98306332695d9d99dbcfcd',
+  'packages/building-catalog/index.js':'6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108',
+  'packages/building-catalog/designs.js':'87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6',
+  'packages/building-catalog/three.js':'a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba'
+};
+for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);
+const {createBuildingModel}=await import('../packages/building-catalog/three.js');
 export function originalCatalogueSource() {
   const bytes=fs.readFileSync(path.join(root,'assets/buildings/catalogue.json')),catalogue=JSON.parse(bytes);
   const references=JSON.parse(fs.readFileSync(path.join(root,'art/buildings/reference-register.json'))),byId=new Map(references.records.map(r=>[r.id,r]));
