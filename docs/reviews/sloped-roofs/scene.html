@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nautilus sloped roof geometry review</title>
+<link rel="icon" href="data:,">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e8e4d9;color:#263831;font:15px system-ui,sans-serif}header{padding:24px 32px 18px;border-bottom:1px solid #bcc2b5}h1{margin:0 0 7px;font:28px Georgia,serif}p{margin:0;color:#536158}#samples{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#b9bfb2}article{position:relative;background:#e8e4d9;min-width:0;height:520px}article h2{position:absolute;z-index:1;top:12px;left:22px;margin:0;font-size:16px;font-weight:600}article p{position:absolute;bottom:16px;left:22px;font-size:13px}canvas{width:100%;height:100%;display:block}footer{padding:15px 32px;font-size:13px;color:#536158}#close{display:none}
+</style>
+<header><h1 id="heading">Nautilus · continuous sloped roofs</h1><p id="subtitle">Original painterly atlas · 1 m surface repeats · 45° azimuth / 30° elevation / 58 px per metre</p></header>
+<div id="samples"></div><footer>Isolated geometry review. Closed 12 cm vertical shell; illustrative plinths are separate. No fire, collision or navigation integration.</footer>
+<script type="module">
+import * as T from '../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {createSlopedRoof} from '../../../packages/roof-core/index.js';
+import {createRoofGroup} from '../../../packages/roof-core/three.js';
+const atlas=await new T.TextureLoader().loadAsync('../../../assets/buildings/painted-materials-v2.png');
+atlas.colorSpace=T.SRGBColorSpace; atlas.anisotropy=4;
+const renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.outputColorSpace=T.SRGBColorSpace;renderer.setClearColor(0xe8e4d9);
+renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.22;
+const base={x:10,y:10,width:6,depth:4,z:1,pitch:32,overhang:.3,seed:42,direction:1};
+const recipes=[
+ {id:'gable-slate',style:'gable',axis:'x',material:'slate',label:'Gable · slate',note:'Axis X · 32° · 20 triangles'},
+ {id:'gable-clay',style:'gable',axis:'y',material:'clay',label:'Gable · clay',note:'Axis Y · 32° · 20 triangles'},
+ {id:'hip-clay',style:'hip',axis:'x',material:'clay',label:'Hip · clay',note:'Long ridge · 32° · 20 triangles'},
+ {id:'hip-slate',style:'hip',axis:'y',material:'slate',label:'Hip · slate',note:'Short axis / point ridge · 16 triangles'},
+ {id:'shed-metal-positive',style:'shed',axis:'x',material:'metal',label:'Shed · metal',note:'High edge +Y · 22° · 12 triangles',pitch:22},
+ {id:'shed-metal-negative',style:'shed',axis:'y',material:'metal',label:'Shed · metal',note:'High edge −X · 22° · 12 triangles',pitch:22,direction:-1},
+].map(({label,note,...values})=>({label,note,spec:{...base,...values}}));
+const panels=[];
+function panel(label,note){const article=document.createElement('article'),h=document.createElement('h2'),p=document.createElement('p'),canvas=document.createElement('canvas');h.textContent=label;p.textContent=note;article.append(h,canvas,p);document.querySelector('#samples').append(article);const scene=new T.Scene();scene.background=new T.Color(0xe8e4d9);scene.add(new T.HemisphereLight(0xffffff,0x717763,2.1));const light=new T.DirectionalLight(0xfff6e6,2.25);light.position.set(-8,17,-10);scene.add(light);const entry={article,canvas,scene,objects:[]};panels.push(entry);return entry;}
+function addPlinth(entry,spec){const material=new T.MeshStandardMaterial({color:0xc2bbae,roughness:1}),mesh=new T.Mesh(new T.BoxGeometry(spec.width,.2,spec.depth),material);mesh.position.set(spec.x+spec.width/2,.1,spec.y+spec.depth/2);entry.scene.add(mesh);const grid=new T.GridHelper(14,14,0xb0b9aa,0xd0d3c6);grid.position.set(spec.x+spec.width/2,-.02,spec.y+spec.depth/2);entry.scene.add(grid);entry.references=[mesh,grid];}
+function view(entry,mode='painted',ppu=58,elevation=30){
+ const {spec}=entry;for(const object of entry.objects){object.dispose?.();object.removeFromParent();}entry.objects=[];for(const object of entry.references||[])object.visible=elevation>=0;
+ const roof=createRoofGroup(T,spec,{atlas,grey:mode!=='painted'});entry.objects.push(roof);entry.scene.add(roof);
+ if(mode==='wire')roof.children[0].material.forEach(m=>m.wireframe=true);
+ const w=entry.article.clientWidth,h=entry.article.clientHeight;entry.canvas.width=w;entry.canvas.height=h;
+ const camera=new T.OrthographicCamera(-w/(2*ppu),w/(2*ppu),h/(2*ppu),-h/(2*ppu),.1,200),target=new T.Vector3(spec.x+spec.width/2,(createSlopedRoof(spec).bounds.max[1])/2,spec.y+spec.depth/2);
+ const az=Math.PI/4,el=elevation*Math.PI/180;camera.position.copy(target).add(new T.Vector3(Math.cos(az)*Math.cos(el),Math.sin(el),Math.sin(az)*Math.cos(el)).multiplyScalar(45));camera.lookAt(target);entry.camera=camera;
+ renderer.setSize(w,h,false);renderer.render(entry.scene,camera);entry.canvas.getContext('2d').drawImage(renderer.domElement,0,0);
+ return roof;
+}
+for(const recipe of recipes){const entry=panel(recipe.label,recipe.note);entry.spec=recipe.spec;addPlinth(entry,entry.spec);view(entry);}
+function count(root){let triangles=0;root.traverse(o=>{if(o.isMesh)triangles+=(o.geometry.index?.count||o.geometry.attributes.position.count)/3*(o.isInstancedMesh?o.count:1)});return triangles;}
+window.roofReview={ready:true,renderer:renderer.getContext().getParameter(renderer.getContext().RENDERER),
+ set(mode){document.querySelector('#heading').textContent='Nautilus · '+({painted:'continuous sloped roofs',grey:'grey form study',wire:'compact topology'}[mode]||mode);for(const p of panels)view(p,mode);return panels.map(p=>({id:p.spec.id,...createSlopedRoof(p.spec).metrics}));},
+ close(){document.querySelector('#samples').style.gridTemplateColumns='repeat(2,1fr)';panels.slice(2).forEach(p=>p.article.style.display='none');for(const p of panels.slice(0,2)){p.article.style.height='720px';view(p,'painted',110,35);}document.querySelector('#heading').textContent='Nautilus · painterly surface detail';document.querySelector('#subtitle').textContent='Cropped close studies · 1 m surface repeats · 45° azimuth / 35° elevation / 110 px per metre';},
+ underside(){for(const p of panels)view(p,'painted',58,-25);document.querySelector('#heading').textContent='Nautilus · closed underside and fascia';document.querySelector('#subtitle').textContent='Reference grid hidden for inspection · 45° azimuth / −25° elevation / 58 px per metre';},
+ comparison(){
+  document.querySelector('#samples').replaceChildren();panels.length=0;document.querySelector('#heading').textContent='Nautilus · matched roof silhouette comparison';document.querySelector('#subtitle').textContent='Same 6 × 4 m footprint · 32° target profile · 45° azimuth / 30° elevation / 58 px per metre';
+  const spec={...base,id:'comparison',style:'gable',axis:'x',material:'slate',overhang:0},data=createSlopedRoof(spec),result=[];
+  for(const kind of ['flat','stepped','sloped']){
+   const labels={flat:['Native-style flat cap','12 triangles · 1 draw per pass'],stepped:['Instanced stepped approximation','96 triangles · 1 draw per pass'],sloped:['Continuous sloped shell','20 triangles · 3 draws per pass']};
+   const entry=panel(...labels[kind]);entry.spec=spec;entry.article.style.height='570px';addPlinth(entry,spec);
+   const mat=new T.MeshStandardMaterial({color:0x929a90,roughness:1}),root=new T.Group();
+   if(kind==='sloped')root.add(createRoofGroup(T,spec,{grey:true}));
+   else if(kind==='flat'){const mesh=new T.Mesh(new T.BoxGeometry(6,.12,4),mat);mesh.position.set(13,spec.z*2.12-.06,12);root.add(mesh);}
+   else {const mesh=new T.InstancedMesh(new T.BoxGeometry(1,1,1),mat,8),matrix=new T.Matrix4();for(let i=0;i<8;i++){const across=(i+.5)*.5,rise=Math.min(across,4-across)*Math.tan(32*Math.PI/180);matrix.compose(new T.Vector3(13,2.12+rise-.06,10+across),new T.Quaternion(),new T.Vector3(6,.12,.5));mesh.setMatrixAt(i,matrix);}root.add(mesh);}
+   entry.scene.add(root);const w=entry.article.clientWidth,h=entry.article.clientHeight,ppu=58,camera=new T.OrthographicCamera(-w/(2*ppu),w/(2*ppu),h/(2*ppu),-h/(2*ppu),.1,200),target=new T.Vector3(13,1.5,12);camera.position.copy(target).add(new T.Vector3(.612372,.5,.612372).multiplyScalar(45));camera.lookAt(target);renderer.setSize(w,h,false);renderer.render(entry.scene,camera);entry.canvas.width=w;entry.canvas.height=h;entry.canvas.getContext('2d').drawImage(renderer.domElement,0,0);
+   const isolated=new T.Scene();isolated.add(root);renderer.render(isolated,camera);result.push({kind,triangles:count(root),drawCalls:renderer.info.render.calls,renderedTriangles:renderer.info.render.triangles});
+  }return result;
+ },
+ dispose(){for(const p of panels)for(const o of p.objects)o.dispose?.();renderer.dispose();atlas.dispose();}
+};
+</script></html>
