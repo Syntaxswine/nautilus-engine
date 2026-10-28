@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T06:26:13.544Z",
+  "kind": "scouting-only-source-evidence",
+  "scoutBaseCommit": "e52250bc8f0e20e81910c17cadb0db8ab0316017",
+  "scope": "Hashes, paths and observations only. No source bytes imported; no pin, runtime, consumer or Site changes.",
+  "candidates": [
+    {
+      "id": "FC-7db49df-search-halo",
+      "originatingGame": "Farmyard Commando",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "7db49df29a9ff412d06d205f4bc48f75297bce51",
+      "observedMain": "fb386a5888d12b6bad409b657e92b3e4cc25eb28",
+      "workerClean": true,
+      "readiness": "Pinned source candidate; architect already integrating; not observed on donor main.",
+      "dependencyClosureReviewed": false,
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/search-halo.js",
+          "blob": "880a15a8e923ea182a6acff6166c463d6be6f2ac",
+          "bytes": 11005,
+          "sha256": "cb901e2b6fee8fec75252aa1135dd4e21edbe6348d6cbe5171767ba2b7a06d6b"
+        },
+        {
+          "path": "sites/tactical-animal/tests/search-halo.test.mjs",
+          "blob": "b691426d8fdc1cf96f01e1a9c7f4c236f26ad83f",
+          "bytes": 9107,
+          "sha256": "ca267871d2d893dde2002fab845e5363471b7d19cbede550b1c3d64194a6dece"
+        },
+        {
+          "path": "sites/tactical-animal/search-halo-porting.md",
+          "blob": "fd912d1aec9154525aa794a908527cf18264f0c0",
+          "bytes": 3615,
+          "sha256": "d3137ffd85814775159804b4d5effacf675f519d6468e7af65aac2d823dd810a"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.module.js",
+          "blob": "9c0af06a40fe4e91c3be42458b0276f87c0a4541",
+          "bytes": 621667,
+          "sha256": "96cc39e18fde90e5a3896252775a71e8f3d3e946da0035ee27f3ecce09c60e8c"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.core.js",
+          "blob": "f84d2c39355cc1b8c7024f37d3f39548cf74e736",
+          "bytes": 1462227,
+          "sha256": "496aa42d1d47b9a40d16eab2864177cb94368a165a7c3e79345c43ad0109e093"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt",
+          "blob": "18e86e61008cd974dd55e19f27185a66c64455ab",
+          "bytes": 1102,
+          "sha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05"
+        }
+      ],
+      "independentChecks": {
+        "haloTests": {
+          "passed": 8,
+          "failed": 0
+        },
+        "visualReview": "Two existing source-owner stills inspected; no new live animation review.",
+        "performance": "No frame-time benchmark."
+      }
+    },
+    {
+      "id": "NE-cc52f89-wall-runs",
+      "originatingGame": "Tinderbox",
+      "implementationProject": "Nautilus Engine",
+      "commit": "cc52f89de6333a1d94e2dfe45d47d1317369fac0",
+      "parent": "d3c577fbf78974dc0a20660d46748a83758fd51f",
+      "sourceLocationKind": "Isolated local Site-source Git repository owned by Coder Tinderbox; exact path included in architect handoff.",
+      "sourceRemoteConfigured": true,
+      "workerClean": true,
+      "readiness": "Pinned existing contribution for architect review; no upstream merge/publication or game migration asserted.",
+      "dependencyClosureReviewed": false,
+      "files": [
+        {
+          "path": "apps/editor/editor.css",
+          "blob": "938db80572d559e6401a4ae6d60c1957b1e40306",
+          "bytes": 7594,
+          "sha256": "f7bb1ab7fce0f950eddc795b28b125ad50a52b93afb8f5acfd204656756fa5af"
+        },
+        {
+          "path": "apps/editor/editor.js",
+          "blob": "64b12c99a85222438487bd62c0e5dd988e9598ad",
+          "bytes": 5105,
+          "sha256": "6d8123774da0080c9a1f08002eacb5790b28e1f811cfcaf1b372309ece52dbaf"
+        },
+        {
+          "path": "apps/editor/wall-scene.js",
+          "blob": "154872a37f18bc0b07e430ba0b710997ad5be001",
+          "bytes": 4863,
+          "sha256": "e097ce31fda5d5ea92bef2cacd3a9682d9004435583892da5b1bb666b732e062"
+        },
+        {
+          "path": "apps/editor/wall-tools.js",
+          "blob": "b99afdbd7f1e15cce2961f365a5846e0564be23f",
+          "bytes": 7592,
+          "sha256": "8e1142c0c06b1b5f6223cee03f43a2e4fb43eef64498ff6b5eac8a12c557dff2"
+        },
+        {
+          "path": "docs/architecture.md",
+          "blob": "01e6e4ac32b1797b9422d4ccc151d5c88a49f98e",
+          "bytes": 5795,
+          "sha256": "ca9a8f4e8d25679c5298de3fe33ef0e5d69a3cd6d32abb05e0f9a09e43350768"
+        },
+        {
+          "path": "docs/reviews/2026-10-28-angled-walls-browser.md",
+          "blob": "c3e74e4b3c15d5a443dbdf3b66e1f085888b8ea0",
+          "bytes": 2078,
+          "sha256": "d18203c528413f284e50eb685ae115eba53492ec75df783bb4412a19c37b6dd0"
+        },
+        {
+          "path": "docs/reviews/2026-10-28-angled-walls.md",
+          "blob": "ad985bfdc9155c6cc58963774a58036e9f045002",
+          "bytes": 3004,
+          "sha256": "1ac9fdd8b33d886f569735e1fa689d7de5951b41e8a22fdeede2e771e02bae69"
+        },
+        {
+          "path": "docs/wall-runs.md",
+          "blob": "3613e485b1847fb45dcef2ba45bee73fc3d7addd",
+          "bytes": 6978,
+          "sha256": "02f010c925ed3ac14f716dff7baa9dcb929777af56027e8390d733fe885d91be"
+        },
+        {
+          "path": "package.json",
+          "blob": "bdc50540d26b338255ffc742732bcb86103874db",
+          "bytes": 767,
+          "sha256": "c098e73f179012ed89e79eaa67582ff71f52902b8e58303aef811de80afa3e05"
+        },
+        {
+          "path": "packages/map-core/blocks.js",
+          "blob": "57524f6d3b56e31d71d6ddd84fcea2f0c55b2f35",
+          "bytes": 2680,
+          "sha256": "5cf2a331dbe69682d539532a01e3edfde26b50a0648bb88b6ac544445da29630"
+        },
+        {
+          "path": "packages/map-core/document.js",
+          "blob": "62be86c736d480cb9810ad5f8c2fb25496c88681",
+          "bytes": 6445,
+          "sha256": "2838ac80b70aa3ea1284116b3942a8a662529f3e9c8d4ddc2b4f1c90b55c302e"
+        },
+        {
+          "path": "packages/map-core/generator.js",
+          "blob": "4ec0391663bea126b1e6be62f9962ed5af6f0ba1",
+          "bytes": 4003,
+          "sha256": "09a5c499c537f102eb93bc3fabff3aa4180f77cb0d362a787e47387902879b48"
+        },
+        {
+          "path": "packages/map-core/index.js",
+          "blob": "fe42b3dc1f952458f20b97561b6f431c973bc8c2",
+          "bytes": 2208,
+          "sha256": "9829376e85b3b1f1633de3c0796bd65b3c69db95bf4e9133a67d35449e8586c9"
+        },
+        {
+          "path": "packages/map-core/maps.js",
+          "blob": "3ebb5b32c2db954edbcf15c84b8ad0545425f45d",
+          "bytes": 2644,
+          "sha256": "152ab5b8850df86c97852af44c6d9fae0ad13c3f90ddeadf79ce1bd7db36dd63"
+        },
+        {
+          "path": "packages/map-core/wall-example.js",
+          "blob": "124a9ee76dafecd239c3ad97671ab091acfefde6",
+          "bytes": 582,
+          "sha256": "203434e6141fbd07d5695817accf1de8856c68ab791d85c91d69c040a8307cca"
+        },
+        {
+          "path": "packages/map-core/wall-runs.js",
+          "blob": "4a399ad9e166de1ded9c86fa8429b2c59bf584a3",
+          "bytes": 7796,
+          "sha256": "fc148cf133b790afe9d53deb9f4eb915d2dc5e509f46e3a74706f3eb3fe1b186"
+        },
+        {
+          "path": "tests/wall-runs.test.mjs",
+          "blob": "be2db6b3b5a541bfcf7644eaba6eb787b3fa95e0",
+          "bytes": 9760,
+          "sha256": "088b41bbb3d7ea138736bbae2229858b593cbdb6e1f70be9f09fde376b39effe"
+        },
+        {
+          "path": "tools/build.mjs",
+          "blob": "2415d338ff94b722d3e367acfe78e3f5d5741081",
+          "bytes": 6486,
+          "sha256": "ace26a266ae1f1aeaee1a1284a09382d52a30055a96df4bdba9212aa6aa7e1a5"
+        },
+        {
+          "path": "tools/check.mjs",
+          "blob": "50d1dfcc057b11d49e22315aee6557fb6359983e",
+          "bytes": 4399,
+          "sha256": "ccab11819fb56bcf9c2993045afcc2725bc95368c70c283ff38766ed6a55802b"
+        },
+        {
+          "path": "tools/editor-wall-adapter.mjs",
+          "blob": "5c687029997d4f563522418791c5f730bc8f832f",
+          "bytes": 3616,
+          "sha256": "ff475ef9bf47cc77be9ae7f24ebad4101afe0d28a9b1fa1e31ceb2aa146a8014"
+        }
+      ],
+      "independentChecks": {
+        "wallTests": {
+          "passed": 11,
+          "failed": 0
+        },
+        "sourceOwnerReport": {
+          "nautilusTests": 34,
+          "upstreamTests": 32,
+          "check": "passed",
+          "build": "passed",
+          "browserReview": "docs/reviews/2026-10-28-angled-walls-browser.md; attributed, not rerun by scout"
+        },
+        "visualReview": "Source-owner desktop still inspected.",
+        "performance": "No frame-time benchmark."
+      },
+      "relatedResearch": {
+        "repository": "https://github.com/Syntaxswine/tinderbox",
+        "checkoutHead": "2fd15661f1334832d5cf873fcc0c6829b5ff53e7",
+        "headIsNotAnArtSourcePin": true,
+        "readiness": "Untracked, uncommitted art additions; never import these bytes. Require a later exact reviewed commit.",
+        "files": [
+          {
+            "path": "src/art/gross-housing.js",
+            "committed": false,
+            "bytes": 24937,
+            "sha256": "9dde23437edce14e107f561e2f47cdbcf8d144ffc66268df8a30570595e84981"
+          },
+          {
+            "path": "assets/art/gross-housing-v1/houses.json",
+            "committed": false,
+            "bytes": 123338,
+            "sha256": "1ac58e3261266fa7b908b8861fd473d4a7122f934e55e6efc65b7df2351b2b58"
+          },
+          {
+            "path": "assets/art/gross-housing-v1/manifest.json",
+            "committed": false,
+            "bytes": 3876,
+            "sha256": "96980f84982bd27c33b5383483df2888913314f8d81561e235051dd55d6ce16e"
+          },
+          {
+            "path": "workbenches/art/check-gross-housing.mjs",
+            "committed": false,
+            "bytes": 4220,
+            "sha256": "1c3c37c392c64d3071d9494da404df8bb311b46ae222a0f8f239523625a14170"
+          },
+          {
+            "path": "art/source/gross-housing-v1/sources.json",
+            "committed": false,
+            "bytes": 14414,
+            "sha256": "682e9ff86bd0db51b5a7f48572f147c82ccda3609da6ece41fceecb3559837bc"
+          }
+        ],
+        "committedCompatibilityEvidence": [
+          {
+            "path": "src/content/exterior-kit.js",
+            "blob": "03e6b0851cfba1224582b033e0a7610c7e3b64fe",
+            "bytes": 8096,
+            "sha256": "d3899d47aa3afbc83c9b295cac618addad855ae9b55e4ddb0e1e72bbe7ad3f34"
+          },
+          {
+            "path": "src/content/asset-scale.js",
+            "blob": "68309d3636a98443bd1e4eeb13f9a57121fc6a4b",
+            "bytes": 1066,
+            "sha256": "6c8773c1317b6b6e0adead577cd819e21ce1ae93b0f20eed2ae0af5bffb3d0ea"
+          },
+          {
+            "path": "src/art/resources.js",
+            "blob": "d4617db5134d2c6f3d76ff769a1e81652ab9b78f",
+            "bytes": 1291,
+            "sha256": "97addbe3bb9f9f1f2da0f94c8e1160aa7f1fb6161c6ac8e0e1ebfd4f335927f1"
+          },
+          {
+            "path": "src/simulation/geometry.js",
+            "blob": "230a58e038db8ef70e8a79bf31e13942fc98fa41",
+            "bytes": 6511,
+            "sha256": "cbdc69a0257dbcead2d12a4292f457df0b5c78a64ea5fe4650c9b661d57a94bc"
+          },
+          {
+            "path": "tests/content/exterior.test.js",
+            "blob": "b534d5a3cbbbdf1d39035ace844da7c13c595298",
+            "bytes": 16428,
+            "sha256": "f8384a05a2b79c39be6220835a591d2a7ca0eac9ace60552149b1ab13f6ea4a3"
+          }
+        ],
+        "independentCheck": {
+          "passed": true,
+          "houses": 13,
+          "levels": 29,
+          "rooms": 147,
+          "wallUnits": 1684,
+          "diagonalUnits": 50,
+          "meshes": 13255,
+          "positionVertices": 385423,
+          "sourcePlates": 13,
+          "materialHashes": 4,
+          "nativeScale": true,
+          "disposal": true,
+          "fourKeyInputsUnchangedAcrossRun": true,
+          "testInputsSha256": {
+            "src/art/gross-housing.js": "1898cd6bd7cf888b322678ceea2a041db1c92a413197e45954c74570f144c943",
+            "assets/art/gross-housing-v1/houses.json": "1ac58e3261266fa7b908b8861fd473d4a7122f934e55e6efc65b7df2351b2b58",
+            "assets/art/gross-housing-v1/manifest.json": "96980f84982bd27c33b5383483df2888913314f8d81561e235051dd55d6ce16e",
+            "workbenches/art/check-gross-housing.mjs": "1c3c37c392c64d3071d9494da404df8bb311b46ae222a0f8f239523625a14170"
+          }
+        },
+        "rightsEvidence": "Donor metadata records source plate identifiers/hashes and a public-domain mark; generated material records exist. Not an independent clearance."
+      }
+    }
+  ]
+}
