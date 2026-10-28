@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:save:1",
+  "title": "Nautilus portable save envelope version 1",
+  "type": "object",
+  "required": ["schema", "version", "engine", "requirements", "payload"],
+  "properties": {
+    "schema": {"const": "nautilus-save"}, "version": {"const": 1},
+    "engine": {"type": "object", "required": ["id", "version"], "properties": {"id": {"const": "nautilus-engine"}, "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"}}},
+    "requirements": {"$ref": "capability-requirements-v1.schema.json"},
+    "payload": {"type": "object", "required": ["schema", "version", "data"], "properties": {"schema": {"enum": ["aft-map", "aft-block"]}, "version": {"type": "integer", "minimum": 1}, "data": {"type": "object"}}}
+  },
+  "additionalProperties": true,
+  "$comment": "Runtime parseSave also validates the complete inherited blueprint, addon geometry and capability/schema correspondence. Additive unknown JSON fields are preserved. Unknown required behavior must declare a required capability."
+}

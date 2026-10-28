@@ -1,4 +1,4 @@
-import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities} from '../../packages/map-core/index.js';
+import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities, assertBlueprintCompatible, engineManifest} from '../../packages/map-core/index.js';
 import {exampleYard} from '../../packages/map-core/example.js';
 import {installAssetLibrary} from './assets.js';
 import {installBuildingLibrary} from './buildings.js';
@@ -9,7 +9,7 @@ installBuildingLibrary();
 let gameAdapter = null;
 const status = text => {document.getElementById('status').textContent = text;};
 window.nautilus = {
-  version: ENGINE_VERSION, contract: MAP_CONTRACT,
+  version: ENGINE_VERSION, contract: MAP_CONTRACT, manifest: engineManifest(),
   get document() { return window.editor3d?.document; },
   get hasGameAdapter() { return !!gameAdapter; },
   export() {if (!this.document) throw Error('The editor is still loading.');return this.document.export();},
@@ -23,7 +23,8 @@ window.nautilus = {
     const document = openDocument(json), errors = document.validate();
     if (document.block) throw Error('Place this block in a full map first.');
     if (errors.length) throw Error(errors.join(' '));
-    assertMapCapabilities(document.map,gameAdapter.features||[]);
+    if (gameAdapter.manifest) assertBlueprintCompatible(document.map, gameAdapter.manifest);
+    else assertMapCapabilities(document.map,gameAdapter.features||[]);
     return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
   }
 };

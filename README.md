@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.3 provides a standalone 3D map workshop with optional measured wall runs, headless map/rules packages and an optional golden contour effect.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.5 adds procedural sloped roofs, explicit save/capability contracts and smaller distributable packages to the shared 3D map workshop.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -65,6 +65,12 @@ Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The p
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.
 
-The standalone workshop does not bundle any game's combat application. **Send to game** becomes available when a host connects an adapter. The three games have not yet switched their editors or toolkit dependencies to Nautilus. Farmyard supports a flat-map subset; Tinderbox's content representation needs an explicit adapter. The inherited strategic overmap generator and a complete procedural campaign are outside this milestone.
+The standalone workshop does not bundle any game's combat application. **Send to game** becomes available when a host connects an adapter. The three games contribute source, assets and design feedback to Nautilus. Production runtime adoption is still a separate deliberate pin: the first Tinderbox adapter is conformance-tested against its actual compiler and simulation. Farmyard supports a flat-map subset; Tinderbox's content representation needs an explicit adapter. The inherited strategic overmap generator and a complete procedural campaign are outside this milestone.
 
 Original upstream bytes remain in `vendor/`. `upstream.json` pins full source commits and each snapshot's `provenance.json` records SHA-256 hashes. Build-only adaptations have separate hashes in `dist/build-provenance.json`. See [source notices](NOTICE.md). The GitHub source is public; the Sites review build uses owner sign-in.
+
+## Public contracts and packages
+
+See [compatibility and persistence](docs/compatibility.md), [distributable profiles and asset reuse](docs/distribution.md), and the [bounded Tinderbox adapter](docs/adapters/tinderbox.md). Public engine-owned interfaces keep donor/editor internals private. Versioned manifests distinguish required from optional features; stamped saves retain portable blueprint data and reject unsupported schemas.
+
+The source checkout contains the full authoring/review material. The default package has an explicit runtime whitelist; separate core, renderer and optional building-assets profiles keep large art payloads out of headless consumers. npm run test:package tests a real offline installation; npm run test:assets verifies all 48 model/binary/blueprint/atlas URLs from the installed asset package. The browser authoring workflow runs in its own isolated browser and in GitHub CI.

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:block:1",
+  "title": "Nautilus inherited portable block v1 structural contract",
+  "type": "object",
+  "required": [
+    "kind",
+    "version",
+    "name",
+    "size",
+    "terrain",
+    "upper",
+    "edges",
+    "stairs",
+    "props",
+    "guards"
+  ],
+  "properties": {
+    "kind": {
+      "const": "red-shift-block"
+    },
+    "version": {
+      "const": 1
+    },
+    "size": {
+      "const": 24
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "terrain": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {
+        "type": "array",
+        "minItems": 24,
+        "maxItems": 24,
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "upper": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "edges": {
+      "type": "object"
+    },
+    "stairs": {
+      "type": "array"
+    },
+    "props": {
+      "type": "array"
+    },
+    "guards": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "$comment": "Runtime validateBlock checks inherited data plus versioned wall/roof addons, rotations and unsupported whole-prefab envelopes."
+}
