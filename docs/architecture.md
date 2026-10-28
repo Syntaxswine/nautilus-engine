@@ -1,0 +1,56 @@
+# Nautilus map-authoring foundation
+
+## Ownership and layout
+
+| Path | Responsibility |
+| --- | --- |
+| `packages/map-core/` | Headless public API and portable example content |
+| `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
+| `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
+| `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
+| `upstream.json` | Reviewed donor pins and their purpose |
+| `tools/snapshot-source.mjs` | Read-only Git-object importer; writes only a new local snapshot |
+| `tools/build.mjs` | Self-contained static editor, recorded deployment patches and isolated storage |
+| `tests/` | Nautilus boundary/behavior checks |
+
+Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
+
+## Public map API
+
+`createMapDocument(name)` and `createBlockDocument(name)` create independent documents. `openDocument(objectOrJSON)` opens the existing portable map or block format. `MapDocument` exposes the inherited editing controller. Its key methods are `preview(command)`, `apply(command)`, `undo()`, `redo()`, `rename(name)`, `replace(map)`, `validate()` and `export()`.
+
+Preview returns a candidate without committing it. Apply commits only accepted commands. Rejected edits leave the blueprint and undo history intact. Validation checks map geometry and reachability; authoring can temporarily disconnect areas until the design is ready to export for gameplay. Import validates before opening a replacement document.
+
+`generateConnectedMap(designs, seed, plan)` builds from a supplied block library without changing that library. `emptyFeaturePlan`, `seededFeaturePlan`, connection inspection/matching, map/block parsing and validation are also exported. Seeded generation remains bounded, validates its assembled result and reports missing continuations or crossing blocks.
+
+`MAP_CONTRACT` records the inherited dimensions. Ground map coordinates use integer-centred metre positions `(x,y)` with a layer index `z`; the Three.js scene uses `(x,height,y)`. The inherited rendering and tactical floor intervals differ and remain in the pinned conversion helpers. Do not equate layer index with metres or rescale collision separately from visuals.
+
+## Browser and game-host boundary
+
+The standalone browser entry exposes `window.nautilus`:
+
+```js
+const disconnect = window.nautilus.connectGame({
+  openMap({json, contract}) {
+    // The consumer validates its own capabilities and translates the blueprint.
+    return myGame.openEditorMap(json, contract);
+  }
+});
+
+// Later, when the host is removed:
+disconnect();
+```
+
+`window.nautilus.open(input)` opens a valid map/block, `export()` returns portable JSON, and `sendToGame()` sends a validated map copy. The host must explicitly connect an adapter before either handoff button enables. Blocks must first be placed in a full map. A handoff does not discard the editor blueprint or history.
+
+This is an embedding API, not an automatic cross-origin bridge. Consumers own their launch UI, origin checks, transport and capability validation. Nautilus never opens a donor checkout's runtime. The original upstream playtest bridge stays unchanged in source; only the built editor uses Nautilus's separate host adapter.
+
+## Consumer adoption
+
+| Consumer | Initial compatibility | Work still required |
+| --- | --- | --- |
+| AFT 3D | Original portable map/block schemas and editor behavior retained | Pin Nautilus, replace its editor entry deliberately, review the game handoff |
+| Farmyard Commando | Existing AFT-import path provides a starting point for flat maps | Bind the adapter; reject upper floors, traversal and unsupported terrain/objects explicitly |
+| Tinderbox | Shared metre scale and suitable visual assets | Translate blueprint objects into Tinderbox content/collision without importing AFT combat rules |
+
+The initial catalog and document controller still contain AFT character and scenario conventions. Later extraction can separate catalogs, placement constraints and spawn roles into registries. Consumer pins should be exact releases/commits and updates should run each game's checks. Do not make a consumer silently follow Nautilus main.
