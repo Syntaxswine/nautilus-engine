@@ -1,11 +1,16 @@
 {
   "name": "@nautilus-engine/map-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Nautilus Engine: shared map authoring, validation and procedural block generation",
-  "exports": {".": "./packages/map-core/index.js"},
-  "files": ["packages", "vendor", "upstream.json", "NOTICE.md"],
+  "description": "Nautilus Engine: shared map authoring and headless character, skill and combat rules",
+  "exports": {
+    ".": "./packages/map-core/index.js",
+    "./rules": "./packages/rules-core/index.js",
+    "./rules/dialogue": "./packages/rules-core/dialogue.js",
+    "./rules/aft": "./packages/rules-core/aft-compat.js"
+  },
+  "files": ["packages", "vendor", "docs", "upstream.json", "NOTICE.md"],
   "scripts": {
     "check": "node tools/check.mjs",
     "test": "node --test tests/*.test.mjs",

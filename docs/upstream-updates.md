@@ -2,6 +2,8 @@
 
 Weekly maintenance belongs to this Nautilus chat. Use `upstream.json` and the current import manifests as the comparison baseline. Farmyard remains the UI reference; AFT remains the map/editor/generation reference; compatible new content can come from all three projects.
 
+Character, skill and combat intake also follows `docs/rules.md` and the reviewed rules-source inventory linked by `upstream.json`. Compare formulas and behavior, including roll boundaries, saved streams, attempt receipts, timing and resource costs. Preserve consumer policies rather than assuming common terminology means identical mechanics. For assets, distinguish 2D/skins, animated movement and 3D models; preserve their compatibility bindings separately from gameplay stats.
+
 1. Inspect published integration changes since each recorded full commit. An active worker branch or uncommitted asset is a candidate, not an automatically approved source.
 2. Select the concrete asset/system changes and examine their dependencies, dimensions, collision/anchor data, portable-format impact and notices. Record useful deferred work.
 3. Re-run the importer against a full reviewed commit into a new snapshot, never by editing imported source files. The importer reads Git objects and leaves donor checkouts untouched. Its dry run is the default; `--write` creates the selected closure.

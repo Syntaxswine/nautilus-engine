@@ -45,6 +45,7 @@ for (const donor of ['aft', 'farmyard']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
+fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true});
 write('upstream.json', JSON.stringify(sources, null, 2));
 write('.openai/hosting.json', fs.readFileSync(path.join(root, '.openai/hosting.json')));
 write('NOTICE.md', fs.readFileSync(path.join(root, 'NOTICE.md')));
@@ -60,4 +61,4 @@ write('index.html', html);
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of ['editor.js', 'editor.css']) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
 write('build-provenance.json', JSON.stringify({engineVersion: version, sources, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials'], patches}, null, 2));
-console.log('Built Nautilus Engine ' + version + ': independent editor, headless map core, ' + patches.length + ' recorded deployment patches.');
+console.log('Built Nautilus Engine ' + version + ': independent editor, headless map and rules cores, ' + patches.length + ' recorded deployment patches.');

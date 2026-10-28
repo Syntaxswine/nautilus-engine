@@ -1,10 +1,11 @@
-# Nautilus map-authoring foundation
+# Nautilus shared foundation
 
 ## Ownership and layout
 
 | Path | Responsibility |
 | --- | --- |
 | `packages/map-core/` | Headless public API and portable example content |
+| `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
 | `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
@@ -14,6 +15,10 @@
 | `tests/` | Nautilus boundary/behavior checks |
 
 Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
+
+## Character and rules API
+
+The [rules contract](rules.md) defines the portable character schema and the boundaries between derived stats, checks, combat decisions, confirmed impacts and consumer scheduling. The [three-game comparison](reviews/2026-10-28-rules-foundation.md) records why each design was selected. Rule modules run without a DOM, renderer, storage or internal clock. They reuse pinned algorithms and return copied state/events; consumers own commit/persistence and world geometry.
 
 ## Public map API
 
