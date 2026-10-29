@@ -94,12 +94,12 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await capture('editor-mobile-library.png');await page.locator('#building-close').click();
   await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js'),manifest=core.engineManifest();manifest.id='acceptance-versioned-host';manifest.capabilities=manifest.capabilities.filter(feature=>feature.id!==core.ROOF_FEATURE);window.manifestHostCalls=0;window.manifestDisconnect=window.nautilus.connectGame({manifest,openMap(){window.manifestHostCalls++;}});});
   await page.locator('#settings-button').click();await page.locator('#playtest').click();
-  await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('nautilus-sloped-roofs-v1'));
+  await page.waitForFunction(()=>window.manifestHostCalls>0||document.getElementById('nautilus-settings-feedback').textContent.includes('nautilus-sloped-roofs-v1'));
   assert(await page.evaluate(()=>window.manifestHostCalls)===0,'Versioned host missing roof support was called.');
   await page.locator('#close-settings').click();await page.evaluate(()=>window.manifestDisconnect());
   await page.evaluate(()=>{window.integrationHostChecks={calls:0};window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-sloped-roofs-v1'],openMap(){window.integrationHostChecks.calls++;}});});
   await page.locator('#settings-button').click();await page.locator('#playtest').click();
-  await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('original building'));
+  await page.waitForFunction(()=>window.integrationHostChecks.calls>0||document.getElementById('nautilus-settings-feedback').textContent.includes('original building'));
   assert(await page.evaluate(()=>window.integrationHostChecks.calls)===0,'Unsupported host was called.');
   await page.evaluate(()=>{window.integrationDisconnect();window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1'],async openMap({json,contract}){await Promise.resolve();window.integrationHostChecks.calls++;window.integrationHostChecks.buildings=JSON.parse(json).buildingPrefabs.instances.length;window.integrationHostChecks.contract=contract.optionalFeatures;}});});
   await page.locator('#playtest').click();await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Map sent'));

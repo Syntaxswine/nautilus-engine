@@ -7,6 +7,8 @@ import {createTinderboxScene, exportNautilusMap, saveTinderboxScene, loadTinderb
 import {compileModules} from './fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/src/content/exterior-kit.js';
 import {scenarioDefinition} from './fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/src/simulation/fixtures.js';
 import {createSimulation} from './fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/src/simulation/index.js';
+import {freePoint} from './fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/src/simulation/geometry.js';
+import {DEFAULT_CONFIG} from './fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/src/simulation/config.js';
 
 const FIXTURES = new URL('./fixtures/consumers/tinderbox/', import.meta.url);
 const PIN = new URL(TINDERBOX_ADAPTER.consumerCommit + '/', FIXTURES);
@@ -191,11 +193,6 @@ test('wall and save versions, unsafe JSON, options and bear clearance have actio
   // A start inside a wall fails map validation before the adapter's own clearance rule runs.
   const onWall = fixture(); onWall.starts[0] = {x: 25, y: 25, z: 0};
   compatibility(() => createTinderboxScene(onWall, options()), 'INVALID_MAP', 'map');
-  // The wall branch of PLAYER_CLEARANCE. The spawn projects to x 10.5. A wall run at map x 20.6
-  // has its face at 11.02 (0.52 m, inside the 0.56 m disc); one at 20.7 has it at 11.12.
-  const wallAt = x => { const map = fixture(); map.wallRuns.segments.push({id: 'spawn-side', a: [x, 24], b: [x, 26], z: 0, stories: 1, material: 'wood'}); return map; };
-  compatibility(() => createTinderboxScene(wallAt(20.6), options()), 'PLAYER_CLEARANCE', 'map.starts[0]');
-  assert.equal(createTinderboxScene(wallAt(20.7), options()).scenario.modules.length, 3, 'A wall outside the disc is accepted');
   const rim = fixture(); rim.starts[0] = {x: 10, y: 25, z: 0};
   compatibility(() => createTinderboxScene(rim, options()), 'PLAYER_CLEARANCE');
   compatibility(() => createTinderboxScene(fixture(), {...options(), seed: NaN}), 'INVALID_JSON_DATA');
@@ -211,6 +208,42 @@ test('wall and save versions, unsafe JSON, options and bear clearance have actio
   compatibility(() => createTinderboxScene(source, options()), 'INVALID_JSON_DATA');
   const error = new TinderboxCompatibilityError('EXAMPLE', 'map.unknown', 'Unsupported content.', 'Update the adapter.');
   assert.deepEqual(error.toJSON(), {code: 'EXAMPLE', path: 'map.unknown', message: 'Unsupported content.', action: 'Update the adapter.'});
+});
+
+test('bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound', () => {
+  assert.equal(TINDERBOX_ADAPTER.playerRadius, DEFAULT_CONFIG.player.radius, 'The adapter uses the pinned bear radius');
+  // The selected spawn is map (20, 25), which projects to (10.5, 5.5). Wall runs are 0.16 m thick, so a
+  // vertical run at map x 20.6 has its face 0.52 m from the spawn and one at 20.7 has it 0.62 m away.
+  const probes = [
+    ['beside, 0.52 m', {wall: [[20.6, 24], [20.6, 26]]}, false],
+    ['beside, 0.62 m', {wall: [[20.7, 24], [20.7, 26]]}, true],
+    ['face 5 mm inside the radius', {wall: [[20.635, 24], [20.635, 26]]}, false],
+    ['face 5 mm outside the radius', {wall: [[20.645, 24], [20.645, 26]]}, true],
+    ['corner 0.15 m past the end, 0.541 m', {wall: [[20.6, 25.15], [20.6, 27.15]]}, false],
+    ['corner 0.25 m past the end, 0.577 m', {wall: [[20.6, 25.25], [20.6, 27.25]]}, true],
+    ['beside a long vertical run, off its centre', {wall: [[20.6, 24], [20.6, 34]]}, false],
+    ['beside a horizontal run, off its centre', {wall: [[18, 24.4], [28, 24.4]]}, false],
+    ['beside a horizontal run drawn backwards', {wall: [[23, 24.4], [19, 24.4]]}, false],
+    ['the near run listed first', {wall: [[20.6, 24], [20.6, 26]], first: true}, false],
+    ['top row', {start: {x: 20, y: 20, z: 0}}, false],
+    ['bottom row', {start: {x: 20, y: 35, z: 0}}, false],
+    ['left column', {start: {x: 10, y: 25, z: 0}}, false],
+    ['right column', {start: {x: 29, y: 25, z: 0}}, false],
+    ['open yard', {}, true]
+  ];
+  for (const [name, {wall, first, start}, free] of probes) {
+    const map = fixture();
+    if (wall) map.wallRuns.segments[first ? 'unshift' : 'push']({id: 'probe', a: wall[0], b: wall[1], z: 0, stories: 1, material: 'wood'});
+    if (start) map.starts[0] = start;
+    // The pinned game's own spawn check, on the obstacles this map compiles to. The projection is
+    // taken with the selected start moved clear, because the adapter refuses the real one.
+    const clear = structuredClone(map); clear.starts[0] = {x: 12, y: 33, z: 0};
+    const scene = createTinderboxScene(clear, options()).scenario, offset = scene.nautilus.coordinateOffset;
+    const spawn = {x: map.starts[0].x + offset.x, y: map.starts[0].y + offset.y};
+    assert.equal(freePoint(spawn, DEFAULT_CONFIG.player.radius, scene, compileModules(scene.modules, scene).obstacles), free, name + ': pinned Tinderbox');
+    if (free) assert.deepEqual(createTinderboxScene(map, options()).scenario.player, {...spawn, tool: 'matches'}, name + ': adapter accepts');
+    else assert.throws(() => createTinderboxScene(map, options()), error => error instanceof TinderboxCompatibilityError && error.code === 'PLAYER_CLEARANCE' && error.path === 'map.starts[0]', name + ': adapter refuses');
+  }
 });
 
 test('runtime adapter imports only engine-owned public map API and needs no DOM, storage or renderer', async () => {

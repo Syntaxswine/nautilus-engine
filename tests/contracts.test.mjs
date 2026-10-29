@@ -47,14 +47,18 @@ test('save/reload preserves unknown JSON, versions and source blueprint bytes se
   assert.equal(serializeSave(restored), first); assert.deepEqual(loadBlueprint(map), map);
 });
 test('loading and saving return the authored JSON, not the editor-normalized copy', () => {
-  // blankMap actors carry no character identity. The editor mints random ones, so a load
-  // that returned the editor's export would differ from the input and between calls.
+  // blankMap actors carry no character identity. The editor mints random ones, so a load, save or
+  // save reload that returned the editor's export would differ from the input and between calls.
   const map = blankMap('Unnormalized actors'); map.guards = [{x: 30, y: 30, z: 0, species: 'goat', weapon: 'rifle'}];
-  const text = JSON.stringify(map);
-  assert.notEqual(JSON.stringify(JSON.parse(openDocument(text).export())), text, 'Precondition: the editor normalizes this map');
+  const text = JSON.stringify(map), exported = () => JSON.parse(openDocument(text).export());
+  assert.notDeepEqual(exported(), map, 'Precondition: the editor normalizes this map');
+  assert.notDeepEqual(exported(), exported(), 'Precondition: the editor mints different identities each time');
   assert.deepEqual(loadBlueprint(text), map);
   assert.deepEqual(createSave(text).payload.data, map);
   assert.equal(JSON.stringify(createSave(text)), JSON.stringify(createSave(text)), 'Saving one input twice is deterministic');
+  const saved = serializeSave(createSave(text));
+  assert.deepEqual(parseSave(saved).payload.data, map, 'Loading the save returns the authored map');
+  assert.equal(serializeSave(parseSave(saved)), saved, 'Loading one save twice is deterministic');
 });
 test('tampered requirements, schema stamps, future saves and non-JSON values reject', () => {
   const map = flat(); map.wallRuns = {version: 1, segments: [{id:'wall-1', a:[30,30], b:[40,30], z:0, stories:1, material:'wood'}]};

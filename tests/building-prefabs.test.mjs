@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {createMapDocument,createBlockDocument,openDocument,validateMap,extractBlock,generateConnectedMap,assertMapCapabilities,blankMap,loadBlueprint} from '../packages/map-core/index.js';
-import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,buildingTransform,buildingLot,placeBuilding,generateBuildingLayout,PREFAB_FEATURE,prefabErrors} from '../packages/prefab-core/index.js';
+import {createMapDocument,createBlockDocument,openDocument,validateMap,extractBlock,generateConnectedMap,assertMapCapabilities,blankMap,loadBlueprint,parseMap,requiredMapFeatures} from '../packages/map-core/index.js';
+import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,buildingTransform,buildingLot,placeBuilding,generateBuildingLayout,PREFAB_FEATURE,prefabErrors,COMBINED_PREFAB_CATALOGUE} from '../packages/prefab-core/index.js';
 import {placeBlock} from '../packages/map-core/prefab-blocks.js';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {createGrossHouse} from '../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
@@ -101,15 +101,19 @@ test('floor cutaways accept a fractional preview camera height and keep shared c
     layer.setView({view:'exterior',showFurniture:false});assert.deepEqual(copies.map(n=>n.visible),nodes.map(n=>n.visible));
   }finally{layer.dispose();}
 });
-test('imported maps keep the 32-building limit that the authoring tools apply',()=>{
-  // Only the import path relies on the envelope check; placement and generation stop at 32 themselves.
-  // The 32-building layout is valid, so the 33rd building is the only reason the second map fails.
-  const catalogue=placeBuilding(blankMap('Catalogue'),{asset:'albany-cottage',x:30,y:30,turns:0,clearance:1}).map.buildingPrefabs.catalogue;
-  const city=count=>{const map=blankMap('City of '+count);map.buildingPrefabs={version:1,catalogue,instances:[]};
-    for(let i=0;i<count;i++)map.buildingPrefabs.instances.push({id:'b'+i,asset:'albany-cottage',x:20+i%6*34,y:20+Math.floor(i/6)*34,turns:0,clearance:1});
-    return map;};
-  const full=openDocument(city(32));assert.deepEqual(full.validate(),[]);assert.equal(full.map.buildingPrefabs.instances.length,32);
-  assert.equal(loadBlueprint(city(32)).buildingPrefabs.instances.length,32);
-  assert.throws(()=>openDocument(city(33)),/more than 32 buildings/);
-  assert.throws(()=>loadBlueprint(city(33)),/more than 32 buildings/);
+test('imported maps keep the 32-building limit through every entry point and catalogue',()=>{
+  // Only imports rely on the envelope check; placement and generation stop at 32 themselves. Each
+  // 32-building layout is valid, so the 33rd building is the only reason the second map fails.
+  const gross=placeBuilding(blankMap('Catalogue'),{asset:'albany-cottage',x:30,y:30,turns:0,clearance:1}).map.buildingPrefabs.catalogue,limit=/more than 32 buildings/;
+  for(const catalogue of [gross,COMBINED_PREFAB_CATALOGUE]){
+    const city=count=>{const map=blankMap('City of '+count);map.buildingPrefabs={version:1,catalogue,instances:[]};
+      for(let i=0;i<count;i++)map.buildingPrefabs.instances.push({id:'b'+i,asset:'albany-cottage',x:20+i%6*34,y:20+Math.floor(i/6)*34,turns:0,clearance:1});
+      return map;};
+    const full=openDocument(city(32));assert.deepEqual(full.validate(),[]);assert.equal(full.map.buildingPrefabs.instances.length,32);
+    assert.equal(loadBlueprint(city(32)).buildingPrefabs.instances.length,32);assert.equal(parseMap(JSON.stringify(city(32))).buildingPrefabs.instances.length,32);
+    assert.deepEqual(validateMap(city(32)),[]);assert.deepEqual(prefabErrors(city(32)),[]);assert.deepEqual(requiredMapFeatures(city(32)),[PREFAB_FEATURE]);
+    for(const [entry,load] of [['openDocument',openDocument],['loadBlueprint',loadBlueprint],['parseMap',map=>parseMap(JSON.stringify(map))],['requiredMapFeatures',requiredMapFeatures]])
+      assert.throws(()=>load(city(33)),limit,entry+' under '+catalogue);
+    for(const [entry,errors] of [['validateMap',validateMap],['prefabErrors',prefabErrors]])assert.match(errors(city(33)).join(' '),limit,entry+' under '+catalogue);
+  }
 });
