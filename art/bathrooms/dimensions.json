@@ -1,0 +1,1209 @@
+{
+  "version": 1,
+  "artistFoundation": "65c06735396e14b8774ae1e7d5ad61969692963f",
+  "contract": {
+    "schema": "nautilus-bathroom-art",
+    "version": 1,
+    "metresPerTile": 1,
+    "metresPerUnit": 1,
+    "groundAxes": [
+      "x",
+      "z"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "z"
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "origin": "Front-left ground corner; fixtures face local negative z.",
+    "stallTiles": [
+      1,
+      2
+    ],
+    "stallMetres": [
+      1,
+      2
+    ],
+    "fixtureSnap": 0.05,
+    "wallHeight": 2,
+    "floorInterval": 2.12,
+    "enclosureWallThickness": 0.16,
+    "partitionThickness": 0.04,
+    "partitionBottom": 0.16,
+    "partitionTop": 1.81,
+    "doorAngles": [
+      0,
+      90
+    ],
+    "doorSwing": "Outward into an explicitly reserved aisle.",
+    "status": "Original visual kit; shared editor persistence and game behavior require explicit intake."
+  },
+  "sourceMeasurements": false,
+  "tileEvidence": "packages/map-core/index.js MAP_CONTRACT.metresPerTile = 1",
+  "userConstraint": "Each bathroom stall is exactly 1 × 2 tiles; same for left and right handed variants.",
+  "modules": [
+    {
+      "id": "bath-toilet-cistern",
+      "name": "Ceramic seated toilet",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-toilet-high-cistern",
+      "name": "High-cistern period toilet",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          1.89,
+          0.78
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.8909999999999998,
+          0.781
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-toilet-steel",
+      "name": "Stainless seated toilet",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-urinal-wall",
+      "name": "Wall-hung ceramic urinal",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.55,
+        0.4
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.04500000000000001,
+          0.48,
+          0.025000000000000022
+        ],
+        "max": [
+          0.505,
+          1.47,
+          0.38999999999999996
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.04400000000000001,
+          0.479,
+          0.02400000000000002
+        ],
+        "max": [
+          0.506,
+          1.4709999999999999,
+          0.39099999999999996
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-urinal-trough",
+      "name": "Two-person steel urinal trough",
+      "category": "fixture",
+      "nominalFootprint": [
+        2,
+        0.45
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0.43,
+          -0.088
+        ],
+        "max": [
+          2,
+          1.1629999999999998,
+          0.44999999999999996
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          0.429,
+          -0.089
+        ],
+        "max": [
+          2.001,
+          1.1639999999999997,
+          0.45099999999999996
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-sink-pedestal",
+      "name": "Pedestal washbasin",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.7,
+        0.55
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.04199999999999998,
+          0,
+          0.027499999999999997
+        ],
+        "max": [
+          0.6579999999999999,
+          1.023,
+          0.528
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.04099999999999998,
+          -0.001,
+          0.026499999999999996
+        ],
+        "max": [
+          0.6589999999999999,
+          1.0239999999999998,
+          0.529
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-sink-wall",
+      "name": "Wall-mounted washbasin",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.65,
+        0.5
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.03899999999999998,
+          0.418,
+          0.024999999999999994
+        ],
+        "max": [
+          0.611,
+          1.023,
+          0.478
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.03799999999999998,
+          0.417,
+          0.023999999999999994
+        ],
+        "max": [
+          0.612,
+          1.0239999999999998,
+          0.479
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-sink-double",
+      "name": "Double wash trough",
+      "category": "fixture",
+      "nominalFootprint": [
+        2,
+        0.6
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0.477,
+          0
+        ],
+        "max": [
+          2,
+          1.023,
+          0.6
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          0.476,
+          -0.001
+        ],
+        "max": [
+          2.001,
+          1.0239999999999998,
+          0.601
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-sink-stone",
+      "name": "Stone wash bowl",
+      "category": "fixture",
+      "nominalFootprint": [
+        0.8,
+        0.6
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.04799999999999999,
+          0,
+          0.02999999999999997
+        ],
+        "max": [
+          0.752,
+          1.023,
+          0.578
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.046999999999999986,
+          -0.001,
+          0.02899999999999997
+        ],
+        "max": [
+          0.753,
+          1.0239999999999998,
+          0.579
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-panel",
+      "name": "Stall side partition · 2 m",
+      "category": "part",
+      "nominalFootprint": [
+        0.04,
+        2
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          0.04,
+          1.81,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.811,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-frame",
+      "name": "Stall front frame · 1 tile",
+      "category": "part",
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0.019999999999999997
+        ],
+        "max": [
+          1,
+          1.96,
+          0.1
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          0.018999999999999996
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          0.101
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-door-left",
+      "name": "Stall door · left hinge",
+      "category": "part",
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.09100000000000001,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.9,
+          1.81,
+          0.1125
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.04650000000000004,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9011835732377654,
+          1.8110000000000002,
+          0.1135
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-door-right",
+      "name": "Stall door · right hinge",
+      "category": "part",
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0.09999999999999998,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.909,
+          1.81,
+          0.1125
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          0.09881642676223457,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9535,
+          1.8110000000000002,
+          0.1135
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-urinal-divider",
+      "name": "Urinal privacy divider",
+      "category": "part",
+      "nominalFootprint": [
+        0.04,
+        0.65
+      ],
+      "stallCells": [],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0.35,
+          0
+        ],
+        "max": [
+          0.04,
+          1.65,
+          0.65
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          0.349,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.6509999999999998,
+          0.651
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-left",
+      "name": "Complete stall · left hinge",
+      "category": "stall",
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-right",
+      "name": "Complete stall · right hinge",
+      "category": "stall",
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-stall-row-3",
+      "name": "Three stalls · independently opening doors",
+      "category": "assembly",
+      "nominalFootprint": [
+        3,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          3,
+          1.96,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          3.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-outhouse-timber",
+      "name": "Timber outhouse",
+      "category": "outhouse",
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-outhouse-double",
+      "name": "Two-bay timber outhouse",
+      "category": "outhouse",
+      "nominalFootprint": [
+        2,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          2,
+          2.42,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          2.001,
+          2.421,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-outhouse-masonry",
+      "name": "Masonry privy",
+      "category": "outhouse",
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.5612330539441331
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-outhouse-portable",
+      "name": "Portable toilet cabin",
+      "category": "outhouse",
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.5,
+          2
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.501,
+          2.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-public-washroom",
+      "name": "Public washroom · three 1 × 2 stalls",
+      "category": "layout",
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "stallCells": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          -0.08,
+          -0.12,
+          -0.08
+        ],
+        "max": [
+          6.08,
+          2,
+          6.08
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.081,
+          -0.121,
+          -0.081
+        ],
+        "max": [
+          6.081,
+          2.001,
+          6.081
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "bath-camp-washyard",
+      "name": "Camp washyard · timber and masonry privies",
+      "category": "layout",
+      "nominalFootprint": [
+        6,
+        5
+      ],
+      "stallCells": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          6,
+          2.5,
+          5
+        ]
+      },
+      "reservedMotionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.001
+        ],
+        "max": [
+          6.001,
+          2.501,
+          5.001
+        ]
+      },
+      "posePolicy": "Every door and toilet lid has an independent named 0–90 degree hinge. Reserve outward door swings in the aisle.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "plumbing": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    }
+  ]
+}

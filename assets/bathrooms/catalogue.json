@@ -1,0 +1,3051 @@
+{
+  "version": 1,
+  "collection": "nautilus-bathrooms-v1",
+  "artistFoundation": "65c06735396e14b8774ae1e7d5ad61969692963f",
+  "status": "Original artist kit, ready for review; shared editor/provider intake remains explicit.",
+  "contract": {
+    "schema": "nautilus-bathroom-art",
+    "version": 1,
+    "metresPerTile": 1,
+    "metresPerUnit": 1,
+    "groundAxes": [
+      "x",
+      "z"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "z"
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "origin": "Front-left ground corner; fixtures face local negative z.",
+    "stallTiles": [
+      1,
+      2
+    ],
+    "stallMetres": [
+      1,
+      2
+    ],
+    "fixtureSnap": 0.05,
+    "wallHeight": 2,
+    "floorInterval": 2.12,
+    "enclosureWallThickness": 0.16,
+    "partitionThickness": 0.04,
+    "partitionBottom": 0.16,
+    "partitionTop": 1.81,
+    "doorAngles": [
+      0,
+      90
+    ],
+    "doorSwing": "Outward into an explicitly reserved aisle.",
+    "status": "Original visual kit; shared editor persistence and game behavior require explicit intake."
+  },
+  "inputs": [
+    {
+      "file": "packages/bathrooms/designs.js",
+      "sha256": "9189659416f14d005bae1d7aec1a4100c37c76d293604e3b00031a8924f50e46"
+    },
+    {
+      "file": "packages/bathrooms/index.js",
+      "sha256": "31e96728c75525caf74a76e144cde991cf9eb365da9424b4d3a84500141de131"
+    },
+    {
+      "file": "packages/bathrooms/geometry.js",
+      "sha256": "45bd3f2f2f90f0e3492eb5750738dd7f99708430b55fec1fb8ffe03807974a3b"
+    },
+    {
+      "file": "packages/bathrooms/mesh.js",
+      "sha256": "f59227465dc37e4959530526ec5a8bc44b9b5319f97d4f83ec9b95c78f759031"
+    },
+    {
+      "file": "packages/bathrooms/three.js",
+      "sha256": "edc58cca1aaa902caf5182ce54c5658b6671a84823e6984f3bd8a7ef6bba762a"
+    },
+    {
+      "file": "packages/fort-variants/geometry.js",
+      "sha256": "4eb54fb6b0ad2da99e8ca406cd7873c61c1adef03c183155162abcddc8fc163e"
+    },
+    {
+      "file": "tools/build-bathrooms.mjs",
+      "sha256": "ebaebd4fafe4cc5f517a163c603d98e2c340bc1e7726c719ad352d113a845ef0"
+    },
+    {
+      "file": "tools/export-bathrooms-gltf.mjs",
+      "sha256": "e9f38280385770f1bef50a5584c2bc48ae6cea7848cbdcbaca9dabb65eff0f84"
+    },
+    {
+      "file": "art/bathrooms/material-prompt.json",
+      "sha256": "6b6077933b5ae763fc7f4c9bcee5fb835c60b49137b12b8b8f9866b923383659"
+    },
+    {
+      "file": "art/bathrooms/NOTICE.md",
+      "sha256": "4bc1fd2c3ad170d307101509d60933f88519990499f10eced2e88ff3b5535a05"
+    }
+  ],
+  "dimensions": {
+    "file": "art/bathrooms/dimensions.json",
+    "bytes": 24731,
+    "sha256": "46826309915afd15aadb1124b7e4cd98b29e3f4181ff66a0df08f29d10d46dfb"
+  },
+  "skin": {
+    "file": "assets/bathrooms/painted-bathroom-materials-v1.png",
+    "sha256": "642d6151e592bc0c4973543cb05a415dff2b6e85e1ad82bc8df4f62e7be7e9ea"
+  },
+  "assets": [
+    {
+      "id": "bath-toilet-cistern",
+      "name": "Ceramic seated toilet",
+      "category": "fixture",
+      "source": {
+        "triangles": 3236,
+        "draws": 6
+      },
+      "game": {
+        "triangles": 1092,
+        "draws": 6
+      },
+      "interchange": {
+        "triangles": 1470,
+        "draws": 6
+      },
+      "reduction": 0.6625463535228677,
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-toilet-cistern:lid",
+          "kind": "lid",
+          "pivot": [
+            0.25,
+            0.478,
+            0.57
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-toilet-cistern.source-mesh.json.gz",
+          "bytes": 157374,
+          "sha256": "9e365f23d12196e3667526793102e0edb5cdb307670b97c0611014cce0a7a4ec"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-cistern.game-mesh.json.gz",
+          "bytes": 53060,
+          "sha256": "3d03739f2d59f710b3d5016aab94546b187f70a7baee84208a827f8814caad75"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-cistern.blueprint.json",
+          "bytes": 1187,
+          "sha256": "ee00d00f9476372fb1a95d529de2fbfeed25ab7b6e1cf447ca2a6a418f08ab7c"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-cistern.gltf",
+          "bytes": 9352,
+          "sha256": "c578928c20ac21d09472a849c01ba3d500b1e098a873b85b029e1d095500747e"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-cistern.bin",
+          "bytes": 111184,
+          "sha256": "ce3cc70be3771ad0ecafdbef43e0c24c14a6b4fa3c28b5cd27425b0526842743"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-cistern-plan.svg",
+          "bytes": 723,
+          "sha256": "5b142c6db8e3ef5388209c5c2bfba0f0f2467291aee27971ec428ccdbc17850b"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-toilet-cistern:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-toilet-high-cistern",
+      "name": "High-cistern period toilet",
+      "category": "fixture",
+      "source": {
+        "triangles": 3260,
+        "draws": 7
+      },
+      "game": {
+        "triangles": 1116,
+        "draws": 7
+      },
+      "interchange": {
+        "triangles": 1458,
+        "draws": 7
+      },
+      "reduction": 0.6576687116564417,
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          1.89,
+          0.78
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.8909999999999998,
+          0.781
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-toilet-high-cistern:lid",
+          "kind": "lid",
+          "pivot": [
+            0.25,
+            0.478,
+            0.57
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-toilet-high-cistern.source-mesh.json.gz",
+          "bytes": 157439,
+          "sha256": "822f67ead8869af8d8d96f41f630becca162075459d1d82e70897ac3cddc4b9a"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-high-cistern.game-mesh.json.gz",
+          "bytes": 53510,
+          "sha256": "77bc7a2d0c77b02df5962b7b5e05b4d236e1ef45e11d42288fd28951bb1c7e3a"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-high-cistern.blueprint.json",
+          "bytes": 1206,
+          "sha256": "4dfe103e1259d7d641d0de13455d5d3949a7b6539a1722013852f68703241164"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-high-cistern.gltf",
+          "bytes": 10221,
+          "sha256": "d66de3e1d674d7f77fddaad0e00d18b84a249d170c675613a527a3715084a0e4"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-high-cistern.bin",
+          "bytes": 110720,
+          "sha256": "72654c9966ae3aa464607143b9e07cc321adac5488b04e48b1043cec189d1c3a"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-high-cistern-plan.svg",
+          "bytes": 733,
+          "sha256": "90e250771dced37d2c4f3bca89c35ea254c00dbdcee2721315a9298d8308cc0d"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-toilet-high-cistern:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-toilet-steel",
+      "name": "Stainless seated toilet",
+      "category": "fixture",
+      "source": {
+        "triangles": 3236,
+        "draws": 5
+      },
+      "game": {
+        "triangles": 1092,
+        "draws": 5
+      },
+      "interchange": {
+        "triangles": 1092,
+        "draws": 5
+      },
+      "reduction": 0.6625463535228677,
+      "nominalFootprint": [
+        0.5,
+        0.8
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-toilet-steel:lid",
+          "kind": "lid",
+          "pivot": [
+            0.25,
+            0.478,
+            0.57
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-toilet-steel.source-mesh.json.gz",
+          "bytes": 156675,
+          "sha256": "04917b8c1c229846f33f52a939908867ddd1134d6018b023bd6fc8428ad598ec"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-steel.game-mesh.json.gz",
+          "bytes": 52521,
+          "sha256": "168080a334faa1533de8c3cb07cc2830525fa3e7827d8bb77827d8a792a6c7c7"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-steel.blueprint.json",
+          "bytes": 1185,
+          "sha256": "3501cf70cb268b41bfd30131346a26d6af59664c5f7417737a3b111693cdefb8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-steel.gltf",
+          "bytes": 8442,
+          "sha256": "bc343f47138848dfc5cb7eebf5981c5403e8d8521457f60711b7f7212226ec6a"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-steel.bin",
+          "bytes": 85592,
+          "sha256": "178ee2e8d7bec32ef3582726107fcfd1750c2eb9df11ea887a09dd887ad109b2"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-toilet-steel-plan.svg",
+          "bytes": 727,
+          "sha256": "42ff01a701148a2bec4c563be8492725222653b7c4ed3841a3d3133fdc5d5d1c"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-toilet-steel:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-urinal-wall",
+      "name": "Wall-hung ceramic urinal",
+      "category": "fixture",
+      "source": {
+        "triangles": 1780,
+        "draws": 4
+      },
+      "game": {
+        "triangles": 544,
+        "draws": 3
+      },
+      "interchange": {
+        "triangles": 702,
+        "draws": 3
+      },
+      "reduction": 0.6943820224719102,
+      "nominalFootprint": [
+        0.55,
+        0.4
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.04500000000000001,
+          0.48,
+          0.025000000000000022
+        ],
+        "max": [
+          0.505,
+          1.47,
+          0.38999999999999996
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04400000000000001,
+          0.479,
+          0.02400000000000002
+        ],
+        "max": [
+          0.506,
+          1.4709999999999999,
+          0.39099999999999996
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-urinal-wall.source-mesh.json.gz",
+          "bytes": 79347,
+          "sha256": "77137719df7bb5e468ca9bbafb944281ab6fabc262895d3ab9f40cfe737b8142"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-wall.game-mesh.json.gz",
+          "bytes": 25745,
+          "sha256": "62f3a14c095371756cd8e25314dbb8a89edbd66b6941591494f47c7a42c75387"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-wall.blueprint.json",
+          "bytes": 1171,
+          "sha256": "ca8b1169d3874aed67c844dbfec2eb56ece4e436f32efaab2a4b9907d663d1a0"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-wall.gltf",
+          "bytes": 5869,
+          "sha256": "4d51b5890628670e8f8de06025dd22ce9eaa53aad7d0da5f35b527a03e047f18"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-wall.bin",
+          "bytes": 54312,
+          "sha256": "bab3c32f77fb194c99b53ca417612e1eac508342d149d2a78ff691f763a0ff75"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-wall-plan.svg",
+          "bytes": 734,
+          "sha256": "b584f4fc1c8d039571304af7b29009d794830c7eb973430cbdb87dd236c9a0f7"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-urinal-trough",
+      "name": "Two-person steel urinal trough",
+      "category": "fixture",
+      "source": {
+        "triangles": 1012,
+        "draws": 3
+      },
+      "game": {
+        "triangles": 404,
+        "draws": 3
+      },
+      "interchange": {
+        "triangles": 404,
+        "draws": 3
+      },
+      "reduction": 0.6007905138339921,
+      "nominalFootprint": [
+        2,
+        0.45
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0,
+          0.43,
+          -0.088
+        ],
+        "max": [
+          2,
+          1.1629999999999998,
+          0.44999999999999996
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.429,
+          -0.089
+        ],
+        "max": [
+          2.001,
+          1.1639999999999997,
+          0.45099999999999996
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-urinal-trough.source-mesh.json.gz",
+          "bytes": 24243,
+          "sha256": "b4d4b047e684a3effc1c01ae249fb5e21e101f0e9ee65c8286413e19a9b124cb"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-trough.game-mesh.json.gz",
+          "bytes": 8838,
+          "sha256": "96fc39b56cb76b7c798ba949f1fdea768c56bc23815dba3f66163093a5cac443"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-trough.blueprint.json",
+          "bytes": 1190,
+          "sha256": "27931233d6093de5a03b9213b8663fa9ee177c498a3f4df456888a73b600cd6d"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-trough.gltf",
+          "bytes": 5807,
+          "sha256": "9990fd24c26a59f04ed2129d56ec43b2ebcd2681323583913231a6759c00f863"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-trough.bin",
+          "bytes": 27184,
+          "sha256": "f3336e918b189fc7c7f6e4253b2a79698853f3387a21632f302ddf80f33a9a79"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-trough-plan.svg",
+          "bytes": 798,
+          "sha256": "0fd7be4d853a12918669f046b512b92cc5cfc43e2387ab6f0ac2a7a147db13f5"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-sink-pedestal",
+      "name": "Pedestal washbasin",
+      "category": "fixture",
+      "source": {
+        "triangles": 2532,
+        "draws": 3
+      },
+      "game": {
+        "triangles": 816,
+        "draws": 3
+      },
+      "interchange": {
+        "triangles": 1102,
+        "draws": 3
+      },
+      "reduction": 0.6777251184834123,
+      "nominalFootprint": [
+        0.7,
+        0.55
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.04199999999999998,
+          0,
+          0.027499999999999997
+        ],
+        "max": [
+          0.6579999999999999,
+          1.023,
+          0.528
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04099999999999998,
+          -0.001,
+          0.026499999999999996
+        ],
+        "max": [
+          0.6589999999999999,
+          1.0239999999999998,
+          0.529
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-sink-pedestal.source-mesh.json.gz",
+          "bytes": 127812,
+          "sha256": "47a2729cdc6cc1eabac90f47ed5631a5e01338382f093a5e0083996be53df6f7"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-pedestal.game-mesh.json.gz",
+          "bytes": 42894,
+          "sha256": "3962b127c77971fb0ca3b87437fccf2f3d37b8c1872d673885cb71f6f2d60d2c"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-pedestal.blueprint.json",
+          "bytes": 1180,
+          "sha256": "e8c2c31fdc46f91ac5060f34e66709b813dade90fd939335dfb5d12271314620"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-pedestal.gltf",
+          "bytes": 5862,
+          "sha256": "e247e84770f44e5e6a3edc8ea2e0d7cd07a35b1292bf300937f86ea7b311aaf6"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-pedestal.bin",
+          "bytes": 87464,
+          "sha256": "f9c7ccb928d8ab34577bafbf19f277630e33d7719770624d3a64e13d193cc9d4"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-pedestal-plan.svg",
+          "bytes": 724,
+          "sha256": "0819d4f169f21157784b6942d7054107445611dcb6c439cd4479de4511cc2072"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-sink-wall",
+      "name": "Wall-mounted washbasin",
+      "category": "fixture",
+      "source": {
+        "triangles": 1932,
+        "draws": 4
+      },
+      "game": {
+        "triangles": 632,
+        "draws": 4
+      },
+      "interchange": {
+        "triangles": 832,
+        "draws": 4
+      },
+      "reduction": 0.6728778467908902,
+      "nominalFootprint": [
+        0.65,
+        0.5
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.03899999999999998,
+          0.418,
+          0.024999999999999994
+        ],
+        "max": [
+          0.611,
+          1.023,
+          0.478
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.03799999999999998,
+          0.417,
+          0.023999999999999994
+        ],
+        "max": [
+          0.612,
+          1.0239999999999998,
+          0.479
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-sink-wall.source-mesh.json.gz",
+          "bytes": 81805,
+          "sha256": "883647cf072476c32e6a6540b9b3fda4417be7b1ca47fc0eb5150c9d215dd61b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-wall.game-mesh.json.gz",
+          "bytes": 27482,
+          "sha256": "80c8e67dab60e9d59c84b30307af5e83548fc51d4034124b5ea00dbc35207b9d"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-wall.blueprint.json",
+          "bytes": 1176,
+          "sha256": "83e3f2ab5688cbf75e8bd38ddbda3b56dc40a3d14f9e06c23919756b6972640e"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-wall.gltf",
+          "bytes": 6718,
+          "sha256": "9e22ba222f82bd83531280fbbd5ac296ae518759d709de21a2df0112ce711876"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-wall.bin",
+          "bytes": 61888,
+          "sha256": "8c94b7634cf9f58a8c1488c2429f8128140a3f423c14fb03a26f25b021791154"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-wall-plan.svg",
+          "bytes": 730,
+          "sha256": "c8f2b5d418ba91fb2da45ff9bd6457d1383d53c8f8b50feb6eb4c04bfd2062e7"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-sink-double",
+      "name": "Double wash trough",
+      "category": "fixture",
+      "source": {
+        "triangles": 5124,
+        "draws": 6
+      },
+      "game": {
+        "triangles": 1724,
+        "draws": 6
+      },
+      "interchange": {
+        "triangles": 2364,
+        "draws": 6
+      },
+      "reduction": 0.6635441061670571,
+      "nominalFootprint": [
+        2,
+        0.6
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0,
+          0.477,
+          0
+        ],
+        "max": [
+          2,
+          1.023,
+          0.6
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.476,
+          -0.001
+        ],
+        "max": [
+          2.001,
+          1.0239999999999998,
+          0.601
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-sink-double.source-mesh.json.gz",
+          "bytes": 187477,
+          "sha256": "fac9d14cef3a70c3dc9337620d515d0dfa151e559ebc7bd645f9883c13465241"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-double.game-mesh.json.gz",
+          "bytes": 62471,
+          "sha256": "0b3e162aa12f8ff11e70ed88d9b5497f06de5ea5b710d705bec2f1f53c29b858"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-double.blueprint.json",
+          "bytes": 1158,
+          "sha256": "ef124a55df5e9d331c9d3c5ed7df6ed4577dcbf7d6eb4f954e5172a36ce1b4d8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-double.gltf",
+          "bytes": 8349,
+          "sha256": "ca1700781d0f08c8635e213e7777883bd1d310e8c8c0e5b6a61d53763d8b4486"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-double.bin",
+          "bytes": 163280,
+          "sha256": "7b25fdd5384056557ab460dfa3c51daaf867716edac8c2ea9694684b23ad0b5c"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-double-plan.svg",
+          "bytes": 763,
+          "sha256": "200c083e1365b1359e1b1fd34ab9b495e654443070e05530f4b7bd7dee415fde"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-sink-stone",
+      "name": "Stone wash bowl",
+      "category": "fixture",
+      "source": {
+        "triangles": 2532,
+        "draws": 3
+      },
+      "game": {
+        "triangles": 816,
+        "draws": 3
+      },
+      "interchange": {
+        "triangles": 994,
+        "draws": 3
+      },
+      "reduction": 0.6777251184834123,
+      "nominalFootprint": [
+        0.8,
+        0.6
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.04799999999999999,
+          0,
+          0.02999999999999997
+        ],
+        "max": [
+          0.752,
+          1.023,
+          0.578
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.046999999999999986,
+          -0.001,
+          0.02899999999999997
+        ],
+        "max": [
+          0.753,
+          1.0239999999999998,
+          0.579
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-sink-stone.source-mesh.json.gz",
+          "bytes": 127845,
+          "sha256": "1a4d8770f0392514f14f8873901a1d79097ac6826ea4232bd67f2a76e10d9ffb"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-stone.game-mesh.json.gz",
+          "bytes": 42770,
+          "sha256": "116d2ffd47dac75d0d8d97c35d7bc91e80f7eb2c4025484491e3cc589df9c445"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-stone.blueprint.json",
+          "bytes": 1163,
+          "sha256": "20bccb973f4452b02c09954ea179c016ced0fd52ea9306a70eb7fdfb40629f90"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-stone.gltf",
+          "bytes": 5830,
+          "sha256": "d2913d335f935d224da6ccb86b508f0b08c52ed902b77a05bef6394df2c7e45b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-stone.bin",
+          "bytes": 80664,
+          "sha256": "497fedf2e7a6e356fb7085179ab414e220833d3751f5881e02698768cfb38a15"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-sink-stone-plan.svg",
+          "bytes": 711,
+          "sha256": "6b358fe1a1fb1147502fa3553c5013d9a4a29b5685c19e56ec74390df6ee19c5"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-stall-panel",
+      "name": "Stall side partition · 2 m",
+      "category": "part",
+      "source": {
+        "triangles": 92,
+        "draws": 2
+      },
+      "game": {
+        "triangles": 60,
+        "draws": 2
+      },
+      "interchange": {
+        "triangles": 96,
+        "draws": 2
+      },
+      "reduction": 0.34782608695652173,
+      "nominalFootprint": [
+        0.04,
+        2
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          0.04,
+          1.81,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.811,
+          2.001
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-panel.source-mesh.json.gz",
+          "bytes": 2832,
+          "sha256": "29f2b18f838262e59651b868b57e730b08f20d7e3d2717d68abc8a28ddcaac9b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-panel.game-mesh.json.gz",
+          "bytes": 1644,
+          "sha256": "c9fa44c3123ceaa0f48815d361c1c9afb841c805ffa3b5566ce91c391aaf5a36"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-panel.blueprint.json",
+          "bytes": 1170,
+          "sha256": "3cab806af54805b941aa605cb80df2a84e01bed9985abcea3460921aa4c736cc"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-panel.gltf",
+          "bytes": 4871,
+          "sha256": "7ccc9470ae7f03821a5446e53f8361967d90cdb6f6bbe5a1d845d8785057dec4"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-panel.bin",
+          "bytes": 6784,
+          "sha256": "e67a47d06d369a0577b2175b836f19032112a707672ec16804e22e10601382a3"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-panel-plan.svg",
+          "bytes": 844,
+          "sha256": "47b968e97834042bfc13c25713fbca41d110bf883cf266f14466d5a0e180b84c"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-stall-frame",
+      "name": "Stall front frame · 1 tile",
+      "category": "part",
+      "source": {
+        "triangles": 132,
+        "draws": 2
+      },
+      "game": {
+        "triangles": 36,
+        "draws": 2
+      },
+      "interchange": {
+        "triangles": 68,
+        "draws": 2
+      },
+      "reduction": 0.7272727272727273,
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0.019999999999999997
+        ],
+        "max": [
+          1,
+          1.96,
+          0.1
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          0.018999999999999996
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          0.101
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-frame.source-mesh.json.gz",
+          "bytes": 4494,
+          "sha256": "08be9f9fdd0aec4e95226324bb762b87a8b634192858a0577e9e11328a020d8f"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-frame.game-mesh.json.gz",
+          "bytes": 1328,
+          "sha256": "297b43ccb0de1e40e3fc9d46678557006bec30031dbda1ae234b815add96b22b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-frame.blueprint.json",
+          "bytes": 1166,
+          "sha256": "bb430c7c89647c8f7a35debe52c849f23958a937b4e8ef33581c9ba67b329dce"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-frame.gltf",
+          "bytes": 4918,
+          "sha256": "f171a431800fec8fab6cbb31613f240199c7930b29f7e02349a36d248d906cb8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-frame.bin",
+          "bytes": 4656,
+          "sha256": "f5dfba88f9d41831b49e98f92c60eda020ea324897860f42b4c3aea9680b89aa"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-frame-plan.svg",
+          "bytes": 762,
+          "sha256": "937de61135c020a16f37104f3e8eba8f5425ce02b00fb5a34a2892c2fc772492"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-stall-door-left",
+      "name": "Stall door · left hinge",
+      "category": "part",
+      "source": {
+        "triangles": 236,
+        "draws": 2
+      },
+      "game": {
+        "triangles": 116,
+        "draws": 2
+      },
+      "interchange": {
+        "triangles": 152,
+        "draws": 2
+      },
+      "reduction": 0.5084745762711864,
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.09100000000000001,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.9,
+          1.81,
+          0.1125
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04650000000000004,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9011835732377654,
+          1.8110000000000002,
+          0.1135
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-stall-door-left:door",
+          "kind": "door",
+          "pivot": [
+            0.1,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-door-left.source-mesh.json.gz",
+          "bytes": 5163,
+          "sha256": "9a7ae86378557c86217d6de266ae73b277de63c92807e8c1c760006a49e984e0"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-left.game-mesh.json.gz",
+          "bytes": 2720,
+          "sha256": "7d8ac12790a074e3c37fb7ca430dc89fb2e5c798ca43dcd37c3075617d9d03c1"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-left.blueprint.json",
+          "bytes": 1181,
+          "sha256": "df6b10b895d569e7e5963259614cc85fb6a46b8107ab40e2ad92d05f6ef178a1"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-left.gltf",
+          "bytes": 5905,
+          "sha256": "c257cc6e9071a582ae7dabca8523c83dfc417e760cfbc78800ed6e49fd76a3d6"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-left.bin",
+          "bytes": 10568,
+          "sha256": "8aa97694a95c70baef5706cc3e62175b5a662d4a60543fd16d7767e989746582"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-left-plan.svg",
+          "bytes": 756,
+          "sha256": "0fdeba98a5c055a9aeb72a9da6b908c2d3cf03056bf8ea4d42747d61d22bad29"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-stall-door-left:door:open",
+          "kind": "door"
+        }
+      ]
+    },
+    {
+      "id": "bath-stall-door-right",
+      "name": "Stall door · right hinge",
+      "category": "part",
+      "source": {
+        "triangles": 236,
+        "draws": 2
+      },
+      "game": {
+        "triangles": 116,
+        "draws": 2
+      },
+      "interchange": {
+        "triangles": 152,
+        "draws": 2
+      },
+      "reduction": 0.5084745762711864,
+      "nominalFootprint": [
+        1,
+        0.12
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0.09999999999999998,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.909,
+          1.81,
+          0.1125
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.09881642676223457,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9535,
+          1.8110000000000002,
+          0.1135
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-stall-door-right:door",
+          "kind": "door",
+          "pivot": [
+            0.9,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-door-right.source-mesh.json.gz",
+          "bytes": 5193,
+          "sha256": "56baaeb7a5fba51c1778808de9e2a5f1e9a09f3bfe2887d703c44ea266841b2f"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-right.game-mesh.json.gz",
+          "bytes": 2744,
+          "sha256": "8358e168846a6a92b4e1eb40c2514d2c3f17949dfd06645e1e0457387f28bdf8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-right.blueprint.json",
+          "bytes": 1186,
+          "sha256": "d76f33ec5820f1708a6152bbdfe54ada6d4e05df6add3ddf35f152306a863f11"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-right.gltf",
+          "bytes": 5904,
+          "sha256": "7079cc602c388518ee923ef1ce2b839b18edb79b6f9ac483bbf1d2a5c8f59790"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-right.bin",
+          "bytes": 10568,
+          "sha256": "c378cf152f201cfb0265be0c4195a56bc49ce35ce003af3bf559a76ddae9d9fb"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-door-right-plan.svg",
+          "bytes": 758,
+          "sha256": "b468f1cbe55f6061aa64499cba8c79994f23c6bd1056c04f085a5ba9c528c62a"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-stall-door-right:door:open",
+          "kind": "door"
+        }
+      ]
+    },
+    {
+      "id": "bath-urinal-divider",
+      "name": "Urinal privacy divider",
+      "category": "part",
+      "source": {
+        "triangles": 44,
+        "draws": 1
+      },
+      "game": {
+        "triangles": 12,
+        "draws": 1
+      },
+      "interchange": {
+        "triangles": 28,
+        "draws": 1
+      },
+      "reduction": 0.7272727272727273,
+      "nominalFootprint": [
+        0.04,
+        0.65
+      ],
+      "stallCells": [],
+      "bounds": {
+        "min": [
+          0,
+          0.35,
+          0
+        ],
+        "max": [
+          0.04,
+          1.65,
+          0.65
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.349,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.6509999999999998,
+          0.651
+        ]
+      },
+      "hinges": [],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-urinal-divider.source-mesh.json.gz",
+          "bytes": 2204,
+          "sha256": "76090d1a2c22e9a39d3289b3f0bdf07178808bd8eb6dad3c171a00c7de915cc7"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-divider.game-mesh.json.gz",
+          "bytes": 953,
+          "sha256": "00e9dc62121d0fdce7d446e4913cae121cbe4877c1ab42a301e22d2f3980a684"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-divider.blueprint.json",
+          "bytes": 1170,
+          "sha256": "dd000e9f0c4b3dcd92d0b50fda6086ef8fc95867c191f7ca610cfae663b35ee0"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-divider.gltf",
+          "bytes": 4073,
+          "sha256": "80fab495923196bca30b16834b153163b61349d12d37f0207c9d8d9f67880245"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-divider.bin",
+          "bytes": 1872,
+          "sha256": "6a566923f9aaa22e27341afc01002f71ef8bcb3570626a83423396a9366ce92e"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-urinal-divider-plan.svg",
+          "bytes": 765,
+          "sha256": "c134be128dd882df154d1c4a235ab996464c837418642267ceb95606f5226501"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "bath-stall-left",
+      "name": "Complete stall · left hinge",
+      "category": "stall",
+      "source": {
+        "triangles": 3904,
+        "draws": 11
+      },
+      "game": {
+        "triangles": 1416,
+        "draws": 11
+      },
+      "interchange": {
+        "triangles": 1950,
+        "draws": 11
+      },
+      "reduction": 0.6372950819672132,
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-stall-left:door",
+          "kind": "door",
+          "pivot": [
+            0.1,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        },
+        {
+          "id": "bath-stall-left:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            0.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-left.source-mesh.json.gz",
+          "bytes": 171285,
+          "sha256": "15c49887b69075a5d18c2c5dde8048b5fdc025936422a3580d15f118c1e6c1ca"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-left.game-mesh.json.gz",
+          "bytes": 57500,
+          "sha256": "7daa323299e1057e424b42c45c62874cc926e7f623206b3dea1cc112f53b94d6"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-left.blueprint.json",
+          "bytes": 1195,
+          "sha256": "a7d848cfde348487a7f3dadaa33aa12e10d13656377c32482bbce5ac954796ea"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-left.gltf",
+          "bytes": 14424,
+          "sha256": "61d1d4ee8e4a910f1f68e15ee041eb81ee8ab3634165b2ae2258f8342d54647e"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-left.bin",
+          "bytes": 144248,
+          "sha256": "19380b3a235c6ded6a351f5035769411902982b85e2629ab5de3bb4d1b936f27"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-left-plan.svg",
+          "bytes": 1070,
+          "sha256": "e57902c8ce62a20868c185c3536f2ab5462310be884e052408fdebf6d442cfa8"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-stall-left:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-stall-left:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-stall-right",
+      "name": "Complete stall · right hinge",
+      "category": "stall",
+      "source": {
+        "triangles": 3904,
+        "draws": 11
+      },
+      "game": {
+        "triangles": 1416,
+        "draws": 11
+      },
+      "interchange": {
+        "triangles": 1950,
+        "draws": 11
+      },
+      "reduction": 0.6372950819672132,
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-stall-right:door",
+          "kind": "door",
+          "pivot": [
+            0.9,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        },
+        {
+          "id": "bath-stall-right:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            0.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-right.source-mesh.json.gz",
+          "bytes": 171303,
+          "sha256": "f49539b33f8af2a3289b78d502d5f7f66d94774e552b097547be0537ab1c6eb8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-right.game-mesh.json.gz",
+          "bytes": 57517,
+          "sha256": "1d8e8730481ee73eb45be18e6ab30408fa9fe4ca9e13b17a5c966329ca2bfcc8"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-right.blueprint.json",
+          "bytes": 1200,
+          "sha256": "e7eb22cc0e15841e328b5d50a36dfddbd84e4347f4e19b6aa4de05c2aafc3b7d"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-right.gltf",
+          "bytes": 14439,
+          "sha256": "fcf1758369a71df6e3072d67646f45963c2098256a0b10f149618bc60d47a247"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-right.bin",
+          "bytes": 144248,
+          "sha256": "ead88985f61619081c16c2fb986668f1d7f5eefa5e669df214f428d9a9c1ec01"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-right-plan.svg",
+          "bytes": 1072,
+          "sha256": "363207dd781bfd8a97ca76282eb14fd27afdb2ff94a28822fe5a0ae8978ff0ad"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-stall-right:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-stall-right:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-stall-row-3",
+      "name": "Three stalls · independently opening doors",
+      "category": "assembly",
+      "source": {
+        "triangles": 11528,
+        "draws": 17
+      },
+      "game": {
+        "triangles": 4128,
+        "draws": 17
+      },
+      "interchange": {
+        "triangles": 5698,
+        "draws": 17
+      },
+      "reduction": 0.6419153365718251,
+      "nominalFootprint": [
+        3,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          3,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          3.001,
+          1.9609999999999999,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-stall-row-3:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.1,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        },
+        {
+          "id": "bath-stall-row-3:bay-0:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            0.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        },
+        {
+          "id": "bath-stall-row-3:bay-1:door",
+          "kind": "door",
+          "pivot": [
+            1.9,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        },
+        {
+          "id": "bath-stall-row-3:bay-1:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            1.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        },
+        {
+          "id": "bath-stall-row-3:bay-2:door",
+          "kind": "door",
+          "pivot": [
+            2.1,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ]
+        },
+        {
+          "id": "bath-stall-row-3:bay-2:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            2.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-stall-row-3.source-mesh.json.gz",
+          "bytes": 483864,
+          "sha256": "1a3376a276202ec71c4f1822b58518f2cd38383e254ab092be4e4e5d64801607"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-row-3.game-mesh.json.gz",
+          "bytes": 151853,
+          "sha256": "4963277d73fa2fdc1b430b81ff911cfd37b93fb89ce54be869f4cbb325a08a8f"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-row-3.blueprint.json",
+          "bytes": 1263,
+          "sha256": "f2c3e1ed74bd5362fd449de77d2052e3485c3fb3ced08363cf8d928f9c02b823"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-row-3.gltf",
+          "bytes": 23313,
+          "sha256": "49a84989d1d4b9ab1c3d1b305519b6bc43da5cf9796f41b0aa28eb6795684e55"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-row-3.bin",
+          "bytes": 420936,
+          "sha256": "94f04d0f87b606c09b33bf83ed2b884832c5675566aee95c1529beca2f83cc5f"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-stall-row-3-plan.svg",
+          "bytes": 1690,
+          "sha256": "8c6bf3c7c3ed137922388ba4c062204d04ec427d7e3f9215be93601bee1a1ca2"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-stall-row-3:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-stall-row-3:bay-0:toilet:lid:open",
+          "kind": "lid"
+        },
+        {
+          "name": "bath-stall-row-3:bay-1:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-stall-row-3:bay-1:toilet:lid:open",
+          "kind": "lid"
+        },
+        {
+          "name": "bath-stall-row-3:bay-2:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-stall-row-3:bay-2:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-outhouse-timber",
+      "name": "Timber outhouse",
+      "category": "outhouse",
+      "source": {
+        "triangles": 2354,
+        "draws": 9
+      },
+      "game": {
+        "triangles": 890,
+        "draws": 9
+      },
+      "interchange": {
+        "triangles": 1178,
+        "draws": 9
+      },
+      "reduction": 0.6219201359388276,
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-outhouse-timber:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.13,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ]
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-outhouse-timber.source-mesh.json.gz",
+          "bytes": 58470,
+          "sha256": "0a50c7a6741095653e03aae8450748707885892d4e101321833e2e402ee2f82b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-timber.game-mesh.json.gz",
+          "bytes": 19189,
+          "sha256": "75e8a5dab636951396f127fb0fdd8d623c59df41620623e6f282193a51947766"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-timber.blueprint.json",
+          "bytes": 1200,
+          "sha256": "43712fce3f98d94ff7ded70107c199939bdd9e4356a3c8e04f424724aef717bd"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-timber.gltf",
+          "bytes": 11545,
+          "sha256": "e059035d3e6fb4339731acafead458b0be5fb188e6b90d2eab7b5cf30f795396"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-timber.bin",
+          "bytes": 72416,
+          "sha256": "c90296d7245e8968cbb36afff1b400d5682aa0038238c9894cd22c57a31a3d0d"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-timber-plan.svg",
+          "bytes": 1044,
+          "sha256": "d1dd1fa65e46413e7d6f8bacb5922cb0df39b87022e5835a6577e89ad587e32d"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-outhouse-timber:bay-0:door:open",
+          "kind": "door"
+        }
+      ]
+    },
+    {
+      "id": "bath-outhouse-double",
+      "name": "Two-bay timber outhouse",
+      "category": "outhouse",
+      "source": {
+        "triangles": 4502,
+        "draws": 12
+      },
+      "game": {
+        "triangles": 1702,
+        "draws": 12
+      },
+      "interchange": {
+        "triangles": 2316,
+        "draws": 12
+      },
+      "reduction": 0.6219458018658375,
+      "nominalFootprint": [
+        2,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          2,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          2.001,
+          2.421,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-outhouse-double:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.13,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ]
+        },
+        {
+          "id": "bath-outhouse-double:bay-1:door",
+          "kind": "door",
+          "pivot": [
+            1.87,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ]
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-outhouse-double.source-mesh.json.gz",
+          "bytes": 107603,
+          "sha256": "f309bf30a46c7d9f97bf9524d1d90b1d1c27ced395a9ea40441d42c457004cfb"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-double.game-mesh.json.gz",
+          "bytes": 34168,
+          "sha256": "909fb5cd44f24edd061e67ff60b1349035c11008c66a9dba96258f7baaf39e15"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-double.blueprint.json",
+          "bytes": 1222,
+          "sha256": "e9207f14eb5e6031d5c45d7107abb93bc8490c5bc8cd2313ea22e09dd5166194"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-double.gltf",
+          "bytes": 15062,
+          "sha256": "46956d2cc495e1c5ac8a230dba10fee3f1fc9993b9859eece42dc77cf0098acf"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-double.bin",
+          "bytes": 142624,
+          "sha256": "26fb6099c43ca0d95545db315062bb8babcee671cf0dddbf21ed64dd434ed0e0"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-double-plan.svg",
+          "bytes": 1357,
+          "sha256": "ef5ea32f54e4c56d69c1bd99281f57f503ddec6df164a3786c64e36b4d5703fb"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-outhouse-double:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-outhouse-double:bay-1:door:open",
+          "kind": "door"
+        }
+      ]
+    },
+    {
+      "id": "bath-outhouse-masonry",
+      "name": "Masonry privy",
+      "category": "outhouse",
+      "source": {
+        "triangles": 2330,
+        "draws": 9
+      },
+      "game": {
+        "triangles": 866,
+        "draws": 9
+      },
+      "interchange": {
+        "triangles": 1114,
+        "draws": 9
+      },
+      "reduction": 0.6283261802575107,
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.5612330539441331
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-outhouse-masonry:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.19,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.68,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.54,
+            1.82
+          ]
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-outhouse-masonry.source-mesh.json.gz",
+          "bytes": 58519,
+          "sha256": "a97af0313320d15f4fe1b9682374f11d7bc53497a83752f6d6b242e5ebff95a2"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-masonry.game-mesh.json.gz",
+          "bytes": 19135,
+          "sha256": "27be3b26f3e5e6f3e938b94a72edb214eaa3167b233827d7fc5a8795b6384050"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-masonry.blueprint.json",
+          "bytes": 1199,
+          "sha256": "ac39d7c5c92e455697e680f723b3b602fc2ccc2c437ddee8f67f830205f34fa1"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-masonry.gltf",
+          "bytes": 11533,
+          "sha256": "a019ad99ebf2e4ca9b189fcdf37043e06e447d0e65bd937f4b184ab32cf0af0a"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-masonry.bin",
+          "bytes": 68192,
+          "sha256": "c588c00a0276b7ffbe9cc5fbd691f3e62dd4c7468e427b5ede3955f172f9c88b"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-masonry-plan.svg",
+          "bytes": 1040,
+          "sha256": "5420a7c988aadd20e9087fb1b52794f5e95437bbfd9f977cf339489a5dd83636"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-outhouse-masonry:bay-0:door:open",
+          "kind": "door"
+        }
+      ]
+    },
+    {
+      "id": "bath-outhouse-portable",
+      "name": "Portable toilet cabin",
+      "category": "outhouse",
+      "source": {
+        "triangles": 4076,
+        "draws": 11
+      },
+      "game": {
+        "triangles": 1460,
+        "draws": 11
+      },
+      "interchange": {
+        "triangles": 1704,
+        "draws": 11
+      },
+      "reduction": 0.6418056918547596,
+      "nominalFootprint": [
+        1,
+        2
+      ],
+      "stallCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.5,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.501,
+          2.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "bath-outhouse-portable:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.13,
+            0,
+            0.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ]
+        },
+        {
+          "id": "bath-outhouse-portable:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            0.5,
+            0.478,
+            1.69
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-outhouse-portable.source-mesh.json.gz",
+          "bytes": 174130,
+          "sha256": "5fed5f5451b0fba81c5c4573b40d25847763278a91df12db8b32e08e11fe5f4c"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-portable.game-mesh.json.gz",
+          "bytes": 57882,
+          "sha256": "7842f727a9278d9b8c489f16d97870b06f6c9429d6f27c651c425f66f20fce94"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-portable.blueprint.json",
+          "bytes": 1218,
+          "sha256": "e10e85d4f151fc281d120dcac9a768b2e9f1034c9293c68993263a98e13ec4a5"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-portable.gltf",
+          "bytes": 14244,
+          "sha256": "0e3eba11cf13b7b373c2b790b72a26750f2eae246ddc64630ba2ae2fa9dafb6f"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-portable.bin",
+          "bytes": 126064,
+          "sha256": "d242cd805537150e3c203d0a6c6dbfb626a9531e2380e4c3b799849e44dea4e1"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-outhouse-portable-plan.svg",
+          "bytes": 1056,
+          "sha256": "d1d86ffdd9efb54680c935c93475665d1763407832f17df1a1daf8c3786bc5b7"
+        }
+      ],
+      "animations": [
+        {
+          "name": "bath-outhouse-portable:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "bath-outhouse-portable:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-public-washroom",
+      "name": "Public washroom · three 1 × 2 stalls",
+      "category": "layout",
+      "source": {
+        "triangles": 20564,
+        "draws": 24
+      },
+      "game": {
+        "triangles": 7036,
+        "draws": 24
+      },
+      "interchange": {
+        "triangles": 10374,
+        "draws": 24
+      },
+      "reduction": 0.6578486675744019,
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "stallCells": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "bounds": {
+        "min": [
+          -0.08,
+          -0.12,
+          -0.08
+        ],
+        "max": [
+          6.08,
+          2,
+          6.08
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.081,
+          -0.121,
+          -0.081
+        ],
+        "max": [
+          6.081,
+          2.001,
+          6.081
+        ]
+      },
+      "hinges": [
+        {
+          "id": "stalls:bath-stall-row-3:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            1.1,
+            0,
+            4.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ],
+          "instanceId": "stalls"
+        },
+        {
+          "id": "stalls:bath-stall-row-3:bay-0:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            1.5,
+            0.478,
+            5.6899999999999995
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "instanceId": "stalls"
+        },
+        {
+          "id": "stalls:bath-stall-row-3:bay-1:door",
+          "kind": "door",
+          "pivot": [
+            2.9,
+            0,
+            4.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ],
+          "instanceId": "stalls"
+        },
+        {
+          "id": "stalls:bath-stall-row-3:bay-1:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            2.5,
+            0.478,
+            5.6899999999999995
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "instanceId": "stalls"
+        },
+        {
+          "id": "stalls:bath-stall-row-3:bay-2:door",
+          "kind": "door",
+          "pivot": [
+            3.1,
+            0,
+            4.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.84,
+            1.92
+          ],
+          "minimumFullyOpen": [
+            0.74,
+            1.9
+          ],
+          "instanceId": "stalls"
+        },
+        {
+          "id": "stalls:bath-stall-row-3:bay-2:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            3.5,
+            0.478,
+            5.6899999999999995
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "instanceId": "stalls"
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-public-washroom.source-mesh.json.gz",
+          "bytes": 819249,
+          "sha256": "0fbcead8a1be392f291565f1d2ad495ea88e2301b87c74e22e9b1b88c3d28795"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-public-washroom.game-mesh.json.gz",
+          "bytes": 257624,
+          "sha256": "d4b779259d83ba53b4fe488b2d1f161e1a142eb579faec9903e5167d43ce30d4"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-public-washroom.blueprint.json",
+          "bytes": 1777,
+          "sha256": "61e2ebe1cc05790b435d2467a68e50429fa201cc31e0a29a9b5a381e7215ef8c"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-public-washroom.gltf",
+          "bytes": 29667,
+          "sha256": "07b7f180a6229eb2f2c532e12c4767002bcf41adeea84bb3d1e5b96b44983637"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-public-washroom.bin",
+          "bytes": 754744,
+          "sha256": "ae7dbcc073c7856760de78cfe19f0b7ca059ddb00d2c10a75349040d3ae64697"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-public-washroom-plan.svg",
+          "bytes": 1846,
+          "sha256": "4f901e5c742aaa857de00b73041c988609914ed33d4df0c2fd346643d51297ba"
+        }
+      ],
+      "animations": [
+        {
+          "name": "stalls:bath-stall-row-3:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "stalls:bath-stall-row-3:bay-0:toilet:lid:open",
+          "kind": "lid"
+        },
+        {
+          "name": "stalls:bath-stall-row-3:bay-1:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "stalls:bath-stall-row-3:bay-1:toilet:lid:open",
+          "kind": "lid"
+        },
+        {
+          "name": "stalls:bath-stall-row-3:bay-2:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "stalls:bath-stall-row-3:bay-2:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    },
+    {
+      "id": "bath-camp-washyard",
+      "name": "Camp washyard · timber and masonry privies",
+      "category": "layout",
+      "source": {
+        "triangles": 14496,
+        "draws": 31
+      },
+      "game": {
+        "triangles": 5260,
+        "draws": 31
+      },
+      "interchange": {
+        "triangles": 6704,
+        "draws": 31
+      },
+      "reduction": 0.6371412803532008,
+      "nominalFootprint": [
+        6,
+        5
+      ],
+      "stallCells": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          6,
+          2.5,
+          5
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.001
+        ],
+        "max": [
+          6.001,
+          2.501,
+          5.001
+        ]
+      },
+      "hinges": [
+        {
+          "id": "timber:bath-outhouse-double:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            0.13,
+            0,
+            3.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ],
+          "instanceId": "timber"
+        },
+        {
+          "id": "timber:bath-outhouse-double:bay-1:door",
+          "kind": "door",
+          "pivot": [
+            1.87,
+            0,
+            3.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "right",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ],
+          "instanceId": "timber"
+        },
+        {
+          "id": "stone:bath-outhouse-masonry:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            3.19,
+            0,
+            3.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.68,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.54,
+            1.82
+          ],
+          "instanceId": "stone"
+        },
+        {
+          "id": "portable:bath-outhouse-portable:bay-0:door",
+          "kind": "door",
+          "pivot": [
+            5.13,
+            0,
+            3.06
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "hand": "left",
+          "closedAperture": [
+            0.76,
+            1.85
+          ],
+          "minimumFullyOpen": [
+            0.66,
+            1.82
+          ],
+          "instanceId": "portable"
+        },
+        {
+          "id": "portable:bath-outhouse-portable:toilet:lid",
+          "kind": "lid",
+          "pivot": [
+            5.5,
+            0.478,
+            4.6899999999999995
+          ],
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "defaultAngle": 0,
+          "instanceId": "portable"
+        }
+      ],
+      "files": [
+        {
+          "file": "art/bathrooms/sculpts/bath-camp-washyard.source-mesh.json.gz",
+          "bytes": 484136,
+          "sha256": "83c6970a6bbaeb8b1a722ba22c2c1978a4ccdfd9dbbc83f85c7a4e8229c2f7cc"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-camp-washyard.game-mesh.json.gz",
+          "bytes": 154677,
+          "sha256": "aa059b7f5e7db8da25b1ae0e7e11e435a6d7f74e8e2eb2abd441a631aeb0f789"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-camp-washyard.blueprint.json",
+          "bytes": 1762,
+          "sha256": "0283ee4698cd9b83fc889b8ed99c7d23add430b623f94894ee2148b28a5d7dc1"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-camp-washyard.gltf",
+          "bytes": 33976,
+          "sha256": "79bdc98076378822849de8d60eda8662c5e4ba747dfac4ab5d4671b354815f1d"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-camp-washyard.bin",
+          "bytes": 456008,
+          "sha256": "00635d3385db83f91dfa883d2f7289f1ef64072ab905cf844682371b430e7dd0"
+        },
+        {
+          "file": "assets/bathrooms/models/bath-camp-washyard-plan.svg",
+          "bytes": 2100,
+          "sha256": "c1d88dea440941105571850a0a20434ea2f67e7cf8d95c00e65d4a29b22273d4"
+        }
+      ],
+      "animations": [
+        {
+          "name": "timber:bath-outhouse-double:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "timber:bath-outhouse-double:bay-1:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "stone:bath-outhouse-masonry:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "portable:bath-outhouse-portable:bay-0:door:open",
+          "kind": "door"
+        },
+        {
+          "name": "portable:bath-outhouse-portable:toilet:lid:open",
+          "kind": "lid"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nautilus · modular bathrooms</title><link rel="icon" href="data:,">
+<style>*{box-sizing:border-box}body{margin:0;background:#e8e4d7;color:#263c32;font:14px system-ui}header{padding:17px 25px;background:#243e34;color:#f0e8d5;display:flex;gap:18px;align-items:center;flex-wrap:wrap}h1{font:27px Georgia;margin:0 0 4px}header p{margin:0;color:#cbd4c6}input,select,button{font:inherit;color:#263c32;background:#f0eadb;border:1px solid #9eafa2;border-radius:4px;padding:6px}#search{width:150px}main{position:relative}canvas{display:block;height:850px;width:100%}#plan{display:none;height:850px;padding:20px}#plan svg{width:100%;height:100%}#detail{position:absolute;right:20px;top:16px;width:255px;background:#f5f0e2e8;padding:12px;border:1px solid #b6bca6;font-size:12px}#detail p{margin:0 0 10px}#hinges{display:grid;gap:8px;max-height:300px;overflow:auto}#hinges label{display:flex;align-items:center;gap:6px}#stats{position:absolute;bottom:16px;left:24px;background:#f5f0e2eb;padding:10px;border:1px solid #b6bca6}footer{padding:12px 24px;font-size:12px}label{white-space:nowrap}</style>
+<header><div><h1>Bathrooms · modular art kit</h1><p>1 m per tile · every stall exactly 1 × 2 tiles · original painterly assets</p></div><input id="search" placeholder="Find a fixture…" aria-label="Search bathroom assets"><select id="asset" aria-label="Bathroom asset"></select><select id="view" aria-label="View"><option>exterior</option><option>rear</option><option>top</option><option>cutaway</option><option>grey</option><option>wire</option><option>plan</option><option>bowl-detail</option></select><button id="doors">Open doors</button><label><input id="lids" type="checkbox" checked> Open lids</label></header>
+<main><canvas></canvas><div id="plan"></div><aside id="detail"><p id="description"></p><div id="hinges"></div></aside><div id="stats"></div></main><footer>Native metre assets and independent hinges. Door swings reserve aisle space outside the 1 × 2 tile closed footprint. Shared editor/game intake is separate.</footer>
+<script type="module">
+import * as T from '../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {BATHROOM_MODULES,BATHROOM_LAYOUTS,bathroomPlan} from '../../../packages/bathrooms/index.js';
+import {buildBathroomMesh} from '../../../packages/bathrooms/mesh.js';
+import {createBathroomModel} from '../../../packages/bathrooms/three.js';
+import {loadBathroomExport} from './load-export.js';
+const assets=[...BATHROOM_MODULES,...BATHROOM_LAYOUTS], select=document.querySelector('#asset'), viewSelect=document.querySelector('#view'), cache=new Map();
+const renderer=new T.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+const atlas=await new T.TextureLoader().loadAsync('../../../assets/bathrooms/painted-bathroom-materials-v1.png');atlas.colorSpace=T.SRGBColorSpace;atlas.anisotropy=4;
+const scene=new T.Scene();scene.background=new T.Color(0xe8e4d7);scene.add(new T.HemisphereLight(0xfff3dd,0x73877b,1.5));
+const sun=new T.DirectionalLight(0xffefdb,2.3);sun.position.set(-6,12,-8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;sun.shadow.bias=-.0002;sun.shadow.normalBias=.006;scene.add(sun);
+const fill=new T.DirectionalLight(0xc5d6dc,.6);fill.position.set(8,6,8);scene.add(fill);
+const groundGeometry=new T.PlaneGeometry(30,30),groundMaterial=new T.MeshStandardMaterial({color:0xe4e2d4,roughness:1}),ground=new T.Mesh(groundGeometry,groundMaterial);ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+let model,grid,camera,selected='bath-stall-left',view='exterior',lod='game',doors=false,lids=true,active=true;
+function options(filter=''){select.replaceChildren();for(const r of assets.filter(r=>(r.id+' '+r.name).toLowerCase().includes(filter.toLowerCase()))){const o=document.createElement('option');o.value=r.id;o.textContent=r.name;select.append(o);}select.value=selected;}
+options();document.querySelector('#search').addEventListener('input',e=>options(e.target.value));
+function clear(){model?.dispose();if(grid){grid.geometry.dispose();for(const m of Array.isArray(grid.material)?grid.material:[grid.material])m.dispose();grid.removeFromParent();grid=null;}}
+function controls(){
+ const panel=document.querySelector('#hinges');panel.replaceChildren();
+ for(const p of model.pivots.filter(p=>p.userData.kind==='door')){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=doors;label.append(input,document.createTextNode(p.name.split(':').filter(t=>t.startsWith('bay-')).join(' · ')||p.userData.hand+' door'));input.addEventListener('change',()=>{model.setHingePose(p.name,input.checked?90:0);render();});panel.append(label);}
+ document.querySelector('#doors').textContent=doors?'Close doors':'Open doors';document.querySelector('#lids').checked=lids;
+}
+function render(){
+ const W=innerWidth,H=850,b=model.asset,bounds=model.motionBounds,extent=bounds.max.map((v,i)=>v-bounds.min[i]);
+ const center=new T.Vector3(...bounds.min.map((v,i)=>(v+bounds.max[i])/2));let az=235,el=28;
+ if(['stall','assembly','outhouse'].includes(b.category)){az=270;el=42;}
+ if(view==='rear')az=45;if(view==='top'){az=90;el=90;center.y=0;}if(view==='cutaway'){az=235;el=52;}
+ if(view==='bowl-detail'){az=245;el=60;center.y=.55;}
+ const a=az*Math.PI/180,e=el*Math.PI/180,horizontal=Math.abs(Math.sin(a))*extent[0]+Math.abs(Math.cos(a))*extent[2],vertical=(Math.abs(Math.cos(a))*extent[0]+Math.abs(Math.sin(a))*extent[2])*Math.sin(e)+extent[1]*Math.cos(e);
+ const ppu=Math.min(600,(W-520)/Math.max(horizontal,.5),(H-150)/Math.max(vertical,.5));
+ renderer.setSize(W,H,false);camera=new T.OrthographicCamera(-W/(2*ppu),W/(2*ppu),H/(2*ppu),-H/(2*ppu),.05,150);
+ camera.position.copy(center).add(new T.Vector3(Math.cos(a)*Math.cos(e),Math.sin(e),Math.sin(a)*Math.cos(e)).multiplyScalar(60));if(view==='top')camera.up.set(0,0,-1);camera.lookAt(center);
+ model.setView({roof:!['top','cutaway','bowl-detail'].includes(view),cutaway:['top','cutaway','bowl-detail'].includes(view)});
+ for(const m of model.materials.values())m.wireframe=view==='wire';
+ renderer.render(scene,camera);
+ document.querySelector('#description').textContent=b.name+' · '+b.nominalFootprint.join(' × ')+' m. '+(b.stallCells.length?b.stallCells.length+' stall cell(s), each exactly 1 × 2 tiles. ':'')+'Doors and lids have separate pivots. Grid spacing: 1 metre.';
+ document.querySelector('#stats').textContent=model.triangles.toLocaleString()+' triangles · '+renderer.info.render.calls+' draws · '+lod+' · unit scale';
+ return {id:b.id,view,lod,doors,lids,triangles:model.triangles,nominalFootprint:b.nominalFootprint,stallCells:b.stallCells,bounds:model.bounds,motionBounds:model.motionBounds,hinges:model.pivots.map(p=>({id:p.name,kind:p.userData.kind,position:p.position.toArray(),rotation:p.quaternion.toArray()}))};
+}
+function surround(){const n=Math.ceil(Math.max(...model.asset.nominalFootprint)+4),floor=['outhouse','layout'].includes(model.asset.category)?-.125:-.002;ground.position.set(model.asset.nominalFootprint[0]/2,floor,model.asset.nominalFootprint[1]/2);grid=new T.GridHelper(n,n,0x859387,0xb6c0ae);grid.position.set(n/2-2,floor+.001,n/2-2);scene.add(grid);}
+function set(o={}){
+ selected=o.id||selected;view=o.view||view;lod=o.lod||'game';doors=o.doors??false;lids=o.lids??true;clear();
+ const key=selected+':'+lod;if(!cache.has(key))cache.set(key,buildBathroomMesh(selected,{lod}));
+ model=createBathroomModel(T,cache.get(key),{atlas,grey:['grey','wire'].includes(view)});scene.add(model.root);model.setDoorsOpen(doors);model.setLidsOpen(lids);
+ if(o.oneDoor){model.setDoorsOpen(false);const p=model.pivots.find(p=>p.userData.kind==='door');if(p)model.setHingePose(p.name,90);}
+ if(o.angle!==undefined)for(const p of model.pivots.filter(p=>p.userData.kind==='door'))model.setHingePose(p.name,o.angle);
+ surround();select.value=selected;viewSelect.value=view;controls();const plan=view==='plan';document.querySelector('canvas').style.display=plan?'none':'block';document.querySelector('#plan').style.display=plan?'block':'none';if(plan)document.querySelector('#plan').innerHTML=bathroomPlan(model.asset);return render();
+}
+select.addEventListener('change',()=>set({id:select.value,view}));viewSelect.addEventListener('change',()=>set({view:viewSelect.value,doors,lids}));
+document.querySelector('#doors').addEventListener('click',()=>set({view,doors:!doors,lids}));document.querySelector('#lids').addEventListener('change',e=>set({view,doors,lids:e.target.checked}));window.addEventListener('resize',()=>{if(active)render();});
+set();window.bathroomReview={ready:true,set,get model(){return model;},
+ async interchange(id,time=0){clear();const cat=await(await fetch('../../../assets/bathrooms/catalogue.json')).json(),record=cat.assets.find(r=>r.id===id),asset=await(await fetch('../../../assets/bathrooms/models/'+id+'.blueprint.json')).json();model=await loadBathroomExport(T,id,location.href,asset,record);scene.add(model.root);model.applyOpenAnimation(time);selected=id;view='exterior';lod='glTF readback';doors=time>0;lids=time>0;surround();controls();select.value=id;viewSelect.value=view;document.querySelector('canvas').style.display='block';document.querySelector('#plan').style.display='none';return render();},
+ dispose(){active=false;clear();cache.clear();atlas.dispose();groundGeometry.dispose();groundMaterial.dispose();renderer.dispose();}};
+</script></html>

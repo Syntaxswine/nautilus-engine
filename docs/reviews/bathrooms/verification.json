@@ -1,0 +1,884 @@
+{
+  "version": 1,
+  "collection": "nautilus-bathrooms-v1",
+  "status": "Ready for shared editor architect intake; separate artist candidate.",
+  "verifiedAtUtc": "2026-10-29T07:36:27.061461+00:00",
+  "artistFoundation": "65c06735396e14b8774ae1e7d5ad61969692963f",
+  "catalogue": {
+    "file": "assets/bathrooms/catalogue.json",
+    "sha256": "06ff9406638487cea8552363f28606a12a6962598626040c505a45b95d0716c4"
+  },
+  "counts": {
+    "modules": 21,
+    "fixtures": 9,
+    "parts": 5,
+    "individualStallHands": 2,
+    "stallRows": 1,
+    "outhouses": 4,
+    "layouts": 2,
+    "gltfAssets": 23,
+    "detailedSources": 23,
+    "tilePlans": 23
+  },
+  "stallContract": {
+    "tiles": [
+      1,
+      2
+    ],
+    "metres": [
+      1,
+      2
+    ],
+    "metresPerTile": 1,
+    "closedGeometryIncludesPartitionsAndFittings": true,
+    "outwardDoorMotionReservesAisle": true
+  },
+  "geometry": [
+    {
+      "id": "bath-toilet-cistern",
+      "sourceTriangles": 3236,
+      "gameTriangles": 1092,
+      "bakedGltfTriangles": 1470,
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      }
+    },
+    {
+      "id": "bath-toilet-high-cistern",
+      "sourceTriangles": 3260,
+      "gameTriangles": 1116,
+      "bakedGltfTriangles": 1458,
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          1.89,
+          0.78
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.8909999999999998,
+          0.781
+        ]
+      }
+    },
+    {
+      "id": "bath-toilet-steel",
+      "sourceTriangles": 3236,
+      "gameTriangles": 1092,
+      "bakedGltfTriangles": 1092,
+      "bounds": {
+        "min": [
+          0.01999999999999999,
+          0,
+          0.019999999999999907
+        ],
+        "max": [
+          0.48,
+          0.851,
+          0.7899999999999999
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.01899999999999996,
+          -0.001,
+          0.01885688638030003
+        ],
+        "max": [
+          0.48100000000000004,
+          1.0291431136196998,
+          0.7909999999999999
+        ]
+      }
+    },
+    {
+      "id": "bath-urinal-wall",
+      "sourceTriangles": 1780,
+      "gameTriangles": 544,
+      "bakedGltfTriangles": 702,
+      "bounds": {
+        "min": [
+          0.04500000000000001,
+          0.48,
+          0.025000000000000022
+        ],
+        "max": [
+          0.505,
+          1.47,
+          0.38999999999999996
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04400000000000001,
+          0.479,
+          0.02400000000000002
+        ],
+        "max": [
+          0.506,
+          1.4709999999999999,
+          0.39099999999999996
+        ]
+      }
+    },
+    {
+      "id": "bath-urinal-trough",
+      "sourceTriangles": 1012,
+      "gameTriangles": 404,
+      "bakedGltfTriangles": 404,
+      "bounds": {
+        "min": [
+          0,
+          0.43,
+          -0.088
+        ],
+        "max": [
+          2,
+          1.1629999999999998,
+          0.44999999999999996
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.429,
+          -0.089
+        ],
+        "max": [
+          2.001,
+          1.1639999999999997,
+          0.45099999999999996
+        ]
+      }
+    },
+    {
+      "id": "bath-sink-pedestal",
+      "sourceTriangles": 2532,
+      "gameTriangles": 816,
+      "bakedGltfTriangles": 1102,
+      "bounds": {
+        "min": [
+          0.04199999999999998,
+          0,
+          0.027499999999999997
+        ],
+        "max": [
+          0.6579999999999999,
+          1.023,
+          0.528
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04099999999999998,
+          -0.001,
+          0.026499999999999996
+        ],
+        "max": [
+          0.6589999999999999,
+          1.0239999999999998,
+          0.529
+        ]
+      }
+    },
+    {
+      "id": "bath-sink-wall",
+      "sourceTriangles": 1932,
+      "gameTriangles": 632,
+      "bakedGltfTriangles": 832,
+      "bounds": {
+        "min": [
+          0.03899999999999998,
+          0.418,
+          0.024999999999999994
+        ],
+        "max": [
+          0.611,
+          1.023,
+          0.478
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.03799999999999998,
+          0.417,
+          0.023999999999999994
+        ],
+        "max": [
+          0.612,
+          1.0239999999999998,
+          0.479
+        ]
+      }
+    },
+    {
+      "id": "bath-sink-double",
+      "sourceTriangles": 5124,
+      "gameTriangles": 1724,
+      "bakedGltfTriangles": 2364,
+      "bounds": {
+        "min": [
+          0,
+          0.477,
+          0
+        ],
+        "max": [
+          2,
+          1.023,
+          0.6
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.476,
+          -0.001
+        ],
+        "max": [
+          2.001,
+          1.0239999999999998,
+          0.601
+        ]
+      }
+    },
+    {
+      "id": "bath-sink-stone",
+      "sourceTriangles": 2532,
+      "gameTriangles": 816,
+      "bakedGltfTriangles": 994,
+      "bounds": {
+        "min": [
+          0.04799999999999999,
+          0,
+          0.02999999999999997
+        ],
+        "max": [
+          0.752,
+          1.023,
+          0.578
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.046999999999999986,
+          -0.001,
+          0.02899999999999997
+        ],
+        "max": [
+          0.753,
+          1.0239999999999998,
+          0.579
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-panel",
+      "sourceTriangles": 92,
+      "gameTriangles": 60,
+      "bakedGltfTriangles": 96,
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          0.04,
+          1.81,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.811,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-frame",
+      "sourceTriangles": 132,
+      "gameTriangles": 36,
+      "bakedGltfTriangles": 68,
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0.019999999999999997
+        ],
+        "max": [
+          1,
+          1.96,
+          0.1
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          0.018999999999999996
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          0.101
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-door-left",
+      "sourceTriangles": 236,
+      "gameTriangles": 116,
+      "bakedGltfTriangles": 152,
+      "bounds": {
+        "min": [
+          0.09100000000000001,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.9,
+          1.81,
+          0.1125
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.04650000000000004,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9011835732377654,
+          1.8110000000000002,
+          0.1135
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-door-right",
+      "sourceTriangles": 236,
+      "gameTriangles": 116,
+      "bakedGltfTriangles": 152,
+      "bounds": {
+        "min": [
+          0.09999999999999998,
+          0.16000000000000003,
+          0.007499999999999993
+        ],
+        "max": [
+          0.909,
+          1.81,
+          0.1125
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          0.09881642676223457,
+          0.159,
+          -0.7411835732377655
+        ],
+        "max": [
+          0.9535,
+          1.8110000000000002,
+          0.1135
+        ]
+      }
+    },
+    {
+      "id": "bath-urinal-divider",
+      "sourceTriangles": 44,
+      "gameTriangles": 12,
+      "bakedGltfTriangles": 28,
+      "bounds": {
+        "min": [
+          0,
+          0.35,
+          0
+        ],
+        "max": [
+          0.04,
+          1.65,
+          0.65
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          0.349,
+          -0.001
+        ],
+        "max": [
+          0.041,
+          1.6509999999999998,
+          0.651
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-left",
+      "sourceTriangles": 3904,
+      "gameTriangles": 1416,
+      "bakedGltfTriangles": 1950,
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-right",
+      "sourceTriangles": 3904,
+      "gameTriangles": 1416,
+      "bakedGltfTriangles": 1950,
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          1,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          1.001,
+          1.9609999999999999,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-stall-row-3",
+      "sourceTriangles": 11528,
+      "gameTriangles": 4128,
+      "bakedGltfTriangles": 5698,
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          3,
+          1.96,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.001,
+          -0.7411835732377655
+        ],
+        "max": [
+          3.001,
+          1.9609999999999999,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-outhouse-timber",
+      "sourceTriangles": 2354,
+      "gameTriangles": 890,
+      "bakedGltfTriangles": 1178,
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-outhouse-double",
+      "sourceTriangles": 4502,
+      "gameTriangles": 1702,
+      "bakedGltfTriangles": 2316,
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          2,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          2.001,
+          2.421,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-outhouse-masonry",
+      "sourceTriangles": 2330,
+      "gameTriangles": 866,
+      "bakedGltfTriangles": 1114,
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.42,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.5612330539441331
+        ],
+        "max": [
+          1.001,
+          2.421,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-outhouse-portable",
+      "sourceTriangles": 4076,
+      "gameTriangles": 1460,
+      "bakedGltfTriangles": 1704,
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          1,
+          2.5,
+          2
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.6811927115283819
+        ],
+        "max": [
+          1.001,
+          2.501,
+          2.001
+        ]
+      }
+    },
+    {
+      "id": "bath-public-washroom",
+      "sourceTriangles": 20564,
+      "gameTriangles": 7036,
+      "bakedGltfTriangles": 10374,
+      "bounds": {
+        "min": [
+          -0.08,
+          -0.12,
+          -0.08
+        ],
+        "max": [
+          6.08,
+          2,
+          6.08
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.081,
+          -0.121,
+          -0.081
+        ],
+        "max": [
+          6.081,
+          2.001,
+          6.081
+        ]
+      }
+    },
+    {
+      "id": "bath-camp-washyard",
+      "sourceTriangles": 14496,
+      "gameTriangles": 5260,
+      "bakedGltfTriangles": 6704,
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          6,
+          2.5,
+          5
+        ]
+      },
+      "motionBounds": {
+        "min": [
+          -0.001,
+          -0.121,
+          -0.001
+        ],
+        "max": [
+          6.001,
+          2.501,
+          5.001
+        ]
+      }
+    }
+  ],
+  "sourceGameBoundsToleranceMetres": 1e-06,
+  "visual": {
+    "report": "browser-checks.json",
+    "sha256": "720122951082b225298ebccab7769cdd1d7e49de1b92289fb0c0811387d19e8a",
+    "views": 253,
+    "captures": 258,
+    "independentGltfReadbacks": 23,
+    "browser": "156.0.4314.50",
+    "errors": [],
+    "failedRequests": [],
+    "mode": "Isolated Edge software WebGL2 visual correctness; no frame-rate claim.",
+    "uiChecks": [
+      {
+        "check": "Individual checkbox opens only the middle door",
+        "angles": [
+          0,
+          90,
+          0
+        ]
+      },
+      {
+        "check": "Open all doors button",
+        "checked": 3
+      },
+      {
+        "check": "Close all doors button",
+        "checked": 0
+      },
+      {
+        "check": "Search filters the asset dropdown",
+        "options": 3
+      }
+    ],
+    "coverage": [
+      "All 23 assets: painted, rear, overhead, grey, wire, tile plan and detailed source",
+      "Hollow bowls/basins/bench seats; source and game silhouettes",
+      "Closed, half-open, fully open and individual door states; independent lids",
+      "All standard glTF readbacks plus intermediate/fully-open animation poses",
+      "Public room and camp layouts; enclosure/roof cutaways; corrected portable floor and vent channels"
+    ]
+  },
+  "headlessCost": {
+    "report": "headless-cost.json",
+    "sha256": "98c6d7eda32bbd6f7e83ba3aac537194adff25738adea9adbf4f6827d1a7450e",
+    "claim": "Construction only; no isolated CPU or frame-rate claim."
+  },
+  "tests": {
+    "focused": 8,
+    "repository": 248,
+    "upstream": 32,
+    "failures": 0,
+    "blueprintReadbacks": 23,
+    "coverage": [
+      "Immutable headless recipes and map tile parity",
+      "Exact complete 1 \u00d7 2 tile footprints for both stall hands",
+      "Actual bowl, basin, counter and bench voids",
+      "Independent outward doors, clear apertures and separate lids",
+      "Detailed-source reductions, matching bounds, finite UVs and unit normals",
+      "Actual posed geometry inside motion envelopes including rotated layouts",
+      "Borrowed texture ownership and idempotent disposal",
+      "All hashes, saved blueprint/source round trips, relative glTF closure, standard UVs and native/export quaternion equivalence"
+    ]
+  },
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": "gates/check.log",
+      "sha256": "3c3a7190193a5e97a3593b491d134e142ad24b499e09e030ced3e595d74f5dbc"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "log": "gates/test.log",
+      "sha256": "d5cb86f6dc24146d7899bea6beb42440a6ddeb7e0eb72ad83dd5e97c86a10613"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "log": "gates/test-upstream.log",
+      "sha256": "090bbbb09d0d9263e0410ae41f6df95f49d226c04c85a9580617b4f93b437287"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "gates/build.log",
+      "sha256": "05dabdd22fca149105461dbf23a8303e28a7cf87d32f972af95691061fa6c975"
+    }
+  ],
+  "materials": {
+    "atlas": {
+      "file": "assets/bathrooms/painted-bathroom-materials-v1.png",
+      "sha256": "642d6151e592bc0c4973543cb05a415dff2b6e85e1ad82bc8df4f62e7be7e9ea"
+    },
+    "width": 1536,
+    "height": 1024,
+    "columns": 3,
+    "rows": 2,
+    "mode": "Built-in ImageGen",
+    "copiedByteForByte": true,
+    "referencePhotographs": false
+  },
+  "cleanup": {
+    "reviewLifetimes": 3,
+    "supportedBrowserAndHttpCloseConfirmed": true,
+    "exactPidAndCreationLifetimesEnded": true,
+    "allPortsReleased": true,
+    "retainedHelpers": 0,
+    "method": "Supported Playwright/HTTP finally close, actual ten-minute expiry and exact process/port checks; restart records preserved in ignored task artifacts."
+  },
+  "sourceTools": [
+    {
+      "file": "tests/bathrooms.test.mjs",
+      "sha256": "df97b753ac7e8ff9b1f941652b9fe0ddfecf1d7c68ede580abcc242c49552837"
+    },
+    {
+      "file": "tools/build-bathrooms.mjs",
+      "sha256": "ebaebd4fafe4cc5f517a163c603d98e2c340bc1e7726c719ad352d113a845ef0"
+    },
+    {
+      "file": "tools/export-bathrooms-gltf.mjs",
+      "sha256": "e9f38280385770f1bef50a5584c2bc48ae6cea7848cbdcbaca9dabb65eff0f84"
+    },
+    {
+      "file": "tools/art-review-browser.mjs",
+      "sha256": "76f3e4458288c9f466ef2f919da0070ffb55a1145ac1ecd820391db9641ada55"
+    },
+    {
+      "file": "docs/reviews/bathrooms/scene.html",
+      "sha256": "d04bf43d28d4cfd285cf4226d955d66d261d2e1a3f9a677e74484f8cde76d6ef"
+    },
+    {
+      "file": "docs/reviews/bathrooms/review.mjs",
+      "sha256": "faadaa548279aa0084da79012257471821843bd770869fa5a31d06d633d1b3bd"
+    },
+    {
+      "file": "docs/reviews/bathrooms/load-export.js",
+      "sha256": "cf3a8268d160bfa0990f98c707af6d3d68767612c8650a80da832bf278b604d2"
+    },
+    {
+      "file": "docs/reviews/bathrooms/measure.mjs",
+      "sha256": "62fb254c15968d112635dc3b58111639cb1c54f5297d69943bb5e17b481f435b"
+    },
+    {
+      "file": "art/bathrooms/package-art.py",
+      "sha256": "1cdcafa8e6c75acf81d3b43bd257f563929b35516cf2521ff0c944f6e7e4ce86"
+    }
+  ],
+  "scope": {
+    "priorFortAssetsChanged": false,
+    "providerRegistryChanged": false,
+    "publicExportsChanged": false,
+    "donorConsumerPinsChanged": false,
+    "saveFormatChanged": false,
+    "plumbingCollisionNavigationFireImplemented": false
+  }
+}
