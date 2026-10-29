@@ -30,7 +30,7 @@ function resources() {
 }
 const bearFiles=()=>[...bearResources().map(resource=>'vendor/aft-bear/'+BEAR_SOURCE.commit+'/'+resource.path),'vendor/aft-bear/'+BEAR_SOURCE.commit+'/provenance.json'];
 const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
-  'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json', 'docs/bear-provider.md',
+  'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json', 'docs/bear-provider.md', 'docs/bear-handoff.md',
   ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
@@ -108,7 +108,13 @@ function replay(project){const sim=createSimulation({scenario:project.scenario,s
 const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
 assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
     fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') : ''));
-    const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
+    let output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
+    if(profile==='core'){
+      const guide=fs.readFileSync(path.join(consumer,'node_modules/@nautilus-engine/core/docs/bear-handoff.md'),'utf8'),example=guide.match(/<!-- example:appearance -->\s*```js\s*([\s\S]*?)```/)?.[1];
+      if(!example)throw Error('Installed bear usage card is missing its complete headless example.');
+      fs.writeFileSync(path.join(consumer,'appearance-handoff.mjs'),example+`\nconst result=appearanceExample();if(result.wire!==result.restored.export()||result.restored.actors[0].authored.resources.ap!==0)throw Error('Appearance handoff save changed authored data.');console.log('Installed usage-card headless public-import example: preview/apply and exact save/restore pass.');\n`);
+      output+=execFileSync(process.execPath,['appearance-handoff.mjs'],{cwd:consumer,encoding:'utf8',windowsHide:true});
+    }
     return {...packed, proof:output.trim()};
   } finally {
     const resolved = fs.realpathSync(consumer), temp = fs.realpathSync(os.tmpdir());

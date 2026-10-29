@@ -110,3 +110,5 @@ See the [implementation checkpoint](docs/modular-foundation.md), [module contrac
 `./actors/bear` supplies headless discovery; `./actors/bear/three` supplies the separate, lazy native bear provider on the existing shared Three instance. It preserves regular/Red Hat paint, all thirteen equipment choices, native scale and explicit supported motion families. Hosts own world placement, sample clocks and gameplay.
 
 `./appearance` preserves real bear Guard/NPC authoring beside an unchanged legacy map/block in a negotiated versioned envelope. It supports preview/apply, inspection/rotation, undo/redo, saves and block capture/placement without changing portable species enums or authored character resources. Editor UI and production game adoption require separate integration. See the [provider and appearance contract](docs/bear-provider.md) and [acceptance evidence](docs/reviews/bear/acceptance.md).
+
+The packaged [bear usage card](docs/bear-handoff.md) gives required host bindings, complete public-import examples, native semantic IDs/units, save/event ownership and a builder checklist.

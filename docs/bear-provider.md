@@ -1,5 +1,7 @@
 # Native bear presentation and preserved authoring candidate
 
+**Usage card, working public-import examples and builder checklist:** [Bear and appearance handoff](bear-handoff.md). The guide is included in the installed distribution; it adds no runtime manifest fields.
+
 Source is fixed at AFT `4f5f53917990ec03b2f14c65f067e4b99ec8fcaa`; engine baseline is v0.8.0 / `8c4670450cb2b38c1e1abd811d633c22de9e2b7c`. This is a reviewed-worker candidate, not a released editor integration. Editor owns application controls/workspace wiring; the architect owns combined review and release. Existing AFT bytes, twelve visual rigs, nine-species legacy validator, production game pins and Sites publishing are unchanged.
 
 ## Public boundaries

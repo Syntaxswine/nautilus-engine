@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-29T23:24:13.485Z",
+  "standardCommit": "1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66",
+  "runtimeCommit": "ef62d12662535389e7d0bed74f16370c9983712f",
+  "status": "working-installed-public-import-examples",
+  "guide": {
+    "path": "docs/bear-handoff.md",
+    "sha256": "93380f9d0949561207e9016eea56c56218ef91ec9f539c0caafc188b36ddaead",
+    "snippetSha256": {
+      "appearance": "5e356ff5b7a1723615c3364fda7e6eaddcf8540aec55512d988fee7088603d32",
+      "bear-view": "8abd7736a28f6b3451c847ae41d2baf8303525448de46cfff89329f809294447"
+    }
+  },
+  "runtimeHashesUnchanged": {
+    "packages/actors-bear/provider.js": "e63f7c4136da4d2cc2322c4d38570d53deed00c04098bf1c1b5700409805f94e",
+    "packages/actors-bear/index.js": "44b180165a37b03e9ac8621d85b8500ac304a359fc8b51eb416b5be71d0ded0f",
+    "packages/appearance-core/index.js": "6a9908ee40a296952857f67c3f1463fd4a4de5e800b451e9b7a67d283d5d83cf"
+  },
+  "corePackage": {
+    "profile": "core",
+    "name": "@nautilus-engine/core",
+    "version": "0.8.0",
+    "compressedBytes": 1245714,
+    "unpackedBytes": 6312236,
+    "fileCount": 172,
+    "integrity": "sha512-qdFRgON1zch4lOkDJKQvKOA5HTCkgY4R2sO+fkUzR3w1Ns8JMUSfwOMIwc/TD+hJuLINvTaU8mo120EyEFnGvA==",
+    "exactHeadlessSnippetPassed": true
+  },
+  "bearPackage": {
+    "profile": "compatibility",
+    "name": "@nautilus-engine/map-core",
+    "version": "0.8.0",
+    "compressedBytes": 28905218,
+    "unpackedBytes": 38038212,
+    "fileCount": 260,
+    "integrity": "sha512-/AqAFtfNB9YUUp+Yb9+owGbnoGHRdnsUqsPhoTBZlzhd9ovhQnFhDWCx3rkhJG89f+9LONuc4C33DpRm5PGMVQ==",
+    "proof": {
+      "cases": 26,
+      "resources": [
+        {
+          "id": "mesh",
+          "bytes": 419919,
+          "sha256": "3a449fe96a28a712cb1aaf4cdc76d44cc07163ec949aebc2d086dfa48a3a0823"
+        },
+        {
+          "id": "capMesh",
+          "bytes": 701071,
+          "sha256": "f720321ebfac285ae0e6e62634d361e6fa6d9c765a782dc75939aa40796051e8"
+        },
+        {
+          "id": "speakingHead",
+          "bytes": 252186,
+          "sha256": "5eaa1ea526f542849ed9b8bbac35eccb6409d82ba450523437b7e366420775a1"
+        },
+        {
+          "id": "normal",
+          "bytes": 1590125,
+          "sha256": "7b0fd63d06c840497c1a03967f06b9bdce30c0ce119040740e4651fc459fa5a0"
+        },
+        {
+          "id": "red-hats",
+          "bytes": 1746454,
+          "sha256": "4130695bfb3cca93889486308a171d20802a0924a28f854e501656b32b915bd9"
+        },
+        {
+          "id": "capPaint",
+          "bytes": 1635690,
+          "sha256": "56479f68339bf21321e9c3a7cfedb5b7e49eac77b3169c24cd559d25b51fc2a4"
+        },
+        {
+          "id": "weaponAtlas",
+          "bytes": 2628783,
+          "sha256": "a69ccd8c8153f04fc835cef004f83695accc638f949ba8b6fb1b0ec40922ac31"
+        },
+        {
+          "id": "grenadeSurface",
+          "bytes": 2338079,
+          "sha256": "f74ea371f9f2f575ca775791f7cb6163a19be717ab2d1b924b9a8efb6ac4ce36"
+        }
+      ],
+      "appearance": true,
+      "ownedResourcesAfterClose": 0,
+      "handoff": {
+        "guide": "docs/bear-handoff.md",
+        "publicImports": true,
+        "retainedScene": true,
+        "bindingsOnce": true,
+        "saveRestore": true,
+        "unsupportedCapabilityBeforeLoading": true,
+        "invalidFloorBeforeLoading": true,
+        "cancelRetry": true,
+        "lateClose": true,
+        "rendererDisposed": false,
+        "ownedRawTexturesDisposedOnce": true
+      }
+    },
+    "purpose": "Offline installed-package public imports, actual resource bytes and native geometry/lifecycle with a test renderer; real WebGL is a separate browser proof."
+  },
+  "scope": {
+    "newRuntimeAPI": false,
+    "newManifestFields": false,
+    "productionGameAdoption": false,
+    "UIImplementation": false,
+    "browserStarted": false,
+    "retainedHelpers": 0
+  },
+  "pending": [
+    "Actual game renderer/floor/heading/capability binding",
+    "Authoritative and durable gameplay event/save wiring",
+    "Actual game desktop/phone/accessibility and physical-device checks",
+    "Architect review and separate game pin adoption"
+  ],
+  "validation": {
+    "engineTests": {
+      "command": "npm test",
+      "passed": 382,
+      "failed": 0
+    },
+    "upstreamTests": {
+      "command": "npm run test:upstream",
+      "passed": 32,
+      "failed": 0
+    },
+    "integrity": {
+      "command": "npm run check -- --tracked",
+      "status": "passed"
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "passed"
+    },
+    "coreInstalledExample": {
+      "command": "npm run test:package",
+      "status": "passed"
+    },
+    "bearInstalledExample": {
+      "command": "node tools/prove-bear-package.mjs",
+      "status": "passed"
+    },
+    "usageCardLocalLinks": 4,
+    "fixedRuntimeCI": {
+      "commit": "ef62d12662535389e7d0bed74f16370c9983712f",
+      "status": "success",
+      "url": "https://github.com/Syntaxswine/nautilus-engine/actions/runs/40942708087"
+    }
+  }
+}
