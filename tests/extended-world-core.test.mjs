@@ -65,6 +65,15 @@ test('axis-aligned contacts handle tangent/parallel/inside/zero-length segments 
   assert.throws(()=>queries.traceSegment({...request,radius:.1}),error=>error.code==='INVALID_FIELD');assert.equal(queries.sweepSphere,undefined);
 });
 
+test('equal-height support ties select the lexical surface before requiring a confirmed floor',()=>{
+  const world=tiny(),confirmed=floorPanel(world,1),unconfirmed={...structuredClone(confirmed),id:'aaa-unconfirmed-roof',role:'roof',supportFloorId:null};world.surfaces.push(confirmed,unconfirmed);
+  const request={position:{x:5,y:5,h:5},maxDropM:3,requireFloor:false};
+  for(const snapshot of [world,openWorld(serializeWorld(world)),{...world,surfaces:[...world.surfaces].reverse()}]){
+    const queries=compileWorld(snapshot),contact=queries.findSupport(request);assert.equal(contact.surfaceId,'aaa-unconfirmed-roof');assert.equal(contact.point.h,3);assert.equal(contact.floorId,null);assert.equal(queries.findSupport({...request,requireFloor:true}),null);
+  }
+  confirmed.id='000-confirmed-floor';const contact=compileWorld(world).findSupport({...request,requireFloor:true});assert.equal(contact.surfaceId,'000-confirmed-floor');assert.equal(contact.floorId,'floor-1');
+});
+
 test('spatial queries partition authored records rather than scanning a floor-by-cell allocation',()=>{
   const world=createWorld({id:'indexed',name:'Indexed',widthM:240,depthM:240,floorCount:32,storyHeightM:3,groundHeightM:0,heightM:100});
   for(let i=0;i<1024;i++){const index=i%32,panel=floorPanel(world,index,Math.floor(i/32)*6,(i%32)*6,2);panel.id='grid-'+i;world.surfaces.push(panel);}
