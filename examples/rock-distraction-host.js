@@ -5,7 +5,7 @@ import * as Rock from '../packages/items-core/index.js';
 export const YARD=Object.freeze({
  width:22,depth:14,step:1/60,playerSpeed:3,guardSpeed:1.8,searchSeconds:3,
  walls:[{id:'yard-wall',min:{x:9,y:3,h:0},max:{x:9.25,y:10,h:2}}],
- boulders:[{x:2,y:11.8,radius:.65},{x:18.8,y:2,radius:.85}],
+ boulders:[],
  targets:{open:{x:6,y:6,h:0},wall:{x:10.5,y:6,h:0}}
 });
 const copy=value=>JSON.parse(JSON.stringify(value));
@@ -30,14 +30,14 @@ function segmentBox(from,to,box,radius){
  return {fraction,position:along(from,to,fraction),normal,surface:'stone',obstacleId:box.id};
 }
 // First swept sphere contact, never a cursor target or end-of-frame guess.
-export function sweepYard(from,to,radius=.055){
+export function sweepYard(from,to,radius=.055,allContacts=false){
  if(!finitePoint(from)||!finitePoint(to)||!Number.isFinite(radius)||radius<=0)throw new TypeError('Invalid yard sweep.');
  const contacts=[];
  for(const wall of YARD.walls){const contact=segmentBox(from,to,wall,radius);if(contact)contacts.push(contact);}
  if(to.h<=radius&&to.h<from.h){const fraction=Math.max(0,(radius-from.h)/(to.h-from.h));if(fraction<=1)contacts.push({fraction,position:along(from,to,fraction),normal:{x:0,y:0,h:1},surface:'earth',obstacleId:'ground'});}
  contacts.sort((a,b)=>a.fraction-b.fraction);
- const hit=contacts[0];if(!hit)return null;
- return {fraction:hit.fraction,point:{x:hit.position.x-hit.normal.x*radius,y:hit.position.y-hit.normal.y*radius,h:hit.position.h-hit.normal.h*radius},surfaceId:hit.obstacleId,kind:hit.obstacleId==='ground'?'ground':'wall'};
+ const result=contacts.map(hit=>({fraction:hit.fraction,point:{x:hit.position.x-hit.normal.x*radius,y:hit.position.y-hit.normal.y*radius,h:hit.position.h-hit.normal.h*radius},surfaceId:hit.obstacleId,kind:hit.normal.h>0?'ground':hit.normal.h<0?'ceiling':'wall'}));
+ return allContacts?(result.length?result:null):result[0]||null;
 }
 function free(point,radius=.28){
  if(!finitePoint(point)||point.x<.4||point.x>YARD.width-.4||point.y<.4||point.y>YARD.depth-.4)return false;
@@ -148,7 +148,7 @@ export function createRockYard({snapshot}={}){
  }
  function tick(){
   for(const rock of [...state.rocks])if(rock.phase==='flying'){
-   const result=commit(Rock.stepRock(rock,{dt:YARD.step,world:{sweepSphere:query=>sweepYard(query.from,query.to,query.radius)}}));
+   const result=commit(Rock.stepRock(rock,{dt:YARD.step,world:{sweepSphere:query=>sweepYard(query.from,query.to,query.radius,query.stage==='settling')}}));
    if(!result.ok)throw new Error('Yard flight adapter: '+result.reason);
   }
   state.ticks++;
@@ -215,7 +215,14 @@ export function createRockYard({snapshot}={}){
   if(!Number.isSafeInteger(next.nextCommand)||next.nextCommand<1||!Number.isSafeInteger(next.nextEvent)||next.nextEvent<1||!Number.isSafeInteger(next.nextNote)||next.nextNote<1||!Array.isArray(next.receipts)||!Array.isArray(next.noiseIds)||!Array.isArray(next.events)||!Array.isArray(next.notes))throw new TypeError('Invalid yard ledgers.');
   const receiptIds=new Set();for(const receipt of next.receipts){if(typeof receipt.id!=='string'||receiptIds.has(receipt.id)||receipt.payload?.commandId!==receipt.id||!/^yard-command-\d+$/.test(receipt.id)||Number(receipt.id.slice(13))>=next.nextCommand)throw new TypeError('Invalid yard command receipt.');receiptIds.add(receipt.id);}
   if(new Set(next.noiseIds).size!==next.noiseIds.length||new Set(next.guards.map(guard=>guard.id)).size!==3)throw new TypeError('Duplicate yard receipt or guard.');
-  next.rocks=next.rocks.map(Rock.openRock);const ids=new Set(next.rocks.map(rock=>rock.id));
+  if(!next.throwTimes||typeof next.throwTimes!=='object'||Array.isArray(next.throwTimes)||Object.values(next.throwTimes).some(at=>!Number.isFinite(at)||at<0||at>next.ticks*YARD.step+1e-9))throw new TypeError('Invalid saved throw clock.');
+  next.rocks=next.rocks.map(Rock.openRock);
+  if(next.rocks.some(rock=>rock.phase==='flying'&&!Number.isFinite(next.throwTimes[rock.flight.id])))throw new TypeError('A flying rock requires its saved release clock.');
+  const validTime=at=>Number.isFinite(at)&&at>=0&&at<=next.ticks*YARD.step+YARD.step;
+  if(next.guards.some(guard=>!finitePoint(guard.home)||!free(guard.home)||!Number.isFinite(guard.heading)||!validTime(guard.heardAt)||!Number.isFinite(guard.waitUntil)||guard.waitUntil<0||(guard.target!==null&&!finitePoint(guard.target))||(guard.mode!=='idle'&&guard.target===null)))throw new TypeError('Invalid saved guard clock or target.');
+  if(next.events.some(event=>event.kind!=='impact'||!Number.isSafeInteger(event.sequence)||event.sequence<1||event.sequence>=next.nextEvent||!validTime(event.time)||!finitePoint(event.position)||!Rock.evaluateRockNoise(event.receipt,[]).ok||!next.noiseIds.includes(event.receipt.id)||JSON.stringify(event.position)!==JSON.stringify(event.receipt.position)||!Number.isFinite(next.throwTimes[event.receipt.throwId])||Math.abs(event.time-next.throwTimes[event.receipt.throwId]-event.receipt.flightTime)>1e-8))throw new TypeError('Invalid saved impact time.');
+  if(next.notes.some(note=>!validTime(note.time)||!Number.isSafeInteger(note.sequence)||note.sequence<1||note.sequence>=next.nextNote||typeof note.text!=='string'))throw new TypeError('Invalid saved yard note.');
+  const ids=new Set(next.rocks.map(rock=>rock.id));
   if(ids.size!==next.rocks.length||new Set(next.inventory).size!==next.inventory.length||next.inventory.some(id=>!ids.has(id)))throw new TypeError('Invalid yard inventory.');
   for(const rock of next.rocks)if((rock.phase==='carried')!==(next.inventory.includes(rock.id))||rock.phase==='carried'&&rock.ownerId!==PLAYER)throw new TypeError('Yard item ownership disagrees with inventory.');
   if(next.guards.some(guard=>!['near','far','engaged'].includes(guard.id)||!labels[guard.mode]||!finitePoint(guard.position)||!free(guard.position)||!Array.isArray(guard.route)||guard.route.some(p=>!finitePoint(p)||!free(p))))throw new TypeError('Invalid yard guard state.');
@@ -224,4 +231,3 @@ export function createRockYard({snapshot}={}){
  if(snapshot)restore(snapshot);
  return {pickup,throw:toss,aim,walk,advance,presentation,snapshot:save,restore,reset:()=>{state=initial();},get moving(){return state.rocks.some(rock=>rock.phase==='flying')||state.guards.some(guard=>!['idle','combat'].includes(guard.mode));}};
 }
-

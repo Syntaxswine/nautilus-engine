@@ -7,7 +7,9 @@ import assert from 'node:assert/strict';
 import {withArtReview,projectRoot} from './art-review-browser.mjs';
 
 const sourceCommit=execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),'rev-parse','HEAD'],{cwd:projectRoot,encoding:'utf8',windowsHide:true}).trim();
-const report={sourceCommit,checks:{},captures:[]};
+const sourceMode=process.env.NAUTILUS_REVIEW_SOURCE==='1';
+const buildProvenanceSha256=sourceMode?null:createHash('sha256').update(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))).digest('hex');
+const report={sourceCommit,sourceMode,buildProvenanceSha256,checks:{},captures:[]};
 await withArtReview('Rock pickup, first impact and guard investigation acceptance',async({page,context,browser,baseURL,out,errors,failedRequests})=>{
  const capture=async name=>{await page.screenshot({path:path.join(out,name),animations:'disabled'});report.captures.push({file:name,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,name))).digest('hex')});};
  const inspect=()=>page.evaluate(()=>window.rockDemo.inspect());
@@ -18,6 +20,11 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
   while(state.rocks.some(rock=>rock.phase==='flight')&&frames++<600)state=await advance(1/60);
   assert(frames<600,'Rock did not settle within ten seconds.');
   return inspect();
+ };
+ const untilImpact=async()=>{
+  let state=await inspect(),frames=0;
+  while(!state.events.some(event=>event.kind==='impact')&&frames++<600){await advance(1/60);state=await inspect();}
+  assert(frames<600,'No first impact within ten seconds.');return state;
  };
  await page.setViewportSize({width:1280,height:900});
  await page.goto(baseURL+'/examples/rock-distraction.html?review=1',{waitUntil:'networkidle'});
@@ -60,16 +67,34 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
  await page.locator('#pickup').click();state=await inspect();assert.equal(state.count,1);assert.equal(state.rocks.length,1);assert.equal(state.rocks[0].id,initial.rocks[0].id);
  report.checks.repickup=true;
  await reset();await page.locator('#pickup').click();await page.locator('#target-wall').click();await page.locator('#throw').click();
- await advance(1/6);await capture('rock-wall-lob.png');state=await untilLanded();
+ await advance(1/6);await capture('rock-wall-lob.png');state=await untilImpact();
  const wallImpact=state.events.find(e=>e.kind==='impact');assert(wallImpact);assert(wallImpact.position.x<9.01&&wallImpact.position.x>8.7,'Wall failed to intercept the throw.');
  assert(wallImpact.position.x<state.aim.x-1,'Impact was emitted at the cursor target.');
  assert.equal(state.events.filter(e=>e.kind==='impact').length,1);assert.equal(state.scheduledThuds,1);
+ assert.equal(state.rocks[0].phase,'flight');assert(state.rocks[0].position.h>.055);
+ assert(state.ring&&Math.hypot(state.ring.drawnPosition.x-wallImpact.position.x,state.ring.drawnPosition.y-wallImpact.position.y,state.ring.drawnPosition.h-wallImpact.position.h)<.04,'The wall sound ring was projected onto the floor.');
  await capture('rock-wall-impact.png');
+ report.checks.quietSettlingReplay=await page.evaluate(async()=>{
+  const {createRockYard}=await import('./rock-distraction-host.js'),saved=window.rockDemo.snapshot();
+  if(!saved.rocks[0].flight?.settling)return false;
+  const a=createRockYard({snapshot:saved}),b=createRockYard({snapshot:saved});a.advance(.9);for(let i=0;i<54;i++)b.advance(1/60);
+  return JSON.stringify(a.snapshot())===JSON.stringify(b.snapshot())&&a.presentation().rocks[0].position.h===.055&&a.presentation().events.length===1;
+ });
+ assert(report.checks.quietSettlingReplay);
+ state=await untilLanded();assert.equal(state.rocks[0].phase,'world');assert(Math.abs(state.rocks[0].position.h-.055)<1e-9);
+ assert.equal(state.events.filter(event=>event.kind==='impact').length,1);assert.equal(state.thuds,1);assert.equal(state.scheduledThuds,1);
+ assert.deepEqual(state.guards.find(guard=>guard.id==='near').target,wallImpact.position);
+ assert(wallImpact.position.h>1,'The first elevated wall cue was overwritten.');
+ await capture('rock-wall-settled.png');
+
  const wallJourney=await page.evaluate(()=>{const path=[];let searched=false;for(let i=0;i<160;i++){const s=window.rockDemo.advance(.25),g=s.guards.find(g=>g.id==='near');path.push(g.position);searched||=g.mode==='search';}return {path,searched,state:window.rockDemo.inspect()};});
  assert(wallJourney.searched,'Guard could not route around the wall to the impact.');
  assert(wallJourney.path.some(p=>p.y<2.73||p.y>10.27),'Guard did not take an opening around the wall.');
  assert(wallJourney.path.every(p=>!(p.x>8.72&&p.x<9.53&&p.y>2.72&&p.y<10.28)),'Investigation walked through the wall.');
- report.checks.wallInterception={impact:wallImpact,walkedAround:true};
+ for(let step=0;step<7;step++)await page.getByRole('button',{name:'Walk east',exact:true}).click();
+ assert(await page.locator('#pickup').isEnabled(),'The wall-hit rock could not be recovered from the ground.');
+ await page.locator('#pickup').click();state=await inspect();assert.equal(state.count,1);assert.equal(state.events.length,1);assert.equal(state.scheduledThuds,1);
+ report.checks.wallInterception={impact:wallImpact,walkedAround:true,settledCentreHeight:.055,recovered:true,firstElevatedCuePreserved:true};
  report.checks.snapshots=await page.evaluate(async()=>{
   const {createRockYard}=await import('./rock-distraction-host.js');
   const a=createRockYard();a.pickup();a.throw();a.advance(.25);
@@ -79,6 +104,23 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
   return {midflight,repickup:JSON.stringify(a.snapshot())===JSON.stringify(b.snapshot()),count:a.presentation().count};
  });
  assert(report.checks.snapshots.midflight&&report.checks.snapshots.repickup);assert.equal(report.checks.snapshots.count,1);
+ report.checks.invalidSnapshots=await page.evaluate(async()=>{
+  const {createRockYard}=await import('./rock-distraction-host.js'),a=createRockYard();a.pickup();a.throw();a.advance(.25);
+  const flying=a.snapshot();a.advance(2);const landed=a.snapshot();
+  const cases=[
+   ['missing-flight-clock',flying,s=>{delete s.throwTimes[s.rocks[0].flight.id];}],
+   ['guard-target',landed,s=>{s.guards[0].target={x:6,y:6,h:NaN};}],
+   ['guard-home',landed,s=>{s.guards[0].home.x=Infinity;}],
+   ['guard-heard-clock',landed,s=>{s.guards[0].heardAt=NaN;}],
+   ['guard-search-clock',landed,s=>{s.guards[0].waitUntil=null;}],
+   ['guard-heading',landed,s=>{s.guards[0].heading=NaN;}],
+   ['impact-clock',landed,s=>{s.events[0].time=-1;}],
+   ['note-clock',landed,s=>{s.notes[0].time=Infinity;}]
+  ];
+  return cases.map(([name,base,mutate])=>{const value=structuredClone(base);mutate(value);try{createRockYard({snapshot:value});return {name,rejected:false};}catch{return {name,rejected:true};}});
+ });
+ assert(report.checks.invalidSnapshots.every(result=>result.rejected),'Malformed saved clocks or targets were accepted.');
+
  await reset();
  report.checks.invalidActions=await page.evaluate(()=>{
   const stable=()=>{const s=window.rockDemo.snapshot();return JSON.stringify({rocks:s.rocks,inventory:s.inventory});};
@@ -95,7 +137,7 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
  await page.locator('#pickup').tap();assert.equal((await inspect()).count,1);
  await page.locator('#target-open').tap();await page.locator('#throw').tap();await page.locator('#yard').scrollIntoViewIfNeeded();await untilLanded();
  const mobile=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,canvas:document.getElementById('scene').getBoundingClientRect().toJSON(),controls:[...document.querySelectorAll('button')].map(b=>({label:b.textContent.trim(),width:b.getBoundingClientRect().width,height:b.getBoundingClientRect().height}))}));
- assert(!mobile.overflow);assert(mobile.controls.filter(c=>!['Pause','Resume','Mute sound','Sound off','Reset yard'].includes(c.label)).every(c=>c.width>=38&&c.height>=38));
+ assert(!mobile.overflow);assert(mobile.controls.filter(c=>c.width>0&&c.height>0).filter(c=>!['Pause','Resume','Mute sound','Sound off','Reset yard'].includes(c.label)).every(c=>c.width>=38&&c.height>=38));
  await capture('rock-yard-mobile.png');report.checks.mobile={width:390,height:844,overflow:false,tapPickupThrow:true,reducedMotion:true};
  await page.setViewportSize({width:320,height:568});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);report.checks.narrow320=true;
  await page.setViewportSize({width:1280,height:900});
@@ -112,8 +154,4 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
  report.checks.lifecycle={pauseNoFrames:true,offscreenNoFrames:!offscreen.visible,disposed:true,audioClosed:true};
  fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(report,null,2));
  console.log(JSON.stringify({checks:report.checks,captures:report.captures.map(c=>c.file)},null,2));
-},{output:'rock-distraction',timeoutMs:240000,source:process.env.NAUTILUS_REVIEW_SOURCE==='1'});
-
-
-
-
+},{output:'rock-distraction',timeoutMs:240000,source:sourceMode});
