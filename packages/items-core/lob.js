@@ -7,4 +7,9 @@ export function lob(origin,target,gravity){
   return {velocity:{x:(target.x-origin.x)/time,y:(target.y-origin.y)/time,h:up},aimTime:time};
 }
 export function flightPoint(flight,seconds,gravity){return {x:flight.origin.x+flight.velocity.x*seconds,y:flight.origin.y+flight.velocity.y*seconds,h:flight.origin.h+flight.velocity.h*seconds-.5*gravity*seconds*seconds};}
+export function positionAt(flight,seconds,gravity){
+  if(!flight.settling)return flightPoint(flight,seconds,gravity);
+  const {center,time}=flight.settling,elapsed=seconds-time;
+  return {x:center.x,y:center.y,h:center.h-.5*gravity*elapsed*elapsed};
+}
 export const interpolate=(a,b,t)=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,h:a.h+(b.h-a.h)*t});

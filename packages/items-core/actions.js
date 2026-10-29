@@ -20,7 +20,7 @@ function throwPreview(rock,specification){
   const range=distance(origin,target);if(range>rock.profile.maxThrowRange+1e-9)fail('out-of-range','Aim target is outside the native 3D throw range.');
   if(rock.lastImpact?.throwId===specification.throwId)fail('reused-throw','Use a new unique throw ID.');
   const arc=lob(origin,target,rock.profile.gravity);point(flightPoint({origin,...arc},arc.velocity.h/rock.profile.gravity,rock.profile.gravity),'lob apex');
-  return {id:specification.throwId,commandId:specification.commandId,sourceActorId:specification.actorId,origin,target,...arc,ticks:0,pendingUnits:0};
+  return {id:specification.throwId,commandId:specification.commandId,sourceActorId:specification.actorId,origin,target,...arc,ticks:0,pendingUnits:0,settling:null};
 }
 export function previewRockThrow(input,specification){return transact(input,(rock,expected)=>outcome(rock,expected,{commandId:specification?.commandId,trajectory:throwPreview(rock,specification)}));}
 export function throwRock(input,specification){return transact(input,(rock,expected)=>{
