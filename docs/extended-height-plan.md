@@ -1,6 +1,6 @@
 # Extended height and floor navigation plan
 
-Proposed addition to the [modular engine blueprint](engine-blueprint.md), 29 October 2026. Reviewed baseline: Nautilus 0.7.0, main `d9dc5f9cdc298209f83517e76c3c0db5ff409596`. This is a design and implementation plan; it does not raise current limits or advertise a new capability.
+Approved addition to the [modular engine blueprint](engine-blueprint.md), 29 October 2026. Original reviewed baseline: Nautilus 0.7.0, main `d9dc5f9cdc298209f83517e76c3c0db5ff409596`. The [0.8 foundation checkpoint](modular-foundation.md) adds a separate sparse 32-position world contract and floor controls. Legacy map/block limits remain unchanged; complete game movement, physics and conversion are still later acceptance work.
 
 The engine needs genuinely usable height for the user's fifteen-story models. Show **five floor labels at a time**, with up/down controls, while keeping the data range independent of the visible controls. Support tall buildings as world geometry and connected playable spaces, rather than treating a taller mesh as proof of multi-floor gameplay.
 

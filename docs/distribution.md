@@ -21,3 +21,11 @@ All three games can import listSharedAssets/sharedAsset from ./assets for stable
 These visual assets carry source identities separately from map capability promises. Borrowing a roof mesh does not select fire, collision, navigation, character scaling or game save policy. See docs/adapters/tinderbox.md for the first deliberately bounded map adapter and its real-game conformance proof. Each game adopts a pin as its own reviewed change.
 
 The optional @nautilus-engine/building-assets package exposes listBuildingAssets and buildingAssetURLs from its root. Pass a discovered namespaced building ID; the result contains model, buffer, blueprint and atlas URLs relative to that installed package. Only the 48 original exported buildings belong to this payload; Gross assemblies use the renderer provider. npm run test:assets installs the real tarball and resolves all of these resources. Source notices and complete original third-party licenses accompany the applicable runtime distributions.
+
+## Optional composition, worlds and floor views
+
+The headless core also exports `./runtime`, `./world`, `./floors` and `./adapters/farmyard/rules`. Their static dependency closure contains no editor, DOM view, Three or internal scheduling. The compatibility package additionally exports `./floors/ui` and `./floors/style.css`; include that stylesheet explicitly. The headless profile excludes both browser subpaths and their files. No new mandatory renderer package is introduced for navigation data.
+
+Installed-package checks compare all six actual Farmyard quickplay profiles and fourteen weapon blends against byte-preserved pinned source copied only into the isolated test consumer. They also compose a stat module over retained host actors, verify teardown ownership, serialize/query an upper floor, navigate real floor IDs and reject the browser-view subpath from the headless package. Test source, proposed actor/height binding inventories and browser examples stay outside runtime tarballs.
+
+Build-time dependency enumeration parses actual module references rather than matching the word 'from' inside ordinary data strings. No application module executes to discover its distribution closure. Source inventories and byte hashes remain explicit.

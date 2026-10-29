@@ -19,7 +19,7 @@ jobs:
       - run: npm run test:package
   browser-workflow:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 16
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +32,18 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-browser-workflow
+      - run: npm run review:materials
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-editor-materials
+      - run: npm run review:floors
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-floor-navigation
+      - run: npm run review:world
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-extended-world
       - run: npm run review:rocks
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
@@ -48,4 +60,7 @@ jobs:
             artifacts/engine-integration/
             artifacts/rock-distraction/
             artifacts/character-development/
+            artifacts/floor-navigation/
+            artifacts/extended-world-editor/
+            artifacts/editor-materials/
           if-no-files-found: ignore
