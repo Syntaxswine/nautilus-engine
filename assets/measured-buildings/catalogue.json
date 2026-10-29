@@ -1,0 +1,374 @@
+{
+  "version": 1,
+  "collection": "nautilus-measured-buildings-v1",
+  "baseline": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+  "contract": {
+    "schema": "nautilus-measured-building-art",
+    "version": 1,
+    "metresPerUnit": 1,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "origin": "front-left footprint corner at ground floor datum",
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slabThickness": 0.12,
+    "floorInterval": 2.12,
+    "grid": 0.5,
+    "maxLevels": 6,
+    "maxMapExtent": 240,
+    "status": "Descriptive art assembly; shared editor provider, persistence and game capabilities require separate integration."
+  },
+  "inputs": [
+    {
+      "file": "packages/measured-buildings/designs.js",
+      "sha256": "c52de6c08984a1d1d43df5278931ef2dd213dadda78a8911639b03fce80e4c95"
+    },
+    {
+      "file": "packages/measured-buildings/index.js",
+      "sha256": "49f9b5ebe358abb8eb5c368d56efe8acf0aec722d6a049d5ced211d83778d86a"
+    },
+    {
+      "file": "packages/measured-buildings/geometry.js",
+      "sha256": "a4e23734cada515d7fee8fc2986e5845f2106bce894d1d4e11838afc5e881d59"
+    },
+    {
+      "file": "packages/measured-buildings/mesh.js",
+      "sha256": "0409ad31580b5d7e986ab2b33a60de8268db75b95c91d2325728392f20cce1f5"
+    },
+    {
+      "file": "packages/measured-buildings/parts.js",
+      "sha256": "822ff5a1df183f54ea7572452f879ba357f2d72094e40cd042b28c07e01ca158"
+    },
+    {
+      "file": "packages/measured-buildings/three.js",
+      "sha256": "69af4e09464fbd2afe342d58d04c556deb297e6b426d1deaa2b85ea724a587bb"
+    },
+    {
+      "file": "tools/build-measured-buildings.mjs",
+      "sha256": "fe885c6dcf4d2d9c31c62d4832dca83ddb3531ef2c0b4ac82d7b3955667afabc"
+    },
+    {
+      "file": "tools/export-measured-gltf.mjs",
+      "sha256": "dffb789c93bcf95517c88acc93fdbe733bce3132b270f3b044698a27281ee322"
+    },
+    {
+      "file": "art/measured-buildings/references.json",
+      "sha256": "3261b43470d35e37251821f6f90043bbb0f611a63851ba41a6ae9653f0ca0694"
+    },
+    {
+      "file": "art/measured-buildings/dimensions.json",
+      "sha256": "10033ade05fe0227075883b6a9784b98805e7276032b1fab3765e845d8bbb982"
+    },
+    {
+      "file": "art/measured-buildings/skin-prompts.json",
+      "sha256": "81161bba9fb72e7d96d7b3e89abf1562822018ec5c1f35d4a12fce3b2902aa29"
+    }
+  ],
+  "skins": [
+    {
+      "file": "assets/buildings/painted-materials-v2.png",
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+    },
+    {
+      "file": "assets/measured-buildings/painted-granite-v1.png",
+      "sha256": "629002614a0830cb6b3eaf08dc2ef2c0fb7cfa64c32f6e8d1fc63a3d207a9f87"
+    },
+    {
+      "file": "assets/measured-buildings/painted-roof-felt-v1.png",
+      "sha256": "b0352bd601e39d15e221a874c92b73caf39f63fb495010f6634a1b138aea155d"
+    }
+  ],
+  "buildings": [
+    {
+      "id": "ellis-hospital-two",
+      "name": "Ellis Island Hospital No. 2 — adapted",
+      "sourceId": "ny1600",
+      "levels": 3,
+      "bay": 3,
+      "engineGame": {
+        "triangles": 47144,
+        "draws": 96,
+        "rooms": 52,
+        "windows": 142
+      },
+      "source": {
+        "triangles": 127720,
+        "draws": 96,
+        "rooms": 52,
+        "windows": 142
+      },
+      "reduction": 0.6308800501096148,
+      "interchange": {
+        "triangles": 205160,
+        "draws": 96,
+        "rooms": 52,
+        "windows": 142
+      },
+      "bounds": {
+        "min": [
+          -0.365,
+          -0.12,
+          -0.365
+        ],
+        "max": [
+          48.364999999999995,
+          9.759,
+          30.365000000000002
+        ]
+      },
+      "parts": [
+        "standard-u-stair-v1",
+        "paired-timber-entry-v1",
+        "hospital-sash-v1",
+        "datum-veranda-bay-v1"
+      ],
+      "files": [
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two.gltf",
+          "bytes": 91759,
+          "sha256": "f3a9f711edbbc2723bb553679ad6785710965cf5a4235aa3b0bc142c3a313e8a"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two.bin",
+          "bytes": 14249696,
+          "sha256": "afd5f2c18cbf9cad2144ca8ebd6b0d5a245849f25c565d07da2105a999b15692"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two.blueprint.json",
+          "bytes": 102265,
+          "sha256": "782b80a514343b3ba41b99b874cd55340f38037c659685dcbf69f2bcf4508171"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two.game-mesh.json.gz",
+          "bytes": 399097,
+          "sha256": "0d03cf0836c4c4bfdb7fe7f98f17de39ba24c907feff0562bbc33c672ab3403e"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/ellis-hospital-two.source-mesh.json.gz",
+          "bytes": 1386231,
+          "sha256": "81b5f684f3293fe98c2652109c97662208d4db58d61e8d06a6e06d1db5d58925"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two-level-0.svg",
+          "bytes": 18869,
+          "sha256": "99eab81abe2d5afce73ec66695ff543c66953c8e2eac6f7323f8b9e3dbcb8b66"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two-level-1.svg",
+          "bytes": 17519,
+          "sha256": "c5e5c38501a77340ed27f6ce2a3a7452c972f11b48789e71ba6cc2b50570bd58"
+        },
+        {
+          "file": "assets/measured-buildings/models/ellis-hospital-two-level-2.svg",
+          "bytes": 9947,
+          "sha256": "e1360c78fd78d10ebf1df62adc9cfadd6a90ca0cabbf035f203acab633341c6d"
+        }
+      ]
+    },
+    {
+      "id": "boott-mill-four",
+      "name": "Boott Mill No. 4 — adapted bay range",
+      "sourceId": "ma1289",
+      "levels": 5,
+      "bay": 3,
+      "engineGame": {
+        "triangles": 50412,
+        "draws": 107,
+        "rooms": 18,
+        "windows": 150
+      },
+      "source": {
+        "triangles": 135424,
+        "draws": 107,
+        "rooms": 18,
+        "windows": 150
+      },
+      "reduction": 0.6277469281663516,
+      "interchange": {
+        "triangles": 266150,
+        "draws": 107,
+        "rooms": 18,
+        "windows": 150
+      },
+      "bounds": {
+        "min": [
+          -0.25000000000000006,
+          -0.12,
+          -0.31
+        ],
+        "max": [
+          60.25,
+          11.055000000000001,
+          15.31
+        ]
+      },
+      "parts": [
+        "standard-u-stair-v1",
+        "paired-timber-entry-v1",
+        "mill-tall-window-bay-v1",
+        "industrial-post-beam-bay-v1"
+      ],
+      "files": [
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four.gltf",
+          "bytes": 98504,
+          "sha256": "d5ce23381614da9c446d7edd62c9e071539539b8d2120869f744e073da43362e"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four.bin",
+          "bytes": 18476680,
+          "sha256": "09e34019b5b1730d7190283ebd91c629d06d06f879e7fc8ab782667eda02524f"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four.blueprint.json",
+          "bytes": 93340,
+          "sha256": "6d576afbf78a097c749cc74562451f8f0ce0e3366a908ee91e8135cf7a0259c6"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four.game-mesh.json.gz",
+          "bytes": 475598,
+          "sha256": "90b77387724c11ce8820f321df9f7b58919c0b02dd9c30e912af454bf5a78c23"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/boott-mill-four.source-mesh.json.gz",
+          "bytes": 1470835,
+          "sha256": "f1d7df7cf8185b5cf1698b7119fbb1c21263d8a4e0be2aae4a24275ad2c2553d"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four-level-0.svg",
+          "bytes": 6940,
+          "sha256": "087a440d512f995eb0110cf84baaa2efc68609aa8cee379fdf9ab06c76d38774"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four-level-1.svg",
+          "bytes": 6097,
+          "sha256": "93c3f7a71a7b3dec411ad7179f1acb4bb2ee3408431664de6449a5f394dbbe1e"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four-level-2.svg",
+          "bytes": 6557,
+          "sha256": "6e900454857ae8226f9d8bd3bad240ff059d3916d52f2a9e4eebe97d30dec94a"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four-level-3.svg",
+          "bytes": 6369,
+          "sha256": "4da2c3fac4158864c7f41acc659e87100e961998dd4304a01589f34f7fca5672"
+        },
+        {
+          "file": "assets/measured-buildings/models/boott-mill-four-level-4.svg",
+          "bytes": 6549,
+          "sha256": "77c22dc083212336977bb2d24079c1d4382701b17ebeebc12f3a2544da7162d4"
+        }
+      ]
+    },
+    {
+      "id": "quincy-market-hall",
+      "name": "Quincy Market — adapted hall",
+      "sourceId": "ma0469",
+      "levels": 4,
+      "bay": 3,
+      "engineGame": {
+        "triangles": 94156,
+        "draws": 93,
+        "rooms": 106,
+        "windows": 216
+      },
+      "source": {
+        "triangles": 237196,
+        "draws": 94,
+        "rooms": 106,
+        "windows": 216
+      },
+      "reduction": 0.6030455825561982,
+      "interchange": {
+        "triangles": 410324,
+        "draws": 93,
+        "rooms": 106,
+        "windows": 216
+      },
+      "bounds": {
+        "min": [
+          -3.265,
+          -0.12,
+          -0.31
+        ],
+        "max": [
+          156.265,
+          13.030000000000001,
+          18.31
+        ]
+      },
+      "parts": [
+        "standard-u-stair-v1",
+        "paired-timber-entry-v1",
+        "rectified-market-window-bay-v1",
+        "market-stall-bay-v1",
+        "doric-column-three-level-v1",
+        "long-span-timber-truss-v1"
+      ],
+      "files": [
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall.gltf",
+          "bytes": 88003,
+          "sha256": "1cfbc3124132bf9e9d7f6bc3cca5b37c0d5ab99b874832a392b389ce1c9f5cc7"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall.bin",
+          "bytes": 28348016,
+          "sha256": "3db66401df8512ceb0ee9e7e5f053c80e7c30183adf8de7989909c4929b37b4e"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall.blueprint.json",
+          "bytes": 316894,
+          "sha256": "29dc146863ddc950885f1c15f3044f37ab7231242024fe3712ea5049aee6c613"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall.game-mesh.json.gz",
+          "bytes": 1289332,
+          "sha256": "0b94adfbc91025391f51fc55fd1f2e16e7ac693220034b76847b811669105103"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/quincy-market-hall.source-mesh.json.gz",
+          "bytes": 3884334,
+          "sha256": "14a847b1b2783d3632f78af0a3ea410902e3327e125d13a5647f32d707dd5b43"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall-level-0.svg",
+          "bytes": 61909,
+          "sha256": "2e362a8703a4167a2615fd802089c63eda365448184ac104c4be9a653cba7d40"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall-level-1.svg",
+          "bytes": 49697,
+          "sha256": "f971b0293ba2e5fe729865713c70d543c1d9f01ccdefdcc5fbdbf207c4b2157e"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall-level-2.svg",
+          "bytes": 13832,
+          "sha256": "2f0b2299a08fc5fe5b7f2a5a229a63993e627c75c5a5ad5b1173ebcc4052c563"
+        },
+        {
+          "file": "assets/measured-buildings/models/quincy-market-hall-level-3.svg",
+          "bytes": 3730,
+          "sha256": "589181319e4456b10016abdfd93f5f4a5a0476bf84b8f28bc27ec7ff9eaca33e"
+        }
+      ]
+    }
+  ],
+  "partsManifest": {
+    "file": "assets/measured-buildings/parts.json",
+    "sha256": "a6320354caef213bc9e6a3a5994d7d2164a56a6488bfbebf07f067e4a99d398e"
+  }
+}

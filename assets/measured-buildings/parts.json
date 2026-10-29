@@ -1,0 +1,990 @@
+{
+  "version": 1,
+  "collection": "nautilus-measured-parts-v1",
+  "contract": {
+    "schema": "nautilus-measured-building-art",
+    "version": 1,
+    "metresPerUnit": 1,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "origin": "front-left footprint corner at ground floor datum",
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slabThickness": 0.12,
+    "floorInterval": 2.12,
+    "grid": 0.5,
+    "maxLevels": 6,
+    "maxMapExtent": 240,
+    "status": "Descriptive art assembly; shared editor provider, persistence and game capabilities require separate integration."
+  },
+  "origin": "Each part states its own origin. Complete bounds may extend past nominal modules. Attachments are native render coordinates [x,height,y].",
+  "parts": [
+    {
+      "id": "standard-u-stair-v1",
+      "name": "Standard U stair and upper landing",
+      "size": [
+        3,
+        5
+      ],
+      "levels": 2,
+      "source": {
+        "triangles": 1132,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "attachments": {
+        "lower": [
+          2.35,
+          0,
+          4
+        ],
+        "upper": [
+          0.65,
+          2.12,
+          4
+        ]
+      },
+      "notes": "14 risers, 1.3 m flights, 2.8 m run, 1.2 m return landing; real 3 x 4 m upper slab hole. Intermediate return is part of the stair, not another floor datum.",
+      "origin": "Front-left of the nominal repeat module at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          -0.020000000000000018,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.0200000000000005,
+          3.003380662131023,
+          5
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          -0.020000000000000018,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.0200000000000005,
+          3.003380662131023,
+          5
+        ]
+      },
+      "engineGame": {
+        "triangles": 684,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 2438,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/standard-u-stair-v1.gltf",
+          "bytes": 10743,
+          "sha256": "71c649aa9d55dd8f4ca626053ca90efce8808c432b2999c97c1487dbaaad998f"
+        },
+        {
+          "file": "assets/measured-buildings/parts/standard-u-stair-v1.bin",
+          "bytes": 159656,
+          "sha256": "d84635eb2fde9d1c7a0792240ded109f0491829e7acde360ac09d667fed5a8d8"
+        },
+        {
+          "file": "assets/measured-buildings/parts/standard-u-stair-v1.blueprint.json",
+          "bytes": 1023,
+          "sha256": "1456e62e930e43181660dd3f26c632ce28e02d986f01c6e0ac61bc46e099e86c"
+        },
+        {
+          "file": "assets/measured-buildings/parts/standard-u-stair-v1.game-mesh.json.gz",
+          "bytes": 10797,
+          "sha256": "e6a5605d46a5147af644e11791a1d8f75502a21a0c38e71315dc7b9720a51e41"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/standard-u-stair-v1.source-mesh.json.gz",
+          "bytes": 25763,
+          "sha256": "132f9bdc290e30be337581a732a4b227cf01744bc919220a790a3d955347f0d1"
+        }
+      ]
+    },
+    {
+      "id": "paired-timber-entry-v1",
+      "name": "Paired timber entry bay",
+      "size": [
+        3,
+        0.18
+      ],
+      "levels": 1,
+      "source": {
+        "triangles": 684,
+        "draws": 10,
+        "rooms": 0,
+        "windows": 0
+      },
+      "attachments": {
+        "roughOpening": [
+          0.5,
+          0,
+          0
+        ],
+        "leftPivot": [
+          0.565,
+          0.009,
+          0
+        ],
+        "rightPivot": [
+          2.435,
+          0.009,
+          0
+        ]
+      },
+      "notes": "2 x 1.85 m rough opening including .065 m jamb/head; .008 m meeting gap; .045 m leaves with two outer pivots and opposite outward swings.",
+      "origin": "Left wall-bay endpoint on wall centreline at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.31
+        ],
+        "max": [
+          3,
+          2.12,
+          0.09
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          0,
+          0,
+          -0.31
+        ],
+        "max": [
+          3,
+          2.12,
+          0.09
+        ]
+      },
+      "engineGame": {
+        "triangles": 300,
+        "draws": 10,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 832,
+        "draws": 10,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/paired-timber-entry-v1.gltf",
+          "bytes": 12672,
+          "sha256": "3e84580650004f7d2adda98945d53018bfe339288de0333dde411d0f5537a797"
+        },
+        {
+          "file": "assets/measured-buildings/parts/paired-timber-entry-v1.bin",
+          "bytes": 57728,
+          "sha256": "c6bdc0318f8dec8fa9b64510648cc7fbc9120acc788a8a0173544abb93a07624"
+        },
+        {
+          "file": "assets/measured-buildings/parts/paired-timber-entry-v1.blueprint.json",
+          "bytes": 1003,
+          "sha256": "411b3faefd5d57fa1dfbf48c411d81dd3f1343a1d1a69e6980191f062cd578b8"
+        },
+        {
+          "file": "assets/measured-buildings/parts/paired-timber-entry-v1.game-mesh.json.gz",
+          "bytes": 4137,
+          "sha256": "89305616da3e63b15e2d5a77d5b8d76d4091204baf51a4010de69dedc9e9decc"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/paired-timber-entry-v1.source-mesh.json.gz",
+          "bytes": 12458,
+          "sha256": "458f01bb12717f62655094053bb6b96649f1f7725d410513ee19ef12eba9b3ea"
+        }
+      ]
+    },
+    {
+      "id": "hospital-sash-v1",
+      "name": "Hospital window and wall bay",
+      "size": [
+        3,
+        0.24
+      ],
+      "levels": 1,
+      "source": {
+        "triangles": 600,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 1
+      },
+      "attachments": {
+        "datum": [
+          0,
+          0,
+          0
+        ],
+        "sill": [
+          1.5,
+          0.55,
+          0
+        ]
+      },
+      "notes": "3 m bay; 1 x 1.15 m aperture, 2 x 2 panes and stone keystone vocabulary. Historic arches rectified.",
+      "origin": "Left wall-bay endpoint on wall centreline at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.26
+        ],
+        "max": [
+          3,
+          2.12,
+          0.12
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          0,
+          0,
+          -0.26
+        ],
+        "max": [
+          3,
+          2.12,
+          0.12
+        ]
+      },
+      "engineGame": {
+        "triangles": 224,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 1
+      },
+      "interchange": {
+        "triangles": 760,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 1
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/hospital-sash-v1.gltf",
+          "bytes": 9347,
+          "sha256": "9371dffff2e731984e60b79d4b33921e961bf47c5e67f1ff9903cef1fbcc42a5"
+        },
+        {
+          "file": "assets/measured-buildings/parts/hospital-sash-v1.bin",
+          "bytes": 55968,
+          "sha256": "31fac95873a12fd93d0cc6939bb1fb66eb5e552bc1cfcba82636199d35dae405"
+        },
+        {
+          "file": "assets/measured-buildings/parts/hospital-sash-v1.blueprint.json",
+          "bytes": 888,
+          "sha256": "0c73fe49a66f3b16d417978f7206fcdd3f092db5f714ca6d23feebb7cb7a3dfc"
+        },
+        {
+          "file": "assets/measured-buildings/parts/hospital-sash-v1.game-mesh.json.gz",
+          "bytes": 3019,
+          "sha256": "f4d2103fd57e347ad9aeb33b3f2162b3c87233a2d2e312b5bf2d8e63c9297263"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/hospital-sash-v1.source-mesh.json.gz",
+          "bytes": 7775,
+          "sha256": "b1a2eea74ba1215ac1b12fab0b8a9328ec10a691e3b581a6317896c83e3be9a1"
+        }
+      ]
+    },
+    {
+      "id": "mill-tall-window-bay-v1",
+      "name": "Two-level mill window bay",
+      "size": [
+        3,
+        0.24
+      ],
+      "levels": 2,
+      "source": {
+        "triangles": 780,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "attachments": {
+        "datum": [
+          0,
+          0,
+          0
+        ],
+        "upperDatum": [
+          0,
+          2.12,
+          0
+        ],
+        "sill": [
+          1.5,
+          0.5,
+          0
+        ]
+      },
+      "notes": "1.5 x 3.4 m 16/16-inspired aperture crosses two native panels and the datum band; no intermediate slab.",
+      "origin": "Left wall-bay endpoint on wall centreline at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          3,
+          4.24,
+          0.12
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          3,
+          4.24,
+          0.12
+        ]
+      },
+      "engineGame": {
+        "triangles": 340,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "interchange": {
+        "triangles": 1652,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/mill-tall-window-bay-v1.gltf",
+          "bytes": 12734,
+          "sha256": "c2a6c3eb79a213118871b08f612a0dfc7ecbdc7bad1a1ea9f523d0c575223ef2"
+        },
+        {
+          "file": "assets/measured-buildings/parts/mill-tall-window-bay-v1.bin",
+          "bytes": 116080,
+          "sha256": "e255694355973cda765ef351b703738ce8de64fcdb609e59486ffe55a4258c32"
+        },
+        {
+          "file": "assets/measured-buildings/parts/mill-tall-window-bay-v1.blueprint.json",
+          "bytes": 912,
+          "sha256": "c568fb7c3d566ce50d44ca705050ec9c61f14a20d462f5db334bf21ca3776e77"
+        },
+        {
+          "file": "assets/measured-buildings/parts/mill-tall-window-bay-v1.game-mesh.json.gz",
+          "bytes": 3980,
+          "sha256": "5dbc420bf8600772a5cf0038fc061c545ca7e9e2727bc2810183163c98bb0f88"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/mill-tall-window-bay-v1.source-mesh.json.gz",
+          "bytes": 8902,
+          "sha256": "d753bb4779d19a5fd10ce8a45be359b0c96d0eb81a62574295834fa2cdb6e31b"
+        }
+      ]
+    },
+    {
+      "id": "rectified-market-window-bay-v1",
+      "name": "Rectified market sash bay",
+      "size": [
+        3,
+        0.24
+      ],
+      "levels": 2,
+      "source": {
+        "triangles": 684,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "attachments": {
+        "datum": [
+          0,
+          0,
+          0
+        ],
+        "upperDatum": [
+          0,
+          2.12,
+          0
+        ]
+      },
+      "notes": "3 m granite bay; 1.5 x 3.4 m rectangular aperture with 4 x 4 panes. Historic fanlight shape is not reproduced.",
+      "origin": "Left wall-bay endpoint on wall centreline at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          3,
+          4.24,
+          0.12
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          3,
+          4.24,
+          0.12
+        ]
+      },
+      "engineGame": {
+        "triangles": 292,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "interchange": {
+        "triangles": 1188,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 1
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/rectified-market-window-bay-v1.gltf",
+          "bytes": 12751,
+          "sha256": "a736e4730e4f1e6bd33cf3d2b892855c2736d67f8bf1c26f29026a57fab31197"
+        },
+        {
+          "file": "assets/measured-buildings/parts/rectified-market-window-bay-v1.bin",
+          "bytes": 83952,
+          "sha256": "9a069c9151be02cf56f22ff0428db6a366d298bb2459a2dc4f978c343fc11759"
+        },
+        {
+          "file": "assets/measured-buildings/parts/rectified-market-window-bay-v1.blueprint.json",
+          "bytes": 930,
+          "sha256": "ce18919acc0af10a671091451caa494647cd6777488ce88852beeef4f655e54d"
+        },
+        {
+          "file": "assets/measured-buildings/parts/rectified-market-window-bay-v1.game-mesh.json.gz",
+          "bytes": 3664,
+          "sha256": "c8f70fb91b57b8db005963662925c44bdf1fe5d50479951b9c0f136b8b65cfcb"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/rectified-market-window-bay-v1.source-mesh.json.gz",
+          "bytes": 8353,
+          "sha256": "f76d9422b24b848135c1097d7d73aa4e428e3be4cce5172abd16739fb9f4cce1"
+        }
+      ]
+    },
+    {
+      "id": "datum-veranda-bay-v1",
+      "name": "Two-level veranda bay",
+      "size": [
+        3,
+        3
+      ],
+      "levels": 2,
+      "source": {
+        "triangles": 1124,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "attachments": {
+        "ground": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          0,
+          2.12,
+          0
+        ],
+        "beamTop": [
+          0,
+          4.24,
+          0
+        ]
+      },
+      "notes": "3 m repeat, native slabs, 2 m posts and explicit .12 m caps. Visual rail spacing reduces in game LOD.",
+      "origin": "Front-left of the nominal repeat module at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          -0.11,
+          -0.12,
+          0
+        ],
+        "max": [
+          3.11,
+          4.239999999999999,
+          3.03
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          -0.11,
+          -0.12,
+          0
+        ],
+        "max": [
+          3.11,
+          4.239999999999999,
+          3.03
+        ]
+      },
+      "engineGame": {
+        "triangles": 228,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 812,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/datum-veranda-bay-v1.gltf",
+          "bytes": 10028,
+          "sha256": "b89ed63f1421d031aef70d011ed1b9f38f26ed062d1394b29c5432227bdcd274"
+        },
+        {
+          "file": "assets/measured-buildings/parts/datum-veranda-bay-v1.bin",
+          "bytes": 54032,
+          "sha256": "ab8600ee59b4d40252455587c0d04323e7ceb6e3ab30e174b2c9f3a44db9c480"
+        },
+        {
+          "file": "assets/measured-buildings/parts/datum-veranda-bay-v1.blueprint.json",
+          "bytes": 939,
+          "sha256": "b02d746e9b7fc8afd29c6f38fa5cfd6f31f930a545876facb68672b139df2ce1"
+        },
+        {
+          "file": "assets/measured-buildings/parts/datum-veranda-bay-v1.game-mesh.json.gz",
+          "bytes": 3366,
+          "sha256": "2bb823762b3c562ae8d2c69765862b78a3ba1ddb7f7a8c16e94ab4b76079dde3"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/datum-veranda-bay-v1.source-mesh.json.gz",
+          "bytes": 26258,
+          "sha256": "6111713345b41c48f9a86183c63585846544d1db6138cb3abba73601e59a5842"
+        }
+      ]
+    },
+    {
+      "id": "industrial-post-beam-bay-v1",
+      "name": "Industrial post / transverse beam bay",
+      "size": [
+        6,
+        15
+      ],
+      "levels": 2,
+      "source": {
+        "triangles": 308,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "repeatPitch": [
+        6,
+        0,
+        0
+      ],
+      "attachments": {
+        "base": [
+          3,
+          0,
+          7.5
+        ],
+        "slabUnderside": [
+          3,
+          4.12,
+          7.5
+        ]
+      },
+      "notes": ".17 m cast-iron post, .3 m timber beam section, one central post row. Six-metre repetition pitch is a placement convention, not rendered column width.",
+      "origin": "Front-left of the nominal repeat module at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          2.75,
+          0,
+          0
+        ],
+        "max": [
+          3.25,
+          4.12,
+          15
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          2.75,
+          0,
+          0
+        ],
+        "max": [
+          3.25,
+          4.12,
+          15
+        ]
+      },
+      "engineGame": {
+        "triangles": 92,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 708,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/industrial-post-beam-bay-v1.gltf",
+          "bytes": 6129,
+          "sha256": "c187a058c7248c88aeefa181e92a5dc8c6a5aa26c700ef9f0d16628e6d96f9db"
+        },
+        {
+          "file": "assets/measured-buildings/parts/industrial-post-beam-bay-v1.bin",
+          "bytes": 45744,
+          "sha256": "6976e82c06da914b2c3095fcfa8b6e365e2e510128b4627d4fd7d9acd313d638"
+        },
+        {
+          "file": "assets/measured-buildings/parts/industrial-post-beam-bay-v1.blueprint.json",
+          "bytes": 981,
+          "sha256": "e661f95bfec4378ccf2e327a21222b90583f6cafb2e116dc824843b71218e8e3"
+        },
+        {
+          "file": "assets/measured-buildings/parts/industrial-post-beam-bay-v1.game-mesh.json.gz",
+          "bytes": 2480,
+          "sha256": "bf3b2b8db2193296de0b647eb12ef17f9459a5af94714a8f09c9136eb70a71cb"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/industrial-post-beam-bay-v1.source-mesh.json.gz",
+          "bytes": 8769,
+          "sha256": "e3a3904aec427c23aa83572b9042f5a3d42f79bc23332422e04d94da6699ce5a"
+        }
+      ]
+    },
+    {
+      "id": "market-stall-bay-v1",
+      "name": "Market counter / display insert",
+      "size": [
+        3,
+        0.75
+      ],
+      "levels": 1,
+      "source": {
+        "triangles": 148,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "repeatPitch": [
+        3,
+        0,
+        0
+      ],
+      "attachments": {
+        "stallFront": [
+          0,
+          0,
+          0
+        ],
+        "clearAccess": [
+          2.4,
+          0,
+          0
+        ]
+      },
+      "notes": "Counter insert within a 3 m open-front stall; conservative 1.05 m side gap. Room partitions/front framing come from the building blueprint.",
+      "origin": "Front-left of the nominal repeat module at floor datum [0,0,0]",
+      "bounds": {
+        "min": [
+          0.07499999999999996,
+          0,
+          -5.551115123125783e-17
+        ],
+        "max": [
+          1.875,
+          0.8400000000000001,
+          0.75
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          0.07499999999999996,
+          0,
+          -5.551115123125783e-17
+        ],
+        "max": [
+          1.875,
+          0.8400000000000001,
+          0.75
+        ]
+      },
+      "engineGame": {
+        "triangles": 36,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 84,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/market-stall-bay-v1.gltf",
+          "bytes": 5227,
+          "sha256": "f133d36fdd3c0b57b0ead9ea36744af0971ec7f022ca3dffd9ee9f2675ae3347"
+        },
+        {
+          "file": "assets/measured-buildings/parts/market-stall-bay-v1.bin",
+          "bytes": 5616,
+          "sha256": "6b7050642850513c84d87ec1376d6b964aa0240eb5642afed14c50f796d414fa"
+        },
+        {
+          "file": "assets/measured-buildings/parts/market-stall-bay-v1.blueprint.json",
+          "bytes": 1031,
+          "sha256": "ae28601de152f4a7cc8e3661e016c13458f8fa030a2fc61f214691075e42ef3a"
+        },
+        {
+          "file": "assets/measured-buildings/parts/market-stall-bay-v1.game-mesh.json.gz",
+          "bytes": 1600,
+          "sha256": "f6b04202d691db36ed8b06df51aefe8bac645c74a87b70d995cc8488ae1765a0"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/market-stall-bay-v1.source-mesh.json.gz",
+          "bytes": 4511,
+          "sha256": "cbb27bde0ed380540943569b397b0e5c117829e0f89de20eac77f144ba6f7f5a"
+        }
+      ]
+    },
+    {
+      "id": "doric-column-three-level-v1",
+      "name": "Three-level Doric portico column",
+      "size": [
+        0.936,
+        0.936
+      ],
+      "levels": 3,
+      "source": {
+        "triangles": 448,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "attachments": {
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "capitalTop": [
+          0,
+          6.24,
+          0
+        ],
+        "entablatureDatum": [
+          0,
+          6.36,
+          0
+        ]
+      },
+      "notes": "Three native levels; 32 source sides reduce to 12 game sides. No structural rating.",
+      "origin": "Column axis at ground datum [0,0,0]",
+      "bounds": {
+        "min": [
+          -0.46799999999999997,
+          0,
+          -0.46799999999999997
+        ],
+        "max": [
+          0.46799999999999997,
+          6.24,
+          0.46799999999999997
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          -0.46799999999999997,
+          0,
+          -0.46799999999999997
+        ],
+        "max": [
+          0.46799999999999997,
+          6.24,
+          0.46799999999999997
+        ]
+      },
+      "engineGame": {
+        "triangles": 168,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 168,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/doric-column-three-level-v1.gltf",
+          "bytes": 4441,
+          "sha256": "11e88300e727d178c5c4f8e1f64f8deb0c8e11d9a1b255f5737e6cdfcedccca8"
+        },
+        {
+          "file": "assets/measured-buildings/parts/doric-column-three-level-v1.bin",
+          "bytes": 12128,
+          "sha256": "a52584b86d9fb697e9629484014b6b8a88795a21fbdb7cd29e944f83408d80e2"
+        },
+        {
+          "file": "assets/measured-buildings/parts/doric-column-three-level-v1.blueprint.json",
+          "bytes": 962,
+          "sha256": "2ba0e578286a360a1cf5f1949f2a59e572fa0f862500cb7767b503156b9abb88"
+        },
+        {
+          "file": "assets/measured-buildings/parts/doric-column-three-level-v1.game-mesh.json.gz",
+          "bytes": 5888,
+          "sha256": "6797dd6e007c32b0b24a942dea7edd3710f929a9d59b43d4b62559b66acaaa29"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/doric-column-three-level-v1.source-mesh.json.gz",
+          "bytes": 13545,
+          "sha256": "ca6154378b18b3010f60ae4b1db73d0d791d3f774f6e444bf0b00215b542dc43"
+        }
+      ]
+    },
+    {
+      "id": "long-span-timber-truss-v1",
+      "name": "Fourteen-metre timber roof truss",
+      "size": [
+        0.2,
+        14
+      ],
+      "levels": 1,
+      "source": {
+        "triangles": 204,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "attachments": {
+        "leftEaves": [
+          0,
+          0.08,
+          0
+        ],
+        "rightEaves": [
+          0,
+          0.08,
+          14
+        ],
+        "ridge": [
+          0,
+          1.7,
+          7
+        ]
+      },
+      "notes": "Attach relative datum 0 at a standard roof level. The custom 1.7 m rise describes pitch, not a floor interval.",
+      "origin": "Truss centre plane at first eaves datum [0,0,0]; chord begins 0.08 m above datum",
+      "bounds": {
+        "min": [
+          -0.095,
+          -0.015,
+          -0.095
+        ],
+        "max": [
+          0.095,
+          1.795,
+          14.095
+        ]
+      },
+      "sourceBounds": {
+        "min": [
+          -0.095,
+          -0.015,
+          -0.095
+        ],
+        "max": [
+          0.095,
+          1.795,
+          14.095
+        ]
+      },
+      "engineGame": {
+        "triangles": 108,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "interchange": {
+        "triangles": 1176,
+        "draws": 2,
+        "rooms": 0,
+        "windows": 0
+      },
+      "files": [
+        {
+          "file": "assets/measured-buildings/parts/long-span-timber-truss-v1.gltf",
+          "bytes": 5381,
+          "sha256": "3600a40c1dabf4b0d64b3d45e6a7e2d1350bd1e9f700bff81884382f60513c5e"
+        },
+        {
+          "file": "assets/measured-buildings/parts/long-span-timber-truss-v1.bin",
+          "bytes": 76576,
+          "sha256": "3b697b5651d9745f25a6eeb78940995c1bdc80abb1dadd42873102936a2e1a8a"
+        },
+        {
+          "file": "assets/measured-buildings/parts/long-span-timber-truss-v1.blueprint.json",
+          "bytes": 1027,
+          "sha256": "fb34d0746350f2b1fc15495208d7709c33ed5785cddd45afcdd114c41275bae5"
+        },
+        {
+          "file": "assets/measured-buildings/parts/long-span-timber-truss-v1.game-mesh.json.gz",
+          "bytes": 2913,
+          "sha256": "c9b6103f2909e38fa39c080e736cf73bc883245b2e216e86fdb17b16f2734394"
+        },
+        {
+          "file": "art/measured-buildings/sculpts/long-span-timber-truss-v1.source-mesh.json.gz",
+          "bytes": 4909,
+          "sha256": "a32549774a89be8be06611226cbf7ee91ead78185bc72cacffe8d7a2d0c890f9"
+        }
+      ]
+    }
+  ]
+}

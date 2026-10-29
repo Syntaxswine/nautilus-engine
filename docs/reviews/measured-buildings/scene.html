@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nautilus · measured architecture art review</title><link rel="icon" href="data:,">
+<style>*{box-sizing:border-box}body{margin:0;background:#e5e3d5;color:#243a31;font:14px system-ui}header{padding:16px 24px;background:#243a31;color:#f0e8d3;display:flex;gap:20px;align-items:center}h1{font:25px Georgia;margin:0}header p{margin:5px 0 0;color:#c4cebd}select,button{font:inherit;background:#ebe7d8;border:1px solid #91a28e;border-radius:4px;padding:7px;color:#243a31}main{position:relative}canvas{display:block;width:100%;height:900px}#plan{display:none;height:900px;padding:15px}#plan svg{width:100%;height:100%}#stats{position:absolute;left:24px;bottom:14px;background:#eff1e5e8;border:1px solid #acb7a1;padding:10px;max-width:800px}#detail{position:absolute;right:24px;top:15px;background:#eff1e5e8;border:1px solid #bcc5b1;padding:10px;max-width:320px}footer{padding:12px 24px;font-size:12px}#labels{position:absolute;inset:0;pointer-events:none}.label{position:absolute;transform:translate(-50%,-50%);font-size:10px;max-width:135px;background:#eef0e3d9;padding:3px 5px;text-align:center;border:1px solid #a7b4a0}</style>
+<header><div><h1>Measured architecture · original game-scale adaptations</h1><p>Standard 2 m walls · 0.12 m slabs · 2.12 m level datums · scale 1:1</p></div><label>Building <select id="asset"></select></label><label>View <select id="view"><option value="exterior">Painted exterior</option><option value="rear">Rear exterior</option><option value="top">Overhead</option><option value="roof-off">Roof removed</option><option value="cutaway">Floor cutaway</option><option value="plan">Blueprint</option><option value="grey">Grey form</option><option value="wire">Wireframe</option><option value="entry">Public entrance</option><option value="stairs">Stairs and slab holes</option><option value="junction">Roof joins</option><option value="interior">Tall space</option><option value="mixed">Native-scale mixed scene</option></select></label><label>Level <select id="level"></select></label><button id="doors">Open doors</button></header>
+<main><canvas id="stage"></canvas><div id="plan"></div><div id="labels"></div><div id="detail"></div><div id="stats"></div></main><footer>Adapted art assemblies and descriptive plans. Whole-building editor intake and gameplay capabilities are separate integration work.</footer>
+<script type="module">
+import * as T from '../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {MEASURED_RECIPES,compileMeasured,measuredFloorSvg} from '../../../packages/measured-buildings/index.js';
+import {createMeasuredModel} from '../../../packages/measured-buildings/three.js';
+import {createBuildingModel} from '../../../packages/building-catalog/three.js';
+import {MEASURED_PARTS,buildMeasuredPart} from '../../../packages/measured-buildings/parts.js';
+import {loadMeasuredExport} from './load-export.js';
+const canvas=document.querySelector('#stage'),renderer=new T.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;renderer.localClippingEnabled=true;
+const atlas=await new T.TextureLoader().loadAsync('../../../assets/buildings/painted-materials-v2.png'),graniteTexture=await new T.TextureLoader().loadAsync('../../../assets/measured-buildings/painted-granite-v1.png'),roofTexture=await new T.TextureLoader().loadAsync('../../../assets/measured-buildings/painted-roof-felt-v1.png');
+for(const t of[atlas,graniteTexture,roofTexture]){t.colorSpace=T.SRGBColorSpace;t.anisotropy=4;}for(const t of[graniteTexture,roofTexture])t.wrapS=t.wrapT=T.RepeatWrapping;
+const scene=new T.Scene();scene.background=new T.Color(0xe5e3d5);scene.add(new T.HemisphereLight(0xfff6e7,0x607566,1.8));
+const sun=new T.DirectionalLight(0xfff0d4,2.3);sun.position.set(-35,45,-25);scene.add(sun);const fill=new T.DirectionalLight(0xc9d7e0,.7);fill.position.set(30,18,35);scene.add(fill);
+const asset=document.querySelector('#asset'),viewSelect=document.querySelector('#view'),levelSelect=document.querySelector('#level');
+for(const r of MEASURED_RECIPES){const o=document.createElement('option');o.value=r.id;o.textContent=r.name;asset.append(o);}
+const partGroup=document.createElement('optgroup');partGroup.label='Reusable parts';for(const p of MEASURED_PARTS){const o=document.createElement('option');o.value=p.id;o.textContent=p.name;partGroup.append(o);}asset.append(partGroup);
+for(const[value,label]of[['part','Reusable part'],['dome','Rotunda dome'],['portico','Doric portico']]){const o=document.createElement('option');o.value=value;o.textContent=label;viewSelect.append(o);}
+let selected=MEASURED_RECIPES[0].id,view='exterior',level=0,lod='game',opened=false,model,standard,camera,guides;
+function clearExtra(){if(standard){standard.dispose();standard=null;}if(guides){for(const o of guides.children){o.geometry.dispose();o.material.dispose();}scene.remove(guides);guides=null;}}
+function render(){
+ const W=innerWidth,H=900,b=model.building;renderer.setSize(W,H,false);
+ const isPart=b.collection==='nautilus-measured-parts-v1';let az=225,el=31,ppu=isPart?150:30,center=new T.Vector3(b.width/2,model.bounds.max[1]*.4,b.depth/2),extentX=b.width+.8,extentZ=b.depth+.8,extentY=model.bounds.max[1];
+ if(isPart){extentX=model.bounds.max[0]-model.bounds.min[0]+.3;extentZ=model.bounds.max[2]-model.bounds.min[2]+.3;center.set((model.bounds.min[0]+model.bounds.max[0])/2,(model.bounds.min[1]+model.bounds.max[1])/2,(model.bounds.min[2]+model.bounds.max[2])/2);}
+ if(view==='rear')az=45;if(view==='top'){el=90;az=90;center.y=0;}if(['cutaway','stairs'].includes(view)){el=62;center.y=level*2.12+.8;}
+ if(view==='interior'){el=23;az=220;center.y=2.6;}
+ model.setView({roof:!['roof-off','cutaway','stairs','interior'].includes(view),maxLevel:['cutaway','stairs'].includes(view)?level:view==='interior'?(b.id==='boott-mill-four'?1:0):Infinity,cutaway:view==='interior'});
+ if(['cutaway','stairs'].includes(view))for(const child of model.root.children){const l=child.userData.level,k=child.userData.kind,voidContext=b.floors[level].rooms.some(r=>r.omitSlab)&&l===level-1&&['floor','structure'].includes(k); if(l<level&&!(k==='stairs'&&l===level-1)&&!voidContext)child.visible=false;}
+ let close=false;
+ if(view==='entry'){const e=b.recipe.entries[0];center.set(e.point[0],1,e.point[1]);az=e.point[0]===0?180:e.point[0]===b.width?0:270;el=12;ppu=180;close=true;}
+ if(view==='junction'){const r=b.roofs[0];center.set(r.x,r.datum,r.y+r.depth/2);az=225;el=25;ppu=100;close=true;}
+ if(view==='stairs'){const c=b.recipe.cores[0];center.set(c.x+1.5,level*2.12+.3,c.y+2);az=230;el=65;ppu=110;close=true;}
+ if(view==='dome'&&b.id==='quincy-market-hall'){center.set(76.5,8.5,9);az=225;el=23;ppu=50;close=true;}
+ if(view==='portico'&&b.id==='quincy-market-hall'){center.set(-1,3.8,9);az=180;el=12;ppu=75;close=true;}
+ if(view==='mixed'){
+   standard=createBuildingModel(T,'bramble-ranch',{atlas,lod:'game'});standard.root.position.set(b.width+6,0,0);scene.add(standard.root);
+   extentX=b.width+23;extentZ=Math.max(b.depth,12);center.set(extentX/2,extentY*.35,extentZ/2);
+   guides=new T.Group();for(const h of[0,2.12]){const g=new T.BufferGeometry().setFromPoints([new T.Vector3(-1,h,-2),new T.Vector3(extentX,h,-2)]),m=new T.LineBasicMaterial({color:h?0x7e9a85:0x37534c});guides.add(new T.Line(g,m));}scene.add(guides);
+ }
+ const a=az*Math.PI/180,e=el*Math.PI/180;
+ if(!close){const horizontal=Math.abs(Math.sin(a))*extentX+Math.abs(Math.cos(a))*extentZ,vertical=(Math.abs(Math.cos(a))*extentX+Math.abs(Math.sin(a))*extentZ)*Math.abs(Math.sin(e))+extentY*Math.cos(e);ppu=Math.min(ppu,(W-180)/horizontal,(H-160)/vertical);}
+ camera=new T.OrthographicCamera(-W/(2*ppu),W/(2*ppu),H/(2*ppu),-H/(2*ppu),.1,600);camera.position.copy(center).add(new T.Vector3(Math.cos(a)*Math.cos(e),Math.sin(e),Math.sin(a)*Math.cos(e)).multiplyScalar(280));if(view==='top')camera.up.set(0,0,-1);camera.lookAt(center);
+ const clip=['cutaway','stairs'].includes(view)?[new T.Plane(new T.Vector3(0,-1,0),level*2.12+1.1)]:[];
+ for(const m of model.materials.values()){m.clippingPlanes=clip;m.wireframe=view==='wire';m.needsUpdate=true;}
+ renderer.render(scene,camera);
+ document.querySelector('#stats').textContent=`${b.name} · ${b.width} × ${b.depth} m · ${b.levels} standard levels · ${model.data.metrics.rooms} spaces · ${model.data.metrics.windows} windows · ${model.triangles.toLocaleString()} triangles · ${renderer.info.render.calls} visible draws · ${lod}`;
+ document.querySelector('#detail').textContent=view==='mixed'?'Existing Bramble Ranch and the new asset share scale [1,1,1], ground 0 m and datum 2.12 m.':view==='stairs'?`Level ${level} at ${(level*2.12).toFixed(2)} m. U flights return to a real core landing outside the upper slab opening.`:b.sourcePolicy;
+ const labels=document.querySelector('#labels');labels.replaceChildren();if(view==='cutaway')for(const r of b.floors[level].rooms){const p=new T.Vector3(r.x+r.width/2,level*2.12+.5,r.y+r.depth/2).project(camera),label=document.createElement('span');label.className='label';label.style.left=((p.x+1)/2*W)+'px';label.style.top=((-p.y+1)/2*H)+'px';label.textContent=r.name+(r.omitSlab?' · open below':'');labels.append(label);}
+ return {id:b.id,view,level,lod,...model.data.metrics,bounds:model.bounds,visibleDraws:renderer.info.render.calls,renderedTriangles:renderer.info.render.triangles,
+   ...(standard?{standardAsset:'bramble-ranch',modelScale:model.root.scale.toArray(),standardScale:standard.root.scale.toArray(),standardPosition:standard.root.position.toArray()}:{} )};
+}
+function set(options={}){selected=options.id||selected;view=options.view||view;lod=options.lod||lod;level=options.level??level;opened=options.opened??opened;clearExtra();model?.dispose();const isPart=MEASURED_PARTS.some(p=>p.id===selected);if(isPart&&!['grey','wire'].includes(view))view='part';model=createMeasuredModel(T,isPart?buildMeasuredPart(selected,{lod}):selected,{atlas,graniteTexture,roofTexture,lod,grey:['grey','wire'].includes(view)});scene.add(model.root);model.setDoorsOpen(opened);level=Math.min(level,model.building.levels-1);asset.value=selected;viewSelect.value=view;
+ levelSelect.replaceChildren();for(let i=0;i<model.building.levels;i++){const o=document.createElement('option');o.value=i;o.textContent=i+' · '+(i*2.12).toFixed(2)+' m';levelSelect.append(o);}levelSelect.value=level;
+ const plan=view==='plan';canvas.style.display=plan?'none':'block';document.querySelector('#plan').style.display=plan?'block':'none';if(plan)document.querySelector('#plan').innerHTML=measuredFloorSvg(model.building,level);return render();}
+asset.addEventListener('change',()=>set({id:asset.value}));viewSelect.addEventListener('change',()=>set({view:viewSelect.value}));levelSelect.addEventListener('change',()=>set({level:Number(levelSelect.value)}));document.querySelector('#doors').addEventListener('click',()=>set({opened:!opened}));
+window.addEventListener('resize',()=>{clearExtra();render();});set();
+window.measuredReview={ready:true,set,oneEntryLeaf(){model.setDoorsOpen(false);const p=model.pivots.find(p=>p.userData.public&&p.userData.side==='left');if(p)model.setDoorPose(p.name,90);return render();},async interchange(id){clearExtra();model.dispose();const catalogue=await(await fetch('../../../assets/measured-buildings/catalogue.json')).json(),record=catalogue.buildings.find(b=>b.id===id);model=await loadMeasuredExport(T,id,location.href,compileMeasured(id),record);scene.add(model.root);selected=id;view='exterior';lod='glTF readback';asset.value=id;viewSelect.value='exterior';level=0;levelSelect.value=0;return render();},
+ get model(){return model;},renderer,scene,atlas,graniteTexture,dispose(){clearExtra();model.dispose();atlas.dispose();graniteTexture.dispose();roofTexture.dispose();renderer.dispose();}};
+</script></html>

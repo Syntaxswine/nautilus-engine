@@ -1,0 +1,8 @@
+import fs from'node:fs';import os from'node:os';import{performance}from'node:perf_hooks';import{createHash}from'node:crypto';
+import{MEASURED_RECIPES,compileMeasured}from'../../../packages/measured-buildings/index.js';import{buildMeasuredMesh}from'../../../packages/measured-buildings/mesh.js';
+const time=fn=>{const start=performance.now(),value=fn();return{ms:performance.now()-start,value};},records=[];
+for(const r of MEASURED_RECIPES){const samples=[];for(let i=0;i<4;i++){const compile=time(()=>compileMeasured(r)),mesh=time(()=>buildMeasuredMesh(compile.value));samples.push({sample:i,compileMs:compile.ms,meshMs:mesh.ms,triangles:mesh.value.metrics.triangles,draws:mesh.value.metrics.draws});}
+ const median=key=>samples.slice(1).map(s=>s[key]).sort((a,b)=>a-b)[1];records.push({id:r.id,samples,subsequentMedian:{compileMs:median('compileMs'),meshMs:median('meshMs')}});}
+const catalogue=new URL('../../../assets/measured-buildings/catalogue.json',import.meta.url),report={recordedAt:new Date().toISOString(),runtime:process.version,platform:process.platform,arch:process.arch,cpu:os.cpus()[0].model,
+ method:'One initial plus three subsequent sequential compile/compact-mesh builds per asset in one already-imported Node process. No forced GC, browser, GPU, OS isolation, frame timing or cold-process claim. Run after checks/review helpers finish.',catalogueSha256:createHash('sha256').update(fs.readFileSync(catalogue)).digest('hex'),records};
+fs.writeFileSync(new URL('./headless-cost.json',import.meta.url),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(records.map(({id,subsequentMedian})=>({id,...subsequentMedian}))));

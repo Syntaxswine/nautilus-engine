@@ -1,0 +1,47 @@
+{
+  "version":1,
+  "policy":"Source dimensions are converted independently to native grid dimensions. No uniform rescaling or custom floor intervals. Decorative roof pitches and relief remain free dimensions. Metres unless labelled otherwise.",
+  "buildings":[{
+    "id":"ellis-hospital-two",
+    "sheets":["HABS NY-6086-G sheet 6: first floor","sheet 9: second floor","sheet 12: third floor","sheet 16: elevations","sheet 21: section and entrance"],
+    "measures":[
+      {"element":"Overall first-floor width","sheet":6,"sourceImperial":"157 ft 0 5/8 in","sourceMetres":47.870275,"adaptedMetres":48,"method":"16 bays of 3 m; principal width retained closely"},
+      {"element":"West ward clear width","sheet":6,"sourceImperial":"26 ft 11 1/2 in","sourceMetres":8.2169,"adaptedMetres":9,"method":"Three shared 3 m bays, before native thin wall clearances"},
+      {"element":"West ward clear length","sheet":6,"sourceImperial":"56 ft 1 3/4 in","sourceMetres":17.11365,"adaptedMetres":18,"method":"Six shared 3 m window bays"},
+      {"element":"Cross corridor width","sheet":6,"sourceImperial":"approximately 7 ft","sourceMetres":2.1336,"adaptedMetres":2,"method":"Whole-metre circulation strip"},
+      {"element":"First to second floor","sheet":21,"sourceImperial":"14 ft 0 5/8 in","sourceMetres":4.283075,"adaptedMetres":2.12,"method":"Deliberate vertical compression to one standard datum interval; no global building scale"},
+      {"element":"Public paired rough opening","sheet":21,"sourceImperial":"5 ft 8 in clear entrance dimension","sourceMetres":1.7272,"adaptedMetres":2,"method":"2 x 1.85 m rough module including frame; source door is taller and not stretched to fit"}
+    ],
+    "measuredEvidence":["U-shaped two ward arms; open southern court","cross corridor, service rooms and two flanking stairs","central veranda and high central hip; lower wing hips","paired entrance and stone-trimmed brick/sash rhythm"],
+    "adaptedOrInferred":["48 x 30 m native footprint, 3 m repeated bay and 0.5 m room grid","two ward floors plus a central third staff floor, all at 0/2.12/4.24 m","basement and wing attic floor volumes omitted; no basement plinth lift","room rectangles simplified while retaining adjacency and broad source uses","survey includes later Coast Guard barracks/office/clinic labels; not a single-date restoration","rectified sash/entrance heads retain keystone vocabulary; no measured arch reproduction","three independent hip shells abut higher central walls; adjoining administration building omitted and connector ends closed with doors"]
+  },{
+    "id":"boott-mill-four",
+    "sheets":["HAER MA-16 sheet 25: first floor","sheet 27: typical floor 3–6","sheet 28: southwest elevation","sheet 31: 16/16 and 6/6 windows","sheet 33: section B-B","sheets 22–24: adjoining connector context"],
+    "measures":[
+      {"element":"Mill No. 4 bay-range length to northwest side of stair tower","sheet":27,"sourceImperial":"179 ft 6 in","sourceMetres":54.7116,"adaptedMetres":54,"method":"18 window bays of 3 m"},
+      {"element":"Mill No. 4 floor depth","sheet":27,"sourceImperial":"45 ft 6 in","sourceMetres":13.8684,"adaptedMetres":15,"method":"Three coherent structural spans of 5 m, one central post row"},
+      {"element":"Typical industrial floor interval","sheet":33,"sourceImperial":"approximately 10–12 ft; varies by floor","sourceMetresRange":[3.048,3.6576],"adaptedMetres":4.24,"method":"Two standard 2.12 m intervals for each of the lower two work floors, omitting intermediate main slabs"},
+      {"element":"Upper finishing-floor interval","sheet":33,"sourceImperial":"source intervals vary","adaptedMetres":2.12,"method":"One standard interval, rather than exceeding the five-level authored profile"},
+      {"element":"End-core closure","sheet":27,"sourceImperial":"stair tower indicated beyond match line; exact internal plan not reproduced","adaptedPlanMetres":[6,7],"method":"Explicit inferred standalone stair/service closure at the indicated range end"},
+      {"element":"Upper plank beams","sheet":27,"sourceImperial":"12 x 12 in wood beams noted","sourceMetres":[0.3048,0.3048],"adaptedMetres":[0.3,0.3],"method":"Reusable native beam section"},
+      {"element":"Cast-iron post","sheet":33,"sourceImperial":"approximately 4–6 in diameter; varies by level","sourceMetresRange":[0.1016,0.1524],"adaptedMetres":0.17,"method":"Readable game-scale diameter; visual only, no structural rating"}
+    ],
+    "measuredEvidence":["Long open Mill No. 4 floor and repeated window/beam bays","cast-iron column row, timber beams and plank floors","brick envelope, granite sills/lintels, later flat roof/cornice","Mill 4 North, courtyard infill and adjoining mills are distinct source portions"],
+    "adaptedOrInferred":["54 x 15 m main range with 6 x 7 m end core, all in metre/half-metre modules","six surveyed historic floors reduced to three occupied work floors at datums 0, 4.24 and 8.48 m","intermediate main-floor slabs omitted at levels 1 and 3, while the core retains real landings and stair holes at every datum","intermediate core walls remain closed to the factory void, avoiding doors opening into missing floors","tall 1.5 x 3.4 m multipane windows span two standard modules with actual apertures across the datum band","end-core internal rooms, entrances and closed end elevations are authored adaptations; exact tower plan not claimed","Mill 4 North, courtyard infill, original machinery and attached power/canal systems omitted","0.16 m native walls replace the source's much thicker historic masonry; no construction/fire performance inference"]
+  },{
+    "id":"quincy-market-hall",
+    "sheets":["HABS MA-1166 sheet 1: partial west portico/wing elevation","sheets 2/3: separate North/South Market buildings, contextual only","Boston Landmarks Commission report PDF pages 7–11 (printed pages 4–8): dimensions, exterior/interior, later rotunda and inset 1841 plan"],
+    "measures":[
+      {"element":"Overall central market length","sourceImperial":"535 ft","sourceMetres":163.068,"adaptedMetres":159,"method":"153 m enclosed body plus two 3 m porticos; complete trim bounds are measured separately"},
+      {"element":"Wing width","sourceImperial":"50 ft","sourceMetres":15.24,"adaptedMetres":15,"method":"Native 4 m aisle and two 5.5 m stall rows"},
+      {"element":"Central pavilion plan","sourceImperial":"74 1/2 x 55 ft","sourceMetres":[22.7076,16.764],"adaptedMetres":[21,18],"method":"Seven 3 m principal bays; source central facade's five-opening composition simplified"},
+      {"element":"Market aisle","sourceImperial":"12 ft wide, 14 ft high","sourceMetres":[3.6576,4.2672],"adaptedMetres":[4,4.24],"method":"Two standard levels without an intermediate wing slab; columns/counter lips reduce local clear width to approximately 3.7 m"},
+      {"element":"Portico column height","sourceImperial":"21 ft","sourceMetres":6.4008,"adaptedMetres":6.24,"method":"Shaft/base/capital terminate at the underside of the standard level-3 roof interval; entablature top at 6.36 m"},
+      {"element":"Elliptical dome plan","sourceImperial":"70 x 50 ft","sourceMetres":[21.336,15.24],"adaptedMetres":[20.4,15],"method":"Original native elliptical shell; drum attaches at datum 8.48 m, with 0.5 m decorative drum and 2.4 m rise"},
+      {"element":"Facade rhythm","sourceCount":59,"adaptedCount":51,"method":"22 coherent 3 m bays per wing plus seven central bays; no independent room-by-room rounding"},
+      {"element":"Balcony opening","sourceShape":"Later 1970s oval opening, described but no dimensioned floor plan in this HABS set","adaptedPlanMetres":[13,8],"method":"Explicit original rectangular opening with perimeter guards at datum 4.24 m"}
+    ],
+    "measuredEvidence":["HABS sheet 1 shows central market portico/wing exterior only","HABS sheets 2/3 explicitly name Quincy North Market and Quincy South Market; they are not central-hall plans","City report distinguishes 1826 separate Quincy Hall from the later open rotunda/balcony and 1990 northwest/northeast flying stairs","City report documents long aisle, lateral stall rows, paired interior column rows, four-column end porticos, gables and elliptical copper dome","Inset 1841 plan shows the long aisle/stall and separate upper-hall arrangement, but is a small historic reproduction rather than a new measured plan"],
+    "adaptedOrInferred":["Original 88 repeated stalls, counter/display parts and open 3 x 2 m stall fronts; furniture is descriptive and not a traversal policy","Two-level ground market at 0–4.24 m, upper wing galleries at 4.24 m and wing roof datum 6.36 m","Central rotunda retains a level-2 balcony and no level-3 floor, with pavilion roof at 8.48 m","Two native U stair cores retain the report's northwest/northeast broad relationship, without claiming the documented flying-stair geometry","Rectified sash/door heads, native paired rough openings and simplified granite Doric profiles replace taller historic modules","Basement, raised historic plinth, later side canopies and flanking North/South Market buildings omitted","Generic long-span timber trusses and a simple lantern/finial are authored reusable art; no measured structural or cattle-weathervane replica claim","A mixed interpretation of the historic exterior and later public rotunda is declared; no single-date reconstruction is asserted"]
+  }]
+}

@@ -1,0 +1,189 @@
+{
+  "baseline": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+  "catalogueSha256": "65409eacfb0ffe29e60e35d9b32614dda25844fe59cd97127a20c5a1cea1b77b",
+  "partsManifestSha256": "a6320354caef213bc9e6a3a5994d7d2164a56a6488bfbebf07f067e4a99d398e",
+  "acceptance": {
+    "gates": [
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "logSha256": "686d11be5bef808ad0f0d822b931e003ef19b3e391820c21726887b475ff578c"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "a2c3b128b394e5aafd62caa7118c513ed7416885c58a9c4a5f3593845c90b625"
+      },
+      {
+        "command": "npm run test:upstream",
+        "exitCode": 0,
+        "logSha256": "582c7646636138fac0b1f095807525e5f8fdd3b921dac221a258f8ff639d0823"
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "logSha256": "dd9dc15c1fc022bfb098ccb2d433ca17602e8e9583ded360c47831c45c21d4fa"
+      }
+    ],
+    "nautilusTests": 213,
+    "upstreamTests": 32,
+    "assetTestsIncludedInNautilus": 10,
+    "browserViews": 75,
+    "captures": 88,
+    "browserErrors": [],
+    "failedResources": [],
+    "nativeMixedScenes": [
+      {
+        "id": "ellis-hospital-two",
+        "view": "mixed",
+        "level": 0,
+        "lod": "game",
+        "triangles": 47144,
+        "draws": 96,
+        "rooms": 52,
+        "windows": 142,
+        "bounds": {
+          "min": [
+            -0.365,
+            -0.12,
+            -0.365
+          ],
+          "max": [
+            48.364999999999995,
+            9.759,
+            30.365000000000002
+          ]
+        },
+        "visibleDraws": 133,
+        "renderedTriangles": 56508,
+        "standardAsset": "bramble-ranch",
+        "modelScale": [
+          1,
+          1,
+          1
+        ],
+        "standardScale": [
+          1,
+          1,
+          1
+        ],
+        "standardPosition": [
+          54,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "boott-mill-four",
+        "view": "mixed",
+        "level": 0,
+        "lod": "game",
+        "triangles": 50412,
+        "draws": 107,
+        "rooms": 18,
+        "windows": 150,
+        "bounds": {
+          "min": [
+            -0.25000000000000006,
+            -0.12,
+            -0.31
+          ],
+          "max": [
+            60.25,
+            11.055000000000001,
+            15.31
+          ]
+        },
+        "visibleDraws": 144,
+        "renderedTriangles": 59776,
+        "standardAsset": "bramble-ranch",
+        "modelScale": [
+          1,
+          1,
+          1
+        ],
+        "standardScale": [
+          1,
+          1,
+          1
+        ],
+        "standardPosition": [
+          66,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "quincy-market-hall",
+        "view": "mixed",
+        "level": 0,
+        "lod": "game",
+        "triangles": 94156,
+        "draws": 93,
+        "rooms": 106,
+        "windows": 216,
+        "bounds": {
+          "min": [
+            -3.265,
+            -0.12,
+            -0.31
+          ],
+          "max": [
+            156.265,
+            13.030000000000001,
+            18.31
+          ]
+        },
+        "visibleDraws": 130,
+        "renderedTriangles": 103520,
+        "standardAsset": "bramble-ranch",
+        "modelScale": [
+          1,
+          1,
+          1
+        ],
+        "standardScale": [
+          1,
+          1,
+          1
+        ],
+        "standardPosition": [
+          159,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "preservation": {
+    "pinnedSourceFiles": 603,
+    "existingEditorAssets": 344,
+    "originalBuildingHashes": 48,
+    "baselineTrackedFilesChanged": [],
+    "hPlanCommitPreserved": "e5abac574ccf7c9d2cf3839b20f32dc6e09c525e",
+    "nativeMapBlockHandoffs": "Preserved separately; not rewritten",
+    "donorsConsumerPinsPublicSchemasEditorIntake": "Unchanged"
+  },
+  "helperCleanup": {
+    "verifiedReviewLifetimes": 6,
+    "originalProcessesExited": true,
+    "portsReleased": true,
+    "retainedHelpers": [],
+    "stopMethod": "Supported Playwright close and HTTP close in finally; bounded actual expiry",
+    "localReceipts": "artifacts/measured-buildings-review"
+  },
+  "integrationBoundary": {
+    "editorProviderRegistered": false,
+    "gameNavigation": false,
+    "collision": false,
+    "fire": false,
+    "doorPersistence": false
+  },
+  "geometry": {
+    "gameTriangles": 191712,
+    "sourceTriangles": 500340,
+    "sourceGameBoundsMatch": true
+  },
+  "referencePixelsRedistributed": false,
+  "postGateWhitespaceCheck": "Removed one blank line at EOF; asset tests passed and all geometry/blueprint/skin/part bytes stayed identical."
+}
