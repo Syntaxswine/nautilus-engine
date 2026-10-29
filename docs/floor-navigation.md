@@ -70,3 +70,5 @@ The adapter deliberately requires explicit label/height mappings. It neither imp
 ## Verification
 
 Run `node --test tests/floor-navigation.test.mjs` and, after `npm run build`, `node tools/review-floor-navigation.mjs`. The browser runner uses the bounded isolated Edge/Chromium harness, records its exact source commit/build hash and closes its browser/server in finally. Source-only reference review is available with `NAUTILUS_REVIEW_SOURCE=1`; it skips the built editor. The [review](reviews/2026-10-29-floor-navigation.md) distinguishes controller acceptance from world/game integration.
+
+The browser review records native wheel delivery timestamps and resulting state in `artifacts/floor-navigation/wheel-events.json`, even on assertion failure. Native events prove floor/scene/page scope and a later gesture after an observed idle gap. A separate disposable DOM fixture supplies explicit synthetic timestamps for a continuous burst, inertia and the exact 179/180 ms boundary; synthetic and native clocks never share a gate. See [the timing review](reviews/2026-10-29-floor-wheel-review.md) for the earlier automation-gap failure and evidence limits.

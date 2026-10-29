@@ -95,3 +95,20 @@ test('subscriptions and disposal release ownership',()=>{
  controller.select(1);stop();controller.select(2);assert.equal(calls,2);controller.dispose();
  assert.throws(()=>controller.select(3),/disposed/);
 });
+
+test('a long continuous wheel burst stays latched until the adjacent gap reaches 180 ms',()=>{
+ const wheel=createFloorWheel(),controller=make({selectedId:9}),changes=[];
+ const send=(time,deltaY=-400)=>{const step=wheel.step({deltaY,time});if(step){controller.step(step,{source:'wheel'});changes.push(controller.state.selectedId);}return controller.state.selectedId;};
+ for(let time=0;time<=600;time+=5)assert.equal(send(time),10);
+ assert.equal(send(779),10,'A 179 ms adjacent gap must remain in the same gesture.');
+ assert.equal(send(959),11,'A 180 ms adjacent gap must start a new gesture.');
+ for(const [time,delta]of [[960,-220],[965,-60],[990,-15],[1080,-1]])assert.equal(send(time,delta),11);
+ assert.equal(send(1260,400),10);assert.deepEqual(changes,[10,11,10]);
+});
+test('separately awaited native calls can span several gestures according to their delivered times',()=>{
+ const wheel=createFloorWheel(),steps=[];
+ // Representative measured gaps: the first six events form one gesture;
+ // two later events each arrive after more than 180 ms of inactivity.
+ for(const time of [0,140,198.4,219.5,253.3,285.6,518.7,752.5])steps.push(wheel.step({deltaY:-400,time}));
+ assert.deepEqual(steps,[1,0,0,0,0,0,1,1]);
+});
