@@ -1,0 +1,41 @@
+{
+  "sourceCommit": "a92ed7b73eaf9569b4670f516ebf760362ee083d",
+  "baseCommit": "ddfd43cf4b156eeb82b5c27772fe977ec10b0633",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "pinnedSourceFiles": 603,
+      "editorAssets": 344
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 266,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "checkedModulePaths": 369
+    },
+    {
+      "command": "node tools/review-floor-navigation.mjs",
+      "exitCode": 0,
+      "sourceMode": false
+    }
+  ],
+  "integration": {
+    "packageExports": "Root-owned; unchanged",
+    "editorInstallation": "Explicit binding exercised by review; root owns automatic installation",
+    "worldCore": "No worker import or tall-world gameplay claim",
+    "consumerPins": "Unchanged"
+  },
+  "retainedHelpers": []
+}
