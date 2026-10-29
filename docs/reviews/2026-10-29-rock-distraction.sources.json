@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "candidate": "rock-distraction-v1",
+  "reviewedBase": "8e962a233189129b8063001b2ee96a28403d2290",
+  "reviewedDateEastern": "2026-10-29",
+  "source": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+    "path": "dist/tactics/grenade-ballistics.js",
+    "preservedFile": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/grenade-ballistics.js",
+    "bytes": 6969,
+    "sha256": "c6f39cef9fa6f3a501acc4d75e5e7c59a156e974909de4a613ea5e362083b595",
+    "boundedFunction": "grenadeLob(origin,target)",
+    "functionNormalizedLfSha256": "9c067e7f4819ba03962e040201185ccbe3827edcf9b2567a1e569db304f8aa1e"
+  },
+  "adaptation": {
+    "entry": "packages/items-core/index.js",
+    "math": "packages/items-core/lob.js",
+    "retained": ["9.81 m/s^2 gravity", "distance-dependent direct aimed lob rise/velocity/time math", "90 Hz integration interval"],
+    "changed": ["Collision radius .055 m agrees with the first native rock visual; grenade source used .045 m", "Integer clock remainder and absolute fixed-step positions preserve supported frame partition/save replay", "First actual swept contact settles/emits, including low speed; no bounce or fuse endpoint", "Explicit 3D metre range/reach and caller-provided release origin"],
+    "excluded": ["All source imports", "grenadeWorld/sweepGrenade and consumer world geometry", "Rig-specific grenadeOrigin/GRENADE_RELEASE", "Character stats/range/ammo/AP and cast", "Scatter and random streams", "Grenade fuse, blast, damage, detonation and alarm", "Actor/footstep core/engine.js emitNoise, its squad/seen gates, 6 m snap and tactical floor conversion"],
+    "runtimeDependencies": "Only engine-owned items-core modules; no donor, map/rules/manifest, renderer or game runtime imports."
+  },
+  "rightsStatus": "Existing vendor source and its notices remain byte-preserved under the original upstream pin. Per-project/per-file licensing is differing or unspecified; provenance adds no license grant. No new donor snapshot/import or blanket license is introduced.",
+  "designEvaluation": {
+    "accuracy": "Prefer actual swept impact coordinates and native scalar heights to target/timer sounds. Collision chords and no-bounce stop are declared approximations; radius/reach/range/hearing defaults are game tuning, not calibrated acoustics or surveyed throwing behavior.",
+    "efficiency": "Code-based bounds: at most 90 synchronous sweeps per accepted one-second update, at most 64 contacts per sweep and 256 listeners per hearing call. No CPU/GPU or FPS benchmark claimed.",
+    "narrative": "Subjective recommendation for tactical stealth: investigate the actual environmental impact while preserving combat/confirmed-threat priority. No fake player or omniscient chase location is introduced.",
+    "recommendation": "Use the bounded deterministic direct lob and impact cue for the first rock slice. Defer scatter, bounce/fall after contact, calibrated acoustics, damage and broader inventory/AI systems to explicit consumer/future reviews."
+  }
+}
