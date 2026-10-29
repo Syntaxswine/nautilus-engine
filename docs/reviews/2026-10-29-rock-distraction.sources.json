@@ -22,6 +22,19 @@
     "runtimeDependencies": "Only engine-owned items-core modules; no donor, map/rules/manifest, renderer or game runtime imports."
   },
   "rightsStatus": "Existing vendor source and its notices remain byte-preserved under the original upstream pin. Per-project/per-file licensing is differing or unspecified; provenance adds no license grant. No new donor snapshot/import or blanket license is introduced.",
+  "validation": {
+    "workerBase": "8e962a233189129b8063001b2ee96a28403d2290",
+    "focusedRockTests": 29,
+    "fullEngineTests": 232,
+    "pinnedUpstreamTests": 32,
+    "integrityCheck": "pass",
+    "build": "pass; 359 module paths and own/adapted syntax checked, worker version remains 0.5.0",
+    "headlessClosure": "Only packages/items-core modules; sealed Node browser/renderer/RNG/clock execution passes",
+    "replay": "Supported uniform/irregular frame partitions, pending sub-tick state, immediate post-impact and mid-lob sidecars preserve flight/noise",
+    "transactionProof": "Host reference tests prove instance uniqueness, two-actor compare-and-swap, payload-bound command receipts, atomic inventory/action budget and one noise dispatch on replay",
+    "helpers": "No preview/server/browser helper created or retained",
+    "integrationOwner": "Architect: public exports, package/schema/version wiring, installed proof and combined delivery. UI: playable consumer and browser acceptance."
+  },
   "designEvaluation": {
     "accuracy": "Prefer actual swept impact coordinates and native scalar heights to target/timer sounds. Collision chords and no-bounce stop are declared approximations; radius/reach/range/hearing defaults are game tuning, not calibrated acoustics or surveyed throwing behavior.",
     "efficiency": "Code-based bounds: at most 90 full fixed steps and 91 synchronous sweeps per accepted one-second update (one extra residual sweep on first non-support impact), at most 64 contacts per sweep and 256 listeners per hearing call. Total release-to-support time is bounded at 10 seconds. No CPU/GPU or FPS benchmark claimed.",
