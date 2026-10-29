@@ -104,3 +104,9 @@ Use individual public imports directly, or opt into `./runtime` to validate a se
 Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
 
 See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.
+
+## Standard game interactions and title screen
+
+Open /examples/game-starter.html after building for a reusable title flow and a playable gate/stair yard. The interactions entry supplies headless door transactions, live obstruction checks and saved continuous stair travel. The optional game-ui/title entry plus game-ui/style.css supplies start/continue/settings/credits, save checking, confirmation and retry. The headless game-ui entry exposes usage cards linking the shipped guides.
+
+See [asset handoffs](docs/asset-handoffs.md), [door/stair bindings](docs/standard-interactions.md) and [title-screen setup](docs/game-title.md). The reference AABB provider has explicit geometry limits; games adopt their own reviewed providers/pins.

@@ -60,6 +60,8 @@ ruleClosure(path.join(root, 'packages/runtime-core/index.js'));
 ruleClosure(path.join(root, 'packages/world-core/index.js'));
 ruleClosure(path.join(root, 'packages/adapters/farmyard/rules.js'));
 ruleClosure(path.join(root, 'packages/floor-navigation/index.js'));
+ruleClosure(path.join(root, 'packages/interactions/index.js'));
+ruleClosure(path.join(root, 'packages/game-ui/index.js'));
 for (const {filename:file} of moduleReferenceGraph(ruleEntries,{root})) {
   if (!file.startsWith(root + path.sep) || /[\\/]three[.]/.test(file)) throw Error('Rules must be self-contained and renderer-independent.');
   if (tracked && !tracked.has(path.relative(root,file).replaceAll('\\','/'))) throw Error('Rules dependency is not tracked by Git: '+file);

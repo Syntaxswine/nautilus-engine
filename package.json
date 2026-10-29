@@ -30,7 +30,11 @@
     "./adapters/farmyard/rules": "./packages/adapters/farmyard/rules.js",
     "./floors": "./packages/floor-navigation/index.js",
     "./floors/ui": "./packages/floor-navigation/dom.js",
-    "./floors/style.css": "./packages/floor-navigation/style.css"
+    "./floors/style.css": "./packages/floor-navigation/style.css",
+    "./interactions": "./packages/interactions/index.js",
+    "./game-ui": "./packages/game-ui/index.js",
+    "./game-ui/title": "./packages/game-ui/title.js",
+    "./game-ui/style.css": "./packages/game-ui/style.css"
   },
   "files": [
     "CHANGELOG.md",
@@ -38,10 +42,12 @@
     "README.md",
     "assets/buildings/painted-materials-v2.png",
     "docs/adapters/farmyard-rules.md",
+    "docs/asset-handoffs.md",
     "docs/compatibility.md",
     "docs/distribution.md",
     "docs/extended-world-core.md",
     "docs/floor-navigation.md",
+    "docs/game-title.md",
     "docs/modular-foundation.md",
     "docs/progression.md",
     "docs/reviews/2026-10-29-basic-progression.md",
@@ -50,6 +56,7 @@
     "docs/reviews/2026-10-29-rock-distraction.sources.json",
     "docs/rock-distraction.md",
     "docs/runtime-modules.md",
+    "docs/standard-interactions.md",
     "packages/adapters/farmyard/rules.js",
     "packages/adapters/tinderbox/index.js",
     "packages/assets/catalogue.js",
@@ -61,6 +68,13 @@
     "packages/floor-navigation/dom.js",
     "packages/floor-navigation/index.js",
     "packages/floor-navigation/style.css",
+    "packages/game-ui/index.js",
+    "packages/game-ui/style.css",
+    "packages/game-ui/title.js",
+    "packages/interactions/actions.js",
+    "packages/interactions/index.js",
+    "packages/interactions/queries.js",
+    "packages/interactions/state.js",
     "packages/item-visuals/rock.js",
     "packages/items-core/actions.js",
     "packages/items-core/flight.js",
@@ -130,6 +144,7 @@
     "schemas/rock-impact-noise-v1.schema.json",
     "schemas/rock-v1.schema.json",
     "schemas/sloped-roofs-v1.schema.json",
+    "schemas/standard-interactions-v1.schema.json",
     "upstream.json",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
@@ -242,7 +257,9 @@
     "review:progression": "node tools/review-character-development.mjs",
     "review:floors": "node tools/review-floor-navigation.mjs",
     "review:world": "node tools/review-extended-world.mjs",
-    "review:materials": "node tools/review-editor-materials.mjs"
+    "review:materials": "node tools/review-editor-materials.mjs",
+    "review:starter": "node tools/review-game-starter.mjs",
+    "test:game-ui-package": "node tools/distribution.mjs --test-ui"
   },
   "engines": {
     "node": ">=22"

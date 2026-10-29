@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {mountTitleScreen} from '@nautilus-engine/map-core/game-ui/title';
+import {gameAssetGuides} from '@nautilus-engine/map-core/game-ui';
+import {createInteractionState} from '@nautilus-engine/map-core/interactions';
+assert.equal(typeof mountTitleScreen,'function');assert.equal(typeof globalThis.document,'undefined');
+assert.throws(()=>mountTitleScreen(null,{title:'Consumer',onStart(){}}),/container/);
+const style=new URL(import.meta.resolve('@nautilus-engine/map-core/game-ui/style.css'));
+assert.ok(fs.readFileSync(style,'utf8').includes('.nautilus-title'));
+for(const guide of gameAssetGuides())assert.ok(fs.readFileSync(new URL(guide.guide),'utf8').includes('# '));
+assert.equal(createInteractionState({worldId:'installed'}).version,1);
+console.log('Installed compatibility package: optional title module, exported stylesheet, headless interaction entry and all usage-card guide URLs resolve.');

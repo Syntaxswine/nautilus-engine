@@ -111,3 +111,9 @@ The optional [runtime planner](runtime-modules.md) validates explicit module/ser
 The [extended-world contract](extended-world-core.md) is separate from the unchanged portable map/block formats. It owns static authored data and a bounded query snapshot, not live actors or the game loop. Floor identity/elevation/support are explicit, roof roles are local, and empty floors allocate no dense grids. Legacy migration/export currently returns preserving refusal reports rather than a guessed conversion. The [floor controller](floor-navigation.md) observes host-confirmed identities and never changes gameplay truth.
 
 The [Farmyard stat adapter](adapters/farmyard-rules.md) proves a narrow retained-host seam against frozen game source. No consumer pin is changed. [Existing actor/height intake](reviews/actor-height-intake/README.md) remains proposed metadata outside public exports; it records native scale, throw markers and the missing loader/clearance work. The [implementation checkpoint](modular-foundation.md) identifies the broader blueprint work still required.
+
+## Standard game behavior and entry UI
+
+The optional [standard interaction module](standard-interactions.md) adds revision-stamped door actions, explicit permission/occupancy bindings, upright walking and saved continuous stair routes. A reference AABB provider reuses world-core queries; curved worlds supply their own provider. This sidecar leaves portable maps and game character/resource rules unchanged. It does not infer semantics from building meshes.
+
+The separate [title screen](game-title.md) standardizes menu behavior with host-owned saves, settings and scene loading. A headless usage-card export points to both modules and their required bindings. [Asset handoffs](asset-handoffs.md) records what a new game team must decide. The reference yard proves the combination; game adoption and publication remain separate.
