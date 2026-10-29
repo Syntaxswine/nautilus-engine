@@ -6,6 +6,8 @@ The workshop reuses AFT's working editor and Farmyard's painted industrial contr
 
 The [modular engine blueprint](docs/engine-blueprint.md) defines the remaining work for selecting systems individually or composing a new game, with Farmyard Commando as the first production adoption target and separate PC/phone profiles.
 
+[Component usage cards](docs/components/index.md) connect parts to their maintained guides, working examples and builder checklists. The [bear authoring card](docs/components/bear-authoring.md) is proposed: it records the tested baseline/refusal path and the provider/appearance work required before actual bear placement. These guides also ship with the installed distribution profiles; reading them requires no editor or renderer.
+
 ## Run
 
 Node.js 22 or newer. No dependency installation is required.

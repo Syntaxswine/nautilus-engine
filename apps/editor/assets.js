@@ -10,10 +10,13 @@ export function installAssetLibrary() {
   const launch = document.createElement('button'); launch.id = 'nautilus-assets'; launch.textContent = 'Asset library';
   document.querySelector('.nautilus-header nav').prepend(launch);
   const dialog = document.createElement('dialog'); dialog.id = 'asset-library'; dialog.setAttribute('aria-labelledby','asset-library-title');
-  dialog.innerHTML = `<div class="asset-heading"><div><p class="eyebrow">NAUTILUS WORKSHOP</p><h1 id="asset-library-title">Asset library</h1></div><button id="asset-close" aria-label="Close asset library">×</button></div>
+  dialog.innerHTML = `<div class="asset-heading"><div><p class="eyebrow">NAUTILUS WORKSHOP</p><h1 id="asset-library-title">Asset library</h1></div><a id="asset-guides" class="asset-guide-link" target="_blank" rel="noopener" aria-label="Usage guides and builder checklists, opens in a new tab">Usage guides ↗</a><button id="asset-close" aria-label="Close asset library">×</button></div>
     <div class="asset-filters"><label>Find an asset<input id="asset-search" type="search" placeholder="Chair, jungle, brick…"></label><label>Category<select id="asset-category"><option value="">All assets</option></select></label></div>
     <p id="asset-count" role="status"></p><div class="asset-body"><div id="asset-results" aria-label="Asset results"></div><section class="asset-inspector" aria-labelledby="asset-name"><div class="asset-stage"><canvas id="asset-preview" aria-label="Selected asset preview"></canvas><span>1 tile = 1 metre</span></div><div class="asset-turns"><button id="asset-turn" aria-label="Turn preview">↻ Turn view</button><span>Preview only</span></div><h2 id="asset-name"></h2><p id="asset-footprint"></p><div id="asset-appearance" class="asset-filters" hidden><label>Preview weapon<select id="asset-weapon"></select></label><label>Preview outfit<select id="asset-outfit"></select></label></div><p id="asset-note"></p><p id="asset-preview-status" role="status"></p><button id="asset-use">Use this asset</button></section></div>`;
   document.body.append(dialog);
+  // Resolve against the actual workshop URL, preserving a deployed subpath;
+  // the inherited document <base> points into vendor/ and cannot locate guides.
+  $('asset-guides').href=new URL('./docs/components/index.md',window.location.href).href;
   for (const name of ASSET_CATEGORIES) $('asset-category').add(new Option(name,name));
   let selected, scene, view, frame = 0, ticket = 0, loading = false;
   const failures = new Map();

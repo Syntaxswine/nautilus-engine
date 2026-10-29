@@ -28,6 +28,7 @@ function resources() {
       'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file)];
 }
 const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
+  'docs/components/index.md', 'docs/components/bear-authoring.md',
   'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json',
   ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {

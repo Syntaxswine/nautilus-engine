@@ -2,6 +2,8 @@
 
 The editor owns asset discovery, visual consistency, preview and placement bindings. Use the existing pinned assets as the baseline; future asset work enters through reviewed commits and the intake process in [upstream-updates.md](upstream-updates.md).
 
+The library's **Usage guides** link opens the [component guide index](components/index.md). The [bear authoring handoff](components/bear-authoring.md) names actual outfit/equipment, selection/history/save and block fixtures, plus remedies for missing providers/capabilities. Its proposed status does not grant placement support. The index/guide are packaged separately from runtime manifests and require no new guide API.
+
 ## Current library
 
 The Asset library button opens a searchable catalog derived from the same terrain, prop, edge, character-model and foliage registries used by the editor. It currently contains 344 entries: 341 placeable assets and three character models available for preview only. Categories cover terrain, objects, roofs, boundaries, people, foliage, cliffs and ramps. Character previews also expose the current weapon and outfit choices, including the donkey's Hawaiian shirt.

@@ -20,6 +20,8 @@ The immutable source accepts nine species; the renderer registers twelve and the
 
 These questions identify needed seams, not proposed names for shared APIs. The earlier furniture/window and native-height branches are preserved separately.
 
+The [proposed builder handoff](../components/bear-authoring.md), discoverable in the [separate guide index](../components/index.md), applies documentation standard `1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66`. It records current public baseline/refusal code and the exact pending placement/save/block checklist. Once the reviewed `people:bear` descriptor exists, its metadata must link that maintained guide and replace the pending entries with actual public API/schema/capability identities. The guide index does not add fields to executable manifests or enable bear content.
+
 ## Editor work prepared independently
 
 `apps/editor/asset-appearance.js` exposes editor metadata without native controls or a renderer. It derives the thirteen equipment IDs from the existing pinned registry, preserves the two ordinary outfits, hen's unarmed restriction and the donkey's Hawaiian option. Unsupported choices reject. It does not register bear, claim placement support or start resource loads.

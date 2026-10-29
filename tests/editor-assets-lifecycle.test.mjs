@@ -32,7 +32,7 @@ function harness(behaviours = [],options={}) {
   const nav = new Element('nav'), body = new Element('body');
   const document = {body,getElementById:id=>nodes.get(id),createElement:tag=>new Element(tag),querySelector:selector=>{assert.equal(selector,'.nautilus-header nav');return nav;}};
   for(const id of ['foliage-preset','prop-kind','edit-tool','nautilus-options','status']) {const node=new Element(id.endsWith('kind')||id.endsWith('preset')?'select':'div');node.id=id;node.options=[{value:'crate',textContent:'Crate',disabled:false}];nodes.set(id,node);}
-  const blueprint={unchanged:true},window={editor3d:{loading:options.loading??false,document:blueprint},addEventListener:(type,fn)=>windowEvents.set(type,fn)};
+  const blueprint={unchanged:true},window={location:{href:'https://editor.example.test/workshop/index.html'},editor3d:{loading:options.loading??false,document:blueprint},addEventListener:(type,fn)=>windowEvents.set(type,fn)};
   class Observer {constructor(callback){this.callback=callback;observers.push(this);}observe(){}unobserve(){}disconnect(){}}
   class Scene {
     constructor(canvas,changed) {if(constructorError){const error=constructorError;constructorError=null;throw error;}this.canvas=canvas;this.changed=changed;this.diagnostics=[];this.options={};this.scene={};this.disposed=0;this.lost=0;this.renderer={forceContextLoss:()=>this.lost++};scenes.push(this);}
@@ -65,6 +65,7 @@ test('character metadata and equipment are available while the main workshop is 
   const ui=harness([],{assets:[cow],loading:true});
   try {
     await ui.open();assert.equal(ui.nodes.get('asset-library').open,true);assert.equal(ui.nodes.get('asset-name').textContent,cow.name);
+    assert.equal(ui.nodes.get('asset-guides').href,'https://editor.example.test/workshop/docs/components/index.md');
     assert.equal(ui.nodes.get('asset-weapon').options.length,13);assert.equal(ui.nodes.get('asset-outfit').options.length,2);
     assert.equal(ui.nodes.get('asset-weapon').value,'rifle');assert.equal(ui.nodes.get('asset-use').disabled,true);
     assert.match(ui.nodes.get('asset-preview-status').textContent,/placement waits/);
