@@ -32,6 +32,9 @@ const runBridge = new Function('d', `'use strict';const {${[...Object.keys(BRIDG
 //   and the LOOP-th delivery from one write fails the test: an observer that re-triggers itself never
 //   settles, and in the browser the editor freezes.
 const LOOP = 10, pages = new Set();
+// Each test is bounded, so a fault that leaves the test waiting on a promise ends that test as
+// cancelled within 20 s, instead of holding the suite open. A test here takes under 2 s.
+const BOUND = {timeout: 20000};
 test.afterEach(async () => {const open = [...pages]; pages.clear(); for (const ui of open) await ui.settle();});
 async function page() {
   const observers = [], errors = [], installed = [];
@@ -149,7 +152,7 @@ const SEND = 'Send a validated copy; keep the blueprint here.', EXPORT = 'Export
 const EXAMPLE = 'Example yard · edit freely, save a copy, or export JSON.', EDITOR_READY = 'Select a build tool to edit. Right-drag or WASD pans.';
 const SENDING = 'Sending map to the connected game…', SENT = 'Map sent to the connected game. Your blueprint and undo history stay here.';
 
-test('the page bridge installs both libraries and exposes the engine before any host connects', async () => {
+test('the page bridge installs both libraries and exposes the engine before any host connects', BOUND, async () => {
   assert.equal(named.length, imports.length, 'Every import of the bridge is a named import');
   assert.deepEqual(imported.sort(), [...Object.keys(BRIDGE_IMPORTS), ...LIBRARIES].sort(), 'The doubles cover every import of the bridge');
   const ui = await page(), {N} = ui;
@@ -170,7 +173,7 @@ test('the page bridge installs both libraries and exposes the engine before any 
   assert.equal(ui.observers.some(observer => observer.registrations.has(ui.body)), false, 'The bridge stops observing the body once Send exists');
 });
 
-test('the Send buttons follow the connected host, and each refresh sees the new state', async () => {
+test('the Send buttons follow the connected host, and each refresh sees the new state', BOUND, async () => {
   const ui = await page(), {N} = ui, json = featureMap(), buttons = () => [ui.send.disabled, ui.send.title, ui.quick.disabled, ui.quick.title];
   ui.window.editor3d = {document: {block: false, export: () => json}};
   const disconnect = N.connectGame(host({manifest: engineManifest()}).adapter); await ui.settle();
@@ -193,7 +196,7 @@ test('the Send buttons follow the connected host, and each refresh sees the new 
   assert.equal(ui.feedbacks(), 1, 'Every refresh keeps one settings feedback');
 });
 
-test('window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host', async () => {
+test('window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host', BOUND, async () => {
   const ui = await page(), {N} = ui, json = featureMap(), validated = openDocument(json).export();
   const other = JSON.parse(json); other.name = 'Explicit yard'; const otherJson = JSON.stringify(other);
   assert.notEqual(json, validated, 'Precondition: the editor export differs from its validated copy');
@@ -218,7 +221,7 @@ test('window.nautilus.sendToGame sends the current validated export, or the map 
   disconnect(); assert.throws(() => N.sendToGame(otherJson), {message: 'Connect a game adapter first.'}); assert.equal(capable.calls.length, 2);
 });
 
-test('window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure', async () => {
+test('window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure', BOUND, async () => {
   // As in editor-3d.js, the editor's open() resolves only once the scene has loaded.
   const ui = await page(), json = featureMap(), opened = [], loads = [];
   ui.window.editor3d = {open(document) {opened.push(document); return new Promise((resolve, reject) => loads.push({resolve, reject}));}};
@@ -232,10 +235,12 @@ test('window.nautilus.open loads a validated document, waits for the editor to l
   await assert.rejects(ui.N.open('{'), SyntaxError); assert.equal(opened.length, 2, 'Malformed JSON never reaches the editor');
 });
 
-test('the Example yard button announces the yard only after the editor has loaded it', async () => {
+test('the Example yard button announces the yard only after the editor has loaded it', BOUND, async () => {
   // The editor writes its own status when the scene has loaded, so an early announcement would be replaced.
   const ui = await page(), opened = [], loads = [], example = ui.document.getElementById('nautilus-example');
   ui.window.editor3d = {loading: false, document: {changed: false}, open(document) {opened.push(document); return new Promise((resolve, reject) => loads.push({ready() {ui.status.textContent = EDITOR_READY; resolve();}, reject}));}};
+  // Each click is awaited only after its assertions, so a fault that starts a load it should not fails
+  // here instead of waiting on a load that is never released.
   const clicked = example.onclick(); await ui.settle();
   assert.equal(opened.length, 1); assert.equal(opened[0].map.name, exampleYard().name, 'The button opens the example yard');
   assert.notEqual(ui.status.textContent, EXAMPLE, 'The yard is not announced while it loads');
@@ -243,10 +248,10 @@ test('the Example yard button announces the yard only after the editor has loade
   assert.deepEqual([ui.status.textContent, ui.feedback().textContent], [EXAMPLE, EXAMPLE], 'The yard is announced after the editor has loaded it');
   const failing = example.onclick(); loads[1].reject(Error('The yard could not load.')); await failing;
   assert.equal(ui.status.textContent, 'The yard could not load.', 'A load failure is reported, not announced as the yard');
-  ui.window.editor3d.loading = true; await example.onclick();
-  assert.deepEqual([ui.status.textContent, opened.length], ['Wait for the current map to finish loading.', 2], 'A click while a map loads waits');
-  ui.window.editor3d.loading = false; ui.window.editor3d.document.changed = true; ui.answer = false; await example.onclick();
-  assert.deepEqual([ui.confirms.length, opened.length], [1, 2], 'Edited work is replaced only if the user confirms');
+  ui.window.editor3d.loading = true; const waiting = example.onclick(); await ui.settle();
+  assert.deepEqual([ui.status.textContent, opened.length], ['Wait for the current map to finish loading.', 2], 'A click while a map loads waits'); await waiting;
+  ui.window.editor3d.loading = false; ui.window.editor3d.document.changed = true; ui.answer = false; const cancelled = example.onclick(); await ui.settle();
+  assert.deepEqual([ui.confirms.length, opened.length], [1, 2], 'Edited work is replaced only if the user confirms'); await cancelled;
   ui.answer = true; const confirmed = example.onclick(); loads[2].ready(); await confirmed;
   assert.deepEqual([ui.confirms.length, opened.length, ui.status.textContent], [2, 3, EXAMPLE]);
 });
@@ -264,7 +269,7 @@ function deployedSendClick(ui, getDocument) {
   return () => ui.send.onclick();
 }
 
-test('the deployed Send click waits for the connected game and reports its answer', async () => {
+test('the deployed Send click waits for the connected game and reports its answer', BOUND, async () => {
   // build.mjs's once: the needle must be present, and its first occurrence is replaced.
   const once = (text, needle, replacement) => {assert.ok(text.includes(needle), needle); return text.replace(needle, replacement);};
   const tools = adaptWallEditor('/editor-3d-tools.js', await readFile(new URL('editor-3d-tools.js', tactics), 'utf8'), once);
@@ -276,7 +281,8 @@ test('the deployed Send click waits for the connected game and reports its answe
   const sending = click(); await ui.settle();
   assert.equal(answers.length, 1, 'The click reaches the host');
   assert.deepEqual(shown(), [SENDING, SENDING], 'While the host works, the status says the map is being sent');
-  await click(); assert.equal(ui.status.textContent, 'Wait for the current operation to finish.', 'A second click waits for the first'); assert.equal(answers.length, 1);
+  const second = click(); await ui.settle();
+  assert.equal(ui.status.textContent, 'Wait for the current operation to finish.', 'A second click waits for the first'); assert.equal(answers.length, 1); await second;
   answers[0].resolve(); await sending; await ui.settle();
   assert.deepEqual(shown(), [SENT, SENT], 'The status reports the send once the host has answered');
   const refusing = click(); await ui.settle();
@@ -289,7 +295,7 @@ test('the deployed Send click waits for the connected game and reports its answe
   assert.equal(sent.length, 2, 'Neither a block nor a click without a host reaches a game');
 });
 
-test('the page double records writes as the DOM does, and fails an observer that re-triggers itself', async () => {
+test('the page double records writes as the DOM does, and fails an observer that re-triggers itself', BOUND, async () => {
   const ui = await page(), button = ui.document.createElement('button'), seen = [], text = [];
   ui.body.append(button);
   const watch = new ui.MutationObserver(records => seen.push(...records.map(item => item.attributeName)));
