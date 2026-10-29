@@ -1409,7 +1409,7 @@
       "attachments": {},
       "physicalBounds": {
         "min": [
-          -0.04,
+          -3.059169915255505e-32,
           -0.12,
           -0.3
         ],
@@ -1421,7 +1421,7 @@
       },
       "reservedBounds": {
         "min": [
-          -0.04,
+          -3.059169915255505e-32,
           -0.12,
           -0.3
         ],
@@ -2087,7 +2087,7 @@
           -0.24
         ],
         "max": [
-          21.04,
+          21,
           3.3,
           6.1125
         ]
@@ -2099,7 +2099,7 @@
           -0.24
         ],
         "max": [
-          21.04,
+          21,
           3.3,
           6.1145
         ]
@@ -5331,7 +5331,7 @@
         "max": [
           6,
           3.42,
-          1.7
+          1.66
         ]
       },
       "reservedBounds": {
@@ -5343,7 +5343,7 @@
         "max": [
           6,
           3.42,
-          1.7
+          1.66
         ]
       },
       "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
@@ -5452,7 +5452,7 @@
         "max": [
           3,
           3.42,
-          1.7
+          1.66
         ]
       },
       "reservedBounds": {
@@ -5464,7 +5464,7 @@
         "max": [
           3,
           3.42,
-          1.7
+          1.66
         ]
       },
       "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
@@ -5815,7 +5815,7 @@
         "max": [
           6,
           3.42,
-          1.7
+          1.66
         ]
       },
       "reservedBounds": {
@@ -5827,7 +5827,7 @@
         "max": [
           6,
           3.42,
-          1.7
+          1.66
         ]
       },
       "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
@@ -5964,7 +5964,7 @@
       "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
       "nominalFootprint": [
         6,
-        8
+        6
       ],
       "scale": [
         1,
@@ -6021,29 +6021,52 @@
           "minimumClearHeight": 1.8
         }
       ],
-      "attachments": {},
+      "attachments": {
+        "stairOrigin": [
+          0,
+          0,
+          3
+        ],
+        "lower": [
+          4,
+          0,
+          5.35
+        ],
+        "upper": [
+          5,
+          2.12,
+          3
+        ],
+        "flightAxis": "x",
+        "wallAxis": "x",
+        "rise": 2.12,
+        "risers": 14,
+        "flightWidth": 1.3,
+        "run": 2.8,
+        "returnDepth": 1.2
+      },
       "physicalBounds": {
         "min": [
-          -0.04,
+          0,
           -0.12,
           -0.30000000000000004
         ],
         "max": [
-          6.04,
+          6,
           3.42,
-          8
+          6
         ]
       },
       "reservedBounds": {
         "min": [
-          -0.04,
+          0,
           -0.12,
           -0.30000000000000004
         ],
         "max": [
-          6.04,
+          6,
           3.42,
-          8
+          6
         ]
       },
       "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
@@ -6077,15 +6100,15 @@
     },
     {
       "id": "castle-datum-stair",
-      "name": "Stone return stair",
+      "name": "Wall-parallel stone switchback",
       "role": "stair",
       "visualConstruction": "Masonry, ashlar, slate and oak",
       "theme": "castle",
       "sourceModuleId": "frontier-datum-stair",
-      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "origin": "Front-left corner at ground datum; wall joins along local y=0. Rotate the complete 6 × 3 m module with its wall.",
       "nominalFootprint": [
-        3,
-        5
+        6,
+        3
       ],
       "scale": [
         1,
@@ -6101,43 +6124,72 @@
       "interfaces": [],
       "attachments": {
         "lower": [
-          2.35,
+          4,
           0,
-          5
+          2.35
         ],
         "upper": [
-          0.65,
+          5,
           2.12,
-          5
+          0
+        ],
+        "upperExit": [
+          6,
+          2.12,
+          0.65
         ],
         "rise": 2.12,
         "risers": 14,
         "flightWidth": 1.3,
         "run": 2.8,
-        "returnDepth": 1.2
+        "returnDepth": 1.2,
+        "flightAxis": "x",
+        "lowerDirection": [
+          -1,
+          0
+        ],
+        "upperDirection": [
+          1,
+          0
+        ],
+        "turnLanding": {
+          "x": 0,
+          "y": 0,
+          "width": 1.2,
+          "depth": 3,
+          "height": 1.06
+        },
+        "upperLanding": {
+          "x": 4,
+          "y": 0,
+          "width": 2,
+          "depth": 1.3,
+          "height": 2.12
+        },
+        "origin": "Front-left corner at ground datum; wall joins along local y=0. Rotate the complete 6 × 3 m module with its wall."
       },
       "physicalBounds": {
         "min": [
-          -0.04,
+          0,
           -0.12,
-          -4.440892098500626e-16
+          0
         ],
         "max": [
-          3.04,
-          3.05,
-          5
+          6,
+          2.12,
+          3
         ]
       },
       "reservedBounds": {
         "min": [
-          -0.04,
+          0,
           -0.12,
-          -4.440892098500626e-16
+          0
         ],
         "max": [
-          3.04,
-          3.05,
-          5
+          6,
+          2.12,
+          3
         ]
       },
       "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",

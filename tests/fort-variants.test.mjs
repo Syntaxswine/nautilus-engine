@@ -135,6 +135,43 @@ test('stairs retain standard rises, real holes, reachable landings and unblocked
     }
   }
 });
+
+test('castle construction has no railings and uses solid stone flights',()=>{
+  for(const r of specs.filter(r=>r.theme==='castle')){
+    const m=meshes.get(r.id);
+    assert.equal(m.batches.some(b=>['guards','roof-guards'].includes(b.kind)),false,r.id+' retains a railing');
+    for(const batch of m.batches.filter(b=>b.kind==='stairs'))assert.equal(batch.material,'stone',r.id+' stair material');
+  }
+  assert.ok(meshes.get('cyclone-fence-6').batches.some(b=>b.kind==='guards'));
+  assert.ok(meshes.get('cyclone-datum-stair').batches.some(b=>b.kind==='stairs'&&b.material==='iron'));
+});
+
+test('castle rampart switchback rises in opposite directions parallel to its wall, with a solid return and open approach',()=>{
+  const part=meshes.get('castle-datum-stair'),platform=meshes.get('castle-rampart-platform'),step=2.12/14;
+  const below=(m,x,z,height)=>{
+    assert.equal(hit(m.batches,[x,height+.01,z],[0,-1,0],.02),true,'Missing tread at declared height');
+    assert.equal(hit(m.batches,[x,height-.01,z],[0,-1,0],.02),false,'Unexpected suspended tread below surface');
+  };
+  assert.equal(part.building.width,6);assert.equal(part.building.depth,3);
+  for(const[m,z]of[[part,0],[platform,3]]){
+    for(let i=0;i<7;i++){
+      below(m,4-(i+.5)*.4,z+2.35,(i+1)*step);
+      below(m,1.2+(i+.5)*.4,z+.65,(i+8)*step);
+    }
+    for(const side of[.2,1.5,2.8])below(m,.6,z+side,1.06);
+    below(m,5,z+.65,2.12);
+    assert.equal(hit(m.batches,[5,.5,z+2.35],[-1,0,0],.9),false,'Lower approach is obstructed');
+    assert.equal(hit(m.batches,[4.5,1,z+.65],[1,0,0],2),true,'Upper landing has no masonry support');
+    assert.equal(hit(m.batches,[.6,.5,z+1.5],[1,0,0],.7),true,'Half-landing is not solid masonry');
+  }
+  // The top apron opens directly into the platform, with no inherited side rail.
+  for(const x of[4.2,5,5.8]){
+    assert.equal(hit(platform.batches,[x,2.5,2.9],[0,0,1],.3),false,'Wall-walk join is obstructed');
+    below(platform,x,3.1,2.12);
+  }
+  const profile=part.building.recipe.attachments;
+  assert.equal(profile.flightAxis,'x');assert.deepEqual(profile.lowerDirection,[-1,0]);assert.deepEqual(profile.upperDirection,[1,0]);
+});
 test('settled detailed sources reduce with identical bounds, finite geometry and unit normals',()=>{
   for(const r of specs){const g=meshes.get(r.id),s=buildVariantMesh(r.id,{lod:'source'});s.bounds.min.forEach((n,i)=>near(n,g.bounds.min[i]));s.bounds.max.forEach((n,i)=>near(n,g.bounds.max[i]));
     assert.ok(s.metrics.triangles>g.metrics.triangles*1.5,r.id);assert.ok(g.bounds.max[0]-g.bounds.min[0]<240);

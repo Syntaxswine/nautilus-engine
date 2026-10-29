@@ -19,6 +19,20 @@ function make(source,theme,index){
   r.collection=VARIANT_COLLECTION;r.sourceId='original-fort-era-variants';r.period=theme==='castle'?'Original castle aesthetic':'Original modern security compound';
   r.adaptation=r.period+' variant of the fixed frontier kit; authored dimensions and descriptive art only.';
   r.visualConstruction=theme==='castle'?'Masonry, ashlar, slate and oak':'Coated steel, concrete, geometric chain-link and grating';
+  if(theme==='castle'){
+    r.stairConstruction='Solid masonry switchbacks without railings; exterior flights follow the adjacent wall.';
+    if(source.kind==='stair'){
+      r.name='Wall-parallel stone switchback';r.width=6;r.depth=3;
+      r.attachments={lower:[4,0,2.35],upper:[5,2.12,0],upperExit:[6,2.12,.65],rise:2.12,risers:14,
+        flightWidth:1.3,run:2.8,returnDepth:1.2,flightAxis:'x',lowerDirection:[-1,0],upperDirection:[1,0],
+        turnLanding:{x:0,y:0,width:1.2,depth:3,height:1.06},upperLanding:{x:4,y:0,width:2,depth:1.3,height:2.12},
+        origin:'Front-left corner at ground datum; wall joins along local y=0. Rotate the complete 6 × 3 m module with its wall.'};
+    }
+    if(source.kind==='platform'){
+      r.depth=6;r.attachments={stairOrigin:[0,0,3],lower:[4,0,5.35],upper:[5,2.12,3],
+        flightAxis:'x',wallAxis:'x',rise:2.12,risers:14,flightWidth:1.3,run:2.8,returnDepth:1.2};
+    }
+  }
   if(index>=8)return r;
   r.wall=theme==='castle'?'stone':'metal';r.upperWall=theme==='castle'?'stone':'metal';r.roofMaterial=theme==='castle'?'shingle':'metal';
   r.tint={wall:theme==='castle'?[.93,.92,.86]:[.9,.93,.9],wood:[.65,.55,.43],trim:[.6,.6,.57],roof:[.85,.89,.94]};

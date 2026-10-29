@@ -113,17 +113,19 @@ export function stairGeometry(s,{x=0,y=0,base=0,fromLevel=0,material=s.theme==='
       if(i===0)for(const xx of[1.74,2.96])beam(temp,[xx,Y,0],[xx,Y/2,run],.07,.1,'metal');
     }else{
       temp.box([.65,h/2,(i+.5)*run/n],[1.3,h,run/n],material,true);
-      temp.box([2.35,(Y/2+h2)/2,run-(i+.5)*run/n],[1.3,h2-Y/2,run/n],material,true);
+      temp.box([2.35,h2/2,run-(i+.5)*run/n],[1.3,h2,run/n],material,true);
     }
   }
-  temp.box([1.5,Y/2-.06,3.4],[3,.12,1.2],material,true);
-  for(const side of[0,3]){
+  temp.box([1.5,s.theme==='castle'?Y/4:Y/2-.06,3.4],[3,s.theme==='castle'?Y/2:.12,1.2],material,true);
+  if(s.theme==='cyclone')for(const side of[0,3]){
     const a=[side,(side?Y:0)+.86,0],b=[side,Y/2+.86,run];beam(temp,a,b,.05,.05,s.theme==='cyclone'?'iron':'wood');
     for(let i=0;i<=7;i++){const at=i/7*run,h=side?Y-at/run*Y/2:at/run*Y/2;temp.box([side,h+.4,at],[.045,.8,.045],s.theme==='cyclone'?'iron':'wood',true);}
   }appendTransformed(s,[...temp.batches.values()],[x+3,base,y+4],Math.PI);
 }
 
 function rail(s,a,b,base,style='rail',height=.9){
+  // Castle wall walks and stairs have open inner edges, not inherited timber/metal railings.
+  if(s.theme==='castle'&&(style==='rail'||style==='roof-guard'))return;
   const A=[a[0],base,a[1]],B=[b[0],base,b[1]],length=len(sub(B,A));if(length<.02)return;
   const masonry=style==='battlement'||style==='masonry'||style==='solid'&&s.theme==='castle';
   s.channel(style==='roof-guard'?'roof-guards':masonry?'roof-parapet':'guards',Math.round(base/Y));
@@ -139,6 +141,26 @@ function rail(s,a,b,base,style='rail',height=.9){
   for(const h of[height*.45,height])beam(s,add(A,[0,h,0]),add(B,[0,h,0]),.055,.06,material);
   const count=Math.max(1,Math.ceil(length/(s.lod==='source'?.65:1.5)));
   for(let i=0;i<=count;i++){const p=lerp(A,B,(.04+i*(length-.08)/count)/length);s.box(add(p,[0,height/2,0]),[.08,height,.08],material,true);}
+}
+
+function wallParallelStoneStair(s){
+  s.channel('floor',0);unionPrism(s,[{x:0,y:0,width:6,depth:3}],[],0,.12,'stone');
+  s.channel('stairs',0);
+  const step=Y/14;
+  // Lower flight heads west along the wall, returns across a broad stone half-landing,
+  // then climbs east beside it. Every course is founded on the ground.
+  for(let i=0;i<7;i++){
+    const lower=(i+1)*step,upper=(i+8)*step;
+    s.box([4-(i+.5)*.4,lower/2,2.35],[.4,lower,1.3],'stone',true);
+    s.box([1.2+(i+.5)*.4,upper/2,.65],[.4,upper,1.3],'stone',true);
+  }
+  s.box([.6,Y/4,1.5],[1.2,Y/2,3],'stone',true);
+  // A low solid newel fills the space between the flights; no posts or handrail.
+  for(let i=0;i<7;i++){
+    const height=(i+8)*step;
+    s.box([1.2+(i+.5)*.4,height/2,1.5],[.4,height,.4],'stone',true);
+  }
+  s.channel('walkway',1);s.box([5,Y/2,.65],[2,Y,1.3],'stone',true);
 }
 
 function guardedRect(s,r,b=null,style='rail',height=.9){
@@ -241,7 +263,7 @@ function stockade(s,length,{platform=false,opening=null,construction=s.theme}={}
   }else{
     s.channel('curtain',0);
     const intervals=opening?[[0,opening.lo],[opening.hi,length]]:[[0,length]];
-    for(const[a,b]of intervals){s.box([(a+b)/2,1,.75],[b-a,2,1.82],'stone',true);
+    for(const[a,b]of intervals){s.box([(a+b)/2,1,(depth-.16)/2],[b-a,2,depth+.16],'stone',true);
       for(let x=a+.4;x<b-.2;x+=3)s.box([x,1,-.23],[.3,2,.14],'stone',true);}
     battlementLine(s,length);
   }
@@ -357,12 +379,16 @@ export function buildVariantPart(id,{lod='game',uvMode='metres'}={}){
   else if(p.kind==='stockade')stockade(s,p.length);
   else if(p.kind==='corner'||p.kind==='u')corner(s,p.kind==='u');
   else if(p.kind==='platform'){
-    stockade(s,6,{platform:true});const temp=new Surfaces(lod,uvMode,p.theme);stairPart(temp);appendTransformed(s,[...temp.batches.values()],[3.65,0,8],Math.PI);
+    stockade(s,6,{platform:true});const temp=new Surfaces(lod,uvMode,p.theme);
+    if(p.theme==='castle'){wallParallelStoneStair(temp);appendTransformed(s,[...temp.batches.values()],[0,0,3]);}
+    else{stairPart(temp);appendTransformed(s,[...temp.batches.values()],[3.65,0,8],Math.PI);}
   }else if(p.kind==='sally'){
     stockade(s,6,{opening:{lo:1.5,hi:4.5,height:2}});
     const portal={id:id+':rear-gate',level:0,point:[3,0],base:0,width:3,height:2,type:'paired',style:'sally',public:true,direction:[1,0],normal:[0,-1]};
     b.portals.push(portal);leaves.push(...portalGeometry(s,portal));
-  }else if(p.kind==='stair')stairPart(s);
+  }else if(p.kind==='stair'){
+    if(p.theme==='castle')wallParallelStoneStair(s);else stairPart(s);
+  }
   else if(p.kind==='porch')porch(s,{x:0,y:0,width:3,depth:3,pitch:3,levels:[0],repeatable:true});
   else if(p.kind==='post'){s.channel('structure',0);s.box([0,1,0],[p.theme==='castle'?.28:.14,2,p.theme==='castle'?.28:.14],p.theme==='castle'?'stone':'metal',true);s.box([0,2.06,0],[p.theme==='castle'?.4:.28,.12,p.theme==='castle'?.36:.25],p.theme==='castle'?'stone':'metal',true);}
   else if(p.kind==='gate'){

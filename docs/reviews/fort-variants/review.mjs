@@ -14,6 +14,10 @@ await withArtReview('Castle and modern cyclone fort variants: native connections
     await set(id,'gate-exterior',id+'-one-open',{oneLeaf:true});
   }
   for(const id of['castle-corner-tower','cyclone-guard-tower'])await set(id,'cutaway',id+'-access',{level:2});
+  for(const id of['castle-rampart-platform','castle-datum-stair']){
+    for(const view of['stair-detail','stair-top'])await set(id,view);
+    await set(id,'stair-detail',id+'-stair-source',{lod:'source'});
+  }
   await set('cyclone-fence-6','fence-detail');await set('cyclone-fence-6','deck-detail');
   for(const id of['link-castle-to-cyclone','link-cyclone-to-castle'])await set(id,'transition');
   for(const id of['castle-roof-store','cyclone-roof-store'])await set(id,'roof-join');
@@ -41,6 +45,12 @@ await withArtReview('Castle and modern cyclone fort variants: native connections
     {title:'Mixed compound',image:'fort-variants-mixed-exterior'},{title:'Handed masonry / mesh transition',image:'link-castle-to-cyclone-transition'}
   ],'family');
   if(!smoke){
+    await sheet('Castle wall stairs · solid masonry, no railings',[
+      {title:'Switchback along the curtain wall',image:'castle-rampart-platform-stair-detail',caption:'Two flights run parallel to the wall, with a solid return landing.'},
+      {title:'Rampart plan',image:'castle-rampart-platform-stair-top',caption:'The upper apron opens directly onto the original 2.12 m walk datum.'},
+      {title:'Reusable 6 × 3 m stone stair',image:'castle-datum-stair-stair-detail',caption:'Solid stone flights and half-landing; no modern rails or stringers.'},
+      {title:'Opposite flight directions',image:'castle-datum-stair-stair-top',caption:'Climb west, turn across the landing, then climb east beside the wall.'}
+    ],'castle-stair-review');
     for(const id of['castle-gatehouse','cyclone-security-gatehouse'])await sheet(id.startsWith('castle')?'Castle gate · independent leaves':'Security gate · independent mesh leaves',[
       {title:'Closed',image:id+'-gate-swing-closed'},{title:'Open',image:id+'-gate-swing-open'},
       {title:'One leaf open',image:id+'-one-open'},{title:'Standard glTF animation',image:id+'-gltf-gates-1'}

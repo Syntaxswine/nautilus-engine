@@ -18,7 +18,7 @@ const fill=new T.DirectionalLight(0xc8d8df,.8);fill.position.set(35,15,35);scene
 const assets=[...VARIANT_LAYOUTS,...VARIANT_BUILDINGS,...VARIANT_PARTS],asset=document.querySelector('#asset'),views=document.querySelector('#view');
 for(const r of assets){const o=document.createElement('option');o.value=r.id;o.textContent=r.name;asset.append(o);}
 let model,camera,selected=assets[0].id,view='exterior',level=0,lod='game',opened=false,oneLeaf=false,extras=[],active=true;
-for(const name of['roof-join','transition','fence-detail','deck-detail']){const option=document.createElement('option');option.textContent=name;views.append(option);}
+for(const name of['roof-join','transition','fence-detail','deck-detail','stair-detail','stair-top']){const option=document.createElement('option');option.textContent=name;views.append(option);}
 function clearModels(){model?.dispose();for(const extra of extras)extra.dispose();extras=[];}
 function render(){
   if(!active)return;
@@ -27,6 +27,8 @@ function render(){
   let az=225,el=38,ppu=160,close=false;
   if(view==='rear')az=45;if(view==='top'){az=90;el=90;center.y=0;}if(view==='wire')el=45;
   if(view==='access'){az=45;el=49;}
+  if(view==='stair-detail'){az=45;el=38;}
+  if(view==='stair-top'){az=90;el=90;center.y=0;}
   if(view==='cutaway'){az=225;el=65;center.y=level*2.12+.6;}
   if(view.startsWith('gate-')){
     const assembly=!!b.layout,mid=assembly?b.width/2:9,z=assembly?3:0;
