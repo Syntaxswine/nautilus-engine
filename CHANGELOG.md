@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 — 2026-10-29
+
+- Add basic character progression with increasing XP requirements, 15 assignable stat points per level and slower, separate practice gains using the existing 14 stats.
+- Add a strict versioned progression bundle, atomic reward/allocation receipts, pure previews and save/reload preservation of injured or exhausted characters.
+- Add a character-development reference UI with staged allocation, derived-effect previews, banked points and import/export.
+- Keep species/class perks deferred, character-v1 and portable maps unchanged, and all consumer adoption pins unchanged.
+
 ## 0.6.0 — 2026-10-29
 
 - Add a versioned recoverable rock item with staged pickup/throw deltas, deterministic aimed lobs, saved fixed-step flight and one sound cue at the first confirmed impact.

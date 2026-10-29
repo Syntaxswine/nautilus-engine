@@ -51,6 +51,10 @@ The retained formulas are:
 
 `trainCharacter(actor, stat)` spends one skill point for one stat point, stops at 100 and returns a copied character plus an event. Existing aliases shooting/firearms, vitality/strength, mobility/agility and stealth/sneak remain accepted. Training preserves current resources. Level thresholds, XP awards and species bonuses remain game content.
 
+## Basic progression
+
+The optional `./rules/progression` entry supplies [versioned character development](progression.md): increasing XP requirements, 15 assignable points per level, separate practice and copied staged commands with saved receipts. The existing `trainCharacter` and character-v1 contract remain unchanged. Current HP/AP/stamina never refill because of practice, allocation or leveling. Games remain responsible for meaningful eligibility and atomic commits; species/class perks remain deferred.
+
 ## Skill checks and saved attempts
 
 ```js

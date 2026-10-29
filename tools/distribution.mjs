@@ -37,7 +37,7 @@ function resources() {
     ...['gross-housing-v1/clapboard-ivory-v1.png', 'gross-housing-v1/cedar-shingles-v1.png', 'gross-housing-v1/floorboards-oak-v1.png',
       'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file)];
 }
-const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json',
+const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
   ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
@@ -112,7 +112,7 @@ const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compil
 function replay(project){const sim=createSimulation({scenario:project.scenario,seed:project.policy.seed,config:{input:{cameraRelative:false}}});try{sim.dispatch({type:'move',x:1,y:0});let state;for(let tick=0;tick<300;tick++)state=sim.advance(1/60);return state;}finally{sim.dispose();}}
 const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
 assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
-    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') : ''));
+    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') : ''));
     const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
     return {...packed, proof:output.trim()};
   } finally {

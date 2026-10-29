@@ -1,6 +1,6 @@
 # Portable contracts and compatibility
 
-Nautilus 0.6 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
+Nautilus 0.7 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
 
 ## Schemas and persistence
 
@@ -11,6 +11,7 @@ Nautilus 0.6 exposes engine-owned plain-data interfaces. Import public package e
 | nautilus-save | 1 | Optional stamped envelope around an unchanged portable blueprint. |
 | nautilus-rock | 1 | Optional item sidecar; explicit instance/owner/flight state. |
 | nautilus-rock-impact-noise | 1 | First confirmed surface-contact event; host deduplicates delivery. |
+| nautilus-progression | 1 | Optional strict progression bundle containing an unchanged character-v1 and saved reward/allocation receipts. |
 
 The structural schemas live in schemas/. Full geometry/content validation uses loadBlueprint or validateBlueprint; a structural JSON Schema check alone is insufficient. createSave, parseSave and serializeSave add engine/schema stamps and capability requirements without saving editor caches/history. No internal clock, generated time stamp, resource refill or silent damage normalization is introduced. Canonical key ordering makes repeated serialization stable; array order is preserved. The limit is 4,000,000 UTF-8 bytes.
 
@@ -19,6 +20,8 @@ Accepted additive JSON fields survive at their original paths in current-format 
 Legacy map version 1 needs the explicit migrateBlueprint operation. Its reviewed one-way 24/28 by 24 expansion returns a migration receipt. It preserves metadata and rejects other extra legacy fields the inherited conversion cannot retain. Existing low-level parsing helpers keep their historical behavior for compatibility; new consumers should use this explicit persistence facade. Golden block/save fixtures are in tests/fixtures/persistence and are read, reserialized and compared in tests.
 
 Rock sidecars use the strict [item contract](rock-distraction.md), separately from portable map/block saves. `openRock` validates complete state and `serializeRock` writes stable field order; unfamiliar fields, altered physics profiles and future versions reject. No forward migration is inferred. Persist authoritative inventories and command/event ledgers atomically with sidecars. The engine does not refill inventory on load. The shared `nautilus-rock-items-v1` capability identifies the available action contract; a game must implement its world/hearing/inventory bindings before advertising support.
+
+[Progression bundles](progression.md) are separate from map/block saves and declare `nautilus-basic-progression-v1`. The loader rejects unfamiliar versions, fields and unsupported profiles; no guessed migration or resource refill occurs. Changing a curve or practice policy requires a deliberate versioned profile/migration. Reward identity, character changes and the progression revision must commit together.
 
 ## Capability negotiation
 

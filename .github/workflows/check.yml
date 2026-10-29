@@ -36,6 +36,10 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-rock-distraction
+      - run: npm run review:progression
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-character-development
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -43,4 +47,5 @@ jobs:
           path: |
             artifacts/engine-integration/
             artifacts/rock-distraction/
+            artifacts/character-development/
           if-no-files-found: ignore

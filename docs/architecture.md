@@ -40,6 +40,10 @@ The [prefab contract](building-prefabs.md) preserves source assemblies and saved
 
 The [rules contract](rules.md) defines the portable character schema and the boundaries between derived stats, checks, combat decisions, confirmed impacts and consumer scheduling. The [three-game comparison](reviews/2026-10-28-rules-foundation.md) records why each design was selected. Rule modules run without a DOM, renderer, storage or internal clock. They reuse pinned algorithms and return copied state/events; consumers own commit/persistence and world geometry.
 
+## Basic progression boundary
+
+[Character progression](progression.md) is an optional headless rules entry. Its versioned bundle preserves the original portable character-v1, explicit XP/level profile, practice progress, banked points and durable reward/allocation receipts. Games decide which committed outcomes qualify and own atomic persistence. The reference character-development screen does not introduce a cast, class tree, turn scheduler or consumer adoption.
+
 ## Shared item boundary
 
 [The rock contract](rock-distraction.md) defines plain-data instance state, strict sidecar versions, explicit metre/second units and staged actions. Items do not extend portable maps or take over actor inventories. A consumer atomically commits state and inventory deltas, deduplicates command/event IDs, supplies swept collision and audibility, and arbitrates guard investigation. The optional rock mesh and reference yard use the same collision radius; they require no donor runtime.
