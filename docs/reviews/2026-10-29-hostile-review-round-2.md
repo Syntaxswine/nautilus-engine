@@ -66,3 +66,11 @@ All 21 of round 2's survivors in the guards now die. A further variant also dies
 ## Behaviour changes (judgment)
 
 `sendToGame` now reads the default export through a closure (`() => window.nautilus.export()`) instead of `this`, so a detached `sendToGame()` call now works where it used to throw. The checks, the messages, their order and the host's view are unchanged. Round 3 is asked to confirm this against round 2's 81-step equivalence harness.
+
+## Errata (from round 3)
+
+[Round 3](2026-10-29-hostile-review-round-3.md) found four statements above that the code or the evidence does not support:
+- **"`editor.js` only assigns its members"** (the MF1 answer). The page also supplies the default-export and refresh closures and its own `hasGameAdapter` getter, and no test ran that glue. This became round 3's MF1.
+- **"Loading one save twice is asserted deterministic"** (the SF4 answer). The assertion checks that a loaded save serializes back to the same bytes. Its message now says so.
+- **The sweep record** (`answer/round3-mut.json`) was taken on the uncommitted tree, before the state test's last edit. Two of its rows credit fewer killing tests than the commit has, and the browser run that gave the 41 s figure named `fb8b26a` as its commit and left no output. Round 3 re-ran all 53 mutants on the commit and every verdict held. It also reproduced the browser figure: 42 s, 0.9 s after the last capture.
+- **The behaviour change is wider than stated.** `sendToGame.call(other)` and a spread copy of `window.nautilus` now send the live editor document, not the receiver's export. Round 3 judged this benign.
