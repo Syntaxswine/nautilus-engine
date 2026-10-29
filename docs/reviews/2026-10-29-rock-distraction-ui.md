@@ -116,3 +116,42 @@ The report contains the source commit and SHA-256 of the exact
 with a null build hash. Runtime evidence and cleanup receipts are written under
 `artifacts/rock-distraction/`; selected final evidence will be committed alongside
 this review after the final acceptance run.
+
+## Final UI acceptance results
+
+Candidate `8d0724ac0ca9f02d8bb557de831bb6142be7be92` passed source checks,
+all **213 engine tests**, all **32 upstream tests**, and build verification of
+362 module paths. The final isolated Edge **156.0.4314.50** pass completed with no
+browser/resource errors. Software WebGL establishes correctness, not hardware
+performance.
+
+[Acceptance data](evidence/rock-distraction/acceptance.json) records every check,
+eight screenshot hashes, and built-provenance SHA-256
+`8410036e4db53e202c248b57c20a06392afb4697d7965d838272783d20253854`.
+[Verification](evidence/rock-distraction/verification.json) records frozen inputs,
+project checks and verified helper cleanup.
+
+The wall cue remains at `{x:9,y:6,h:1.7622121961422093}`; the reusable rock quietly
+settles to centre height `.055`. One thud/ring is produced, the guard retains the
+original elevated cue, routes around the wall, searches and returns. Ground and
+wall re-pickup preserve the original instance. Midflight and quiet-settling
+restores are equivalent; all eight malformed snapshots and empty/far/out-of-range
+actions reject without inventory/rock changes.
+
+Desktop keyboard movement and pickup/throw, phone tap controls at 390 × 844,
+320 px narrow layout, reduced motion, reset, paused/offscreen frame retirement
+and full teardown pass. Linux Chromium execution remains with combined CI.
+
+The command exited 0. Its Node and isolated Edge lifetimes were verified exited,
+port **58078** had zero listeners, and the
+[cleanup receipt](evidence/rock-distraction/cleanup-receipt.json) confirms supported
+browser/HTTP closure. No preview server or browser was retained.
+
+![Desktop yard](evidence/rock-distraction/rock-yard-desktop.png)
+
+![Phone yard with walk controls](evidence/rock-distraction/rock-yard-mobile.png)
+
+![First elevated wall impact](evidence/rock-distraction/rock-wall-impact.png)
+
+![Quietly settled rock with original wall cue](evidence/rock-distraction/rock-wall-settled.png)
+
