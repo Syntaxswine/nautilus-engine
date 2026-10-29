@@ -30,12 +30,81 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
  await page.evaluate(()=>{const node=document.createElement('div');node.id='editable-focus';node.contentEditable='true';node.textContent='Editable';document.body.append(node);node.focus();});
  await stable(()=>page.keyboard.press('PageDown'));await page.locator('#editable-focus').evaluate(node=>node.remove());
  report.checks.inputSelectModalMenuAndEditableFocus=true;
+ // Observe after the production listener on the same element: state and
+ // defaultPrevented are then synchronous, unlike capture/microtask observers.
  await page.locator('.fn-strip').scrollIntoViewIfNeeded();const box=await page.locator('.fn-strip').boundingBox(),zoom=(await inspect()).zoom,scroll=await page.evaluate(()=>scrollY);
- await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-400);await page.waitForFunction(()=>window.floorDemo.inspect().state.selectedId==='floor-11');
- for(let i=0;i<5;i++)await page.mouse.wheel(0,-400);
- assert.equal(await selected(),'floor-11');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
- const scene=await page.locator('#world-scene').boundingBox();await page.mouse.move(scene.x+scene.width/2,scene.y+scene.height/2);await page.mouse.wheel(0,-80);await page.waitForFunction(()=>window.floorDemo.inspect().zoom===105);assert.equal(await selected(),'floor-11');
- report.checks.selectorGestureLatchedNoSceneZoomAndSceneWheelZoomOnly=true;
+ await page.evaluate(()=>{
+  const data={idleMs:180,native:[],bubbled:[],controlled:[]},selector=document.querySelector('.nautilus-floor-nav'),scene=document.getElementById('world-scene');
+  let phase='native-first';
+  const observe=zone=>event=>{
+   const previous=data.native.filter(item=>item.zone===zone).at(-1),snapshot=window.floorDemo.inspect();
+   data.native.push({zone,phase,timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:snapshot.state.selectedId,zoom:snapshot.zoom,scrollY});
+  };
+  const selectorObserver=observe('selector'),sceneObserver=observe('scene'),bubbled=event=>data.bubbled.push({phase,timeStamp:event.timeStamp,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented});
+  selector.addEventListener('wheel',selectorObserver,{passive:true});scene.addEventListener('wheel',sceneObserver,{passive:true});document.addEventListener('wheel',bubbled,{passive:true});
+  window.floorWheelReview={data,setPhase:value=>{phase=value;},stop(){selector.removeEventListener('wheel',selectorObserver);scene.removeEventListener('wheel',sceneObserver);document.removeEventListener('wheel',bubbled);}};
+ });
+ try{
+  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-400);
+  await page.waitForFunction(()=>window.floorWheelReview.data.native.some(item=>item.zone==='selector'));
+  assert.equal(await selected(),'floor-11');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
+  assert.equal(await page.evaluate(()=>window.floorWheelReview.data.bubbled.length),0);
+  // Awaited automation calls do not imply one continuous gesture. Wait for
+  // the existing idle rule, then verify the actual delivered timestamp gap.
+  await page.waitForFunction(()=>{const last=window.floorWheelReview.data.native.filter(item=>item.zone==='selector').at(-1);return performance.now()-last.timeStamp>=window.floorWheelReview.data.idleMs;});
+  const priorCount=await page.evaluate(()=>window.floorWheelReview.data.native.length);
+  await page.evaluate(()=>window.floorWheelReview.setPhase('native-later-gesture'));await page.mouse.wheel(0,-400);
+  await page.waitForFunction(count=>window.floorWheelReview.data.native.length>count,priorCount);
+  const nativeSelector=await page.evaluate(()=>window.floorWheelReview.data.native.filter(item=>item.zone==='selector'));
+  assert.equal(nativeSelector.length,2,'Both native wheel requests must be delivered.');assert(nativeSelector.every(item=>item.isTrusted&&item.defaultPrevented&&item.deltaY<0));
+  assert(nativeSelector.at(-1).gapMs>=180,'The later native gesture did not have an observed idle gap.');
+  assert.equal(await selected(),'floor-12');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
+  assert.equal(await page.evaluate(()=>window.floorWheelReview.data.bubbled.length),0);
+  const controlled=await page.evaluate(async()=>{
+   const {createFloorNavigation}=await import('/packages/floor-navigation/index.js'),{mountFloorNavigation}=await import('/packages/floor-navigation/dom.js');
+   const container=document.createElement('div');container.style.cssText='position:fixed;left:0;top:0;width:400px';document.body.append(container);
+   const changes=[],controller=createFloorNavigation({floors:window.floorDemo.controller.state.floors,selectedId:'floor-10',onFloorChange:({to})=>changes.push(to.id)});
+   const view=mountFloorNavigation(container,controller,{keyboardTarget:container,showModes:false}),events=[];
+   const observe=event=>{const previous=events.at(-1);events.push({timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:controller.state.selectedId});};
+   view.element.addEventListener('wheel',observe,{passive:true});
+   const send=(time,deltaY=-400)=>{
+    const event=new WheelEvent('wheel',{deltaY,bubbles:true,cancelable:true});
+    Object.defineProperty(event,'timeStamp',{value:time});
+    const dispatched=view.element.dispatchEvent(event);events.at(-1).dispatchCanceled=!dispatched;
+   };
+   try{
+    // One browser task and explicit event times isolate inertia from RPC load.
+    for(let time=0;time<=600;time+=5)send(time);
+    const burst=events.length;send(779);send(959);
+    for(const [time,delta]of [[960,-220],[965,-60],[990,-15],[1080,-1]])send(time,delta);
+    send(1260,400);
+    const result={events,changes,burstCount:burst,selectedId:controller.state.selectedId};
+    window.floorWheelReview.data.controlled=result;return result;
+   }finally{view.dispose();controller.dispose();container.remove();}
+  });
+  assert.equal(controlled.burstCount,121);assert.equal(controlled.events.length,128,'All controlled wheel events must be delivered.');assert(controlled.events.slice(0,121).every(item=>item.selectedId==='floor-11'));
+  assert.equal(controlled.events[120].timeStamp-controlled.events[0].timeStamp,600);
+  assert.equal(controlled.events[121].gapMs,179);assert.equal(controlled.events[121].selectedId,'floor-11');
+  assert.equal(controlled.events[122].gapMs,180);assert.equal(controlled.events[122].selectedId,'floor-12');
+  assert(controlled.events.slice(123,127).every(item=>item.selectedId==='floor-12'));
+  assert.equal(controlled.events[127].gapMs,180);assert.equal(controlled.selectedId,'floor-11');
+  assert.deepEqual(controlled.changes,['floor-11','floor-12','floor-11']);
+  assert(controlled.events.every(item=>!item.isTrusted&&item.defaultPrevented&&item.dispatchCanceled));
+  assert.equal(await selected(),'floor-12');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
+  const scene=await page.locator('#world-scene').boundingBox();await page.evaluate(()=>window.floorWheelReview.setPhase('native-scene-zoom'));
+  await page.mouse.move(scene.x+scene.width/2,scene.y+scene.height/2);await page.mouse.wheel(0,-80);await page.waitForFunction(()=>window.floorWheelReview.data.native.some(item=>item.zone==='scene')&&window.floorWheelReview.data.bubbled.length===1);assert.equal((await inspect()).zoom,105);
+  assert.equal(await selected(),'floor-12');
+  const sceneEvents=await page.evaluate(()=>window.floorWheelReview.data.native.filter(item=>item.zone==='scene'));
+  assert.equal(sceneEvents.length,1,'The native scene wheel request must be delivered.');assert(sceneEvents.every(item=>item.isTrusted&&item.defaultPrevented&&item.zoom===105&&item.selectedId==='floor-12'));
+  report.checks.nativeWheelChangesFloorAfterObservedIdleAndRemainsScoped=true;
+  report.checks.controlledContinuousBurstAndInertiaAnd179to180Boundary=true;
+  report.checks.selectorGestureLatchedNoSceneZoomAndSceneWheelZoomOnly=true;
+ }finally{
+  const data=await page.evaluate(()=>{const probe=window.floorWheelReview;probe.stop();delete window.floorWheelReview;return probe.data;});
+  const file='wheel-events.json';fs.writeFileSync(path.join(out,file),JSON.stringify(data,null,2));
+  report.wheelEvidence={file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex'),nativeEvents:data.native.length,controlledEvents:data.controlled.events?.length??0};
+ }
+ await jump(11);
  await page.locator('#character-floor').selectOption('floor-9');await page.locator('#confirm-character').click();assert.equal(await selected(),'floor-11');
  await page.getByRole('button',{name:'Return to character follow',exact:true}).click();assert.equal(await selected(),'floor-9');
  await page.locator('#inspect-contact').click();assert.equal(await selected(),'floor-15');assert.equal((await inspect()).state.mode,'contact-inspection');
