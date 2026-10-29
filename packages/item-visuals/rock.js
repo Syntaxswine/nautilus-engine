@@ -60,7 +60,7 @@ export function createRockModel(THREE, {radius = .055, seed = 0, color = 0x7c7a7
   let disposed = false;
   return {
     root, mesh, radius, seed,
-    metrics: Object.freeze({triangles: face, drawCalls: 1, textures: 0}),
+    metrics: Object.freeze({triangles: face, meshes: 1, materials: 1, textures: 0}),
     getBounds() {
       if (disposed) throw new Error('Rock model is disposed.');
       root.updateWorldMatrix(true, true);

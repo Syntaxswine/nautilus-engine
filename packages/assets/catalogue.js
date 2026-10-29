@@ -6235,5 +6235,24 @@ export const SHARED_ASSETS = [
     },
     "availability": "shared-building-renderer",
     "note": "Native visual assembly; consumer owns collision, doors, navigation, fire and persistence."
+  },
+  {
+    "id": "item:rock",
+    "name": "Rock",
+    "category": "Items",
+    "dimensions": {
+      "width": 0.11,
+      "depth": 0.11,
+      "height": 0.11,
+      "metresPerUnit": 1
+    },
+    "source": {
+      "project": "nautilus",
+      "commit": "9029dc11f4611ca46ea886ec9c03cbb6c0cfe3c5"
+    },
+    "availability": "shared-item-renderer",
+    "entry": "./items/three",
+    "factory": "createRockModel",
+    "note": "Original native-scale visual. Optional ./items stages pickup, throw and impact noise; consumer owns inventory, world collision, hearing and guard behavior."
   }
 ];

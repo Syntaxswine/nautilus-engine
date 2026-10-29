@@ -12,9 +12,9 @@ function fixture(files,check){const temporaryRoot=fs.realpathSync(os.tmpdir()),d
   fs.writeFileSync(path.join(directory,'package.json'),'{}');for(const [file,source]of Object.entries(files)){const target=path.join(directory,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,source);}check(directory);
 }finally{if(path.dirname(directory)!==temporaryRoot||!path.basename(directory).startsWith('nautilus-headless-'))throw Error('Unexpected closure-test cleanup target.');fs.rmSync(directory,{recursive:true,force:true});}}
 
-test('every public map/rules transitive import stays renderer, DOM and storage independent',()=>{
+test('every public map/rules/items transitive import stays renderer, DOM and storage independent',()=>{
   const result=scan();assert.equal(result.status,0,result.stderr);const report=JSON.parse(result.stdout);
-  assert.ok(report.groups.map.modules>1);assert.ok(report.groups.rules.modules>1);assert.deepEqual(report.violations,[]);
+  assert.ok(report.groups.map.modules>1);assert.ok(report.groups.rules.modules>1);assert.ok(report.groups.items.modules>0);assert.deepEqual(report.violations,[]);
   assert.ok(report.groups.rules.entries.includes('packages/rules-core/index.js'));assert.ok(report.groups.rules.entries.includes('packages/rules-core/dialogue.js'));assert.ok(report.groups.rules.entries.includes('packages/rules-core/aft-compat.js'));
 });
 test('the closure guard follows reexports and imports hidden behind harmless local modules',()=>{

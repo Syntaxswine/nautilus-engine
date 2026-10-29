@@ -1,6 +1,6 @@
 # Portable contracts and compatibility
 
-Nautilus 0.5 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
+Nautilus 0.6 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
 
 ## Schemas and persistence
 
@@ -9,12 +9,16 @@ Nautilus 0.5 exposes engine-owned plain-data interfaces. Import public package e
 | aft-map | 2 | Existing 240 by 240 portable JSON remains unchanged; six available layers. |
 | aft-block | 1 | Existing 24 by 24 portable reusable blocks remain unchanged. |
 | nautilus-save | 1 | Optional stamped envelope around an unchanged portable blueprint. |
+| nautilus-rock | 1 | Optional item sidecar; explicit instance/owner/flight state. |
+| nautilus-rock-impact-noise | 1 | First confirmed surface-contact event; host deduplicates delivery. |
 
 The structural schemas live in schemas/. Full geometry/content validation uses loadBlueprint or validateBlueprint; a structural JSON Schema check alone is insufficient. createSave, parseSave and serializeSave add engine/schema stamps and capability requirements without saving editor caches/history. No internal clock, generated time stamp, resource refill or silent damage normalization is introduced. Canonical key ordering makes repeated serialization stable; array order is preserved. The limit is 4,000,000 UTF-8 bytes.
 
 Accepted additive JSON fields survive at their original paths in current-format blueprints and envelopes. Explicitly closed functional extension schemas reject unfamiliar fields; they do not silently discard them. They are opaque data, without implied behavior. Features needed to interpret gameplay or geometry must declare a required capability; an unfamiliar required feature fails closed. Optional behavior can be unavailable, but its stored data must still survive. Future schema/envelope versions reject; no guessed down-conversion is attempted.
 
 Legacy map version 1 needs the explicit migrateBlueprint operation. Its reviewed one-way 24/28 by 24 expansion returns a migration receipt. It preserves metadata and rejects other extra legacy fields the inherited conversion cannot retain. Existing low-level parsing helpers keep their historical behavior for compatibility; new consumers should use this explicit persistence facade. Golden block/save fixtures are in tests/fixtures/persistence and are read, reserialized and compared in tests.
+
+Rock sidecars use the strict [item contract](rock-distraction.md), separately from portable map/block saves. `openRock` validates complete state and `serializeRock` writes stable field order; unfamiliar fields, altered physics profiles and future versions reject. No forward migration is inferred. Persist authoritative inventories and command/event ledgers atomically with sidecars. The engine does not refill inventory on load. The shared `nautilus-rock-items-v1` capability identifies the available action contract; a game must implement its world/hearing/inventory bindings before advertising support.
 
 ## Capability negotiation
 

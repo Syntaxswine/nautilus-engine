@@ -5,7 +5,7 @@ const owner=process.env.CODEX_THREAD_ID||'manual-isolated-review';
 const sourceCommit=execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),'-C',projectRoot,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
 const buildProvenanceSha256=createHash('sha256').update(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))).digest('hex');
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
-await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
+await withArtReview('Combined engine editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
   page.on('dialog',dialog=>dialog.accept());
   await page.emulateMedia({reducedMotion:'reduce'});
   const capture=async file=>{console.log('Capturing '+file);await page.screenshot({path:path.join(out,file),animations:'disabled',timeout:60000});};

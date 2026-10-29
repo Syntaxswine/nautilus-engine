@@ -61,11 +61,12 @@ function ruleClosure(file) {
 }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
+ruleClosure(path.join(root, 'packages/items-core/index.js'));
 await import('../packages/rules-core/index.js');
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
 if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw Error('Rules example failed.');
 if (core.ENGINE_VERSION !== JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version) throw Error('Engine version mismatch.');
-console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, '+editorAssets.length+' editor assets, headless map/rules APIs, examples, rules-source evidence and '+haloEvidence.referenceFiles+' halo reference files / '+haloEvidence.runtimeModules+' shared rendering modules.');
+console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1024 / 1024) + ' MiB), module closure, '+editorAssets.length+' editor assets, headless map/rules/items APIs, examples, rules-source evidence and '+haloEvidence.referenceFiles+' halo reference files / '+haloEvidence.runtimeModules+' shared rendering modules.');
 await import('./check-building-catalog.mjs');
 
 checkSharedAssets();
