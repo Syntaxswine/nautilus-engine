@@ -19,7 +19,7 @@ export function fields(value,keys,path,required=keys){
 export function finite(value,min,max,path){if(typeof value!=='number'||!Number.isFinite(value)||value<min||value>max)fail('INVALID_NUMBER',path,'Expected a finite number from '+min+' to '+max+'.');return value;}
 export function integer(value,min,max,path){finite(value,min,max,path);if(!Number.isSafeInteger(value))fail('INVALID_INTEGER',path,'Expected a safe integer.');return value;}
 export function text(value,max,path){if(typeof value!=='string'||!value.length||value.length>max)fail('INVALID_TEXT',path,'Expected nonempty text of at most '+max+' characters.');return value;}
-export function identifier(value,path){if(typeof value!=='string'||! /^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}$/.test(value))fail('INVALID_ID',path,'Expected a stable ASCII identifier of 1–96 characters.');return value;}
+export function identifier(value,path){if(typeof value!=='string'||! /^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}(?![\s\S])/.test(value))fail('INVALID_ID',path,'Expected a stable ASCII identifier of 1–96 characters.');return value;}
 export function list(value,max,path){if(!Array.isArray(value)||value.length>max)fail('INVALID_LIST',path,'Expected a dense array of at most '+max+' entries.');return value;}
 export function boolean(value,path){if(typeof value!=='boolean')fail('INVALID_BOOLEAN',path,'Expected a boolean.');return value;}
 export function point(value,path='/point'){
