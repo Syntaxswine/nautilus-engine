@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.6 adds a recoverable rock item: pick it up, lob it and distract an eligible guard with its impact sound.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.7 adds basic character development: practice, increasing XP requirements and 15 assignable stat points per level.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -47,6 +47,12 @@ The package runs in Node without a DOM, renderer or browser storage. See [the ar
 See [the rules contract and examples](docs/rules.md) and [the comparison of all three games](docs/reviews/2026-10-28-rules-foundation.md). Rolls, world impacts and game scheduling have explicit boundaries. No game has switched to Nautilus rules automatically.
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
+
+## Basic character development
+
+`./rules/progression` exposes headless progression on the existing 14 stats. Levels award 15 assignable points; XP requirements increase with level. Separate practice records useful exertion, weapon use and treatment. Games supply eligible committed outcomes and atomically persist accepted rewards.
+
+Open `/examples/character-development.html` in the built preview for the reference sheet, staged point allocation, derived-resource previews and save import/export. Its clearly labelled sample outcomes demonstrate the contract; they are not a production game integration. See [the progression contract](docs/progression.md). Species/class perks and new cast content remain deferred.
 
 ## Angled wall authoring
 

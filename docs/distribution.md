@@ -8,6 +8,8 @@ Optional offline distribution profiles are built in artifacts/distribution with 
 
 npm run test:package packs the core, installs it offline in an isolated temporary consumer, imports only its public exports, and checks editing/history, schema URLs, save reload, manifest discovery and the Tinderbox adapter. It copies the byte-verified, test-only game compiler/simulation into that independent consumer, then exercises real wall collision and deterministic replay after reload. Those game fixtures are never shipped in the package. The temporary install is removed afterward. This catches omitted package dependencies that source-tree tests can hide. Consumer conformance tests additionally run pinned real Tinderbox modules; fixtures are excluded from the shipped package.
 
+The optional headless `./rules/progression` export and progression structural schema are included in the core dependency closure. The offline installed-package proof exercises level rewards, point allocation, practice, resource preservation and duplicate delivery after save/reload. The reference UI and its sample-outcome harness remain in the standalone build, outside the headless runtime package.
+
 ## Borrowing assets
 
 All three games can import listSharedAssets/sharedAsset from ./assets for stable namespaced asset IDs and explicit availability notes. The catalogue is headless and generated from reviewed registries. Content-binding-required entries need a deliberate consumer model/material/content binding; inspection-only entries preserve format limitations. Discovery is not a promise that every game can place every content type.

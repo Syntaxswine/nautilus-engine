@@ -1,9 +1,9 @@
 {
   "name": "@nautilus-engine/map-core",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
-  "description": "Nautilus Engine: shared map authoring, portable rules and recoverable throwable items",
+  "description": "Nautilus Engine: shared map authoring, portable rules, character development and recoverable items",
   "exports": {
     ".": "./packages/map-core/index.js",
     "./prefabs": "./packages/prefab-core/index.js",
@@ -23,7 +23,8 @@
     "./roofs": "./packages/roof-core/index.js",
     "./roofs/three": "./packages/roof-core/three.js",
     "./items": "./packages/items-core/index.js",
-    "./items/three": "./packages/item-visuals/rock.js"
+    "./items/three": "./packages/item-visuals/rock.js",
+    "./rules/progression": "./packages/rules-core/progression.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -32,6 +33,9 @@
     "assets/buildings/painted-materials-v2.png",
     "docs/compatibility.md",
     "docs/distribution.md",
+    "docs/progression.md",
+    "docs/reviews/2026-10-29-basic-progression.md",
+    "docs/reviews/2026-10-29-basic-progression.sources.json",
     "docs/reviews/2026-10-29-rock-distraction.sources.json",
     "docs/rock-distraction.md",
     "packages/adapters/tinderbox/index.js",
@@ -89,12 +93,14 @@
     "packages/rules-core/combat.js",
     "packages/rules-core/dialogue.js",
     "packages/rules-core/index.js",
+    "packages/rules-core/progression.js",
     "packages/rules-core/upstream.js",
     "packages/rules-core/validation.js",
     "schemas/aft-block-v1.schema.json",
     "schemas/aft-map-v2.schema.json",
     "schemas/capability-requirements-v1.schema.json",
     "schemas/nautilus-save-v1.schema.json",
+    "schemas/progression-v1.schema.json",
     "schemas/rock-impact-noise-v1.schema.json",
     "schemas/rock-v1.schema.json",
     "schemas/sloped-roofs-v1.schema.json",
@@ -206,7 +212,8 @@
     "pack:assets": "node tools/distribution.mjs --profile assets",
     "test:package": "node tools/distribution.mjs --test",
     "test:assets": "node tools/distribution.mjs --test-assets",
-    "review:rocks": "node tools/review-rock-distraction.mjs"
+    "review:rocks": "node tools/review-rock-distraction.mjs",
+    "review:progression": "node tools/review-character-development.mjs"
   },
   "engines": {
     "node": ">=22"

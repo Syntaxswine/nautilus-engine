@@ -1,0 +1,125 @@
+{
+  "sourceCommit": "7e4bb99585eafce8f433d1a62532938d958fa0c1",
+  "coreCheckpoint": "d8bf16e3de7da1ffaabfaccca255687b16931fcb",
+  "buildProvenanceSha256": "b475ff4b95af95fc264962d8f25fea9895d5bfb72b996d67b1b688d84b36f537",
+  "change": "Baseline firearm, heavy weapons and explosives accuracy from previewAttack.",
+  "profile": "farmyard-percent-1",
+  "situationalModifiers": [],
+  "costs": {
+    "ap": 0,
+    "stamina": 0
+  },
+  "label": "Base accuracy before range, cover and stance; actual attacks depend on the game and weapon.",
+  "focusedNode": "Three results match previewAttack; staged values rise; complete serialized progression and current resources remain unchanged.",
+  "sourceCheck": "passed",
+  "build": {
+    "status": "passed",
+    "modulePaths": 365
+  },
+  "browser": {
+    "status": "passed",
+    "version": "156.0.4314.50",
+    "checks": {
+      "practiceAndReplay": true,
+      "levelReward": {
+        "level": 3,
+        "points": 30,
+        "nonblocking": true
+      },
+      "baselineAccuracy": {
+        "profile": "farmyard-percent-1",
+        "skills": [
+          {
+            "key": "firearmsAccuracy",
+            "chance": 68
+          },
+          {
+            "key": "heavyWeaponsAccuracy",
+            "chance": 27
+          },
+          {
+            "key": "explosivesAccuracy",
+            "chance": 27
+          }
+        ],
+        "noSituationalModifiers": true,
+        "noCosts": true,
+        "pure": true
+      },
+      "editUndoConfirmBank": true,
+      "capOverspendAndFraction": true,
+      "saveExportImportReload": {
+        "strict": true,
+        "sourceIdsAfterReload": true,
+        "replay": true,
+        "malformedSaveDidNotReset": true,
+        "resourcesPreserved": true
+      },
+      "validImportedIdCollision": true,
+      "zoom200Equivalent": {
+        "cssWidth": 640,
+        "cssHeight": 450,
+        "deviceScaleFactor": 2,
+        "overflow": false
+      },
+      "mobile": {
+        "width390": true,
+        "width320": true,
+        "tapAllocation": true,
+        "focusRestored": true,
+        "noOverflow": true
+      },
+      "lifecycle": {
+        "eventDriven": true,
+        "disposed": true
+      }
+    }
+  },
+  "priorFullSuite": {
+    "sourceCommit": "1a906da9058983e97867d696535dc8db92072d81",
+    "enginePassed": 243,
+    "upstreamPassed": 32
+  },
+  "lifecycle": {
+    "receipt": {
+      "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+      "purpose": "Basic character-development allocation and persistence acceptance",
+      "stoppedAt": "2026-10-29T13:44:03.088Z",
+      "process": {
+        "pid": 25156,
+        "creationFiletime": "134377550337361730",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 73284,
+        "creationFiletime": "134377550340799756",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 58906,
+      "httpClosed": true,
+      "browserClosed": true,
+      "method": "Supported Playwright browser close and HTTP close in finally"
+    },
+    "identities": [
+      {
+        "pid": 25156,
+        "creationFiletime": "134377550337361730",
+        "oldLifetimeAlive": false
+      },
+      {
+        "pid": 73284,
+        "creationFiletime": "134377550340799756",
+        "oldLifetimeAlive": false
+      }
+    ],
+    "listeners": 0,
+    "commandExitCode": 0
+  },
+  "scope": {
+    "classes": false,
+    "perks": false,
+    "speciesAdditions": false,
+    "coreChanges": false,
+    "releaseWiring": false
+  }
+}
