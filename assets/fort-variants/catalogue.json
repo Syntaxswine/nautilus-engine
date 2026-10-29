@@ -1,0 +1,3152 @@
+{
+  "version": 1,
+  "collection": "nautilus-fort-era-variants-v1",
+  "artistFoundation": "6d9dfeca7e47a4bded6497472f46f49f8ce14a5b",
+  "engineBaseline": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+  "status": "Castle and modern security artist variants; pending shared editor intake, separate from v0.5.0.",
+  "contract": {
+    "schema": "nautilus-fort-variant-art",
+    "version": 1,
+    "metresPerUnit": 1,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "origin": "Each module states its own origin; assembly instances carry explicit transforms.",
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slabThickness": 0.12,
+    "floorInterval": 2.12,
+    "placementGrid": 3,
+    "footprintGrid": 0.5,
+    "maxLevels": 6,
+    "maxMapExtent": 240,
+    "walk": {
+      "profile": "nautilus-art-wall-walk-v1",
+      "datum": 2.12,
+      "width": 1.5,
+      "minimumClearWidth": 1.4,
+      "minimumClearHeight": 1.8,
+      "inset": 0.16,
+      "center": 0.91,
+      "wallAxisHeight": 0,
+      "grid": 3
+    },
+    "defensiveExceptions": {
+      "castleRampartBodyDepth": 1.82,
+      "castleParapetThickness": 0.32,
+      "castleMerlonTop": 3.42,
+      "cycloneWirePitch": 0.15,
+      "cycloneWireDiameter": 0.009,
+      "gateLeafThickness": 0.12
+    },
+    "status": "Modular descriptive art kit. Shared editor persistence, navigation, collision and fire require separate integration."
+  },
+  "inputs": [
+    {
+      "file": "packages/fort-variants/designs.js",
+      "sha256": "7befd8e4986ebc45d6fd179cf6684c5dcaf103114e5e90bfa1d3f0feca3a0db2"
+    },
+    {
+      "file": "packages/fort-variants/index.js",
+      "sha256": "04b7c5c10e6dc9a40d3c4425b32513cfcf8f0bdbfad7473558715d77422b1723"
+    },
+    {
+      "file": "packages/fort-variants/layouts.js",
+      "sha256": "84c5597702538dd1275582b9ea184c81a10bdd83c30bd917e00d575326c634ea"
+    },
+    {
+      "file": "packages/fort-variants/connectors.js",
+      "sha256": "6b8de8f3c4948c844dc83f8debbb50ad6d705cfb150d5e9f9068f7b747304e57"
+    },
+    {
+      "file": "packages/fort-variants/geometry.js",
+      "sha256": "4eb54fb6b0ad2da99e8ca406cd7873c61c1adef03c183155162abcddc8fc163e"
+    },
+    {
+      "file": "packages/fort-variants/roofs.js",
+      "sha256": "e97b921950480541f0009e46c00100d18fb29d8d3858157345f796de34841c3d"
+    },
+    {
+      "file": "packages/fort-variants/mesh.js",
+      "sha256": "bfc52dda0027be125bba0b96b6c73a5685b0b422515d3f3a2ef17c29b2a1729c"
+    },
+    {
+      "file": "packages/fort-variants/three.js",
+      "sha256": "f0a3f32b8ce533a21793d18e104b316559c8ee421a54dca0a7d4581119b5c981"
+    },
+    {
+      "file": "packages/measured-buildings/index.js",
+      "sha256": "49f9b5ebe358abb8eb5c368d56efe8acf0aec722d6a049d5ced211d83778d86a"
+    },
+    {
+      "file": "packages/measured-buildings/designs.js",
+      "sha256": "c52de6c08984a1d1d43df5278931ef2dd213dadda78a8911639b03fce80e4c95"
+    },
+    {
+      "file": "tools/build-fort-variants.mjs",
+      "sha256": "d99193a5ba62dc3521add437d803ab1bf72671ee217fab2c8f309d07fd783bb6"
+    },
+    {
+      "file": "tools/export-fort-variants-gltf.mjs",
+      "sha256": "7e77139c37ca41662a450d702925a729dc61f67c6390a66d2358d6967f895d70"
+    },
+    {
+      "file": "art/fort-variants/provenance.json",
+      "sha256": "8ef3da6eeff6d88a85b43adffe4e85ce846dae0c24753d01647492f699b810e3"
+    },
+    {
+      "file": "art/fort-variants/dimensions.json",
+      "sha256": "b7ec7db5c3d2c44ecbaba5cb3f032fc3ef07104c8fe04967915d6921080c4189"
+    },
+    {
+      "file": "art/fort-variants/material-prompt.json",
+      "sha256": "f4cc298b88cf350f39d8c4886594e1f3f8e4abd6e9ebf89af39f7855feb97d37"
+    },
+    {
+      "file": "packages/frontier-fort/designs.js",
+      "sha256": "1bd152592ca6fb0ebba1aca42ca57ae1aaa20aed0641fe8222c9fbd698003768"
+    },
+    {
+      "file": "packages/frontier-fort/index.js",
+      "sha256": "fc5cb9f60d1bd473ac858952b659323ea2c706b8b2640c20b14db8c20105b700"
+    },
+    {
+      "file": "packages/frontier-fort/layouts.js",
+      "sha256": "9284e380ba4627085c1cac1a93bf01634eb8ec4134570958b50172ad2742242b"
+    },
+    {
+      "file": "packages/frontier-fort/connectors.js",
+      "sha256": "18e517280c3764fb63469591e6f051c3d78a11b1c2f65d73335f2454c9675400"
+    }
+  ],
+  "skins": [
+    {
+      "file": "assets/buildings/painted-materials-v2.png",
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+    },
+    {
+      "file": "assets/fort-variants/painted-era-materials-v1.png",
+      "sha256": "d021296e3b371eec86bf19d716aea0416e91c67be3357cc68b518948ce3ff615"
+    }
+  ],
+  "connectorsManifest": {
+    "file": "assets/fort-variants/connectors.json",
+    "bytes": 186206,
+    "sha256": "adb18c058267e3e82dac4086bf2045a5a32b83702160c762094ab7bbd6eecc48"
+  },
+  "partsManifest": {
+    "file": "assets/fort-variants/parts.json",
+    "bytes": 183949,
+    "sha256": "d9e0d369d4c6110a2eac76020522256512ecf66589f20ef480b9023ff5beffa7"
+  },
+  "assets": [
+    {
+      "id": "castle-gatehouse",
+      "name": "Castle gatehouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 7024,
+        "draws": 53,
+        "rooms": 6,
+        "windows": 7
+      },
+      "source": {
+        "triangles": 24916,
+        "draws": 53,
+        "rooms": 6,
+        "windows": 7
+      },
+      "reduction": 0.7180927917803821,
+      "interchange": {
+        "triangles": 22576,
+        "draws": 53,
+        "rooms": 6,
+        "windows": 7
+      },
+      "bounds": {
+        "min": [
+          -0.09500000000000006,
+          -0.12,
+          -0.24
+        ],
+        "max": [
+          18.095,
+          7.540000000000001,
+          6.24
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-gatehouse.source-mesh.json.gz",
+          "bytes": 465641,
+          "sha256": "7f5e0d15ec59c8ebb19cb5ff654248de41fd30f23cd8ac3b3ed7acac12301efa"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse.gltf",
+          "bytes": 54634,
+          "sha256": "2be5b736e9159ae77584a153af0ae997acabf6349848c57aa9b8ba406ffc6f78"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse.bin",
+          "bytes": 1484360,
+          "sha256": "2b7e0639a91f9c19cdb60a4c6abf80491c83b09941cfc355fdc964045c144657"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse.blueprint.json",
+          "bytes": 22620,
+          "sha256": "721fde648ea46c0a4f407b1a045cdd9be1ceab293cf5268d9289091ed6b16893"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse.game-mesh.json.gz",
+          "bytes": 84475,
+          "sha256": "8331c9e79728aa1b12dfb7f5cc4274c786b2486a098dba4049825f5ea1c7180b"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse-level-0.svg",
+          "bytes": 3762,
+          "sha256": "ab7638b8b1d12867b121ca578db5fb4eef8e9d906e0e1cef37d5751ad88bb9b7"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse-level-1.svg",
+          "bytes": 3739,
+          "sha256": "26e98bf46ba6d3a7ff26175b7dfb102a5158c662161e69ed836d4ceb6b4c0090"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse-level-2.svg",
+          "bytes": 3738,
+          "sha256": "08138c2e1c1e1cd5deeda2c403dc692b3c75f326137368bd935ca97ea1d0da83"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-gatehouse-level-3.svg",
+          "bytes": 1542,
+          "sha256": "b14dd152a655f68d6d16e99b630dd30a73951f6ba34b4e3796dddf1635e8bc4e"
+        }
+      ],
+      "animations": [
+        {
+          "name": "castle-gatehouse:main-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "castle-corner-tower",
+      "name": "Battlement corner tower",
+      "category": "building",
+      "engineGame": {
+        "triangles": 4652,
+        "draws": 29,
+        "rooms": 2,
+        "windows": 5
+      },
+      "source": {
+        "triangles": 13184,
+        "draws": 29,
+        "rooms": 2,
+        "windows": 5
+      },
+      "reduction": 0.6471480582524272,
+      "interchange": {
+        "triangles": 12010,
+        "draws": 29,
+        "rooms": 2,
+        "windows": 5
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.24
+        ],
+        "max": [
+          6.24,
+          5.420000000000001,
+          6.24
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-corner-tower.source-mesh.json.gz",
+          "bytes": 242770,
+          "sha256": "91712cc2b65d4cc0ee01fb8082f97ab3794baf912119b3d90ed2cfe4dde3ac86"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower.gltf",
+          "bytes": 29432,
+          "sha256": "c9f6c8b1b98e348de8eac4a32177df4f28fa99e3129bb62aa2d6739efbf41fe2"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower.bin",
+          "bytes": 794488,
+          "sha256": "bdd39c335d157454dd6eebc89d827a0b013830da95c8b82592e34f6c6ebe282d"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower.blueprint.json",
+          "bytes": 11518,
+          "sha256": "04db343747b9b2b8870d4ebea8a160a5546185497ccd1be32d4d9dcc6a9a8223"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower.game-mesh.json.gz",
+          "bytes": 55748,
+          "sha256": "5e58a4d934084473ab362da0be24767fc38641f9f877cd363f19e4ca7e16181b"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower-level-0.svg",
+          "bytes": 1913,
+          "sha256": "d75165b987a3cbfd43f970da8a3a66061c4dd7c4c87455751839b137fd511c7f"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower-level-1.svg",
+          "bytes": 2748,
+          "sha256": "b72753bf195ad8549d90892893966238b9a8d827c89448c16dedcfd96ff2828c"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-corner-tower-level-2.svg",
+          "bytes": 1606,
+          "sha256": "ce44d35f6c0a6d8bab47827c9a00b6fcf70e837fd36a717e0e480a751d5e5fcc"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-keep",
+      "name": "Great hall and watch keep",
+      "category": "building",
+      "engineGame": {
+        "triangles": 5120,
+        "draws": 44,
+        "rooms": 4,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 18840,
+        "draws": 44,
+        "rooms": 4,
+        "windows": 8
+      },
+      "reduction": 0.7282377919320595,
+      "interchange": {
+        "triangles": 14868,
+        "draws": 44,
+        "rooms": 4,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.09000000000000001,
+          -0.12,
+          -0.09
+        ],
+        "max": [
+          15.24,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-keep.source-mesh.json.gz",
+          "bytes": 329489,
+          "sha256": "50b5926cbd872bec6ce9838909f907eb475e8ec82db3950be1f8d0ff7c5c5fb3"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep.gltf",
+          "bytes": 45086,
+          "sha256": "8f4ccbc05d2e3341754e0ed5b138db108c87d7ffd555f84c060cfe7052727cfb"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep.bin",
+          "bytes": 1012240,
+          "sha256": "bd0bb71d28956d5de38a5288acde135c0706504d86cf203bb3dd5390a98cb1a8"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep.blueprint.json",
+          "bytes": 15533,
+          "sha256": "aea2461269755682326d6a272e402dd5cc0b62db82bdae800f736bd732dc158b"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep.game-mesh.json.gz",
+          "bytes": 63048,
+          "sha256": "c31630dedf03243eb08089a06c3cefcf250621cd310ceb31c9a5f6e69b52196f"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep-level-0.svg",
+          "bytes": 4271,
+          "sha256": "e22507a716bc426096986eae63b16eaedbeed3b5876def18a6e4d4b659783cd1"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-keep-level-1.svg",
+          "bytes": 3702,
+          "sha256": "59978b180a017f8d62ea340f3a4c2c051c16044bdcadff72c0e647974941b53c"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-commanders-house",
+      "name": "Commander’s stone house",
+      "category": "building",
+      "engineGame": {
+        "triangles": 6590,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 24010,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 8
+      },
+      "reduction": 0.7255310287380259,
+      "interchange": {
+        "triangles": 18356,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          15.3,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-commanders-house.source-mesh.json.gz",
+          "bytes": 447396,
+          "sha256": "82167f9811bc83cf1877ee2b86f266e2a1f81b0b40b265016b3fcbc14362f141"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house.gltf",
+          "bytes": 50943,
+          "sha256": "e06617a0ceb004406dd8ced1591c9e54ddb9222712e8350a2727597039efeb26"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house.bin",
+          "bytes": 1219312,
+          "sha256": "d833c1992b17331e99f6cd37a481a17dad54efb346b13c4b15666d8b7c2467b1"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house.blueprint.json",
+          "bytes": 17848,
+          "sha256": "3e495775efbe759023392014fc928950fec6893bd362e84170223165270a7c5d"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house.game-mesh.json.gz",
+          "bytes": 82741,
+          "sha256": "648a3779549917c8aa1b0fb868f80b26695d21c831e6107cfa4d7562bede4103"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house-level-0.svg",
+          "bytes": 4664,
+          "sha256": "7364598ae934ab14f6def2a9fc8e9e3db8ed9fb0ac026dc86288a1d6a16a6993"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-commanders-house-level-1.svg",
+          "bytes": 4616,
+          "sha256": "988a1ba3083b072a2c1596a93c5f4331b363e0b04bf014ada6c24e3fb6a6deca"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-barracks-arcade",
+      "name": "Arcaded castle barracks",
+      "category": "building",
+      "engineGame": {
+        "triangles": 3492,
+        "draws": 23,
+        "rooms": 3,
+        "windows": 6
+      },
+      "source": {
+        "triangles": 12636,
+        "draws": 23,
+        "rooms": 3,
+        "windows": 6
+      },
+      "reduction": 0.7236467236467237,
+      "interchange": {
+        "triangles": 10050,
+        "draws": 23,
+        "rooms": 3,
+        "windows": 6
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.2
+        ],
+        "max": [
+          18.24,
+          3.3,
+          9.1125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-barracks-arcade.source-mesh.json.gz",
+          "bytes": 210100,
+          "sha256": "5ce3e028a362614dd4d02cdfb44b912c6b75874276800c583a975db8876c7267"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-arcade.gltf",
+          "bytes": 26131,
+          "sha256": "a4d05597a66ed31d35869a41041e46451abd41b87a93bde8d0f27a329fc4a1d7"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-arcade.bin",
+          "bytes": 698904,
+          "sha256": "7d0927a89fa33c0e4ef6c339ab4815efc5550e79ba5c5fd4ce17542d11d10414"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-arcade.blueprint.json",
+          "bytes": 10162,
+          "sha256": "4e20e76e241a7349fa72dbe80b94e58e81a988c644f846d483a32f9e6e75ebda"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-arcade.game-mesh.json.gz",
+          "bytes": 45809,
+          "sha256": "77d2eb1eb05a887d450f7ec0054857fd540f09e3b705d74025751316845afe92"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-arcade-level-0.svg",
+          "bytes": 3514,
+          "sha256": "aa7b49a118b94fc3d55fd8f6148f2280a816cf357b0388739535079f3a879931"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-barracks-roof-stair",
+      "name": "Castle barracks and roof stair",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2672,
+        "draws": 26,
+        "rooms": 3,
+        "windows": 4
+      },
+      "source": {
+        "triangles": 11260,
+        "draws": 26,
+        "rooms": 3,
+        "windows": 4
+      },
+      "reduction": 0.7626998223801066,
+      "interchange": {
+        "triangles": 8920,
+        "draws": 26,
+        "rooms": 3,
+        "windows": 4
+      },
+      "bounds": {
+        "min": [
+          -0.09000000000000001,
+          -0.12,
+          -0.24
+        ],
+        "max": [
+          21.04,
+          3.3,
+          6.1125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-barracks-roof-stair.source-mesh.json.gz",
+          "bytes": 193998,
+          "sha256": "a42fc88936a6f7b1c07ad7c2750302f195b5e906d0c915ad985293f873904eb1"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-roof-stair.gltf",
+          "bytes": 28455,
+          "sha256": "e1c655768d6730057eb7a9872b5b443ac350fa0a6b47d4c95cd52fbfa7741a88"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-roof-stair.bin",
+          "bytes": 620800,
+          "sha256": "3eb42e24e82c9780225a324a0158b1cff20b80d0d0a1e3743b1a59115907a833"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-roof-stair.blueprint.json",
+          "bytes": 9912,
+          "sha256": "7b2f938d7d583aba5b1119eb52317eedb8ca7b8fd748959683d152f93399e5fb"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-roof-stair.game-mesh.json.gz",
+          "bytes": 30288,
+          "sha256": "5585956984fbef66e7a6945678672882f081772da80443e017c6299a32900420"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-barracks-roof-stair-level-0.svg",
+          "bytes": 3932,
+          "sha256": "9fececbb5f82d139af18f2c002e7a6d98762af5d2d696fbce3be76d5532805a0"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-stone-store",
+      "name": "Castle storehouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 888,
+        "draws": 19,
+        "rooms": 1,
+        "windows": 2
+      },
+      "source": {
+        "triangles": 4264,
+        "draws": 19,
+        "rooms": 1,
+        "windows": 2
+      },
+      "reduction": 0.7917448405253283,
+      "interchange": {
+        "triangles": 3296,
+        "draws": 19,
+        "rooms": 1,
+        "windows": 2
+      },
+      "bounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          9.3,
+          3.375,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-stone-store.source-mesh.json.gz",
+          "bytes": 74795,
+          "sha256": "9ca24ea2dbe7308bec607ea0b9b5d76e09008a1ff3cb4a677f6f41e7cbd8ace5"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-stone-store.gltf",
+          "bytes": 21400,
+          "sha256": "67c8b7881203c208162cdc02053f13d42ba6657360ffbdac8f1fb802a303fd3f"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-stone-store.bin",
+          "bytes": 222048,
+          "sha256": "39f57e440ce0016610ded1db7bbcce3e720c750f28fc38793b342ba445429f14"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-stone-store.blueprint.json",
+          "bytes": 5421,
+          "sha256": "12a5b511a9a902e9543ce79afb6677bf2e85f588a0a203b5a963aec9945d30b3"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-stone-store.game-mesh.json.gz",
+          "bytes": 13520,
+          "sha256": "aa0ea9066d30e8d3444c8802ad3a7b71d7af7a49985444a8c0e0573028252eb5"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-stone-store-level-0.svg",
+          "bytes": 1575,
+          "sha256": "e2a625fdbcbc044ed4486d00f5e69ddd97ed4c87a4ea072d375c5e1b5efbbcd1"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-roof-store",
+      "name": "Castle roof-walk store",
+      "category": "building",
+      "engineGame": {
+        "triangles": 836,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "source": {
+        "triangles": 4040,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "reduction": 0.7930693069306931,
+      "interchange": {
+        "triangles": 2944,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.11249999999999999
+        ],
+        "max": [
+          6.09,
+          3.3,
+          6.09
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-roof-store.source-mesh.json.gz",
+          "bytes": 68872,
+          "sha256": "8ffc7418f1ce5bddf8dcc1e7593da1f5f690ed6fa4394fdf161788968b0436a1"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-roof-store.gltf",
+          "bytes": 18723,
+          "sha256": "bb47947eaf6e81d6541edc0d7594d669c642d53ca06e70deafc2afb833dbf8ad"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-roof-store.bin",
+          "bytes": 207808,
+          "sha256": "d8d270a9d1e2c4bc87ec10da1aa6900b4ec67a9249195c915a71ac38a05fdd65"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-roof-store.blueprint.json",
+          "bytes": 5805,
+          "sha256": "67812656593fcb27680f9441cc215de3038e2a60173c1f9af737aa5daa46c6eb"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-roof-store.game-mesh.json.gz",
+          "bytes": 10991,
+          "sha256": "7321b2023a195ba1a674e96c424c88aabc38e679c092c7d71aa8ef5a61613004"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-roof-store-level-0.svg",
+          "bytes": 1548,
+          "sha256": "54509b262db95a499157005df2dddb2b0658347bde7aff90e38bac8e0e09d63b"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-security-gatehouse",
+      "name": "Security gatehouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 7956,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 9
+      },
+      "source": {
+        "triangles": 27896,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 9
+      },
+      "reduction": 0.7147978204760539,
+      "interchange": {
+        "triangles": 15966,
+        "draws": 50,
+        "rooms": 6,
+        "windows": 9
+      },
+      "bounds": {
+        "min": [
+          -0.09500000000000006,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          18.095,
+          6.535000000000001,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-security-gatehouse.source-mesh.json.gz",
+          "bytes": 600281,
+          "sha256": "0d7e0299e2621bdd079623e34239acfc2d0bb55933da337a0c4bfcf6c8c23fba"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse.gltf",
+          "bytes": 52424,
+          "sha256": "e3fd30376845160bc2abbdb3c8f894ba33c0a2b60b418ffb30f2e31652d19bd8"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse.bin",
+          "bytes": 1102512,
+          "sha256": "63a0944f521468516b76464a7c220d66f31a091e31db4e80ea5c8d1cf103233d"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse.blueprint.json",
+          "bytes": 22901,
+          "sha256": "8ef1160fe8f5a893d7ed4bd20d14c374ab91e46321119b25ed44e914bb968d5d"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse.game-mesh.json.gz",
+          "bytes": 137912,
+          "sha256": "14091043dfc4168c818e0d7b4e18a4f5a4f9c69f5bfc631eb3f96332cba05659"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse-level-0.svg",
+          "bytes": 3766,
+          "sha256": "9c0a1fa6753066196b2cff470045132f40ab6fad84bc53443d7d0575ddba840e"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse-level-1.svg",
+          "bytes": 3743,
+          "sha256": "046322765a6fc6d503ffd442bf7bcaaf6468543b420c848d9336144a584101ba"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-security-gatehouse-level-2.svg",
+          "bytes": 3377,
+          "sha256": "f8de3d2281187f6d75dfed89ab4153008ba2888219530df68972ca0d53c390b3"
+        }
+      ],
+      "animations": [
+        {
+          "name": "cyclone-security-gatehouse:main-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "cyclone-guard-tower",
+      "name": "Elevated guard tower",
+      "category": "building",
+      "engineGame": {
+        "triangles": 4556,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 4
+      },
+      "source": {
+        "triangles": 12988,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 4
+      },
+      "reduction": 0.6492146596858639,
+      "interchange": {
+        "triangles": 7866,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 4
+      },
+      "bounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          6.3,
+          6.48,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-guard-tower.source-mesh.json.gz",
+          "bytes": 249469,
+          "sha256": "4323e05132aa70ba3e27bbfcb43436570d822fd25e324711a525a733696d6878"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower.gltf",
+          "bytes": 23585,
+          "sha256": "557267593f5c23e600d2178db28a9c16928e0dfe8b68699bf5438a26cf7a2669"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower.bin",
+          "bytes": 533880,
+          "sha256": "a87b1eb670a8061cd95b11d733dc49dc12f24d4ad613dd3e5fcd254ebcac4792"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower.blueprint.json",
+          "bytes": 9094,
+          "sha256": "6457d1d0ff46d813062cdb57e61e4999199323c5e332ed795ac16edfbaa90a2c"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower.game-mesh.json.gz",
+          "bytes": 51121,
+          "sha256": "c500d32b634144bb47a7e0df528c0ba1c18ac794e3b9fc210e5a545e95bed4ab"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower-level-0.svg",
+          "bytes": 1408,
+          "sha256": "984f4084e6a0c59d84b4b24426c0ba6845f201be2003281f95410694c3296f19"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower-level-1.svg",
+          "bytes": 2045,
+          "sha256": "a2fd3d462d21f30964965c5007852cadfeb71a54d3ebe564ace1689c988ae3de"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-guard-tower-level-2.svg",
+          "bytes": 2090,
+          "sha256": "af11b6f896ed78eb5ad587a2310a805c0ece8cb2e44694c072d5275f9a41320e"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-operations",
+      "name": "Operations building",
+      "category": "building",
+      "engineGame": {
+        "triangles": 4708,
+        "draws": 39,
+        "rooms": 4,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 19808,
+        "draws": 39,
+        "rooms": 4,
+        "windows": 8
+      },
+      "reduction": 0.7623182552504039,
+      "interchange": {
+        "triangles": 10368,
+        "draws": 39,
+        "rooms": 4,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -0.04
+        ],
+        "max": [
+          15.24,
+          4.64,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-operations.source-mesh.json.gz",
+          "bytes": 362927,
+          "sha256": "56f9daacd7ff4d25722a380ae8bd54b4dd73464a0f24e92720b374b5cd385430"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations.gltf",
+          "bytes": 40992,
+          "sha256": "e0e9978986057de3fa493a099bbe35874df8a0ba0fd8021aa3f6b40a643dee38"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations.bin",
+          "bytes": 723008,
+          "sha256": "62630b26b9093fdec606622d069f1139e7e3120410b78268fec6405feec31e73"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations.blueprint.json",
+          "bytes": 15748,
+          "sha256": "dddf83d119f95377c6f3948dd88ca0b0c4284ca389b03efa50e0de154e149dbe"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations.game-mesh.json.gz",
+          "bytes": 52841,
+          "sha256": "fa3c16ec53dc52d219bb6f1eabee8a5dcce0c4cf5200f4c4bbd0604d80c32ada"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations-level-0.svg",
+          "bytes": 4259,
+          "sha256": "6175d44b2316f09b66d6c5f2c5ea1739360247b3806dc663a77f1102e938b594"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-operations-level-1.svg",
+          "bytes": 3690,
+          "sha256": "789feda0718926ba00e0af6facba543cd7c82f7ffda000a923ec2762b0ad1575"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-officers-quarters",
+      "name": "Officers’ quarters",
+      "category": "building",
+      "engineGame": {
+        "triangles": 5678,
+        "draws": 48,
+        "rooms": 6,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 22866,
+        "draws": 48,
+        "rooms": 6,
+        "windows": 8
+      },
+      "reduction": 0.7516837225575089,
+      "interchange": {
+        "triangles": 12814,
+        "draws": 48,
+        "rooms": 6,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          15.3,
+          4.64,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-officers-quarters.source-mesh.json.gz",
+          "bytes": 424916,
+          "sha256": "7b617c9228987cb1e7f553ad4bcbbc08845a7f4686bde1d50b6ee6cd3c139160"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters.gltf",
+          "bytes": 49230,
+          "sha256": "143763f97e09057e3df3e5d39e19fdbc2a81bac40e70f8dd6bb9459aa91d4a49"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters.bin",
+          "bytes": 883720,
+          "sha256": "23ad24d1859b52af3260af4293388148f0754c1ea8044b1c5857a1bc1fd537a6"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters.blueprint.json",
+          "bytes": 17941,
+          "sha256": "83e72527959dbc7b8bd25bb763fdb6b5651fcb0222a58bfa792d508db727e6c3"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters.game-mesh.json.gz",
+          "bytes": 60461,
+          "sha256": "f733310cadcc89665bfa27da851383bbb3f1ec35f7a9d9a571f51e2d8e186154"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters-level-0.svg",
+          "bytes": 4654,
+          "sha256": "80691b4aac6f83eee3d63243c41a54c0e93b6f7712c8cb82dd805818e1b6065f"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-officers-quarters-level-1.svg",
+          "bytes": 4606,
+          "sha256": "4ef8d7d0b93206b48c07b9020e65e8e170da21a8a54133e5b648ae5dd26a8972"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-barracks-canopy",
+      "name": "Barracks with steel canopy",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2748,
+        "draws": 22,
+        "rooms": 3,
+        "windows": 6
+      },
+      "source": {
+        "triangles": 13060,
+        "draws": 22,
+        "rooms": 3,
+        "windows": 6
+      },
+      "reduction": 0.7895865237366003,
+      "interchange": {
+        "triangles": 7026,
+        "draws": 22,
+        "rooms": 3,
+        "windows": 6
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.2
+        ],
+        "max": [
+          18.24,
+          3.1,
+          9.1125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-barracks-canopy.source-mesh.json.gz",
+          "bytes": 235323,
+          "sha256": "306c2bc0c650aa39c6e8c77f4957c7ada3c26d03f8fd6be829f705184115a6a5"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-canopy.gltf",
+          "bytes": 25279,
+          "sha256": "d6ae800dd54496c02bc34be2c9d6768e1a89d33172c6699081b807b712102224"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-canopy.bin",
+          "bytes": 493432,
+          "sha256": "4b7b82b7198f53707096445278d236a2c42453cd83c0aff2681b894e5d00d149"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-canopy.blueprint.json",
+          "bytes": 10233,
+          "sha256": "973c263926fef899bed5175c742f4f76e15dd3c2cd062424423ed87d8c668ad2"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-canopy.game-mesh.json.gz",
+          "bytes": 30497,
+          "sha256": "36adac61e7c389abbebeb0a280a0f151be76e8cf9eee7866d1ca45b6f0353105"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-canopy-level-0.svg",
+          "bytes": 3520,
+          "sha256": "e794163269a3f85ea7b6c55cc4cacf5fbb1bf57b0ce38711951c4f7a271ff3cb"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-barracks-roof-stair",
+      "name": "Barracks and roof stair",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2780,
+        "draws": 27,
+        "rooms": 3,
+        "windows": 4
+      },
+      "source": {
+        "triangles": 13216,
+        "draws": 27,
+        "rooms": 3,
+        "windows": 4
+      },
+      "reduction": 0.7896489104116222,
+      "interchange": {
+        "triangles": 6208,
+        "draws": 27,
+        "rooms": 3,
+        "windows": 4
+      },
+      "bounds": {
+        "min": [
+          -0.08000000000000007,
+          -0.12,
+          -0.24
+        ],
+        "max": [
+          21.04,
+          3.1,
+          6.1125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-barracks-roof-stair.source-mesh.json.gz",
+          "bytes": 251240,
+          "sha256": "6fd57be6090c4c9b9ca6b60a84a57d86b2e6b11d5594eb907e50b495ece1c38b"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-roof-stair.gltf",
+          "bytes": 29313,
+          "sha256": "982b5aa74f10a8cd77d870f9e97583922b06da833bb25c4e8dcf234f01975914"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-roof-stair.bin",
+          "bytes": 436544,
+          "sha256": "9f96810e313c6eac3d71a862bfa8d1afa960598ef222d47391aa3c2b48652f14"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-roof-stair.blueprint.json",
+          "bytes": 9960,
+          "sha256": "bae18b590c47ab3f5c864e89dc6a464d651a0bbb7d0a85080d59f01cae03f57d"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-roof-stair.game-mesh.json.gz",
+          "bytes": 33308,
+          "sha256": "af9cca5b925bbebbbda90006ebc094ec5e7b170d34741b7b55bcc90eebe74dca"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-barracks-roof-stair-level-0.svg",
+          "bytes": 3918,
+          "sha256": "f6596b1207d73c0cb36f6c1856217880ac1c50ee36baa76455bf0e102bae3dea"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-utility-store",
+      "name": "Utility store",
+      "category": "building",
+      "engineGame": {
+        "triangles": 828,
+        "draws": 15,
+        "rooms": 1,
+        "windows": 2
+      },
+      "source": {
+        "triangles": 4348,
+        "draws": 15,
+        "rooms": 1,
+        "windows": 2
+      },
+      "reduction": 0.8095676172953081,
+      "interchange": {
+        "triangles": 2712,
+        "draws": 15,
+        "rooms": 1,
+        "windows": 2
+      },
+      "bounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          9.3,
+          2.295,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-utility-store.source-mesh.json.gz",
+          "bytes": 77184,
+          "sha256": "4786effacb87327966a78f38bc0c3401daed35971700123fb1f1fb2c7f8cd5e9"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-utility-store.gltf",
+          "bytes": 18038,
+          "sha256": "238c8f27f02fdcac94e762c538eada17c2325d912b48becb82bb2d06662f78fe"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-utility-store.bin",
+          "bytes": 186304,
+          "sha256": "c1d5adb2671c16767478778fc354f641f3acd68f2130f8c742a692255d74c19d"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-utility-store.blueprint.json",
+          "bytes": 5482,
+          "sha256": "31c9de7890e36df6f1c1911ec826d72e4b67cbeedb96778c5313794b74ff479a"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-utility-store.game-mesh.json.gz",
+          "bytes": 12074,
+          "sha256": "4f4d8556a4a7a63848e45775c1d17f16efd0dfb8d33955d86cd439bd54011093"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-utility-store-level-0.svg",
+          "bytes": 1567,
+          "sha256": "e4fbe30a2027926b8d386e3d7ab05818952cded24bd11cbf9b001ae9c5e84cf2"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-roof-store",
+      "name": "Roof-walk utility store",
+      "category": "building",
+      "engineGame": {
+        "triangles": 884,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "source": {
+        "triangles": 5144,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "reduction": 0.828149300155521,
+      "interchange": {
+        "triangles": 1846,
+        "draws": 16,
+        "rooms": 1,
+        "windows": 1
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.11249999999999999
+        ],
+        "max": [
+          6.08,
+          3.1,
+          6.08
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-roof-store.source-mesh.json.gz",
+          "bytes": 100881,
+          "sha256": "9f07a4ae9a6d932aa139597618500a24bbfa6180ef1c0634a49e5a22edaedb75"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-roof-store.gltf",
+          "bytes": 18700,
+          "sha256": "69042afe933a8d9e6597c14da568fe26fd400759b94a4d136abbd0eb411388d4"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-roof-store.bin",
+          "bytes": 129672,
+          "sha256": "3caa7190de2e5b058816ecbd1af36ecfa24d969978b756a19da35f5b6395bc65"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-roof-store.blueprint.json",
+          "bytes": 5860,
+          "sha256": "ac50b200d85fe944619175b8b7435214b556b7c3bc96d12d258989f8bec65bbc"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-roof-store.game-mesh.json.gz",
+          "bytes": 11821,
+          "sha256": "5576489d7b8732e6ef3567d25c99b9de3a86ef268f494b8f575d8443261f253b"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-roof-store-level-0.svg",
+          "bytes": 1550,
+          "sha256": "259784ea67b8fec44c3f726383d14bab7fc9784bb9d05ee0221d0721376d60c0"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-curtain-6",
+      "name": "Curtain wall · 6 m",
+      "category": "part",
+      "engineGame": {
+        "triangles": 240,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1048,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7709923664122138,
+      "interchange": {
+        "triangles": 884,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          6,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-curtain-6.source-mesh.json.gz",
+          "bytes": 24673,
+          "sha256": "63ad661a2ee91174d912f10d5729e03769dc2722c0a8d53df51df74e94d1fcc2"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-6.gltf",
+          "bytes": 6801,
+          "sha256": "8cbaef9a3ca771bb797209e2198990388ce276af474fd61502b2f7ebf26f022d"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-6.bin",
+          "bytes": 58032,
+          "sha256": "d3872e91dd147ee7210a8906f23fbdcf4afc96af69f590e67a35ab059070749d"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-6.blueprint.json",
+          "bytes": 2720,
+          "sha256": "9cdd35e115cc9a4ee2199f9ca4470f5a64e2c8cf7042df65694ebf61aea8e91c"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-6.game-mesh.json.gz",
+          "bytes": 4185,
+          "sha256": "d420f11d9d6dff10375eebea5d5f6fff53434451e9dd7e4557896057b80662a6"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-curtain-3",
+      "name": "Curtain wall · 3 m",
+      "category": "part",
+      "engineGame": {
+        "triangles": 156,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 608,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.743421052631579,
+      "interchange": {
+        "triangles": 492,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          3,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-curtain-3.source-mesh.json.gz",
+          "bytes": 15127,
+          "sha256": "dfe52ca2f484f8c26134576910a154de8ecaabfe394eb29aeb8a92e5f3804150"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-3.gltf",
+          "bytes": 6795,
+          "sha256": "aea2c2025c4eafd1af1d7495b21a49c4aa43498c512ab248e021e3994bce987b"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-3.bin",
+          "bytes": 32656,
+          "sha256": "7bbfbb3ea8c9ae52125e6ad39823fbfe108eece76cadb2e8fa61667e10ce85c3"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-3.blueprint.json",
+          "bytes": 2720,
+          "sha256": "b3794203de0b392ee74cd7666e3cb5614c45f951d4aaaf726894717ecb53b226"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-3.game-mesh.json.gz",
+          "bytes": 3273,
+          "sha256": "4466f888ff572f94b00272971e78aa7c93a726b107d7fb7b210b86363d77b71d"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-curtain-corner",
+      "name": "Curtain wall · corner",
+      "category": "part",
+      "engineGame": {
+        "triangles": 476,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1852,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7429805615550755,
+      "interchange": {
+        "triangles": 1540,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.30000000000000004,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          6,
+          3.42,
+          6
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-curtain-corner.source-mesh.json.gz",
+          "bytes": 42773,
+          "sha256": "10d681a7d4e3d89c3e89c69547a75498ecda67b95d66121474dad197dd563052"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-corner.gltf",
+          "bytes": 6804,
+          "sha256": "2f1da284d3bf2cac87d43e22573708310ec5a12d416a3be2b6236cf456b9da70"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-corner.bin",
+          "bytes": 101296,
+          "sha256": "107e5be1fed74c1382500cad83d0a56ba2530a2b5d66aa6a4cbe1ff1e19fd266"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-corner.blueprint.json",
+          "bytes": 2722,
+          "sha256": "9d538a122ccfa5924b215602bb3eb7014b9300bc403ecaf3764b50e431e47fe4"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-corner.game-mesh.json.gz",
+          "bytes": 6513,
+          "sha256": "011bee90748317b32e7f8dc1cad2cc547f9aa455ae82cf8af73fa86f10998284"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-curtain-u",
+      "name": "Curtain wall · U return",
+      "category": "part",
+      "engineGame": {
+        "triangles": 712,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 2700,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7362962962962962,
+      "interchange": {
+        "triangles": 2300,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.30000000000000004,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          6.3,
+          3.42,
+          6
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-curtain-u.source-mesh.json.gz",
+          "bytes": 60366,
+          "sha256": "5d593fca9580a3077b3768c14dd094d49e12cebb30b2d2d1730aed08997500fa"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-u.gltf",
+          "bytes": 6828,
+          "sha256": "3a5b568ab144439a8b0fba90cbd9d98dd7df5ac8d0c85cfa0ca5cae50d24ea5f"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-u.bin",
+          "bytes": 150096,
+          "sha256": "43b11372afb2aa5bb0389d7798a31301a289804b2a159745e4e239261a889cee"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-u.blueprint.json",
+          "bytes": 2732,
+          "sha256": "baf6cffbbc7432832fdb7483fd42a3ebcfcc837ea2acda7e496b90fa1203de3c"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-curtain-u.game-mesh.json.gz",
+          "bytes": 8525,
+          "sha256": "3454f3c764871b4d6815951a42bf912776bd275d87e21dcb3019d5b7491ee163"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-postern",
+      "name": "Castle postern",
+      "category": "part",
+      "engineGame": {
+        "triangles": 552,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 3600,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.8466666666666667,
+      "interchange": {
+        "triangles": 1388,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          6,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-postern.source-mesh.json.gz",
+          "bytes": 75977,
+          "sha256": "775943b17bd75c3c8ea009f9e4918837be555ca2cdf9c69064e8adadebcebde0"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-postern.gltf",
+          "bytes": 12862,
+          "sha256": "8a1018e932be25ce7dda9d23c9f79cf1774ece9ea985c2222e2fae78d4bb6e8c"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-postern.bin",
+          "bytes": 95064,
+          "sha256": "73b7c925eeaf088b94ef7a42136af7a313e89f5ef505cf4f4bbf45ad9c60f684"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-postern.blueprint.json",
+          "bytes": 2859,
+          "sha256": "b5df73a5e7a763e1cd745857b17e76f74f5b46dc7470007159b9de0fc666ec4b"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-postern.game-mesh.json.gz",
+          "bytes": 7689,
+          "sha256": "d3a5ceee3423e3ddc3c54a9014f5ff48e9026f5c8bc7d6fa4b37e41f589a41b9"
+        }
+      ],
+      "animations": [
+        {
+          "name": "castle-postern:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "castle-rampart-platform",
+      "name": "Stone rampart and stair",
+      "category": "part",
+      "engineGame": {
+        "triangles": 876,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 3020,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7099337748344371,
+      "interchange": {
+        "triangles": 2882,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -0.30000000000000004
+        ],
+        "max": [
+          6.04,
+          3.42,
+          8
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-rampart-platform.source-mesh.json.gz",
+          "bytes": 72256,
+          "sha256": "af8b594212d0ca95b503826a9a7c8f4cf01187765ac631241510991cf8711d13"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-rampart-platform.gltf",
+          "bytes": 10930,
+          "sha256": "54fd4f41eb56550ee4068bf825b0aee176c1a761a1004bf7119af71996563159"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-rampart-platform.bin",
+          "bytes": 186360,
+          "sha256": "31311d83fc91d390954e1fe2b861feec9505f952decee9c04d82a7a845b81c78"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-rampart-platform.blueprint.json",
+          "bytes": 2731,
+          "sha256": "999d5bc6ba104bd8ddf285baa66247496e2277d31d1c64c8c447e90d20d80e9d"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-rampart-platform.game-mesh.json.gz",
+          "bytes": 13521,
+          "sha256": "684fba460bc70af0ff89ec9f54dd8aa79ce035c8cac0e31092e4a51cd3727752"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-datum-stair",
+      "name": "Stone return stair",
+      "category": "part",
+      "engineGame": {
+        "triangles": 516,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1724,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7006960556844548,
+      "interchange": {
+        "triangles": 1542,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.04,
+          3.05,
+          5
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-datum-stair.source-mesh.json.gz",
+          "bytes": 45635,
+          "sha256": "e030f39381f714d581254556f40d05c52b91e3b17aed30a754fc6f4ba63aea18"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-datum-stair.gltf",
+          "bytes": 9930,
+          "sha256": "eb18763445d9583c8ca4b299e750090a8c2900237f5aaa71a8fb69dd9f80be69"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-datum-stair.bin",
+          "bytes": 100520,
+          "sha256": "dbf047074875d41ac7d849eb65019f18ac6688454efab8cbe9f60b709c38bcc7"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-datum-stair.blueprint.json",
+          "bytes": 2154,
+          "sha256": "f895ce4778adb3d21b827640eacdacff582a243050cd527730d6a552f0ed350b"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-datum-stair.game-mesh.json.gz",
+          "bytes": 9504,
+          "sha256": "4341d4cc2950931badda935cc3d8a43298e988cd9c43f52819339e64c5261d13"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-arcade-bay",
+      "name": "Stone arcade · 3 m bay",
+      "category": "part",
+      "engineGame": {
+        "triangles": 180,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 404,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.5544554455445545,
+      "interchange": {
+        "triangles": 274,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.2,
+          -0.12,
+          0
+        ],
+        "max": [
+          3,
+          2.19,
+          3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-arcade-bay.source-mesh.json.gz",
+          "bytes": 12084,
+          "sha256": "4e7f98afa4523587faa0d2a05e333b882bb0afd751298523b9ad370e242323c1"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-bay.gltf",
+          "bytes": 6724,
+          "sha256": "9f0fe1bae96681ceeaa0e1a6145d3ffd1358f31f4b2f807a11bbe41e203c463c"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-bay.bin",
+          "bytes": 17368,
+          "sha256": "73f9b9a10afecf49129c9b6d3fa9368886ef0bc848c91c2d5739a6aed6dba2f6"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-bay.blueprint.json",
+          "bytes": 2180,
+          "sha256": "5f7fb2110568fa54f5a8a73f130f2006a6198407900decd06c39e330f467a27d"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-bay.game-mesh.json.gz",
+          "bytes": 5633,
+          "sha256": "fe881fc937922cf7a2849c4b154a5805c154412a8f9ca56a36e3bb0d16b2671e"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-arcade-terminal",
+      "name": "Arcade terminal pier",
+      "category": "part",
+      "engineGame": {
+        "triangles": 24,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 88,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7272727272727273,
+      "interchange": {
+        "triangles": 80,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.2,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.2,
+          2.12,
+          0.18
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-arcade-terminal.source-mesh.json.gz",
+          "bytes": 2686,
+          "sha256": "94212605234b33242579700b9c7ac81cb6280e6590ca196f3a8d66e8f8d23fb4"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-terminal.gltf",
+          "bytes": 5234,
+          "sha256": "aaaf4b630b21ad24efc57d6df8e6617f4281ef5db6df05211207e4d415226f83"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-terminal.bin",
+          "bytes": 5568,
+          "sha256": "ff3640464b89f3fc5d7454512431fb63643eb54fc322a905bb15d9ebcf603136"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-terminal.blueprint.json",
+          "bytes": 2139,
+          "sha256": "8152916a0cd2554c54479ce254a2645cc2d67962ffb99a21d0afaa8c4238a79e"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-arcade-terminal.game-mesh.json.gz",
+          "bytes": 1404,
+          "sha256": "36aea1495ddc404b15c8dde1bb2a61eed39c50bad320d9b667e1b274b21bd7a5"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-paired-gate",
+      "name": "Castle paired gate",
+      "category": "part",
+      "engineGame": {
+        "triangles": 300,
+        "draws": 5,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 2508,
+        "draws": 5,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.8803827751196173,
+      "interchange": {
+        "triangles": 576,
+        "draws": 5,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.16
+        ],
+        "max": [
+          4,
+          4.12,
+          0.16
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-paired-gate.source-mesh.json.gz",
+          "bytes": 52189,
+          "sha256": "318bc37486805b262db7f456aae2347c37f963c78b11332baeedf200e090921d"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-paired-gate.gltf",
+          "bytes": 10438,
+          "sha256": "3255e93890041535e490fe17118227594ab9bc5094f4feed2169b98e78060eb4"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-paired-gate.bin",
+          "bytes": 41800,
+          "sha256": "7406ab74507ea4f0e19aa0d8669a5ce7e1d34d3931936534e83c3fdb1f3d2597"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-paired-gate.blueprint.json",
+          "bytes": 2389,
+          "sha256": "110fb58452434ea6efaabb2823c4b5e5aeb9d7502e067b0b6dee767258b053e5"
+        },
+        {
+          "file": "assets/fort-variants/parts/castle-paired-gate.game-mesh.json.gz",
+          "bytes": 4795,
+          "sha256": "1be40829f5f6ba097d500e75a6cb2554f7b4aa98efbaf6c3aabf692ed036a9b6"
+        }
+      ],
+      "animations": [
+        {
+          "name": "castle-paired-gate:gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "cyclone-fence-6",
+      "name": "Cyclone fence · 6 m",
+      "category": "part",
+      "engineGame": {
+        "triangles": 2428,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 6628,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6336753168376584,
+      "interchange": {
+        "triangles": 2600,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11
+        ],
+        "max": [
+          6.11,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fence-6.source-mesh.json.gz",
+          "bytes": 209514,
+          "sha256": "a13cd1fd6b8d4ac51b301278e0ca0fd875ddac61140004787ba713ba843d33db"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-6.gltf",
+          "bytes": 9472,
+          "sha256": "b6e78acef8c8999dc1e82d40481d689c0482cb39d9c1aecda1cc51e72b925fd7"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-6.bin",
+          "bytes": 195680,
+          "sha256": "621df66c0987637b5f49f864f4458da46edd12d46d3bdaa3d38ecaf482da3c61"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-6.blueprint.json",
+          "bytes": 2761,
+          "sha256": "a1b47fc4550860034874e695c76e6db5b12ee3c620e9b7a9c761698d811d5651"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-6.game-mesh.json.gz",
+          "bytes": 72325,
+          "sha256": "77b82b1f1a10894bf40da30ff44bba496aa5058362b6389b6e02715b2f1b476e"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-fence-3",
+      "name": "Cyclone fence · 3 m",
+      "category": "part",
+      "engineGame": {
+        "triangles": 1548,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 4080,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6205882352941177,
+      "interchange": {
+        "triangles": 1656,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11
+        ],
+        "max": [
+          3.11,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fence-3.source-mesh.json.gz",
+          "bytes": 134404,
+          "sha256": "2a60bda2589c819539560bf8b69a94cdc5ea574c95d1861462793ed1d0111990"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-3.gltf",
+          "bytes": 9452,
+          "sha256": "971c9f3e2360ee751de3ae0bf711177decaf6da5f7fbdf19a841e9474712a6eb"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-3.bin",
+          "bytes": 125728,
+          "sha256": "2c27ea62e91d1a64a60eaace2cd5cfab1292d9767b5ce0eab699180fad8a8eb5"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-3.blueprint.json",
+          "bytes": 2761,
+          "sha256": "3f3d1ac44b11f6754f1df58c398ab36d6625a7c405ffc398be31d2677216b377"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-3.game-mesh.json.gz",
+          "bytes": 48874,
+          "sha256": "5792d20c77b4eb67f031fc626f549f9e61424dad2a12d55fa09c3f50f8689894"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-fence-corner",
+      "name": "Cyclone fence · corner",
+      "category": "part",
+      "engineGame": {
+        "triangles": 4472,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 11672,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6168608636052091,
+      "interchange": {
+        "triangles": 5104,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11000000000000032
+        ],
+        "max": [
+          6.11,
+          3.42,
+          6.11
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fence-corner.source-mesh.json.gz",
+          "bytes": 379377,
+          "sha256": "868d4aea1c87012d11eb8661d288c339a0c0512c9ab3a2e91ec1cd5c7b6dbd0e"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-corner.gltf",
+          "bytes": 9491,
+          "sha256": "0bd14df4d003d00432ae06ced6627b295cf41a0e722e3d8aea96a2324e1f62ee"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-corner.bin",
+          "bytes": 379712,
+          "sha256": "927f1f188f16faa37f3ff5a9ca17f79e0c4771ef81a88a114afa375c54ddc076"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-corner.blueprint.json",
+          "bytes": 2763,
+          "sha256": "b8c8dbc477dcdb3823e5e1f41585c9269e08d2968fa8a097065943be2c6ae9b2"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-corner.game-mesh.json.gz",
+          "bytes": 138071,
+          "sha256": "61d73f58f34b053864051a10ce03e566542827a33520ede975fbad85015c5efc"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-fence-u",
+      "name": "Cyclone fence · U return",
+      "category": "part",
+      "engineGame": {
+        "triangles": 6516,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 16760,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6112171837708831,
+      "interchange": {
+        "triangles": 7644,
+        "draws": 6,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11000000000000032
+        ],
+        "max": [
+          6.11,
+          3.42,
+          6.11
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fence-u.source-mesh.json.gz",
+          "bytes": 542109,
+          "sha256": "09d322e11b4b39bfc751275e80efe805a63812254ee2a0e35b38c3f6fb1ae534"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-u.gltf",
+          "bytes": 9483,
+          "sha256": "d38d6939ee0fc68e3c0bb6c2187c40ae57fc8e849b7c104f97d798a6cc9e23a0"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-u.bin",
+          "bytes": 565968,
+          "sha256": "d0161c66ead2723d72e33240dad7da8c8762ccd78b556ced862ca4b0b9b55ab0"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-u.blueprint.json",
+          "bytes": 2773,
+          "sha256": "897ca5793c56240b64bbe77cd3ca8ada3be1f9fe0360fe9426e09be79c6fcd47"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-fence-u.game-mesh.json.gz",
+          "bytes": 198010,
+          "sha256": "829f0d8cbdd5f75b50344537df6d86acabe01038cda8da7fe078e488e2a17536"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-service-gate",
+      "name": "Rear service gate",
+      "category": "part",
+      "engineGame": {
+        "triangles": 4352,
+        "draws": 13,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 12744,
+        "draws": 13,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6585059635907093,
+      "interchange": {
+        "triangles": 4684,
+        "draws": 13,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.13
+        ],
+        "max": [
+          6.11,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-service-gate.source-mesh.json.gz",
+          "bytes": 398566,
+          "sha256": "00cb8326469a5311eb24b73d7c03ea42fadb9921aec2598bd8dcc7d5bc03ec9d"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-service-gate.gltf",
+          "bytes": 17442,
+          "sha256": "31e80847830c03cb5c525668fa6d7c80891621c86d4f685d81d66d1c03df46d7"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-service-gate.bin",
+          "bytes": 353880,
+          "sha256": "183e152d8145d4ff4859405b5e416bc462b25b0cff14cdaf49aa96c085f3aac8"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-service-gate.blueprint.json",
+          "bytes": 2924,
+          "sha256": "3aede3e550340b178467a50e97cce520186b1c01b7e29cb180a74200a80dd70f"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-service-gate.game-mesh.json.gz",
+          "bytes": 135012,
+          "sha256": "d2a9119ff7d801a349cbc2c0d30090854bdea1998a91f4a4c3e3e96b10e065c8"
+        }
+      ],
+      "animations": [
+        {
+          "name": "cyclone-service-gate:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "cyclone-catwalk-platform",
+      "name": "Steel catwalk platform and stair",
+      "category": "part",
+      "engineGame": {
+        "triangles": 3112,
+        "draws": 12,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 8648,
+        "draws": 12,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6401480111008326,
+      "interchange": {
+        "triangles": 4320,
+        "draws": 12,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          -0.12,
+          -0.11
+        ],
+        "max": [
+          6.11,
+          3.42,
+          8
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-catwalk-platform.source-mesh.json.gz",
+          "bytes": 258864,
+          "sha256": "3e156c3c499ab1fcc6780cade308c166d9f246d146788cbf2e6b617fa40118f1"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-catwalk-platform.gltf",
+          "bytes": 14446,
+          "sha256": "56dc3a397c6069335094599e8859547eaae7beeb52ede0ad09e40bc01013aec0"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-catwalk-platform.bin",
+          "bytes": 310144,
+          "sha256": "2a670a68f07625f0ace3e4856158294385be7788fc3fe068fd2fd916b0351222"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-catwalk-platform.blueprint.json",
+          "bytes": 2792,
+          "sha256": "ee9954fa8abb6152495e3a9825c5d8615bee96781726375bd3b62c559bd6be89"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-catwalk-platform.game-mesh.json.gz",
+          "bytes": 82618,
+          "sha256": "88248a5f14d97bfae38af506b3a945851c10878b46d84929118d17151e703d47"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-datum-stair",
+      "name": "Steel return stair",
+      "category": "part",
+      "engineGame": {
+        "triangles": 564,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1772,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6817155756207676,
+      "interchange": {
+        "triangles": 876,
+        "draws": 8,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.04,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.04,
+          3.05,
+          5
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-datum-stair.source-mesh.json.gz",
+          "bytes": 47563,
+          "sha256": "b091fb655f16bd27d0ab3fcc10a57e7be75678bb9aedfd3f47a05fc92d5aec93"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-datum-stair.gltf",
+          "bytes": 10757,
+          "sha256": "fb436a8f1132abeea35ac2e789004109f9891d4b56f6ab6234452c2752d72d08"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-datum-stair.bin",
+          "bytes": 61840,
+          "sha256": "5eee1424a590c1a6c7d036c5950f06a2f279d6601a7ebc5d7947d23effbb2f8e"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-datum-stair.blueprint.json",
+          "bytes": 2197,
+          "sha256": "c4eb6d0f41d51d5a9cb220e1bf9d73691f20a09b35c4b264c4f846553c14a4a4"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-datum-stair.game-mesh.json.gz",
+          "bytes": 10735,
+          "sha256": "d5bd8df0ba4698907946e8fb2027a0eb41d6eb7375d449d47de848948e34387a"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-canopy-bay",
+      "name": "Steel canopy · 3 m bay",
+      "category": "part",
+      "engineGame": {
+        "triangles": 48,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 144,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6666666666666667,
+      "interchange": {
+        "triangles": 112,
+        "draws": 3,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.14,
+          -0.12,
+          0
+        ],
+        "max": [
+          3,
+          2.12,
+          3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-canopy-bay.source-mesh.json.gz",
+          "bytes": 4772,
+          "sha256": "6d159e66af9554df2918318ab86d1b7da284b090cea7da568cc0230719d2d966"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-bay.gltf",
+          "bytes": 6719,
+          "sha256": "09ab40b42c792a555704b4e1dfca66a7d8827f22627f5f4341d19842577a2c98"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-bay.bin",
+          "bytes": 7488,
+          "sha256": "026ee8db159cb5f611aba6ae770de6cdcb858d2de47023f77fa0d9fccb6e84c4"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-bay.blueprint.json",
+          "bytes": 2223,
+          "sha256": "d50070bb854b3b71efa725dabf88a87b036b199b67d4b8546cd3be5c9e85d29b"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-bay.game-mesh.json.gz",
+          "bytes": 1882,
+          "sha256": "bef54b1bb2b5bc66352a123c9509d311dc96f88fa9ab235f3caf3fdf82ded859"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-canopy-terminal",
+      "name": "Canopy terminal post",
+      "category": "part",
+      "engineGame": {
+        "triangles": 24,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 88,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7272727272727273,
+      "interchange": {
+        "triangles": 80,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.14,
+          0,
+          -0.125
+        ],
+        "max": [
+          0.14,
+          2.12,
+          0.125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-canopy-terminal.source-mesh.json.gz",
+          "bytes": 2723,
+          "sha256": "7f3e33e762a5949d9471267a5181468fa97a6a608ab79f56061bc1f937e0b0e4"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-terminal.gltf",
+          "bytes": 5210,
+          "sha256": "c9237a09dffce514f411d0891d401ddc55113d8e7a6763dfb2ab24f38bcf910c"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-terminal.bin",
+          "bytes": 5568,
+          "sha256": "4b017bdb9d6fd849a26f37f5c8351341bda79b304b106f8eb452b6a929fcaba7"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-terminal.blueprint.json",
+          "bytes": 2182,
+          "sha256": "00711e3c303d7abf309cefe37816748dc0612fe8fdb93d5462fcb4daae3ba5c8"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-canopy-terminal.game-mesh.json.gz",
+          "bytes": 1427,
+          "sha256": "7bdf195a4bde9f74245c853d01ef848de7e71146fe0af5faa2b6535eac61f768"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "cyclone-paired-gate",
+      "name": "Paired mesh gate",
+      "category": "part",
+      "engineGame": {
+        "triangles": 2004,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 6324,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.683111954459203,
+      "interchange": {
+        "triangles": 2144,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.16
+        ],
+        "max": [
+          4,
+          4.12,
+          0.16
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-paired-gate.source-mesh.json.gz",
+          "bytes": 204243,
+          "sha256": "356735aae4ba8def95e85ee2e7fe87ea85539028f9ec7033ade9a771d7292a48"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-paired-gate.gltf",
+          "bytes": 12249,
+          "sha256": "58860f221e49d5c7875aa047944e48d1a892bac1feab3c911160951d5d90147a"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-paired-gate.bin",
+          "bytes": 162504,
+          "sha256": "861fe7226dafb935432343c54950d64f6b2cd01f381086005853dc27f27e84b2"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-paired-gate.blueprint.json",
+          "bytes": 2429,
+          "sha256": "f80c175aca80099e941082e86c3b8bf59db971232ea3179e35547cc83ca45f64"
+        },
+        {
+          "file": "assets/fort-variants/parts/cyclone-paired-gate.game-mesh.json.gz",
+          "bytes": 69469,
+          "sha256": "a27a4efa591f0646c17d4240937f31b12beeef1fa111d8be38bae8ec189d1d53"
+        }
+      ],
+      "animations": [
+        {
+          "name": "cyclone-paired-gate:gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "link-castle-to-cyclone",
+      "name": "Masonry to cyclone transition",
+      "category": "part",
+      "engineGame": {
+        "triangles": 1252,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 3348,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6260454002389486,
+      "interchange": {
+        "triangles": 1496,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          3.1100000000000003,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/link-castle-to-cyclone.source-mesh.json.gz",
+          "bytes": 104848,
+          "sha256": "77165e657aed5a38aa03c18f097371f58ae1466527c12fb98ffaa3bb816bd4a3"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-castle-to-cyclone.gltf",
+          "bytes": 13626,
+          "sha256": "9cdc0bdf94ed645eb8ed7c2a0127d2878130a9fe49bf837b6ffd40ab2cba1c63"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-castle-to-cyclone.bin",
+          "bytes": 112096,
+          "sha256": "732467a9f56e445d420fe4c97443f1c6e72bc6abd735b6714d0b2a1bba8e0e39"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-castle-to-cyclone.blueprint.json",
+          "bytes": 2727,
+          "sha256": "87405ab040d579c3654ce1047e6400edde2f8828528053a3cd49e0cffc90c2dd"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-castle-to-cyclone.game-mesh.json.gz",
+          "bytes": 36556,
+          "sha256": "2ad9ee17107bedfaf19724f7d367f1a6a574a87a088fd99fdbcd33dd7500ce18"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "link-cyclone-to-castle",
+      "name": "Cyclone to masonry transition",
+      "category": "part",
+      "engineGame": {
+        "triangles": 1252,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 3348,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6260454002389486,
+      "interchange": {
+        "triangles": 1496,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.30000000000000004
+        ],
+        "max": [
+          3,
+          3.42,
+          1.7
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/link-cyclone-to-castle.source-mesh.json.gz",
+          "bytes": 105336,
+          "sha256": "bddb3e193d4ad747a1bc016c0c89ad54a103aded61e82eabc3bf43147c7dd03a"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-cyclone-to-castle.gltf",
+          "bytes": 13641,
+          "sha256": "356644c01029248327002bc5f72b2afb7b31375459e5af4aefa013fb630e89bb"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-cyclone-to-castle.bin",
+          "bytes": 112096,
+          "sha256": "3ea44c2cc46d059c0a8799f88a0eb50a6f1a46ec3431ef6455ac24139459209a"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-cyclone-to-castle.blueprint.json",
+          "bytes": 2727,
+          "sha256": "2588b47e03a385073640734a00ab0438b08b5e1b13dee13aaa98294551a922c4"
+        },
+        {
+          "file": "assets/fort-variants/parts/link-cyclone-to-castle.game-mesh.json.gz",
+          "bytes": 36350,
+          "sha256": "28552682aa925914ecf8e314005e8a8d72058ffa83e4cb85033bd4394ded1cf3"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "castle-fort-courtyard",
+      "name": "Castle courtyard compound",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 44452,
+        "draws": 139,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 163196,
+        "draws": 139,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7276158729380622,
+      "interchange": {
+        "triangles": 135274,
+        "draws": 139,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          72,
+          7.540000000000001,
+          60
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-fort-courtyard.source-mesh.json.gz",
+          "bytes": 2951367,
+          "sha256": "da3a7dfcc618dd1c28b30ebdc2a4cef506bdd9cbd8da4eb0e545f4f10e6f4f8c"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-courtyard.gltf",
+          "bytes": 148135,
+          "sha256": "532a3b6a44eb24e7b3f64022d7c9da1b5f87ccd8278d1c8d818df17b6078d1e0"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-courtyard.bin",
+          "bytes": 9011368,
+          "sha256": "c3cafd72fe7ea2d2cbea82ddb2d80026d7a5fd50e7352ce0370c64d1b01fd4b7"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-courtyard.blueprint.json",
+          "bytes": 15137,
+          "sha256": "ceea248056ebef888a3095558e26e9995641c2f8f49805f537daeef293c001ec"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-courtyard.game-mesh.json.gz",
+          "bytes": 430689,
+          "sha256": "43ff1dfbc624762d7f7e7d869e851a1d623718a5aa757b2ac0a2224aba59b81f"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-courtyard-plan.svg",
+          "bytes": 21276,
+          "sha256": "9d5408d2686143ed792eae4d2b1eada017fe3b71123c957da0f83e6f07416329"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:castle-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:castle-postern:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "castle-fort-compact",
+      "name": "Castle compact compound",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 39860,
+        "draws": 131,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 143552,
+        "draws": 131,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7223305840392331,
+      "interchange": {
+        "triangles": 119090,
+        "draws": 131,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          60,
+          7.540000000000001,
+          48
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/castle-fort-compact.source-mesh.json.gz",
+          "bytes": 2596290,
+          "sha256": "8edff470f2edf4a9d1430eb7d4b0353d717bf7fe0694a6a14fe3abed3affd8f4"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-compact.gltf",
+          "bytes": 138482,
+          "sha256": "79e1020113c79f9b31125a9fd37b4ffb79d3998ea17cb3e2b47c985bf87d6274"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-compact.bin",
+          "bytes": 7919784,
+          "sha256": "d0760a23464ee3c95525ecae5843441c19f64fc17207b091a7005add1aff38e9"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-compact.blueprint.json",
+          "bytes": 12166,
+          "sha256": "67f7c1752618c74a65f2c436a93130c450c6f01405202becdf00e0b1c418ae13"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-compact.game-mesh.json.gz",
+          "bytes": 398722,
+          "sha256": "74fb301b4f5c67de4ab82bcf34a69751929d7a0853cfe60d5f7ab6c9d968602a"
+        },
+        {
+          "file": "assets/fort-variants/models/castle-fort-compact-plan.svg",
+          "bytes": 17575,
+          "sha256": "9137afafda8d2bdd1c91478e6ccf018b874100104b79d69553be4cf33ba593da"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:castle-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:castle-postern:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "cyclone-fort-courtyard",
+      "name": "Modern security courtyard compound",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 113140,
+        "draws": 130,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 345816,
+        "draws": 130,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6728317949429754,
+      "interchange": {
+        "triangles": 158902,
+        "draws": 130,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          72,
+          6.535000000000001,
+          60
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fort-courtyard.source-mesh.json.gz",
+          "bytes": 8762865,
+          "sha256": "ac165d6965cec13b067e20395487e5b146adbb213699c3057de7c1d73bf65b73"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-courtyard.gltf",
+          "bytes": 140246,
+          "sha256": "470890a26adaa43b17c39f0b9b1d77d01399fe914c509a4968d51fd92b61a2da"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-courtyard.bin",
+          "bytes": 11459768,
+          "sha256": "ccbfa6c436687fcd56f19a3f8145356f498620d4cd3ef22d12d6eaeae0505ff6"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-courtyard.blueprint.json",
+          "bytes": 15172,
+          "sha256": "d0af4f826af5a7dbc164623954ff425f75372b84d5382aaa1f31edb013bfc3bc"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-courtyard.game-mesh.json.gz",
+          "bytes": 2445890,
+          "sha256": "598da605f2cce01560df2f741a2aedde84e81ee208a758141686129ad932605d"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-courtyard-plan.svg",
+          "bytes": 20158,
+          "sha256": "5249aa969b1ca89a3d94382aa4da456284a3217bf76c1b64f73ae924ebb0d4da"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:cyclone-security-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:cyclone-service-gate:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "cyclone-fort-compact",
+      "name": "Modern security compact compound",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 90936,
+        "draws": 122,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 279576,
+        "draws": 122,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6747360288436776,
+      "interchange": {
+        "triangles": 131702,
+        "draws": 122,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          60,
+          6.535000000000001,
+          48
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/cyclone-fort-compact.source-mesh.json.gz",
+          "bytes": 6980705,
+          "sha256": "e23c0a3d27526bf9479039b122bb9e70b85b482550ee854b4d3199166c6b3bfa"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-compact.gltf",
+          "bytes": 130203,
+          "sha256": "8c7b93c9c97cf44b9489cbeb1edb9f3da1d9acfe783d17674e892efb81aa15c6"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-compact.bin",
+          "bytes": 9451384,
+          "sha256": "8def85d0d7e222e23411ba86013f15e69ccb17e2de7cb7c5ceed0b23c36206e2"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-compact.blueprint.json",
+          "bytes": 12208,
+          "sha256": "0ec423a8205c815fdc14331f2bc1fa0f835b0b71f68e119517fa7dff9d52835a"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-compact.game-mesh.json.gz",
+          "bytes": 1919476,
+          "sha256": "d84a87c1519fd78dcf28da3e492c040f41c78f6d8e67049e0f12178f4e8f728b"
+        },
+        {
+          "file": "assets/fort-variants/models/cyclone-fort-compact-plan.svg",
+          "bytes": 16457,
+          "sha256": "5062c3afee97d908749926bd67e3bf6b44e5005444b8e925e879b07336dab6f1"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:cyclone-security-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:cyclone-service-gate:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "fort-variants-mixed",
+      "name": "Mixed construction · fitted transitions",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 82024,
+        "draws": 174,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 261540,
+        "draws": 174,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6863806683490097,
+      "interchange": {
+        "triangles": 152936,
+        "draws": 174,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          72,
+          7.540000000000001,
+          60
+        ]
+      },
+      "files": [
+        {
+          "file": "art/fort-variants/sculpts/fort-variants-mixed.source-mesh.json.gz",
+          "bytes": 6087421,
+          "sha256": "49a14c77552d4093549be20bcab3930369d1137b03cf9e741c4cfe3e4f04627a"
+        },
+        {
+          "file": "assets/fort-variants/models/fort-variants-mixed.gltf",
+          "bytes": 178507,
+          "sha256": "b28894a38428c19870aa529b457d5f797c09ab967d77b886547a73cf8309d4bb"
+        },
+        {
+          "file": "assets/fort-variants/models/fort-variants-mixed.bin",
+          "bytes": 10644048,
+          "sha256": "5f7d1d1d10ee52d5c07c93f444db7f4001a416c50075f88bee46096fb3e312a3"
+        },
+        {
+          "file": "assets/fort-variants/models/fort-variants-mixed.blueprint.json",
+          "bytes": 15990,
+          "sha256": "d466918d3220be9a5ae8dab1fd89a5849d8f35fe455d853d2f7919a8982c9c8b"
+        },
+        {
+          "file": "assets/fort-variants/models/fort-variants-mixed.game-mesh.json.gz",
+          "bytes": 1543445,
+          "sha256": "4f140c7ff2df5813641578c412d3714e472edb2cddebf70bf153fac219eeb724"
+        },
+        {
+          "file": "assets/fort-variants/models/fort-variants-mixed-plan.svg",
+          "bytes": 21028,
+          "sha256": "4ae11620ea06a68ffd72c25d9a230f437a65f4b8edc90a5f8f5ad0885d660006"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:castle-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:cyclone-service-gate:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    }
+  ]
+}
