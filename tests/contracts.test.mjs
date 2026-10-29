@@ -58,7 +58,7 @@ test('loading and saving return the authored JSON, not the editor-normalized cop
   assert.equal(JSON.stringify(createSave(text)), JSON.stringify(createSave(text)), 'Saving one input twice is deterministic');
   const saved = serializeSave(createSave(text));
   assert.deepEqual(parseSave(saved).payload.data, map, 'Loading the save returns the authored map');
-  assert.equal(serializeSave(parseSave(saved)), saved, 'Loading one save twice is deterministic');
+  assert.equal(serializeSave(parseSave(saved)), saved, 'A loaded save serializes back to the same bytes');
 });
 test('tampered requirements, schema stamps, future saves and non-JSON values reject', () => {
   const map = flat(); map.wallRuns = {version: 1, segments: [{id:'wall-1', a:[30,30], b:[40,30], z:0, stories:1, material:'wood'}]};

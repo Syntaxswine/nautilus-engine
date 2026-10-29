@@ -224,11 +224,18 @@ test('bear clearance agrees with the pinned Tinderbox spawn check beside walls, 
     ['beside a long vertical run, off its centre', {wall: [[20.6, 24], [20.6, 34]]}, false],
     ['beside a horizontal run, off its centre', {wall: [[18, 24.4], [28, 24.4]]}, false],
     ['beside a horizontal run drawn backwards', {wall: [[23, 24.4], [19, 24.4]]}, false],
+    ['beside a vertical run drawn backwards, off its centre', {wall: [[20.6, 30], [20.6, 24]]}, false],
+    ['west of the spawn, 0.52 m', {wall: [[19.4, 23.5], [19.4, 25.5]]}, false],
+    ['west of the spawn, 0.72 m', {wall: [[19.2, 23.5], [19.2, 25.5]]}, true],
     ['the near run listed first', {wall: [[20.6, 24], [20.6, 26]], first: true}, false],
     ['top row', {start: {x: 20, y: 20, z: 0}}, false],
     ['bottom row', {start: {x: 20, y: 35, z: 0}}, false],
     ['left column', {start: {x: 10, y: 25, z: 0}}, false],
     ['right column', {start: {x: 29, y: 25, z: 0}}, false],
+    ['one row inside the top', {start: {x: 20, y: 21, z: 0}}, true],
+    ['one row inside the bottom', {start: {x: 20, y: 34, z: 0}}, true],
+    ['one column inside the left', {start: {x: 11, y: 25, z: 0}}, true],
+    ['one column inside the right', {start: {x: 28, y: 25, z: 0}}, true],
     ['open yard', {}, true]
   ];
   for (const [name, {wall, first, start}, free] of probes) {

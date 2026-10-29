@@ -84,29 +84,32 @@ test('the handoff refuses a missing host, a block and a malformed adapter before
 });
 
 test('the editor handoff state sends the current export by default, and only its own disconnect clears it', () => {
-  const json = featureMap(), features = requiredMapFeatures(JSON.parse(json));
-  let current = json, exports = 0, changes = 0;
-  const handoff = createGameHandoff({exportMap: () => { exports++; return current; }, onChange: () => changes++});
+  const json = featureMap(), features = requiredMapFeatures(JSON.parse(json)), malformed = {name: 'TypeError', message: 'A game adapter needs openMap({json, contract}).'};
+  let current = json, exports = 0;
+  // Each refresh records whether a host is connected at that moment, as the page's refresh reads it.
+  const seen = [], handoff = createGameHandoff({exportMap: () => { exports++; return current; }, onChange: () => seen.push(handoff.hasGameAdapter)});
   assert.equal(handoff.hasGameAdapter, false);
   assert.throws(() => handoff.sendToGame(), /Connect a game adapter first/);
-  assert.throws(() => handoff.connectGame({}), TypeError);
-  assert.equal(handoff.hasGameAdapter, false); assert.equal(changes, 0, 'A refused adapter changes nothing');
+  for (const adapter of [{}, {openMap: 'not a function'}]) assert.throws(() => handoff.connectGame(adapter), malformed);
+  assert.equal(handoff.hasGameAdapter, false); assert.deepEqual(seen, [], 'A refused adapter changes nothing');
   const first = host({features}), disconnectFirst = handoff.connectGame(first.adapter);
-  assert.equal(handoff.hasGameAdapter, true); assert.equal(changes, 1);
+  assert.equal(handoff.hasGameAdapter, true); assert.deepEqual(seen, [true], 'The refresh sees the connected host');
+  assert.throws(() => handoff.connectGame({}), malformed); assert.deepEqual(seen, [true], 'A refused adapter keeps the connected host');
   // With no argument the current export is sent; with one, that map is sent and nothing is exported.
-  exports = 0; assert.equal(handoff.sendToGame(), 'opened'); assert.equal(exports, 1);
+  exports = 0; assert.equal(handoff.sendToGame(), 'opened'); assert.equal(exports, 1); assert.equal(first.calls.length, 1);
   const named = JSON.parse(json); named.name = 'Explicit map'; current = '{"not": "this map"}'; exports = 0;
   assert.equal(handoff.sendToGame(JSON.stringify(named)), 'opened'); assert.equal(exports, 0, 'An explicit map skips the export');
   assert.equal(JSON.parse(first.calls[1].handoff.json).name, 'Explicit map');
   // A newer host replaces the first. The first host's disconnect is then stale and keeps the newer one.
   const second = host({manifest: engineManifest()}), disconnectSecond = handoff.connectGame(second.adapter);
-  disconnectFirst(); assert.equal(handoff.hasGameAdapter, true); assert.equal(changes, 2, 'A stale disconnect changes nothing');
+  disconnectFirst(); assert.equal(handoff.hasGameAdapter, true); assert.deepEqual(seen, [true, true], 'A stale disconnect changes nothing');
   current = json; handoff.sendToGame(); assert.equal(second.calls.length, 1); assert.equal(first.calls.length, 2);
-  disconnectSecond(); assert.equal(handoff.hasGameAdapter, false); assert.equal(changes, 3);
-  disconnectSecond(); assert.equal(changes, 3, 'A second disconnect is a no-op');
+  disconnectSecond(); assert.equal(handoff.hasGameAdapter, false); assert.deepEqual(seen, [true, true, false], 'The refresh sees the host gone');
+  disconnectSecond(); assert.deepEqual(seen, [true, true, false], 'A second disconnect is a no-op');
   assert.throws(() => handoff.sendToGame(), /Connect a game adapter first/);
   // Sends through this state still meet the capability checks.
   const roofless = engineManifest(); roofless.id = 'host-without-roofs'; roofless.capabilities = roofless.capabilities.filter(feature => feature.id !== ROOF_FEATURE);
   const refused = host({manifest: roofless}); handoff.connectGame(refused.adapter);
-  assert.throws(() => handoff.sendToGame(), CompatibilityError); assert.equal(refused.calls.length, 0, 'An incapable host connected here is never called');
+  assert.throws(() => handoff.sendToGame(), error => error instanceof CompatibilityError && error.diagnostics.some(item => item.code === 'UNSUPPORTED_REQUIRED_FEATURE' && item.feature === ROOF_FEATURE));
+  assert.equal(refused.calls.length, 0, 'An incapable host connected here is never called');
 });

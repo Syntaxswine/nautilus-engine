@@ -17,8 +17,8 @@ export function sendMapToGame(json, adapter) {
   return adapter.openMap({json: document.export(), contract: MAP_CONTRACT});
 }
 // The state behind window.nautilus: one connected host, sends that default to the
-// current export, and a disconnect that clears only its own host. editor.js assigns
-// these members as they are, so the page adds no handoff logic of its own.
+// current export, and a disconnect that clears only its own host. editor.js supplies
+// the export and the refresh, and assigns these members to window.nautilus.
 export function createGameHandoff({exportMap, onChange = () => {}}) {
   let host = null;
   return {
