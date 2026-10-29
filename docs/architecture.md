@@ -26,6 +26,8 @@
 
 Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
 
+The [component handoff standard](component-handoffs.md) defines public usage cards, working examples and builder checklists for new and materially revised parts. Standard recipes bind declared semantics through retained host services; missing automatic bindings remain explicit work until implemented and reviewed.
+
 Design selection follows [accuracy, efficiency and narrative](design-evaluation.md). Reviews must recommend a preferred design for the named game or use case, with reasons and evidence. Shared interfaces can support different simulation detail; [the initial recommendations](reviews/2026-10-28-design-tradeoffs.md) distinguish general percentage attacks, dramatic AFT shot outcomes, detailed Tinderbox fire and cheaper tactical policies.
 
 ## Optional rendering effects

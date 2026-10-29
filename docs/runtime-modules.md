@@ -39,6 +39,10 @@ else {
 
 The example's names and `createMyRockActions` are consumer bindings, not additional engine APIs. A factory should create a resource-free handle; resource acquisition belongs in its optional asynchronous `prepare` hook. The borrowed world service is never disposed by Nautilus.
 
+## Builder handoff
+
+A reusable module also supplies the [standard usage card, guide and checklist](component-handoffs.md). Its example shows actual provider bindings, readiness diagnostics, retained host services and cleanup. Keep documentation metadata separate from the strict configuration below; the handoff standard adds no runtime manifest fields or mandatory composition layer.
+
 ## Configuration and diagnostics
 
 Configuration is bounded plain JSON with `version`, registered `modules`, and selected root module IDs. Optional `hosts` and `bindings` default only when absent; explicit null, unfamiliar fields, invalid identifiers, accessors, functions and unsupported versions reject. Each module declares `id`, positive integer interface `version`, `provides`, and optional `requires`. Hosts declare the same fields except requirements. Package semantic versions, data schema versions, feature capabilities and these provider-interface versions are separate identities.
