@@ -28,4 +28,19 @@ Reviewed baseline: Nautilus main `3cba6838a1926e7cc1611ffddf13d70aeceea5c7`. [AF
 
 ## Acceptance
 
-Runtime, browser, installed-package and release evidence will be recorded after the exact coder/UI commits are integrated and reviewed. No consumer is migrated by this engine release.
+The reviewed runtime is frozen at `ae3153e233bb9666778fe20d2e5bd1b803db87fb`. Accepted source commits and file hashes are in [architect verification](evidence/basic-progression/verification.json).
+
+- Integrity/headless closure checks pass with 603 immutable donor files unchanged.
+- All 254 engine tests and 32 inherited editor regressions pass. This includes 13 focused progression cases plus 3 public/installed-boundary cases.
+- The static 0.7 build checks 365 module paths and records the progression profile/source hashes.
+- [Character browser acceptance](evidence/basic-progression/acceptance.json) covers practice, multi-level rewards, allocation/undo/reset/confirm, banking, caps/overspend, actual baseline accuracy previews, strict saves, import/reload, duplicate delivery, imported ID collisions, keyboard/focus, 320/390px layouts and 200%-equivalent reflow.
+- [Editor browser acceptance](evidence/basic-progression/editor-acceptance.json) covers authoring, procedural roofs/generation, undo/redo, save/import/export, capability rejection and every schema URL.
+- [Cleanup verification](evidence/basic-progression/cleanup-verification.json) confirms exact task process lifetimes exited and both ports 49760/49761 were released. No helper is retained.
+
+Independent review found one full-journal preview/commit mismatch. Fixed source `27f0a763a55db1be31704bc4ecf289dbb5e74fa7` shares the capacity guard, with a regression proving unchanged state and continued original-command replay at 4096 receipts. No other correctness or integration blocker remains.
+
+The initial profile explicitly supports 4096 committed rewards/allocations and rejects further new commands at capacity; no archival/migration is implemented. Games must plan their outcome granularity and review an explicit extension for longer campaigns. Rates remain illustrative. This is an optional engine contract and reference host; no consumer pin or production game is changed.
+
+![Character allocation](evidence/basic-progression/development-desktop.png)
+
+![Baseline accuracy preview](evidence/basic-progression/development-accuracy.png)
