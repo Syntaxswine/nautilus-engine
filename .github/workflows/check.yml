@@ -16,3 +16,25 @@ jobs:
       - run: npm test
       - run: npm run test:upstream
       - run: npm run build
+      - run: npm run test:package
+  browser-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run review:integration
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-browser-workflow
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: authoring-browser-evidence
+          path: artifacts/engine-integration/
+          if-no-files-found: ignore

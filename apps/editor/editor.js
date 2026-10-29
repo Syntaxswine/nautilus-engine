@@ -1,10 +1,15 @@
-import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint} from '../packages/map-core/index.js';
-import {exampleYard} from '../packages/map-core/example.js';
+import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities, assertBlueprintCompatible, engineManifest} from '../../packages/map-core/index.js';
+import {exampleYard} from '../../packages/map-core/example.js';
+import {installAssetLibrary} from './assets.js';
+import {installBuildingLibrary} from './buildings.js';
+
+installAssetLibrary();
+installBuildingLibrary();
 
 let gameAdapter = null;
 const status = text => {document.getElementById('status').textContent = text;};
 window.nautilus = {
-  version: ENGINE_VERSION, contract: MAP_CONTRACT,
+  version: ENGINE_VERSION, contract: MAP_CONTRACT, manifest: engineManifest(),
   get document() { return window.editor3d?.document; },
   get hasGameAdapter() { return !!gameAdapter; },
   export() {if (!this.document) throw Error('The editor is still loading.');return this.document.export();},
@@ -18,10 +23,23 @@ window.nautilus = {
     const document = openDocument(json), errors = document.validate();
     if (document.block) throw Error('Place this block in a full map first.');
     if (errors.length) throw Error(errors.join(' '));
+    if (gameAdapter.manifest) assertBlueprintCompatible(document.map, gameAdapter.manifest);
+    else assertMapCapabilities(document.map,gameAdapter.features||[]);
     return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
   }
 };
+function installSettingsFeedback() {
+  const heading = document.querySelector('#editor-settings .settings-heading'), source = document.getElementById('status');
+  if (!heading || !source || document.getElementById('nautilus-settings-feedback')) return;
+  const feedback = document.createElement('p'); feedback.id = 'nautilus-settings-feedback';
+  feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite');
+  heading.append(feedback);
+  const reflect = () => {feedback.textContent = source.textContent;feedback.hidden = !feedback.textContent;};
+  new MutationObserver(reflect).observe(source, {childList: true, subtree: true, characterData: true});
+  reflect();
+}
 function refreshHandoff() {
+  installSettingsFeedback();
   const button = document.getElementById('playtest');
   if (button) {const disabled = !gameAdapter || !!window.editor3d?.document?.block;if (button.disabled !== disabled) button.disabled = disabled;button.title = gameAdapter ? 'Send a validated copy; keep the blueprint here.' : 'Export JSON for a game, or connect a game adapter.';}
   const quick = document.getElementById('quick-playtest');if (quick && button) {quick.disabled = button.disabled;quick.title = button.title;}
