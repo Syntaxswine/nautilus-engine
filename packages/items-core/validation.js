@@ -13,6 +13,11 @@ export function finite(value,min,max,label){if(!Number.isFinite(value)||value<mi
 export function integer(value,min,max,label){finite(value,min,max,label);if(!Number.isSafeInteger(value))fail('invalid-input',label+' must be a safe integer.');return value;}
 export function id(value,label='ID',max=64){if(typeof value!=='string'||!new RegExp('^[A-Za-z0-9][A-Za-z0-9_.:-]{0,'+(max-1)+'}$').test(value))fail('invalid-input','Invalid '+label+'.');return value;}
 export function flag(value,label){if(typeof value!=='boolean')fail('invalid-input','The host must supply '+label+' as a boolean.');return value;}
+export function list(value,max,label){
+  if(!Array.isArray(value)||Object.getPrototypeOf(value)!==Array.prototype||value.length>max||Reflect.ownKeys(value).length!==value.length+1)fail('invalid-input',label+' must be a dense data array of at most '+max+' entries.');
+  for(let index=0;index<value.length;index++){const descriptor=Object.getOwnPropertyDescriptor(value,String(index));if(!descriptor||!descriptor.enumerable||!Object.hasOwn(descriptor,'value'))fail('invalid-input',label+' cannot contain holes or accessors.');}
+  return value;
+}
 export function point(value,label='position'){fields(value,['x','y','h'],undefined,label);return {x:finite(value.x,-1e6,1e6,label+' x'),y:finite(value.y,-1e6,1e6,label+' y'),h:finite(value.h,-1e6,1e6,label+' h')};}
 export const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y,a.h-b.h);
 export const samePoint=(a,b)=>a.x===b.x&&a.y===b.y&&a.h===b.h;
