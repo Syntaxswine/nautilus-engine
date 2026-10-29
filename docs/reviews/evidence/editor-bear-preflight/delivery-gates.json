@@ -1,0 +1,44 @@
+{
+  "preparationCommit": "d42fc2de10b6ae33174cb2c9e11412936c79a57c",
+  "status": "preparation only; fixed bear provider and appearance contract pending",
+  "nodeVersion": "v24.15.0",
+  "platform": "win32",
+  "gates": [
+    {
+      "command": "npm run check -- --tracked",
+      "exitCode": 0,
+      "count": 0,
+      "log": "artifacts/editor-bear-preflight/check.log",
+      "logSha256": "cfae93da0cb4493ba039e7fa3ee42bb2f3b3dbfe4aed628c23636f2f07becd4e"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 364,
+      "log": "artifacts/editor-bear-preflight/tests.log",
+      "logSha256": "f97063ced75341aac299f78869676bba026184893922ebae2187f1e053048d35"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/editor-bear-preflight/upstream.log",
+      "logSha256": "ed3e713d57ce238929158cbab135966c56bc8a068251e92ab2fa6c81987bea3a"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 383,
+      "log": "artifacts/editor-bear-preflight/build.log",
+      "logSha256": "8fdf1297cbd68022f86f88f30ac4dbea7a687369439156166d1a9463f41c31d2"
+    },
+    {
+      "command": "node tools/review-editor-bear-preflight.mjs",
+      "exitCode": 0,
+      "count": 3,
+      "log": "artifacts/editor-bear-preflight/browser.log",
+      "logSha256": "71bdfdeb7daf13a52f97fbaa3afda4e5df9f17e6c49a8317d0b6b331994fb053"
+    }
+  ],
+  "counts": "tests/upstream = passing tests; build = module paths; browser = workflow groups"
+}
