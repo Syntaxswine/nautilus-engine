@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.5 adds procedural sloped roofs, explicit save/capability contracts and smaller distributable packages to the shared 3D map workshop.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.6 adds a recoverable rock item: pick it up, lob it and distract an eligible guard with its impact sound.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -57,6 +57,12 @@ The existing square-wall tool is joined by measured native-scale wall runs: exac
 Choose **Roofs**, select **Sloped roof**, then drag a footprint or open **Measured footprint** for exact dimensions. Preview before placing; gable, hip and shed styles support pitch, overhang, slate/clay/metal paint and a deterministic seed. Roof edits participate in undo/redo, saves, import/export, block capture/rotation and generation.
 
 The headless `./roofs` and optional `./roofs/three` entries let any of the three games borrow the same data and mesh. They are architectural shells; games bind fire, collision and navigation deliberately. See [the roof contract and visual review](docs/sloped-roofs.md) and [combined acceptance](docs/intake/2026-10-28-reusability-roofs.md).
+
+## Throwable rock
+
+Open `/examples/rock-distraction.html` after building and serving to try pickup, aimed throws, impact sounds, guard investigation and recovery. The example is a small reference consumer; each game adopts the feature with its own inventory, world and AI adapter.
+
+`./items` exports headless, copied rock state and staged actions. `./items/three` supplies an original 11 cm, texture-free rock model using the host's Three namespace. Discovery includes `item:rock`. Saves retain explicit flight time; previews stay silent and hearing uses the actual impact point. Combat and confirmed threats take priority over distraction. See [the item contract](docs/rock-distraction.md).
 
 ## Optional contour effect
 

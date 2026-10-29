@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 — 2026-10-29
+
+- Add a versioned recoverable rock item with staged pickup/throw deltas, deterministic aimed lobs, saved fixed-step flight and one sound cue at the first confirmed impact.
+- Add explicit hearing eligibility and investigation requests while preserving combat/confirmed threats; consumers own inventory transactions, collision, audibility and guard movement.
+- Add an original native-scale shared rock model, public item exports and discovery, plus a playable reference yard and automated browser workflow.
+- Keep portable map/block formats and all three games’ adoption pins unchanged.
+
 ## 0.5.0 — 2026-10-28
 
 - Remove the renderer dependency from public headless map document/inspection imports; preserve the reviewed portable editing profile.

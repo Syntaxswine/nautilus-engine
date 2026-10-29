@@ -10,6 +10,8 @@
 | `packages/render-effects/` | Optional standard-depth WebGL2 effects and the shared Three entry; game eligibility stays outside |
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
+| `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/item-visuals/` | Original item models using the host Three namespace |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
@@ -37,6 +39,10 @@ The [prefab contract](building-prefabs.md) preserves source assemblies and saved
 ## Character and rules API
 
 The [rules contract](rules.md) defines the portable character schema and the boundaries between derived stats, checks, combat decisions, confirmed impacts and consumer scheduling. The [three-game comparison](reviews/2026-10-28-rules-foundation.md) records why each design was selected. Rule modules run without a DOM, renderer, storage or internal clock. They reuse pinned algorithms and return copied state/events; consumers own commit/persistence and world geometry.
+
+## Shared item boundary
+
+[The rock contract](rock-distraction.md) defines plain-data instance state, strict sidecar versions, explicit metre/second units and staged actions. Items do not extend portable maps or take over actor inventories. A consumer atomically commits state and inventory deltas, deduplicates command/event IDs, supplies swept collision and audibility, and arbitrates guard investigation. The optional rock mesh and reference yard use the same collision radius; they require no donor runtime.
 
 ## Public map API
 

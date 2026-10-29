@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>Rock distraction · Nautilus workshop</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="./rock-distraction.css">
+</head>
+<body>
+  <header class="masthead"><a href="../" aria-label="Nautilus workshop home" class="brand">N<span>NAUTILUS <small>FIELD NOTES / 01</small></span></a><span class="edition">A small sound. A different direction.</span></header>
+  <main>
+    <section class="yard-panel" aria-labelledby="title">
+      <div class="intro"><p class="eyebrow">PLAYABLE ENGINE STUDY</p><h1 id="title">A stone’s throw</h1><p>Pick up a loose rock. Draw a guard away with the sound of its landing.</p></div>
+      <div id="yard" role="group" aria-label="Three dimensional practice yard. Tap the ground to aim.">
+        <canvas id="scene" tabindex="0" aria-label="Practice yard. Use WASD or arrow keys to walk, E to pick up, and Space to throw."></canvas>
+        <div id="labels" aria-hidden="true"></div><span class="portrait-label">LOOSE ROCK</span>
+        <div id="scene-fallback" hidden>3D is unavailable on this device. The labelled controls and event notes remain available.</div>
+        <div class="yard-walk dpad" aria-label="Walk controls"><button data-walk="0,-1" aria-label="Walk north">↑</button><button data-walk="-1,0" aria-label="Walk west">←</button><button data-walk="0,1" aria-label="Walk south">↓</button><button data-walk="1,0" aria-label="Walk east">→</button></div>
+        <div class="yard-key"><span class="key-player">You</span><span class="key-guard">Guards</span><span class="key-impact">Landing sound</span></div>
+        <span class="scale-note">Ground grid · 1 metre</span>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">A loose rock is beside you.</p>
+      <div class="bottom-tools"><button id="pause" aria-pressed="false">Pause</button><button id="sound" aria-pressed="false">Sound off</button><button id="reset">Reset yard</button><span>WASD / arrows · E pick up · Space throw</span></div>
+    </section>
+    <aside class="field-panel" aria-label="Rock actions and guard observations">
+      <section class="action-card">
+        <div class="carried"><span class="eyebrow">IN YOUR HAND</span><strong id="carried">0 <small>rocks</small></strong></div>
+        <p id="nearby">A loose rock is within reach.</p>
+        <div class="actions"><button id="pickup" class="primary">Pick up <kbd>E</kbd></button><button id="throw" class="throw" disabled>Throw <kbd>Space</kbd></button></div>
+        <p class="hint">Tap the yard to aim. The dotted arc shows the lob; a wall can stop it early.</p>
+        <fieldset class="targets"><legend>Aim at</legend><button id="target-open" aria-pressed="true">Open ground</button><button id="target-wall" aria-pressed="false">Beyond the wall</button></fieldset>
+        <details class="fine-aim"><summary>Adjust aim</summary><label>Across the yard <output id="aim-x-value">6 m</output><input id="aim-x" type="range" min="0.5" max="21.5" step="0.25" value="6"></label><label>Along the yard <output id="aim-y-value">6 m</output><input id="aim-y" type="range" min="0.5" max="13.5" step="0.25" value="6"></label></details>
+      </section>
+      <section class="walk-card" aria-label="Walk controls"><div><p class="eyebrow">MOVE CLOSER</p><p>Loose rocks can be picked up again after landing.</p></div><div class="dpad"><button data-walk="0,-1" aria-label="Walk north">↑</button><button data-walk="-1,0" aria-label="Walk west">←</button><button data-walk="0,1" aria-label="Walk south">↓</button><button data-walk="1,0" aria-label="Walk east">→</button></div></section>
+      <section class="guard-card"><p class="eyebrow">ON WATCH</p><ul id="guards"></ul><p class="hint">Guards follow the sound’s landing point. A guard already in a fight keeps that priority.</p></section>
+      <section class="notes-card"><p class="eyebrow">YARD NOTES</p><ol id="events" aria-label="Recent actions"></ol></section>
+    </aside>
+  </main>
+  <footer>A Nautilus reference playground · game adoption and behaviour remain with each game.</footer>
+  <script type="module" src="./rock-distraction.js"></script>
+</body>
+</html>

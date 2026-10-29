@@ -1,9 +1,9 @@
 {
   "name": "@nautilus-engine/map-core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
-  "description": "Nautilus Engine: shared map authoring and headless character, skill and combat rules",
+  "description": "Nautilus Engine: shared map authoring, portable rules and recoverable throwable items",
   "exports": {
     ".": "./packages/map-core/index.js",
     "./prefabs": "./packages/prefab-core/index.js",
@@ -21,7 +21,9 @@
     "./assets/three": "./packages/assets/three.js",
     "./adapters/tinderbox": "./packages/adapters/tinderbox/index.js",
     "./roofs": "./packages/roof-core/index.js",
-    "./roofs/three": "./packages/roof-core/three.js"
+    "./roofs/three": "./packages/roof-core/three.js",
+    "./items": "./packages/items-core/index.js",
+    "./items/three": "./packages/item-visuals/rock.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -30,6 +32,8 @@
     "assets/buildings/painted-materials-v2.png",
     "docs/compatibility.md",
     "docs/distribution.md",
+    "docs/reviews/2026-10-29-rock-distraction.sources.json",
+    "docs/rock-distraction.md",
     "packages/adapters/tinderbox/index.js",
     "packages/assets/catalogue.js",
     "packages/assets/index.js",
@@ -37,6 +41,16 @@
     "packages/building-catalog/designs.js",
     "packages/building-catalog/index.js",
     "packages/building-catalog/three.js",
+    "packages/item-visuals/rock.js",
+    "packages/items-core/actions.js",
+    "packages/items-core/flight.js",
+    "packages/items-core/index.js",
+    "packages/items-core/lob.js",
+    "packages/items-core/noise.js",
+    "packages/items-core/profile.js",
+    "packages/items-core/state.js",
+    "packages/items-core/transactions.js",
+    "packages/items-core/validation.js",
     "packages/map-core/blocks.js",
     "packages/map-core/capabilities.js",
     "packages/map-core/contract-manifest.js",
@@ -81,6 +95,8 @@
     "schemas/aft-map-v2.schema.json",
     "schemas/capability-requirements-v1.schema.json",
     "schemas/nautilus-save-v1.schema.json",
+    "schemas/rock-impact-noise-v1.schema.json",
+    "schemas/rock-v1.schema.json",
     "schemas/sloped-roofs-v1.schema.json",
     "upstream.json",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
@@ -189,7 +205,8 @@
     "pack:renderer": "node tools/distribution.mjs --profile renderer",
     "pack:assets": "node tools/distribution.mjs --profile assets",
     "test:package": "node tools/distribution.mjs --test",
-    "test:assets": "node tools/distribution.mjs --test-assets"
+    "test:assets": "node tools/distribution.mjs --test-assets",
+    "review:rocks": "node tools/review-rock-distraction.mjs"
   },
   "engines": {
     "node": ">=22"

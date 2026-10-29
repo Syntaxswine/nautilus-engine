@@ -32,9 +32,15 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-browser-workflow
+      - run: npm run review:rocks
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-rock-distraction
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: authoring-browser-evidence
-          path: artifacts/engine-integration/
+          path: |
+            artifacts/engine-integration/
+            artifacts/rock-distraction/
           if-no-files-found: ignore

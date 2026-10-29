@@ -12,8 +12,8 @@ const read=file=>blobs?execFileSync('git',['cat-file','blob',blobs.get(file)||fi
 const manifest=JSON.parse(read('package.json'));
 const exported=value=>typeof value==='string'?[value]:Object.values(value||{}).flatMap(exported);
 const entries=argumentsOf.flatMap((arg,i)=>arg==='--entry'?[argumentsOf[i+1]]:[]);
-if(!entries.length)entries.push(...new Set(exported(manifest.exports).filter(file=>/^\.\/packages\/(?:map-core|rules-core)\//.test(file)).map(file=>file.slice(2))));
-if(!entries.length)throw Error('No public map/rules entrypoints were discovered.');
+if(!entries.length)entries.push(...new Set(exported(manifest.exports).filter(file=>/^\.\/packages\/(?:map-core|rules-core|items-core)\//.test(file)).map(file=>file.slice(2))));
+if(!entries.length)throw Error('No public map/rules/items entrypoints were discovered.');
 const modules=new Map(),violations=[];
 const browserPath=file=>/^(?:apps|tools|examples)\//.test(file)||/(?:^|\/)(?:three(?:\.[^/]*)?|[^/]*(?:renderer|webgl|webgpu)[^/]*|[^/]*-scene|painted-cargo)\.[cm]?js$/i.test(file);
 // Public core dependencies stay statically enumerable. This conservative guard
@@ -38,6 +38,6 @@ function visit(file,chain=[]) {
 }
 for(const file of entries)visit(file);
 function closure(roots){const seen=new Set(),walk=file=>{if(seen.has(file))return;seen.add(file);modules.get(file).imports.forEach(walk);};roots.forEach(walk);return {entries:roots,modules:seen.size,bytes:[...seen].reduce((n,file)=>n+modules.get(file).bytes,0)};}
-const report={revision:revision||'working-tree',groups:{map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
+const report={revision:revision||'working-tree',groups:{map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/'))),items:closure(entries.filter(file=>file.startsWith('packages/items-core/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
 if(enforce&&violations.length)throw Error(violations.map(({reason,chain})=>reason+': '+chain.join(' -> ')).join('\n'));
 process.stdout.write(JSON.stringify(report));

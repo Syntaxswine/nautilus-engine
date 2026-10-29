@@ -12,7 +12,7 @@ export async function verifyBuild(output,patches) {
       const dependency=path.resolve(path.dirname(file),match[1]);
       if(!dependency.startsWith(output+path.sep)||!fs.existsSync(dependency))throw Error('Built module dependency is absent or outside the bundle: '+relative+' -> '+match[1]);
     }
-    if(relative.startsWith('app/')||relative.startsWith('buildings/')||relative.startsWith('packages/')||own.has(relative))execFileSync(process.execPath,['--check',file],{windowsHide:true,stdio:'pipe'});
+    if(relative.startsWith('app/')||relative.startsWith('buildings/')||relative.startsWith('packages/')||relative.startsWith('examples/')||own.has(relative))execFileSync(process.execPath,['--check',file],{windowsHide:true,stdio:'pipe'});
   }}visit(output);
   // Link browser-safe component modules without instantiating a renderer or DOM.
   for(const file of ['app/buildings.js','app/assets.js','app/prefab-scene.js','packages/map-core/index.js'])await import(pathToFileURL(path.join(output,file)));
