@@ -1,0 +1,67 @@
+{
+  "checkedAtUtc": "2026-10-29T23:23:52.959Z",
+  "scope": "Documentation-only bear builder handoff and adjacent guide link.",
+  "standardCommit": "1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66",
+  "sourceReferenceCommit": "711bc2e3e7b1fd91039b72bc358c3e9f007d1b04",
+  "aftSourceCommit": "4f5f53917990ec03b2f14c65f067e4b99ec8fcaa",
+  "runtimeBaseline": "8c4670450cb2b38c1e1abd811d633c22de9e2b7c",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "handoff links/anchors",
+      "exitCode": 0,
+      "checked": 23
+    },
+    {
+      "command": "verbatim public readiness example",
+      "exitCode": 0,
+      "expected": "ready:false; bear absent at v0.8.0"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 357,
+      "passed": 357
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "passed": 32
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 382
+    }
+  ],
+  "publicExample": {
+    "entry": "@nautilus-engine/map-core/assets",
+    "method": "Extracted verbatim from the card and executed through the package self-reference.",
+    "observed": {
+      "ready": false,
+      "hostNoticeCount": 1
+    },
+    "limit": "Readiness/refusal proof only. A positive bear loader example and installed-package adoption proof remain Coder-owned pending work."
+  },
+  "referenceCI": {
+    "url": "https://github.com/Syntaxswine/nautilus-engine/actions/runs/40935213997",
+    "commit": "711bc2e3e7b1fd91039b72bc358c3e9f007d1b04",
+    "conclusion": "success",
+    "jobs": [
+      "map-workshop",
+      "browser-workflow"
+    ]
+  },
+  "runtimeOrManifestFieldsChanged": false,
+  "visualEvidenceReused": true,
+  "pairedSourceCaptures": 44,
+  "nativeSourceSamples": 260,
+  "newBrowserHelpers": 0,
+  "retainedHelpers": 0,
+  "integratedAcceptance": false,
+  "coldwellHandoffModified": false
+}

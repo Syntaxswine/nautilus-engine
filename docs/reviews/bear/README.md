@@ -1,5 +1,7 @@
 # Bear: independent pinned-source reference
 
+Builder usage card: [Bear handoff, native parts, required bindings and adoption checklist](component-handoff.md). This proposed card follows the fixed shared handoff standard and identifies the public-provider work that remains.
+
 The source reference is prepared. **Integrated Nautilus visual acceptance is pending an architect-supplied provider/editor checkpoint.** This branch adds artist evidence and repeatable review tools; it imports no runtime assets, changes no shared APIs, and accepts no release. The completed Coldwell map remains on `codex/coldwell-map` at `82da2ccccbba20619059bef5000783bd685153fd`.
 
 | Reference | Full immutable commit |
