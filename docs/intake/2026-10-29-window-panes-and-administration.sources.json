@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "kind": "Scouting evidence only; no asset import",
+  "observedAt": "2026-10-29T13:28:01.738Z",
+  "observedDateEastern": "2026-10-29",
+  "scoutBaseCommit": "f67439c9f848042d1647ea428e494bca2749dc32",
+  "engineBaseline": {
+    "commit": "3cba6838a1926e7cc1611ffddf13d70aeceea5c7",
+    "files": [
+      {
+        "path": "upstream.json",
+        "blob": "68b9d6c08575f1f41deb8f545438b3ee65533d71",
+        "bytes": 2655,
+        "sha256": "65e8861d0e784c16dfaa7993e2d37a96f3256fa2e3b7b6745487635e95a6f8b9"
+      },
+      {
+        "path": "docs/architecture.md",
+        "blob": "b6e39108e923b0b6bee78fbc211e13ffb8e2d6e6",
+        "bytes": 10790,
+        "sha256": "17d9ddfef2656a9334ed5be91cf47e5c936e5bac406c572eafa26763ab82985a"
+      },
+      {
+        "path": "docs/intake/2026-10-28-asset-decisions.md",
+        "blob": "894b148a879faf87f51a5e1ae74d5e0004b0e600",
+        "bytes": 8915,
+        "sha256": "a831084c10f8d9c7d8cb3285b863392cf800776394720ad7afe97d5a9c28942d"
+      }
+    ]
+  },
+  "freshRemoteObservations": {
+    "method": "Read-only git ls-remote; no donor ref updates",
+    "farmyardMain": "6e475878beb61fb132ce100f240786e43bac6685",
+    "farmyardWindowArt": "0ef5b7186970a32397a0c61bdedca2ba24c17c79",
+    "farmyardPaneIntegration": "68c10c47b7cf5c47759ac2307f8f10c4c7eb6bab",
+    "tinderboxMaster": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+    "tinderboxAdministration": "43337a33ddfe4dff6849654c827c56e1f24e1acc",
+    "nautilusMain": "3cba6838a1926e7cc1611ffddf13d70aeceea5c7"
+  },
+  "combinedArtIdentity": {
+    "files": [
+      "sites/tactical-animal/dist/art/windows/catalog.js",
+      "sites/tactical-animal/dist/art/windows/geometry.js",
+      "sites/tactical-animal/dist/art/windows/catalog.json"
+    ],
+    "identicalGitBlobs": true
+  },
+  "independentChecks": {
+    "windowTests": {
+      "passed": 31,
+      "failed": 0,
+      "files": 5,
+      "sourceCheckoutCleanAfterward": true
+    },
+    "administration": "Focused geometry/preservation/ownership checker passed; source checkout clean afterward",
+    "visual": "Inspected committed software window comparison and actual-model CPU Administration render; no new WebGL, live browser or audio acceptance.",
+    "performance": "No frame-time or memory benchmark."
+  },
+  "candidates": [
+    {
+      "id": "FC-0ef5b71-industrial-windows",
+      "repo": "farmyard",
+      "commit": "0ef5b7186970a32397a0c61bdedca2ba24c17c79",
+      "status": "Published artist candidate, not on donor main",
+      "files": [
+        {
+          "path": "docs/art/windows/README.md",
+          "blob": "96319aa5ba5e8a23b0e6b2a4b13a2070734db100",
+          "bytes": 8766,
+          "sha256": "cda63a4b3f13050de4b9ce9577aef680fe85196e9daa24dba35adff49fb36fce"
+        },
+        {
+          "path": "docs/art/windows/review.json",
+          "blob": "3f1d8b01da20ca2f21f566b9e17b2b227f72e573",
+          "bytes": 7426,
+          "sha256": "9ddf6555f3764eb9527ef260eea5d0e7225954f44cde38d62a30a8917dd18dd7"
+        },
+        {
+          "path": "docs/art/windows/back-selected-pane.jpg",
+          "blob": "aa8ce164990d755fb2149f42c4a66583976deb2e",
+          "bytes": 58739,
+          "sha256": "c1f0c560382ec282d74f06bbc4084df4dae767f02ba170617c51f9ec5c33f360"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/catalog.js",
+          "blob": "cb1d60e26b7f6f225d74247b609cedd3d5419eae",
+          "bytes": 4760,
+          "sha256": "6012d2b656d420813de53dc7a1274d98dc76ee4f2e1dd83367533c597b9f6931"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/catalog.json",
+          "blob": "0a7ba74c7b149e6be7b242c54f774a479619a17f",
+          "bytes": 176594,
+          "sha256": "9bb0a7a49bf21cc8f11739f90368c522ae2578e7b7cd5d319f4960d536d5bea2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/geometry.js",
+          "blob": "1d7c86eae146118c25af446ba29a33e5e20bf816",
+          "bytes": 6382,
+          "sha256": "bcdc20ae63b056252919dddfce74b1ad3563634227e561b910410fcb5ec0ba39"
+        },
+        {
+          "path": "sites/tactical-animal/tests/window-art.test.mjs",
+          "blob": "cb13694b75e72849493a22d5b4916164b9668b78",
+          "bytes": 8247,
+          "sha256": "b5610ae797780ca0d65b6b52aa512bd3d4440a03199a8f4cf0444027e7b32f77"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/preview-renderer.js",
+          "blob": "e74ae0e018f6b310d3236e19bb0f1220a21cae3a",
+          "bytes": 5521,
+          "sha256": "39f40b55ed5309e761bfe95f064a6b162e99e40b28968836f5031dce23cfa799"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/index.html",
+          "blob": "ea50728853d0f4e14b1f2d5ed94ef4e1c701a2e8",
+          "bytes": 2888,
+          "sha256": "2ebc692756711679e55941033ff2a7fb6d56c45c50c0161f490e8f20bc3a1149"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/review.js",
+          "blob": "4cc38a871a3bbaadba9e0048828aace41d84c45f",
+          "bytes": 5065,
+          "sha256": "259d464c40a8bed2f9ccbbed5062b92c6f507589ae407896e4c785ef243d90a5"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/windows/review.css",
+          "blob": "e89be41bc8f2e6cc4ed77369fe34310069f7332c",
+          "bytes": 2745,
+          "sha256": "39d003b0ed1aad38edb1bd72dd164069b752b25ab79dbff4d14fd091e38bb9b2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/hybrid-materials.js",
+          "blob": "4fa74a63e94bd33779494d19e1f97d157498c320",
+          "bytes": 4723,
+          "sha256": "1dca85ff2eeb36cf61bc1ae7e16ccae7c82ec9fb7f624b13dadc7b4c65954953"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/diagonal-roads.js",
+          "blob": "f6ff6f372d260106ca757c91928404075ad39080",
+          "bytes": 1150,
+          "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+        }
+      ],
+      "summary": {
+        "definitions": 36,
+        "spanMetres": [
+          1,
+          2,
+          3
+        ],
+        "heights": [
+          "full",
+          "waist"
+        ],
+        "patterns": 6,
+        "frameFinishes": 3,
+        "waistWallFinishes": 3,
+        "paneIds": "Stable per definition; instance-scoped saved damage",
+        "category": "3D geometry and generated material/skin recipes; no new locomotion clip"
+      },
+      "declaredHashChecks": {
+        "records": 8,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "FC-68c10c4-pane-breaks",
+      "repo": "farmyard",
+      "commit": "68c10c47b7cf5c47759ac2307f8f10c4c7eb6bab",
+      "status": "Published combined-review draft; native WebGL/live controls/audio acceptance pending",
+      "files": [
+        {
+          "path": "docs/window-integration-contract.md",
+          "blob": "0691bc84e67fad9b781fa15a44142fd78fe626f6",
+          "bytes": 4879,
+          "sha256": "3e5eee20b259cce89fc80750a546d539f36a574ab9f01883e39f57c13c3dfded"
+        },
+        {
+          "path": "docs/reviews/window-pane-integration/README.md",
+          "blob": "164a06fee28cadf70e81a1c29e02eb1c44b72913",
+          "bytes": 6767,
+          "sha256": "168e5c6b54a6cf1f8b4417e4caeb21d9dc69ab7accf7c61cdd6c7b2b1514516f"
+        },
+        {
+          "path": "docs/reviews/window-pane-integration/software-report.json",
+          "blob": "4dd20b8ed8680d3186e8fac421d3799cbe387a82",
+          "bytes": 716,
+          "sha256": "d2dbad2d362cb475a0c9a55fde4d1b5dbd046671cd453fc1ade10815598f30e2"
+        },
+        {
+          "path": "sites/tactical-animal/window-shatter-provenance.json",
+          "blob": "1e9b43bacfaa20288f87488213775827d035498c",
+          "bytes": 1462,
+          "sha256": "d9590e80a8df5e6e7abf9b75c56b093adf46ed595d4d1a48cf0a5298a0f6e23d"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-catalogue.js",
+          "blob": "a4a1a36dab2342966bd114829e112bec36f7654c",
+          "bytes": 555,
+          "sha256": "6fa823cc5b54bc7da9c1d1a65cc005c2f72340c5f8c539a431470e74547fbaeb"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-system.js",
+          "blob": "1ccd4ca5af40b0e3049b5efe7b3be6352f7809b4",
+          "bytes": 8374,
+          "sha256": "8cc79331c8795b3418c7b04e23c63e1c71c501e2c9f68b27fe06d4d1854d91b1"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-shatter.js",
+          "blob": "71ea8ffc0fdafb2bd350896b37040c9fb20b1c0f",
+          "bytes": 7135,
+          "sha256": "d87ac978dab551a3c4cbfb1297966bb4506b635dac49e77b42f9f5adcc4bd636"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-view.js",
+          "blob": "5a51c999a85bb82bf0af5be012ea8eeb6980bfe2",
+          "bytes": 5985,
+          "sha256": "fbcb442d150790f73e66f33fe3297f5de90d584f54f9e0d86cc5498620bcb16e"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-authoring.js",
+          "blob": "278f434cbe8578ccc1567477ef1e16f2ab5bd9fb",
+          "bytes": 2387,
+          "sha256": "d4966f31416025ab664458f297f74d4b1dbc39d16f7dd68e57839daa93fe0ea8"
+        },
+        {
+          "path": "sites/tactical-animal/dist/window-editor.js",
+          "blob": "8b8574e0d83650aaa0af831ed496590ca2b5a1fa",
+          "bytes": 3757,
+          "sha256": "660c9acc29b5502ce3742028cf67910403d3c3ff255d90f3c3586ffd61571c23"
+        },
+        {
+          "path": "sites/tactical-animal/tests/window-authoring.test.mjs",
+          "blob": "fd657d002029d1310a9511b2405da8f67272f2bf",
+          "bytes": 3522,
+          "sha256": "39e4b47e4f88abcf0d0f479c564bb15c9531dc7293e485e217250143531abf7d"
+        },
+        {
+          "path": "sites/tactical-animal/tests/window-integration.test.mjs",
+          "blob": "64c3c01923a8180ae936ae0eae338a53466e56bf",
+          "bytes": 9394,
+          "sha256": "c5c4093331c4c5b5fa4753020bd54713846f0fcfbebf8c77a748047acf190c19"
+        },
+        {
+          "path": "sites/tactical-animal/tests/window-provenance.test.mjs",
+          "blob": "d2eabe28611886c77e210c5db190f130106254d2",
+          "bytes": 651,
+          "sha256": "f90eb7e8f4abb152641d53058f5abe4c6dcc89890e3b3e00afa16f35bb295368"
+        },
+        {
+          "path": "sites/tactical-animal/tests/window-view.test.mjs",
+          "blob": "de7d6425bdb26da03a3b02c6218fbcb157639aa5",
+          "bytes": 4360,
+          "sha256": "7c7cd94551bc20114d1d7cb9c9a2765e374595daaf0be4f5f8c8f63d27c51e40"
+        },
+        {
+          "path": "sites/tactical-animal/dist/assets/audio/glass-smash-rubberduck-cc0.ogg",
+          "blob": "a58081e04a2482527be3876536fc692f8166f1c6",
+          "bytes": 27455,
+          "sha256": "438c45398ee77a40d5cc6ffcc59db0cdc709dc6d0521da5e2896b4afc19fcacb"
+        },
+        {
+          "path": "sites/tactical-animal/dist/assets/audio/GLASS-SMASH-RUBBERDUCK-LICENSE.md",
+          "blob": "f296742cd9b0c4c7f1fbfd605d9498f96b67d451",
+          "bytes": 730,
+          "sha256": "f346117715e4c7ad0dcf3f805e793f94392af8cff649439257e98b8b762aab49"
+        }
+      ],
+      "summary": {
+        "artistDependency": "0ef5b7186970a32397a0c61bdedca2ba24c17c79",
+        "sourceStudyCommit": "ebf51393909040b61a7c40649d9d5f0ac3678735",
+        "sourceStudyOriginalHashClaim": "435df91fb168a2f1a60206a5919239638b747c49cc60d97c3f760f18bac35a44",
+        "originalStudyHashIndependentlyVerified": false,
+        "gravityParameter": 7.8,
+        "cosmeticDurationSeconds": 2.2,
+        "activeMeshLimit": 6,
+        "triangleLimit": 210,
+        "perPaneLimit": 70,
+        "audioVoiceLimit": 3,
+        "receivingFloorSupported": 0,
+        "gameplay": "First accepted impact breaks/stops round; later rounds can pass; walking/vaulting not added",
+        "category": "Headless pane state/geometry candidate plus optional shatter animation and ancillary audio"
+      },
+      "declaredHashChecks": {
+        "records": 2,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "TB-43337a3-administration",
+      "repo": "tinderbox",
+      "commit": "43337a33ddfe4dff6849654c827c56e1f24e1acc",
+      "status": "Published artist candidate, not on master; whole-building/gameplay adoption unapproved",
+      "files": [
+        {
+          "path": "assets/art/exposition-administration/manifest.json",
+          "blob": "7c731789b68d39cdc356703c4c69053ee324cf59",
+          "bytes": 9250,
+          "sha256": "8a72abd6a718dde2bae28f59c905b14058d5d12e77b906d7b46c34bfac87cd51"
+        },
+        {
+          "path": "docs/art/exposition-administration/README.md",
+          "blob": "7af670e49e8d80620e63582832fd189df16cecde",
+          "bytes": 1323,
+          "sha256": "0a3a2df9f70b21a670fc90928561fd4a534d8bfae8aa2264d97e26fdca7f492e"
+        },
+        {
+          "path": "docs/art/exposition-administration/handoff.md",
+          "blob": "feb25ed4d0006cafda7e36484e81cf805c7b0f46",
+          "bytes": 10135,
+          "sha256": "fa112d468d5ae5cf36005cc908fe2afbe88b7946458985686640f7af6decba23"
+        },
+        {
+          "path": "docs/art/exposition-administration/check-results.json",
+          "blob": "ce7ffd6e63301150dd0084eb9f090ebac545901c",
+          "bytes": 2315,
+          "sha256": "867008a6a26ff65a0866a48382b98be6eb8b6ad3f504eb5f15f3e8d38739415b"
+        },
+        {
+          "path": "docs/art/exposition-administration/offline-review.json",
+          "blob": "3a192c3a2be7f66d24706baa74c5d0915a65ee34",
+          "bytes": 4026,
+          "sha256": "86c8e215622da46cac5de171f8608442f358f0684f829b06e78bfb7aa8b25fb6"
+        },
+        {
+          "path": "docs/art/exposition-administration/previews/front-isometric.jpg",
+          "blob": "8cb490a97132a9b181a8a39155fa7a1e73f5aa21",
+          "bytes": 902062,
+          "sha256": "adb650eb36bcf2d8315b860dab484814669bfc3d660635d1cede3ec711d231ab"
+        },
+        {
+          "path": "art/source/exposition-administration/sources.json",
+          "blob": "7aeb634c16ef43fe94ad3417e9e05cb7da3e497e",
+          "bytes": 6455,
+          "sha256": "7df52725b2d9480e4837d0588bda7af8e7fdf6964bb5113cafb69ef3ac79acb0"
+        },
+        {
+          "path": "art/source/exposition-administration/measurements.json",
+          "blob": "7cb0b46b0f9e67122fd527f09a34bbfaedff2e1a",
+          "bytes": 5741,
+          "sha256": "93a322473bb33f5a9a8231152aac986452a304cafa612c60eefb7e2cf0914268"
+        },
+        {
+          "path": "art/source/exposition-administration/preserved-and-engine.json",
+          "blob": "b18e48b4c12499c1a6ea7eb25ec0234df3117a0a",
+          "bytes": 10177,
+          "sha256": "c8b9c2d56b21a32a3b20098b06c6571d6973a14a6c58730bbea867d170d7f18c"
+        },
+        {
+          "path": "workbenches/art/check-exposition-administration.mjs",
+          "blob": "f735ad406c28fafd90bdcca595453c49a750057a",
+          "bytes": 17842,
+          "sha256": "ffc211c7786f0b03e616ea3d52c99c033ddae862229b0c44834d04f8e3152f2d"
+        },
+        {
+          "path": "assets/art/exposition-administration/index.js",
+          "blob": "5f365f963c34b5b8af81ac22d60c8b11533cb6bf",
+          "bytes": 23952,
+          "sha256": "01da1b727f9444f4421639a9fa756086c9741e18b3ef8fdefde0efd72b523e2a"
+        },
+        {
+          "path": "assets/art/exposition-administration/engine.js",
+          "blob": "357e626ccaab4df4c03f931f600138ed73b24581",
+          "bytes": 2487,
+          "sha256": "9ec987a5acf5b580f89f7a4722ead5a3fa2930ab647e45ce71517142146b5743"
+        },
+        {
+          "path": "assets/art/exposition-administration/plan.js",
+          "blob": "d4a9dd673abf1be6adb5911d37646938ea0984f8",
+          "bytes": 6651,
+          "sha256": "363b1fb4396cb549df1d4ce9b09325bd3c405db05b09df239e4794476ec04cac"
+        },
+        {
+          "path": "assets/art/exposition-administration/floors.js",
+          "blob": "7a231f97813be460e0cff83124927dddcd1c1a25",
+          "bytes": 2417,
+          "sha256": "4f6a61e0e559a3ae875cd3612cbffa9a8c7a56170ac602560a579a51dfa28ee5"
+        },
+        {
+          "path": "assets/art/exposition-administration/stairs.js",
+          "blob": "76a41fbd0f539b8dd897ab44c2ca07cdab223a4f",
+          "bytes": 2012,
+          "sha256": "0c816cd152b814a0c3bfb453e6f42102e9331f084f8504e848b47dcb3915f707"
+        },
+        {
+          "path": "assets/art/exposition-administration/metadata.json",
+          "blob": "8b5cfa72c8497aaf4ccf70a9cc88ee5fe7c8ac34",
+          "bytes": 149604,
+          "sha256": "8b90bc1725f3a949b2174871770e54ea0c660afc355d7592c55732cd63644cd7"
+        },
+        {
+          "path": "assets/art/exposition-administration/nautilus-assembly.json",
+          "blob": "4476ec83a28fb107350acdd0d85c71aa626dc6aa",
+          "bytes": 52094,
+          "sha256": "293049e01f59ce50c6821c6df743b1b0db8fbff8cf8d3f0044fcea8a1ec37ec0"
+        },
+        {
+          "path": "assets/art/exposition-new-york/forms.js",
+          "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+          "bytes": 10542,
+          "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+          "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+          "bytes": 8795,
+          "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+        },
+        {
+          "path": "vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/ground-concrete.png",
+          "blob": "e34ed884fd07e5e10728bee71bed1954c8b1930f",
+          "bytes": 3308630,
+          "sha256": "a55fefded481abfce45866984caa9495884416f6273d65e6a95de1ff8e6598f1"
+        },
+        {
+          "path": "assets/art/exposition-skins-v1/roof-slate-v1.png",
+          "blob": "504ef929ee4ebd647ad947e28e4b3b784ff78b40",
+          "bytes": 2333888,
+          "sha256": "04fd7476c41c5d290350aba957db2a6d9234d38b9634c55a834b5afe4e64c25d"
+        }
+      ],
+      "summary": {
+        "nativeEngineReference": {
+          "commit": "90054d07134116a5d9661f8318a76fe68f922aad",
+          "implementation": "Actual Nautilus wallPanels, measureWallRun and wallRunErrors; five validated native layer tiers with standard-height offsets.",
+          "newDonorImports": [],
+          "nativePanels": 7968,
+          "tierCount": 5,
+          "editorLimits": "One native map supports six layers. This full landmark remains a separate native building assembly; no unsupported full-map export is claimed."
+        },
+        "diagnostics": {
+          "disposed": false,
+          "meshes": 412,
+          "triangles": 614274,
+          "sourceParts": 37867,
+          "instanceBatches": 229,
+          "geometries": 411,
+          "materials": 10,
+          "ownedTextures": 0,
+          "borrowedTextureCount": 0,
+          "enginePanels": 7968,
+          "nativeWalls": 5645,
+          "nativeDoors": 8,
+          "components": 38296,
+          "floorTiles": 20441,
+          "wallPieces": 5912,
+          "levelClosures": 5848,
+          "quarterTurns": 0
+        },
+        "independentCheck": {
+          "passed": true,
+          "mode": "Default without --package; no server or donor writes",
+          "preservedFiles": 68,
+          "panels": 7968,
+          "localTiers": 5,
+          "nativeWalls": 5645,
+          "nativeDoors": 8,
+          "wallFragments": 5912,
+          "closures": 5848,
+          "boundedVertices": 1842822,
+          "stairTreads": 288,
+          "ownedDisposals": 651
+        },
+        "bodyMetres": [
+          80,
+          80
+        ],
+        "topMetres": 76.32,
+        "occupiedLevels": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          19,
+          23
+        ],
+        "crownMarkerLevel": 36,
+        "physicalMaterial": "unassigned; wood validator token is not combustion evidence"
+      },
+      "declaredHashChecks": {
+        "records": 11,
+        "mismatches": []
+      }
+    }
+  ],
+  "scope": "Hash inventories and recommendations only. Full importer/packaging and consumer acceptance remain architect work. No runtime, vendor, source pins, consumer or Site changes; no retained helper."
+}
