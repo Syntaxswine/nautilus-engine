@@ -23,9 +23,9 @@ const runBridge = new Function('d', `'use strict';const {${[...Object.keys(BRIDG
 // heading already exist when app/editor.js runs (measured in the browser). The double keeps what the
 // bridge's observers rely on, as the DOM defines it:
 // - Writing textContent or innerHTML, or appending, queues a childList record when a node is added or
-//   removed. Setting an attribute queues an attributes record even when its value is unchanged;
-//   removing one queues a record only when it was present. disabled, hidden and title reflect their
-//   attributes.
+//   removed, and writing a text node's data queues a characterData record. Setting an attribute queues
+//   an attributes record even when its value is unchanged; removing one queues a record only when it
+//   was present. disabled, hidden and title reflect their attributes.
 // - An observer receives only what its options select: its target, or a descendant under subtree,
 //   for a type it observes and an attribute its filter names.
 // - Records are delivered after the step, in a microtask. Each counts the deliveries that led to it,
@@ -36,7 +36,7 @@ test.afterEach(async () => {const open = [...pages]; pages.clear(); for (const u
 async function page() {
   const observers = [], errors = [], installed = [];
   let queued = false, depth = 0;
-  const describe = item => '#' + (item.target.id || item.target.tagName.toLowerCase()) + ' ' + item.type + (item.attributeName ? ' (' + item.attributeName + ')' : '');
+  const describe = item => (item.target.tagName ? '#' + (item.target.id || item.target.tagName.toLowerCase()) : 'a text node') + ' ' + item.type + (item.attributeName ? ' (' + item.attributeName + ')' : '');
   function record(target, type, attributeName = null) {
     const interested = new Set();
     for (let node = target; node; node = node.parentNode) for (const observer of observers) {
@@ -62,17 +62,21 @@ async function page() {
   }
   class MutationObserver {
     constructor(callback) {this.callback = callback; this.registrations = new Map(); this.records = []; observers.push(this);}
-    // observe()'s option rules: a filter implies attributes, and at least one type must be observed.
+    // observe()'s option rules: an old value or a filter implies its type, at least one type must be
+    // observed, and an option for a type set to false is refused.
     observe(target, options = {}) {
       const selected = {...options};
-      if (selected.attributeFilter !== undefined && selected.attributes === undefined) selected.attributes = true;
+      if ((selected.attributeOldValue !== undefined || selected.attributeFilter !== undefined) && selected.attributes === undefined) selected.attributes = true;
+      if (selected.characterDataOldValue !== undefined && selected.characterData === undefined) selected.characterData = true;
       if (!selected.childList && !selected.attributes && !selected.characterData) throw new TypeError('MutationObserver.observe needs childList, attributes or characterData.');
-      if (selected.attributeFilter !== undefined && !selected.attributes) throw new TypeError('An attribute filter needs attributes.');
+      if ((selected.attributeOldValue || selected.attributeFilter !== undefined) && !selected.attributes) throw new TypeError('An attribute option needs attributes.');
+      if (selected.characterDataOldValue && !selected.characterData) throw new TypeError('characterDataOldValue needs characterData.');
       this.registrations.set(target, selected);
     }
     disconnect() {this.registrations.clear(); this.records = [];}
   }
-  class Text {constructor(data) {this.data = data; this.parentNode = null;} get textContent() {return this.data;}}
+  // Writing a text node's data queues a characterData record on it.
+  class Text {constructor(data) {this.value = data; this.parentNode = null;} get data() {return this.value;} set data(value) {this.value = String(value); record(this, 'characterData');} get textContent() {return this.value;}}
   class Element {
     constructor(tag, id) {this.tagName = tag.toUpperCase(); this.childNodes = []; this.parentNode = null; this.attributes = new Map(); this.classes = new Set(); if (id) this.attributes.set('id', id);}
     get children() {return this.childNodes.filter(node => node instanceof Element);}
@@ -297,6 +301,13 @@ test('the page double records writes as the DOM does, and fails an observer that
   new ui.MutationObserver(records => text.push(...records.map(item => item.type))).observe(button, {characterData: true, subtree: true});
   button.textContent = 'Send'; await ui.settle();
   assert.deepEqual(text, [], 'Writing textContent replaces the children, which characterData does not see');
+  button.childNodes[0].data = 'Send now'; await ui.settle();
+  assert.deepEqual([text, button.textContent], [['characterData'], 'Send now'], 'Writing a text node\'s data is a characterData record');
+  const old = [];
+  new ui.MutationObserver(records => old.push(...records.map(item => item.attributeName))).observe(button, {attributeOldValue: true});
+  button.title = 'Recorded'; await ui.settle();
+  assert.deepEqual(old, ['title'], 'An old-value option implies its type, as in the DOM');
+  assert.throws(() => new ui.MutationObserver(() => {}).observe(button, {subtree: true}), TypeError, 'An observer must observe a type');
   const loop = new ui.MutationObserver(() => {button.disabled = true;});
   loop.observe(button, {attributeFilter: ['disabled']}); button.disabled = true;
   await assert.rejects(ui.settle(), /re-triggers itself/, 'An observer that writes what it observes fails');
