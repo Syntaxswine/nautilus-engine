@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
 import {adaptWallEditor} from './editor-wall-adapter.mjs';
+import {LAUNCH_PLAYTEST, SEND_CLICK} from './editor-game-handoff.mjs';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
 import {adaptEditorRoofs} from './editor-roof-adapter.mjs';
@@ -37,7 +38,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
     if (/\.js$/.test(entry.path)) {
       let text = source.toString();
       for (const [original, replacement] of storage) text = text.replaceAll(original, replacement);
-      if (donor === 'aft' && entry.path.endsWith('/editor-playtest.js')) text = `import {parseMap} from './core/maps.js';\nexport function launchPlaytest(json){parseMap(json);if(!window.nautilus?.hasGameAdapter)throw Error('Connect a game adapter, or export this map as JSON.');return window.nautilus.sendToGame(json);}\n`;
+      if (donor === 'aft' && entry.path.endsWith('/editor-playtest.js')) text = LAUNCH_PLAYTEST;
       if (donor === 'aft' && entry.path.endsWith('/editor-3d-tools.js')) {
         text = once(text, 'Playtest ↗', 'Send to game', 'game handoff button');
         text = once(text, "$('playtest').disabled=!!d.block", "$('playtest').disabled=!!d.block||!window.nautilus?.hasGameAdapter", 'game handoff availability');
@@ -52,6 +53,8 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
       if (donor === 'aft') text = adaptWallEditor(entry.path, text, once);
       if (donor === 'aft') text = adaptEditorPrefabs(entry.path,text,once);
       if (donor === 'aft') text = adaptEditorRoofs(entry.path,text,once);
+      // The deployed Send click is the text tests/editor-host-bridge.test.mjs runs.
+      if (donor === 'aft' && (entry.path.endsWith('/editor-playtest.js') ? text !== LAUNCH_PLAYTEST : entry.path.endsWith('/editor-3d-tools.js') && text.split(SEND_CLICK).length !== 2)) throw Error('The deployed Send click differs from the tested one: ' + entry.path);
       data = Buffer.from(text);
     }
     if (!data.equals(source)) patches.push({path:folder + '/' + entry.path, sourceSha256:entry.sha256, builtSha256:createHash('sha256').update(data).digest('hex')});

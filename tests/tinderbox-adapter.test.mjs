@@ -214,11 +214,16 @@ test('bear clearance agrees with the pinned Tinderbox spawn check beside walls, 
   assert.equal(TINDERBOX_ADAPTER.playerRadius, DEFAULT_CONFIG.player.radius, 'The adapter uses the pinned bear radius');
   // The selected spawn is map (20, 25), which projects to (10.5, 5.5). Wall runs are 0.16 m thick, so a
   // vertical run at map x 20.6 has its face 0.52 m from the spawn and one at 20.7 has it 0.62 m away.
+  // The adapter and the pinned game both refuse a face nearer than the radius less 1e-10 m, and the
+  // editor keeps any wall endpoint (snap step 0). So two probes straddle that shared threshold by
+  // 0.05 nm: a changed tolerance or epsilon turns one of them. Float error here is about 1e-15 m.
   const probes = [
     ['beside, 0.52 m', {wall: [[20.6, 24], [20.6, 26]]}, false],
     ['beside, 0.62 m', {wall: [[20.7, 24], [20.7, 26]]}, true],
     ['face 5 mm inside the radius', {wall: [[20.635, 24], [20.635, 26]]}, false],
     ['face 5 mm outside the radius', {wall: [[20.645, 24], [20.645, 26]]}, true],
+    ['face 0.15 nm inside the radius, past the shared epsilon', {wall: [[20.63999999985, 24], [20.63999999985, 26]]}, false],
+    ['face 0.05 nm inside the radius, within the shared epsilon', {wall: [[20.63999999995, 24], [20.63999999995, 26]]}, true],
     ['corner 0.15 m past the end, 0.541 m', {wall: [[20.6, 25.15], [20.6, 27.15]]}, false],
     ['corner 0.25 m past the end, 0.577 m', {wall: [[20.6, 25.25], [20.6, 27.25]]}, true],
     ['beside a long vertical run, off its centre', {wall: [[20.6, 24], [20.6, 34]]}, false],

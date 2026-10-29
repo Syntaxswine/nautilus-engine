@@ -5,13 +5,22 @@ const owner=process.env.CODEX_THREAD_ID||'manual-isolated-review';
 const sourceCommit=execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),'-C',projectRoot,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
 const buildProvenanceSha256=createHash('sha256').update(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))).digest('hex');
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
+// The load bound. The editor loads in at most 3.6 s on a quiet machine and 6.2 s under 16 busy loops
+// (docs/reviews/evidence/hostile-review-round-4/answer/load-latency.json); Playwright's default is 30 s.
+const LOAD_MS=20000;
 await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
   page.on('dialog',dialog=>dialog.accept());
+  // A wait that fails first asks whether the page still answers, so that an editor whose main thread is
+  // stuck, as in an observer that re-triggers itself, is reported as frozen rather than as a timeout.
+  const answers=()=>Promise.race([page.evaluate(()=>true).then(()=>true,()=>true),new Promise(resolve=>setTimeout(resolve,5000,false))]);
+  const bounded=async(what,step)=>{try{return await step;}catch(error){if(!await answers())throw Error('The editor froze while '+what+': its page stopped answering.');const state=await page.evaluate(()=>({status:document.getElementById('status')?.textContent,feedback:[...document.querySelectorAll('#nautilus-settings-feedback')].map(node=>node.textContent),loading:window.editor3d?.loading})).catch(failure=>({unreadable:failure.message.split('\n')[0]}));throw Error('Failed while '+what+': '+JSON.stringify(state)+'. '+error.message.split('\n')[0]);}};
+  const feedbacks=async when=>{const count=await page.locator('#nautilus-settings-feedback').count();assert(count===1,'Expected one settings feedback '+when+', found '+count+'.');};
   await page.emulateMedia({reducedMotion:'reduce'});
   const capture=async file=>{console.log('Capturing '+file);await page.screenshot({path:path.join(out,file),animations:'disabled',timeout:60000});};
   await page.setViewportSize({width:1280,height:900});
-  await page.goto(baseURL+'/',{waitUntil:'networkidle'});
-  await page.waitForFunction(()=>window.editor3d?.document&&!window.editor3d.loading&&!document.getElementById('nautilus-buildings').disabled);
+  await bounded('loading',page.goto(baseURL+'/',{waitUntil:'networkidle',timeout:LOAD_MS}));
+  await bounded('loading',page.waitForFunction(()=>window.editor3d?.document&&!window.editor3d.loading&&!document.getElementById('nautilus-buildings').disabled,null,{timeout:LOAD_MS}));
+  await feedbacks('after loading');
   const initial=await page.evaluate(()=>({version:document.querySelector('.engine-version').textContent,diagnostics:window.editor3d.scene.diagnostics,renderer:window.editor3d.scene.renderer.getContext().getParameter(0x1F01)}));
   assert(!initial.diagnostics.length,'Initial scene diagnostics: '+initial.diagnostics.join(';'));
   const schemaFiles=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return Promise.all(core.schemaDocuments().map(async entry=>{const response=await fetch(entry.url);return {id:entry.id,ok:response.ok&&((await response.json()).$id===entry.uri)};}));});
@@ -36,7 +45,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await page.locator('#redo').click();await page.waitForFunction(()=>window.editor3d.document.map.buildingPrefabs?.instances.length===6&&!window.editor3d.loading);
   assert(await page.evaluate(()=>window.editor3d.export())===generated,'Undo/redo changed seeded layout bytes.');
   const wall=await page.evaluate(async()=>{const r=await window.editor3d.apply({tool:'wall-run',start:{x:135,y:45,z:0},end:{x:146,y:56,z:0},options:{exact:true,stories:2,material:'brick'}});return {ok:r.ok,error:r.error};});
-  assert(wall.ok,'Distant wall failed: '+wall.error);
+  assert(wall.ok,'Distant wall failed: '+wall.error);await feedbacks('after a wall edit');
   const rejection=await page.evaluate(async()=>{const doc=window.editor3d.document,b=doc.map.buildingPrefabs.instances[0],before=doc.export(),undo=doc.editor.undo.length,revision=doc.revision;const r=await window.editor3d.apply({tool:'wall-run',start:{x:b.x,y:b.y,z:0},end:{x:b.x+2,y:b.y+2,z:0},options:{exact:true,stories:1,material:'wood'}});return {ok:r.ok,error:r.error,unchanged:before===doc.export()&&undo===doc.editor.undo.length&&revision===doc.revision};});
   assert(!rejection.ok&&rejection.unchanged,'Overlapping wall changed the building map.');
   // Drive one roof through the actual authoring controls, then exercise the
@@ -64,7 +73,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   await page.evaluate(()=>{Object.assign(window.editor3d.view,{x:190,y:84,span:78,preset:'0'});window.editor3d.scene.changed();});
   await capture('procedural-roofs.png');
   await page.locator('#settings-button').click();await page.locator('#save-map').click();
-  await page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Saved in this browser'));
+  await bounded('saving in this browser',page.waitForFunction(()=>document.getElementById('nautilus-settings-feedback').textContent.includes('Saved in this browser'),null,{timeout:10000}));
   const savedId=await page.locator('#saved-designs').inputValue();assert(savedId,'Browser save has no ID.');
   const saved=await page.evaluate(()=>window.editor3d.export());
   const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#export').click()]);
@@ -98,7 +107,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   const send=async()=>{
     const before=await handoff();assert(!before.disabled,'Send is disabled with a host connected: '+JSON.stringify(before));
     await page.locator('#playtest').click();
-    await page.waitForFunction(previous=>{const text=document.getElementById('status').textContent;return text!==previous&&!text.startsWith('Sending map');},before.status,{timeout:10000}).catch(async()=>{throw Error('Send left the status unchanged: '+JSON.stringify(await handoff()));});
+    await page.waitForFunction(previous=>{const text=document.getElementById('status').textContent;return text!==previous&&!text.startsWith('Sending map');},before.status,{timeout:10000}).catch(async()=>{if(!await answers())throw Error('The editor froze after a Send click: its page stopped answering.');throw Error('Send left the status unchanged: '+JSON.stringify(await handoff()));});
     const after=await handoff();assert(after.feedback===after.status,'Settings feedback does not show the status: '+JSON.stringify(after));return after.status;
   };
   const sendToGame=json=>page.evaluate(async json=>{try{await window.nautilus.sendToGame(...(json===undefined?[]:[json]));return {sent:true};}catch(error){return {error:error.message};}},json);
@@ -120,13 +129,29 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   const host=await page.evaluate(()=>window.integrationHostChecks);
   assert(sent.click.startsWith('Map sent')&&sent.sendToGame.sent&&sent.explicit.sent,'The capable host was refused: '+JSON.stringify(sent));
   assert(host.calls===3&&host.buildings===6&&JSON.stringify(host.received.map(call=>[call.buildings,call.current]))==='[[6,true],[6,true],[6,false]]'&&host.received[2].name==='Explicit acceptance map','Declared asynchronous local host handoff failed: '+JSON.stringify(host));
+  // A host that answers only when the acceptance releases it. While it works the status must still say that
+  // the map is being sent; then it must report the answer, and a host that rejects must have its message shown.
+  await page.evaluate(()=>{window.integrationDisconnect();window.manualHost={calls:0};window.integrationDisconnect=window.nautilus.connectGame({features:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1'],openMap(){window.manualHost.calls++;return new Promise((resolve,reject)=>{window.manualHost.answer={resolve,reject};});}});});
+  const working=async calls=>{
+    const before=await handoff();assert(!before.disabled,'Send is disabled with a host connected: '+JSON.stringify(before));
+    await page.locator('#playtest').click();await bounded('waiting for the host to be called',page.waitForFunction(calls=>window.manualHost.calls===calls,calls,{timeout:10000}));
+    const state=await handoff();assert(state.status.startsWith('Sending map')&&state.feedback===state.status,'Send did not wait for the host: '+JSON.stringify(state));return state.status;
+  };
+  const manual={working:await working(1)};
+  await page.evaluate(()=>window.manualHost.answer.resolve());
+  await bounded('waiting for the host to answer',page.waitForFunction(()=>document.getElementById('status').textContent.startsWith('Map sent'),null,{timeout:10000}));
+  manual.answered=(await handoff()).status;manual.refusing=await working(2);
+  await page.evaluate(()=>window.manualHost.answer.reject(Error('The acceptance host refused this map.')));
+  await bounded('waiting for the host to refuse',page.waitForFunction(()=>document.getElementById('status').textContent==='The acceptance host refused this map.',null,{timeout:10000}));
+  manual.refused=await handoff();assert(manual.refused.feedback===manual.refused.status,'Settings feedback does not show the refusal: '+JSON.stringify(manual));
   await page.locator('#close-settings').click();await page.evaluate(()=>window.integrationDisconnect());
   const closed=await handoff();assert(!closed.connected,'The page still reports a host after it disconnected: '+JSON.stringify(closed));assert(closed.disabled,'Send is still enabled after the host disconnected: '+JSON.stringify(closed));
+  await feedbacks('after the handoff');
   const final=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return {buildings:window.editor3d.document.map.buildingPrefabs.instances.length,walls:window.editor3d.document.map.wallRuns.segments.length,roofs:window.editor3d.document.map.slopedRoofs.roofs.length,features:core.requiredMapFeatures(window.editor3d.document.map),diagnostics:window.editor3d.scene.diagnostics,memory:window.editor3d.scene.renderer.info.memory,drawCalls:window.editor3d.scene.renderer.info.render.calls};});
   assert(!final.diagnostics.length,'Final scene reports missing assets.');
   assert(final.features.includes('nautilus-original-buildings-v1'),'Original feature is absent.');
   assert(final.features.includes('nautilus-sloped-roofs-v1')&&final.roofs===3,'Roof capability or saved geometry is absent.');
   const captures=fs.readdirSync(out).filter(n=>n.endsWith('.png')).map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')}));
-  const record={sourceCommit,buildProvenanceSha256,host,versionedUnsupportedHostRejected:true,handoff:{idle,versioned,listed,sent,closed},browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,schemaFiles,inventory,seededBuildings:6,proceduralRoofs:3,roofPreview:true,roofUndoRedo:true,roofRejection,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
+  const record={sourceCommit,buildProvenanceSha256,host,versionedUnsupportedHostRejected:true,handoff:{idle,versioned,listed,sent,manual,closed},browser:browser.version(),renderer:'Isolated software WebGL; correctness only, no performance claim',initial,schemaFiles,inventory,seededBuildings:6,proceduralRoofs:3,roofPreview:true,roofUndoRedo:true,roofRejection,undoRedo:true,distantWall:wall,overlapRejection:rejection,saveReload:true,jsonRoundtrip:true,assetCloseReopen:2,desktop:{width:1280,height:900},mobile:{width:390,height:844,...narrow,modal},final,errors,failedRequests,captures};
   fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(record,null,2));console.log(JSON.stringify(record));
 },{owner,output:'engine-integration',timeoutMs:300000});
