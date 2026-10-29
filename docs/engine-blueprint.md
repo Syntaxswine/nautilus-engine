@@ -168,6 +168,8 @@ Tranches 2 and 3 can proceed independently after the shared contracts are review
 
 ## Authoring and content work to keep visible
 
+The [extended-height and floor-navigation plan](extended-height-plan.md) adds the fifteen-story use case: five visible floor labels, desktop floor controls, phone character/contact follow and a versioned height contract beyond the current six-layer limit. The initial 32-floor capacity target is provisional; sparse storage, semantic traversal, legacy compatibility and consumer support must be proven before the engine advertises taller gameplay.
+
 The rectangle-building workflow still needs a semantic assembly compiler: walls, floors, openings, trim and roof settings become stable parts with matching render/query data. Current sloped shells do **not** union overlapping roofs. Joining L/T/H footprints, valleys/ridges and unequal eaves heights needs its own versioned geometry capability, deterministic fixtures and explicit rejection of unsupported combinations. Do not label decorative overlaps as solved intersections.
 
 Double doors need paired leaves, hinges/clearance, lock/open state, navigation/sight/projectile updates, interactions and persistence, not just a wider visual opening. Custom assets and historical/fort variants can share the same declared sockets, scale, standard story-height profile and semantic parts. A material/skin change must not silently grant castle-wall durability, fence permeability, catwalk navigation or Tinderbox fuel behavior.
