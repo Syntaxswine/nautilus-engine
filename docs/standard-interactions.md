@@ -2,48 +2,118 @@
 
 Status: implemented candidate for architect/Coder review; API/profile v1. Baseline: Nautilus commit 8c4670450cb2b38c1e1abd811d633c22de9e2b7c. Consumer adoption is separate.
 
-Optional entry: `@nautilus-engine/map-core/interactions`. Profile **bounded-kinematic-v1**, sidecar **nautilus-standard-interactions v1**. The [starter yard](../examples/game-starter.html) is a working reference consumer. [Asset handoffs](asset-handoffs.md) explains the adoption checklist.
+Optional entry: `@nautilus-engine/map-core/interactions`. Profile **bounded-kinematic-v1**, sidecar **nautilus-standard-interactions v1**. The [starter yard](https://github.com/Syntaxswine/nautilus-engine/blob/9d33ca65edf7b4d6b169d50e17dfc6bb40276373/examples/game-starter.html) is a working reference consumer. [Asset handoffs](asset-handoffs.md) explains the adoption checklist.
 
 This module supplies open/close/unlock transactions, reach and obstruction feedback, body-aware walking, continuous stair-route execution and saved travel progress. It runs in Node without DOM, storage, renderer, timers or random draws. It does not change portable maps, building meshes, character sheets, AP, stamina, inventory or game pins.
+
+The source/static workshop route is /examples/game-starter.html. The larger yard is linked at the fixed reviewed candidate; it is not bundled into headless runtime packages.
 
 ## Use it
 
 ```js
 import {
   createInteractionState, createInteractionActor, createInteractionQueries,
-  previewInteraction, applyInteraction, advanceTraversal
+  previewInteraction, applyInteraction, walkActor, advanceTraversal,
+  serializeInteractionState, serializeInteractionActor,
+  openInteractionState, openInteractionActor, interactionRequirements
 } from '@nautilus-engine/map-core/interactions';
+import {createWorld, assertWorldCompatible}
+  from '@nautilus-engine/map-core/world';
+import {negotiateCapabilities} from '@nautilus-engine/map-core/capabilities';
 
-// world is a validated native-height AABB world. Doors are separate dynamic
-// records, not duplicated as permanently solid surfaces in world.surfaces.
-let interactions = createInteractionState({worldId: world.id, doors, stairs});
-let mover = createInteractionActor({
-  id: player.id, position: player.feet, floorId: player.floorId,
-  radiusM: .25, heightM: 1.7, speedMps: 2
+// This complete minimal host uses the installed AABB provider. No donor imports.
+const world = createWorld({
+  id: 'my-yard', name: 'Minimal yard', widthM: 10, depthM: 10,
+  floorCount: 2, storyHeightM: 2.12, groundHeightM: 0, heightM: 6
 });
-const queries = {
-  ...createInteractionQueries(world, {actors: () => allCurrentMovers()}),
-  // This callback checks permission only. It must not consume the key.
-  canUnlock: ({door, actor}) => keys.canUnlock(actor.id, door.id)
+const panel = (id, floorId, x1, x2, h) => ({
+  id, floorId, role: 'floor',
+  bounds: {min: {x: x1, y: 0, h}, max: {x: x2, y: 10, h}},
+  supports: true, supportFloorId: floorId
+});
+world.surfaces = [
+  panel('yard', 'floor-0', 0, 10, 0),
+  panel('deck', 'floor-1', 6, 10, 2.12)
+];
+let state = createInteractionState({
+  worldId: world.id,
+  doors: [{
+    id: 'gate', label: 'gate', floorId: 'floor-0',
+    position: {x: 3, y: 5, h: 0}, reachM: 1.5,
+    closedBounds: {min: {x: 3, y: 4.2, h: 0}, max: {x: 3.1, y: 5.8, h: 2}},
+    openBounds: null, // Deliberate portal-only open pose in this small example.
+    motionBounds: {min: {x: 3, y: 4.2, h: 0}, max: {x: 3.1, y: 5.8, h: 2}},
+    open: false, locked: false
+  }],
+  stairs: [{
+    id: 'deck-route', label: 'deck stairs',
+    from: {floorId: 'floor-0', surfaceId: 'yard', position: {x: 3.5, y: 5, h: 0}},
+    to: {floorId: 'floor-1', surfaceId: 'deck', position: {x: 7, y: 5, h: 2.12}},
+    path: [{x: 3.5, y: 5, h: 0}, {x: 5.7, y: 5, h: 2.12}, {x: 7, y: 5, h: 2.12}],
+    widthM: 1.2, clearanceM: 2, bidirectional: true, reachM: .75
+  }]
+});
+let mover = createInteractionActor({
+  id: 'player', floorId: 'floor-0', position: {x: 2, y: 5, h: 0}
+});
+const queries = createInteractionQueries(world, {actors: () => [mover]});
+const consumer = {
+  id: 'minimal-aabb-host', contractVersion: 1,
+  schemas: [
+    {id: 'nautilus-extended-world', versions: [1]},
+    {id: 'nautilus-standard-interactions', versions: [1]}
+  ],
+  capabilities: [
+    {id: 'nautilus-extended-height-v1', versions: [1]},
+    {id: 'nautilus-world-aabb-v1', versions: [1]},
+    {id: 'nautilus-standard-interactions-v1', versions: [1]}
+  ]
 };
-queries.validateBindings(interactions);
-
-const preview = previewInteraction(interactions, mover, {targetId}, queries);
-if (preview.ok) {
-  const result = applyInteraction(interactions, mover, preview.command, queries);
-  if (result.ok) {
-    // Compare expected revisions and commit all affected game records atomically.
-    // Persist before broadcasting result.events to animation/audio.
-    game.commitInteractions(result);
+assertWorldCompatible(world, consumer);
+const readiness = negotiateCapabilities(interactionRequirements(state), consumer);
+if (!readiness.ok) throw Error('Supply the missing interaction capability.');
+queries.validateBindings(state);
+const presented = new Set();
+// Example host authority: one synchronous owner. A real game includes its
+// inventory/cost/save records in the same durable transaction.
+function commit(result) {
+  if (!result.ok) throw Error(result.reason);
+  if (result.expected.worldRevision !== state.revision ||
+      result.expected.actorRevision !== mover.revision) throw Error('Stale commit');
+  state = result.state;
+  mover = result.actor;
+  for (const event of result.events) {
+    if (presented.has(event.id)) continue;
+    presented.add(event.id); // Bind animation/audio here after durable commit.
   }
 }
-
-// The game advances its own fixed clock. No import starts a loop.
-// Pausing the game means supplying no elapsed time.
-const next = advanceTraversal(interactions, mover, {seconds: fixedSeconds}, queries);
+function use(targetId) {
+  const preview = previewInteraction(state, mover, {targetId}, queries);
+  if (!preview.ok) throw Error(preview.reason);
+  commit(applyInteraction(state, mover, preview.command, queries));
+}
+use('gate');
+commit(walkActor(state, mover, {direction: {x: 1, y: 0}, seconds: .75}, queries));
+use('deck-route');
+commit(advanceTraversal(state, mover, {seconds: .5}, queries));
+const checkpoint = {
+  interactions: serializeInteractionState(state),
+  actor: serializeInteractionActor(mover)
+};
+// Stage and validate both before replacing the live pair. Persist the matching
+// world/content version, event receipts and remaining game state alongside them.
+const stagedState = openInteractionState(checkpoint.interactions);
+const stagedMover = openInteractionActor(checkpoint.actor);
+queries.validateBindings(stagedState);
+state = stagedState;
+mover = stagedMover;
+for (let step = 0; step < 40 && mover.traversal; step++)
+  commit(advanceTraversal(state, mover, {seconds: .25}, queries));
+if (mover.floorId !== 'floor-1') throw Error('The route did not finish');
+// The immutable query snapshot owns no renderer/timer/disposable host resource.
 ```
 
-The complete reference binding is [game-starter-host.js](../examples/game-starter-host.js). Its yard has a real gate opening and a stair flight to a 2.12 m deck. These dimensions are an example, not a forced floor height. UI inspection never commits a result. A game commits only the returned records, then refreshes its current local references.
+The complete reference binding is [game-starter-host.js](https://github.com/Syntaxswine/nautilus-engine/blob/9d33ca65edf7b4d6b169d50e17dfc6bb40276373/examples/game-starter-host.js). Its yard has a real gate opening and a stair flight to a 2.12 m deck. These dimensions are an example, not a forced floor height. UI inspection never commits a result. A game commits only the returned records, then refreshes its current local references.
 
 ## Authored records
 
@@ -101,6 +171,10 @@ Call `validateBindings` at adoption/load: it checks world identity, native bound
 - Review both directions, wide/tall actors, occupied/locked doors, stale commands, mid-flight saves and rendering-window boundaries in the actual game.
 
 No Farmyard, AFT or Tinderbox runtime/pin is changed by this engine module.
+
+## Remaining authoring integration
+
+For compatible records, the same standard recipe binds the selected query provider once; a new building supplies semantic data instead of copied donor gameplay code. This candidate does not yet include a compiler that extracts every existing prefab/catalogue door, leaf pose and stair route into these records, nor a universal rig-presentation binder. That is unfinished authoring integration: Coder owns the semantic compiler/provider contract, Editor the authoring/export binding, Artist the stable native part/pose evidence, and Architect the accepted integration. The reference yard supplies those records explicitly. Do not advertise every catalogue building as automatically playable.
 
 ## Builder checklist
 

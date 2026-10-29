@@ -10,3 +10,6 @@ assert.ok(fs.readFileSync(style,'utf8').includes('.nautilus-title'));
 for(const guide of gameAssetGuides())assert.ok(fs.readFileSync(new URL(guide.guide),'utf8').includes('# '));
 assert.equal(createInteractionState({worldId:'installed'}).version,1);
 console.log('Installed compatibility package: optional title module, exported stylesheet, headless interaction entry and all usage-card guide URLs resolve.');
+const guideCode=fs.readFileSync(new URL(gameAssetGuides()[0].guide),'utf8').match(/```js\n([\s\S]*?)```/)[1];
+const guideFile=new URL('./installed-interaction-guide.mjs',import.meta.url);fs.writeFileSync(guideFile,guideCode);await import(guideFile.href);
+console.log('The complete shipped guide also runs in the installed compatibility package.');

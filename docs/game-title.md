@@ -2,9 +2,13 @@
 
 Status: implemented candidate for architect review; component API v1. Baseline: Nautilus commit 8c4670450cb2b38c1e1abd811d633c22de9e2b7c. Consumer adoption is separate.
 
-Optional DOM entry: `@nautilus-engine/map-core/game-ui/title`; stylesheet: `@nautilus-engine/map-core/game-ui/style.css`. Headless `./game-ui` exports `gameAssetGuides()`, including guide URLs, required bindings and design decisions. The [starter yard](../examples/game-starter.html) demonstrates the complete flow with original Nautilus artwork.
+Optional DOM entry: `@nautilus-engine/map-core/game-ui/title`; stylesheet: `@nautilus-engine/map-core/game-ui/style.css`. Headless `./game-ui` exports `gameAssetGuides()`, including guide URLs, required bindings and design decisions. The [starter yard](https://github.com/Syntaxswine/nautilus-engine/blob/9d33ca65edf7b4d6b169d50e17dfc6bb40276373/examples/game-starter.html) demonstrates the complete flow with original Nautilus artwork.
+
+The source/static workshop route is /examples/game-starter.html. The larger yard is linked at the fixed reviewed candidate; it is not bundled into headless runtime packages.
 
 ## Connect it
+
+This first snippet names the host service roles. The complete minimal browser host below defines every callback and can be copied into an installed-package browser bundle.
 
 ```js
 import {mountTitleScreen} from '@nautilus-engine/map-core/game-ui/title';
@@ -41,6 +45,76 @@ Callbacks must honour `AbortSignal` and perform their own atomic save/scene adop
 `onStart` is required. Supplying `checkSave` also requires `onContinue`. Without a save check the screen represents a game with no continuation. Settings is shown only when `onSettings` is provided; that promise resolves when its panel closes. Credits use a native modal dialog and text supplied by the host. The screen starts no renderer, timer, fetch, audio context or storage system, and never redirects to a donor checkout.
 
 The returned handle has `element,ready,refreshSave(),show(),hide(),dispose()`. Refresh checks metadata again. Repeated show/dispose is safe; disposal removes listeners and cancels owned requests. `hide` is for entering the already-prepared game; do not use it to ignore a pending load. Use show/dispose to cancel/reopen. Importing this DOM entry is inert; mounting needs a real document.
+
+## Complete minimal browser host
+
+This example uses an in-memory save service and a DOM scene, with every host callback defined. Run it through a browser bundler that resolves the public JavaScript and CSS exports. The existing reference yard demonstrates durable browser saves and a real interaction world. The example creates no game clock; replace the marked gate with the retained game input/clock services.
+
+```js
+// Browser bundler example; both imports use supported package exports.
+import {mountTitleScreen} from '@nautilus-engine/map-core/game-ui/title';
+import '@nautilus-engine/map-core/game-ui/style.css';
+
+const root = document.createElement('main');
+const titleRoot = document.createElement('div');
+const play = document.createElement('section');
+const readout = document.createElement('p');
+const turn = document.createElement('button');
+const back = document.createElement('button');
+turn.textContent = 'Advance a turn';
+back.textContent = 'Save and return to menu';
+play.tabIndex = -1;
+play.append(readout, turn, back);
+root.append(titleRoot, play);
+document.body.append(root);
+const listeners = new AbortController();
+let live = null, checkpoint = null; // In-memory example save service, not durable storage.
+const checkSignal = signal => {
+  if (signal.aborted) throw new DOMException('Cancelled', 'AbortError');
+};
+const draw = () => { readout.textContent = 'Your scene is ready. Turn ' + live.turn; };
+const title = mountTitleScreen(titleRoot, {
+  title: 'Your world', tagline: 'A place worth entering.',
+  credits: ['Example: Nautilus Engine. Replace with your actual game credits.'],
+  newGameWarning: 'Replace this example’s in-memory checkpoint?',
+  async checkSave({signal}) {
+    checkSignal(signal);
+    return {available: !!checkpoint, summary: checkpoint ? 'Turn ' + checkpoint.turn : ''};
+  },
+  async onStart({signal}) {
+    checkSignal(signal);
+    live = {version: 1, turn: 1};
+    checkpoint = structuredClone(live);
+    draw();
+  },
+  async onContinue({signal}) {
+    checkSignal(signal);
+    if (checkpoint?.version !== 1) throw Error('Unsupported checkpoint');
+    live = structuredClone(checkpoint);
+    draw();
+  },
+  onVisibilityChange(visible) {
+    play.hidden = visible;
+    play.inert = visible;
+    // This minimal host has no clock or global shortcuts. A game must also
+    // gate its retained simulation and input services here.
+  },
+  focusGame() { play.focus(); }
+});
+turn.addEventListener('click', () => { live.turn++; draw(); }, {signal: listeners.signal});
+back.addEventListener('click', () => {
+  checkpoint = structuredClone(live);
+  void title.show();
+}, {signal: listeners.signal});
+await title.ready;
+function disposeExample() {
+  listeners.abort();
+  title.dispose();
+  root.remove();
+}
+// Call disposeExample() when this host is retired. Settings are deliberately
+// absent; supply onSettings only when your real settings panel is ready.
+```
 
 ## Give it the game's identity
 

@@ -17,3 +17,6 @@ kitAssert.equal(kitNegotiate(kitRequirements(kitS),kitManifest()).ok,true);
 for(const guide of kitGuides())kitAssert.ok(kitFS.readFileSync(new URL(guide.guide),'utf8').includes('# '));
 kitAssert.throws(()=>import.meta.resolve('@nautilus-engine/core/game-ui/title'),{code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});
 console.log('Installed standard interaction behavior, capability negotiation, shipped usage guides and headless/UI separation pass.');
+const kitGuideCode=kitFS.readFileSync(new URL(kitGuides()[0].guide),'utf8').match(/```js\n([\s\S]*?)```/)[1].replaceAll('@nautilus-engine/map-core','@nautilus-engine/core');
+const kitGuideFile=new URL('./installed-interaction-guide.mjs',import.meta.url);kitFS.writeFileSync(kitGuideFile,kitGuideCode);await import(kitGuideFile.href);
+console.log('The complete shipped interaction guide runs through installed public imports, including stairs and mid-route restore.');

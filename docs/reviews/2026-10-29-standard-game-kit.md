@@ -34,3 +34,10 @@ This candidate is not production adoption of Farmyard, AFT, Tinderbox or the ful
 Reviewed source commit: **9d33ca65edf7b4d6b169d50e17dfc6bb40276373** (implementation 4c95f4f844430aff1018b501b69f79e5e19b3324 plus the CI acceptance wiring). All 371 engine tests, 32 upstream regressions, integrity/closure check, build, installed core proof and installed compatibility UI proof pass. The built browser run passes all nine groups with zero unexpected errors or failed resources. See [acceptance JSON](evidence/standard-game-kit/acceptance.json), [validation](evidence/standard-game-kit/validation.txt) and [cleanup verification](evidence/standard-game-kit/cleanup-verification.json).
 
 Desktop and phone captures were visually inspected. The final helper receipt confirms supported browser/HTTP shutdown; exact PID/creation identities and all recorded ports were rechecked after exit. No review browser/server remains running. The 640px capture is a reflow equivalent, not a native browser zoom measurement.
+
+
+## Canonical handoff follow-up
+
+The component index now points to the canonical standard and copyable template at fixed architect checkpoint **1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66**. Complete public-import examples identify every host function. The interaction example executes through both actual installed packages, including stair travel and mid-action restore; the title example was executed in a real isolated browser through start, turn changes, save/menu, replacement cancellation, continue and disposal. [Guide proofs](evidence/standard-game-kit/guide-proofs.json) record exact guide hashes and package results. The additional helper and port are [verified closed](evidence/standard-game-kit/title-guide-cleanup-verification.json).
+
+The runtime remains the browser-tested 9d33ca65edf7b4d6b169d50e17dfc6bb40276373 candidate. Existing prefab/catalogue semantic compilation and rig binding are explicitly unfinished authoring integration, assigned across Coder/Editor/Artist with architect review; this candidate does not automatically make all current building assets playable.

@@ -1,5 +1,7 @@
 # Reusable asset handoffs
 
+The canonical [component handoff standard](https://github.com/Syntaxswine/nautilus-engine/blob/1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66/docs/component-handoffs.md) and [copyable template](https://github.com/Syntaxswine/nautilus-engine/blob/1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66/docs/templates/component-handoff.md) are fixed at architect checkpoint 1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66. This page is the implemented-component index and adoption complement; it does not replace that standard or add fields to strict runtime manifests.
+
 An asset should tell the next game team how to use it. Geometry, a button image or an entry in a catalogue is only one part of that handoff. Ship its working entry point, a reference consumer, required bindings, saved state and known limits together.
 
 Start with the implemented [door/stair behavior](standard-interactions.md) and [title-screen recipe](game-title.md). Open `examples/game-starter.html` in the built preview to try both. `gameAssetGuides()` from the headless `./game-ui` export returns these guides as machine-readable usage cards. The guide files travel in installed engine packages; browser examples belong to the source checkout/static workshop build.
