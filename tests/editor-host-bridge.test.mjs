@@ -28,13 +28,15 @@ const runBridge = new Function('d', `'use strict';const {${[...Object.keys(BRIDG
 //   was present. disabled, hidden and title reflect their attributes.
 // - An observer receives only what its options select: its target, or a descendant under subtree,
 //   for a type it observes and an attribute its filter names.
-// - Records are delivered after the step, in a microtask. Each counts the deliveries that led to it,
-//   and the LOOP-th delivery from one write fails the test: an observer that re-triggers itself never
-//   settles, and in the browser the editor freezes.
+// - Records are delivered after the step, in a microtask, to the observers that had records pending
+//   when it ran. Each record counts the deliveries that led to it, and the LOOP-th delivery from one
+//   write fails the test. An observer that re-triggers itself never settles and freezes the browser;
+//   a finite cascade of LOOP or more deliveries, which a browser would settle, fails here too.
 const LOOP = 10, pages = new Set();
 // Each test is bounded, so a fault that leaves the test waiting on a promise ends that test as
-// cancelled within 20 s, instead of holding the suite open. A test here takes under 2 s.
-const BOUND = {timeout: 20000};
+// cancelled instead of holding the suite open. The slowest test took 7.8 s in a quiet full-suite run
+// and 19.6 s under 16 busy loops (round 5 of the review); the bound is six times that.
+const BOUND = {timeout: 120000};
 test.afterEach(async () => {const open = [...pages]; pages.clear(); for (const ui of open) await ui.settle();});
 async function page() {
   const observers = [], errors = [], installed = [];
@@ -51,10 +53,11 @@ async function page() {
     for (const observer of interested) observer.records.push({type, target, attributeName, depth: depth + 1});
     if (interested.size && !queued) {queued = true; queueMicrotask(notify);}
   }
-  // As the DOM does, notify the observers that existed when the microtask ran, in creation order.
+  // As the DOM does, notify the observers that had records pending when the microtask ran, in creation
+  // order. An observer that first receives a record during the pass waits for the next microtask.
   function notify() {
     queued = false;
-    for (const observer of [...observers]) {
+    for (const observer of observers.filter(observer => observer.records.length)) {
       const records = observer.records.splice(0);
       if (!records.length) continue;
       const deepest = Math.max(...records.map(item => item.depth));

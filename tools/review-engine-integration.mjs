@@ -5,9 +5,9 @@ const owner=process.env.CODEX_THREAD_ID||'manual-isolated-review';
 const sourceCommit=execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),'-C',projectRoot,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
 const buildProvenanceSha256=createHash('sha256').update(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))).digest('hex');
 const assert=(ok,message)=>{if(!ok)throw Error(message);};
-// The load bound. The editor loads in at most 3.6 s on a quiet machine and 6.2 s under 16 busy loops
-// (docs/reviews/evidence/hostile-review-round-4/answer/load-latency.json); Playwright's default is 30 s.
-const LOAD_MS=20000;
+// The load bound, Playwright's own default. Over three runs the editor was ready in at most 3.6–6.9 s on
+// a quiet machine and 6.2–12.9 s under 16 busy loops (rounds 4 and 5 of the review, docs/reviews/evidence/).
+const LOAD_MS=30000;
 await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,out,browser,errors,failedRequests})=>{
   page.on('dialog',dialog=>dialog.accept());
   // A wait that fails first asks whether the page still answers, so that an editor whose main thread is
