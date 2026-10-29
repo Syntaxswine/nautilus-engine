@@ -41,6 +41,8 @@ Map saves are not whole-game saves. A placed building is not proof of collision 
 
 Keep `map-core` and `rules-core` plain-data, deterministic and loadable in Node without DOM, storage, rendering or an internal clock. New runtime services belong behind optional consumer adapters. The host owns authoritative state, scheduling and durable commits; it can use its existing services or choose Nautilus providers.
 
+Every new or materially revised part follows the [component handoff standard](component-handoffs.md) and its [copyable guide](templates/component-handoff.md). Builders receive public connections, a working example, remaining game decisions and an acceptance checklist. Standard recipes bind known semantic parts after the game supplies compatible providers; incomplete recipes or unsupported geometry remain visible gaps. The title-screen template follows the same handoff while each game supplies its identity, save and session policies.
+
 The first contract tranche needs these small, explicit agreements:
 
 1. **Identity and requirements.** Stable module, content, entity, command and event IDs; separate package, schema, capability and policy versions. A selected module declares required/optional capabilities and provider interfaces. Reject missing providers, version conflicts and dependency cycles before mutating a live scene. Proposed recipe names are not new public exports until implemented and versioned.

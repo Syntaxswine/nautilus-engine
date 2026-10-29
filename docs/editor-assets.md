@@ -16,7 +16,7 @@ Biome terrain swatches crop `ground-atlas-v1.png` with `BIOME_GROUNDS` metadata,
 
 ## Adding reviewed assets
 
-Incoming character work reported by the user on 28 October 2026: a bear is being wired upstream. It is absent from Nautilus's current pinned snapshot and is not included in the library counts above. Intake needs a full reviewed commit containing its model, paint, animation/equipment bindings and dependencies, followed by visual and map-format/consumer compatibility checks. Do not import unfinished worker files or assume that renderer support makes the species placeable.
+The bear source is now identified at AFT `4f5f53917990ec03b2f14c65f067e4b99ec8fcaa`, including both outfits, equipment and shared animation wiring. It is absent from Nautilus's pinned snapshot and is not included in the library counts above. The [bear import and wiring proposal](intake/2026-10-29-bear-integration-proposal.md) assigns the bounded import, shared presentation and compatible editor placement. A reviewed source closure, native-scale visual checks and preserved map/save behavior are required before release; renderer support alone does not make the species placeable.
 
 1. Review a full donor commit and its asset dependencies, source hashes, notices, dimensions, anchors, rotation and collision behavior. Keep donor worktrees read-only and preserve original bytes in a new immutable snapshot.
 2. Update the deliberate source pin and rendering/placement registries together. Preserve one tile per metre and the inherited distinction between renderer floor spacing and tactical floor heights. Do not resize a model merely to match its footprint.
