@@ -114,8 +114,8 @@ The wall case requires a final centre at .055 m with one original elevated cue.
 The report contains the source commit and SHA-256 of the exact
 `dist/build-provenance.json`. Optional source mode records that scope explicitly
 with a null build hash. Runtime evidence and cleanup receipts are written under
-`artifacts/rock-distraction/`; selected final evidence will be committed alongside
-this review after the final acceptance run.
+`artifacts/rock-distraction/`; selected final evidence is committed alongside
+this review after the successful final acceptance run.
 
 ## Final UI acceptance results
 
@@ -154,4 +154,3 @@ browser/HTTP closure. No preview server or browser was retained.
 ![First elevated wall impact](evidence/rock-distraction/rock-wall-impact.png)
 
 ![Quietly settled rock with original wall cue](evidence/rock-distraction/rock-wall-settled.png)
-
