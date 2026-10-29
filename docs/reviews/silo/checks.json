@@ -1,0 +1,37 @@
+{
+  "runtime": "v24.15.0",
+  "platform": "Windows PowerShell, task artist worktree",
+  "baseCommit": "ddfd43cf4b156eeb82b5c27772fe977ec10b0633",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "seconds": 7.551,
+      "log": "artifacts/silo/checks/check.log"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 80.974,
+      "log": "artifacts/silo/checks/test.log"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "seconds": 11.51,
+      "log": "artifacts/silo/checks/upstream.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 30.4,
+      "log": "artifacts/silo/checks/build.log"
+    }
+  ],
+  "focusedTests": 8,
+  "gltfAssets": 15,
+  "heightDatums": 23,
+  "result": "passed",
+  "repositoryTests": 262,
+  "upstreamTests": 32
+}

@@ -1,0 +1,11 @@
+// Original measured floor drawings generated from the actual clipped runtime cells.
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {buildSiloMesh} from '../packages/silo/mesh.js';import {SILO_PLAN,levelY} from '../packages/silo/designs.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),out=path.join(root,'art/silo/plans');fs.mkdirSync(out,{recursive:true});const m=buildSiloMesh(),num=n=>n.toFixed(3);
+for(let index=0;index<=22;index++){
+ const f=SILO_PLAN.floors[index],parts=[];for(const floor of m.semantics.floors.filter(f=>f.index===index))for(const c of floor.cells)for(const p of c.polygons)parts.push(`<polygon points="${p.map(([x,z])=>num(x)+','+num(z)).join(' ')}" fill="${c.full?'#92ad9a':'#dbba75'}" stroke="#31493e" stroke-width=".025"/>`);
+ for(const s of m.semantics.stairs.filter(s=>s.fromFloorId===f.id)){const p=s.footprint;parts.push(`<rect x="${p.x}" y="${p.z}" width="4" height="3" fill="none" stroke="#b36045" stroke-width=".08"/><path d="M${p.x+1} ${p.z+.6}h1.5v1.8h-1.5" fill="none" stroke="#b36045" stroke-width=".08"/>`);}
+ for(const c of m.semantics.cableways.filter(c=>c.index===index))parts.push(`<text x="${(c.a[0]+c.b[0])/2}" y="${c.a[1]-2.3}" font-size=".8" text-anchor="middle" fill="#304b3d">${c.nominalLength} m nominal cableway</text>`);
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 500" width="1360" height="500"><rect width="1360" height="500" fill="#f2ead2"/><text x="32" y="36" font-family="sans-serif" font-size="21" fill="#243d30">Coldwell Silo · ${f.label} · native Y ${levelY(index).toFixed(2)} m · world h ${f.worldElevationM.toFixed(2)} m</text><text x="32" y="62" font-family="sans-serif" font-size="13" fill="#435b48">Original game adaptation · 2.12 m height spacing · green: whole 1 m tiles; ochre: cut boundary tiles; red: stair direction. No curved gameplay binding.</text><g transform="translate(30 95) scale(9)" font-family="sans-serif">${parts.join('')}<path d="M0 37h10M0 36.5v1M5 36.5v1M10 36.5v1" fill="none" stroke="#304b3d" stroke-width=".08"/><text x="5" y="39" font-size="1" text-anchor="middle">10 m</text></g></svg>`;
+ fs.writeFileSync(path.join(out,f.label+'.svg'),svg+'\n');
+}
+console.log('23 original floor drawings from runtime cell polygons.');

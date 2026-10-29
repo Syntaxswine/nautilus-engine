@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>Coldwell Silo · Nautilus artist review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#172723;color:#eee6cf;font:14px system-ui,sans-serif;overflow:hidden}canvas{display:block;width:100vw;height:100vh}header{position:fixed;top:0;left:0;right:0;background:#15231fe8;border-bottom:1px solid #657768;padding:14px 20px;display:flex;align-items:center;gap:24px}h1{font:600 19px Georgia,serif;letter-spacing:.4px;margin:0}header p{margin:4px 0 0;color:#b5c2b3;font-size:12px}aside{position:fixed;top:86px;left:18px;width:246px;background:#172923ec;border:1px solid #6e7f6a;padding:14px;border-radius:5px}label{display:block;margin:12px 0;color:#d1dbc9}select,button,input[type=range]{width:100%;margin-top:5px}select,button{background:#293d32;color:#f5edce;border:1px solid #819077;border-radius:3px;padding:7px;font:inherit}button{cursor:pointer}button:hover{background:#40513c}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #edc979;outline-offset:2px}label.check{display:flex;gap:9px;align-items:center;margin:10px 0}.floors{display:flex;gap:3px;margin-top:5px}.floors button{padding:7px 0;font-size:12px}.floors .active{background:#c6aa65;color:#17241c;border-color:#e7d8a4}.floor-nav{display:flex;gap:6px;margin:9px 0}.floor-nav button{width:50%}.muted{font-size:12px;color:#acbcab;line-height:1.5}#readout{padding:9px 0;border-top:1px solid #65715d;color:#dfd7bb;font-size:12px;line-height:1.6}footer{position:fixed;right:18px;bottom:16px;background:#15241fdd;padding:10px 14px;border:1px solid #596c5b;max-width:580px;font-size:12px;line-height:1.5}#loading{position:fixed;top:110px;left:50%;padding:10px 16px;background:#1d3025;border:1px solid #d6b66b}#caption{font:17px Georgia,serif;color:#f1deae}input[type=checkbox]{accent-color:#d6b96e}.row{display:flex;gap:6px}.row button{width:50%}#only-door{font-size:11px}
+body.clean aside{display:none}body.clean footer{left:20px;right:auto;bottom:20px;max-width:720px}#readout{white-space:pre-line}
+</style>
+<canvas aria-label="Interactive native-metre missile silo art model"></canvas><header><div><h1>Coldwell Silo</h1><p>Nautilus Engine · original modular architecture from public historical plans</p></div><span class="muted">2.12 m level spacing · whole-metre room dimensions</span></header>
+<aside><label>Building or modular piece<select id="asset"></select></label><div class="row"><button id="overview">Whole structure</button><button id="concourse">Entry deck</button></div>
+<label>Inspect a height datum<div class="floors" id="floors"></div></label><div class="floor-nav"><button id="down">↓ Deeper</button><button id="up">↑ Toward surface</button></div>
+<label class="check"><input id="cutaway" type="checkbox" checked>Cut away front walls</label><label class="check"><input id="roof" type="checkbox">Show roofs</label><label class="check"><input id="display" type="checkbox" checked>Show inert display</label><label class="check"><input id="grid" type="checkbox">Show clipped tile edges</label>
+<label class="check"><input id="doors" type="checkbox" checked>Open all heavy doors</label><label>Independent door<select id="door"></select><input id="door-angle" aria-label="Independent heavy door angle" type="range" min="0" max="90" value="90"></label><label>Silo cover travel<input id="cover" aria-label="Silo cover position" type="range" min="0" max="100" value="100"></label>
+<div id="readout"></div><p class="muted">Drag to orbit · wheel to zoom.<br>Page Up / Page Down changes the inspected datum when a form field is not focused.</p></aside>
+<div id="loading">Building native geometry…</div><footer><div id="caption">Cutaway of the complete complex</div><span id="detail">Floor polygons, openings, stairs and props are artist geometry. Curved gameplay collision/navigation awaits a reviewed binding.</span></footer>
+<script type="module">
+import * as T from '../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {createSiloModel} from '../../../packages/silo/three.js';
+import {SILO_ASSETS,SILO_PLAN,levelY} from '../../../packages/silo/designs.js';
+const $=id=>document.getElementById(id),renderer=new T.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.localClippingEnabled=true;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.setClearColor(0x293e36);
+const scene=new T.Scene(),camera=new T.OrthographicCamera(),sun=new T.DirectionalLight(0xffecc5,3.5);sun.position.set(30,80,55);scene.add(sun,new T.HemisphereLight(0xd7e9e4,0x6d7050,2.3));
+let model,atlas,active=null,current='coldwell-complex',target=new T.Vector3(65,-16,18),radius=130,azimuth=.48,elevation=.38,grid=null,lastDrag=null;
+const loader=new T.TextureLoader();atlas=await loader.loadAsync('../../../assets/silo/painted-silo-materials-v1.png');atlas.colorSpace=T.SRGBColorSpace;atlas.anisotropy=4;
+for(const a of SILO_ASSETS){const o=document.createElement('option');o.value=a.id;o.textContent=a.name;$('asset').append(o);}
+function disposeGrid(){if(grid){scene.remove(grid);grid.geometry.dispose();grid.material.dispose();grid=null;}}
+function tileEdges(){disposeGrid();if(!$('grid').checked||!model)return;const vertices=[];const level=active===null?17:active;
+ for(const f of model.data.semantics.floors.filter(f=>f.index===level))for(const c of f.cells)for(const poly of c.polygons)for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];vertices.push(a[0],f.nativeTop+.012,a[1],b[0],f.nativeTop+.012,b[1]);}
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices,3));grid=new T.LineSegments(g,new T.LineBasicMaterial({color:0xe8bb69,transparent:true,opacity:.75}));scene.add(grid);
+}
+function render(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);const aspect=w/h,span=radius*.6;camera.left=-span*aspect;camera.right=span*aspect;camera.top=span;camera.bottom=-span;camera.near=.1;camera.far=1200;
+ camera.position.copy(target).add(new T.Vector3(Math.cos(azimuth)*Math.cos(elevation),Math.sin(elevation),Math.sin(azimuth)*Math.cos(elevation)).multiplyScalar(radius*2));camera.lookAt(target);camera.updateProjectionMatrix();renderer.render(scene,camera);}
+function floorButtons(){const strip=$('floors');strip.replaceChildren();const at=active===null?17:active,lo=Math.max(0,Math.min(18,at-2));for(let i=lo;i<lo+5;i++){const b=document.createElement('button');b.textContent=SILO_PLAN.floors[i].label;b.className=i===active?'active':'';b.onclick=()=>focus(i);strip.append(b);}}
+function apply(){const d=model.setView({floorIndex:active,band:active===null?0:1,cutaway:$('cutaway').checked,roof:$('roof').checked,display:$('display').checked});
+ $('readout').textContent=(active===null?'Complete native assembly':SILO_PLAN.floors[active].label+' · '+(-levelY(active)).toFixed(2)+' m below surface')+'\n'+Math.round(d.visibleTriangles).toLocaleString()+' visible candidate triangles · '+d.visibleBatches+' batches';
+ floorButtons();tileEdges();render();}
+function overview(){active=null;const b=model.bounds,min=new T.Vector3(...b.min),max=new T.Vector3(...b.max);target.copy(min).add(max).multiplyScalar(.5);target.x-=Math.max(0,(max.x-min.x)*.05);radius=Math.max(6,max.clone().sub(min).length()*.55);azimuth=.68;elevation=.38;$('caption').textContent=model.asset.name;apply();}
+function focus(index,region='concourse'){active=Math.min(22,Math.max(0,index));const y=levelY(active)+1;
+ if(current==='coldwell-complex'){target.set(region==='capsule'?11.5:region==='shaft'?111:35,y,region==='portal'?29:18);radius=region==='concourse'?36:region==='shaft'?17:region==='portal'?10:13;}
+ else {const b=model.bounds;target.set((b.min[0]+b.max[0])/2,y,(b.min[2]+b.max[2])/2);radius=Math.max(7,Math.min(30,Math.hypot(b.max[0]-b.min[0],b.max[2]-b.min[2])*.8));}
+ azimuth=.7;elevation=.62;$('caption').textContent=SILO_PLAN.floors[active].label+' · '+(active===17?'entry datum and connected rooms':'native height slice');apply();}
+async function asset(id,options={}){$('loading').hidden=false;await new Promise(requestAnimationFrame);disposeGrid();model?.dispose();current=id;model=createSiloModel(T,id,{atlas,...options});scene.add(model.root);model.setDoorsOpen($('doors').checked);model.setPlatformsRetracted(true);if(model.rigs.some(r=>r.descriptor.kind==='cover'))model.setCoverOpen(Number($('cover').value)/100);
+ $('cutaway').checked=['complex','shaft','capsule','portal','lock'].includes(model.asset.kind);
+ $('door').replaceChildren();for(const r of model.rigs.filter(r=>r.descriptor.kind==='door')){const o=document.createElement('option');o.value=r.descriptor.id;o.textContent=r.descriptor.id;$('door').append(o);}
+ $('asset').value=id;overview();$('loading').hidden=true;}
+$('asset').onchange=()=>asset($('asset').value);$('overview').onclick=overview;$('concourse').onclick=()=>focus(17);$('down').onclick=()=>focus((active??17)-1);$('up').onclick=()=>focus((active??17)+1);
+for(const id of ['cutaway','roof','display','grid'])$(id).onchange=apply;
+$('doors').onchange=()=>{model.setDoorsOpen($('doors').checked);$('door-angle').value=$('doors').checked?90:0;render();};
+$('door-angle').oninput=()=>{if($('door').value){model.setRigPose($('door').value,Number($('door-angle').value));render();}};
+$('cover').oninput=()=>{if(model.rigs.some(r=>r.descriptor.kind==='cover'))model.setCoverOpen(Number($('cover').value)/100);render();};
+document.querySelector('canvas').addEventListener('pointerdown',e=>{lastDrag={x:e.clientX,y:e.clientY};e.target.setPointerCapture(e.pointerId);});
+document.querySelector('canvas').addEventListener('pointermove',e=>{if(!lastDrag)return;azimuth-=(e.clientX-lastDrag.x)*.006;elevation=Math.max(-.2,Math.min(1.4,elevation+(e.clientY-lastDrag.y)*.006));lastDrag={x:e.clientX,y:e.clientY};render();});
+document.querySelector('canvas').addEventListener('pointerup',()=>lastDrag=null);document.querySelector('canvas').addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(2,Math.min(250,radius*Math.exp(e.deltaY*.001)));render();},{passive:false});
+addEventListener('resize',render);addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName))return;if(e.key==='PageUp'||e.key==='PageDown'){e.preventDefault();focus((active??17)+(e.key==='PageUp'?1:-1));}});
+window.siloReview={ready:false,asset,focus,overview,setView:options=>{if(Object.hasOwn(options,'floorIndex'))active=options.floorIndex;for(const key of ['cutaway','roof','display'])if(Object.hasOwn(options,key))$(key).checked=options[key];apply();},
+ clean:value=>{document.body.classList.toggle('clean',value);render();},
+ camera:({center,span,az=.7,el=.6})=>{target.fromArray(center);radius=span;azimuth=az;elevation=el;render();},
+ snapshot:()=>({asset:current,active,...model.diagnostics(),renderer:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},bounds:model.bounds}),
+ get model(){return model;},get renderer(){return renderer;},render,
+ dispose(){disposeGrid();model?.dispose();atlas.dispose();renderer.dispose();}}
+await asset(new URL(location.href).searchParams.get('asset')||'coldwell-complex');window.siloReview.ready=true;
+</script></html>

@@ -1,0 +1,898 @@
+{
+  "schemaVersion": 1,
+  "validator": "2.0.0-dev.3.10",
+  "tools": [
+    {
+      "package": "gltf-validator",
+      "version": "2.0.0-dev.3.10",
+      "integrity": "sha512-odJ4k0tRkGXiDGn78yDBg+fBbAIvBnXxh3RwAta0emSxGtyagFE8B4xELB1oYe3S5RD8Ci3uZAsZaascH2LAEQ==",
+      "license": "Apache-2.0"
+    },
+    {
+      "package": "three",
+      "version": "0.180.0",
+      "integrity": "sha512-o+qycAMZrh+TsE01GqWUxUIKR1AL0S8pq7zDkYOQw8GqfX8b8VoCKYUoHbhiX5j+7hr8XsuHDVU6+gkQJQKg9w==",
+      "license": "MIT"
+    }
+  ],
+  "sourceReference": [
+    {
+      "path": "packages/world-core/state.js",
+      "commit": "fbb57293805ecae34569ab3dd9f689ffea53beb0",
+      "bytes": 11068,
+      "sha256": "b51024dbeed15a7dc700f5b2b7b645f91559343307a70414640a56475d3190a0",
+      "use": "Audit only; immutable Git object, no runtime import or vendor change."
+    },
+    {
+      "path": "packages/world-core/validation.js",
+      "commit": "fbb57293805ecae34569ab3dd9f689ffea53beb0",
+      "bytes": 5846,
+      "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53",
+      "use": "Audit only; immutable Git object, no runtime import or vendor change."
+    }
+  ],
+  "height": {
+    "kind": "nautilus-extended-world",
+    "floors": 23,
+    "validation": [],
+    "roundtrip": true,
+    "geometry": "Height datums only; empty surfaces/entities/links are intentional and are not a playable silo."
+  },
+  "gltf": [
+    {
+      "id": "coldwell-complex",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "coldwell-complex.bin",
+            "byteLength": 28763136
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 11,
+        "materialCount": 10,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 262,
+        "totalVertexCount": 903918,
+        "totalTriangleCount": 301306,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "coldwell-shaft",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "coldwell-shaft.bin",
+            "byteLength": 19896320
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 7,
+        "materialCount": 7,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 175,
+        "totalVertexCount": 624210,
+        "totalTriangleCount": 208070,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "coldwell-capsule",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "coldwell-capsule.bin",
+            "byteLength": 2587104
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 10,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 39,
+        "totalVertexCount": 82836,
+        "totalTriangleCount": 27612,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-access-portal",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-access-portal.bin",
+            "byteLength": 1271232
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 4,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 28,
+        "totalVertexCount": 40266,
+        "totalTriangleCount": 13422,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-blast-lock",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-blast-lock.bin",
+            "byteLength": 810400
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 4,
+        "materialCount": 5,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 16,
+        "totalVertexCount": 25416,
+        "totalTriangleCount": 8472,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-cableway",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-cableway.bin",
+            "byteLength": 188352
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 3,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 4,
+        "totalVertexCount": 5886,
+        "totalTriangleCount": 1962,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-wall-quarter",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-wall-quarter.bin",
+            "byteLength": 96384
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 1,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 1,
+        "totalVertexCount": 3012,
+        "totalTriangleCount": 1004,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-wall-portal",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-wall-portal.bin",
+            "byteLength": 155904
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 1,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 1,
+        "totalVertexCount": 4872,
+        "totalTriangleCount": 1624,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-annular-deck",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-annular-deck.bin",
+            "byteLength": 1149504
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 2,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 2,
+        "totalVertexCount": 35922,
+        "totalTriangleCount": 11974,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-service-platform",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-service-platform.bin",
+            "byteLength": 99104
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 1,
+        "materialCount": 2,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 2,
+        "totalVertexCount": 3096,
+        "totalTriangleCount": 1032,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-switchback",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-switchback.bin",
+            "byteLength": 104256
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 3,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 5,
+        "totalVertexCount": 3366,
+        "totalTriangleCount": 1122,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-heavy-door",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-heavy-door.bin",
+            "byteLength": 78760
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 1,
+        "materialCount": 3,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 4,
+        "totalVertexCount": 2484,
+        "totalTriangleCount": 828,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-equipment-rack",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-equipment-rack.bin",
+            "byteLength": 53088
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 5,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 5,
+        "totalVertexCount": 2064,
+        "totalTriangleCount": 688,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-control-console",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-control-console.bin",
+            "byteLength": 55968
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 0,
+        "materialCount": 6,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 6,
+        "totalVertexCount": 1920,
+        "totalTriangleCount": 640,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    },
+    {
+      "id": "silo-surface-cover",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "IMAGE_NPOT_DIMENSIONS",
+            "message": "Image has non-power-of-two dimensions: 1254x1254.",
+            "severity": 2,
+            "pointer": "/images/0"
+          }
+        ],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "Nautilus original silo artist provider v1",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "external",
+            "uri": "silo-surface-cover.bin",
+            "byteLength": 1052288
+          },
+          {
+            "pointer": "/images/0",
+            "mimeType": "image/png",
+            "storage": "external",
+            "uri": "../painted-silo-materials-v1.png",
+            "image": {
+              "width": 1254,
+              "height": 1254,
+              "format": "rgb",
+              "primaries": "srgb",
+              "transfer": "srgb",
+              "bits": 8
+            }
+          }
+        ],
+        "animationCount": 1,
+        "materialCount": 4,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": true,
+        "hasDefaultScene": true,
+        "drawCallCount": 7,
+        "totalVertexCount": 32964,
+        "totalTriangleCount": 10988,
+        "maxUVs": 1,
+        "maxInfluences": 0,
+        "maxAttributes": 3
+      }
+    }
+  ]
+}

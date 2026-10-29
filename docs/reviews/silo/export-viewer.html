@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><link rel="icon" href="data:,"><title>Silo independent glTF audit</title>
+<style>body{margin:0;background:#293e36;color:#eee5c8;font:16px system-ui}canvas{display:block}p{position:fixed;top:0;left:20px}</style>
+<script type="importmap">{"imports":{"three":"../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js"}}</script><canvas></canvas><p id="caption">Independent glTF readback</p>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from '../../../artifacts/silo/audit-runtime/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import {createSiloModel} from '../../../packages/silo/three.js';import {SILO_ASSETS} from '../../../packages/silo/designs.js';
+const renderer=new T.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:false,preserveDrawingBuffer:true});renderer.setSize(1280,900);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.setClearColor(0x293e36);
+const scene=new T.Scene(),camera=new T.OrthographicCamera(),sun=new T.DirectionalLight(0xffecc5,3.5);sun.position.set(30,80,55);scene.add(sun,new T.HemisphereLight(0xd7e9e4,0x6d7050,2.3));
+const atlas=await new T.TextureLoader().loadAsync('../../../assets/silo/painted-silo-materials-v1.png');atlas.colorSpace=T.SRGBColorSpace;
+const loader=new GLTFLoader(),results=[];let model,loaded,mixer;
+function cleanup(){model?.dispose();if(loaded){const geometries=new Set(),materials=new Set(),textures=new Set();loaded.scene.removeFromParent();loaded.scene.traverse(o=>{if(o.isMesh){geometries.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material]){materials.add(m);if(m.map)textures.add(m.map);}}});for(const g of geometries)g.dispose();for(const m of materials)m.dispose();for(const t of textures){t.dispose();t.source.data?.close?.();}}if(mixer){mixer.stopAllAction();mixer.uncacheRoot(loaded.scene);}loaded=model=mixer=null;}
+function bounds(object){const b=new T.Box3().setFromObject(object);return {min:b.min.toArray(),max:b.max.toArray()};}
+function difference(a,b){return Math.max(...['min','max'].flatMap(k=>a[k].map((v,i)=>Math.abs(v-b[k][i]))));}
+function frame(b){const min=new T.Vector3(...b.min),max=new T.Vector3(...b.max),target=min.clone().add(max).multiplyScalar(.5),size=max.clone().sub(min),r=Math.max(3,size.length()*.8),span=r*.6,aspect=1280/900;camera.left=-span*aspect;camera.right=span*aspect;camera.top=span;camera.bottom=-span;camera.near=.1;camera.far=1200;camera.position.copy(target).add(new T.Vector3(.65,.55,.75).normalize().multiplyScalar(r*2));camera.lookAt(target);camera.updateProjectionMatrix();}
+function pixels(object){const target=new T.WebGLRenderTarget(320,240),p=new Uint8Array(320*240*4);object.visible=true;renderer.setRenderTarget(target);renderer.render(scene,camera);renderer.readRenderTargetPixels(target,0,0,320,240,p);renderer.setRenderTarget(null);target.dispose();object.visible=false;return p;}
+async function inspect(id){cleanup();model=createSiloModel(T,id,{atlas,uvMode:'atlas'});scene.add(model.root);loaded=await loader.loadAsync('../../../assets/silo/models/'+id+'.gltf');scene.add(loaded.scene);mixer=new T.AnimationMixer(loaded.scene);
+ for(const clip of loaded.animations){const a=mixer.clipAction(clip);a.setLoop(T.LoopOnce,1);a.clampWhenFinished=true;a.play();}
+ const pose=v=>{for(const rig of model.rigs)model.setRigPose(rig.descriptor.id,v*rig.descriptor.maximum);for(const clip of loaded.animations)mixer.clipAction(clip).reset().play();mixer.setTime(v);model.root.updateMatrixWorld(true);loaded.scene.updateMatrixWorld(true);};
+ const poses=[];for(const v of [0,.5,1]){pose(v);let rigMatrixError=0;for(const rig of model.rigs){const node=loaded.scene.getObjectByName(rig.descriptor.id);if(!node)throw Error('Missing independent rig '+rig.descriptor.id);rigMatrixError=Math.max(rigMatrixError,...node.matrixWorld.elements.map((n,i)=>Math.abs(n-rig.group.matrixWorld.elements[i])));}poses.push({value:v,maximumBoundsDifferenceM:difference(bounds(model.root),bounds(loaded.scene)),maximumRigMatrixDifference:rigMatrixError});}
+ pose(.5);model.root.visible=false;loaded.scene.visible=false;frame(bounds(model.root));
+ const a=pixels(model.root),b=pixels(loaded.scene);let sum=0,changed=0;for(let i=0;i<a.length;i+=4){const delta=Math.max(Math.abs(a[i]-b[i]),Math.abs(a[i+1]-b[i+1]),Math.abs(a[i+2]-b[i+2]));sum+=delta;if(delta>5)changed++;}
+ loaded.scene.visible=true;renderer.render(scene,camera);document.getElementById('caption').textContent=id+' · official Three r180 GLTFLoader · independent animation and atlas readback';
+ const record={id,poses,clips:loaded.animations.length,pixelComparison:{samples:a.length/4,meanMaximumChannelDifference:sum/(a.length/4),fractionOverFive:changed/(a.length/4)},triangles:model.triangles};results.push(record);return record;
+}
+window.siloExportReview={ready:true,assets:SILO_ASSETS.map(a=>a.id),inspect,results,dispose(){cleanup();atlas.dispose();renderer.dispose();}};
+</script></html>
