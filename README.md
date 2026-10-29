@@ -4,6 +4,8 @@ A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderb
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
+The [modular engine blueprint](docs/engine-blueprint.md) defines the remaining work for selecting systems individually or composing a new game, with Farmyard Commando as the first production adoption target and separate PC/phone profiles.
+
 ## Run
 
 Node.js 22 or newer. No dependency installation is required.
