@@ -14,6 +14,7 @@
         <canvas id="scene" tabindex="0" aria-label="Practice yard. Use WASD or arrow keys to walk, E to pick up, and Space to throw."></canvas>
         <div id="labels" aria-hidden="true"></div><span class="portrait-label">LOOSE ROCK</span>
         <div id="scene-fallback" hidden>3D is unavailable on this device. The labelled controls and event notes remain available.</div>
+        <div class="yard-walk dpad" aria-label="Walk controls"><button data-walk="0,-1" aria-label="Walk north">↑</button><button data-walk="-1,0" aria-label="Walk west">←</button><button data-walk="0,1" aria-label="Walk south">↓</button><button data-walk="1,0" aria-label="Walk east">→</button></div>
         <div class="yard-key"><span class="key-player">You</span><span class="key-guard">Guards</span><span class="key-impact">Landing sound</span></div>
         <span class="scale-note">Ground grid · 1 metre</span>
       </div>
@@ -38,5 +39,3 @@
   <script type="module" src="./rock-distraction.js"></script>
 </body>
 </html>
-
-

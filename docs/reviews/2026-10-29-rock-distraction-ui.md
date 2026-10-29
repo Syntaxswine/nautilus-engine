@@ -1,85 +1,118 @@
 # Rock distraction reference consumer
 
-This is a small playable Nautilus reference consumer, based on reviewed engine commit
-`8e962a233189129b8063001b2ee96a28403d2290`. It does not migrate AFT, Farmyard Commando
-or Tinderbox, extend a map/save schema, or add a general inventory or stealth system.
+This playable reference consumer is based on reviewed main
+`8e962a233189129b8063001b2ee96a28403d2290`. It demonstrates a complete pickup,
+throw, confirmed impact and guard-investigation loop without changing any donor
+game, portable map/save schema, furniture, or the artist's fort kit.
 
-## Ownership and fixed dependencies
+## Frozen dependencies and owned files
 
-- UI: `examples/rock-distraction.html`, `.css`, `.js`, and `-host.js`.
-- Browser acceptance: `tools/review-rock-distraction.mjs`, using the existing bounded
-  `withArtReview` lifecycle with output `artifacts/rock-distraction/`.
-- Shared original rock model: exact Git object
-  `9029dc11f4611ca46ea886ec9c03cbb6c0cfe3c5:packages/item-visuals/rock.js`.
-  The source is imported unchanged; its author owns the model and public wiring.
-- Headless item API: fixed checkpoint `aff83ed8acb97daa7f512fb5529754377f0d48b1`.
-  No moving worker files are used as dependencies.
+- Core: `aff83ed8acb97daa7f512fb5529754377f0d48b1` plus quiet-settling checkpoint
+  `2ba340fffdd723e28c66b5a5f5089f3c420a1053`.
+- Model: exact original bytes from
+  `9029dc11f4611ca46ea886ec9c03cbb6c0cfe3c5:packages/item-visuals/rock.js`,
+  imported separately in `183a5559b36edf06b0bbcd2615d1e61c705a4f62`.
+- UI owns the four flat `examples/rock-distraction*` files,
+  `tools/review-rock-distraction.mjs` and this review/evidence.
+- Architect owns release, public exports, package/distribution, build-provenance
+  wiring and combined integration. No moving worker files were imported.
 
-The consumer owns canonical player/world positions, inventory membership, command
-receipts, collision geometry, hearing permission, guard priorities, pathfinding and
-time. Inputs and snapshots are copied. The view reads presentation data rather than
-using DOM text as authoritative game state.
+The example imports the shared Three entry and host-supplied rock factory. Ground
+rocks retain the .055 m physical radius; a separate close view shows the actual
+same model at native scale. The yard contains ground and one bounded wall.
+Decorative boulders were removed so no visible solid lacks collision.
 
-## Interaction and presentation
+## Tested API binding and host responsibilities
 
-The player starts beside a loose hand-sized rock. Pick up, choose a ground target,
-and throw. Keyboard walking, pickup and throwing accompany touch buttons and a
-ground aim interaction. A dotted preview communicates the lob. The hand-sized model
-retains native scale, with a close view to make its shape legible on a phone. Large
-terrain stones remain distinct from collectible loose rocks.
+The host uses `createRock({id,position})`, `openRock`, `serializeRock`,
+`pickupRock(rock,command)`, `previewRockThrow(rock,command)`,
+`throwRock(rock,command)`, `stepRock(rock,{dt:1/60,world})` and
+`evaluateRockNoise(noise,listeners)`. See the core contract for full signatures.
 
-The same confirmed impact receipt drives the thud, visible sound ring and hearing
-evaluation. Aiming, release and repeated settled updates do not make impact sounds.
-Audio starts only through a user gesture and has a visible mute control.
+Pickup commands carry explicit instance/revision/actor/command IDs, the canonical
+standing-hand position and host pickup/capacity permission. Throw origin comes
+from the canonical player, and only an accepted release removes the instance
+from the consumer inventory. Commit compares the complete serialized source,
+checks command receipts and copied inventory membership, then stores item and
+inventory together before publishing events.
 
-One idle guard follows a route to the sound, searches, then returns. A distant guard
-remains unaware; a guard already in combat keeps its existing priority and target.
-Routes go around the yard wall. The sound target is the impact, never the player's
-location. These are explicit demonstration policies, not a full hearing, combat or
-stealth AI.
+The consumer owns canonical positions, inventory, receipts, noise ledger, clock,
+hearing permissions and guard routes. It retains fractional render time and
+advances only fixed 1/60-second core inputs. It never feeds raw RAF fractions into
+the core. The preview draws the returned trajectory and does not spend inventory
+or emit sound.
+
+Sweeps return sphere/surface contacts in native metres. The core receives complete
+contact arrays during settling. Supporting wall tops are tagged ground, while
+tangential/separating wall motion creates no new crossing. The first confirmed
+noise receipt drives one thud, one visible ring at its actual height and a pure
+hearing evaluation. No aim, release, quiet support contact or settled update
+creates another cue.
+
+The nearby idle guard routes around the wall, searches for three host seconds,
+and returns. Far and engaged guards retain their state; an engaged guard keeps
+its existing target. The investigation target is the impact point, never the
+player position. Hearing is an explicit radius/permission example with no
+acoustic attenuation model.
+
+## Snapshots, controls and lifetime
+
+The complete copied consumer snapshot includes core sidecars, inventory, command
+receipts, original throw clocks, guard routes/timers, and impact ledger. Restore
+checks core state/ownership, finite release clocks, guard homes/targets/headings
+and search times, and event/note times. It rejects malformed values instead of
+allowing JSON NaN-to-null conversion to alter behavior. This is a local reference
+snapshot, not a multiplayer authority or general persistence framework.
+
+Desktop supports WASD/arrows, E and Space plus ordinary buttons. Phones have walk
+controls over the yard, tap aiming, pickup/throw and labelled aim adjustments.
+Reset creates a fresh isolated yard. Sound starts only after a user gesture and
+can be muted; no external audio asset is loaded.
+
+Static, paused, hidden and offscreen states keep no perpetual RAF. Teardown
+removes owned listeners/observers and disposes model instances, scene resources,
+renderer/context and AudioContext. The isolated acceptance helper has a real
+four-minute expiry, process identities/port record, and browser/server cleanup in
+finally. It does not attach to an app-managed browser.
 
 ## Design evaluation
 
-**Accuracy.** Prefer native metre positions, swept first-contact collision, and
-separate body/action/presentation data over placing a noise marker at the cursor.
-Geometry checks establish internal spatial consistency rather than surveyed
-physics. Hearing distance is game tuning, not calibrated acoustics. No detailed
-material transmission, aerodynamic drag, bounce or damage is claimed.
+**Accuracy.** Prefer actual first swept contact and native heights over a target
+or timer sound. The initial wall hit is followed by the core's quiet vertical
+settling, preserving its original cue. Sphere-padded axis-aligned bounds and
+90 Hz chord sweeps are bounded geometry approximations. Reach, lob and hearing
+radius are game tuning, not calibrated physical acoustics or throwing skill.
+No damage, horizontal rebound, drag, sliding or granular ground simulation is
+claimed.
 
-**Efficiency.** Prefer a bounded fixed-step host, one lightweight rock model and a
-small route search at investigation/return transitions. The shared model records
-54 triangles, one mesh/material and zero textures. Those are source/model counts,
-not CPU/GPU benchmarks. Static, paused, hidden and offscreen views must not retain
-a perpetual rendering loop. Browser/server helpers have a real bounded lifetime
-and close through the owning APIs in finally.
+**Efficiency.** Prefer a fixed-step host, a small grid search only on investigation
+and return transitions, cached unchanged UI/preview buffers, and event-driven
+rendering when static. The shared model records 54 triangles, one mesh/material
+and zero textures. These are code/model counts, not a CPU/GPU benchmark. Correctness
+is reviewed using isolated software WebGL; hardware performance is unmeasured.
 
-**Narrative.** Subjective preference favors a quiet workshop yard and a brief,
-readable landing cue. A visible change of guard direction followed by actual
-walking makes the distraction useful to inspect. The engaged guard's stable
-priority communicates the limit without an implementation-oriented player label.
+**Narrative.** Subjective preference favors restrained workshop styling and a
+brief readable landing cue. Actual guard turning, walking, search and return make
+the distraction useful to inspect. Preserving an engaged guard's priority makes
+the limit clear without implementation-oriented player labels.
 
 ## Acceptance
 
-Run the four required project gates after fixed API integration, then:
+Run the four required project gates, then:
 
 ```sh
 node tools/review-rock-distraction.mjs
 ```
 
 The runner uses isolated Edge on Windows and Chromium on Linux. It verifies the
-actual model, pickup/count, pure preview and moving flight, first intercepted wall
-impact, one thud/ring, eligible movement/search/return, far/engaged rejection,
-re-pickup, invalid actions, midflight/late snapshot equivalence, reset, keyboard and
-touch controls, narrow layout, reduced motion and lifecycle disposal.
+shared native model, pickup/count, preview and moving flight, one thud/ring,
+guard movement/search/return, far/engaged rejection, ground and wall re-pickup,
+invalid actions, midflight and quiet-settling snapshot equivalence, eight negative
+snapshot cases, reset, keyboard and touch, narrow layout and lifecycle disposal.
+The wall case requires a final centre at .055 m with one original elevated cue.
 
-The report, screenshots, helper identity and cleanup receipt are written under
-`artifacts/rock-distraction/`. Selected final evidence will be copied into this
-review's evidence directory after acceptance. This is an early reviewable UI checkpoint. Source checks pass, all 205 engine tests
-and 32 upstream tests pass, and a direct consumer replay proves midflight restore
-and subsequent pickup equivalence. Browser acceptance and build results are pending.
-The current wall preset stops at 1.762 m; it is recoverable using the host's standing
-hand position, but looks suspended. The architect approved a forthcoming core-owned
-quiet settling step; this checkpoint adds no separate visual fall or second noise.
-
-
-
+The report contains the source commit and SHA-256 of the exact
+`dist/build-provenance.json`. Optional source mode records that scope explicitly
+with a null build hash. Runtime evidence and cleanup receipts are written under
+`artifacts/rock-distraction/`; selected final evidence will be committed alongside
+this review after the final acceptance run.

@@ -14,7 +14,8 @@ const v=new T.Vector3(), projection=new T.Vector3();
 function material(color){return own(new T.MeshStandardMaterial({color,roughness:.95}));}
 function mesh(geometry,paint,position){const result=new T.Mesh(own(geometry),paint);result.position.set(...position);objects.add(result);return result;}
 const ground=mesh(new T.BoxGeometry(YARD.width,.12,YARD.depth),material(0x3b4b35),[YARD.width/2,-.06,YARD.depth/2]);
-const grid=new T.GridHelper(24,24,0x7e8760,0x4d6144);grid.position.set(11,.005,7);objects.add(grid);resources.push(grid.geometry,grid.material);
+const gridPoints=[];for(let x=0;x<=YARD.width;x++)gridPoints.push(new T.Vector3(x,.006,0),new T.Vector3(x,.006,YARD.depth));for(let y=0;y<=YARD.depth;y++)gridPoints.push(new T.Vector3(0,.006,y),new T.Vector3(YARD.width,.006,y));
+const grid=new T.LineSegments(own(new T.BufferGeometry().setFromPoints(gridPoints)),own(new T.LineBasicMaterial({color:0x7e8760,transparent:true,opacity:.45})));objects.add(grid);
 for(const wall of YARD.walls){const m=mesh(new T.BoxGeometry(wall.max.x-wall.min.x,wall.max.h-wall.min.h,wall.max.y-wall.min.y),material(0x7b735b),[(wall.min.x+wall.max.x)/2,(wall.min.h+wall.max.h)/2,(wall.min.y+wall.max.y)/2]);const cap=mesh(new T.BoxGeometry(wall.max.x-wall.min.x,.08,wall.max.y-wall.min.y),material(0x9a9172),[m.position.x,wall.max.h-.04,m.position.z]);}
 for(const boulder of YARD.boulders){const m=mesh(new T.DodecahedronGeometry(boulder.radius,0),material(0x626e58),[boulder.x,boulder.radius*.65,boulder.y]);m.scale.set(1,.78,.9);}
 scene.add(new T.HemisphereLight(0xffefd1,0x45614b,2.4));
@@ -126,12 +127,6 @@ window.rockDemo={
  throw:()=>{const result=yard.throw();invalidate();return result;},
  aim:point=>setAim(point),preset:name=>setAim(YARD.targets[name]),walk:(x,y,seconds=.25)=>{yard.walk(x,y,seconds);invalidate();},
  reset,dispose,
- inspect:()=>({...yard.presentation(),manual,paused,visible,retired,framePending:!!frame,drawings,thuds,scheduledThuds,ring:impactRing.visible?ring:null,modelMetrics:[...models.values()].map(model=>({metrics:model.metrics,scale:model.root.scale.toArray(),radius:model.radius})),audioState:audio?.state||'uncreated',modelCount:models.size,renderer:renderer?renderer.getContext().getParameter(0x1f01):null})
+ inspect:()=>({...yard.presentation(),manual,paused,visible,retired,framePending:!!frame,drawings,thuds,scheduledThuds,ring:impactRing.visible?{...ring,drawnPosition:{x:impactRing.position.x,y:impactRing.position.z,h:impactRing.position.y}}:null,modelMetrics:[...models.values()].map(model=>({metrics:model.metrics,scale:model.root.scale.toArray(),radius:model.radius})),audioState:audio?.state||'uncreated',modelCount:models.size,renderer:renderer?renderer.getContext().getParameter(0x1f01):null})
 };
 resize();invalidate();
-
-
-
-
-
-
