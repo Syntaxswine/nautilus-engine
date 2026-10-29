@@ -94,7 +94,8 @@ test('the editor handoff state sends the current export by default, and only its
   assert.equal(handoff.hasGameAdapter, false); assert.deepEqual(seen, [], 'A refused adapter changes nothing');
   const first = host({features}), disconnectFirst = handoff.connectGame(first.adapter);
   assert.equal(handoff.hasGameAdapter, true); assert.deepEqual(seen, [true], 'The refresh sees the connected host');
-  assert.throws(() => handoff.connectGame({}), malformed); assert.deepEqual(seen, [true], 'A refused adapter keeps the connected host');
+  assert.throws(() => handoff.connectGame({}), malformed); assert.equal(handoff.hasGameAdapter, true, 'A refused adapter keeps the connected host');
+  assert.deepEqual(seen, [true], 'A refused adapter refreshes nothing');
   // With no argument the current export is sent; with one, that map is sent and nothing is exported.
   exports = 0; assert.equal(handoff.sendToGame(), 'opened'); assert.equal(exports, 1); assert.equal(first.calls.length, 1);
   const named = JSON.parse(json); named.name = 'Explicit map'; current = '{"not": "this map"}'; exports = 0;

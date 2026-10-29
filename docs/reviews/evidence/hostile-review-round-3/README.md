@@ -33,7 +33,7 @@ All of these ran in one clean sandbox at `576c4c2`, whose HEAD is in `head.txt`.
 
 | Instrument | What it shows |
 | --- | --- |
-| `round4-mut.mjs` → `round4-mut.json` | The 80-mutant sweep: the author's 53, round 3's 19, and E13–E21 for the page bridge. Run it with `node round4-mut.mjs <checkout>`. |
+| `round4-mut.mjs` → `round4-mut.json` | The 82-mutant sweep: the author's 53, round 3's 19, and ten for the page bridge (E13–E23, with no E19). Run it with `node round4-mut.mjs <checkout>`. |
 | `browser-mut4.mjs` → `browser-mut4.json` | The build and the browser acceptance under each editor or state mutant. It is round 3's runner with G08 and G11 added. Run it with `node browser-mut4.mjs <checkout> E05 E06 …`. |
 | `bridge-order.mjs` → `bridge-order.json` | What exists when `app/editor.js` assigns `window.nautilus` in the real page. The bridge test's doubles follow it. |
 | `acceptance.json` | The browser acceptance on the answer commit, with the new `handoff` record. |
