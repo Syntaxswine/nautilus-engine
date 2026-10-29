@@ -17,8 +17,11 @@
  * Retry the ORIGINAL complete command: identical ID/payload returns its old
  * receipt with the CURRENT state and no new events. Another command claiming
  * the same (source,sourceId), or a conflicting reused ID, rejects. Never prune
- * receipts: a full journal fails closed. The host owns committed useful-action
- * eligibility, diminishing returns, authenticated grants and atomic persistence.
+ * receipts: this initial profile supports at most 4096 committed transactions,
+ * including allocations. Full-journal previews/new commands reject with
+ * receipt-capacity; original command retries still replay. There is no archival
+ * or pruning mechanism. The host owns committed useful-action eligibility,
+ * diminishing returns, authenticated grants and atomic persistence.
  * Practice credits are illustrative tuning: 1000+100*(current stat-1) per
  * increment, grant 1..1000; reaching 100 discards excess/remainder. No practice
  * XP or spendable points are created. Only running/endurance, explicit shot
@@ -164,8 +167,10 @@ function trainedCharacter(character,model,command,outcome){
 }
 const result=(state,expected,extra={})=>({ok:true,next:state,receipt:null,replayed:false,events:[],expected,reason:'',code:null,...extra});
 function attempt(input,work){let state,expected=null;try{const checked=validate(input);state=checked.state;expected=JSON.stringify(state);return work(checked,expected);}catch(error){return {ok:false,next:state||null,receipt:null,replayed:false,events:[],expected,reason:error instanceof Error?error.message:String(error),code:error.code||'invalid-input'};}}
+function ensureReceiptCapacity(state){if(state.receipts.length>=P.maxReceipts)fail('receipt-capacity','Durable receipt journal is full; no receipts/rewards were pruned or committed.');}
 export function previewAllocation(input,allocation){return attempt(input,({state},expected)=>{
-  const canonical=allocationData(allocation),command={id:'preview',expectedRevision:state.revision,type:'allocate',allocation:canonical},model=modelOf(state),outcome=execute(model,command),character=trainedCharacter(state.character,model,command,outcome);
+  const canonical=allocationData(allocation);ensureReceiptCapacity(state);
+  const command={id:'preview',expectedRevision:state.revision,type:'allocate',allocation:canonical},model=modelOf(state),outcome=execute(model,command),character=trainedCharacter(state.character,model,command,outcome);
   return result(state,expected,{preview:{allocation:canonical,cost:outcome.pointsSpent,remainingPoints:model.skillPoints,character}});
 });}
 export function stageProgression(input,specification){return attempt(input,({state,commands,sources},expected)=>{
@@ -173,7 +178,7 @@ export function stageProgression(input,specification){return attempt(input,({sta
   if(previous){if(JSON.stringify(previous.command)!==JSON.stringify(command))fail('command-conflict','Command ID was already committed with another payload.');return result(state,expected,{receipt:structuredClone(previous),replayed:true});}
   const key=sourceKey(command);if(key!==null&&sources.has(key))fail('source-conflict','This committed reward source was already claimed by another command.');
   if(command.expectedRevision!==state.revision)fail('stale-revision','Stage from the latest authoritative progression revision.');
-  if(state.receipts.length>=P.maxReceipts)fail('receipt-capacity','Durable receipt journal is full; no receipts/rewards were pruned or committed.');
+  ensureReceiptCapacity(state);
   const model=modelOf(state),outcome=execute(model,command),character=trainedCharacter(state.character,model,command,outcome),receipt={version:1,id:command.id,characterId:character.id,revision:state.revision+1,command,outcome};
   const next={...state,character,level:model.level,xp:model.xp,practice:model.practice,revision:receipt.revision,receipts:[...state.receipts,receipt]};
   return result(next,expected,{receipt:structuredClone(receipt),events:[{version:1,type:'basic-progression-applied',characterId:character.id,receiptId:receipt.id,revision:receipt.revision}]});

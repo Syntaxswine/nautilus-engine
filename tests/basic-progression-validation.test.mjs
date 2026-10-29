@@ -65,13 +65,17 @@ test('source identity tuples and canonical allocation order cannot collide or du
   const changedType=stageProgression(first.next,{id:'ordered-allocation',expectedRevision:original.expectedRevision,type:'xp',source:'kill',sourceId:'different',amount:1});assert.equal(changedType.ok,false);assert.equal(changedType.code,'command-conflict');
 });
 
-test('maximum-sized journal fails closed without pruning; an existing receipt still replays at capacity',()=>{
+test('maximum-sized journal rejects allocation previews and new commits without pruning; existing receipts still replay',()=>{
   const state=initial(),template=stageProgression(state,xp(state,1,'capacity-0','capacity-source-0')).receipt;let level=1,points=0;
   for(let index=0;index<P.maxReceipts;index++){
     const total=index+1,nextLevel=total>=50*(level+1)*level?level+1:level,levels=nextLevel-level;level=nextLevel;points+=levels*15;
     const receipt=structuredClone(template);receipt.id='capacity-'+index;receipt.revision=index+1;receipt.command={id:receipt.id,expectedRevision:index,type:'xp',source:'objective',sourceId:'capacity-source-'+index,amount:1};receipt.outcome.levelsGained=levels;receipt.outcome.pointsGained=levels*15;state.receipts.push(receipt);
   }
   state.revision=P.maxReceipts;state.level=level;state.xp=P.maxReceipts;state.character.skillPoints=points;const canonical=openProgression(state),before=serializeProgression(canonical);
+  assert.equal(canonical.character.skillPoints,120);assert.ok(canonical.character.stats.medical<P.statCap);
+  const allocation={medical:1},preview=previewAllocation(canonical,allocation),commit=stageProgression(canonical,{id:'allocation-after-capacity',expectedRevision:canonical.revision,type:'allocate',allocation});
+  for(const rejected of [preview,commit]){assert.equal(rejected.ok,false);assert.equal(rejected.code,'receipt-capacity');assert.equal(serializeProgression(rejected.next),before);assert.equal(rejected.receipt,null);assert.deepEqual(rejected.events,[]);}
+  assert.equal(preview.reason,commit.reason);assert.equal(serializeProgression(canonical),before);
   const rejected=stageProgression(canonical,xp(canonical,1,'after-capacity','unused-source'));assert.equal(rejected.ok,false);assert.equal(rejected.code,'receipt-capacity');assert.equal(serializeProgression(rejected.next),before);assert.equal(rejected.next.receipts.length,P.maxReceipts);
   const command=canonical.receipts.at(-1).command,retry=stageProgression(canonical,command);assert.ok(retry.ok,retry.reason);assert.equal(retry.replayed,true);assert.deepEqual(retry.receipt,canonical.receipts.at(-1));assert.equal(serializeProgression(retry.next),before);
 });
