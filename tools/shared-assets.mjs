@@ -6,7 +6,12 @@ import {BUILDING_ASSETS, ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function sharedAssetCatalogueSource() {
   const upstream = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'), 'utf8'));
-  const assets = editorAssets().map(item => ({id: item.category.toLowerCase() + ':' + item.id, name: item.name, category: item.category,
+  const assets = editorAssets().map(item => item.preview==='furniture'?{
+    id:item.id,name:item.name,category:item.category,form:item.furniture.form,finish:item.furniture.finish,contents:item.furniture.contents,
+    dimensions:{width:item.furniture.size[0],height:item.furniture.size[1],depth:item.furniture.size[2],metresPerUnit:1,kind:'declared-body'},
+    reservation:{tiles:item.furniture.tiles},placementOffset:item.furniture.placementOffset,source:{project:'farmyard',...item.furniture.source},
+    availability:'shared-furniture-renderer',editorPlacement:'unavailable',note:item.note
+  }:({id: item.category.toLowerCase() + ':' + item.id, name: item.name, category: item.category,
     dimensions: {width: item.w, depth: item.h, metresPerUnit: 1},
     source: {project: 'aft', commit: upstream.aft.commit},
     availability: item.disabled ? 'inspection-only' : 'content-binding-required',

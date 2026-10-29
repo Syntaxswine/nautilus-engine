@@ -2785,6 +2785,3366 @@ export const SHARED_ASSETS = [
     "note": "Bind this content ID to the consumer renderer and gameplay explicitly."
   },
   {
+    "id": "furniture:library.bookcase-double.ivory.books",
+    "name": "Double-sided bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.ivory.empty",
+    "name": "Double-sided bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.walnut.books",
+    "name": "Double-sided bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.walnut.empty",
+    "name": "Double-sided bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.graphite.books",
+    "name": "Double-sided bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.graphite.empty",
+    "name": "Double-sided bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.oak.books",
+    "name": "Double-sided bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.oak.empty",
+    "name": "Double-sided bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.sage.books",
+    "name": "Double-sided bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.sage.empty",
+    "name": "Double-sided bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.oxblood.books",
+    "name": "Double-sided bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double.oxblood.empty",
+    "name": "Double-sided bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.88,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.ivory.books",
+    "name": "Frieze double bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.ivory.empty",
+    "name": "Frieze double bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.walnut.books",
+    "name": "Frieze double bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.walnut.empty",
+    "name": "Frieze double bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.graphite.books",
+    "name": "Frieze double bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.graphite.empty",
+    "name": "Frieze double bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.oak.books",
+    "name": "Frieze double bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.oak.empty",
+    "name": "Frieze double bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.sage.books",
+    "name": "Frieze double bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.sage.empty",
+    "name": "Frieze double bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.oxblood.books",
+    "name": "Frieze double bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-ornate.oxblood.empty",
+    "name": "Frieze double bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-ornate",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.98,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-ornate.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.ivory.books",
+    "name": "Full-tile double bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.ivory.empty",
+    "name": "Full-tile double bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.walnut.books",
+    "name": "Full-tile double bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.walnut.empty",
+    "name": "Full-tile double bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.graphite.books",
+    "name": "Full-tile double bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.graphite.empty",
+    "name": "Full-tile double bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.oak.books",
+    "name": "Full-tile double bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.oak.empty",
+    "name": "Full-tile double bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.sage.books",
+    "name": "Full-tile double bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.sage.empty",
+    "name": "Full-tile double bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.oxblood.books",
+    "name": "Full-tile double bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-double-thick.oxblood.empty",
+    "name": "Full-tile double bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-double-thick",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.98,
+      "height": 1.9,
+      "depth": 1.98,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-double-thick.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.ivory.books",
+    "name": "Library table · 1 × 2 tiles · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.ivory.empty",
+    "name": "Library table · 1 × 2 tiles · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.walnut.books",
+    "name": "Library table · 1 × 2 tiles · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.walnut.empty",
+    "name": "Library table · 1 × 2 tiles · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.graphite.books",
+    "name": "Library table · 1 × 2 tiles · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.graphite.empty",
+    "name": "Library table · 1 × 2 tiles · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.oak.books",
+    "name": "Library table · 1 × 2 tiles · Honey oak · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.oak.empty",
+    "name": "Library table · 1 × 2 tiles · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.sage.books",
+    "name": "Library table · 1 × 2 tiles · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.sage.empty",
+    "name": "Library table · 1 × 2 tiles · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.oxblood.books",
+    "name": "Library table · 1 × 2 tiles · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.18,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table.oxblood.empty",
+    "name": "Library table · 1 × 2 tiles · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "library-table",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 0.84,
+      "depth": 1.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        2
+      ]
+    },
+    "placementOffset": [
+      0,
+      0.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.ivory.books",
+    "name": "Library table · 2 × 4 tiles · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.ivory.empty",
+    "name": "Library table · 2 × 4 tiles · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.walnut.books",
+    "name": "Library table · 2 × 4 tiles · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.walnut.empty",
+    "name": "Library table · 2 × 4 tiles · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.graphite.books",
+    "name": "Library table · 2 × 4 tiles · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.graphite.empty",
+    "name": "Library table · 2 × 4 tiles · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.oak.books",
+    "name": "Library table · 2 × 4 tiles · Honey oak · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.oak.empty",
+    "name": "Library table · 2 × 4 tiles · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.sage.books",
+    "name": "Library table · 2 × 4 tiles · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.sage.empty",
+    "name": "Library table · 2 × 4 tiles · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.oxblood.books",
+    "name": "Library table · 2 × 4 tiles · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.18,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.library-table-large.oxblood.empty",
+    "name": "Library table · 2 × 4 tiles · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "library-table-large",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.84,
+      "depth": 3.94,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        4
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      1.5
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.library-table-large.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.ivory.books",
+    "name": "Low bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.ivory.empty",
+    "name": "Low bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.walnut.books",
+    "name": "Low bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.walnut.empty",
+    "name": "Low bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.graphite.books",
+    "name": "Low bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.graphite.empty",
+    "name": "Low bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.oak.books",
+    "name": "Low bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.oak.empty",
+    "name": "Low bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.sage.books",
+    "name": "Low bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.sage.empty",
+    "name": "Low bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.oxblood.books",
+    "name": "Low bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-low.oxblood.empty",
+    "name": "Low bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-low",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 0.98,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-low.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.ivory.books",
+    "name": "Tall bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.ivory.empty",
+    "name": "Tall bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.walnut.books",
+    "name": "Tall bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.walnut.empty",
+    "name": "Tall bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.graphite.books",
+    "name": "Tall bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.graphite.empty",
+    "name": "Tall bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.oak.books",
+    "name": "Tall bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.oak.empty",
+    "name": "Tall bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.sage.books",
+    "name": "Tall bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.sage.empty",
+    "name": "Tall bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.oxblood.books",
+    "name": "Tall bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-tall.oxblood.empty",
+    "name": "Tall bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-tall",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 0.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        1,
+        1
+      ]
+    },
+    "placementOffset": [
+      0,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-tall.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.ivory.books",
+    "name": "Wide bookcase · Aged ivory · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "ivory",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.ivory.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.ivory.empty",
+    "name": "Wide bookcase · Aged ivory · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "ivory",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.ivory.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.walnut.books",
+    "name": "Wide bookcase · Dark walnut · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "walnut",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.walnut.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.walnut.empty",
+    "name": "Wide bookcase · Dark walnut · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "walnut",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.walnut.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.graphite.books",
+    "name": "Wide bookcase · Graphite steel · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "graphite",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.graphite.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.graphite.empty",
+    "name": "Wide bookcase · Graphite steel · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "graphite",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.graphite.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.oak.books",
+    "name": "Wide bookcase · Honey oak · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "oak",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.oak.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.oak.empty",
+    "name": "Wide bookcase · Honey oak · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "oak",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.oak.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.sage.books",
+    "name": "Wide bookcase · Institutional sage · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "sage",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.sage.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.sage.empty",
+    "name": "Wide bookcase · Institutional sage · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "sage",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.sage.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.oxblood.books",
+    "name": "Wide bookcase · Oxblood lacquer · Books",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "oxblood",
+    "contents": "books",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.oxblood.books"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
+    "id": "furniture:library.bookcase-wide.oxblood.empty",
+    "name": "Wide bookcase · Oxblood lacquer · Empty",
+    "category": "Furniture",
+    "form": "bookcase-wide",
+    "finish": "oxblood",
+    "contents": "empty",
+    "dimensions": {
+      "width": 1.94,
+      "height": 1.9,
+      "depth": 0.46,
+      "metresPerUnit": 1,
+      "kind": "declared-body"
+    },
+    "reservation": {
+      "tiles": [
+        2,
+        1
+      ]
+    },
+    "placementOffset": [
+      0.5,
+      0
+    ],
+    "source": {
+      "project": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "version": "library-furniture/3",
+      "id": "library.bookcase-wide.oxblood.empty"
+    },
+    "availability": "shared-furniture-renderer",
+    "editorPlacement": "unavailable",
+    "note": "Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support."
+  },
+  {
     "id": "roofs:roof-corrugated-flat",
     "name": "Corrugated flat roof",
     "category": "Roofs",

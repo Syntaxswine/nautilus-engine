@@ -35,6 +35,10 @@ test('every catalog entry builds an independent preview using supported renderer
   const live = createBlockDocument('Live blueprint'), before = live.export();
   for (const asset of editorAssets()) {
     const first = assetPreview(asset), second = assetPreview(asset);
+    if(asset.preview==='furniture'){
+      assert.equal(first.document.furniture.id,asset.id);assert.notEqual(first.document.furniture,second.document.furniture);
+      assert.equal(first.document.map,undefined);assert.equal(first.document.units,undefined);continue;
+    }
     assert.deepEqual(buildWorld(first.document.map).diagnostics,[],asset.id);
     assert.notEqual(first.document.map,second.document.map);
     assert.ok(Number.isFinite(first.view.span) && first.view.span > 0);

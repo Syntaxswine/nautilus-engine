@@ -9,8 +9,9 @@ import {roofLabel} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a56
 import {FOLIAGE_PRESETS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js';
 import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js';
 import {ANIMAL_MOTION_CATALOG} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js';
+import {listFurnitureAssets} from '../../packages/furniture-core/index.js';
 
-export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
+export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Furniture', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
 const readable = id => id.replaceAll('-', ' ').replace(/^./, c => c.toUpperCase());
 const label = (id, name) => name && name !== id ? name : readable(id);
 
@@ -35,6 +36,10 @@ export function editorAssets() {
       note:rule.cliff ? 'Corner mask, contour and sand blend are set in Tool options.' : rule.ramp ? 'Place at the lower level with a clear approach and supported upper landing.' : ''});
   }
   for (const id of Object.keys(EDGES)) assets.push({id, category:'Boundaries', name:readable(id), tool:'wall', bindings:{'edge-kind':id}, w:1, h:1});
+  for(const furniture of listFurnitureAssets())assets.push({id:furniture.id,name:furniture.name,category:'Furniture',tool:'inspect-furniture',bindings:{},preview:'furniture',
+    w:furniture.tiles[0],h:furniture.tiles[1],furniture,
+    disabled:'Preview only · unavailable for map placement.',
+    note:'Visual furniture borrowing is available. Game collision, navigation, fire, inventory and highlighting need consumer support.'});
   for (const profile of ANIMAL_MOTION_CATALOG) {
     const id = profile.id;
     assets.push({id, category:'People', name:profile.label, tool:'guard', bindings:{'unit-species':id, 'unit-weapon':profile.unarmed ? 'hands' : 'rifle', 'unit-outfit':'normal'}, w:1, h:1,
@@ -47,7 +52,9 @@ export function editorAssets() {
   return assets.sort((a,b) => ASSET_CATEGORIES.indexOf(a.category)-ASSET_CATEGORIES.indexOf(b.category) || a.name.localeCompare(b.name));
 }
 
-export function findAssets(assets, query = '', category = '') {
+export function findAssets(assets, query = '', category = '', filters = {}) {
   const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
-  return assets.filter(asset => (!category || asset.category === category) && words.every(word => `${asset.id} ${asset.name} ${asset.category}`.toLowerCase().includes(word)));
+  return assets.filter(asset => (!category || asset.category === category)
+    && ['form','finish','contents'].every(field=>!filters[field]||asset.furniture?.[field]===filters[field])
+    && words.every(word => `${asset.id} ${asset.name} ${asset.category} ${asset.furniture?.contents==='books'?'stocked':''}`.toLowerCase().includes(word)));
 }

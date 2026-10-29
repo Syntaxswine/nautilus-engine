@@ -60,6 +60,13 @@ main{display:grid;grid-template-rows:minmax(0,1fr);min-height:0;height:calc(100d
 .asset-heading{min-width:0}.asset-heading>div{min-width:0}.asset-heading h1{overflow-wrap:anywhere}
 .asset-heading>button{min-width:40px;min-height:40px;flex:none}
 .asset-filters label,.asset-filters input,.asset-filters select{min-width:0}
+#asset-furniture-filters{grid-template-columns:repeat(3,minmax(0,1fr))}
+#asset-furniture-options{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 10px}
+#asset-furniture-filters[hidden],#asset-furniture-options[hidden]{display:none}
+#asset-library[data-preview=furniture] .asset-stage canvas{height:210px}
+#asset-library[data-preview=furniture][data-preview-failed=true] :is(.asset-stage,.asset-turns){display:none}
+#asset-rendered-size,#asset-furniture-source{font:11px/1.5 system-ui,sans-serif;color:#b8c8b1;margin:3px 0;overflow-wrap:anywhere}
+#asset-retry{align-self:flex-start;margin-top:7px;padding:9px 13px;min-height:40px}
 @media(max-width:1100px){
   :root{--nautilus-header-height:96px}
   .nautilus-header{display:grid;grid-template-columns:minmax(145px,.8fr) minmax(0,2fr);gap:12px}
@@ -87,6 +94,8 @@ main{display:grid;grid-template-rows:minmax(0,1fr);min-height:0;height:calc(100d
   #asset-results strong,#building-results strong{font-size:12px}
   .asset-stage canvas{height:220px}
   .asset-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #asset-furniture-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #asset-furniture-filters>label:first-child{grid-column:1/-1}
   .asset-turns{flex-wrap:wrap}
   .building-generator .row{flex-wrap:wrap}
 }

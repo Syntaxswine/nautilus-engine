@@ -5,6 +5,10 @@ import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5
 
 // Disposable presentation data, never the user's document or an exported map.
 export function assetPreview(asset, appearance = {}) {
+  if(asset.preview==='furniture')return {
+    document:{furniture:{id:asset.id,rotation:appearance.rotation||0,mode:appearance.mode||'painted',lowAngle:appearance.lowAngle===true}},
+    view:{span:3,preset:'0'}
+  };
   const map = blankMap('Asset preview');
   map.terrain = Array.from({length:24}, () => Array(24).fill('void'));
   map.levels = MAP_LEVELS; map.upper = Array.from({length:MAP_LEVELS-1}, () => ({}));
