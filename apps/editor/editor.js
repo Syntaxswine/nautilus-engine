@@ -1,5 +1,6 @@
-import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities, assertBlueprintCompatible, engineManifest} from '../../packages/map-core/index.js';
+import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, engineManifest} from '../../packages/map-core/index.js';
 import {exampleYard} from '../../packages/map-core/example.js';
+import {checkGameAdapter, sendMapToGame} from './game-handoff.js';
 import {installAssetLibrary} from './assets.js';
 import {installBuildingLibrary} from './buildings.js';
 
@@ -15,18 +16,9 @@ window.nautilus = {
   export() {if (!this.document) throw Error('The editor is still loading.');return this.document.export();},
   async open(input) {const document = openDocument(input);await window.editor3d.open(document);return describeBlueprint(document.export());},
   connectGame(adapter) {
-    if (!adapter || typeof adapter.openMap !== 'function') throw new TypeError('A game adapter needs openMap({json, contract}).');
-    gameAdapter = adapter; refreshHandoff(); return () => {if (gameAdapter === adapter) {gameAdapter = null;refreshHandoff();}};
+    gameAdapter = checkGameAdapter(adapter); refreshHandoff(); return () => {if (gameAdapter === adapter) {gameAdapter = null;refreshHandoff();}};
   },
-  sendToGame(json = this.export()) {
-    if (!gameAdapter) throw Error('Connect a game adapter first.');
-    const document = openDocument(json), errors = document.validate();
-    if (document.block) throw Error('Place this block in a full map first.');
-    if (errors.length) throw Error(errors.join(' '));
-    if (gameAdapter.manifest) assertBlueprintCompatible(document.map, gameAdapter.manifest);
-    else assertMapCapabilities(document.map,gameAdapter.features||[]);
-    return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
-  }
+  sendToGame(json = this.export()) {return sendMapToGame(json, gameAdapter);}
 };
 function installSettingsFeedback() {
   const heading = document.querySelector('#editor-settings .settings-heading'), source = document.getElementById('status');

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {ENGINE_MANIFEST, engineManifest, FEATURE_IDS, createMapDocument, createBlockDocument,
   blueprintRequirements, negotiateCapabilities, assertBlueprintCompatible, createSave, parseSave,
-  serializeSave, loadBlueprint, validateBlueprint, migrateBlueprint, CompatibilityError} from '../packages/map-core/index.js';
+  serializeSave, loadBlueprint, validateBlueprint, migrateBlueprint, CompatibilityError, blankMap, openDocument} from '../packages/map-core/index.js';
 
 const flat = () => JSON.parse(createMapDocument('Contract yard').export());
 const consumer = capabilities => ({id: 'bounded-consumer', contractVersion: 1, schemas: [{id: 'aft-map', versions: [2]}], capabilities});
@@ -45,6 +45,16 @@ test('save/reload preserves unknown JSON, versions and source blueprint bytes se
   assert.deepEqual(restored.payload.data, before); assert.deepEqual(map, before);
   assert.equal(restored.futureEnvelopeNote.keep, true); assert.equal(restored.payload.futureStamp, 'keep');
   assert.equal(serializeSave(restored), first); assert.deepEqual(loadBlueprint(map), map);
+});
+test('loading and saving return the authored JSON, not the editor-normalized copy', () => {
+  // blankMap actors carry no character identity. The editor mints random ones, so a load
+  // that returned the editor's export would differ from the input and between calls.
+  const map = blankMap('Unnormalized actors'); map.guards = [{x: 30, y: 30, z: 0, species: 'goat', weapon: 'rifle'}];
+  const text = JSON.stringify(map);
+  assert.notEqual(JSON.stringify(JSON.parse(openDocument(text).export())), text, 'Precondition: the editor normalizes this map');
+  assert.deepEqual(loadBlueprint(text), map);
+  assert.deepEqual(createSave(text).payload.data, map);
+  assert.equal(JSON.stringify(createSave(text)), JSON.stringify(createSave(text)), 'Saving one input twice is deterministic');
 });
 test('tampered requirements, schema stamps, future saves and non-JSON values reject', () => {
   const map = flat(); map.wallRuns = {version: 1, segments: [{id:'wall-1', a:[30,30], b:[40,30], z:0, stories:1, material:'wood'}]};

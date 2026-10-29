@@ -188,8 +188,14 @@ test('wall and save versions, unsafe JSON, options and bear clearance have actio
   compatibility(() => createTinderboxScene(angled, options()), 'UNSUPPORTED_WALL');
   const stories = fixture(); stories.wallRuns.segments[1].stories = 2;
   compatibility(() => createTinderboxScene(stories, options()), 'UNSUPPORTED_WALL');
-  const clearance = fixture(); clearance.starts[0] = {x: 25, y: 25, z: 0};
-  assert.throws(() => createTinderboxScene(clearance, options()), TinderboxCompatibilityError);
+  // A start inside a wall fails map validation before the adapter's own clearance rule runs.
+  const onWall = fixture(); onWall.starts[0] = {x: 25, y: 25, z: 0};
+  compatibility(() => createTinderboxScene(onWall, options()), 'INVALID_MAP', 'map');
+  // The wall branch of PLAYER_CLEARANCE. The spawn projects to x 10.5. A wall run at map x 20.6
+  // has its face at 11.02 (0.52 m, inside the 0.56 m disc); one at 20.7 has it at 11.12.
+  const wallAt = x => { const map = fixture(); map.wallRuns.segments.push({id: 'spawn-side', a: [x, 24], b: [x, 26], z: 0, stories: 1, material: 'wood'}); return map; };
+  compatibility(() => createTinderboxScene(wallAt(20.6), options()), 'PLAYER_CLEARANCE', 'map.starts[0]');
+  assert.equal(createTinderboxScene(wallAt(20.7), options()).scenario.modules.length, 3, 'A wall outside the disc is accepted');
   const rim = fixture(); rim.starts[0] = {x: 10, y: 25, z: 0};
   compatibility(() => createTinderboxScene(rim, options()), 'PLAYER_CLEARANCE');
   compatibility(() => createTinderboxScene(fixture(), {...options(), seed: NaN}), 'INVALID_JSON_DATA');
