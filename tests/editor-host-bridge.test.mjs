@@ -67,7 +67,10 @@ test('the page bridge installs both libraries and exposes the engine before any 
   assert.throws(() => N.export(), {message: 'The editor is still loading.'});
   assert.equal(ui.send.disabled, true); assert.equal(ui.send.title, EXPORT);
   assert.deepEqual([ui.quick.disabled, ui.quick.title], [true, EXPORT], 'The quick Send button mirrors Send');
-  assert.equal(ui.nodes.get('nautilus-settings-feedback').textContent, ui.nodes.get('status').textContent, 'Settings show the status');
+  const status = ui.nodes.get('status'), feedback = ui.nodes.get('nautilus-settings-feedback');
+  assert.deepEqual([feedback.textContent, feedback.hidden], ['', true], 'An empty status hides the settings feedback');
+  status.textContent = 'Map sent.'; for (const observer of ui.observers.filter(observer => observer.targets.includes(status))) observer.callback([]);
+  assert.deepEqual([feedback.textContent, feedback.hidden], ['Map sent.', false], 'Settings show the status');
   // The first change to the page refreshes once more, then the bridge stops observing the body.
   for (const observer of ui.observers.filter(observer => observer.targets.includes(ui.body))) observer.callback([]);
   assert.equal(ui.observers.some(observer => observer.targets.includes(ui.body)), false, 'The bridge stops observing the body once Send exists');
