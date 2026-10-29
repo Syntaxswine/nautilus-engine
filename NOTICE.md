@@ -19,3 +19,7 @@ Nautilus's building registry, source-aware editor library, placement contract an
 ## Tinderbox consumer conformance evidence
 
 The test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.
+
+## Farmyard stat-v2 conformance evidence
+
+The test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.

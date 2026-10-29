@@ -20,7 +20,8 @@ export function adaptEditorRoofs(name,text,once) {
     text=`import {installRoofTools} from '${app}roof-tools.js';\n`+text;
     change('const wallTools=installWallTools({panel,getDocument,getSelection,apply,scene,status,open,isLoading});',
       'const wallTools=installWallTools({panel,getDocument,getSelection,apply,scene,status,open,isLoading});\n const roofTools=installRoofTools({panel,getDocument,getSelection,apply,scene,status,isLoading});','roof tool installation');
-    change('...prefabPlacementOptions(),foliageMode:','...prefabPlacementOptions(),...roofTools.options(),foliageMode:','roof settings');
+    // Both forms supply material. Only the active roof brush may read roof settings.
+    change('...prefabPlacementOptions(),foliageMode:',"...prefabPlacementOptions(),...($('edit-tool').value==='sloped-roof'?roofTools.options():{}),foliageMode:",'active roof settings');
     change("['foliage-cover','clear-foliage','wall','wall-run','door','erase-edge','break-wall'].includes","['foliage-cover','clear-foliage','wall','wall-run','sloped-roof','door','erase-edge','break-wall'].includes",'roof drag rectangle');
     change("status(r.ok?(r.wallRun?wallTools.describe(r)","status(r.ok?(r.roofPreview?roofTools.describe(r)+' · Release to place · Escape cancels':r.wallRun?wallTools.describe(r)",'roof preview description');
     change('sync();wallTools.applied(result);status(result.wallRun?',"sync();wallTools.applied(result);roofTools.applied(result);status(result.roofPreview?roofTools.describe(result)+' · placed.':result.wallRun?",'roof placement description');

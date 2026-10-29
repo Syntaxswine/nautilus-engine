@@ -1,6 +1,6 @@
 # Nautilus modular engine blueprint
 
-Status: proposed implementation plan, 29 October 2026. Baseline: Nautilus **0.7.0**, main commit `e2214939080a24ad83b8c2b80614744e6a2b38e7`. This document changes no runtime, consumer pin or saved format. [Source inventory](reviews/2026-10-29-engine-blueprint.sources.json).
+Status: approved for implementation by the user, 29 October 2026. Original review baseline: Nautilus **0.7.0**, main commit `e2214939080a24ad83b8c2b80614744e6a2b38e7`. The [0.8 foundation checkpoint](modular-foundation.md) records implementation and remaining work. This blueprint remains the target architecture; it is not a claim that every subsystem is complete. [Source inventory](reviews/2026-10-29-engine-blueprint.sources.json).
 
 Nautilus should offer a menu of useful systems. A new game selects a working combination of lighting, characters, assets, movement, physics, statistics and other services; an older game starts with one module while retaining its working systems. **Farmyard Commando is the first production adoption target.** AFT and Tinderbox remain donors and subsequent consumers, with existing asset exchange and the prepared Tinderbox adapter preserved.
 

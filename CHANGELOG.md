@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.0 — 2026-10-29
+
+- Add optional headless module planning and explicit prepare/start/stop/dispose ownership, host-provider bindings, version diagnostics and rollback.
+- Add a Farmyard stat-v2 calculation adapter and pinned real-game parity tests; retain host actors, resources and all production pins.
+- Add extended-world v1: sparse native metre heights, stable floor/support identities, static AABB queries, authored traversal endpoints and preserving legacy refusal reports. Support up to 32 declared positions without changing legacy map/block formats.
+- Add a separate fifteen-story native-height authoring workshop with measured/dragged edits, revision-bound previews, bounded history, JSON import/export, browser saves and explicit legacy refusal.
+- Add five-label floor controls with arrows, scoped wheel/Page keys, explicit follow/contact/manual modes and legacy editor preview cancellation.
+- Record existing actor, throw-marker and tall-building binding evidence without adding a new runtime asset closure or claiming a complete actor loader.
+- Register separate configuration/world schemas, keep browser floor views outside headless core, and extend installed-package and browser checks. The modular blueprint remains an active programme; see docs/modular-foundation.md for boundaries.
+
 ## 0.7.0 — 2026-10-29
 
 - Add basic character progression with increasing XP requirements, 15 assignable stat points per level and slower, separate practice gains using the existing 14 stats.

@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.7 adds basic character development: practice, increasing XP requirements and 15 assignable stat points per level.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.8 adds optional module composition, a Farmyard stat adapter, native-height world data and five-label floor controls.**
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -94,3 +94,13 @@ Original upstream bytes remain in `vendor/`. `upstream.json` pins full source co
 See [compatibility and persistence](docs/compatibility.md), [distributable profiles and asset reuse](docs/distribution.md), and the [bounded Tinderbox adapter](docs/adapters/tinderbox.md). Public engine-owned interfaces keep donor/editor internals private. Versioned manifests distinguish required from optional features; stamped saves retain portable blueprint data and reject unsupported schemas.
 
 The source checkout contains the full authoring/review material. The default package has an explicit runtime whitelist; separate core, renderer and optional building-assets profiles keep large art payloads out of headless consumers. npm run test:package tests a real offline installation; npm run test:assets verifies all 48 model/binary/blueprint/atlas URLs from the installed asset package. The browser authoring workflow runs in its own isolated browser and in GitHub CI.
+
+## Modular foundation and extended heights
+
+Use individual public imports directly, or opt into `./runtime` to validate a selected provider graph and manage its explicit lifecycle. Existing host services can satisfy dependencies. Importing a statistic does not select rendering, movement or a clock. The `./adapters/farmyard/rules` candidate matches pinned Farmyard stat-v2 calculations while preserving its host-shaped actors and resources; adopting it in the game is a separate change.
+
+`./world` stores up to 32 stable floor positions with explicit metre heights, static surfaces, spawn anchors and traversal endpoints. Native kit stories remain 2.12 m. It supplies bounded AABB/contact/support queries; it does not execute movement or silently convert legacy maps. `./floors` is the headless controller; optional `./floors/ui` and `./floors/style.css` provide the browser view in the compatibility package. The legacy editor uses five visible labels while preserving its six-layer format.
+
+Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
+
+See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.

@@ -1,4 +1,5 @@
 import {distribution} from './distribution.mjs';
+import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
@@ -12,6 +13,7 @@ import {originalCatalogueSource} from './prefab-original-catalog.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
+const pinnedModules = [];
 const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
 for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));
@@ -22,14 +24,15 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
     if (!file.startsWith(folder + path.sep)) throw Error('Invalid manifest path.');
     const data = fs.readFileSync(file);
     if (data.length !== entry.bytes || createHash('sha256').update(data).digest('hex') !== entry.sha256) throw Error('Upstream bytes changed: ' + entry.path);
-    if (/\.m?js$/.test(file)) for (const match of data.toString().matchAll(/(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s*)['"](\.[^'"]+)['"]/g)) {
-      // editor-playtest.js is an explicitly replaced build adapter. The raw
-      // version remains evidence and is never loaded by the standalone editor.
-      if (entry.path.endsWith('/editor-playtest.js')) continue;
-      if (!fs.existsSync(path.resolve(path.dirname(file), match[1]))) throw Error('Missing import: ' + entry.path + ' -> ' + match[1]);
-    }
+    // editor-playtest.js is an explicitly replaced build adapter. Its raw
+    // source remains evidence and is never loaded by the standalone editor.
+    if (/\.m?js$/.test(file) && !entry.path.endsWith('/editor-playtest.js')) pinnedModules.push({filename:file,source:data.toString(),entry:entry.path});
     count++; size += entry.bytes;
   }
+}
+for (const [index,record] of moduleReferencesBatch(pinnedModules).entries()) for (const specifier of record.specifiers) {
+  const dependency=resolveModuleFile(specifier,record.filename);
+  if (dependency!==null && !fs.existsSync(dependency)) throw Error('Missing import: '+pinnedModules[index].entry+' -> '+specifier);
 }
 const haloEvidence = checkSearchHalo(root, sources, tracked);
 const core = await import('../packages/map-core/index.js');
@@ -48,20 +51,23 @@ for (const source of review.sources) {
     if (data.length !== entry.bytes || createHash('sha256').update(data).digest('hex') !== entry.sha256) throw Error('Rules review/source mismatch: ' + entry.path);
   }
 }
-const visited = new Set();
-function ruleClosure(file) {
-  if (visited.has(file)) return; visited.add(file);
-  if (!file.startsWith(root + path.sep) || /[\\/]three[.]/.test(file)) throw Error('Rules must be self-contained and renderer-independent.');
-  if (tracked && !tracked.has(path.relative(root, file).replaceAll('\\', '/'))) throw Error('Rules dependency is not tracked by Git: ' + file);
-  const text = fs.readFileSync(file, 'utf8');
-  for (const match of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s*)['"]([^'"]+)['"]/g)) {
-    if (!match[1].startsWith('.')) throw Error('Rules cannot depend on an external runtime: ' + match[1]);
-    ruleClosure(path.resolve(path.dirname(file), match[1]));
-  }
-}
+const ruleEntries = [];
+function ruleClosure(file) { ruleEntries.push(file); }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js', 'progression.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
 ruleClosure(path.join(root, 'packages/items-core/index.js'));
+ruleClosure(path.join(root, 'packages/runtime-core/index.js'));
+ruleClosure(path.join(root, 'packages/world-core/index.js'));
+ruleClosure(path.join(root, 'packages/adapters/farmyard/rules.js'));
+ruleClosure(path.join(root, 'packages/floor-navigation/index.js'));
+for (const {filename:file} of moduleReferenceGraph(ruleEntries,{root})) {
+  if (!file.startsWith(root + path.sep) || /[\\/]three[.]/.test(file)) throw Error('Rules must be self-contained and renderer-independent.');
+  if (tracked && !tracked.has(path.relative(root,file).replaceAll('\\','/'))) throw Error('Rules dependency is not tracked by Git: '+file);
+}
+await import('../packages/runtime-core/index.js');
+await import('../packages/world-core/index.js');
+await import('../packages/adapters/farmyard/rules.js');
+await import('../packages/floor-navigation/index.js');
 await import('../packages/rules-core/index.js');
 await import('../packages/rules-core/progression.js');
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
@@ -83,3 +89,20 @@ for(const entry of conformanceManifest.files){
  const bytes=fs.readFileSync(file);if(bytes.length!==entry.bytes||createHash('sha256').update(bytes).digest('hex')!==entry.sha256)throw Error('Conformance source bytes changed: '+relative);
  if(tracked){if(!tracked.has(relative))throw Error('Untracked conformance source: '+relative);const indexed=execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',':'+relative],{windowsHide:true});if(createHash('sha256').update(indexed).digest('hex')!==entry.sha256)throw Error('Git would alter conformance source bytes: '+relative);}
 }
+
+
+// Farmyard comparison sources are test-only; preserve exact Git-object bytes.
+const farmyardPin=sources.farmyardRulesConformance;
+const farmyardReview=JSON.parse(fs.readFileSync(path.join(root,farmyardPin.manifest)));
+if(farmyardReview.consumer.commit!==farmyardPin.commit||farmyardReview.fixtureRoot!==farmyardPin.root)throw Error('Farmyard conformance source pin mismatch.');
+let farmyardCopies=0;
+for(const entry of farmyardReview.files.filter(item=>item.copied)){
+  const file=path.resolve(root,entry.fixture),folder=path.resolve(root,farmyardPin.root);
+  if(!file.startsWith(folder+path.sep))throw Error('Farmyard fixture path escapes its frozen root.');
+  const data=fs.readFileSync(file);
+  if(data.length!==entry.bytes||createHash('sha256').update(data).digest('hex')!==entry.sha256||createHash('sha1').update('blob '+data.length+'\0').update(data).digest('hex')!==entry.gitBlob)throw Error('Farmyard source fixture bytes changed: '+entry.fixture);
+  if(tracked){if(!tracked.has(entry.fixture))throw Error('Untracked Farmyard source fixture: '+entry.fixture);const indexed=execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',':'+entry.fixture],{windowsHide:true});if(createHash('sha256').update(indexed).digest('hex')!==entry.sha256)throw Error('Git altered Farmyard fixture bytes: '+entry.fixture);}
+  farmyardCopies++;
+}
+for(const profile of ['core','renderer','assets','compatibility'])if(distribution(profile).files.some(file=>file.startsWith('tests/fixtures/consumers/')))throw Error('A distribution includes test-only consumer fixtures.');
+console.log('Verified '+farmyardCopies+' byte-preserved Farmyard conformance modules, kept outside runtime distributions.');

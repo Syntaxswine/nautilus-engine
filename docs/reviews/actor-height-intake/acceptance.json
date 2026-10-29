@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-10-29T15:48:24.473Z",
+  "branch": "codex/actor-height-binding-intake",
+  "baselineCommit": "ddfd43cf4b156eeb82b5c27772fe977ec10b0633",
+  "status": "local-checks-passed-intake-only",
+  "gates": [
+    {
+      "command": "node --test docs/reviews/actor-height-intake/verify.test.mjs",
+      "status": "passed",
+      "tests": 5,
+      "localLog": "artifacts/actor-height-intake/focused-tests.log",
+      "logSha256": "7059590bf84d9a85bda969b7acfdd3e53697bc9615e0060f537b6e7f311733d9"
+    },
+    {
+      "command": "npm run check",
+      "status": "passed",
+      "tests": null,
+      "localLog": "artifacts/actor-height-intake/check.log",
+      "logSha256": "bc81da103476fa63fec378de01d68fd433b677c769f74320f1d97552e7f2372c"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "tests": 254,
+      "localLog": "artifacts/actor-height-intake/test.log",
+      "logSha256": "a1a70f85b4fdf537ebc95ca716f5cc4df502babaeee50f49fde4b94b72d1c3d6"
+    },
+    {
+      "command": "npm run test:upstream",
+      "status": "passed",
+      "tests": 32,
+      "localLog": "artifacts/actor-height-intake/upstream.log",
+      "logSha256": "b2f019fe0af8a62e0b4ea449e4d510f27b8681d36e96b37518386afaa3977158"
+    },
+    {
+      "command": "npm run build",
+      "status": "passed",
+      "tests": null,
+      "localLog": "artifacts/actor-height-intake/build.log",
+      "logSha256": "98b0230a9836a625b3a9690953528aad9f944a09fac1af569966a43ef9052437"
+    }
+  ],
+  "bindingsCheck": "node docs/reviews/actor-height-intake/bindings.mjs passed",
+  "sourceProbe": "Hash-verified headless native factories, Misha pose/throw markers and tall-building lifecycle; see measurements.json",
+  "sourceImagesReviewed": [
+    "administration:docs/art/exposition-administration/previews/front-isometric.jpg",
+    "administration:docs/art/exposition-administration/previews/structural-cutaway.jpg",
+    "farmyard:sites/tactical-animal/dist/aft/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png"
+  ],
+  "browserReview": "No browser was launched; runtime/editor interactions unchanged. Existing source pictures inspected; WebGL/device acceptance remains pending.",
+  "scope": {
+    "donorRuntimeBytesImported": 0,
+    "currentVendorChanges": 0,
+    "publicExportChanges": 0,
+    "rootBuildChanges": 0,
+    "versionChanges": 0,
+    "consumerPinChanges": 0,
+    "mainMerged": false
+  },
+  "preservedBranches": {
+    "codex/bathroom-art": "4e1b7f0f04868770ca3226280fd1679ca9c2ccf4",
+    "codex/fort-era-variants": "65c06735396e14b8774ae1e7d5ad61969692963f",
+    "codex/frontier-stockade-art": "6d9dfeca7e47a4bded6497472f46f49f8ce14a5b"
+  },
+  "helpers": {
+    "retained": 0,
+    "previewServersStarted": 0,
+    "browserSessionsStarted": 0,
+    "foregroundAuditAndGateCommands": "completed; no background helper or open port created"
+  },
+  "evidence": [
+    {
+      "path": "docs/reviews/actor-height-intake/README.md",
+      "bytes": 17111,
+      "sha256": "9fc40ce878a9a8f008cb3543bacf13d976ce6e6261e3d8cb54fad22aa2648934"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/inventory.py",
+      "bytes": 13024,
+      "sha256": "89f2660184494dbace6c29a081ffe1d85f05ec0ccdf075a096977835848f998d"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/measure.mjs",
+      "bytes": 13365,
+      "sha256": "bb60633360630af81b8903cc284d7d96ff781d06688e3b52c357523fc46382a6"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/bindings.mjs",
+      "bytes": 17270,
+      "sha256": "c85300b0243fca7240fdc91332bcf8c2f82f0c8bef1db08ee2261d931fab03a8"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/verify.test.mjs",
+      "bytes": 5891,
+      "sha256": "5627ba0a3b99fb1bc594403f0136b1b81a8dbf5bbcd91c3d01b6cda92e804858"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/seal.mjs",
+      "bytes": 4598,
+      "sha256": "0e36e8f7c8d7e4a98e71f607b0cc58ec2d3e3e82fdadaf9f461b5adb8964f6a8"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/sources.json",
+      "bytes": 187906,
+      "sha256": "37cfe013ddfa32af989d1edcff5cf8d15056ddcb0f89d89d174c19142ebdb321"
+    },
+    {
+      "path": "docs/reviews/actor-height-intake/measurements.json",
+      "bytes": 132289,
+      "sha256": "1a1909d66190c521fe4a5c5e3a5093cd2a38493a2f458b5db4ccd1e7682a73f8"
+    },
+    {
+      "path": "packages/assets/bindings/actor-intake-v1.json",
+      "bytes": 71871,
+      "sha256": "634e9ea07af223f8c91b571a17cc1a96988724f5dd6d90d01ebc8c8f0ad808fa"
+    },
+    {
+      "path": "packages/assets/bindings/tall-building-intake-v1.json",
+      "bytes": 47961,
+      "sha256": "0c71e5b90859d2685ec19980d30290e6b69d16f55d47b6ff9e18e776a50dea37"
+    }
+  ],
+  "evidenceBytes": 511286,
+  "selfHashExcluded": true,
+  "pending": [
+    "One optional loader and shared Three/lifecycle binding",
+    "Body-only rock presentation adapter aligned to the existing host-committed release",
+    "Misha prone support and ordinary-door clearance",
+    "Tall query/traversal/region semantics and separate fifteen-story connected acceptance",
+    "Comparable WebGL visuals and device cost",
+    "Earlier bathroom/fort runtime intake remains separate"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "codeCommit": "cc4eba5365f9df36f262a0b675a32425a89eb6b3",
+  "nodeVersion": "v24.15.0",
+  "platform": "win32",
+  "gates": [
+    {
+      "command": "npm run check -- --tracked",
+      "exitCode": 0,
+      "count": 0,
+      "log": "artifacts/extended-world-followup/check.log",
+      "logSha256": "211c658ac75f492267084ade5c9f9e2ba0fa742d104224edbdd40bd2da7dca4e"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 299,
+      "log": "artifacts/extended-world-followup/tests.log",
+      "logSha256": "072014e02cbe10ddef8b05c6f717cfb1f6bc58f7be4ce908ccce160de858f303"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/extended-world-followup/upstream.log",
+      "logSha256": "2f6efe5b2b3780898bce1494d6b0c2035db507f730fe3d3ae7b696333d042b22"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 378,
+      "log": "artifacts/extended-world-followup/build.log",
+      "logSha256": "2ed3c633ee4adcdddfa82eaf10bb8897ff7d9ffbb25b650e8ff9f1fd900e2563"
+    },
+    {
+      "command": "node --test tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs",
+      "exitCode": 0,
+      "count": 12,
+      "log": "artifacts/extended-world-followup/focused-tests.log",
+      "logSha256": "156cd24a42bce5f927b8a9725957a48b5f6060ed0b3da90695103efef9e1c7b3"
+    },
+    {
+      "command": "NAUTILUS_WORLD_REVIEW_OUTPUT=extended-world-followup node tools/review-extended-world.mjs",
+      "exitCode": 0,
+      "count": 12,
+      "log": "artifacts/extended-world-followup/browser.log",
+      "logSha256": "1269df66944788694795d2ac3fafae7ba1c333a41624c634c70c5893c15a103b"
+    }
+  ],
+  "counts": "tests/upstream/focused = passing tests; build = checked module paths; browser = passing workflow groups",
+  "buildOnly": true
+}
