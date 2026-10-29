@@ -28,7 +28,7 @@
     "links": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/link"}}
   },
   "$defs": {
-    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}$", "minLength": 1, "maxLength": 96},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}(?![\\s\\S])", "minLength": 1, "maxLength": 96},
     "point": {
       "type": "object", "additionalProperties": false, "required": ["x", "y", "h"],
       "properties": {

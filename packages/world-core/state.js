@@ -5,7 +5,7 @@ export const WORLD_CONTRACT=Object.freeze({schemaId:'nautilus-extended-world',ve
   heightCapability:'nautilus-extended-height-v1',geometryCapability:'nautilus-world-aabb-v1',
   traversalCapability:'nautilus-world-traversal-links-v1',placementsCapability:'nautilus-world-placements-v1',
   coordinates:'x/y horizontal, h vertical; metres; Three maps to (x,h,y)',
-  standardStoryHeightM:3,limits:LIMITS});
+  standardStoryHeightM:2.12,limits:LIMITS});
 const rootFields=['kind','version','id','name','profileId','bounds','floors','surfaces','entities','links'];
 function unique(records,path,seen){for(let i=0;i<records.length;i++){const record=records[i];identifier(record.id,path+'/'+i+'/id');if(seen.has(record.id))fail('DUPLICATE_ID',path+'/'+i+'/id','Record IDs must be unique throughout the world.');seen.add(record.id);}}
 function worldPoint(position,state,path){point(position,path);if(!inside(position,{min:{x:0,y:0,h:state.bounds.minHeightM},max:{x:state.bounds.widthM,y:state.bounds.depthM,h:state.bounds.heightM}}))fail('OUTSIDE_WORLD',path,'Position is outside declared metre bounds.');}
@@ -57,8 +57,15 @@ export function serializeWorld(input){return JSON.stringify(ordered(openWorld(in
 export function worldRequirements(input){const state=openWorld(input),ids=[WORLD_CONTRACT.heightCapability];if(state.surfaces.length)ids.push(WORLD_CONTRACT.geometryCapability);if(state.entities.length)ids.push(WORLD_CONTRACT.placementsCapability);if(state.links.length)ids.push(WORLD_CONTRACT.traversalCapability);return {schema:{id:WORLD_CONTRACT.schemaId,version:1},required:ids.map(id=>({id,minVersion:1,maxVersion:1})),optional:[]};}
 export function assertWorldCompatible(input,consumer){
   const state=openWorld(input),requirements=worldRequirements(state);consumer=inputData(consumer);fields(consumer,['id','version','contractVersion','schemas','capabilities'],'/consumer',['id','contractVersion','schemas','capabilities']);identifier(consumer.id,'/consumer/id');if(Object.hasOwn(consumer,'version'))text(consumer.version,96,'/consumer/version');if(consumer.contractVersion!==1)fail('INVALID_CONSUMER','/consumer/contractVersion','Expected consumer contract version 1.');
-  for(const group of ['schemas','capabilities']){list(consumer[group],128,'/consumer/'+group);const ids=new Set();for(const entry of consumer[group]){fields(entry,['id','versions','description'],'/consumer/'+group,['id','versions']);identifier(entry.id,'/consumer/'+group+'/id');if(Object.hasOwn(entry,'description'))text(entry.description,1000,'/consumer/'+group+'/description');if(ids.has(entry.id))fail('INVALID_CONSUMER','/consumer/'+group,'Duplicate supported ID.');ids.add(entry.id);list(entry.versions,32,'/consumer/'+group+'/versions');if(!entry.versions.length)fail('INVALID_CONSUMER','/consumer/'+group+'/versions','Declare at least one version.');for(const version of entry.versions)integer(version,1,1000000,'/consumer/'+group+'/versions');}}
+  for(const group of ['schemas','capabilities']){
+    list(consumer[group],128,'/consumer/'+group);const ids=new Set();
+    for(const [index,entry] of consumer[group].entries()){
+      const path='/consumer/'+group+'/'+index;fields(entry,['id','versions','description'],path,['id','versions']);identifier(entry.id,path+'/id');if(Object.hasOwn(entry,'description'))text(entry.description,1000,path+'/description');
+      if(ids.has(entry.id))fail('INVALID_CONSUMER',path+'/id','Duplicate supported ID.');ids.add(entry.id);list(entry.versions,32,path+'/versions');if(!entry.versions.length)fail('INVALID_CONSUMER',path+'/versions','Declare at least one version.');
+      const versions=new Set();for(const [versionIndex,version] of entry.versions.entries()){const versionPath=path+'/versions/'+versionIndex;integer(version,1,1000000,versionPath);if(versions.has(version))fail('INVALID_CONSUMER',versionPath,'Duplicate supported version.');versions.add(version);}
+    }
+  }
   const diagnostics=[];if(!consumer.schemas.some(entry=>entry.id===requirements.schema.id&&entry.versions.includes(1)))diagnostics.push({code:'UNSUPPORTED_SCHEMA',path:'/schema',message:'Consumer does not implement extended-world v1.',action:'Use an explicitly compatible adapter; preserve the source world.'});
-  for(const required of requirements.required)if(!consumer.capabilities.some(entry=>entry.id===required.id&&entry.versions.includes(1)))diagnostics.push({code:'UNSUPPORTED_REQUIRED_FEATURE',path:'/required/'+required.id,message:'Missing '+required.id+'.',action:'Provide this semantic binding before opening the world.'});
+  for(const [index,required] of requirements.required.entries())if(!consumer.capabilities.some(entry=>entry.id===required.id&&entry.versions.includes(1)))diagnostics.push({code:'UNSUPPORTED_REQUIRED_FEATURE',path:'/required/'+index,message:'Missing '+required.id+'.',action:'Provide this semantic binding before opening the world.'});
   if(diagnostics.length){const error=new WorldError('INCOMPATIBLE_WORLD','/',diagnostics.map(item=>item.message).join(' '));error.diagnostics=diagnostics;throw error;}return state;
 }

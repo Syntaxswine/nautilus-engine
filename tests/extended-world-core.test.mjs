@@ -140,9 +140,27 @@ test('required schema/height/geometry/placement/traversal capabilities reject le
   assert.equal(requirements.schema.id,'nautilus-extended-world');assert.equal(requirements.required.length,4);assert.deepEqual(assertWorldCompatible(world,manifest),world);assert.ok(negotiateCapabilities(requirements,manifest).ok);
   assert.throws(()=>assertWorldCompatible(world,engineManifest()),error=>error.code==='INCOMPATIBLE_WORLD'&&error.diagnostics.some(d=>d.code==='UNSUPPORTED_SCHEMA'));
   assert.equal(negotiateCapabilities(requirements,engineManifest()).ok,false);
-  for(const entry of manifest.capabilities){const missing=structuredClone(manifest);missing.capabilities=missing.capabilities.filter(item=>item.id!==entry.id);assert.throws(()=>assertWorldCompatible(world,missing),error=>error.diagnostics.some(d=>d.message.includes(entry.id)));}
+  for(const [index,entry] of manifest.capabilities.entries()){const missing=structuredClone(manifest);missing.capabilities=missing.capabilities.filter(item=>item.id!==entry.id);assert.throws(()=>assertWorldCompatible(world,missing),error=>error.diagnostics.some(d=>d.message.includes(entry.id)&&d.path==='/required/'+index));}
   const future=structuredClone(manifest);future.capabilities[0].versions=[2];assert.throws(()=>assertWorldCompatible(world,future),error=>error.code==='INCOMPATIBLE_WORLD');assert.equal(serializeWorld(world),before);
   assert.equal(worldRequirements(tiny()).required.length,1);
+});
+
+test('consumer schema and capability version lists reject duplicates consistently with contract-v1 negotiation',()=>{
+  const world=towerFixture();
+  for(const group of ['schemas','capabilities']){
+    const manifest=consumer(world);manifest[group][0].versions=[1,1];assert.equal(negotiateCapabilities(worldRequirements(world),manifest).ok,false);
+    assert.throws(()=>assertWorldCompatible(world,manifest),error=>error.code==='INVALID_CONSUMER'&&error.diagnostics[0].path==='/consumer/'+group+'/0/versions/1');
+    manifest[group][0].versions=[1,2];assert.deepEqual(assertWorldCompatible(world,manifest),world);assert.equal(negotiateCapabilities(worldRequirements(world),manifest).ok,true);
+  }
+});
+
+test('world and schema identifiers reject LF, CRLF and other trailing characters at the true string end',()=>{
+  const world=tiny(),queries=compileWorld(world),schema=JSON.parse(fs.readFileSync(new URL('../packages/world-core/extended-world-v1.schema.json',import.meta.url),'utf8')),pattern=new RegExp(schema.$defs.id.pattern);
+  for(const suffix of ['\n','\r\n','\r','\u2028','\u2029',' ','/','é']){
+    const id='stable-id'+suffix;assert.throws(()=>openWorld({...world,id}),error=>error.code==='INVALID_ID');assert.equal(pattern.test(id),false);assert.throws(()=>queries.getFloor('floor-0'+suffix),error=>error.code==='INVALID_ID');
+    const manifest=consumer(world);manifest.id=id;assert.throws(()=>assertWorldCompatible(world,manifest),error=>error.code==='INVALID_ID');
+  }
+  assert.ok(pattern.test('stable-id_9.10:roof'));assert.deepEqual(openWorld({...world,id:'stable-id_9.10:roof'}).id,'stable-id_9.10:roof');
 });
 
 test('legacy migration reports preserve exact originals, unknown extensions and explicit divergent height mappings',()=>{
@@ -159,6 +177,7 @@ test('legacy representability identifies high floors, exact mismatched heights a
 });
 
 test('schema document agrees with contract identifiers, strict object fields and bounded collections',()=>{
+  assert.equal(C.standardStoryHeightM,2+.12);assert.equal(towerFixture().floors[1].elevationM,3);
   const schema=JSON.parse(fs.readFileSync(new URL('../packages/world-core/extended-world-v1.schema.json',import.meta.url),'utf8'));assert.equal(schema.$id,C.schemaUri);assert.equal(schema.properties.kind.const,C.schemaId);assert.equal(schema.properties.profileId.const,C.profileId);assert.deepEqual([...schema.required].sort(),Object.keys(towerFixture()).sort());
   for(const key of ['floors','surfaces','entities','links'])assert.equal(schema.properties[key].maxItems,C.limits[key]);for(const entry of [schema,...Object.values(schema.$defs).filter(value=>value.type==='object')])assert.equal(entry.additionalProperties,false);
 });
