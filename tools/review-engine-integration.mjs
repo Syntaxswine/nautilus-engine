@@ -102,7 +102,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
     const after=await handoff();assert(after.feedback===after.status,'Settings feedback does not show the status: '+JSON.stringify(after));return after.status;
   };
   const sendToGame=json=>page.evaluate(async json=>{try{await window.nautilus.sendToGame(...(json===undefined?[]:[json]));return {sent:true};}catch(error){return {error:error.message};}},json);
-  const idle=await handoff();assert(!idle.connected&&idle.disabled,'Send is available with no host connected: '+JSON.stringify(idle));
+  const idle=await handoff();assert(!idle.connected,'The page reports a host before any connected: '+JSON.stringify(idle));assert(idle.disabled,'Send is enabled with no host connected: '+JSON.stringify(idle));
   await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js'),manifest=core.engineManifest();manifest.id='acceptance-versioned-host';manifest.capabilities=manifest.capabilities.filter(feature=>feature.id!==core.ROOF_FEATURE);window.manifestHostCalls=0;window.manifestDisconnect=window.nautilus.connectGame({manifest,openMap(){window.manifestHostCalls++;}});});
   await page.locator('#settings-button').click();
   const versioned={click:await send(),sendToGame:await sendToGame()};
@@ -121,7 +121,7 @@ await withArtReview('Combined Engine 0.5 editor acceptance',async({page,baseURL,
   assert(sent.click.startsWith('Map sent')&&sent.sendToGame.sent&&sent.explicit.sent,'The capable host was refused: '+JSON.stringify(sent));
   assert(host.calls===3&&host.buildings===6&&JSON.stringify(host.received.map(call=>[call.buildings,call.current]))==='[[6,true],[6,true],[6,false]]'&&host.received[2].name==='Explicit acceptance map','Declared asynchronous local host handoff failed: '+JSON.stringify(host));
   await page.locator('#close-settings').click();await page.evaluate(()=>window.integrationDisconnect());
-  const closed=await handoff();assert(!closed.connected&&closed.disabled,'Send is still available after the host disconnected: '+JSON.stringify(closed));
+  const closed=await handoff();assert(!closed.connected,'The page still reports a host after it disconnected: '+JSON.stringify(closed));assert(closed.disabled,'Send is still enabled after the host disconnected: '+JSON.stringify(closed));
   const final=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return {buildings:window.editor3d.document.map.buildingPrefabs.instances.length,walls:window.editor3d.document.map.wallRuns.segments.length,roofs:window.editor3d.document.map.slopedRoofs.roofs.length,features:core.requiredMapFeatures(window.editor3d.document.map),diagnostics:window.editor3d.scene.diagnostics,memory:window.editor3d.scene.renderer.info.memory,drawCalls:window.editor3d.scene.renderer.info.render.calls};});
   assert(!final.diagnostics.length,'Final scene reports missing assets.');
   assert(final.features.includes('nautilus-original-buildings-v1'),'Original feature is absent.');
