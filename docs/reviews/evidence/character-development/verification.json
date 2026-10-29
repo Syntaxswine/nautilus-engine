@@ -1,0 +1,112 @@
+{
+  "sourceBase": "3cba6838a1926e7cc1611ffddf13d70aeceea5c7",
+  "coreCheckpoint": "d8bf16e3de7da1ffaabfaccca255687b16931fcb",
+  "uiCheckpoint": "1a906da9058983e97867d696535dc8db92072d81",
+  "buildProvenanceSha256": "a6ec2507c933188a175906e084c51ff68ce05295ca7383abb88ff331b5e93042",
+  "tests": {
+    "sourceCheck": "passed",
+    "engine": {
+      "passed": 243,
+      "failed": 0
+    },
+    "upstream": {
+      "passed": 32,
+      "failed": 0
+    },
+    "build": {
+      "status": "passed",
+      "modulePaths": 365
+    },
+    "edge": {
+      "status": "passed",
+      "version": "156.0.4314.50",
+      "built": true
+    }
+  },
+  "scope": {
+    "stats": 14,
+    "attributes": 6,
+    "skills": 8,
+    "statRange": [
+      1,
+      100
+    ],
+    "levelPoints": 15,
+    "perks": false,
+    "classes": false,
+    "speciesAdditions": false,
+    "renderer": false,
+    "framework": false
+  },
+  "existingReference": {
+    "source": "packages/rules-core/example.js:exampleEncounter().attack.character",
+    "id": "mechanic",
+    "name": "Mechanic",
+    "resourceFixture": {
+      "hp": 37,
+      "ap": 0,
+      "stamina": 12
+    }
+  },
+  "art": {
+    "source": "vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8",
+    "assets": [
+      "sites/tactical-animal/dist/assets/ui/industrial-switches/map-frame-v1.webp",
+      "sites/tactical-animal/dist/assets/ui/industrial-switches/switch-skins-v2.webp"
+    ],
+    "newIntake": false
+  },
+  "apiBinding": {
+    "sheet": "progressionSheet(state)",
+    "preview": "previewAllocation(state, allocation).preview.character; .next remains unchanged",
+    "commit": "stageProgression(state, command), full canonical expected-source check",
+    "persistence": "serializeProgression/openProgression complete version-1 bundle",
+    "identity": "Saved receipt command/source IDs checked before fresh sample ordinal; original command reused for explicit replay"
+  },
+  "designEvaluation": {
+    "accuracy": "Core-derived XP progress, practice thresholds, allocation effects and resources. Current injured/exhausted resources are preserved. The learning and reward curves are game tuning rather than measured learning behavior.",
+    "efficiency": "Event-driven DOM; no RAF, renderer or framework. Existing pinned paints are reused. Full durable journal validation remains core-owned and bounded; no CPU benchmark is claimed.",
+    "narrative": "Subjective preference favors the existing green/brass field-record style, separate practice meters, a nonblocking level notice and banking by closing. New classes/species/perks are deferred.",
+    "recommendation": "Use this basic core-backed panel for the current character-development use case; game-specific useful-action eligibility, authenticated grants and adoption remain consumer responsibilities."
+  },
+  "lifecycle": {
+    "receipt": {
+      "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+      "purpose": "Basic character-development allocation and persistence acceptance",
+      "stoppedAt": "2026-10-29T07:20:01.199Z",
+      "process": {
+        "pid": 28848,
+        "creationFiletime": "134377319911847851",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 58608,
+        "creationFiletime": "134377319916124169",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 52239,
+      "httpClosed": true,
+      "browserClosed": true,
+      "method": "Supported Playwright browser close and HTTP close in finally"
+    },
+    "identities": [
+      {
+        "pid": 28848,
+        "creationFiletime": "134377319911847851",
+        "oldLifetimeAlive": false
+      },
+      {
+        "pid": 58608,
+        "creationFiletime": "134377319916124169",
+        "oldLifetimeAlive": false
+      }
+    ],
+    "listeners": 0,
+    "commandExitCode": 0
+  },
+  "limits": [
+    "Reference harness supplies labelled committed sample outcomes; no game adoption",
+    "200% zoom-equivalent reflow uses 640x450 CSS viewport at deviceScaleFactor 2",
+    "Final public exports, whitelist/schema/version/build-provenance/release wiring and combined Linux review belong to architect"
+  ]
+}
