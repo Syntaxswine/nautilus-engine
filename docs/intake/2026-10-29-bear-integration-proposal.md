@@ -23,6 +23,10 @@ Start new worker branches from the engine baseline and preserve existing branche
 
 Return full commit hashes and reports in each worker's own chat. The architect collects and distributes checkpoints; workers should not depend on a moving branch or another worker's uncommitted files. Queue dependent reviews behind the relevant candidate rather than interrupting current work.
 
+## Builder handoff
+
+Follow the [component handoff standard](../component-handoffs.md) and [guide template](../templates/component-handoff.md). Coder owns the bear provider card and public connection example; Editor adds the concrete authoring checklist; Artist supplies native bounds/socket/motion evidence; UI reviews discovery and instructions. Link the guide from bear discovery metadata and ship it with the relevant package. Explain renderer/resource/clock bindings, appearance capabilities, supported equipment/motions, ownership, saves, failure handling and remaining game policies. Reuse standard semantic bindings rather than requiring every game to copy AFT wiring. The separate UI title/interaction candidate follows the same standard and is not a bear dependency.
+
 ## Content and presentation contract
 
 Keep the model identity `bear`, shared discovery identity `people:bear`, and existing outfit values `normal` and `red-hats`. Preserve the existing thirteen equipment choices: hands, knife, pistol, rifle, assault, SMG, HMG, shotgun, sniper, grenade, launcher, RPG and flamethrower. Reuse the source identities instead of adding a new species or weapon naming scheme.
