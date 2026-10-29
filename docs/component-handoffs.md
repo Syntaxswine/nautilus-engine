@@ -23,6 +23,8 @@ A complete guide snippet can be the minimal example if it works with the install
 
 Use the actual module manifest, schema and capability declarations as the source for executable requirements. Guide cards explain those declarations; they must not disagree with or override them. Existing strict runtime configuration parsers do not accept arbitrary guide fields. Use separate metadata or an existing supported registry until an extension is deliberately versioned and implemented. A guide-index API supplied by a candidate is not a released engine API.
 
+The [functional editor parts project](projects/functional-editor-parts.md) assigns implementation of these automatic connections and editor-run readiness checks. Its scope separates accepted runtime boundaries from candidate code and assigns the compiler, content, authoring and player work to the existing helpers.
+
 ## Standard connection sequence
 
 1. **Select and inspect.** Choose an exact reviewed engine/content pin and read the card's supported profile. Show required dependencies and missing bindings before changing the live game.
