@@ -53,6 +53,14 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
     const hit=boxes.find(box=>intersects(from,to,box.bounds,actor));
     return hit?bad('BLOCKED','The way is blocked by '+hit.id+'.'):good();
   }
+  function doorClearance(state,door){
+    const solid=world.queryBounds(door.motionBounds).surfaces.find(surface=>overlap(door.motionBounds,surface.bounds));
+    if(solid)return bad('DOOR_BLOCKED','Door '+door.id+' needs a clear motion envelope; static surface '+solid.id+' occupies it. Correct the authored clearance or bind an exact geometry provider.');
+    // Reserve complete authored envelopes. This conservative AABB profile does
+    // not arbitrate intersecting hinge arcs or concurrent paired leaves.
+    const other=state.doors.find(value=>value.id!==door.id&&overlap(door.motionBounds,value.motionBounds));
+    return other?bad('DOOR_BLOCKED','Door '+door.id+' overlaps the reserved motion clearance of '+other.id+'. Separate the clearances or use an explicitly compatible provider.'):good();
+  }
   return Object.freeze({
     worldId:snapshot.id,
     validateBindings(value){
@@ -61,6 +69,7 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
       for(const door of state.doors){
         const floor=world.getFloor(door.floorId);point(door.position);if(Math.abs(door.position.h-floor.elevationM)>epsilon)fail('INVALID_LANDING','Door interaction position must match its declared floor height.');
         if(!inside(door.position)||![door.closedBounds,door.openBounds,door.motionBounds].filter(Boolean).every(bounds=>inside(bounds.min)&&inside(bounds.max)))fail('OUTSIDE_WORLD','Door bounds are outside the authored world.');
+        const clearance=doorClearance(state,door);if(!clearance.ok)fail(clearance.code,clearance.reason);
       }
       for(const stair of state.stairs)for(const landing of [stair.from,stair.to]){
         const actor={radiusM:stair.widthM/2,heightM:stair.clearanceM};
@@ -72,7 +81,8 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
     landing({actor,landing}){return support({from:landing.position,actor,floorId:landing.floorId,surfaceId:landing.surfaceId});},
     sweep,
     walk({state,actor,from,to}){return support({from,to,actor,floorId:actor.floorId}).ok?sweep({state,actor,from,to}):bad('NO_SUPPORT','Walk on a supported floor; use a declared stair route to change height.');},
-    canSetDoor({actor,door}){
+    canSetDoor({state,actor,door}){
+      const clearance=doorClearance(state,door);if(!clearance.ok)return clearance;
       return occupants(actor).some(other=>overlap(door.motionBounds,actorBounds(other)))?bad('DOOR_OCCUPIED','Someone is in the doorway. Move clear before operating it.'):good();
     }
   });

@@ -130,6 +130,8 @@ Use `createInteractionState` and `createInteractionActor` for new records. `open
 
 Sidecars are limited to four million JSON characters and 4096 records of each interaction type; these are validation bounds, not performance promises. Saved mover routes are limited to 4106 m including the approach.
 
+All data boundaries validate finite plain JSON before cloning or serializing: accessors, hidden/symbol fields, functions/`toJSON`, class instances, sparse arrays and explicit `undefined` reject with `INVALID_DATA` without invoking a getter. This includes constructor options and action/command data. Omit an optional property to request its default; do not supply `undefined`. Existing valid v1 plain-data saves keep the same schema/profile and four-million-character limit.
+
 State and actor revisions are bounded to 1e9. A game must checkpoint/migrate deliberately before exhausting them. There is no hidden receipt eviction. Revision-stamped intents are single use: applying one again to the committed state returns `STALE_ACTION` and no events. Event IDs derive from world identity and committed world revision. Persist revisions across saves; rebase world identity when intentionally forking a simulation.
 
 ## Behavior and bindings
@@ -155,6 +157,10 @@ All queries are pure; they cannot spend costs, alter locks, move actors or trigg
 ## Reference provider limits
 
 `createInteractionQueries(world,{actors})` reuses Nautilus's static spatial index. Supply **all current authoritative movers**, including offscreen actors; omitted `actors` means a deliberately single-actor world. Hidden floors remain in queries. The provider uses an upright **rectangular** body with a conservative square footprint, authored axis-aligned surfaces, dynamic closed/open door boxes, and a conservative full motion box for door operation. It is not a capsule/triangle/curved-silo solver. Flat walking checks union coverage under the entire swept footprint rectangle; diagonal walks near floor edges can reject conservatively. Door pose changes are binary authoritative changes; cosmetic interpolation does not postpone collision truth.
+
+Door binding/readiness and commit-time operation both reject a motion envelope intersecting a static surface or another door's reserved motion envelope with `DOOR_BLOCKED`, naming the obstruction and remedy. Exact face contact is permitted; overlapping hinge boxes, including paired leaves, need a separately compatible geometry profile rather than a bypass. Moving leaves belong only in dynamic interaction data, never as permanent static colliders. Occupancy is checked again at operation time with `DOOR_OCCUPIED`. The reference yard leaves its jamb outside the complete leaf envelope; this fixes a 0.06 m overlap in its original fixture without changing the native kit.
+
+Mechanical door readiness does not establish passage clearance for a particular actor. Preserve measured wall apertures and overhead geometry. A native 1.65 m opening cannot pass the default 1.7 m upright mover; the forthcoming parts compiler must report that fit failure before play, and movement still checks the actual lintel. No body, artwork or collider is silently shortened. An aperture cannot be inferred reliably from a leaf box alone.
 
 Stairs use authored, sloping polylines and declared width/head clearance, with live sweeps and endpoint support. They do not generate stair meshes, infer routes from artwork, validate every tread, solve navmeshes, move arbitrary rigid bodies, simulate falling, ladders, crouching, opening a door while already on stairs, or reverse a route mid-flight. A blocked route pauses and can resume. Use a different versioned provider/profile for those needs. Curved Coldwell geometry requires its actual geometry provider; these boxes must not be declared exact mesh support.
 

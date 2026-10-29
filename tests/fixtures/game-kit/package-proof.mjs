@@ -1,6 +1,6 @@
 import kitAssert from 'node:assert/strict';
 import kitFS from 'node:fs';
-import {createInteractionState as kitState,createInteractionActor as kitActor,createInteractionQueries as kitQueries,previewInteraction as kitPreview,applyInteraction as kitApply,interactionRequirements as kitRequirements} from '@nautilus-engine/core/interactions';
+import {createInteractionState as kitState,openInteractionState as kitOpen,createInteractionActor as kitActor,createInteractionQueries as kitQueries,previewInteraction as kitPreview,applyInteraction as kitApply,interactionRequirements as kitRequirements} from '@nautilus-engine/core/interactions';
 import {gameAssetGuides as kitGuides} from '@nautilus-engine/core/game-ui';
 import {createWorld as kitWorld} from '@nautilus-engine/core/world';
 import {engineManifest as kitManifest} from '@nautilus-engine/core/contracts';
@@ -14,6 +14,8 @@ const kitP=kitPreview(kitS,kitA,{targetId:'gate'},kitQ),kitResult=kitApply(kitS,
 kitAssert.equal(kitResult.ok,true);kitAssert.equal(kitResult.state.doors[0].open,true);kitAssert.equal(kitS.doors[0].open,false);
 kitAssert.equal(kitApply(kitResult.state,kitResult.actor,kitP.command,kitQ).ok,false);
 kitAssert.equal(kitNegotiate(kitRequirements(kitS),kitManifest()).ok,true);
+let kitReads=0;const kitAccessor=structuredClone(kitS);Object.defineProperty(kitAccessor,'revision',{enumerable:true,get(){kitReads++;return 0;}});kitAssert.throws(()=>kitOpen(kitAccessor),error=>error.code==='INVALID_DATA');kitAssert.equal(kitReads,0);
+const kitBlockedWorld=structuredClone(kitW);kitBlockedWorld.surfaces.push({id:'door-solid',floorId:'floor-0',role:'solid',bounds:{min:{x:4.02,y:4.8,h:.5},max:{x:4.08,y:5.2,h:1}},supports:false,supportFloorId:null});const kitBlockedQueries=kitQueries(kitBlockedWorld);kitAssert.throws(()=>kitBlockedQueries.validateBindings(kitS),error=>error.code==='DOOR_BLOCKED');kitAssert.equal(kitPreview(kitS,kitA,{targetId:'gate'},kitBlockedQueries).code,'DOOR_BLOCKED');
 for(const guide of kitGuides())kitAssert.ok(kitFS.readFileSync(new URL(guide.guide),'utf8').includes('# '));
 kitAssert.throws(()=>import.meta.resolve('@nautilus-engine/core/game-ui/title'),{code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});
 console.log('Installed standard interaction behavior, capability negotiation, shipped usage guides and headless/UI separation pass.');

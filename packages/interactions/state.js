@@ -1,4 +1,5 @@
 // Plain-data interaction sidecar. Portable maps and character sheets stay unchanged.
+import {inputData} from '../world-core/validation.js';
 export const INTERACTION_CONTRACT=Object.freeze({
   id:'nautilus-standard-interactions',version:1,capability:'nautilus-standard-interactions-v1',profile:'bounded-kinematic-v1',
   coordinates:'metres; x/y ground, h feet height',
@@ -7,12 +8,12 @@ export const INTERACTION_CONTRACT=Object.freeze({
 export const copy=value=>structuredClone(value);
 export const axes=['x','y','h'];
 export function fail(code,message){const error=new Error(message);error.code=code;throw error;}
-export function object(value,keys,name){
-  if(!value||Object.getPrototypeOf(value)!==Object.prototype||Object.keys(value).some(key=>!keys.includes(key))||keys.some(key=>!Object.hasOwn(value,key)))fail('INVALID_DATA','Invalid '+name+' fields.');
+export function object(value,keys,name,required=keys){
+  if(!value||typeof value!=='object'||![Object.prototype,null].includes(Object.getPrototypeOf(value))||Reflect.ownKeys(value).some(key=>{const descriptor=Object.getOwnPropertyDescriptor(value,key);return typeof key!=='string'||!keys.includes(key)||!descriptor.enumerable||!Object.hasOwn(descriptor,'value');})||required.some(key=>!Object.hasOwn(value,key)))fail('INVALID_DATA','Invalid '+name+' fields.');
 }
 export function number(value,min,max,name){if(!Number.isFinite(value)||value<min||value>max)fail('INVALID_DATA','Invalid '+name+'.');}
 export function integer(value,name){number(value,0,1e9,name);if(!Number.isInteger(value))fail('INVALID_DATA','Invalid '+name+'.');}
-export function id(value,name='ID'){if(typeof value!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$/.test(value))fail('INVALID_DATA','Invalid '+name+'.');}
+export function id(value,name='ID'){if(typeof value!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}(?![\s\S])/.test(value))fail('INVALID_DATA','Invalid '+name+'.');}
 export function label(value){if(typeof value!=='string'||!value.trim()||value.length>160)fail('INVALID_DATA','Provide a short label.');}
 export function point(value){object(value,axes,'metre point');for(const axis of axes)number(value[axis],-65536,65536,'coordinate');}
 export function box(value){object(value,['min','max'],'bounds');point(value.min);point(value.max);for(const axis of axes)if(value.min[axis]>=value.max[axis])fail('INVALID_DATA','Interaction bounds need positive volume.');}
@@ -30,12 +31,19 @@ export function routePoint(path,distanceM){
   }
   return copy(path.at(-1));
 }
-function input(value){
-  if(typeof value==='string'){if(value.length>4000000)fail('INVALID_DATA','Interaction save is too large.');value=JSON.parse(value);}
-  return copy(value);
+export function interactionData(value,allowText=false){
+  if(typeof value==='string'&&(!allowText||value.length>4000000))fail('INVALID_DATA','Supply bounded interaction JSON data.');
+  try{
+    // Keep the existing four-million-character profile. The larger byte budget
+    // accommodates valid Unicode; strict descriptors/JSON are checked before
+    // serialization or cloning can invoke accessors or erase hidden data.
+    const data=inputData(value,16000000);
+    if(JSON.stringify(data).length>4000000)fail('INVALID_DATA','Interaction data is limited to four million JSON characters.');
+    return data;
+  }catch(error){fail('INVALID_DATA','Interaction input requires finite bounded plain JSON: '+error.message);}
 }
 export function openInteractionState(value){
-  const state=input(value);object(state,['kind','version','profile','worldId','revision','doors','stairs'],'interaction state');
+  const state=interactionData(value,true);object(state,['kind','version','profile','worldId','revision','doors','stairs'],'interaction state');
   if(state.kind!==INTERACTION_CONTRACT.id||state.version!==1||state.profile!==INTERACTION_CONTRACT.profile)fail('UNSUPPORTED_PROFILE','Use standard interactions v1 with bounded-kinematic-v1.');
   id(state.worldId);integer(state.revision,'world revision');const seen=new Set();
   for(const key of ['doors','stairs']){
@@ -67,12 +75,13 @@ export function openInteractionState(value){
   if(JSON.stringify(state).length>4000000)fail('INVALID_DATA','Interaction sidecars are limited to four million JSON characters. Split or migrate this authored set deliberately.');
   return state;
 }
-export function createInteractionState({worldId,doors=[],stairs=[]}){
+export function createInteractionState(options){
+  const data=interactionData(options);object(data,['worldId','doors','stairs'],'interaction options',['worldId']);const {worldId,doors=[],stairs=[]}=data;
   return openInteractionState({kind:INTERACTION_CONTRACT.id,version:1,profile:INTERACTION_CONTRACT.profile,worldId,revision:0,doors,stairs});
 }
 export function serializeInteractionState(state){return JSON.stringify(openInteractionState(state));}
 export function openInteractionActor(value){
-  const actor=input(value);object(actor,['id','revision','position','floorId','radiusM','heightM','speedMps','traversal'],'interaction actor');
+  const actor=interactionData(value,true);object(actor,['id','revision','position','floorId','radiusM','heightM','speedMps','traversal'],'interaction actor');
   id(actor.id);integer(actor.revision,'actor revision');point(actor.position);id(actor.floorId);
   number(actor.radiusM,.05,5,'body radius');number(actor.heightM,.1,10,'body height');number(actor.speedMps,.01,20,'walk speed');
   if(actor.traversal!==null){
@@ -84,7 +93,8 @@ export function openInteractionActor(value){
   }
   return actor;
 }
-export function createInteractionActor({id:actorId,position,floorId,radiusM=.25,heightM=1.7,speedMps=2}){
+export function createInteractionActor(options){
+  const data=interactionData(options);object(data,['id','position','floorId','radiusM','heightM','speedMps'],'actor options',['id','position','floorId']);const {id:actorId,position,floorId,radiusM=.25,heightM=1.7,speedMps=2}=data;
   return openInteractionActor({id:actorId,revision:0,position,floorId,radiusM,heightM,speedMps,traversal:null});
 }
 export function serializeInteractionActor(actor){return JSON.stringify(openInteractionActor(actor));}

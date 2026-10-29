@@ -1,4 +1,4 @@
-import {openInteractionState,openInteractionActor,copy,object,id,integer,number,point,distance,samePoint,routeLength,routePoint,bump,fail} from './state.js';
+import {openInteractionState,openInteractionActor,interactionData,copy,object,id,integer,number,point,distance,samePoint,routeLength,routePoint,bump,fail} from './state.js';
 const denied=(code,reason)=>({ok:false,code,reason,events:[]});
 function operate(input,actorInput,run){
   let state=null,actor=null;
@@ -44,8 +44,9 @@ function plan(state,actor,targetId,kind,bindings){
   return {kind,target:stairs,direction,path,label:'Take '+stairs.label};
 }
 /** Pure readiness + revision-stamped intent. Queries must also be pure. */
-export function previewInteraction(input,actorInput,{targetId,kind}={},bindings){
+export function previewInteraction(input,actorInput,options={},bindings){
   return operate(input,actorInput,(state,actor)=>{
+    const data=interactionData(options);object(data,['targetId','kind'],'preview options',['targetId']);const {targetId,kind}=data;
     const planned=plan(state,actor,targetId,kind,bindings);
     return {ok:true,label:planned.label,events:[],command:{kind:planned.kind,targetId,worldId:state.worldId,worldRevision:state.revision,actorId:actor.id,actorRevision:actor.revision}};
   });
@@ -53,6 +54,7 @@ export function previewInteraction(input,actorInput,{targetId,kind}={},bindings)
 /** Revalidates live geometry/permissions. Host atomically commits both returned records. */
 export function applyInteraction(input,actorInput,command,bindings){
   return operate(input,actorInput,(state,actor)=>{
+    command=interactionData(command);
     object(command,['kind','targetId','worldId','worldRevision','actorId','actorRevision'],'interaction command');
     if(!['open-door','close-door','unlock-door','traverse-stairs'].includes(command.kind))fail('UNSUPPORTED_ACTION','Choose a supported explicit interaction action.');
     id(command.worldId);id(command.actorId);integer(command.worldRevision,'world revision');integer(command.actorRevision,'actor revision');
@@ -68,8 +70,9 @@ export function applyInteraction(input,actorInput,command,bindings){
   });
 }
 function seconds(value){number(value,0,1,'elapsed seconds (maximum one second per step)');}
-export function walkActor(input,actorInput,{direction,seconds:elapsed}={},bindings){
+export function walkActor(input,actorInput,options={},bindings){
   return operate(input,actorInput,(state,actor)=>{
+    const data=interactionData(options);object(data,['direction','seconds'],'walk options');const {direction,seconds:elapsed}=data;
     if(actor.traversal)fail('IN_TRANSIT','Advance the active stair route before ordinary walking.');
     object(direction,['x','y'],'walk direction');number(direction.x,-1,1,'walk x');number(direction.y,-1,1,'walk y');seconds(elapsed);
     const length=Math.hypot(direction.x,direction.y);
@@ -80,8 +83,9 @@ export function walkActor(input,actorInput,{direction,seconds:elapsed}={},bindin
   });
 }
 /** Explicit host time only; follows every crossed route segment and checks live blockers. */
-export function advanceTraversal(input,actorInput,{seconds:elapsed}={},bindings){
+export function advanceTraversal(input,actorInput,options={},bindings){
   return operate(input,actorInput,(state,actor)=>{
+    const data=interactionData(options);object(data,['seconds'],'traversal options');const {seconds:elapsed}=data;
     seconds(elapsed);const travel=actor.traversal;
     if(!travel||!elapsed)return {ok:true,state,actor,events:[]};
     const stairs=state.stairs.find(value=>value.id===travel.stairId);
