@@ -1,0 +1,35 @@
+{
+  "runtime": "v24.15.0",
+  "engineCommit": "8c4670450cb2b38c1e1abd811d633c22de9e2b7c",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "seconds": 4.764,
+      "log": "artifacts/coldwell-map/checks/check.log"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 44.408,
+      "log": "artifacts/coldwell-map/checks/test.log"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "seconds": 3.185,
+      "log": "artifacts/coldwell-map/checks/upstream.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 15.634,
+      "log": "artifacts/coldwell-map/checks/build.log"
+    }
+  ],
+  "focusedMapTests": 7,
+  "result": "passed",
+  "repositoryTests": 372,
+  "upstreamTests": 32,
+  "browserCaptures": 9
+}
