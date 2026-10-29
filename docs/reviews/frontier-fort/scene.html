@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nautilus · modular frontier fort review</title><link rel="icon" href="data:,">
+<style>*{box-sizing:border-box}body{margin:0;background:#e5e3d5;color:#263c32;font:14px system-ui}header{padding:17px 24px;background:#233b31;color:#f1e9d5;display:flex;align-items:center;gap:22px}h1{font:26px Georgia;margin:0 0 6px}p{margin:0}header p{color:#c8d0c1}select,button{font:inherit;background:#ede7d6;color:#263c32;padding:7px;border:1px solid #a4b099;border-radius:4px}main{position:relative}canvas{display:block;width:100%;height:920px}#stats{position:absolute;bottom:16px;left:24px;background:#f3f0e3ee;border:1px solid #acb6a0;padding:10px;max-width:1120px}#detail{position:absolute;right:24px;top:16px;max-width:320px;padding:10px;background:#f3f0e3e8;border:1px solid #acb6a0;font-size:12px}footer{padding:12px 24px;font-size:12px}#plan{height:920px;display:none;padding:16px}#plan svg{width:100%;height:100%}</style>
+<header><div><h1>Frontier fort · one modular kit</h1><p>Original fictional compound · native metres · 3 m planning grid · 2.12 m walkway datum</p></div><label>Assembly <select id="asset"></select></label><label>View <select id="view"><option>exterior</option><option>rear</option><option>top</option><option>roof-off</option><option>grey</option><option>wire</option><option>plan</option><option>cutaway</option><option>gate-exterior</option><option>gate-interior</option><option>gate-swing</option><option>access</option><option>joint</option></select></label><button id="doors">Open gates</button></header>
+<main><canvas id="stage"></canvas><div id="plan"></div><div id="detail"></div><div id="stats"></div></main><footer>Fictional frontier-fort adaptation inspired by the user-supplied Paragon reference. Original models and painterly materials. Art connectors do not imply gameplay support.</footer>
+<script type="module">
+import * as T from '../../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {FRONTIER_BUILDINGS,FRONTIER_PARTS,frontierRecipe,frontierFloorSvg} from '../../../packages/frontier-fort/index.js';
+import {FRONTIER_LAYOUTS} from '../../../packages/frontier-fort/layouts.js';
+import {createFrontierModel} from '../../../packages/frontier-fort/three.js';
+import {loadFrontierExport} from './load-export.js';
+const renderer=new T.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.localClippingEnabled=true;
+const loader=new T.TextureLoader(),atlas=await loader.loadAsync('../../../assets/buildings/painted-materials-v2.png'),postAtlas=await loader.loadAsync('../../../assets/frontier-fort/painted-post-materials-v1.png'),barkTexture=await loader.loadAsync('../../../assets/frontier-fort/painted-stockade-wood-v1.png');
+for(const t of[atlas,postAtlas,barkTexture]){t.colorSpace=T.SRGBColorSpace;t.anisotropy=4;}barkTexture.wrapS=barkTexture.wrapT=T.RepeatWrapping;
+const scene=new T.Scene();scene.background=new T.Color(0xe5e3d5);scene.add(new T.HemisphereLight(0xfff4df,0x667a6c,1.7));
+const sun=new T.DirectionalLight(0xffedcc,2.2);sun.position.set(-30,45,-20);scene.add(sun);
+const fill=new T.DirectionalLight(0xc8d8df,.8);fill.position.set(35,15,35);scene.add(fill);
+const assets=[...FRONTIER_LAYOUTS,...FRONTIER_BUILDINGS,...FRONTIER_PARTS],asset=document.querySelector('#asset'),views=document.querySelector('#view');
+for(const r of assets){const o=document.createElement('option');o.value=r.id;o.textContent=r.name;asset.append(o);}
+let model,camera,selected=assets[0].id,view='exterior',level=0,lod='game',opened=false,oneLeaf=false,extras=[],active=true;
+{const option=document.createElement('option');option.textContent='roof-join';views.append(option);}
+function clearModels(){model?.dispose();for(const extra of extras)extra.dispose();extras=[];}
+function render(){
+  if(!active)return;
+  const W=innerWidth,H=920,b=model.building;renderer.setSize(W,H,false);
+  const bounds=view==='roof-join'?{min:[-6,-.12,-.405],max:[12,3.42,6.405]}:model.bounds,extent=bounds.max.map((v,i)=>v-bounds.min[i]),center=new T.Vector3(...bounds.min.map((v,i)=>(v+bounds.max[i])/2));
+  let az=225,el=38,ppu=160,close=false;
+  if(view==='rear')az=45;if(view==='top'){az=90;el=90;center.y=0;}if(view==='wire')el=45;
+  if(view==='access'){az=45;el=49;}
+  if(view==='cutaway'){az=225;el=65;center.y=level*2.12+.6;}
+  if(view.startsWith('gate-')){
+    const assembly=!!b.layout,mid=assembly?b.width/2:9,z=assembly?3:0;
+    center.set(mid,3.8,z+(view==='gate-interior'?6:0));az=view==='gate-interior'?90:270;el=13;ppu=80;close=true;
+    if(view==='gate-swing'){center.set(mid,3.8,z+3);az=225;el=25;ppu=70;}
+  }
+  if(view==='joint'){center.set(9,2.1,6.8);az=45;el=30;ppu=130;close=true;}
+  const cut=view==='cutaway',roof=!['roof-off','cutaway','plan'].includes(view);
+  model.setView({roof,maxLevel:cut?level:Infinity});
+  if(cut)for(const child of model.root.children)if(child.userData.level<level&&!(child.userData.kind==='stairs'&&child.userData.level===level-1))child.visible=false;
+  if(!close){const a=az*Math.PI/180,e=el*Math.PI/180,horizontal=Math.abs(Math.sin(a))*extent[0]+Math.abs(Math.cos(a))*extent[2],
+    vertical=(Math.abs(Math.cos(a))*extent[0]+Math.abs(Math.sin(a))*extent[2])*Math.sin(e)+extent[1]*Math.cos(e);
+    ppu=Math.min(ppu,(W-180)/horizontal,(H-150)/vertical);}
+  const a=az*Math.PI/180,e=el*Math.PI/180;
+  camera=new T.OrthographicCamera(-W/(2*ppu),W/(2*ppu),H/(2*ppu),-H/(2*ppu),.1,600);
+  camera.position.copy(center).add(new T.Vector3(Math.cos(a)*Math.cos(e),Math.sin(e),Math.sin(a)*Math.cos(e)).multiplyScalar(280));
+  if(view==='top')camera.up.set(0,0,-1);camera.lookAt(center);
+  const planes=cut?[new T.Plane(new T.Vector3(0,-1,0),level*2.12+1.05)]:[];
+  for(const m of model.materials.values()){m.wireframe=view==='wire';m.clippingPlanes=planes;m.needsUpdate=true;}
+  renderer.render(scene,camera);
+  document.querySelector('#stats').textContent=b.name+' · '+model.triangles.toLocaleString()+' triangles · '+renderer.info.render.calls+' visible draws · '+lod+' · scale [1,1,1]';
+  document.querySelector('#detail').textContent=b.layout?b.layout.instances.length+' pieces from one kit. All '+b.assemblyProof.connections.length+' perimeter connections match wall and 1.5 m walkway sockets. '+(view==='gate-exterior'||view==='gate-interior'?'Gates '+(opened?'open inward 90°':'closed')+'.':''):b.sourcePolicy;
+  return {id:b.id,view,level,lod,metrics:model.data.metrics,bounds:model.bounds,visibleDraws:renderer.info.render.calls,renderedTriangles:renderer.info.render.triangles,
+    ...(b.layout?{instances:b.layout.instances.length,connections:b.assemblyProof.connections.length,closed:b.assemblyProof.closed}:{}),
+    gateLeaves:model.pivots.filter(p=>['gate','sally'].includes(p.userData.style)).map(p=>({id:p.name,pivot:p.position.toArray(),yaw:p.rotation.y,side:p.userData.side,clearOpenWidth:p.userData.clearOpenWidth}))};
+}
+function set(options={}){
+  selected=options.id||selected;view=options.view||view;level=options.level??level;lod=options.lod||lod;opened=options.opened??opened;oneLeaf=options.oneLeaf??false;
+  clearModels();let input=selected;if(view==='roof-join'){input=frontierRecipe('frontier-adobe-storehouse');input.openInterfaces=['roof-west','roof-east'];}
+  model=createFrontierModel(T,input,{atlas,postAtlas,barkTexture,lod,grey:['grey','wire'].includes(view)});scene.add(model.root);
+  if(view==='roof-join')for(const x of[-6,6]){const extra=createFrontierModel(T,'frontier-stockade-6',{atlas,postAtlas,barkTexture});extra.root.position.x=x;scene.add(extra.root);extras.push(extra);}
+  model.setDoorsOpen(opened,{gatesOnly:true});
+  if(oneLeaf){model.setDoorsOpen(false,{gatesOnly:true});const p=model.pivots.find(p=>p.userData.style==='gate'&&p.userData.side==='left');if(p)model.setDoorPose(p.name,90);}
+  asset.value=selected;views.value=view;
+  const plan=view==='plan'&&model.building.floors.length;document.querySelector('canvas').style.display=plan?'none':'block';document.querySelector('#plan').style.display=plan?'block':'none';
+  if(plan)document.querySelector('#plan').innerHTML=frontierFloorSvg(model.building,Math.min(level,model.building.levels-1));
+  return render();
+}
+asset.addEventListener('change',()=>set({id:asset.value}));views.addEventListener('change',()=>set({view:views.value}));
+document.querySelector('#doors').addEventListener('click',()=>set({opened:!opened}));window.addEventListener('resize',()=>render());set();
+window.frontierReview={ready:true,set,renderer,scene,get model(){return model;},
+  async interchange(id,time=0){clearModels();const cat=await(await fetch('../../../assets/frontier-fort/catalogue.json')).json(),record=cat.assets.find(r=>r.id===id),
+    building=await(await fetch('../../../assets/frontier-fort/'+(record.category==='part'?'parts/':'models/')+id+'.blueprint.json')).json();
+    model=await loadFrontierExport(T,id,location.href,building,record);scene.add(model.root);selected=id;view='exterior';asset.value=id;views.value=view;lod='glTF readback';level=0;opened=time>0;model.applyOpenAnimation(time);return render();},
+  dispose(){active=false;clearModels();atlas.dispose();postAtlas.dispose();barkTexture.dispose();renderer.dispose();}};
+</script></html>

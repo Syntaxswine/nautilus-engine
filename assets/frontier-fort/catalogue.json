@@ -1,0 +1,1533 @@
+{
+  "version": 1,
+  "collection": "nautilus-frontier-fort-v1",
+  "artistFoundation": "8631b0cfc6005f3004956afa50ec0e46e5f69278",
+  "engineBaseline": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+  "status": "Artist intake candidate, separate from the v0.5.0 release.",
+  "contract": {
+    "schema": "nautilus-frontier-fort-art",
+    "version": 1,
+    "metresPerUnit": 1,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "origin": "Each module states its own origin; assembly instances carry explicit transforms.",
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slabThickness": 0.12,
+    "floorInterval": 2.12,
+    "placementGrid": 3,
+    "footprintGrid": 0.5,
+    "maxLevels": 6,
+    "maxMapExtent": 240,
+    "walk": {
+      "profile": "nautilus-art-wall-walk-v1",
+      "datum": 2.12,
+      "width": 1.5,
+      "minimumClearWidth": 1.4,
+      "minimumClearHeight": 1.8,
+      "inset": 0.16,
+      "center": 0.91,
+      "wallAxisHeight": 0,
+      "grid": 3
+    },
+    "defensiveExceptions": {
+      "stockadeLogDiameter": 0.25,
+      "stockadeBodyHeight": 3.12,
+      "stockadeTipRise": 0.3,
+      "gateLeafThickness": 0.12
+    },
+    "status": "Modular descriptive art kit. Shared editor persistence, navigation, collision and fire require separate integration."
+  },
+  "inputs": [
+    {
+      "file": "packages/frontier-fort/designs.js",
+      "sha256": "1bd152592ca6fb0ebba1aca42ca57ae1aaa20aed0641fe8222c9fbd698003768"
+    },
+    {
+      "file": "packages/frontier-fort/index.js",
+      "sha256": "fc5cb9f60d1bd473ac858952b659323ea2c706b8b2640c20b14db8c20105b700"
+    },
+    {
+      "file": "packages/frontier-fort/layouts.js",
+      "sha256": "9284e380ba4627085c1cac1a93bf01634eb8ec4134570958b50172ad2742242b"
+    },
+    {
+      "file": "packages/frontier-fort/connectors.js",
+      "sha256": "18e517280c3764fb63469591e6f051c3d78a11b1c2f65d73335f2454c9675400"
+    },
+    {
+      "file": "packages/frontier-fort/geometry.js",
+      "sha256": "dbc03952ca16f1ccf77a01a5b6fc40243860d979615450ef5ec0af718c36f59b"
+    },
+    {
+      "file": "packages/frontier-fort/roofs.js",
+      "sha256": "07a804d74a00149089eba5ad041d9a73a5ccf547f5582486b02001bc6f50086c"
+    },
+    {
+      "file": "packages/frontier-fort/mesh.js",
+      "sha256": "4ea6efcf05acc1eceddc2c31763a02270ec57526428b6d2453bf22460a0bf340"
+    },
+    {
+      "file": "packages/frontier-fort/three.js",
+      "sha256": "5f07b33c96f099f438c4019be6b3dc8e9778a298991b0bd7fde915964e796492"
+    },
+    {
+      "file": "packages/measured-buildings/index.js",
+      "sha256": "49f9b5ebe358abb8eb5c368d56efe8acf0aec722d6a049d5ced211d83778d86a"
+    },
+    {
+      "file": "packages/measured-buildings/designs.js",
+      "sha256": "c52de6c08984a1d1d43df5278931ef2dd213dadda78a8911639b03fce80e4c95"
+    },
+    {
+      "file": "tools/build-frontier-fort.mjs",
+      "sha256": "db103e540f2bcb564bbf6db2b4564994e46f7103e5b1949412ff8515f22d26bd"
+    },
+    {
+      "file": "tools/export-frontier-gltf.mjs",
+      "sha256": "1650dbb0029d15d81e820b8f10cb12a2fe83cc486047607c47a827817ce1f60f"
+    },
+    {
+      "file": "art/frontier-fort/references.json",
+      "sha256": "1e2f3e112da1d2ca63c997500a85569fd6ac115303e4aa1035ecadcef532b59a"
+    },
+    {
+      "file": "art/frontier-fort/dimensions.json",
+      "sha256": "03e00c4f7b8e992718bb125418d8c30e3e7995157c8f2d21dd40598436d888fd"
+    },
+    {
+      "file": "art/frontier-fort/skin-prompts.json",
+      "sha256": "07a6316a1dc9494acf80d416b8e2804e8eb07c49547d3a8fdb56ef3e6649b1ec"
+    },
+    {
+      "file": "art/frontier-fort/stockade-skin-prompt.json",
+      "sha256": "55023ef0612dd11c9c598e6e88d4d10d7a853ed4204f81aad95781e616d8c13d"
+    }
+  ],
+  "skins": [
+    {
+      "file": "assets/buildings/painted-materials-v2.png",
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+    },
+    {
+      "file": "assets/frontier-fort/painted-post-materials-v1.png",
+      "sha256": "6fbc9bd1af3e7e0c45b6a93b9e5653959effca927cc50dd2cc11ae945cf4bee5"
+    },
+    {
+      "file": "assets/frontier-fort/painted-stockade-wood-v1.png",
+      "sha256": "de41d273df435a6a0a089f81dd22aeb57fed74d89b1f412c6e0bf9a2cb7077e4"
+    }
+  ],
+  "connectorsManifest": {
+    "file": "assets/frontier-fort/connectors.json",
+    "bytes": 89921,
+    "sha256": "c3715a253cbadb161895926c35eedd14108294d80c6a7d72ddd85584fadea8ef"
+  },
+  "partsManifest": {
+    "file": "assets/frontier-fort/parts.json",
+    "bytes": 88253,
+    "sha256": "4d9dfa88d2ce29d42ca62085a6585bd22d71e42ae9f833a35b7c707df72a26b3"
+  },
+  "assets": [
+    {
+      "id": "frontier-gatehouse",
+      "name": "Gatehouse and watch room",
+      "category": "building",
+      "engineGame": {
+        "triangles": 6288,
+        "draws": 61,
+        "rooms": 6,
+        "windows": 9
+      },
+      "source": {
+        "triangles": 24988,
+        "draws": 61,
+        "rooms": 6,
+        "windows": 9
+      },
+      "reduction": 0.7483592124219625,
+      "interchange": {
+        "triangles": 30734,
+        "draws": 61,
+        "rooms": 6,
+        "windows": 9
+      },
+      "bounds": {
+        "min": [
+          -0.09500000000000006,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          18.095,
+          7.7650000000000015,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-gatehouse.source-mesh.json.gz",
+          "bytes": 452591,
+          "sha256": "7207cf59ac05a417a0e7030244e107159111ac3b4bf56417b27ca0416778f816"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse.gltf",
+          "bytes": 61448,
+          "sha256": "adc8ee8470f89591c5deaa0fe9dc7320dcd7397ad526532b0c156efff11f0a02"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse.bin",
+          "bytes": 2003248,
+          "sha256": "17989421831fe21abbdd048912a51b20d7462e338f4867ba4cf42495dc889577"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse.blueprint.json",
+          "bytes": 22497,
+          "sha256": "db81f01ddd888f3a9de506d48027e2a7db444dd55c64d5e791e3d34bffedcf6a"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse.game-mesh.json.gz",
+          "bytes": 72137,
+          "sha256": "2bec94fe3d767b51bcc7424e87c0a349bd838c5f9a7469f0716c6d966bb0b59b"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse-level-0.svg",
+          "bytes": 3777,
+          "sha256": "7e7b55a34dcc7713be4fc09c81b06e90a69b2f33239918ead555a01c32c93e58"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse-level-1.svg",
+          "bytes": 3754,
+          "sha256": "77fa63d5168aa3e12741082db0538562b2def588ad94f0a2d181c15f77d91186"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-gatehouse-level-2.svg",
+          "bytes": 3388,
+          "sha256": "b308deb37ce3e5ce5e0b2473f7ec7d2ab92a64f73ac694f99891cd5cc4cd8bb1"
+        }
+      ],
+      "animations": [
+        {
+          "name": "frontier-gatehouse:main-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "frontier-blockhouse",
+      "name": "Corner blockhouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2960,
+        "draws": 30,
+        "rooms": 2,
+        "windows": 5
+      },
+      "source": {
+        "triangles": 8948,
+        "draws": 31,
+        "rooms": 2,
+        "windows": 5
+      },
+      "reduction": 0.6691998211890926,
+      "interchange": {
+        "triangles": 10972,
+        "draws": 30,
+        "rooms": 2,
+        "windows": 5
+      },
+      "bounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          6.3,
+          5.34,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-blockhouse.source-mesh.json.gz",
+          "bytes": 158616,
+          "sha256": "905d43a8ea22fa2051355ae4d8bc0a83fcc66c33e0177a613b90a29931728e8b"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse.gltf",
+          "bytes": 30120,
+          "sha256": "6021cf7b90cd1773dc7e0eb78dd284e8b675478200be06614e90d5d674fd779b"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse.bin",
+          "bytes": 718544,
+          "sha256": "04011ad7a79cab097a0eb265e0547de606653027a186740cdc168047771a06b6"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse.blueprint.json",
+          "bytes": 10483,
+          "sha256": "931e5d393ac090d43b25e660737dad0cc0e1b58dd68ef2a580ed80b80d3c6233"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse.game-mesh.json.gz",
+          "bytes": 35971,
+          "sha256": "976c767e43a43cb8d55e8c80b1f60f27fbde329a3b0fe29e939e9c4c7f43c7ec"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse-level-0.svg",
+          "bytes": 1900,
+          "sha256": "7bdcbafd3464802b1ae6b95ead48053f5e8882446bdff943b2d8806c7e2b1a35"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-blockhouse-level-1.svg",
+          "bytes": 2238,
+          "sha256": "10d81c8bf7fd37eb855f482ffefaeeec11e53edb2d0eef4f0b7a393371d0b506"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-headquarters",
+      "name": "Headquarters with stair and lookout",
+      "category": "building",
+      "engineGame": {
+        "triangles": 4892,
+        "draws": 52,
+        "rooms": 4,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 20872,
+        "draws": 52,
+        "rooms": 4,
+        "windows": 8
+      },
+      "reduction": 0.7656190111153699,
+      "interchange": {
+        "triangles": 21990,
+        "draws": 52,
+        "rooms": 4,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.045
+        ],
+        "max": [
+          15.24,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-headquarters.source-mesh.json.gz",
+          "bytes": 368633,
+          "sha256": "5d0f4485ad4f6c58a62a50cdf8982a11da57dbaee0509a8e7d9a4480d2f0ddcc"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters.gltf",
+          "bytes": 52049,
+          "sha256": "3da15b76de802d05fd48259a4a4e7cc0a8d4c6b15fa079b6c0688548f314b1bf"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters.bin",
+          "bytes": 1442600,
+          "sha256": "3ed4f68fdba6a5b9749bf67a1ad0b1b30fc4f3d7e322e2bb544172f30f9b98de"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters.blueprint.json",
+          "bytes": 15741,
+          "sha256": "7f535581f07e4eb76b15c3546eec92ed3132bc55f802f04ffdf5efbdb03a5cac"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters.game-mesh.json.gz",
+          "bytes": 54270,
+          "sha256": "c8249b2f2c9420421a69500d8bcdb2018ba8cf078db09691cff6922e29a50ed3"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters-level-0.svg",
+          "bytes": 4290,
+          "sha256": "82d48d35cf8d1af8670048e2ba71213e68ef672706443afe5d52ea815e0540bd"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-headquarters-level-1.svg",
+          "bytes": 3721,
+          "sha256": "f6207eecb2869221c6072bd7d89ec6da40be352536a4ca5c6fa35ba89ba45767"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-commanders-quarters",
+      "name": "Commander's quarters",
+      "category": "building",
+      "engineGame": {
+        "triangles": 5654,
+        "draws": 63,
+        "rooms": 6,
+        "windows": 8
+      },
+      "source": {
+        "triangles": 23706,
+        "draws": 63,
+        "rooms": 6,
+        "windows": 8
+      },
+      "reduction": 0.7614949801737957,
+      "interchange": {
+        "triangles": 24606,
+        "draws": 63,
+        "rooms": 6,
+        "windows": 8
+      },
+      "bounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          15.3,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-commanders-quarters.source-mesh.json.gz",
+          "bytes": 428087,
+          "sha256": "1ef18917cf4e5b3cf40b16c0eba0f43a63eeb76e7dd1ac581122e2526ed6a0e8"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters.gltf",
+          "bytes": 62093,
+          "sha256": "d673a6f42e6eee30392662e6b98a967c7a32f7981653fa55e5e90253179aeb21"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters.bin",
+          "bytes": 1622344,
+          "sha256": "60e92d78cfa2fd811198921c7b0f3f540235e6fe5efe06900a54fb86cb4700c3"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters.blueprint.json",
+          "bytes": 17895,
+          "sha256": "104df1d9e84a1f3afd98b99b633be78a6b793f6dc4299709a83e934caf9782d7"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters.game-mesh.json.gz",
+          "bytes": 59139,
+          "sha256": "793757bf3cb2aa229acd18ea5b3fe1fcb2118b1b0c5db50593e35d8b78017179"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters-level-0.svg",
+          "bytes": 4653,
+          "sha256": "cf41017d12ddc0f4f3d316022aa33c0fceb025fee6c25a43072ed6108779f36f"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-commanders-quarters-level-1.svg",
+          "bytes": 4605,
+          "sha256": "574e15e23d97fa0dae83d875d4104500df9435b1599e20256ca86148eed2c383"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-adobe-barracks-porch",
+      "name": "Adobe barracks · porch",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2460,
+        "draws": 32,
+        "rooms": 3,
+        "windows": 6
+      },
+      "source": {
+        "triangles": 10700,
+        "draws": 32,
+        "rooms": 3,
+        "windows": 6
+      },
+      "reduction": 0.7700934579439253,
+      "interchange": {
+        "triangles": 11408,
+        "draws": 32,
+        "rooms": 3,
+        "windows": 6
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.2
+        ],
+        "max": [
+          18.24,
+          2.895,
+          9.405
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-adobe-barracks-porch.source-mesh.json.gz",
+          "bytes": 171573,
+          "sha256": "597eb5f30573bbb54fcf928acc6e0ededab4c02df36945519100bdcdcdc8e6b3"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-porch.gltf",
+          "bytes": 33674,
+          "sha256": "afbd84ed3519f2347fdffce7fd4005ed2aa02c9dd72102960720bbe05c16c055"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-porch.bin",
+          "bytes": 775296,
+          "sha256": "97f457d9e4d1a1d7eb220090dd90a917c609db8f080ff2cc9544ce4963637e10"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-porch.blueprint.json",
+          "bytes": 10187,
+          "sha256": "f44a8343dad416bce7d38fe8f5d90a353d75217fb5e6d4dbeab26ae292ebe9d5"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-porch.game-mesh.json.gz",
+          "bytes": 26188,
+          "sha256": "be4bffba4ca98402605729b503ea06682d0ac10109dbe1e51ab18f9127d1aa67"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-porch-level-0.svg",
+          "bytes": 3513,
+          "sha256": "a0cbfe91c1109df3e91f553a7e3be6ec047b38191e7e34332b2175c0b179e5e6"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-adobe-barracks-stairs",
+      "name": "Adobe barracks · roof stairs",
+      "category": "building",
+      "engineGame": {
+        "triangles": 2432,
+        "draws": 35,
+        "rooms": 3,
+        "windows": 4
+      },
+      "source": {
+        "triangles": 10708,
+        "draws": 35,
+        "rooms": 3,
+        "windows": 4
+      },
+      "reduction": 0.7728800896525962,
+      "interchange": {
+        "triangles": 10584,
+        "draws": 35,
+        "rooms": 3,
+        "windows": 4
+      },
+      "bounds": {
+        "min": [
+          -0.08000000000000018,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          21.045,
+          3.055,
+          6.404999999999999
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-adobe-barracks-stairs.source-mesh.json.gz",
+          "bytes": 188063,
+          "sha256": "bb0aaf5b6485b93b0ea3a8f4d01cb924ae7d971c17e5fbbfa7cefaee2b18df23"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-stairs.gltf",
+          "bytes": 36036,
+          "sha256": "c9c6890ca8dd8cdc2022151b459b3d692b6c519a0a112cfe4b2edeaa95dd7769"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-stairs.bin",
+          "bytes": 714880,
+          "sha256": "c2d8c64e5bf97625b571b98aef4276194669a8b1b8d3fc8cce857ed9434bdfd2"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-stairs.blueprint.json",
+          "bytes": 9868,
+          "sha256": "c5f7a6c84a7834a451665e56b4e42b1be75630d0f491aa1183e938e924b5f2b0"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-stairs.game-mesh.json.gz",
+          "bytes": 27855,
+          "sha256": "c7ad3f83c87fa7e71ff0f6ec052c8429a28a7a03b2a5ba878000ae46a8ead913"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-barracks-stairs-level-0.svg",
+          "bytes": 3929,
+          "sha256": "48fff2dfbcdc857202553be5e8a18d4f916d904ffb45d4a3087196dbe65794c1"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-stone-storehouse",
+      "name": "Stone storehouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 888,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 2
+      },
+      "source": {
+        "triangles": 4456,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 2
+      },
+      "reduction": 0.800718132854578,
+      "interchange": {
+        "triangles": 5270,
+        "draws": 23,
+        "rooms": 1,
+        "windows": 2
+      },
+      "bounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          9.3,
+          3.375,
+          6.3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-stone-storehouse.source-mesh.json.gz",
+          "bytes": 76324,
+          "sha256": "7e273f53e4bd717ceded9be50cda1924c7ac75f0f0cb99673b1e384cb60acb7f"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-stone-storehouse.gltf",
+          "bytes": 24731,
+          "sha256": "a87b4e5981528f98fde8053931abf4533dd0774ad7f52bc516775b32a0790710"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-stone-storehouse.bin",
+          "bytes": 348968,
+          "sha256": "09960e1385339eac1d7de8287e23da9818b95f782021c60cb0714efcca7c6edb"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-stone-storehouse.blueprint.json",
+          "bytes": 5378,
+          "sha256": "58a9d3a8335394f30d565c6c8eb6962627bddbd2a479dba855b9074490ae27e4"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-stone-storehouse.game-mesh.json.gz",
+          "bytes": 13099,
+          "sha256": "0bd9ef074af2733c759c317b98a774ad29054acb18186475ae3ae539b04565bc"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-stone-storehouse-level-0.svg",
+          "bytes": 1572,
+          "sha256": "1dc7c5cd076db44b99c343c806161073aff8e6fb599afc6661735c9e1b67926d"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-adobe-storehouse",
+      "name": "Adobe storehouse",
+      "category": "building",
+      "engineGame": {
+        "triangles": 692,
+        "draws": 22,
+        "rooms": 1,
+        "windows": 1
+      },
+      "source": {
+        "triangles": 3608,
+        "draws": 22,
+        "rooms": 1,
+        "windows": 1
+      },
+      "reduction": 0.8082039911308204,
+      "interchange": {
+        "triangles": 2950,
+        "draws": 22,
+        "rooms": 1,
+        "windows": 1
+      },
+      "bounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          6.08,
+          2.895,
+          6.404999999999999
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-adobe-storehouse.source-mesh.json.gz",
+          "bytes": 65585,
+          "sha256": "0fe410d17e33ad01fe80283c40e56bb9c2091c201a67269b24fdecfc2fff6ac8"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-storehouse.gltf",
+          "bytes": 23718,
+          "sha256": "a54ca21fa05f547a1de140e45ab9da2206a847f583da6a7ff8f5a08fb684abdc"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-storehouse.bin",
+          "bytes": 201800,
+          "sha256": "9e3bf5b4066eac80969f79c6ef5d45d36d5face2c4885a54d26972c914ebb396"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-storehouse.blueprint.json",
+          "bytes": 5744,
+          "sha256": "198ac785071f0ab764745cfb2cd886ebaddd92fdef222ad2fb485a906531ded5"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-storehouse.game-mesh.json.gz",
+          "bytes": 9849,
+          "sha256": "1257b966d47f6f91487a692a5c763afc0ad83276fe20d407ccbfc51fb4afdd30"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-adobe-storehouse-level-0.svg",
+          "bytes": 1535,
+          "sha256": "3c1854755b548f7585b2593364cd657a0462473373cfb3664fd598a1819d27d4"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-stockade-6",
+      "name": "Stockade · 6 m",
+      "category": "part",
+      "engineGame": {
+        "triangles": 996,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 2380,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.5815126050420167,
+      "interchange": {
+        "triangles": 1760,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-stockade-6.source-mesh.json.gz",
+          "bytes": 54684,
+          "sha256": "a6ed57641908190a83fbf65c019c72783beec3088309d096722fd5285c575234"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-6.gltf",
+          "bytes": 7542,
+          "sha256": "e9a9f4f7f80ae68af8ed09a25f072dbd4a80aa9b1045749830bdfd3385fc2d91"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-6.bin",
+          "bytes": 124032,
+          "sha256": "82b9ffc2164d44d370b091d7e6471ee6ac7cf7517f20d1523dc0a937e4e29eed"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-6.blueprint.json",
+          "bytes": 2296,
+          "sha256": "d284938df72e1e14bf6f31708522b998209ef3a140fb79a28aee627a0e95b53e"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-6.game-mesh.json.gz",
+          "bytes": 20726,
+          "sha256": "686d7cbbfe6e5728714fd0ed50fbe1d624591e36cd538edff79b65a6753e382b"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-stockade-3",
+      "name": "Stockade · 3 m closure",
+      "category": "part",
+      "engineGame": {
+        "triangles": 540,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1280,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.578125,
+      "interchange": {
+        "triangles": 912,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          3.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-stockade-3.source-mesh.json.gz",
+          "bytes": 31764,
+          "sha256": "b9eb801a2361d510d103a9e4e3919f82b3f2895cd9b8ab115c2a609acfe333a4"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-3.gltf",
+          "bytes": 7527,
+          "sha256": "f1724f62a0af1f82e7900f08956847df75a7f780c039abcc2ce2f96177009268"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-3.bin",
+          "bytes": 64576,
+          "sha256": "fceb3808e19531f34b8bd4735c2a589f7deb354d89cd2c0400841b909d5dc5e7"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-3.blueprint.json",
+          "bytes": 2312,
+          "sha256": "7361f6bb4a1c628697ab2ec388f05baa433b8619dcad44b80c9af87709c385b8"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-3.game-mesh.json.gz",
+          "bytes": 12365,
+          "sha256": "d5cb85f9060841f965128240189e5de9c2ec03c0cad42031a9b4c52c70671be6"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-stockade-corner",
+      "name": "Stockade · corner",
+      "category": "part",
+      "engineGame": {
+        "triangles": 2020,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 4580,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.5589519650655022,
+      "interchange": {
+        "triangles": 3356,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          6.005
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-stockade-corner.source-mesh.json.gz",
+          "bytes": 99362,
+          "sha256": "083407e6ceca162588f8d5488fbb94f329387dbb1b61ac671a5c1466082f153e"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-corner.gltf",
+          "bytes": 7534,
+          "sha256": "0657369c120f197532c8a71546c63e41fa508239fab5dfb0fae0e977cbd22c76"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-corner.bin",
+          "bytes": 237296,
+          "sha256": "09021bd7a7e0b0811024d6d2ce1c728883901d1ca9a4e9e97d15fe92884ea251"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-corner.blueprint.json",
+          "bytes": 2293,
+          "sha256": "acbb30a780c037d83690402dbcd90a6f17760f6331b9b1ec576f4a9a13d5146e"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-corner.game-mesh.json.gz",
+          "bytes": 40529,
+          "sha256": "c03663605731ecca7f51c48ce6c8a9059c490d16135be1565a7ff41dad65d996"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-stockade-u",
+      "name": "Stockade · U section",
+      "category": "part",
+      "engineGame": {
+        "triangles": 3044,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 6824,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.5539273153575616,
+      "interchange": {
+        "triangles": 4992,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.125,
+          3.42,
+          6.005
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-stockade-u.source-mesh.json.gz",
+          "bytes": 143133,
+          "sha256": "1c9a62bfefd266abb67be574cf8d456144f62ecd9dd3554fb3f9b55e8924f2a9"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-u.gltf",
+          "bytes": 7522,
+          "sha256": "e59cf8ce1776ed63526a7309831cef93cf29a9d0fd4d52861e26ffdb48211b4c"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-u.bin",
+          "bytes": 353088,
+          "sha256": "aa3b7fed198c5d1fc303a13a1340bddb9ffbd94e3e507809909cc918d8136df7"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-u.blueprint.json",
+          "bytes": 2310,
+          "sha256": "ee3a9fc2630a48c4e9249f159d770970f50abe17f5e7b4fc03e74a8b5ab71ae0"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-stockade-u.game-mesh.json.gz",
+          "bytes": 58174,
+          "sha256": "8c3054312b8ab74c4127f645e2c9d8cbd0aa17a5da4abe1e9a6bc528671c0d50"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-sally-port",
+      "name": "Rear sally port",
+      "category": "part",
+      "engineGame": {
+        "triangles": 1284,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 5132,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7498051441932969,
+      "interchange": {
+        "triangles": 2472,
+        "draws": 11,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.13
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-sally-port.source-mesh.json.gz",
+          "bytes": 111116,
+          "sha256": "bf928ed6bfced24ab62364a067a5e3d03ac7d55d26efeb788d1c7b955661aefd"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-sally-port.gltf",
+          "bytes": 15376,
+          "sha256": "f1cc86768465a752efd95b95198961010e1464b3061e149f987a9659b5680cbf"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-sally-port.bin",
+          "bytes": 173160,
+          "sha256": "6060585cf5bae380ed8c977318cbe024ca937a82917245893116544780b2b241"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-sally-port.blueprint.json",
+          "bytes": 2454,
+          "sha256": "4d13ec4abce0635400eafee0dd65764dc13f2a8af835ece8ff913e24a2b8a4d4"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-sally-port.game-mesh.json.gz",
+          "bytes": 24225,
+          "sha256": "6258153efb4c60b95b70ec160e196e84eaa91bc89f6b738cc5fa29c88a5ba1e2"
+        }
+      ],
+      "animations": [
+        {
+          "name": "frontier-sally-port:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "frontier-rampart-platform",
+      "name": "Rampart platform and stairs",
+      "category": "part",
+      "engineGame": {
+        "triangles": 1632,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 4320,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6222222222222222,
+      "interchange": {
+        "triangles": 4590,
+        "draws": 9,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.125
+        ],
+        "max": [
+          6.045,
+          3.42,
+          8
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-rampart-platform.source-mesh.json.gz",
+          "bytes": 100663,
+          "sha256": "c2b233db6de816135e5113b3c21676044d46adbbd383a9be4a5b439deaac3923"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-rampart-platform.gltf",
+          "bytes": 11660,
+          "sha256": "0109fc846c3cfaa1c5a85b456ba4e4d340deda91241b991b5db2cc2e931c4169"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-rampart-platform.bin",
+          "bytes": 306760,
+          "sha256": "63f64d299812943e5128312073f91b627fb17a6308f3e8068f454fa123e58303"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-rampart-platform.blueprint.json",
+          "bytes": 2315,
+          "sha256": "b6dd36242248186684a9b2f14fc3bc08c6a55249f836865bf810617b4f879ee5"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-rampart-platform.game-mesh.json.gz",
+          "bytes": 29726,
+          "sha256": "113002f20871f7f0c454566084e91dc5d6a9f605f3a3932d97ac425dedcd2067"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-datum-stair",
+      "name": "U stair · one standard level",
+      "category": "part",
+      "engineGame": {
+        "triangles": 516,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 1692,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6950354609929078,
+      "interchange": {
+        "triangles": 2110,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.045,
+          3.055,
+          5.005
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-datum-stair.source-mesh.json.gz",
+          "bytes": 43997,
+          "sha256": "45a6c926b3318d9897938159758250160a7947f054e4d54d995091b429cf1973"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-datum-stair.gltf",
+          "bytes": 9883,
+          "sha256": "1ae039dcae4d34766ca5ab26ead523d047c6bd361205c2d5727c3205d93e55f3"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-datum-stair.bin",
+          "bytes": 136712,
+          "sha256": "25143bc21f016fdd704f47a5d206f6d6fe2c155b1847a3a227ab05debfd8346d"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-datum-stair.blueprint.json",
+          "bytes": 1757,
+          "sha256": "6f207a94beee0c3aa66814419a1cfa30206001051765bc699b8d52d4e5460406"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-datum-stair.game-mesh.json.gz",
+          "bytes": 9016,
+          "sha256": "dc8b6e857092dac2c49dd23768213659e3314419fe6a5061ab62f6edea4f62ee"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-porch-bay",
+      "name": "Porch frame · 3 m bay",
+      "category": "part",
+      "engineGame": {
+        "triangles": 48,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 156,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6923076923076923,
+      "interchange": {
+        "triangles": 188,
+        "draws": 4,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.14,
+          -0.12,
+          0
+        ],
+        "max": [
+          3,
+          2.12,
+          3
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-porch-bay.source-mesh.json.gz",
+          "bytes": 4928,
+          "sha256": "7c7c0d9508484348ec5f43021d28b0ce90ddb10d7c2942817322484a2665c558"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-bay.gltf",
+          "bytes": 7383,
+          "sha256": "f0c562de59853daf3bbdd7fb3d1a17a7b4e52babe1d8b319124181c1e82044c9"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-bay.bin",
+          "bytes": 12752,
+          "sha256": "5cf9ee6e3ef4d9ab8bd956a0c01ce2082cb9f67c987481c64c1142f508b867fc"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-bay.blueprint.json",
+          "bytes": 1759,
+          "sha256": "635af2636f91ba826fe55597e4300eb43eed6f17356befe5a9001236f419cfe6"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-bay.game-mesh.json.gz",
+          "bytes": 1692,
+          "sha256": "3e02f919cc4dd61b95fef5b73be64f3bd1ca818bf36ff9a8ad9519dfd8b40cbf"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-porch-terminal",
+      "name": "Porch · terminal post",
+      "category": "part",
+      "engineGame": {
+        "triangles": 24,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 88,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.7272727272727273,
+      "interchange": {
+        "triangles": 88,
+        "draws": 1,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          -0.14,
+          0,
+          -0.125
+        ],
+        "max": [
+          0.14,
+          2.12,
+          0.125
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-porch-terminal.source-mesh.json.gz",
+          "bytes": 2529,
+          "sha256": "f3b1c492620492f0ecb367a1eda84529ce25dc43b814743745fd35f935e593b9"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-terminal.gltf",
+          "bytes": 5095,
+          "sha256": "020b9a38decbce2467f3efcd1c3a958f85d6eda98ffba83607fda872593bd638"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-terminal.bin",
+          "bytes": 6432,
+          "sha256": "d9ffd0cb055d4d38c5ce2e02766d8c00d7a4ef7583550d9412ec3ca2789d0062"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-terminal.blueprint.json",
+          "bytes": 1719,
+          "sha256": "977f28da0477a2aab2e552ef0e8c92fcda74a247ce9e831e27aca2a7dab69ba8"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-porch-terminal.game-mesh.json.gz",
+          "bytes": 1251,
+          "sha256": "46e81908cbdde218aa22b73823346b47539de14edcc80650203aa2e5a45725ac"
+        }
+      ],
+      "animations": []
+    },
+    {
+      "id": "frontier-paired-gate",
+      "name": "Paired timber gate · 4 m aperture",
+      "category": "part",
+      "engineGame": {
+        "triangles": 300,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 2892,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.8962655601659751,
+      "interchange": {
+        "triangles": 1264,
+        "draws": 7,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.16
+        ],
+        "max": [
+          4,
+          4.12,
+          0.16
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-paired-gate.source-mesh.json.gz",
+          "bytes": 58620,
+          "sha256": "f9a8e716de5fdb3ec7bdfd2d380a18967e08037f18a3a55f18d9457aa2ea9693"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-paired-gate.gltf",
+          "bytes": 12033,
+          "sha256": "c3b894f5ebedd6ee5a0381db3f5e6ca2e546545da91eae0aa853a370af43babc"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-paired-gate.bin",
+          "bytes": 84488,
+          "sha256": "266bb52f5177ed91f101d5123be31afbec154f7b9cb203bb8ce036d44dcac289"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-paired-gate.blueprint.json",
+          "bytes": 2004,
+          "sha256": "87b2b15b9c4b23e371c9c7186c4ccd95d9ecc2e10ff2a67ded8875837d885144"
+        },
+        {
+          "file": "assets/frontier-fort/parts/frontier-paired-gate.game-mesh.json.gz",
+          "bytes": 4708,
+          "sha256": "21bf8979cfdd8318de281e89932327b36fd1324ecdeeabceaa2e389ce375d014"
+        }
+      ],
+      "animations": [
+        {
+          "name": "frontier-paired-gate:gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "frontier-fort-courtyard",
+      "name": "Courtyard frontier fort",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 61252,
+        "draws": 190,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 195408,
+        "draws": 190,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6865430279210677,
+      "interchange": {
+        "triangles": 189656,
+        "draws": 190,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          72,
+          7.7650000000000015,
+          60
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-fort-courtyard.source-mesh.json.gz",
+          "bytes": 3518314,
+          "sha256": "5f326fe4dbc704f6b4400c17d9b33384409863dc6d116b1bdf87bbc16df0e891"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-courtyard.gltf",
+          "bytes": 192886,
+          "sha256": "cb4aa49df287a3faa0fd3140c7941b74a34b7f3e31cf67f5c861383ab7e3284a"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-courtyard.bin",
+          "bytes": 12751632,
+          "sha256": "f185a494fd2660b97f38acb097fffecab98f8fdb060e5ef5c3b3d847942eaf12"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-courtyard.blueprint.json",
+          "bytes": 15166,
+          "sha256": "8409d540c0c5a56b5292603a535c8a5e3ebc8151371089e63c425a12fa3e0585"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-courtyard.game-mesh.json.gz",
+          "bytes": 789908,
+          "sha256": "48c8a9a2b089d69bdf0201d339e83f3130477fd2b4731603fb396c6df06e9826"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-courtyard-plan.svg",
+          "bytes": 21002,
+          "sha256": "c0e1f9b991f2d1053e96802997ea07da29cd7d53a6863dc83babbe87fdf79a9a"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:frontier-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:frontier-sally-port:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    },
+    {
+      "id": "frontier-fort-compact",
+      "name": "Compact frontier compound",
+      "category": "layout",
+      "engineGame": {
+        "triangles": 50852,
+        "draws": 176,
+        "rooms": 0,
+        "windows": 0
+      },
+      "source": {
+        "triangles": 165660,
+        "draws": 176,
+        "rooms": 0,
+        "windows": 0
+      },
+      "reduction": 0.6930339249064348,
+      "interchange": {
+        "triangles": 164248,
+        "draws": 176,
+        "rooms": 0,
+        "windows": 0
+      },
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          60,
+          7.7650000000000015,
+          48
+        ]
+      },
+      "files": [
+        {
+          "file": "art/frontier-fort/sculpts/frontier-fort-compact.source-mesh.json.gz",
+          "bytes": 2978527,
+          "sha256": "f6f9088f55aef1356329626023a2063c369dcb0da47d74cfedfefeb1c3bfb5bd"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-compact.gltf",
+          "bytes": 178037,
+          "sha256": "efe96a0c40741239476cc12df7759f9c30c0da571b25fbfdafeb4d6ab9fe7b46"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-compact.bin",
+          "bytes": 10994800,
+          "sha256": "ad21eb567dc11eccae96b6ea1fa012b11a68df5a04ffd5c7269fc79fdc1662df"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-compact.blueprint.json",
+          "bytes": 12179,
+          "sha256": "393da003157e70e8a409bf71baea7b1a7b8baa4b959d4ebea7f2a9a122c220f2"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-compact.game-mesh.json.gz",
+          "bytes": 642043,
+          "sha256": "8173c1d5185a81e98f67e40e95c181b48e917c33457d3b51d3c2518115fbc5ce"
+        },
+        {
+          "file": "assets/frontier-fort/models/frontier-fort-compact-plan.svg",
+          "bytes": 17309,
+          "sha256": "c10322d29938f2d29eb22ce8521e0d05a6df16d2b1e7e7e4684a8d3a648a0947"
+        }
+      ],
+      "animations": [
+        {
+          "name": "gate:frontier-gatehouse:main-gate:open",
+          "channels": 2
+        },
+        {
+          "name": "sally:frontier-sally-port:rear-gate:open",
+          "channels": 2
+        }
+      ]
+    }
+  ]
+}

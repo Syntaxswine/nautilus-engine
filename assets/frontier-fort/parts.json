@@ -1,0 +1,3872 @@
+{
+  "version": 1,
+  "collection": "nautilus-frontier-fort-v1",
+  "contract": {
+    "schema": "nautilus-frontier-fort-art",
+    "version": 1,
+    "metresPerUnit": 1,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "origin": "Each module states its own origin; assembly instances carry explicit transforms.",
+    "groundAxes": [
+      "x",
+      "y"
+    ],
+    "renderAxes": [
+      "x",
+      "height",
+      "y"
+    ],
+    "wallHeight": 2,
+    "wallThickness": 0.16,
+    "slabThickness": 0.12,
+    "floorInterval": 2.12,
+    "placementGrid": 3,
+    "footprintGrid": 0.5,
+    "maxLevels": 6,
+    "maxMapExtent": 240,
+    "walk": {
+      "profile": "nautilus-art-wall-walk-v1",
+      "datum": 2.12,
+      "width": 1.5,
+      "minimumClearWidth": 1.4,
+      "minimumClearHeight": 1.8,
+      "inset": 0.16,
+      "center": 0.91,
+      "wallAxisHeight": 0,
+      "grid": 3
+    },
+    "defensiveExceptions": {
+      "stockadeLogDiameter": 0.25,
+      "stockadeBodyHeight": 3.12,
+      "stockadeTipRise": 0.3,
+      "gateLeafThickness": 0.12
+    },
+    "status": "Modular descriptive art kit. Shared editor persistence, navigation, collision and fire require separate integration."
+  },
+  "modules": [
+    {
+      "id": "frontier-gatehouse",
+      "name": "Gatehouse and watch room",
+      "role": "main-gate",
+      "visualConstruction": "stone",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        18,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            3
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            3.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            18,
+            0,
+            3
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            18,
+            2.12,
+            3.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.09500000000000006,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          18.095,
+          7.7650000000000015,
+          6.3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.09500000000000006,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          18.095,
+          7.7650000000000015,
+          6.3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "L0-wall-7-opening-0",
+          "wallId": "L0-wall-7",
+          "level": 0,
+          "point": [
+            11,
+            3
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:main-gate",
+          "wallId": "L0-wall-3",
+          "level": 0,
+          "point": [
+            9,
+            0
+          ],
+          "base": 0,
+          "width": 4,
+          "height": 4.12,
+          "type": "paired",
+          "style": "gate",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:gate-inner-mouth",
+          "wallId": "L0-wall-5",
+          "level": 0,
+          "point": [
+            9,
+            6
+          ],
+          "base": 0,
+          "width": 4,
+          "height": 4.12,
+          "type": "doorway",
+          "style": "open-passage",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-2",
+          "wallId": "L0-wall-2",
+          "level": 0,
+          "point": [
+            3,
+            6
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-3",
+          "wallId": "L0-wall-8",
+          "level": 0,
+          "point": [
+            16.5,
+            6
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-4",
+          "wallId": "L1-wall-1",
+          "level": 1,
+          "point": [
+            0,
+            3.91
+          ],
+          "base": 2.12,
+          "width": 1.66,
+          "height": 1.92,
+          "type": "doorway",
+          "style": "walk-door",
+          "public": true,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-5",
+          "wallId": "L1-wall-9",
+          "level": 1,
+          "point": [
+            18,
+            3.91
+          ],
+          "base": 2.12,
+          "width": 1.66,
+          "height": 1.92,
+          "type": "doorway",
+          "style": "walk-door",
+          "public": true,
+          "normal": [
+            1,
+            0
+          ],
+          "direction": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-6",
+          "wallId": "L2-wall-4",
+          "level": 2,
+          "point": [
+            3,
+            4.8
+          ],
+          "base": 4.24,
+          "width": 1.3,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-gatehouse:entry-7",
+          "wallId": "L2-wall-7",
+          "level": 2,
+          "point": [
+            15,
+            4.8
+          ],
+          "base": 4.24,
+          "width": 1.3,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            1,
+            0
+          ],
+          "direction": [
+            0,
+            1
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-gatehouse:main-gate:left",
+          "openingId": "frontier-gatehouse:main-gate",
+          "side": "left",
+          "pivot": [
+            7.24,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 3.2199999999999998,
+          "clearOpenHeight": 3.94,
+          "sweepBounds": {
+            "min": [
+              7.088,
+              0.008,
+              -0.152
+            ],
+            "max": [
+              8.997025480393646,
+              3.9319999999999995,
+              1.757025480393644
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-gatehouse:main-gate:right",
+          "openingId": "frontier-gatehouse:main-gate",
+          "side": "right",
+          "pivot": [
+            10.76,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 3.2199999999999998,
+          "clearOpenHeight": 3.94,
+          "sweepBounds": {
+            "min": [
+              9.002974519606354,
+              0.008,
+              -0.152
+            ],
+            "max": [
+              10.912,
+              3.9319999999999995,
+              1.757025480393644
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-gatehouse:entry-2:single",
+          "openingId": "frontier-gatehouse:entry-2",
+          "side": "single",
+          "pivot": [
+            3.525,
+            0.01,
+            6
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              2.484765413282827,
+              0.008,
+              4.9597654132828275
+            ],
+            "max": [
+              3.6394999999999995,
+              1.792,
+              6.1145
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-gatehouse:entry-3:single",
+          "openingId": "frontier-gatehouse:entry-3",
+          "side": "single",
+          "pivot": [
+            17.025,
+            0.01,
+            6
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              15.984765413282824,
+              0.008,
+              4.9597654132828275
+            ],
+            "max": [
+              17.139499999999998,
+              1.792,
+              6.1145
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-gatehouse:entry-6:single",
+          "openingId": "frontier-gatehouse:entry-6",
+          "side": "single",
+          "pivot": [
+            3,
+            4.25,
+            5.375
+          ],
+          "yaw": 1.5707963267948966,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.1525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              2.8855000000000004,
+              4.248,
+              4.234780643767188
+            ],
+            "max": [
+              4.140219356232812,
+              6.032,
+              5.4895
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-gatehouse:entry-7:single",
+          "openingId": "frontier-gatehouse:entry-7",
+          "side": "single",
+          "pivot": [
+            15,
+            4.25,
+            4.225
+          ],
+          "yaw": -1.5707963267948966,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.1525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              13.859780643767186,
+              4.248,
+              4.1105
+            ],
+            "max": [
+              15.114500000000001,
+              6.032,
+              5.365219356232812
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [
+        {
+          "id": "gate-stair-0",
+          "coreId": "gate-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "base": 0,
+          "rise": 2.12,
+          "rect": {
+            "x": 12,
+            "y": 0,
+            "width": 3,
+            "depth": 4
+          },
+          "risers": 14,
+          "run": 2.8,
+          "landingDepth": 1.2,
+          "flightWidth": 1.3,
+          "gap": 0.4,
+          "room": "east",
+          "yaw": 3.141592653589793,
+          "lowerAttachment": [
+            14.35,
+            0,
+            4
+          ],
+          "upperAttachment": [
+            12.65,
+            2.12,
+            4
+          ]
+        },
+        {
+          "id": "gate-stair-1",
+          "coreId": "gate-stair",
+          "fromLevel": 1,
+          "toLevel": 2,
+          "base": 2.12,
+          "rise": 2.12,
+          "rect": {
+            "x": 12,
+            "y": 0,
+            "width": 3,
+            "depth": 4
+          },
+          "risers": 14,
+          "run": 2.8,
+          "landingDepth": 1.2,
+          "flightWidth": 1.3,
+          "gap": 0.4,
+          "room": "east",
+          "yaw": 3.141592653589793,
+          "lowerAttachment": [
+            14.35,
+            2.12,
+            4
+          ],
+          "upperAttachment": [
+            12.65,
+            4.24,
+            4
+          ]
+        }
+      ],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": {
+          "rough": [
+            4,
+            4.12
+          ],
+          "minimumOpen": [
+            3.2,
+            3.9
+          ]
+        },
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-blockhouse",
+      "name": "Corner blockhouse",
+      "role": "corner-tower",
+      "visualConstruction": "stone",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            3
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            3.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "south",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            3,
+            0,
+            6
+          ],
+          "out": [
+            0,
+            1
+          ],
+          "walk": [
+            3.91,
+            2.12,
+            6
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          6.3,
+          5.34,
+          6.3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          6.3,
+          5.34,
+          6.3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "frontier-blockhouse:entry-0",
+          "wallId": "L0-wall-2",
+          "level": 0,
+          "point": [
+            4.5,
+            5.5
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-blockhouse:entry-1",
+          "wallId": "L1-wall-3",
+          "level": 1,
+          "point": [
+            6,
+            3.91
+          ],
+          "base": 2.12,
+          "width": 1.66,
+          "height": 1.92,
+          "type": "doorway",
+          "style": "walk-door",
+          "public": true,
+          "normal": [
+            1,
+            0
+          ],
+          "direction": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "frontier-blockhouse:entry-2",
+          "wallId": "L1-wall-2",
+          "level": 1,
+          "point": [
+            3.91,
+            6
+          ],
+          "base": 2.12,
+          "width": 1.66,
+          "height": 1.92,
+          "type": "doorway",
+          "style": "walk-door",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-blockhouse:entry-0:single",
+          "openingId": "frontier-blockhouse:entry-0",
+          "side": "single",
+          "pivot": [
+            4.925,
+            0.01,
+            5.5
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 0.8525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              4.084725248282191,
+              0.008,
+              4.659725248282191
+            ],
+            "max": [
+              5.039499999999999,
+              1.792,
+              5.6145
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [
+        {
+          "id": "block-stair-0",
+          "coreId": "block-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "base": 0,
+          "rise": 2.12,
+          "rect": {
+            "x": 0.5,
+            "y": 0.5,
+            "width": 3,
+            "depth": 4
+          },
+          "risers": 14,
+          "run": 2.8,
+          "landingDepth": 1.2,
+          "flightWidth": 1.3,
+          "gap": 0.4,
+          "room": "guard",
+          "yaw": 3.141592653589793,
+          "lowerAttachment": [
+            2.85,
+            0,
+            4.5
+          ],
+          "upperAttachment": [
+            1.15,
+            2.12,
+            4.5
+          ]
+        }
+      ],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-headquarters",
+      "name": "Headquarters with stair and lookout",
+      "role": "building",
+      "visualConstruction": "stone",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        15,
+        9
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.045
+        ],
+        "max": [
+          15.24,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.045
+        ],
+        "max": [
+          15.24,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "L0-wall-4-opening-0",
+          "wallId": "L0-wall-4",
+          "level": 0,
+          "point": [
+            7.5,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L0-wall-6-opening-0",
+          "wallId": "L0-wall-6",
+          "level": 0,
+          "point": [
+            10.5,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            1,
+            0
+          ],
+          "direction": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "frontier-headquarters:entry-0",
+          "wallId": "L0-wall-3",
+          "level": 0,
+          "point": [
+            9,
+            3
+          ],
+          "base": 0,
+          "width": 1.5,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-headquarters:entry-1",
+          "wallId": "L0-wall-5",
+          "level": 0,
+          "point": [
+            9,
+            9
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-headquarters:entry-2",
+          "wallId": "L1-wall-5",
+          "level": 1,
+          "point": [
+            9,
+            3
+          ],
+          "base": 2.12,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-headquarters:entry-3",
+          "wallId": "L1-wall-0",
+          "level": 1,
+          "point": [
+            6,
+            6
+          ],
+          "base": 2.12,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-headquarters:entry-0:single",
+          "openingId": "frontier-headquarters:entry-0",
+          "side": "single",
+          "pivot": [
+            8.325,
+            0.01,
+            3
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.3525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.210499999999998,
+              0.008,
+              2.8855000000000004
+            ],
+            "max": [
+              9.665188895264091,
+              1.792,
+              4.34018889526409
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-headquarters:entry-1:single",
+          "openingId": "frontier-headquarters:entry-1",
+          "side": "single",
+          "pivot": [
+            9.525,
+            0.01,
+            9
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.484765413282826,
+              0.008,
+              7.9597654132828275
+            ],
+            "max": [
+              9.639500000000002,
+              1.792,
+              9.114500000000001
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-headquarters:entry-2:single",
+          "openingId": "frontier-headquarters:entry-2",
+          "side": "single",
+          "pivot": [
+            8.475,
+            2.13,
+            3
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.360499999999998,
+              2.128,
+              2.8855000000000004
+            ],
+            "max": [
+              9.515234586717174,
+              3.912,
+              4.0402345867171725
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-headquarters:entry-3:single",
+          "openingId": "frontier-headquarters:entry-3",
+          "side": "single",
+          "pivot": [
+            6,
+            2.13,
+            6.525
+          ],
+          "yaw": 1.5707963267948966,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              5.8855,
+              2.128,
+              5.484765413282828
+            ],
+            "max": [
+              7.0402345867171725,
+              3.912,
+              6.6395
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [
+        {
+          "id": "hq-exterior-stair-0",
+          "coreId": "hq-exterior-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "base": 0,
+          "rise": 2.12,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "depth": 4
+          },
+          "risers": 14,
+          "run": 2.8,
+          "landingDepth": 1.2,
+          "flightWidth": 1.3,
+          "gap": 0.4,
+          "room": "external",
+          "yaw": 3.141592653589793,
+          "lowerAttachment": [
+            2.35,
+            0,
+            4
+          ],
+          "upperAttachment": [
+            0.65,
+            2.12,
+            4
+          ]
+        }
+      ],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-commanders-quarters",
+      "name": "Commander's quarters",
+      "role": "building",
+      "visualConstruction": "stone",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        15,
+        9
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          15.3,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          15.3,
+          6.069999999999999,
+          9.3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "L0-wall-3-opening-0",
+          "wallId": "L0-wall-3",
+          "level": 0,
+          "point": [
+            9,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L0-wall-6-opening-0",
+          "wallId": "L0-wall-6",
+          "level": 0,
+          "point": [
+            12,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L1-wall-3-opening-0",
+          "wallId": "L1-wall-3",
+          "level": 1,
+          "point": [
+            9,
+            6
+          ],
+          "base": 2.12,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L1-wall-6-opening-0",
+          "wallId": "L1-wall-6",
+          "level": 1,
+          "point": [
+            12,
+            6
+          ],
+          "base": 2.12,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-0",
+          "wallId": "L0-wall-2",
+          "level": 0,
+          "point": [
+            10.5,
+            3
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-1",
+          "wallId": "L0-wall-4",
+          "level": 0,
+          "point": [
+            10.5,
+            9
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-2",
+          "wallId": "L1-wall-2",
+          "level": 1,
+          "point": [
+            10.5,
+            3
+          ],
+          "base": 2.12,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-3",
+          "wallId": "L1-wall-0",
+          "level": 1,
+          "point": [
+            3,
+            4.75
+          ],
+          "base": 2.12,
+          "width": 1.4,
+          "height": 1.95,
+          "type": "doorway",
+          "style": "stair-access",
+          "public": true,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-commanders-quarters:entry-0:single",
+          "openingId": "frontier-commanders-quarters:entry-0",
+          "side": "single",
+          "pivot": [
+            9.975,
+            0.01,
+            3
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              9.860499999999998,
+              0.008,
+              2.8855000000000004
+            ],
+            "max": [
+              11.015234586717174,
+              1.792,
+              4.0402345867171725
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-1:single",
+          "openingId": "frontier-commanders-quarters:entry-1",
+          "side": "single",
+          "pivot": [
+            11.025,
+            0.01,
+            9
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              9.984765413282826,
+              0.008,
+              7.9597654132828275
+            ],
+            "max": [
+              11.139500000000002,
+              1.792,
+              9.114500000000001
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-commanders-quarters:entry-2:single",
+          "openingId": "frontier-commanders-quarters:entry-2",
+          "side": "single",
+          "pivot": [
+            9.975,
+            2.13,
+            3
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              9.860499999999998,
+              2.128,
+              2.8855000000000004
+            ],
+            "max": [
+              11.015234586717174,
+              3.912,
+              4.0402345867171725
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [
+        {
+          "id": "quarters-stair-0",
+          "coreId": "quarters-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "base": 0,
+          "rise": 2.12,
+          "rect": {
+            "x": 3,
+            "y": 3,
+            "width": 3,
+            "depth": 4
+          },
+          "risers": 14,
+          "run": 2.8,
+          "landingDepth": 1.2,
+          "flightWidth": 1.3,
+          "gap": 0.4,
+          "room": "west",
+          "yaw": 3.141592653589793,
+          "lowerAttachment": [
+            5.35,
+            0,
+            7
+          ],
+          "upperAttachment": [
+            3.65,
+            2.12,
+            7
+          ]
+        }
+      ],
+      "auxiliaryStairs": [
+        {
+          "id": "frontier-commanders-quarters:exterior-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "rise": 2.12,
+          "risers": 14,
+          "run": 2.8,
+          "flightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "depth": 4
+          },
+          "material": "wood",
+          "upperLanding": {
+            "x": 0,
+            "y": 4,
+            "width": 3,
+            "depth": 1.5,
+            "height": 2.12
+          },
+          "lowerFlightAttachment": [
+            2.35,
+            0,
+            4
+          ],
+          "upperFlightAttachment": [
+            0.65,
+            2.12,
+            4
+          ],
+          "upperExit": [
+            3,
+            2.12,
+            4.75
+          ]
+        }
+      ],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-adobe-barracks-porch",
+      "name": "Adobe barracks · porch",
+      "role": "building",
+      "visualConstruction": "adobe",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        18,
+        9
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.2
+        ],
+        "max": [
+          18.24,
+          2.895,
+          9.405
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.2
+        ],
+        "max": [
+          18.24,
+          2.895,
+          9.405
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "L0-wall-4-opening-0",
+          "wallId": "L0-wall-4",
+          "level": 0,
+          "point": [
+            7.5,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L0-wall-7-opening-0",
+          "wallId": "L0-wall-7",
+          "level": 0,
+          "point": [
+            10.5,
+            6
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-adobe-barracks-porch:entry-0",
+          "wallId": "L0-wall-3",
+          "level": 0,
+          "point": [
+            9,
+            3
+          ],
+          "base": 0,
+          "width": 1.3,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-adobe-barracks-porch:entry-1",
+          "wallId": "L0-wall-5",
+          "level": 0,
+          "point": [
+            9,
+            9
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-adobe-barracks-porch:entry-0:single",
+          "openingId": "frontier-adobe-barracks-porch:entry-0",
+          "side": "single",
+          "pivot": [
+            8.425,
+            0.01,
+            3
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.1525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.3105,
+              0.008,
+              2.8855000000000004
+            ],
+            "max": [
+              9.565219356232815,
+              1.792,
+              4.140219356232812
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-adobe-barracks-porch:entry-1:single",
+          "openingId": "frontier-adobe-barracks-porch:entry-1",
+          "side": "single",
+          "pivot": [
+            9.525,
+            0.01,
+            9
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.484765413282826,
+              0.008,
+              7.9597654132828275
+            ],
+            "max": [
+              9.639500000000002,
+              1.792,
+              9.114500000000001
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [
+        {
+          "x": 0,
+          "y": 3,
+          "width": 18,
+          "depth": 6,
+          "level": 1,
+          "parapet": 0.65,
+          "height": 2.12
+        }
+      ],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-adobe-barracks-stairs",
+      "name": "Adobe barracks · roof stairs",
+      "role": "building",
+      "visualConstruction": "adobe",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        21,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.08000000000000018,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          21.045,
+          3.055,
+          6.404999999999999
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.08000000000000018,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          21.045,
+          3.055,
+          6.404999999999999
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "L0-wall-4-opening-0",
+          "wallId": "L0-wall-4",
+          "level": 0,
+          "point": [
+            7.5,
+            3
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "L0-wall-7-opening-0",
+          "wallId": "L0-wall-7",
+          "level": 0,
+          "point": [
+            10.5,
+            3
+          ],
+          "base": 0,
+          "width": 1,
+          "height": 1.65,
+          "type": "single",
+          "style": "panel",
+          "public": false,
+          "normal": [
+            -1,
+            0
+          ],
+          "direction": [
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "frontier-adobe-barracks-stairs:entry-0",
+          "wallId": "L0-wall-3",
+          "level": 0,
+          "point": [
+            9,
+            0
+          ],
+          "base": 0,
+          "width": 1.3,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "frontier-adobe-barracks-stairs:entry-1",
+          "wallId": "L0-wall-5",
+          "level": 0,
+          "point": [
+            9,
+            6
+          ],
+          "base": 0,
+          "width": 1.2,
+          "height": 1.85,
+          "type": "single",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            1
+          ],
+          "direction": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-adobe-barracks-stairs:entry-0:single",
+          "openingId": "frontier-adobe-barracks-stairs:entry-0",
+          "side": "single",
+          "pivot": [
+            8.425,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.1525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.3105,
+              0.008,
+              -0.11449999999999999
+            ],
+            "max": [
+              9.565219356232815,
+              1.792,
+              1.1402193562328125
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-adobe-barracks-stairs:entry-1:single",
+          "openingId": "frontier-adobe-barracks-stairs:entry-1",
+          "side": "single",
+          "pivot": [
+            9.525,
+            0.01,
+            6
+          ],
+          "yaw": -3.141592653589793,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.0525,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              8.484765413282826,
+              0.008,
+              4.9597654132828275
+            ],
+            "max": [
+              9.639500000000002,
+              1.792,
+              6.1145
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [
+        {
+          "id": "frontier-adobe-barracks-stairs:exterior-stair",
+          "fromLevel": 0,
+          "toLevel": 1,
+          "rise": 2.12,
+          "risers": 14,
+          "run": 2.8,
+          "flightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "rect": {
+            "x": 18,
+            "y": 0,
+            "width": 3,
+            "depth": 4
+          },
+          "material": "adobe",
+          "upperLanding": {
+            "x": 18,
+            "y": 4,
+            "width": 3,
+            "depth": 1.5,
+            "height": 2.12
+          },
+          "lowerFlightAttachment": [
+            20.35,
+            0,
+            4
+          ],
+          "upperFlightAttachment": [
+            18.65,
+            2.12,
+            4
+          ],
+          "upperExit": [
+            18,
+            2.12,
+            4.75
+          ]
+        }
+      ],
+      "roofTerraces": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 18,
+          "depth": 6,
+          "level": 1,
+          "parapet": 0.65,
+          "gaps": [
+            {
+              "edge": "east",
+              "from": 4,
+              "to": 5.5
+            }
+          ],
+          "height": 2.12
+        }
+      ],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-stone-storehouse",
+      "name": "Stone storehouse",
+      "role": "building",
+      "visualConstruction": "stone",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        9,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          9.3,
+          3.375,
+          6.3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.3,
+          -0.12,
+          -0.3
+        ],
+        "max": [
+          9.3,
+          3.375,
+          6.3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "frontier-stone-storehouse:entry-0",
+          "wallId": "L0-wall-0",
+          "level": 0,
+          "point": [
+            4.5,
+            0
+          ],
+          "base": 0,
+          "width": 2,
+          "height": 1.85,
+          "type": "paired",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-stone-storehouse:entry-0:left",
+          "openingId": "frontier-stone-storehouse:entry-0",
+          "side": "left",
+          "pivot": [
+            3.575,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.625,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              3.4605000000000006,
+              0.008,
+              -0.11449999999999999
+            ],
+            "max": [
+              4.496252710993563,
+              1.792,
+              0.9212527109935625
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-stone-storehouse:entry-0:right",
+          "openingId": "frontier-stone-storehouse:entry-0",
+          "side": "right",
+          "pivot": [
+            5.425,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.625,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              4.503747289006437,
+              0.008,
+              -0.11449999999999999
+            ],
+            "max": [
+              5.539499999999999,
+              1.792,
+              0.9212527109935625
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-adobe-storehouse",
+      "name": "Adobe storehouse",
+      "role": "building",
+      "visualConstruction": "adobe",
+      "origin": "Front-left nominal footprint at ground datum.",
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "roof-west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "optional": true
+        },
+        {
+          "id": "roof-east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "optional": true
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          6.08,
+          2.895,
+          6.404999999999999
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.24000000000000005,
+          -0.12,
+          -0.405
+        ],
+        "max": [
+          6.08,
+          2.895,
+          6.404999999999999
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "frontier-adobe-storehouse:entry-0",
+          "wallId": "L0-wall-0",
+          "level": 0,
+          "point": [
+            3,
+            0
+          ],
+          "base": 0,
+          "width": 1.5,
+          "height": 1.85,
+          "type": "paired",
+          "style": "panel",
+          "public": true,
+          "normal": [
+            0,
+            -1
+          ],
+          "direction": [
+            1,
+            0
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-adobe-storehouse:entry-0:left",
+          "openingId": "frontier-adobe-storehouse:entry-0",
+          "side": "left",
+          "pivot": [
+            2.325,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.125,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              2.2105000000000006,
+              0.008,
+              -0.11449999999999999
+            ],
+            "max": [
+              2.9963777019515816,
+              1.792,
+              0.6713777019515814
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-adobe-storehouse:entry-0:right",
+          "openingId": "frontier-adobe-storehouse:entry-0",
+          "side": "right",
+          "pivot": [
+            3.675,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 1.125,
+          "clearOpenHeight": 1.8,
+          "sweepBounds": {
+            "min": [
+              3.0036222980484184,
+              0.008,
+              -0.11449999999999999
+            ],
+            "max": [
+              3.7894999999999994,
+              1.792,
+              0.6713777019515814
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "depth": 6,
+          "level": 1,
+          "parapet": 0.65,
+          "gaps": [
+            {
+              "edge": "east",
+              "from": 0.16,
+              "to": 1.66,
+              "socket": "roof-east"
+            },
+            {
+              "edge": "west",
+              "from": 0.16,
+              "to": 1.66,
+              "socket": "roof-west"
+            }
+          ],
+          "height": 2.12
+        }
+      ],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": "Roof sockets are capped by default. Set openInterfaces explicitly before connecting neighbors.",
+      "consumerSupport": {
+        "editorProvider": false,
+        "navigation": false,
+        "collision": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-stockade-6",
+      "name": "Stockade · 6 m",
+      "role": "wall-run",
+      "visualConstruction": "stockade",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        6,
+        1.66
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-stockade-3",
+      "name": "Stockade · 3 m closure",
+      "role": "wall-run",
+      "visualConstruction": "stockade",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        3,
+        1.66
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            3,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            3,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          3.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.125
+        ],
+        "max": [
+          3.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-stockade-corner",
+      "name": "Stockade · corner",
+      "role": "wall-corner",
+      "visualConstruction": "corner",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "south",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            6
+          ],
+          "out": [
+            0,
+            1
+          ],
+          "walk": [
+            0.91,
+            2.12,
+            6
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          6.005
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.005,
+          3.42,
+          6.005
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-stockade-u",
+      "name": "Stockade · U section",
+      "role": "wall-return",
+      "visualConstruction": "u",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        6,
+        6
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west-return",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            6
+          ],
+          "out": [
+            0,
+            1
+          ],
+          "walk": [
+            0.91,
+            2.12,
+            6
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east-return",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            6
+          ],
+          "out": [
+            0,
+            1
+          ],
+          "walk": [
+            5.09,
+            2.12,
+            6
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.125,
+          3.42,
+          6.005
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.125,
+          0,
+          -0.125
+        ],
+        "max": [
+          6.125,
+          3.42,
+          6.005
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-sally-port",
+      "name": "Rear sally port",
+      "role": "rear-gate",
+      "visualConstruction": "sally",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        6,
+        1.66
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.13
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.0049999999999999975,
+          0,
+          -0.132
+        ],
+        "max": [
+          6.005,
+          3.42,
+          1.7049999999999998
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "frontier-sally-port:rear-gate",
+          "level": 0,
+          "point": [
+            3,
+            0
+          ],
+          "base": 0,
+          "width": 3,
+          "height": 2,
+          "type": "paired",
+          "style": "sally",
+          "public": true,
+          "direction": [
+            1,
+            0
+          ],
+          "normal": [
+            0,
+            -1
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-sally-port:rear-gate:left",
+          "openingId": "frontier-sally-port:rear-gate",
+          "side": "left",
+          "pivot": [
+            1.62,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 2.5,
+          "clearOpenHeight": 1.92,
+          "sweepBounds": {
+            "min": [
+              1.4880000000000002,
+              0.008,
+              -0.132
+            ],
+            "max": [
+              2.9965589761923375,
+              1.912,
+              1.3765589761923376
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-sally-port:rear-gate:right",
+          "openingId": "frontier-sally-port:rear-gate",
+          "side": "right",
+          "pivot": [
+            4.38,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 2.5,
+          "clearOpenHeight": 1.92,
+          "sweepBounds": {
+            "min": [
+              3.0034410238076625,
+              0.008,
+              -0.132
+            ],
+            "max": [
+              4.512,
+              1.912,
+              1.3765589761923376
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": {
+          "rough": [
+            3,
+            2
+          ],
+          "minimumOpen": [
+            2.5,
+            1.9
+          ]
+        }
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-rampart-platform",
+      "name": "Rampart platform and stairs",
+      "role": "platform",
+      "visualConstruction": "platform",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        6,
+        8
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [
+        {
+          "id": "west",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "out": [
+            -1,
+            0
+          ],
+          "walk": [
+            0,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        },
+        {
+          "id": "east",
+          "profile": "nautilus-art-wall-walk-v1",
+          "position": [
+            6,
+            0,
+            0
+          ],
+          "out": [
+            1,
+            0
+          ],
+          "walk": [
+            6,
+            2.12,
+            0.91
+          ],
+          "walkWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8
+        }
+      ],
+      "attachments": {},
+      "physicalBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.125
+        ],
+        "max": [
+          6.045,
+          3.42,
+          8
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -0.125
+        ],
+        "max": [
+          6.045,
+          3.42,
+          8
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-datum-stair",
+      "name": "U stair · one standard level",
+      "role": "stair",
+      "visualConstruction": "stair",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        3,
+        5
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {
+        "lower": [
+          2.35,
+          0,
+          5
+        ],
+        "upper": [
+          0.65,
+          2.12,
+          5
+        ],
+        "rise": 2.12,
+        "risers": 14,
+        "flightWidth": 1.3,
+        "run": 2.8,
+        "returnDepth": 1.2
+      },
+      "physicalBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.045,
+          3.055,
+          5.005
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.045,
+          -0.12,
+          -4.440892098500626e-16
+        ],
+        "max": [
+          3.045,
+          3.055,
+          5.005
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-porch-bay",
+      "name": "Porch frame · 3 m bay",
+      "role": "shelter-bay",
+      "visualConstruction": "porch",
+      "origin": "Left wall-axis endpoint / local assembly corner at ground datum; see interfaces.",
+      "nominalFootprint": [
+        3,
+        3
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {
+        "floor": [
+          0,
+          0,
+          0
+        ],
+        "cap": [
+          0,
+          2.12,
+          0
+        ],
+        "repeatPitch": 3,
+        "ownership": "Owns left post. Add the separate terminal post at the end of a run."
+      },
+      "physicalBounds": {
+        "min": [
+          -0.14,
+          -0.12,
+          0
+        ],
+        "max": [
+          3,
+          2.12,
+          3
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.14,
+          -0.12,
+          0
+        ],
+        "max": [
+          3,
+          2.12,
+          3
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-porch-terminal",
+      "name": "Porch · terminal post",
+      "role": "terminal-post",
+      "visualConstruction": "post",
+      "origin": "Post axis at ground datum",
+      "nominalFootprint": [
+        0.28,
+        0.25
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {
+        "origin": "Post axis at ground datum",
+        "floor": [
+          0,
+          0,
+          0
+        ],
+        "cap": [
+          0,
+          2.12,
+          0
+        ]
+      },
+      "physicalBounds": {
+        "min": [
+          -0.14,
+          0,
+          -0.125
+        ],
+        "max": [
+          0.14,
+          2.12,
+          0.125
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          -0.14,
+          0,
+          -0.125
+        ],
+        "max": [
+          0.14,
+          2.12,
+          0.125
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [],
+      "doorMotion": [],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": null,
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    },
+    {
+      "id": "frontier-paired-gate",
+      "name": "Paired timber gate · 4 m aperture",
+      "role": "gate-leaves",
+      "visualConstruction": "gate",
+      "origin": "Aperture left jamb, ground datum; leaves rotate about separate vertical edge axes.",
+      "nominalFootprint": [
+        4,
+        0.3
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "quarterTurns": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "interfaces": [],
+      "attachments": {
+        "roughWidth": 4,
+        "roughHeight": 4.12,
+        "hingeInset": 0.24,
+        "thickness": 0.12,
+        "gap": 0.012,
+        "origin": "Aperture left jamb, ground datum; leaves rotate about separate vertical edge axes."
+      },
+      "physicalBounds": {
+        "min": [
+          0,
+          0,
+          -0.16
+        ],
+        "max": [
+          4,
+          4.12,
+          0.16
+        ]
+      },
+      "reservedBounds": {
+        "min": [
+          0,
+          0,
+          -0.16
+        ],
+        "max": [
+          4,
+          4.12,
+          1.757025480393644
+        ]
+      },
+      "boundsPolicy": "Reserved bounds include fittings and door motion. Matching connector collars may touch/overlap; unrelated solids must not occupy passage or approach volumes.",
+      "portals": [
+        {
+          "id": "frontier-paired-gate:gate",
+          "level": 0,
+          "point": [
+            2,
+            0
+          ],
+          "base": 0,
+          "width": 4,
+          "height": 4.12,
+          "type": "paired",
+          "style": "gate",
+          "public": true,
+          "direction": [
+            1,
+            0
+          ],
+          "normal": [
+            0,
+            -1
+          ]
+        }
+      ],
+      "doorMotion": [
+        {
+          "id": "frontier-paired-gate:gate:left",
+          "openingId": "frontier-paired-gate:gate",
+          "side": "left",
+          "pivot": [
+            0.24,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": -1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 3.2199999999999998,
+          "clearOpenHeight": 3.94,
+          "sweepBounds": {
+            "min": [
+              0.0880000000000001,
+              0.008,
+              -0.152
+            ],
+            "max": [
+              1.997025480393644,
+              3.9319999999999995,
+              1.757025480393644
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        },
+        {
+          "id": "frontier-paired-gate:gate:right",
+          "openingId": "frontier-paired-gate:gate",
+          "side": "right",
+          "pivot": [
+            3.76,
+            0.01,
+            0
+          ],
+          "yaw": 0,
+          "swingSign": 1,
+          "angleRange": [
+            0,
+            90
+          ],
+          "clearOpenWidth": 3.2199999999999998,
+          "clearOpenHeight": 3.94,
+          "sweepBounds": {
+            "min": [
+              2.002974519606356,
+              0.008,
+              -0.152
+            ],
+            "max": [
+              3.9119999999999995,
+              3.9319999999999995,
+              1.757025480393644
+            ],
+            "method": "Closed-to-90-degree sweep sampled every degree, plus 2 mm conservative allowance; includes fittings."
+          }
+        }
+      ],
+      "stairs": [],
+      "auxiliaryStairs": [],
+      "roofTerraces": [],
+      "clearance": {
+        "wallWalk": {
+          "nominalWidth": 1.5,
+          "minimumClearWidth": 1.4,
+          "minimumClearHeight": 1.8,
+          "datum": 2.12
+        },
+        "stairs": {
+          "nominalFlightWidth": 1.3,
+          "minimumClearFlightWidth": 1.25,
+          "headProbeHeight": 1.8
+        },
+        "mainGate": {
+          "rough": [
+            4,
+            4.12
+          ],
+          "minimumOpen": [
+            3.2,
+            3.9
+          ]
+        },
+        "rearGate": null
+      },
+      "optionalConnections": null,
+      "consumerSupport": {
+        "editorProvider": false,
+        "collision": false,
+        "navigation": false,
+        "fire": false
+      }
+    }
+  ]
+}
