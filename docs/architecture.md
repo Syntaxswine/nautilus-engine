@@ -88,6 +88,8 @@ This is an embedding API, not an automatic cross-origin bridge. Consumers own th
 
 ## Consumer adoption
 
+Farmyard Commando is the first production adoption target. The [modular engine blueprint](engine-blueprint.md) distinguishes existing contracts from missing services, defines optional host-supplied providers and gradual migration, and records AFT desktop/Farmyard phone requirements. Shared asset exchange and the prepared Tinderbox adapter remain independent evidence; game pin changes require their own reviewed adoption.
+
 | Consumer | Initial compatibility | Work still required |
 | --- | --- | --- |
 | AFT 3D | Original portable map/block schemas and editor behavior retained | Pin Nautilus, replace its editor entry deliberately, review the game handoff |
