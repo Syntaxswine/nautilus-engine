@@ -1,0 +1,385 @@
+{
+  "sourceCommit": "df1333616a20a881b56f1cad3d10f5881baa9dd8",
+  "sourceStatus": "",
+  "builtOnly": true,
+  "reviewedDependencies": {
+    "world": "fbb57293805ecae34569ab3dd9f689ffea53beb0",
+    "floors": "e0977e785857277a1c59acc1134ada5156a3fa4b"
+  },
+  "sourceFiles": [
+    {
+      "file": "apps/editor/extended-world.js",
+      "sha256": "2291c123f2ecb0124cc7d080eb03e0223a5a165d0f8dc8083d18f31b4c2053e1"
+    },
+    {
+      "file": "apps/editor/extended-world-document.js",
+      "sha256": "7a168b284b7153649b6a78a201bf5c00360ac6de4e29fc1ea4d4c1d96eb7004a"
+    },
+    {
+      "file": "apps/editor/extended-world-view.js",
+      "sha256": "cd355533a9c115ed73ac2414ae2d8d864a0e6ecc525a09b63877c701871cd664"
+    },
+    {
+      "file": "examples/extended-world.html",
+      "sha256": "248f1c7cf1561d7f43a2b97dd42ae86a889ab122dcb9249f7cf8c4da1412a095"
+    },
+    {
+      "file": "examples/extended-world-entry.js",
+      "sha256": "170a63f63a112311a56c9562b5be525c56e992879c327f74f6e454d1d51b93dd"
+    },
+    {
+      "file": "examples/extended-world.css",
+      "sha256": "42751b57ad3b6d86e227e83d9d4e46a34c07940a6abf870f7fa93e8af07b040f"
+    },
+    {
+      "file": "examples/native-fifteen-story.world.json",
+      "sha256": "378d84964f67b0ac9fbd8077d666709c80975dcdc6577b2f366045cb217d7df4"
+    },
+    {
+      "file": "packages/world-core/index.js",
+      "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df"
+    },
+    {
+      "file": "packages/world-core/state.js",
+      "sha256": "b51024dbeed15a7dc700f5b2b7b645f91559343307a70414640a56475d3190a0"
+    },
+    {
+      "file": "packages/world-core/validation.js",
+      "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+    },
+    {
+      "file": "packages/world-core/queries.js",
+      "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457"
+    },
+    {
+      "file": "packages/world-core/legacy.js",
+      "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce"
+    },
+    {
+      "file": "packages/floor-navigation/index.js",
+      "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d"
+    },
+    {
+      "file": "packages/floor-navigation/dom.js",
+      "sha256": "cee14d8c517b024227ce637a6ba35f037354488376914c1f55170655b99457c7"
+    },
+    {
+      "file": "packages/floor-navigation/style.css",
+      "sha256": "3d20868bc3fcfabc9e313d15051e9f7c3b0a653cbc51c3d331aec01fe6ce8eda"
+    },
+    {
+      "file": "tools/fixtures/fifteen-story.mjs",
+      "sha256": "28b0204e4ca7cdfcae202ce9d406acb71ecc2eade912aa3d0cc0a251af2bd47a"
+    },
+    {
+      "file": "tools/review-extended-world.mjs",
+      "sha256": "413e4fa41ccea9e965b030ced6f5a0cb367823fe34c260bbb5ddff48e469c267"
+    }
+  ],
+  "buildProvenanceSha256": "121dcc0ae19c95e2776bb8cf765d94d19a16fcfd17932307f0cd203bd0247694",
+  "checks": {
+    "previewFloorChangeAndLateApplyRefusal": true,
+    "measuredEditUndoRedoAndRejectedEditAtomicity": true,
+    "pointerDrawAndInterruptedStrokeCancellation": true,
+    "corruptSaveAndMissingFloorRestorePreserveCurrentWorld": true,
+    "highDoorStaticPoseAndDownload": true,
+    "browserSavePageReloadRestoreExactWorldAndFloor": true,
+    "nativeFileImportAndLegacyImportPreservation": true,
+    "bothLegacyExportsRefuseWithoutTruncation": true,
+    "nativeHeightsIndependentRoofsAndHiddenHighContact": true,
+    "phone320ManualControlsFocusAndPreviewCancellation": true
+  },
+  "captures": [
+    {
+      "file": "native-world-desktop.png",
+      "sha256": "aab2d3effe8c279942968bdc50f07120dfa5ddce4669cde997c1555943b8ed0b"
+    },
+    {
+      "file": "native-box-preview.png",
+      "sha256": "b46dffa06eb4b44892209dc46129f39813ba9a26a2d3bd498e1f2754a26f3efd"
+    },
+    {
+      "file": "native-high-door-open.png",
+      "sha256": "79dca75e6fa88825b3f19a96963a2b0b60237b68c0354f46b52f8a508c4f7a7b"
+    },
+    {
+      "file": "native-legacy-refusal.png",
+      "sha256": "47531596aaa0c14623ed4c8dccc627f6221b6e20b70ba22b3056b3c124866dfa"
+    },
+    {
+      "file": "native-roof-deck.png",
+      "sha256": "bb0609253f93065b705bbc598634a041a1862ce5ab0310cef6d3c5614fa7cd16"
+    },
+    {
+      "file": "native-phone-320.png",
+      "sha256": "f706043d22ed95ccfa7cd6b4a43d31e93ea2083597ccdeed18a53739e3891bab"
+    },
+    {
+      "file": "native-phone-edit-controls.png",
+      "sha256": "03089326dcb12a003cee979042016e5b5c2e34a3fae3733e8dd0a687512f9dc4"
+    }
+  ],
+  "browser": "156.0.4314.50",
+  "geometry": {
+    "bounds": {
+      "depthM": 24,
+      "heightM": 33.92,
+      "minHeightM": -0.12,
+      "widthM": 32
+    },
+    "floors": [
+      {
+        "elevationM": 0,
+        "id": "floor:0",
+        "index": 0,
+        "label": "1"
+      },
+      {
+        "elevationM": 2.12,
+        "id": "floor:1",
+        "index": 1,
+        "label": "2"
+      },
+      {
+        "elevationM": 4.24,
+        "id": "floor:2",
+        "index": 2,
+        "label": "3"
+      },
+      {
+        "elevationM": 6.36,
+        "id": "floor:3",
+        "index": 3,
+        "label": "4"
+      },
+      {
+        "elevationM": 8.48,
+        "id": "floor:4",
+        "index": 4,
+        "label": "5"
+      },
+      {
+        "elevationM": 10.6,
+        "id": "floor:5",
+        "index": 5,
+        "label": "6"
+      },
+      {
+        "elevationM": 12.72,
+        "id": "floor:6",
+        "index": 6,
+        "label": "7"
+      },
+      {
+        "elevationM": 14.84,
+        "id": "floor:7",
+        "index": 7,
+        "label": "8"
+      },
+      {
+        "elevationM": 16.96,
+        "id": "floor:8",
+        "index": 8,
+        "label": "9"
+      },
+      {
+        "elevationM": 19.08,
+        "id": "floor:9",
+        "index": 9,
+        "label": "10"
+      },
+      {
+        "elevationM": 21.2,
+        "id": "floor:10",
+        "index": 10,
+        "label": "11"
+      },
+      {
+        "elevationM": 23.32,
+        "id": "floor:11",
+        "index": 11,
+        "label": "12"
+      },
+      {
+        "elevationM": 25.44,
+        "id": "floor:12",
+        "index": 12,
+        "label": "13"
+      },
+      {
+        "elevationM": 27.56,
+        "id": "floor:13",
+        "index": 13,
+        "label": "14"
+      },
+      {
+        "elevationM": 29.68,
+        "id": "floor:14",
+        "index": 14,
+        "label": "15"
+      },
+      {
+        "elevationM": 31.8,
+        "id": "floor:15",
+        "index": 15,
+        "label": "Roof"
+      }
+    ],
+    "stats": {
+      "floorCount": 16,
+      "allocatedFloorBuckets": 16,
+      "surfaces": 352,
+      "entities": 2,
+      "links": 15,
+      "bvhNodes": 127,
+      "serializedBytes": 70224,
+      "denseCells": 0
+    },
+    "actorAnchors": [
+      {
+        "content": {
+          "id": "editor-actor-proxy",
+          "version": "1"
+        },
+        "floorId": "floor:9",
+        "id": "tower:actor:9",
+        "kind": "actor",
+        "position": {
+          "h": 19.08,
+          "x": 12,
+          "y": 10.5
+        },
+        "supportSurfaceId": "tower:slab:9:east",
+        "yawRadians": 0
+      },
+      {
+        "content": {
+          "id": "editor-actor-proxy",
+          "version": "1"
+        },
+        "floorId": "floor:10",
+        "id": "tower:actor:10",
+        "kind": "actor",
+        "position": {
+          "h": 21.2,
+          "x": 12,
+          "y": 10.5
+        },
+        "supportSurfaceId": "tower:slab:10:east",
+        "yawRadians": 0
+      }
+    ],
+    "stairLinks": 15
+  },
+  "exportedWorldSha256": "375ca8c7669341b84c9f62f60a659e58ff4eb4e6a524281fddf06fbea32eb7e4",
+  "contacts": {
+    "floor9": {
+      "surfaceId": "tower:slab:9:east",
+      "floorId": "floor:9",
+      "anchorFloorId": "floor:9",
+      "role": "solid",
+      "point": {
+        "x": 12,
+        "y": 10.5,
+        "h": 19.08
+      },
+      "dropM": 0.05000000000000071
+    },
+    "floor10": {
+      "surfaceId": "tower:slab:10:east",
+      "floorId": "floor:10",
+      "anchorFloorId": "floor:10",
+      "role": "solid",
+      "point": {
+        "x": 12,
+        "y": 10.5,
+        "h": 21.2
+      },
+      "dropM": 0.05000000000000071
+    },
+    "lowRoof": {
+      "surfaceId": "neighbour:slab:2",
+      "floorId": "floor:2",
+      "anchorFloorId": "floor:2",
+      "role": "roof",
+      "point": {
+        "x": 24,
+        "y": 8,
+        "h": 4.24
+      },
+      "dropM": 0.5
+    },
+    "roofDeck": {
+      "surfaceId": "tower:slab:15:east",
+      "floorId": "floor:15",
+      "anchorFloorId": "floor:15",
+      "role": "roof",
+      "point": {
+        "x": 12,
+        "y": 12,
+        "h": 31.8
+      },
+      "dropM": 0.49999999999999645
+    },
+    "highImpact": {
+      "fraction": 0.792,
+      "normal": {
+        "x": -1,
+        "y": 0,
+        "h": 0
+      },
+      "startedInside": false,
+      "surfaceId": "tower:east:14",
+      "anchorFloorId": "floor:14",
+      "role": "solid",
+      "point": {
+        "x": 15.92,
+        "y": 11.5,
+        "h": 30.48
+      }
+    }
+  },
+  "phone": {
+    "width": 320,
+    "scrollWidth": 320,
+    "buttons": [
+      {
+        "label": "9",
+        "x": 29,
+        "width": 48.390625,
+        "height": 44
+      },
+      {
+        "label": "10",
+        "x": 82.390625,
+        "width": 48.40625,
+        "height": 44
+      },
+      {
+        "label": "11",
+        "x": 135.796875,
+        "width": 48.390625,
+        "height": 44
+      },
+      {
+        "label": "12",
+        "x": 189.1875,
+        "width": 48.40625,
+        "height": 44
+      },
+      {
+        "label": "13",
+        "x": 242.59375,
+        "width": 48.40625,
+        "height": 44
+      }
+    ]
+  },
+  "limitations": [
+    "Static authored AABBs and semantic stair endpoints; no route execution, capsule sweep, falling, damage, fire, dynamic door runtime or consumer adoption.",
+    "SVG is an event-driven structural view, not a textured asset or GPU-performance proof. Drawing is capped at 1600 bodies per view with counts disclosed; queries and exports keep the complete world.",
+    "Built-only examples/extended-world.html; npm run build copies every dependency."
+  ],
+  "errors": [],
+  "failedRequests": []
+}
