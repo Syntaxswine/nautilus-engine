@@ -19,6 +19,13 @@
  * the same (source,sourceId), or a conflicting reused ID, rejects. Never prune
  * receipts: a full journal fails closed. The host owns committed useful-action
  * eligibility, diminishing returns, authenticated grants and atomic persistence.
+ * Practice credits are illustrative tuning: 1000+100*(current stat-1) per
+ * increment, grant 1..1000; reaching 100 discards excess/remainder. No practice
+ * XP or spendable points are created. Only running/endurance, explicit shot
+ * firearms/heavyWeapons, and useful bandaging/medical are initially supported.
+ * All 14 remainders are required in saves; capped remainders are zero. Other
+ * stats/skillPoints must advance through this journal, while the host may update
+ * current resources/name without rewriting progression history.
  *
  * Host boundary: stage from the latest authoritative character/resources and
  * compare expected (full canonical source bundle), not revision alone. Injury,
