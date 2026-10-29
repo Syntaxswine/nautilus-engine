@@ -86,10 +86,11 @@ export function mountExtendedWorldEditor(root,{initialWorld,fixture=initialWorld
     q('save-state').textContent=document.export()===savedJSON?'Saved in this browser':'World has not been saved here';
     q('save').disabled=!store;q('restore').disabled=!store;
   }
-  function installNavigation(selectedId) {
+  const prepareNavigation=(world,selectedId)=>createFloorNavigation({floors:world.floors,selectedId,
+    cancelPreview:()=>{cancelPreview('Floor changed; uncommitted preview cancelled.');}});
+  function installNavigation(candidate) {
     unsubscribe?.();floorView?.dispose();navigation?.dispose();lastFloorId=null;
-    const floors=document.snapshot().floors;
-    navigation=createFloorNavigation({floors,selectedId,cancelPreview:()=>{cancelPreview('Floor changed; uncommitted preview cancelled.');}});
+    navigation=candidate;
     floorView=mountFloorNavigation(q('floor-control'),navigation,{showModes:false,label:'Working floor',onError:fail});
     unsubscribe=navigation.subscribe(state=>{
       if(state.selectedId!==lastFloorId){lastFloorId=state.selectedId;selectedSurfaceId=null;surfaceList();q('query').textContent='No query on this floor yet.';}
@@ -122,12 +123,15 @@ export function mountExtendedWorldEditor(root,{initialWorld,fixture=initialWorld
     for(const [side,point]of [['min',min],['max',max]])for(const axis of ['x','y'])q(side+'-'+axis).value=String(point[axis]);
     previewGeometry();
   }
-  function open(input,{selectedId=null}={}) {
+  function open(input,{selectedId}={}) {
     try {
-      const world=openWorld(input),id=selectedId??world.floors[0].id;
-      if(!world.floors.some(floor=>floor.id===id))throw Error('The saved working floor is unavailable. The current world was preserved.');
-      const result=document.replace(world);if(!result.ok)return result;
-      loadTicket++;previewToken=null;previewId=null;view.cancelGesture();installNavigation(id);q('apply').disabled=true;q('cancel').disabled=true;
+      const world=openWorld(input),id=selectedId===undefined?world.floors[0].id:selectedId;
+      if(typeof id!=='string'||!world.floors.some(floor=>floor.id===id))throw Error('The saved working floor is unavailable. The current world was preserved.');
+      // World validation and this host's navigation have distinct contracts.
+      // Stage a compatible controller before touching the live document/view.
+      const candidate=prepareNavigation(world,id);
+      const result=document.replace(world);if(!result.ok){candidate.dispose();return result;}
+      loadTicket++;previewToken=null;previewId=null;view.cancelGesture();installNavigation(candidate);q('apply').disabled=true;q('cancel').disabled=true;
       q('legacy-result').textContent='Export world keeps every floor. Legacy formats require a reviewed conversion.';
       return {ok:true};
     }catch(error){return {ok:false,code:error.code||'INVALID_IMPORT',message:errorText(error),diagnostics:error.diagnostics||[]};}
@@ -148,6 +152,7 @@ export function mountExtendedWorldEditor(root,{initialWorld,fixture=initialWorld
       if(new TextEncoder().encode(text).length>WORLD_CONTRACT.limits.bytes+512)throw Error('Saved world exceeds the bounded storage budget.');
       const saved=JSON.parse(text);
       if(saved?.kind!=='nautilus-extended-world-editor-save'||saved.version!==1||Object.keys(saved).sort().join(',')!=='kind,selectedFloorId,version,world')throw Error('Unsupported editor save. The current world was preserved.');
+      if(typeof saved.selectedFloorId!=='string')throw Error('A saved working floor must name an available floor ID. The current world was preserved.');
       const result=open(saved.world,{selectedId:saved.selectedFloorId});if(!result.ok)throw result;
       savedJSON=document.export();render();status('Restored the complete saved world and working floor.');return {ok:true};
     }catch(error){fail(error);return {ok:false,message:errorText(error)};}
@@ -201,7 +206,7 @@ export function mountExtendedWorldEditor(root,{initialWorld,fixture=initialWorld
     status('Legacy export refused; no geometry was truncated.');
   });
   const floors=document.snapshot().floors,selected=initialSelectedId??floors[0].id;
-  installNavigation(selected);
+  installNavigation(prepareNavigation(document.snapshot(),selected));
   return Object.freeze({document,get navigation(){return navigation;},open,save,restore,export:()=>document.export(),
     dispose(){if(disposed)return;disposed=true;loadTicket++;events.abort();unsubscribe?.();floorView?.dispose();navigation?.dispose();document.cancelPreview();view.dispose();}
   });

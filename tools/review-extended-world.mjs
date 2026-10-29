@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {withArtReview,projectRoot} from './art-review-browser.mjs';
+import {openWorld} from '../packages/world-core/index.js';
 
 const sha=data=>createHash('sha256').update(data).digest('hex');
 const git=args=>execFileSync('git',['-c','safe.directory='+projectRoot.replaceAll('\\','/'),...args],{cwd:projectRoot,encoding:'utf8',windowsHide:true}).trim();
@@ -18,6 +19,7 @@ const report={sourceCommit:git(['rev-parse','HEAD']),sourceStatus:git(['status',
   reviewedDependencies:{world:'fbb57293805ecae34569ab3dd9f689ffea53beb0',floors:'e0977e785857277a1c59acc1134ada5156a3fa4b'},
   sourceFiles:files.map(file=>({file,sha256:sha(fs.readFileSync(path.join(projectRoot,file)))})),
   buildProvenanceSha256:sha(fs.readFileSync(path.join(projectRoot,'dist/build-provenance.json'))),checks:{},captures:[]};
+const output=process.env.NAUTILUS_WORLD_REVIEW_OUTPUT||'extended-world-editor';
 
 await withArtReview('Native fifteen-story authoring, preview cancellation, history, save/export/reload and narrow-screen review',async({page,browser,baseURL,out,errors,failedRequests})=>{
   const capture=async name=>{await page.screenshot({path:path.join(out,name),fullPage:true,animations:'disabled'});report.captures.push({file:name,sha256:sha(fs.readFileSync(path.join(out,name)))});};
@@ -59,6 +61,26 @@ await withArtReview('Native fifteen-story authoring, preview cancellation, histo
   assert.ok((await inspect()).preview);assert.equal((await inspect()).json,edited.json);await page.locator('#ew-apply').click();
   assert.equal((await inspect()).history.undo,2);report.checks.pointerDrawAndInterruptedStrokeCancellation=true;
 
+  // This is valid world-core input but incompatible with this host's selector.
+  // Reject before replacing the document or disposing its active controller.
+  const beforeNavigationRejection=await inspect();await page.locator('#ew-undo').click();
+  const withRedo=await inspect(),incompatible=JSON.parse(withRedo.json);
+  incompatible.name='Valid world, incompatible floor labels';incompatible.floors[10].label='   ';
+  openWorld(incompatible);
+  const importNavigationState=await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state);
+  await page.evaluate(()=>{window.reviewImportNavigation=window.nautilusExtendedWorld.navigation;});
+  await page.locator('#ew-file').setInputFiles({name:'incompatible-floor-labels.world.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(incompatible))});
+  await page.waitForFunction(()=>document.getElementById('ew-status').dataset.error==='true');
+  assert.deepEqual(await inspect(),withRedo);
+  assert.equal(await page.evaluate(()=>window.nautilusExtendedWorld.navigation===window.reviewImportNavigation),true);
+  assert.deepEqual(await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state),importNavigationState);
+  await page.evaluate(()=>{window.reviewImportNavigation.step(1);window.reviewImportNavigation.step(-1);});
+  assert.deepEqual(await inspect(),withRedo);
+  await capture('native-rejected-floor-label-import.png');
+  report.rejectedNavigationImport={worldCoreAccepted:true,exportSha256:sha(withRedo.json),revision:withRedo.revision,history:withRedo.history,workingFloor:withRedo.floor,sameController:true,oldControllerRemainsUsable:true};
+  await page.locator('#ew-redo').click();assert.equal((await inspect()).json,beforeNavigationRejection.json);
+  report.checks.navigationIncompatibleWorldImportIsAtomicAndControllerSurvives=true;
+
   await page.locator('#ew-tool').selectOption('select');await page.locator('#ew-surface').selectOption('tower:door:10');
   await page.locator('#ew-trace').click();assert.match(await page.locator('#ew-query').textContent(),/tower:door:10/);
   for(const [id,value]of Object.entries({'min-x':'10','max-x':'11','min-y':'9.94','max-y':'10.06','min-h':'21.2','max-h':'22.85'}))await page.locator('#ew-'+id).fill(value);
@@ -68,12 +90,32 @@ await withArtReview('Native fifteen-story authoring, preview cancellation, histo
   const saved=await inspect();await page.locator('#ew-save').click();
   const storageKey='nautilus-engine:extended-world-editor:1';
   const savedEnvelope=await page.evaluate(key=>localStorage.getItem(key),storageKey);
+  await page.evaluate(()=>{window.reviewRestoreNavigation=window.nautilusExtendedWorld.navigation;});
   await page.evaluate(key=>localStorage.setItem(key,'{'),storageKey);await page.locator('#ew-restore').click();
   assert.equal((await inspect()).json,saved.json);assert.deepEqual((await inspect()).history,saved.history);
-  await page.evaluate(({key,value})=>{const state=JSON.parse(value);state.selectedFloorId='missing-floor';localStorage.setItem(key,JSON.stringify(state));},{key:storageKey,value:savedEnvelope});
-  await page.locator('#ew-restore').click();assert.equal((await inspect()).json,saved.json);assert.equal((await inspect()).floor,saved.floor);assert.deepEqual((await inspect()).history,saved.history);
+  report.rejectedSavedSelections=[];
+  for(const [name,value]of [['null',null],['number',10],['boolean',false],['object',{}],['array',[]],['empty',''],['whitespace','   '],['unavailable','missing-floor'],['missing',undefined]]) {
+    const state=JSON.parse(savedEnvelope);state.selectedFloorId=value;
+    const restoreNavigationState=await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state);
+    await page.evaluate(({key,value})=>localStorage.setItem(key,value),{key:storageKey,value:JSON.stringify(state)});
+    await page.locator('#ew-restore').click();assert.equal(await page.locator('#ew-status').getAttribute('data-error'),'true');
+    assert.deepEqual(await inspect(),saved);
+    assert.equal(await page.evaluate(()=>window.nautilusExtendedWorld.navigation===window.reviewRestoreNavigation),true);
+    assert.deepEqual(await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state),restoreNavigationState);
+    await page.evaluate(()=>{window.reviewRestoreNavigation.step(1);window.reviewRestoreNavigation.step(-1);});
+    assert.deepEqual(await inspect(),saved);
+    report.rejectedSavedSelections.push({case:name,preservedWorldRevisionHistoryFloor:true,sameUsableController:true});
+    if(name==='null')await capture('native-rejected-saved-selection.png');
+  }
+  const incompatibleSave=JSON.parse(savedEnvelope);incompatibleSave.world.floors[0].label='   ';openWorld(incompatibleSave.world);
+  const restoreNavigationState=await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state);
+  await page.evaluate(({key,value})=>localStorage.setItem(key,value),{key:storageKey,value:JSON.stringify(incompatibleSave)});
+  await page.locator('#ew-restore').click();assert.deepEqual(await inspect(),saved);
+  assert.equal(await page.evaluate(()=>window.nautilusExtendedWorld.navigation===window.reviewRestoreNavigation),true);
+  assert.deepEqual(await page.evaluate(()=>window.nautilusExtendedWorld.navigation.state),restoreNavigationState);
   await page.evaluate(({key,value})=>localStorage.setItem(key,value),{key:storageKey,value:savedEnvelope});
   report.checks.corruptSaveAndMissingFloorRestorePreserveCurrentWorld=true;
+  report.checks.savedSelectionValidationAndNavigationPreflightAreAtomic=true;
   const downloadEvent=page.waitForEvent('download');await page.locator('#ew-export').click();const download=await downloadEvent;
   await download.saveAs(path.join(out,'native-edited.world.json'));
   assert.equal(fs.readFileSync(path.join(out,'native-edited.world.json'),'utf8'),saved.json+'\n');
@@ -122,4 +164,4 @@ await withArtReview('Native fifteen-story authoring, preview cancellation, histo
   report.limitations=['Static authored AABBs and semantic stair endpoints; no route execution, capsule sweep, falling, damage, fire, dynamic door runtime or consumer adoption.','SVG is an event-driven structural view, not a textured asset or GPU-performance proof. Drawing is capped at 1600 bodies per view with counts disclosed; queries and exports keep the complete world.','Built-only examples/extended-world.html; npm run build copies every dependency.'];
   report.errors=errors;report.failedRequests=failedRequests;
   fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report.checks));
-},{output:'extended-world-editor',owner:process.env.CODEX_THREAD_ID||'01a1811b-5974-7d83-8cff-136a1d8b02ab',timeoutMs:240000});
+},{output,owner:process.env.CODEX_THREAD_ID||'01a1811b-5974-7d83-8cff-136a1d8b02ab',timeoutMs:240000});
