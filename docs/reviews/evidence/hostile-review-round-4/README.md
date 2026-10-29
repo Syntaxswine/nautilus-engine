@@ -28,10 +28,18 @@ Some files are left out:
 | `wrapper-shapes.mjs` → `wrapper-shapes.json` | The bridge test's import handling, replayed on five import shapes. |
 | `compare.mjs` → `compare-baseline1.json`, `compare-final.json`; `acc-baseline1.json`, `acc-final.json` | The acceptance records against the committed one, before and after the mutation runs. |
 
-## `answer/`: the author's re-measurement
+## `answer/`: the author's re-measurement, and the answer to round 4
+
+The first three rows re-measure round 4's findings. The rest measure the answer on `87805df`, its last commit. Stack traces show the proof sandbox as `<sandbox>`.
 
 | Instrument | What it shows |
 | --- | --- |
 | `verify.mjs` → `verify.json` | The should-fix mutants on `09ecbef`, with needles the author wrote from the code: N01–N04, N06, F01, F02 and C30. Each runs the full suite and `check --tracked`; mutants in `tools/` also run the build and `test:package`. N01 also runs in the browser. The script refuses a dirty tree, and records HEAD and `git status`. Run it with `node verify.mjs <checkout> <out.json> [--browser]`. |
 | `g08-label.mjs` → `g08-label.json` | On `484bb56`, G08 dies on the line labelled for it. A pristine run is the control. |
 | `gates-484bb56.txt`, `acceptance-484bb56.json`, `compare-484bb56.json` | The gates and the browser acceptance on `484bb56`, in a clean sandbox. The comparison is the reviewer's `compare.mjs` against round 3's committed `answer/acceptance.json`. |
+| `answer-proof.mjs` → `answer-proof.json` | The answer's mutation proof on `87805df`. There are 25 mutants. Each runs the full suite and `check --tracked`, and those in `tools/` also run the build and `test:package`. Then six page-visible mutants run the build and `review:integration`, timed from the last capture to the failure. A pristine run comes first, and afterwards `dist/` must hash as it did before. The script refuses a dirty tree and records HEAD and `git status`. |
+| `threshold-probe.mjs` → `threshold-probe.json` | Candidate clearance probes near the shared threshold. Each row gives the wall's face distance less the radius, the pinned game's verdict, the adapter's, and the guard's formula under several tolerances. |
+| `load-latency.mjs` → `load-latency.json` | The editor's load time as the acceptance waits for it: five runs on a quiet machine, then five under 16 busy loops on 16 logical cores. |
+| `dist-hash.mjs` → `dist-digests.json` | `dist/` on `9ff1957` and on `87805df`: the file count, and one digest over every file's path and SHA-256. |
+| `gates-87805df.txt`, `acceptance-87805df.json`, `compare-87805df.json` | The gates and the browser acceptance on `87805df`, in a clean sandbox. The comparison is with round 3's committed record. |
+| `sweep-87805df.json` | Round 3's 82-mutant sweep ([`round4-mut.mjs`](../hostile-review-round-3/answer/round4-mut.mjs)), re-run unchanged on `87805df`. |

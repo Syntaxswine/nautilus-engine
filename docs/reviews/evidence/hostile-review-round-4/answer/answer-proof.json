@@ -1,0 +1,597 @@
+{
+ "node": "v24.15.0",
+ "head": "87805dfadd229ee55dcccd95ef0696c68a03e568",
+ "statusBefore": "",
+ "started": "2026-10-29T15:04:03.547Z",
+ "headless": [
+  {
+   "id": "N01 refresh writes disabled every time",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 211,
+    "fail": 7,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state",
+     "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer",
+     "the page double records writes as the DOM does, and fails an observer that re-triggers itself"
+    ],
+    "seconds": 52.087
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N17 Send observer drops its attribute filter",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 211,
+    "fail": 7,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state",
+     "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer",
+     "the page double records writes as the DOM does, and fails an observer that re-triggers itself"
+    ],
+    "seconds": 41.05
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N02 Send observer watches childList",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Send buttons follow the connected host, and each refresh sees the new state"
+    ],
+    "seconds": 43.564
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N03 status mirror observes characterData only",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 215,
+    "fail": 3,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "seconds": 42.708
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N04 feedback once-only guard dropped",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 216,
+    "fail": 2,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state"
+    ],
+    "seconds": 42.443
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N11 quick Send ignores a block",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Send buttons follow the connected host, and each refresh sees the new state"
+    ],
+    "seconds": 42.577
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N12 Send title follows disabled, not the host",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Send buttons follow the connected host, and each refresh sees the new state"
+    ],
+    "seconds": 42.497
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N16 body observer never installed",
+   "file": "apps/editor/editor.js",
+   "expected": "survives: equivalent while Send exists at load",
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "seconds": 42.384
+   },
+   "check": 0,
+   "verdict": "survives"
+  },
+  {
+   "id": "N06 open() without await",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 216,
+    "fail": 2,
+    "cancelled": 0,
+    "failed": [
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "seconds": 42.039
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N07 Example yard replaces edits when the user cancels",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "seconds": 42.463
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N13 Example yard load failure reported as success",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "seconds": 42.551
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "N14 Example yard ignores the loading guard",
+   "file": "apps/editor/editor.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "seconds": 42.709
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "Z00 neutral control in editor.js",
+   "file": "apps/editor/editor.js",
+   "expected": "survives: neutral",
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "seconds": 42.623
+   },
+   "check": 0,
+   "verdict": "survives"
+  },
+  {
+   "id": "F01 launchPlaytest drops return",
+   "file": "tools/editor-game-handoff.mjs",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "seconds": 42.824
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "F02 click handler drops await",
+   "file": "tools/editor-game-handoff.mjs",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "seconds": 40.562
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "F04 click handler never sets busy",
+   "file": "tools/editor-game-handoff.mjs",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "seconds": 43.423
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "F05 launchPlaytest loses its host guard",
+   "file": "tools/editor-game-handoff.mjs",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "seconds": 42.183
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "F03 build deploys another playtest module",
+   "file": "tools/build.mjs",
+   "expected": "suite passes; the build refuses",
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "seconds": 43.947
+   },
+   "check": 0,
+   "build": 1,
+   "package": 0,
+   "verdict": "build refuses"
+  },
+  {
+   "id": "Z01 neutral control in editor-game-handoff.mjs",
+   "file": "tools/editor-game-handoff.mjs",
+   "expected": "survives: neutral",
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "seconds": 44.923
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0,
+   "verdict": "survives"
+  },
+  {
+   "id": "C30 clearance tolerance 1 mm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "seconds": 42.038
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "C40 clearance tolerance 1 nm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "seconds": 43.408
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "C41 clearance tolerance 0.3 nm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "seconds": 42.095
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "C42 clearance tolerance 0.12 nm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "survives: inside the probes’ window",
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "seconds": 39.97
+   },
+   "check": 0,
+   "verdict": "survives"
+  },
+  {
+   "id": "C43 clearance tolerance 0.04 nm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "seconds": 40.307
+   },
+   "check": 0,
+   "verdict": "killed"
+  },
+  {
+   "id": "C18 clearance epsilon dropped",
+   "file": "packages/adapters/tinderbox/index.js",
+   "expected": "killed",
+   "suite": {
+    "status": 1,
+    "tests": 218,
+    "pass": 217,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "seconds": 44.769
+   },
+   "check": 0,
+   "verdict": "killed"
+  }
+ ],
+ "browser": [
+  {
+   "id": "pristine",
+   "status": 0,
+   "seconds": 49.5,
+   "captures": 6,
+   "afterLastCapture": 3.2,
+   "failure": null,
+   "tail": [
+    "37.428s Capturing editor-desktop.png",
+    "40.082s Capturing original-interior.png",
+    "40.951s Capturing gross-preview.png",
+    "46.282s Capturing editor-mobile-library.png"
+   ]
+  },
+  {
+   "id": "N01 refresh writes disabled every time",
+   "build": 0,
+   "status": 1,
+   "seconds": 27.069,
+   "captures": 0,
+   "afterLastCapture": null,
+   "failure": "The editor froze while loading: its page stopped answering.",
+   "tail": [
+    "27.055s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:21:3)\r",
+    "27.055s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "27.055s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "27.055s Node.js v24.15.0\r"
+   ]
+  },
+  {
+   "id": "N17 Send observer drops its attribute filter",
+   "build": 0,
+   "status": 1,
+   "seconds": 26.941,
+   "captures": 0,
+   "afterLastCapture": null,
+   "failure": "The editor froze while loading: its page stopped answering.",
+   "tail": [
+    "26.928s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:21:3)\r",
+    "26.928s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "26.928s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "26.928s Node.js v24.15.0\r"
+   ]
+  },
+  {
+   "id": "N03 status mirror observes characterData only",
+   "build": 0,
+   "status": 1,
+   "seconds": 35.929,
+   "captures": 2,
+   "afterLastCapture": 11.4,
+   "failure": "Failed while saving in this browser: {\"status\":\"Saved in this browser. Export JSON for a portable backup.\",\"feedback\":[\"Preparing scene…\"],\"loading\":false}. page.waitForFunction: Timeout 10000ms exceeded.",
+   "tail": [
+    "35.915s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:76:3)\r",
+    "35.915s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "35.915s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "35.915s Node.js v24.15.0\r"
+   ]
+  },
+  {
+   "id": "N04 feedback once-only guard dropped",
+   "build": 0,
+   "status": 1,
+   "seconds": 6.192,
+   "captures": 0,
+   "afterLastCapture": null,
+   "failure": "Expected one settings feedback after loading, found 3.",
+   "tail": [
+    "6.176s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:23:3)\r",
+    "6.176s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "6.176s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "6.176s Node.js v24.15.0\r"
+   ]
+  },
+  {
+   "id": "F01 launchPlaytest drops return",
+   "build": 0,
+   "status": 1,
+   "seconds": 43.306,
+   "captures": 6,
+   "afterLastCapture": 3.1,
+   "failure": "Send did not wait for the host: {\"connected\":true,\"disabled\":false,\"status\":\"Map sent to the connected game. Your blueprint and undo history stay here.\",\"feedback\":\"Map sent to the connected game. Your blueprint and undo history stay here.\"}",
+   "tail": [
+    "43.29s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:140:25)\r",
+    "43.29s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "43.29s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "43.29s Node.js v24.15.0\r"
+   ]
+  },
+  {
+   "id": "F02 click handler drops await",
+   "build": 0,
+   "status": 1,
+   "seconds": 44.787,
+   "captures": 6,
+   "afterLastCapture": 2.9,
+   "failure": "Send did not wait for the host: {\"connected\":true,\"disabled\":false,\"status\":\"Map sent to the connected game. Your blueprint and undo history stay here.\",\"feedback\":\"Map sent to the connected game. Your blueprint and undo history stay here.\"}",
+   "tail": [
+    "44.772s     at async withArtReview.owner.owner (file:///<sandbox>/tools/review-engine-integration.mjs:140:25)\r",
+    "44.772s     at async withArtReview (file:///<sandbox>/tools/art-review-browser.mjs:16:512)\r",
+    "44.772s     at async file:///<sandbox>/tools/review-engine-integration.mjs:11:1\r",
+    "44.772s Node.js v24.15.0\r"
+   ]
+  }
+ ],
+ "baseline": {
+  "status": 0,
+  "tests": 218,
+  "pass": 218,
+  "fail": 0,
+  "cancelled": 0,
+  "failed": [],
+  "seconds": 64.766
+ },
+ "distBefore": "b1a94d57a2fd3bc275511ec4e67608546a370b46c30484483cccefda1bb82042",
+ "rebuild": 0,
+ "distAfter": "b1a94d57a2fd3bc275511ec4e67608546a370b46c30484483cccefda1bb82042",
+ "distRestored": true,
+ "statusAfter": "",
+ "finished": "2026-10-29T15:32:42.506Z"
+}
