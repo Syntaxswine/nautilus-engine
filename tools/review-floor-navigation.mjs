@@ -32,20 +32,40 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
  report.checks.inputSelectModalMenuAndEditableFocus=true;
  // Observe after the production listener on the same element: state and
  // defaultPrevented are then synchronous, unlike capture/microtask observers.
- await page.locator('.fn-strip').scrollIntoViewIfNeeded();const box=await page.locator('.fn-strip').boundingBox(),zoom=(await inspect()).zoom,scroll=await page.evaluate(()=>scrollY);
+ const zoom=(await inspect()).zoom;
  await page.evaluate(()=>{
-  const data={idleMs:180,native:[],bubbled:[],controlled:[]},selector=document.querySelector('.nautilus-floor-nav'),scene=document.getElementById('world-scene');
+  const data={idleMs:180,native:[],bubbled:[],controlled:[],pointer:null,targeting:[]},selector=document.querySelector('.nautilus-floor-nav'),scene=document.getElementById('world-scene');
   let phase='native-first';
+  const describe=node=>node instanceof Element?{tag:node.localName,id:node.id||null,class:node.getAttribute('class'),floorId:node.getAttribute('data-floor-id')}:null;
+  const pointerMove=event=>{data.pointer={timeStamp:event.timeStamp,clientX:event.clientX,clientY:event.clientY,pageX:event.pageX,pageY:event.pageY,isTrusted:event.isTrusted,target:describe(event.target)};};
   const observe=zone=>event=>{
    const previous=data.native.filter(item=>item.zone===zone).at(-1),snapshot=window.floorDemo.inspect();
-   data.native.push({zone,phase,timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:snapshot.state.selectedId,zoom:snapshot.zoom,scrollY});
+   data.native.push({zone,phase,timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,clientX:event.clientX,clientY:event.clientY,target:describe(event.target),hitTarget:describe(document.elementFromPoint(event.clientX,event.clientY)),pointer:data.pointer,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:snapshot.state.selectedId,zoom:snapshot.zoom,scrollY});
   };
-  const selectorObserver=observe('selector'),sceneObserver=observe('scene'),bubbled=event=>data.bubbled.push({phase,timeStamp:event.timeStamp,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented});
-  selector.addEventListener('wheel',selectorObserver,{passive:true});scene.addEventListener('wheel',sceneObserver,{passive:true});document.addEventListener('wheel',bubbled,{passive:true});
-  window.floorWheelReview={data,setPhase:value=>{phase=value;},stop(){selector.removeEventListener('wheel',selectorObserver);scene.removeEventListener('wheel',sceneObserver);document.removeEventListener('wheel',bubbled);}};
+  const selectorObserver=observe('selector'),sceneObserver=observe('scene'),bubbled=event=>data.bubbled.push({phase,timeStamp:event.timeStamp,clientX:event.clientX,clientY:event.clientY,target:describe(event.target),isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented});
+  selector.addEventListener('wheel',selectorObserver,{passive:true});scene.addEventListener('wheel',sceneObserver,{passive:true});document.addEventListener('wheel',bubbled,{passive:true});document.addEventListener('pointermove',pointerMove,true);
+  window.floorWheelReview={data,describe,beginTarget(zone,value,locator){
+   phase=value;data.targeting.push({zone,phase,locator,status:'pending-hover',startedAt:performance.now(),scrollBefore:{x:scrollX,y:scrollY},pointerBefore:data.pointer});
+  },inspectTarget(node){
+   const attempt=data.targeting.at(-1),pointer=data.pointer,rect=node.getBoundingClientRect(),hit=pointer?document.elementFromPoint(pointer.clientX,pointer.clientY):null;
+   Object.assign(attempt,{status:'hit-tested',timeStamp:performance.now(),pointer,expectedTarget:describe(node),hitTarget:describe(hit),bounds:{left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom},containsPointer:!!hit&&(hit===node||node.contains(hit)),hovered:node.matches(':hover'),scrollX,scrollY});return attempt;
+  },stop(){selector.removeEventListener('wheel',selectorObserver);scene.removeEventListener('wheel',sceneObserver);document.removeEventListener('wheel',bubbled);document.removeEventListener('pointermove',pointerMove,true);}};
  });
+ const hoverWheelTarget=async(zone,phase)=>{
+  const selector=zone==='selector'?'.fn-floor[aria-pressed="true"]':'#world-scene',locator=page.locator(selector);
+  await page.evaluate(({zone,phase,selector})=>window.floorWheelReview.beginTarget(zone,phase,selector),{zone,phase,selector});
+  // Flush focus-removal scroll anchoring before actionability, then allow the
+  // compositor to settle after locator hover. Never reuse a saved viewport box.
+  const settle=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  await settle();await locator.hover();await settle();
+  const targeting=await locator.evaluate(node=>window.floorWheelReview.inspectTarget(node));
+  assert(targeting.pointer?.isTrusted,'Native hover did not deliver a trusted pointer: '+JSON.stringify(targeting));
+  assert(targeting.containsPointer&&targeting.hovered,'Native wheel target failed its live DOM hit test: '+JSON.stringify(targeting));
+  return targeting;
+ };
  try{
-  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-400);
+  const target=await hoverWheelTarget('selector','native-first'),scroll=target.scrollY;
+  await page.mouse.wheel(0,-400);
   await page.waitForFunction(()=>window.floorWheelReview.data.native.some(item=>item.zone==='selector'));
   assert.equal(await selected(),'floor-11');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
   assert.equal(await page.evaluate(()=>window.floorWheelReview.data.bubbled.length),0);
@@ -53,7 +73,7 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
   // the existing idle rule, then verify the actual delivered timestamp gap.
   await page.waitForFunction(()=>{const last=window.floorWheelReview.data.native.filter(item=>item.zone==='selector').at(-1);return performance.now()-last.timeStamp>=window.floorWheelReview.data.idleMs;});
   const priorCount=await page.evaluate(()=>window.floorWheelReview.data.native.length);
-  await page.evaluate(()=>window.floorWheelReview.setPhase('native-later-gesture'));await page.mouse.wheel(0,-400);
+  await hoverWheelTarget('selector','native-later-gesture');await page.mouse.wheel(0,-400);
   await page.waitForFunction(count=>window.floorWheelReview.data.native.length>count,priorCount);
   const nativeSelector=await page.evaluate(()=>window.floorWheelReview.data.native.filter(item=>item.zone==='selector'));
   assert.equal(nativeSelector.length,2,'Both native wheel requests must be delivered.');assert(nativeSelector.every(item=>item.isTrusted&&item.defaultPrevented&&item.deltaY<0));
@@ -65,7 +85,7 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
    const container=document.createElement('div');container.style.cssText='position:fixed;left:0;top:0;width:400px';document.body.append(container);
    const changes=[],controller=createFloorNavigation({floors:window.floorDemo.controller.state.floors,selectedId:'floor-10',onFloorChange:({to})=>changes.push(to.id)});
    const view=mountFloorNavigation(container,controller,{keyboardTarget:container,showModes:false}),events=[];
-   const observe=event=>{const previous=events.at(-1);events.push({timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:controller.state.selectedId});};
+   const observe=event=>{const previous=events.at(-1);events.push({timeStamp:event.timeStamp,gapMs:previous?event.timeStamp-previous.timeStamp:null,deltaY:event.deltaY,deltaMode:event.deltaMode,clientX:event.clientX,clientY:event.clientY,target:window.floorWheelReview.describe(event.target),isTrusted:event.isTrusted,defaultPrevented:event.defaultPrevented,selectedId:controller.state.selectedId});};
    view.element.addEventListener('wheel',observe,{passive:true});
    const send=(time,deltaY=-400)=>{
     const event=new WheelEvent('wheel',{deltaY,bubbles:true,cancelable:true});
@@ -91,8 +111,8 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
   assert.deepEqual(controlled.changes,['floor-11','floor-12','floor-11']);
   assert(controlled.events.every(item=>!item.isTrusted&&item.defaultPrevented&&item.dispatchCanceled));
   assert.equal(await selected(),'floor-12');assert.equal((await inspect()).zoom,zoom);assert.equal(await page.evaluate(()=>scrollY),scroll);
-  const scene=await page.locator('#world-scene').boundingBox();await page.evaluate(()=>window.floorWheelReview.setPhase('native-scene-zoom'));
-  await page.mouse.move(scene.x+scene.width/2,scene.y+scene.height/2);await page.mouse.wheel(0,-80);await page.waitForFunction(()=>window.floorWheelReview.data.native.some(item=>item.zone==='scene')&&window.floorWheelReview.data.bubbled.length===1);assert.equal((await inspect()).zoom,105);
+  await hoverWheelTarget('scene','native-scene-zoom');
+  await page.mouse.wheel(0,-80);await page.waitForFunction(()=>window.floorWheelReview.data.native.some(item=>item.zone==='scene')&&window.floorWheelReview.data.bubbled.length===1);assert.equal((await inspect()).zoom,105);
   assert.equal(await selected(),'floor-12');
   const sceneEvents=await page.evaluate(()=>window.floorWheelReview.data.native.filter(item=>item.zone==='scene'));
   assert.equal(sceneEvents.length,1,'The native scene wheel request must be delivered.');assert(sceneEvents.every(item=>item.isTrusted&&item.defaultPrevented&&item.zoom===105&&item.selectedId==='floor-12'));
