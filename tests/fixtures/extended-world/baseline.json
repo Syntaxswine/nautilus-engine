@@ -1,0 +1,124 @@
+{
+  "recordedAt": "2026-10-29T15:37:01.344Z",
+  "node": "v24.15.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "method": {
+    "surfacesPerFloor": 64,
+    "actorAnchorsPerFloor": 1,
+    "links": "one adjacent link per story transition",
+    "warmup": 200,
+    "samplesPerQuery": 2000,
+    "indexHeap": "GC before/after compile; held input excluded; noisy single-process retained heap delta",
+    "queries": "static AABBs, no renderer/game simulation; timings are observational, not acceptance thresholds"
+  },
+  "sourceHashes": {
+    "packages/world-core/index.js": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df",
+    "packages/world-core/state.js": "17ec2de5eabdae5e9f150de1d8c7f5deb083592341df938027b64c3bec7266eb",
+    "packages/world-core/validation.js": "fa71d1dc66078c3c6c43b7c2a20339e637f5853432b1a96c754efdc8772431bc",
+    "packages/world-core/queries.js": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457",
+    "packages/world-core/legacy.js": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce"
+  },
+  "cases": [
+    {
+      "stories": 5,
+      "floorCount": 5,
+      "allocatedFloorBuckets": 5,
+      "surfaces": 320,
+      "entities": 5,
+      "links": 4,
+      "bvhNodes": 127,
+      "serializedBytes": 54782,
+      "denseCells": 0,
+      "loadMs": 18.66579999999999,
+      "compileMs": 22.142500000000013,
+      "indexHeapDeltaBytes": 221128,
+      "queries": {
+        "ray": {
+          "medianUs": 16.200000000026193,
+          "p95Us": 34.89999999999327
+        },
+        "support": {
+          "medianUs": 6.100000000003547,
+          "p95Us": 14.799999999979718
+        },
+        "aabb": {
+          "medianUs": 35.40000000003829,
+          "p95Us": 58.29999999997426
+        }
+      },
+      "queryEvidence": {
+        "surfaces": 5,
+        "visitedNodes": 15,
+        "examinedSurfaces": 10
+      }
+    },
+    {
+      "stories": 15,
+      "floorCount": 15,
+      "allocatedFloorBuckets": 15,
+      "surfaces": 960,
+      "entities": 15,
+      "links": 14,
+      "bvhNodes": 255,
+      "serializedBytes": 166386,
+      "denseCells": 0,
+      "loadMs": 42.463100000000054,
+      "compileMs": 49.04880000000003,
+      "indexHeapDeltaBytes": 582176,
+      "queries": {
+        "ray": {
+          "medianUs": 43.49999999999454,
+          "p95Us": 82.49999999998181
+        },
+        "support": {
+          "medianUs": 8.000000000038199,
+          "p95Us": 16.70000000001437
+        },
+        "aabb": {
+          "medianUs": 93.90000000007603,
+          "p95Us": 192.30000000015934
+        }
+      },
+      "queryEvidence": {
+        "surfaces": 15,
+        "visitedNodes": 39,
+        "examinedSurfaces": 52
+      }
+    },
+    {
+      "stories": 32,
+      "floorCount": 32,
+      "allocatedFloorBuckets": 32,
+      "surfaces": 2048,
+      "entities": 32,
+      "links": 31,
+      "bvhNodes": 511,
+      "serializedBytes": 357840,
+      "denseCells": 0,
+      "loadMs": 50.13670000000002,
+      "compileMs": 59.03699999999981,
+      "indexHeapDeltaBytes": 1227880,
+      "queries": {
+        "ray": {
+          "medianUs": 57.19999999996617,
+          "p95Us": 119.0999999998894
+        },
+        "support": {
+          "medianUs": 6.500000000187356,
+          "p95Us": 13.999999999896318
+        },
+        "aabb": {
+          "medianUs": 139.59999999997308,
+          "p95Us": 263.09999999989486
+        }
+      },
+      "queryEvidence": {
+        "surfaces": 32,
+        "visitedNodes": 79,
+        "examinedSurfaces": 128
+      }
+    }
+  ]
+}
