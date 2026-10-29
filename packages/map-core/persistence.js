@@ -43,6 +43,7 @@ export class BlueprintError extends Error {
 export function loadBlueprint(input) {
   try {
     const raw = inputData(input), block = raw.kind === 'red-shift-block';
+    if(raw.kind==='nautilus-appearance-document')throw new BlueprintError('This document requires the appearance schema and negotiated nautilus-bear-appearance-v1 support; use the appearance API.', 'UNSUPPORTED_APPEARANCE', '/kind');
     if (!block && raw.version === 1) throw new BlueprintError('Legacy map version 1 needs an explicit migration.', 'MIGRATION_REQUIRED', '/version');
     if (raw.version !== (block ? 1 : 2)) throw new BlueprintError('Unsupported ' + (block ? 'block' : 'map') + ' schema version.', 'UNSUPPORTED_SCHEMA', '/version');
     const document = new EditingDocument().open(JSON.stringify(raw));

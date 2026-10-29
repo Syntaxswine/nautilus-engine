@@ -1,4 +1,3 @@
-import '../docs/reviews/actor-height-intake/verify.test.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';

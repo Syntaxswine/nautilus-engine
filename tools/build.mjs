@@ -63,6 +63,12 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
+// The optional bear keeps its own immutable source pin. Deploy only its dynamic
+// resources/provenance; execution is the separately recorded package adapter.
+const bearManifest=JSON.parse(fs.readFileSync(path.join(root,sources.bear.root,'provenance.json')));
+for(const file of bearManifest.files.filter(file=>file.usage==='runtime-resource'))write(sources.bear.root+'/'+file.path,fs.readFileSync(path.join(root,sources.bear.root,file.path)));
+write(sources.bear.root+'/provenance.json',JSON.stringify(bearManifest,null,2));
+write('bear-provider.json',JSON.stringify({version:1,source:sources.bear,appearanceSchema:'nautilus-appearance-document',requiredFeature:'nautilus-bear-appearance-v1',resources:bearManifest.dynamicResources,adaptations:JSON.parse(fs.readFileSync(path.join(root,'docs/reviews/bear/adaptations.json')))},null,2));
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});

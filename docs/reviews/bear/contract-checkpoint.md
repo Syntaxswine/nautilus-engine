@@ -2,6 +2,8 @@
 
 Prepared for architect/Editor review on 29 October 2026. Engine base: `8c4670450cb2b38c1e1abd811d633c22de9e2b7c` / v0.8.0. Source: AFT `4f5f53917990ec03b2f14c65f067e4b99ec8fcaa`, read only through Git objects. Commission: `docs/intake/2026-10-29-bear-integration-proposal.md` at `1115871def96e8a9e5ddc239bf4ad5a5a7ff9829`. This checkpoint pins a bounded plan and audited closure; implementation and acceptance evidence follow separately.
 
+The historical plan below was committed at `49b640a821dee2ff64c550c5a2184e35f810f7af`. See the implemented [public contract](../../bear-provider.md) and [acceptance report](acceptance.md) for final supported families and findings. In particular, the audited `animal-prone-motion.js` study is horse-only and is excluded from the bear execution/package closure; supported bear posture/crawl provide prone presentation.
+
 ## Audited closure and notices
 
 `source-closure.json` records every source path, Git blob, byte count, SHA-256, static edge and dynamic resource. The executable source closure contains **54 modules / 509,190 bytes**. Eight resources total **11,312,307 bytes**: bear mesh, pig-foreman cap donor mesh, optional bear speaking head, regular/Red Hat bear paintings, cap painting, light weapon atlas and grenade surface. Ten reference/notice files bring the complete immutable archive to **72 files / 11,877,195 bytes**. The generic catalogue, generic all-animal paint loader, idle actor wrapper, source tests and study findings are reference evidence; they are not executable provider dependencies. Author meshes, review image boards, source HTML and unrelated animals' data/paint are excluded.

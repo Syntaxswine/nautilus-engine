@@ -1,7 +1,7 @@
 import * as legacy from './prefab-blocks.js';
 import {assertRoofData,setRoofs,roofsInSector,shiftRoofs,mergeRoofExtensions,authoredRoofsOf as roofsOf} from './roof-data.js';
 export * from './prefab-blocks.js';
-export function validateBlock(block) {assertRoofData(block,24);legacy.validateBlock(block);return block;}
+export function validateBlock(block) {if(block?.kind==='nautilus-appearance-document')throw Error('Use the appearance block API; legacy block operations cannot preserve nautilus-bear-appearance-v1 actors.');assertRoofData(block,24);legacy.validateBlock(block);return block;}
 export function openBlock(block) {validateBlock(block);return setRoofs(legacy.openBlock(block),roofsOf(block),block.slopedRoofs);}
 export function extractBlock(map,sx=0,sy=0) {
   assertRoofData(map);const roofs=roofsInSector(map,sx,sy);

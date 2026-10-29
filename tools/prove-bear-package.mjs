@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {packProfile} from './distribution.mjs';
+const root=fileURLToPath(new URL('../',import.meta.url)),folder=path.join(root,'artifacts/bear-package');fs.mkdirSync(folder,{recursive:true});
+const packed=packProfile('compatibility'),consumer=fs.mkdtempSync(path.join(folder,'consumer-'));
+const npm=path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js');
+fs.writeFileSync(path.join(consumer,'package.json'),JSON.stringify({name:'nautilus-bear-installed-proof',private:true,type:'module'}));
+execFileSync(process.execPath,[npm,'install','--offline','--ignore-scripts','--package-lock=false','--no-audit','--no-fund',packed.file],{cwd:consumer,windowsHide:true,stdio:'pipe',maxBuffer:8e6});
+fs.copyFileSync(path.join(root,'tests/fixtures/bear/package-proof.mjs'),path.join(consumer,'proof.mjs'));
+fs.copyFileSync(path.join(root,'tests/fixtures/bear/appearance-block-v1.json'),path.join(consumer,'golden-block.json'));
+fs.writeFileSync(path.join(consumer,'renderer-fixture.mjs'),fs.readFileSync(path.join(root,'tests/fixtures/bear/helpers.mjs'),'utf8').replace("import * as T from '../../../packages/actors-bear/three.js';","import {THREE as T} from '@nautilus-engine/map-core/actors/bear/three';"));
+const result=JSON.parse(execFileSync(process.execPath,['proof.mjs'],{cwd:consumer,windowsHide:true,encoding:'utf8',maxBuffer:8e6}).trim());
+const report={...packed,consumer:path.relative(root,consumer).replaceAll('\\','/'),proof:result,purpose:'Offline installed-package public imports, actual resource bytes and native geometry/lifecycle with a test renderer; real WebGL is a separate browser proof.'};fs.writeFileSync(path.join(folder,'proof.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

@@ -81,6 +81,7 @@ function policyOf(input) {
 }
 function mapOf(input) {
   const source = readJSON(input);
+  if(source.kind==='nautilus-appearance-document')fail('UNSUPPORTED_CAPABILITY','map.kind','Tinderbox flat-yard does not support nautilus-bear-appearance-v1 or the appearance-document schema. Keep the complete Nautilus appearance envelope.');
   keys(source, MAP_KEYS, 'map', 'UNSUPPORTED_MAP_FIELD');
   if (source.version !== 2) fail('UNSUPPORTED_MAP_SCHEMA', 'map.version', 'This adapter accepts aft-map-v2 only; migrate legacy maps through the public Nautilus persistence API first.');
   let map;

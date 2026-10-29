@@ -7,7 +7,7 @@ import {rotateRoof} from './roof-rotation.js';
 export class EditingDocument extends Legacy {
   open(text) {
     if(typeof text!=='string'||text.length>4000000)throw Error('Choose a map or block JSON file under 4 MB.');
-    const raw=JSON.parse(text);assertRoofData(raw,raw?.kind==='red-shift-block'?24:240);
+    const raw=JSON.parse(text);if(raw?.kind==='nautilus-appearance-document')throw Error('Use AppearanceDocument and negotiated nautilus-bear-appearance-v1 support for this complete document.');assertRoofData(raw,raw?.kind==='red-shift-block'?24:240);
     if(raw?.kind==='red-shift-block')validateBlock(raw);
     super.open(text);
     if(this.block){setRoofs(this.editor.map,roofsOf(raw),raw.slopedRoofs);this.refresh();this.changed=false;this.revision=0;}

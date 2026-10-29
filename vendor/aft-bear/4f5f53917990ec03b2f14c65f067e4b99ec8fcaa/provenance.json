@@ -1,0 +1,1120 @@
+{
+  "schemaVersion": 1,
+  "donor": "aft-bear",
+  "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+  "commit": "4f5f53917990ec03b2f14c65f067e4b99ec8fcaa",
+  "runtimeRoots": [
+    "dist/tactics/bear-worker.js",
+    "dist/tactics/bear-paint.js",
+    "dist/tactics/red-hat-model.js",
+    "dist/tactics/weapon-models.js",
+    "dist/tactics/armed-idle-motion.js",
+    "dist/tactics/worker-locomotion.js",
+    "dist/tactics/battle-posture.js",
+    "dist/tactics/animal-motion.js",
+    "dist/tactics/animal-prone-motion.js",
+    "dist/tactics/crawl-motion.js",
+    "dist/tactics/grenade-throw-motion.js",
+    "dist/tactics/ladder-motion.js",
+    "dist/tactics/roof-mantle.js",
+    "dist/tactics/ledge-descent.js",
+    "dist/tactics/horse-chair-motion.js",
+    "dist/tactics/painted-fire-motion.js",
+    "dist/tactics/speaking-head.js"
+  ],
+  "dynamicResources": [
+    "dist/tactics/bear-10k-data.json",
+    "dist/tactics/pig-foreman-10k-data.json",
+    "dist/tactics/speaking-heads/bear-10k.json",
+    "dist/assets/characters/lowpoly-proof/bear-worker-model-paint-v1.png",
+    "dist/assets/characters/lowpoly-proof/bear-red-hat-model-paint-v1.png",
+    "dist/assets/characters/lowpoly-proof/pig-foreman-model-paint-v1.png",
+    "dist/assets/characters/lowpoly-proof/horse-worker-light-atlas.png",
+    "dist/assets/equipment/painted-ui/grenade-surface.png"
+  ],
+  "referenceOnly": [
+    "README.md",
+    "dist/tactics/vendor/THREE-LICENSE.txt",
+    "dist/tactics/animal-motion-catalog.js",
+    "dist/tactics/animal-motion-paint.js",
+    "dist/tactics/armed-idle-actor.js",
+    "dist/tactics/idle-fits.js",
+    "tests/bear-integration.test.mjs",
+    "tests/bear-worker.test.mjs",
+    "docs/tactics/review-images/bear/validation.json",
+    "docs/tactics/review-images/bear/animation-integration-validation.json"
+  ],
+  "externalBindings": [
+    {
+      "source": "dist/tactics/vendor/three.module.js",
+      "replacement": "packages/render-effects/three.js",
+      "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "notice": "dist/tactics/vendor/THREE-LICENSE.txt"
+    }
+  ],
+  "edges": [
+    {
+      "from": "dist/tactics/bear-worker.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/bear-worker.js",
+      "to": "dist/tactics/horse-light-model.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-light-model.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/horse-light-model.js",
+      "to": "dist/tactics/horse-grip-hand.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-grip-hand.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/horse-grip-hand.js",
+      "to": "dist/tactics/horse-grip-hand-data.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-light-model.js",
+      "to": "dist/tactics/horse-rifle.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-rifle.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/horse-light-model.js",
+      "to": "dist/tactics/horse-graphic-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/bear-paint.js",
+      "to": "dist/tactics/horse-model-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-model-paint.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/bear-paint.js",
+      "to": "dist/tactics/bear-worker.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/red-hat-model.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/red-hat-model.js",
+      "to": "dist/tactics/pig-foreman.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/pig-foreman.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/pig-foreman.js",
+      "to": "dist/tactics/horse-light-model.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/red-hat-model.js",
+      "to": "dist/tactics/horse-model-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/weapon-models.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/weapon-models.js",
+      "to": "dist/tactics/one-handed.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/weapon-models.js",
+      "to": "dist/tactics/grenade-model.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/grenade-model.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/weapon-models.js",
+      "to": "dist/tactics/horse-rifle.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/armed-idle-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/armed-idle-state.js",
+      "to": "dist/tactics/weapon-models.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/idle-rig-math.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/idle-rig-math.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/hen-idle-rig.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-idle-rig.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/hen-idle-rig.js",
+      "to": "dist/tactics/hen-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/hen-motion.js",
+      "to": "dist/tactics/dog-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/dog-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/dog-motion.js",
+      "to": "dist/tactics/clothing-weights.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-idle-rig.js",
+      "to": "dist/tactics/idle-rig-math.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/idle-pack-fit.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/idle-pack-fit.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/armed-idle-motion.js",
+      "to": "dist/tactics/character-mass.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/worker-locomotion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/worker-locomotion.js",
+      "to": "dist/tactics/hen-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/worker-locomotion.js",
+      "to": "dist/tactics/roof-mantle-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/roof-mantle-equipment.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/battle-posture.js",
+      "to": "dist/tactics/tower-tail-tuck.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/tower-tail-tuck.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/battle-posture.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/battle-posture.js",
+      "to": "dist/tactics/casualty-pose.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/casualty-pose.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/animal-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/animal-motion.js",
+      "to": "dist/tactics/clothing-weights.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/animal-motion.js",
+      "to": "dist/tactics/dog-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/animal-prone-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/animal-prone-motion.js",
+      "to": "dist/tactics/animal-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/idle-rig-math.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/battle-posture.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/crawl-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-equipment.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/crawl-equipment.js",
+      "to": "dist/tactics/roof-mantle-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-equipment.js",
+      "to": "dist/tactics/painted-fire-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-equipment.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/painted-fire-equipment.js",
+      "to": "dist/tactics/painted-fire-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-equipment.js",
+      "to": "dist/tactics/crawl-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/crawl-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/one-handed.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/crawl-motion.js",
+      "to": "dist/tactics/hen-crawl-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-crawl-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/hen-crawl-motion.js",
+      "to": "dist/tactics/hen-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-crawl-motion.js",
+      "to": "dist/tactics/idle-rig-math.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/hen-crawl-motion.js",
+      "to": "dist/tactics/crawl-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/grenade-throw-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/equipment-stow.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/equipment-stow.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/ladder-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ladder-paint.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/ladder-grip.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ladder-grip.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/battle-posture.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ladder-motion.js",
+      "to": "dist/tactics/skin-holds.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/pig-roof-mantle-profile.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/pig-roof-mantle-profile.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/worker-mantle-profile.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/worker-mantle-profile.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/pig-roof-mantle-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/pig-roof-mantle-paint.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/equipment-stow.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/ladder-grip.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/roof-mantle-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/roof-mantle.js",
+      "to": "dist/tactics/roof-mantle-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ledge-descent.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ledge-descent.js",
+      "to": "dist/tactics/equipment-stow.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ledge-descent.js",
+      "to": "dist/tactics/ladder-grip.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ledge-descent.js",
+      "to": "dist/tactics/ledge-descent-tail.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/ledge-descent-tail.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/ledge-descent.js",
+      "to": "dist/tactics/roof-mantle-paint.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/horse-chair-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/horse-chair-motion.js",
+      "to": "dist/tactics/painted-chairs.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-chairs.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/horse-chair-motion.js",
+      "to": "dist/tactics/animal-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/painted-fire-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/ledge-descent-tail.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/painted-fire-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/painted-fire-hen.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-hen.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    },
+    {
+      "from": "dist/tactics/painted-fire-hen.js",
+      "to": "dist/tactics/hen-motion.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-hen.js",
+      "to": "dist/tactics/hen-rig-transaction.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-hen.js",
+      "to": "dist/tactics/painted-fire-state.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/painted-fire-motion.js",
+      "to": "dist/tactics/roof-mantle-equipment.js",
+      "external": false
+    },
+    {
+      "from": "dist/tactics/speaking-head.js",
+      "to": "dist/tactics/vendor/three.module.js",
+      "external": true
+    }
+  ],
+  "files": [
+    {
+      "path": "dist/assets/characters/lowpoly-proof/bear-red-hat-model-paint-v1.png",
+      "blob": "8016c6a41298a0c583b4ffbf57346db81ed776de",
+      "bytes": 1746454,
+      "sha256": "4130695bfb3cca93889486308a171d20802a0924a28f854e501656b32b915bd9",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/assets/characters/lowpoly-proof/bear-worker-model-paint-v1.png",
+      "blob": "523cdb80c93c785cec9e4f0ae31c3324708aa9b6",
+      "bytes": 1590125,
+      "sha256": "7b0fd63d06c840497c1a03967f06b9bdce30c0ce119040740e4651fc459fa5a0",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/assets/characters/lowpoly-proof/horse-worker-light-atlas.png",
+      "blob": "f3bfcd00f6728f4015eba8340549a991c732ee85",
+      "bytes": 2628783,
+      "sha256": "a69ccd8c8153f04fc835cef004f83695accc638f949ba8b6fb1b0ec40922ac31",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/assets/characters/lowpoly-proof/pig-foreman-model-paint-v1.png",
+      "blob": "6cefb8b0c8a211ae775ac825502a26601f7ad74f",
+      "bytes": 1635690,
+      "sha256": "56479f68339bf21321e9c3a7cfedb5b7e49eac77b3169c24cd559d25b51fc2a4",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/assets/equipment/painted-ui/grenade-surface.png",
+      "blob": "0599c0a0c53be6ad6437e38f747976e275d8dbe5",
+      "bytes": 2338079,
+      "sha256": "f74ea371f9f2f575ca775791f7cb6163a19be717ab2d1b924b9a8efb6ac4ce36",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/tactics/animal-motion-catalog.js",
+      "blob": "7c0500615f80b7734978a4538fb5ca71e0fd4af9",
+      "bytes": 4263,
+      "sha256": "7f8c0368b2a9cca8e7a6f11df652d1bc18991931738e547510dc8aef052d517c",
+      "usage": "reference-only"
+    },
+    {
+      "path": "dist/tactics/animal-motion-paint.js",
+      "blob": "1f2fa721392c1cbb67f456c8a7de7c5f8fb26ec9",
+      "bytes": 3653,
+      "sha256": "259822abc50541551135e77902be234416a3c4314e9abdb9f3fc00d30f96d0c2",
+      "usage": "reference-only"
+    },
+    {
+      "path": "dist/tactics/animal-motion.js",
+      "blob": "1995114c56ee482d0fa16bfbe287b97ed39f028f",
+      "bytes": 10271,
+      "sha256": "70c95c81bd11f9ab471bc92b773c4f25223b957186744efab9e5f81624c8235e",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/animal-prone-motion.js",
+      "blob": "6cc59c5ae5e7154764f89d7640384bf563d91432",
+      "bytes": 9007,
+      "sha256": "2149712c34608352ad962e12c326dec1e4b9dbc0a7a95925394530a4ba8bc772",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/armed-idle-actor.js",
+      "blob": "ac1e7c2036b28dd1b11ea735db80e6844dfe71d9",
+      "bytes": 2507,
+      "sha256": "e146cef1c9682e73b7d2258b988635ee081cace176320f679f8b717e5454e6f3",
+      "usage": "reference-only"
+    },
+    {
+      "path": "dist/tactics/armed-idle-motion.js",
+      "blob": "a5da0b593182a9e3b1a1e95c6847db1a5ca0eca6",
+      "bytes": 10747,
+      "sha256": "e16c16291828d51cf6db89829838bef8d2e08cf2c4bddda08f5fa593124122fa",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/armed-idle-state.js",
+      "blob": "112684436b90be847b60220f603af04e76fe05d1",
+      "bytes": 2139,
+      "sha256": "7a8999222f6c2e0b932d617e5c2de1903112fc99c5e561727524b4b2e0dd6bad",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/battle-posture.js",
+      "blob": "2c3b81b3af2fd55ac495fe159acc766b025fdc31",
+      "bytes": 11240,
+      "sha256": "8223e62c7afef30ebf9d29cdde92b4cd9bdcc653c26f229ce659850c42295e73",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/bear-10k-data.json",
+      "blob": "c375287dc0b97b392b472a21f9b70071c28aff09",
+      "bytes": 419919,
+      "sha256": "3a449fe96a28a712cb1aaf4cdc76d44cc07163ec949aebc2d086dfa48a3a0823",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/tactics/bear-paint.js",
+      "blob": "5126c85a0afafd49cfb565e829dcfa977d8a3f3a",
+      "bytes": 2090,
+      "sha256": "4b9380494a20ff9bb3d6d86e073e7c84b6d357015d4d9738eeb392fa0b6975f5",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/bear-worker.js",
+      "blob": "33681bd419665141505d8b4edb28d9d6a9c14848",
+      "bytes": 3040,
+      "sha256": "6c71a33a94d508ba51ff5072277f6c11f2b6825b029c7549693b88dfb85d235b",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/casualty-pose.js",
+      "blob": "a16500c385e6f3c3d1542343507e25ae5fe92da0",
+      "bytes": 8649,
+      "sha256": "6b8397fd591c89471631acb18ef3cb79574d4e89ed1125d2a416eb010de7a65b",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/character-mass.js",
+      "blob": "a9a4579915fd72abb9e7b405daa56350cf6db123",
+      "bytes": 287,
+      "sha256": "a16b4e48be8721dfe0f4f0f9749a2a4c40e56ce9334b0dfd198f6c9ec51ed408",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/clothing-weights.js",
+      "blob": "fb9363091f9b42c63061b4a5608544eeecd6b6f1",
+      "bytes": 1180,
+      "sha256": "ff1ab35315485d8380dcf3b00f427b9cea7615e329cd56ab84b298aa773bb9a9",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/crawl-equipment.js",
+      "blob": "a7c8e870f212df1356561aaf9530f8f14a457130",
+      "bytes": 5711,
+      "sha256": "6d0566f15e0f6e704712ebdb0f6e24ad493ca1a0dd980da50c1c910a05ab9017",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/crawl-motion.js",
+      "blob": "9eb5d4a544ae7afeb36a281b5cc5c165044f4ceb",
+      "bytes": 10746,
+      "sha256": "445ffeed819ade2af1a031ac0dab96eb23474bb60ffb55436bfd4748936a2ef2",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/crawl-state.js",
+      "blob": "c7c71eaff83b4a893356952edfeb6f4e55a94971",
+      "bytes": 4537,
+      "sha256": "b1e8b2d41ec363e287a996994c1d50751170cd6e7b66e4fa73fed935a5f662a6",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/dog-motion.js",
+      "blob": "aef47d4fe41c80422f8cdc7046a10b12d8d828a7",
+      "bytes": 10973,
+      "sha256": "7a25bc3be43f5eba8df5f6e4607e4ff28253a6a1c6ef8560775963c85e32a672",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/equipment-stow.js",
+      "blob": "5066949fae44e5b7e2571008ecb7d5a57e8c86a0",
+      "bytes": 6580,
+      "sha256": "6920e9c6c6883b12f252d65274ffce87bb084460eb1508f5207d47d738937d78",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/grenade-model.js",
+      "blob": "9dbb0ee9bdc570a937563bb7dc1e5ad4af92225f",
+      "bytes": 5660,
+      "sha256": "455888f6b7330ee929902276fe4b6f079b5bda884206edbdc12f464c55922790",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/grenade-throw-motion.js",
+      "blob": "34acd4f998f1266476dbebb73fc21999664475e4",
+      "bytes": 41161,
+      "sha256": "59ef935ebcd70d7340b0862f209fd8ee0d5ed6443499701fc32853fb694ed22a",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/hen-crawl-motion.js",
+      "blob": "ac08b18d014e5357eb435cbf43c4e94531ea0e66",
+      "bytes": 5510,
+      "sha256": "a83cfb280a245f30d2befe394c4885b6d4b768f20042da284cfddeeffdbdde7d",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/hen-idle-rig.js",
+      "blob": "bc35c33aabc4ac8b07079f2c91d0a6fdd1cf9906",
+      "bytes": 4944,
+      "sha256": "5a6003110fbc260168e5eff84aef0fba1fac452e09946640156aca440f7bc8c0",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/hen-motion.js",
+      "blob": "57bcca0a80c63123998f86f6786e6bc42d88551c",
+      "bytes": 6267,
+      "sha256": "e5f6bf905e75bc992aaaca055f8816c928ba3040dac3c817f50a83f513b670ff",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/hen-rig-transaction.js",
+      "blob": "9789d385307d8b8acd11f59928c783e5ef9b2240",
+      "bytes": 1365,
+      "sha256": "b781470e82244095f7c6807635f2482c8873b3b1205c4422a6cf20e488b2fdfb",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-chair-motion.js",
+      "blob": "3ff464fb4be8ae1415c374c0f1338fabd6012034",
+      "bytes": 11645,
+      "sha256": "dd5d515773818dce9cd6b320b4b51ac081d3a69086d078e283d8246aaec1936e",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-graphic-paint.js",
+      "blob": "a05e39ec7790b9cb649b0c77295c772df7f9ab2d",
+      "bytes": 4279,
+      "sha256": "716ccefe8f989fe8b50828de3afbe60979bf9c8a952b3d6b45871deb3e87e5e6",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-grip-hand-data.js",
+      "blob": "d486094b38662c0e9289d4b9a28b1de86800341f",
+      "bytes": 36325,
+      "sha256": "1abe555c9775bf3e3ce953c5d532cea36ef165c664b41b321ce5f0dd32b512d1",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-grip-hand.js",
+      "blob": "6fa212bcef0d5b9f7f32987cb9ccaba6f64f606e",
+      "bytes": 3379,
+      "sha256": "a715e4761c72d70d35fd13e88463926bfb67ce87e417d70460363760c75209e6",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-light-model.js",
+      "blob": "5384a2b4e4a5dd918594eb66643c82bd0fe8b757",
+      "bytes": 25286,
+      "sha256": "9306a065aed75f3408fd1d5799164241fcfe9add59a6d1dad2568a615e469baa",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-model-paint.js",
+      "blob": "a8a78fbf4b59d5336b1307c332bdd39562059406",
+      "bytes": 47656,
+      "sha256": "100c1b679cae6f2cc997fd730ca829fe1d057ef06cc55e711ad57b9038844213",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/horse-rifle.js",
+      "blob": "4e02aaa12de43d9f2b22f53af1f5b1414cb58aff",
+      "bytes": 2708,
+      "sha256": "4435a50527433057aeafc3bbf48a35ac9a69c292302da558a76de914c6b7ce24",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/idle-fits.js",
+      "blob": "6536efb71108417b8078be841e87aefd3b4867aa",
+      "bytes": 2550,
+      "sha256": "b484857132c80b95c52218773e08b64e347ed93d077659ea10305da1590e0530",
+      "usage": "reference-only"
+    },
+    {
+      "path": "dist/tactics/idle-pack-fit.js",
+      "blob": "97100829426277544ae940a26bf5208a15580ec1",
+      "bytes": 1756,
+      "sha256": "9d2fa9dc9b8f3dd66bc292b8f03cb699cbeb7a444bcbf80e9d95568fac18f31f",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/idle-rig-math.js",
+      "blob": "a9dd88887eb3075086b20d8788754ed4339a6358",
+      "bytes": 2034,
+      "sha256": "96bbbaaf5123889179b114f16ce589e03d47fd438d514d0538d4c2522278ec96",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/ladder-grip.js",
+      "blob": "0e0604bc68a9ef39d84e494bdeb84782005d6b2f",
+      "bytes": 7223,
+      "sha256": "6dcfa3e44cc4a5b36081596ed94a5649dd1243923ddc44567cc2b409938a661c",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/ladder-motion.js",
+      "blob": "8d9e7a90c03f84febc97908dae8bf804dc6eb24f",
+      "bytes": 42075,
+      "sha256": "f92e1e9910818a6b0609d7650cc727e4a2794705f274388475210113be872dee",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/ladder-paint.js",
+      "blob": "7e3f00e0e531e99c8171d8fc92bcf5de63532f3e",
+      "bytes": 2675,
+      "sha256": "ce25afd4e35a6069866f51d2f519363f15e79ffc50d0226804ea6725f1e99828",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/ledge-descent-tail.js",
+      "blob": "f1ffa4d6b67d7d101ac69881286816780f855f3d",
+      "bytes": 1946,
+      "sha256": "4e96412a8ddb6185ae07fdad9355db45b2dc8ca0cf40ecca3edbf3b16a67b555",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/ledge-descent.js",
+      "blob": "5e25d0cc583f8e8b3333f5f0f2b3a1516c947155",
+      "bytes": 16960,
+      "sha256": "e16d5743aa47eff04ceac751c4d208eecc72025304e36677e702420b4367a258",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/one-handed.js",
+      "blob": "ddddbd62c7cccf817621bf05ed78e08b00b7ac30",
+      "bytes": 1569,
+      "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/painted-chairs.js",
+      "blob": "60b75a74775739789f7140ea722ca6b139ba0a41",
+      "bytes": 11749,
+      "sha256": "85ca26e53897a228ab4b47a5a72fb7595ac41f23979ff94c0edbc452dfa35cc3",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/painted-fire-equipment.js",
+      "blob": "e406b3544ba84abd7efd5e05f740c3540d85ff98",
+      "bytes": 3874,
+      "sha256": "9db792c683361a42d388860907240aa9f4fd9dce53588a16c8539ecfb6545af9",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/painted-fire-hen.js",
+      "blob": "dd9f30cb30a8027a842a92c99b05caaf8f33e154",
+      "bytes": 5698,
+      "sha256": "09d29d4567e98b2acf48c11a340dae37855f477e8070ebd0cf29f8c3d6b98bd5",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/painted-fire-motion.js",
+      "blob": "e9f04b2b4917c504a71a1bac7683434190fb94f7",
+      "bytes": 14843,
+      "sha256": "cc0ae83f1de41797337ca46e35dda034029878300bd3051505534b7b2b30527d",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/painted-fire-state.js",
+      "blob": "5119c9eb066e42da8eaa3eb8a323233866ee674b",
+      "bytes": 4734,
+      "sha256": "6875a39df89b1392645b11a942e9c52f8467c2eb59e780c8e767167de4a61a1a",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/pig-foreman-10k-data.json",
+      "blob": "1d2cf08031572ee90f4590ae4796b1f325bc5dc0",
+      "bytes": 701071,
+      "sha256": "f720321ebfac285ae0e6e62634d361e6fa6d9c765a782dc75939aa40796051e8",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/tactics/pig-foreman.js",
+      "blob": "2713a37f798def9619675c7f6df8bb84538c1c8e",
+      "bytes": 991,
+      "sha256": "e4d68b177e0890d61078f6112f7f6629cb8fbc54d620847648ff2b0a1ee307ed",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/pig-roof-mantle-paint.js",
+      "blob": "549e52464d2d9bc9834a391bcf0bb22a3f0c986c",
+      "bytes": 3272,
+      "sha256": "49ddd5025e54ea01f31c975d3536965acb2bcf56775e4969647dec0b46fdf1ed",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/pig-roof-mantle-profile.js",
+      "blob": "278da4294b47c5685235eb7fd84870190de119f6",
+      "bytes": 5719,
+      "sha256": "6c79d3571b9c6025ec93c751949b70e0ed83b6a04763fd85ec21a1f0aae96af5",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/red-hat-model.js",
+      "blob": "b952f86683f4c315c2f2b99ce004493b19645a18",
+      "bytes": 3083,
+      "sha256": "ba9e4ee3dd131046d9e1b5424b84e47b2ed61aaba8a2c779e9ece77428fdb3c8",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/roof-mantle-equipment.js",
+      "blob": "7fced7a7d83e35583e82b9dd03559afbe0c91e64",
+      "bytes": 3334,
+      "sha256": "1dc251f49a2bd06f6dfdfc740ef93951709d8492ec7fa5a8b87bb14c5ed78ea9",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/roof-mantle-paint.js",
+      "blob": "d63f9fa6ea51c9f353f608cf5e7d0fac4310795b",
+      "bytes": 2649,
+      "sha256": "b471a348e662f22c8481e3b35b158806df755fe6b82fae7641b2a1218694974b",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/roof-mantle.js",
+      "blob": "e41858de75eeeb868548ab3e26748d9b8bad49de",
+      "bytes": 21477,
+      "sha256": "83abb1b692626a6426d936a21a7acc10bf85b5c9af93112aa77f6698a11c0da0",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/skin-holds.js",
+      "blob": "ab27040baa853925b67426b5fa0848795aff05ad",
+      "bytes": 3559,
+      "sha256": "4ce12db24d56b05a5b013b3c965111ecd7cc277da52fb3fcc71f934b1539d3bc",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/speaking-head.js",
+      "blob": "d5b911b9fa05fbb12d0970431404457b129e65eb",
+      "bytes": 26161,
+      "sha256": "90a26c05e70f0f8ade04c8ff2a76ea0d7b3cb0ec433fc5bb0171bce0f76ed5fc",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/speaking-heads/bear-10k.json",
+      "blob": "a801eae8ba6248ab388e7c4217ff083b87d8b212",
+      "bytes": 252186,
+      "sha256": "5eaa1ea526f542849ed9b8bbac35eccb6409d82ba450523437b7e366420775a1",
+      "usage": "runtime-resource"
+    },
+    {
+      "path": "dist/tactics/tower-tail-tuck.js",
+      "blob": "d63228bf89fd90bd99fb85d3fd11d1c42175dc7d",
+      "bytes": 1858,
+      "sha256": "cf4c25d09fb1e2929f35f650fd7cea47776da413477c36f9603231ace8be5495",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/vendor/THREE-LICENSE.txt",
+      "blob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "usage": "reference-only"
+    },
+    {
+      "path": "dist/tactics/weapon-models.js",
+      "blob": "9ce0e89212602908ce1aa6ec479ffd5f72d188af",
+      "bytes": 19193,
+      "sha256": "d41f0a59d7ac32331e095a5019bb93d8d40f5f2817c24c0a8e0c05ecf412253f",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/worker-locomotion.js",
+      "blob": "bcbeea4af7e6b496151c8a85a8cdceeaa248c67f",
+      "bytes": 3710,
+      "sha256": "90ceb0418cadde24c97e863c931decc49e7ac8927388aebb91076ec64e9b0d19",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "dist/tactics/worker-mantle-profile.js",
+      "blob": "99a0f0093484b5b4a74e9cb40b88b2b61074643d",
+      "bytes": 3666,
+      "sha256": "4abada09003f8c71e9f834509d8e3b8b5018f66160dacbf4427c4ec950930e14",
+      "usage": "runtime-source"
+    },
+    {
+      "path": "docs/tactics/review-images/bear/animation-integration-validation.json",
+      "blob": "e4f464c5f544a0944248b44c4a9659c47504e0ed",
+      "bytes": 21734,
+      "sha256": "a2812ea9aedcc0020b4bf6f8f4187b1e0334137f7e5953c84cb7a37696f42420",
+      "usage": "reference-only"
+    },
+    {
+      "path": "docs/tactics/review-images/bear/validation.json",
+      "blob": "2e2192b4fb07ab04e4765075934343ca662d7bce",
+      "bytes": 2984,
+      "sha256": "9374fe2a48c6be298f316b0a1fbfabd36e51f68b6b1d97926eccb6e59fdeb309",
+      "usage": "reference-only"
+    },
+    {
+      "path": "README.md",
+      "blob": "7636c7fe8810f96bd9efa72ecbb44649ec288f28",
+      "bytes": 4436,
+      "sha256": "28eb7caa42b1325872fdfed1a9b1a8832a28fd65a9f2cfde354cfe41d5f3cd52",
+      "usage": "reference-only"
+    },
+    {
+      "path": "tests/bear-integration.test.mjs",
+      "blob": "165c32a8e8568e3f4907c78e5ddcf99be5480510",
+      "bytes": 5627,
+      "sha256": "6699632475cb19c80e6af9d1102c0f8f8dad474c1697a7eaa7c56b5088e5a14f",
+      "usage": "reference-only"
+    },
+    {
+      "path": "tests/bear-worker.test.mjs",
+      "blob": "c441dc3447b75105f98dcc9ee15378dcf3e689d3",
+      "bytes": 6863,
+      "sha256": "3a98f1f2b3c375af5ee1ed87d2adb2380034168bc194941dbc8366b7c6939d9d",
+      "usage": "reference-only"
+    }
+  ],
+  "adaptations": "None in vendor. Engine execution adaptations are generated separately with exact-match checks.",
+  "rightsStatus": "Original source and embedded notices retained; provenance adds no blanket license grant."
+}

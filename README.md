@@ -103,4 +103,10 @@ Use individual public imports directly, or opt into `./runtime` to validate a se
 
 Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
 
-See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.
+See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics and production game adoption remain later tranches.
+
+## Optional native bear and appearance
+
+`./actors/bear` supplies headless discovery; `./actors/bear/three` supplies the separate, lazy native bear provider on the existing shared Three instance. It preserves regular/Red Hat paint, all thirteen equipment choices, native scale and explicit supported motion families. Hosts own world placement, sample clocks and gameplay.
+
+`./appearance` preserves real bear Guard/NPC authoring beside an unchanged legacy map/block in a negotiated versioned envelope. It supports preview/apply, inspection/rotation, undo/redo, saves and block capture/placement without changing portable species enums or authored character resources. Editor UI and production game adoption require separate integration. See the [provider and appearance contract](docs/bear-provider.md) and [acceptance evidence](docs/reviews/bear/acceptance.md).

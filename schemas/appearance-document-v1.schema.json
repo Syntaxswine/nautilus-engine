@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:appearance-document:1",
+  "title": "Nautilus preserved appearance document v1",
+  "description": "Separate envelope around an unchanged aft-map-v2 or aft-block-v1 blueprint. Runtime validation also checks legacy validity, unique IDs/anchors, support, block bounds, required capabilities, plain data, an 8 MB joint byte budget and 64 KiB per authored character. Authoring anchor checks do not establish full native-body clearance.",
+  "type": "object", "additionalProperties": false,
+  "required": ["kind", "version", "blueprint", "actors"],
+  "properties": {
+    "kind": {"const": "nautilus-appearance-document"}, "version": {"const": 1},
+    "blueprint": {"oneOf": [{"$ref": "urn:nautilus:schema:map:2"}, {"$ref": "urn:nautilus:schema:block:1"}]},
+    "actors": {"type": "array", "maxItems": 256, "items": {"$ref": "#/$defs/actor"}}
+  },
+  "$defs": {
+    "actor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "species", "outfit", "weapon", "role", "x", "y", "z", "heading", "authored"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}(?![\\s\\S])"},
+        "species": {"const": "bear"}, "outfit": {"enum": ["normal", "red-hats"]},
+        "weapon": {"enum": ["hands", "knife", "pistol", "rifle", "assault", "smg", "hmg", "shotgun", "sniper", "grenade", "launcher", "rpg", "flamethrower"]},
+        "role": {"enum": ["guard", "npc"]}, "x": {"type": "integer", "minimum": 0, "maximum": 239}, "y": {"type": "integer", "minimum": 0, "maximum": 239}, "z": {"type": "integer", "minimum": 0, "maximum": 5},
+        "heading": {"type": "number", "minimum": 0, "exclusiveMaximum": 360}, "authored": {"type": "object", "additionalProperties": true}
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # Sources and notices
 
+The optional native bear provider separately archives AFT commit `4f5f53917990ec03b2f14c65f067e4b99ec8fcaa` under `vendor/aft-bear/`. Its original 54-module presentation closure, eight runtime resources and ten reference/notice files retain their exact bytes and source hashes. Generated execution adapters, package-relative resource resolution and lifecycle corrections live under `packages/actors-bear/`, separately from the immutable source. The source README and embedded Three MIT notice remain in the archive. Execution shares the existing Nautilus Three instance; no second renderer or new blanket license is introduced. Existing AFT bytes and twelve visual rigs are unchanged.
+
 Nautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.
 
 The imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.

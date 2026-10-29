@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "base": "blankMap:Bear workflow golden",
+  "commands": [
+    {
+      "type": "place",
+      "actor": {
+        "id": "bear-golden",
+        "species": "bear",
+        "outfit": "red-hats",
+        "weapon": "rpg",
+        "role": "npc",
+        "x": 12,
+        "y": 12,
+        "z": 0,
+        "heading": 90,
+        "authored": {
+          "character": {
+            "id": "bear-authored-id",
+            "displayName": "Authored bear",
+            "faction": "host-policy",
+            "dialogueRef": "retained-dialogue"
+          },
+          "resources": {
+            "hp": 37,
+            "ap": 0,
+            "stamina": 6.5
+          },
+          "future": {
+            "unchanged": true
+          }
+        }
+      }
+    },
+    {
+      "type": "update",
+      "id": "bear-golden",
+      "patch": {
+        "outfit": "normal",
+        "weapon": "hmg",
+        "role": "guard",
+        "heading": 180
+      }
+    }
+  ],
+  "serializedSha256": "b7f70d1197d8c6b2e801c38e62fa297d0176866bb224138ee93ed10ec1d40704"
+}

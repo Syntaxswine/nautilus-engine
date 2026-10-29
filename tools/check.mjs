@@ -1,4 +1,5 @@
 import {distribution} from './distribution.mjs';
+import {checkBear} from './check-bear.mjs';
 import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
@@ -106,3 +107,4 @@ for(const entry of farmyardReview.files.filter(item=>item.copied)){
 }
 for(const profile of ['core','renderer','assets','compatibility'])if(distribution(profile).files.some(file=>file.startsWith('tests/fixtures/consumers/')))throw Error('A distribution includes test-only consumer fixtures.');
 console.log('Verified '+farmyardCopies+' byte-preserved Farmyard conformance modules, kept outside runtime distributions.');
+const bear=checkBear(tracked);console.log('Verified '+bear.files+' immutable bear source/resource/notice files ('+bear.bytes+' bytes) and '+bear.adaptations+' separately generated adapters.');
