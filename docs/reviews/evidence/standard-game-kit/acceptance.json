@@ -1,0 +1,69 @@
+{
+  "sourceCommit": "9d33ca65edf7b4d6b169d50e17dfc6bb40276373",
+  "sourceMode": false,
+  "buildProvenanceSha256": "cfb31bacb262a6b7ff7e82543579eb583e58f7c8c260a5ed2c247af240c979c7",
+  "checks": [
+    {
+      "name": "keyboard start and swept closed-door blocking",
+      "passed": true
+    },
+    {
+      "name": "locked/key feedback and occupied door operation",
+      "passed": true
+    },
+    {
+      "name": "mid-stair save, reload, export/import and atomic invalid-import rejection",
+      "passed": true,
+      "heightM": 0.2702499259765206
+    },
+    {
+      "name": "menu input isolation, confirmation focus trap and cancellation",
+      "passed": true
+    },
+    {
+      "name": "continuous automatic stair travel in both directions",
+      "passed": true
+    },
+    {
+      "name": "confirmed new game creates a fresh yard",
+      "passed": true
+    },
+    {
+      "name": "loading, failed-save retry, latest-check wins, single start, stale completion and disposal",
+      "passed": true
+    },
+    {
+      "name": "failed continue preserves menu and succeeds on retry",
+      "passed": true
+    },
+    {
+      "name": "native touch start/door, 44px menu controls, 320px phone and 640px reflow",
+      "passed": true,
+      "titleTargets": [
+        {
+          "label": "Continue",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "New game",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Settings",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Credits",
+          "width": 316,
+          "height": 48
+        }
+      ],
+      "reflowNote": "640 CSS pixels represents the width available after 200% browser zoom on a 1280px display; it is a reflow equivalent, not a native zoom measurement."
+    }
+  ],
+  "errors": [],
+  "failedRequests": []
+}
