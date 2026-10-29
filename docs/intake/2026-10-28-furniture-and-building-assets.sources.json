@@ -1,0 +1,1200 @@
+{
+  "schemaVersion": 1,
+  "kind": "scouting-only asset evidence",
+  "observedAt": "2026-10-29T03:09:33.486Z",
+  "observedDateEastern": "2026-10-28",
+  "scoutBaseCommit": "38f63ca4ae70846e2e75177895d4d8bea0f22303",
+  "architectBase": {
+    "commit": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+    "files": [
+      {
+        "path": "upstream.json",
+        "blob": "68b9d6c08575f1f41deb8f545438b3ee65533d71",
+        "bytes": 2655,
+        "sha256": "65e8861d0e784c16dfaa7993e2d37a96f3256fa2e3b7b6745487635e95a6f8b9"
+      },
+      {
+        "path": "packages/prefab-core/catalogue.js",
+        "blob": "4c8eb6085dac77d8785af3fe3bb696884b523a2e",
+        "bytes": 26848,
+        "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85"
+      },
+      {
+        "path": "packages/assets/catalogue.js",
+        "blob": "d6ee81db3966ac2563e4152f0b6762c571111696",
+        "bytes": 178538,
+        "sha256": "139f1ce16fa92bfbe987aaab2a705ed016b6ff28c71ed0a2763832caf339dca9"
+      },
+      {
+        "path": "docs/intake/2026-10-28-expanded-library.md",
+        "blob": "fcef13f47ec680265ff38bf750cabcceccd3005e",
+        "bytes": 7980,
+        "sha256": "706049d6239b5ffaf84ea5d28426be59a19e334a7efbf8b21ead57117165e9b3"
+      },
+      {
+        "path": "docs/intake/2026-10-28-reusability-roofs.md",
+        "blob": "00a4823a41bfb19a6e971c55a2f6271c2a48ef36",
+        "bytes": 10786,
+        "sha256": "48d84615b1216d7608608f2d9e1b3408938eaaad3dca99fc01bdc9928e376185"
+      }
+    ],
+    "pins": {
+      "schemaVersion": 1,
+      "aft": {
+        "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+        "root": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641",
+        "purpose": "Map editor, map/block formats, validation, connection rules, generation, rendering closure and regression tests"
+      },
+      "aftAssets": {
+        "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+        "root": "vendor/aft-assets/781246a668c723d5a4c5463e70534cc04b6a5641",
+        "purpose": "Supplemental factory-machine paint closure for the existing immutable editor snapshot"
+      },
+      "farmyard": {
+        "repository": "https://github.com/Syntaxswine/farmyard-commando",
+        "commit": "b2f2b6bd033cc3dbc8b572caa251244d283829c8",
+        "root": "vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8",
+        "purpose": "Painted industrial switches and map frame"
+      },
+      "rulesReview": {
+        "manifest": "docs/reviews/2026-10-28-rules-sources.json",
+        "purpose": "Three-game character, skill, combat and simulation comparison; algorithms reused from the existing immutable AFT snapshot"
+      },
+      "tinderbox": {
+        "repository": "https://github.com/Syntaxswine/tinderbox",
+        "observedCommit": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+        "purpose": "First bounded adapter target; production runtime adoption remains separate from the test-only conformance closure below"
+      },
+      "searchHalo": {
+        "repository": "https://github.com/Syntaxswine/farmyard-commando",
+        "commit": "7db49df29a9ff412d06d205f4bc48f75297bce51",
+        "root": "vendor/farmyard/7db49df29a9ff412d06d205f4bc48f75297bce51",
+        "purpose": "Reviewed golden contour shaders/renderer reference; engine-owned extraction reuses the existing Three instance and excludes game policy"
+      },
+      "tinderboxPrefabs": {
+        "repository": "https://github.com/Syntaxswine/tinderbox",
+        "commit": "6693bfa3fea2edec77649d830de5ac68ba4c1a50",
+        "root": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50",
+        "purpose": "Reviewed Gross catalogue house assemblies, plans, materials and source plates; visual authoring prefabs, not a game runtime or gameplay compiler"
+      },
+      "tinderboxConformance": {
+        "repository": "https://github.com/Syntaxswine/tinderbox",
+        "commit": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+        "root": "tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+        "purpose": "Test-only byte-preserved compiler/simulation closure proving the bounded flat-yard adapter; production game adoption pending."
+      }
+    }
+  },
+  "freshRemoteObservations": {
+    "method": "git ls-remote; donor checkouts/refs not changed",
+    "farmyardMain": "60aeeed5e7f4283d46253c46654fb44af7636e6d",
+    "farmyardFurniture": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+    "tinderboxMaster": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+    "tinderboxHopkins": "b61fa093e3491fb2f109f1f4b0ca5591d2637cc9",
+    "tinderboxRow": "f25fd7b28a9aee1d1abaef1ad65acd64d67a50e6",
+    "tinderboxNewYork": "b689f5501ab06f54822f2aa724ac77de106e3b71",
+    "nautilusMain": "581258aa506798dca3909bfd41ec39d3ee23b550",
+    "nautilusIntegration": "12ad8c9b1c96637cd05c8e344692063bfde385f3",
+    "nautilusWeekly": "38f63ca4ae70846e2e75177895d4d8bea0f22303"
+  },
+  "candidates": [
+    {
+      "id": "FC-fb6e20a-library-furniture",
+      "repo": "farmyard",
+      "commit": "fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b",
+      "status": "Published worker/review candidate; not on observed main",
+      "files": [
+        {
+          "path": "docs/art/library/README.md",
+          "blob": "ae62f0e164562caa580c8a4c9962806d068437b8",
+          "bytes": 9530,
+          "sha256": "3af6571205ca1020ecb8f8de0d3210ef8581ce57f732d765c90a401c650f6045"
+        },
+        {
+          "path": "docs/art/library/review.json",
+          "blob": "1509ed415beb3dd2d6f140da71f17ace55bcbdac",
+          "bytes": 9555,
+          "sha256": "936ba8a9a1eb04f7a67426bbd32b377748c13f267049d9576b87f5f3577436d8"
+        },
+        {
+          "path": "docs/art/library/fulltile-comparison.jpg",
+          "blob": "c6bf3d42e364911ce4cba8d0dd6979083cd3473c",
+          "bytes": 77954,
+          "sha256": "15b3d4e7c0ef0b9342706d72cda59f0e00871e8df36e57fed08a3b85d8c3fbe2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/library/catalog.js",
+          "blob": "18bd2ac398a31a7fa122e61b92c83ab5141e870a",
+          "bytes": 5056,
+          "sha256": "13d93f27a83998efab8976bfa6df1f75e0ec68bba3b652a089f7b63f74951133"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/library/catalog.json",
+          "blob": "1888390f57ec9400df948efa88a1ea0afe85b01b",
+          "bytes": 90033,
+          "sha256": "e8bd14d8045506b0b45462e14037c11aab83af27bb9b058467680ce6234cbbea"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/library/furniture.js",
+          "blob": "da455e1f085645821f12286f3a6b36b5c5ef7667",
+          "bytes": 12925,
+          "sha256": "4282617463c526bee92e53946d5f6a0c1e3db504f228e112320781ee7098e3ab"
+        },
+        {
+          "path": "sites/tactical-animal/dist/art/library/book-spines.svg",
+          "blob": "12c572bcafed7531f7c4b6b45a25f51a093cda08",
+          "bytes": 134691,
+          "sha256": "29800c9984ac7b5baed29ec55e8e29834e3bfcaf1d743e2b4fd725963a153d53"
+        },
+        {
+          "path": "sites/tactical-animal/tests/library-furniture.test.mjs",
+          "blob": "2434e47c62e17a1d7a3d32940a71be5c3e6dcd5d",
+          "bytes": 12398,
+          "sha256": "9a0ce430ffbae50c14af063f4a9f97bc1f880d3ce411b635ecccfaf4675699ae"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/painted-environment-scene.js",
+          "blob": "782791a60b881cb022a4eb686d7e5ebfcdb39418",
+          "bytes": 9295,
+          "sha256": "e6cbaaed9459df43bbfa19b2043cd87ab9affb96f60df9d0697a61009d2a9077"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/painted-furniture.js",
+          "blob": "b70c17e293b6d137c367d929fe3d8e6f23b449f7",
+          "bytes": 27565,
+          "sha256": "6a6f61707cccdb666f8b1f040563d98bd0923100522080406f62e121a1bf26af"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/assets/environment/painted-study/material-atlas-v2.png",
+          "blob": "e6279ee072b2cfc65080cfce586bac8e9f2f487d",
+          "bytes": 2197106,
+          "sha256": "4b0c64828a25507a07e26f48fa83bc805908e03f29ed297e83d002e9b2e25e05"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/assets/environment/painted-study/cargo-materials-v1.png",
+          "blob": "b48f9b104ffd478fb0472937b406dc21117c7f57",
+          "bytes": 2276796,
+          "sha256": "032e09c8fa111f2e05f4b54acca5b46b97588241e234573e68117dbaba95db8e"
+        }
+      ],
+      "summary": {
+        "variants": 96,
+        "forms": 8,
+        "skins": 6,
+        "contentsStates": 2,
+        "independentTests": 11,
+        "visualReview": "Committed software-preview comparison inspected; no new WebGL/performance review."
+      },
+      "declaredHashChecks": {
+        "records": 5,
+        "uniquePaths": 5,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "TB-b61fa09-hopkins-houses",
+      "repo": "tinderbox",
+      "commit": "b61fa093e3491fb2f109f1f4b0ca5591d2637cc9",
+      "status": "Published artist candidate; not on observed master",
+      "files": [
+        {
+          "path": "assets/art/hopkins-housing-v1/manifest.json",
+          "blob": "93bb6ef915d5e473752a0a4d70cfc20837baeab3",
+          "bytes": 14634,
+          "sha256": "4d226d28f9a5234a107ee0b4c4332fc6c88c1a1db4f1cfd8574f060b6d4772ae"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/houses.json",
+          "blob": "77bb246e050a55ad1c91a59b234622ab77102652",
+          "bytes": 135608,
+          "sha256": "1b3dc8520dc47e07167964a7e6201ac7aa01c21c3038a132de3af25f75d63ad9"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/manifest.json",
+          "blob": "e497c8a04757764e11e38d5e95751b77e2f474d2",
+          "bytes": 14813,
+          "sha256": "23ad26270997714865d3e8808dfeedc23176670d126955aaeba1845d458c416a"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/houses.json",
+          "blob": "6914992f02bed8ab90de9d3e47efe2c9cd1ef88f",
+          "bytes": 260316,
+          "sha256": "f77c838cb03d023f266fe9c28cb24f99861f37153a6fcc5fe4fdb939a52bfee4"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/manifest.json",
+          "blob": "0631949ea8cd47494a5759a9cb43e3b8f241d878",
+          "bytes": 13069,
+          "sha256": "d4f9ff4eae00e12c182843d81d6c8574839e40af7bbd980a594f33e12bdc62f3"
+        },
+        {
+          "path": "docs/art/hopkins-housing-v1/README.md",
+          "blob": "8ffc94a87bb3f4500d247d63933c8b917eea5496",
+          "bytes": 9503,
+          "sha256": "05bfc35e336f07eb0496ecd43c46787849a75b1f75006e71eeeb51341989b841"
+        },
+        {
+          "path": "docs/art/hopkins-housing-v2/README.md",
+          "blob": "03186faf6ebeb6e90c7c633e605c6ad4ecf39fc1",
+          "bytes": 9199,
+          "sha256": "19d30202479d6799b05b94759215e43e4f02d6bcf1224c1838110d98f2e6da9c"
+        },
+        {
+          "path": "docs/art/hopkins-housing-v2/geometry-review.json",
+          "blob": "b34e72441dd42b4d0b20adc7147087928f90dc73",
+          "bytes": 670,
+          "sha256": "e21e2c4a07002961f0463bff8f18100633f66ffbc35edad5770fbfc6fc35d9c8"
+        },
+        {
+          "path": "docs/art/hopkins-housing-v2/package-review.json",
+          "blob": "c8fad5d0d9b08b7169697886ae83077b6e910486",
+          "bytes": 803,
+          "sha256": "9d308a9289cd868ca9be52cc2034419a18debfd2117c16e4d0537f091c6adff8"
+        },
+        {
+          "path": "docs/art/hopkins-housing-v2/previews/selected.jpg",
+          "blob": "ddcc9bad7e40db14a9f0b910e5071ec0bf5c1cda",
+          "bytes": 552920,
+          "sha256": "c589820e8465b56248b97099c074acd23845cc8913c8ec5cb9a3222fe4e06b21"
+        },
+        {
+          "path": "art/source/hopkins-housing-v2/sources.json",
+          "blob": "6253c8ce3305c7147d89f98366eaee2e1d46aeec",
+          "bytes": 28557,
+          "sha256": "a8583cc6e98aa975047698281020d32a9cbde1fcceda9d5331a81453601680d4"
+        },
+        {
+          "path": "src/art/gross-housing.js",
+          "blob": "b1b4233fa9024d64fa5014426c8019a7b8a4c9a5",
+          "bytes": 28109,
+          "sha256": "6192c6e968ad468474f4ae14397ee9ca519b3a094e3da8e0fca917588b31760f"
+        },
+        {
+          "path": "src/art/hopkins-housing.js",
+          "blob": "7d8db00c19df054a8ec758174c832743b62777b2",
+          "bytes": 8523,
+          "sha256": "6678cf4c5eeeb97bd2b5d6b47ebdeae6ad62682607b76b76e79731348c499d70"
+        },
+        {
+          "path": "src/art/hopkins-neighborhood.js",
+          "blob": "5a5baf00b68aaa1f62cb78fc5a78fdde6a094c9f",
+          "bytes": 8078,
+          "sha256": "baedc8a611fd0458e570875b941de08c0c08daa97ed170b7e33c46cdef38ad00"
+        },
+        {
+          "path": "src/art/pattern-roofs.js",
+          "blob": "8ef986dd64a8d0340816a13952fa6eee5709fc6c",
+          "bytes": 7324,
+          "sha256": "b52bb388bab4b47eb9caa7a85336c00a1fc0233b37f89fb63890786097771985"
+        },
+        {
+          "path": "src/art/gambrel-roof.js",
+          "blob": "a5e6c79361a5ef315e6aec83c50a72a9c87b2c06",
+          "bytes": 6452,
+          "sha256": "1f215cf7edc7eefb4a0006a5081875bc591fb81ddabe981457524cde675aa0b6"
+        },
+        {
+          "path": "src/art/nautilus-windows.js",
+          "blob": "f8ddb71be06d8bb476d21770087f3d40b5f15990",
+          "bytes": 3176,
+          "sha256": "dd3847f1ba552e11b96d9ce164cefc531dfb8807d049841ae890efc21ea080c8"
+        },
+        {
+          "path": "src/art/resources.js",
+          "blob": "d4617db5134d2c6f3d76ff769a1e81652ab9b78f",
+          "bytes": 1291,
+          "sha256": "97addbe3bb9f9f1f2da0f94c8e1160aa7f1fb6161c6ac8e0e1ebfd4f335927f1"
+        },
+        {
+          "path": "workbenches/art/check-hopkins-neighborhood.mjs",
+          "blob": "b061f8e18f1b175aebcfcb8bffd145eefa904cc0",
+          "bytes": 8998,
+          "sha256": "e03ca08db87f78b4384634f3d5cce996c4ba815a71fe1489e918e1cea82099cb"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-09.json",
+          "blob": "a3deddbcadc49131cd34d05632f41f95552c80fb",
+          "bytes": 41091,
+          "sha256": "7c665c60b08bfdc7a5faa86aaff6125fd169b0e70994f785f0388c6db48aa3a4"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-10.json",
+          "blob": "60d450b0e315e6934d180ce7799b1e6197063b99",
+          "bytes": 49103,
+          "sha256": "479c62d7ca617d754f17c71c5d550bcdbbc94cfacd44214b26a44e0e11424410"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-11.json",
+          "blob": "95511dcf683a9353788d6bbbaa522b1ce6686efe",
+          "bytes": 46762,
+          "sha256": "2fcd5cd9375e0c06c4d36d67fb9b0ec253fb029e984356284d498dc82cf5936a"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-12.json",
+          "blob": "9200a4a2afe63537a8e8fdea2d4ddb4c27260832",
+          "bytes": 33933,
+          "sha256": "26d2e05fcaacf051280bb82f1e19c621aa696c3e148d1d1dc832691b2d7f8d89"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-13.json",
+          "blob": "55995e8732935e961cf4d64be54910a2789df2f9",
+          "bytes": 38171,
+          "sha256": "57be6795e061a21d3ca71c0c4ca938bc863b93f5843df72103ea7d8cbc58b5e7"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-14.json",
+          "blob": "b5536f21c613455372ae636b587761067c8db35a",
+          "bytes": 40970,
+          "sha256": "6ba8bb7109bd8005a5789a0c3b6b6b82b2174c77b455e186422c5f656cca6f8e"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-15.json",
+          "blob": "60109788fa50f5e4541e42c3b76102b16dab7a48",
+          "bytes": 50257,
+          "sha256": "b3cf2b1c40b1f12c0669201107c85c48adc46b466fcc5a0afb774d1614951bdd"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-16.json",
+          "blob": "74109de4ac18d02456d07b8de88a6426877ffa6b",
+          "bytes": 40230,
+          "sha256": "7a5aa4e574615e9428fc6e7ded1fdaa18d348bda957709734a6dc11748dbb3c3"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-17.json",
+          "blob": "fa1e8cb3287d0b55404631165ce15c32d6c3ad5e",
+          "bytes": 32530,
+          "sha256": "7385ae3510021b99516b3c899f8da8948805b9117f9b661d5c90b9addbf11e0f"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-18.json",
+          "blob": "f3b558c793e28e55d10d9b793a33a5f5b7be8591",
+          "bytes": 34582,
+          "sha256": "575124e6bd9072c765d747788c9d67e371e995b8d1a085171c669060ad2de0ca"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-19.json",
+          "blob": "16c7b1b78933a1daf0e877fc102378f5b5260cae",
+          "bytes": 47441,
+          "sha256": "7c07db94a3a00e2b14e6d7a8a817d4a1f9759aaf4ac7859227dc95247bad9a68"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/nautilus-traces/hopkins-4-20.json",
+          "blob": "4985d66eb3d05b22e5ecbdc1029ac22dfcc062bb",
+          "bytes": 44198,
+          "sha256": "c820066177ddf52a0d7dc5040fb69b453f43f22bd084788be968b6bad0010b64"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-09.json",
+          "blob": "19a9ae2d78dbf765ad01ed81be250db7777d1218",
+          "bytes": 8940,
+          "sha256": "5a13314808ba21d6cf26fa29973a448740a331363821196901b4069c2c00de1d"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-10.json",
+          "blob": "2858a35075f776cf4f64d71550e826c365127d25",
+          "bytes": 9676,
+          "sha256": "7ed1e21ba30ebc7dcef9b2ed7f98ee3c4987843b0406b9ba83f32dd47bf6ce14"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-11.json",
+          "blob": "9b51b2f4a6fc2123d4e283fa4f38ca8311266899",
+          "bytes": 11005,
+          "sha256": "ee1addccb604fa563547bab9821c85ee7a80fcbbe3ab684d74c178181f9e6b4a"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-12.json",
+          "blob": "415f0598fdd6bbd7aacdcd897fbb50c1a68c2a85",
+          "bytes": 8274,
+          "sha256": "a467f2cc2342f59dd69de125a04a9c7f161b054974c38f0d2cac819eee31f179"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-13.json",
+          "blob": "cbe1776b1870083d079c213db5dcb7aefaa5273b",
+          "bytes": 9215,
+          "sha256": "669f3db2dcac4818d94914905f7efd0af7688bbd0caa2f2d8f55cd50db7c18d2"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-14.json",
+          "blob": "92ddf990cef7eb3afab3fd891322b7e4fa216fea",
+          "bytes": 7817,
+          "sha256": "47d3a09278d43f57c379837582775eaddc71c6771cfe7d00913443e09478f355"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-15.json",
+          "blob": "dd56877f712a136583218ced843960213eaaa237",
+          "bytes": 12037,
+          "sha256": "7018c9b10036a9dda6c5c5330ed9e09f042c8374edf0f9a434fb60c55238aec2"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-16.json",
+          "blob": "b558fe621d05fbbcf4252fbd8b073325b91d7948",
+          "bytes": 8762,
+          "sha256": "b7fe65b71d1c105e5acd7ec6c03a7688ea83ed864e46d8a2c68c879e39b3d2e8"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-17.json",
+          "blob": "5fd0fd226fd27aa7eb583f5ab4c4d1e9885be689",
+          "bytes": 8097,
+          "sha256": "8cdc04f84b7c91cf766b83fae78718c3a1fa54998f14c4d13567c6fd6d53c6fd"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-18.json",
+          "blob": "3e21dbf0696758a361771766e445916cc49d7ffe",
+          "bytes": 7848,
+          "sha256": "85c34fe7a87c89f98422e671d04a45637339aecb1ee612d728a7ce0e9413c3c9"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-19.json",
+          "blob": "ec41ae463f1258982092e54ea3b2aa34bae303c4",
+          "bytes": 10109,
+          "sha256": "9f06f09e7fdc7abbbfc633577991b7ffa84a087b0f203c3399aee11474ef15a6"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v1/prefabs/hopkins-4-20.json",
+          "blob": "a8b8ccac2a3958ab7987c1b5699416b70bc69fb6",
+          "bytes": 8796,
+          "sha256": "014a95dd37383151e77c4a45c3fd9313599f8b460c6465797460be160f054850"
+        },
+        {
+          "path": "src/content/asset-scale.js",
+          "blob": "68309d3636a98443bd1e4eeb13f9a57121fc6a4b",
+          "bytes": 1066,
+          "sha256": "6c8773c1317b6b6e0adead577cd819e21ce1ae93b0f20eed2ae0af5bffb3d0ea"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/window-kit/index.js",
+          "blob": "b58ee28ef7239f7b7792bfa94bf4ba11faedc061",
+          "bytes": 6173,
+          "sha256": "762a31f19bcb59df01d6e39f84a7df8b304d41f796bbf0a957928bbf55d29562"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/window-kit/three.js",
+          "blob": "797d53719513cf5a180a1fd0d02bcce7eb34fbcd",
+          "bytes": 5433,
+          "sha256": "76020f340a25eb10acf7de9cd75fd35b099b12438fb457a8c016e6d98bd51f00"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+          "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+          "bytes": 8795,
+          "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-materials.js",
+          "blob": "1f61ddd7014422a319bb9d43f28f0c1330c4fb01",
+          "bytes": 4647,
+          "sha256": "2a2ad40e16533b4c30b639e907b9e5c8d967557cb65aa6f05c0c640d4bde0297"
+        },
+        {
+          "path": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+          "blob": "f6ff6f372d260106ca757c91928404075ad39080",
+          "bytes": 1150,
+          "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/clapboard-ivory-v1.png",
+          "blob": "0fce6d938533c97b13667e99e9093d8f76c2da2a",
+          "bytes": 2144158,
+          "sha256": "d5a3ee4fdd75dc82aa3c06b52568fcea70caaa89da0e52f152829230f166e654"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/cedar-shingles-v1.png",
+          "blob": "aeaf1b597a6568f5f15e6da97f91be37fc5b7f14",
+          "bytes": 2250650,
+          "sha256": "cce3ad634daae358ef319843cc87eee6d0b6df3a58b7cd67d43aae8b624df97c"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/floorboards-oak-v1.png",
+          "blob": "43572c9ec4fa285675a47266d8ce813bda2098b0",
+          "bytes": 2663881,
+          "sha256": "9c089b06713a7d252def2d0a383b9419e45f36615eea8c73f633a6aeff1dd464"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/wallpaper-botanical-v1.png",
+          "blob": "148af6a6a88fe2f6bc6190f326d5dd07c2c2e976",
+          "bytes": 3267103,
+          "sha256": "6a953461e4886eaa5b8bf3aefce60ab6f964209d875d91be0f3846c221f2da60"
+        },
+        {
+          "path": "assets/art/exposition-skins-v1/brick-sienna-v1.png",
+          "blob": "2971000dc2fd0be7da7a5108bf5dbd63e090041e",
+          "bytes": 2388078,
+          "sha256": "17066064a1d9dcf8b128615bba1f1472c0921801e440d619d99b49e8e5962853"
+        },
+        {
+          "path": "assets/art/exposition-skins-v1/roof-slate-v1.png",
+          "blob": "504ef929ee4ebd647ad947e28e4b3b784ff78b40",
+          "bytes": 2333888,
+          "sha256": "04fd7476c41c5d290350aba957db2a6d9234d38b9634c55a834b5afe4e64c25d"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-21.json",
+          "blob": "c2217ab170c5e3802ff9f6757984b0c8ead411ea",
+          "bytes": 64006,
+          "sha256": "59b6e5b77f2b5a335034098a3f8847e419f59a96d67cf94e9838b5b2d0e9db52"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-22.json",
+          "blob": "c9ae2d5619cba1c9f81754681b4a821758a3c01b",
+          "bytes": 50248,
+          "sha256": "15d21633777a22a2920b76b918b50ba95dc36be829ed0317115c57644ec69961"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-23.json",
+          "blob": "08d838e298cc15e030b028e71b67fd2bb1e83bbc",
+          "bytes": 62101,
+          "sha256": "edfe16252d3242f4798ac6e6843d4b9acac58aa71323516bf3bb25a709da0546"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-24.json",
+          "blob": "b4c2e65e1058dead33d7660b4b06a1ef43b40399",
+          "bytes": 59246,
+          "sha256": "e854b55a65fad2dcae9055cb0afe52b3b326130ce65f8c3c443c80eb9be00694"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-25.json",
+          "blob": "8c24a63f8d7784517487e037f9ce4659239e84cb",
+          "bytes": 59757,
+          "sha256": "a0aa44d53494293711ed1a0d6665b02aa89574c9fe79ccc1e9afdec8d6f839dc"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-26.json",
+          "blob": "1ab06d519737e49b223238ba1f9d00e110aa92fa",
+          "bytes": 45857,
+          "sha256": "e91a155c072d93b61f6805c2e963a92f7f2718d2937db18243102b48d7eb7033"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-27.json",
+          "blob": "8598997b93a64d64d5a1cff06b13c3522caea9e7",
+          "bytes": 66924,
+          "sha256": "21902d03590c3e22824fee62731992e42dd8a41b57da5fafa535fc6431d0904b"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-28.json",
+          "blob": "55333f8fb3320031b2321b275fd07e2401b88c32",
+          "bytes": 56732,
+          "sha256": "46c8cef3b07ba29e73ddd7755795b8681f59639eb8477992229f97bd5dcfe5fb"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-29.json",
+          "blob": "56596e081cd653ca294ce1f99fd41942f09a1799",
+          "bytes": 55609,
+          "sha256": "5b8b9a366154981313bcfa6eb47a1b364351c5e83e0b99af5d8b2b01135f6d81"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-30.json",
+          "blob": "21a121daa1b7bf6df11ae1c7c104310f00a261db",
+          "bytes": 70164,
+          "sha256": "c9bf193e6452f0ede6f04d6f97cc260459a6e224c65af9c3e76c67de05f23b36"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-31.json",
+          "blob": "5a30c323153c05fb2fe1779097fa31d91e0359e5",
+          "bytes": 67322,
+          "sha256": "f48bb761bae1309f651933d80a2a57dd44bb4be8fb7837692f0b2aaed2dc48e3"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-32.json",
+          "blob": "47a90d33b6a91d6f4cf09b4b48d0847e20b21e83",
+          "bytes": 69889,
+          "sha256": "8a0c6d1244dc1a468342ae380f926dfd401124bed8d44135613046eb446f3f64"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-33.json",
+          "blob": "997c3b6e025b5087a074cf2f2102efd5797ec6b3",
+          "bytes": 63184,
+          "sha256": "e5743312ebba5a8504be0cf53416b458a0807b795e780a931b548bc97d8f70b1"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-34.json",
+          "blob": "bb2b696ac90506c8f73abfaed085dc56e8552e5b",
+          "bytes": 45503,
+          "sha256": "9d6ff9b948f0d9bef00aae44a7fa74d76ef226a410b6cd8246d6389887950e6c"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/nautilus-traces/hopkins-4-35.json",
+          "blob": "a414df75a94eac832b12e53126cf02ba5009de45",
+          "bytes": 57012,
+          "sha256": "6cfcede8bc194c2058a4820e4eb3dbdcfac89fd478f959eeed7ce6e5a5fd265b"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-21.json",
+          "blob": "1fa3aada2e4a6eb62ce041df4ceeb1b4bcb4fb43",
+          "bytes": 14957,
+          "sha256": "47e2af4c9616e7b7cfa69962ebebd6212ad457cf4e5b37dd1b4647b654e9e8ab"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-22.json",
+          "blob": "10251c8d940877e943501ebcdcd3e6d63501944d",
+          "bytes": 12443,
+          "sha256": "c5a9b13dc6055803bafa205905136c93b8174560a8f7ebf742b1d8af3524d660"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-23.json",
+          "blob": "85fdfceb608e85aaaa9872e6de51a103eb83d3b5",
+          "bytes": 14718,
+          "sha256": "adef090d27d8d95f09cd3fca28257d528af63e5b2e34c2bb704a717d11036073"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-24.json",
+          "blob": "313bd16b87979f8ed2cc047f4486b3d81cd3b338",
+          "bytes": 12474,
+          "sha256": "6fdbb70e14bb3fd0cc2726e71f38c726329f59608fb639fc1375f43c3ca74d5c"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-25.json",
+          "blob": "41aed39711d8afe45c320920251e7007ecdedb93",
+          "bytes": 15668,
+          "sha256": "63843e610e61a2538a657575af7451fe7a53bd4ff45f8d6a1248a38cdb3d6550"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-26.json",
+          "blob": "840b3d554595dc9ea5988cf06227b098c8a534c4",
+          "bytes": 12325,
+          "sha256": "dc060e0b81d7022d1bb193ebc80c92fefb398a89752570c564cd1e5963fe2df4"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-27.json",
+          "blob": "a845c3a57fa4ad8fb16c6d2dfd6fefe6c28250c0",
+          "bytes": 16123,
+          "sha256": "b72fe37b86355070caf8c440820959f014afab958fb7d527d48b87e53ad8bdde"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-28.json",
+          "blob": "7b7affc42a38c5371355695e5bf54272525689e6",
+          "bytes": 13303,
+          "sha256": "99f6b1efa541121415f8b29db55c99ddbc0aedb3e8b443c064ba7068680c1cad"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-29.json",
+          "blob": "1ec51c2f17a21ba5ebdefd5846513839b571b366",
+          "bytes": 14205,
+          "sha256": "97e83b3bd0e42a52cddd00162f4c4e18f7fcb78e521fd74d0ad2551c8e76f8d9"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-30.json",
+          "blob": "ef882b95d847178474b6ec2c1fa230de9e2b850d",
+          "bytes": 17312,
+          "sha256": "2aa705cb386cdd3a4e90776a89d385a7c0211e0a768be1cb808c7b5c77552b22"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-31.json",
+          "blob": "1c3c915e6e537f520946d1079c90cf01d5d304e6",
+          "bytes": 14928,
+          "sha256": "8a710c1eddfd8dea1f3243d38c11b6da9da36d7fe917a237c693e660ca369bcd"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-32.json",
+          "blob": "4ed30238bc1bf3f92d9a24e4246d59d9d82153a5",
+          "bytes": 15000,
+          "sha256": "a724c1af2bcc92fd8277278aa11179e9578f3a2a44177a81254c2b6fcd702060"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-33.json",
+          "blob": "62dd93e33aa54b131b539bf8940d9f7f952df8e6",
+          "bytes": 14673,
+          "sha256": "a577cf525de7901c70f4688593c200b5d0756883d8e8c985e239cb75674c657f"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-34.json",
+          "blob": "1e211ff7334f7484680254bc0ad223ed04d2e109",
+          "bytes": 12058,
+          "sha256": "9d4329f0b426d115b00b997fc26f059db02ec06d6a11640e3f80cb6d4fffceaf"
+        },
+        {
+          "path": "assets/art/hopkins-housing-v2/prefabs/hopkins-4-35.json",
+          "blob": "61ffd2e62a1e2a4d1cab21a97871e8b5fa85996b",
+          "bytes": 15358,
+          "sha256": "30f455e020ff82cccbc39f4fa271497d324f00a670f2671406317a4c98e43b1e"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/houses.json",
+          "blob": "46efd5df6a1f0d5699e4daf7c80c570d8bd5282d",
+          "bytes": 124421,
+          "sha256": "dbdfbee6d218a8f3f343f6c9305155a88e60f7728bd28e522011e928e80f709c"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/albany-cottage.json",
+          "blob": "a8cef76ea20e8deb8660d26c41ef9eab838b7807",
+          "bytes": 50088,
+          "sha256": "2144ff47d9a6ab2070fd46b7eb272b6dc3c46a2523778282b7d3d89871662de0"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/archer-worker.json",
+          "blob": "c7440cf8e6c556cb9041214c3b188c3ab61926b5",
+          "bytes": 29349,
+          "sha256": "275d04ca8ea7cbe6bee328e4a9bd0b3db9862eacf54f1706d3a2823e263d771c"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/ashland-worker.json",
+          "blob": "c33196a702bad56be6016b5f9c4528f9cd025ad1",
+          "bytes": 32045,
+          "sha256": "269ae7437a29ac31f292cb160bd727a028f4fd4cdf7b248522b9535dc38a7e64"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/brookdale-villa.json",
+          "blob": "1651b564e361e6a30391a62dec8cef96e16df7d8",
+          "bytes": 80088,
+          "sha256": "c9d02c5ee2e736df3f4c8dfd44c1d11ebafbf260e42d027894cd45b31beb1afd"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/calumet-heights.json",
+          "blob": "41a957dbcac7133521209979a9b60d812233734c",
+          "bytes": 64539,
+          "sha256": "419c4c10b77dbfdcc7bd04a42283690ccbd3afdae8a477a6abca132d62a78c77"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/dauphin-park.json",
+          "blob": "93d668cbdeea1833be5cd5b744e3d6efe4e0612e",
+          "bytes": 57652,
+          "sha256": "f51918db3a4cbac4c2d60898d2a1e642ca28c7cd3aeb4ddb5938c2fed2f60fae"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/grossdale-balcony.json",
+          "blob": "8fc5bd295073a728e0ea983d080ae75a14cd6a97",
+          "bytes": 68127,
+          "sha256": "0da8fed85e26eaff1cd05cc8f78572ed9d7be31c0181f49121e32b1e3efa6799"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/grossdale-cross-gable.json",
+          "blob": "02a063766ff1814642a7b712feb0c8adb2876f1a",
+          "bytes": 56324,
+          "sha256": "1015c7b2be8a9519a98cb6dfffbf010af511dc863a4442ecf259cb50158ff2f0"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/grossdale-hip.json",
+          "blob": "b79df76df960dfa6bac0fc7a9aa0924e87a038b8",
+          "bytes": 57529,
+          "sha256": "b7c1ccea6eb2d61e87666b8d54ad85277537947c8421131032689087c5097977"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/grossdale-octagon.json",
+          "blob": "e7bd9eae7953889df90e81171211ffe480b8f8f2",
+          "bytes": 67660,
+          "sha256": "fc816f8954e980be7b66157a1ac1d16177278b8fc455bd82b15da40e0b0e5fc8"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/grossdale-spire.json",
+          "blob": "989f8794c5d70c52f1a7ac342d426afb4de1cd76",
+          "bytes": 63259,
+          "sha256": "b3d207f4378a381d260bd531e031a14938536cc5bd40d1ec1c8a916606a676de"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/humboldt-cottage.json",
+          "blob": "f293282cd0cea8ff2fbe146a00d17bb4806eff08",
+          "bytes": 48748,
+          "sha256": "e3e19be342207866894fb275111b66fd6a3b81b55f040cf97df8e101151e10c8"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/nautilus-traces/monroe-row.json",
+          "blob": "ec3c841dc1e2afe4e89cf6f0bf23569170c14963",
+          "bytes": 70350,
+          "sha256": "39a587fe7bcd3880bb50e954cc4eb94e189415107e736c4e763a27b94bc137ba"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/albany-cottage.json",
+          "blob": "e258aeea95e1b0b1970e4ac93e33e85ffe7432e0",
+          "bytes": 6926,
+          "sha256": "0c9d53b23d7a792769c6465e844c85b85fdedfd2b546afbe1b74bc9ad218af71"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/archer-worker.json",
+          "blob": "cd87a82a37dcecbb0c9097b77b06c44ffa6464a5",
+          "bytes": 5451,
+          "sha256": "e3e5379e69d26ba127757b2b4d1c414a11eb186960c31f820ae1f292de271d3a"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/ashland-worker.json",
+          "blob": "bc5f952020599226b68439e6741af758f950c6b3",
+          "bytes": 5797,
+          "sha256": "d469617a34aca63e11cf782ce2c2f8614741a82fdf79a558cd018230148de9a3"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/brookdale-villa.json",
+          "blob": "f5d7e0a0e00ddf0773f48e54ddb2a66436d5a6b6",
+          "bytes": 8797,
+          "sha256": "6c1228daa43597e7f2a4f4125a33f03d4ba4b733177e8740b45d41eb76a3fb61"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/calumet-heights.json",
+          "blob": "326d63df9a2cfa415d1d93a9bf14304127e99c2f",
+          "bytes": 7669,
+          "sha256": "6cd04bc0aa94328493204a607115cdd1f526ef57ab1b94cc4ad232455bd516dc"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/dauphin-park.json",
+          "blob": "3817e105b8b4a536587141921ada55fdb493f6d1",
+          "bytes": 8630,
+          "sha256": "8a32e1ec77b242d7e3cb2e183aa4b34c5bd21b2c04893bbc4cc23c964b0b390b"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/grossdale-balcony.json",
+          "blob": "28c6deaf150e9cf6063a996b919c46178f38e373",
+          "bytes": 9513,
+          "sha256": "523f4e0ab67179bff721f4e89869521263730da1123cd69b3feaf9feb8d2e2ff"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/grossdale-cross-gable.json",
+          "blob": "c2ed1a31971142c1d668826f50938cd740c42c02",
+          "bytes": 7675,
+          "sha256": "d3930a5619b3d0f69b4fc3ac088cd41f330f5c944ebe2a4f923ec8ee47a4da99"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/grossdale-hip.json",
+          "blob": "443b66934a2534c4145089962a4171ad34751318",
+          "bytes": 8037,
+          "sha256": "686d6c0269fe2aa39a99e61ce88fa5f618ab4fa0b3b87dcd0ba58652b0410033"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/grossdale-octagon.json",
+          "blob": "b1f29ef35994c7c055dfa32127f00622da85df04",
+          "bytes": 9587,
+          "sha256": "9aecfbe4a2a09d489402f4c2b272cd2b9ed84967fa140311b4dd0b01da147718"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/grossdale-spire.json",
+          "blob": "0b8714e8ed6b1bd0f570205b8d67ee44df68cba1",
+          "bytes": 8718,
+          "sha256": "862d1343bbde82931fd2eb22af3043a14f7fa5dd1e195d5f0c7b3509e0047b52"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/humboldt-cottage.json",
+          "blob": "77cebf77c8b4d95e5c268b1920b8802b99a304ac",
+          "bytes": 6789,
+          "sha256": "21fa59a98a2856cbffa0a30c94c8140964e5a6dc1f5d13dec415e45a121b70a8"
+        },
+        {
+          "path": "assets/art/gross-housing-v1/prefabs/monroe-row.json",
+          "blob": "e94e6e89b52b556a18ed76b38bfa9cc7a1423bb8",
+          "bytes": 7884,
+          "sha256": "872e2d8ba8869031edd2f60715db6c801021d2ef5a724fda4a9515357c49392c"
+        }
+      ],
+      "summary": {
+        "firstSetHouses": 12,
+        "latestHouses": 15,
+        "newHopkinsTotal": 27,
+        "grossAlreadyKnown": 13,
+        "totalDonorHouses": 40,
+        "latestSourceOwnerReview": {
+          "passed": true,
+          "houses": 15,
+          "levels": 29,
+          "rooms": 181,
+          "centeredWindows": 146,
+          "wholeHouseApertureRays": 2628,
+          "diagonalWallSpans": 26,
+          "meshes": 22888,
+          "vertices": 1215187,
+          "nativeAttributeChecks": 1902,
+          "roofPanels": 1235,
+          "roofCoverageRays": 5748,
+          "roofEaveUnderlaps": 159,
+          "physicalUVEdges": 50589,
+          "verticalSidingTriangles": 18557,
+          "sourcePages": 26,
+          "nativeScale": true,
+          "sourceFactsSeparateFromAdaptation": true,
+          "roofHolesAndBuriedFaces": false,
+          "verticalGables": "horizontal clapboard",
+          "roofCovering": "unchanged cedar texture",
+          "chimneysSeated": true,
+          "cutawayAndDisposal": true,
+          "traversal": "deferred"
+        },
+        "independentChecker": "Not rerun: focused checker writes donor review files. Manifest/Git-object hashes verified instead."
+      },
+      "declaredHashChecks": {
+        "records": 128,
+        "uniquePaths": 102,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "TB-b689f55-new-york-building",
+      "repo": "tinderbox",
+      "commit": "b689f5501ab06f54822f2aa724ac77de106e3b71",
+      "status": "Published artist candidate; two preserved editions; not on observed master",
+      "files": [
+        {
+          "path": "assets/art/exposition-new-york-tile/manifest.json",
+          "blob": "604362163d57da772dc620c5d0621083d3f40fb0",
+          "bytes": 6936,
+          "sha256": "99e6529c415c2ddaaf946b7109b4d7afcc0028a093890b3944633bfdcd5eb3db"
+        },
+        {
+          "path": "assets/art/exposition-new-york-tile/index.js",
+          "blob": "806daf1bcc41d661d1ddae2ef95e5620db15f028",
+          "bytes": 19786,
+          "sha256": "a9a04accd2d3fb38320d4e5f30fbb8f99e5c6bdc115d4de208ae2c239ec82eae"
+        },
+        {
+          "path": "assets/art/exposition-new-york-tile/plan.js",
+          "blob": "76fd982431503bb1ea99d904e64c24921b6a4578",
+          "bytes": 6048,
+          "sha256": "9ab69d9a4b029ca40c1d19d9c35324cc89fe45598fc51de25eeefcdea5138cbd"
+        },
+        {
+          "path": "assets/art/exposition-new-york-tile/metadata.json",
+          "blob": "4aff9d257b7045bec248b9b3b53e9074caa51144",
+          "bytes": 64413,
+          "sha256": "35be3d5b9638aa4df513e8aade12f4d1588da9b40e5bf58db80081445534d8ab"
+        },
+        {
+          "path": "assets/art/exposition-new-york/index.js",
+          "blob": "d81f980fc5fd30cccf81661d4f5a93b7bfe0d0e6",
+          "bytes": 24086,
+          "sha256": "b232d6b284e53ddd9fafefd739b7e86c6bcae8ce91ecf3101bccf821ac81c6c3"
+        },
+        {
+          "path": "assets/art/exposition-new-york/manifest.json",
+          "blob": "3529d451f73cc36c46d269a26fcf629ca9cfcce3",
+          "bytes": 6487,
+          "sha256": "d19dc1d39e62cbc9a599a01945e8e6bc21fc8b5ba61910302355cd57dd8dda2d"
+        },
+        {
+          "path": "assets/art/exposition-new-york/forms.js",
+          "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+          "bytes": 10542,
+          "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+        },
+        {
+          "path": "assets/art/exposition-new-york/native-contract.js",
+          "blob": "115fd760d97a076b53a2f28edba84b65bd4b3922",
+          "bytes": 349,
+          "sha256": "80ab2a77fddbfe2a311501cfb06bb689b9618a16004d96231f7dd346e84d12e4"
+        },
+        {
+          "path": "docs/art/exposition-new-york-tile/handoff.md",
+          "blob": "2425676013a2e187a0447ccfc57b6e11f53dc5f2",
+          "bytes": 9316,
+          "sha256": "d57202ed774c65f4daefb2ad8fb657d1470fa17fd8a20939b6cb5a94346fe4cd"
+        },
+        {
+          "path": "docs/art/exposition-new-york/handoff.md",
+          "blob": "51ece81ff36ccf9445f9ed723fd1e282168cbc2f",
+          "bytes": 8745,
+          "sha256": "7ac2aec2406eedf752a27cc978d12eeff30825e8a626e40dae3746b2942f843f"
+        },
+        {
+          "path": "docs/art/exposition-new-york/source-comparison.md",
+          "blob": "cde02004465c26b4a052c88a09ecf14de40ba208",
+          "bytes": 5672,
+          "sha256": "c34925d46cf84452f2c5a9bb8a248aadc7e47849f27b9a9216a689a2fca9478b"
+        },
+        {
+          "path": "docs/art/exposition-new-york-tile/check-results.json",
+          "blob": "8cc2e7a1e8f7de5088f996f76b1bee1c3d6a804b",
+          "bytes": 2108,
+          "sha256": "b54612cd4c1e8eed2d45ce0c645ad84a5bf02ba85da834781fa7645edd942778"
+        },
+        {
+          "path": "docs/art/exposition-new-york-tile/previews/front-isometric.jpg",
+          "blob": "ac7fd4f358371a970e0405da0f5b511eeffbc5aa",
+          "bytes": 881701,
+          "sha256": "380921050d2cbd124a137b2c5d38e7e114d506d99f48624c5edb6da36ede9f36"
+        },
+        {
+          "path": "docs/art/exposition-new-york-tile/previews/grid-audit.jpg",
+          "blob": "4b928b1c5e192d08fdf422dde8f1e508a1755f8a",
+          "bytes": 2292369,
+          "sha256": "3a6cfe6ca7fc2b721f7b8c5b12ee9269ee7a278d950d2fd13add08220d96fb24"
+        },
+        {
+          "path": "art/source/exposition-new-york/sources.json",
+          "blob": "5f82578af0081e45ed4146b36081fed64c00e9d6",
+          "bytes": 3765,
+          "sha256": "07e3820fc94515d59cac5f94ee4122c291599cda20a54bf11f32423fbeb66450"
+        },
+        {
+          "path": "workbenches/art/check-exposition-new-york-tile.mjs",
+          "blob": "2760c9bf846eecd97886b7f0bed99403bad034df",
+          "bytes": 15805,
+          "sha256": "ee29b1dc2d0e1105b7f8b7f8c921f2c00d5b6afd505e332da3c454dc517252e9"
+        },
+        {
+          "path": "src/content/asset-scale.js",
+          "blob": "68309d3636a98443bd1e4eeb13f9a57121fc6a4b",
+          "bytes": 1066,
+          "sha256": "6c8773c1317b6b6e0adead577cd819e21ce1ae93b0f20eed2ae0af5bffb3d0ea"
+        },
+        {
+          "path": "vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/tactics/hybrid-geometry.js",
+          "blob": "ef68bd514b42790e6aa328796139371f12153936",
+          "bytes": 1644,
+          "sha256": "3807e3d16e372ed4ee8fbae40f799d9ed3b8d14236cf102a2de556e0f5f18eed"
+        },
+        {
+          "path": "vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/ground-concrete.png",
+          "blob": "e34ed884fd07e5e10728bee71bed1954c8b1930f",
+          "bytes": 3308630,
+          "sha256": "a55fefded481abfce45866984caa9495884416f6273d65e6a95de1ff8e6598f1"
+        },
+        {
+          "path": "assets/art/exposition-skins-v1/roof-slate-v1.png",
+          "blob": "504ef929ee4ebd647ad947e28e4b3b784ff78b40",
+          "bytes": 2333888,
+          "sha256": "04fd7476c41c5d290350aba957db2a6d9234d38b9634c55a834b5afe4e64c25d"
+        }
+      ],
+      "summary": {
+        "independentCheck": "passed without --package; no server or donor writes",
+        "originalFilesPreserved": 41,
+        "wallRuns": 24,
+        "wallFragments": 1732,
+        "floorTiles": 6744,
+        "perimeterClosures": 1590,
+        "boundedVertices": 381587,
+        "ownedDisposalChecks": 541,
+        "triangles": 249708,
+        "instanceBatches": 207,
+        "maxFloorLevel": 15,
+        "visualReview": "Committed actual-model CPU render inspected; no fresh WebGL/performance review."
+      },
+      "declaredHashChecks": {
+        "records": 9,
+        "uniquePaths": 9,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "TB-f25fd7b-row-torch",
+      "repo": "tinderbox",
+      "commit": "f25fd7b28a9aee1d1abaef1ad65acd64d67a50e6",
+      "status": "Published artist candidate; sibling to Hopkins v2; not on observed master",
+      "files": [
+        {
+          "path": "docs/art/row-ignition/README.md",
+          "blob": "e8b07c6cd46a8aab5993cbe2c5bf7cff31b669e8",
+          "bytes": 8167,
+          "sha256": "97efd89835b57b97c5c523182ab3f71e834ce315c9b91288851a3c24f85f37b8"
+        },
+        {
+          "path": "docs/art/row-ignition/checks.json",
+          "blob": "6f33ea7f19e6a17db685ebe9c07bef7a6cef6ec8",
+          "bytes": 1049,
+          "sha256": "93b486ab17ee183c6173b364535b48d57eb56d8c80d802971aa306939e2fc07e"
+        },
+        {
+          "path": "docs/art/row-ignition/package-review.json",
+          "blob": "8064d2a6a7764c977a17e6242957b214d647df50",
+          "bytes": 594,
+          "sha256": "ebf172d9e5d35bcfb07053706c8d55c9723f5d1abd21d1d306296a55fa56b1ba"
+        },
+        {
+          "path": "assets/art/row-ignition.json",
+          "blob": "880964395186f321447dc53f7c0ea07bfc382d46",
+          "bytes": 24611,
+          "sha256": "170e76df5285f88c2f5508ca574971750781e5e0aa7e8c6617cc994112eee059"
+        },
+        {
+          "path": "src/art/row-house.js",
+          "blob": "0ada65279486385581b3c32b1936b1eab817dd7b",
+          "bytes": 9899,
+          "sha256": "e694865d026cef47b6a3e89e75c3ccfc0928b7f156253b1e813be9ab0e9c9373"
+        },
+        {
+          "path": "src/art/carried-torch.js",
+          "blob": "722713a55b53ee8a72aea7c753cdb4468cd2c2b0",
+          "bytes": 2729,
+          "sha256": "52635a65d5355fe05be7b4fd460d1cfa388ce5715a62d3b0bca1d84c96a608f6"
+        },
+        {
+          "path": "src/art/fire.js",
+          "blob": "52f399666c7aa7ff71f532e3d625232b408c622f",
+          "bytes": 8987,
+          "sha256": "17fb8a16845201b50e6412474c850686e73abcab5a860ca57dbc0589c7f9b6f9"
+        },
+        {
+          "path": "src/art/index.js",
+          "blob": "b3b74864f7173f55b869be993209fc4ba36f1819",
+          "bytes": 8924,
+          "sha256": "883dcae2229a952c236f164ca153b2dcff7cc421104099835fc1f53df7b2c5eb"
+        },
+        {
+          "path": "src/art/neighborhood.js",
+          "blob": "6b8f947c964911c888375e7b8e15b36539ad8542",
+          "bytes": 7066,
+          "sha256": "9654ba746c4aa19c6b569b1664f19d636a5a3218a4c9b732959931cef481f7da"
+        },
+        {
+          "path": "workbenches/art/check-row-ignition.mjs",
+          "blob": "b7f5196e290863b88866811aeb3bfb11491df1d4",
+          "bytes": 13380,
+          "sha256": "a87f9e320bcf088473f94a69516d658b437c17ce7b1396b8aa7c00683e4c7a1d"
+        }
+      ],
+      "summary": {
+        "sourceOwnerChecks": "Joined geometry/ownership and 16 bear pose samples; not independently rerun",
+        "category": "3D adapter plus animated flame effect; no new locomotion clips"
+      },
+      "declaredHashChecks": {
+        "records": 0,
+        "uniquePaths": 0,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "FC-60aeeed-mill-props",
+      "repo": "farmyard",
+      "commit": "60aeeed5e7f4283d46253c46654fb44af7636e6d",
+      "status": "On freshly observed donor main; selected reusable props only",
+      "files": [
+        {
+          "path": "docs/art/short-measure/README.md",
+          "blob": "61263afe45b3d39d1713bcf87ef682a40b64aa3b",
+          "bytes": 10165,
+          "sha256": "ee27654daa4b55ea661493e1ae74cb9aacaa3858447b78d32fa43a7d033d05f0"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/kit.js",
+          "blob": "be0aaba7c36fc7fcfbd0cf9bd2a67a30203beb28",
+          "bytes": 11477,
+          "sha256": "db14a1847c0a714f609caff83a432e2d076baae8649352d309835a6c1445e65c"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/manifest.js",
+          "blob": "02f0dc2f5d227ef994de434aa40fc5413ddb8f82",
+          "bytes": 8180,
+          "sha256": "d855a731faf6114013ec7d62bd519af3bcf2893ca28a35e6e4ad7bbc33da73c2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/placements.json",
+          "blob": "043bdc90b71fa511796be1b8297686c7de73fd0d",
+          "bytes": 12273,
+          "sha256": "63fce932b4bedc7d5eb2e49374db74c94be3f6b6359fc0a476434a65f9e6c279"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/solids.js",
+          "blob": "7cab7ac27494b0a0be26f9a59ff66f056e79e5ad",
+          "bytes": 5230,
+          "sha256": "b2cd1caa923d1f1f2ce1cb64ccc0407860edf1a6572105649efa703d2e9b5aa9"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/reserve-7.svg",
+          "blob": "d2555e126db2eb0728af2f2ebee6bda1ff6350a4",
+          "bytes": 303,
+          "sha256": "89f549893b519feb673f66e5175b90d74fd8c709a51ba49ecb6298a250667e6b"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/short-measure/shipping-manifest.svg",
+          "blob": "939946f2a9ede8ce20cf337358cbefb330d092ef",
+          "bytes": 1316,
+          "sha256": "8ff83c66e3dcaa443c17888cfbb9f863375687b21a63d370c726b1475f194494"
+        }
+      ],
+      "summary": {
+        "category": "3D scale/cargo/desk forms and 2D decals/paper; mission bindings remain game-owned",
+        "independentTests": "Not rerun; fixed source/manifest review only"
+      },
+      "declaredHashChecks": {
+        "records": 0,
+        "uniquePaths": 0,
+        "mismatches": []
+      }
+    }
+  ],
+  "scope": "Paths/hashes/reviews only; no runtime, vendor, pin, consumer or Site changes. Declared manifest checks are not a completed importer/dependency or gameplay acceptance review."
+}
