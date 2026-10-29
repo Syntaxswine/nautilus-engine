@@ -13,7 +13,13 @@ export function createExtendedWorldDocument(input,{maxHistoryEntries=64,maxHisto
   let json=serializeWorld(input),queries=compileWorld(JSON.parse(json)),revision=0,ticket=0,pending=null,past=[],future=[];
   const record=text=>({json:text,bytes:bytes(text)});
   const historyBytes=()=>[...past,...future].reduce((sum,item)=>sum+item.bytes,0);
-  const trim=()=>{while(past.length>maxHistoryEntries||historyBytes()>maxHistoryBytes)past.shift();};
+  const trim=()=>{
+    // Keep each direction contiguous: evict the oldest undo first, then the
+    // farthest redo. A single oversized redo may leave no retained history.
+    while(past.length+future.length&&(past.length+future.length>maxHistoryEntries||historyBytes()>maxHistoryBytes)) {
+      if(past.length)past.shift();else future.shift();
+    }
+  };
   function prepare(command) {
     const world=JSON.parse(json);
     if(command?.type==='put-surface') {
@@ -58,12 +64,12 @@ export function createExtendedWorldDocument(input,{maxHistoryEntries=64,maxHisto
     undo() {
       pending=null;if(!past.length)return false;
       const item=past.at(-1),compiled=compileWorld(JSON.parse(item.json));
-      past.pop();future.push(record(json));json=item.json;queries=compiled;revision++;return true;
+      past.pop();future.push(record(json));trim();json=item.json;queries=compiled;revision++;return true;
     },
     redo() {
       pending=null;if(!future.length)return false;
       const item=future.at(-1),compiled=compileWorld(JSON.parse(item.json));
-      future.pop();past.push(record(json));json=item.json;queries=compiled;revision++;return true;
+      future.pop();past.push(record(json));trim();json=item.json;queries=compiled;revision++;return true;
     },
     replace(next) {
       try{

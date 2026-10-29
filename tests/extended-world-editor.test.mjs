@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {createExtendedWorldDocument} from '../apps/editor/extended-world-document.js';
 import {createFloorNavigation} from '../packages/floor-navigation/index.js';
 import {makeFifteenStoryWorld} from '../tools/fixtures/fifteen-story.mjs';
+import {createWorld,serializeWorld} from '../packages/world-core/index.js';
 
 const box=(id='editor:wall',floorId='floor:10',h=21.2)=>({type:'put-surface',surface:{id,floorId,role:'solid',
   bounds:{min:{x:13,y:7,h},max:{x:14,y:7.16,h:h+2}},supports:false,supportFloorId:null}});
@@ -77,4 +78,57 @@ test('history obeys its memory budget, rejects stale tickets and never shares sn
   assert.equal(document.preview({type:'unknown'}).ok,false);assert.equal(document.previewState,null);
   const smallBudget=createExtendedWorldDocument(makeFifteenStoryWorld(),{maxHistoryBytes:1});
   assert.equal(smallBudget.apply(box()).ok,true);assert.equal(smallBudget.history.bytes,0);assert.equal(smallBudget.undo(),false);
+});
+
+const historyWorld=()=>createWorld({id:'history',name:'History budget',widthM:32,depthM:24,
+  floorCount:1,storyHeightM:2.12,groundHeightM:0,minHeightM:-.12,heightM:4});
+const withinHistoryBudget=document=>{
+  const history=document.history;
+  assert.ok(history.bytes<=history.maxHistoryBytes,`${history.bytes} history bytes exceed ${history.maxHistoryBytes}`);
+  assert.ok(history.undo+history.redo<=history.maxHistoryEntries);
+};
+
+test('undo into a smaller world evicts an oversized redo snapshot without losing the live state or revision',()=>{
+  const source=historyWorld(),original=serializeWorld(source),budget=Buffer.byteLength(original);
+  const document=createExtendedWorldDocument(source,{maxHistoryBytes:budget,maxHistoryEntries:1});
+  assert.equal(document.apply(box('new-wall','floor-0',0)).ok,true);
+  assert.ok(Buffer.byteLength(document.export())>budget);withinHistoryBudget(document);
+  assert.equal(document.revision,1);assert.equal(document.history.undo,1);
+  assert.equal(document.undo(),true);
+  assert.equal(document.export(),original);assert.equal(document.revision,2);
+  assert.equal(document.queries.stats().surfaces,0);withinHistoryBudget(document);
+  assert.equal(document.history.undo,0);assert.equal(document.history.redo,0);
+  assert.equal(document.redo(),false);assert.equal(document.undo(),false);
+  assert.equal(document.export(),original);assert.equal(document.revision,2);
+});
+
+test('asymmetric undo/redo evicts oldest undo then farthest redo while retaining the nearest usable snapshots',()=>{
+  const source=historyWorld(),world=structuredClone(source),states=[serializeWorld(world)];
+  const commands=['first','second','third'+'x'.repeat(65)].map(id=>box(id,'floor-0',0));
+  for(const command of commands){world.surfaces.push(command.surface);states.push(serializeWorld(world));}
+  const sizes=states.map(state=>Buffer.byteLength(state)),budget=sizes[0]+sizes[1]+sizes[2];
+  // Force two distinct overflows: undo #1 can retain the newer undo plus
+  // latest redo; undo #2 must discard the farthest redo, keeping its neighbour.
+  assert.ok(sizes[0]+sizes[1]+sizes[3]>budget);
+  assert.ok(sizes[1]+sizes[3]<=budget);
+  assert.ok(sizes[2]+sizes[3]>budget);
+  const document=createExtendedWorldDocument(source,{maxHistoryBytes:budget,maxHistoryEntries:3});
+  commands.forEach((command,index)=>{
+    assert.equal(document.apply(command).ok,true);assert.equal(document.export(),states[index+1]);
+    assert.equal(document.revision,index+1);withinHistoryBudget(document);
+  });
+  assert.equal(document.history.undo,3);
+  assert.equal(document.undo(),true);assert.equal(document.export(),states[2]);assert.equal(document.revision,4);
+  withinHistoryBudget(document);assert.equal(document.history.undo,1);assert.equal(document.history.redo,1);
+  assert.equal(document.history.bytes,sizes[1]+sizes[3]);
+  assert.equal(document.undo(),true);assert.equal(document.export(),states[1]);assert.equal(document.revision,5);
+  withinHistoryBudget(document);assert.equal(document.history.undo,0);assert.equal(document.history.redo,1);
+  assert.equal(document.history.bytes,sizes[2]);
+  assert.equal(document.redo(),true);assert.equal(document.export(),states[2]);assert.equal(document.revision,6);
+  withinHistoryBudget(document);assert.equal(document.history.undo,1);assert.equal(document.history.redo,0);
+  assert.equal(document.queries.stats().surfaces,2);assert.equal(document.history.bytes,sizes[1]);
+  assert.equal(document.redo(),false);assert.equal(document.export(),states[2]);assert.equal(document.revision,6);
+  assert.equal(document.undo(),true);assert.equal(document.export(),states[1]);assert.equal(document.revision,7);
+  withinHistoryBudget(document);assert.equal(document.queries.stats().surfaces,1);
+  assert.equal(document.undo(),false);assert.equal(document.export(),states[1]);assert.equal(document.revision,7);
 });
