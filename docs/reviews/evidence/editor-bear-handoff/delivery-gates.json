@@ -1,0 +1,51 @@
+{
+  "guideCommit": "1f8c9c21b8895f8caf0a6c02c2e7323c727a696a",
+  "standard": "1c2b94c0cf0c86947c4e5f3da78c7d2d8404ea66",
+  "status": "proposed bear handoff; runtime provider/appearance contract pending",
+  "nodeVersion": "v24.15.0",
+  "platform": "win32",
+  "gates": [
+    {
+      "command": "npm run check -- --tracked",
+      "exitCode": 0,
+      "count": 0,
+      "log": "artifacts/editor-bear-handoff/check.log",
+      "logSha256": "cfae93da0cb4493ba039e7fa3ee42bb2f3b3dbfe4aed628c23636f2f07becd4e"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 364,
+      "log": "artifacts/editor-bear-handoff/tests.log",
+      "logSha256": "f03b9c8ffdf28ffa9427710093fa7feb8e03ff0451e1b5c83f6fd1aaf44a22e9"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/editor-bear-handoff/upstream.log",
+      "logSha256": "45441dcd1038d3398c3343734a30307adc349ca0e51a2367b086cb1a829fd421"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 383,
+      "log": "artifacts/editor-bear-handoff/build.log",
+      "logSha256": "8fdf1297cbd68022f86f88f30ac4dbea7a687369439156166d1a9463f41c31d2"
+    },
+    {
+      "command": "node tools/check-bear-handoff.mjs",
+      "exitCode": 0,
+      "count": 1,
+      "log": "artifacts/editor-bear-handoff/installed-guide.log",
+      "logSha256": "498c80bb296b9430ae0e14f9901621bba5957731e5454a4b5ea00aea28783895"
+    },
+    {
+      "command": "node tools/review-bear-handoff.mjs",
+      "exitCode": 0,
+      "count": 3,
+      "log": "artifacts/editor-bear-handoff/browser.log",
+      "logSha256": "71ee758d82e6e40455f9b2ed9ca61f30e03604d87dba04e01aa098a6141d5487"
+    }
+  ]
+}
