@@ -1,0 +1,706 @@
+{
+ "node": "v24.15.0",
+ "baseline": {
+  "verdict": "SURVIVED",
+  "tests": 211,
+  "pass": 211,
+  "fail": 0,
+  "failed": [],
+  "seconds": 40
+ },
+ "mutants": [
+  {
+   "id": "A-M05 clearance disabled (< -1)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "A-M05b clearance tightened (< r+0.1)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "A-M14 load returns editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "A-M18 limit x100",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M18b limit >=",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M16 both capability checks removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M16a manifest check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M16b feature-list check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M16c silent host gets all features",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "A-M16d raw input handed over",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "a host that declares every authored feature receives exactly one validated copy"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "C01 hypot -> max (Chebyshev corners)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C02 hypot -> sum (Manhattan corners)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C03 vertical wall length -> thickness (y extent)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C04 horizontal wall length -> thickness (x extent)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C05 y extent copies x extent (axis paste)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 32,
+   "fail": 6,
+   "failed": [
+    "Nautilus flat-yard projection compiles with the actual pinned Tinderbox compiler",
+    "explicit crop and marker policy preserves all four starts, exit and coordinate meaning",
+    "versioned golden adapter save reloads equivalent map and game scenario",
+    "real Tinderbox simulation accepts adapter scenario, walls block its bear and replay matches after reload",
+    "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics",
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 10,
+   "restored": true
+  },
+  {
+   "id": "C06 swap = quarter % 4 (reversed walls)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C07 x-term clamp dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C08 y-term clamp dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C09 playerRadius 0.56 -> 0.60",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C10 playerRadius 0.56 -> 0.53",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C11 centre distance, no box",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C12 full thickness, not half",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C13 first wall module skipped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C14 bounds: top edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C15 bounds: right edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "C16 bounds: bottom edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "C17 bounds: bottom edge uses width",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "P00 neutral: deep copy of raw",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 211,
+   "pass": 211,
+   "fail": 0,
+   "failed": [],
+   "seconds": 38,
+   "restored": true
+  },
+  {
+   "id": "P01 parseSave returns editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "P02 createSave stores editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "P03 load drops opaque metadata",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 35,
+   "fail": 3,
+   "failed": [
+    "save/reload preserves unknown JSON, versions and source blueprint bytes semantically",
+    "legacy migration is explicit, one-way, nonmutating and refuses fields it cannot preserve",
+    "golden legacy block and stamped save keep their canonical serialized representation"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "P04 load returns the document map",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 36,
+   "fail": 2,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy",
+    "golden legacy block and stamped save keep their canonical serialized representation"
+   ],
+   "seconds": 11,
+   "restored": true
+  },
+  {
+   "id": "B01 limit > 33 (off by one up)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "B02 MAX_BUILDINGS = 33",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "B03 limit counts distinct assets",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "B04 limit only for the Gross catalogue",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "B05 limit only at document open",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H00 neutral: check the parsed input",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 211,
+   "pass": 211,
+   "fail": 0,
+   "failed": [],
+   "seconds": 38,
+   "restored": true
+  },
+  {
+   "id": "H01 validation errors ignored",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "a map that fails validation reaches no host, however capable"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H02 openMap called without its host",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "a host that declares every authored feature receives exactly one validated copy"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H03 silent host defaults to wall runs",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H04 silent host defaults to prefabs",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H05 null adapter not checked",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the handoff refuses a missing host, a block and a malformed adapter before any call"
+   ],
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "H06 block check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the handoff refuses a missing host, a block and a malformed adapter before any call"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "H07 missing-host check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 36,
+   "fail": 2,
+   "failed": [
+    "the handoff refuses a missing host, a block and a malformed adapter before any call",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G01 default export dropped (E04)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G02 argument ignored (E03)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G03 connect skips checkGameAdapter (E02)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G04 stale disconnect clears the newer host",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G05 connect does not refresh",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G06 hasGameAdapter always true",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "G07 send bypasses the checks",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 38,
+   "pass": 37,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "E01 page wires a bypass (browser-only)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 211,
+   "pass": 211,
+   "fail": 0,
+   "failed": [],
+   "seconds": 38,
+   "restored": true
+  }
+ ],
+ "statusAfter": " M apps/editor/editor.js\n M apps/editor/game-handoff.js\n M tests/building-prefabs.test.mjs\n M tests/contracts.test.mjs\n M tests/game-handoff.test.mjs\n M tests/tinderbox-adapter.test.mjs\n M tools/review-engine-integration.mjs\n"
+}
