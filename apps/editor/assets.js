@@ -1,12 +1,13 @@
 import {editorAssets, findAssets, ASSET_CATEGORIES} from './asset-catalog.js';
 import {assetPreview} from './asset-preview.js';
+import {characterAppearanceChoices} from './asset-appearance.js';
 import {InspectionScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
 import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {DIMENSIONS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-world.js';
 
 export function installAssetLibrary() {
   const $ = id => document.getElementById(id), assets = editorAssets();
-  const launch = document.createElement('button'); launch.id = 'nautilus-assets'; launch.textContent = 'Asset library'; launch.disabled = true;
+  const launch = document.createElement('button'); launch.id = 'nautilus-assets'; launch.textContent = 'Asset library';
   document.querySelector('.nautilus-header nav').prepend(launch);
   const dialog = document.createElement('dialog'); dialog.id = 'asset-library'; dialog.setAttribute('aria-labelledby','asset-library-title');
   dialog.innerHTML = `<div class="asset-heading"><div><p class="eyebrow">NAUTILUS WORKSHOP</p><h1 id="asset-library-title">Asset library</h1></div><button id="asset-close" aria-label="Close asset library">×</button></div>
@@ -17,6 +18,7 @@ export function installAssetLibrary() {
   let selected, scene, view, frame = 0, ticket = 0, loading = false;
   const failures = new Map();
   let canvas = $('asset-preview'); const use = $('asset-use');
+  const workshopReady=()=>!!window.editor3d?.document&&!window.editor3d.loading;
   function fitPreview() {
     if (!scene?.document || !view) return;
     const bounds = new T.Box3().setFromObject(scene.scene);
@@ -41,8 +43,8 @@ export function installAssetLibrary() {
     const issues = [...new Set(scene.diagnostics)];
     if (issues.length) {previewFailed(new Error(issues.join(' ')));return;}
     const failure = failures.get(selected);
-    $('asset-preview-status').textContent = failure ? 'Preview unavailable: ' + failure : loading ? 'Loading preview…' : 'Authored model and paint · workshop lighting';
-    use.disabled = loading || !!selected?.disabled || !!failure;
+    $('asset-preview-status').textContent = failure ? 'Preview unavailable: ' + failure : loading ? 'Loading preview…' : workshopReady() ? 'Authored model and paint · workshop lighting' : 'Preview ready · placement waits for the workshop.';
+    use.disabled = loading || !!selected?.disabled || !!failure || !workshopReady();
     fitPreview();
     requestDraw();
   }
@@ -55,15 +57,16 @@ export function installAssetLibrary() {
     $('asset-footprint').textContent = `${asset.category} · ${asset.w} × ${asset.h} ${asset.category === 'Foliage' ? 'brush sample' : 'tile footprint'}`;
     $('asset-note').textContent = asset.disabled || asset.note || 'Choose this asset, then click or drag in the map to place it. Placement checks apply.';
     $('asset-appearance').hidden = asset.category !== 'People';
-    if (asset.category === 'People') {
-      for (const [id,source,value] of [['asset-weapon','unit-weapon',asset.id === 'hen' ? 'hands' : appearance.weapon || 'rifle'],['asset-outfit','unit-outfit',appearance.outfit || 'normal']]) {
-        $(id).replaceChildren(...[...$(source).options].filter(o => id !== 'asset-outfit' || o.value !== 'blue-hawaiian' || asset.id === 'donkey').map(o => new Option(o.textContent,o.value)));
-        $(id).value = value;
-      }
-      $('asset-weapon').disabled = asset.id === 'hen';
-    }
     for (const button of $('asset-results').children) button.setAttribute('aria-pressed',String(button.dataset.asset === asset.category+':'+asset.id));
     try {
+      if (asset.category === 'People') {
+        const choices=characterAppearanceChoices(asset,appearance);
+        for(const [id,source,options,value]of [['asset-weapon','unit-weapon',choices.weapons,choices.weapon],['asset-outfit','unit-outfit',choices.outfits,choices.outfit]]) {
+          const labels=new Map([...($(source)?.options||[])].map(option=>[option.value,option.textContent]));
+          $(id).replaceChildren(...options.map(option=>new Option(labels.get(option.value)||option.label,option.value)));$(id).value=value;
+        }
+        $('asset-weapon').disabled=choices.unarmed;appearance={weapon:choices.weapon,outfit:choices.outfit};
+      }
       if (!scene) {
         let owned;
         owned = new InspectionScene(canvas,() => {if (scene === owned) diagnostics();});
@@ -95,7 +98,6 @@ export function installAssetLibrary() {
     if (!found.length) {const message = document.createElement('p'); message.textContent = 'No matching assets. Try another name or category.'; box.append(message);}
   }
   launch.onclick = () => {
-    if (window.editor3d?.loading) { $('status').textContent = 'Wait for the map to finish loading.'; return; }
     dialog.showModal(); results(); select(selected || assets[0]); $('asset-search').focus();
   };
   $('asset-search').oninput = results; $('asset-category').onchange = results;
@@ -104,7 +106,7 @@ export function installAssetLibrary() {
   $('asset-turn').onclick = () => {if (view) {view.preset = String((Number(view.preset)+1)%4); requestDraw();}};
   use.onclick = () => {
     if (!selected || use.disabled) return;
-    if (window.editor3d?.loading) { $('asset-preview-status').textContent = 'Wait for the map to finish loading.'; return; }
+    if (!workshopReady()) { $('asset-preview-status').textContent = 'Wait for the map to finish loading.'; return; }
     const tool = $('edit-tool'); tool.value = selected.tool; tool.dispatchEvent(new Event('change'));
     const bindings = {...selected.bindings};
     if (selected.category === 'People') {bindings['unit-weapon'] = $('asset-weapon').value; bindings['unit-outfit'] = $('asset-outfit').value;}
@@ -145,7 +147,7 @@ export function installAssetLibrary() {
   }
   function disposePreview() {++ticket;loading=false;use.disabled=true;failures.clear();releaseScene();}
   dialog.addEventListener('close',disposePreview);
-  window.addEventListener('pagehide',disposePreview,{once:true});
+  window.addEventListener('pagehide',()=>{disposePreview();observer.disconnect();resize.disconnect();},{once:true});
   const resize=new ResizeObserver(requestDraw);resize.observe(canvas);
   // The inherited editor and Nautilus adapters are separate module entries.
   // Enable once controls exist, without a long-lived polling helper.
@@ -156,7 +158,8 @@ export function installAssetLibrary() {
     for (const asset of assets.filter(a => a.category === 'Foliage')) {
       if (![...$('foliage-preset').options].some(o => o.value === asset.id)) $('foliage-preset').add(new Option(asset.name,asset.id));
     }
-    launch.disabled = false; observer.disconnect();
+    if(!workshopReady())return;
+    observer.disconnect();if(scene&&!loading)diagnostics();
   };
   const observer = new MutationObserver(ready); observer.observe(document.body,{childList:true,subtree:true}); ready();
 }

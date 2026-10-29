@@ -1,16 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {characterAppearanceChoices} from '../apps/editor/asset-appearance.js';
 
 // Exercise the real controller with explicit DOM/renderer doubles, never WebGL.
 const source = (await readFile(new URL('../apps/editor/assets.js', import.meta.url), 'utf8'))
   .replace(/^import .*;\r?\n/gm, '').replace('export function installAssetLibrary', 'function installAssetLibrary');
-const loadController = new Function('dependencies', `const {editorAssets,findAssets,ASSET_CATEGORIES,assetPreview,InspectionScene,T,DIMENSIONS,document,window,ResizeObserver,MutationObserver,requestAnimationFrame,cancelAnimationFrame,Option,Event,getComputedStyle}=dependencies;${source};return installAssetLibrary;`);
+const loadController = new Function('dependencies', `const {editorAssets,findAssets,ASSET_CATEGORIES,assetPreview,characterAppearanceChoices,InspectionScene,T,DIMENSIONS,document,window,ResizeObserver,MutationObserver,requestAnimationFrame,cancelAnimationFrame,Option,Event,getComputedStyle}=dependencies;${source};return installAssetLibrary;`);
 const turn = () => new Promise(resolve => setImmediate(resolve));
 const deferred = () => {let resolve;const promise = new Promise(done => {resolve=done;});return {promise,resolve};};
 
-function harness(behaviours = []) {
-  const nodes = new Map(), frames = new Map(), scenes = [], windowEvents = new Map();let nextFrame=0;
+function harness(behaviours = [],options={}) {
+  const nodes = new Map(), frames = new Map(), scenes = [], windowEvents = new Map(),observers=[];let nextFrame=0,constructorError=options.constructorError;
   class Element {
     constructor(tag='div') {this.tagName=tag.toUpperCase();this.children=[];this.options=[];this.dataset={};this.attributes=new Map();this.listeners=new Map();this.value='';this.textContent='';this.clientWidth=240;this.clientHeight=240;this.open=false;this.disabled=false;this.classList={add(){}};}
     set innerHTML(value) {this.children=[];for(const match of value.matchAll(/<([a-z][\w-]*)\b[^>]*\bid="([^"]+)"[^>]*>/g)) {const node=new Element(match[1]);node.id=match[2];nodes.set(node.id,node);}}
@@ -20,7 +21,7 @@ function harness(behaviours = []) {
     setAttribute(name,value) {this.attributes.set(name,String(value));}
     addEventListener(type,callback) {if(!this.listeners.has(type))this.listeners.set(type,[]);this.listeners.get(type).push(callback);}
     dispatchEvent(event) {for(const callback of this.listeners.get(event.type)||[])callback(event);return this['on'+event.type]?.(event);}
-    replaceChildren(...children) {this.children=[];this.append(...children);}
+    replaceChildren(...children) {this.children=[];if(this.tagName==='SELECT')this.options=children;this.append(...children);}
     cloneNode() {const node=new Element(this.tagName);node.id=this.id;return node;}
     replaceWith(fresh) {nodes.set(this.id,fresh);if(this.parent){const i=this.parent.children.indexOf(this);this.parent.children[i]=fresh;fresh.parent=this.parent;}}
     showModal() {this.open=true;}
@@ -31,19 +32,19 @@ function harness(behaviours = []) {
   const nav = new Element('nav'), body = new Element('body');
   const document = {body,getElementById:id=>nodes.get(id),createElement:tag=>new Element(tag),querySelector:selector=>{assert.equal(selector,'.nautilus-header nav');return nav;}};
   for(const id of ['foliage-preset','prop-kind','edit-tool','nautilus-options','status']) {const node=new Element(id.endsWith('kind')||id.endsWith('preset')?'select':'div');node.id=id;node.options=[{value:'crate',textContent:'Crate',disabled:false}];nodes.set(id,node);}
-  const blueprint={unchanged:true},window={editor3d:{loading:false,document:blueprint},addEventListener:(type,fn)=>windowEvents.set(type,fn)};
-  class Observer {observe(){}unobserve(){}disconnect(){}}
+  const blueprint={unchanged:true},window={editor3d:{loading:options.loading??false,document:blueprint},addEventListener:(type,fn)=>windowEvents.set(type,fn)};
+  class Observer {constructor(callback){this.callback=callback;observers.push(this);}observe(){}unobserve(){}disconnect(){}}
   class Scene {
-    constructor(canvas,changed) {this.canvas=canvas;this.changed=changed;this.diagnostics=[];this.options={};this.scene={};this.disposed=0;this.lost=0;this.renderer={forceContextLoss:()=>this.lost++};scenes.push(this);}
+    constructor(canvas,changed) {if(constructorError){const error=constructorError;constructorError=null;throw error;}this.canvas=canvas;this.changed=changed;this.diagnostics=[];this.options={};this.scene={};this.disposed=0;this.lost=0;this.renderer={forceContextLoss:()=>this.lost++};scenes.push(this);}
     async open(document) {this.document=document;this.diagnostics=[];const behaviour=behaviours.shift();if(behaviour instanceof Error)throw behaviour;if(behaviour)await behaviour(this);this.changed();}
     draw() {if(this.drawError)throw this.drawError;}
     dispose() {this.disposed++;}
   }
   class Box3 {setFromObject(){return this;}isEmpty(){return true;}}
-  const assets = ['crate','barrel'].map(id=>({category:'Objects',id,name:id,w:1,h:1,tool:'prop',bindings:{'prop-kind':id}}));
-  loadController({editorAssets:()=>assets,findAssets:list=>list,ASSET_CATEGORIES:['Objects'],assetPreview:asset=>({document:{map:{},asset:asset.id},view:{span:4}}),InspectionScene:Scene,T:{Box3},DIMENSIONS:{floorSpacing:2.12},document,window,ResizeObserver:Observer,MutationObserver:Observer,
+  const assets = options.assets||['crate','barrel'].map(id=>({category:'Objects',id,name:id,w:1,h:1,tool:'prop',bindings:{'prop-kind':id}}));
+  loadController({editorAssets:()=>assets,findAssets:list=>list,ASSET_CATEGORIES:['Objects','People'],assetPreview:asset=>({document:{map:{},asset:asset.id},view:{span:4}}),characterAppearanceChoices,InspectionScene:Scene,T:{Box3},DIMENSIONS:{floorSpacing:2.12},document,window,ResizeObserver:Observer,MutationObserver:Observer,
     requestAnimationFrame:fn=>{const id=++nextFrame;frames.set(id,fn);return id;},cancelAnimationFrame:id=>frames.delete(id),Option:class {constructor(label,value){this.textContent=label;this.value=value;}},Event:class {constructor(type){this.type=type;}},getComputedStyle:()=>({display:'none'})})();
-  return {nodes,scenes,frames,blueprint,window,open:async()=>{nodes.get('nautilus-assets').onclick();await turn();},choose:async index=>{await nodes.get('asset-results').children[index].onclick();},close:()=>nodes.get('asset-library').close(),flushFrame:()=>{const entries=[...frames];frames.clear();for(const [,fn]of entries)fn();},pagehide:()=>windowEvents.get('pagehide')()};
+  return {nodes,scenes,frames,blueprint,window,notifyObservers:()=>observers.forEach(observer=>observer.callback()),open:async()=>{nodes.get('nautilus-assets').onclick();await turn();},choose:async index=>{await nodes.get('asset-results').children[index].onclick();},close:()=>nodes.get('asset-library').close(),flushFrame:()=>{const entries=[...frames];frames.clear();for(const [,fn]of entries)fn();},pagehide:()=>windowEvents.get('pagehide')()};
 }
 
 test('a failed asset preview can be retried without a stale failure or renderer', async () => {
@@ -56,6 +57,32 @@ test('a failed asset preview can be retried without a stale failure or renderer'
     assert.equal(ui.scenes[0].disposed,1);assert.equal(ui.scenes[0].lost,1);assert.equal(ui.scenes.length,2);
     assert.deepEqual(ui.blueprint,{unchanged:true});
   } finally {ui.close();}
+});
+
+const cow={id:'cow',name:'Cow worker',category:'People',w:1,h:1,tool:'guard',bindings:{'unit-species':'cow','unit-weapon':'rifle','unit-outfit':'normal'}};
+
+test('character metadata and equipment are available while the main workshop is still loading',async()=>{
+  const ui=harness([],{assets:[cow],loading:true});
+  try {
+    await ui.open();assert.equal(ui.nodes.get('asset-library').open,true);assert.equal(ui.nodes.get('asset-name').textContent,cow.name);
+    assert.equal(ui.nodes.get('asset-weapon').options.length,13);assert.equal(ui.nodes.get('asset-outfit').options.length,2);
+    assert.equal(ui.nodes.get('asset-weapon').value,'rifle');assert.equal(ui.nodes.get('asset-use').disabled,true);
+    assert.match(ui.nodes.get('asset-preview-status').textContent,/placement waits/);
+    ui.window.editor3d.loading=false;ui.notifyObservers();assert.equal(ui.nodes.get('asset-use').disabled,false);
+    assert.deepEqual(ui.blueprint,{unchanged:true});
+  }finally{ui.close();}
+});
+
+test('a renderer construction failure keeps character metadata and choices, and close/reopen recovers',async()=>{
+  const ui=harness([],{assets:[cow],constructorError:Error('WebGL is unavailable')});
+  try {
+    await ui.open();assert.equal(ui.nodes.get('asset-library').open,true);
+    assert.equal(ui.nodes.get('asset-name').textContent,cow.name);assert.equal(ui.nodes.get('asset-weapon').options.length,13);
+    assert.equal(ui.nodes.get('asset-outfit').options.length,2);assert.equal(ui.nodes.get('asset-use').disabled,true);
+    assert.match(ui.nodes.get('asset-preview-status').textContent,/WebGL is unavailable/);assert.deepEqual(ui.blueprint,{unchanged:true});
+    ui.close();await ui.open();assert.equal(ui.nodes.get('asset-use').disabled,false);assert.equal(ui.scenes.length,1);
+    assert.deepEqual(ui.blueprint,{unchanged:true});
+  }finally{ui.close();}
 });
 
 test('a draw failure is visible inside the library and retires its preview', async () => {
