@@ -28,6 +28,22 @@ await withArtReview('Basic character-development allocation and persistence acce
  await page.locator('[data-outcome="objective"]').click();state=await inspect();assert(state.record.level>1);assert.equal(state.record.points,(state.record.level-1)*15);assert(await page.locator('#level-notice').isVisible());assert(!state.open,'Level reward opened a blocking panel.');
  await page.locator('[data-outcome="kill"]').click();const rewarded=await serialized();report.checks.levelReward={level:state.record.level,points:state.record.points,nonblocking:true};
  await page.locator('#develop').click();await page.locator('#development').waitFor({state:'visible'});assert.equal(await page.locator('.stat-row').count(),14);
+ const accuracyBefore=await serialized(),resourcesBeforeAccuracy=(await inspect()).bundle.character.resources;
+ await page.locator('#allocate-firearms').fill('4');
+ assert.match(await page.locator('[data-effect="firearmsAccuracy"] dd').innerText(),/→.*%/,'Firearms staging did not change base firearm accuracy.');
+ await page.locator('#allocate-dexterity').fill('4');
+ const accuracyExpected=await page.evaluate(async()=>{
+  const {previewAllocation}=await import('../packages/rules-core/progression.js'),{previewAttack,CHECK_PROFILES}=await import('../packages/rules-core/index.js');
+  const preview=previewAllocation(window.characterDemo.inspect().bundle,{firearms:4,dexterity:4});if(!preview.ok)throw Error(preview.reason);
+  return ['firearms','heavyWeapons','explosives'].map(skill=>({key:skill+'Accuracy',chance:previewAttack(preview.preview.character,{profile:CHECK_PROFILES.farmyard,skill,modifiers:[],costs:{ap:0,stamina:0},permitted:true}).chance}));
+ });
+ for(const expected of accuracyExpected){const text=await page.locator('[data-effect="'+expected.key+'"] dd').innerText();assert(text.includes('→')&&text.endsWith(expected.chance+'%'),'Accuracy row did not use the pure attack preview: '+expected.key);}
+ assert.equal(await serialized(),accuracyBefore,'Accuracy staging spent progression points.');
+ assert.deepEqual((await inspect()).bundle.character.resources,resourcesBeforeAccuracy,'Accuracy staging spent or refilled resources.');
+ assert.match(await page.locator('.accuracy-note').innerText(),/before range, cover and stance/i);
+ await page.locator('[data-effect="explosivesAccuracy"]').scrollIntoViewIfNeeded();await capture('development-accuracy.png');
+ report.checks.baselineAccuracy={profile:'farmyard-percent-1',skills:accuracyExpected,noSituationalModifiers:true,noCosts:true,pure:true};
+ await page.locator('#allocation-reset').click();
  const strengthAdd=page.getByRole('button',{name:'Increase Strength allocation',exact:true});await strengthAdd.click();await page.keyboard.press('ArrowUp');
  assert.equal(await serialized(),rewarded,'Staging changed committed progression.');
  assert.equal(await page.locator('#staged-points').innerText(),'2');

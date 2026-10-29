@@ -50,7 +50,7 @@ function resources(container,values){
 function derived(preview,before,after){
  const items=[
   ...['hp','ap','stamina'].map(key=>({key,label:key==='hp'?'HP':key==='ap'?'AP':'Stamina',before:number(before.resources[key].current)+' / '+number(before.resources[key].max),after:number(after.resources[key].current)+' / '+number(after.resources[key].max)})),
-  ...before.derived.map(value=>({key:value.key,label:value.label,before:number(value.value),after:number(after.derived.find(next=>next.key===value.key).value)}))
+  ...before.derived.map(value=>({key:value.key,label:value.label,before:number(value.value)+(value.unit||''),after:number(after.derived.find(next=>next.key===value.key).value)+(value.unit||'')}))
  ];
  $('derived-preview').replaceChildren(...items.map(item=>{const wrap=node('div'),term=node('dt','',item.label),description=node('dd','',item.before+(item.before===item.after?'':' → '+item.after));if(item.before!==item.after)description.classList.add('effect-change');wrap.dataset.effect=item.key;wrap.append(term,description);return wrap;}));
 }
