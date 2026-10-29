@@ -147,8 +147,11 @@ test('accessors, hidden/symbol fields, sparse arrays, prototype objects and cycl
 test('required schema/height/geometry/placement/traversal capabilities reject legacy and partial consumers before load',()=>{
   const world=towerFixture(),before=serializeWorld(world),requirements=worldRequirements(world),manifest=consumer(world);
   assert.equal(requirements.schema.id,'nautilus-extended-world');assert.equal(requirements.required.length,4);assert.deepEqual(assertWorldCompatible(world,manifest),world);assert.ok(negotiateCapabilities(requirements,manifest).ok);
-  assert.throws(()=>assertWorldCompatible(world,engineManifest()),error=>error.code==='INCOMPATIBLE_WORLD'&&error.diagnostics.some(d=>d.code==='UNSUPPORTED_SCHEMA'));
-  assert.equal(negotiateCapabilities(requirements,engineManifest()).ok,false);
+  const legacy={id:'legacy-map-only',contractVersion:1,schemas:[{id:'aft-map',versions:[2]}],capabilities:[]};
+  assert.throws(()=>assertWorldCompatible(world,legacy),error=>error.code==='INCOMPATIBLE_WORLD'&&error.diagnostics.some(d=>d.code==='UNSUPPORTED_SCHEMA'));
+  assert.equal(negotiateCapabilities(requirements,legacy).ok,false);
+  assert.deepEqual(assertWorldCompatible(world,engineManifest()),world);
+  assert.equal(negotiateCapabilities(requirements,engineManifest()).ok,true);
   for(const [index,entry] of manifest.capabilities.entries()){const missing=structuredClone(manifest);missing.capabilities=missing.capabilities.filter(item=>item.id!==entry.id);assert.throws(()=>assertWorldCompatible(world,missing),error=>error.diagnostics.some(d=>d.message.includes(entry.id)&&d.path==='/required/'+index));}
   const future=structuredClone(manifest);future.capabilities[0].versions=[2];assert.throws(()=>assertWorldCompatible(world,future),error=>error.code==='INCOMPATIBLE_WORLD');assert.equal(serializeWorld(world),before);
   assert.equal(worldRequirements(tiny()).required.length,1);

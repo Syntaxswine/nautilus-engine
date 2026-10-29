@@ -12,10 +12,13 @@ const read=file=>blobs?execFileSync('git',['cat-file','blob',blobs.get(file)||fi
 const manifest=JSON.parse(read('package.json'));
 const exported=value=>typeof value==='string'?[value]:Object.values(value||{}).flatMap(exported);
 const entries=argumentsOf.flatMap((arg,i)=>arg==='--entry'?[argumentsOf[i+1]]:[]);
-if(!entries.length)entries.push(...new Set(exported(manifest.exports).filter(file=>/^\.\/packages\/(?:map-core|rules-core|items-core)\//.test(file)).map(file=>file.slice(2))));
-if(!entries.length)throw Error('No public map/rules/items entrypoints were discovered.');
+// DOM binding and styling are optional UI, exported beside the pure controller.
+const browserEntries=new Set(['packages/floor-navigation/dom.js','packages/floor-navigation/style.css']);
+const publicHeadless=file=>/^packages\/(?:map-core|rules-core|items-core|runtime-core|world-core|floor-navigation)\//.test(file)||file==='packages/adapters/farmyard/rules.js';
+if(!entries.length)entries.push(...new Set(exported(manifest.exports).filter(file=>file.startsWith('./')).map(file=>file.slice(2)).filter(file=>publicHeadless(file)&&!browserEntries.has(file))));
+if(!entries.length)throw Error('No public headless entrypoints were discovered.');
 const modules=new Map(),violations=[];
-const browserPath=file=>/^(?:apps|tools|examples)\//.test(file)||/(?:^|\/)(?:three(?:\.[^/]*)?|[^/]*(?:renderer|webgl|webgpu)[^/]*|[^/]*-scene|painted-cargo)\.[cm]?js$/i.test(file);
+const browserPath=file=>browserEntries.has(file)||/^(?:apps|tools|examples)\//.test(file)||/(?:^|\/)(?:three(?:\.[^/]*)?|[^/]*(?:renderer|webgl|webgpu)[^/]*|[^/]*-scene|painted-cargo)\.[cm]?js$/i.test(file);
 // Public core dependencies stay statically enumerable. This conservative guard
 // also rejects executable indirection instead of overlooking lazy renderer loads.
 const opaqueCode=/\b(?:import|require|eval|Function)(?:(?:\s+)|(?:\/\*[\s\S]*?\*\/)|(?:\/\/[^\n]*(?:\n|$)))*\(/;
@@ -38,6 +41,6 @@ function visit(file,chain=[]) {
 }
 for(const file of entries)visit(file);
 function closure(roots){const seen=new Set(),walk=file=>{if(seen.has(file))return;seen.add(file);modules.get(file).imports.forEach(walk);};roots.forEach(walk);return {entries:roots,modules:seen.size,bytes:[...seen].reduce((n,file)=>n+modules.get(file).bytes,0)};}
-const report={revision:revision||'working-tree',groups:{map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/'))),items:closure(entries.filter(file=>file.startsWith('packages/items-core/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
+const report={revision:revision||'working-tree',groups:{map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/'))),items:closure(entries.filter(file=>file.startsWith('packages/items-core/'))),runtime:closure(entries.filter(file=>file.startsWith('packages/runtime-core/'))),world:closure(entries.filter(file=>file.startsWith('packages/world-core/'))),farmyard:closure(entries.filter(file=>file==='packages/adapters/farmyard/rules.js')),floorNavigation:closure(entries.filter(file=>file.startsWith('packages/floor-navigation/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
 if(enforce&&violations.length)throw Error(violations.map(({reason,chain})=>reason+': '+chain.join(' -> ')).join('\n'));
 process.stdout.write(JSON.stringify(report));

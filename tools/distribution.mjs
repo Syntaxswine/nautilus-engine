@@ -4,6 +4,8 @@ import os from 'node:os';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
+import {moduleReferenceGraph} from './module-references.mjs';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
 const slash = value => value.replaceAll('\\', '/');
@@ -11,19 +13,7 @@ const relative = file => slash(path.relative(root, file));
 const sourcePackage = () => JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 function inside(file) { if (!file.startsWith(root + path.sep)) throw Error('Distribution dependency escapes the project: ' + file); }
 export function moduleClosure(entries) {
-  const files = new Set();
-  function visit(file) {
-    inside(file); if (files.has(file)) return; files.add(file);
-    if (!fs.existsSync(file)) throw Error('Missing distribution dependency: ' + relative(file));
-    if (!/\.m?js$/.test(file)) return;
-    const text = fs.readFileSync(file, 'utf8');
-    for (const match of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s*)['"]([^'"]+)['"]/g)) {
-      if (!match[1].startsWith('.')) throw Error('Undeclared runtime dependency in ' + relative(file) + ': ' + match[1]);
-      visit(path.resolve(path.dirname(file), match[1]));
-    }
-  }
-  entries.forEach(entry => visit(path.resolve(root, entry)));
-  return [...files].map(relative).sort();
+  return moduleReferenceGraph(entries.map(entry=>path.resolve(root,entry)),{root}).map(record=>relative(record.filename)).sort();
 }
 function walk(folder) {
   if (!fs.existsSync(folder)) return [];
@@ -38,10 +28,11 @@ function resources() {
       'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file)];
 }
 const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
-  ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json',
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
-  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects')));
+  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/')));
   else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects')); exports['.'] = './packages/assets/three.js'; extras = resources(); }
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
@@ -79,6 +70,7 @@ export function testExternalPackage(profile='core') {
     fs.writeFileSync(path.join(consumer, 'package.json'), JSON.stringify({name:'nautilus-external-proof',private:true,type:'module'}));
     npm(['install', '--offline', '--ignore-scripts', '--package-lock=false', '--no-audit', '--no-fund', packed.file], consumer);
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).tinderboxConformance.root;if(!/^tests\/fixtures\/consumers\/tinderbox\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'tinderbox-proof'),{recursive:true});}
+    if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardRulesConformance.root;if(!/^tests\/fixtures\/consumers\/farmyard-rules\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid Farmyard conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'farmyard-proof'),{recursive:true});}
     const test = profile==='assets' ? `import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {listBuildingAssets,buildingAssetURLs} from '@nautilus-engine/building-assets';
@@ -112,7 +104,7 @@ const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compil
 function replay(project){const sim=createSimulation({scenario:project.scenario,seed:project.policy.seed,config:{input:{cameraRelative:false}}});try{sim.dispatch({type:'move',x:1,y:0});let state;for(let tick=0;tick<300;tick++)state=sim.advance(1/60);return state;}finally{sim.dispose();}}
 const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
 assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
-    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') : ''));
+    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') : ''));
     const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
     return {...packed, proof:output.trim()};
   } finally {

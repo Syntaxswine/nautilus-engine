@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "Farmyard rules consumer conformance candidate",
+  "reviewedDateEastern": "2026-10-29",
+  "blueprint": "docs/engine-blueprint.md#ordered-delivery-tranches",
+  "tranche": 1,
+  "engineBase": {
+    "commit": "ddfd43cf4b156eeb82b5c27772fe977ec10b0633",
+    "publicEntry": "packages/rules-core/index.js"
+  },
+  "consumer": {
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+    "statVersion": 2,
+    "adoption": "Candidate only; no production dependency, game files or pins changed"
+  },
+  "importMethod": "Read immutable Git objects only; no worktree source imports or writes",
+  "fixtureRoot": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+  "runtimeImportsDonor": false,
+  "files": [
+    {
+      "path": "sites/tactical-animal/dist/aft/tactics/character-stats.js",
+      "gitBlob": "ba63809a23be3296a7b05aa6a544b5e1c4a79069",
+      "bytes": 4383,
+      "sha256": "e7984801b7d9578f8e246fbf06daba5f8cdbc117278e7c307a78587ad6b6fa88",
+      "role": "Actual Farmyard reference algorithms; no imports",
+      "testOnly": true,
+      "copied": true,
+      "fixture": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe/character-stats.js"
+    },
+    {
+      "path": "sites/tactical-animal/dist/aft/tactics/quickplay-presets.js",
+      "gitBlob": "0bf0eb8b03df5c71daf83515d73e22700a9b120f",
+      "bytes": 3002,
+      "sha256": "3881e97a4d90b0cb3f40007112f939d6e831d290e589511d6a7d2778c1763050",
+      "role": "All six current quickplay animal/stat profiles",
+      "testOnly": true,
+      "copied": true,
+      "fixture": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe/quickplay-presets.js"
+    },
+    {
+      "path": "sites/tactical-animal/dist/aft/tactics/solo-weapon-data.js",
+      "gitBlob": "06f0e5f6045447732d2c06e772c6b000989efa97",
+      "bytes": 1757,
+      "sha256": "d9de4d8cde50262e1889a4e19a457da1a39e32e2eb21b8e97d38fa097ae93bb5",
+      "role": "All fourteen current weapon IDs",
+      "testOnly": true,
+      "copied": true,
+      "fixture": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe/solo-weapon-data.js"
+    },
+    {
+      "path": "sites/tactical-animal/dist/solo-game.js",
+      "gitBlob": "39590267732c06c5a44ef272755e63be458681e0",
+      "bytes": 46131,
+      "sha256": "588b906a463f868a5376677c47c528b56181fc1abffb19c4ce086b78147468a0",
+      "role": "Read-only shape review: makeUnit, buildStats, previewAttack and hurt; not copied or imported",
+      "testOnly": true,
+      "copied": false
+    }
+  ],
+  "moduleClosure": {
+    "entryPoints": [
+      "character-stats.js",
+      "quickplay-presets.js",
+      "solo-weapon-data.js"
+    ],
+    "moduleCount": 3,
+    "externalImports": [],
+    "excluded": [
+      "solo-game.js runtime",
+      "movement",
+      "AI",
+      "turns",
+      "missions",
+      "renderer",
+      "progression",
+      "save migration"
+    ]
+  },
+  "notices": "Original module comments and bytes are preserved. The pinned root has no LICENSE, NOTICE or COPYING file. This provenance record grants no new license; see Nautilus NOTICE.md."
+}

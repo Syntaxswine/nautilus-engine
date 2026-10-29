@@ -38,3 +38,13 @@ Semantic versions identify complete engine builds. During 0.x, a minor version m
 No reverse migration or forward-schema interpretation is promised. A new semantic contract needs a new capability/schema version and compatibility checks; adding a field does not silently grant support for new behavior. Production adoption remains distinct from conformance tests or shared asset exchange.
 
 schemaDocuments() exposes the stable schema URNs and package-relative document URLs. Register all returned documents with a JSON Schema validator: cross-document references use absolute URNs and never depend on resolving a relative URL against a URN. The core itself does not fetch schemas.
+
+## Native-height and composition contracts
+
+Version 0.8 registers independent `nautilus-extended-world` v1 and `nautilus-module-configuration` v1 structural schemas. The former lives beside world-core and is discoverable through `schemaDocuments()`; the latter lives in schemas/. Their registration does not grant any game a new capability.
+
+Extended worlds require `nautilus-extended-height-v1`; nonempty geometry, placements and links additionally require `nautilus-world-aabb-v1`, `nautilus-world-placements-v1` and `nautilus-world-traversal-links-v1`. These promises describe static authored data, AABB queries and valid endpoints, not a character movement service. Configuration composition uses `nautilus-module-composition-v1`. Unsupported semantics reject before opening/activation.
+
+The world contract has its own joint limits, including 32 declared positions and an 8 MB UTF-8 input/save budget. Other existing save/legacy budgets stay unchanged. Unknown fields in both new strict schemas reject. Native values are never rescaled on load. Migration/legacy representability reports retain the source and always refuse conversion until a complete reviewed binder exists. See [world limits and refusal behavior](extended-world-core.md#bounds-and-legacy-handling).
+
+The optional Farmyard stat-v2 adapter ignores host resource state and preserves it exactly in a shallow derived-field projection; it is not a portable character loader or repair function. Strict portable character loading remains unchanged. Each production game still adopts an exact source/package pin in its own reviewed change.

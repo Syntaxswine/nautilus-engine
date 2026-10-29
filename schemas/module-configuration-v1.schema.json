@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:module-configuration:1",
+  "title": "Nautilus optional module configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "modules", "selected"],
+  "properties": {
+    "version": {"const": 1},
+    "modules": {"type": "array", "maxItems": 128, "items": {"$ref": "#/$defs/module"}},
+    "selected": {"type": "array", "maxItems": 128, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "hosts": {"type": "array", "maxItems": 128, "items": {"$ref": "#/$defs/host"}},
+    "bindings": {"type": "object", "maxProperties": 512, "propertyNames": {"$ref": "#/$defs/id"}, "additionalProperties": {"$ref": "#/$defs/id"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "maxLength": 96, "pattern": "^[a-zA-Z][a-zA-Z0-9_.:-]{0,95}(?![\\s\\S])", "not": {"enum": ["constructor", "prototype", "__proto__"]}},
+    "version": {"type": "integer", "minimum": 1, "maximum": 1000000},
+    "provided": {"type": "object", "additionalProperties": false, "required": ["id", "version"], "properties": {"id": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/version"}}},
+    "requirement": {"type": "object", "additionalProperties": false, "required": ["id", "minVersion", "maxVersion"], "properties": {"id": {"$ref": "#/$defs/id"}, "minVersion": {"$ref": "#/$defs/version"}, "maxVersion": {"$ref": "#/$defs/version"}, "optional": {"type": "boolean"}}},
+    "module": {
+      "type": "object", "additionalProperties": false, "required": ["id", "version", "provides"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/version"}, "provides": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/provided"}}, "requires": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/requirement"}}}
+    },
+    "host": {
+      "type": "object", "additionalProperties": false, "required": ["id", "version", "provides"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/version"}, "provides": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/provided"}}}
+    }
+  },
+  "$comment": "Runtime validation also rejects duplicate IDs, invalid references/ranges, configuration accessors/depth/node limits, incompatible global service choices and dependency cycles. Factories and service values are separate host-supplied implementations, never serialized in configuration."
+}

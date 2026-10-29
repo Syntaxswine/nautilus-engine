@@ -63,7 +63,8 @@ await withArtReview('Five-label floor navigation, focus, follow and legacy edito
  small.on('pageerror',error=>errors.push(error.message));small.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});await small.goto(url,{waitUntil:'networkidle'});assert(await small.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await reflow.close();report.checks.zoomEquivalent200PercentReflow=true;
  if(!sourceMode){
   await page.goto(baseURL+'/',{waitUntil:'networkidle'});await page.waitForFunction(()=>window.editor3d?.document&&!window.editor3d.loading,undefined,{timeout:60000});
-  await page.evaluate(async()=>{const {installEditorFloorNavigation}=await import('/app/floor-navigation.js');window.floorReviewBinding=installEditorFloorNavigation({getHeight:id=>Number(id)*2.12,getLabel:option=>String(Number(option.value)+1)});});
+  assert.ok(await page.evaluate(()=>!!window.nautilus?.floorNavigation),'The built editor must install its floor controls automatically.');
+  await page.evaluate(()=>{window.floorReviewBinding=window.nautilus.floorNavigation;});
   assert.equal(await page.evaluate(()=>window.floorReviewBinding.controller.state.floors.length),6);
   await page.evaluate(()=>window.floorReviewBinding.controller.select('0'));
   const before=await page.evaluate(()=>({json:window.editor3d.export(),revision:window.editor3d.document.revision}));
