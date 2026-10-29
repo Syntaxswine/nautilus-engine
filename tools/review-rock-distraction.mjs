@@ -78,7 +78,7 @@ await withArtReview('Rock pickup, first impact and guard investigation acceptanc
   const {createRockYard}=await import('./rock-distraction-host.js'),saved=window.rockDemo.snapshot();
   if(!saved.rocks[0].flight?.settling)return false;
   const a=createRockYard({snapshot:saved}),b=createRockYard({snapshot:saved});a.advance(.9);for(let i=0;i<54;i++)b.advance(1/60);
-  return JSON.stringify(a.snapshot())===JSON.stringify(b.snapshot())&&a.presentation().rocks[0].position.h===.055&&a.presentation().events.length===1;
+  return JSON.stringify(a.snapshot())===JSON.stringify(b.snapshot())&&Math.abs(a.presentation().rocks[0].position.h-.055)<1e-9&&a.presentation().events.length===1;
  });
  assert(report.checks.quietSettlingReplay);
  state=await untilLanded();assert.equal(state.rocks[0].phase,'world');assert(Math.abs(state.rocks[0].position.h-.055)<1e-9);
