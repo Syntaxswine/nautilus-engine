@@ -43,3 +43,32 @@ test('ceiling undersides fall away quietly and object top faces explicitly tagge
   for(let frame=0;frame<200;frame++){const result=stepRock(rock,{dt:1/60,world:environment({wall:null,floor:.8,supportKind:'object'})});if(!result.ok){rejected={before:rock,result};break;}rock=result.rock;}
   assert.ok(rejected);assert.equal(rejected.result.code,'invalid-contact');assert.deepEqual(rejected.result.rock,rejected.before);assert.deepEqual(rejected.result.events,[]);
 });
+
+test('saved quiet state requires matching original receipt, centre, clock, actor and current fall position',()=>{
+  const first=run(launched(),environment()).first;assert.ok(first.flight.settling);
+  for(const change of [rock=>{delete rock.flight.settling;},rock=>{rock.flight.settling.center.x+=.01;},rock=>{rock.flight.settling.time+=.001;},rock=>{rock.flight.settling=null;},rock=>{rock.lastImpact.sourceActorId='another-actor';},rock=>{rock.lastImpact.kind='ground';},rock=>{rock.position.h+=.0001;},rock=>{rock.phase='world';}]){const invalid=structuredClone(first);change(invalid);assert.throws(()=>openRock(invalid));}
+  const landed=run(first,environment()).rock;assert.deepEqual(openRock(serializeRock(landed)),landed);assert.ok(landed.position.h<landed.lastImpact.position.h-1);
+  const impossible=structuredClone(landed);impossible.position.h=-1000000;assert.throws(()=>openRock(impossible),/maximum quiet fall/);
+  const remaining=landed.profile.maxFlightSeconds-landed.lastImpact.flightTime,lower=landed.lastImpact.position.h-landed.profile.radius-.5*landed.profile.gravity*remaining**2-landed.profile.gravity/(8*landed.profile.stepHz**2)-1e-6;
+  const below=structuredClone(landed);below.position.h=lower-.0001;assert.throws(()=>openRock(below),/maximum quiet fall/);
+  const picking={commandId:'repick-after-wall',rockId:landed.id,expectedRevision:landed.revision,actorId:'actor-reuse',actorPosition:{...landed.position},permitted:true,capacity:true},carried=pickupRock(landed,picking);assert.ok(carried.ok,carried.reason);
+  const command={commandId:'rethrow-after-wall',rockId:landed.id,expectedRevision:carried.rock.revision,actorId:'actor-reuse',throwId:landed.lastImpact.throwId,origin:{...landed.position,h:1.4},target:{x:4,y:0,h:.055},permitted:true};
+  const reused=throwRock(carried.rock,command);assert.equal(reused.ok,false);assert.equal(reused.code,'reused-throw');const fresh=throwRock(carried.rock,{...command,throwId:'fresh-reuse-throw'});assert.ok(fresh.ok,fresh.reason);assert.deepEqual(openRock(serializeRock(fresh.rock)),fresh.rock);
+});
+
+test('irregular supported frame partitions preserve traces/time and per-call sweeps stay bounded',()=>{
+  const source=launched(),fullTrace=[],single=stepRock(source,{dt:1,world:environment({trace:fullTrace})});assert.ok(single.ok,single.reason);assert.ok(fullTrace.length<=91);assert.equal(fullTrace.length,91);
+  const splitTrace=[],world=environment({trace:splitTrace});let split=source,events=[];
+  for(const units of [1,999,1234,8766,45000,34000]){const result=stepRock(split,{dt:units/90000,world});assert.ok(result.ok,result.reason);assert.equal(result.timing.simulatedUnits+result.timing.pendingUnits+result.timing.unspentUnits,split.flight.pendingUnits+units);split=openRock(serializeRock(result.rock));events.push(...result.events);}
+  assert.deepEqual(split,single.rock);assert.deepEqual(events,single.events);assert.deepEqual(splitTrace,fullTrace);
+});
+
+test('release/ground heights remain native metres on an elevated platform',()=>{
+  let rock=createRock({id:'elevated-rock',position:{x:0,y:0,h:2.175}});rock=pickupRock(rock,{commandId:'elevated-pick',rockId:rock.id,expectedRevision:0,actorId:'elevated-actor',actorPosition:{x:0,y:0,h:2.12},permitted:true,capacity:true}).rock;
+  rock=throwRock(rock,{commandId:'elevated-throw-command',throwId:'elevated-throw',rockId:rock.id,expectedRevision:rock.revision,actorId:'elevated-actor',origin:{x:0,y:0,h:3.52},target:{x:8,y:0,h:2.175},permitted:true}).rock;
+  const result=run(rock,environment({wall:null,floor:2.12}));close(result.events[0].position.h,2.12);close(result.rock.position.h,2.175);assert.equal(result.events[0].kind,'ground');
+});
+
+test('a physically reachable deep support remains loadable under the conservative total-fall bound',()=>{
+  const result=run(launched(),environment({wall:null,ceiling:1.6,floor:-450}),1/60,{saveAfterImpact:true});assert.equal(result.events.length,1);assert.equal(result.events[0].kind,'ceiling');close(result.rock.position.h,-450+.055,1e-8);assert.deepEqual(openRock(serializeRock(result.rock)),result.rock);
+});

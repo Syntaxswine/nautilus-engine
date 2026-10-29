@@ -33,6 +33,11 @@ export function openRock(input){
       if(rock.lastImpact){
         const impact=rock.lastImpact.position,limit=rock.profile.radius+1e-6;
         if(rock.lastImpact.kind==='ground'?distance(rock.position,impact)>limit:Math.hypot(rock.position.x-impact.x,rock.position.y-impact.y)>limit||rock.position.h>impact.h+limit)fail('invalid-state','Landed rock differs from its first contact/vertical settling column.');
+        if(rock.lastImpact.kind!=='ground'){
+          const remaining=rock.profile.maxFlightSeconds-rock.lastImpact.flightTime,chordError=rock.profile.gravity/(8*rock.profile.stepHz**2);
+          const minimum=impact.h-rock.profile.radius-.5*rock.profile.gravity*remaining**2-chordError-1e-6;
+          if(rock.position.h<minimum)fail('invalid-state','Landed height exceeds the maximum quiet fall before the total flight limit.');
+        }
       }
     }else{
       const flight=value.flight;fields(flight,['id','commandId','sourceActorId','origin','target','velocity','aimTime','ticks','pendingUnits','settling'],undefined,'rock flight');
