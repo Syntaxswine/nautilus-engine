@@ -1,4 +1,4 @@
-import {openCharacter,characterSheet,deriveStats,STAT_DEFINITIONS} from '../packages/rules-core/index.js';
+import {openCharacter,characterSheet,deriveStats,STAT_DEFINITIONS,previewAttack,CHECK_PROFILES} from '../packages/rules-core/index.js';
 import {exampleEncounter} from '../packages/rules-core/example.js';
 import {
  BASIC_PROGRESSION_PROFILE,createProgression,openProgression,serializeProgression,
@@ -41,7 +41,8 @@ function project(state,character=state.character){
    const receipt=state.receipts.filter(receipt=>receipt.command.type==='practice'&&receipt.command.stat===stat.key).at(-1);
    return {...stat,practice:{current:progress.remainder,threshold:progress.threshold,atCap:progress.atCap,reason:receipt?sourceNames[receipt.command.source]+' · +'+receipt.outcome.practiceGained+' practice':''}};
   }),
-  derived:[['damageResistance','Damage resistance'],['medical','Effective medical'],['mechanical','Effective mechanical'],['perception','Perception'],['stealth','Stealth']].map(([key,label])=>({key,label,value:derived[key]})),
+  derived:[...([['damageResistance','Damage resistance'],['medical','Effective medical'],['mechanical','Effective mechanical'],['perception','Perception'],['stealth','Stealth']].map(([key,label])=>({key,label,value:derived[key]}))),
+   ...[['firearms','Base firearm accuracy'],['heavyWeapons','Base heavy weapons accuracy'],['explosives','Base explosives accuracy']].map(([skill,label])=>({key:skill+'Accuracy',label,unit:'%',value:previewAttack(character,{profile:CHECK_PROFILES.farmyard,skill,modifiers:[],costs:{ap:0,stamina:0},permitted:true}).chance}))],
   recent:state.receipts.map(receipt=>({id:receipt.id,text:describe(receipt)}))
  };
 }
