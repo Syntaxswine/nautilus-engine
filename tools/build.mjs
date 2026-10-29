@@ -60,6 +60,9 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
+// Only the furniture catalogue/resource are live; original renderer imports
+// remain immutable source evidence and must not introduce a second Three.
+for(const name of ['sites/tactical-animal/dist/art/library/catalog.js','sites/tactical-animal/dist/art/library/book-spines.svg','provenance.json'])write(sources.farmyardFurniture.root+'/'+name,fs.readFileSync(path.join(root,sources.farmyardFurniture.root,name)));
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});

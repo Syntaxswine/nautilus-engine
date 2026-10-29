@@ -8,6 +8,8 @@ The golden contour contribution additionally preserves the reviewed Farmyard ren
 
 Nautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.
 
+The separate `vendor/farmyard-furniture/fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b/` snapshot preserves the reviewed library furniture catalogue, model/helper reference source, original book-spine SVG, two painted atlases, source tests/review, design evidence and original Three MIT notice. Its provenance records exact Git blobs and SHA-256 hashes. The inherited AFT artwork and new furniture contribution do not declare a blanket art license; this intake adds no license grant. The engine-owned furniture adapter uses host-supplied Three and the existing byte-identical AFT-pinned paints. Original static Three imports and `painted-furniture.js` remain reference evidence, outside the live runtime closure. Ninety-six finish/content variants represent eight forms.
+
 The `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.
 
 # Gross catalogue building collection

@@ -2,6 +2,7 @@ import {distribution} from './distribution.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
+import {checkFurnitureSource} from './furniture-source.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -32,6 +33,8 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   }
 }
 const haloEvidence = checkSearchHalo(root, sources, tracked);
+const furnitureEvidence = checkFurnitureSource(root,sources,tracked);
+console.log('Verified '+furnitureEvidence.files+' byte-preserved furniture source files and the host-Three/resource bindings.');
 const core = await import('../packages/map-core/index.js');
 const editorAssets = checkEditorAssets(root,sources,tracked);
 if(fs.readFileSync(path.join(root,'packages/prefab-core/catalogue.js'),'utf8')!==prefabCatalogueSource())throw Error('Building registry differs from the pinned native geometry and source plans.');
@@ -61,6 +64,7 @@ function ruleClosure(file) {
 }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
+ruleClosure(path.join(root, 'packages/furniture-core/index.js'));
 await import('../packages/rules-core/index.js');
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
 if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw Error('Rules example failed.');

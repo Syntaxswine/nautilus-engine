@@ -21,7 +21,9 @@
     "./assets/three": "./packages/assets/three.js",
     "./adapters/tinderbox": "./packages/adapters/tinderbox/index.js",
     "./roofs": "./packages/roof-core/index.js",
-    "./roofs/three": "./packages/roof-core/three.js"
+    "./roofs/three": "./packages/roof-core/three.js",
+    "./furniture": "./packages/furniture-core/index.js",
+    "./furniture/three": "./packages/furniture-core/three.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -37,6 +39,10 @@
     "packages/building-catalog/designs.js",
     "packages/building-catalog/index.js",
     "packages/building-catalog/three.js",
+    "packages/furniture-core/factory.js",
+    "packages/furniture-core/index.js",
+    "packages/furniture-core/soft-box.js",
+    "packages/furniture-core/three.js",
     "packages/map-core/blocks.js",
     "packages/map-core/capabilities.js",
     "packages/map-core/contract-manifest.js",
@@ -83,6 +89,8 @@
     "schemas/nautilus-save-v1.schema.json",
     "schemas/sloped-roofs-v1.schema.json",
     "upstream.json",
+    "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/environment/painted-study/cargo-materials-v1.png",
+    "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/environment/painted-study/material-atlas-v2.png",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
@@ -162,6 +170,9 @@
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/babble/LICENSE",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+    "vendor/farmyard-furniture/fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt",
+    "vendor/farmyard-furniture/fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b/sites/tactical-animal/dist/art/library/book-spines.svg",
+    "vendor/farmyard-furniture/fb6e20aa6e7d0cfe8793b4b7f693552d69a3a18b/sites/tactical-animal/dist/art/library/catalog.js",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/brick-sienna-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/roof-slate-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/cedar-shingles-v1.png",
@@ -189,7 +200,8 @@
     "pack:renderer": "node tools/distribution.mjs --profile renderer",
     "pack:assets": "node tools/distribution.mjs --profile assets",
     "test:package": "node tools/distribution.mjs --test",
-    "test:assets": "node tools/distribution.mjs --test-assets"
+    "test:assets": "node tools/distribution.mjs --test-assets",
+    "test:furniture:package": "node tools/distribution.mjs --test-renderer"
   },
   "engines": {
     "node": ">=22"
