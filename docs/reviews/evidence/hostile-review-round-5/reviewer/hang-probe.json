@@ -1,0 +1,54 @@
+{
+ "head": "d91e23ae1ec7ab7a8697444915eb35e85dce834c",
+ "statusBefore": "",
+ "deadlineSeconds": 60,
+ "runs": [
+  {
+   "id": "pristine",
+   "pid": 41552,
+   "code": 0,
+   "signal": null,
+   "killedAtDeadline": false,
+   "seconds": 3.43,
+   "pass": 7,
+   "fail": 0,
+   "cancelled": 0,
+   "lastLines": [
+    "ℹ skipped 0",
+    "ℹ todo 0",
+    "ℹ duration_ms 3203.2029"
+   ]
+  },
+  {
+   "id": "N01 alone",
+   "pid": 40456,
+   "code": 1,
+   "signal": null,
+   "killedAtDeadline": false,
+   "seconds": 0.22,
+   "pass": 0,
+   "fail": 7,
+   "cancelled": 0,
+   "lastLines": [
+    "      at node:internal/process/task_queues:150:7",
+    "      at AsyncResource.runInAsyncScope (node:async_hooks:227:14)",
+    "      at AsyncResource.runMicrotask (node:internal/process/task_queues:147:8)"
+   ]
+  },
+  {
+   "id": "N01 + Send observer defers its refresh one microtask",
+   "pid": 35284,
+   "code": null,
+   "signal": "SIGTERM",
+   "killedAtDeadline": true,
+   "seconds": 60.033,
+   "pass": null,
+   "fail": null,
+   "cancelled": null,
+   "lastLines": [
+    ""
+   ]
+  }
+ ],
+ "statusAfter": ""
+}

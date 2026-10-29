@@ -207,6 +207,18 @@ Under round 4, N01 failed after 32.4 s with a bare `TimeoutError`, and N03 and N
 - A frozen page is reported as frozen only after the 20 s load bound and a 5 s probe, 27 s in all. The cause is now named, but the wait is still long.
 - NIT 6, the rest of NIT 7, and NIT 8 stay open.
 
+### Errata from round 5
+
+[Round 5](2026-10-29-hostile-review-round-5.md) re-measured this section. These statements did not hold:
+- **"Ready in at most 3.6 s quiet and 6.2 s under 16 busy loops."** Two re-runs gave quiet worst cases of 4.2 s and 6.9 s, and stressed worst cases of 12.9 s and 6.4 s. `aed3921` sets the load bound back to Playwright's 30 s default.
+- **"16.4 s and 13.9 s after the job started."** Those times run from the start of the review step, not the job. Later runs reached 18.6–20.1 s.
+- **The per-test bound's comment, "A test here takes under 2 s."** In the full suite the slowest test took 7.8 s quiet and 19.6 s under load, against the 20 s bound. `aed3921` sets the bound to 120 s.
+- **"`dist/` hashes as before."** True for `87805df`. The record commit, `d91e23a`, deploys 10 changed files under `dist/docs` (1036 files): the record itself.
+- **"The tests assert one settings feedback after every refresh."** They assert it twice: at load, and at the end of one test.
+- **The double's comments on notification order and the loop guard** overstated what the DOM does. `aed3921` corrects both, and makes `notify()` deliver only to the observers with records pending when the pass began.
+
+The mutation proof, the browser timings, the `dist/` digests on `9ff1957` and `87805df`, and the SF4 numbers all reproduced.
+
 ## Behaviour changes
 
 None. `484bb56` corrects a comment, one test's assertion and labels, and a count in a README. `064f4df`, `176a29f` and `87805df` change tests and review tools only. `064f4df` moves two deployment patch texts verbatim into their own module, and `dist/` hashes as before.
