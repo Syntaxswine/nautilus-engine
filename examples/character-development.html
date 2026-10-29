@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark">
+  <title>Character development · Nautilus workshop</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./character-development.css">
+</head>
+<body>
+  <header class="masthead"><a class="brand" href="../">N<span>NAUTILUS<small>CHARACTER RECORD</small></span></a><span class="edition">A little more capable. Still the same character.</span></header>
+  <main>
+    <div class="page-intro"><p class="eyebrow">BASIC CHARACTER DEVELOPMENT</p><h1>Room to grow</h1><p>Earn experience, keep your points, and decide what to develop.</p></div>
+    <div id="level-notice" class="level-notice" role="status" aria-live="polite" hidden><div><strong id="level-notice-title"></strong><p id="level-notice-detail"></p></div><button id="notice-develop" disabled>Develop character</button><button id="dismiss-notice" class="icon-button" aria-label="Dismiss level notice">×</button></div>
+    <div class="page-grid">
+      <section class="record-card painted-frame" aria-labelledby="character-name">
+        <div class="record-heading"><div><p class="eyebrow">REFERENCE CHARACTER</p><h2 id="character-name">Mechanic</h2><p>Existing rules example · injured and exhausted sample state</p></div><div class="level-badge"><span>LEVEL</span><strong id="level">—</strong></div></div>
+        <div class="experience"><div><span>Experience</span><strong id="xp-label">Opening record…</strong></div><progress id="xp-meter" value="0" max="1" aria-label="Progress to next level"></progress><p id="next-level"></p></div>
+        <div class="resources" id="resources" aria-label="Current character resources"></div>
+        <div class="bank"><div><span class="eyebrow">UNSPENT POINTS</span><strong id="banked">—</strong><p id="reward-rule">Points can be kept for later.</p></div><button id="develop" class="painted-button" disabled>Develop character</button></div>
+        <details class="record-details" open><summary>Current attributes and skills</summary><dl id="committed-stats"></dl></details>
+        <p id="record-status" class="status" role="status" aria-live="polite">Opening character record…</p>
+      </section>
+      <aside class="reference-panel" aria-label="Reference outcomes and saved character">
+        <section class="outcomes-card"><p class="eyebrow">SAMPLE COMMITTED OUTCOMES</p><h2>A record of what happened</h2><p class="hint">Record sample results to inspect experience and practice for this character.</p><div id="outcome-buttons">
+          <button data-outcome="running" disabled><span>Completed run</span><small>Practice</small></button>
+          <button data-outcome="shot" disabled><span>Confirmed shot</span><small>Practice</small></button>
+          <button data-outcome="bandaging" disabled><span>Bandage completed</span><small>Practice</small></button>
+          <button data-outcome="kill" disabled><span>Kill confirmed</span><small>Experience</small></button>
+          <button data-outcome="objective" disabled><span>Objective completed</span><small>Experience</small></button>
+        </div><button id="replay-outcome" class="quiet-button" disabled>Replay last recorded result</button><p class="hint">This reference records supplied outcomes; it does not run a game encounter.</p></section>
+        <section class="save-card"><p class="eyebrow">KEEP THIS RECORD</p><div class="save-actions"><button id="save" disabled>Save in browser</button><button id="reload" disabled>Reload save</button><button id="export" disabled>Export character</button><label class="file-button" for="import">Import character<input id="import" type="file" accept=".json,application/json"></label></div><p id="save-status" class="hint" role="status" aria-live="polite">Save confirmed changes to keep them between visits.</p><button id="open-sample" class="quiet-button">Open sample record</button></section>
+        <section class="recent-card"><p class="eyebrow">RECENT DEVELOPMENT</p><ol id="recent" aria-label="Recent development reasons"></ol></section>
+      </aside>
+    </div>
+  </main>
+  <footer>Nautilus reference panel · six attributes, eight skills · adoption stays with each game.</footer>
+
+  <dialog id="development" aria-labelledby="development-title" aria-describedby="development-help">
+    <header class="development-heading"><div><p class="eyebrow" id="development-character">MECHANIC</p><h2 id="development-title">Character development</h2></div><button id="development-close" class="icon-button" aria-label="Close character development">×</button></header>
+    <div class="point-strip"><div><span>Available</span><strong id="available-points">0</strong></div><div><span>Staged</span><strong id="staged-points">0</strong></div><div><span>Keep for later</span><strong id="remaining-points">0</strong></div></div>
+    <div class="development-scroll">
+      <div class="allocation-layout">
+        <div class="stat-groups"><section aria-labelledby="attributes-title"><h3 id="attributes-title">Attributes <small>1–100</small></h3><div id="attributes"></div></section><section aria-labelledby="skills-title"><h3 id="skills-title">Skills <small>1–100</small></h3><div id="skills"></div></section></div>
+        <aside class="effect-preview" aria-label="Preview of character changes"><p class="eyebrow">AFTER CONFIRMING</p><h3>What changes</h3><dl id="derived-preview"></dl><p class="preserved-note">Current HP, AP and stamina are preserved.</p><p class="practice-note">Practice is separate from points. Reaching 100 clears the remaining practice for that stat.</p></aside>
+      </div>
+    </div>
+    <footer class="development-footer"><p id="development-help">Changes apply when you confirm. Closing keeps your unspent points.</p><p id="allocation-status" role="alert" hidden></p><div class="development-actions"><div class="draft-tools"><button id="allocation-undo" disabled>Undo allocation</button><button id="allocation-reset" disabled>Reset allocation</button></div><div class="confirm-tools"><button id="bank-points">Keep points for later</button><button id="allocation-confirm" class="painted-button" disabled>Confirm allocation</button></div></div></footer>
+  </dialog>
+  <script type="module" src="./character-development.js"></script>
+</body>
+</html>
