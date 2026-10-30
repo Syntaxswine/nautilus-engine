@@ -21,7 +21,7 @@ function lifetime(external){
   const forget=texture=>{const observer=textures.get(texture);textures.delete(texture);if(observer)texture.removeEventListener('dispose',observer);};
   function ownTexture(texture,borrowed=false){
     if(!texture?.isTexture)throw new TypeError('Texture loader must return a Three Texture with transferred ownership.');
-    if(borrowed)texture=texture.clone();
+    if(borrowed){const validity=texture.userData.paintValidity;texture=texture.clone();if(validity instanceof Uint8Array)texture.userData.paintValidity=validity.slice();}
     if(!textures.has(texture)){
       const dispose=texture.dispose;let released=false;
       texture.dispose=function(){if(released)return;released=true;return dispose.call(this);};
