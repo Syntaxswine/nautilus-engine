@@ -1,6 +1,6 @@
 # Grenade controls builder card
 
-**UI candidate; integrated native player acceptance is pending.** The optional DOM adapter is `packages/grenade-ui/controls.js`, with `style.css`. Proposed public entries are `@nautilus-engine/map-core/grenades/ui` and `@nautilus-engine/map-core/grenades/style.css`; the architect registers exports and the package whitelist. This checkpoint does not register them itself. The [preparation fixture](../../examples/grenade-controls-preparation.html) and [browser tool](../../tools/review-grenade-controls-preparation.mjs) use an explicitly labelled aim spy and injected responses. They prove controls and callback lifecycle only. They do not implement a grenade game, physics, save format or native animation.
+**UI candidate; integrated native player acceptance is pending.** The optional DOM adapter is `packages/grenade-ui/controls.js`, with `style.css`. Public compatibility entries are `@nautilus-engine/map-core/grenades/ui` and `@nautilus-engine/map-core/grenades/style.css`; the architect integration registers exports and the package whitelist. The [preparation fixture](../../examples/grenade-controls-preparation.html) and [browser tool](../../tools/review-grenade-controls-preparation.mjs) use an explicitly labelled aim spy and injected responses. They prove controls and callback lifecycle only. They do not implement a grenade game, physics, save format or native animation.
 
 ## Use and ownership
 
@@ -27,7 +27,7 @@ DOM use: load the public CSS, mount the controls in a labelled focus scope, bind
 
 ## Borrowed-scene preview
 
-Proposed `./grenades/view` exports `createGrenadeOverlay(THREE,{scene,cameraFrame})`. Supply the existing host Three and borrowed scene plus the committed source-exact `grenadeCameraFrame` function. `update({actor,point,preview})` consumes the public kernel's trajectory, footprint and blast radius, mapping simulation `x/y/z` to Three `X/height/Z`. It draws the source gold/coral arc, target marker, maximum ring and clipped exposed-ground fan. Compatibility refusals with no geometry hide the overlay; controls still show the refusal. Invalid coordinates throw visibly. It does not generate trajectories, collide, own an animal or schedule an effect.
+`./grenades/view` exports `createGrenadeOverlay(THREE,{scene,cameraFrame})`. Supply the existing host Three and borrowed scene plus the committed source-exact `grenadeCameraFrame` function. `update({actor,point,preview})` consumes the public kernel's trajectory, footprint and blast radius, mapping simulation `x/y/z` to Three `X/height/Z`. It draws the source gold/coral arc, target marker, maximum ring and clipped exposed-ground fan. Compatibility refusals with no geometry hide the overlay; controls still show the refusal. Invalid coordinates throw visibly. It does not generate trajectories, collide, own an animal or schedule an effect.
 
 `frame(viewport,minimumSpan)` delegates arc points, actor foot/head and sixteen maximum-blast perimeter points to the supplied source helper. The host owns its camera, HUD-safe viewport measurement, source 0.14 camera interpolation, follow mode and 800 ms linger clock. `clear()` hides the overlay; `dispose()` retires only owned geometry/materials/group, once. No DOM/renderer/native driver/texture import is required by this entry. The artist's `./grenades/three` provider remains separate.
 
