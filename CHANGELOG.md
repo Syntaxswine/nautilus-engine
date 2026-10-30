@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 — 2026-10-29
+
+- Extract Farmyard Commando's ordinary same-floor grenade rules into optional headless grenade and aiming entries, pinned to reviewed source with original conformance tests and hashes.
+- Preserve source AP discounts, finite stock, held equipment, authored trajectory, wall/fog protection, damage, casualties and contact transitions; refuse reactive and multilevel scenes before spending.
+- Add strict versioned grenade state, transactional host-context updates and durable retries that preserve injuries and spent resources through reload.
+- Add optional desktop/touch controls, a borrowed-scene preview overlay, shared item discovery and original painted grenade/horse choreography with explicit resource ownership.
+- Preserve the source gameplay arc while bridging the measured native hand-release gap cosmetically; native playback never reapplies authority.
+- Keep complete game inventory, body registries, scheduling and persistence behind explicit host bindings. No production game pin changes.
+
 ## 0.8.0 — 2026-10-29
 
 - Add optional headless module planning and explicit prepare/start/stop/dispose ownership, host-provider bindings, version diagnostics and rollback.

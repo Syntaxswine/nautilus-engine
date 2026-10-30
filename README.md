@@ -72,6 +72,12 @@ Open `/examples/rock-distraction.html` after building and serving to try pickup,
 
 `./items` exports headless, copied rock state and staged actions. `./items/three` supplies an original 11 cm, texture-free rock model using the host's Three namespace. Discovery includes `item:rock`. Saves retain explicit flight time; previews stay silent and hearing uses the actual impact point. Combat and confirmed threats take priority over distraction. See [the item contract](docs/rock-distraction.md).
 
+## Farmyard grenade profile
+
+`./grenades` and optional `./grenades/aim` reuse Farmyard Commando's grenade costs, finite stock, same-plane trajectory/cover/damage and aiming controls. Transactions and retained-host checkpoints preserve command identity and spent/injured state; flight playback is transient. The supported first profile is static and non-reactive: windows, fueled targets, active fire and other floors refuse before costs. The frozen full game source is test evidence rather than a runtime dependency. See the [component guide and builder checklist](docs/grenades.md) and [source intake](docs/intake/2026-10-29-farmyard-grenades.md). Game adoption remains a separate change.
+
+`./grenades/ui` and `./grenades/style.css` supply optional desktop/touch controls; `./grenades/view` supplies the borrowed-scene preview. `./grenades/three` reuses the original painted grenade and native horse throw, with prop-only loading and explicit ownership. Discovery includes `item:grenade` and its logic/renderer guides. Headless core excludes browser and renderer entries.
+
 ## Optional contour effect
 
 `./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.

@@ -1,0 +1,971 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:grenade-state:1",
+  "title": "Nautilus static same-plane grenade sidecar v1",
+  "description": "Runtime validation additionally replays the bounded journal and checks cross-field identity/resource/geometry consistency.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "const": "nautilus-grenade-state"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "profileId": {
+      "const": "farmyard-static-same-plane-v1"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "initial": {
+      "$ref": "#/$defs/context"
+    },
+    "world": {
+      "$ref": "#/$defs/world"
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "$ref": "#/$defs/actor"
+      }
+    },
+    "control": {
+      "$ref": "#/$defs/control"
+    },
+    "support": {
+      "$ref": "#/$defs/support"
+    },
+    "receipts": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "$ref": "#/$defs/receipt"
+      }
+    }
+  },
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "profileId",
+    "revision",
+    "initial",
+    "world",
+    "actors",
+    "control",
+    "support",
+    "receipts"
+  ],
+  "$defs": {
+    "id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,63}$"
+        },
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      ]
+    },
+    "xy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "z": {
+          "const": 0
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 96
+        },
+        "team": {
+          "enum": [
+            "squad",
+            "guard"
+          ]
+        },
+        "x": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "z": {
+          "const": 0
+        },
+        "hp": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "ap": {
+          "type": "number",
+          "minimum": -1e-7,
+          "maximum": 1000000
+        },
+        "stamina": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "maxAp": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "endurance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "weapon": {
+          "enum": [
+            "hands",
+            "knife",
+            "pistol",
+            "pistol-offhand",
+            "rifle",
+            "assault",
+            "smg",
+            "hmg",
+            "shotgun",
+            "sniper",
+            "grenade",
+            "launcher",
+            "rpg",
+            "flamethrower"
+          ]
+        },
+        "grenades": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "grenadePackRounds": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        },
+        "heading": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "isMoving": {
+          "type": "boolean"
+        },
+        "burningTurns": {
+          "const": 0
+        },
+        "casualty": {
+          "enum": [
+            null,
+            "dead"
+          ]
+        },
+        "alert": {
+          "type": "boolean"
+        },
+        "lastKnown": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/xy"
+            }
+          ]
+        },
+        "alertAge": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "species": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "not": {
+            "enum": [
+              "constructor",
+              "__defineGetter__",
+              "__defineSetter__",
+              "hasOwnProperty",
+              "__lookupGetter__",
+              "__lookupSetter__",
+              "isPrototypeOf",
+              "propertyIsEnumerable",
+              "toString",
+              "valueOf",
+              "__proto__",
+              "toLocaleString"
+            ]
+          }
+        },
+        "stance": {
+          "enum": [
+            "standing",
+            "kneeling",
+            "prone"
+          ]
+        },
+        "sneaking": {
+          "type": "boolean"
+        },
+        "cone": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "number",
+              "minimum": -1000000,
+              "maximum": 1000000
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "team",
+        "x",
+        "y",
+        "z",
+        "hp",
+        "ap",
+        "stamina",
+        "maxAp",
+        "endurance",
+        "weapon",
+        "grenades",
+        "grenadePackRounds",
+        "heading",
+        "isMoving",
+        "burningTurns",
+        "casualty",
+        "alert",
+        "lastKnown",
+        "alertAge",
+        "species",
+        "stance",
+        "sneaking",
+        "cone"
+      ]
+    },
+    "box": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "x0": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "x1": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y0": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y1": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "z0": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "kind": {
+          "type": "string",
+          "maxLength": 64,
+          "not": {
+            "enum": [
+              "glass",
+              "fuel-tank",
+              "gas-tank",
+              "explosive",
+              "volatile-target"
+            ]
+          }
+        },
+        "windowPart": {
+          "const": false
+        }
+      },
+      "required": [
+        "id",
+        "x0",
+        "x1",
+        "y0",
+        "y1",
+        "z0",
+        "height",
+        "kind",
+        "windowPart"
+      ]
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "y": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "w": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "h": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 240
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ]
+        },
+        "seen": {
+          "type": "array",
+          "maxItems": 65536,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(-?\\d+),(-?\\d+)$"
+          }
+        },
+        "boxes": {
+          "type": "array",
+          "maxItems": 8192,
+          "items": {
+            "$ref": "#/$defs/box"
+          }
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            }
+          },
+          "required": [
+            "width",
+            "height"
+          ]
+        },
+        "visible": {
+          "type": "array",
+          "maxItems": 65536,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(-?\\d+),(-?\\d+)$"
+          }
+        },
+        "fogAt": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/xy"
+            }
+          ]
+        }
+      },
+      "required": [
+        "bounds",
+        "seen",
+        "boxes",
+        "grid",
+        "visible",
+        "fogAt"
+      ]
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "windows": {
+          "const": false
+        },
+        "fueledTargets": {
+          "const": false
+        },
+        "volatileTargets": {
+          "const": false
+        },
+        "fire": {
+          "const": false
+        },
+        "multilevel": {
+          "const": false
+        },
+        "engagement": {
+          "const": "farmyard-contact-refill-v1"
+        },
+        "consequences": {
+          "const": "ordinary-casualty-alert-v1"
+        }
+      },
+      "required": [
+        "windows",
+        "fueledTargets",
+        "volatileTargets",
+        "fire",
+        "multilevel",
+        "engagement",
+        "consequences"
+      ]
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actorId": {
+          "$ref": "#/$defs/id"
+        },
+        "phase": {
+          "enum": [
+            "explore",
+            "player",
+            "enemy",
+            "won",
+            "lost"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "extracted",
+            "lost"
+          ]
+        },
+        "engaged": {
+          "type": "boolean"
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        },
+        "detected": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "actorId",
+        "phase",
+        "status",
+        "engaged",
+        "round",
+        "detected"
+      ]
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "world": {
+          "$ref": "#/$defs/world"
+        },
+        "actors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/actor"
+          }
+        },
+        "control": {
+          "$ref": "#/$defs/control"
+        },
+        "support": {
+          "$ref": "#/$defs/support"
+        }
+      },
+      "required": [
+        "world",
+        "actors",
+        "control",
+        "support"
+      ]
+    },
+    "throwCommand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "actorId": {
+          "$ref": "#/$defs/id"
+        },
+        "point": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/xy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "expectedRevision",
+        "actorId",
+        "point"
+      ]
+    },
+    "contextCommand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "world": {
+          "$ref": "#/$defs/world"
+        },
+        "actors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/actor"
+          }
+        },
+        "control": {
+          "$ref": "#/$defs/control"
+        },
+        "support": {
+          "$ref": "#/$defs/support"
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "expectedRevision",
+        "world",
+        "actors",
+        "control",
+        "support"
+      ]
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ap": {
+          "type": "number",
+          "minimum": -1e-7,
+          "maximum": 1000000
+        },
+        "grenades": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "grenadePackRounds": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        }
+      },
+      "required": [
+        "ap",
+        "grenades",
+        "grenadePackRounds"
+      ]
+    },
+    "body": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actorId": {
+          "$ref": "#/$defs/id"
+        },
+        "x": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "z": {
+          "const": 0
+        }
+      },
+      "required": [
+        "actorId",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "consequence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "stop-movement"
+            },
+            "actorId": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "required": [
+            "type",
+            "actorId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "refresh-visibility"
+            },
+            "phase": {
+              "enum": [
+                "before-debit",
+                "after-blast"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "phase"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "register-body"
+            },
+            "actorId": {
+              "$ref": "#/$defs/id"
+            },
+            "x": {
+              "type": "number",
+              "minimum": -10000,
+              "maximum": 10000
+            },
+            "y": {
+              "type": "number",
+              "minimum": -10000,
+              "maximum": 10000
+            },
+            "z": {
+              "const": 0
+            }
+          },
+          "required": [
+            "type",
+            "actorId",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "log-throw"
+            },
+            "actorId": {
+              "$ref": "#/$defs/id"
+            },
+            "cost": {
+              "enum": [
+                2.5,
+                5
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "actorId",
+            "cost"
+          ]
+        }
+      ]
+    },
+    "damage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actorId": {
+          "$ref": "#/$defs/id"
+        },
+        "rawDamage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120
+        },
+        "resistance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 120
+        },
+        "hpBefore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "hpAfter": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "killed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actorId",
+        "rawDamage",
+        "resistance",
+        "amount",
+        "hpBefore",
+        "hpAfter",
+        "killed"
+      ]
+    },
+    "receipt": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "type": {
+              "const": "context"
+            },
+            "command": {
+              "$ref": "#/$defs/contextCommand"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "command",
+            "revision"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "type": {
+              "const": "throw"
+            },
+            "command": {
+              "$ref": "#/$defs/throwCommand"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "cost": {
+              "enum": [
+                2.5,
+                5
+              ]
+            },
+            "before": {
+              "$ref": "#/$defs/resources"
+            },
+            "after": {
+              "$ref": "#/$defs/resources"
+            },
+            "damage": {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "$ref": "#/$defs/damage"
+              }
+            },
+            "bodies": {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "$ref": "#/$defs/body"
+              }
+            },
+            "alerts": {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "controlBefore": {
+              "$ref": "#/$defs/control"
+            },
+            "controlAfter": {
+              "$ref": "#/$defs/control"
+            },
+            "consequences": {
+              "type": "array",
+              "maxItems": 132,
+              "items": {
+                "$ref": "#/$defs/consequence"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "command",
+            "revision",
+            "cost",
+            "before",
+            "after",
+            "damage",
+            "bodies",
+            "alerts",
+            "controlBefore",
+            "controlAfter",
+            "consequences"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -17,6 +17,7 @@ jobs:
       - run: npm run test:upstream
       - run: npm run build
       - run: npm run test:package
+      - run: npm run test:grenade-renderer
   browser-workflow:
     runs-on: ubuntu-latest
     timeout-minutes: 16
@@ -52,6 +53,10 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-character-development
+      - run: npm run review:grenade-controls
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-controls
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -60,6 +65,7 @@ jobs:
             artifacts/engine-integration/
             artifacts/rock-distraction/
             artifacts/character-development/
+            artifacts/grenade-controls-preparation/
             artifacts/floor-navigation/
             artifacts/extended-world-editor/
             artifacts/editor-materials/
