@@ -48,11 +48,14 @@ fs.mkdirSync(path.dirname(out), {recursive: true});
 const order = Array.from({length: runs}, (_, i) => [0, 3].includes(i % 4) ? ['a', 'b'] : ['b', 'a']);
 const sha = data => createHash('sha256').update(data).digest('hex');
 const median = values => {const s = [...values].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;};
+// A tree is named by Git only when it is its work tree's top level; an extracted copy
+// (inside another repository or none) is named by its stamp, or not at all.
 function identity(dir) {
   const git = (...rest) => {try {return execFileSync('git', ['-C', dir, ...rest], {encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']}).trim();} catch {return null;}};
-  const stamp = path.join(dir, '.bench-tree.json');
-  return {head: git('rev-parse', 'HEAD') ?? (fs.existsSync(stamp) ? JSON.parse(fs.readFileSync(stamp, 'utf8')).commit : null),
-    status: git('status', '--short') ?? (fs.existsSync(stamp) ? 'extracted archive (' + JSON.parse(fs.readFileSync(stamp, 'utf8')).method + ')' : null)};
+  const stamp = path.join(dir, '.bench-tree.json'), top = git('rev-parse', '--show-toplevel'), same = (p, q) => path.resolve(p).toLowerCase() === path.resolve(q).toLowerCase();
+  if (top && same(top, dir)) return {head: git('rev-parse', 'HEAD'), status: git('status', '--short')};
+  if (fs.existsSync(stamp)) {const s = JSON.parse(fs.readFileSync(stamp, 'utf8')); return {head: s.commit, status: 'extracted archive (' + s.method + ')'};}
+  return {head: null, status: null};
 }
 const rig = {node: process.version, platform: process.platform + ' ' + os.release(), cpu: os.cpus()[0]?.model, logicalCpus: os.cpus().length, loadavg: os.loadavg()};
 
@@ -162,9 +165,10 @@ async function editorBench() {
       const swift = backend === 'swiftshader', capture = swift && run < 2, n = swift ? 2 : frames, nBlocks = swift ? 2 : blocks;
       const browser = await pw.chromium.launch({channel, headless: true, args: BACKENDS[backend]}), errors = [], pages = {};
       try {
-        // SwiftShader runs (the pixel captures) and the counts reduce motion: the fires animate,
-        // and only a still frame lets a repeat of one arm be byte-identical.
-        const context = await browser.newContext({viewport: {width: 1600, height: 1100}, deviceScaleFactor: 1, reducedMotion: swift || countsOnly ? 'reduce' : 'no-preference'});
+        // Every run reduces motion: the fires animate, and only a still frame lets a repeat of
+        // one arm be byte-identical (the pixel captures) or draw the same as the frame before
+        // (frames() refuses a change: on a lamp-lit map in round 4 a fire's flame added a draw).
+        const context = await browser.newContext({viewport: {width: 1600, height: 1100}, deviceScaleFactor: 1, reducedMotion: 'reduce'});
         // Counterbalance which arm's page is created and loaded first.
         for (const arm of order[run].filter(arm => arms.includes(arm))) {
           const page = pages[arm] = await context.newPage();
@@ -267,8 +271,16 @@ async function editorBench() {
       row.views[view] = {totalMs: {a: median(per('a')), b: median(per('b'))}, cpuMs: {a: median(cpu('a')), b: median(cpu('b'))},
         speedup: ratios(per('a').map((v, i) => v / per('b')[i])), counts: {a: counts('a'), b: counts('b')}};
       // GPU elapsed time per frame (EXT_disjoint_timer_query_webgl2), where both arms have it.
+      // It spans the frame's first command to its last, idle gaps included, so where it is
+      // no longer than the CPU's submit time the frame is fed slower than the GPU draws it,
+      // and the span follows the feed (round 4 of the 0.8 series: with the page's CPU
+      // throttled x3 and the same draws it grew x4.4). own says, per arm, whether the span
+      // exceeds the submit time: only then is it the GPU's own time.
       const gpuMs = arm => list.map(s => s.views[view][arm].every(b => b.gpu) ? median(s.views[view][arm].map(b => median(b.gpu))) : null);
-      if (gpuMs('a').every(v => v !== null) && gpuMs('b').every(v => v !== null)) row.views[view].gpu = {ms: {a: median(gpuMs('a')), b: median(gpuMs('b'))}, speedup: ratios(gpuMs('a').map((v, i) => v / gpuMs('b')[i]))};
+      if (gpuMs('a').every(v => v !== null) && gpuMs('b').every(v => v !== null)) {
+        const ms = {a: median(gpuMs('a')), b: median(gpuMs('b'))};
+        row.views[view].gpu = {ms, speedup: ratios(gpuMs('a').map((v, i) => v / gpuMs('b')[i])), own: {a: ms.a > row.views[view].cpuMs.a, b: ms.b > row.views[view].cpuMs.b}};
+      }
       // The subtraction estimate of the assets' own time: this frame minus the same
       // run's blank-map frame, per run. Below the blank map's spread it means little.
       // Only where both use one camera: the close view sits at each map's first building.
@@ -510,4 +522,6 @@ const result = flag('node') ? await nodeBench() : flag('editor') ? await editorB
 fs.writeFileSync(out, JSON.stringify(result, null, 1));
 console.log('Wrote ' + path.relative(here, out));
 console.log(JSON.stringify(result.summary, null, 1).slice(0, 6000));
+// What --expect compared, so a log shows a gate that compared nothing.
+if (flag('editor') && flag('expect')) console.log('--expect compared ' + (result.expect?.length || 0) + ' headless and ' + (result.expectCulled?.length || 0) + ' culled counts' + (result.refused ? '; ' + result.refused.length + ' refused.' : ', all equal.'));
 if (result.refused) {console.error('Refused:\n' + result.refused.join('\n')); process.exit(1);}
