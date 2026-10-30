@@ -2,6 +2,8 @@
 
 Follow the [component handoff standard](../../component-handoffs.md). This is an artist source-audit card, not a registered runtime API or a released animation provider. [Guide](README.md), [measurements](measurements.json), [source/resource ledger](sources.json), [working source probe](../../../art/grenade-review/audit.mjs).
 
+For the follow-on implemented optional provider and its exact constructor/frame/disposal ABI, use [the provider guide](provider.md). Public distribution registration and integrated browser/player acceptance remain architect-owned work.
+
 | Field | Concrete handoff |
 | --- | --- |
 | Status / identity | Proposed source audit `farmyard-grenade-presentation-251bf809`; no public API/schema/capability identity invented |
