@@ -1,0 +1,35 @@
+14:54:23 Q0a-control-editor-never-batches: killed [exit 1 37/38 cancelled 0 31s free>=44.8G the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+14:55:00 Q0b-control-no-per-copy-culling: killed [exit 1 36/38 cancelled 0 37s free>=42.4G every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+14:55:50 Q1-shadow-culled-by-view-camera: killed [exit 1 37/38 cancelled 0 50s free>=41.5G every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+14:56:56 Q2-draw-range-ignored: SURVIVED [exit 0 38/38 cancelled 0 65s free>=41.9G ]
+14:57:55 Q3-index-offset-in-elements: SURVIVED [exit 0 38/38 cancelled 0 59s free>=41.3G ]
+14:58:56 Q4-frustum-ignores-batch-transform: SURVIVED [exit 0 38/38 cancelled 0 60s free>=41G ]
+14:59:51 Q5-editor-rebuild-never-cuts-prefabs: SURVIVED [exit 0 38/38 cancelled 0 54s free>=40.6G ]
+15:00:58 Q6-editor-local-clipping-off: SURVIVED [exit 0 38/38 cancelled 0 66s free>=40.8G ]
+15:01:56 Q7-shader-patch-darkens-every-material: SURVIVED [exit 0 22/22 cancelled 0 58s free>=40.6G ]
+15:02:53 Q8-clipping-plane-on-every-material: SURVIVED [exit 0 22/22 cancelled 0 57s free>=40.5G ]
+15:03:46 Q9-draw-range-one-triangle: killed [exit 1 21/22 cancelled 0 53s free>=40.4G window and door apertures are real holes in both source and game envelope geometry]
+15:04:36 Q10-render-order: SURVIVED [exit 0 22/22 cancelled 0 49s free>=40.8G ]
+{
+ "total": 12,
+ "killed": [
+  "Q0a-control-editor-never-batches",
+  "Q0b-control-no-per-copy-culling",
+  "Q1-shadow-culled-by-view-camera",
+  "Q9-draw-range-one-triangle"
+ ],
+ "survived": [
+  "Q2-draw-range-ignored",
+  "Q3-index-offset-in-elements",
+  "Q4-frustum-ignores-batch-transform",
+  "Q5-editor-rebuild-never-cuts-prefabs",
+  "Q6-editor-local-clipping-off",
+  "Q7-shader-patch-darkens-every-material",
+  "Q8-clipping-plane-on-every-material",
+  "Q10-render-order"
+ ],
+ "errors": [],
+ "invalid": []
+}
+PHASE1_EXIT 0
+survivors: Q2-draw-range-ignored,Q3-index-offset-in-elements,Q4-frustum-ignores-batch-transform,Q5-editor-rebuild-never-cuts-prefabs,Q6-editor-local-clipping-off,Q7-shader-patch-darkens-every-material,Q8-clipping-plane-on-every-material,Q10-render-order

@@ -1,0 +1,1455 @@
+{
+ "script": "mutate-a4.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T22:59:36.428Z",
+ "node": "v24.15.0",
+ "head": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "Q0a-control-editor-never-batches",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 E1 / the answer's P1: the 32 copies drawn per copy",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 28268,
+     "tests": 42,
+     "pass": 40,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the eight neighbours are one batched cluster, the ninth draws itself",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q0b-control-no-per-copy-culling",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "round 3 MF-B / K3",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 59134,
+     "tests": 42,
+     "pass": 39,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "each copy in view is a sub-draw of its own, with or without WEBGL_multi_draw, and none is instanced",
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q1-shadow-culled-by-view-camera",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "round 4 Q1; N7: now an assertion, not a TypeError",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 27689,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the lamp's faces draw only the copy within its range"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q2-draw-range-ignored",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "round 4 Q2 (N2)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 28674,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform",
+      "failing tests:",
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q3-index-offset-in-elements",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "round 4 Q3 (N2)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 56335,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform",
+      "failing tests:",
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q4-frustum-ignores-batch-transform",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "round 4 Q4 (N2)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 29663,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform",
+      "failing tests:",
+      "a sub-draw follows the renderer: an index start in bytes, the draw range, the batch's own transform"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q5-editor-rebuild-never-cuts-prefabs",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 4 Q5 (SF-F): every setOptions asks the prefab layer for all levels",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 15638,
+     "tests": 3,
+     "pass": 1,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: setOptions cuts the buildings: [{\"main\":70,\"shadow\":43,\"mainTriangles\":392634,\"shadowTriangles\":385398},{\"main\":70,\"shadow\":43,\"mainTriangles\":392634,\"shadowTriangles\":385398}]",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q5b-editor-edit-never-cuts-prefabs",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the edit path (update) asks for all levels",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 18684,
+     "tests": 3,
+     "pass": 2,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: an edit (update) keeps the cutaway"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q5c-editor-open-cuts-prefabs",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "opening a map asks for the cutaway",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 41176,
+     "tests": 3,
+     "pass": 1,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: setOptions cuts the buildings: [{\"main\":14,\"shadow\":14,\"mainTriangles\":55908,\"shadowTriangles\":55908},{\"main\":14,\"shadow\":14,\"mainTriangles\":55908,\"shadowTriangles\":55908}]",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q7-shader-patch-darkens-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "round 4 Q7 (SF-G)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 7304,
+     "tests": 9,
+     "pass": 7,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "failing tests:",
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q8-clipping-plane-on-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "round 4 Q8 (SF-G)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 5912,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "Q10-render-order",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "round 4 Q10 (SF-G)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4680,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M1-never-linked",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "every copy its own cluster: nothing batched",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 28332,
+     "tests": 42,
+     "pass": 32,
+     "fail": 10,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the eight neighbours are one batched cluster, the ninth draws itself",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  TypeError: Cannot destructure property 'mesh' of 'layer.instanced.find(...)' as it is undefined."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M2-always-linked",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "every copy of a design one cluster, however far apart (the round 3 behaviour)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 27634,
+     "tests": 42,
+     "pass": 38,
+     "fail": 4,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii",
+      "only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the eight neighbours are one batched cluster, the ninth draws itself",
+      "  AssertionError [ERR_ASSERTION]: w8-gross-rows-of-8 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M3-sweep-stops-at-own-radius",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the sweep ends by the next sphere's radius, missing a wider one further on",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 53989,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii",
+      "failing tests:",
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M4-strict-overlap",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "touching spheres not linked",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 34898,
+     "tests": 42,
+     "pass": 41,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii",
+      "failing tests:",
+      "neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M5-small-clusters-batched",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "any cluster batched, however small",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 28186,
+     "tests": 42,
+     "pass": 39,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the eight neighbours are one batched cluster, the ninth draws itself",
+      "  AssertionError [ERR_ASSERTION]: w8-gross-rows-of-8 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M6-cluster-order-reversed",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "a cluster's copies not in placement order",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 33243,
+     "tests": 42,
+     "pass": 39,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself",
+      "a cluster of neighbouring copies draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the lamp's faces draw only the copy within its range",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: instance 0 sits where its copy would"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M7-extent-without-node-transform",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each mesh sphere taken in its own frame",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 33981,
+     "tests": 42,
+     "pass": 42,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M8-extent-batch-meshes-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the extent leaves out glass and other plain meshes",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 31288,
+     "tests": 42,
+     "pass": 42,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M9-clusters-by-first-copy",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "every copy's sphere at the first copy",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 31891,
+     "tests": 42,
+     "pass": 39,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the eight neighbours are one batched cluster, the ninth draws itself",
+      "  AssertionError [ERR_ASSERTION]: w8-gross-rows-of-8 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M10-threshold-three",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the measured threshold lowered to the mechanism tests' three",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 32897,
+     "tests": 42,
+     "pass": 40,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w8-gross-rows-of-8 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D1-no-pending-update",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the layer keeps no pending update: drivers stop waiting for it",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20512,
+     "tests": 3,
+     "pass": 1,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: setOptions cuts the buildings: [{\"main\":70,\"shadow\":43,\"mainTriangles\":392634,\"shadowTriangles\":385398},{\"main\":126,\"shadow\":99,\"mainTriangles\":392634,\"shadowTriangles\":385398}]",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D2-stand-in-setOptions-no-rebuild",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "the stand-in drives no layer on setOptions",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 21128,
+     "tests": 3,
+     "pass": 1,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: setOptions cuts the buildings: [{\"main\":70,\"shadow\":43,\"mainTriangles\":392634,\"shadowTriangles\":385398},{\"main\":70,\"shadow\":43,\"mainTriangles\":392634,\"shadowTriangles\":385398}]",
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D3-drive-check-setOptions-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20547,
+     "tests": 3,
+     "pass": 2,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count model refuses what it does not model",
+      "failing tests:",
+      "the count model refuses what it does not model"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D4-drive-check-open-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20056,
+     "tests": 3,
+     "pass": 2,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count model refuses what it does not model",
+      "failing tests:",
+      "the count model refuses what it does not model"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D5-count-sets-options-directly",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "the count bypasses the editor: options set and the layer updated by the tool (the round 3 path)",
+   "expect": "equivalent on a correct editor; with Q5 it would survive (the point of SF-F)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 19726,
+     "tests": 3,
+     "pass": 3,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G14-own-settings-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "why": "the key keeps only the compiled shader",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 3994,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G15-compiled-shader-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 3761,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G16-program-key-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4077,
+     "tests": 9,
+     "pass": 8,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: a custom program key",
+      "      at differs (file:///<user-dir>)"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G17-node-order-layers-culling-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4427,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G18-draw-range-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4182,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G19-custom-depth-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4092,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G20-material-hook-refusal-off",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4444,
+     "tests": 9,
+     "pass": 8,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception: a material's own onBeforeRender"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G21-node-hook-refusal-off",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4264,
+     "tests": 9,
+     "pass": 8,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception: a node's own onBeforeRender"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G22-textures-by-id",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "why": "a texture keyed by its uuid: equal atlases differ",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 4565,
+     "tests": 9,
+     "pass": 8,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: two equal atlases"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G23-version-keyed",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "why": "the material's update counter keyed: a needsUpdate changes the digest",
+   "expect": "equivalent unless a model sets needsUpdate after creation",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 3684,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "G11-control-emissive-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "round 3 G11, the control",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 3577,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a hook that patches nothing"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "W1-lamp-kinds-check-off",
+   "files": [
+    "tools/bench/workloads.mjs"
+   ],
+   "expect": "by design: it refuses lamps lost by openDocument",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 15519,
+     "tests": 3,
+     "pass": 3,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  }
+ ],
+ "finished": "2026-10-30T23:13:25.445Z",
+ "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 39,
+  "killed": [
+   "Q0a-control-editor-never-batches",
+   "Q0b-control-no-per-copy-culling",
+   "Q1-shadow-culled-by-view-camera",
+   "Q2-draw-range-ignored",
+   "Q3-index-offset-in-elements",
+   "Q4-frustum-ignores-batch-transform",
+   "Q5-editor-rebuild-never-cuts-prefabs",
+   "Q5b-editor-edit-never-cuts-prefabs",
+   "Q5c-editor-open-cuts-prefabs",
+   "Q7-shader-patch-darkens-every-material",
+   "Q8-clipping-plane-on-every-material",
+   "Q10-render-order",
+   "M1-never-linked",
+   "M2-always-linked",
+   "M3-sweep-stops-at-own-radius",
+   "M4-strict-overlap",
+   "M5-small-clusters-batched",
+   "M6-cluster-order-reversed",
+   "M9-clusters-by-first-copy",
+   "M10-threshold-three",
+   "D1-no-pending-update",
+   "D2-stand-in-setOptions-no-rebuild",
+   "D3-drive-check-setOptions-off",
+   "D4-drive-check-open-off",
+   "G14-own-settings-dropped",
+   "G15-compiled-shader-dropped",
+   "G16-program-key-dropped",
+   "G17-node-order-layers-culling-dropped",
+   "G18-draw-range-dropped",
+   "G19-custom-depth-dropped",
+   "G20-material-hook-refusal-off",
+   "G21-node-hook-refusal-off",
+   "G22-textures-by-id",
+   "G23-version-keyed",
+   "G11-control-emissive-every-material"
+  ],
+  "survived": [
+   "M7-extent-without-node-transform",
+   "M8-extent-batch-meshes-only",
+   "D5-count-sets-options-directly",
+   "W1-lamp-kinds-check-off"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}
