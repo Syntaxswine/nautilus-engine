@@ -2,7 +2,26 @@ import {createFarmyardGrenadeState,previewGrenade,grenadeAffects} from '@nautilu
 import * as D from '@nautilus-engine/map-core/adapters/farmyard/doors';
 import {createWorld,compileWorld} from '@nautilus-engine/map-core/world';
 import {createInteractionQueries} from '@nautilus-engine/map-core/interactions';
-import {inputData} from '../packages/world-core/validation.js';
+// Private reference input boundary, not an engine API or a game-save schema.
+function fixtureData(input){
+ const limit=D.FARMYARD_DOOR_CONTRACT.maximumBytes;let nodes=0,textSize=0;const active=new Set();
+ if(typeof input==='string'){if(new TextEncoder().encode(input).length>limit)throw Error('Reference input exceeds its byte budget.');input=JSON.parse(input);}
+ function visit(value,depth){
+  if(++nodes>500000||depth>24)throw Error('Reference input exceeds its node/depth budget.');
+  if(value===null||typeof value==='boolean'||typeof value==='number'&&Number.isFinite(value))return value;
+  if(typeof value==='string'){textSize+=value.length;if(textSize>limit)throw Error('Reference text exceeds its budget.');return value;}
+  if(typeof value!=='object'||active.has(value))throw Error('Reference input must be finite acyclic plain data.');
+  const array=Array.isArray(value);if(!array&&![Object.prototype,null].includes(Object.getPrototypeOf(value)))throw Error('Reference input must use plain records.');
+  if(array&&value.length>65536)throw Error('Reference array exceeds its bound.');const keys=Reflect.ownKeys(value);if(keys.length>65537)throw Error('Reference record has too many fields.');
+  const descriptors=Object.getOwnPropertyDescriptors(value);
+  for(const key of keys){if(array&&key==='length')continue;const d=descriptors[key];if(typeof key!=='string'||!d.enumerable||!Object.hasOwn(d,'value')||['__proto__','prototype','constructor'].includes(key)||array&&(!/^(0|[1-9][0-9]*)$/.test(key)||Number(key)>=value.length))throw Error('Reference accessors, hidden/symbol and non-data fields are unsupported.');textSize+=key.length;if(textSize>limit)throw Error('Reference field names exceed their budget.');}
+  active.add(value);const result=array?[]:{};
+  if(array){for(let index=0;index<value.length;index++){if(!Object.hasOwn(value,index))throw Error('Sparse reference arrays are unsupported.');result.push(visit(descriptors[index].value,depth+1));}}
+  else for(const key of keys)Object.defineProperty(result,key,{value:visit(descriptors[key].value,depth+1),enumerable:true,writable:true,configurable:true});
+  active.delete(value);return result;
+ }
+ const result=visit(input,0);if(new TextEncoder().encode(JSON.stringify(result)).length>limit)throw Error('Reference input exceeds its complete byte budget.');return result;
+}
 export const ACTIVE_KEY='nautilus:farmyard-door-reference:active:v1',SAVE_KEY='nautilus:farmyard-door-reference:save:v1';
 const copy=value=>structuredClone(value),doorFields=['id','name','x','y','edge','swing','range','open'];
 const restore=(source,keys)=>{const host=copy(source);for(const key of keys)host[key]=new Set(host[key]);return host;};
@@ -10,7 +29,7 @@ const restore=(source,keys)=>{const host=copy(source);for(const key of keys)host
 // Fixed reference layout only. Current leaf geometry comes from the public
 // adapter, never a second copy of its footprint formula or a donor runtime.
 export function createReferenceGeometry(input){
- const fixture=inputData(input),base=fixture.context,edges=new Set(base.doors.map(door=>door.edge)),ids=new Set(base.doors.map(door=>door.id));
+ const fixture=fixtureData(input),base=fixture.context,edges=new Set(base.doors.map(door=>door.edge)),ids=new Set(base.doors.map(door=>door.id));
  const fixed=host=>JSON.stringify([host.map,Object.entries(host.edges).filter(([edge])=>!edges.has(edge)),host.props,host.obstacles,host.worldBounds]);
  const expected=fixed(fixture.source),staticBoxes=fixture.geometry.filter(box=>!ids.has(box.interactionId));let stamp=null,cached=null;
  return host=>{
@@ -27,11 +46,11 @@ export function referenceQueries(host,geometry){
  world.surfaces=[{id:'ground',floorId:'floor-0',role:'floor',bounds:{min:{x:bounds.x,y:bounds.y,h:0},max:{x:bounds.x+bounds.w,y:bounds.y+bounds.h,h:0}},supports:true,supportFloorId:'floor-0'},...geometry.map((box,index)=>({id:'solid-'+index,floorId:'floor-0',role:'solid',bounds:{min:{x:box.x0,y:box.y0,h:box.z0??0},max:{x:box.x1,y:box.y1,h:box.height}},supports:false,supportFloorId:null}))];
  const mover=unit=>({id:'reference-slot-'+host.units.indexOf(unit),revision:0,position:{x:unit.x,y:unit.y,h:0},floorId:'floor-0',radiusM:.23,heightM:1.7,speedMps:1,traversal:null});
  const compiled=compileWorld(world),walking=createInteractionQueries(world,{actors:()=>host.units.filter(unit=>unit.hp>0).map(mover)});
- return {trace:(from,to)=>compiled.traceSegment({from,to}),walk(from,to){const actor=mover(host.units.find(unit=>unit.team==='squad'));return walking.walk({state:{doors:[]},actor,from:{...from,h:0},to:{...to,h:0}});}};
+ return Object.freeze({trace:(from,to)=>compiled.traceSegment({from,to}),walk(from,to){const actor=mover(host.units.find(unit=>unit.team==='squad'));return walking.walk({state:{doors:[]},actor,from:{...from,h:0},to:{...to,h:0}});}});
 }
-export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,value)=>storage.setItem(key,value),commandId=kind=>kind+':'+crypto.randomUUID(),present=()=>{},publish=()=>{}}={}){
+export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,value,canCommit)=>{if(!canCommit())return false;storage.setItem(key,value);return true;},commandId=kind=>kind+':'+crypto.randomUUID(),present=()=>{},publish=()=>{}}={}){
  if(!storage||typeof storage.getItem!=='function'||typeof write!=='function')throw Error('Supply synchronous durable reference storage.');
- const definition=inputData(fixture),geometry=createReferenceGeometry(definition),source=restore(definition.source,definition.setFields),project=host=>D.projectFarmyardDoorContext(host,{geometry:geometry(host)});
+ const definition=fixtureData(fixture),geometry=createReferenceGeometry(definition),source=restore(definition.source,definition.setFields),project=host=>D.projectFarmyardDoorContext(host,{geometry:geometry(host)});
  let current={doorState:D.createFarmyardDoorState({id:'farmyard-door-reference',...project(source)}),host:source},activeStamp=storage.getItem(ACTIVE_KEY),pending=null,conflict=false,lastCommand=null,disposed=false,mutating=false,kind='action',queries=null,queryStamp=null;
  const stats={writes:0,routePublications:0,visibilityPublications:0,colliderPublications:0,presentations:0};
  const serial=pair=>D.serializeFarmyardDoorHostSave(pair.doorState,pair.host,{geometry:geometry(pair.host)}),decode=wire=>D.openFarmyardDoorHostSave(wire,{geometryForHost:geometry});
@@ -44,7 +63,9 @@ export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,valu
   if(!same(expected,tokens())||storage.getItem(ACTIVE_KEY)!==activeStamp){conflict=true;return false;}
   const wire=serial(pair);decode(wire);const transaction={key,kind:operation,before:storage.getItem(key),wire};pending=transaction;
   if(disposed||!canCommit()){pending=null;return false;}
-  try{stats.writes++;write(key,wire,canCommit);}catch{throw Error('Save outcome unknown; reconcile before retrying.');}
+  let writeOpen=true,acknowledged;const fence=()=>writeOpen&&!disposed&&canCommit();
+  try{stats.writes++;acknowledged=write(key,wire,fence);}catch{throw Error('Save outcome unknown; reconcile before retrying.');}finally{writeOpen=false;}
+  if(acknowledged===false){pending=null;return false;}
   adopt(transaction);return true;
  }
  const consumer={id:'door-reference-retained-fixture',contractVersion:1,schemas:[{id:D.FARMYARD_DOOR_CONTRACT.schemaId,versions:[1]}],capabilities:[D.FARMYARD_DOOR_CONTRACT.capability,...D.FARMYARD_DOOR_COMPONENT.requiredHostServices].map(id=>({id,versions:[1]}))};
@@ -57,7 +78,7 @@ export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,valu
   snapshot(){return copy(current);},geometry(){return geometry(current.host);},
   command(doorId,action){ready();return {version:1,id:commandId('door'),expectedRevision:current.doorState.revision,actorId:current.doorState.control.actorId,doorId,action};},
   preview(command){ready();return copy(binding.preview(command));},
-  perform(command){return transaction('action',()=>{const value=inputData(command);lastCommand=copy(value);return binding.perform(value);});},
+  perform(command){return transaction('action',()=>{const value=fixtureData(command);lastCommand=copy(value);return binding.perform(value);});},
   retry(){if(!lastCommand)throw Error('No door command is available to retry.');return host.perform(copy(lastCommand));},
   move(x,y){ready();if(![x,y].every(Number.isFinite)||Math.hypot(x,y)>.251)throw Error('Reference steps are limited to .25 m.');const actor=current.host.units.find(unit=>unit.team==='squad');if(actor.stance!=='standing')throw Error('Reference steps support the standing fixture actor; retain a reviewed game mover for other stances.');const to={x:actor.x+x,y:actor.y+y},result=host.queries().walk(actor,to);if(!result.ok)return result;return changeHost(next=>{const unit=next.units.find(value=>value.id===actor.id);unit.x=to.x;unit.y=to.y;unit.isMoving=false;next.queue=[];next.revision++;},'movement');},
   queries(){const next=JSON.stringify([geometry(current.host),current.host.units.map(unit=>[unit.id,unit.x,unit.y,unit.hp])]);if(!queries||queryStamp!==next){queries=referenceQueries(current.host,geometry(current.host));queryStamp=next;}return queries;},
@@ -67,7 +88,7 @@ export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,valu
   review(edit){return changeHost(edit,'review-context');},
   save(){return transaction('save',()=>{const wire=serial(current);if(!persist(current,tokens(),{key:SAVE_KEY,operation:'save'}))throw Error('Active record changed.');return wire;});},
   load(){return transaction('load',()=>{const wire=storage.getItem(SAVE_KEY);if(wire===null)throw Error('There is no saved reference.');const pair=decode(wire);if(!persist(pair,tokens(),{operation:'load'}))throw Error('Active record changed.');return host.snapshot();});},
-  reconcile(){if(disposed||mutating)throw Error('Reference host is unavailable.');if(!pending)return {ok:true,outcome:'unchanged'};const transaction=pending,stored=storage.getItem(transaction.key);if(stored===transaction.wire){adopt(transaction);return {ok:true,outcome:'committed',kind:transaction.kind};}if(stored===transaction.before){pending=null;conflict=false;return {ok:true,outcome:'refused',kind:transaction.kind};}conflict=true;throw Error('The active record matches neither known outcome. Validate and adopt the active record explicitly.');},
+  reconcile(){if(mutating)throw Error('Reference transaction is still running.');if(!pending)return {ok:true,outcome:'unchanged'};const transaction=pending,stored=storage.getItem(transaction.key);if(stored===transaction.wire){adopt(transaction);return {ok:true,outcome:'committed',kind:transaction.kind};}if(stored===transaction.before){pending=null;conflict=false;return {ok:true,outcome:'refused',kind:transaction.kind};}conflict=true;throw Error('The active record matches neither known outcome. Validate and adopt the active record explicitly.');},
   adoptActive(){if(disposed||mutating)throw Error('Reference host is unavailable.');conflict=true;const wire=storage.getItem(ACTIVE_KEY);if(wire===null)throw Error('No active reference exists.');decode(wire);adopt({wire,key:ACTIVE_KEY,kind:'adopt-active'});return host.snapshot();},
   diagnostics(){return {...stats,pending:!!pending,pendingKind:pending?.kind??null,conflict,lastCommand:copy(lastCommand),disposed};},
   dispose(){if(disposed)return;disposed=true;binding.dispose();queries=null;}

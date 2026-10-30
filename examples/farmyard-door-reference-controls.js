@@ -1,4 +1,4 @@
-import {floorInputBlocked} from '../packages/floor-navigation/dom.js';
+import {floorInputBlocked} from '@nautilus-engine/map-core/floors/ui';
 // Only user input emits movement. No frame, timer, world state or renderer is owned.
 export function mountPlayerControls(container,{inputTarget,onMove=()=>{},onInteract=()=>{},onPause=()=>{},onCheckpoint=()=>{},onTitle=()=>{},onError=()=>{}}={}){
   const doc=container.ownerDocument,win=doc.defaultView;if(!inputTarget)throw Error('Supply the owned player input surface.');

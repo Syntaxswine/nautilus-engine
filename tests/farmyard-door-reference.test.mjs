@@ -36,3 +36,14 @@ test('fixture checks the final connection fence after borrowed storage callbacks
 test('hostile writer errors cannot invoke message accessors before unknown-outcome recovery',()=>{
  let calls=0;const hostile=Object.create(null);Object.defineProperty(hostile,'message',{get(){calls++;throw Error('Do not invoke');}});const host=create({write(){throw hostile;}}),result=host.perform(host.command(gate,'open'));assert.equal(result.committed,null);assert.equal(calls,0);assert.equal(host.diagnostics().pending,true);assert.equal(host.reconcile().outcome,'refused');host.dispose();
 });
+
+test('callers cannot replace cached movement queries to walk through a closed leaf',()=>{
+ const host=create();assert.equal(host.move(.25,0).ok,true);const saved=host.save(),before=snapshot(host),queries=host.queries();assert.equal(Object.isFrozen(queries),true);assert.throws(()=>{queries.walk=()=>({ok:true});},TypeError);assert.throws(()=>Object.defineProperty(queries,'walk',{value:()=>({ok:true})}),TypeError);assert.equal(host.move(.25,0).ok,false);assert.deepEqual(snapshot(host),before);assert.equal(host.save(),saved);host.dispose();
+});
+test('fixture-owned input validation refuses getters/hidden data before any storage mutation',()=>{
+ let calls=0;const bad=structuredClone(fixture);Object.defineProperty(bad.source.units[0],'ap',{enumerable:true,get(){calls++;return 12;}});assert.throws(()=>create({fixture:bad}));assert.equal(calls,0);const host=create(),before=snapshot(host),command=host.command(gate,'open');Object.defineProperty(command,'action',{enumerable:true,get(){calls++;return 'open';}});assert.throws(()=>host.perform(command));assert.equal(calls,0);assert.deepEqual(snapshot(host),before);assert.equal(host.diagnostics().writes,0);host.dispose();
+});
+
+test('trusted writer checks its fence after disposal hooks; after-write uncertainty settles quietly after retirement',()=>{
+ for(const timing of ['before','after','after-throw']){const storage=memory();let host;host=create({storage,write(key,value,canCommit){if(timing==='before')host.dispose();if(!canCommit())return false;storage.setItem(key,value);host.dispose();if(timing==='after-throw')throw Error('acknowledgement lost');return true;}});const command=host.command(gate,'open'),before=snapshot(host),result=host.perform(command);if(timing==='before'){assert.equal(result.committed,false);assert.equal(storage.getItem(ACTIVE_KEY),null);assert.deepEqual(snapshot(host),before);}else if(timing==='after'){assert.equal(result.committed,true);assert.equal(snapshot(host).doorState.doors[0].open,true);}else{assert.equal(result.committed,null);assert.equal(host.diagnostics().pending,true);assert.equal(host.reconcile().outcome,'committed');assert.equal(snapshot(host).doorState.doors[0].open,true);}assert.equal(host.diagnostics().presentations,0);assert.throws(()=>host.command(gate,'close'),/disposed/);}
+});

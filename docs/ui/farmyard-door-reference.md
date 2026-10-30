@@ -1,6 +1,6 @@
 # Farmyard door reference: UI binding
 
-Status: reference candidate under browser review. API baseline: `a1981b3ec38071fda93a5e384b503fb5a618e9bc`, composed on Root `56d7813e0b5f178461856ad71ff9b8375ff34908`. The reference consumes the named Farmyard endpoint profile and the retained game host. Production registration, versioning, exports, schemas, CI and game adoption remain Architect-owned.
+Status: implemented source/static reference candidate for Architect review. API baseline: `a1981b3ec38071fda93a5e384b503fb5a618e9bc`, composed on Root `56d7813e0b5f178461856ad71ff9b8375ff34908`. The reference consumes the named Farmyard endpoint profile and the retained game host. Production registration, versioning, exports, schemas, CI and game adoption remain Architect-owned.
 
 ## Builder card
 
@@ -8,6 +8,7 @@ Status: reference candidate under browser review. API baseline: `a1981b3ec38071f
 | --- | --- |
 | Behavior | `./adapters/farmyard/doors`, `farmyard-single-ground-leaf-endpoint-v1` v1. Read the [adapter guide](../adapters/farmyard-doors.md) and its installed retained-source example first. |
 | Source content | Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. The original `interaction-view.js` creates a unit cube with the existing timber texture, tint `0xb5ad86`, roughness `.9`, native shadows, and the door interaction ID. It positions/scales that leaf directly from the current footprint. No fitted catalogue opening or replacement collider is inferred. |
+| Native presentation | Public ./adapters/farmyard/doors/three, fixed Root checkpoint 3371859cac750b38e0161d6da43b208ae061fab6; async preparation, owned cancellation and a single canonical packaged source texture. |
 | Retained authority | The reviewed complete game connection retains source movement, actors, HP/AP, inventory, ammunition, stamina, RNG, routes, fog and complete persistence. Door UI proposes explicit commands; it implements no cost, movement, geometry, fog or contact rule. |
 | One target | A selected source door ID and displayed Open/Close action are captured on press with actor identity, original command ID, expected revision and reference-session identity. No target is selected by nearest-distance fallback. |
 | One geometry | The current metadata-bearing geometry from the retained source host supplies movement, sight, projectile/grenade queries and the rendered leaf. An open leaf remains solid. Cached publication is presentation, not another collision authority. |
@@ -44,7 +45,9 @@ This reference does not add pairs, locks/keys/difficulty, damage/breaching, uppe
 
 ## Use this reference
 
-Open /examples/farmyard-door-reference.html in the source or built workshop. It uses the actual declared public door/world/interaction/grenade entries through its import map. The reference host, controls and view remain workshop examples; they are not new installed package exports. The renderer borrows the engine's existing Three instance and uses exact original timber pixels.
+Open /examples/farmyard-door-reference.html in the source or built workshop. It uses the actual declared public door/world/interaction/grenade entries through its import map. The reference host, controls and view remain workshop examples; they are not new installed package exports. The renderer borrows the engine's existing Three instance. Native presentation comes only from the public ./adapters/farmyard/doors/three provider at 3371859cac750b38e0161d6da43b208ae061fab6 and its packaged original timber resource; the example contains no duplicated leaf recipe or PNG.
+
+The native leaf binding prepares asynchronously, tracks each door identity, applies the newest current collider after load, aborts deleted/retired bindings and disposes late handles. Required native readiness gates the player controls; a failed view can be retried without a gameplay command.
 
 The complete synchronous fixture owner is examples/farmyard-door-reference-host.js. Construct it with the generated fixture and synchronous getItem/setItem storage. Construction performs no write. command(doorId,action) creates a fresh intent; preview(intent) is pure; perform(theSameIntent) invokes the actual connection. Keep that intent for retry. The fixture owner compares complete state/context/host tokens, prepares and validates the entire strict joint save, checks candidate.canCommit() immediately before the synchronous write, then adopts. A CAS exception returns committed:null with recovery.command; the fixture transaction remains pending until reconcile() establishes the stored before/after outcome. A conflicting active record requires explicit validated adoptActive(). These methods belong to the private example, not the engine's door API.
 
@@ -95,3 +98,7 @@ if (preview.ok) {
 Finish this fixed door reference and Architect review first. Subsequent UI discoverability, phone/accessibility and async-lifecycle work requires Root-distributed full fixed contracts for Coder's FC pane provider; Artist's independently loadable waterfront, three medicines and landmark catalogue; and completed AFT appearances behind the queued bear. Coldwell exact-provider and exterior-ghost work starts only when real controls change after their contracts exist. Actual editor undo/reload acceptance belongs to the accepted editor binding; this reference exercises the corresponding target/session retirement without inventing an editor handler. No physical-device performance claim follows from desktop/emulated-touch review.
 
 Queue authority: deduplicated integration orders e773317cdf605262c0f714eb90154c22c9f0d64a and intake 69829f9afdd224b7f55f159b852ee16532b1861a. The TB-dc7f537 comparison contributes acceptance cases only; no Tinderbox source or moving pin is imported.
+
+The injected writer is a trusted synchronous I/O boundary: write(key, wire, canCommit) runs fault/disposal hooks first, checks canCommit() last immediately before setItem, and returns false without writing when the fence closes. Successful synchronous writes acknowledge with true/void; exceptions leave an unknown outcome. No async writer is supported. The owner closes its write fence when the call returns, and can settle an already-pending durable outcome quietly after retirement without reviving commands or presentation. Native Enter remains one activation until keyup; Space keeps native keyup activation and assistive clicks remain usable. Query facades are frozen and cannot replace authoritative walking.
+
+Validation commands: npm run check -- --tracked; npm test; npm run test:upstream; npm run build; node tools/review-farmyard-door-reference.mjs (built), or set NAUTILUS_REVIEW_SOURCE=1 for source. Reports include served/source hashes, native texture hash, negative-command classification and helper cleanup. Root adds offline installed-browser parity and final CI/publication.
