@@ -21,5 +21,14 @@ test('the geometry digest sees a one-ulp vertex change, a reordered mesh and a r
   const reordered=fresh(),[first,second]=reordered.root.children;reordered.root.children[0]=second;reordered.root.children[1]=first;
   assert.notEqual(buildingDigest(reordered),expected);reordered.dispose();
   const renamed=fresh();renamed.root.children[0].name+='!';assert.notEqual(buildingDigest(renamed),expected);renamed.dispose();
-  const control=fresh();assert.equal(buildingDigest(control),expected);control.dispose();
+  const control=fresh();assert.equal(buildingDigest(control),expected);assert.equal(buildingDigest(control),expected,'the digest leaves the model as it found it');control.dispose();
+});
+
+test('the geometry digest sees transforms, user data, material settings, view rules and the door swing',()=>{
+  const id='bramble-ranch',fresh=()=>createBuildingModel(T,id),expected=reviewed.digests['game:'+id],differs=(change,label)=>{const model=fresh();try{change(model);assert.notEqual(buildingDigest(model),expected,label);}finally{model.dispose();}};
+  differs(model=>{const pivot=model.doorRoots[0];pivot.position.x+=1e-6;pivot.updateMatrix();},'a door pivot moved by a micrometre');
+  differs(model=>{model.root.children[0].userData.level+=1;},'user data');
+  differs(model=>{const glass=model.materials.get('glass');glass.opacity+=.01;},'glass opacity');
+  differs(model=>{const setView=model.setView;model.setView=view=>{setView(view);model.root.children.at(-1).visible=false;};},'a view rule');
+  differs(model=>{const setDoorsOpen=model.setDoorsOpen;model.setDoorsOpen=open=>{setDoorsOpen(open);if(open)for(const pivot of model.doorRoots)pivot.rotation.y+=.01;};},'the door swing');
 });
