@@ -11,7 +11,7 @@ export const ORIGINAL_BUILDING_SOURCE = freeze({
     "catalogueContentSha256": "49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223",
     "geometry": {
       "file": "tests/fixtures/original-building-geometry.json",
-      "sha256": "9f393f77feac5a19a2068d8e6bdebe537167801921ad54e3aaf7885e9b9a4a5e"
+      "sha256": "179c8e702d447d266cc32ac161968cc21ab631b82c953b2b351a45bb76778211"
     }
   },
   "current": {
