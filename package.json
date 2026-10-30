@@ -1,6 +1,6 @@
 {
   "name": "@nautilus-engine/map-core",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "type": "module",
   "description": "Nautilus Engine: optional shared systems, native-height worlds, authoring, rules and assets",
@@ -42,13 +42,15 @@
     "./interactions": "./packages/interactions/index.js",
     "./game-ui": "./packages/game-ui/index.js",
     "./game-ui/title": "./packages/game-ui/title.js",
-    "./game-ui/style.css": "./packages/game-ui/style.css"
+    "./game-ui/style.css": "./packages/game-ui/style.css",
+    "./adapters/farmyard/doors": "./packages/adapters/farmyard/doors.js"
   },
   "files": [
     "CHANGELOG.md",
     "NOTICE.md",
     "README.md",
     "assets/buildings/painted-materials-v2.png",
+    "docs/adapters/farmyard-doors.md",
     "docs/adapters/farmyard-rules.md",
     "docs/asset-handoffs.md",
     "docs/compatibility.md",
@@ -65,6 +67,8 @@
     "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
     "docs/reviews/2026-10-29-farmyard-rules.sources.json",
     "docs/reviews/2026-10-29-rock-distraction.sources.json",
+    "docs/reviews/farmyard-doors.sources.json",
+    "docs/reviews/farmyard-doors/integration-request.json",
     "docs/reviews/grenade-presentation/provider.md",
     "docs/rock-distraction.md",
     "docs/runtime-modules.md",
@@ -72,6 +76,17 @@
     "docs/ui/grenade-controls.md",
     "docs/ui/grenade-controls.sources.json",
     "docs/ui/grenade-existing-assets.json",
+    "packages/adapters/farmyard/doors.js",
+    "packages/adapters/farmyard/doors/data.js",
+    "packages/adapters/farmyard/doors/door-host-save-v1.schema.json",
+    "packages/adapters/farmyard/doors/door-state-v1.schema.json",
+    "packages/adapters/farmyard/doors/host.js",
+    "packages/adapters/farmyard/doors/mechanics.js",
+    "packages/adapters/farmyard/doors/model.js",
+    "packages/adapters/farmyard/doors/profile.js",
+    "packages/adapters/farmyard/doors/projection.js",
+    "packages/adapters/farmyard/doors/state.js",
+    "packages/adapters/farmyard/doors/world.js",
     "packages/adapters/farmyard/rules.js",
     "packages/adapters/tinderbox/index.js",
     "packages/assets/catalogue.js",
@@ -324,7 +339,9 @@
     "review:grenades": "node tools/review-grenade-reference.mjs",
     "review:grenades:installed": "node tools/review-grenade-installed.mjs",
     "review:starter": "node tools/review-game-starter.mjs",
-    "test:game-ui-package": "node tools/distribution.mjs --test-ui"
+    "test:game-ui-package": "node tools/distribution.mjs --test-ui",
+    "test:doors": "node tools/test-farmyard-doors-package.mjs",
+    "check:door-source": "node tools/check-farmyard-doors.mjs"
   },
   "engines": {
     "node": ">=22"

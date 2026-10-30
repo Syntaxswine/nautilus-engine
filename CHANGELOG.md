@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.0 — 2026-10-30
+
+- Add optional Farmyard single-leaf door interactions with source reach, endpoint occupancy, AP/control/fog transitions and one current collider shared by dependent systems.
+- Keep retained game movement/resources, strict complete saves, fresh-context adoption, full host/state/context comparisons and durable quiet retries. Publish schema/capability identifiers and an installed builder card/checklist.
+- Integrate the separate native door/stair/title foundation and native-quarter-turn functional part compiler/runtime with strict geometry/content identities; retain native art/editor/production adoption boundaries.
+- Repair starter result ownership, save validation, New game persistence ordering and retirement; preserve all grenade entries and existing profiles.
+
 ## 0.9.0 — 2026-10-29
 
 - Extract Farmyard Commando's ordinary same-floor grenade rules into optional headless grenade and aiming entries, pinned to reviewed source with original conformance tests and hashes.
