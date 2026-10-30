@@ -1,6 +1,7 @@
-import * as D from '../packages/adapters/farmyard/doors.js';
-import {createWorld,compileWorld} from '../packages/world-core/index.js';
-import {createInteractionQueries} from '../packages/interactions/index.js';
+import {createFarmyardGrenadeState,previewGrenade,grenadeAffects} from '@nautilus-engine/map-core/grenades';
+import * as D from '@nautilus-engine/map-core/adapters/farmyard/doors';
+import {createWorld,compileWorld} from '@nautilus-engine/map-core/world';
+import {createInteractionQueries} from '@nautilus-engine/map-core/interactions';
 import {inputData} from '../packages/world-core/validation.js';
 export const ACTIVE_KEY='nautilus:farmyard-door-reference:active:v1',SAVE_KEY='nautilus:farmyard-door-reference:save:v1';
 const copy=value=>structuredClone(value),doorFields=['id','name','x','y','edge','swing','range','open'];
@@ -59,13 +60,14 @@ export function createFarmyardDoorReferenceHost({fixture,storage,write=(key,valu
   retry(){if(!lastCommand)throw Error('No door command is available to retry.');return host.perform(copy(lastCommand));},
   move(x,y){ready();if(![x,y].every(Number.isFinite)||Math.hypot(x,y)>.251)throw Error('Reference steps are limited to .25 m.');const actor=current.host.units.find(unit=>unit.team==='squad'),to={x:actor.x+x,y:actor.y+y},result=host.queries().walk(actor,to);if(!result.ok)return result;return changeHost(next=>{const unit=next.units.find(value=>value.id===actor.id);unit.x=to.x;unit.y=to.y;unit.isMoving=false;next.queue=[];next.revision++;},'movement');},
   queries(){const next=JSON.stringify([geometry(current.host),current.host.units.map(unit=>[unit.id,unit.x,unit.y,unit.hp])]);if(!queries||queryStamp!==next){queries=referenceQueries(current.host,geometry(current.host));queryStamp=next;}return queries;},
+  probes(){const geometry=host.geometry(),source=current.host,actor=source.units.find(unit=>unit.team==='squad'),target={x:5.75,y:4},from={x:3.75,y:4,h:1};const state=createFarmyardGrenadeState(source,{id:'door-query-proof',geometry}),grenade=previewGrenade(state,{actorId:actor.id,point:target});return {movement:host.queries().walk({x:3.75,y:4},{x:5.25,y:4}).ok,sight:!host.queries().trace(from,{...target,h:1.5}),projectile:!host.queries().trace(from,{...target,h:.9}),grenade:{ok:grenade.ok,code:grenade.code,trajectory:grenade.trajectory},blastAcrossDoor:grenadeAffects(state,{x:3.75,y:4},target),geometry};},
   // Explicit review controls mutate only retained fixture facts. Rules still run
   // through the adapter; these are not production mission/AI handlers.
   review(edit){return changeHost(edit,'review-context');},
   save(){return transaction('save',()=>{const wire=serial(current);if(!persist(current,tokens(),{key:SAVE_KEY,operation:'save'}))throw Error('Active record changed.');return wire;});},
   load(){return transaction('load',()=>{const wire=storage.getItem(SAVE_KEY);if(wire===null)throw Error('There is no saved reference.');const pair=decode(wire);if(!persist(pair,tokens(),{operation:'load'}))throw Error('Active record changed.');return host.snapshot();});},
   reconcile(){if(disposed||mutating)throw Error('Reference host is unavailable.');if(!pending)return {ok:true,outcome:'unchanged'};const transaction=pending,stored=storage.getItem(transaction.key);if(stored===transaction.wire){adopt(transaction);return {ok:true,outcome:'committed',kind:transaction.kind};}if(stored===transaction.before){pending=null;conflict=false;return {ok:true,outcome:'refused',kind:transaction.kind};}conflict=true;throw Error('The active record matches neither known outcome. Validate and adopt the active record explicitly.');},
-  adoptActive(){if(disposed||mutating)throw Error('Reference host is unavailable.');const wire=storage.getItem(ACTIVE_KEY);if(wire===null)throw Error('No active reference exists.');decode(wire);adopt({wire,key:ACTIVE_KEY,kind:'adopt-active'});return host.snapshot();},
+  adoptActive(){if(disposed||mutating)throw Error('Reference host is unavailable.');conflict=true;const wire=storage.getItem(ACTIVE_KEY);if(wire===null)throw Error('No active reference exists.');decode(wire);adopt({wire,key:ACTIVE_KEY,kind:'adopt-active'});return host.snapshot();},
   diagnostics(){return {...stats,pending:!!pending,pendingKind:pending?.kind??null,conflict,lastCommand:copy(lastCommand),disposed};},
   dispose(){if(disposed)return;disposed=true;binding.dispose();queries=null;}
  };
