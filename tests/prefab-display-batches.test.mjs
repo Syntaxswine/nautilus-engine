@@ -142,6 +142,35 @@ test('a design placed more than once draws each batch mesh as one InstancedMesh 
   }finally{layer.dispose();}
 });
 
+test('double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow',async()=>{
+  const provider=atlas(),library=await provider.load({}),source=provider.create(library,'dockside-warehouse');
+  const sources=new Map();source.root.traverse(mesh=>{if(mesh.isMesh&&mesh.material.transparent)sources.set(mesh.geometry,mesh);});
+  // A material the daylight rig already prepared: each copy must be prepared afresh.
+  for(const mesh of sources.values())mesh.material.userData.daylightPrepared=true;
+  const batch=batchOriginal(T,source),disposed=new Map();
+  try{
+    assert.ok(batch.glass.length>0);assert.equal(batch.glass.length,sources.size);
+    const settings=material=>{const json=material.toJSON();for(const key of ['uuid','side','shadowSide','userData'])delete json[key];return json;};
+    for(const {mesh,copies}of batch.glass){
+      const [back,front]=copies,original=sources.get(mesh.geometry);
+      assert.equal(original.material.side,T.DoubleSide);assert.equal(copies.length,2);assert.equal(front,mesh);
+      assert.equal(back.geometry,original.geometry);assert.equal(front.geometry,original.geometry);
+      assert.equal(back.material.side,T.BackSide);assert.equal(front.material.side,T.FrontSide);
+      assert.ok(back.id<front.id,'at equal depth the back half sorts first, as the renderer draws it');
+      assert.equal(back.parent,batch.root);assert.equal(front.parent,batch.root);
+      assert.ok(back.matrix.equals(original.matrix)&&front.matrix.equals(original.matrix));
+      assert.equal(back.userData.noShadow,true,'the back half casts no shadow');assert.notEqual(front.userData.noShadow,true);
+      assert.equal(front.material.shadowSide,T.DoubleSide,'the front half casts the double-sided shadow');
+      for(const half of copies){assert.deepEqual(settings(half.material),settings(original.material));assert.equal(half.material.userData.daylightPrepared,undefined);}
+      for(const half of copies)if(!disposed.has(half.material)){disposed.set(half.material,0);half.material.addEventListener('dispose',()=>disposed.set(half.material,disposed.get(half.material)+1));}
+    }
+    // Views move both halves together.
+    source.setView({view:'cutaway',level:0});batch.sync();
+    for(const {top,copies}of batch.glass)for(const half of copies)assert.equal(half.visible,top.visible);
+  }finally{batch.dispose();source.dispose();}
+  assert.ok(disposed.size>=2);assert.deepEqual([...disposed.values()],[...disposed.values()].map(()=>1),'each half material is disposed once, with its batch');
+});
+
 test('releasing a batch disposes every merged geometry exactly once, for both collections',async()=>{
   const provider=atlas(),library=await provider.load({});
   const watch=batch=>{const counts=new Map(batch.records.map(record=>[record.mesh.geometry,0]));for(const geometry of counts.keys())geometry.addEventListener('dispose',()=>counts.set(geometry,counts.get(geometry)+1));return counts;};

@@ -101,8 +101,26 @@ export function batchPrefab(T,source) {
   return {root,records,pieces,sync,runs:()=>runs(records),dispose(){release(root,records);}};
 }
 
+// The renderer draws a transparent double-sided material in two halves, back faces
+// then front, and marks the material changed before each half, so every half
+// re-derives its program. Two fixed-side copies draw the same halves, with the same
+// programs and uniforms, in the same order: they share the object's depth and the back
+// copy is created first, so it sorts first. The front copy casts the shadow,
+// double-sided as before; the back copy casts none. The daylight rig prepares each
+// copy itself (it adds its shader patch to every lit material on first sight).
+function halves(T,mesh,cache){
+  const source=mesh.material;
+  if(source.side!==T.DoubleSide||source.forceSinglePass)return [mesh.clone()];
+  let pair=cache.get(source);
+  if(!pair){
+    pair=[T.BackSide,T.FrontSide].map(side=>{const material=source.clone();material.side=side;delete material.userData.daylightPrepared;return material;});
+    pair[1].shadowSide=T.DoubleSide;cache.set(source,pair);
+  }
+  return pair.map((material,i)=>{const copy=mesh.clone();copy.material=material;if(!i)copy.userData={...copy.userData,noShadow:true};return copy;});
+}
+
 // Original buildings: every opaque mesh, door leaves included, merges per
-// material; glass stays one mesh per source batch so it still sorts back to
+// material; glass stays one object per source batch so it still sorts back to
 // front. Classes come from the source's own view rule, sampled per floor:
 //   C1 shown in every view up to its floor (floors, stairs, porches)
 //   C2 shown up to its floor but hidden with walls off (interior, doors)
@@ -122,12 +140,12 @@ export function batchOriginal(T,source) {
     const from=cuts.length?Math.min(...cuts):null;
     return from===null?[bare?2:3]:bare?[1,from]:[0,-from];
   };
-  const pieces=[],glass=[],root=new T.Group();root.name=source.root.name;let order=0;
+  const pieces=[],glass=[],sided=new Map(),root=new T.Group();root.name=source.root.name;let order=0;
   for(const top of tops){
     const k=key(top),visible=()=>top.visible;
     top.traverse(mesh=>{
       if(!mesh.isMesh)return;
-      if(mesh.material.transparent){if(mesh!==top)throw Error('Transparent door parts are not batched.');const copy=mesh.clone();copy.visible=top.visible;glass.push({top,mesh:copy});return;}
+      if(mesh.material.transparent){if(mesh!==top)throw Error('Transparent door parts are not batched.');const copies=halves(T,mesh,sided);for(const copy of copies)copy.visible=top.visible;glass.push({top,mesh:copies[copies.length-1],copies});return;}
       pieces.push({mesh,material:mesh.material,start:0,end:mesh.geometry.attributes.position.count,key:k,order:order++,exact:mesh===top&&mesh.matrixWorld.equals(IDENTITY),visible});
     });
   }
@@ -135,8 +153,8 @@ export function batchOriginal(T,source) {
   // The merged copies replace the opaque source geometry, which is never drawn:
   // release its arrays so a template holds its triangles once. Glass keeps its own.
   const released=new T.BufferGeometry();for(const piece of pieces){piece.mesh.geometry.dispose();piece.mesh.geometry=released;}
-  for(const {mesh}of records)root.add(mesh);for(const {mesh}of glass)root.add(mesh);
-  function sync(){applyRuns(records);for(const {top,mesh}of glass)mesh.visible=top.visible;}
+  for(const {mesh}of records)root.add(mesh);for(const {copies}of glass)root.add(...copies);
+  function sync(){applyRuns(records);for(const {top,copies}of glass)for(const copy of copies)copy.visible=top.visible;}
   sync();
-  return {root,records,glass,pieces,sync,runs:()=>runs(records)+glass.filter(({mesh})=>mesh.visible).length,dispose(){release(root,records);}};
+  return {root,records,glass,pieces,sync,runs:()=>runs(records)+glass.filter(({mesh})=>mesh.visible).length,dispose(){release(root,records);for(const pair of sided.values())for(const material of pair)material.dispose();}};
 }

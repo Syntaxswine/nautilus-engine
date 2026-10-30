@@ -42,7 +42,7 @@ test('shared instances draw one design from display batches, share its view and 
  try{
   const copies=Array.from({length:32},()=>library.create('building:dockside-warehouse')),geometries=new Set(copies.flatMap(copy=>meshes(copy.root).map(mesh=>mesh.geometry)));
   const plain=meshes(independent.create('dockside-warehouse').root).length;
-  assert.equal(geometries.size,meshes(copies[0].root).length,'32 copies draw from one design');
+  assert.equal(geometries.size,new Set(meshes(copies[0].root).map(mesh=>mesh.geometry)).size,'32 copies draw from one design');
   assert.ok(meshes(copies[0].root).length*2<plain,'display batches: '+meshes(copies[0].root).length+' meshes against '+plain);
   // One view per design: a cutaway on one copy is the cutaway of every copy.
   const visible=root=>{const out=[];root.traverse(node=>out.push(node.visible));return out;};
