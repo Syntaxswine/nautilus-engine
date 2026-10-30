@@ -23,3 +23,13 @@ The test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600
 ## Farmyard stat-v2 conformance evidence
 
 The test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.
+
+## Farmyard grenade workproduct
+
+The immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.
+
+The separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.
+
+## Farmyard door interactions
+
+The optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.

@@ -3,8 +3,13 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as D from '@nautilus-engine/core/adapters/farmyard/doors';
+import {engineManifest,schemaDocuments} from '@nautilus-engine/core/contracts';
 import * as Source from './farmyard-source/sites/tactical-animal/dist/solo-game.js';
 
+const installedEngine=engineManifest();
+assert.ok(installedEngine.capabilities.some(item=>item.id===D.FARMYARD_DOOR_CONTRACT.capability&&item.versions.includes(1)));
+for(const service of D.FARMYARD_DOOR_COMPONENT.requiredHostServices)assert.ok(!installedEngine.capabilities.some(item=>item.id===service),'An engine build must not claim the adopting host service.');
+for(const id of ['nautilus-farmyard-door-state','nautilus-farmyard-door-host-save']){assert.ok(installedEngine.schemas.some(item=>item.id===id&&item.versions.includes(1)));const row=schemaDocuments().find(item=>item.id===id);assert.ok(row);assert.equal(JSON.parse(fs.readFileSync(new URL(row.url),'utf8')).$id,row.uri);}
 const card=D.farmyardDoorUsageCard();
 for(const key of ['guide','schema','hostSaveSchema'])assert.ok(fs.statSync(new URL(card[key])).size>0);
 const guide=fs.readFileSync(new URL(card.guide),'utf8'),example=guide.match(/```js\s*([\s\S]*?)```/);assert.ok(example,'Installed guide needs its actual connection example');

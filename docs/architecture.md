@@ -11,6 +11,7 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
 | `packages/item-visuals/` | Original item models using the host Three namespace |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
@@ -26,7 +27,7 @@
 
 Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
 
-The [component handoff standard](component-handoffs.md) defines public usage cards, working examples and builder checklists for new and materially revised parts. Standard recipes bind declared semantics through retained host services; missing automatic bindings remain explicit work until implemented and reviewed.
+The [component handoff standard](component-handoffs.md) defines public usage cards, working examples and builder checklists for new and materially revised parts. Standard recipes bind declared semantics through retained host services; missing automatic bindings remain explicit work until implemented and reviewed. The [functional editor parts scope](projects/functional-editor-parts.md) assigns implementation of that compiler/binding bridge and its first two-story playable proof.
 
 Design selection follows [accuracy, efficiency and narrative](design-evaluation.md). Reviews must recommend a preferred design for the named game or use case, with reasons and evidence. Shared interfaces can support different simulation detail; [the initial recommendations](reviews/2026-10-28-design-tradeoffs.md) distinguish general percentage attacks, dramatic AFT shot outcomes, detailed Tinderbox fire and cheaper tactical policies.
 
@@ -49,6 +50,8 @@ The [rules contract](rules.md) defines the portable character schema and the bou
 ## Shared item boundary
 
 [The rock contract](rock-distraction.md) defines plain-data instance state, strict sidecar versions, explicit metre/second units and staged actions. Items do not extend portable maps or take over actor inventories. A consumer atomically commits state and inventory deltas, deduplicates command/event IDs, supplies swept collision and audibility, and arbitrates guard investigation. The optional rock mesh and reference yard use the same collision radius; they require no donor runtime.
+
+The optional [Farmyard grenade profile](grenades.md) adds source-exact ordinary same-plane throws, costs/stock, wall/fog previews, staged damage/alerts and durable retry protection. It preserves injured/spent state and keeps host visibility/body registration explicit. Reactive windows/fuel/fire and other floors are refused by this first profile. Full original game sources are immutable conformance evidence outside runtime distributions; no game production pin changes.
 
 ## Public map API
 

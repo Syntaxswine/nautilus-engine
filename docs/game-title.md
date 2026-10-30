@@ -40,6 +40,10 @@ title.dispose();
 
 Callbacks must honour `AbortSignal` and perform their own atomic save/scene adoption. A resolved start/continue means the game is ready to enter; the screen hides and calls `focusGame`. A rejected callback keeps the menu visible and provides retry feedback. An aborted callback must not later overwrite another game session. The title cannot undo external writes a host performs after ignoring cancellation.
 
+For New game, prepare a candidate and establish the save write outcome before replacing the live host. A failed write preserves the current host; if a storage wrapper throws after writing, reconcile the saved candidate before reporting success or failure. The reference yard uses this ordering for New game while ordinary movement remains in memory until Save, export, or return to menu.
+
+Mark a host retired before disposing its title screen: disposal synchronously reports visibility changes and can abort an open settings panel. Cancel its animation frame, remove input listeners and guard scheduling, late frame callbacks and asynchronous scene adoption against retirement. A hidden or removed menu alone does not retire the host.
+
 `checkSave` returns `{available:boolean,summary?:string}`. While checking, start and continue wait. Failure keeps both unavailable until **Check again** succeeds, avoiding an unchecked save replacement. The latest check wins; show/dispose abort older requests. Continue is disabled with an explanation when no save exists. When a save exists, **New game** opens a keyboard-accessible confirmation with **Keep playing** focused by default. Cancelling changes no game state.
 
 `onStart` is required. Supplying `checkSave` also requires `onContinue`. Without a save check the screen represents a game with no continuation. Settings is shown only when `onSettings` is provided; that promise resolves when its panel closes. Credits use a native modal dialog and text supplied by the host. The screen starts no renderer, timer, fetch, audio context or storage system, and never redirects to a donor checkout.

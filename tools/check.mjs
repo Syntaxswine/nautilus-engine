@@ -3,6 +3,8 @@ import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './mo
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
+import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
+import {checkGrenadeVisuals} from './check-grenade-visuals.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -12,6 +14,8 @@ import {prefabCatalogueSource} from './prefab-catalog.mjs';
 import {originalCatalogueSource} from './prefab-original-catalog.mjs';
 import {checkPartsFixtures} from './parts-fixtures.mjs';
 import {partsSchemas} from './parts-schemas.mjs';
+import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
+import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -58,9 +62,12 @@ function ruleClosure(file) { ruleEntries.push(file); }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js', 'progression.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
 ruleClosure(path.join(root, 'packages/items-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/aim.js'));
 ruleClosure(path.join(root, 'packages/runtime-core/index.js'));
 ruleClosure(path.join(root, 'packages/world-core/index.js'));
 ruleClosure(path.join(root, 'packages/adapters/farmyard/rules.js'));
+ruleClosure(path.join(root, 'packages/adapters/farmyard/doors.js'));
 ruleClosure(path.join(root, 'packages/floor-navigation/index.js'));
 ruleClosure(path.join(root, 'packages/interactions/index.js'));
 ruleClosure(path.join(root, 'packages/parts-core/index.js'));
@@ -86,6 +93,11 @@ console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1
 await import('./check-building-catalog.mjs');
 
 checkSharedAssets();
+for(const {file,schema}of farmyardDoorSchemas())if(fs.readFileSync(path.join(root,'packages/adapters/farmyard/doors',file),'utf8')!==JSON.stringify(schema,null,2)+'\n')throw Error('Door schema drift: '+file);
+console.log('Verified Farmyard door source and headless closure: '+JSON.stringify(checkFarmyardDoors(root,{tracked})));
+const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
+console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
+console.log('Verified native grenade source and derived modules: '+JSON.stringify(checkGrenadeVisuals(root,{tracked})));
 
 if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 
