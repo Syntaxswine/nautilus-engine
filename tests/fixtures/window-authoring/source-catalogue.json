@@ -1,0 +1,836 @@
+{
+  "kind": "editor-pane-intake-facts",
+  "status": "test-only source facts; no public pane ABI or visual acceptance",
+  "sourceRepository": "https://github.com/Syntaxswine/farmyard-commando",
+  "pins": {
+    "source": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "reviewedWindows": "3c29604bdfb4210864910369ec09c59095249e8a",
+    "canonicalMain": "8644b44ce1c049983fd722d83237ebb2dcec0eb3",
+    "orders": "e773317cdf605262c0f714eb90154c22c9f0d64a"
+  },
+  "inspectionRoots": [
+    {
+      "path": "sites/tactical-animal/dist/art/windows/catalog.json",
+      "bytes": 184611,
+      "gitBlob": "28ef1563e11c69d5b14eaf969e5293b04184beea",
+      "sha256": "5b3f04475945a4747b8fac051f0d36ba941af927e7c76a05c8b8cf999dac3341",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/art/windows/catalog.js",
+      "bytes": 6121,
+      "gitBlob": "915e0298369703134a353154f7db0d53489a5558",
+      "sha256": "3b542522d18f27ec98f069a546c5f13b5e5b3fe499cead4465b44b965672dd70",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-system.js",
+      "bytes": 9589,
+      "gitBlob": "5cf3da5f4e33e1c836ceede5f143feb6091693a0",
+      "sha256": "27d8d5d6db9932900a6c068afb0eb9b34fdcb0ecb0f845a80b0252942fc28869",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-catalogue.js",
+      "bytes": 805,
+      "gitBlob": "e60e47daaee4df0904c7ec35f7e2478ba74e4d53",
+      "sha256": "2addc8ccfc246de62d03b13ef1e01ce84ea37a9433b37a6fcef975e3abeb2592",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-authoring.js",
+      "bytes": 3247,
+      "gitBlob": "95b8cf9df46346f9be8c5494f4bd4616e6444467",
+      "sha256": "c8cb8968af8fb4c438d14cb09c8bd47c2c57a1377cabecc782e77e9a9663cdfb",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-editor.js",
+      "bytes": 5258,
+      "gitBlob": "61894252f4a1deb9c27002e4975f83ae298467bb",
+      "sha256": "315d048c551cea822879f5205f92eafd927d79fc844b6f1c4d643bf96f2395b7",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-editor-controls.js",
+      "bytes": 871,
+      "gitBlob": "aeab3179e55877987b01586963ec6863c5a79501",
+      "sha256": "43654db631e72958d3816b1d03b994ac058ba5a57eb47e32915f24e5230e6f83",
+      "sameAtReviewedWindowCommit": true
+    },
+    {
+      "path": "sites/tactical-animal/dist/window-editor-buffers.js",
+      "bytes": 901,
+      "gitBlob": "f37d11e8f3b52f7a2fdf388247ec3e9e453370f0",
+      "sha256": "6aae0220d8c566026fabc091937746452e670cb9ca3d150e4be0b36d59f11bf6",
+      "sameAtReviewedWindowCommit": true
+    }
+  ],
+  "catalogueVersion": "industrial-windows/2",
+  "metrics": {
+    "tile": 1,
+    "wallHeight": 2,
+    "storeyHeight": 2.12,
+    "wallThickness": 0.16,
+    "frameDepth": 0.2,
+    "post": 0.055,
+    "mullion": 0.035,
+    "glassThickness": 0.008
+  },
+  "finishes": [
+    "steel",
+    "sage",
+    "ivory"
+  ],
+  "walls": [
+    "brick",
+    "concrete",
+    "corrugated"
+  ],
+  "presets": [
+    {
+      "id": "window.full.borderless.1m",
+      "widthM": 1,
+      "heightM": 2.12,
+      "sillM": 0,
+      "headM": 2.12,
+      "borderless": true,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.clear.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.vertical-2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.full.vertical-3.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.full.horizontal-2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.full.grid-2x2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.full.grid-3x2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    },
+    {
+      "id": "window.full.borderless.2m",
+      "widthM": 2,
+      "heightM": 2.12,
+      "sillM": 0,
+      "headM": 2.12,
+      "borderless": true,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.clear.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.vertical-2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.full.vertical-3.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.full.horizontal-2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.full.grid-2x2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.full.grid-3x2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    },
+    {
+      "id": "window.full.borderless.3m",
+      "widthM": 3,
+      "heightM": 2.12,
+      "sillM": 0,
+      "headM": 2.12,
+      "borderless": true,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.clear.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.full.vertical-2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.full.vertical-3.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.full.horizontal-2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.full.grid-2x2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.full.grid-3x2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.055,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    },
+    {
+      "id": "window.waist.clear.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-3.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.waist.horizontal-2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.waist.grid-2x2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.waist.grid-3x2.1m",
+      "widthM": 1,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    },
+    {
+      "id": "window.waist.clear.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-3.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.waist.horizontal-2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.waist.grid-2x2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.waist.grid-3x2.2m",
+      "widthM": 2,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    },
+    {
+      "id": "window.waist.clear.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        1
+      ],
+      "paneIds": [
+        "r0c0"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1"
+      ]
+    },
+    {
+      "id": "window.waist.vertical-3.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        1,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2"
+      ]
+    },
+    {
+      "id": "window.waist.horizontal-2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        1
+      ],
+      "paneIds": [
+        "r0c0",
+        "r1c0"
+      ]
+    },
+    {
+      "id": "window.waist.grid-2x2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        2
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r1c0",
+        "r1c1"
+      ]
+    },
+    {
+      "id": "window.waist.grid-3x2.3m",
+      "widthM": 3,
+      "heightM": 2,
+      "sillM": 0.9,
+      "headM": 1.945,
+      "borderless": false,
+      "grid": [
+        2,
+        3
+      ],
+      "paneIds": [
+        "r0c0",
+        "r0c1",
+        "r0c2",
+        "r1c0",
+        "r1c1",
+        "r1c2"
+      ]
+    }
+  ],
+  "resizableTemplate": {
+    "id": "window.full.borderless",
+    "catalogueTemplate": {
+      "id": "window.full.borderless",
+      "dimensions": {
+        "units": "metres",
+        "width": "positive finite number",
+        "height": "positive finite number"
+      },
+      "paneId": "r0c0",
+      "solids": [],
+      "examples": [
+        {
+          "width": 20,
+          "height": 5
+        },
+        {
+          "width": 20,
+          "height": 10.6
+        }
+      ]
+    },
+    "sectorWidthM": {
+      "minimum": 1,
+      "maximum": 240,
+      "wholeMetres": true
+    },
+    "heightUnits": [
+      "metres",
+      "storeys"
+    ],
+    "heightPerStoreyM": 2.12,
+    "sourceHeightPolicy": "positive representable metre height; no storey-count cap; host limits still required"
+  },
+  "notices": {
+    "sourceProvenance": {
+      "baseFarmyardCommit": "6e47587",
+      "studyRepository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+      "studyCommit": "ebf51393909040b61a7c40649d9d5f0ac3678735",
+      "studyFile": "dist/tactics/window-shatter.js",
+      "style": "Cyan translucent glass; framed forms retain pale reflection strokes and oiled metal. Borderless sheets have no caps, trim or repeated strokes; source effect remains with gameplay integration.",
+      "rights": "Inherited study/art license not declared; new geometry is a project contribution; Three.js has its separate MIT notice.",
+      "inherited": [
+        {
+          "path": "aft/tactics/hybrid-materials.js",
+          "sha256": "1dca85ff2eeb36cf61bc1ae7e16ccae7c82ec9fb7f624b13dadc7b4c65954953"
+        },
+        {
+          "path": "aft/tactics/diagonal-roads.js",
+          "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+        }
+      ],
+      "authored": [
+        {
+          "path": "art/windows/catalog.js",
+          "encoding": "UTF-8 with LF",
+          "sha256": "3b542522d18f27ec98f069a546c5f13b5e5b3fe499cead4465b44b965672dd70"
+        },
+        {
+          "path": "art/windows/geometry.js",
+          "encoding": "UTF-8 with LF",
+          "sha256": "ceca3bc128ae627308bf15f0fca043025874d767864bca84008d775e3b2f4065"
+        },
+        {
+          "path": "art/windows/preview-renderer.js",
+          "encoding": "UTF-8 with LF",
+          "sha256": "39f40b55ed5309e761bfe95f064a6b162e99e40b28968836f5031dce23cfa799"
+        },
+        {
+          "path": "art/windows/index.html",
+          "encoding": "UTF-8 with LF",
+          "sha256": "b80d09eb32c5870199f4c0af33b3c8f7eb3c24e4e954172c4a6abac928cc10f6"
+        },
+        {
+          "path": "art/windows/review.js",
+          "encoding": "UTF-8 with LF",
+          "sha256": "052a96698743b63577f14f340d8ed020183b1979e692b084cd6df9ab69e808e4"
+        },
+        {
+          "path": "art/windows/review.css",
+          "encoding": "UTF-8 with LF",
+          "sha256": "5985f080840d5500757a883dbb6ebd539ca5fb54675b3cae0d1da70b3ae72524"
+        }
+      ]
+    },
+    "sourceNoticePolicy": "Audit metadata only. Coder owns full immutable runtime closure and notices; this is not a distribution permission or import."
+  }
+}

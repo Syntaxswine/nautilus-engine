@@ -1,0 +1,67 @@
+{
+  "kind": "nautilus-window-authoring-registration-request",
+  "version": 1,
+  "status": "Proposed only; integration-owned registration remains unapplied",
+  "implementationBase": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "entries": {
+    "./windows/authoring": "./packages/windows-authoring/index.js"
+  },
+  "schemas": [
+    {
+      "id": "nautilus-window-authoring",
+      "version": 1,
+      "uri": "urn:nautilus:schema:window-authoring:1",
+      "file": "packages/windows-authoring/window-authoring-v1.schema.json",
+      "resourceFromMapCore": "../windows-authoring/window-authoring-v1.schema.json"
+    }
+  ],
+  "engineCapability": null,
+  "hostPromisesMustNotAppearInEngineManifest": [
+    "fixed-window-definitions-v1",
+    "complete-window-query-composition-v1",
+    "confirmed-impact-authority-v1",
+    "atomic-window-context-commit-v1",
+    "window-geometry-invalidation-v1",
+    "complete-window-save-staging-v1"
+  ],
+  "runtimeFiles": "Exact decoded module closure of packages/windows-authoring/index.js; preserve the existing source notices. No apps/editor, renderer, browser, IO, storage, timers or raw Farmyard game sources.",
+  "packageSupport": [
+    "packages/windows-authoring/window-authoring-v1.schema.json",
+    "docs/window-authoring.md",
+    "docs/reviews/window-authoring/registration-request.json",
+    "docs/reviews/window-authoring/dependencies.json",
+    "tests/fixtures/window-authoring/source-catalogue.json",
+    "tests/fixtures/window-authoring/source-underlay.json"
+  ],
+  "rootOwnedChanges": [
+    "Register the single optional export in package.json",
+    "Register the single authoring schema ID/version/URI/URL in the shared schema tables and manifest",
+    "Regenerate the exact approved package/distribution whitelist and include packageSupport",
+    "Add the declared installed-package proof to appropriate CI after review; leave version/release decisions with Architect"
+  ],
+  "testEntry": "node tools/test-window-authoring-package.mjs",
+  "candidateTestEntry": "node tools/test-window-authoring-package.mjs --candidate",
+  "testBehavior": "Default refuses if actual export/schema/support registration is incomplete. Explicit --candidate proves an isolated private overlay and labels partial availability; it cannot claim production availability or acceptance.",
+  "unchangedContracts": [
+    "parts-v1",
+    "world-v1",
+    "portable map/block",
+    "runtime pane-state and retained-host save"
+  ],
+  "notImplemented": [
+    "editor chrome",
+    "native presenter",
+    "portable-base-to-complete-game projection/adoption",
+    "donor migration",
+    "character window traversal",
+    "multilevel pane handoff"
+  ],
+  "runtimeAdditions": [
+    "packages/windows-authoring/commands.js",
+    "packages/windows-authoring/data.js",
+    "packages/windows-authoring/document.js",
+    "packages/windows-authoring/index.js",
+    "packages/windows-authoring/journal.js",
+    "packages/windows-authoring/prepare.js"
+  ]
+}
