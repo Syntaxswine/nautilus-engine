@@ -1,0 +1,30 @@
+import * as T from '../packages/render-effects/three.js';
+// Farmyard 251 interaction-view.js leaf recipe; exact source timber pixels.
+// No door rules live here. Every solid and leaf comes from current geometry.
+export function createDoorReferenceView(container,{onPick=()=>{},onError=()=>{}}={}){
+ const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.shadowMap.enabled=true;container.append(renderer.domElement);renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','Door reference world. Select a timber leaf; arrows or WASD step the reference actor.');
+ const scene=new T.Scene();scene.background=new T.Color(0x1c3028);scene.add(new T.HemisphereLight(0xfff1cb,0x344d40,2.5));const sun=new T.DirectionalLight(0xffe2b6,2.3);sun.position.set(-4,10,9);sun.castShadow=true;scene.add(sun);
+ const camera=new T.OrthographicCamera(),ray=new T.Raycaster(),group=new T.Group();scene.add(group);const resources=[],own=value=>(resources.push(value),value),cube=own(new T.BoxGeometry(1,1,1)),wood=own(new T.TextureLoader().load(new URL('./farmyard-door-reference.wood.png',import.meta.url).href,()=>render(),undefined,error=>onError(error)));wood.colorSpace=T.SRGBColorSpace;
+ const timber=own(new T.MeshStandardMaterial({map:wood,color:0xb5ad86,roughness:.9})),wall=own(new T.MeshStandardMaterial({color:0x788271,roughness:.95})),ground=own(new T.MeshStandardMaterial({color:0x526044,roughness:1}));
+ const floor=new T.Mesh(cube,ground);floor.scale.set(8,.08,8);floor.position.set(5,-.04,5);floor.receiveShadow=true;group.add(floor);
+ const markerGeometry=own(new T.CylinderGeometry(.18,.23,1.5,12)),heroMaterial=own(new T.MeshStandardMaterial({color:0xe4c689})),guardMaterial=own(new T.MeshStandardMaterial({color:0xae6850})),leafMeshes=new Map(),actors=new Map();let solids=[],snapshot=null,disposed=false,draws=0,selected=null,press=null;
+ function render(){if(disposed)return;renderer.render(scene,camera);draws++;}
+ function resize(){if(disposed)return;const width=container.clientWidth,height=container.clientHeight;if(!width||!height)return;const span=8.6;camera.left=-span*width/height/2;camera.right=span*width/height/2;camera.top=span/2;camera.bottom=-span/2;camera.near=.1;camera.far=100;camera.position.set(13,13,15);camera.lookAt(4.7,0,4.5);camera.updateProjectionMatrix();renderer.setSize(width,height,false);render();}
+ const observer=new ResizeObserver(resize);observer.observe(container);
+ function pick(event){const rect=renderer.domElement.getBoundingClientRect();ray.setFromCamera(new T.Vector2((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1),camera);return ray.intersectObjects([...leafMeshes.values()])[0]?.object.userData.interactionId??null;}
+ const down=event=>{if(event.button===0)press={id:event.pointerId,x:event.clientX,y:event.clientY,target:pick(event)};},up=event=>{const captured=press;press=null;if(!captured||captured.id!==event.pointerId||Math.hypot(event.clientX-captured.x,event.clientY-captured.y)>10)return;if(captured.target&&pick(event)===captured.target)onPick(captured.target);},cancel=()=>{press=null;};
+ renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointercancel',cancel);renderer.domElement.addEventListener('lostpointercapture',cancel);
+ resize();
+ return Object.freeze({canvas:renderer.domElement,
+  sync(value,geometry,target){if(disposed)return;snapshot=value;selected=target;for(const mesh of solids)mesh.removeFromParent();solids=[];leafMeshes.clear();
+   for(const box of geometry){const isLeaf=value.doorState.doors.some(door=>door.id===box.interactionId),mesh=new T.Mesh(cube,isLeaf?timber:wall);mesh.position.set((box.x0+box.x1)/2,((box.z0??0)+box.height)/2,(box.y0+box.y1)/2);mesh.scale.set(box.x1-box.x0,box.height-(box.z0??0),box.y1-box.y0);mesh.castShadow=mesh.receiveShadow=true;mesh.userData.collider=structuredClone(box);if(isLeaf){mesh.userData.interactionId=box.interactionId;leafMeshes.set(box.interactionId,mesh);}group.add(mesh);solids.push(mesh);}
+   const ids=new Set(value.host.units.map(unit=>unit.id));for(const [id,mesh]of actors)if(!ids.has(id)){mesh.removeFromParent();actors.delete(id);}for(const unit of value.host.units){let mesh=actors.get(unit.id);if(!mesh){mesh=new T.Mesh(markerGeometry,unit.team==='squad'?heroMaterial:guardMaterial);mesh.castShadow=true;actors.set(unit.id,mesh);group.add(mesh);}mesh.position.set(unit.x,.75,unit.y);mesh.visible=unit.hp>0;}
+   render();
+  },
+  anchor(id,uiRoot){const mesh=leafMeshes.get(id);if(!mesh)return null;const point=mesh.position.clone();point.y=2.3;point.project(camera);const rect=renderer.domElement.getBoundingClientRect(),root=uiRoot.getBoundingClientRect();return {x:rect.left-root.left+(point.x+1)*rect.width/2,y:rect.top-root.top+(1-point.y)*rect.height/2,visible:Math.abs(point.x)<=1&&Math.abs(point.y)<=1};},
+  project(id){const mesh=leafMeshes.get(id);if(!mesh)return null;const value=mesh.position.clone().project(camera),rect=renderer.domElement.getBoundingClientRect();return {x:rect.left+(value.x+1)*rect.width/2,y:rect.top+(1-value.y)*rect.height/2};},
+  diagnostics(){return {draws,selected,leaves:[...leafMeshes].map(([id,mesh])=>({id,collider:structuredClone(mesh.userData.collider),position:mesh.position.toArray(),scale:mesh.scale.toArray()})),calls:renderer.info.render.calls,memory:{...renderer.info.memory}};},
+  clearInput:cancel,
+  dispose(){if(disposed)return;disposed=true;press=null;observer.disconnect();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',cancel);renderer.domElement.removeEventListener('lostpointercapture',cancel);for(const value of resources)value.dispose();renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove();}
+ });
+}
