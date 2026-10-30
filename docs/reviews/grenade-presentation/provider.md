@@ -63,6 +63,8 @@ The committed core `result.presentation.trajectory` uses source `{x,y,z}` with h
 
 Default native preparation borrows the renderer, prepares the same four-view 2048×1024 projection, and restores render target, colour space, tone mapping, clear colour/alpha, viewport and scissor state even after a failed draw. Temporary ID materials, target/depth, paint masks/materials and input textures are owned and retired. There is no asynchronous timer-based paint preparation. Shader drawing failures are not allowed to leave a borrowed renderer pointed at the private target.
 
+Borrowed texture clones preserve a private typed copy of an existing `paintValidity` cache. Three's generic user-data JSON clone would otherwise turn that Uint8Array into an ordinary object. The original texture, cache and sampler remain unchanged.
+
 The default own-horse path owns geometry, rig, original auxiliary rifle/grip resources, native paint and projection, grenade geometry/materials and transferred/clone textures. A borrowed actor is controlled through a single lease: original geometry/skin attributes, equipment, local pose, parent/order and visibility are restored before releasing the controller. Source motion never disposes the actor. The host controller can then reapply current committed state. `dispose()` continues cleanup after an erroneous host release hook and reports an AggregateError; subsequent disposal is a no-op. Borrowed renderer, scene, original textures, worker geometry/skeleton and services survive normal disposal.
 
 ### Exact resource and module paths
