@@ -3,16 +3,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {createPrefabProviders} from '../apps/editor/prefab-providers.js';
-import {PrefabLayer} from '../apps/editor/prefab-scene.js';
+import {PrefabLayer,BATCHED,neighbourhoods} from '../apps/editor/prefab-scene.js';
 import {CopyBatch} from '../apps/editor/copy-batch.js';
 import {createOriginalBuildingProvider} from '../packages/prefab-core/provider-original.js';
 import {GROSS_BUILDING_ASSETS} from '../packages/prefab-core/registry.js';
 
-// Three copies of one design, 40 m apart along x; each is about 25 m across.
+// Three copies of one design, 25 m apart along x and each turned a quarter more; each is
+// about 15 by 23 m, so their spheres overlap and the editor batches them as one cluster.
 async function row(turns=i=>i%4) {
   const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})});
-  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers});
-  const instances=[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:turns(i),clearance:2}));
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers,batched:3});
+  const instances=[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*25,y:20,turns:turns(i),clearance:2}));
   await layer.update({map:{buildingPrefabs:{instances}}},{level:0,showAllLevels:true,roofs:true,walls:true});
   return layer;
 }
@@ -28,7 +29,10 @@ function draws(batch,group) {
   return copies;
 }
 const view=(batch,camera,group)=>{batch.onBeforeRender(null,new T.Scene(),camera,batch.geometry,batch.material[group.materialIndex],group);return draws(batch,group);};
-const shadow=(batch,camera,group)=>{batch.onBeforeShadow(null,batch,null,camera,batch.geometry,null,group);return draws(batch,group);};
+// The renderer passes the view camera beside the shadow camera; this view looks away from
+// every copy, so a shadow pass culled by the view camera would draw none.
+const away=looking(new T.PerspectiveCamera(30,1,.1,500),new T.Vector3(0,60,0),new T.Vector3(-500,60,0));
+const shadow=(batch,camera,group)=>{batch.onBeforeShadow(null,batch,away,camera,batch.geometry,null,group);return draws(batch,group);};
 function looking(camera,from,at){camera.position.copy(from);camera.lookAt(at);camera.updateMatrixWorld();camera.updateProjectionMatrix();return camera;}
 
 test('every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun',async()=>{
@@ -39,7 +43,7 @@ test('every camera culls a CopyBatch copy by copy: the view, each face of a lamp
     // A close view of copy 0 draws copy 0 alone, as one sub-draw; a close view of copy 2
     // keeps copies 0 and 1 as empty sub-draws; a wide view draws all three in placement
     // order; a view of nothing draws nothing.
-    const close=at=>looking(new T.PerspectiveCamera(30,1,.1,500),new T.Vector3(at.x,60,at.z+.01),at);
+    const close=at=>looking(new T.PerspectiveCamera(12,1,.1,500),new T.Vector3(at.x,60,at.z+.01),at);
     assert.deepEqual(view(batch,close(c0),group),[0]);assert.equal(batch._multiDrawCount,1);
     assert.deepEqual(view(batch,close(c2),group),[2]);assert.equal(batch._multiDrawCount,3);
     assert.deepEqual(view(batch,looking(new T.PerspectiveCamera(60,1,.1,2000),new T.Vector3(200,80,20),new T.Vector3(60,0,25)),group),[0,1,2]);
@@ -74,22 +78,86 @@ test('every camera culls a CopyBatch copy by copy: the view, each face of a lamp
   }finally{layer.dispose();}
 });
 
-test('with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy',()=>{
+test('neighbourhoods links copies whose spheres touch or overlap, through chains, whatever their radii',()=>{
+  const S=(x,z,r=1)=>new T.Sphere(new T.Vector3(x,0,z),r);
+  // Touching links (0-1); overlapping links (2-3); a far sphere stays alone.
+  assert.deepEqual(neighbourhoods([S(0,0),S(2,0),S(5,0),S(5,1.5),S(40,0,10)]),[[0,1],[2,3],[4]]);
+  // A wide sphere further along x links a small one that a nearer small one does not.
+  assert.deepEqual(neighbourhoods([S(0,0),S(5,0),S(8,0,10)]),[[0,1,2]]);
+  assert.deepEqual(neighbourhoods([]),[]);
+  // Equal to linking every overlapping pair, on random spheres.
+  let seed=7;const random=()=>(seed=(seed*1103515245+12345)%2147483648)/2147483648;
+  for(let trial=0;trial<20;trial++){
+    const spheres=Array.from({length:40},()=>S(random()*200,random()*200,1+random()*(trial%2?20:6))),parent=spheres.map((_,k)=>k),root=k=>parent[k]===k?k:root(parent[k]);
+    for(let a=0;a<spheres.length;a++)for(let b=a+1;b<spheres.length;b++)if(spheres[a].center.distanceTo(spheres[b].center)<=spheres[a].radius+spheres[b].radius)parent[root(a)]=root(b);
+    const brute=new Map();spheres.forEach((_,k)=>{const r=root(k);if(!brute.has(r))brute.set(r,[]);brute.get(r).push(k);});
+    assert.deepEqual(neighbourhoods(spheres),[...brute.values()],'trial '+trial);
+  }
+});
+
+test('only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself',async()=>{
+  const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})});
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers}),options={level:0,showAllLevels:true,roofs:true,walls:true};
+  const at=(id,x,y)=>({id,asset:'dockside-warehouse',x,y,turns:0,clearance:1}),place=instances=>layer.update({map:{buildingPrefabs:{instances}}},options);
+  // Every node of a copy that draws itself shows as its template's does.
+  const itself=id=>assert.deepEqual(layer.models.get(id).nodes.map(node=>node.visible),layer.templates.get('dockside-warehouse').nodes.map(node=>node.visible),id+' draws itself');
+  const batched=id=>layer.instanced.some(({copies})=>copies.includes(layer.models.get(id).nodes.find(node=>node.isMesh&&Array.isArray(node.material))));
+  // A row of n neighbours, 20 m apart (the warehouse is about 15 by 23 m, its sphere 14.5 m).
+  const row=n=>Array.from({length:n},(_,k)=>at('n'+k,20+k*20,20)),names=n=>Array.from({length:n},(_,k)=>'n'+k);
+  try{
+    assert.equal(BATCHED,8);assert.equal(layer.batched,BATCHED);
+    // Eight copies 40 m apart: no sphere meets another, so none is batched.
+    await place(Array.from({length:8},(_,k)=>at('n'+k,20+k*40,20)));
+    assert.equal(layer.instanced.length,0);for(const id of names(8))itself(id);
+    // Seven neighbours are fewer than BATCHED.
+    await place(row(7));assert.equal(layer.instanced.length,0);for(const id of names(7))itself(id);
+    // Eight neighbours and one far off (placed among them): one cluster of eight, and the far one draws itself.
+    await place([...row(4),at('far',20,200),...row(8).slice(4)]);
+    assert.ok(layer.instanced.length>0&&layer.instanced.every(({mesh})=>mesh.instanceCount===8));
+    for(const id of names(8))assert.ok(batched(id),id+' is batched');
+    assert.ok(!batched('far'));itself('far');
+    for(const id of names(8))assert.ok(layer.models.get(id).nodes.filter(node=>node.isMesh&&Array.isArray(node.material)).every(node=>!node.visible),id+' leaves its batch meshes to the CopyBatches');
+    // The cluster keeps placement order, whatever the order along x.
+    const {copies}=layer.instanced[0],root=node=>{while(node.parent?.parent)node=node.parent;return node;};
+    assert.deepEqual(copies.map(copy=>[...layer.models].find(([,model])=>model.root===root(copy))[0]),names(8));
+  }finally{layer.dispose();}
+  // The threshold is the layer's option: three neighbours batch at batched 3.
+  const small=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers,batched:3});
+  try{await small.update({map:{buildingPrefabs:{instances:row(3)}}},options);assert.ok(small.instanced.length>0&&small.instanced.every(({mesh})=>mesh.instanceCount===3));}finally{small.dispose();}
+});
+
+test('each copy in view is a sub-draw of its own, with or without WEBGL_multi_draw, and none is instanced',()=>{
   // Five copies of a box along x, at 0, 10, 200, 20 and 30 m.
   const geometry=new T.BoxGeometry(2,2,2).toNonIndexed();geometry.addGroup(0,geometry.attributes.position.count,0);geometry.computeBoundingSphere();geometry.computeBoundingBox();
   const node=new T.Mesh(geometry,[new T.MeshStandardMaterial()]),batch=new CopyBatch(node,[0,10,200,20,30].map(x=>new T.Matrix4().makeTranslation(x,0,0)));
   const group=geometry.groups[0],count=group.count,multi={extensions:{has:name=>name==='WEBGL_multi_draw'}};
-  const draw=(renderer,camera)=>{batch.onBeforeRender(renderer,new T.Scene(),camera,geometry,node.material[0],group);const n=batch._multiDrawCount;return {n,counts:[...batch._multiDrawCounts.slice(0,n)],instances:batch._multiDrawInstances&&[...batch._multiDrawInstances.slice(0,n)]};};
+  const draw=(renderer,camera)=>{batch.onBeforeRender(renderer,new T.Scene(),camera,geometry,node.material[0],group);const n=batch._multiDrawCount;return {n,counts:[...batch._multiDrawCounts.slice(0,n)],instances:batch._multiDrawInstances};};
   try{
-    // A view of x 0-30 m: copies 0-1 are a run, 2 is out, 3-4 a run, placed at copies 0 and 3.
+    // A view of x 0-30 m: copies 0, 1, 3 and 4 draw; copy 2 is out and draws no vertices.
     const near=looking(new T.PerspectiveCamera(60,1,.1,100),new T.Vector3(15,40,.01),new T.Vector3(15,0,0));
-    assert.deepEqual(draw(multi,near),{n:4,counts:[count,0,0,count],instances:[2,0,0,2]});
-    // A view of all five: one sub-draw of five instances, as an InstancedMesh would draw them.
-    assert.deepEqual(draw(multi,looking(new T.PerspectiveCamera(60,1,.1,2000),new T.Vector3(100,400,.01),new T.Vector3(100,0,0))),{n:1,counts:[count],instances:[5]});
-    // Without the extension three loops over plain sub-draws: one per copy in view.
-    assert.deepEqual(draw(null,near),{n:5,counts:[count,count,0,count,count],instances:null});
-    assert.equal(draw({extensions:{has:()=>false}},near).instances,null);
+    for(const renderer of [multi,null,{extensions:{has:()=>false}}])assert.deepEqual(draw(renderer,near),{n:5,counts:[count,count,0,count,count],instances:null});
+    // A view of all five draws all five; the instanced multi-draw (deprecated in r174, gone in r184) is never asked for.
+    assert.deepEqual(draw(multi,looking(new T.PerspectiveCamera(60,1,.1,2000),new T.Vector3(100,400,.01),new T.Vector3(100,0,0))),{n:5,counts:[count,count,count,count,count],instances:null});
   }finally{batch.dispose();geometry.dispose();node.material[0].dispose();}
+});
+
+// No editor provider builds indexed or ranged batch geometry, nor moves a CopyBatch from the
+// scene root (round 4's N2: Q2 to Q4 survived); a provider that does meets these lines.
+test('a sub-draw follows the renderer: an index start in bytes, the draw range, the batch\'s own transform',()=>{
+  const box=new T.BoxGeometry(2,2,2);box.clearGroups();box.addGroup(6,24,0);box.computeBoundingSphere();box.computeBoundingBox();
+  const node=new T.Mesh(box,[new T.MeshStandardMaterial()]),batch=new CopyBatch(node,[0,10].map(x=>new T.Matrix4().makeTranslation(x,0,0)));
+  const camera=looking(new T.PerspectiveCamera(60,1,.1,1000),new T.Vector3(5,50,.01),new T.Vector3(5,0,0)),group=box.groups[0];
+  const draw=()=>{batch.onBeforeRender(null,new T.Scene(),camera,box,node.material[0],group);const n=batch._multiDrawCount;return {n,starts:[...batch._multiDrawStarts.slice(0,n)],counts:[...batch._multiDrawCounts.slice(0,n)]};};
+  try{
+    assert.equal(box.index.array.BYTES_PER_ELEMENT,2);
+    // Three's multi-draw reads an index start in bytes: the group's element 6 is byte 12.
+    assert.deepEqual(draw(),{n:2,starts:[12,12],counts:[24,24]});
+    // The draw range clips the group, as the renderer clips a group's draw: [12, 18) of [6, 30).
+    box.setDrawRange(12,6);assert.deepEqual(draw(),{n:2,starts:[24,24],counts:[6,6]});box.setDrawRange(0,Infinity);
+    // The batch's own transform moves its copies: 1000 m along x, neither is in view.
+    batch.position.set(1000,0,0);batch.updateMatrixWorld();assert.equal(draw().n,0);
+    batch.position.set(0,0,0);batch.updateMatrixWorld();assert.equal(draw().n,2);
+  }finally{batch.dispose();box.dispose();node.material[0].dispose();}
 });
 
 test('a CopyBatch bounds each copy by the sphere its own mesh would have, and the set by all of them',async()=>{
@@ -114,9 +182,9 @@ test('each copy sits where its own node would, also when a provider nests the ba
   // in a moved and turned group, so a node's place in its template is not the identity.
   const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})}),original=providers.get('original');
   providers.set('original',{load:original.load,create(library,id){const model=original.create(library,id),root=new T.Group();model.root.position.set(1.5,.25,-2);model.root.rotation.y=.3;root.add(model.root);return {root,setView:(view,options)=>model.setView(view,options),dispose:()=>model.dispose()};}});
-  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers}),at=new T.Matrix4();
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers,batched:3}),at=new T.Matrix4();
   try{
-    await layer.update({map:{buildingPrefabs:{instances:[0,1].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i,clearance:2}))}}},{level:0,showAllLevels:true,roofs:true,walls:true});
+    await layer.update({map:{buildingPrefabs:{instances:[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*20,y:20,turns:i,clearance:2}))}}},{level:0,showAllLevels:true,roofs:true,walls:true});
     assert.ok(layer.instanced.length>0);
     for(const {mesh:batch,copies}of layer.instanced)copies.forEach((copy,k)=>{
       copy.updateWorldMatrix(true,false);assert.ok(!copy.matrixWorld.equals(copy.parent.parent.matrixWorld),'the node is not at its copy root');
@@ -130,18 +198,18 @@ test('while a building library loads, removed copies are gone and the rest draw 
   const catalogue=JSON.parse(fs.readFileSync(new URL('../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json',import.meta.url)));
   // The layer starts a load in a microtask: the gate exists first, so release() always opens it.
   let release;const gate=new Promise(resolve=>{release=resolve;});providers.set('gross',{...gross,load:()=>gate.then(()=>({catalogue,textures:{},dispose(){}}))});
-  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers}),options={level:0,showAllLevels:true,roofs:true,walls:true};
-  const copies=[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:0,clearance:2}));
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers,batched:3}),options={level:0,showAllLevels:true,roofs:true,walls:true};
+  const copies=[0,1,2,3].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*20,y:20,turns:0,clearance:2}));
   try{
     await layer.update({map:{buildingPrefabs:{instances:copies}}},options);assert.ok(layer.instanced.length>0);
-    const removed=layer.models.get('copy-2').root,template=layer.templates.get('dockside-warehouse');
+    const removed=layer.models.get('copy-3').root,template=layer.templates.get('dockside-warehouse');
     // Drop one copy and add a Gross house, whose library is not loaded yet.
-    const pending=layer.update({map:{buildingPrefabs:{instances:[...copies.slice(0,2),{id:'house',asset:GROSS_BUILDING_ASSETS[0].id,x:20,y:120,turns:0,clearance:2}]}}},options);
+    const pending=layer.update({map:{buildingPrefabs:{instances:[...copies.slice(0,3),{id:'house',asset:GROSS_BUILDING_ASSETS[0].id,x:20,y:120,turns:0,clearance:2}]}}},options);
     assert.equal(layer.instanced.length,0,'no batch draws the old copies while the load is pending');
     assert.ok(removed.parent===null,'the dropped copy is gone at once');
-    for(const id of ['copy-0','copy-1'])assert.deepEqual(layer.models.get(id).nodes.map(node=>node.visible),template.nodes.map(node=>node.visible),id+' draws itself meanwhile');
+    for(const id of ['copy-0','copy-1','copy-2'])assert.deepEqual(layer.models.get(id).nodes.map(node=>node.visible),template.nodes.map(node=>node.visible),id+' draws itself meanwhile');
     release();await pending;
-    assert.ok(layer.instanced.length>0&&layer.instanced.every(({mesh})=>mesh.instanceCount===2),'batched again once loaded, without the dropped copy');
+    assert.ok(layer.instanced.length>0&&layer.instanced.every(({mesh})=>mesh.instanceCount===3),'batched again once loaded, without the dropped copy');
   }finally{release();layer.dispose();}
 });
 
@@ -158,15 +226,14 @@ test('a CopyBatch draws through the template geometry and adds no raycast hits o
 });
 
 // CopyBatch relies on these lines of the vendored renderer: a group's shadow draw passes
-// the group; a BatchedMesh draws its _multiDraw lists, instanced when it has instance
-// counts (deprecated since r174, removed in r184), with triangles counted per instance;
-// the colour-texture test that re-derives the program unless colorTexture is null; and the
-// batching chunks it patches to read the copy table at gl_DrawID + gl_InstanceID.
+// the group; a BatchedMesh draws its _multiDraw lists (one sub-draw per entry, with the
+// draw id as a uniform where WEBGL_multi_draw is missing); the colour-texture test that
+// re-derives the program unless colorTexture is null; and the batching chunk that reads the
+// copy table at the draw id, so sub-draw k draws copy k.
 test('the vendored renderer still draws a BatchedMesh the way CopyBatch relies on',()=>{
   const source=fs.readFileSync(new URL('../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js',import.meta.url),'utf8');
   for(const line of ['object.onBeforeShadow( renderer, object, camera, shadowCamera, geometry, depthMaterial, group );','renderer.renderMultiDraw( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount );','uniforms.setValue( _gl, \'_gl_DrawID\', i );','object.isBatchedMesh && materialProperties.batchingColor === false && object.colorTexture !== null',
-    'renderer.renderMultiDrawInstances( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount, object._multiDrawInstances );','extension.multiDrawArraysInstancedWEBGL( mode, starts, 0, counts, 0, primcount, 0, drawCount );','elementCount += counts[ i ] * primcount[ i ];',
     'mat4 batchingMatrix = getBatchingMatrix( getIndirectIndex( gl_DrawID ) );'])
     assert.ok(source.includes(line),'renderer line changed: '+line);
-  assert.ok(T.ShaderChunk.batching_vertex.includes('getBatchingMatrix( getIndirectIndex( gl_DrawID + gl_InstanceID ) )'),'the batching chunk reads the copy table per instance');
+  assert.ok(T.ShaderChunk.batching_vertex.includes('getBatchingMatrix( getIndirectIndex( gl_DrawID ) )'),'no shader chunk is patched');
 });

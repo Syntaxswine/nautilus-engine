@@ -108,10 +108,11 @@ test('placed copies share batch geometry and follow their template through views
   assert.equal(layer.templates.size,0);assert.equal(layer.models.size,0);
 });
 
-test('a design placed more than once draws each batch mesh as one CopyBatch that follows the template',async()=>{
+test('a cluster of neighbouring copies draws each batch mesh as one CopyBatch that follows the template',async()=>{
+  // Three copies 20 m apart (their spheres overlap), batched at the layer's option batched 3.
   const providers=createPrefabProviders(T,{original:atlas()}),scene=new T.Scene();
-  const layer=new PrefabLayer(scene,{},()=>{},error=>{throw error;},{providers});
-  const instances=[...[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i%4,clearance:2})),{id:'single',asset:'bramble-ranch',x:20,y:120,turns:0,clearance:2}];
+  const layer=new PrefabLayer(scene,{},()=>{},error=>{throw error;},{providers,batched:3});
+  const instances=[...[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*20,y:20,turns:i%4,clearance:2})),{id:'single',asset:'bramble-ranch',x:20,y:120,turns:0,clearance:2}];
   const options={level:0,showAllLevels:true,roofs:true,walls:true};
   try{
     await layer.update({map:{buildingPrefabs:{instances}}},options);

@@ -9,14 +9,46 @@ import {CopyBatch} from './copy-batch.js';
 // glass stays one mesh per placed copy so it still sorts back to front.
 const instanceable=node=>node.isMesh&&Array.isArray(node.material);
 
+// Only a cluster of many neighbouring copies is batched. A CopyBatch draw costs about
+// 2.4 per-copy draws on Direct3D (round 4 of the 0.8 series: two textures, three samplers
+// and the multi-draw per setup), and a camera sets it up wherever the set's own sphere
+// meets its frustum. Copies spread across a district make that sphere wide, so lamp faces
+// set it up and find no copy (lamp-lit Gross houses: 2,739 empty setups a frame, 1.6 to
+// 2.1 times slower than per-copy batches); and a close view or a lamp face sees few copies
+// of any set. Copies are neighbours when their buildings' spheres overlap; a cluster of
+// BATCHED or more neighbours draws through CopyBatches, and any other copy draws its own
+// batch meshes, which the renderer culls copy by copy. Measured against per-copy batches
+// (assets alone, 2 paired runs), Gross clusters of 3 were x0.90-1.07 unlit and x0.81-0.94
+// lit by six fires; of 6 to 8, x1.13-1.20 and x0.90-1.03; of 16, x1.38-2.14 and x1.00-1.30.
+export const BATCHED=8;
+export function neighbourhoods(spheres) {
+  const parent=spheres.map((_,k)=>k),root=k=>{while(parent[k]!==k)k=parent[k]=parent[parent[k]];return k;};
+  const order=spheres.map((_,k)=>k).sort((a,b)=>spheres[a].center.x-spheres[b].center.x),widest=Math.max(0,...spheres.map(s=>s.radius));
+  for(let i=0;i<order.length;i++){
+    const a=spheres[order[i]];
+    for(let j=i+1;j<order.length;j++){
+      const b=spheres[order[j]];if(b.center.x-a.center.x>a.radius+widest)break;
+      if(a.center.distanceTo(b.center)<=a.radius+b.radius)parent[root(order[i])]=root(order[j]);
+    }
+  }
+  const clusters=new Map();for(let k=0;k<spheres.length;k++){const r=root(k);if(!clusters.has(r))clusters.set(r,[]);clusters.get(r).push(k);}
+  return [...clusters.values()];
+}
+// A template's extent in its root's frame: every mesh's sphere, glass included.
+function extent(template) {
+  const sphere=new T.Sphere().makeEmpty(),inverse=new T.Matrix4().copy(template.model.root.matrixWorld).invert(),matrix=new T.Matrix4();
+  for(const node of template.nodes)if(node.isMesh){node.geometry.boundingSphere??node.geometry.computeBoundingSphere();if(!node.geometry.boundingSphere.isEmpty())sphere.union(node.geometry.boundingSphere.clone().applyMatrix4(matrix.multiplyMatrices(inverse,node.matrixWorld)));}
+  return sphere;
+}
+
 // Libraries and templates are owned by one scene. Stale loads release their own
 // resources, and failed loads are removed so a later selection can retry.
-// A design placed more than once draws each batch mesh as one CopyBatch on the
-// template's own geometry, which every camera culls copy by copy; views (geometry
-// groups) still follow the template. The copies keep their nodes, hidden, for
-// bounds and bookkeeping.
+// A cluster of neighbouring copies of one design draws each batch mesh as one
+// CopyBatch on the template's own geometry, which every camera culls copy by copy;
+// views (geometry groups) still follow the template. The batched copies keep their
+// nodes, hidden, for bounds and bookkeeping.
 export class PrefabLayer {
-  constructor(scene,renderer,changed,error,{providers=createPrefabProviders(T),instancing=true}={}) {Object.assign(this,{scene,renderer,changed,error,providers,instancing});this.templates=new Map();this.models=new Map();this.libraries=new Map();this.instanced=[];this.ticket=0;}
+  constructor(scene,renderer,changed,error,{providers=createPrefabProviders(T),instancing=true,batched=BATCHED}={}) {Object.assign(this,{scene,renderer,changed,error,providers,instancing,batched});this.templates=new Map();this.models=new Map();this.libraries=new Map();this.instanced=[];this.ticket=0;this.pending=Promise.resolve();}
   load(providerId) {
     let record=this.libraries.get(providerId);
     if(record?.library)return Promise.resolve({library:record.library});
@@ -31,7 +63,10 @@ export class PrefabLayer {
     return record.promise;
   }
   releaseLibrary(id) {const record=this.libraries.get(id);this.libraries.delete(id);record?.library?.dispose();}
-  async update(document,options) {
+  // The latest update, for callers that drive the layer through the editor (setOptions
+  // rebuilds without awaiting it): the benchmark and the headless count await it.
+  update(document,options) {return this.pending=this.apply(document,options);}
+  async apply(document,options) {
     if(this.disposed)return;
     const ticket=++this.ticket;this.document=document;this.options={...options};
     // Copies draw themselves again until instancing is rebuilt below (it may span a load).
@@ -57,19 +92,25 @@ export class PrefabLayer {
     this.instance();this.setView();this.changed();
   }
   // Rebuilt on every update: instance matrices are each copy's world matrix times the
-  // node's place in its template. The shared geometry belongs to the template.
+  // node's place in its template. The shared geometry belongs to the template. A
+  // cluster keeps its copies in placement order.
   instance() {
     this.releaseInstances();if(!this.instancing)return;
     const copies=new Map();for(const model of this.models.values()){if(!copies.has(model.asset))copies.set(model.asset,[]);copies.get(model.asset).push(model);}
     for(const [id,models]of copies){
-      const template=this.templates.get(id);if(!template||models.length<2)continue;
+      const template=this.templates.get(id);if(!template||models.length<this.batched)continue;
       template.model.root.updateMatrixWorld(true);for(const model of models)model.root.updateMatrixWorld(true);
-      template.nodes.forEach((node,i)=>{
-        if(!instanceable(node))return;
-        const local=new T.Matrix4().copy(template.model.root.matrixWorld).invert().multiply(node.matrixWorld);
-        const mesh=new CopyBatch(node,models.map(model=>new T.Matrix4().multiplyMatrices(model.root.matrixWorld,local)));
-        this.scene.add(mesh);this.instanced.push({mesh,node,copies:models.map(model=>model.nodes[i])});
-      });
+      const sphere=extent(template);
+      for(const cluster of neighbourhoods(models.map(model=>sphere.clone().applyMatrix4(model.root.matrixWorld)))){
+        if(cluster.length<this.batched)continue;
+        const members=cluster.map(k=>models[k]);
+        template.nodes.forEach((node,i)=>{
+          if(!instanceable(node))return;
+          const local=new T.Matrix4().copy(template.model.root.matrixWorld).invert().multiply(node.matrixWorld);
+          const mesh=new CopyBatch(node,members.map(model=>new T.Matrix4().multiplyMatrices(model.root.matrixWorld,local)));
+          this.scene.add(mesh);this.instanced.push({mesh,node,copies:members.map(model=>model.nodes[i])});
+        });
+      }
     }
   }
   releaseInstances() {for(const {mesh,node,copies}of this.instanced){mesh.removeFromParent();mesh.dispose();for(const copy of copies)copy.visible=node.visible;}this.instanced=[];}

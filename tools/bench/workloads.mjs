@@ -95,35 +95,58 @@ export async function buildWorkloads({tree = here} = {}) {
     save('w6-roofs-144', '144 procedural sloped roofs (12 x 12)', map);
   }
   save('w7-mixed-13-gross-19-largest', 'All 13 Gross designs plus the 19 largest originals', pack('Mixed massive', [...byTriangles.slice(0, 19).map(d => d.id), ...gross]));
+  // Round 4's threshold map: Gross designs placed eight side by side, the smallest cluster
+  // of neighbours the editor batches (apps/editor/prefab-scene.js BATCHED); a shelf row's end
+  // splits some, which then draw per copy.
+  save('w8-gross-rows-of-8', '32 Gross houses placed eight of a design side by side', pack('Gross rows of eight', Array.from({length: 40}, (_, i) => gross[Math.floor(i / 8) % gross.length])));
   // Lamp-lit districts (round 3's MF-B and its maps): six always-lit fires, each a point
   // light with shadows (six cube faces, 30 m range), on the free tiles nearest six points
   // in the district's lanes (outside every lot and its clearance, plus one tile). Each
   // lamp-lit map has the blank map with the same lamps beside it (lN-blank): its null
   // control and isolation reference (the benchmark pairs a map with the blank map whose
   // props it shares).
-  const blankMap = JSON.parse(workloads.find(w => w.id === 'w0-blank').json), blanksByLamps = new Map();
-  for (const id of ['w1-32x-largest', 'w4-32-gross', 'w5b-walls-free-angle', 'w6-roofs-144', 'w7-mixed-13-gross-19-largest']) {
-    const source = workloads.find(w => w.id === id), map = JSON.parse(source.json), taken = new Set(), lamps = [];
+  const blankMap = JSON.parse(workloads.find(w => w.id === 'w0-blank').json), blanksByLamps = new Map(), placed = new Map();
+  const lane = y => [23, 61, 99, 137, 175, 213].map(x => [x, y]), fire = i => i % 2 ? 'standing-torch' : 'campfire';
+  function placeLamps(id, map, points, kindOf, extra = {}) {
+    const taken = new Set(), lamps = [];
     for (const instance of map.buildingPrefabs?.instances || []) {
       const t = prefab.buildingTransform(instance), c = (instance.clearance ?? 1) + 1;
       for (let x = instance.x - c; x < instance.x + t.width + c; x++) for (let y = instance.y - c; y < instance.y + t.depth + c; y++) taken.add(x + ',' + y);
     }
-    for (const [i, [tx, ty]] of [[23, 30], [61, 30], [99, 30], [137, 30], [175, 30], [213, 30]].entries()) {
+    for (const [i, [tx, ty]] of points.entries()) {
       let lamp = null;
       for (let r = 0; r < 30 && !lamp; r++) for (let dx = -r; dx <= r && !lamp; dx++) for (let dy = -r; dy <= r && !lamp; dy++) {
         if (Math.max(Math.abs(dx), Math.abs(dy)) !== r || taken.has((tx + dx) + ',' + (ty + dy))) continue;
-        const trial = {kind: i % 2 ? 'standing-torch' : 'campfire', x: tx + dx, y: ty + dy, z: 0};
+        const trial = {kind: kindOf(i), x: tx + dx, y: ty + dy, z: 0, ...extra};
         try {core.openDocument({...map, props: [...(map.props || []), ...lamps, trial]}); lamp = trial;} catch {}
       }
       if (!lamp) throw Error(id + ': no free tile near ' + tx + ',' + ty);
       lamps.push(lamp);
     }
-    const lit = source => ({...source, props: [...(source.props || []), ...structuredClone(lamps)]}), n = id.split('-')[0].slice(1), key = JSON.stringify(lamps);
-    save('l' + id.slice(1) + '-lamps', source.description + ', lit by six fires', lit(map));
-    // Maps without lots get the same lamps (on the points themselves): one blank serves them.
-    if (!blanksByLamps.has(key)) {blanksByLamps.set(key, 'l' + n + '-blank'); save('l' + n + '-blank', 'The blank map with the six lamps of l' + id.slice(1) + '-lamps', lit(blankMap));}
+    return lamps;
   }
-  for (const workload of workloads.filter(w => w.id.startsWith('l'))) if ((JSON.parse(workload.json).props || []).filter(p => p.kind === 'campfire' || p.kind === 'standing-torch').length !== 6) throw Error(workload.id + ': the lamps did not survive openDocument');
+  // A lamp-lit map and, unless one already has its lamps (and start time), its blank.
+  function light(source, map, lampId, blankId, description, lamps, time = null) {
+    const lit = m => ({...m, props: [...(m.props || []), ...structuredClone(lamps)], ...(time ? {time} : {})}), key = JSON.stringify([lamps, time]);
+    save(lampId, source.description + ', ' + description, lit(map)); placed.set(lampId, lit(map).props);
+    // Maps without lots get the same lamps (on the points themselves): one blank serves them.
+    if (!blanksByLamps.has(key)) {blanksByLamps.set(key, blankId); save(blankId, 'The blank map with the lamps of ' + lampId, lit(blankMap)); placed.set(blankId, lit(blankMap).props);}
+  }
+  for (const id of ['w1-32x-largest', 'w4-32-gross', 'w5b-walls-free-angle', 'w6-roofs-144', 'w7-mixed-13-gross-19-largest', 'w8-gross-rows-of-8']) {
+    const source = workloads.find(w => w.id === id), map = JSON.parse(source.json), n = id.split('-')[0].slice(1);
+    light(source, map, 'l' + id.slice(1) + '-lamps', 'l' + n + '-blank', 'lit by six fires', placeLamps(id, map, lane(30), fire));
+  }
+  // Round 4's lamps among the Gross houses (its N6, built as its review built them): 18
+  // fires in three lanes; 12 electric lamps (streetlights and floor lamps) at 22:00; six
+  // spot lights switched on. Each has its own blank.
+  {
+    const source = workloads.find(w => w.id === 'w4-32-gross'), map = JSON.parse(source.json);
+    light(source, map, 'l4x-32-gross-18-fires', 'l4x-blank', 'lit by 18 fires', placeLamps('l4x', map, [...lane(4), ...lane(18), ...lane(32)], fire));
+    light(source, map, 'l4n-32-gross-12-night-lamps', 'l4n-blank', 'lit by 12 electric lamps at 22:00', placeLamps('l4n', map, [...lane(4), ...lane(32)], i => i % 2 ? 'floor-lamp' : 'streetlight'), {startMinutes: 22 * 60});
+    light(source, map, 'l4s-32-gross-6-spotlights', 'l4s-blank', 'lit by six spot lights', placeLamps('l4s', map, lane(32), () => 'spotlight', {lightMode: 'on'}));
+  }
+  const kinds = props => JSON.stringify((props || []).map(p => p.kind).sort());
+  for (const [id, props] of placed) if (kinds(JSON.parse(workloads.find(w => w.id === id).json).props) !== kinds(props)) throw Error(id + ': the lamps did not survive openDocument');
   return workloads;
 }
 
