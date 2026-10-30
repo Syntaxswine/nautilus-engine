@@ -82,11 +82,14 @@ test('render batches preserve native geometry and floor visibility while reducin
       let rawTriangles=0,meshes=0;source.root.traverse(node=>{if(node.isMesh){meshes++;rawTriangles+=(node.geometry.index?.count||node.geometry.attributes.position.count)/3;}});
       const packedTriangles=batch.records.reduce((n,r)=>n+r.mesh.geometry.attributes.position.count/3,0);
       assert.equal(packedTriangles,rawTriangles);assert.ok(batch.records.length<meshes/4,id+' submission reduction');
-      for(const record of batch.records){assert.ok(record.mesh.geometry.attributes.grossUV);assert.ok(record.mesh.geometry.attributes.normal);assert.ok(record.mesh.material.isMeshStandardMaterial);}
+      for(const record of batch.records){assert.ok(record.mesh.geometry.attributes.grossUV);assert.ok(record.mesh.geometry.attributes.normal);assert.ok(record.material.isMeshStandardMaterial);}
+      // Batches are per material; a piece is one native face range, drawn only inside a geometry group.
+      const drawnRange=(record,range)=>record.mesh.visible&&record.mesh.geometry.groups.some(g=>g.start<range.start+range.count&&range.start<g.start+g.count);
       source.setView({view:'cutaway',level:0,showFurniture:true});batch.sync();
-      assert.ok(batch.records.some(r=>!r.mesh.visible));assert.ok(batch.records.some(r=>r.mesh.visible));
-      assert.ok(batch.records.filter(r=>r.scope[0].name==='Removable roofs').every(r=>!r.mesh.visible));
-      batch.sync({walls:false});assert.ok(batch.records.filter(r=>r.wall).every(r=>!r.mesh.visible));
+      assert.ok(batch.pieces.some(p=>!p.visible()));assert.ok(batch.pieces.some(p=>p.visible()));
+      assert.ok(batch.pieces.filter(p=>p.scope[0].name==='Removable roofs').every(p=>!p.visible()));
+      assert.ok(batch.records.every(record=>record.ranges.filter(range=>range.piece.scope[0].name==='Removable roofs').every(range=>!drawnRange(record,range))));
+      batch.sync({walls:false});assert.ok(batch.records.every(record=>record.ranges.filter(range=>range.piece.wall).every(range=>!drawnRange(record,range))));
     } finally {batch.dispose();source.dispose();}
   }
 });
