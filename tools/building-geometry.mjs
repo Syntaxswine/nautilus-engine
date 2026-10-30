@@ -5,10 +5,16 @@
 // node in each view the model's setView offers (roofs off, every floor's
 // cutaway, every floor limit) and every door pivot with its doors open. Equal
 // digests mean the renderer drew the same model, whatever its source text. The
-// model is left exactly as it was found.
+// model is left exactly as it was found. A material is every setting three.js
+// serializes (Material.toJSON) with each texture's settings in place of its id, so
+// a setting nobody listed is covered too.
 import {createHash} from 'node:crypto';
 const sha256=data=>createHash('sha256').update(data).digest('hex');
-const materialKey=m=>[m.type,m.name,m.color?.getHex(),!!m.map,m.transparent,m.opacity,m.side,m.roughness,m.metalness,m.polygonOffset,m.polygonOffsetFactor,m.polygonOffsetUnits,m.depthWrite,m.depthTest,m.visible].join(',');
+function materialKey(m){
+  const meta={textures:{},images:{}},data=m.toJSON(meta);delete data.uuid;delete data.metadata;
+  for(const [key,value]of Object.entries(data))if(typeof value==='string'&&meta.textures[value]){const {uuid,image,metadata,...settings}=meta.textures[value];data[key]=settings;}
+  return JSON.stringify(data);
+}
 export function buildingDigest(model){
   const lines=[];
   model.root.traverse(node=>{

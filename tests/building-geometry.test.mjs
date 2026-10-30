@@ -29,6 +29,22 @@ test('the geometry digest sees transforms, user data, material settings, view ru
   differs(model=>{const pivot=model.doorRoots[0];pivot.position.x+=1e-6;pivot.updateMatrix();},'a door pivot moved by a micrometre');
   differs(model=>{model.root.children[0].userData.level+=1;},'user data');
   differs(model=>{const glass=model.materials.get('glass');glass.opacity+=.01;},'glass opacity');
+  // Settings a hand-picked key missed (round 3's G11 brightened every material unseen).
+  const material=model=>model.materials.get('interior');
+  differs(model=>{for(const m of model.materials.values())m.emissive.setHex(0x202020);},'an emissive term on every material');
+  differs(model=>{material(model).emissiveIntensity=2;},'emissive intensity');
+  differs(model=>{material(model).vertexColors=true;},'vertex colours');
+  differs(model=>{material(model).flatShading=true;},'flat shading');
+  differs(model=>{material(model).alphaTest=.5;},'alpha test');
+  differs(model=>{material(model).blending=T.AdditiveBlending;},'blending');
+  differs(model=>{material(model).shadowSide=T.BackSide;},'shadow side');
+  // Textures enter by their settings, not their ids: equal atlases digest alike, and a
+  // texture transform changes the digest.
+  const textured=()=>createBuildingModel(T,id,{atlas:new T.Texture()}),a=textured(),b=textured();
+  try{
+    assert.equal(buildingDigest(a),buildingDigest(b),'two equal atlases');
+    material(b).map.repeat.set(2,1);assert.notEqual(buildingDigest(a),buildingDigest(b),'a texture transform');
+  }finally{a.dispose();b.dispose();}
   differs(model=>{const setView=model.setView;model.setView=view=>{setView(view);model.root.children.at(-1).visible=false;};},'a view rule');
   differs(model=>{const setDoorsOpen=model.setDoorsOpen;model.setDoorsOpen=open=>{setDoorsOpen(open);if(open)for(const pivot of model.doorRoots)pivot.rotation.y+=.01;};},'the door swing');
 });

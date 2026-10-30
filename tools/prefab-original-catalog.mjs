@@ -15,7 +15,7 @@ const fixedFiles={
   'packages/building-catalog/index.js':'6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108',
   'packages/building-catalog/designs.js':'87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6',
   // Recorded with the reviewed renderer; refreshing it is a deliberate edit of this line.
-  'tests/fixtures/original-building-geometry.json':'037cc5f958d0dd1750e666df48ae85bb01713e2add346737a7ed2efaa526202e'
+  'tests/fixtures/original-building-geometry.json':'9f393f77feac5a19a2068d8e6bdebe537167801921ad54e3aaf7885e9b9a4a5e'
 };
 for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);
 // The renderer's source is not pinned: its arithmetic may be rewritten (it was,
