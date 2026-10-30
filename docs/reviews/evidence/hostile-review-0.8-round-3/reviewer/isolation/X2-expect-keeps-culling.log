@@ -1,0 +1,351 @@
+run 0 gpu w0-blank: open 1201/1565 ms, overview 8.90/7.65 ms 1121/1121 calls, overview:assets 0.85/0.90 ms 1/1 calls, close 3.85/3.75 ms 419/419 calls, close:assets 0.90/0.85 ms 1/1 calls, cutaway 5.25/5.60 ms 1121/1121 calls, cutaway:assets 0.85/0.85 ms 1/1 calls
+run 0 gpu w2-32-distinct-most-meshes: open 3632/2359 ms, overview 22.60/10.95 ms 4480/1877 calls, overview:assets 18.15/4.65 ms 3360/757 calls, close 10.30/4.55 ms 1934/720 calls, close:assets 7.85/2.85 ms 1568/354 calls, cutaway 17.60/10.85 ms 2596/1512 calls, cutaway:assets 8.60/4.30 ms 1476/392 calls
+run 1 gpu w0-blank: open 1515/1440 ms, overview 7.60/10.20 ms 1121/1121 calls, overview:assets 1.15/1.50 ms 1/1 calls, close 2.95/3.20 ms 419/419 calls, close:assets 0.85/0.85 ms 1/1 calls, cutaway 5.50/4.90 ms 1121/1121 calls, cutaway:assets 0.90/0.85 ms 1/1 calls
+run 1 gpu w2-32-distinct-most-meshes: open 3654/2589 ms, overview 29.85/11.85 ms 4480/1877 calls, overview:assets 20.50/4.70 ms 3360/757 calls, close 10.65/4.00 ms 1934/720 calls, close:assets 8.05/2.25 ms 1568/354 calls, cutaway 13.65/8.10 ms 2596/1512 calls, cutaway:assets 7.70/2.70 ms 1476/392 calls
+Wrote <sandbox>\artifacts\r08-3\isolation\X2-expect-keeps-culling.json
+[
+ {
+  "backend": "gpu",
+  "map": "w0-blank",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 8.25,
+     "b": 8.925000011920929
+    },
+    "cpuMs": {
+     "a": 5.125,
+     "b": 5.149999976158142
+    },
+    "speedup": {
+     "median": 0.9542483656947935,
+     "min": 0.7450980380698838,
+     "max": 1.1633986933197031
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 1,
+     "b": 1.199999988079071
+    },
+    "cpuMs": {
+     "a": 0.25,
+     "b": 0.2749999761581421
+    },
+    "speedup": {
+     "median": 0.8555555733633637,
+     "min": 0.7666666507720947,
+     "max": 0.9444444959546326
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 3.400000035762787,
+     "b": 3.474999964237213
+    },
+    "cpuMs": {
+     "a": 1.975000023841858,
+     "b": 2.149999976158142
+    },
+    "speedup": {
+     "median": 0.9742708534127521,
+     "min": 0.9218750011641532,
+     "max": 1.026666705661351
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close:assets": {
+    "totalMs": {
+     "a": 0.875,
+     "b": 0.8499999642372131
+    },
+    "cpuMs": {
+     "a": 0.2749999761581421,
+     "b": 0.2749999761581421
+    },
+    "speedup": {
+     "median": 1.0294118100796754,
+     "min": 0.9999998597537809,
+     "max": 1.0588237604055697
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway": {
+    "totalMs": {
+     "a": 5.375,
+     "b": 5.250000059604645
+    },
+    "cpuMs": {
+     "a": 4.150000035762787,
+     "b": 3.949999988079071
+    },
+    "speedup": {
+     "median": 1.029974475356734,
+     "min": 0.9375000172959906,
+     "max": 1.1224489334174772
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway:assets": {
+    "totalMs": {
+     "a": 0.875,
+     "b": 0.8499999642372131
+    },
+    "cpuMs": {
+     "a": 0.25,
+     "b": 0.2250000238418579
+    },
+    "speedup": {
+     "median": 1.0294118100796654,
+     "min": 1,
+     "max": 1.0588236201593308
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   }
+  },
+  "openMs": {
+   "a": 1358.3500000238419,
+   "b": 1502.2999999523163,
+   "speedup": {
+    "median": 0.9100658336485703,
+    "min": 0.7679130713297331,
+    "max": 1.0522185959674075
+   }
+  }
+ },
+ {
+  "backend": "gpu",
+  "map": "w2-32-distinct-most-meshes",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 26.225000023841858,
+     "b": 11.400000035762787
+    },
+    "cpuMs": {
+     "a": 25.299999952316284,
+     "b": 9.600000023841858
+    },
+    "speedup": {
+     "median": 2.2914571362724327,
+     "min": 2.0639269338288724,
+     "max": 2.518987338715993
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 4480,
+       "shadowCalls": 2209,
+       "triangles": 3766342,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1877,
+       "shadowCalls": 896,
+       "triangles": 3766698,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 17.975000023841858,
+      "b": 2.475000023841858
+     },
+     "speedup": {
+      "median": 8.818181877841198,
+      "min": 4.151515075983096,
+      "max": 13.4848486796993
+     }
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 19.325000047683716,
+     "b": 4.675000011920929
+    },
+    "cpuMs": {
+     "a": 18.525000035762787,
+     "b": 3.949999988079071
+    },
+    "speedup": {
+     "median": 4.132463965190863,
+     "min": 3.9032258469736747,
+     "max": 4.36170208340805
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 3360,
+       "shadowCalls": 1655,
+       "triangles": 1224370,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 757,
+       "shadowCalls": 342,
+       "triangles": 1224726,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 18.325000047683716,
+      "b": 3.475000023841858
+     },
+     "speedup": {
+      "median": 5.330104134875971,
+      "min": 4.61333335240682,
+      "max": 6.046874917345122
+     }
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 10.474999964237213,
+     "b": 4.274999916553497
+    },
+    "cpuMs": {
+     "a": 9.825000047683716,
+     "b": 3.325000047683716
+    },
+    "speedup": {
+     "median": 2.4631181751841806,
+     "min": 2.263736276980141,
+     "max": 2.662500073388221
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1934,
+       "shadowCalls": 1324,
+       "triangles": 1263800,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 720,
+       "shadowCalls": 457,
+       "triangles": 1278182,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close:assets": {
+    "
+Refused:
+w2-32-distinct-most-meshes overview run 0: candidate drew {"main":414,"shadow":342,"triangles":1224724}, pinned {"main":416,"shadow":342,"triangles":1224996}
+w2-32-distinct-most-meshes cutaway run 0: candidate drew {"main":195,"shadow":196,"triangles":260200}, pinned {"main":196,"shadow":196,"triangles":260440}
+w2-32-distinct-most-meshes overview run 1: candidate drew {"main":414,"shadow":342,"triangles":1224724}, pinned {"main":416,"shadow":342,"triangles":1224996}
+w2-32-distinct-most-meshes cutaway run 1: candidate drew {"main":195,"shadow":196,"triangles":260200}, pinned {"main":196,"shadow":196,"triangles":260440}

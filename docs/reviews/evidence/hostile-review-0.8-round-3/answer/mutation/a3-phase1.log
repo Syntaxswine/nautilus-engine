@@ -1,0 +1,80 @@
+K1-copy-spheres-untransformed: killed [exit 1 33/35 36s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K2-set-sphere-first-copy: killed [exit 1 33/35 43s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K3-no-per-copy-culling: killed [exit 1 34/35 43s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K4-culled-copy-draws: killed [exit 1 34/35 49s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K5-table-rewritten-per-camera: killed [exit 1 34/35 43s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K6-empty-sub-draws-trail: killed [exit 1 34/35 46s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K7-shadow-ignores-run: SURVIVED [exit 0 35/35 46s ]
+K8-program-rederived-per-draw: killed [exit 1 34/35 42s a CopyBatch draws through the template geometry and adds no raycast hits of its own]
+K9-dispose-takes-template-geometry: killed [exit 1 33/35 42s a CopyBatch draws through the template geometry and adds no raycast hits of its own]
+K10-raycast-inherited: killed [exit 1 34/35 46s a CopyBatch draws through the template geometry and adds no raycast hits of its own]
+K11-table-not-identity: killed [exit 1 34/35 51s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K12-copy-matrix-not-set: killed [exit 1 33/35 188s each copy sits where its own node would, also when a provider nests the batch meshes]
+P1-editor-never-batches-copies: killed [exit 1 34/35 211s the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+P2-template-place-dropped: killed [exit 1 34/35 40s each copy sits where its own node would, also when a provider nests the batch meshes]
+P3-batches-only-from-3: killed [exit 1 33/35 46s the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+P4-copies-draw-too: killed [exit 1 33/35 40s the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+P5-released-batch-not-disposed: killed [exit 1 34/35 46s a design placed more than once draws each batch mesh as one CopyBatch that follows the template]
+P6-batch-always-visible: killed [exit 1 34/35 46s a design placed more than once draws each batch mesh as one CopyBatch that follows the template]
+R1-merged-bounds-first-roof: killed [exit 1 39/40 20s the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material]
+R10-editor-never-merges: killed [exit 1 39/40 15s the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+R11-guard-ignores-hidden-shell: killed [exit 1 39/40 14s roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits]
+R12-guard-ignores-order-and-layers: killed [exit 1 39/40 14s roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits]
+R13-guard-ignores-draw-range: killed [exit 1 39/40 14s roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits]
+R14-guard-ignores-morphs: killed [exit 1 39/40 14s roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits]
+R15-guard-ignores-open-groups: killed [exit 1 39/40 16s roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits]
+RC1-slot-material-unnamed: killed [exit 1 39/40 18s the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material]
+C4-copies-counted-once: killed [exit 1 0/1 7s the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+C7-headless-base-check-off: SURVIVED [exit 0 1/1 6s ]
+C8-two-pass-refusal-off: SURVIVED [exit 0 1/1 6s ]
+C9-lamp-maps-counted-headless: SURVIVED [exit 0 1/1 7s ]
+G11-emissive-every-material: killed [exit 1 7/9 3s every original building matches the reviewed renderer byte for byte at game and authoring detail]
+G12-key-back-to-a-list: killed [exit 1 6/9 3s every original building matches the reviewed renderer byte for byte at game and authoring detail]
+G13-texture-settings-dropped: killed [exit 1 8/9 3s the geometry digest sees transforms, user data, material settings, view rules and the door swing]
+F7-shared-view-not-mirrored: killed [exit 1 12/13 23s shared instances draw one design from display batches, share its view and release it with the last copy]
+N1-back-glass-casts-outside-the-editor: killed [exit 1 12/13 30s double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow]
+{
+ "total": 35,
+ "killed": [
+  "K1-copy-spheres-untransformed",
+  "K2-set-sphere-first-copy",
+  "K3-no-per-copy-culling",
+  "K4-culled-copy-draws",
+  "K5-table-rewritten-per-camera",
+  "K6-empty-sub-draws-trail",
+  "K8-program-rederived-per-draw",
+  "K9-dispose-takes-template-geometry",
+  "K10-raycast-inherited",
+  "K11-table-not-identity",
+  "K12-copy-matrix-not-set",
+  "P1-editor-never-batches-copies",
+  "P2-template-place-dropped",
+  "P3-batches-only-from-3",
+  "P4-copies-draw-too",
+  "P5-released-batch-not-disposed",
+  "P6-batch-always-visible",
+  "R1-merged-bounds-first-roof",
+  "R10-editor-never-merges",
+  "R11-guard-ignores-hidden-shell",
+  "R12-guard-ignores-order-and-layers",
+  "R13-guard-ignores-draw-range",
+  "R14-guard-ignores-morphs",
+  "R15-guard-ignores-open-groups",
+  "RC1-slot-material-unnamed",
+  "C4-copies-counted-once",
+  "G11-emissive-every-material",
+  "G12-key-back-to-a-list",
+  "G13-texture-settings-dropped",
+  "F7-shared-view-not-mirrored",
+  "N1-back-glass-casts-outside-the-editor"
+ ],
+ "survived": [
+  "K7-shadow-ignores-run",
+  "C7-headless-base-check-off",
+  "C8-two-pass-refusal-off",
+  "C9-lamp-maps-counted-headless"
+ ],
+ "errors": [],
+ "invalid": []
+}
+PHASE1_EXIT 0

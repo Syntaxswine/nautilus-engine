@@ -1,0 +1,314 @@
+{
+ "script": "pixel-probe.mjs",
+ "started": "2026-10-30T11:54:42.199Z",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             "
+ },
+ "trees": {
+  "a": {
+   "dir": "<baseline>",
+   "head": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "status": "M apps/editor/roof-scene.js"
+  },
+  "b": {
+   "dir": "<candidate>",
+   "head": null,
+   "status": null
+  }
+ },
+ "cases": [
+  {
+   "name": "w1-overview",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 2139,
+   "maxDelta": 92,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 1172,
+     "shading": 903,
+     "neither": 64
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 92,
+     "shading": 2,
+     "neither": 22
+    },
+    "edgePixelShareOfFrame": 0.04946262571126108,
+    "components": 8,
+    "largestComponents": [
+     2132,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 2132
+   },
+   "doors": null,
+   "weakExplained": 1,
+   "strongExplained": 0,
+   "unexplainedWeak": 2138,
+   "unexplainedStrong": 2139,
+   "weakButNotStrong": 1,
+   "maxDeltaUnexplainedStrong": 92,
+   "tiePixels": 900,
+   "tieShare": 0.0009304287415641127,
+   "boundingBox": [
+    519,
+    170,
+    610,
+    233
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1425,
+     "shadowCalls": 658,
+     "triangles": 5308310
+    },
+    "b": {
+     "calls": 1425,
+     "shadowCalls": 658,
+     "triangles": 5308310
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "07b038a85c6025485cc7de3e2efdc177f6ed1ffaaf7c3ee024b1fa51463e441d",
+    "b": "5f33b41ed379a5aa2d05b04032b5799e3fdf642f92ea4534a4d347c9c4512db8"
+   },
+   "png": "w1-overview"
+  },
+  {
+   "name": "w1-close",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 16,
+    "y": 16,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 104004,
+   "maxDelta": 109,
+   "r3": {
+    "classes": {
+     "tie": 8,
+     "edge": 21646,
+     "shading": 67943,
+     "neither": 14407
+    },
+    "maxDeltaByClass": {
+     "tie": 11,
+     "edge": 109,
+     "shading": 2,
+     "neither": 30
+    },
+    "edgePixelShareOfFrame": 0.07006128423977769,
+    "components": 25,
+    "largestComponents": [
+     103884,
+     56,
+     33,
+     5,
+     2
+    ],
+    "pixelsInComponentsOf4OrMore": 103978
+   },
+   "doors": null,
+   "weakExplained": 74,
+   "strongExplained": 8,
+   "unexplainedWeak": 103930,
+   "unexplainedStrong": 103996,
+   "weakButNotStrong": 66,
+   "maxDeltaUnexplainedStrong": 109,
+   "tiePixels": 219,
+   "tieShare": 0.0002264043271139341,
+   "boundingBox": [
+    428,
+    335,
+    1045,
+    733
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 507,
+     "shadowCalls": 300,
+     "triangles": 3304646
+    },
+    "b": {
+     "calls": 507,
+     "shadowCalls": 300,
+     "triangles": 3304646
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "86211cf7eb64e8adc3ef41a68bae2582e668fe0c0fae5f4bc663c4ce964c9275",
+    "b": "ad6fafbef556ab39073f97b79f9b02edd062f5455821ec07f082dc56c7c00f3f"
+   },
+   "png": "w1-close"
+  },
+  {
+   "name": "w1-cutaway",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 1522,
+   "maxDelta": 48,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 694,
+     "shading": 772,
+     "neither": 56
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 48,
+     "shading": 2,
+     "neither": 21
+    },
+    "edgePixelShareOfFrame": 0.029778888778615852,
+    "components": 3,
+    "largestComponents": [
+     1518,
+     3,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 1518
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 1522,
+   "unexplainedStrong": 1522,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 48,
+   "tiePixels": 969,
+   "tieShare": 0.0010017616117506947,
+   "boundingBox": [
+    520,
+    187,
+    616,
+    236
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1135,
+     "shadowCalls": 561,
+     "triangles": 2939542
+    },
+    "b": {
+     "calls": 1135,
+     "shadowCalls": 561,
+     "triangles": 2939542
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "04fc53ec4f7bd361cd55fd1ce6bce7853fe79da94b46ab6a5a9049f9b7a13357",
+    "b": "a9ae554f06818513ba14a763f0f09cee99a8498c15bc075ac8c23511abdeb7e2"
+   },
+   "png": "w1-cutaway"
+  }
+ ],
+ "browser": "156.0.4314.56",
+ "reducedMotion": false,
+ "served_a": {
+  "files": 334,
+  "digest": "efd88c999ff62c83930221ba9de9e712edb86884411c3d00e2d42575d570d9ca"
+ },
+ "served_b": {
+  "files": 334,
+  "digest": "a8c12c9e369581a3c3239a6f6394b0f08387f78b9db07418353263104234eb4c"
+ },
+ "finished": "2026-10-30T11:55:51.513Z"
+}

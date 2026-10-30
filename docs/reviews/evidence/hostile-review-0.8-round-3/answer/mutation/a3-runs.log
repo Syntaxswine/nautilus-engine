@@ -1,0 +1,31 @@
+K3-no-per-copy-culling: killed [exit 1 36/38 25s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K4-runs-draw-nothing: killed [exit 1 36/38 24s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K5-table-rewritten-per-camera: killed [exit 1 37/38 24s every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+K6-empty-sub-draws-trail: killed [exit 1 37/38 23s with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy]
+K13-runs-never-used: killed [exit 1 37/38 24s with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy]
+K14-run-spans-a-culled-copy: killed [exit 1 37/38 24s with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy]
+K15-shader-reads-draw-id-only: killed [exit 1 37/38 24s the vendored renderer still draws a BatchedMesh the way CopyBatch relies on]
+K16-runs-without-the-extension: killed [exit 1 37/38 24s with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy]
+P7-no-early-release: killed [exit 1 37/38 24s while a building library loads, removed copies are gone and the rest draw themselves]
+P8-release-leaves-copies-hidden: killed [exit 1 37/38 24s while a building library loads, removed copies are gone and the rest draw themselves]
+C5b-daylight-rule-refusal-off: killed [exit 1 1/2 10s the count model refuses what it does not model]
+{
+ "total": 11,
+ "killed": [
+  "K3-no-per-copy-culling",
+  "K4-runs-draw-nothing",
+  "K5-table-rewritten-per-camera",
+  "K6-empty-sub-draws-trail",
+  "K13-runs-never-used",
+  "K14-run-spans-a-culled-copy",
+  "K15-shader-reads-draw-id-only",
+  "K16-runs-without-the-extension",
+  "P7-no-early-release",
+  "P8-release-leaves-copies-hidden",
+  "C5b-daylight-rule-refusal-off"
+ ],
+ "survived": [],
+ "errors": [],
+ "invalid": []
+}
+RUNS_EXIT 0

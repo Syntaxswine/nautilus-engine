@@ -1,0 +1,1 @@
+(() => {let n = 0; for (const {mesh} of window.editor3d.scene.prefabs.instanced) {const t = mesh._indirectTexture; let first = true; Object.defineProperty(t, 'needsUpdate', {set() {if (first) {first = false; t.version++;}}}); n++;} return n;})()

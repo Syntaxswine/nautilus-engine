@@ -1,0 +1,359 @@
+{
+ "script": "mutate-r3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T14:07:42.364Z",
+ "node": "v24.15.0",
+ "head": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "I1-instance-bounds-template-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each instance set culled by the template node sphere (at the origin), not the union of its copies: copies far from the origin vanish",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [],
+   "invalid": "needle occurs 0 times in apps/editor/prefab-scene.js: mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();",
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "I2-instance-matrix-root-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [],
+   "invalid": "needle occurs 0 times in apps/editor/prefab-scene.js: mesh.setMatrixAt(k,matrix.multiplyMatrices(model.root.matrixWorld,local))",
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "I6-no-early-release",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: instance() releases again; only a pending load keeps the old sets",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 29419,
+     "tests": 30,
+     "pass": 30,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "I7-release-leaves-copies-hidden",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: setView() restores copy visibility after every update; only a pending load shows nothing",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 38397,
+     "tests": 30,
+     "pass": 30,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "I8-instanced-mesh-never-disposed",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each update leaks every instance set's instanceMatrix buffer on the GPU",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 31826,
+     "tests": 30,
+     "pass": 29,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: each released CopyBatch disposed once",
+      "  + actual - expected",
+      "    expected: ["
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "E1-editor-never-instances",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the editor builds its layer with instancing off; the gate builds its own layer",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 32075,
+     "tests": 30,
+     "pass": 29,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  + actual - expected",
+      "    expected: { exterior: { prefabs: [Object], walls: [Object], roofs: [Object] }, cutaway: { prefabs: [Object], walls: [Object], roofs: [Object] } },"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "R1-merged-bounds-first-roof",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "the merged mesh is culled by its first roof's sphere: every other roof vanishes when that roof leaves the view",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20420,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.0522ms)",
+      "  AssertionError [ERR_ASSERTION]: roof vertices outside the merged bounds",
+      "    expected: 0,"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "E2-editor-never-merges-roofs",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "the editor builds its roof layer with merge off; the gate builds its own layer",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20598,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.7452ms)",
+      "  AssertionError [ERR_ASSERTION]: w6-roofs-144 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  + actual - expected",
+      "    expected: { exterior: { prefabs: [Object], walls: [Object], roofs: [Object] }, cutaway: { prefabs: [Object], walls: [Object], roofs: [Object] } },"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "RC1-slot-material-unnamed",
+   "files": [
+    "packages/roof-core/three.js"
+   ],
+   "expect": "names are new in this answer; the merge keys by identity",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20599,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.7121ms)",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  + actual - expected",
+      "    expected: [ 'roof:slate', 'roof:clay', 'roof:metal', 'roof:fascia', 'roof:soffit' ],"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "C1-one-pass-always",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "dead since bd27cb5: no transparent double-sided material is left in the asset layers",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [],
+   "invalid": "needle occurs 0 times in tools/asset-draw-counts.mjs: const passes = material => material.transparent && material.side === T.DoubleSid",
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "C5-rig-rule-check-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it guards a vendored file that does not change",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 14271,
+     "tests": 1,
+     "pass": 1,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "F7-shared-view-not-mirrored",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 1263,
+     "tests": 6,
+     "pass": 5,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy 0 shows what the design shows",
+      "  + actual - expected",
+      "    expected: ["
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  }
+ ],
+ "finished": "2026-10-30T14:11:13.248Z",
+ "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 12,
+  "killed": [
+   "I8-instanced-mesh-never-disposed",
+   "E1-editor-never-instances",
+   "R1-merged-bounds-first-roof",
+   "E2-editor-never-merges-roofs",
+   "RC1-slot-material-unnamed",
+   "F7-shared-view-not-mirrored"
+  ],
+  "survived": [
+   "I6-no-early-release",
+   "I7-release-leaves-copies-hidden",
+   "C5-rig-rule-check-off"
+  ],
+  "errors": [],
+  "invalid": [
+   "I1-instance-bounds-template-only",
+   "I2-instance-matrix-root-only",
+   "C1-one-pass-always"
+  ]
+ }
+}

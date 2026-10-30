@@ -1,0 +1,14 @@
+(() => {
+  // Per frame: CopyBatch draw setups (onBeforeRender/onBeforeShadow calls) that drew copies,
+  // and those whose camera saw none (the set's union sphere passed the renderer's test).
+  const s = window.editor3d.scene, c = s.renderer.domElement, stats = {view: [0, 0], shadow: [0, 0], subdraws: 0, batches: s.prefabs.instanced.length};
+  const wrap = (mesh, name, key) => {const fn = mesh[name]; mesh[name] = function (...a) {const out = fn.apply(this, a); stats[key][this._multiDrawCount ? 0 : 1]++; if (this._multiDrawCount) stats.subdraws += this._multiDrawInstances ? [...this._multiDrawInstances.slice(0, this._multiDrawCount)].filter(Boolean).length : [...this._multiDrawCounts.slice(0, this._multiDrawCount)].filter(Boolean).length; return out;};};
+  for (const {mesh} of s.prefabs.instanced) {wrap(mesh, 'onBeforeRender', 'view');}
+  // onBeforeShadow calls onBeforeRender with scene null: count those as shadow, then undo.
+  for (const {mesh} of s.prefabs.instanced) {const fn = mesh.onBeforeShadow; mesh.onBeforeShadow = function (...a) {stats.view[0] -= 0; const before = [...stats.view]; const out = fn.apply(this, a); stats.view = before; stats.shadow[this._multiDrawCount ? 0 : 1]++; return out;};}
+  window.__view = {x: 119.5, y: 119.5, span: 250, preset: '0'};
+  s.draw(window.__view, c.clientWidth, c.clientHeight);
+  for (const k of ['view', 'shadow']) stats[k] = [0, 0]; stats.subdraws = 0;
+  s.draw(window.__view, c.clientWidth, c.clientHeight);
+  return {perFrame: {viewDrew: stats.view[0], viewEmpty: stats.view[1], shadowDrew: stats.shadow[0], shadowEmpty: stats.shadow[1], subDraws: stats.subdraws}, batches: stats.batches};
+})()

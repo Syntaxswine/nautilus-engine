@@ -1,0 +1,348 @@
+run 0 gpu w0-blank: open 11155/2155 ms, overview 30.00/16.05 ms 1121/1121 calls, overview:assets 1.75/2.05 ms 1/1 calls, close 8.65/7.65 ms 419/419 calls, close:assets 2.05/1.85 ms 1/1 calls, cutaway 8.55/9.50 ms 1121/1121 calls, cutaway:assets 1.10/0.95 ms 1/1 calls
+run 0 gpu w6-roofs-144: open 2682/2885 ms, overview 28.45/22.55 ms 1131/1985 calls, overview:assets 9.00/7.40 ms 11/865 calls, close 33.45/9.00 ms 429/701 calls, close:assets 4.75/3.55 ms 11/283 calls, cutaway 17.00/12.95 ms 1121/1121 calls, cutaway:assets 5.00/1.55 ms 1/1 calls
+run 1 gpu w0-blank: open 2472/4184 ms, overview 14.30/21.65 ms 1121/1121 calls, overview:assets 1.50/3.95 ms 1/1 calls, close 7.25/13.15 ms 419/419 calls, close:assets 1.65/4.30 ms 1/1 calls, cutaway 10.20/24.95 ms 1121/1121 calls, cutaway:assets 1.50/4.05 ms 1/1 calls
+run 1 gpu w6-roofs-144: open 2725/4924 ms, overview 9.65/18.60 ms 1131/1985 calls, overview:assets 1.65/16.30 ms 11/865 calls, close 6.25/19.25 ms 429/701 calls, close:assets 1.85/5.35 ms 11/283 calls, cutaway 8.20/14.55 ms 1121/1121 calls, cutaway:assets 1.00/1.30 ms 1/1 calls
+Wrote artifacts\r08-3\browser\bench-E2-editor-never-merges-roofs.json
+[
+ {
+  "backend": "gpu",
+  "map": "w0-blank",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 22.149999976158142,
+     "b": 18.849999964237213
+    },
+    "cpuMs": {
+     "a": 11.775000035762787,
+     "b": 11.5
+    },
+    "speedup": {
+     "median": 1.2648334828618109,
+     "min": 0.6605080816657748,
+     "max": 1.8691588840578468
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 1.625,
+     "b": 3
+    },
+    "cpuMs": {
+     "a": 0.550000011920929,
+     "b": 1.050000011920929
+    },
+    "speedup": {
+     "median": 0.616702693650281,
+     "min": 0.3797468308588,
+     "max": 0.8536585564417619
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 7.950000047683716,
+     "b": 10.399999976158142
+    },
+    "cpuMs": {
+     "a": 4.024999976158142,
+     "b": 6.724999964237213
+    },
+    "speedup": {
+     "median": 0.8410248911696284,
+     "min": 0.5513307944806842,
+     "max": 1.1307189878585726
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close:assets": {
+    "totalMs": {
+     "a": 1.8499999642372131,
+     "b": 3.074999988079071
+    },
+    "cpuMs": {
+     "a": 0.6249999403953552,
+     "b": 0.8250000476837158
+    },
+    "speedup": {
+     "median": 0.745914498497753,
+     "min": 0.38372092894311205,
+     "max": 1.108108068052394
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway": {
+    "totalMs": {
+     "a": 9.375,
+     "b": 17.225000023841858
+    },
+    "cpuMs": {
+     "a": 6.649999976158142,
+     "b": 11.074999988079071
+    },
+    "speedup": {
+     "median": 0.6544088110204214,
+     "min": 0.40881763835369267,
+     "max": 0.8999999836871501
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway:assets": {
+    "totalMs": {
+     "a": 1.300000011920929,
+     "b": 2.5
+    },
+    "cpuMs": {
+     "a": 0.40000009536743164,
+     "b": 0.6499999761581421
+    },
+    "speedup": {
+     "median": 0.7641325392755821,
+     "min": 0.37037037473102113,
+     "max": 1.157894703820143
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   }
+  },
+  "openMs": {
+   "a": 6813.600000023842,
+   "b": 3169.5,
+   "speedup": {
+    "median": 2.8837375948063126,
+    "min": 0.5908080590942721,
+    "max": 5.176667130518353
+   }
+  }
+ },
+ {
+  "backend": "gpu",
+  "map": "w6-roofs-144",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 19.049999952316284,
+     "b": 20.575000047683716
+    },
+    "cpuMs": {
+     "a": 11.975000023841858,
+     "b": 17.950000047683716
+    },
+    "speedup": {
+     "median": 0.8902289983756038,
+     "min": 0.5188171990290724,
+     "max": 1.261640797722135
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1131,
+       "shadowCalls": 559,
+       "triangles": 2546966,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1985,
+       "shadowCalls": 986,
+       "triangles": 2546966,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": -3.100000023841858,
+      "b": 1.7250000834465027
+     },
+     "speedup": {
+      "median": 0.6430643450380158,
+      "min": -0.23846154946547288,
+      "max": 1.5245902395415045
+     }
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 5.324999988079071,
+     "b": 11.850000023841858
+    },
+    "cpuMs": {
+     "a": 1.0999999642372131,
+     "b": 10.024999976158142
+    },
+    "speedup": {
+     "median": 0.6587216060464294,
+     "min": 0.10122699195814867,
+     "max": 1.21621622013471
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 11,
+       "shadowCalls": 5,
+       "triangles": 4994,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 865,
+       "shadowCalls": 432,
+       "triangles": 4994,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 3.699999988079071,
+      "b": 8.850000023841858
+     },
+     "speedup": {
+      "median": 0.6836429639553516,
+      "min": 0.012145747033891896,
+      "max": 1.3551401808768113
+     }
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 19.84999990463257,
+     "b": 14.125
+    },
+    "cpuMs": {
+     "a": 13.324999988079071,
+     "b": 9.474999964237213
+    },
+    "speedup": {
+     "median": 2.0206709886010077,
+     "min": 0.3246753184826343,
+     "max": 3.716666658719381
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 429,
+       "shadowCalls": 308,
+       "triangles": 869882,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 701,
+       "shadowCalls": 519,
+       "triangles": 866514,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "clo
+Refused:
+w6-roofs-144 overview run 0: candidate drew {"main":432,"shadow":432,"triangles":4992}, pinned {"main":5,"shadow":5,"triangles":4992}
+w6-roofs-144 overview run 1: candidate drew {"main":432,"shadow":432,"triangles":4992}, pinned {"main":5,"shadow":5,"triangles":4992}

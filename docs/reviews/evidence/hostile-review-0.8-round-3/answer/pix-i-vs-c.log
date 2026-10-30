@@ -1,0 +1,354 @@
+run 0 swiftshader w0-blank: open 1160/1962 ms, overview 930.83/920.23 ms 1121/1121 calls, close 438.10/429.63 ms 419/419 calls, cutaway 931.93/934.07 ms 1121/1121 calls
+run 0 swiftshader w1-32x-largest: open 1388/2599 ms, overview 1228.57/1269.22 ms 1425/1425 calls, close 617.30/533.30 ms 507/507 calls, cutaway 1008.95/1020.00 ms 1135/1135 calls
+run 0 swiftshader w4-32-gross: open 1435/2538 ms, overview 1008.72/1027.05 ms 1457/1457 calls, close 465.40/456.93 ms 676/660 calls, cutaway 989.90/986.15 ms 1419/1419 calls
+run 0 swiftshader w7-mixed-13-gross-19-largest: open 2445/2962 ms, overview 1066.98/1054.78 ms 1940/1940 calls, close 455.08/453.90 ms 736/736 calls, cutaway 1003.18/1009.43 ms 1663/1663 calls
+run 1 swiftshader w0-blank: open 2021/1412 ms, overview 983.15/944.75 ms 1121/1121 calls, close 451.88/458.05 ms 419/419 calls, cutaway 976.65/965.68 ms 1121/1121 calls
+run 1 swiftshader w1-32x-largest: open 2667/1517 ms, overview 1198.73/1213.80 ms 1425/1425 calls, close 588.23/527.15 ms 507/507 calls, cutaway 994.23/989.68 ms 1135/1135 calls
+run 1 swiftshader w4-32-gross: open 2631/1560 ms, overview 1042.00/1070.45 ms 1457/1457 calls, close 495.20/497.80 ms 676/660 calls, cutaway 991.05/1064.72 ms 1419/1419 calls
+run 1 swiftshader w7-mixed-13-gross-19-largest: open 2925/2528 ms, overview 1040.98/1066.88 ms 1940/1940 calls, close 461.70/452.78 ms 736/736 calls, cutaway 968.57/974.07 ms 1663/1663 calls
+pixels w0-blank overview: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w0-blank close: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w0-blank cutaway: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w1-32x-largest overview: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w1-32x-largest close: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w1-32x-largest cutaway: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w4-32-gross overview: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w4-32-gross close: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w4-32-gross cutaway: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w7-mixed-13-gross-19-largest overview: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w7-mixed-13-gross-19-largest close: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+pixels w7-mixed-13-gross-19-largest cutaway: 0 differ (max 0), 0 at depth ties; repeat of A identical: true
+Wrote <scratch>
+[
+ {
+  "backend": "swiftshader",
+  "map": "w0-blank",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 956.9875000119209,
+     "b": 932.4875000417233
+    },
+    "cpuMs": {
+     "a": 5.612500011920929,
+     "b": 5.487500041723251
+    },
+    "speedup": {
+     "median": 1.0260822976981072,
+     "min": 1.0115189219628635,
+     "max": 1.0406456734333507
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 444.98750001192093,
+     "b": 443.83750000596046
+    },
+    "cpuMs": {
+     "a": 2.675000011920929,
+     "b": 2.8125000596046448
+    },
+    "speedup": {
+     "median": 1.0031227223419166,
+     "min": 0.9865189389547862,
+     "max": 1.019726505729047
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway": {
+    "totalMs": {
+     "a": 954.2875000238419,
+     "b": 949.875
+    },
+    "cpuMs": {
+     "a": 5.274999976158142,
+     "b": 4.575000017881393
+    },
+    "speedup": {
+     "median": 1.004531682496481,
+     "min": 0.9976982576600535,
+     "max": 1.0113651073329084
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   }
+  },
+  "openMs": {
+   "a": 1590.4000000953674,
+   "b": 1686.7000000476837,
+   "speedup": {
+    "median": 1.011424520911111,
+    "min": 0.591170923188813,
+    "max": 1.4316781186334089
+   }
+  }
+ },
+ {
+  "backend": "swiftshader",
+  "map": "w1-32x-largest",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 1213.6499999463558,
+     "b": 1241.5124999582767
+    },
+    "cpuMs": {
+     "a": 6.724999964237213,
+     "b": 6.937499940395355
+    },
+    "speedup": {
+     "median": 0.9777764539620489,
+     "min": 0.9679725816175124,
+     "max": 0.9875803263065854
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1425,
+       "shadowCalls": 658,
+       "triangles": 5308310,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1425,
+       "shadowCalls": 658,
+       "triangles": 5307698,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 256.6624999344349,
+      "b": 309.0249999165535
+     },
+     "speedup": {
+      "median": 0.8271984921435289,
+      "min": 0.801245122043821,
+      "max": 0.8531518622432369
+     }
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 602.7625000178814,
+     "b": 530.2249999940395
+    },
+    "cpuMs": {
+     "a": 3.6750000417232513,
+     "b": 3.462499976158142
+    },
+    "speedup": {
+     "median": 1.136684354080841,
+     "min": 1.11585886367056,
+     "max": 1.1575098444911218
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 507,
+       "shadowCalls": 300,
+       "triangles": 3304646,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 507,
+       "shadowCalls": 300,
+       "triangles": 1957758,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway": {
+    "totalMs": {
+     "a": 1001.5875000059605,
+     "b": 1004.8375000059605
+    },
+    "cpuMs": {
+     "a": 5.512500017881393,
+     "b": 5.175000011920929
+    },
+    "speedup": {
+     "median": 0.9968820677665056,
+     "min": 0.9891666666549794,
+     "max": 1.0045974688780317
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1135,
+       "shadowCalls": 561,
+       "triangles": 2939542,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1135,
+       "shadowCalls": 561,
+       "triangles": 2939170,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 47.29999998211861,
+      "b": 54.962500005960464
+     },
+     "speedup": {
+      "median": 0.8143564817057078,
+      "min": 0.7322916661699613,
+      "max": 0.8964212972414544
+     }
+    }
+   }
+  },
+  "openMs": {
+   "a": 2027.5,
+   "b": 2058.100000023842,
+   "speedup": {
+    "median": 1.1460016372378266,
+    "min": 0.5341258848595134,
+    "max": 1.7578773896161395
+   }
+  }
+ },
+ {
+  "backend": "swiftshader",
+  "map": "w4-32-gross",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 1025.3624999523163,
+     "b": 1048.7500000298023
+    },
+    "cpuMs": {
+     "a": 6.849999934434891,
+     "b": 8.637500047683716
+    },
+    "speedup": {
+     "median": 0.977790014125664,
+     "min": 0.9734223924069312,
+     "max": 0.9821576358443969
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1457,
+       "shadowCalls": 722,
+       "triangles": 3372550,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1457,
+       "shadowCalls": 722,
+       "triangles": 3372550,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 68.37499994039536,
+      "b": 116.26249998807907
+     },
+     "speedup": {
+      "median": 0.5987041251371664,
+      "min": 0.4681782018283081,
+      "max": 0.7292300484460248
+     }
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 480.30000001192093,
+     "b": 477.3624999821186
+    },
+    "cpuMs": {
+     "a": 5.0250000059604645,
+     "b": 6.074999988079071
+    },
+    "speedup": {
+     "median": 1.0066624603649155,
+     "min": 0.994777019074163,
+     "max": 1.018547901655668
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 676,
+       "shadowCalls": 392,
+       "triangles": 1368222,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 660,
+       "shadowCalls": 392,
+       "triangles": 1011692,
+       "passes"
+unlit exit 0
+run 0 swiftshader w0-blank: open 1501/6488 ms, overview 2480.07/3212.47 ms 4275/4275 calls, close 1176.63/1329.58 ms 1645/1645 calls, cutaway 2466.18/3482.05 ms 4275/4275 calls
+run 0 swiftshader w1-32x-largest: open 15396/25398 ms, overview 5961.42/7081.18 ms 5342/5255 calls, close 3069.72/3623.48 ms 2057/2012 calls, cutaway 2987.55/4387.07 ms 4545/4466 calls
+run 1 swiftshader w0-blank: open 8559/2281 ms, overview 3435.47/2696.00 ms 4275/4275 calls, close 1555.60/1265.65 ms 1645/1645 calls, cutaway 3727.82/2768.50 ms 4275/4275 calls
+lamps exit 124

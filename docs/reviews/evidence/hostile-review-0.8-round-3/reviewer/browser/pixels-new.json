@@ -1,0 +1,1852 @@
+{
+ "script": "pixel-probe.mjs",
+ "started": "2026-10-30T11:41:56.691Z",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             "
+ },
+ "trees": {
+  "a": {
+   "dir": "<baseline>",
+   "head": "fb352776b714b097cb1bfb94350f8e18a62bfc52",
+   "status": ""
+  },
+  "b": {
+   "dir": "<candidate>",
+   "head": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "status": "M apps/editor/prefab-scene.js"
+  }
+ },
+ "cases": [
+  {
+   "name": "L0-blank-lamps-overview-null",
+   "map": "w0-blank.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.005707663424639407,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 1193,
+   "tieShare": 0.001233334987428874,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 4275,
+     "shadowCalls": 2905,
+     "triangles": 6626512
+    },
+    "b": {
+     "calls": 4275,
+     "shadowCalls": 2905,
+     "triangles": 6626512
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "a9cbcbd0757ef5146d61bb7d8de71a9f95e6286d71e5f6142005221888bbdd6c",
+    "b": "a9cbcbd0757ef5146d61bb7d8de71a9f95e6286d71e5f6142005221888bbdd6c"
+   }
+  },
+  {
+   "name": "L1-copies-lamps-close-at-lamp",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 23,
+    "y": 30,
+    "span": 24,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 3593,
+   "maxDelta": 92,
+   "r3": {
+    "classes": {
+     "tie": 232,
+     "edge": 990,
+     "shading": 2347,
+     "neither": 24
+    },
+    "maxDeltaByClass": {
+     "tie": 92,
+     "edge": 84,
+     "shading": 2,
+     "neither": 18
+    },
+    "edgePixelShareOfFrame": 0.1010393922852984,
+    "components": 386,
+    "largestComponents": [
+     781,
+     773,
+     721,
+     536,
+     34
+    ],
+    "pixelsInComponentsOf4OrMore": 3152
+   },
+   "doors": null,
+   "weakExplained": 233,
+   "strongExplained": 232,
+   "unexplainedWeak": 3360,
+   "unexplainedStrong": 3361,
+   "weakButNotStrong": 1,
+   "maxDeltaUnexplainedStrong": 84,
+   "tiePixels": 761,
+   "tieShare": 0.0007867291914780998,
+   "boundingBox": [
+    0,
+    12,
+    1010,
+    915
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 2681,
+     "shadowCalls": 2339,
+     "triangles": 3429108
+    },
+    "b": {
+     "calls": 1338,
+     "shadowCalls": 1206,
+     "triangles": 20162750
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "cdd6f5720faefa248d5ac73e55848567df8a19a6737adfeab7dbd9ce0a31f13c",
+    "b": "f971b3d258b15d720441b11728f0113401b770538b3cb64f6fd65d782c13c7f3"
+   },
+   "png": "L1-copies-lamps-close-at-lamp"
+  },
+  {
+   "name": "L1-copies-lamps-close-at-lamp-cutaway",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 23,
+    "y": 30,
+    "span": 24,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 569,
+   "maxDelta": 93,
+   "r3": {
+    "classes": {
+     "tie": 1,
+     "edge": 28,
+     "shading": 540,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 93,
+     "edge": 2,
+     "shading": 2,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.02728740737064973,
+    "components": 184,
+    "largestComponents": [
+     63,
+     33,
+     29,
+     26,
+     25
+    ],
+    "pixelsInComponentsOf4OrMore": 337
+   },
+   "doors": null,
+   "weakExplained": 1,
+   "strongExplained": 1,
+   "unexplainedWeak": 568,
+   "unexplainedStrong": 568,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 2,
+   "tiePixels": 298,
+   "tieShare": 0.00030807529442900623,
+   "boundingBox": [
+    451,
+    2,
+    736,
+    823
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1406,
+     "shadowCalls": 1281,
+     "triangles": 1585786
+    },
+    "b": {
+     "calls": 1150,
+     "shadowCalls": 1067,
+     "triangles": 4074970
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "91a1dc1c548858ddc2ff9185e4985753641e683a9315f5bfcb8ee9a911834691",
+    "b": "a72a72a1eca072c6fd0f38a38055d1846652e3d3b51bc1464394b0496ffcb699"
+   },
+   "png": "L1-copies-lamps-close-at-lamp-cutaway"
+  },
+  {
+   "name": "L1-copies-lamps-close-far-lamp",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 175,
+    "y": 30,
+    "span": 24,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 5022,
+   "maxDelta": 92,
+   "r3": {
+    "classes": {
+     "tie": 256,
+     "edge": 1609,
+     "shading": 3123,
+     "neither": 34
+    },
+    "maxDeltaByClass": {
+     "tie": 92,
+     "edge": 81,
+     "shading": 2,
+     "neither": 18
+    },
+    "edgePixelShareOfFrame": 0.10317524315204446,
+    "components": 590,
+    "largestComponents": [
+     781,
+     774,
+     719,
+     536,
+     289
+    ],
+    "pixelsInComponentsOf4OrMore": 4377
+   },
+   "doors": null,
+   "weakExplained": 259,
+   "strongExplained": 256,
+   "unexplainedWeak": 4763,
+   "unexplainedStrong": 4766,
+   "weakButNotStrong": 3,
+   "maxDeltaUnexplainedStrong": 81,
+   "tiePixels": 801,
+   "tieShare": 0.0008280815799920604,
+   "boundingBox": [
+    0,
+    12,
+    1010,
+    915
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 3006,
+     "shadowCalls": 2662,
+     "triangles": 4218510
+    },
+    "b": {
+     "calls": 1356,
+     "shadowCalls": 1219,
+     "triangles": 20347754
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "a82930443e9134ce89f167fca08e7dcf1bea877df3d2b689aa70133a68351f37",
+    "b": "03c08e9e7209dd18e14f265069f469c30f3c17b8b13330106218f1c2f13136b3"
+   },
+   "png": "L1-copies-lamps-close-far-lamp"
+  },
+  {
+   "name": "L1-copies-lamps-overview",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 20,
+   "maxDelta": 34,
+   "r3": {
+    "classes": {
+     "tie": 2,
+     "edge": 10,
+     "shading": 1,
+     "neither": 7
+    },
+    "maxDeltaByClass": {
+     "tie": 15,
+     "edge": 34,
+     "shading": 1,
+     "neither": 8
+    },
+    "edgePixelShareOfFrame": 0.04945125380441975,
+    "components": 19,
+    "largestComponents": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 2,
+   "strongExplained": 2,
+   "unexplainedWeak": 18,
+   "unexplainedStrong": 18,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 34,
+   "tiePixels": 902,
+   "tieShare": 0.0009324963609898107,
+   "boundingBox": [
+    445,
+    203,
+    963,
+    412
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 11309,
+     "shadowCalls": 6815,
+     "triangles": 14774220
+    },
+    "b": {
+     "calls": 5342,
+     "shadowCalls": 3572,
+     "triangles": 59245120
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "c30d396f0364f2a8eaa562b158f7d536e83ee644dfe51c0abcb5f6fe77e9d822",
+    "b": "f11868b1b1099fe31b5724297734851a0cc78743d610a12b633a2a91f64266c6"
+   },
+   "png": "L1-copies-lamps-overview"
+  },
+  {
+   "name": "L4-gross-lamps-close-at-lamp",
+   "map": "w4-32-gross.json",
+   "view": {
+    "x": 18,
+    "y": 25,
+    "span": 24,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 90,
+   "maxDelta": 123,
+   "r3": {
+    "classes": {
+     "tie": 20,
+     "edge": 16,
+     "shading": 53,
+     "neither": 1
+    },
+    "maxDeltaByClass": {
+     "tie": 123,
+     "edge": 107,
+     "shading": 2,
+     "neither": 3
+    },
+    "edgePixelShareOfFrame": 0.08282159752547306,
+    "components": 88,
+    "largestComponents": [
+     2,
+     2,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 20,
+   "strongExplained": 20,
+   "unexplainedWeak": 70,
+   "unexplainedStrong": 70,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 107,
+   "tiePixels": 230,
+   "tieShare": 0.00023777623395527327,
+   "boundingBox": [
+    24,
+    117,
+    1035,
+    913
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 6129,
+     "shadowCalls": 5399,
+     "triangles": 2254154
+    },
+    "b": {
+     "calls": 2811,
+     "shadowCalls": 2584,
+     "triangles": 6031364
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "f8204efeab97d8902495f254f4663b47466b448d695cf793224c4f74ab8f3544",
+    "b": "be3a3959c8d789ea95dd98d6e1b970e2c68f7cd1b93408bb90e3d6741f31e146"
+   },
+   "png": "L4-gross-lamps-close-at-lamp"
+  },
+  {
+   "name": "L6-roofs-lamps-close-at-lamp",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 23,
+    "y": 30,
+    "span": 24,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.06808464006881038,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 309,
+   "tieShare": 0.0003194472012703454,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1454,
+     "shadowCalls": 1319,
+     "triangles": 1570590
+    },
+    "b": {
+     "calls": 1233,
+     "shadowCalls": 1126,
+     "triangles": 1603842
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "caeabec0aa7cc6273f2563ab6e7177dc1e6381d4ff4d886bfcdcfd4158ab4ac9",
+    "b": "caeabec0aa7cc6273f2563ab6e7177dc1e6381d4ff4d886bfcdcfd4158ab4ac9"
+   }
+  },
+  {
+   "name": "L6-roofs-lamps-overview",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.036715751951832735,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 978,
+   "tieShare": 0.0010110658991663358,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 6384,
+     "shadowCalls": 4110,
+     "triangles": 7421600
+    },
+    "b": {
+     "calls": 4791,
+     "shadowCalls": 3371,
+     "triangles": 7508592
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      },
+      {
+       "type": "PointLight",
+       "visible": false
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      },
+      {
+       "type": "PointLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "e7b6f8fd5ee038487b6d4220bd0a96044dfc52bf3df099536ae8dbeeb27bc5be",
+    "b": "e7b6f8fd5ee038487b6d4220bd0a96044dfc52bf3df099536ae8dbeeb27bc5be"
+   }
+  },
+  {
+   "name": "w1-close-far-copy",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 149,
+    "y": 70,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 396,
+   "maxDelta": 91,
+   "r3": {
+    "classes": {
+     "tie": 35,
+     "edge": 209,
+     "shading": 149,
+     "neither": 3
+    },
+    "maxDeltaByClass": {
+     "tie": 66,
+     "edge": 91,
+     "shading": 2,
+     "neither": 9
+    },
+    "edgePixelShareOfFrame": 0.0693045355299722,
+    "components": 156,
+    "largestComponents": [
+     78,
+     73,
+     18,
+     7,
+     6
+    ],
+    "pixelsInComponentsOf4OrMore": 219
+   },
+   "doors": null,
+   "weakExplained": 35,
+   "strongExplained": 35,
+   "unexplainedWeak": 361,
+   "unexplainedStrong": 361,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 91,
+   "tiePixels": 248,
+   "tieShare": 0.0002563848087865555,
+   "boundingBox": [
+    5,
+    12,
+    1041,
+    549
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 2018,
+     "shadowCalls": 1565,
+     "triangles": 2674918
+    },
+    "b": {
+     "calls": 599,
+     "shadowCalls": 413,
+     "triangles": 3769246
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "e73612e048256cbf501992f5943d5fde1993457855d2edd897a449bf9fbc3e37",
+    "b": "545133a75522fa1bc270b20a8b901b77cf8219dbf7d16c18216039a7ceacb8df"
+   },
+   "png": "w1-close-far-copy"
+  },
+  {
+   "name": "w1-cutaway-level1",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 15,
+   "maxDelta": 5,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 7,
+     "shading": 1,
+     "neither": 7
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 5,
+     "shading": 2,
+     "neither": 5
+    },
+    "edgePixelShareOfFrame": 0.030972938996956464,
+    "components": 14,
+    "largestComponents": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": {
+    "doorPivotsHidden": 288,
+    "doorCoveragePixels": 2069,
+    "doorCoverageShare": 0.00213895229588461,
+    "differingOnDoorPixels": 1,
+    "differingWithinOnePixelOfDoors": 1,
+    "differing": 15
+   },
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 15,
+   "unexplainedStrong": 15,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 5,
+   "tiePixels": 925,
+   "tieShare": 0.0009562739843853381,
+   "boundingBox": [
+    404,
+    244,
+    993,
+    501
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 2523,
+     "shadowCalls": 1258,
+     "triangles": 3310646
+    },
+    "b": {
+     "calls": 1135,
+     "shadowCalls": 561,
+     "triangles": 3311510
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "a9826e5a5db94f3dfdc431d66c74c33e1553b1b26256b7cd4df63fbca7fa3af2",
+    "b": "7db11388ad02e9f56db5e0b983606e94e2bd72f217b0892e1f39e6b5b4605639"
+   },
+   "png": "w1-cutaway-level1"
+  },
+  {
+   "name": "w1-cutaway-level2",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 78,
+   "maxDelta": 20,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 34,
+     "shading": 30,
+     "neither": 14
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 20,
+     "shading": 2,
+     "neither": 5
+    },
+    "edgePixelShareOfFrame": 0.03163457721317983,
+    "components": 44,
+    "largestComponents": [
+     8,
+     5,
+     4,
+     4,
+     4
+    ],
+    "pixelsInComponentsOf4OrMore": 25
+   },
+   "doors": {
+    "doorPivotsHidden": 384,
+    "doorCoveragePixels": 2084,
+    "doorCoverageShare": 0.0021544594415773455,
+    "differingOnDoorPixels": 0,
+    "differingWithinOnePixelOfDoors": 0,
+    "differing": 78
+   },
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 78,
+   "unexplainedStrong": 78,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 20,
+   "tiePixels": 887,
+   "tieShare": 0.0009169892152970755,
+   "boundingBox": [
+    417,
+    257,
+    1038,
+    497
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 3035,
+     "shadowCalls": 1514,
+     "triangles": 3667254
+    },
+    "b": {
+     "calls": 1135,
+     "shadowCalls": 561,
+     "triangles": 3668118
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "ef5db7f6a23ecb3af1a7253babcce729caf76a21ce8f2543fd32834964751c7f",
+    "b": "fe55c161917e391ad3fffc7da6c247217766d3399fd0e68b3eb83becad8dec53"
+   },
+   "png": "w1-cutaway-level2"
+  },
+  {
+   "name": "w4-cutaway-level1",
+   "map": "w4-32-gross.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 11,
+   "maxDelta": 52,
+   "r3": {
+    "classes": {
+     "tie": 6,
+     "edge": 5,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 52,
+     "edge": 41,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.021596284901415908,
+    "components": 11,
+    "largestComponents": [
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 6,
+   "strongExplained": 6,
+   "unexplainedWeak": 5,
+   "unexplainedStrong": 5,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 41,
+   "tiePixels": 1399,
+   "tieShare": 0.001446299788275771,
+   "boundingBox": [
+    508,
+    243,
+    926,
+    414
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 4671,
+     "shadowCalls": 2344,
+     "triangles": 2949571
+    },
+    "b": {
+     "calls": 1489,
+     "shadowCalls": 738,
+     "triangles": 2950316
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "c5181b5ab23501e1449abdea6de481f301632dae3b0bcc0f5aa84f2100965f0f",
+    "b": "51072cf079968120a4fc32ca65ba15648a6e965ec85d93f7eacce7a54165d3e7"
+   },
+   "png": "w4-cutaway-level1"
+  },
+  {
+   "name": "w6-roofs-close-far",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 200,
+    "y": 200,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.061879714172290594,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 87,
+   "tieShare": 0.00008994144501786423,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 492,
+     "shadowCalls": 356,
+     "triangles": 724286
+    },
+    "b": {
+     "calls": 331,
+     "shadowCalls": 223,
+     "triangles": 728282
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "429b3eea95f0aca7155d2e2a1ce51cefc40cda13d61a809ba330cbdfee97c654",
+    "b": "429b3eea95f0aca7155d2e2a1ce51cefc40cda13d61a809ba330cbdfee97c654"
+   }
+  },
+  {
+   "name": "r1-roofs-mixed-z-overview",
+   "map": "r1-roofs-mixed-z.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.03642525142252216,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 966,
+   "tieShare": 0.0009986601826121476,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1985,
+     "shadowCalls": 986,
+     "triangles": 2546966
+    },
+    "b": {
+     "calls": 1131,
+     "shadowCalls": 559,
+     "triangles": 2546966
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "675e1d3d5f2060a7b374b4b586d985be7bb76b98df8d766355eb74a7d82e4781",
+    "b": "675e1d3d5f2060a7b374b4b586d985be7bb76b98df8d766355eb74a7d82e4781"
+   }
+  },
+  {
+   "name": "r1-roofs-mixed-z-cutaway-level1",
+   "map": "r1-roofs-mixed-z.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.017842521834061136,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 1158,
+   "tieShare": 0.0011971516474791584,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1409,
+     "shadowCalls": 698,
+     "triangles": 2543638
+    },
+    "b": {
+     "calls": 1127,
+     "shadowCalls": 557,
+     "triangles": 2543638
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "fb2ef7622ba95b6af30cb8adf9cb225036dfcbf754e23e1816fcb9da0f031e29",
+    "b": "fb2ef7622ba95b6af30cb8adf9cb225036dfcbf754e23e1816fcb9da0f031e29"
+   }
+  },
+  {
+   "name": "r1-roofs-mixed-z-cutaway-level2",
+   "map": "r1-roofs-mixed-z.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.029126554849808126,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 1026,
+   "tieShare": 0.0010606887653830885,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1697,
+     "shadowCalls": 842,
+     "triangles": 2545302
+    },
+    "b": {
+     "calls": 1129,
+     "shadowCalls": 558,
+     "triangles": 2545302
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "46dd8417dca46816d8550a56f2a9f8c004e62869cdfa5a23d7c1b7db56c40316",
+    "b": "46dd8417dca46816d8550a56f2a9f8c004e62869cdfa5a23d7c1b7db56c40316"
+   }
+  }
+ ],
+ "browser": "156.0.4314.56",
+ "reducedMotion": true,
+ "served_a": {
+  "files": 340,
+  "digest": "cd8053d22e941a00dcb54f8dad9cb1ae3fe4f52e1c3cbf75bc86dedbdb39e5d6"
+ },
+ "served_b": {
+  "files": 341,
+  "digest": "a1bde7c78b44dee05f8758e8b5a6974c1bf834137716dd8968b2c6e2e078252d"
+ },
+ "finished": "2026-10-30T11:52:55.069Z"
+}

@@ -1,0 +1,75 @@
+I1-instance-bounds-template-only: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 39s]
+I2-instance-matrix-root-only: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 41s]
+I3-instance-threshold-3: killed [node.exe --test exit 1 tests 30 pass 29 fail 1 cancelled 0 46s]
+I4-copies-draw-too: killed [node.exe --test exit 1 tests 30 pass 28 fail 2 cancelled 0 49s]
+I5-instanced-always-visible: killed [node.exe --test exit 1 tests 30 pass 29 fail 1 cancelled 0 74s]
+I6-no-early-release: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 65s]
+I7-release-leaves-copies-hidden: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 52s]
+I8-instanced-mesh-never-disposed: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 37s]
+I9-glass-instanced: killed [node.exe --test exit 1 tests 30 pass 28 fail 2 cancelled 0 42s]
+E1-editor-never-instances: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 46s]
+R1-merged-bounds-first-roof: SURVIVED [node.exe --test exit 0 tests 40 pass 40 fail 0 cancelled 0 45s]
+R2-sort-ignores-level: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 59s]
+R3-shells-never-restored: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 56s]
+R4-mergeable-ignores-matrix: killed [node.exe --test exit 1 tests 23 pass 22 fail 1 cancelled 0 312s]
+R5-merged-geometry-leaks: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 30s]
+R6-foreign-materials-merge: killed [node.exe --test exit 1 tests 23 pass 22 fail 1 cancelled 0 40s]
+R7-merged-ignores-visibility: killed [node.exe --test exit 1 tests 40 pass 38 fail 2 cancelled 0 25s]
+R8-merged-casts-nothing: killed [node.exe --test exit 1 tests 23 pass 22 fail 1 cancelled 0 50s]
+R9-reorder-keeps-merge: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 29s]
+E2-editor-never-merges-roofs: SURVIVED [node.exe --test exit 0 tests 40 pass 40 fail 0 cancelled 0 26s]
+RC1-slot-material-unnamed: SURVIVED [node.exe --test exit 0 tests 40 pass 40 fail 0 cancelled 0 32s]
+H1-back-half-casts: killed [node.exe --test exit 1 tests 14 pass 12 fail 2 cancelled 0 44s]
+H2-front-shadow-one-sided: killed [node.exe --test exit 1 tests 14 pass 13 fail 1 cancelled 0 58s]
+H3-pair-cache-lost: killed [node.exe --test exit 1 tests 14 pass 13 fail 1 cancelled 0 41s]
+H4-front-half-first: killed [node.exe --test exit 1 tests 14 pass 13 fail 1 cancelled 0 41s]
+C1-one-pass-always: SURVIVED [node.exe --test exit 0 tests 1 pass 1 fail 0 cancelled 0 21s]
+C2-casts-ignores-noShadow: killed [node.exe --test exit 1 tests 1 pass 0 fail 1 cancelled 0 20s]
+C3-counts-hidden-nodes: killed [node.exe --test exit 1 tests 1 pass 0 fail 1 cancelled 0 12s]
+C4-instances-counted-once: killed [node.exe --test exit 1 tests 1 pass 0 fail 1 cancelled 0 18s]
+C5-rig-rule-check-off: SURVIVED [node.exe --test exit 0 tests 1 pass 1 fail 0 cancelled 0 18s]
+C6-workload-one-copy-fewer: killed [node.exe --test exit 1 tests 1 pass 0 fail 1 cancelled 0 23s]
+F6-shared-by-default: killed [node.exe --test exit 1 tests 6 pass 4 fail 2 cancelled 0 3s]
+F7-shared-view-not-mirrored: SURVIVED [node.exe --test exit 0 tests 6 pass 6 fail 0 cancelled 0 5s]
+{
+ "total": 33,
+ "killed": [
+  "I3-instance-threshold-3",
+  "I4-copies-draw-too",
+  "I5-instanced-always-visible",
+  "I9-glass-instanced",
+  "R2-sort-ignores-level",
+  "R3-shells-never-restored",
+  "R4-mergeable-ignores-matrix",
+  "R5-merged-geometry-leaks",
+  "R6-foreign-materials-merge",
+  "R7-merged-ignores-visibility",
+  "R8-merged-casts-nothing",
+  "R9-reorder-keeps-merge",
+  "H1-back-half-casts",
+  "H2-front-shadow-one-sided",
+  "H3-pair-cache-lost",
+  "H4-front-half-first",
+  "C2-casts-ignores-noShadow",
+  "C3-counts-hidden-nodes",
+  "C4-instances-counted-once",
+  "C6-workload-one-copy-fewer",
+  "F6-shared-by-default"
+ ],
+ "survived": [
+  "I1-instance-bounds-template-only",
+  "I2-instance-matrix-root-only",
+  "I6-no-early-release",
+  "I7-release-leaves-copies-hidden",
+  "I8-instanced-mesh-never-disposed",
+  "E1-editor-never-instances",
+  "R1-merged-bounds-first-roof",
+  "E2-editor-never-merges-roofs",
+  "RC1-slot-material-unnamed",
+  "C1-one-pass-always",
+  "C5-rig-rule-check-off",
+  "F7-shared-view-not-mirrored"
+ ],
+ "errors": [],
+ "invalid": []
+}

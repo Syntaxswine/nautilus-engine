@@ -1,0 +1,595 @@
+{
+ "script": "mutate-r3.mjs",
+ "phase": "confirm: whole suite + tools/check.mjs",
+ "started": "2026-10-30T12:10:10.951Z",
+ "node": "v24.15.0",
+ "head": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "I1-instance-bounds-template-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each instance set culled by the template node sphere (at the origin), not the union of its copies: copies far from the origin vanish",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 59208,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (33.9518ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.514ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.6085ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (10.4269ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4856,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "I2-instance-matrix-root-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 58858,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (35.6513ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3552ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (8.6949ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.2805ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4966,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "I6-no-early-release",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: instance() releases again; only a pending load keeps the old sets",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 59219,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (35.576ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3621ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (14.7802ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.3919ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 5145,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "I7-release-leaves-copies-hidden",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: setView() restores copy visibility after every update; only a pending load shows nothing",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 58431,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (34.715ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3182ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (44.4195ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (6.038ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4831,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "I8-instanced-mesh-never-disposed",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each update leaks every instance set's instanceMatrix buffer on the GPU",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 61711,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (31.033ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.2381ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (5.4649ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (12.8444ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4861,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "E1-editor-never-instances",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the editor builds its layer with instancing off; the gate builds its own layer",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 62938,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (35.5673ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3275ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.0857ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (24.0258ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4713,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "R1-merged-bounds-first-roof",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "the merged mesh is culled by its first roof's sphere: every other roof vanishes when that roof leaves the view",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 60205,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (36.4549ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3345ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.1739ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.2799ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 5573,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "E2-editor-never-merges-roofs",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "the editor builds its roof layer with merge off; the gate builds its own layer",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 59618,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (36.7395ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3575ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.6391ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.282ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4951,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "RC1-slot-material-unnamed",
+   "files": [
+    "packages/roof-core/three.js"
+   ],
+   "expect": "names are new in this answer; the merge keys by identity",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 103299,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (44.6066ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3598ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (13.1327ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (5.3226ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 5054,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "C1-one-pass-always",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "dead since bd27cb5: no transparent double-sided material is left in the asset layers",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 61325,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (37.49ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3684ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.387ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (6.1625ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 4910,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "C5-rig-rule-check-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it guards a vendored file that does not change",
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 62249,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (34.0697ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3824ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.7139ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (3.6628ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 5330,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  },
+  {
+   "id": "F7-shared-view-not-mirrored",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "headBefore": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 64060,
+     "tests": 595,
+     "pass": 595,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (35.037ms)",
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3325ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.6816ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (7.5099ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 5537,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716"
+  }
+ ],
+ "finished": "2026-10-30T12:24:04.565Z",
+ "headAfter": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 12,
+  "killed": [],
+  "survived": [
+   "I1-instance-bounds-template-only",
+   "I2-instance-matrix-root-only",
+   "I6-no-early-release",
+   "I7-release-leaves-copies-hidden",
+   "I8-instanced-mesh-never-disposed",
+   "E1-editor-never-instances",
+   "R1-merged-bounds-first-roof",
+   "E2-editor-never-merges-roofs",
+   "RC1-slot-material-unnamed",
+   "C1-one-pass-always",
+   "C5-rig-rule-check-off",
+   "F7-shared-view-not-mirrored"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

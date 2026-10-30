@@ -1,0 +1,1266 @@
+{
+ "script": "mutate-a3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T13:31:23.317Z",
+ "node": "v24.15.0",
+ "head": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "K1-copy-spheres-untransformed",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "every copy culled by the template sphere at the origin (round 3 I1, per copy)",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 35867,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "a CopyBatch bounds each copy by the sphere its own mesh would have, and the set by all of them",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: copy 0: the sphere its own mesh would be culled by"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K2-set-sphere-first-copy",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "the batch culled as a whole by its first copy (round 3 I1)",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 42673,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "a CopyBatch bounds each copy by the sphere its own mesh would have, and the set by all of them",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the whole set is in that face too",
+      "  AssertionError [ERR_ASSERTION]: copy 1 of building batch: vertices outside its bounds"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K3-no-per-copy-culling",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "every camera draws every copy: round 3 MF-B again",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 42588,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K4-culled-copy-draws",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 49393,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K5-table-rewritten-per-camera",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "the D3D11 stall: the copy table uploaded for every camera",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 43179,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the copy table was rewritten"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K6-empty-sub-draws-trail",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 45735,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: no trailing empty sub-draw"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K7-shadow-ignores-run",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a shadow draws the whole batch geometry, not the view's run (cutaway floors cast)",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 45598,
+     "tests": 35,
+     "pass": 35,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K8-program-rederived-per-draw",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "the r180 colorTexture test: every draw re-derives its program",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 41818,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own",
+      "failing tests:",
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: see the renderer contract below"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K9-dispose-takes-template-geometry",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 42271,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own",
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:",
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: disposing a batch leaves the template geometry to the template",
+      "  AssertionError [ERR_ASSERTION]: each shared geometry disposed once"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K10-raycast-inherited",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 45827,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own",
+      "failing tests:",
+      "a CopyBatch draws through the template geometry and adds no raycast hits of its own"
+     ],
+     "tail": [
+      "  TypeError: Cannot read properties of undefined (reading 'start')"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K11-table-not-identity",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "every copy drawn at copy 0",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 50814,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "K12-copy-matrix-not-set",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 188409,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "each copy sits where its own node would, also when a provider nests the batch meshes",
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:",
+      "each copy sits where its own node would, also when a provider nests the batch meshes"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy 0 of building batch",
+      "  AssertionError [ERR_ASSERTION]: instance 0 sits where its copy would"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P1-editor-never-batches-copies",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 E1",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 211378,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P2-template-place-dropped",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 I2 / N6",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 40373,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "each copy sits where its own node would, also when a provider nests the batch meshes",
+      "failing tests:",
+      "each copy sits where its own node would, also when a provider nests the batch meshes"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy 0 of building batch"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P3-batches-only-from-3",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 46003,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "each copy sits where its own node would, also when a provider nests the batch meshes",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w4-32-gross changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P4-copies-draw-too",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 40345,
+     "tests": 35,
+     "pass": 33,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change",
+      "  AssertionError [ERR_ASSERTION]: the copy hides its own batch node"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P5-released-batch-not-disposed",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 I8",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 46008,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:",
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: each released CopyBatch disposed once"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "P6-batch-always-visible",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 46405,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template",
+      "failing tests:",
+      "a design placed more than once draws each batch mesh as one CopyBatch that follows the template"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R1-merged-bounds-first-roof",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "round 3 R1",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 20386,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material",
+      "failing tests:",
+      "the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (2.8247ms)",
+      "  AssertionError [ERR_ASSERTION]: roof vertices outside the merged bounds"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R10-editor-never-merges",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "why": "round 3 E2",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 14742,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (2.9339ms)",
+      "  AssertionError [ERR_ASSERTION]: w6-roofs-144 changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R11-guard-ignores-hidden-shell",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 14226,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits",
+      "failing tests:",
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (2.9286ms)",
+      "  AssertionError [ERR_ASSERTION]: not merged: hidden"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R12-guard-ignores-order-and-layers",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 14040,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits",
+      "failing tests:",
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.13ms)",
+      "  AssertionError [ERR_ASSERTION]: not merged: renderOrder"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R13-guard-ignores-draw-range",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 13923,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits",
+      "failing tests:",
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (2.8328ms)",
+      "  AssertionError [ERR_ASSERTION]: not merged: drawRange"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R14-guard-ignores-morphs",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 14235,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits",
+      "failing tests:",
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.468ms)",
+      "  AssertionError [ERR_ASSERTION]: not merged: morphs"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "R15-guard-ignores-open-groups",
+   "files": [
+    "apps/editor/roof-scene.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 15938,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits",
+      "failing tests:",
+      "roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.9812ms)",
+      "  RangeError: Invalid typed array length: Infinity"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "RC1-slot-material-unnamed",
+   "files": [
+    "packages/roof-core/three.js"
+   ],
+   "why": "round 3 RC1 / N8",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-roofs.test.mjs tests/editor-roof-paint.test.mjs tests/roof-core.test.mjs tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 17668,
+     "tests": 40,
+     "pass": 39,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material",
+      "failing tests:",
+      "the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material"
+     ],
+     "tail": [
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.5608ms)",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "C4-copies-counted-once",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 7328,
+     "tests": 1,
+     "pass": 0,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "C7-headless-base-check-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it refuses a changed scene chain",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6409,
+     "tests": 1,
+     "pass": 1,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "C8-two-pass-refusal-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it refuses a material the model does not count",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6443,
+     "tests": 1,
+     "pass": 1,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "C9-lamp-maps-counted-headless",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "lamp-lit maps enter the headless (lightless) fixture",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6868,
+     "tests": 1,
+     "pass": 1,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "G11-emissive-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "round 3 G11: brighter buildings, the source changed",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 2701,
+     "tests": 9,
+     "pass": 7,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "failing tests:",
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "G12-key-back-to-a-list",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 2602,
+     "tests": 9,
+     "pass": 6,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [
+      "every original building matches the reviewed renderer byte for byte at game and authoring detail",
+      "the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: a texture transform"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "G13-texture-settings-dropped",
+   "files": [
+    "tools/building-geometry.mjs"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 2585,
+     "tests": 9,
+     "pass": 8,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing",
+      "failing tests:",
+      "the geometry digest sees transforms, user data, material settings, view rules and the door swing"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: a texture transform"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "F7-shared-view-not-mirrored",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "why": "round 3 F7",
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23275,
+     "tests": 13,
+     "pass": 12,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "shared instances draw one design from display batches, share its view and release it with the last copy",
+      "failing tests:",
+      "shared instances draw one design from display batches, share its view and release it with the last copy"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy 0 shows what the design shows"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  },
+  {
+   "id": "N1-back-glass-casts-outside-the-editor",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "headBefore": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 30197,
+     "tests": 13,
+     "pass": 12,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow",
+      "failing tests:",
+      "double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: in any host"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848"
+  }
+ ],
+ "finished": "2026-10-30T13:53:34.164Z",
+ "headAfter": "62ebfdf746d0bcf8b14835a519357debe05fc848",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 35,
+  "killed": [
+   "K1-copy-spheres-untransformed",
+   "K2-set-sphere-first-copy",
+   "K3-no-per-copy-culling",
+   "K4-culled-copy-draws",
+   "K5-table-rewritten-per-camera",
+   "K6-empty-sub-draws-trail",
+   "K8-program-rederived-per-draw",
+   "K9-dispose-takes-template-geometry",
+   "K10-raycast-inherited",
+   "K11-table-not-identity",
+   "K12-copy-matrix-not-set",
+   "P1-editor-never-batches-copies",
+   "P2-template-place-dropped",
+   "P3-batches-only-from-3",
+   "P4-copies-draw-too",
+   "P5-released-batch-not-disposed",
+   "P6-batch-always-visible",
+   "R1-merged-bounds-first-roof",
+   "R10-editor-never-merges",
+   "R11-guard-ignores-hidden-shell",
+   "R12-guard-ignores-order-and-layers",
+   "R13-guard-ignores-draw-range",
+   "R14-guard-ignores-morphs",
+   "R15-guard-ignores-open-groups",
+   "RC1-slot-material-unnamed",
+   "C4-copies-counted-once",
+   "G11-emissive-every-material",
+   "G12-key-back-to-a-list",
+   "G13-texture-settings-dropped",
+   "F7-shared-view-not-mirrored",
+   "N1-back-glass-casts-outside-the-editor"
+  ],
+  "survived": [
+   "K7-shadow-ignores-run",
+   "C7-headless-base-check-off",
+   "C8-two-pass-refusal-off",
+   "C9-lamp-maps-counted-headless"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

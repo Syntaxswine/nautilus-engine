@@ -1,0 +1,550 @@
+{
+ "script": "pixel-probe.mjs",
+ "started": "2026-10-30T11:55:51.877Z",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             "
+ },
+ "trees": {
+  "a": {
+   "dir": "<baseline>",
+   "head": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "status": "M packages/prefab-core/display-batches.js"
+  },
+  "b": {
+   "dir": "<candidate>",
+   "head": null,
+   "status": null
+  }
+ },
+ "cases": [
+  {
+   "name": "w1-overview",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.04946262571126108,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 900,
+   "tieShare": 0.0009304287415641127,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1425,
+     "shadowCalls": 658,
+     "triangles": 5308310
+    },
+    "b": {
+     "calls": 1425,
+     "shadowCalls": 658,
+     "triangles": 5308310
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "07b038a85c6025485cc7de3e2efdc177f6ed1ffaaf7c3ee024b1fa51463e441d",
+    "b": "07b038a85c6025485cc7de3e2efdc177f6ed1ffaaf7c3ee024b1fa51463e441d"
+   }
+  },
+  {
+   "name": "w1-close-first-building (the bench's close view)",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 16,
+    "y": 16,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.07006128423977769,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 193,
+   "tieShare": 0.00019952527457985973,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 507,
+     "shadowCalls": 300,
+     "triangles": 3304646
+    },
+    "b": {
+     "calls": 507,
+     "shadowCalls": 300,
+     "triangles": 3304646
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "86211cf7eb64e8adc3ef41a68bae2582e668fe0c0fae5f4bc663c4ce964c9275",
+    "b": "86211cf7eb64e8adc3ef41a68bae2582e668fe0c0fae5f4bc663c4ce964c9275"
+   }
+  },
+  {
+   "name": "w1-close-far-copy",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 149,
+    "y": 70,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.0693086707688236,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 218,
+   "tieShare": 0.00022537051740108508,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 599,
+     "shadowCalls": 413,
+     "triangles": 3769246
+    },
+    "b": {
+     "calls": 599,
+     "shadowCalls": 413,
+     "triangles": 3769246
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "545133a75522fa1bc270b20a8b901b77cf8219dbf7d16c18216039a7ceacb8df",
+    "b": "545133a75522fa1bc270b20a8b901b77cf8219dbf7d16c18216039a7ceacb8df"
+   }
+  },
+  {
+   "name": "w6-overview",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.03659376240571655,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 978,
+   "tieShare": 0.0010110658991663358,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1131,
+     "shadowCalls": 559,
+     "triangles": 2546966
+    },
+    "b": {
+     "calls": 1131,
+     "shadowCalls": 559,
+     "triangles": 2546966
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "26477473ebe3ad7fb7fb459301bd9287c2ee7217cc9e35a697a83a2cf16e8c83",
+    "b": "26477473ebe3ad7fb7fb459301bd9287c2ee7217cc9e35a697a83a2cf16e8c83"
+   }
+  },
+  {
+   "name": "w6-close (the bench's close view, no building)",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 50,
+    "y": 50,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 229602,
+   "maxDelta": 208,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 100655,
+     "shading": 1,
+     "neither": 128946
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 208,
+     "shading": 1,
+     "neither": 171
+    },
+    "edgePixelShareOfFrame": 0.08306764423713113,
+    "components": 15,
+    "largestComponents": [
+     33798,
+     31388,
+     29674,
+     29213,
+     29205
+    ],
+    "pixelsInComponentsOf4OrMore": 229602
+   },
+   "doors": null,
+   "weakExplained": 32,
+   "strongExplained": 0,
+   "unexplainedWeak": 229570,
+   "unexplainedStrong": 229602,
+   "weakButNotStrong": 32,
+   "maxDeltaUnexplainedStrong": 208,
+   "tiePixels": 96,
+   "tieShare": 0.00009924573243350536,
+   "boundingBox": [
+    0,
+    0,
+    1055,
+    915
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 429,
+     "shadowCalls": 308,
+     "triangles": 869882
+    },
+    "b": {
+     "calls": 424,
+     "shadowCalls": 308,
+     "triangles": 867386
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "2572ed8787a2d8f7757966cc6b31f48cb015d53d693753087986a6d9f9bc2d6d",
+    "b": "346370895ef7e301a0ed491426aa25e32983b866fd6a1dbfda5e6ca6f8a11017"
+   },
+   "png": "w6-close_the_bench_s_close_view_no_building_"
+  },
+  {
+   "name": "w6-close-far-roofs",
+   "map": "w6-roofs-144.json",
+   "view": {
+    "x": 200,
+    "y": 200,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 257049,
+   "maxDelta": 185,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 74864,
+     "shading": 2719,
+     "neither": 179466
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 185,
+     "shading": 2,
+     "neither": 134
+    },
+    "edgePixelShareOfFrame": 0.061879714172290594,
+    "components": 12,
+    "largestComponents": [
+     63614,
+     45509,
+     38724,
+     38723,
+     36282
+    ],
+    "pixelsInComponentsOf4OrMore": 257049
+   },
+   "doors": null,
+   "weakExplained": 42,
+   "strongExplained": 0,
+   "unexplainedWeak": 257007,
+   "unexplainedStrong": 257049,
+   "weakButNotStrong": 42,
+   "maxDeltaUnexplainedStrong": 185,
+   "tiePixels": 114,
+   "tieShare": 0.00011785430726478762,
+   "boundingBox": [
+    0,
+    0,
+    1055,
+    690
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 331,
+     "shadowCalls": 223,
+     "triangles": 728282
+    },
+    "b": {
+     "calls": 321,
+     "shadowCalls": 218,
+     "triangles": 723290
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "429b3eea95f0aca7155d2e2a1ce51cefc40cda13d61a809ba330cbdfee97c654",
+    "b": "cee2c3c1418182261d75dc585e2ff7fd1109970f52aa965e7a8535f043e2b0e2"
+   },
+   "png": "w6-close-far-roofs"
+  }
+ ],
+ "browser": "156.0.4314.56",
+ "reducedMotion": false,
+ "served_a": {
+  "files": 334,
+  "digest": "efd88c999ff62c83930221ba9de9e712edb86884411c3d00e2d42575d570d9ca"
+ },
+ "served_b": {
+  "files": 334,
+  "digest": "0dc69080ce3a489e28c337ac13452efb5c5eeef4c314c3593e3f31712811fd39"
+ },
+ "finished": "2026-10-30T11:57:38.537Z"
+}

@@ -1,0 +1,96 @@
+{
+ "script": "mutate-r3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T14:26:43.128Z",
+ "node": "v24.15.0",
+ "head": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "I6-no-early-release",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: instance() releases again; only a pending load keeps the old sets",
+   "headBefore": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 23878,
+     "tests": 31,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249"
+  },
+  {
+   "id": "I7-release-leaves-copies-hidden",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "expect": "nearly equivalent: setView() restores copy visibility after every update; only a pending load shows nothing",
+   "headBefore": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-lifecycle.test.mjs tests/asset-draw-c",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 23683,
+     "tests": 31,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249"
+  },
+  {
+   "id": "C5-rig-rule-check-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it guards a vendored file that does not change",
+   "headBefore": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+   "runs": [],
+   "invalid": "needle occurs 0 times in tools/asset-draw-counts.mjs: if (!daylight.includes(rule)) throw Error",
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249"
+  }
+ ],
+ "finished": "2026-10-30T14:27:31.082Z",
+ "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 3,
+  "killed": [],
+  "survived": [
+   "I6-no-early-release",
+   "I7-release-leaves-copies-hidden"
+  ],
+  "errors": [],
+  "invalid": [
+   "C5-rig-rule-check-off"
+  ]
+ }
+}

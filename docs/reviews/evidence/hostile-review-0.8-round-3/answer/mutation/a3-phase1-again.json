@@ -1,0 +1,93 @@
+{
+ "script": "mutate-a3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T14:04:22.586Z",
+ "node": "v24.15.0",
+ "head": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "K7-shadow-ignores-run",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a shadow draws the whole batch geometry, not the view's run (cutaway floors cast)",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23855,
+     "tests": 35,
+     "pass": 34,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy 0 draws the group's own range"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  },
+  {
+   "id": "C9-lamp-maps-counted-headless",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "lamp-lit maps enter the headless (lightless) fixture",
+   "headBefore": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 12478,
+     "tests": 1,
+     "pass": 0,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: l1-32x-largest-lamps changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f"
+  }
+ ],
+ "finished": "2026-10-30T14:04:59.188Z",
+ "headAfter": "54ad390b0ab60a9415784489721b3f913d1a7a5f",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 2,
+  "killed": [
+   "K7-shadow-ignores-run",
+   "C9-lamp-maps-counted-headless"
+  ],
+  "survived": [],
+  "errors": [],
+  "invalid": []
+ }
+}

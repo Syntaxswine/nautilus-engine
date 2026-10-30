@@ -1,0 +1,687 @@
+{
+ "script": "pixel-probe.mjs",
+ "started": "2026-10-30T11:39:22.595Z",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             "
+ },
+ "trees": {
+  "a": {
+   "dir": "<baseline>",
+   "head": "fb352776b714b097cb1bfb94350f8e18a62bfc52",
+   "status": ""
+  },
+  "b": {
+   "dir": "<candidate>",
+   "head": "1518afeb5f51c7d8523c1aa8d569e5b81eceb716",
+   "status": "M apps/editor/prefab-scene.js"
+  }
+ },
+ "cases": [
+  {
+   "name": "w1-overview",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 20,
+   "maxDelta": 34,
+   "r3": {
+    "classes": {
+     "tie": 2,
+     "edge": 10,
+     "shading": 1,
+     "neither": 7
+    },
+    "maxDeltaByClass": {
+     "tie": 15,
+     "edge": 34,
+     "shading": 1,
+     "neither": 8
+    },
+    "edgePixelShareOfFrame": 0.04946262571126108,
+    "components": 19,
+    "largestComponents": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 2,
+   "strongExplained": 2,
+   "unexplainedWeak": 18,
+   "unexplainedStrong": 18,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 34,
+   "tiePixels": 902,
+   "tieShare": 0.0009324963609898107,
+   "boundingBox": [
+    445,
+    203,
+    963,
+    412
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 4155,
+     "shadowCalls": 2026,
+     "triangles": 5307446
+    },
+    "b": {
+     "calls": 1425,
+     "shadowCalls": 658,
+     "triangles": 5308310
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "94bb73e31c344a7e6b35bb2a73ea140705150011aec1641e17178ea37445f61c",
+    "b": "07b038a85c6025485cc7de3e2efdc177f6ed1ffaaf7c3ee024b1fa51463e441d"
+   },
+   "png": "w1-overview"
+  },
+  {
+   "name": "w1-close",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 16,
+    "y": 16,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 128,
+   "maxDelta": 76,
+   "r3": {
+    "classes": {
+     "tie": 44,
+     "edge": 73,
+     "shading": 9,
+     "neither": 2
+    },
+    "maxDeltaByClass": {
+     "tie": 76,
+     "edge": 36,
+     "shading": 2,
+     "neither": 3
+    },
+    "edgePixelShareOfFrame": 0.07005921662035199,
+    "components": 93,
+    "largestComponents": [
+     7,
+     6,
+     4,
+     4,
+     4
+    ],
+    "pixelsInComponentsOf4OrMore": 25
+   },
+   "doors": null,
+   "weakExplained": 44,
+   "strongExplained": 44,
+   "unexplainedWeak": 84,
+   "unexplainedStrong": 84,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 36,
+   "tiePixels": 240,
+   "tieShare": 0.0002481143310837634,
+   "boundingBox": [
+    8,
+    336,
+    1054,
+    915
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1678,
+     "shadowCalls": 1190,
+     "triangles": 1951724
+    },
+    "b": {
+     "calls": 507,
+     "shadowCalls": 300,
+     "triangles": 3304646
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "7d07828fc8f4f977129355db2d11a4aa9511c7366c702b5867c1e5dca484de4d",
+    "b": "86211cf7eb64e8adc3ef41a68bae2582e668fe0c0fae5f4bc663c4ce964c9275"
+   },
+   "png": "w1-close"
+  },
+  {
+   "name": "w1-cutaway",
+   "map": "w1-32x-largest.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 11,
+   "maxDelta": 7,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 6,
+     "shading": 1,
+     "neither": 4
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 7,
+     "shading": 2,
+     "neither": 5
+    },
+    "edgePixelShareOfFrame": 0.029778888778615852,
+    "components": 10,
+    "largestComponents": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": {
+    "doorPivotsHidden": 192,
+    "doorCoveragePixels": 8534,
+    "doorCoverageShare": 0.008822532089453487,
+    "differingOnDoorPixels": 2,
+    "differingWithinOnePixelOfDoors": 2,
+    "differing": 11
+   },
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 11,
+   "unexplainedStrong": 11,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 7,
+   "tiePixels": 969,
+   "tieShare": 0.0010017616117506947,
+   "boundingBox": [
+    510,
+    249,
+    924,
+    429
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 1948,
+     "shadowCalls": 970,
+     "triangles": 2938918
+    },
+    "b": {
+     "calls": 1135,
+     "shadowCalls": 561,
+     "triangles": 2939542
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "bca4ebf29a0d4cfba9c3af7c577ed5e45cd40849b2c4861ce505cc5e36834006",
+    "b": "04fc53ec4f7bd361cd55fd1ce6bce7853fe79da94b46ab6a5a9049f9b7a13357"
+   },
+   "png": "w1-cutaway"
+  },
+  {
+   "name": "w4-overview",
+   "map": "w4-32-gross.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 30,
+   "maxDelta": 110,
+   "r3": {
+    "classes": {
+     "tie": 14,
+     "edge": 11,
+     "shading": 2,
+     "neither": 3
+    },
+    "maxDeltaByClass": {
+     "tie": 105,
+     "edge": 110,
+     "shading": 1,
+     "neither": 5
+    },
+    "edgePixelShareOfFrame": 0.02340751951832738,
+    "components": 28,
+    "largestComponents": [
+     3,
+     1,
+     1,
+     1,
+     1
+    ],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 16,
+   "strongExplained": 14,
+   "unexplainedWeak": 14,
+   "unexplainedStrong": 16,
+   "weakButNotStrong": 2,
+   "maxDeltaUnexplainedStrong": 110,
+   "tiePixels": 1452,
+   "tieShare": 0.0015010917030567686,
+   "boundingBox": [
+    475,
+    201,
+    926,
+    412
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 8657,
+     "shadowCalls": 4353,
+     "triangles": 3370761
+    },
+    "b": {
+     "calls": 1457,
+     "shadowCalls": 722,
+     "triangles": 3372550
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "ff716d9c7794131d732df79ccda4b96e64aa251c78a0e9051f84a62e34b9cc0d",
+    "b": "2c521fbc93df2132ade1d044623ca41703cd90cb0eae21fab11e77ddb31bef77"
+   },
+   "png": "w4-overview"
+  },
+  {
+   "name": "w4-close",
+   "map": "w4-32-gross.json",
+   "view": {
+    "x": 16,
+    "y": 16,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 215,
+   "maxDelta": 119,
+   "r3": {
+    "classes": {
+     "tie": 21,
+     "edge": 53,
+     "shading": 141,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 118,
+     "edge": 119,
+     "shading": 2,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.06830070629879582,
+    "components": 75,
+    "largestComponents": [
+     81,
+     47,
+     7,
+     4,
+     3
+    ],
+    "pixelsInComponentsOf4OrMore": 139
+   },
+   "doors": null,
+   "weakExplained": 21,
+   "strongExplained": 21,
+   "unexplainedWeak": 194,
+   "unexplainedStrong": 194,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 119,
+   "tiePixels": 528,
+   "tieShare": 0.0005458515283842794,
+   "boundingBox": [
+    5,
+    300,
+    1049,
+    913
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 3894,
+     "shadowCalls": 2787,
+     "triangles": 997120
+    },
+    "b": {
+     "calls": 676,
+     "shadowCalls": 392,
+     "triangles": 1368222
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "f1ee174c161d82ec3d3b1a0eee231cb5292d66a14a4f69385b65764a54d4ef9b",
+    "b": "d60378b10ee2cf670db0b4f940661e247b8ae6665bb7471aed42e23e56956d5c"
+   },
+   "png": "w4-close"
+  },
+  {
+   "name": "w4-cutaway",
+   "map": "w4-32-gross.json",
+   "view": {
+    "x": 119.5,
+    "y": 119.5,
+    "span": 250,
+    "preset": "0"
+   },
+   "cutaway": true,
+   "pixels": 967296,
+   "differing": 54,
+   "maxDelta": 131,
+   "r3": {
+    "classes": {
+     "tie": 45,
+     "edge": 9,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 82,
+     "edge": 131,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.020661720921000395,
+    "components": 45,
+    "largestComponents": [
+     4,
+     2,
+     2,
+     2,
+     2
+    ],
+    "pixelsInComponentsOf4OrMore": 4
+   },
+   "doors": null,
+   "weakExplained": 47,
+   "strongExplained": 45,
+   "unexplainedWeak": 7,
+   "unexplainedStrong": 9,
+   "weakButNotStrong": 2,
+   "maxDeltaUnexplainedStrong": 131,
+   "tiePixels": 1473,
+   "tieShare": 0.001522801707026598,
+   "boundingBox": [
+    508,
+    243,
+    1026,
+    429
+   ],
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 4486,
+     "shadowCalls": 2251,
+     "triangles": 2922324
+    },
+    "b": {
+     "calls": 1419,
+     "shadowCalls": 703,
+     "triangles": 2923084
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "ffd7bd79ab77abe9bcfe2b9c684888a2c4196c0ed728fb8881a5a474616b721c",
+    "b": "aa23c93d784f10edc7579f5c94b367028ee5ec4c1634174121bb4679759dc2d8"
+   },
+   "png": "w4-cutaway"
+  },
+  {
+   "name": "w7-close-control-no-repeats",
+   "map": "w7-mixed-13-gross-19-largest.json",
+   "view": {
+    "x": 16,
+    "y": 16,
+    "span": 40,
+    "preset": "0"
+   },
+   "cutaway": false,
+   "pixels": 967296,
+   "differing": 0,
+   "maxDelta": 0,
+   "r3": {
+    "classes": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "maxDeltaByClass": {
+     "tie": 0,
+     "edge": 0,
+     "shading": 0,
+     "neither": 0
+    },
+    "edgePixelShareOfFrame": 0.07352868201667329,
+    "components": 0,
+    "largestComponents": [],
+    "pixelsInComponentsOf4OrMore": 0
+   },
+   "doors": null,
+   "weakExplained": 0,
+   "strongExplained": 0,
+   "unexplainedWeak": 0,
+   "unexplainedStrong": 0,
+   "weakButNotStrong": 0,
+   "maxDeltaUnexplainedStrong": 0,
+   "tiePixels": 168,
+   "tieShare": 0.00017368003175863438,
+   "boundingBox": null,
+   "repeatIdentical": {
+    "a": true,
+    "b": true
+   },
+   "counts": {
+    "a": {
+     "calls": 2333,
+     "shadowCalls": 1691,
+     "triangles": 1206803
+    },
+    "b": {
+     "calls": 736,
+     "shadowCalls": 468,
+     "triangles": 1227381
+    }
+   },
+   "info": {
+    "a": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    },
+    "b": {
+     "walls": [],
+     "lights": [
+      {
+       "type": "DirectionalLight",
+       "visible": true
+      }
+     ]
+    }
+   },
+   "sha": {
+    "a": "425482b951c7ed2f743b50523ef276c00b089d8a15f996feb5290a16028db8e5",
+    "b": "425482b951c7ed2f743b50523ef276c00b089d8a15f996feb5290a16028db8e5"
+   }
+  }
+ ],
+ "browser": "156.0.4314.56",
+ "reducedMotion": true,
+ "served_a": {
+  "files": 340,
+  "digest": "cd8053d22e941a00dcb54f8dad9cb1ae3fe4f52e1c3cbf75bc86dedbdb39e5d6"
+ },
+ "served_b": {
+  "files": 341,
+  "digest": "a1bde7c78b44dee05f8758e8b5a6974c1bf834137716dd8968b2c6e2e078252d"
+ },
+ "finished": "2026-10-30T11:41:56.497Z"
+}
