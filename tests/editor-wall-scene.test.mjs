@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {InspectionScene,patchWallWidth,unitWallGeometry} from '../apps/editor/wall-scene.js';
-import {WALL_KIT} from '../packages/map-core/wall-runs.js';
+import {WALL_KIT,wallRunsOf,wallPanels} from '../packages/map-core/wall-runs.js';
 import * as T from '../packages/render-effects/three.js';
 import {surfacePixels} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-materials.js';
 const methods = InspectionScene.prototype;
@@ -62,6 +62,55 @@ test('a unit wall scaled by width in float32 reproduces BoxGeometry(width) posit
     reference.dispose();
   }
   unit.dispose();
+});
+
+// Free-angle runs ending in cut panels, every material, several layers and stories.
+const freeAngleRuns = () => Array.from({length: 24}, (_, i) => {const a = [4 + (i % 6) * 9.3, 4 + Math.floor(i / 6) * 7.1], angle = (17 + i * 23) * Math.PI / 180, length = 2.2 + (i * .617) % 5;
+  return {id: 'fa-' + i, a, b: [Math.round((a[0] + Math.cos(angle) * length) * 1e6) / 1e6, Math.round((a[1] + Math.sin(angle) * length) * 1e6) / 1e6], z: i % 3, stories: 1 + (i % 2), material: ['wood', 'brick', 'concrete'][i % 3]};});
+const shaderAfter = material => {const shader = {vertexShader: '#include <common>\nvoid main(){\n#include <uv_vertex>\n#include <begin_vertex>\n}', fragmentShader: ''};material.onBeforeCompile(shader, null);return shader.vertexShader;};
+
+test('every wall instance set carries width-patched shadow materials for sun, spot and point lights', () => {
+  const scene = wallScene();
+  try {
+    scene.document = {map: {wallRuns: {version: 1, segments: freeAngleRuns()}}};scene.visibleLevel = 5;methods.rebuildWalls.call(scene);
+    const meshes = scene.wallGroup.children.filter(mesh => mesh.isInstancedMesh);assert.equal(meshes.length, 3);
+    for (const mesh of meshes) {
+      // The renderer picks customDistanceMaterial for point lights, customDepthMaterial otherwise.
+      assert.ok(mesh.customDepthMaterial?.isMeshDepthMaterial && mesh.customDepthMaterial.depthPacking === T.RGBADepthPacking, 'sun/spot shadow material');
+      assert.ok(mesh.customDistanceMaterial?.isMeshDistanceMaterial, 'point-light shadow material');
+      for (const material of [mesh.customDepthMaterial, mesh.customDistanceMaterial]) assert.match(shaderAfter(material), /transformed\.x \*= wallWidth;/);
+      assert.notEqual(mesh.customDepthMaterial.customProgramCacheKey(), mesh.customDistanceMaterial.customProgramCacheKey());
+    }
+  } finally {release(scene);scene.wallShadows?.depth.dispose();scene.wallShadows?.distance.dispose();}
+});
+
+test('every placed panel is its own BoxGeometry(width) at its own transform, inside its mesh bounds', () => {
+  // An independent enumeration of the panels: each instance must equal the matrix and width
+  // main would have used for that panel, and the unit box times that width must equal the box.
+  const scene = wallScene(), segments = freeAngleRuns(), matrix = new T.Matrix4(), position = new T.Vector3(), rotation = new T.Quaternion(), up = new T.Vector3(0, 1, 0), one = new T.Vector3(1, 1, 1);
+  try {
+    scene.document = {map: {wallRuns: {version: 1, segments}}};scene.visibleLevel = 5;methods.rebuildWalls.call(scene);
+    const byMaterial = new Map(scene.wallGroup.children.filter(mesh => mesh.isInstancedMesh).map(mesh => [[...scene.wallMaterials].find(([, m]) => m === mesh.material)[0], {mesh, next: 0}]));
+    const unit = unitWallGeometry(), checkedWidths = new Set();let panels = 0;
+    for (const run of wallRunsOf({wallRuns: {version: 1, segments}})) for (const panel of wallPanels(run)) {
+      const slot = byMaterial.get(panel.material), i = slot.next++, expected = new Float32Array(16);
+      matrix.compose(position.fromArray(panel.center), rotation.setFromAxisAngle(up, panel.yaw), one).toArray(expected);
+      assert.deepEqual(slot.mesh.instanceMatrix.array.slice(i * 16, i * 16 + 16), expected, 'instance matrix of panel ' + panels);
+      assert.equal(slot.mesh.geometry.attributes.wallWidth.getX(i), Math.fround(panel.size[0]), 'width of panel ' + panels);
+      const w = Math.fround(panel.size[0]);
+      if (!checkedWidths.has(w)) {
+        checkedWidths.add(w);const reference = new T.BoxGeometry(panel.size[0], WALL_KIT.height, WALL_KIT.thickness);
+        for (let v = 0; v < 24; v++) assert.equal(Math.fround(unit.attributes.position.getX(v) * w), reference.attributes.position.getX(v));
+        reference.dispose();
+      }
+      // The instance's scaled box lies inside its mesh's bounding sphere (culling stays safe).
+      const box = new T.Box3(new T.Vector3(-w / 2, -WALL_KIT.height / 2, -WALL_KIT.thickness / 2), new T.Vector3(w / 2, WALL_KIT.height / 2, WALL_KIT.thickness / 2)).applyMatrix4(matrix);
+      for (const corner of [box.min, box.max]) assert.ok(slot.mesh.boundingSphere.distanceToPoint(corner) <= 1e-6, 'bounds of panel ' + panels);
+      panels++;
+    }
+    for (const {mesh, next} of byMaterial.values()) assert.equal(next, mesh.count, 'every instance accounted for');
+    assert.ok(checkedWidths.size > 20, 'the runs end in many distinct cut widths');unit.dispose();
+  } finally {release(scene);scene.wallShadows?.depth.dispose();scene.wallShadows?.distance.dispose();}
 });
 
 test('the width patch reaches the shader through the inherited dimming clone and keys its own program', () => {

@@ -10,24 +10,28 @@ import {ORIGINAL_BUILDING_ASSETS,GROSS_BUILDING_ASSETS} from '../packages/prefab
 import {createGrossHouse} from '../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
 const catalogue=JSON.parse(fs.readFileSync(new URL('../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json',import.meta.url)));
 
-// Triangles as drawn: three float32 corners in the batch root's space, keyed by
-// material. Exact equality of these sorted lists is the oracle.
-const point=new T.Vector3();
-function triangles(mesh,start,end,matrix,key,out){
-  const geometry=mesh.geometry,position=geometry.attributes.position,index=geometry.index;
-  for(let i=start;i<end;i+=3){const corners=[];for(let k=0;k<3;k++){point.fromBufferAttribute(position,index?index.getX(i+k):i+k);if(matrix)point.applyMatrix4(matrix);corners.push(Math.fround(point.x),Math.fround(point.y),Math.fround(point.z));}out.push(key+' '+corners.join(','));}
+// Triangles as drawn: each corner's float32 position, normal and UV sets in the
+// batch root's space, keyed by material. Exact equality of the sorted lists is the oracle.
+const point=new T.Vector3(),normal=new T.Vector3(),normalMatrix=new T.Matrix3();
+function triangles(mesh,start,end,matrix,key,out,uvs=['uv']){
+  const geometry=mesh.geometry,attributes=geometry.attributes,index=geometry.index;if(matrix)normalMatrix.getNormalMatrix(matrix);
+  for(let i=start;i<end;i+=3){const corners=[];
+    for(let k=0;k<3;k++){const v=index?index.getX(i+k):i+k;point.fromBufferAttribute(attributes.position,v);normal.fromBufferAttribute(attributes.normal,v);if(matrix){point.applyMatrix4(matrix);normal.applyNormalMatrix(normalMatrix);}
+      corners.push([point.x,point.y,point.z,normal.x,normal.y,normal.z].map(Math.fround).join(','),...uvs.map(name=>[attributes[name]?.getX(v)||0,attributes[name]?.getY(v)||0].map(Math.fround).join(',')));}
+    out.push(key+' '+corners.join('|'));}
   return out;
 }
 // Gross pieces and both arms of a gross check share material objects: key by identity.
 // Original buildings compare two models of one design: key by catalogue material and
 // whether it is the provider's depth-biased floor copy.
 const catalogueKey=mesh=>mesh.userData.materialId+(mesh.material.polygonOffset?'+floor-offset':'');
-function drawn(batch,key=record=>record.material.uuid){
+function drawn(batch,key=record=>record.material.uuid,uvs=['uv']){
   const out=[];
-  for(const record of batch.records)if(record.mesh.visible)for(const group of record.mesh.geometry.groups)triangles(record.mesh,group.start,group.start+group.count,null,key(record),out);
-  for(const {mesh}of batch.glass||[])if(mesh.visible)triangles(mesh,0,mesh.geometry.attributes.position.count,null,catalogueKey(mesh),out);
+  for(const record of batch.records)if(record.mesh.visible)for(const group of record.mesh.geometry.groups)triangles(record.mesh,group.start,group.start+group.count,null,key(record),out,uvs);
+  for(const {mesh}of batch.glass||[])if(mesh.visible)triangles(mesh,0,mesh.geometry.attributes.position.count,null,catalogueKey(mesh),out,uvs);
   return out.sort();
 }
+const GROSS_UVS=['uv','grossUV'];
 const originalKey=record=>catalogueKey(record.ranges[0].piece.mesh);
 const identity=new T.Matrix4();
 const atlas=()=>createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()});
@@ -73,8 +77,8 @@ test('gross display batches draw exactly the native-visible triangles for floors
       for(const record of batch.records){assert.ok(record.mesh.geometry.attributes.grossUV);assert.ok(record.mesh.geometry.attributes.normal);assert.ok(record.material.isMeshStandardMaterial);}
       for(const walls of [true,false])for(const view of [{view:'exterior',showFurniture:false},{view:'exterior',showFurniture:true},...asset.levels.flatMap(level=>[{view:'cutaway',level:level.index,showFurniture:true},{view:'cutaway',level:level.index,showFurniture:false}])]){
         source.setView(view);batch.sync({walls});
-        const expected=[];for(const piece of batch.pieces)if(piece.scope.every(node=>node.visible)&&(walls||!piece.wall))triangles(piece.mesh,piece.start,piece.end,piece.mesh.matrixWorld,piece.material.uuid,expected);
-        assert.deepEqual(drawn(batch),expected.sort(),asset.id+' '+JSON.stringify(view)+' walls '+walls);
+        const expected=[];for(const piece of batch.pieces)if(piece.scope.every(node=>node.visible)&&(walls||!piece.wall))triangles(piece.mesh,piece.start,piece.end,piece.mesh.matrixWorld,piece.material.uuid,expected,GROSS_UVS);
+        assert.deepEqual(drawn(batch,undefined,GROSS_UVS),expected.sort(),asset.id+' '+JSON.stringify(view)+' walls '+walls);
         for(const record of batch.records)assert.ok(record.mesh.geometry.groups.length<=2,asset.id+' at most two runs');
       }
       source.setView({view:'cutaway',level:0,showFurniture:true});batch.sync();
@@ -101,6 +105,16 @@ test('placed copies share batch geometry and follow their template through views
     }
   }finally{layer.dispose();}
   assert.equal(layer.templates.size,0);assert.equal(layer.models.size,0);
+});
+
+test('releasing a batch disposes every merged geometry exactly once, for both collections',async()=>{
+  const provider=atlas(),library=await provider.load({});
+  const watch=batch=>{const counts=new Map(batch.records.map(record=>[record.mesh.geometry,0]));for(const geometry of counts.keys())geometry.addEventListener('dispose',()=>counts.set(geometry,counts.get(geometry)+1));return counts;};
+  for(const make of [()=>{const source=provider.create(library,'marlow-courtyard-flats');return {source,batch:batchOriginal(T,source)};},()=>{const source=createGrossHouse(T,{catalogue,textures:{}},'monroe-row');return {source,batch:batchPrefab(T,source)};}]){
+    const {source,batch}=make(),counts=watch(batch);
+    assert.ok(counts.size>3);batch.dispose();source.dispose();
+    assert.deepEqual([...counts.values()],[...counts.values()].map(()=>1),'each merged geometry disposed once');
+  }
 });
 
 test('a building that cannot be batched releases its source model and reports why',()=>{

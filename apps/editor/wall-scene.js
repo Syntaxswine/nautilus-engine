@@ -29,12 +29,17 @@ export function unitWallGeometry(maxWidth=1) {
   geometry.boundingSphere=geometry.boundingBox.getBoundingSphere(new T.Sphere());
   return geometry;
 }
+// Shadow passes draw walls with their own materials: the sun and spot lights a
+// depth material, point lights (lamps) a distance material. Both get the patch.
+export function wallShadowMaterials() {
+  return {depth:patchWallWidth(new T.MeshDepthMaterial({depthPacking:T.RGBADepthPacking}),'nautilus-wall-width-depth-v1'),distance:patchWallWidth(new T.MeshDistanceMaterial(),'nautilus-wall-width-distance-v1')};
+}
 function releaseWallMeshes(group) {for (const mesh of group.children) if (mesh.isInstancedMesh) {mesh.dispose();mesh.geometry.dispose();}group.clear();}
 
 export class InspectionScene extends LegacyScene {
   constructor(...args) {
     super(...args);this.wallGroup = new T.Group();this.scene.add(this.wallGroup);this.wallMaterials = new Map();
-    this.wallDepthMaterial = patchWallWidth(new T.MeshDepthMaterial({depthPacking:T.RGBADepthPacking}),'nautilus-wall-width-depth-v1');
+    this.wallShadows = wallShadowMaterials();
     this.anchorGeometry = new T.RingGeometry(.09,.14,16);this.anchorMaterial = new T.MeshBasicMaterial({color:0xa8e6d4,side:T.DoubleSide,depthTest:false});
   }
   wallMaterial(kind, z) {
@@ -46,7 +51,7 @@ export class InspectionScene extends LegacyScene {
   }
   rebuild() {super.rebuild();if (this.wallGroup && this.document) this.rebuildWalls();}
   rebuildWalls() {
-    releaseWallMeshes(this.wallGroup);this.wallDepthMaterial ??= patchWallWidth(new T.MeshDepthMaterial({depthPacking:T.RGBADepthPacking}),'nautilus-wall-width-depth-v1');
+    releaseWallMeshes(this.wallGroup);this.wallShadows ??= wallShadowMaterials();
     const groups = new Map(), matrix = new T.Matrix4(), position = new T.Vector3(), rotation = new T.Quaternion(), scale = new T.Vector3(1,1,1), up = new T.Vector3(0,1,0);
     if (this.options.walls) for (const run of wallRunsOf(this.document.map)) for (const panel of wallPanels(run)) {
       if (panel.z > this.visibleLevel) continue;
@@ -62,7 +67,7 @@ export class InspectionScene extends LegacyScene {
       const geometry=unitWallGeometry(widest);geometry.setAttribute('wallWidth',new T.InstancedBufferAttribute(widths,1));
       const mesh=new T.InstancedMesh(geometry,material,panels.length),array=mesh.instanceMatrix.array;
       for(let i=0;i<panels.length;i++)matrix.compose(position.fromArray(panels[i].center),rotation.setFromAxisAngle(up,panels[i].yaw),scale).toArray(array,i*16);
-      mesh.instanceMatrix.needsUpdate=true;mesh.customDepthMaterial=this.wallDepthMaterial;mesh.computeBoundingSphere();this.wallGroup.add(mesh);
+      mesh.instanceMatrix.needsUpdate=true;mesh.customDepthMaterial=this.wallShadows.depth;mesh.customDistanceMaterial=this.wallShadows.distance;mesh.computeBoundingSphere();this.wallGroup.add(mesh);
     }
     if(this.wallDrawing && this.options.walls) {
       const seen=new Set();for(const run of wallRunsOf(this.document.map))if(run.z<=this.options.level&&run.z+run.stories>this.options.level)for(const [x,y]of [run.a,run.b]){const key=x+','+y;if(seen.has(key))continue;seen.add(key);const ring=new T.Mesh(this.anchorGeometry,this.anchorMaterial);ring.rotation.x=-Math.PI/2;ring.position.set(x,this.options.level*WALL_KIT.floorSpacing+.06,y);ring.renderOrder=24;this.wallGroup.add(ring);}
@@ -79,5 +84,5 @@ export class InspectionScene extends LegacyScene {
   }
   select(selection) {super.select(selection);if(selection?.type==='wall-run')this.outlineWall(selection.data);}
   preview(result) {super.preview(result);if(result?.ok&&result.wallRun)this.outlineWall(result.wallRun,true);}
-  dispose() {releaseWallMeshes(this.wallGroup);this.wallGroup.removeFromParent();for(const material of this.wallMaterials.values()){material.map.dispose();material.dispose();}this.wallDepthMaterial.dispose();this.anchorGeometry.dispose();this.anchorMaterial.dispose();super.dispose();}
+  dispose() {releaseWallMeshes(this.wallGroup);this.wallGroup.removeFromParent();for(const material of this.wallMaterials.values()){material.map.dispose();material.dispose();}this.wallShadows.depth.dispose();this.wallShadows.distance.dispose();this.anchorGeometry.dispose();this.anchorMaterial.dispose();super.dispose();}
 }
