@@ -3,6 +3,7 @@ import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './mo
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
+import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -56,6 +57,8 @@ function ruleClosure(file) { ruleEntries.push(file); }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js', 'progression.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
 ruleClosure(path.join(root, 'packages/items-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/aim.js'));
 ruleClosure(path.join(root, 'packages/runtime-core/index.js'));
 ruleClosure(path.join(root, 'packages/world-core/index.js'));
 ruleClosure(path.join(root, 'packages/adapters/farmyard/rules.js'));
@@ -77,6 +80,8 @@ console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1
 await import('./check-building-catalog.mjs');
 
 checkSharedAssets();
+const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
+console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
 
 if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 

@@ -27,9 +27,9 @@ function resources() {
     ...['gross-housing-v1/clapboard-ivory-v1.png', 'gross-housing-v1/cedar-shingles-v1.png', 'gross-housing-v1/floorboards-oak-v1.png',
       'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file)];
 }
-const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
+const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/grenades.md', 'docs/reviews/2026-10-29-farmyard-grenades.sources.json', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
   'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json',
-  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !file.startsWith('vendor/farmyard-grenades/')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
   if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/')));
@@ -38,6 +38,7 @@ export function distribution(profile = 'compatibility') {
   else if (profile === 'compatibility') extras = resources();
   else throw Error('Unknown package profile: ' + profile);
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
+  if (files.some(file => file.startsWith('vendor/farmyard-grenades/'))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
   for (const file of files) { inside(path.resolve(root, file)); if (!fs.existsSync(path.join(root, file))) throw Error('Missing distribution file: ' + file); }
   return {exports, files, name: profile === 'compatibility' ? source.name : '@nautilus-engine/' + (profile === 'assets' ? 'building-assets' : profile)};
@@ -71,6 +72,7 @@ export function testExternalPackage(profile='core') {
     npm(['install', '--offline', '--ignore-scripts', '--package-lock=false', '--no-audit', '--no-fund', packed.file], consumer);
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).tinderboxConformance.root;if(!/^tests\/fixtures\/consumers\/tinderbox\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'tinderbox-proof'),{recursive:true});}
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardRulesConformance.root;if(!/^tests\/fixtures\/consumers\/farmyard-rules\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid Farmyard conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'farmyard-proof'),{recursive:true});}
+    if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardGrenades.root;if(!/^vendor\/farmyard-grenades\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid grenade conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'grenade-proof'),{recursive:true});}
     const test = profile==='assets' ? `import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {listBuildingAssets,buildingAssetURLs} from '@nautilus-engine/building-assets';
@@ -104,7 +106,7 @@ const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compil
 function replay(project){const sim=createSimulation({scenario:project.scenario,seed:project.policy.seed,config:{input:{cameraRelative:false}}});try{sim.dispatch({type:'move',x:1,y:0});let state;for(let tick=0;tick<300;tick++)state=sim.advance(1/60);return state;}finally{sim.dispose();}}
 const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
 assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
-    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') : ''));
+    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/grenades/package-proof.mjs'),'utf8') : ''));
     const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
     return {...packed, proof:output.trim()};
   } finally {
