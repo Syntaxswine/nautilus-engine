@@ -61,6 +61,11 @@ test('every camera culls a CopyBatch copy by copy: the view, each face of a lamp
     // The copy table is the identity, written once: no camera rewrites it (on Direct3D a
     // rewrite between draws that read it stalled the frame).
     assert.deepEqual([...batch._indirectTexture.image.data.slice(0,3)],[0,1,2]);assert.equal(batch._indirectTexture.version,1,'the copy table was rewritten');
+    // In a cutaway a run is part of a batch's geometry: a shadow camera draws that run alone.
+    layer.options={...layer.options,showAllLevels:false};layer.setView();
+    const cut=layer.instanced.map(({mesh})=>mesh).find(b=>b.visible&&b.geometry.groups.some(g=>g.start>0||g.count<b.geometry.attributes.position.count));
+    assert.ok(cut,'a cutaway leaves part of some batch geometry');
+    for(const run of cut.geometry.groups)assert.deepEqual(shadow(cut,sun.shadow.camera,run),[0,1,2],'the cutaway run '+JSON.stringify(run));
     // With per-copy culling off (the benchmark's --expect), every camera draws every copy.
     batch.perObjectFrustumCulled=false;lamp.shadow.updateMatrices(lamp,0);
     assert.deepEqual(shadow(batch,lamp.shadow.camera,group),[0,1,2]);
