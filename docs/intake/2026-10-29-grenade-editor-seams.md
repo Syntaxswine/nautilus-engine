@@ -1,0 +1,35 @@
+# Farmyard grenades: editor dependency and contract seams
+
+Status: dependency recorded; editor wiring awaits the architect-reviewed public item checkpoint and fixed parts ABI. The architect is extracting Farmyard's existing work on `codex/farmyard-grenades` from Nautilus `f6caeef309e56423fea5e32eb717533f33b59cbb`. This editor checkpoint stays on `codex/functional-parts-editor`; other feature branches remain intact.
+
+Authorized donor source: Farmyard published commit `251bf8094b5f9ebe44208443084c1a6d6658512a` in `C:/Users/baals/Documents/ChatGPT/Tactical Animal`. Inspection used `git ls-tree`, `git grep` and `git show` against that exact object. No uncommitted donor files, moving branches or source imports are used. The architect owns the extraction, dependency closure, source hashes/notices and behavior review. No donor/game pin changes are part of editor preparation.
+
+## Current public boundaries
+
+At editor baseline `78d37b6cd3ba5de5c25d4922b4ba301b13491caa`, [`./items`](../../packages/items-core/index.js) exposes the specific rock contract. [`ROCK_ITEM`](../../packages/items-core/profile.js) identifies `item:rock`; [`openRock`/`serializeRock`](../../packages/items-core/state.js) preserve strict world/carried/flying state. There is no generic public item catalogue or grenade state/profile at this baseline. The fixed integration baseline `f6caeef...` changes planning/handoff documents only relative to that baseline.
+
+The inherited editor's equipment/model choice belongs to actor appearance. Selecting grenade equipment cannot establish grenade stock, release, blast or consumer support. [`listSharedAssets`](../../packages/assets/index.js) is visual discovery; [`createSave`/`parseSave`](../../packages/map-core/persistence.js) wrap portable map/block payloads. Neither currently composes live item sidecars/inventory ledgers into a parts save. Preserve those existing formats and their explicit capability checks.
+
+Farmyard's frozen `sites/tactical-animal/dist/grenade-controls.js` describes ground `x/y` and height `z`; native Nautilus item/world coordinates use ground `x/y` and height `h`. The reviewed module/host adapter must define this conversion. The editor must not infer it from a mesh transform or a floor index. This observation is source inspection, not a grenade behavior certification.
+
+## Exact requests for the shared item/parts contracts
+
+| Seam for Architect/Coder | Required behavior before editor wiring |
+| --- | --- |
+| Public discoverable item/profile descriptor | Supply exact item/profile/version IDs, a public import/registry lookup, display metadata, supported initial settings/defaults/ranges and required host capabilities/services. Keep appearance/equipment identity explicit when it differs from behavior. The editor reads this descriptor rather than maintaining another grenade action or ID list. |
+| Authored stock/configuration and ownership | Define where a part's initial stock lives, its integer bounds/zero behavior, world pickup versus actor/container ownership, profile configuration and which owner/reference types are supported. Missing or incompatible references should be an authoring issue at the actual property. No implicit assignment to the first actor or guessed default profile. |
+| Authoring save/load versus live state | Version and validate authored starting stock separately from remaining inventory, prepared/released/midflight/fuse state and command/event receipts. Ordinary load/recompile must not refill spent stock, recreate a projectile or replay a committed blast. Specify which runtime module owns checkpoint validation and the atomic inventory/state/event ledger. |
+| Copy/transform semantics | Authored copy gets fresh instance/child/item references and remaps internal connections under the parts ABI. Declare external inventory-owner links and runtime-state policy. Transform supported ground/height coordinates through the shared command/compiler. A copy cannot clone another runtime's command receipts or active projectile identity. |
+| Content-derived requirements and readiness | The selected functional profile must derive its actual required capabilities. A compatible game binds retained services once and receives the standard recipe automatically. Missing inventory, release/collision, damage or other declared services blocks play/profile export with named remedies. An empty consumer declaration and a visual grenade model cannot bypass checks. |
+| Incomplete authoring and unsupported consumers | Define how structurally valid work with an unresolved item/profile/binding remains saveable with explicit diagnostics. Distinguish this from invalid/future schema rejection. Unsupported legacy/game exports must return source paths and preserving refusal; never remove grenade data or substitute rock behavior. Decorative mode must be explicit and preserve authored intent without granting functional support. |
+| Committed presentation and actor sockets | UI's binder consumes the reviewed action/state/event contract and visual metadata. A throw animation marker observes a committed release according to that contract; it must not independently debit stock, create another projectile or apply damage. Report missing rig/socket/animation/profile support as readiness failures where required. |
+
+These are requirements, not proposed schema fields or newly assigned capability IDs. The Coder and architect own final API/schema decisions. Editor will wire discovery, supported initial settings, typed references, one-transaction authoring/history and preserving save/export through the accepted public contract. Shared simulation and UI presentation remain with their assigned owners.
+
+## Acceptance after fixed checkpoints arrive
+
+Use one standard grenade definition in two compatible authored scenes and a second transformed/copy instance; no per-map action code. Verify initial stock/configuration round trips without losing IDs, one accepted history step for each edit/copy, explicit missing-owner/binding diagnostics selecting the source property, and refusal for an unsupported consumer. Failed/stale preparation must retain accepted authoring/redo/preview. Runtime evidence must additionally show no load/recompile refill, duplicate release/cost or replayed blast using the reviewed module's own checkpoint contract. That runtime evidence is pending and is not supplied by the editor-private journal tests.
+
+## Provisional design recommendation
+
+For Farmyard authoring, prefer one reviewed shared grenade profile bound through the parts contract. **Accuracy:** preserve source units, geometry and timing via explicit adapters; visual similarity alone does not establish behavior. **Efficiency:** registry-driven discovery and compile/load-time wiring should avoid duplicated per-map setup; this is a code-based expectation with no performance measurement. **Narrative:** retain Farmyard's authored grenade behavior and game-owned costs/damage/permissions; AFT and Tinderbox must explicitly select a supported profile. Richer fire or blast consequences remain their own declared capabilities and reviews.
