@@ -1,0 +1,391 @@
+{
+  "generatedAt": "2026-10-30T03:26:06.530Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only.",
+    "browser": "156.0.4314.50",
+    "angle": "d3d11",
+    "gpuString": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "deviceScaleFactor": 1
+  },
+  "method": "Built editor from dist/; each prototype mutates only the live page scene after open. Frames: 22 (first 2 discarded). Pixels: full-canvas readPixels before/after the change. These are ESTIMATES of a candidate optimisation, not implementations.",
+  "results": {
+    "inst-w1": {
+      "before": {
+        "calls": 4155,
+        "triangles": 5307446,
+        "programs": 22,
+        "ms": {
+          "n": 20,
+          "median": 46.5,
+          "min": 30.5,
+          "max": 125,
+          "spreadPct": 203.226
+        }
+      },
+      "after": {
+        "calls": 1216,
+        "triangles": 5308310,
+        "programs": 24,
+        "ms": {
+          "n": 20,
+          "median": 16.75,
+          "min": 11.9,
+          "max": 55.4,
+          "spreadPct": 259.701
+        }
+      },
+      "detail": {
+        "instancedMeshes": 46
+      },
+      "pixels": {
+        "differingPixels": 365,
+        "totalPixels": 967296,
+        "maxChannelDelta": 60
+      },
+      "drawCallReductionPct": 70.7,
+      "frameMsReductionPct": 64
+    },
+    "share-w2": {
+      "before": {
+        "calls": 4480,
+        "triangles": 3766342,
+        "programs": 22,
+        "ms": {
+          "n": 20,
+          "median": 68,
+          "min": 44.4,
+          "max": 134.9,
+          "spreadPct": 133.088
+        }
+      },
+      "after": {
+        "calls": 4480,
+        "triangles": 3766342,
+        "programs": 22,
+        "ms": {
+          "n": 20,
+          "median": 69,
+          "min": 45.7,
+          "max": 161,
+          "spreadPct": 167.101
+        }
+      },
+      "detail": {
+        "prefabMaterialsBefore": 300,
+        "prefabMaterialsAfter": 4
+      },
+      "pixels": {
+        "differingPixels": 0,
+        "totalPixels": 967296,
+        "maxChannelDelta": 0
+      },
+      "drawCallReductionPct": 0,
+      "frameMsReductionPct": -1.5
+    },
+    "walls-w5b": {
+      "before": {
+        "calls": 5916,
+        "triangles": 3165242,
+        "programs": 19,
+        "ms": {
+          "n": 20,
+          "median": 53.3,
+          "min": 42,
+          "max": 65.7,
+          "spreadPct": 44.465
+        }
+      },
+      "after": {
+        "calls": 1127,
+        "triangles": 3165422,
+        "programs": 19,
+        "ms": {
+          "n": 20,
+          "median": 12.25,
+          "min": 9.2,
+          "max": 16,
+          "spreadPct": 55.51
+        }
+      },
+      "detail": {
+        "mergedInstancedMeshes": 3,
+        "note": "Unit geometry scaled per instance: UVs stretch, so pixels are NOT identical; draw-call/frame-time upper bound only."
+      },
+      "pixels": {
+        "differingPixels": 96706,
+        "totalPixels": 967296,
+        "maxChannelDelta": 91
+      },
+      "drawCallReductionPct": 80.9,
+      "frameMsReductionPct": 77
+    },
+    "noshadow-w3": {
+      "before": {
+        "calls": 4425,
+        "triangles": 3788864,
+        "programs": 22,
+        "ms": {
+          "n": 20,
+          "median": 30.85,
+          "min": 26.7,
+          "max": 48.1,
+          "spreadPct": 69.368
+        }
+      },
+      "after": {
+        "calls": 2803,
+        "triangles": 3172032,
+        "programs": 22,
+        "ms": {
+          "n": 20,
+          "median": 20.7,
+          "min": 18.3,
+          "max": 39.4,
+          "spreadPct": 101.932
+        }
+      },
+      "detail": {
+        "meshesExcludedFromShadow": 1622,
+        "note": "Removes building shadows: NOT identical. Upper bound of the shadow-pass share."
+      },
+      "pixels": {
+        "differingPixels": 42115,
+        "totalPixels": 967296,
+        "maxChannelDelta": 87
+      },
+      "drawCallReductionPct": 36.7,
+      "frameMsReductionPct": 32.9
+    },
+    "admin-in-editor": {
+      "before": {
+        "calls": 1121,
+        "triangles": 2541974,
+        "programs": 19,
+        "ms": {
+          "n": 20,
+          "median": 10.15,
+          "min": 6.1,
+          "max": 17,
+          "spreadPct": 107.389
+        }
+      },
+      "after": {
+        "calls": 1951,
+        "triangles": 3770522,
+        "programs": 25,
+        "ms": {
+          "n": 20,
+          "median": 15.7,
+          "min": 12,
+          "max": 24.7,
+          "spreadPct": 80.892
+        }
+      },
+      "detail": {
+        "buildMs": 2404,
+        "meshNodes": 415,
+        "instancedBatches": 233
+      },
+      "pixels": {
+        "differingPixels": 92721,
+        "totalPixels": 967296,
+        "maxChannelDelta": 190
+      },
+      "drawCallReductionPct": -74,
+      "frameMsReductionPct": -54.7
+    },
+    "facadeGross": [
+      {
+        "id": "grossdale-spire",
+        "rawMeshes": 1060,
+        "triangles": 14875,
+        "createMs": 17
+      },
+      {
+        "id": "grossdale-hip",
+        "rawMeshes": 962,
+        "triangles": 13520,
+        "createMs": 8
+      },
+      {
+        "id": "grossdale-octagon",
+        "rawMeshes": 1207,
+        "triangles": 16748,
+        "createMs": 8
+      },
+      {
+        "id": "grossdale-cross-gable",
+        "rawMeshes": 944,
+        "triangles": 13183,
+        "createMs": 10
+      },
+      {
+        "id": "grossdale-balcony",
+        "rawMeshes": 1126,
+        "triangles": 15809,
+        "createMs": 8
+      },
+      {
+        "id": "dauphin-park",
+        "rawMeshes": 1020,
+        "triangles": 14315,
+        "createMs": 8
+      },
+      {
+        "id": "calumet-heights",
+        "rawMeshes": 1116,
+        "triangles": 15575,
+        "createMs": 9
+      },
+      {
+        "id": "brookdale-villa",
+        "rawMeshes": 1489,
+        "triangles": 21266,
+        "createMs": 12
+      },
+      {
+        "id": "humboldt-cottage",
+        "rawMeshes": 1073,
+        "triangles": 14646,
+        "createMs": 7
+      },
+      {
+        "id": "albany-cottage",
+        "rawMeshes": 898,
+        "triangles": 12670,
+        "createMs": 6
+      },
+      {
+        "id": "ashland-worker",
+        "rawMeshes": 758,
+        "triangles": 10118,
+        "createMs": 6
+      },
+      {
+        "id": "archer-worker",
+        "rawMeshes": 691,
+        "triangles": 9306,
+        "createMs": 5
+      },
+      {
+        "id": "monroe-row",
+        "rawMeshes": 1046,
+        "triangles": 15366,
+        "createMs": 14
+      }
+    ],
+    "rebuild": {
+      "w0-blank": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 143.1,
+          "min": 127.1,
+          "max": 169.9,
+          "spreadPct": 29.909
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "w2-32-distinct-most-meshes": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 112.2,
+          "min": 90.1,
+          "max": 131.6,
+          "spreadPct": 36.988
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "w4-32-gross": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 136.25,
+          "min": 111.9,
+          "max": 165.9,
+          "spreadPct": 39.633
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 0,
+          "min": 0,
+          "max": 0.1,
+          "spreadPct": 10
+        }
+      },
+      "w5a-walls-axis": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 153.95,
+          "min": 143.1,
+          "max": 169.6,
+          "spreadPct": 17.213
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 22.95,
+          "min": 17,
+          "max": 29.3,
+          "spreadPct": 53.595
+        }
+      },
+      "w5b-walls-free-angle": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 170.3,
+          "min": 136.6,
+          "max": 237.5,
+          "spreadPct": 59.248
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 33.35,
+          "min": 26.9,
+          "max": 40.2,
+          "spreadPct": 39.88
+        }
+      },
+      "w6-roofs-144": {
+        "rebuildMs": {
+          "n": 6,
+          "median": 115.85,
+          "min": 100.9,
+          "max": 146.7,
+          "spreadPct": 39.534
+        },
+        "rebuildWallsMs": {
+          "n": 6,
+          "median": 0,
+          "min": 0,
+          "max": 0.1,
+          "spreadPct": 10
+        }
+      }
+    }
+  },
+  "browserErrors": [],
+  "failedRequests": []
+}

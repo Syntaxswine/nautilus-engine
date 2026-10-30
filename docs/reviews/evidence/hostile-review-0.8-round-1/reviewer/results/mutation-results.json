@@ -1,0 +1,755 @@
+{
+  "generatedAt": "2026-10-30T03:22:16.776Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "treeBefore": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "treeAfter": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "restoredClean": true,
+  "baseline": {
+    "label": "baseline targeted",
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "ms": 1232,
+    "tests": 104,
+    "pass": 104,
+    "fail": 0,
+    "cancelled": 0,
+    "failing": []
+  },
+  "summary": {
+    "total": 27,
+    "killed": 22,
+    "survived": [
+      "W3",
+      "W6",
+      "Q4",
+      "L3",
+      "X1"
+    ]
+  },
+  "results": [
+    {
+      "id": "W1",
+      "file": "packages/world-core/state.js",
+      "claim": "Floor elevations must strictly increase",
+      "needle": "if(floor.elevationM<=previous)fail(",
+      "replace": "if(floor.elevationM<previous)fail(",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 800,
+        "tests": 36,
+        "pass": 35,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "strict floor/height/bounds limits and cross-version/profile rejection never normalize input",
+          "strict floor/height/bounds limits and cross-version/profile rejection never normalize input"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "W2",
+      "file": "packages/world-core/state.js",
+      "claim": "A confirmed support floor must match the supporting top height exactly",
+      "needle": "if(!surface.supports||supportFloor.elevationM!==surface.bounds.max.h)fail(",
+      "replace": "if(!surface.supports)fail(",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 796,
+        "tests": 36,
+        "pass": 34,
+        "fail": 2,
+        "cancelled": 0,
+        "failing": [
+          "strict floor/height/bounds limits and cross-version/profile rejection never normalize input",
+          "missing landings, guessed actor floors and unsupported traversal semantics reject as a whole",
+          "strict floor/height/bounds limits and cross-version/profile rejection never normalize input",
+          "missing landings, guessed actor floors and unsupported traversal semantics reject as a whole"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "W3",
+      "file": "packages/world-core/state.js",
+      "claim": "Same-floor links reject",
+      "needle": "if(link.from.floorId===link.to.floorId)fail('INVALID_TRAVERSAL'",
+      "replace": "if(false)fail('INVALID_TRAVERSAL'",
+      "verdict": "SURVIVED",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 828,
+        "tests": 36,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      },
+      "full": {
+        "label": "full suite",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 45204,
+        "tests": 357,
+        "pass": 357,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      }
+    },
+    {
+      "id": "W4",
+      "file": "packages/world-core/state.js",
+      "claim": "Actor anchors require a supporting landing",
+      "needle": "else if(entity.kind==='actor')fail(",
+      "replace": "else if(false)fail(",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 800,
+        "tests": 36,
+        "pass": 35,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "missing landings, guessed actor floors and unsupported traversal semantics reject as a whole",
+          "missing landings, guessed actor floors and unsupported traversal semantics reject as a whole"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "W5",
+      "file": "packages/world-core/state.js",
+      "claim": "Links add nautilus-world-traversal-links-v1",
+      "needle": "if(state.links.length)ids.push(WORLD_CONTRACT.traversalCapability);",
+      "replace": "",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 789,
+        "tests": 36,
+        "pass": 34,
+        "fail": 2,
+        "cancelled": 0,
+        "failing": [
+          "required schema/height/geometry/placement/traversal capabilities reject legacy and partial consumers before load",
+          "the deployed native fixture is reproducible, validates and preserves every height and global identity",
+          "required schema/height/geometry/placement/traversal capabilities reject legacy and partial consumers before load",
+          "the deployed native fixture is reproducible, validates and preserves every height and global identity"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "W6",
+      "file": "packages/world-core/state.js",
+      "claim": "Landing at exact floor elevation",
+      "needle": "||value.position.h!==floor.elevationM||",
+      "replace": "||",
+      "verdict": "SURVIVED",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 784,
+        "tests": 36,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      },
+      "full": {
+        "label": "full suite",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 45654,
+        "tests": 357,
+        "pass": 357,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      }
+    },
+    {
+      "id": "Q1",
+      "file": "packages/world-core/queries.js",
+      "claim": "requireFloor:true never tunnels to a floor below an unconfirmed support",
+      "needle": "if(requireFloor&&surface?.supportFloorId===null)return null;",
+      "replace": "",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 850,
+        "tests": 36,
+        "pass": 33,
+        "fail": 3,
+        "cancelled": 0,
+        "failing": [
+          "upper support searches use native heights, explicit floor confirmations and independent low roofs",
+          "equal-height support ties select the lexical surface before requiring a confirmed floor",
+          "the real static provider confirms every native support, high impact, closed/open door and roof case",
+          "upper support searches use native heights, explicit floor confirmations and independent low roofs"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "Q2",
+      "file": "packages/world-core/queries.js",
+      "claim": "traceSegment equal-distance ties use lexicographic surface ID",
+      "needle": "hit.fraction===best.fraction&&surface.id<best.surfaceId",
+      "replace": "hit.fraction===best.fraction&&surface.id>best.surfaceId",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 848,
+        "tests": 36,
+        "pass": 35,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "axis-aligned contacts handle tangent/parallel/inside/zero-length segments and deterministic coincident surfaces",
+          "axis-aligned contacts handle tangent/parallel/inside/zero-length segments and deterministic coincident surfaces"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "Q3",
+      "file": "packages/world-core/queries.js",
+      "claim": "Equal-height support ties by ascending surface ID",
+      "needle": ".sort((a,b)=>b.bounds.max.h-a.bounds.max.h||compare(a,b))[0]",
+      "replace": ".sort((a,b)=>b.bounds.max.h-a.bounds.max.h||compare(b,a))[0]",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 931,
+        "tests": 36,
+        "pass": 34,
+        "fail": 2,
+        "cancelled": 0,
+        "failing": [
+          "axis-aligned contacts handle tangent/parallel/inside/zero-length segments and deterministic coincident surfaces",
+          "equal-height support ties select the lexical surface before requiring a confirmed floor",
+          "axis-aligned contacts handle tangent/parallel/inside/zero-length segments and deterministic coincident surfaces",
+          "equal-height support ties select the lexical surface before requiring a confirmed floor"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "Q4",
+      "file": "packages/world-core/queries.js",
+      "claim": "linksFrom respects direction",
+      "needle": ".filter(link=>link.from.floorId===id||link.bidirectional)",
+      "replace": ".filter(link=>true)",
+      "verdict": "SURVIVED",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 1062,
+        "tests": 36,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      },
+      "full": {
+        "label": "full suite",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 78726,
+        "tests": 357,
+        "pass": 357,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      }
+    },
+    {
+      "id": "L1",
+      "file": "packages/runtime-core/lifecycle.js",
+      "claim": "Rollback visits dependent owners before providers",
+      "needle": "for(const item of [...records].reverse()){",
+      "replace": "for(const item of [...records]){",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 859,
+        "tests": 25,
+        "pass": 19,
+        "fail": 6,
+        "cancelled": 0,
+        "failing": [
+          "modular public entries import and work with browser, storage, RNG, ambient clocks and timers sealed",
+          "preparation is dependency-ordered, starts happen afterward and shutdown disposes dependents first",
+          "failed preparation disposes partial resources and already-prepared dependencies without starting them",
+          "failed start stops the partially-started provider and cleans up all prepared handles"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "L2",
+      "file": "packages/runtime-core/lifecycle.js",
+      "claim": "A module whose start threw is still stopped",
+      "needle": "record.startAttempted=true;await record.hooks.start?.call(record.handle,record.context);",
+      "replace": "await record.hooks.start?.call(record.handle,record.context);record.startAttempted=true;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 901,
+        "tests": 25,
+        "pass": 24,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "failed start stops the partially-started provider and cleans up all prepared handles",
+          "failed start stops the partially-started provider and cleans up all prepared handles"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "L3",
+      "file": "packages/runtime-core/lifecycle.js",
+      "claim": "Undeclared service exports reject",
+      "needle": "for(const key of Object.keys(provided))if(!allowed.has(key))throw new TypeError('Undeclared service export: '+key);",
+      "replace": "",
+      "verdict": "SURVIVED",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 940,
+        "tests": 25,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      },
+      "full": {
+        "label": "full suite",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 132764,
+        "tests": 357,
+        "pass": 357,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      }
+    },
+    {
+      "id": "L4",
+      "file": "packages/runtime-core/lifecycle.js",
+      "claim": "stop() is idempotent (one cleanup)",
+      "needle": "if(!stopPromise){state=",
+      "replace": "if(true){state=",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 203362,
+        "tests": 4,
+        "pass": 2,
+        "fail": 2,
+        "cancelled": 0,
+        "failing": [
+          "modular public entries import and work with browser, storage, RNG, ambient clocks and timers sealed",
+          "modular public entries import and work with browser, storage, RNG, ambient clocks and timers sealed"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "F1",
+      "file": "packages/floor-navigation/index.js",
+      "claim": "One continuous wheel gesture produces at most one step",
+      "needle": "latched=true;return total<0?1:-1;",
+      "replace": "return total<0?1:-1;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 4168,
+        "tests": 17,
+        "pass": 14,
+        "fail": 3,
+        "cancelled": 0,
+        "failing": [
+          "wheel normalizes lines/pages and latches the whole gesture including inertia",
+          "a long continuous wheel burst stays latched until the adjacent gap reaches 180 ms",
+          "separately awaited native calls can span several gestures according to their delivered times",
+          "wheel normalizes lines/pages and latches the whole gesture including inertia"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "F2",
+      "file": "packages/floor-navigation/index.js",
+      "claim": "180 ms idle boundary starts a new gesture",
+      "needle": "if(time-previous>=idleMs){total=0;latched=false;}",
+      "replace": "if(time-previous>idleMs){total=0;latched=false;}",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 1270,
+        "tests": 17,
+        "pass": 16,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "a long continuous wheel burst stays latched until the adjacent gap reaches 180 ms",
+          "a long continuous wheel burst stays latched until the adjacent gap reaches 180 ms"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "F3",
+      "file": "packages/floor-navigation/index.js",
+      "claim": "Floor change cancels the legacy editor preview",
+      "needle": "if(cancelPreview(event)===false||onFloorChange(event)===false)return false;",
+      "replace": "if(onFloorChange(event)===false)return false;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 975,
+        "tests": 17,
+        "pass": 15,
+        "fail": 2,
+        "cancelled": 0,
+        "failing": [
+          "cancel precedes host working-plane change and selection has no edit command",
+          "host veto or error leaves selection intact; host callbacks cannot reenter",
+          "cancel precedes host working-plane change and selection has no edit command",
+          "host veto or error leaves selection intact; host callbacks cannot reenter"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "F4",
+      "file": "packages/floor-navigation/index.js",
+      "claim": "Five visible labels at the top of the tower",
+      "needle": "const start=Math.max(0,Math.min(index-2,floors.length-5));",
+      "replace": "const start=Math.max(0,index-2);",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 790,
+        "tests": 17,
+        "pass": 16,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "five-label window follows real IDs through 9 to 10, 15 and both ends",
+          "five-label window follows real IDs through 9 to 10, 15 and both ends"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "F5",
+      "file": "packages/floor-navigation/index.js",
+      "claim": "Key auto-repeat does not step floors",
+      "needle": "if(repeat||defaultPrevented||composing||modified||blocked)return 0;",
+      "replace": "if(defaultPrevented||composing||modified||blocked)return 0;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 822,
+        "tests": 17,
+        "pass": 16,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "Page keys respect repeat, edits, modal/menu focus, composing and modifiers",
+          "Page keys respect repeat, edits, modal/menu focus, composing and modifiers"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "P1",
+      "file": "packages/rules-core/progression.js",
+      "claim": "15 assignable stat points per level",
+      "needle": "pointsPerLevel:15,",
+      "replace": "pointsPerLevel:14,",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 711,
+        "tests": 16,
+        "pass": 7,
+        "fail": 9,
+        "cancelled": 0,
+        "failing": [
+          "basic cumulative XP boundaries, overflow and multi-level rewards award exactly 15 points per level",
+          "allocation preview is pure, whole allocation is atomic and committed growth retains trainCharacter/resource behavior",
+          "golden bundles restore exact injury, spent resources, points, receipts and every practice remainder",
+          "journal replay rejects tampered XP/level/point/stat/practice/reward accounting and missing/future state"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "P2",
+      "file": "packages/rules-core/progression.js",
+      "claim": "Increasing XP requirement: 100 x level",
+      "needle": "xpPerLevelFactor:100,",
+      "replace": "xpPerLevelFactor:101,",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 911,
+        "tests": 16,
+        "pass": 15,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "basic cumulative XP boundaries, overflow and multi-level rewards award exactly 15 points per level",
+          "basic cumulative XP boundaries, overflow and multi-level rewards award exactly 15 points per level"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "P3",
+      "file": "packages/rules-core/progression.js",
+      "claim": "Slower practice: base threshold 1000",
+      "needle": "practiceThresholdBase:1000,",
+      "replace": "practiceThresholdBase:999,",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 1041,
+        "tests": 16,
+        "pass": 12,
+        "fail": 4,
+        "cancelled": 0,
+        "failing": [
+          "practice remainders persist, grow slowly, never mint XP/points, and discard excess at stat 100",
+          "golden bundles restore exact injury, spent resources, points, receipts and every practice remainder",
+          "journal replay rejects tampered XP/level/point/stat/practice/reward accounting and missing/future state",
+          "useful running/explicit weapon shots/bandaging have isolated remainders and progressively harder thresholds"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "R1",
+      "file": "packages/items-core/noise.js",
+      "claim": "Combat/confirmed/incapacitated guards keep priority",
+      "needle": "if(heard&&!protectedBehavior)requests.push(",
+      "replace": "if(heard)requests.push(",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 612,
+        "tests": 16,
+        "pass": 15,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "combat, confirmed-threat and incapacitated guards never abandon their higher-priority behavior",
+          "combat, confirmed-threat and incapacitated guards never abandon their higher-priority behavior"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "R2",
+      "file": "packages/items-core/noise.js",
+      "claim": "Incapacitated listeners are protected",
+      "needle": "listener.confirmedThreat||listener.incapacitated;",
+      "replace": "listener.confirmedThreat;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 490,
+        "tests": 16,
+        "pass": 15,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "combat, confirmed-threat and incapacitated guards never abandon their higher-priority behavior",
+          "combat, confirmed-threat and incapacitated guards never abandon their higher-priority behavior"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "R3",
+      "file": "packages/items-core/noise.js",
+      "claim": "A listener exactly at the radius hears",
+      "needle": "listener.permitted&&range<=noise.radius+1e-9;",
+      "replace": "listener.permitted&&range<noise.radius-1e-9;",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 427,
+        "tests": 16,
+        "pass": 15,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "hearing uses finite native 3D distance and explicit host hearing/audibility/eligibility",
+          "hearing uses finite native 3D distance and explicit host hearing/audibility/eligibility"
+        ]
+      },
+      "full": null
+    },
+    {
+      "id": "X1",
+      "file": "apps/editor/extended-world-document.js",
+      "claim": "History entries are bounded by maxHistoryEntries",
+      "needle": "past.length+future.length>maxHistoryEntries||",
+      "replace": "past.length+future.length>maxHistoryEntries+1||",
+      "verdict": "SURVIVED",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 687,
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      },
+      "full": {
+        "label": "full suite",
+        "exitCode": 0,
+        "signal": null,
+        "timedOut": false,
+        "ms": 203782,
+        "tests": 357,
+        "pass": 357,
+        "fail": 0,
+        "cancelled": 0,
+        "failing": []
+      }
+    },
+    {
+      "id": "X2",
+      "file": "apps/editor/extended-world-document.js",
+      "claim": "The oldest undo is evicted first",
+      "needle": "if(past.length)past.shift();else future.shift();",
+      "replace": "if(past.length)past.pop();else future.shift();",
+      "verdict": "killed",
+      "targeted": {
+        "label": "targeted",
+        "exitCode": 1,
+        "signal": null,
+        "timedOut": false,
+        "ms": 2349,
+        "tests": 7,
+        "pass": 6,
+        "fail": 1,
+        "cancelled": 0,
+        "failing": [
+          "asymmetric undo/redo evicts oldest undo then farthest redo while retaining the nearest usable snapshots",
+          "asymmetric undo/redo evicts oldest undo then farthest redo while retaining the nearest usable snapshots"
+        ]
+      },
+      "full": null
+    }
+  ]
+}

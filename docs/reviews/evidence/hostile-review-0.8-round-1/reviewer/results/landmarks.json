@@ -1,0 +1,864 @@
+{
+  "generatedAt": "2026-10-30T03:02:19.498Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "method": "Closure copied from Tinderbox Git objects (git show) into artifacts/r08-1/donor/; built in Node with the Nautilus-vendored three r180 and default (unbound) appearance slots. No DOM/WebGL: draw calls are a per-node estimate (validated for Nautilus paths in the browser census).",
+  "nautilusMainWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+  "landmarks": [
+    {
+      "landmark": "createAdministrationBuilding",
+      "entry": "assets/art/exposition-administration/index.js",
+      "commit": "43337a33ddfe4dff6849654c827c56e1f24e1acc",
+      "branch": "codex/administration-building-art",
+      "closure": {
+        "files": 7,
+        "bytes": 56856,
+        "manifest": [
+          {
+            "file": "assets/art/exposition-administration/index.js",
+            "blob": "5f365f963c34b5b8af81ac22d60c8b11533cb6bf",
+            "bytes": 23952,
+            "sha256": "01da1b727f9444f4421639a9fa756086c9741e18b3ef8fdefde0efd72b523e2a"
+          },
+          {
+            "file": "assets/art/exposition-new-york/forms.js",
+            "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+            "bytes": 10542,
+            "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+          },
+          {
+            "file": "assets/art/exposition-administration/engine.js",
+            "blob": "357e626ccaab4df4c03f931f600138ed73b24581",
+            "bytes": 2487,
+            "sha256": "9ec987a5acf5b580f89f7a4722ead5a3fa2930ab647e45ce71517142146b5743"
+          },
+          {
+            "file": "assets/art/exposition-administration/plan.js",
+            "blob": "d4a9dd673abf1be6adb5911d37646938ea0984f8",
+            "bytes": 6651,
+            "sha256": "363b1fb4396cb549df1d4ce9b09325bd3c405db05b09df239e4794476ec04cac"
+          },
+          {
+            "file": "assets/art/exposition-administration/stairs.js",
+            "blob": "76a41fbd0f539b8dd897ab44c2ca07cdab223a4f",
+            "bytes": 2012,
+            "sha256": "0c816cd152b814a0c3bfb453e6f42102e9331f084f8504e848b47dcb3915f707"
+          },
+          {
+            "file": "assets/art/exposition-administration/floors.js",
+            "blob": "7a231f97813be460e0cff83124927dddcd1c1a25",
+            "bytes": 2417,
+            "sha256": "4f6a61e0e559a3ae875cd3612cbffa9a8c7a56170ac602560a579a51dfa28ee5"
+          },
+          {
+            "file": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+            "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+            "bytes": 8795,
+            "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+          }
+        ]
+      },
+      "nautilusWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sameBlobAsNautilusMain": true,
+      "census": {
+        "meshNodes": 412,
+        "instancedMeshBatches": 229,
+        "singletonMeshes": 183,
+        "drawnInstances": 36397,
+        "triangles": 614274,
+        "uniqueGeometries": 411,
+        "uniqueMaterials": 9,
+        "castShadowNodes": 382,
+        "transparentNodes": 0,
+        "appearanceSlotNodes": {
+          "trim": 228,
+          "dome": 6,
+          "door": 33,
+          "roof": 7,
+          "facade": 123,
+          "interior": 3,
+          "floor": 1,
+          "glazing": 4,
+          "shadow": 7
+        },
+        "drawCallsPerPassEstimate": 412,
+        "note": "Every node is a single-material Mesh or InstancedMesh: one draw call per visible node per pass; all cast shadows, so the sun shadow pass repeats them."
+      },
+      "diagnosticsKeys": [
+        "disposed",
+        "meshes",
+        "triangles",
+        "sourceParts",
+        "instanceBatches",
+        "geometries",
+        "materials",
+        "ownedTextures",
+        "borrowedTextureCount",
+        "enginePanels",
+        "nativeWalls",
+        "nativeDoors",
+        "components",
+        "floorTiles",
+        "wallPieces",
+        "levelClosures",
+        "quarterTurns"
+      ],
+      "diagnostics": {
+        "disposed": false,
+        "meshes": 412,
+        "triangles": 614274,
+        "sourceParts": 37867,
+        "instanceBatches": 229,
+        "geometries": 411,
+        "materials": 10,
+        "ownedTextures": 0,
+        "borrowedTextureCount": 0,
+        "enginePanels": 7968,
+        "nativeWalls": 5645,
+        "nativeDoors": 8,
+        "components": 38296,
+        "floorTiles": 20441,
+        "wallPieces": 5912,
+        "levelClosures": 5848,
+        "quarterTurns": 0
+      },
+      "buildMs": {
+        "first": 3449,
+        "repeated": {
+          "n": 7,
+          "median": 3840.381,
+          "min": 3628.161,
+          "max": 4600.133,
+          "spreadPct": 25.309
+        }
+      },
+      "nautilusShare": {
+        "exactCallsInWallRuns": 1542,
+        "exactCallsTotalInstrumented": 14363986,
+        "callShareCompiledJsPct": 0.01,
+        "sampledTimeInWallRunsPct": 0.03,
+        "sampledMs": 25964,
+        "topFilesByTimePct": [
+          {
+            "file": "exposition-new-york/forms.js",
+            "pct": 58
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 20.6
+          },
+          {
+            "file": "exposition-administration/index.js",
+            "pct": 5.8
+          },
+          {
+            "file": "node:inspector",
+            "pct": 5.4
+          },
+          {
+            "file": "exposition-administration/floors.js",
+            "pct": 5.2
+          },
+          {
+            "file": "(native)",
+            "pct": 3.9
+          },
+          {
+            "file": "r08-1/landmarks.mjs",
+            "pct": 0.8
+          },
+          {
+            "file": "exposition-administration/plan.js",
+            "pct": 0.1
+          }
+        ]
+      }
+    },
+    {
+      "landmark": "createHorticulturalBuilding",
+      "entry": "assets/art/exposition-horticulture/index.js",
+      "commit": "988b4aca32343c9f2e566db74bb018c705820742",
+      "branch": "codex/landmark-interiors-art",
+      "closure": {
+        "files": 6,
+        "bytes": 57719,
+        "manifest": [
+          {
+            "file": "assets/art/exposition-horticulture/index.js",
+            "blob": "13a4f8d1e16314e656a807ae05bdd4756ccbdf60",
+            "bytes": 26733,
+            "sha256": "49ccfada5562819a6fa9eb0d5aa250a32a45b6559588614b1388bfe380e52ac2"
+          },
+          {
+            "file": "assets/art/exposition-new-york/forms.js",
+            "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+            "bytes": 10542,
+            "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/plan.js",
+            "blob": "491f866088d472ac6cd81b323f25be7e484acbdf",
+            "bytes": 6910,
+            "sha256": "656f6aed5dce93a4a2b7dc970f4c3510d698d36d95b8d326f5c396dd5468dbe0"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/engine.js",
+            "blob": "b70e14f02735d6b197da9ea942f3c7374cbea97a",
+            "bytes": 2223,
+            "sha256": "f9824878e0484622fa902c7b729a23d7ab3cc3c69082f8879499037dba60e958"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/floors.js",
+            "blob": "e7b93fda7809f3e9147334b21d663ce87cc9bde6",
+            "bytes": 2516,
+            "sha256": "ec491447d9f387dcbf4fd62cc3993af4fd19292f27936a2b7932ca6277ae8598"
+          },
+          {
+            "file": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+            "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+            "bytes": 8795,
+            "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+          }
+        ]
+      },
+      "nautilusWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sameBlobAsNautilusMain": true,
+      "census": {
+        "meshNodes": 504,
+        "instancedMeshBatches": 173,
+        "singletonMeshes": 331,
+        "drawnInstances": 46285,
+        "triangles": 971732,
+        "uniqueGeometries": 503,
+        "uniqueMaterials": 13,
+        "castShadowNodes": 487,
+        "transparentNodes": 13,
+        "appearanceSlotNodes": {
+          "glazing": 13,
+          "trim": 282,
+          "frame": 149,
+          "facade": 32,
+          "roof": 2,
+          "trunk": 7,
+          "floor": 2,
+          "door": 7,
+          "cupola": 1,
+          "soil": 2,
+          "foliage": 4,
+          "fruit": 2,
+          "water": 1
+        },
+        "drawCallsPerPassEstimate": 504,
+        "note": "Every node is a single-material Mesh or InstancedMesh: one draw call per visible node per pass; all cast shadows, so the sun shadow pass repeats them."
+      },
+      "diagnosticsKeys": [
+        "disposed",
+        "meshes",
+        "triangles",
+        "sourceParts",
+        "instanceBatches",
+        "geometries",
+        "materials",
+        "ownedTextures",
+        "enginePanels",
+        "nativeWalls",
+        "nativeDoors",
+        "floorTiles",
+        "wallPieces",
+        "closures",
+        "plants"
+      ],
+      "diagnostics": {
+        "disposed": false,
+        "meshes": 504,
+        "triangles": 971732,
+        "sourceParts": 48484,
+        "instanceBatches": 173,
+        "geometries": 503,
+        "materials": 13,
+        "ownedTextures": 0,
+        "enginePanels": 6076,
+        "nativeWalls": 4464,
+        "nativeDoors": 2,
+        "floorTiles": 29957,
+        "wallPieces": 5976,
+        "closures": 5240,
+        "plants": 22
+      },
+      "buildMs": {
+        "first": 4206,
+        "repeated": {
+          "n": 7,
+          "median": 4340.073,
+          "min": 4156.246,
+          "max": 5140.023,
+          "spreadPct": 22.667
+        }
+      },
+      "nautilusShare": {
+        "exactCallsInWallRuns": 959,
+        "exactCallsTotalInstrumented": 23563542,
+        "callShareCompiledJsPct": 0,
+        "sampledTimeInWallRunsPct": 0.04,
+        "sampledMs": 23187,
+        "topFilesByTimePct": [
+          {
+            "file": "exposition-new-york/forms.js",
+            "pct": 49.8
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 28.2
+          },
+          {
+            "file": "exposition-horticulture/index.js",
+            "pct": 7.6
+          },
+          {
+            "file": "exposition-horticulture/floors.js",
+            "pct": 7.3
+          },
+          {
+            "file": "(native)",
+            "pct": 3.3
+          },
+          {
+            "file": "node:inspector",
+            "pct": 2.5
+          },
+          {
+            "file": "r08-1/landmarks.mjs",
+            "pct": 1.1
+          },
+          {
+            "file": "exposition-horticulture/plan.js",
+            "pct": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "landmark": "createFisheriesBuilding",
+      "entry": "assets/art/exposition-fisheries/index.js",
+      "commit": "f75499a3ef60d6446a3885d0eb5c21882f27466b",
+      "branch": "codex/fisheries-building-art",
+      "closure": {
+        "files": 7,
+        "bytes": 63293,
+        "manifest": [
+          {
+            "file": "assets/art/exposition-fisheries/index.js",
+            "blob": "c9dc8a6860691874d5ab0c9277efe6e79c0affb5",
+            "bytes": 29566,
+            "sha256": "7f00fa99e4454389fa0ec31acc3e9b49ab98f7d41fb1a39bdc7e885b2c33b59b"
+          },
+          {
+            "file": "assets/art/exposition-new-york/forms.js",
+            "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+            "bytes": 10542,
+            "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+          },
+          {
+            "file": "assets/art/exposition-fisheries/plan.js",
+            "blob": "baea7daf69eb1173abb9e4a4d259342a6a5c18a1",
+            "bytes": 9155,
+            "sha256": "d330b3cceb293fc99058c664b730d21507a6ec99b93485d06fc8c0b1bce64e56"
+          },
+          {
+            "file": "assets/art/exposition-fisheries/engine.js",
+            "blob": "f3d09ad66d15faa4878ac116514a2e503a2f6290",
+            "bytes": 2220,
+            "sha256": "abad298b3839d80047895f9c8f8298127010d81592423925e9551c8bc139c1c5"
+          },
+          {
+            "file": "assets/art/exposition-fisheries/floors.js",
+            "blob": "c70b36f0cdf545cbc3cff642788f81b599294685",
+            "bytes": 2680,
+            "sha256": "5cd171717b2be90b8ebfd6907a5f151c17c6878d616e98048be83ccb1f84f957"
+          },
+          {
+            "file": "assets/art/exposition-fisheries/palette.js",
+            "blob": "2bddb529e756a7c1edd3cb5bffb0b3a79236ba4c",
+            "bytes": 335,
+            "sha256": "2d30b2dba00305851d86d7c64cb80dc330e6eb8b2713bd98f7894230ba91a466"
+          },
+          {
+            "file": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+            "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+            "bytes": 8795,
+            "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+          }
+        ]
+      },
+      "nautilusWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sameBlobAsNautilusMain": true,
+      "census": {
+        "meshNodes": 1166,
+        "instancedMeshBatches": 689,
+        "singletonMeshes": 477,
+        "drawnInstances": 35242,
+        "triangles": 1078034,
+        "uniqueGeometries": 1144,
+        "uniqueMaterials": 14,
+        "castShadowNodes": 1148,
+        "transparentNodes": 11,
+        "appearanceSlotNodes": {
+          "door": 18,
+          "iron": 18,
+          "trim": 161,
+          "roofShadow": 208,
+          "roof": 208,
+          "floor": 7,
+          "water": 3,
+          "rock": 11,
+          "facade": 508,
+          "glazing": 11,
+          "frame": 6,
+          "foliage": 4,
+          "fish": 1,
+          "exhibit": 2
+        },
+        "drawCallsPerPassEstimate": 1166,
+        "note": "Every node is a single-material Mesh or InstancedMesh: one draw call per visible node per pass; all cast shadows, so the sun shadow pass repeats them."
+      },
+      "diagnosticsKeys": [
+        "disposed",
+        "meshes",
+        "triangles",
+        "sourceParts",
+        "instanceBatches",
+        "geometries",
+        "materials",
+        "enginePanels",
+        "nativeWalls",
+        "nativeDoors",
+        "floorTiles",
+        "wallPieces",
+        "closures",
+        "roofTiles",
+        "portals",
+        "occupiedLevels"
+      ],
+      "diagnostics": {
+        "disposed": false,
+        "meshes": 1166,
+        "triangles": 1078034,
+        "sourceParts": 37065,
+        "instanceBatches": 689,
+        "geometries": 1144,
+        "materials": 14,
+        "enginePanels": 5228,
+        "nativeWalls": 3612,
+        "nativeDoors": 8,
+        "floorTiles": 12545,
+        "wallPieces": 5528,
+        "closures": 4476,
+        "roofTiles": 57855,
+        "portals": 4,
+        "occupiedLevels": [
+          1,
+          3
+        ]
+      },
+      "buildMs": {
+        "first": 4198,
+        "repeated": {
+          "n": 7,
+          "median": 4459.67,
+          "min": 4059.62,
+          "max": 8350.125,
+          "spreadPct": 96.207
+        }
+      },
+      "nautilusShare": {
+        "exactCallsInWallRuns": 2185,
+        "exactCallsTotalInstrumented": 91986583,
+        "callShareCompiledJsPct": 0,
+        "sampledTimeInWallRunsPct": 0.01,
+        "sampledMs": 22139,
+        "topFilesByTimePct": [
+          {
+            "file": "exposition-new-york/forms.js",
+            "pct": 34.8
+          },
+          {
+            "file": "exposition-fisheries/index.js",
+            "pct": 19.4
+          },
+          {
+            "file": "exposition-fisheries/floors.js",
+            "pct": 19.3
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 15.9
+          },
+          {
+            "file": "(native)",
+            "pct": 7.6
+          },
+          {
+            "file": "node:inspector",
+            "pct": 2
+          },
+          {
+            "file": "r08-1/landmarks.mjs",
+            "pct": 0.8
+          },
+          {
+            "file": "exposition-fisheries/engine.js",
+            "pct": 0
+          }
+        ]
+      }
+    },
+    {
+      "landmark": "createHorticulturalBuilding",
+      "entry": "assets/art/exposition-horticulture/index.js",
+      "commit": "a019fcf7254cebe24002441d7c7fdf77d6fc9812",
+      "branch": "codex/horticultural-building-art",
+      "closure": {
+        "files": 7,
+        "bytes": 58500,
+        "manifest": [
+          {
+            "file": "assets/art/exposition-horticulture/index.js",
+            "blob": "504bc23f0e303a81652618b7572ef96c331ffef6",
+            "bytes": 26890,
+            "sha256": "b65b759fa513b6fa3e78f55fd56591e9aa18bf2d9303db977897b0116ed75336"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/palette.js",
+            "blob": "6cd0b38e9e1e3d02103627a0b220625a3e78e12b",
+            "bytes": 624,
+            "sha256": "f2d2df4b0f772c2512d654873ecdf31e040f174357ced5071d0c51fc02b29b2d"
+          },
+          {
+            "file": "assets/art/exposition-new-york/forms.js",
+            "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+            "bytes": 10542,
+            "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/plan.js",
+            "blob": "491f866088d472ac6cd81b323f25be7e484acbdf",
+            "bytes": 6910,
+            "sha256": "656f6aed5dce93a4a2b7dc970f4c3510d698d36d95b8d326f5c396dd5468dbe0"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/engine.js",
+            "blob": "b70e14f02735d6b197da9ea942f3c7374cbea97a",
+            "bytes": 2223,
+            "sha256": "f9824878e0484622fa902c7b729a23d7ab3cc3c69082f8879499037dba60e958"
+          },
+          {
+            "file": "assets/art/exposition-horticulture/floors.js",
+            "blob": "e7b93fda7809f3e9147334b21d663ce87cc9bde6",
+            "bytes": 2516,
+            "sha256": "ec491447d9f387dcbf4fd62cc3993af4fd19292f27936a2b7932ca6277ae8598"
+          },
+          {
+            "file": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+            "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+            "bytes": 8795,
+            "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+          }
+        ]
+      },
+      "nautilusWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sameBlobAsNautilusMain": true,
+      "census": {
+        "meshNodes": 504,
+        "instancedMeshBatches": 173,
+        "singletonMeshes": 331,
+        "drawnInstances": 46285,
+        "triangles": 971732,
+        "uniqueGeometries": 503,
+        "uniqueMaterials": 13,
+        "castShadowNodes": 487,
+        "transparentNodes": 13,
+        "appearanceSlotNodes": {
+          "glazing": 13,
+          "trim": 282,
+          "frame": 149,
+          "facade": 32,
+          "roof": 2,
+          "trunk": 7,
+          "floor": 2,
+          "door": 7,
+          "cupola": 1,
+          "soil": 2,
+          "foliage": 4,
+          "fruit": 2,
+          "water": 1
+        },
+        "drawCallsPerPassEstimate": 504,
+        "note": "Every node is a single-material Mesh or InstancedMesh: one draw call per visible node per pass; all cast shadows, so the sun shadow pass repeats them."
+      },
+      "diagnosticsKeys": [
+        "disposed",
+        "meshes",
+        "triangles",
+        "sourceParts",
+        "instanceBatches",
+        "geometries",
+        "materials",
+        "ownedTextures",
+        "enginePanels",
+        "nativeWalls",
+        "nativeDoors",
+        "floorTiles",
+        "wallPieces",
+        "closures",
+        "plants"
+      ],
+      "diagnostics": {
+        "disposed": false,
+        "meshes": 504,
+        "triangles": 971732,
+        "sourceParts": 48484,
+        "instanceBatches": 173,
+        "geometries": 503,
+        "materials": 13,
+        "ownedTextures": 0,
+        "enginePanels": 6076,
+        "nativeWalls": 4464,
+        "nativeDoors": 2,
+        "floorTiles": 29957,
+        "wallPieces": 5976,
+        "closures": 5240,
+        "plants": 22
+      },
+      "buildMs": {
+        "first": 4525,
+        "repeated": {
+          "n": 7,
+          "median": 6387.495,
+          "min": 4154.191,
+          "max": 7798.359,
+          "spreadPct": 57.052
+        }
+      },
+      "nautilusShare": {
+        "exactCallsInWallRuns": 959,
+        "exactCallsTotalInstrumented": 23563558,
+        "callShareCompiledJsPct": 0,
+        "sampledTimeInWallRunsPct": 0.03,
+        "sampledMs": 20833,
+        "topFilesByTimePct": [
+          {
+            "file": "exposition-new-york/forms.js",
+            "pct": 49.1
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 26.7
+          },
+          {
+            "file": "exposition-horticulture/index.js",
+            "pct": 7.5
+          },
+          {
+            "file": "exposition-horticulture/floors.js",
+            "pct": 6.7
+          },
+          {
+            "file": "node:inspector",
+            "pct": 4.2
+          },
+          {
+            "file": "(native)",
+            "pct": 4.1
+          },
+          {
+            "file": "r08-1/landmarks.mjs",
+            "pct": 1.4
+          },
+          {
+            "file": "exposition-horticulture/plan.js",
+            "pct": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "landmark": "createAdministrationBuilding",
+      "entry": "assets/art/exposition-administration/index.js",
+      "commit": "988b4aca32343c9f2e566db74bb018c705820742",
+      "branch": "codex/landmark-interiors-art",
+      "closure": {
+        "files": 7,
+        "bytes": 56856,
+        "manifest": [
+          {
+            "file": "assets/art/exposition-administration/index.js",
+            "blob": "5f365f963c34b5b8af81ac22d60c8b11533cb6bf",
+            "bytes": 23952,
+            "sha256": "01da1b727f9444f4421639a9fa756086c9741e18b3ef8fdefde0efd72b523e2a"
+          },
+          {
+            "file": "assets/art/exposition-new-york/forms.js",
+            "blob": "a4589d2a783ec2b53f04f8d54d18c7797596f0cd",
+            "bytes": 10542,
+            "sha256": "c7f17c1e5e281de549975422911d30f9f5792ef0cb86de3495b0173ca4f15084"
+          },
+          {
+            "file": "assets/art/exposition-administration/engine.js",
+            "blob": "357e626ccaab4df4c03f931f600138ed73b24581",
+            "bytes": 2487,
+            "sha256": "9ec987a5acf5b580f89f7a4722ead5a3fa2930ab647e45ce71517142146b5743"
+          },
+          {
+            "file": "assets/art/exposition-administration/plan.js",
+            "blob": "d4a9dd673abf1be6adb5911d37646938ea0984f8",
+            "bytes": 6651,
+            "sha256": "363b1fb4396cb549df1d4ce9b09325bd3c405db05b09df239e4794476ec04cac"
+          },
+          {
+            "file": "assets/art/exposition-administration/stairs.js",
+            "blob": "76a41fbd0f539b8dd897ab44c2ca07cdab223a4f",
+            "bytes": 2012,
+            "sha256": "0c816cd152b814a0c3bfb453e6f42102e9331f084f8504e848b47dcb3915f707"
+          },
+          {
+            "file": "assets/art/exposition-administration/floors.js",
+            "blob": "7a231f97813be460e0cff83124927dddcd1c1a25",
+            "bytes": 2417,
+            "sha256": "4f6a61e0e559a3ae875cd3612cbffa9a8c7a56170ac602560a579a51dfa28ee5"
+          },
+          {
+            "file": "vendor/nautilus-engine/90054d07134116a5d9661f8318a76fe68f922aad/packages/map-core/wall-runs.js",
+            "blob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+            "bytes": 8795,
+            "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+          }
+        ]
+      },
+      "nautilusWallRunsBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sameBlobAsNautilusMain": true,
+      "census": {
+        "meshNodes": 412,
+        "instancedMeshBatches": 229,
+        "singletonMeshes": 183,
+        "drawnInstances": 36397,
+        "triangles": 614274,
+        "uniqueGeometries": 411,
+        "uniqueMaterials": 9,
+        "castShadowNodes": 382,
+        "transparentNodes": 0,
+        "appearanceSlotNodes": {
+          "trim": 228,
+          "dome": 6,
+          "door": 33,
+          "roof": 7,
+          "facade": 123,
+          "interior": 3,
+          "floor": 1,
+          "glazing": 4,
+          "shadow": 7
+        },
+        "drawCallsPerPassEstimate": 412,
+        "note": "Every node is a single-material Mesh or InstancedMesh: one draw call per visible node per pass; all cast shadows, so the sun shadow pass repeats them."
+      },
+      "diagnosticsKeys": [
+        "disposed",
+        "meshes",
+        "triangles",
+        "sourceParts",
+        "instanceBatches",
+        "geometries",
+        "materials",
+        "ownedTextures",
+        "borrowedTextureCount",
+        "enginePanels",
+        "nativeWalls",
+        "nativeDoors",
+        "components",
+        "floorTiles",
+        "wallPieces",
+        "levelClosures",
+        "quarterTurns"
+      ],
+      "diagnostics": {
+        "disposed": false,
+        "meshes": 412,
+        "triangles": 614274,
+        "sourceParts": 37867,
+        "instanceBatches": 229,
+        "geometries": 411,
+        "materials": 10,
+        "ownedTextures": 0,
+        "borrowedTextureCount": 0,
+        "enginePanels": 7968,
+        "nativeWalls": 5645,
+        "nativeDoors": 8,
+        "components": 38296,
+        "floorTiles": 20441,
+        "wallPieces": 5912,
+        "levelClosures": 5848,
+        "quarterTurns": 0
+      },
+      "buildMs": {
+        "first": 3815,
+        "repeated": {
+          "n": 7,
+          "median": 5108.194,
+          "min": 2866.797,
+          "max": 6394.035,
+          "spreadPct": 69.051
+        }
+      },
+      "nautilusShare": {
+        "exactCallsInWallRuns": 1542,
+        "exactCallsTotalInstrumented": 14363987,
+        "callShareCompiledJsPct": 0.01,
+        "sampledTimeInWallRunsPct": 0.01,
+        "sampledMs": 23379,
+        "topFilesByTimePct": [
+          {
+            "file": "exposition-new-york/forms.js",
+            "pct": 66.5
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 19.3
+          },
+          {
+            "file": "exposition-administration/index.js",
+            "pct": 5.3
+          },
+          {
+            "file": "exposition-administration/floors.js",
+            "pct": 4
+          },
+          {
+            "file": "(native)",
+            "pct": 2.5
+          },
+          {
+            "file": "node:inspector",
+            "pct": 1.5
+          },
+          {
+            "file": "r08-1/landmarks.mjs",
+            "pct": 0.8
+          },
+          {
+            "file": "exposition-administration/plan.js",
+            "pct": 0.2
+          }
+        ]
+      }
+    }
+  ]
+}
