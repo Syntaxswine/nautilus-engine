@@ -1,9 +1,11 @@
 // Massive-structure workload maps for the asset-rendering benchmark's editor
 // mode. The nine definitions are round 1's (docs/reviews/2026-10-29-hostile-
-// review-0.8-round-1.md, census workloads w0-w7) so results stay comparable.
-// Every map is built through the public headless APIs and opened by
+// review-0.8-round-1.md, census workloads w0-w7) so results stay comparable;
+// round 3's five lamp-lit maps (lN-*-lamps, each with its blank lN-blank) light
+// five of them with the fires its review placed. Every map is built through the
+// public headless APIs and opened by
 // openDocument(); a workload that cannot be built throws rather than shrinking.
-//   node tools/bench/workloads.mjs [--tree <engine tree>] [--out <dir>]
+//   node tools/bench/workloads.mjs [--tree <engine tree>] [--out <dir>] [--quiet]
 // buildWorkloads() returns the same maps in memory (the draw-count gate reads them).
 import fs from 'node:fs';
 import path from 'node:path';
@@ -53,7 +55,7 @@ export async function buildWorkloads({tree = here} = {}) {
     // openDocument mints random character ids for starts; fix them so the files are reproducible.
     let n = 0; const json = core.openDocument(map).export().replace(/"char_[0-9a-f-]{36}"/g, () => '"char_bench-' + String(n++).padStart(4, '0') + '"');
     const parsed = JSON.parse(json);
-    workloads.push({id, description, json, buildings: parsed.buildingPrefabs?.instances.length || 0, distinct: new Set(parsed.buildingPrefabs?.instances.map(i => i.asset) || []).size, wallRuns: parsed.wallRuns?.segments.length || 0, roofs: parsed.slopedRoofs?.roofs.length || 0});
+    workloads.push({id, description, json, buildings: parsed.buildingPrefabs?.instances.length || 0, distinct: new Set(parsed.buildingPrefabs?.instances.map(i => i.asset) || []).size, wallRuns: parsed.wallRuns?.segments.length || 0, roofs: parsed.slopedRoofs?.roofs.length || 0, lamps: parsed.props?.length || 0});
   }
 
   save('w0-blank', 'Blank 240 m map: the inherited scene alone', base('Blank'));
@@ -93,6 +95,35 @@ export async function buildWorkloads({tree = here} = {}) {
     save('w6-roofs-144', '144 procedural sloped roofs (12 x 12)', map);
   }
   save('w7-mixed-13-gross-19-largest', 'All 13 Gross designs plus the 19 largest originals', pack('Mixed massive', [...byTriangles.slice(0, 19).map(d => d.id), ...gross]));
+  // Lamp-lit districts (round 3's MF-B and its maps): six always-lit fires, each a point
+  // light with shadows (six cube faces, 30 m range), on the free tiles nearest six points
+  // in the district's lanes (outside every lot and its clearance, plus one tile). Each
+  // lamp-lit map has the blank map with the same lamps beside it (lN-blank): its null
+  // control and isolation reference (the benchmark pairs a map with the blank map whose
+  // props it shares).
+  const blankMap = JSON.parse(workloads.find(w => w.id === 'w0-blank').json), blanksByLamps = new Map();
+  for (const id of ['w1-32x-largest', 'w4-32-gross', 'w5b-walls-free-angle', 'w6-roofs-144', 'w7-mixed-13-gross-19-largest']) {
+    const source = workloads.find(w => w.id === id), map = JSON.parse(source.json), taken = new Set(), lamps = [];
+    for (const instance of map.buildingPrefabs?.instances || []) {
+      const t = prefab.buildingTransform(instance), c = (instance.clearance ?? 1) + 1;
+      for (let x = instance.x - c; x < instance.x + t.width + c; x++) for (let y = instance.y - c; y < instance.y + t.depth + c; y++) taken.add(x + ',' + y);
+    }
+    for (const [i, [tx, ty]] of [[23, 30], [61, 30], [99, 30], [137, 30], [175, 30], [213, 30]].entries()) {
+      let lamp = null;
+      for (let r = 0; r < 30 && !lamp; r++) for (let dx = -r; dx <= r && !lamp; dx++) for (let dy = -r; dy <= r && !lamp; dy++) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== r || taken.has((tx + dx) + ',' + (ty + dy))) continue;
+        const trial = {kind: i % 2 ? 'standing-torch' : 'campfire', x: tx + dx, y: ty + dy, z: 0};
+        try {core.openDocument({...map, props: [...(map.props || []), ...lamps, trial]}); lamp = trial;} catch {}
+      }
+      if (!lamp) throw Error(id + ': no free tile near ' + tx + ',' + ty);
+      lamps.push(lamp);
+    }
+    const lit = source => ({...source, props: [...(source.props || []), ...structuredClone(lamps)]}), n = id.split('-')[0].slice(1), key = JSON.stringify(lamps);
+    save('l' + id.slice(1) + '-lamps', source.description + ', lit by six fires', lit(map));
+    // Maps without lots get the same lamps (on the points themselves): one blank serves them.
+    if (!blanksByLamps.has(key)) {blanksByLamps.set(key, 'l' + n + '-blank'); save('l' + n + '-blank', 'The blank map with the six lamps of l' + id.slice(1) + '-lamps', lit(blankMap));}
+  }
+  for (const workload of workloads.filter(w => w.id.startsWith('l'))) if ((JSON.parse(workload.json).props || []).filter(p => p.kind === 'campfire' || p.kind === 'standing-torch').length !== 6) throw Error(workload.id + ': the lamps did not survive openDocument');
   return workloads;
 }
 
@@ -102,5 +133,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const workloads = await buildWorkloads({tree: path.resolve(option('tree', here))});
   fs.mkdirSync(outDir, {recursive: true});
   for (const workload of workloads) fs.writeFileSync(path.join(outDir, workload.id + '.json'), workload.json);
-  console.log(JSON.stringify(workloads.map(({json, ...row}) => row), null, 1));
+  if (!args.includes('--quiet')) console.log(JSON.stringify(workloads.map(({json, ...row}) => row), null, 1));
+  else console.log('Wrote ' + workloads.length + ' workload maps to ' + path.relative(here, outDir) + '.');
 }

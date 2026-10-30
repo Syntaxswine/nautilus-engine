@@ -5,6 +5,7 @@
 //        [--out artifacts/bench/result.json]
 //   node tools/bench-asset-rendering.mjs --node --a <tree> [--b <tree>] [--runs 6]
 //   node tools/bench-asset-rendering.mjs --editor --a <tree> [--assets-only] [--expect] …
+//   node tools/bench-asset-rendering.mjs --editor --counts-only [--b <tree>] [--expect] [--write-culled]
 //
 // Browser mode serves /a/ and /b/ from the two trees and /bench/ from this
 // checkout, so both arms run the same page (tools/bench/asset-rendering.js) on
@@ -13,6 +14,13 @@
 // response the page reads is hashed: the served-file digest names what each arm
 // actually ran. Node mode times createBuildingModel per original design.
 // Timings name their rig; compare arms only within one run of this tool.
+// --counts-only takes the candidate alone, in one run and without timing: every map's
+// asset draws in each view, culled as the frame draws them and unculled, with the WebGL
+// draw calls made no-ops (the renderer still culls and submits each draw and counts it,
+// but nothing rasterises), so it is quick on any backend. --expect compares the unculled
+// draws with tests/fixtures/asset-draw-counts.json (headless) and the culled draws, lamps
+// and all, with tests/fixtures/asset-culled-counts.json; --write-culled re-pins the latter.
+// The browser channel is NAUTILUS_REVIEW_CHANNEL (msedge on Windows, else chromium).
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -25,14 +33,14 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 const here = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), flag = name => args.includes('--' + name);
 const option = (name, fallback) => {const i = args.indexOf('--' + name); return i < 0 ? fallback : args[i + 1];};
-const trees = {a: option('a'), b: option('b', here)};
+const countsOnly = flag('counts-only'), trees = {a: option('a', countsOnly ? option('b', here) : undefined), b: option('b', here)};
 if (!trees.a) throw Error('Name the baseline tree: --a <directory>.');
 for (const [arm, dir] of Object.entries(trees)) {
   trees[arm] = path.resolve(dir);
   if (!fs.existsSync(path.join(trees[arm], 'packages/building-catalog/three.js'))) throw Error('Not an engine tree: ' + dir);
 }
-const runs = Number(option('runs', flag('node') ? 6 : 4)), frames = Number(option('frames', 60));
-if (!Number.isInteger(runs) || runs < 2 || runs % 2) throw Error('Use an even number of runs (A/B counterbalance).');
+const runs = Number(option('runs', countsOnly ? 1 : flag('node') ? 6 : 4)), frames = Number(option('frames', 60));
+if (!countsOnly && (!Number.isInteger(runs) || runs < 2 || runs % 2)) throw Error('Use an even number of runs (A/B counterbalance).');
 const out = path.resolve(option('out', path.join(here, 'artifacts/bench', (flag('node') ? 'node' : 'browser') + '-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json')));
 fs.mkdirSync(path.dirname(out), {recursive: true});
 
@@ -100,6 +108,8 @@ function playwright() {
     return createRequire(path.join(modules, 'playwright/package.json'))('playwright');
   }
 }
+// The editor canvas of the benchmark's viewport (1600 x 1100): --counts-only draws at it.
+const COUNT_SIZE = [1056, 916];
 // The launch flags of round 1's census, so the editor-mode numbers stay comparable.
 const BACKENDS = {
   gpu: ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist'],
@@ -133,39 +143,70 @@ function staticServer(roots, served) {
 async function editorBench() {
   for (const arm of ['a', 'b']) if (!fs.existsSync(path.join(trees[arm], 'dist/index.html'))) throw Error('Build the tree first (npm run build): ' + trees[arm]);
   const mapsDir = path.resolve(option('maps', path.join(here, 'artifacts/bench/maps'))), wanted = option('scenes') ? new Set(option('scenes').split(',')) : null;
-  const maps = fs.readdirSync(mapsDir).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)).sort().filter(id => !wanted || wanted.has(id));
-  const blank = fs.readFileSync(path.join(mapsDir, 'w0-blank.json'), 'utf8'), probe = fs.readFileSync(path.join(here, 'tools/bench/editor-probe.js'), 'utf8');
+  const all = fs.readdirSync(mapsDir).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)).sort(), maps = all.filter(id => !wanted || wanted.has(id));
+  const read = id => fs.readFileSync(path.join(mapsDir, id + '.json'), 'utf8'), probe = fs.readFileSync(path.join(here, 'tools/bench/editor-probe.js'), 'utf8');
+  // Each map's reference is the blank map (no buildings, wall runs or roofs) with the same
+  // props: w0-blank, or a lamp-lit map's own blank with its lamps. It runs the same code in
+  // both arms (the null control) and is the --assets-only reference at the same camera.
+  const parsed = Object.fromEntries(all.map(id => [id, JSON.parse(read(id))])), props = id => JSON.stringify(parsed[id].props || []);
+  const blanks = all.filter(id => !(parsed[id].buildingPrefabs?.instances?.length || parsed[id].wallRuns?.segments?.length || parsed[id].slopedRoofs?.roofs?.length));
+  const references = Object.fromEntries(maps.map(id => {const found = blanks.filter(b => props(b) === props(id)); if (found.length !== 1) throw Error(id + ': ' + found.length + ' blank maps share its props; the benchmark needs exactly one'); return [id, found[0]];}));
+  const channel = process.env.NAUTILUS_REVIEW_CHANNEL || (process.platform === 'win32' ? 'msedge' : 'chromium'), arms = countsOnly ? ['b'] : ['a', 'b'];
   const served = {a: new Map(), b: new Map()}, server = staticServer({a: path.join(trees.a, 'dist'), b: path.join(trees.b, 'dist')}, served);
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const port = server.address().port, pw = playwright(), backends = option('backend', 'both') === 'both' ? Object.keys(BACKENDS) : [option('backend')];
   const blocks = Number(option('blocks', 4)), opens = Number(option('opens', 3)), captureDir = out.replace(/\.json$/, '') + '-captures';
-  const result = {mode: 'editor', rig, trees: {a: {dir: '<a>', ...identity(trees.a)}, b: {dir: '<b>', ...identity(trees.b)}}, runs, backends, maps, framesPerBlock: frames, blocks, opens, samples: [], browsers: []};
+  const result = {mode: countsOnly ? 'editor counts' : 'editor', rig, trees: {a: {dir: '<a>', ...identity(trees.a)}, b: {dir: '<b>', ...identity(trees.b)}}, runs, backends, channel, maps, references, framesPerBlock: frames, blocks, opens, samples: [], browsers: []};
   try {
     for (let run = 0; run < runs; run++) for (const backend of backends) {
       const swift = backend === 'swiftshader', capture = swift && run < 2, n = swift ? 2 : frames, nBlocks = swift ? 2 : blocks;
-      const browser = await pw.chromium.launch({channel: 'msedge', headless: true, args: BACKENDS[backend]}), errors = [], pages = {};
+      const browser = await pw.chromium.launch({channel, headless: true, args: BACKENDS[backend]}), errors = [], pages = {};
       try {
-        const context = await browser.newContext({viewport: {width: 1600, height: 1100}, deviceScaleFactor: 1});
+        // SwiftShader runs (the pixel captures) and the counts reduce motion: the fires animate,
+        // and only a still frame lets a repeat of one arm be byte-identical.
+        const context = await browser.newContext({viewport: {width: 1600, height: 1100}, deviceScaleFactor: 1, reducedMotion: swift || countsOnly ? 'reduce' : 'no-preference'});
         // Counterbalance which arm's page is created and loaded first.
-        for (const arm of order[run]) {
+        for (const arm of order[run].filter(arm => arms.includes(arm))) {
           const page = pages[arm] = await context.newPage();
           page.on('pageerror', e => errors.push(arm + ': ' + e.message)); page.on('console', m => {if (m.type() === 'error') errors.push(arm + ': ' + m.text());});
           await page.goto('http://127.0.0.1:' + port + '/' + arm + '/index.html', {waitUntil: 'networkidle'});
           await page.waitForFunction(() => window.editor3d?.document && !window.editor3d.loading, null, {timeout: 120000});
           await page.addScriptTag({content: probe});
         }
-        const gpu = await pages.a.evaluate(() => window.__bench.gpu());
-        if (!result.browsers.some(b => b.backend === backend)) result.browsers.push({backend, version: browser.version(), gpu});
+        const gpu = await pages.b.evaluate(() => window.__bench.gpu()), caps = await pages.b.evaluate(() => window.__bench.caps());
+        if (!result.browsers.some(b => b.backend === backend)) result.browsers.push({backend, version: browser.version(), gpu, caps});
         for (const id of maps) {
-          const json = fs.readFileSync(path.join(mapsDir, id + '.json'), 'utf8'), first = JSON.parse(json).buildingPrefabs?.instances[0];
+          const json = read(id), blank = read(references[id]), placed = parsed[id].buildingPrefabs?.instances || [], first = placed[0], last = placed.at(-1);
           const sample = {run, backend, map: id, gpu, openMs: {a: [], b: []}, views: {}};
-          const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: first ? {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'} : {x: 50, y: 50, span: 40, preset: '0'}};
-          // Open time: blank first (releases templates and libraries), then the map; arms alternate.
-          // The close view sits at this map's first building, so the first time the blank map
-          // is open, its draws are counted at that same camera (the reference for --assets-only).
+          // The close view sits at the map's first building; the far view at its last, far
+          // from the origin (or the far corner), where wrong bounds or float32 show first.
+          const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: first ? {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'} : {x: 50, y: 50, span: 40, preset: '0'},
+            far: last ? {x: last.x + 10, y: last.y + 10, span: 40, preset: '0'} : {x: 190, y: 190, span: 40, preset: '0'}};
+          if (countsOnly) {
+            // One page, no timing: open the reference then the map, and count with draws stubbed.
+            // At the rig's own canvas size (COUNT_SIZE), whatever this page's layout.
+            const page = pages.b, count = (fn, view) => page.evaluate(([f, v, z]) => window.__bench[f](v, z), [fn, view, COUNT_SIZE]);
+            await page.evaluate(b => window.nautilus.open(b), blank); await page.evaluate(j => window.nautilus.open(j), json);
+            await page.evaluate(() => window.__bench.stubDraws(true));
+            try {
+              for (const [name, view] of Object.entries(views)) ((sample.culled ??= {})[name] = {}).b = await count('culled', view);
+              ((sample.unculled ??= {}).exterior = {}).b = await count('unculled', views.overview);
+              await page.evaluate(() => window.__bench.cutaway(true));
+              (sample.culled.cutaway = {}).b = await count('culled', views.overview);
+              (sample.unculled.cutaway = {}).b = await count('unculled', views.overview);
+              await page.evaluate(() => window.__bench.cutaway(false));
+            } finally {await page.evaluate(() => window.__bench.stubDraws(false));}
+            result.samples.push(sample);
+            process.stdout.write(`counts ${backend} ${id}: ` + Object.entries(sample.culled).map(([v, c]) => `${v} ${c.b.main}+${c.b.shadow} draws ${(c.b.triangles / 1e6).toFixed(2)} Mt`).join(', ') + '\n');
+            continue;
+          }
+          // Open time: the reference blank first (releases templates and libraries), then the
+          // map; arms alternate. The close and far views sit at this map's buildings, so the
+          // first time the blank map is open, its draws are counted at those same cameras
+          // (the references for --assets-only).
           for (let k = 0; k < opens; k++) for (const arm of k % 2 ? [...order[run]].reverse() : order[run]) {
             await pages[arm].evaluate(b => window.nautilus.open(b), blank);
-            if (!k) (sample.blankAtClose ??= {})[arm] = await pages[arm].evaluate(v => window.__bench.frames(1, v, {warmup: 1}).counts, views.close);
+            if (!k) for (const name of ['close', 'far']) ((sample.blankAt ??= {})[name] ??= {})[arm] = await pages[arm].evaluate(async v => (await window.__bench.frames(1, v, {warmup: 1})).counts, views[name]);
             sample.openMs[arm].push(await pages[arm].evaluate(async j => {const t = performance.now(); await window.nautilus.open(j); return performance.now() - t;}, json));
           }
           for (const page of Object.values(pages)) await page.waitForTimeout(150);
@@ -178,12 +219,14 @@ async function editorBench() {
           // frame renders (round 2's direct method), plus one frame with every mesh
           // hidden (the fixed passes). The summary refuses the run unless isolated draws
           // minus that frame equal this frame minus the blank map's, exactly.
+          // The isolated frames also give each arm's culled asset draws (--expect).
           const isolated = async (name, view) => {
             const none = {};
-            for (const arm of ['a', 'b']) {await pages[arm].evaluate(() => window.__bench.isolate('none')); none[arm] = await pages[arm].evaluate(v => window.__bench.frames(1, v, {warmup: 1}).counts, view);}
+            for (const arm of ['a', 'b']) {await pages[arm].evaluate(() => window.__bench.isolate('none')); none[arm] = await pages[arm].evaluate(async v => (await window.__bench.frames(1, v, {warmup: 1})).counts, view);}
             for (const arm of ['a', 'b']) await pages[arm].evaluate(() => window.__bench.isolate('assets'));
             try {await measure(name + ':assets', view);} finally {for (const arm of ['a', 'b']) await pages[arm].evaluate(() => window.__bench.isolate(null));}
             (sample.isolation ??= {})[name] = {none};
+            (sample.culled ??= {})[name] = Object.fromEntries(['a', 'b'].map(arm => {const x = sample.views[name + ':assets'][arm][0].counts, y = none[arm]; return [arm, {main: (x.calls - x.shadowCalls) - (y.calls - y.shadowCalls), shadow: x.shadowCalls - y.shadowCalls, triangles: x.triangles - y.triangles}];}));
           };
           // --expect: both arms' asset draws with culling off, in each level state.
           const unculled = async state => {(sample.unculled ??= {})[state] = {}; for (const arm of ['a', 'b']) sample.unculled[state][arm] = await pages[arm].evaluate(v => window.__bench.unculled(v), views.overview);};
@@ -213,7 +256,7 @@ async function editorBench() {
   // Per run and view: each arm's median block median, their ratio (A/B = speedup),
   // and across runs the median ratio with its range. Counts must not vary.
   result.summary = [];
-  for (const backend of backends) for (const id of maps) {
+  for (const backend of backends) for (const id of maps.filter(() => !countsOnly)) {
     const list = result.samples.filter(s => s.backend === backend && s.map === id), row = {backend, map: id, views: {}};
     const ratios = values => ({median: median(values), min: Math.min(...values), max: Math.max(...values)});
     row.openMs = {a: median(list.map(s => median(s.openMs.a))), b: median(list.map(s => median(s.openMs.b))), speedup: ratios(list.map(s => median(s.openMs.a) / median(s.openMs.b)))};
@@ -223,11 +266,14 @@ async function editorBench() {
       const counts = arm => [...new Set(list.flatMap(s => s.views[view][arm].map(b => JSON.stringify(b.counts))))].map(t => JSON.parse(t));
       row.views[view] = {totalMs: {a: median(per('a')), b: median(per('b'))}, cpuMs: {a: median(cpu('a')), b: median(cpu('b'))},
         speedup: ratios(per('a').map((v, i) => v / per('b')[i])), counts: {a: counts('a'), b: counts('b')}};
+      // GPU elapsed time per frame (EXT_disjoint_timer_query_webgl2), where both arms have it.
+      const gpuMs = arm => list.map(s => s.views[view][arm].every(b => b.gpu) ? median(s.views[view][arm].map(b => median(b.gpu))) : null);
+      if (gpuMs('a').every(v => v !== null) && gpuMs('b').every(v => v !== null)) row.views[view].gpu = {ms: {a: median(gpuMs('a')), b: median(gpuMs('b'))}, speedup: ratios(gpuMs('a').map((v, i) => v / gpuMs('b')[i]))};
       // The subtraction estimate of the assets' own time: this frame minus the same
       // run's blank-map frame, per run. Below the blank map's spread it means little.
       // Only where both use one camera: the close view sits at each map's first building.
-      const blank = result.samples.filter(s => s.backend === backend && s.map === 'w0-blank'), own = arm => list.map(s => median(s.views[view][arm].map(b => median(b.total))) - median(blank.find(z => z.run === s.run).views[view][arm].map(b => median(b.total))));
-      if (id !== 'w0-blank' && !view.startsWith('close') && blank.length && blank[0].views[view]) row.views[view].estimateBySubtraction = {ms: {a: median(own('a')), b: median(own('b'))}, speedup: ratios(own('a').map((v, i) => v / own('b')[i]))};
+      const blank = result.samples.filter(s => s.backend === backend && s.map === references[id]), own = arm => list.map(s => median(s.views[view][arm].map(b => median(b.total))) - median(blank.find(z => z.run === s.run).views[view][arm].map(b => median(b.total))));
+      if (!blanks.includes(id) && !view.startsWith('close') && !view.startsWith('far') && blank.length && blank[0].views[view]) row.views[view].estimateBySubtraction = {ms: {a: median(own('a')), b: median(own('b'))}, speedup: ratios(own('a').map((v, i) => v / own('b')[i]))};
     }
     result.summary.push(row);
   }
@@ -235,10 +281,10 @@ async function editorBench() {
   const minus = (x, y) => ({calls: x.calls - y.calls, shadowCalls: x.shadowCalls - y.shadowCalls, triangles: x.triangles - y.triangles});
   const refusals = [];
   for (const s of result.samples) for (const [view, {none}] of Object.entries(s.isolation || {})) for (const arm of ['a', 'b']) {
-    const blank = result.samples.find(z => z.backend === s.backend && z.run === s.run && z.map === 'w0-blank');
-    if (!blank) {refusals.push('--assets-only needs w0-blank in the same run'); break;}
-    const reference = view === 'close' ? s.blankAtClose?.[arm] : blank.views[view][arm][0].counts;
-    if (!reference) {refusals.push(s.map + ' close: no blank-map count at its camera'); continue;}
+    const blank = result.samples.find(z => z.backend === s.backend && z.run === s.run && z.map === references[s.map]);
+    if (!blank) {refusals.push('--assets-only needs ' + references[s.map] + ' in the same run, for ' + s.map); break;}
+    const reference = ['close', 'far'].includes(view) ? s.blankAt?.[view]?.[arm] : blank.views[view][arm][0].counts;
+    if (!reference) {refusals.push(s.map + ' ' + view + ': no blank-map count at its camera'); continue;}
     const isolatedDraws = minus(s.views[view + ':assets'][arm][0].counts, none[arm]), frameDraws = minus(s.views[view][arm][0].counts, reference);
     if (JSON.stringify(isolatedDraws) !== JSON.stringify(frameDraws)) refusals.push(`${s.map} ${view} ${arm} run ${s.run}: isolated ${JSON.stringify(isolatedDraws)} against frame minus blank ${JSON.stringify(frameDraws)}`);
   }
@@ -248,6 +294,8 @@ async function editorBench() {
     const pinned = JSON.parse(fs.readFileSync(path.join(trees.b, 'tests/fixtures/asset-draw-counts.json'), 'utf8')).workloads;
     for (const s of result.samples) for (const [view, headless] of [['overview', 'exterior'], ['cutaway', 'cutaway']]) {
       const layers = pinned[s.map]?.[headless], measured = s.unculled?.[headless]?.b;
+      // The headless count has no lights: a lamp-lit map's draws are pinned culled, below.
+      if (!layers && (parsed[s.map].props || []).length) continue;
       if (!layers || !measured) {refusals.push('--expect needs a pinned and a measured count for ' + s.map + ' ' + headless); continue;}
       const sum = key => Object.values(layers).reduce((total, layer) => total + layer[key], 0);
       const expected = {main: sum('main'), shadow: sum('shadow'), triangles: sum('mainTriangles') + sum('shadowTriangles')};
@@ -255,24 +303,68 @@ async function editorBench() {
       if (JSON.stringify(measured) !== JSON.stringify(expected)) refusals.push(`${s.map} ${view} run ${s.run}: candidate drew ${JSON.stringify(measured)}, pinned ${JSON.stringify(expected)}`);
     }
   }
+  // Culled: the candidate's asset draws as its frames draw them, in every view, exactly the
+  // pinned browser counts. They hold for the capabilities and canvas they were taken with: the
+  // light renderer packs lamps into passes by texture units (SwiftShader has 32, D3D11 16), so
+  // with four or five lamps in view the passes differ. The fixture keeps one entry per rig;
+  // a rig without one is refused rather than compared.
+  const CULLED = path.join(trees.b, 'tests/fixtures/asset-culled-counts.json'), browserRig = result.browsers[0]?.caps && {...result.browsers[0].caps, gpuTimer: undefined, canvas: countsOnly ? COUNT_SIZE : result.browsers[0].caps.canvas};
+  const culled = {};
+  for (const s of result.samples) for (const [view, arms] of Object.entries(s.culled || {})) {
+    const key = s.map + ' ' + view, value = JSON.stringify(arms.b);
+    if (culled[key] !== undefined && culled[key] !== value) refusals.push(key + ': culled draws differ between runs or backends');
+    culled[key] = value;
+  }
+  const pinnedRigs = fs.existsSync(CULLED) ? JSON.parse(fs.readFileSync(CULLED, 'utf8')).rigs : [], entry = pinnedRigs.find(r => JSON.stringify(r.rig) === JSON.stringify(browserRig));
+  if (flag('write-culled')) {
+    const maps = {};
+    for (const [key, value] of Object.entries(culled)) {const [map, view] = key.split(' '); (maps[map] ??= {})[view] = JSON.parse(value);}
+    const rigs = [...pinnedRigs.filter(r => r !== entry), {rig: browserRig, browser: result.browsers[0].backend + ' ' + result.browsers[0].version, maps}].sort((x, y) => JSON.stringify(x.rig).localeCompare(JSON.stringify(y.rig)));
+    fs.writeFileSync(CULLED, JSON.stringify({note: 'The editor asset layers\' draws as their frames draw them (culled by the view, the sun and every lamp face), per rig, benchmark map and view; tools/bench-asset-rendering.mjs --counts-only --expect checks them, --write-culled re-pins this rig\'s.', rigs}, null, 1) + '\n');
+    process.stdout.write('Pinned culled draws for ' + Object.keys(maps).length + ' maps on this rig (' + rigs.length + ' rigs pinned).\n');
+  } else if (flag('expect')) {
+    if (!Object.keys(culled).length) refusals.push('--expect measured no culled draws: add --assets-only (or use --counts-only)');
+    else if (!entry) refusals.push('no culled draws are pinned for this rig ' + JSON.stringify(browserRig) + ' (pinned: ' + pinnedRigs.map(r => JSON.stringify(r.rig)).join(', ') + ')');
+    else for (const [key, value] of Object.entries(culled)) {
+      const [map, view] = key.split(' '), expected = entry.maps[map]?.[view];
+      (result.expectCulled ??= []).push({map, view, measured: JSON.parse(value), expected: expected ?? null});
+      if (JSON.stringify(expected) !== value) refusals.push(`${key}: candidate drew ${value} (culled), pinned ${JSON.stringify(expected)}`);
+    }
+  }
   if (refusals.length) result.refused = refusals;
   // Pixel comparison of the SwiftShader captures (run 0), with run 1 as the repeat control.
   if (fs.existsSync(captureDir)) {
     result.pixels = [];
-    const load = file => {const c = JSON.parse(fs.readFileSync(path.join(captureDir, file), 'utf8')); return {w: c.width, h: c.height, px: Buffer.from(c.pixels, 'base64'), ties: Buffer.from(c.ties, 'base64')};};
-    for (const id of maps) for (const view of ['overview', 'close', 'cutaway']) {
+    const load = file => {const c = JSON.parse(fs.readFileSync(path.join(captureDir, file), 'utf8')); return {w: c.width, h: c.height, px: Buffer.from(c.pixels, 'base64'), strict: c.strict ? Buffer.from(c.strict, 'base64') : null, ties: Buffer.from(c.ties, 'base64')};};
+    // The strong tie oracle (round 2's): a differing pixel is a tie only if one arm's frame
+    // equals the other arm's strict-depth frame there. What no tie explains is grouped into
+    // 8-connected blobs: rounding scatters single pixels, a misplaced or missing part is a blob.
+    const same = (x, y, p) => x[p * 4] === y[p * 4] && x[p * 4 + 1] === y[p * 4 + 1] && x[p * 4 + 2] === y[p * 4 + 2] && x[p * 4 + 3] === y[p * 4 + 3];
+    const blobs = (mask, w, h) => {
+      const sizes = [], seen = new Uint8Array(mask.length), stack = [];
+      for (let p = 0; p < mask.length; p++) if (mask[p] && !seen[p]) {
+        let n = 0; seen[p] = 1; stack.push(p);
+        while (stack.length) {const q = stack.pop(), x = q % w, y = (q - x) / w; n++; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {const X = x + dx, Y = y + dy, r = Y * w + X; if ((dx || dy) && X >= 0 && Y >= 0 && X < w && Y < h && mask[r] && !seen[r]) {seen[r] = 1; stack.push(r);}}}
+        sizes.push(n);
+      }
+      sizes.sort((a, b) => b - a); return {count: sizes.length, largest: sizes.slice(0, 5)};
+    };
+    for (const id of maps) for (const view of ['overview', 'close', 'far', 'cutaway']) {
       const file = (r, arm) => `${r}-${arm}-${id}-${view}.json`, has = f => fs.existsSync(path.join(captureDir, f));
       if (!has(file(0, 'a')) || !has(file(0, 'b'))) continue;
       const A = load(file(0, 'a')), B = load(file(0, 'b'));
-      let differing = 0, explained = 0, maxDelta = 0, ties = 0;
+      let differing = 0, explained = 0, strong = 0, small = 0, maxDelta = 0, ties = 0; const open = new Uint8Array(A.w * A.h);
       for (let p = 0; p < A.w * A.h; p++) {
         let d = 0; for (let c = 0; c < 4; c++) d = Math.max(d, Math.abs(A.px[p * 4 + c] - B.px[p * 4 + c]));
         if (A.ties[p] || B.ties[p]) ties++;
-        if (d) {differing++; maxDelta = Math.max(maxDelta, d); if (A.ties[p] || B.ties[p]) explained++;}
+        if (!d) continue;
+        differing++; maxDelta = Math.max(maxDelta, d); if (d <= 2) small++;
+        if (A.ties[p] || B.ties[p]) explained++;
+        if (A.strict && B.strict && (same(A.px, B.strict, p) || same(A.strict, B.px, p))) strong++; else open[p] = 1;
       }
-      const repeat = has(file(1, 'a')) ? load(file(1, 'a')).px.equals(A.px) : null;
-      result.pixels.push({map: id, view, pixels: A.w * A.h, differing, maxDelta, explainedByTies: explained, tiePixels: ties, repeatOfAIdentical: repeat});
-      process.stdout.write(`pixels ${id} ${view}: ${differing} differ (max ${maxDelta}), ${explained} at depth ties; repeat of A identical: ${repeat}\n`);
+      const repeat = has(file(1, 'a')) ? load(file(1, 'a')).px.equals(A.px) : null, unexplained = blobs(open, A.w, A.h);
+      result.pixels.push({map: id, view, pixels: A.w * A.h, differing, maxDelta, withinTwoLevels: small, explainedByTies: explained, strongTies: A.strict ? strong : null, unexplainedBlobs: unexplained, tiePixels: ties, repeatOfAIdentical: repeat});
+      process.stdout.write(`pixels ${id} ${view}: ${differing} differ (max ${maxDelta}, ${small} by 1-2 levels), ${strong} strong ties; the rest in ${unexplained.count} blobs, largest ${unexplained.largest.join('/') || '-'}; repeat of A identical: ${repeat}\n`);
     }
   }
   return result;
