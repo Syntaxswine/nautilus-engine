@@ -101,6 +101,16 @@ export function compileWindowPlacements(input,options){
   snapshots.set(compiled,freeze({document,world,edgeFacts,resolvedDefinitions,content,members,coveredEdges:[...covered]}));return compiled;
 }
 export function readCompiled(compiled){const snapshot=snapshots.get(compiled);if(!snapshot)fail('INVALID_COMPILED_GEOMETRY','/compiled','Use a handle returned by compile/open in this module instance.');return snapshot;}
+// Internal monotonic pane revision: reuse proven immutable definitions/content,
+// never re-run a borrowed provider or recompile native bounds for each round.
+export function reviseWindowGeometry(compiled,input,queryRevision){
+  const s=readCompiled(compiled),broken=data(input);if(!plain(broken))fail('INVALID_BROKEN_MASK','/broken','Retain an explicit broken-pane map.');integer(queryRevision,0,Number.MAX_SAFE_INTEGER,'/queryRevision');
+  for(const key of Object.keys(broken)){const content=s.content.find(c=>c.placementId===key),panes=broken[key];list(panes,6,'/broken/'+key);if(!content||new Set(panes).size!==panes.length||panes.some(p=>!content.panes.some(v=>v.paneId===p)))fail('UNKNOWN_PANE','/broken/'+key,'Name distinct current native panes.');}
+  for(const [key,panes]of Object.entries(s.document.observedBroken))if(panes.some(p=>!Object.hasOwn(broken,key)||!broken[key].includes(p)))fail('PANE_REPAIR_REFUSED','/broken/'+key,'This profile cannot restore glass or discard initial damage.');
+  const document={...s.document,observedBroken:broken,queryRevision},members=s.members.filter(m=>m.kind!=='glass'||!Object.hasOwn(broken,m.placementId)||!broken[m.placementId].includes(m.paneId)).map((m,sourceOrder)=>({...m,sourceOrder})),geometryDigest=hash({contentDigest:compiled.contentDigest,document,world:s.world,edgeFacts:s.edgeFacts,members});
+  data({kind:'nautilus-window-geometry-snapshot',version:1,document,world:s.world,edgeFacts:s.edgeFacts,resolvedDefinitions:s.resolvedDefinitions,contentDigest:compiled.contentDigest,geometryDigest});
+  const next=Object.freeze({...compiled,geometryDigest,queryRevision});snapshots.set(next,freeze({...s,document,members}));return next;
+}
 export function inspectWindowGeometry(compiled){return clone({...compiled,...readCompiled(compiled)});}
 export function serializeWindowGeometry(compiled){const s=readCompiled(compiled);return JSON.stringify({kind:'nautilus-window-geometry-snapshot',version:1,document:s.document,world:s.world,edgeFacts:s.edgeFacts,resolvedDefinitions:s.resolvedDefinitions,contentDigest:compiled.contentDigest,geometryDigest:compiled.geometryDigest});}
 export function openWindowGeometry(input,options){

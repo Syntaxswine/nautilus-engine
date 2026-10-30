@@ -118,9 +118,9 @@ test('projectile/flame embedded origins refuse explicitly; unsupported queries a
   refused(()=>query({...compiled},fixture.queryVectors[0].ray),'INVALID_COMPILED_GEOMETRY');refused(()=>query(compiled,fixture.queryVectors[0].ray,'blast'),'UNSUPPORTED_QUERY_PURPOSE');refused(()=>windows.queryWindowSegment(compiled,{purpose:'walk',floorId:'upper',...ray}),'UNSUPPORTED_FLOOR');
 });
 
-test('candidate closure is engine-only/headless and exports no transaction or full-pane readiness claim',()=>{
-  const closure=moduleClosure(['packages/windows-core/index.js','packages/adapters/farmyard/windows.js']);assert.ok(closure.every(f=>f.startsWith('packages/')));assert.ok(closure.every(f=>!/vendor|three|map-core|rules-core|world-core|doors|renderer/.test(f)));
-  for(const name of ['createWindowState','stageConfirmedWindowImpact','openWindowState','serializeWindowState','windowRequirements'])assert.equal(windows[name],undefined);
+test('candidate closure stays engine-only/headless as explicit authority/state APIs are added',()=>{
+  const closure=moduleClosure(['packages/windows-core/index.js','packages/adapters/farmyard/windows.js']);assert.ok(closure.every(f=>f.startsWith('packages/')));assert.ok(closure.every(f=>!/vendor|three|rules-core|world-core|doors|renderer/.test(f)));assert.ok(closure.filter(f=>f.includes('/map-core/')).every(f=>['packages/map-core/requirements.js','packages/map-core/contract-manifest.js'].includes(f)));
+  for(const name of ['createWindowState','stageConfirmedWindowImpact','openWindowState','serializeWindowState','windowRequirements'])assert.equal(typeof windows[name],'function');
   const child=spawnSync(process.execPath,['--input-type=module','-e',`for(const key of ['window','document','navigator','THREE','fetch','localStorage','performance'])Object.defineProperty(globalThis,key,{get(){throw Error(key)}});Math.random=()=>{throw Error('RNG')};Date.now=()=>{throw Error('clock')};const m=await import('./packages/adapters/farmyard/windows.js');await import('./packages/windows-core/index.js');if(m.farmyardWindowDefinition({id:'window.full.clear.3m'}).width!==3)throw Error('definition');`],{encoding:'utf8',windowsHide:true,timeout:10000});assert.equal(child.status,0,child.stderr);
 });
 

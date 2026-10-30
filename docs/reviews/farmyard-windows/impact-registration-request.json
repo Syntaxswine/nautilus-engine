@@ -1,0 +1,48 @@
+{
+  "kind": "nautilus-window-impact-registration-request",
+  "version": 1,
+  "status": "Unapplied integration request; automatic approval review rejected edits to root registration",
+  "implementationBase": "38db463ac44acb5d9a93d3d94a7532123d0c121c",
+  "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "reason": "Root exports, global schema/capability registration and package/test metadata are integration-owned; explicit approval is required before applying them.",
+  "entries": {
+    "./windows": "./packages/windows-core/index.js",
+    "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js"
+  },
+  "schemas": [
+    {"id":"nautilus-window-geometry","version":1,"uri":"urn:nautilus:schema:window-geometry:1","file":"packages/windows-core/window-geometry-v1.schema.json"},
+    {"id":"nautilus-window-pane-state","version":1,"uri":"urn:nautilus:schema:window-pane-state:1","file":"packages/windows-core/window-pane-state-v1.schema.json"},
+    {"id":"nautilus-farmyard-window-host-save","version":1,"uri":"urn:nautilus:schema:farmyard-window-host-save:1","file":"packages/adapters/farmyard/windows/window-host-save-v1.schema.json"}
+  ],
+  "engineCapability": {
+    "id": "nautilus-window-panes-v1",
+    "versions": [1],
+    "description": "Bounded first-hit confirmed pane state/query/receipt/save implementation candidate; requires six separately bound v1 host services. Architect integration and game adoption remain separate."
+  },
+  "hostPromisesMustNotAppearInEngineManifest": [
+    "fixed-window-definitions-v1",
+    "complete-window-query-composition-v1",
+    "confirmed-impact-authority-v1",
+    "atomic-window-context-commit-v1",
+    "window-geometry-invalidation-v1",
+    "complete-window-save-staging-v1"
+  ],
+  "packageSupport": [
+    "packages/windows-core/window-geometry-v1.schema.json",
+    "packages/windows-core/window-pane-state-v1.schema.json",
+    "packages/adapters/farmyard/windows/window-host-save-v1.schema.json",
+    "packages/adapters/farmyard/windows/NOTICE.md",
+    "docs/adapters/farmyard-window-impacts.md",
+    "docs/reviews/farmyard-windows/source-audit.json",
+    "docs/reviews/farmyard-windows/impact-registration-request.json"
+  ],
+  "runtimeFiles": "Use the actual decoded module closure of the two entries; tools/check-farmyard-window-queries.mjs reports each file, size and SHA-256. Keep raw donor conformance sources outside all runtime packages.",
+  "testEntry": "node tools/test-farmyard-window-impacts-package.mjs",
+  "registrationExpectationTests": [
+    "tests/farmyard-windows-contract.test.mjs: replace the historical absent-export assertion with the actual declared entry and verify the engine still advertises none of the six host promises",
+    "tests/farmyard-windows-queries.test.mjs: replace absent root-entry expectations with the actual declared targets after approval"
+  ],
+  "testBehavior": "Requires actual declared core exports, all three registered schemas and support-file whitelist. Without those it refuses FULL_PROFILE_REGISTRATION_PENDING. Only explicit --candidate enables the clearly labelled private overlay.",
+  "afterApproval": "Apply only these entry/schema/capability/support/test changes, regenerate the exact package whitelist with the existing distribution tool, run the declared installed proof and four gates, commit/push for Architect review.",
+  "preserved": "No version bump, CI workflow edit, release/tag, upstream/consumer pin, renderer, Editor/UI, other-game adoption or private audience change is requested. Released door/grenade capabilities continue refusing windows before costs."
+}

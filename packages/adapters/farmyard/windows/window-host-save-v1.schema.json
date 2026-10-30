@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:farmyard-window-host-save:1",
+  "title": "Complete retained Farmyard pane host save v1",
+  "description": "Closed joint envelope, complete pane journal and geometry plus bounded retained source JSON. Unknown source data is preserved without behavior or normalization. The versioned host save service validates game-specific meaning before adoption; the executable adapter validates resource presence, pane/sequence/content agreement, semantic conflicts and aggregate budgets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "geometry",
+    "windowState",
+    "sequenceOrigin",
+    "source",
+    "setFields"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-farmyard-window-host-save"
+    },
+    "version": {
+      "const": 1
+    },
+    "geometry": {
+      "$ref": "urn:nautilus:schema:window-geometry:1"
+    },
+    "windowState": {
+      "$ref": "urn:nautilus:schema:window-pane-state:1"
+    },
+    "sequenceOrigin": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "setFields": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "seen",
+          "visible",
+          "detected"
+        ]
+      },
+      "maxItems": 3,
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "data": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "number",
+            "string"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "not": {
+              "const": "__proto__"
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/data"
+          }
+        }
+      ]
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/data"
+      },
+      "required": [
+        "id",
+        "team",
+        "hp",
+        "ap",
+        "stamina",
+        "maxHp",
+        "maxAp",
+        "maxStamina",
+        "x",
+        "y",
+        "ammo",
+        "pack"
+      ],
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          ]
+        },
+        "team": {
+          "enum": [
+            "squad",
+            "guard"
+          ]
+        },
+        "hp": {
+          "type": "number"
+        },
+        "ap": {
+          "type": "number"
+        },
+        "stamina": {
+          "type": "number"
+        },
+        "maxHp": {
+          "type": "number"
+        },
+        "maxAp": {
+          "type": "number"
+        },
+        "maxStamina": {
+          "type": "number"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "const": 0
+        },
+        "ammo": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/data"
+          }
+        },
+        "pack": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/data"
+      },
+      "required": [
+        "map",
+        "edges",
+        "windows",
+        "windowBreaks",
+        "windowSequence",
+        "revision",
+        "seed",
+        "elapsed",
+        "queue",
+        "log",
+        "interactables",
+        "units",
+        "solo",
+        "seen",
+        "visible",
+        "detected"
+      ],
+      "properties": {
+        "map": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 240
+          },
+          "maxItems": 240
+        },
+        "edges": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/data"
+          }
+        },
+        "windows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 1024
+        },
+        "windowBreaks": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^r[01]c[012](?![\\s\\S])"
+            },
+            "maxItems": 6,
+            "uniqueItems": true
+          }
+        },
+        "windowSequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "seed": {
+          "type": "number"
+        },
+        "elapsed": {
+          "type": "number"
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        "log": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        "interactables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unit"
+          },
+          "maxItems": 128
+        },
+        "solo": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/data"
+          },
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": 2
+            }
+          }
+        },
+        "seen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        "visible": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        "detected": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        }
+      }
+    }
+  }
+}

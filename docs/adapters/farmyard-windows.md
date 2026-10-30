@@ -1,5 +1,11 @@
 # Farmyard window geometry candidate
 
+Historical builder card for accepted compile/query checkpoint
+`38db463ac44acb5d9a93d3d94a7532123d0c121c`. The current bounded impact/save
+candidate is described in [the confirmed-impact guide](farmyard-window-impacts.md).
+Statements below about unimplemented state/transactions refer to that earlier
+fixed checkpoint. Root package registration remains a separate approval gate.
+
 Status: **compile/query checkpoint for Architect review**. Based on canonical main
 `e8a66b1f4ead9a6f56c5609bd2a881caceb66b32`, preserving the approved proposal
 `0f5bc5be84e813feb9e70c34dcf4ebd9ff3287ba` through an ordinary merge. This
