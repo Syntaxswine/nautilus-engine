@@ -1,0 +1,520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:candidate:window-geometry:1",
+  "title": "Bounded window geometry snapshot v1 (compile/query candidate)",
+  "description": "Geometry observations only; no impact authority, receipts or complete-game save. The executable loader also checks finite float headroom, aggregate budgets, semantic conflicts, identity/reference uniqueness and recomputed exact content/geometry digests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "document",
+    "world",
+    "edgeFacts",
+    "resolvedDefinitions",
+    "contentDigest",
+    "geometryDigest"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-window-geometry-snapshot"
+    },
+    "version": {
+      "const": 1
+    },
+    "document": {
+      "$ref": "#/$defs/document"
+    },
+    "world": {
+      "$ref": "#/$defs/world"
+    },
+    "edgeFacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edgeFact"
+      },
+      "maxItems": 65536
+    },
+    "resolvedDefinitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/definition"
+      },
+      "maxItems": 1024
+    },
+    "contentDigest": {
+      "$ref": "#/$defs/digest"
+    },
+    "geometryDigest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "profileId",
+        "queryRevision",
+        "placements",
+        "bindings",
+        "observedBroken"
+      ],
+      "properties": {
+        "kind": {
+          "const": "nautilus-window-placement-document"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "profileId": {
+          "const": "farmyard-quarter-turn-first-hit-pane-v1"
+        },
+        "queryRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "placements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/placement"
+          },
+          "maxItems": 1024
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "placementId",
+              "engineInstanceId"
+            ],
+            "properties": {
+              "placementId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "engineInstanceId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 24,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              }
+            }
+          },
+          "maxItems": 1024
+        },
+        "observedBroken": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^r[01]c[012](?![\\s\\S])"
+            },
+            "maxItems": 6,
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "definitionId",
+        "x",
+        "y"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}(?![\\s\\S])"
+        },
+        "definitionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "const": 0
+        },
+        "rotation": {
+          "enum": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "joins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "left": {
+              "type": "boolean"
+            },
+            "right": {
+              "type": "boolean"
+            }
+          }
+        },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        },
+        "finish": {
+          "enum": [
+            "steel",
+            "sage",
+            "ivory"
+          ]
+        },
+        "wall": {
+          "enum": [
+            "brick",
+            "concrete",
+            "corrugated"
+          ]
+        }
+      }
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "floorId",
+        "grid"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "floorId": {
+          "const": "ground"
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            }
+          }
+        }
+      }
+    },
+    "edgeFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "edge",
+        "semantic",
+        "locked"
+      ],
+      "properties": {
+        "edge": {
+          "type": "string",
+          "pattern": "^(s|e):-?(0|[1-9][0-9]*):-?(0|[1-9][0-9]*)(?![\\s\\S])"
+        },
+        "semantic": {
+          "enum": [
+            "empty",
+            "wall",
+            "door",
+            "window"
+          ]
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "sourceKind": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "underlay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "semantic",
+            "locked"
+          ],
+          "properties": {
+            "semantic": {
+              "enum": [
+                "empty",
+                "wall",
+                "door",
+                "window"
+              ]
+            },
+            "locked": {
+              "type": "boolean"
+            },
+            "sourceKind": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            }
+          }
+        }
+      }
+    },
+    "definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceCommit",
+        "version",
+        "id",
+        "joins",
+        "dimensions",
+        "width",
+        "height",
+        "bounds",
+        "panes",
+        "solids"
+      ],
+      "properties": {
+        "sourceCommit": {
+          "const": "251bf8094b5f9ebe44208443084c1a6d6658512a"
+        },
+        "version": {
+          "const": "industrial-windows/2"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "joins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "left",
+            "right"
+          ],
+          "properties": {
+            "left": {
+              "type": "boolean"
+            },
+            "right": {
+              "type": "boolean"
+            }
+          }
+        },
+        "dimensions": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "width",
+                "height"
+              ],
+              "properties": {
+                "width": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 240
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 240
+        },
+        "height": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "bounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "min",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number"
+              }
+            },
+            "max": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "panes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "min",
+              "max"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^r[01]c[012](?![\\s\\S])"
+              },
+              "min": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "max": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "maxItems": 6,
+          "minItems": 1
+        },
+        "solids": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "role",
+              "min",
+              "max"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "role": {
+                "enum": [
+                  "frame",
+                  "sill",
+                  "mullion",
+                  "lower-wall"
+                ]
+              },
+              "min": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "max": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "maxItems": 8
+        }
+      }
+    }
+  }
+}

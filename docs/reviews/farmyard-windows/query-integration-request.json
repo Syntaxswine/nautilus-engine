@@ -1,0 +1,43 @@
+{
+  "kind": "nautilus-window-compile-query-integration-request",
+  "version": 1,
+  "status": "Candidate for Architect review; next impact/save gate remains required",
+  "approvedProposal": "0f5bc5be84e813feb9e70c34dcf4ebd9ff3287ba",
+  "canonicalMain": "e8a66b1f4ead9a6f56c5609bd2a881caceb66b32",
+  "historyPreservingMerge": "8e3dff1d0a0c07444e08b50fa9362933da3bf3dd",
+  "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "candidateEntries": {
+    "./windows": "./packages/windows-core/index.js",
+    "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js"
+  },
+  "candidateSchema": "packages/windows-core/window-geometry-v1.schema.json",
+  "supportFiles": [
+    "packages/adapters/farmyard/windows/NOTICE.md",
+    "docs/adapters/farmyard-windows.md",
+    "docs/reviews/farmyard-windows/source-audit.json",
+    "docs/reviews/farmyard-windows/query-checkpoint.md",
+    "docs/reviews/farmyard-windows/query-integration-request.json"
+  ],
+  "dependencyDiscovery": "tools/check-farmyard-window-queries.mjs uses the actual decoded module closure. Original donor bytes stay conformance-only; no vendor dependency is added.",
+  "installedProof": "tools/test-farmyard-window-queries-package.mjs installs an explicitly private candidate overlay. This is not proof of root-declared exports or a release.",
+  "rootOwned": ["version", "exports", "package file whitelist", "schema registration", "capability registration", "upstream pins", "CI", "release promotion"],
+  "registrationDecision": "Architect may review/register the geometry-only subset independently; do not register full pane readiness or host services on the strength of this checkpoint.",
+  "nextRequiredGate": [
+    "Trusted confirmed-impact stage; keep roll/confirmed impact and host costs separate",
+    "Typed host-command/round/impact and epoch-scoped durable receipts; no eviction",
+    "Final-fenced atomic window state/context/host commit with ownership/reentry/recovery",
+    "Geometry/routes invalidation and complete host query composition",
+    "Complete prospective-game save/load including retained resources, scope and journal"
+  ],
+  "allSixHostServicesRemainUnclaimed": [
+    "fixed-window-definitions-v1",
+    "complete-window-query-composition-v1",
+    "confirmed-impact-authority-v1",
+    "atomic-window-context-commit-v1",
+    "window-geometry-invalidation-v1",
+    "complete-window-save-staging-v1"
+  ],
+  "preservedRefusals": "Released Farmyard door and planar grenade profiles reject windows before costs. No runtime/pin or other-game adoption widening.",
+  "rights": "Preserve inherited catalogue study/art uncertainty and original fixed-source hashes/notices; Architect rights review remains necessary before distribution. No renderer/art/audio imported.",
+  "stopCondition": "Deliver fixed checked commit and stop for Architect integration review. No renderer, Editor/UI, guard AI, other adoption or queued work in this checkpoint."
+}
