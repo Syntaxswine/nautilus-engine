@@ -51,14 +51,18 @@ export class InspectionScene extends LegacyScene {
     if (this.options.walls) for (const run of wallRunsOf(this.document.map)) for (const panel of wallPanels(run)) {
       if (panel.z > this.visibleLevel) continue;
       const material=this.wallMaterial(panel.material,panel.z);
-      if(!groups.has(material))groups.set(material,{matrices:[],widths:[]});
-      const group=groups.get(material);matrix.compose(position.fromArray(panel.center),rotation.setFromAxisAngle(up,panel.yaw),scale);
-      matrix.toArray(group.matrices,group.matrices.length);group.widths.push(panel.size[0]);
+      if(!groups.has(material))groups.set(material,[]);
+      groups.get(material).push(panel);
     }
-    for(const [material,{matrices,widths}]of groups){
-      const geometry=unitWallGeometry(widths.reduce((max,width)=>width>max?width:max,0));geometry.setAttribute('wallWidth',new T.InstancedBufferAttribute(new Float32Array(widths),1));
-      const mesh=new T.InstancedMesh(geometry,material,widths.length);mesh.instanceMatrix.array.set(matrices);mesh.instanceMatrix.needsUpdate=true;
-      mesh.customDepthMaterial=this.wallDepthMaterial;mesh.computeBoundingSphere();this.wallGroup.add(mesh);
+    // Second pass: counts are known, so widths and matrices go straight into
+    // their typed buffers (matrices exactly as setMatrixAt would store them).
+    for(const [material,panels]of groups){
+      const widths=new Float32Array(panels.length);let widest=0;
+      for(let i=0;i<panels.length;i++){widths[i]=panels[i].size[0];if(widths[i]>widest)widest=widths[i];}
+      const geometry=unitWallGeometry(widest);geometry.setAttribute('wallWidth',new T.InstancedBufferAttribute(widths,1));
+      const mesh=new T.InstancedMesh(geometry,material,panels.length),array=mesh.instanceMatrix.array;
+      for(let i=0;i<panels.length;i++)matrix.compose(position.fromArray(panels[i].center),rotation.setFromAxisAngle(up,panels[i].yaw),scale).toArray(array,i*16);
+      mesh.instanceMatrix.needsUpdate=true;mesh.customDepthMaterial=this.wallDepthMaterial;mesh.computeBoundingSphere();this.wallGroup.add(mesh);
     }
     if(this.wallDrawing && this.options.walls) {
       const seen=new Set();for(const run of wallRunsOf(this.document.map))if(run.z<=this.options.level&&run.z+run.stories>this.options.level)for(const [x,y]of [run.a,run.b]){const key=x+','+y;if(seen.has(key))continue;seen.add(key);const ring=new T.Mesh(this.anchorGeometry,this.anchorMaterial);ring.rotation.x=-Math.PI/2;ring.position.set(x,this.options.level*WALL_KIT.floorSpacing+.06,y);ring.renderOrder=24;this.wallGroup.add(ring);}
