@@ -51,5 +51,33 @@
     "root": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe",
     "manifest": "docs/reviews/2026-10-29-farmyard-rules.sources.json",
     "purpose": "Test-only stat-v2 parity evidence for the public calculation adapter; no game runtime or pin adoption"
+  },
+  "farmyardGrenades": {
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "root": "vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "manifest": "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
+    "purpose": "Immutable original grenade/control/game conformance and reference sources; engine-owned planar static extraction is separate, and the full donor game is not a runtime dependency"
+  },
+  "farmyardGrenadeVisuals": {
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "root": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "manifest": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "purpose": "Two immutable reference inputs for the optional native throw adapter; runtime uses selected adapted choreography, horse-only balance and the existing AFT art/Three closure."
+  },
+  "farmyardDoors": {
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "root": "vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "manifest": "docs/reviews/farmyard-doors.sources.json",
+    "purpose": "Shared immutable test-only Farmyard source subset; engine-owned single-ground-leaf door adapter retains host movement, resources and persistence. No game pin adoption."
+  },
+  "farmyardDoorVisuals": {
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "root": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "manifest": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "purpose": "Two original door-view/wood inputs with hash-only mixed-view dependency inventory; optional native leaf reuses shared Three. Only wood is a runtime resource, not the mixed donor view."
   }
 }

@@ -1,0 +1,2239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:farmyard-door-state:1",
+  "title": "Farmyard single-ground-leaf endpoint state v1",
+  "description": "Structural contract. The headless loader additionally verifies descriptor-safe plain data, byte/node/depth budgets, unique identities, references, geometry consistency and complete deterministic journal replay.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "profileId",
+    "revision",
+    "initial",
+    "world",
+    "doors",
+    "actors",
+    "control",
+    "queue",
+    "support",
+    "receipts"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-farmyard-door-state"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+          "maxLength": 96
+        },
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      ]
+    },
+    "profileId": {
+      "const": "farmyard-single-ground-leaf-endpoint-v1"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "initial": {
+      "$ref": "#/$defs/context"
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bounds",
+        "grid",
+        "staticBoxes",
+        "seen",
+        "visible",
+        "fogAt"
+      ],
+      "properties": {
+        "bounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "y": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            "w": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "h": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 240
+            }
+          }
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 240
+            }
+          }
+        },
+        "staticBoxes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "interactionId",
+              "kind",
+              "x0",
+              "x1",
+              "y0",
+              "y1",
+              "z0",
+              "height"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                "maxLength": 96
+              },
+              "interactionId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "enum": [
+                  "wall",
+                  "crate",
+                  "prop",
+                  "part"
+                ]
+              },
+              "x0": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "x1": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y0": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y1": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "z0": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          },
+          "maxItems": 8192
+        },
+        "seen": {
+          "$ref": "#/$defs/fog"
+        },
+        "visible": {
+          "$ref": "#/$defs/fog"
+        },
+        "fogAt": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number",
+                  "minimum": -10000,
+                  "maximum": 10000
+                },
+                "y": {
+                  "type": "number",
+                  "minimum": -10000,
+                  "maximum": 10000
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "doors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "x",
+          "y",
+          "edge",
+          "swing",
+          "range",
+          "open"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+            "maxLength": 96
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "x": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "y": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "edge": {
+            "type": "string",
+            "pattern": "^[es]:[0-9]+:[0-9]+(?![\\s\\S])"
+          },
+          "swing": {
+            "enum": [
+              -1,
+              1
+            ]
+          },
+          "range": {
+            "const": 1.65
+          },
+          "open": {
+            "type": "boolean"
+          }
+        }
+      },
+      "maxItems": 256
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "team",
+          "species",
+          "stance",
+          "sneaking",
+          "cone",
+          "x",
+          "y",
+          "z",
+          "hp",
+          "ap",
+          "maxAp",
+          "weapon",
+          "heading",
+          "isMoving",
+          "burningTurns",
+          "alert",
+          "lastKnown",
+          "alertAge"
+        ],
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                "maxLength": 96
+              },
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "team": {
+            "enum": [
+              "squad",
+              "guard"
+            ]
+          },
+          "species": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "stance": {
+            "enum": [
+              "standing",
+              "kneeling",
+              "prone"
+            ]
+          },
+          "sneaking": {
+            "type": "boolean"
+          },
+          "cone": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "x": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "y": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "z": {
+            "const": 0
+          },
+          "hp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "ap": {
+            "type": "number",
+            "minimum": -1e-7,
+            "maximum": 1000000
+          },
+          "maxAp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "weapon": {
+            "enum": [
+              "hands",
+              "knife",
+              "pistol",
+              "pistol-offhand",
+              "rifle",
+              "assault",
+              "smg",
+              "hmg",
+              "shotgun",
+              "sniper",
+              "grenade",
+              "launcher",
+              "rpg",
+              "flamethrower"
+            ]
+          },
+          "heading": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "isMoving": {
+            "type": "boolean"
+          },
+          "burningTurns": {
+            "const": 0
+          },
+          "alert": {
+            "type": "boolean"
+          },
+          "lastKnown": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "properties": {
+                  "x": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "alertAge": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        }
+      },
+      "maxItems": 128
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actorId",
+        "phase",
+        "status",
+        "engaged",
+        "round",
+        "detected"
+      ],
+      "properties": {
+        "actorId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+              "maxLength": 96
+            },
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          ]
+        },
+        "phase": {
+          "enum": [
+            "explore",
+            "player",
+            "enemy",
+            "won",
+            "lost"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "extracted",
+            "lost"
+          ]
+        },
+        "engaged": {
+          "type": "boolean"
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        },
+        "detected": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                "maxLength": 96
+              },
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            ]
+          },
+          "maxItems": 128,
+          "uniqueItems": true
+        }
+      }
+    },
+    "queue": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/data"
+      },
+      "maxItems": 1024
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pairs",
+        "locks",
+        "difficulty",
+        "damage",
+        "vertical",
+        "windows",
+        "reactive",
+        "refresh"
+      ],
+      "properties": {
+        "pairs": {
+          "const": false
+        },
+        "locks": {
+          "const": false
+        },
+        "difficulty": {
+          "const": false
+        },
+        "damage": {
+          "const": false
+        },
+        "vertical": {
+          "const": false
+        },
+        "windows": {
+          "const": false
+        },
+        "reactive": {
+          "const": false
+        },
+        "refresh": {
+          "const": "farmyard-post-door-force-fog-v1"
+        }
+      }
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/actionReceipt"
+          },
+          {
+            "$ref": "#/$defs/contextReceipt"
+          }
+        ]
+      },
+      "maxItems": 128
+    }
+  },
+  "$defs": {
+    "data": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "number",
+            "string"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 65536
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "not": {
+              "enum": [
+                "__proto__",
+                "prototype",
+                "constructor"
+              ]
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/data"
+          }
+        }
+      ]
+    },
+    "fog": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(0|[1-9][0-9]*),(0|[1-9][0-9]*)(?![\\s\\S])"
+      },
+      "maxItems": 65536,
+      "uniqueItems": true
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "world",
+        "doors",
+        "actors",
+        "control",
+        "queue",
+        "support"
+      ],
+      "properties": {
+        "world": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bounds",
+            "grid",
+            "staticBoxes",
+            "seen",
+            "visible",
+            "fogAt"
+          ],
+          "properties": {
+            "bounds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "w",
+                "h"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number",
+                  "minimum": -1000,
+                  "maximum": 1000
+                },
+                "y": {
+                  "type": "number",
+                  "minimum": -1000,
+                  "maximum": 1000
+                },
+                "w": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 240
+                },
+                "h": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 240
+                }
+              }
+            },
+            "grid": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "width",
+                "height"
+              ],
+              "properties": {
+                "width": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 240
+                },
+                "height": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 240
+                }
+              }
+            },
+            "staticBoxes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "interactionId",
+                  "kind",
+                  "x0",
+                  "x1",
+                  "y0",
+                  "y1",
+                  "z0",
+                  "height"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  "interactionId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                        "maxLength": 96
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "kind": {
+                    "enum": [
+                      "wall",
+                      "crate",
+                      "prop",
+                      "part"
+                    ]
+                  },
+                  "x0": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "x1": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y0": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y1": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "z0": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "height": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
+              },
+              "maxItems": 8192
+            },
+            "seen": {
+              "$ref": "#/$defs/fog"
+            },
+            "visible": {
+              "$ref": "#/$defs/fog"
+            },
+            "fogAt": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    },
+                    "y": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    }
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "doors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "x",
+              "y",
+              "edge",
+              "swing",
+              "range",
+              "open"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                "maxLength": 96
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "x": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "edge": {
+                "type": "string",
+                "pattern": "^[es]:[0-9]+:[0-9]+(?![\\s\\S])"
+              },
+              "swing": {
+                "enum": [
+                  -1,
+                  1
+                ]
+              },
+              "range": {
+                "const": 1.65
+              },
+              "open": {
+                "type": "boolean"
+              }
+            }
+          },
+          "maxItems": 256
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "team",
+              "species",
+              "stance",
+              "sneaking",
+              "cone",
+              "x",
+              "y",
+              "z",
+              "hp",
+              "ap",
+              "maxAp",
+              "weapon",
+              "heading",
+              "isMoving",
+              "burningTurns",
+              "alert",
+              "lastKnown",
+              "alertAge"
+            ],
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "team": {
+                "enum": [
+                  "squad",
+                  "guard"
+                ]
+              },
+              "species": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "stance": {
+                "enum": [
+                  "standing",
+                  "kneeling",
+                  "prone"
+                ]
+              },
+              "sneaking": {
+                "type": "boolean"
+              },
+              "cone": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": -1000000,
+                    "maximum": 1000000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "x": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "z": {
+                "const": 0
+              },
+              "hp": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              },
+              "ap": {
+                "type": "number",
+                "minimum": -1e-7,
+                "maximum": 1000000
+              },
+              "maxAp": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              },
+              "weapon": {
+                "enum": [
+                  "hands",
+                  "knife",
+                  "pistol",
+                  "pistol-offhand",
+                  "rifle",
+                  "assault",
+                  "smg",
+                  "hmg",
+                  "shotgun",
+                  "sniper",
+                  "grenade",
+                  "launcher",
+                  "rpg",
+                  "flamethrower"
+                ]
+              },
+              "heading": {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              },
+              "isMoving": {
+                "type": "boolean"
+              },
+              "burningTurns": {
+                "const": 0
+              },
+              "alert": {
+                "type": "boolean"
+              },
+              "lastKnown": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "properties": {
+                      "x": {
+                        "type": "number",
+                        "minimum": -10000,
+                        "maximum": 10000
+                      },
+                      "y": {
+                        "type": "number",
+                        "minimum": -10000,
+                        "maximum": 10000
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "alertAge": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              }
+            }
+          },
+          "maxItems": 128
+        },
+        "control": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actorId",
+            "phase",
+            "status",
+            "engaged",
+            "round",
+            "detected"
+          ],
+          "properties": {
+            "actorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                  "maxLength": 96
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            },
+            "phase": {
+              "enum": [
+                "explore",
+                "player",
+                "enemy",
+                "won",
+                "lost"
+              ]
+            },
+            "status": {
+              "enum": [
+                "active",
+                "extracted",
+                "lost"
+              ]
+            },
+            "engaged": {
+              "type": "boolean"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000
+            },
+            "detected": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "maxItems": 128,
+              "uniqueItems": true
+            }
+          }
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 1024
+        },
+        "support": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pairs",
+            "locks",
+            "difficulty",
+            "damage",
+            "vertical",
+            "windows",
+            "reactive",
+            "refresh"
+          ],
+          "properties": {
+            "pairs": {
+              "const": false
+            },
+            "locks": {
+              "const": false
+            },
+            "difficulty": {
+              "const": false
+            },
+            "damage": {
+              "const": false
+            },
+            "vertical": {
+              "const": false
+            },
+            "windows": {
+              "const": false
+            },
+            "reactive": {
+              "const": false
+            },
+            "refresh": {
+              "const": "farmyard-post-door-force-fog-v1"
+            }
+          }
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "id",
+        "expectedRevision",
+        "actorId",
+        "doorId",
+        "action"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+              "maxLength": 96
+            },
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          ]
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "actorId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+              "maxLength": 96
+            },
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          ]
+        },
+        "doorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+          "maxLength": 96
+        },
+        "action": {
+          "enum": [
+            "open",
+            "close"
+          ]
+        }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "id",
+        "expectedRevision",
+        "world",
+        "doors",
+        "actors",
+        "control",
+        "queue",
+        "support"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+              "maxLength": 96
+            },
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          ]
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "world": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bounds",
+            "grid",
+            "staticBoxes",
+            "seen",
+            "visible",
+            "fogAt"
+          ],
+          "properties": {
+            "bounds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "w",
+                "h"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number",
+                  "minimum": -1000,
+                  "maximum": 1000
+                },
+                "y": {
+                  "type": "number",
+                  "minimum": -1000,
+                  "maximum": 1000
+                },
+                "w": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 240
+                },
+                "h": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 240
+                }
+              }
+            },
+            "grid": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "width",
+                "height"
+              ],
+              "properties": {
+                "width": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 240
+                },
+                "height": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 240
+                }
+              }
+            },
+            "staticBoxes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "interactionId",
+                  "kind",
+                  "x0",
+                  "x1",
+                  "y0",
+                  "y1",
+                  "z0",
+                  "height"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  "interactionId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                        "maxLength": 96
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "kind": {
+                    "enum": [
+                      "wall",
+                      "crate",
+                      "prop",
+                      "part"
+                    ]
+                  },
+                  "x0": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "x1": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y0": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y1": {
+                    "type": "number",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "z0": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "height": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
+              },
+              "maxItems": 8192
+            },
+            "seen": {
+              "$ref": "#/$defs/fog"
+            },
+            "visible": {
+              "$ref": "#/$defs/fog"
+            },
+            "fogAt": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    },
+                    "y": {
+                      "type": "number",
+                      "minimum": -10000,
+                      "maximum": 10000
+                    }
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "doors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "x",
+              "y",
+              "edge",
+              "swing",
+              "range",
+              "open"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                "maxLength": 96
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "x": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "edge": {
+                "type": "string",
+                "pattern": "^[es]:[0-9]+:[0-9]+(?![\\s\\S])"
+              },
+              "swing": {
+                "enum": [
+                  -1,
+                  1
+                ]
+              },
+              "range": {
+                "const": 1.65
+              },
+              "open": {
+                "type": "boolean"
+              }
+            }
+          },
+          "maxItems": 256
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "team",
+              "species",
+              "stance",
+              "sneaking",
+              "cone",
+              "x",
+              "y",
+              "z",
+              "hp",
+              "ap",
+              "maxAp",
+              "weapon",
+              "heading",
+              "isMoving",
+              "burningTurns",
+              "alert",
+              "lastKnown",
+              "alertAge"
+            ],
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "team": {
+                "enum": [
+                  "squad",
+                  "guard"
+                ]
+              },
+              "species": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "stance": {
+                "enum": [
+                  "standing",
+                  "kneeling",
+                  "prone"
+                ]
+              },
+              "sneaking": {
+                "type": "boolean"
+              },
+              "cone": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": -1000000,
+                    "maximum": 1000000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "x": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "y": {
+                "type": "number",
+                "minimum": -10000,
+                "maximum": 10000
+              },
+              "z": {
+                "const": 0
+              },
+              "hp": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              },
+              "ap": {
+                "type": "number",
+                "minimum": -1e-7,
+                "maximum": 1000000
+              },
+              "maxAp": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              },
+              "weapon": {
+                "enum": [
+                  "hands",
+                  "knife",
+                  "pistol",
+                  "pistol-offhand",
+                  "rifle",
+                  "assault",
+                  "smg",
+                  "hmg",
+                  "shotgun",
+                  "sniper",
+                  "grenade",
+                  "launcher",
+                  "rpg",
+                  "flamethrower"
+                ]
+              },
+              "heading": {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              },
+              "isMoving": {
+                "type": "boolean"
+              },
+              "burningTurns": {
+                "const": 0
+              },
+              "alert": {
+                "type": "boolean"
+              },
+              "lastKnown": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "properties": {
+                      "x": {
+                        "type": "number",
+                        "minimum": -10000,
+                        "maximum": 10000
+                      },
+                      "y": {
+                        "type": "number",
+                        "minimum": -10000,
+                        "maximum": 10000
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "alertAge": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000
+              }
+            }
+          },
+          "maxItems": 128
+        },
+        "control": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actorId",
+            "phase",
+            "status",
+            "engaged",
+            "round",
+            "detected"
+          ],
+          "properties": {
+            "actorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                  "maxLength": 96
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            },
+            "phase": {
+              "enum": [
+                "explore",
+                "player",
+                "enemy",
+                "won",
+                "lost"
+              ]
+            },
+            "status": {
+              "enum": [
+                "active",
+                "extracted",
+                "lost"
+              ]
+            },
+            "engaged": {
+              "type": "boolean"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000
+            },
+            "detected": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "maxItems": 128,
+              "uniqueItems": true
+            }
+          }
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/data"
+          },
+          "maxItems": 1024
+        },
+        "support": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pairs",
+            "locks",
+            "difficulty",
+            "damage",
+            "vertical",
+            "windows",
+            "reactive",
+            "refresh"
+          ],
+          "properties": {
+            "pairs": {
+              "const": false
+            },
+            "locks": {
+              "const": false
+            },
+            "difficulty": {
+              "const": false
+            },
+            "damage": {
+              "const": false
+            },
+            "vertical": {
+              "const": false
+            },
+            "windows": {
+              "const": false
+            },
+            "reactive": {
+              "const": false
+            },
+            "refresh": {
+              "const": "farmyard-post-door-force-fog-v1"
+            }
+          }
+        }
+      }
+    },
+    "actionReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "command",
+        "revision",
+        "cost",
+        "before",
+        "after",
+        "controlBefore",
+        "controlAfter",
+        "eventType",
+        "consequences"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "type": {
+          "const": "action"
+        },
+        "command": {
+          "$ref": "#/$defs/action"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "cost": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ap",
+            "open"
+          ],
+          "properties": {
+            "ap": {
+              "type": "number",
+              "minimum": -1e-7,
+              "maximum": 1000000
+            },
+            "open": {
+              "type": "boolean"
+            }
+          }
+        },
+        "after": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ap",
+            "open"
+          ],
+          "properties": {
+            "ap": {
+              "type": "number",
+              "minimum": -1e-7,
+              "maximum": 1000000
+            },
+            "open": {
+              "type": "boolean"
+            }
+          }
+        },
+        "controlBefore": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actorId",
+            "phase",
+            "status",
+            "engaged",
+            "round",
+            "detected"
+          ],
+          "properties": {
+            "actorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                  "maxLength": 96
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            },
+            "phase": {
+              "enum": [
+                "explore",
+                "player",
+                "enemy",
+                "won",
+                "lost"
+              ]
+            },
+            "status": {
+              "enum": [
+                "active",
+                "extracted",
+                "lost"
+              ]
+            },
+            "engaged": {
+              "type": "boolean"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000
+            },
+            "detected": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "maxItems": 128,
+              "uniqueItems": true
+            }
+          }
+        },
+        "controlAfter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actorId",
+            "phase",
+            "status",
+            "engaged",
+            "round",
+            "detected"
+          ],
+          "properties": {
+            "actorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                  "maxLength": 96
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            },
+            "phase": {
+              "enum": [
+                "explore",
+                "player",
+                "enemy",
+                "won",
+                "lost"
+              ]
+            },
+            "status": {
+              "enum": [
+                "active",
+                "extracted",
+                "lost"
+              ]
+            },
+            "engaged": {
+              "type": "boolean"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000
+            },
+            "detected": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                ]
+              },
+              "maxItems": 128,
+              "uniqueItems": true
+            }
+          }
+        },
+        "eventType": {
+          "enum": [
+            "door-opened",
+            "door-closed"
+          ]
+        },
+        "consequences": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "actorId"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "stop-movement"
+                  },
+                  "actorId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                        "maxLength": 96
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "doorId",
+                  "edge",
+                  "kind",
+                  "open"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "door-edge"
+                  },
+                  "doorId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  "edge": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "enum": [
+                      "door",
+                      "closed-door"
+                    ]
+                  },
+                  "open": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "actorId",
+                  "doorId",
+                  "name",
+                  "open",
+                  "cost"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "log-door"
+                  },
+                  "actorId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                        "maxLength": 96
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      }
+                    ]
+                  },
+                  "doorId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "open": {
+                    "type": "boolean"
+                  },
+                  "cost": {
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "doorId"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "invalidate-geometry-and-routes"
+                  },
+                  "doorId": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                    "maxLength": 96
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "actorId"
+                ],
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "log-contact",
+                      "log-contact-broken"
+                    ]
+                  },
+                  "actorId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\\s\\S])",
+                        "maxLength": 96
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "forceFog"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "refresh-visibility"
+                  },
+                  "forceFog": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "maxItems": 8
+        }
+      }
+    },
+    "contextReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "command",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "type": {
+          "const": "context"
+        },
+        "command": {
+          "$ref": "#/$defs/checkpoint"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        }
+      }
+    }
+  }
+}

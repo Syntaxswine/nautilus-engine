@@ -1,5 +1,6 @@
-import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, assertMapCapabilities, assertBlueprintCompatible, engineManifest} from '../../packages/map-core/index.js';
+import {ENGINE_VERSION, MAP_CONTRACT, openDocument, describeBlueprint, engineManifest} from '../../packages/map-core/index.js';
 import {exampleYard} from '../../packages/map-core/example.js';
+import {createGameHandoff} from './game-handoff.js';
 import {installAssetLibrary} from './assets.js';
 import {installBuildingLibrary} from './buildings.js';
 import {installEditorFloorNavigation} from './floor-navigation.js';
@@ -7,29 +8,18 @@ import {installEditorFloorNavigation} from './floor-navigation.js';
 installAssetLibrary();
 installBuildingLibrary();
 
-let gameAdapter = null;
 let floorBinding = null;
+const handoff = createGameHandoff({exportMap: () => window.nautilus.export(), onChange: () => refreshHandoff()});
 const status = text => {document.getElementById('status').textContent = text;};
 window.nautilus = {
   version: ENGINE_VERSION, contract: MAP_CONTRACT, manifest: engineManifest(),
   get floorNavigation() { return floorBinding; },
   get document() { return window.editor3d?.document; },
-  get hasGameAdapter() { return !!gameAdapter; },
+  get hasGameAdapter() { return handoff.hasGameAdapter; },
   export() {if (!this.document) throw Error('The editor is still loading.');return this.document.export();},
   async open(input) {const document = openDocument(input);await window.editor3d.open(document);return describeBlueprint(document.export());},
-  connectGame(adapter) {
-    if (!adapter || typeof adapter.openMap !== 'function') throw new TypeError('A game adapter needs openMap({json, contract}).');
-    gameAdapter = adapter; refreshHandoff(); return () => {if (gameAdapter === adapter) {gameAdapter = null;refreshHandoff();}};
-  },
-  sendToGame(json = this.export()) {
-    if (!gameAdapter) throw Error('Connect a game adapter first.');
-    const document = openDocument(json), errors = document.validate();
-    if (document.block) throw Error('Place this block in a full map first.');
-    if (errors.length) throw Error(errors.join(' '));
-    if (gameAdapter.manifest) assertBlueprintCompatible(document.map, gameAdapter.manifest);
-    else assertMapCapabilities(document.map,gameAdapter.features||[]);
-    return gameAdapter.openMap({json: document.export(), contract: MAP_CONTRACT});
-  }
+  connectGame: handoff.connectGame,
+  sendToGame: handoff.sendToGame
 };
 function installSettingsFeedback() {
   const heading = document.querySelector('#editor-settings .settings-heading'), source = document.getElementById('status');
@@ -53,7 +43,7 @@ function refreshHandoff() {
   installFloorControls();
   installSettingsFeedback();
   const button = document.getElementById('playtest');
-  if (button) {const disabled = !gameAdapter || !!window.editor3d?.document?.block;if (button.disabled !== disabled) button.disabled = disabled;button.title = gameAdapter ? 'Send a validated copy; keep the blueprint here.' : 'Export JSON for a game, or connect a game adapter.';}
+  if (button) {const disabled = !handoff.hasGameAdapter || !!window.editor3d?.document?.block;if (button.disabled !== disabled) button.disabled = disabled;button.title = handoff.hasGameAdapter ?'Send a validated copy; keep the blueprint here.' : 'Export JSON for a game, or connect a game adapter.';}
   const quick = document.getElementById('quick-playtest');if (quick && button) {quick.disabled = button.disabled;quick.title = button.title;}
 }
 // Observe the tools once they are installed, rather than keeping a polling

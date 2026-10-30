@@ -11,6 +11,7 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
 | `packages/item-visuals/` | Original item models using the host Three namespace |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
@@ -49,6 +50,8 @@ The [rules contract](rules.md) defines the portable character schema and the bou
 ## Shared item boundary
 
 [The rock contract](rock-distraction.md) defines plain-data instance state, strict sidecar versions, explicit metre/second units and staged actions. Items do not extend portable maps or take over actor inventories. A consumer atomically commits state and inventory deltas, deduplicates command/event IDs, supplies swept collision and audibility, and arbitrates guard investigation. The optional rock mesh and reference yard use the same collision radius; they require no donor runtime.
+
+The optional [Farmyard grenade profile](grenades.md) adds source-exact ordinary same-plane throws, costs/stock, wall/fog previews, staged damage/alerts and durable retry protection. It preserves injured/spent state and keeps host visibility/body registration explicit. Reactive windows/fuel/fire and other floors are refused by this first profile. Full original game sources are immutable conformance evidence outside runtime distributions; no game production pin changes.
 
 ## Public map API
 
@@ -113,3 +116,11 @@ The optional [runtime planner](runtime-modules.md) validates explicit module/ser
 The [extended-world contract](extended-world-core.md) is separate from the unchanged portable map/block formats. It owns static authored data and a bounded query snapshot, not live actors or the game loop. Floor identity/elevation/support are explicit, roof roles are local, and empty floors allocate no dense grids. Legacy migration/export currently returns preserving refusal reports rather than a guessed conversion. The [floor controller](floor-navigation.md) observes host-confirmed identities and never changes gameplay truth.
 
 The [Farmyard stat adapter](adapters/farmyard-rules.md) proves a narrow retained-host seam against frozen game source. No consumer pin is changed. [Existing actor/height intake](reviews/actor-height-intake/README.md) remains proposed metadata outside public exports; it records native scale, throw markers and the missing loader/clearance work. The [implementation checkpoint](modular-foundation.md) identifies the broader blueprint work still required.
+
+## Standard game behavior and entry UI
+
+The optional [standard interaction module](standard-interactions.md) adds revision-stamped door actions, explicit permission/occupancy bindings, upright walking and saved continuous stair routes. A reference AABB provider reuses world-core queries; curved worlds supply their own provider. This sidecar leaves portable maps and game character/resource rules unchanged. It does not infer semantics from building meshes.
+
+The separate [title screen](game-title.md) standardizes menu behavior with host-owned saves, settings and scene loading. A headless usage-card export points to both modules and their required bindings. [Asset handoffs](asset-handoffs.md) records what a new game team must decide. The reference yard proves the combination; game adoption and publication remain separate.
+
+The candidate [functional-parts facade](functional-parts.md) is the explicit authoring-to-runtime bridge. Versioned native recipes and assembly instances compile into matching static worlds, dynamic door/stair records and renderer bindings with stable semantic/source IDs. Content-bound runtime checkpoints preserve continuous travel and command/event receipts. Core remains headless; Editor owns authoring/history, Artist supplies measured native content, UI owns presentation/player bindings, and Architect integrates fixed reviewed commits. Existing map/block and strict world-v1 formats stay separate and refuse parts envelopes they cannot preserve.

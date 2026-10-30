@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "engineVersion": "0.9.0",
+  "recordedAt": "2026-10-30T03:06:27.564317+00:00",
+  "status": "Local integration accepted; exact-head CI/main promotion remains a release gate.",
+  "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "coreCandidate": "c7beb44fa254b2d72657f7e3a959920216f09b35",
+  "nativeCandidates": [
+    "2b7d57dcd45a30d5b02a1ac357d559fedb35b854",
+    "d06ca5f958dfe9ea831d0fe936af2114130f1e33"
+  ],
+  "playerCandidate": "cc49e030eca70f2708268d028ad5f7474f84e450",
+  "integrationBase": "3dfca4e2023be8ed3c6175a2659c49f4f7a4eeb8",
+  "inputSha256": "012d4f6028ed3b5183502791a95f1fda7db9f6165d815f2f238c28640dd4fe9b",
+  "projectionSha256": "3928bb0c0d51d175d688d722c2ae6ab4a7ad7042ce7089a96f56893c760a2cd5",
+  "repositoryTests": 448,
+  "upstreamTests": 32,
+  "nativeTests": 20,
+  "browserGroupsPerMode": 10,
+  "modulePaths": 402,
+  "checks": [
+    {
+      "command": "npm run check -- --tracked",
+      "exitCode": 0,
+      "logSha256": "3ac4dccd4476d940dabbeb0b7a4f3640feab701c3d6c850198c591b4f601804f"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "logSha256": "a3b058d0ce1ff6c35dd5fe9033defd0c04c004e11941a950c15b5bb640f1fa84"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "logSha256": "b604c666572205533a96f157b493a61bffe8d573889e4fb75a89a455be97195c"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logSha256": "cd718787c47d23b0f1aa1d74171da01e188a5ae426f4da86c04f9acdaa456370"
+    },
+    {
+      "command": "npm run test:package",
+      "exitCode": 0,
+      "logSha256": "fbabdea7c0e8508fd3d0ab2400ac9b826902ad6d2d58793d8c5afb7a13d55d80"
+    },
+    {
+      "command": "npm run test:grenade-renderer",
+      "exitCode": 0,
+      "logSha256": "39f23e06227198b45cd82646b94edb91953621aa8f7ada5daf57fd2bbb2a8755"
+    },
+    {
+      "command": "NAUTILUS_REVIEW_SOURCE=1 npm run review:grenades",
+      "exitCode": 0,
+      "logSha256": "95c2d56030f8a56c87d62d608ab7150e5a885d705e484da00a0d558646a4313b"
+    },
+    {
+      "command": "npm run review:grenades",
+      "exitCode": 0,
+      "logSha256": "7e29ad0759721de450a695f96c1db7ac9e1fcdf6b8725482ae9a9b7911b5582e"
+    },
+    {
+      "command": "npm run review:grenades:installed",
+      "exitCode": 0,
+      "logSha256": "41c18ca2c968217e7591e5fb836c94f25e8ccf0dc18b7257c81581125b33c8bc"
+    },
+    {
+      "command": "node artifacts/review-grenade-live.mjs",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "packages": {
+    "core": {
+      "profile": "core",
+      "name": "@nautilus-engine/core",
+      "version": "0.9.0",
+      "file": "nautilus-engine-core-0.9.0.tgz",
+      "compressedBytes": 1290863,
+      "unpackedBytes": 6525595,
+      "fileCount": 182,
+      "integrity": "sha512-5f6+dCqrKFRtOCzlMSvWpRayb535sZg2gCi39HgCwUjN34vmcpuGx2JoFWjjk0xKElIDjrs++M5OkyOwoltErw=="
+    },
+    "renderer": {
+      "profile": "renderer",
+      "name": "@nautilus-engine/renderer",
+      "version": "0.9.0",
+      "file": "nautilus-engine-renderer-0.9.0.tgz",
+      "compressedBytes": 21708185,
+      "unpackedBytes": 24964821,
+      "fileCount": 83,
+      "integrity": "sha512-ML2yMhGo6DC8lcoYJFd5JtqtaFVYyy3qmG8z5Msp6SR+Y5kjxZNCBnv53TGfpALuMs9fpqBCW7xtJsZ2adytKg=="
+    },
+    "compatibility": {
+      "profile": "compatibility",
+      "name": "@nautilus-engine/map-core",
+      "version": "0.9.0",
+      "file": "nautilus-engine-map-core-0.9.0.tgz",
+      "compressedBytes": 22881825,
+      "unpackedBytes": 30992812,
+      "fileCount": 226,
+      "integrity": "sha512-Nw05fLgJhob2O9Z3059HEVp0yxWh/D/4vWHGyRSzZNJ81THnTtSjnlb54WaF7M3MeuP4damk7SKrxQf6XPvxxg=="
+    }
+  },
+  "nativeResources": 34,
+  "initialEncodedBytes": 6699575,
+  "actualRafFrames": 107,
+  "actualFlyingFrames": 18,
+  "nativeVideoBytes": 741717,
+  "retainedHelpers": 0,
+  "consumerPinsChanged": false,
+  "siteAudienceChanged": false,
+  "limits": [
+    "static nonreactive same-ground-plane gameplay profile",
+    "no authoritative fuse/bounce/midflight save",
+    "128 durable throw/context records; no implicit eviction or reset",
+    "reference host is sole fixture authority with synchronous storage; adopting games implement complete atomic retained-context services",
+    "emulated touch/SwiftShader observation; no physical-device FPS or fine-contact guarantee",
+    "NPC tactical markers and native horse proof; complete game cast/equipment/audio/body services remain host-owned"
+  ],
+  "diagnostics": [
+    "Optional live record initially required missing Playwright FFmpeg; native canvas MediaRecorder used instead without installing dependencies.",
+    "Slow Node screenshot polling missed the short flight; in-page RAF observations then captured 18 flying frames. No runtime code changed for either recording diagnostic."
+  ]
+}

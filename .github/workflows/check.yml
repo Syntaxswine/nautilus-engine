@@ -7,6 +7,7 @@ permissions:
 jobs:
   map-workshop:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,6 +18,9 @@ jobs:
       - run: npm run test:upstream
       - run: npm run build
       - run: npm run test:package
+      - run: npm run test:grenade-renderer
+      - run: npm run test:game-ui-package
+      - run: npm run test:doors
   browser-workflow:
     runs-on: ubuntu-latest
     timeout-minutes: 16
@@ -52,6 +56,30 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-character-development
+      - run: npm run review:grenade-controls
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-controls
+      - run: npm run review:grenades
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-reference
+      - run: npm run review:grenades:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-installed
+      - run: npm run review:starter
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-standard-game-starter
+      - run: npm run review:doors
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-reference
+      - run: npm run review:doors:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-installed
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -60,7 +88,16 @@ jobs:
             artifacts/engine-integration/
             artifacts/rock-distraction/
             artifacts/character-development/
+            artifacts/grenade-controls-preparation/
+            artifacts/grenade-reference-built/
+            artifacts/grenade-reference-installed/
+            artifacts/grenade-installed-reference/installation.json
             artifacts/floor-navigation/
             artifacts/extended-world-editor/
             artifacts/editor-materials/
+            artifacts/game-starter/
+            artifacts/farmyard-door-reference-source/
+            artifacts/farmyard-door-reference-built/
+            artifacts/farmyard-door-reference-installed/
+            artifacts/farmyard-door-installed-reference/installation.json
           if-no-files-found: ignore

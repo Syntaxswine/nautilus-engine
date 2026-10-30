@@ -1,0 +1,37 @@
+{
+  "owner": "01a18107-b4af-78c0-850f-0235d4df307f",
+  "purpose": "Combined engine editor acceptance",
+  "project": "Nautilus Engine",
+  "startedAt": "2026-10-30T05:44:40.510Z",
+  "expiresAt": "2026-10-30T05:49:40.510Z",
+  "process": {
+    "pid": 73044,
+    "creationFiletime": "134378126749273926",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 6908,
+    "creationFiletime": "134378126786966439",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 63796,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine\\artifacts\\engine-integration\\STOP",
+  "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "tools/review-engine-integration.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine\\tools\\review-engine-integration.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Static dist/ tree built from project source",
+    "outputs": "artifacts/engine-integration",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  }
+}

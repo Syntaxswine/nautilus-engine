@@ -1,6 +1,6 @@
 # Portable contracts and compatibility
 
-Nautilus 0.7 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
+Nautilus 0.9 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
 
 ## Schemas and persistence
 
@@ -12,6 +12,7 @@ Nautilus 0.7 exposes engine-owned plain-data interfaces. Import public package e
 | nautilus-rock | 1 | Optional item sidecar; explicit instance/owner/flight state. |
 | nautilus-rock-impact-noise | 1 | First confirmed surface-contact event; host deduplicates delivery. |
 | nautilus-progression | 1 | Optional strict progression bundle containing an unchanged character-v1 and saved reward/allocation receipts. |
+| nautilus-grenade-state | 1 | Optional strict static same-floor Farmyard grenade context and durable command journal; complete host adoption remains explicit. |
 
 The structural schemas live in schemas/. Full geometry/content validation uses loadBlueprint or validateBlueprint; a structural JSON Schema check alone is insufficient. createSave, parseSave and serializeSave add engine/schema stamps and capability requirements without saving editor caches/history. No internal clock, generated time stamp, resource refill or silent damage normalization is introduced. Canonical key ordering makes repeated serialization stable; array order is preserved. The limit is 4,000,000 UTF-8 bytes.
 
@@ -48,3 +49,11 @@ Extended worlds require `nautilus-extended-height-v1`; nonempty geometry, placem
 The world contract has its own joint limits, including 32 declared positions and an 8 MB UTF-8 input/save budget. Other existing save/legacy budgets stay unchanged. Unknown fields in both new strict schemas reject. Native values are never rescaled on load. Migration/legacy representability reports retain the source and always refuse conversion until a complete reviewed binder exists. See [world limits and refusal behavior](extended-world-core.md#bounds-and-legacy-handling).
 
 The optional Farmyard stat-v2 adapter ignores host resource state and preserves it exactly in a shallow derived-field projection; it is not a portable character loader or repair function. Strict portable character loading remains unchanged. Each production game still adopts an exact source/package pin in its own reviewed change.
+
+## Farmyard grenade profile
+
+Version 0.9 adds the separate `nautilus-grenade-state` v1 schema and capabilities `nautilus-grenades-static-planar-v1` / `nautilus-grenade-aim-v1`. [The grenade guide](grenades.md) records the exact source profile, public entries, supported geometry and transactional host requirements. Map/block and character formats stay unchanged.
+
+The optional module preserves ordinary Farmyard grenade behavior at its recorded source pin. Windows, fueled/volatile targets, active fire and multilevel contexts require separately reviewed complete consequence adapters and reject before costs in this profile. Runtime capability declarations must describe these limits. The engine manifest advertises available code; a game must additionally implement atomic context commits, visibility refresh and body registration before advertising a usable host.
+
+Grenade loading validates the complete retained journal and current resource state. Future schemas/profiles and unknown functional fields reject; no automatic migration, receipt eviction, healing or ammunition refill occurs. New state must fit aggregate load/save limits before a transaction succeeds. Presentation is transient and never replays from loading or an exact command retry. All production game pins remain independently owned.

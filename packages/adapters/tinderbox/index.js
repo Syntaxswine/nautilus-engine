@@ -81,6 +81,7 @@ function policyOf(input) {
 }
 function mapOf(input) {
   const source = readJSON(input);
+  if(['nautilus-functional-parts','nautilus-compiled-parts','nautilus-parts-runtime-save'].includes(source?.kind))fail('UNSUPPORTED_CAPABILITY','map.kind','Tinderbox flat-yard does not implement nautilus-functional-parts-v1.','Preserve the complete parts envelope and adopt an explicitly compatible part runtime before translating this scene.');
   keys(source, MAP_KEYS, 'map', 'UNSUPPORTED_MAP_FIELD');
   if (source.version !== 2) fail('UNSUPPORTED_MAP_SCHEMA', 'map.version', 'This adapter accepts aft-map-v2 only; migrate legacy maps through the public Nautilus persistence API first.');
   let map;

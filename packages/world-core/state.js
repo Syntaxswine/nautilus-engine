@@ -1,4 +1,5 @@
 import {LIMITS,WorldError,fail,fields,finite,integer,text,identifier,list,boolean,point,box,inside,inputData,ordered} from './validation.js';
+import {refusePartsEnvelope} from './parts-refusal.js';
 
 export const WORLD_CONTRACT=Object.freeze({schemaId:'nautilus-extended-world',version:1,
   schemaUri:'urn:nautilus:schema:extended-world:1',profileId:'native-metres-v1',
@@ -16,7 +17,7 @@ function landing(value,state,floors,surfaces,path){
   if(!surface||!surface.supports||surface.supportFloorId!==floor.id||value.position.h!==floor.elevationM||!inside(value.position,surface.bounds)||value.position.h!==surface.bounds.max.h)fail('INVALID_LANDING',path,'Landing must lie on the named supporting top face at its explicit floor height.');
 }
 export function openWorld(input){
-  const state=inputData(input);fields(state,rootFields,'');
+  const state=refusePartsEnvelope(inputData(input));fields(state,rootFields,'');
   if(state.kind!==WORLD_CONTRACT.schemaId||state.version!==1)fail('UNSUPPORTED_SCHEMA','/version','Expected nautilus-extended-world version 1.');
   if(state.profileId!==WORLD_CONTRACT.profileId)fail('UNSUPPORTED_PROFILE','/profileId','Unsupported world height profile.');
   identifier(state.id,'/id');text(state.name,96,'/name');fields(state.bounds,['widthM','depthM','minHeightM','heightM'],'/bounds');

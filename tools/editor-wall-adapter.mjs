@@ -1,4 +1,5 @@
 // Guarded adaptations of the pinned editor. Original vendor bytes stay intact.
+import {SEND_CLICK} from './editor-game-handoff.mjs';
 export function adaptWallEditor(file, text, once) {
   const core = '../../../../../packages/map-core/', app = '../../../../../app/';
   if (file.endsWith('/editor-3d.js')) {
@@ -32,16 +33,7 @@ export function adaptWallEditor(file, text, once) {
     text = once(text, 'function sync(){const d=getDocument();if(!d)return;', 'function sync(){const d=getDocument();if(!d)return;wallTools.sync();', 'wall history and workspace refresh');
     text = once(text,
       "$('playtest').onclick=()=>{try{if(busy||isLoading())return status('Wait for the current operation to finish.');if(getDocument().block)return status('Place the block in a full map to playtest.');if(validate().length)return;launchPlaytest(getDocument().export());status('Playtest opened. Your blueprint and undo history stay here.');}catch(e){status(e.message);}};",
-      `$('playtest').onclick=async()=>{
-        if(busy||isLoading())return status('Wait for the current operation to finish.');
-        try {
-          if(getDocument().block)return status('Place the block in a full map to send it to a game.');
-          if(validate().length)return;
-          busy=true;status('Sending map to the connected game…');
-          await launchPlaytest(getDocument().export());
-          status('Map sent to the connected game. Your blueprint and undo history stay here.');
-        } catch(e) {status(e.message);} finally {busy=false;}
-      };`, 'await game handoff result');
+      SEND_CLICK, 'await game handoff result');
   }
   return text;
 }

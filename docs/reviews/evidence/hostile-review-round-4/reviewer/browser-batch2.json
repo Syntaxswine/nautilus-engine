@@ -1,0 +1,1055 @@
+{
+ "head": "09ecbef173b8c988d6f7e719bbffbeae5cc6bda0",
+ "statusBefore": "",
+ "runs": [
+  {
+   "id": "N01",
+   "label": "N01 refresh drops its change guard (writes disabled every time)",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 31.9,
+    "captures": 0,
+    "failure": "page.goto: Timeout 30000ms exceeded. / Call log: / \u001b[2m  - navigating to \"http://127.0.0.1:54709/\", waiting until \"networkidle\"\u001b[22m / ",
+    "playwrightTimeout": true,
+    "secondsAfterLastCapture": null,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "N03",
+   "label": "N03 settings feedback observes only characterData (misses textContent replacement)",
+   "build": {
+    "exit": 0,
+    "seconds": 14.7
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 56.6,
+    "captures": 2,
+    "lastCapture": "procedural-roofs.png",
+    "failure": "page.waitForFunction: Timeout 30000ms exceeded.",
+    "playwrightTimeout": true,
+    "secondsAfterLastCapture": 30.1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "N04",
+   "label": "N04 settings feedback installed again on every refresh",
+   "build": {
+    "exit": 0,
+    "seconds": 14.8
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 57.8,
+    "captures": 2,
+    "lastCapture": "procedural-roofs.png",
+    "failure": "locator.click: Timeout 30000ms exceeded. / Call log: / \u001b[2m  - waiting for locator('#save-map')\u001b[22m / \u001b[2m    - locator resolved to <button id=\"save-map\">Save</button>\u001b[22m / \u001b[2m  - attempting click action\u001b[22m / \u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m",
+    "playwrightTimeout": true,
+    "secondsAfterLastCapture": 30.1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "N02",
+   "label": "N02 the editor-sync observer watches child nodes, not the disabled attribute",
+   "build": {
+    "exit": 0,
+    "seconds": 14.8
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.1,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "N06",
+   "label": "N06 open() does not await the editor",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.5,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "N11",
+   "label": "N11 quick Send ignores a block (mirrors the host, not Send)",
+   "build": {
+    "exit": 0,
+    "seconds": 15.2
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 46.2,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "N12",
+   "label": "N12 Send title follows the disabled state, not the host",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 44.8,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "N15",
+   "label": "N15 sendToGame wrapped async (a refusal becomes a rejected promise)",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.3,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "N16",
+   "label": "N16 the body observer is never installed",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 44.8,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "E17",
+   "label": "E17 the editor sync is not observed",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.5,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "G12",
+   "label": "G12 disconnect clears the host but does not refresh",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 46.1,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Send is still enabled after the host disconnected: {\"connected\":false,\"disabled\":false,\"status\":\"Map sent to the connected game. Your blueprint and undo history stay here.\",\"feedback\":\"Map sent to the connected game. Your blueprint and undo history stay here.\"}",
+    "playwrightTimeout": false,
+    "secondsAfterLastCapture": 2.2,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G13",
+   "label": "G13 a newer connect refreshes only the first time",
+   "build": {
+    "exit": 0,
+    "seconds": 14.8
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.9,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "F01",
+   "label": "F01 launchPlaytest drops its return (the click no longer awaits the host)",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "F02",
+   "label": "F02 the click handler does not await the handoff",
+   "build": {
+    "exit": 0,
+    "seconds": 14.9
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.7,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  },
+  {
+   "id": "NX",
+   "label": "NX N05+N07+N08+N09+N10+N13+N14 combined (editor glue outside the handoff)",
+   "build": {
+    "exit": 0,
+    "seconds": 14.7
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45.9,
+    "captures": 6,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": [],
+    "captureHashes": {
+     "editor-desktop.png": "bce46134822f",
+     "editor-mobile-library.png": "fe63c2d66626",
+     "gross-preview.png": "da0bb81e6a1f",
+     "layout-preview.png": "d9aa9a4235f6",
+     "original-interior.png": "37ffe547563c",
+     "procedural-roofs.png": "5ebb7ec02d14"
+    }
+   },
+   "restored": true
+  }
+ ],
+ "rebuild": {
+  "exit": 0,
+  "seconds": 14.9
+ },
+ "distMatchesCommitted": {
+  "editor": true,
+  "handoff": true
+ },
+ "status": ""
+}

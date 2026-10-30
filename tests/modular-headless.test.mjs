@@ -9,7 +9,7 @@ import {spawnSync} from 'node:child_process';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const scanner=fileURLToPath(new URL('./helpers/headless-closure.mjs',import.meta.url));
 const entries={runtime:'packages/runtime-core/index.js',world:'packages/world-core/index.js',
-  farmyard:'packages/adapters/farmyard/rules.js',floorNavigation:'packages/floor-navigation/index.js'};
+  farmyard:'packages/adapters/farmyard/rules.js',floorNavigation:'packages/floor-navigation/index.js',interactions:'packages/interactions/index.js',gameUI:'packages/game-ui/index.js'};
 function scan(directory=root){return spawnSync(process.execPath,['--experimental-vm-modules',scanner,'--root',directory],{encoding:'utf8',windowsHide:true,timeout:15000});}
 function assertDiscovered(report){
   for(const [group,entry] of Object.entries(entries)){
@@ -57,7 +57,8 @@ async function exerciseSealed(urls){
   assert.throws(()=>Math.random(),/Forbidden ambient/);assert.throws(()=>globalThis.performance,/Forbidden ambient/);
   forbiddenReads=0;
 
-  const [runtime,world,farmyard,floors]=await Promise.all(urls.map(url=>import(url)));
+  const [runtime,world,farmyard,floors,interactions,gameUI]=await Promise.all(urls.map(url=>import(url)));
+  assert.equal(interactions.createInteractionState({worldId:'sealed'}).revision,0);assert.equal(gameUI.gameAssetGuides().length,2);
   const state=world.createWorld({id:'sealed-world',name:'Explicit upper floor',widthM:20,depthM:20,
     floorCount:32,storyHeightM:2.12,groundHeightM:0,heightM:80});
   const upper=state.floors[15];

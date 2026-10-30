@@ -3,6 +3,9 @@ import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './mo
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
+import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
+import {checkGrenadeVisuals} from './check-grenade-visuals.mjs';
+import {checkDoorVisuals} from './check-door-visuals.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -10,6 +13,10 @@ import {execFileSync} from 'node:child_process';
 import {checkEditorAssets} from './editor-assets.mjs';
 import {prefabCatalogueSource} from './prefab-catalog.mjs';
 import {originalCatalogueSource} from './prefab-original-catalog.mjs';
+import {checkPartsFixtures} from './parts-fixtures.mjs';
+import {partsSchemas} from './parts-schemas.mjs';
+import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
+import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -35,6 +42,7 @@ for (const [index,record] of moduleReferencesBatch(pinnedModules).entries()) for
   if (dependency!==null && !fs.existsSync(dependency)) throw Error('Missing import: '+pinnedModules[index].entry+' -> '+specifier);
 }
 const haloEvidence = checkSearchHalo(root, sources, tracked);
+console.log('Verified native Farmyard door presentation: '+JSON.stringify(checkDoorVisuals(root,{tracked})));
 const core = await import('../packages/map-core/index.js');
 const editorAssets = checkEditorAssets(root,sources,tracked);
 if(fs.readFileSync(path.join(root,'packages/prefab-core/catalogue.js'),'utf8')!==prefabCatalogueSource())throw Error('Building registry differs from the pinned native geometry and source plans.');
@@ -56,10 +64,18 @@ function ruleClosure(file) { ruleEntries.push(file); }
 for (const entry of ['index.js', 'dialogue.js', 'aft-compat.js', 'progression.js']) ruleClosure(path.join(root, 'packages/rules-core', entry));
 ruleClosure(path.join(root, 'packages/map-core/wall-runs.js'));
 ruleClosure(path.join(root, 'packages/items-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/index.js'));
+ruleClosure(path.join(root, 'packages/grenades-core/aim.js'));
 ruleClosure(path.join(root, 'packages/runtime-core/index.js'));
 ruleClosure(path.join(root, 'packages/world-core/index.js'));
 ruleClosure(path.join(root, 'packages/adapters/farmyard/rules.js'));
+ruleClosure(path.join(root, 'packages/adapters/farmyard/doors.js'));
 ruleClosure(path.join(root, 'packages/floor-navigation/index.js'));
+ruleClosure(path.join(root, 'packages/interactions/index.js'));
+ruleClosure(path.join(root, 'packages/parts-core/index.js'));
+ruleClosure(path.join(root, 'packages/parts-core/fixtures.js'));
+ruleClosure(path.join(root, 'packages/game-ui/index.js'));
+for(const {filename:file}of moduleReferenceGraph([path.join(root,'packages/parts-core/index.js'),path.join(root,'packages/parts-core/fixtures.js')],{root}))if(!file.startsWith(path.join(root,'packages')+path.sep)||/[\\/](?:roof-|prefab-)/.test(file)||file.endsWith(path.sep+'capabilities.js'))throw Error('Parts must not load legacy donor/editor graphs: '+file);
 for (const {filename:file} of moduleReferenceGraph(ruleEntries,{root})) {
   if (!file.startsWith(root + path.sep) || /[\\/]three[.]/.test(file)) throw Error('Rules must be self-contained and renderer-independent.');
   if (tracked && !tracked.has(path.relative(root,file).replaceAll('\\','/'))) throw Error('Rules dependency is not tracked by Git: '+file);
@@ -70,6 +86,8 @@ await import('../packages/adapters/farmyard/rules.js');
 await import('../packages/floor-navigation/index.js');
 await import('../packages/rules-core/index.js');
 await import('../packages/rules-core/progression.js');
+checkPartsFixtures();
+for(const {file,schema}of partsSchemas())if(fs.readFileSync(path.join(root,'schemas',file),'utf8')!==JSON.stringify(schema,null,2)+'\n')throw Error('Parts schema drift: '+file);
 const encounter = (await import('../packages/rules-core/example.js')).exampleEncounter();
 if (!encounter.attack.ok || encounter.guard.resources.hp.current !== 50) throw Error('Rules example failed.');
 if (core.ENGINE_VERSION !== JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version) throw Error('Engine version mismatch.');
@@ -77,6 +95,11 @@ console.log('Verified ' + count + ' pinned source files (' + Math.round(size / 1
 await import('./check-building-catalog.mjs');
 
 checkSharedAssets();
+for(const {file,schema}of farmyardDoorSchemas())if(fs.readFileSync(path.join(root,'packages/adapters/farmyard/doors',file),'utf8')!==JSON.stringify(schema,null,2)+'\n')throw Error('Door schema drift: '+file);
+console.log('Verified Farmyard door source and headless closure: '+JSON.stringify(checkFarmyardDoors(root,{tracked})));
+const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
+console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
+console.log('Verified native grenade source and derived modules: '+JSON.stringify(checkGrenadeVisuals(root,{tracked})));
 
 if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 

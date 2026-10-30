@@ -4,14 +4,22 @@ import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {exampleYard} from '../packages/map-core/example.js';
 import {adaptWallEditor} from './editor-wall-adapter.mjs';
+import {LAUNCH_PLAYTEST, SEND_CLICK} from './editor-game-handoff.mjs';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
 import {adaptEditorRoofs} from './editor-roof-adapter.mjs';
 import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE,ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/index.js';
 import {verifyBuild} from './verify-build.mjs';
+import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
+import {checkDoorVisuals} from './check-door-visuals.mjs';
+import {FARMYARD_DOOR_VISUAL_SOURCE,FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 import {BASIC_PROGRESSION_PROFILE} from '../packages/rules-core/progression.js';
 import {WORLD_CONTRACT} from '../packages/world-core/index.js';
 import {MODULE_CONTRACT} from '../packages/runtime-core/index.js';
+import {GRENADE_CONTRACT,FARMYARD_GRENADE_PROFILE} from '../packages/grenades-core/profile.js';
+import {FARMYARD_DOOR_CONTRACT,FARMYARD_DOOR_PROFILE} from '../packages/adapters/farmyard/doors/profile.js';
+import {PARTS_CONTRACT,PARTS_RUNTIME_PROFILE} from '../packages/parts-core/index.js';
+import {moduleReferenceGraph} from './module-references.mjs';
 import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
@@ -40,7 +48,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
     if (/\.js$/.test(entry.path)) {
       let text = source.toString();
       for (const [original, replacement] of storage) text = text.replaceAll(original, replacement);
-      if (donor === 'aft' && entry.path.endsWith('/editor-playtest.js')) text = `import {parseMap} from './core/maps.js';\nexport function launchPlaytest(json){parseMap(json);if(!window.nautilus?.hasGameAdapter)throw Error('Connect a game adapter, or export this map as JSON.');return window.nautilus.sendToGame(json);}\n`;
+      if (donor === 'aft' && entry.path.endsWith('/editor-playtest.js')) text = LAUNCH_PLAYTEST;
       if (donor === 'aft' && entry.path.endsWith('/editor-3d-tools.js')) {
         text = once(text, 'Playtest ↗', 'Send to game', 'game handoff button');
         text = once(text, "$('playtest').disabled=!!d.block", "$('playtest').disabled=!!d.block||!window.nautilus?.hasGameAdapter", 'game handoff availability');
@@ -55,6 +63,8 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
       if (donor === 'aft') text = adaptWallEditor(entry.path, text, once);
       if (donor === 'aft') text = adaptEditorPrefabs(entry.path,text,once);
       if (donor === 'aft') text = adaptEditorRoofs(entry.path,text,once);
+      // The deployed Send click is the text tests/editor-host-bridge.test.mjs runs.
+      if (donor === 'aft' && (entry.path.endsWith('/editor-playtest.js') ? text !== LAUNCH_PLAYTEST : entry.path.endsWith('/editor-3d-tools.js') && text.split(SEND_CLICK).length !== 2)) throw Error('The deployed Send click differs from the tested one: ' + entry.path);
       data = Buffer.from(text);
     }
     if (!data.equals(source)) patches.push({path:folder + '/' + entry.path, sourceSha256:entry.sha256, builtSha256:createHash('sha256').update(data).digest('hex')});
@@ -62,6 +72,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   }
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
+for(const file of [...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS),sources.farmyardDoorVisuals.manifest,sources.farmyardDoorVisuals.root+'/NOTICE.md'])write(file,fs.readFileSync(path.join(root,file)));
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
@@ -91,8 +102,16 @@ const assets = editorAssets();
 write('editor-assets.json', JSON.stringify({schemaVersion:1, sources:{aft:sources.aft.commit,farmyard:sources.farmyard.commit,aftAssets:sources.aftAssets.commit}, assets}, null, 2));
 write('building-prefabs.json',JSON.stringify({schemaVersion:2,catalogue:COMBINED_PREFAB_CATALOGUE,catalogues:[{id:PREFAB_CATALOGUE,source:sources.tinderboxPrefabs,assets:GROSS_BUILDING_ASSETS.map(a=>a.id)},{id:COMBINED_PREFAB_CATALOGUE,sources:{gross:sources.tinderboxPrefabs,original:ORIGINAL_BUILDING_SOURCE},assets:BUILDING_ASSETS.map(a=>a.id)}],assets:BUILDING_ASSETS},null,2));
 const itemRuntime=['packages/items-core','packages/item-visuals'].flatMap(folder=>fs.readdirSync(path.join(root,folder)).filter(name=>name.endsWith('.js')).map(name=>{const file=folder+'/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};}));
+const grenadeRuntime=['packages/grenades-core','packages/grenade-ui','packages/grenade-visuals'].flatMap(folder=>fs.readdirSync(path.join(root,folder)).filter(name=>/\.(?:js|css|json)$/.test(name)).map(name=>{const file=folder+'/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};}));
 const progressionRuntime=['packages/rules-core/progression.js','packages/rules-core/characters.js'].map(file=>{const data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};});
+const gameKitRuntime=['packages/interactions','packages/game-ui'].flatMap(folder=>fs.readdirSync(path.join(root,folder)).map(name=>{const file=folder+'/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};}));
 const modularRuntime=['packages/runtime-core','packages/world-core','packages/floor-navigation','packages/adapters/farmyard'].flatMap(folder=>fs.readdirSync(path.join(root,folder)).filter(name=>/\.(?:js|json|css)$/.test(name)).map(name=>{const file=folder+'/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};}));
-write('build-provenance.json', JSON.stringify({engineVersion: version, sources, renderEffects, modularFoundation:{configuration:{id:MODULE_CONTRACT.schemaId,version:MODULE_CONTRACT.configurationVersion},world:{id:WORLD_CONTRACT.schemaId,version:WORLD_CONTRACT.version},nativeKitStoryHeightM:WORLD_CONTRACT.standardStoryHeightM,maximumFloorPositions:WORLD_CONTRACT.limits.floors,scope:'Optional composition, static authored AABB world, floor UI and Farmyard calculation seam; no game pin or live movement adoption',files:modularRuntime}, progression:{schema:'nautilus-progression',version:1,profile:BASIC_PROGRESSION_PROFILE,files:progressionRuntime}, items:{capability:'nautilus-rock-items-v1',version:1,files:itemRuntime}, editorAssets:{catalog:'editor-assets.json',count:assets.length}, buildingPrefabs:{catalog:'building-prefabs.json',count:BUILDING_ASSETS.length,catalogues:[PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE],originalSourceCommit:ORIGINAL_BUILDING_SOURCE.commit}, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Portable native-scale wall runs, measured wall tools, oriented preview and block preservation','Optional reviewed golden contour effect and standalone example','Catalog-derived asset library with inspection-scene previews','Biome swatches sample the pinned ground atlas','Whole-building prefab references, native shared-renderer assemblies and deterministic lot placement'], patches}, null, 2));
+function runtimeRecords(entries){return moduleReferenceGraph(entries.map(file=>path.join(root,file)),{root}).map(({filename})=>{const data=fs.readFileSync(filename);return {path:path.relative(root,filename).replaceAll('\\','/'),bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};});}
+const partsRuntime=runtimeRecords(['packages/parts-core/index.js','packages/parts-core/fixtures.js']);
+const doorRuntime=runtimeRecords(['packages/adapters/farmyard/doors.js']);
+const doorSchemas=['door-state-v1.schema.json','door-host-save-v1.schema.json'].map(name=>{const file='packages/adapters/farmyard/doors/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};});
+write('build-provenance.json', JSON.stringify({engineVersion: version, sources, renderEffects, farmyardDoorVisuals:{source:FARMYARD_DOOR_VISUAL_SOURCE,referenceManifest:sources.farmyardDoorVisuals.manifest,files:['packages/door-visuals/three.js',...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS)].map(file=>{const raw=fs.readFileSync(path.join(root,file));return {path:file,bytes:raw.length,sha256:createHash('sha256').update(raw).digest('hex')};})}, functionalParts:{contract:PARTS_CONTRACT,runtimeProfile:PARTS_RUNTIME_PROFILE,files:partsRuntime}, farmyardDoors:{contract:FARMYARD_DOOR_CONTRACT,profile:FARMYARD_DOOR_PROFILE,sourceCommit:sources.farmyardDoors.commit,sourceSnapshotDistributed:false,files:doorRuntime,schemas:doorSchemas}, gameKit:{interactionSchema:'nautilus-standard-interactions',version:1,profile:'bounded-kinematic-v1',scope:'Optional standard door/stair behavior and title UI; no consumer adoption',files:gameKitRuntime}, modularFoundation:{configuration:{id:MODULE_CONTRACT.schemaId,version:MODULE_CONTRACT.configurationVersion},world:{id:WORLD_CONTRACT.schemaId,version:WORLD_CONTRACT.version},nativeKitStoryHeightM:WORLD_CONTRACT.standardStoryHeightM,maximumFloorPositions:WORLD_CONTRACT.limits.floors,scope:'Optional composition, static authored AABB world, floor UI and Farmyard calculation seam; no game pin or live movement adoption',files:modularRuntime}, progression:{schema:'nautilus-progression',version:1,profile:BASIC_PROGRESSION_PROFILE,files:progressionRuntime}, items:{capability:'nautilus-rock-items-v1',version:1,files:itemRuntime}, grenades:{contract:GRENADE_CONTRACT,profile:FARMYARD_GRENADE_PROFILE,sourceCommit:sources.farmyardGrenades.commit,sourceSnapshotDistributed:false,visualSourceCommit:sources.farmyardGrenadeVisuals.commit,visualResources:['tactics/horse-10k-data.json','assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png','assets/equipment/painted-ui/grenade-surface.png'].map(file=>sources.aft.root+'/dist/'+file),files:grenadeRuntime}, editorAssets:{catalog:'editor-assets.json',count:assets.length}, buildingPrefabs:{catalog:'building-prefabs.json',count:BUILDING_ASSETS.length,catalogues:[PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE],originalSourceCommit:ORIGINAL_BUILDING_SOURCE.commit}, adaptations:['Nautilus title and navigation','Isolated browser storage namespaces','Game-adapter handoff instead of bundled combat runtime','Authored opening yard','Farmyard switch and map-frame materials','Portable native-scale wall runs, measured wall tools, oriented preview and block preservation','Optional reviewed golden contour effect and standalone example','Catalog-derived asset library with inspection-scene previews','Biome swatches sample the pinned ground atlas','Whole-building prefab references, native shared-renderer assemblies and deterministic lot placement'], patches}, null, 2));
+checkFarmyardDoors(root,{output});
+checkDoorVisuals(root,{output});
 const modules=await verifyBuild(output,patches);
 console.log('Built Nautilus Engine ' + version + ': independent editor, headless map, rules/progression and item cores, ' + patches.length + ' recorded deployment patches; '+modules+' module paths checked and own/adapted scripts syntax-checked.');

@@ -1,0 +1,70 @@
+{
+  "sourceCommit": "673a656bff1e6e928052f2bb18c378d25048fb47",
+  "sourceMode": false,
+  "buildProvenanceSha256": "a3df479a53daeeb62d74b2e67cce36e02524483692497b95bf86c5677d27c4f7",
+  "checks": [
+    {
+      "name": "keyboard start and swept closed-door blocking",
+      "passed": true
+    },
+    {
+      "name": "locked/key feedback and occupied door operation",
+      "passed": true
+    },
+    {
+      "name": "mid-stair save, reload, export/import and atomic invalid-import rejection",
+      "passed": true,
+      "heightM": 0.2702499259765206
+    },
+    {
+      "name": "menu input isolation, confirmation focus trap and cancellation",
+      "passed": true
+    },
+    {
+      "name": "continuous automatic stair travel in both directions",
+      "passed": true
+    },
+    {
+      "name": "confirmed new game creates a fresh yard",
+      "passed": true
+    },
+    {
+      "name": "loading, failed-save retry, latest-check wins, single start, stale completion and disposal",
+      "passed": true
+    },
+    {
+      "name": "failed continue preserves menu and succeeds on retry",
+      "passed": true
+    },
+    {
+      "name": "native touch start/door, 44px menu controls, 320px phone and 640px reflow",
+      "passed": true,
+      "titleTargets": [
+        {
+          "label": "Continue",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "New game",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Settings",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Credits",
+          "width": 316,
+          "height": 48
+        }
+      ],
+      "reflowNote": "640 CSS pixels represents the width available after 200% browser zoom on a 1280px display; it is a reflow equivalent, not a native zoom measurement."
+    }
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "scope": "Existing title/SVG yard regression only. sourceCommit identifies review-run HEAD plus candidate working tree; candidate hashes are bound by abi-acceptance.json. Not native parts/art acceptance."
+}
