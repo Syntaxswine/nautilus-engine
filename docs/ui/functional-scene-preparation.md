@@ -27,6 +27,8 @@ Readiness takes a plain view model with a title, parts and diagnostics. Each dis
 
 Controls borrow a focusable player input surface and callbacks: onMove({x,y}), onInteract, onPause, onCheckpoint, onTitle and onError. Vectors are normalized UI directions; the host's approved camera/input adapter must map them to canonical movement. Update the control view from committed host snapshots. Input never spends costs, applies a command, changes doors, advances traversal or writes a save itself. A held movement direction emits on change and release, not on render frames.
 
+Mouse and pen hover with `buttons === 0` now clear the matching held pointer if release/cancel/lost-capture was missed. Movement resumes only after a fresh press, preserving any independent keyboard direction. Touch still ends through release/cancel/lost-capture or host gating; zero touch buttons alone do not prove release. The frozen prototype has direction buttons, with a direction captured on press; it has no joystick rectangle or world projection.
+
 The floor wrapper takes the existing floor records and updateActor({id,confirmedFloorId,transition?}). Transition supplies host-named departure/destination floor identities. The wrapper follows only the confirmed identity, and reports visibleFloorIds solely to presentation. Hidden geometry/actors remain with the authoritative provider. UI labels use the supplied native elevations; no layer-to-metre inference or actor rescaling occurs.
 
 ## Prepared-handle ownership prototype
@@ -61,6 +63,8 @@ This protocol is executable preparation evidence, not a substitute for the Coder
 - [ ] Prove real native character clearance, closed/open door parity, both stair directions, live/hidden obstruction and mid-stair checkpoint reload.
 - [ ] Prove a transformed second instance and second layout using the same compiled recipes.
 - [ ] Run installed public-package and actual editor -> player desktop/touch/visual acceptance, including load/cancel/dispose and borrowed-renderer survival.
+- [ ] Latch the displayed door target/action on press and revalidate against the host after preview; use the actual camera and UI-root projection.
+- [ ] Retire old targets/actions after editor scene replacement. Preserve a joystick's press-time rectangle if that control is introduced.
 - [ ] Record actual compile/rebuild, loaded/package bytes, scene/actor counts and draw calls for the real fixed scene; physical-device performance is separate.
 
 UI fixture loading timers are short, host-owned, AbortSignal-controlled delays. The UI modules create no gameplay timer/renderer/storage. Temporary browser/server review helpers use the project harness, automatic expiry and finally cleanup.
@@ -72,3 +76,5 @@ UI fixture loading timers are short, host-owned, AbortSignal-controlled delays. 
 **Efficiency:** code inspection shows no per-frame input emission; unchanged floor identities avoid rebuilding the floor view. Readiness normalization is linear in the displayed parts/problems. These are code-based observations; no runtime CPU, draw-call or phone frame-rate claim is made.
 
 **Narrative:** retain the PR12 title's game-supplied art and style hooks, with readable contextual actions and source-focused workshop diagnostics. Production players should see supported game choices; raw dependency details stay in the workshop/handoff. This is a provisional UI preference for the first Farmyard-style desktop/phone player, pending native kit review.
+
+Pointer recovery recommendation: **Accuracy** follows the mouse/pen's reported physical button state; touch is kept separate because a held contact can report zero buttons. **Efficiency** is one constant-time lookup/delete on a pointer event (code estimate, not a CPU measurement); there is no polling or per-frame emission. **Narrative** favors stopping unintended walking and requiring a fresh deliberate press for the first desktop/phone player (UI judgment). This is a private prototype repair prompted by the bounded input comparison; no donor source, game pin, public ABI or native-world acceptance is adopted.

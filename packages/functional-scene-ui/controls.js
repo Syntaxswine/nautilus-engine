@@ -18,6 +18,8 @@ export function mountPlayerControls(container,{inputTarget,onMove=()=>{},onInter
     listen(node,'pointerdown',event=>{if(!enabled||event.button!==0||floorInputBlocked(doc,event))return;event.preventDefault();inputTarget.focus({preventScroll:true});pointers.set(event.pointerId,vector);node.setPointerCapture(event.pointerId);emit();});
     const release=event=>{pointers.delete(event.pointerId);emit();};listen(node,'pointerup',release);listen(node,'pointercancel',release);listen(node,'lostpointercapture',release);
   }
+  // Mouse/pen hover recovers a missed release; touch may report zero buttons while held.
+  listen(win,'pointermove',event=>{if((event.pointerType==='mouse'||event.pointerType==='pen')&&event.buttons===0&&pointers.delete(event.pointerId))emit();},true);
   const direction={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},w:{x:0,y:-1},a:{x:-1,y:0},s:{x:0,y:1},d:{x:1,y:0}};
   listen(inputTarget,'keydown',event=>{
     if(!inputActive||event.defaultPrevented||event.isComposing||event.altKey||event.ctrlKey||event.metaKey||floorInputBlocked(doc,event))return;
