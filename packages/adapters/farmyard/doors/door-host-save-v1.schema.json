@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:farmyard-door-host-save:1",
+  "title": "Complete retained Farmyard host + door save v1",
+  "description": "The executable loader also validates the closed published-source projection against a pure retained geometry query, exact context equality and the aggregate 8 MB / 500000 node / depth 24 budget before adoption.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "profileId",
+    "doorState",
+    "source",
+    "setFields"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-farmyard-door-host-save"
+    },
+    "version": {
+      "const": 1
+    },
+    "profileId": {
+      "const": "farmyard-single-ground-leaf-endpoint-v1"
+    },
+    "doorState": {
+      "$ref": "urn:nautilus:schema:farmyard-door-state:1"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "map",
+        "edges",
+        "units",
+        "interactables",
+        "phase",
+        "round",
+        "visible",
+        "seen",
+        "detected",
+        "log",
+        "revision",
+        "queue",
+        "solo"
+      ],
+      "additionalProperties": {
+        "$ref": "urn:nautilus:schema:farmyard-door-state:1#/$defs/data"
+      }
+    },
+    "setFields": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "seen",
+          "visible",
+          "detected"
+        ]
+      },
+      "maxItems": 3,
+      "uniqueItems": true
+    }
+  }
+}
