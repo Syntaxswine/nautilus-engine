@@ -1,4 +1,6 @@
-# Grenade controls and preview candidate
+# Grenade controls and preview preparation
+
+This earlier checkpoint is superseded by the [real native reference source proof](2026-10-29-grenade-reference.md). Its original preparation-only evidence remains unchanged.
 
 Baseline `f6caeef309e56423fea5e32eb717533f33b59cbb`; published Farmyard donor `251bf8094b5f9ebe44208443084c1a6d6658512a`; artist audit `958e8a6a41675db8d4eba0750411153306b6153d`. This checkpoint owns the optional controls and borrowed-scene overlay. The real reference player remains in progress pending fixed public kernel/aim/example and artist provider commits. No kernel authority, vendor, consumer pins, exports, shared packaging metadata or other worktree was changed.
 
