@@ -1,0 +1,925 @@
+{
+  "kitId": "native-workshop-kit",
+  "contentVersion": 1,
+  "status": "Artist content candidate; public ABI pending.",
+  "resources": [
+    {
+      "path": "assets/buildings/painted-materials-v2.png",
+      "sourceCommit": "78d37b6cd3ba5de5c25d4922b4ba301b13491caa",
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+      "ownership": "borrowed texture"
+    }
+  ],
+  "definitions": [
+    {
+      "id": "native-slab-2x2",
+      "version": 1,
+      "kind": "slab",
+      "origin": "minimum-X/Z top corner",
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          2,
+          0,
+          2
+        ]
+      },
+      "nodes": [
+        {
+          "id": "slab",
+          "shape": "box",
+          "min": [
+            0,
+            -0.12,
+            0
+          ],
+          "max": [
+            2,
+            0,
+            2
+          ],
+          "material": "wood",
+          "role": "slab"
+        }
+      ],
+      "support": {
+        "id": "top",
+        "visualNodeId": "slab",
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          2,
+          0,
+          2
+        ]
+      },
+      "guide": "docs/reviews/functional-parts-kit/component-handoff.md",
+      "units": "metres",
+      "axes": [
+        "x",
+        "height",
+        "z"
+      ],
+      "actorScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "native-slab-2x1",
+      "version": 1,
+      "kind": "slab",
+      "origin": "minimum-X/Z top corner",
+      "bounds": {
+        "min": [
+          0,
+          -0.12,
+          0
+        ],
+        "max": [
+          2,
+          0,
+          1
+        ]
+      },
+      "nodes": [
+        {
+          "id": "slab",
+          "shape": "box",
+          "min": [
+            0,
+            -0.12,
+            0
+          ],
+          "max": [
+            2,
+            0,
+            1
+          ],
+          "material": "wood",
+          "role": "slab"
+        }
+      ],
+      "support": {
+        "id": "top",
+        "visualNodeId": "slab",
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          2,
+          0,
+          1
+        ]
+      },
+      "guide": "docs/reviews/functional-parts-kit/component-handoff.md",
+      "units": "metres",
+      "axes": [
+        "x",
+        "height",
+        "z"
+      ],
+      "actorScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "native-wall-2m",
+      "version": 1,
+      "kind": "wall",
+      "origin": "left ground edge on wall centre plane",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -0.08
+        ],
+        "max": [
+          2,
+          2.12,
+          0.08
+        ]
+      },
+      "nodes": [
+        {
+          "id": "wall",
+          "shape": "box",
+          "min": [
+            0,
+            0,
+            -0.08
+          ],
+          "max": [
+            2,
+            2,
+            0.08
+          ],
+          "material": "brick",
+          "role": "static-solid"
+        },
+        {
+          "id": "story-band",
+          "shape": "box",
+          "min": [
+            0,
+            2,
+            -0.08
+          ],
+          "max": [
+            2,
+            2.12,
+            0.08
+          ],
+          "material": "plaster",
+          "role": "static-solid"
+        }
+      ],
+      "guide": "docs/reviews/functional-parts-kit/component-handoff.md",
+      "units": "metres",
+      "axes": [
+        "x",
+        "height",
+        "z"
+      ],
+      "actorScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "native-door-bay",
+      "version": 1,
+      "kind": "door-bay",
+      "origin": "left ground edge on wall centre plane",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          -1.3102649999999998
+        ],
+        "max": [
+          2,
+          2.12,
+          0.08
+        ]
+      },
+      "boundsState": "Includes both poses and conservative complete motion envelope.",
+      "closedVisualBounds": {
+        "min": [
+          0,
+          0,
+          -0.1554
+        ],
+        "max": [
+          2,
+          2.12,
+          0.08
+        ]
+      },
+      "nodes": [
+        {
+          "id": "jamb-left",
+          "shape": "box",
+          "min": [
+            0,
+            0,
+            -0.08
+          ],
+          "max": [
+            0.4,
+            1.9,
+            0.08
+          ],
+          "material": "brick",
+          "role": "static-solid"
+        },
+        {
+          "id": "jamb-right",
+          "shape": "box",
+          "min": [
+            1.6,
+            0,
+            -0.08
+          ],
+          "max": [
+            2,
+            1.9,
+            0.08
+          ],
+          "material": "brick",
+          "role": "static-solid"
+        },
+        {
+          "id": "lintel",
+          "shape": "box",
+          "min": [
+            0,
+            1.9,
+            -0.08
+          ],
+          "max": [
+            2,
+            2.12,
+            0.08
+          ],
+          "material": "brick",
+          "role": "static-solid"
+        },
+        {
+          "id": "trim-left",
+          "shape": "box",
+          "min": [
+            0.35,
+            0,
+            -0.1
+          ],
+          "max": [
+            0.4,
+            1.9,
+            -0.08
+          ],
+          "material": "plaster",
+          "role": "static-trim"
+        },
+        {
+          "id": "trim-right",
+          "shape": "box",
+          "min": [
+            1.6,
+            0,
+            -0.1
+          ],
+          "max": [
+            1.65,
+            1.9,
+            -0.08
+          ],
+          "material": "plaster",
+          "role": "static-trim"
+        },
+        {
+          "id": "trim-top",
+          "shape": "box",
+          "min": [
+            0.35,
+            1.9,
+            -0.1
+          ],
+          "max": [
+            1.65,
+            1.95,
+            -0.08
+          ],
+          "material": "plaster",
+          "role": "static-trim"
+        }
+      ],
+      "portal": {
+        "id": "opening",
+        "min": [
+          0.4,
+          0,
+          -0.1
+        ],
+        "max": [
+          1.6,
+          1.9,
+          0.08
+        ],
+        "widthM": 1.2,
+        "heightM": 1.9
+      },
+      "door": {
+        "id": "door",
+        "portalId": "opening",
+        "pivotNode": "leaf-pivot",
+        "leafNode": "leaf",
+        "hinge": [
+          0.4,
+          0,
+          -0.13
+        ],
+        "closedYawRad": 0,
+        "openYawRad": 1.5707963267948966,
+        "leaf": {
+          "id": "leaf",
+          "shape": "box",
+          "min": [
+            0,
+            0,
+            -0.025
+          ],
+          "max": [
+            1.18,
+            1.88,
+            0.025
+          ],
+          "material": "dark-wood",
+          "role": "dynamic-leaf"
+        },
+        "handle": {
+          "id": "handle-inlay",
+          "shape": "box",
+          "min": [
+            1.02,
+            0.86,
+            -0.0254
+          ],
+          "max": [
+            1.08,
+            0.92,
+            -0.025
+          ],
+          "material": "copper",
+          "role": "visual-only"
+        },
+        "closedBounds": {
+          "min": [
+            0.4,
+            0,
+            -0.155
+          ],
+          "max": [
+            1.58,
+            1.88,
+            -0.105
+          ]
+        },
+        "openBounds": {
+          "min": [
+            0.375,
+            0,
+            -1.31
+          ],
+          "max": [
+            0.425,
+            1.88,
+            -0.13
+          ]
+        },
+        "motionBounds": {
+          "min": [
+            0.375,
+            0,
+            -1.3102649999999998
+          ],
+          "max": [
+            1.5802649999999998,
+            1.88,
+            -0.105
+          ]
+        },
+        "queryProfile": "conservative full motion AABB; exact axis-aligned closed/open leaf boxes",
+        "initialState": {
+          "open": false,
+          "locked": false
+        },
+        "reachM": 1.6
+      },
+      "guide": "docs/reviews/functional-parts-kit/component-handoff.md",
+      "units": "metres",
+      "axes": [
+        "x",
+        "height",
+        "z"
+      ],
+      "actorScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "native-stair-14",
+      "version": 1,
+      "kind": "stairs",
+      "origin": "bottom-flight centre at lower finished floor",
+      "bounds": {
+        "min": [
+          -0.6,
+          0,
+          0
+        ],
+        "max": [
+          0.6,
+          2.12,
+          4
+        ]
+      },
+      "nodes": [
+        {
+          "id": "tread-01",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            0
+          ],
+          "max": [
+            0.6,
+            0.15142857142857144,
+            0.2857142857142857
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-02",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            0.2857142857142857
+          ],
+          "max": [
+            0.6,
+            0.3028571428571429,
+            0.5714285714285714
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-03",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            0.5714285714285714
+          ],
+          "max": [
+            0.6,
+            0.4542857142857143,
+            0.8571428571428571
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-04",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            0.8571428571428571
+          ],
+          "max": [
+            0.6,
+            0.6057142857142858,
+            1.1428571428571428
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-05",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            1.1428571428571428
+          ],
+          "max": [
+            0.6,
+            0.7571428571428572,
+            1.4285714285714284
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-06",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            1.4285714285714284
+          ],
+          "max": [
+            0.6,
+            0.9085714285714286,
+            1.7142857142857142
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-07",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            1.7142857142857142
+          ],
+          "max": [
+            0.6,
+            1.06,
+            2
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-08",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            2
+          ],
+          "max": [
+            0.6,
+            1.2114285714285715,
+            2.2857142857142856
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-09",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            2.2857142857142856
+          ],
+          "max": [
+            0.6,
+            1.362857142857143,
+            2.571428571428571
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-10",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            2.571428571428571
+          ],
+          "max": [
+            0.6,
+            1.5142857142857145,
+            2.8571428571428568
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-11",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            2.8571428571428568
+          ],
+          "max": [
+            0.6,
+            1.665714285714286,
+            3.142857142857143
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-12",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            3.142857142857143
+          ],
+          "max": [
+            0.6,
+            1.8171428571428572,
+            3.4285714285714284
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-13",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            3.4285714285714284
+          ],
+          "max": [
+            0.6,
+            1.9685714285714286,
+            3.714285714285714
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        },
+        {
+          "id": "tread-14",
+          "shape": "box",
+          "min": [
+            -0.6,
+            0,
+            3.714285714285714
+          ],
+          "max": [
+            0.6,
+            2.12,
+            4
+          ],
+          "material": "wood",
+          "role": "stepped-contact-mesh"
+        }
+      ],
+      "stairs": {
+        "id": "route",
+        "widthM": 1.2,
+        "clearanceM": 2,
+        "riseM": 2.12,
+        "runM": 4,
+        "risers": 14,
+        "risePerStepM": 0.15142857142857144,
+        "goingM": 0.2857142857142857,
+        "path": [
+          [
+            0,
+            0,
+            -1.25
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            2.12,
+            4
+          ],
+          [
+            0,
+            2.12,
+            5.25
+          ]
+        ],
+        "lowerPort": "lower-landing",
+        "upperPort": "upper-landing",
+        "bidirectional": true,
+        "walkingSupport": "Authored continuous sloping centreline, with explicit flat landings; no inferred route.",
+        "contactPolicy": "Visual treads are stepped. A generic presentation binder must use contact samples/foot placement; flat-ground locomotion is not accepted as stair animation.",
+        "collisionBindingRequirement": "The walking-support route and under-stair exclusion need an explicit shared geometry binding. Do not silently discard tread solids or treat the sloping line as exact tread contact. Await Coder ABI/profile acceptance.",
+        "maximumRampToTreadDifferenceM": 0.15142857142857144,
+        "contactSamples": [
+          {
+            "nodeId": "tread-01",
+            "min": [
+              -0.6,
+              0.15142857142857144,
+              0
+            ],
+            "max": [
+              0.6,
+              0.15142857142857144,
+              0.2857142857142857
+            ]
+          },
+          {
+            "nodeId": "tread-02",
+            "min": [
+              -0.6,
+              0.3028571428571429,
+              0.2857142857142857
+            ],
+            "max": [
+              0.6,
+              0.3028571428571429,
+              0.5714285714285714
+            ]
+          },
+          {
+            "nodeId": "tread-03",
+            "min": [
+              -0.6,
+              0.4542857142857143,
+              0.5714285714285714
+            ],
+            "max": [
+              0.6,
+              0.4542857142857143,
+              0.8571428571428571
+            ]
+          },
+          {
+            "nodeId": "tread-04",
+            "min": [
+              -0.6,
+              0.6057142857142858,
+              0.8571428571428571
+            ],
+            "max": [
+              0.6,
+              0.6057142857142858,
+              1.1428571428571428
+            ]
+          },
+          {
+            "nodeId": "tread-05",
+            "min": [
+              -0.6,
+              0.7571428571428572,
+              1.1428571428571428
+            ],
+            "max": [
+              0.6,
+              0.7571428571428572,
+              1.4285714285714284
+            ]
+          },
+          {
+            "nodeId": "tread-06",
+            "min": [
+              -0.6,
+              0.9085714285714286,
+              1.4285714285714284
+            ],
+            "max": [
+              0.6,
+              0.9085714285714286,
+              1.7142857142857142
+            ]
+          },
+          {
+            "nodeId": "tread-07",
+            "min": [
+              -0.6,
+              1.06,
+              1.7142857142857142
+            ],
+            "max": [
+              0.6,
+              1.06,
+              2
+            ]
+          },
+          {
+            "nodeId": "tread-08",
+            "min": [
+              -0.6,
+              1.2114285714285715,
+              2
+            ],
+            "max": [
+              0.6,
+              1.2114285714285715,
+              2.2857142857142856
+            ]
+          },
+          {
+            "nodeId": "tread-09",
+            "min": [
+              -0.6,
+              1.362857142857143,
+              2.2857142857142856
+            ],
+            "max": [
+              0.6,
+              1.362857142857143,
+              2.571428571428571
+            ]
+          },
+          {
+            "nodeId": "tread-10",
+            "min": [
+              -0.6,
+              1.5142857142857145,
+              2.571428571428571
+            ],
+            "max": [
+              0.6,
+              1.5142857142857145,
+              2.8571428571428568
+            ]
+          },
+          {
+            "nodeId": "tread-11",
+            "min": [
+              -0.6,
+              1.665714285714286,
+              2.8571428571428568
+            ],
+            "max": [
+              0.6,
+              1.665714285714286,
+              3.142857142857143
+            ]
+          },
+          {
+            "nodeId": "tread-12",
+            "min": [
+              -0.6,
+              1.8171428571428572,
+              3.142857142857143
+            ],
+            "max": [
+              0.6,
+              1.8171428571428572,
+              3.4285714285714284
+            ]
+          },
+          {
+            "nodeId": "tread-13",
+            "min": [
+              -0.6,
+              1.9685714285714286,
+              3.4285714285714284
+            ],
+            "max": [
+              0.6,
+              1.9685714285714286,
+              3.714285714285714
+            ]
+          },
+          {
+            "nodeId": "tread-14",
+            "min": [
+              -0.6,
+              2.12,
+              3.714285714285714
+            ],
+            "max": [
+              0.6,
+              2.12,
+              4
+            ]
+          }
+        ]
+      },
+      "guide": "docs/reviews/functional-parts-kit/component-handoff.md",
+      "units": "metres",
+      "axes": [
+        "x",
+        "height",
+        "z"
+      ],
+      "actorScale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

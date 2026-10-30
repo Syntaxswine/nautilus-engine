@@ -1,0 +1,61 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {performance} from 'node:perf_hooks';
+import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {createLightHorse} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js';
+import {createWeaponModel} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/weapon-models.js';
+import {compileBuilding} from '../../packages/building-catalog/index.js';
+import {KIT_ID,KIT_VERSION,KIT_BASELINE,KIT_SCOPE,ATLAS,DIMENSIONS,DEFINITIONS,ACTOR_PROFILES,assembly,measuredParts,placedAssembly} from './kit.js';
+import {boxGeometryData} from './geometry.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'docs/reviews/functional-parts-kit');
+const write=(name,value)=>{const file=path.join(root,name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,JSON.stringify(value,null,2)+'\n');};
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const git=args=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:64*1024*1024});
+const round=n=>Math.round(n*1e6)/1e6;
+const sourcePaths=['packages/building-catalog/index.js','packages/building-catalog/designs.js','packages/building-catalog/three.js',ATLAS,
+  'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js',
+  'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-10k-data.json',
+  'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js',
+  'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png',
+  'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/weapon-models.js'];
+const sources=sourcePaths.map(file=>{const bytes=git(['show',KIT_BASELINE+':'+file]);if(!bytes.equals(fs.readFileSync(path.join(root,file))))throw Error('Reviewed source changed: '+file);return {path:file,commit:KIT_BASELINE,gitBlob:git(['rev-parse',KIT_BASELINE+':'+file]).toString().trim(),sha256:sha(bytes),bytes:bytes.length};});
+write('docs/reviews/functional-parts-kit/sources.json',{kitId:KIT_ID,contentVersion:KIT_VERSION,scopeCommit:KIT_SCOPE,baseline:KIT_BASELINE,sources,notices:'Original building art and AFT provenance/Three notices remain unchanged. No donor or worker worktree was read as an import source. No new license grant.'});
+const visible=object=>{for(let at=object;at;at=at.parent)if(!at.visible)return false;return true;};
+const measureMeshes=meshes=>{const box=new T.Box3(),p=new T.Vector3();let triangles=0;for(const mesh of meshes){if(!visible(mesh))continue;const geometry=mesh.geometry;triangles+=(geometry.index?.count??geometry.attributes.position.count)/3;for(const i of new Set(geometry.index?.array??Array.from({length:geometry.attributes.position.count},(_,i)=>i))){mesh.getVertexPosition(i,p).applyMatrix4(mesh.matrixWorld);box.expandByPoint(p);}}return{min:box.min.toArray().map(round),max:box.max.toArray().map(round),size:box.getSize(p).toArray().map(round),triangles};};
+const horseData=JSON.parse(fs.readFileSync(path.join(root,'vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-10k-data.json')));
+const actorEvidence=[];
+for(const equipment of ['hands','rifle','hmg']){
+ const worker=createLightHorse(horseData),weapon=createWeaponModel(equipment);
+ try{worker.equipWeapon(weapon);worker.pose('carry');const meshes=[];worker.root.traverse(object=>{if(object.isMesh)meshes.push(object);});
+  const body=worker.diagnostics(),equipped=measureMeshes(meshes);
+  const requiredRootHalfExtentM=round(Math.max(...equipped.min.filter((_,i)=>i!==1).map(Math.abs),...equipped.max.filter((_,i)=>i!==1).map(Math.abs)));
+  actorEvidence.push({species:'horse',outfit:'normal',equipment,sourceCommit:'781246a668c723d5a4c5463e70534cc04b6a5641',nativeScale:worker.root.scale.toArray(),body:{min:body.min.map(round),max:body.max.map(round),triangles:body.triangles},visual:{min:body.min.map(round),max:body.max.map(round)},equipped,requiredRootHalfExtentM,maximumHandErrorM:Math.max(0,...body.contacts.map(contact=>contact.error))});
+ }finally{worker.equipWeapon();weapon.dispose();worker.dispose();worker.skeleton.dispose();}
+}
+const bearSource=JSON.parse(git(['show','c1f3dbc427ae11bba51fb0ff8bc4715ce0b9f84e:docs/reviews/bear/source-findings.json']));
+const actorFits=ACTOR_PROFILES.map(profile=>({id:profile.id,bodyProfile:{radiusM:profile.radiusM,heightM:profile.heightM},newDoorFits:2*profile.radiusM<=1.2&&profile.heightM<=1.9,stairBudgetFits:2*profile.radiusM<=1.2&&profile.heightM<=2,oldDoorFits:2*profile.radiusM<=1&&profile.heightM<=1.65,provisional:profile.id.startsWith('bear'),limitation:profile.role}));
+const definitions=DEFINITIONS.map(def=>({...def,guide:'docs/reviews/functional-parts-kit/component-handoff.md',units:'metres',axes:['x','height','z'],actorScale:[1,1,1]}));
+write('art/functional-parts-kit/definitions.json',{kitId:KIT_ID,contentVersion:KIT_VERSION,status:'Artist content candidate; public ABI pending.',resources:[{path:ATLAS,sourceCommit:KIT_BASELINE,sha256:sources.find(source=>source.path===ATLAS).sha256,ownership:'borrowed texture'}],definitions});
+const meshRecords=[];
+for(const def of DEFINITIONS)for(const lod of ['authoring','game']){
+ const nodes=[...def.nodes,...(def.door?[def.door.leaf,def.door.handle]:[])];
+ const data={definitionId:def.id,contentVersion:1,lod,units:'metres',nodes:nodes.map(node=>({nodeId:node.id,material:node.material,role:node.role,pivot:node.role==='dynamic-leaf'||node.id==='handle-inlay'?'leaf-pivot':null,...boxGeometryData(node,{lod})}))};
+ const name=`art/functional-parts-kit/meshes/${def.id}.${lod}.mesh.json`;write(name,data);meshRecords.push({definitionId:def.id,lod,path:name,triangles:data.nodes.reduce((n,node)=>n+node.triangles,0),bytes:fs.statSync(path.join(root,name)).size,sha256:sha(fs.readFileSync(path.join(root,name)))});
+}
+const assemblyRecords=[];
+for(const layout of ['longhouse','cross-workshop']){
+ const recipe=assembly(layout),started=performance.now(),parts=measuredParts(recipe),milliseconds=performance.now()-started;
+ write(`art/functional-parts-kit/${layout}.assembly.json`,recipe);
+ const stair=parts.find(part=>part.stairs),floorAreas=Object.fromEntries(recipe.floorIds.map(floor=>[floor,parts.filter(part=>part.floorId===floor&&part.support).reduce((sum,part)=>sum+(part.support.bounds.max[0]-part.support.bounds.min[0])*(part.support.bounds.max[2]-part.support.bounds.min[2]),0)]));
+ const bindings=recipe.connections.map(connection=>{const support=parts.find(part=>part.partId===connection.supportPartId).support.bounds,point=connection.port==='lower-landing'?stair.stairs.path[0]:stair.stairs.path.at(-1),profile=ACTOR_PROFILES[0];return {...connection,position:point,supportBounds:support,referenceFootprintContained:point[0]-profile.radiusM>=support.min[0]-1e-8&&point[0]+profile.radiusM<=support.max[0]+1e-8&&point[2]-profile.radiusM>=support.min[2]-1e-8&&point[2]+profile.radiusM<=support.max[2]+1e-8&&Math.abs(point[1]-support.max[1])<1e-8};});
+ assemblyRecords.push({id:recipe.id,parts:parts.length,definitionIds:[...new Set(recipe.parts.map(part=>part.definitionId))].sort(),floors:recipe.floors,openings:recipe.openings,floorAreasM2:floorAreas,doors:parts.filter(part=>part.door).map(part=>({partId:part.partId,hinge:part.door.hinge,closedBounds:part.door.closedBounds,openBounds:part.door.openBounds,motionBounds:part.door.motionBounds})),stairs:{partId:stair.partId,path:stair.stairs.path,widthM:stair.stairs.widthM,declaredStructuralClearanceM:2,lengthM:stair.stairs.path.slice(1).reduce((sum,p,i)=>sum+Math.hypot(...p.map((n,j)=>n-stair.stairs.path[i][j])),0),contactSamples:stair.stairs.contactSamples},bindings,nativeMeasurementTimeMs:milliseconds,partsEvidence:parts});
+}
+write('art/functional-parts-kit/longhouse-quarter-turned-instance.json',placedAssembly(assembly('longhouse'),[20,0,14],1,'longhouse-quarter-copy'));
+const rowan=compileBuilding('rowan-family'),doors=rowan.floors.flatMap(floor=>floor.walls.flatMap(wall=>wall.openings.filter(opening=>opening.type==='door').map(opening=>({id:opening.id,floor:floor.level,widthM:opening.u1-opening.u0,heightM:opening.top-opening.bottom,wallId:wall.id,wallA:wall.a,wallB:wall.b,rooms:opening.rooms}))));
+write('docs/reviews/functional-parts-kit/rowan-audit.json',{id:rowan.id,name:rowan.name,sourceCommit:KIT_BASELINE,scope:'One of 48 original catalogue entries; audit only, not conversion or playable certification.',footprint:{widthM:rowan.width,depthM:rowan.depth},floors:rowan.floors.map(floor=>({level:floor.level,elevationM:floor.height,holes:floor.holes,roomIds:floor.rooms.map(room=>room.id)})),stairs:rowan.stairs,regularDoors:doors,missingSemanticWork:['22 regular openings are only 1.00 x 1.65 m; selected 1.70 m mover rejects. Author a distinct reviewed conversion/profile instead of resizing an animal.','Stair is 1 m wide over 3 m run with a 1 x 3 m slab hole; add measured approach/arrival supports, lead-in headroom and an explicit route/geometry profile.','Room adjacency is descriptive; it is not a verified route, actor clearance or supported floor transition.','Door nodes expose original hinges and 0.44*pi presentation opening, but no accepted per-leaf runtime state, dynamic collider, motion clearance, permissions or persistence binding.','Floor/support/portal/part identities and visual node/source-map bindings must be mapped into the actual Coder ABI.','Keep decorative roofs/dormers separate; preserve the original catalogue asset/version and record a conversion candidate independently.'],recommendation:'Defer Rowan conversion until the small native kit proves the shared compiler and walking-support profile.'});
+const report={kitId:KIT_ID,contentVersion:KIT_VERSION,status:'Concrete native art/semantic candidate; public ABI and full runtime acceptance pending.',scopeCommit:KIT_SCOPE,baseline:KIT_BASELINE,runtime:process.version,threeRevision:T.REVISION,dimensions:DIMENSIONS,actors:actorEvidence,bearReference:{commit:'c1f3dbc427ae11bba51fb0ff8bc4715ce0b9f84e',sourceCommit:bearSource.sourceCommit,normalCarry:bearSource.reviewedExamples.normalCarry,redHatCarry:bearSource.reviewedExamples.redHatCarry,acceptedIntegratedProvider:false},actorFits,meshRecords,assemblies:assemblyRecords,stairProfileRequest:{chosenGeometry:'14 actual stepped treads, 2.12 m rise, 4 m run, 1.20 m width, explicit continuous walking-support centreline and matching flat landing/support references.',maximumRampVsTreadOffsetM:2.12/14,problem:'A plain upright-box sweep against every tread/landing solid is not equivalent to a walking-support route. Do not drop geometry silently. Coder must explicitly bind own stair/support handling; UI must fit native feet to the supplied contact samples.',provisionalRecommendation:'Retain the bounded authored-line traversal with an explicit shared stair-support profile and generic contact presentation. Preserve step geometry/contact data for richer future profiles; no building-name branches.'},scopeLimits:['No runtime schema/capability/package export changes.','No generic world compiler, interaction kernel, Editor authoring or player binder implemented here.','No accepted stair animation, save/resume, obstruction or game adoption claim; those need fixed Coder/UI/Editor checkpoints.','Source/game geometry and actual character at native scale are visual evidence, not a debug-proxy substitute.']};
+write('docs/reviews/functional-parts-kit/measurements.json',report);
+console.log(JSON.stringify({definitions:definitions.length,meshes:meshRecords.length,assemblies:assemblyRecords.map(record=>({id:record.id,parts:record.parts,upperAreaM2:record.floorAreasM2.upper,landingFits:record.bindings.every(binding=>binding.referenceFootprintContained)})),actorFits,gameTriangles:meshRecords.filter(record=>record.lod==='game').reduce((n,record)=>n+record.triangles,0),rowanRegularDoors:doors.length}));
