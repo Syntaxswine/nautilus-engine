@@ -5,7 +5,7 @@ const $=id=>document.getElementById(id),events=new AbortController(),review=new 
 let host,view,controls,selected='reference-gate',displayed=null,pressed=null,targetEpoch=0,session=1,paused=false,retired=false,busy=false,writeFault=null,readFault=false,presentationFault=false,viewFault=null,disposeAt=null,heldActivation=null,afterPreview=null,resize=null;
 const metrics={attempts:0,knownCommits:0,quietLoads:0,cancelled:0,lateInputs:0},status=text=>{if(!retired)$('status').textContent=text;},listen=(target,type,callback,options={})=>target.addEventListener(type,callback,{...options,signal:events.signal});
 const storage={getItem:key=>{if(readFault)throw Error('Injected unavailable active storage');return localStorage.getItem(key);},setItem:(key,value)=>localStorage.setItem(key,value)};
-function retireTarget(){targetEpoch++;if(pressed)pressed.cancelled=true;displayed=null;controls?.stop();view?.clearInput();}
+function retireTarget(){targetEpoch++;if(pressed)pressed.cancelled=true;heldActivation=null;displayed=null;controls?.stop();view?.clearInput();}
 function select(id){if(retired)return;retireTarget();selected=id;sync();}
 function capture(){if(!displayed||paused||retired||busy||viewFault||!view?.diagnostics().textureReady)return null;const info=host.diagnostics();if(info.pending||info.conflict||info.disposed)return null;const shown={...displayed},epoch=targetEpoch,subject=session,command=host.command(shown.doorId,shown.action);if(retired||epoch!==targetEpoch||subject!==session)return null;return {command:{...command,...shown},epoch,session:subject,cancelled:false};}
 function sync(){
