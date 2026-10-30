@@ -33,6 +33,20 @@ function atlasMaterial(T, atlas, id) {
   return material;
 }
 
+// The material createRoofGroup makes for one slot. A host drawing many roofs can
+// make each slot once and pass the same materials to every roof as materialMap.
+export function createRoofMaterial(THREE, id, {atlas = null, grey = false, texture} = {}) {
+  const T = THREE, finish = PAINTED_ROOF_MATERIALS[id];
+  if (!finish) throw new TypeError(`Unknown roof material ${id}.`);
+  if (texture !== undefined && !texture?.isTexture) throw new TypeError(`Roof texture ${id} must be a Three.js texture.`);
+  if (atlas != null && !atlas.isTexture) throw new TypeError('Roof atlas must be a host Three.js texture.');
+  const material = !grey && !texture && atlas ? atlasMaterial(T, atlas, id)
+    : new T.MeshStandardMaterial({color: grey ? 0xaaa99f : texture ? 0xffffff : finish.color,
+      map: grey ? null : texture || null, roughness: finish.roughness, metalness: grey ? 0 : finish.metalness, vertexColors: true});
+  material.name = `roof:${id}`;
+  return material;
+}
+
 export function createRoofGroup(THREE, spec, options = {}) {
   const T = THREE;
   if (!T?.Group || !T.BufferGeometry || !T.Float32BufferAttribute || !T.Mesh || !T.MeshStandardMaterial) throw new TypeError('Supply the host Three.js instance.');
@@ -48,13 +62,8 @@ export function createRoofGroup(THREE, spec, options = {}) {
         if (!supplied?.isMaterial) throw new TypeError(`Host roof material ${slot.id} must be a Three.js material.`);
         slotMaterials.push(supplied); continue;
       }
-      const finish = PAINTED_ROOF_MATERIALS[slot.id], texture = lookup(options.textures, slot.id);
-      if (texture !== undefined && !texture?.isTexture) throw new TypeError(`Roof texture ${slot.id} must be a Three.js texture.`);
-      if (options.atlas != null && !options.atlas.isTexture) throw new TypeError('Roof atlas must be a host Three.js texture.');
-      const material = !options.grey && !texture && options.atlas ? atlasMaterial(T, options.atlas, slot.id)
-        : new T.MeshStandardMaterial({color: options.grey ? 0xaaa99f : texture ? 0xffffff : finish.color,
-          map: options.grey ? null : texture || null, roughness: finish.roughness, metalness: options.grey ? 0 : finish.metalness, vertexColors: true});
-      material.name = `roof:${slot.id}`; ownedMaterials.add(material); slotMaterials.push(material);
+      const material = createRoofMaterial(T, slot.id, {atlas: options.atlas, grey: options.grey, texture: lookup(options.textures, slot.id)});
+      ownedMaterials.add(material); slotMaterials.push(material);
     }
     for (const [name, values, size] of [['position', data.positions, 3], ['normal', data.normals, 3], ['uv', data.uvs, 2], ['color', data.colors, 3]]) {
       geometry.setAttribute(name, new T.Float32BufferAttribute(values, size));
