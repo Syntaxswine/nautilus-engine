@@ -1,6 +1,7 @@
 // Roof-bearing adaptation of the frozen d9a948f seeded solver. The no-roof path delegates byte-for-byte.
 import {generateConnectedMap as legacyGenerate} from './prefab-generator.js';
 import {assertPrefabBlock} from '../prefab-core/index.js';
+import {refusePartsEnvelope} from '../world-core/parts-refusal.js';
 // AFT 781246a editor-3d-generator.js seeded solver, retained in this adaptation.
 // Nautilus adds wall-aware dependencies, catalog/seam checks, assembly and spawn validation.
 import {validateFeaturePlan, fitsFeaturePlan, requiredConnections} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js';
@@ -9,6 +10,7 @@ import {validateBlock, openBlock, applyData} from './roof-blocks.js';
 import {connectionSet, connectionsMatch, seamsMatch} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js';
 import {wallRunsBlockStep, wallRunsOf, WALL_KIT} from './wall-runs.js';
 export function generateConnectedMap(designs, seed = 7, plan = null) {
+  for(const block of designs)refusePartsEnvelope(block);
   if(!designs.some(block=>block?.slopedRoofs!==undefined))return legacyGenerate(designs,seed,plan);
   for(const block of designs)assertPrefabBlock(block);
   if (!Number.isInteger(seed) || seed < 0 || seed > 4294967295) throw Error('Use a whole-number seed between 0 and 4294967295.');

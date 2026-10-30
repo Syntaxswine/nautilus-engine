@@ -1,0 +1,328 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:standard-interactions:1",
+  "title": "Standard interactions v1",
+  "description": "API validation also checks unique identities, positive bounds, ordered routes and saved progress.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "profile",
+    "worldId",
+    "revision",
+    "doors",
+    "stairs"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-standard-interactions"
+    },
+    "version": {
+      "const": 1
+    },
+    "profile": {
+      "const": "bounded-kinematic-v1"
+    },
+    "worldId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "doors": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/door"
+      }
+    },
+    "stairs": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/stairs"
+      }
+    }
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        },
+        "y": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        },
+        "h": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        }
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/point"
+        },
+        "max": {
+          "$ref": "#/$defs/point"
+        }
+      }
+    },
+    "landing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "floorId",
+        "surfaceId",
+        "position"
+      ],
+      "properties": {
+        "floorId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "surfaceId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        }
+      }
+    },
+    "door": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "floorId",
+        "position",
+        "reachM",
+        "closedBounds",
+        "openBounds",
+        "motionBounds",
+        "open",
+        "locked"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "floorId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        },
+        "reachM": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 10
+        },
+        "closedBounds": {
+          "$ref": "#/$defs/bounds"
+        },
+        "openBounds": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/bounds"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "motionBounds": {
+          "$ref": "#/$defs/bounds"
+        },
+        "open": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "stairs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "from",
+        "to",
+        "path",
+        "widthM",
+        "clearanceM",
+        "bidirectional",
+        "reachM"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "from": {
+          "$ref": "#/$defs/landing"
+        },
+        "to": {
+          "$ref": "#/$defs/landing"
+        },
+        "path": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        },
+        "widthM": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 20
+        },
+        "clearanceM": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 20
+        },
+        "bidirectional": {
+          "type": "boolean"
+        },
+        "reachM": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 10
+        }
+      }
+    },
+    "traversal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stairId",
+        "direction",
+        "distanceM",
+        "path"
+      ],
+      "properties": {
+        "stairId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "direction": {
+          "enum": [
+            1,
+            -1
+          ]
+        },
+        "distanceM": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4106
+        },
+        "path": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 129,
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "position",
+        "floorId",
+        "radiusM",
+        "heightM",
+        "speedMps",
+        "traversal"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        },
+        "floorId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,95}$"
+        },
+        "radiusM": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 5
+        },
+        "heightM": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 10
+        },
+        "speedMps": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 20
+        },
+        "traversal": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/traversal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

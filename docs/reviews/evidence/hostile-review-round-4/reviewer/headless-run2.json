@@ -1,0 +1,360 @@
+{
+ "node": "v24.15.0",
+ "head": "09ecbef173b8c988d6f7e719bbffbeae5cc6bda0",
+ "statusBefore": "",
+ "baseline": {
+  "verdict": "SURVIVED",
+  "tests": 215,
+  "pass": 215,
+  "fail": 0,
+  "failed": [],
+  "firstError": "",
+  "seconds": 43
+ },
+ "mutants": [
+  {
+   "id": "C18",
+   "label": "C18 epsilon dropped (< radius)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "C19",
+   "label": "C19 swap only for heading pi/2 (walls drawn upwards misread)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "AssertionError [ERR_ASSERTION]: Missing expected exception: beside a vertical run drawn backwards, off its centre: adapter refuses\n      at TestContext.<anonymous> (file:///<sandbox>/tests/tinderbox-adapter.test.mjs:252:17)",
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "C20",
+   "label": "C20 x term signed (m.x - player.x)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "Error [TinderboxCompatibilityError]: The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.\n      at fail (file:///<sandbox>/packages/adapters/tinderbox/index.js:28:9)",
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "C23",
+   "label": "C23 right bound padded by a tile",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "Error [TinderboxCompatibilityError]: The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.\n      at fail (file:///<sandbox>/packages/adapters/tinderbox/index.js:28:9)",
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C24",
+   "label": "C24 bottom bound padded by a tile",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "Error [TinderboxCompatibilityError]: The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.\n      at fail (file:///<sandbox>/packages/adapters/tinderbox/index.js:28:9)",
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C27",
+   "label": "C27 right bound compared with the height",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "Error [TinderboxCompatibilityError]: The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.\n      at fail (file:///<sandbox>/packages/adapters/tinderbox/index.js:28:9)",
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C28",
+   "label": "C28 clearance checks start 0, not the selected start",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "explicit crop and marker policy preserves all four starts, exit and coordinate meaning"
+   ],
+   "firstError": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected",
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C29",
+   "label": "C29 left bound padded by half a tile",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "C30",
+   "label": "C30 epsilon widened to 1 mm",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "C33",
+   "label": "C33 bounds use radius + 0.4 everywhere (sub-tile pad)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "C34",
+   "label": "C34 y term signed (player.y - m.y), the side C21 does not cover",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 42,
+   "pass": 41,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "firstError": "Error [TinderboxCompatibilityError]: The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.\n      at fail (file:///<sandbox>/packages/adapters/tinderbox/index.js:28:9)",
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "N01",
+   "label": "N01 refresh drops its change guard (writes disabled every time)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N02",
+   "label": "N02 the editor-sync observer watches child nodes, not the disabled attribute",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N03",
+   "label": "N03 settings feedback observes only characterData (misses textContent replacement)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N04",
+   "label": "N04 settings feedback installed again on every refresh",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N06",
+   "label": "N06 open() does not await the editor",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N11",
+   "label": "N11 quick Send ignores a block (mirrors the host, not Send)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N12",
+   "label": "N12 Send title follows the disabled state, not the host",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "N16",
+   "label": "N16 the body observer is never installed",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 43,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "F01",
+   "label": "F01 launchPlaytest drops its return (the click no longer awaits the host)",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  },
+  {
+   "id": "F02",
+   "label": "F02 the click handler does not await the handoff",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 215,
+   "pass": 215,
+   "fail": 0,
+   "failed": [],
+   "firstError": "",
+   "seconds": 44,
+   "check": {
+    "exit": 0,
+    "tail": "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules. / Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs,"
+   },
+   "restored": true
+  }
+ ],
+ "statusAfter": ""
+}

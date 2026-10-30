@@ -13,8 +13,8 @@ const manifest=JSON.parse(read('package.json'));
 const exported=value=>typeof value==='string'?[value]:Object.values(value||{}).flatMap(exported);
 const entries=argumentsOf.flatMap((arg,i)=>arg==='--entry'?[argumentsOf[i+1]]:[]);
 // DOM binding and styling are optional UI, exported beside the pure controller.
-const browserEntries=new Set(['packages/floor-navigation/dom.js','packages/floor-navigation/style.css']);
-const publicHeadless=file=>/^packages\/(?:map-core|rules-core|items-core|runtime-core|world-core|floor-navigation)\//.test(file)||file==='packages/adapters/farmyard/rules.js';
+const browserEntries=new Set(['packages/floor-navigation/dom.js','packages/floor-navigation/style.css','packages/game-ui/title.js','packages/game-ui/style.css']);
+const publicHeadless=file=>/^packages\/(?:map-core|rules-core|items-core|grenades-core|parts-core|runtime-core|world-core|floor-navigation|interactions|game-ui)\//.test(file)||file.startsWith('packages/adapters/farmyard/');
 if(!entries.length)entries.push(...new Set(exported(manifest.exports).filter(file=>file.startsWith('./')).map(file=>file.slice(2)).filter(file=>publicHeadless(file)&&!browserEntries.has(file))));
 if(!entries.length)throw Error('No public headless entrypoints were discovered.');
 const modules=new Map(),violations=[];
@@ -41,6 +41,6 @@ function visit(file,chain=[]) {
 }
 for(const file of entries)visit(file);
 function closure(roots){const seen=new Set(),walk=file=>{if(seen.has(file))return;seen.add(file);modules.get(file).imports.forEach(walk);};roots.forEach(walk);return {entries:roots,modules:seen.size,bytes:[...seen].reduce((n,file)=>n+modules.get(file).bytes,0)};}
-const report={revision:revision||'working-tree',groups:{map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/'))),items:closure(entries.filter(file=>file.startsWith('packages/items-core/'))),runtime:closure(entries.filter(file=>file.startsWith('packages/runtime-core/'))),world:closure(entries.filter(file=>file.startsWith('packages/world-core/'))),farmyard:closure(entries.filter(file=>file==='packages/adapters/farmyard/rules.js')),floorNavigation:closure(entries.filter(file=>file.startsWith('packages/floor-navigation/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
+const report={revision:revision||'working-tree',groups:{parts:closure(entries.filter(file=>file.startsWith('packages/parts-core/'))),grenades:closure(entries.filter(file=>file.startsWith('packages/grenades-core/'))),interactions:closure(entries.filter(file=>file.startsWith('packages/interactions/'))),gameUI:closure(entries.filter(file=>file.startsWith('packages/game-ui/'))),map:closure(entries.filter(file=>file.startsWith('packages/map-core/'))),rules:closure(entries.filter(file=>file.startsWith('packages/rules-core/'))),items:closure(entries.filter(file=>file.startsWith('packages/items-core/'))),runtime:closure(entries.filter(file=>file.startsWith('packages/runtime-core/'))),world:closure(entries.filter(file=>file.startsWith('packages/world-core/'))),farmyard:closure(entries.filter(file=>file.startsWith('packages/adapters/farmyard/'))),floorNavigation:closure(entries.filter(file=>file.startsWith('packages/floor-navigation/')))},combined:closure(entries),violations,files:[...modules.keys()].sort()};
 if(enforce&&violations.length)throw Error(violations.map(({reason,chain})=>reason+': '+chain.join(' -> ')).join('\n'));
 process.stdout.write(JSON.stringify(report));

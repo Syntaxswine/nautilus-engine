@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:functional-parts:1",
+  "title": "Native functional-parts authoring envelope",
+  "description": "Structural v1 schema. Runtime validation additionally checks finite plain data, byte/count/depth budgets, exact references, native geometry/clearance, capability/provider readiness, scene/content identity and journal replay. Unsupported input is never normalized or installed as code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "profileId",
+    "revision",
+    "world",
+    "instances",
+    "connections"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-functional-parts"
+    },
+    "version": {
+      "const": 1
+    },
+    "profileId": {
+      "const": "native-quarter-turn-parts-v1"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "world": {
+      "$ref": "urn:nautilus:schema:extended-world:1"
+    },
+    "instances": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/instance"
+      }
+    },
+    "connections": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "from",
+          "to"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "kind": {
+            "enum": [
+              "door-aperture",
+              "stair-from",
+              "stair-to"
+            ]
+          },
+          "from": {
+            "$ref": "#/$defs/endpoint"
+          },
+          "to": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/endpoint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "definition",
+        "transform",
+        "parameters",
+        "initial",
+        "mode",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "definition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "version"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*(?![\\s\\S])"
+            }
+          }
+        },
+        "transform": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y",
+            "h",
+            "quarterTurns"
+          ],
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": -4096,
+              "maximum": 4096
+            },
+            "y": {
+              "type": "number",
+              "minimum": -4096,
+              "maximum": 4096
+            },
+            "h": {
+              "type": "number",
+              "minimum": -4096,
+              "maximum": 4096
+            },
+            "quarterTurns": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            }
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "number",
+                "minimum": -4096,
+                "maximum": 4096
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "initial": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "partId"
+            ],
+            "properties": {
+              "partId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "open": {
+                "type": "boolean"
+              },
+              "locked": {
+                "type": "boolean"
+              }
+            },
+            "minProperties": 2
+          }
+        },
+        "mode": {
+          "enum": [
+            "functional",
+            "decorative"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/instance"
+          }
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instanceId",
+        "partId"
+      ],
+      "properties": {
+        "instanceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "partId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        }
+      }
+    }
+  }
+}

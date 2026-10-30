@@ -1,0 +1,115 @@
+{
+ "head": "09ecbef173b8c988d6f7e719bbffbeae5cc6bda0",
+ "statusBefore": "",
+ "started": "2026-10-29T11:22:52.683Z",
+ "headless": [
+  {
+   "id": "N01 refresh writes disabled every time",
+   "file": "apps/editor/editor.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 45.155
+   },
+   "check": 0
+  },
+  {
+   "id": "N02 Send observer watches childList",
+   "file": "apps/editor/editor.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 46.047
+   },
+   "check": 0
+  },
+  {
+   "id": "N03 status mirror observes characterData only",
+   "file": "apps/editor/editor.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 45.09
+   },
+   "check": 0
+  },
+  {
+   "id": "N04 feedback once-only guard dropped",
+   "file": "apps/editor/editor.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 45.005
+   },
+   "check": 0
+  },
+  {
+   "id": "N06 open() without await",
+   "file": "apps/editor/editor.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 45.193
+   },
+   "check": 0
+  },
+  {
+   "id": "F01 launchPlaytest drops return",
+   "file": "tools/build.mjs",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 44.864
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0
+  },
+  {
+   "id": "F02 click handler drops await",
+   "file": "tools/editor-wall-adapter.mjs",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 43.782
+   },
+   "check": 0,
+   "build": 0,
+   "package": 0
+  },
+  {
+   "id": "C30 clearance tolerance 1 mm",
+   "file": "packages/adapters/tinderbox/index.js",
+   "suite": {
+    "status": 0,
+    "pass": 215,
+    "fail": 0,
+    "seconds": 45.894
+   },
+   "check": 0
+  }
+ ],
+ "browser": {
+  "id": "N01 refresh writes disabled every time",
+  "build": 0,
+  "status": 1,
+  "seconds": 32.394,
+  "tail": "\u001b[2m  - navigating to \"http://127.0.0.1:55932/\", waiting until \"networkidle\"\u001b[22m\r\n\r\n    at withArtReview.owner.owner (<sandbox>\\tools\\review-engine-integration.mjs:13:14)\r\n    at async withArtReview (<sandbox>\\tools\\art-review-browser.mjs:16:512)\r\n    at async file:///<sandbox>/tools/review-engine-integration.mjs:8:1 {\r\n  log: [\r\n    '  - navigating to \"http://127.0.0.1:55932/\", waiting until \"networkidle\"'\r\n  ],\r\n  name: 'TimeoutError'\r\n}\r\n\r\nNode.js v24.15.0"
+ },
+ "baseline": {
+  "status": 0,
+  "pass": 215,
+  "fail": 0,
+  "seconds": 44.614
+ },
+ "rebuild": 0,
+ "statusAfter": "",
+ "finished": "2026-10-29T11:32:01.863Z"
+}

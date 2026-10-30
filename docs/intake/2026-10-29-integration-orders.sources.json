@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Deduplicate eight intake candidates before authorized integration orders",
+  "observedAt": "2026-10-30T03:37:00.523Z",
+  "dateEastern": "2026-10-29",
+  "publishedMain": {
+    "commit": "8644b44ce1c049983fd722d83237ebb2dcec0eb3",
+    "verification": "GitHub commits/main API matches local origin/main; primary checkout deliberately not changed",
+    "files": [
+      {
+        "path": "package.json",
+        "blob": "0568d551585be92cefbcbde9068de9017ee200e2",
+        "bytes": 18213,
+        "sha256": "9543aa057b572273166ca3ffc8ba4f466cfe4c0397dd9d6be78acf3635ee146c"
+      },
+      {
+        "path": "upstream.json",
+        "blob": "3a282b1ae3fed76943a724177683142a2041e4cc",
+        "bytes": 4162,
+        "sha256": "bf48344ab40e436d3c3c0509ee5aa0827372ba649d5431710d2da97eb7f95af6"
+      },
+      {
+        "path": "packages/assets/catalogue.js",
+        "blob": "b5bb720fb2d42cebb20004fef62c78317a92f8f2",
+        "bytes": 180321,
+        "sha256": "ccc52c40670f9f4b149cf6e5a8d0eb66cc83f9660a37618b03f1d703e16c4d25"
+      },
+      {
+        "path": "packages/assets/three.js",
+        "blob": "f634031f8e2cf6afb9455043adc5df3f77779744",
+        "bytes": 1934,
+        "sha256": "c5dcc0aa1651d4ee5e42bfe2eb0786320e1a8bd4afc8e5a80573050639504022"
+      },
+      {
+        "path": "packages/assets/bindings/actor-intake-v1.json",
+        "blob": "c91fbf1b5abe4141c1d57a4fdbb7af3036d06d61",
+        "bytes": 71871,
+        "sha256": "634e9ea07af223f8c91b571a17cc1a96988724f5dd6d90d01ebc8c8f0ad808fa"
+      },
+      {
+        "path": "packages/world-core/queries.js",
+        "blob": "814b85be5856bf0aa58ca7baf72e011d5de8158d",
+        "bytes": 5880,
+        "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457"
+      }
+    ]
+  },
+  "architectCandidate": {
+    "commit": "3508a991b6e9aa6c98f9d3e0c6dcebfb95816016",
+    "branch": "codex/farmyard-door-integration",
+    "status": "Committed locally, not canonical main; further Coder fixes and UI proof in progress",
+    "files": [
+      {
+        "path": "packages/parts-core/index.js",
+        "blob": "546e4e443164545174b133f4944e758d0fb8b35f",
+        "bytes": 1789,
+        "sha256": "dbd2d8fa227303d644d5c5459bdd54a3974c33d71a5041e1e6c07dc46c240335"
+      },
+      {
+        "path": "packages/parts-core/runtime.js",
+        "blob": "9259202d2747c049df30789c95faac5b38fd186a",
+        "bytes": 19571,
+        "sha256": "9a1c241126efa7584fa50a7b86101433b3316298b57c7a77f91e328444f6b9be"
+      },
+      {
+        "path": "packages/interactions/index.js",
+        "blob": "247cbe396c27e847d4b6c09eab04069ef7b56018",
+        "bytes": 360,
+        "sha256": "56a886bb528aa6b6cb4449f3e3c8ac9d0c42b1541907f988a777504694cb5604"
+      },
+      {
+        "path": "packages/interactions/actions.js",
+        "blob": "8e5939754baf7a91c8d47f2d940a8cb7d805c1da",
+        "bytes": 9901,
+        "sha256": "eb6fe5be66b21abbc86fe6a6a477ce265e2d3e470b2a3398121f31db27594e63"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/host.js",
+        "blob": "8f3a9263f7c6a65c1fc5e442cb304982f62aa80d",
+        "bytes": 12463,
+        "sha256": "ffb3bfa12442829e4398927f5731d4eb802258cd2484ca67ff975b66b817db45"
+      },
+      {
+        "path": "docs/standard-interactions.md",
+        "blob": "551453048091f01d0be938129d17fea7924b6155",
+        "bytes": 17187,
+        "sha256": "3f185da42fec0d92437a68da71f5998b7669fd89e114b5b6d988ab151829e46f"
+      },
+      {
+        "path": "docs/adapters/farmyard-doors.md",
+        "blob": "63225496f137aababfca44af7b83d201145a4cd9",
+        "bytes": 18802,
+        "sha256": "dc87258a3b6d3418155fc3e85520cb92d0efbdc49a80f8f4155ef6527b887b76"
+      }
+    ]
+  },
+  "existingPeople": [
+    {
+      "id": "people:bull",
+      "availability": "inspection-only",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:cow",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:dog",
+      "availability": "inspection-only",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:donkey",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:goat",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:hen",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:horse",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:pig-director",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:pig-foreman",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:rabbit",
+      "availability": "inspection-only",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:sheep",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    },
+    {
+      "id": "people:skunk",
+      "availability": "content-binding-required",
+      "source": {
+        "project": "aft",
+        "commit": "781246a668c723d5a4c5463e70534cc04b6a5641"
+      }
+    }
+  ],
+  "exportedEntries": [
+    ".",
+    "./prefabs",
+    "./rules",
+    "./rules/dialogue",
+    "./rules/aft",
+    "./render-effects",
+    "./render-effects/three",
+    "./buildings",
+    "./buildings/three",
+    "./contracts",
+    "./capabilities",
+    "./persistence",
+    "./assets",
+    "./assets/three",
+    "./adapters/tinderbox",
+    "./roofs",
+    "./roofs/three",
+    "./items",
+    "./items/three",
+    "./rules/progression",
+    "./runtime",
+    "./world",
+    "./adapters/farmyard/rules",
+    "./floors",
+    "./floors/ui",
+    "./floors/style.css",
+    "./grenades",
+    "./grenades/aim",
+    "./grenades/ui",
+    "./grenades/style.css",
+    "./grenades/view",
+    "./grenades/three"
+  ],
+  "pendingExportedEntries": [
+    ".",
+    "./prefabs",
+    "./rules",
+    "./rules/dialogue",
+    "./rules/aft",
+    "./render-effects",
+    "./render-effects/three",
+    "./buildings",
+    "./buildings/three",
+    "./contracts",
+    "./capabilities",
+    "./persistence",
+    "./assets",
+    "./assets/three",
+    "./adapters/tinderbox",
+    "./roofs",
+    "./roofs/three",
+    "./items",
+    "./items/three",
+    "./rules/progression",
+    "./runtime",
+    "./world",
+    "./adapters/farmyard/rules",
+    "./floors",
+    "./floors/ui",
+    "./floors/style.css",
+    "./grenades",
+    "./grenades/aim",
+    "./grenades/ui",
+    "./grenades/style.css",
+    "./grenades/view",
+    "./grenades/three",
+    "./parts",
+    "./parts/fixtures",
+    "./interactions",
+    "./game-ui",
+    "./game-ui/title",
+    "./game-ui/style.css"
+  ],
+  "animalBodyComparisons": {
+    "sourceCommit": "25d0e91858be0fa5ea7d54132a4a642624bd9aa7",
+    "files": [
+      {
+        "species": "bull",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bull-10k-data.json",
+        "sourcePath": "dist/tactics/bull-10k-data.json",
+        "engineSha256": "2cd1b1c1e89ed3353b7b573dd50c62d1fe0754e6f180cdf22de88aded2003143",
+        "sourceSha256": "2cd1b1c1e89ed3353b7b573dd50c62d1fe0754e6f180cdf22de88aded2003143",
+        "identical": true
+      },
+      {
+        "species": "rabbit",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-10k-data.json",
+        "sourcePath": "dist/tactics/rabbit-10k-data.json",
+        "engineSha256": "dd74d22591620e0589e2385f85dc8af8cc477ac5415e6db85bf9b291eb442fdb",
+        "sourceSha256": "dd74d22591620e0589e2385f85dc8af8cc477ac5415e6db85bf9b291eb442fdb",
+        "identical": true
+      },
+      {
+        "species": "dog",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-guard-10k-data.json",
+        "sourcePath": "dist/tactics/dog-guard-10k-data.json",
+        "engineSha256": "8a5ffc4beb84c1512ec91c620b9e7f492727ff92b289837f01fc14f905e07ba3",
+        "sourceSha256": "8a5ffc4beb84c1512ec91c620b9e7f492727ff92b289837f01fc14f905e07ba3",
+        "identical": true
+      }
+    ],
+    "completionFiles": [
+      {
+        "sourcePath": "dist/tactics/animal-motion-catalog.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js",
+        "present": true,
+        "identical": false,
+        "sourceSha256": "7f8c0368b2a9cca8e7a6f11df652d1bc18991931738e547510dc8aef052d517c",
+        "engineSha256": "7ea959f751be0e9b26599c5f3f789013cc13b07105bf69791afd8de530121b60"
+      },
+      {
+        "sourcePath": "dist/tactics/animal-motion-findings.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-findings.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "266dd555435ce30f8ddd977dd9ffddd333dcadc52b9f63c0b9e01f4d2cc03639",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/tactics/fitted-character-roster.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fitted-character-roster.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "0d55c3fc8c26d44e1cf35bc175294281731337ef4699acca79fa2555edc6c3f2",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/tactics/ladder-journey.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ladder-journey.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "8e19af8b35aee6fc7b08afcffb54c5e06f01427280e7f9b808f1c1bddd867056",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/tactics/ladder-motion.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ladder-motion.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "9b0fcd45a1503770ea311a152618903fead3d7cace7d0202bfa45b1c0476b12c",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/tactics/ledge-descent.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ledge-descent.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "ebcae18e2a5e8ad74350520e3badd0efd903b298f1e8de2f09d4ef84a74883d6",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/tactics/horse-chair-motion.js",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-chair-motion.js",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "37fd7b9d7edfff1897dba867649bbbb8685076bc19eb5a0814e32213989c3796",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/bull-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/bull-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "f48653bfc0934fd9656320050468d68cea454e0e60ba02007e673fd43c58c807",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/red-hats/bull-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/red-hats/bull-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "fce78ae619fcf56ad3385637893ba16e9b2474a7430d1118739c6869c46d0de2",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/rabbit-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/rabbit-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "99456e7f3f7f86bbf6d6c9221325cf487476a1b5140998ac65f7afdf63979e9f",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/red-hats/rabbit-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/red-hats/rabbit-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "7f3809094475718802c06d45469476df9eee911c3d898d0154143f6f397f2571",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/dog-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/dog-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "5a774e8223d266aebb31e5cd98c4cb82aedbabd332fedaca53deb395c09d1efb",
+        "engineSha256": null
+      },
+      {
+        "sourcePath": "dist/assets/characters/red-hats/dog-idle.png",
+        "enginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/red-hats/dog-idle.png",
+        "present": false,
+        "identical": false,
+        "sourceSha256": "d2a6cafa7d34a7a24ffe124832cd47f3a2c8d8753d127079141c72d3de4963a6",
+        "engineSha256": null
+      }
+    ]
+  },
+  "inheritedXray": {
+    "expectedEnginePath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/wall-xray.js",
+    "present": false,
+    "engineSha256": null,
+    "candidateSourceSha256": "12b586787c07c71d0b19afc124598ba9e4949f57b8136110db595f6dafc56a9a",
+    "identical": false,
+    "existingPaths": [],
+    "boundary": "The gold interaction contour is a different effect. No sparse global outline, follow-actor transparency binding or ghost streaming lifecycle is supplied by its presence."
+  },
+  "probes": [
+    {
+      "id": "FC-3c29604-pane-integration",
+      "needles": [
+        "window.full.borderless",
+        "createWindowLibrary",
+        "windowSystem"
+      ],
+      "paths": [
+        "packages/windows",
+        "packages/window-core"
+      ],
+      "existing": [],
+      "mainPathPrefixesPresent": []
+    },
+    {
+      "id": "TB-988b4ac-medicine-kit",
+      "paths": [
+        "packages/tinderbox-art",
+        "assets/art/medicine-pickups"
+      ],
+      "existing": [],
+      "mainPathPrefixesPresent": []
+    },
+    {
+      "id": "TB-c6ddd51-waterfront-kit",
+      "paths": [
+        "packages/tinderbox-art",
+        "assets/art/horticulture-waterfront"
+      ],
+      "existing": [],
+      "mainPathPrefixesPresent": []
+    },
+    {
+      "id": "TB-f75499a-exposition-landmarks",
+      "paths": [
+        "assets/art/exposition-horticulture",
+        "assets/art/exposition-fisheries"
+      ],
+      "existing": [],
+      "mainPathPrefixesPresent": []
+    },
+    {
+      "id": "TB-20baf4c-exterior-ghost",
+      "paths": [
+        "src/runtime/exterior-ghost.js",
+        "packages/render-effects/exterior-ghost.js"
+      ],
+      "existing": [],
+      "mainPathPrefixesPresent": []
+    }
+  ],
+  "currentAssignments": [
+    {
+      "owner": "Architect, Nautilus Engine",
+      "threadId": "01a18107-b4af-78c0-850f-0235d4df307f",
+      "work": "Farmyard doors, native parts integration, ownership fixes and native UI acceptance after merged grenades"
+    },
+    {
+      "owner": "Coder, Nautilus Engine",
+      "threadId": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "work": "Farmyard door retained-host corrections; last inspected fixed checkpoint48a0192777a8a5ade0448b313123418398ce044a"
+    },
+    {
+      "owner": "UI, Nautilus Engine",
+      "threadId": "01a1810e-3297-7142-ac31-ac504ea8553d",
+      "work": "Native Farmyard door reference from fixed48a0192, awaiting corrected core checkpoint"
+    },
+    {
+      "owner": "Artist, Nautilus Engine",
+      "threadId": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+      "work": "User-authorized Tinderbox art intake; uncommitted packages/tinderbox-art and vendor/tinderbox-art already in progress; no source consumed here"
+    },
+    {
+      "owner": "Editor, Nautilus Engine",
+      "threadId": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+      "work": "Read-only Tinderbox comparison completed; confirmed frozen UI01fe0d2 missed-release recovery gap, no implementation committed by that task"
+    }
+  ],
+  "limitations": "Path/provenance matches were checked alongside public API and committed code, not treated as proof of game adoption. Worker dirty files were inventoried only, not read as an accepted source or imported. Reference dependency copies and proposals are not accepted runtime integrations.",
+  "authorization": "User explicitly requests deduplication, starting the missing integrations, and passing remaining integration orders to the responsible parties when free. Architect retains integration/delegation ownership.",
+  "orders": [
+    {
+      "id": "TB-dc7f537-context-and-input",
+      "status": "continue-active-tranche",
+      "owners": [
+        "Coder",
+        "UI",
+        "Editor"
+      ],
+      "dependsOn": [
+        "current retained-host corrections"
+      ],
+      "nextDeliverable": "Add any missing target/projection/release-recovery acceptance cases to the existing door/reference implementation; inspect current fixed UI first."
+    },
+    {
+      "id": "TB-c6ddd51-waterfront-kit",
+      "status": "continue-active-art-intake",
+      "owners": [
+        "Artist",
+        "Coder",
+        "Editor"
+      ],
+      "dependsOn": [
+        "current Tinderbox art handoff"
+      ],
+      "nextDeliverable": "Return one committed native-scale waterfront catalogue/provider and public guide, then integrate missing registration/authoring."
+    },
+    {
+      "id": "TB-988b4ac-medicine-kit",
+      "status": "queue-gap-check-in-current-art-intake",
+      "owners": [
+        "Artist",
+        "Coder",
+        "UI"
+      ],
+      "dependsOn": [
+        "current Tinderbox art task"
+      ],
+      "nextDeliverable": "Confirm existing intake coverage; add the three snapshot-driven props only if absent and expose optional lifecycle-safe presentation."
+    },
+    {
+      "id": "FC-3c29604-pane-integration",
+      "status": "start-next-after-door-tranche",
+      "owners": [
+        "Coder",
+        "Artist",
+        "Editor",
+        "UI"
+      ],
+      "dependsOn": [
+        "accepted parts/interaction checkpoint"
+      ],
+      "nextDeliverable": "Minimal immutable closure plus per-pane state/exact aperture queries, then native art and editor dimensions/history."
+    },
+    {
+      "id": "AFT-25d0e91-completed-roster",
+      "status": "queue-completion-delta",
+      "owners": [
+        "Coder",
+        "Artist",
+        "Editor",
+        "UI"
+      ],
+      "dependsOn": [
+        "existing bear/appearance provider"
+      ],
+      "nextDeliverable": "Reuse identical bodies and add only reviewed portrait/fitting/motion/placement deltas."
+    },
+    {
+      "id": "FC-a6a7944-coldwell-feedback",
+      "status": "queue-bounded-provider",
+      "owners": [
+        "Coder",
+        "Artist",
+        "Editor"
+      ],
+      "dependsOn": [
+        "accepted parts/interaction contract"
+      ],
+      "nextDeliverable": "Propose and implement minimal original-mesh/rig/support/save service extension; no duplicate Coldwell art or second door authority."
+    },
+    {
+      "id": "TB-f75499a-exposition-landmarks",
+      "status": "continue-art-queue-gameplay-acceptance",
+      "owners": [
+        "Artist",
+        "Coder",
+        "Editor",
+        "UI"
+      ],
+      "dependsOn": [
+        "current Tinderbox art provider",
+        "native geometry/section services"
+      ],
+      "nextDeliverable": "Fixed optional building handoff with section/detail boundaries, then actual native routes/large-world/device acceptance."
+    },
+    {
+      "id": "TB-20baf4c-exterior-ghost",
+      "status": "queue-optional-renderer",
+      "owners": [
+        "Coder",
+        "Artist",
+        "UI"
+      ],
+      "dependsOn": [
+        "accepted scene/section ownership seam"
+      ],
+      "nextDeliverable": "Review pinned shader closure and expose sparse outlines/actor-centred clear halo with real shader/disposal/device evidence; preserve gold interactions."
+    }
+  ],
+  "validation": {
+    "reportBranch": "codex/weekly-integrations",
+    "integrity": "passed; 534 preserved source files",
+    "engineTests": 23,
+    "upstreamTests": 32,
+    "build": "passed",
+    "scope": "Documentation-only report branch; no implementation acceptance inferred.",
+    "helpers": "No persistent process, server or browser session created; short-lived commands exited."
+  }
+}

@@ -1,0 +1,45 @@
+// Local bounded visual diagnostic. Copy to artifacts/review-grenade-live.mjs.
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {withArtReview} from '../tools/art-review-browser.mjs';
+import {loaded,throwAtTarget,snapshot} from '../tools/grenade-browser-actions.mjs';
+await withArtReview('Real-time native grenade playback and authority continuity',async({browser,baseURL,out,errors,failedRequests})=>{
+ const context=await browser.newContext({viewport:{width:1280,height:900}});
+ let page,recorded=false;const samples=[];
+ try{
+  page=await context.newPage();
+  page.on('pageerror',error=>errors.push(error.message));
+  page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
+  page.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
+  await page.goto(baseURL+'/examples/grenade-reference.html');await loaded(page);
+  await page.evaluate(()=>{
+   const stream=document.querySelector('#world canvas').captureStream(24),chunks=[],recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8'});let complete;
+   const done=new Promise(resolve=>{complete=resolve;});recorder.ondataavailable=event=>{if(event.data.size)chunks.push(event.data);};
+   recorder.onstop=()=>{stream.getTracks().forEach(track=>track.stop());const reader=new FileReader();reader.onload=()=>complete(reader.result.split(',')[1]);reader.readAsDataURL(new Blob(chunks,{type:'video/webm'}));};
+   window.__nativeClip={stop(){if(recorder.state!=='inactive')recorder.stop();return done;}};recorder.start(200);
+  });
+  const accepted=await throwAtTarget(page),state=JSON.stringify(accepted.state),start=Date.now();
+  assert.equal(accepted.state.actors[0].grenades,2);assert.equal(accepted.stats.scheduled,1);
+  await page.waitForFunction(()=>!!window.grenadeReference.snapshot().playback);
+  await page.locator('#camera').selectOption('actor');
+  const markers=[0,.5,.7,1.6,1.92,2.04,2.1,2.62,3,4.6];let index=0,last=-1;
+  while(Date.now()-start<60000){
+   const current=await snapshot(page);assert.equal(JSON.stringify(current.state),state);assert.equal(current.stats.scheduled,1);assert.equal(current.error,null);
+   const elapsed=current.native.elapsedSeconds;assert.ok(elapsed>=last);last=elapsed;
+   if(index<markers.length&&elapsed>=markers[index]){
+    const file='live-'+String(index).padStart(2,'0')+'.png';await page.screenshot({path:path.join(out,file)});
+    samples.push({elapsedSeconds:elapsed,wallSeconds:(Date.now()-start)/1000,file,native:current.native});
+    while(index<markers.length&&elapsed>=markers[index])index++;
+   }
+   if(!current.playback){assert.equal(elapsed,4.6);break;}
+   await page.waitForTimeout(120);
+  }
+  const final=await snapshot(page);assert.equal(final.playback,null);assert.equal(final.stats.scheduled,1);assert.equal(JSON.stringify(final.state),state);
+  assert.ok(samples.some(sample=>sample.elapsedSeconds<1.92));assert.ok(samples.some(sample=>sample.native.projectileState==='flying'));
+  const encoded=await page.evaluate(()=>window.__nativeClip.stop());fs.writeFileSync(path.join(out,'native-throw.webm'),Buffer.from(encoded,'base64'));recorded=true;
+  await page.evaluate(()=>window.grenadeReference.dispose());assert.equal(await page.locator('#world canvas').count(),0);
+  await page.waitForTimeout(200);
+  fs.writeFileSync(path.join(out,'review.json'),JSON.stringify({scope:'Actual requestAnimationFrame playback; one real controls confirmation; authoritative state constant throughout. Local Edge/SwiftShader observation, not a device/FPS benchmark.',samples,oneCommittedThrow:true,quietDispose:true,errors,failedRequests},null,2)+'\n');
+ }finally{if(page&&!recorded)await page.evaluate(()=>window.__nativeClip?.stop()).catch(()=>{});await context.close();}
+},{output:'grenade-reference-live',timeoutMs:120000});
