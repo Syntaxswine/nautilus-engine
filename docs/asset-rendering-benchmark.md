@@ -46,3 +46,18 @@ node tools/bench-asset-rendering.mjs --node --a <baseline tree> --runs 8
 ```
 
 `--b` defaults to this checkout. Results go to `artifacts/bench/` (ignored). The scripts find Playwright the way `tools/art-review-browser.mjs` does, and close their browser and server in a `finally`. Timings name their rig; compare arms only within one run of the tool.
+
+## Results
+
+The first full run measured the answer to round 1, recorded in [the round-1 review](reviews/2026-10-29-hostile-review-0.8-round-1.md#the-answer-to-round-1-measured). That run was the editor mode on an RTX 3080, with 6 paired runs, against main `f6caeef`. At the overview:
+
+| Workload | Whole frame | Assets' own share |
+| --- | --- | --- |
+| 32 distinct original buildings | ×2.10–2.26 | ×3.2 |
+| 32 Gross houses | ×3.76 | ×7.8 |
+| 2,400 free-angle wall runs | ×5.19 | ×36 |
+| Mixed district | ×2.79 | ×4.2 |
+| 32 copies of one design | ×1.65 | ×2.6 |
+| Blank map (null control) | ×1.00 (0.93–1.05) | — |
+
+On SwiftShader, 21 of 27 editor views were byte-identical to main. The others differed only at depth ties, or by one colour level in a few cutaway pixels, from baked door leaves. A control without door baking removed the latter.

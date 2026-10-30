@@ -339,3 +339,106 @@ Edit and view-change latency (`scene.rebuild()`, 6 samples) is 113–147 ms in e
 7. `prototypes.mjs`, `prototypes2.mjs`, `prototype-combined.mjs`, `world-view.mjs`
 8. `mutate.mjs`, then `survivors.mjs` (both need a clean tree)
 9. `tables.mjs`
+
+## The answer to round 1, measured
+
+The owner's goal was to render the massive structures twice as fast. The answer is branch `claude/asset-render-speed`, stacked on this record:
+
+| Commit | Answers | Change |
+| --- | --- | --- |
+| `a68cefd` | SF5 | The building generator in scalar arithmetic and float32 buffers, byte-identical; its reviewed output pinned instead of its source text |
+| `8ed66db` | SF1–SF3 (editor) | Display batches: one draw per material per view for original buildings, at most two for Gross houses |
+| `af06303` | SF4 | Wall panels as one width-scaled instance set per material |
+| `e6ae2a4` | SF3 (facade) | One template per original design in `assets/three` |
+| `0ba89e0` | MF4 | `tools/bench-asset-rendering.mjs` and [its method](../asset-rendering-benchmark.md); `review:integration` counts a whole frame |
+| `aaa77e4` | (its own regression) | Wall instances written straight into typed buffers; `af06303` had made the wall rebuild slower than main |
+
+**Rig and method.**
+- One machine: Windows 11, Ryzen 7 5800X, RTX 3080 (ANGLE D3D11) for timing, and SwiftShader for pixels.
+- Headless Edge at 1600 × 1100: 156.0.4314.50 for the GPU run; the browser updated itself to .56 before the SwiftShader and later runs.
+- The frame and pixel measurements ran on `0ba89e0` with a clean tree, against main `f6caeef`.
+- `aaa77e4` changes only how the wall layer fills its buffers. For both wall workloads its instance matrices, widths and unit geometry hash the same as `0ba89e0`'s (`wall-buffers-equal.mjs`), so those frames and pixels carry over.
+- Other agents were working on the machine. Both trees run as two pages of one browser, with A B B A blocks per map and view, so their load falls on both arms. The blank map runs identical code in both arms and gives the noise floor.
+
+### Frame time in the built editor (RTX 3080)
+
+Each cell is main's frame time divided by the answer's: the median over 6 paired runs, with the range across runs. "Assets" subtracts, in each arm and view, the blank map's frame time. That removes the inherited scene's fixed cost: 1,121 calls and about 5.9 ms in the overview.
+
+| Workload | Draw calls, overview (main → this) | Frame, overview | Frame, close | Frame, cutaway | Assets, overview | Assets, close | Assets, cutaway |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| w0 blank (null control) | 1,121 → 1,121 | ×1.00 (0.93–1.05) | ×0.97 (0.84–1.02) | ×0.98 (0.89–1.03) | — | — | — |
+| w1 32 copies of one design | 4,155 → 1,919 | ×1.65 (1.55–1.92) | ×1.51 (1.40–1.87) | ×1.26 (1.03–1.37) | ×2.61 | ×2.67 | ×1.88 |
+| w2 32 distinct, most meshes | 4,480 → 1,877 | ×2.10 (1.90–2.48) | ×2.32 (2.20–3.06) | ×1.89 (1.79–2.02) | ×3.15 | ×4.68 | ×3.91 |
+| w3 32 distinct, most triangles | 4,425 → 1,863 | ×2.26 (1.98–2.35) | ×2.38 (2.15–2.63) | ×1.92 (1.51–2.07) | ×3.16 | ×4.18 | ×3.52 |
+| w4 32 Gross houses | 8,657 → 1,941 | ×3.76 (3.42–4.08) | ×3.77 (3.38–4.34) | ×2.05 (1.92–2.14) | ×7.80 | ×7.94 | ×3.14 |
+| w5a 38,400 axis-aligned panels | 1,127 → 1,127 | ×1.04 (0.54–1.12) | ×1.03 (0.94–1.13) | ×0.98 (0.93–1.05) | ≈1 ms, noise | | |
+| w5b 2,400 free-angle runs | 5,916 → 1,127 | ×5.19 (4.76–5.60) | ×2.97 (2.80–3.28) | ×1.80 (1.65–1.98) | ×36 | ×10.8 | ×16.5 |
+| w6 144 roofs (code unchanged) | 1,985 → 1,985 | ×1.03 (0.86–1.08) | ×0.99 (0.91–1.04) | ×0.96 (0.89–1.08) | ×0.98 | ×1.06 | sub-ms, noise |
+| w7 13 Gross + 19 largest | 6,542 → 1,940 | ×2.79 (2.40–2.93) | ×2.83 (1.97–2.99) | ×2.12 (1.89–2.42) | ×4.15 | ×4.84 | ×3.14 |
+
+Absolute medians, for example: w2 at the overview, 27.9 → 12.8 ms; w5b, 37.5 → 6.70 ms. The draw counts are identical in every run and on both backends. Every count and both arms' milliseconds are in [`answer/tables.md`](evidence/hostile-review-0.8-round-1/answer/tables.md).
+
+**Against the 2× goal:**
+- **Assets' own frame time:** at least twice as fast for every building and free-angle-wall workload in every view but one, at ×2.6–36. The exception is w1, 32 copies of one design, in the level-0 cutaway (×1.88).
+- **Whole editor frames at the overview:** at least twice as fast for the same workloads (×2.10–5.19), except w1 (×1.65). The cutaways of w2, w3 and w5b come in at ×1.80–1.92, because the inherited scene is most of a cutaway frame.
+- **Placed copies of one design are the weak case:** each copy still issues one draw per material. Instancing the copies would close the gap, at the cost of a few edge pixels of precision; round 1's prototype changed 365 pixels.
+- **Unchanged, as expected:** roofs, and axis-aligned walls, which were already one draw per material.
+
+### Build, open and edit times
+
+| Measure | main | this | Speedup |
+| --- | --- | --- | --- |
+| Generator, all 48 designs, game LOD (Node, 8 paired runs) | 2,579 ms (2,442–2,813) | 746 ms (676–846) | ×3.46 |
+| Generator, authoring LOD | 4,642 ms (4,552–4,747) | 1,354 ms (1,287–1,426) | ×3.43 |
+| Facade, 32 copies of the largest design (Node, 4 paired runs) | 4,696 ms, 1,472 geometries | 87.5 ms, 46 geometries | ×54 |
+| Editor open w2, assets' share (6 paired runs) | 1,863 ms (whole open 3,202) | 932 ms (2,274) | ×2.0 (whole ×1.42, range 1.26–1.54) |
+| Editor open w3, assets' share | 1,838 ms (3,177) | 789 ms (2,130) | ×2.3 (whole ×1.49) |
+| Editor open w7, assets' share | 2,067 ms (3,406) | 1,014 ms (2,356) | ×2.0 (whole ×1.47) |
+| Wall rebuild per edit, w5a (editor, 40 paired samples, `aaa77e4`) | 21.5 ms | 10.9 ms | ×1.97 |
+| Wall rebuild per edit, w5b | 29.8 ms | 9.7 ms | ×3.07 |
+
+"Open" is `window.nautilus.open()` of the workload after a blank map. It includes the inherited scene's rebuild, about 1.34 s here, with ±15% run-to-run variation. The open of w1 and w4, and of the wall and roof maps, sits within that noise. On `0ba89e0` the w5a wall rebuild was 46.1 ms; `aaa77e4` fixed that regression, found by the paired measurement in `wall-rebuild-0ba89e0.json`.
+
+### Identity
+
+- **Geometry:** all 96 design × LOD outputs of `createBuildingModel` match digests recorded with the reviewed ee7c18e renderer. The Node A/B compares every design's digest against main's again before it times them (48/48 per LOD). `npm run build:buildings` regenerates all 144 export files byte-identical. `catalogue.json` changes in one line (the renderer's hash) and the generated registry in two.
+- **Drawn triangles:** for every original design in every editor view (250 views) and every Gross house (168 views), the batches draw exactly the source's visible triangles, keyed by material (`tests/prefab-display-batches.test.mjs`).
+- **Walls:** a float32 emulation of the vertex shader reproduces `BoxGeometry(width)` positions and UVs bit for bit, for every vertex at 11 widths (`tests/editor-wall-scene.test.mjs`).
+- **Pixels.** SwiftShader editor captures of all 27 workload views (`answer/editor-swiftshader.json`):
+
+  | Views | Pixels that differ from main | Cause |
+  | --- | --- | --- |
+  | 21 of 27 | none | — |
+  | w2 close; w5b overview and cutaway | 7, 1,021 and 76 of 967,296 (max delta 14, 63, 53) | depth ties: every one changes when the frame is redrawn with strict `<` instead of `<=` |
+  | w1, w3 and w7 cutaways | 8, 3 and 3 (max delta 1) | baked door leaves |
+
+  The door attribution comes from a control build of `0ba89e0` with door leaves left as separate meshes (`control-doors-unbaked.json`). It is byte-identical to main in all 12 views of w1, w3 and w7. Leaving the leaves unbaked would keep 57% of the building meshes as separate draws.
+- **Repeats:** a repeat of main's arm was byte-identical in every view, so SwiftShader is deterministic here. Main ordered same-material meshes by camera distance; a merged buffer has one order, which is why the ties can resolve differently.
+- **Integration captures:** in `review:integration`, four of the six captures are byte-identical to main's. The Gross preview and the mobile library differ in 3 and 2 pixels (max delta 10), at the Gross wall seams.
+
+### Gates
+
+| Commit | Gates |
+| --- | --- |
+| `0ba89e0` | build, `check --tracked`, test, `test:upstream`, `test:package`, `review:integration` |
+| `aaa77e4` | all again, with 366/366 tests (main has 357) |
+
+`review:integration` now records a whole frame: `{frame: 1143, shadowPass: 636}`, where main recorded `drawCalls: 1`.
+
+### Behaviour changes
+
+- **Provenance gate.** `tools/prefab-original-catalog.mjs` no longer pins the renderer's source bytes and the catalogue's bytes to ee7c18e. It pins the reviewed geometry, and the catalogue's content apart from the renderer-hash line. The other four input fingerprints are unchanged.
+- **Facade.** `loadBuildingAssets` shares one template per original design. Instances share geometry and materials, documented as read-only, and keep independent views.
+- **Editor internals and the integration record:**
+  - the wall layer has no per-width geometry cache;
+  - original-building templates release their opaque source arrays once merged;
+  - `review:integration`'s `drawCalls` is now `{frame, shadowPass, view}`.
+
+### Not done, or not verified
+
+- **Roofs:** unchanged. 144 roofs still cost 3 draw groups each per pass (w6). Merging them needs `roof-core`'s per-roof materials reworked.
+- **The inherited AFT scene:** a fixed cost in every frame and every open (vendored bytes). The whole-frame speedups are smaller than the assets' own.
+- **Placed copies of one design:** still clones that share batch geometry, not instances.
+- **Hardware:** phones and other GPUs were not measured.
+- **Gross houses in the facade:** still one unbatched model per instance.
+- **Other findings:** MF1–MF3 and SF6–SF8 are the architect's and are untouched.
