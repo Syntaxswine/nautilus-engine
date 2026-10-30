@@ -102,3 +102,52 @@ test('revision exhaustion returns unchanged state and all successful movement ca
  f.actor.revision=0;const moved=walkActor(f.state,f.actor,{direction:{x:-1,y:0},seconds:.1},f.queries);assert.deepEqual(moved.expected,{worldRevision:0,actorRevision:0});
  const bad=applyInteraction(f.state,f.actor,{...p.command,actorRevision:0,kind:undefined},f.queries);assert.equal(bad.ok,false);assert.deepEqual(bad.state,f.state);
 });
+
+function atStarterStairs(){const host=createStarterHost();assert.equal(host.interact('yard-gate').ok,true);for(let index=0;index<6;index++)assert.equal(host.walk(1,0).ok,true);return host;}
+for(const [action,prepare,run]of [
+ ['door interaction',()=>createStarterHost(),host=>host.interact('yard-gate')],
+ ['walking',()=>createStarterHost(),host=>host.walk(-1,0,.1)],
+ ['stair entry',atStarterStairs,host=>host.interact('deck-stairs')],
+ ['stair advancement',()=>{const host=atStarterStairs();assert.equal(host.interact('deck-stairs').ok,true);return host;},host=>host.advance(.25)]
+])test('starter '+action+' results cannot mutate retained authority or its saved record',()=>{
+ const host=prepare(),result=run(host);assert.equal(result.ok,true);const saved=host.save(),expected=JSON.parse(saved);
+ result.state.revision=999;result.state.doors[0].open=!result.state.doors[0].open;result.state.stairs[0].path[1].x=-500;
+ result.actor.position.x=-500;result.actor.floorId='caller-floor';if(result.actor.traversal){result.actor.traversal.distanceM=999;result.actor.traversal.path[0].h=999;}
+ assert.deepEqual(host.state,expected.interactions);assert.deepEqual(host.actor,expected.actor);assert.equal(host.save(),saved);assert.equal(createStarterHost(saved).save(),saved);
+});
+
+test('starter saves reject accessors before invoking any getter',()=>{
+ for(const target of ['envelope','actor','door']){
+  const saved=JSON.parse(createStarterHost().save());let calls=0;
+  const object=target==='envelope'?saved:target==='actor'?saved.actor:saved.interactions.doors[0];
+  const key=target==='envelope'?'actor':target==='actor'?'position':'open',value=object[key];
+  Object.defineProperty(object,key,{enumerable:true,get(){calls++;return value;}});
+  assert.throws(()=>createStarterHost(saved));assert.equal(calls,0,target+' getter must remain uncalled');
+ }
+});
+test('starter saves reject hidden, symbolic, undefined and other non-JSON data before cloning',()=>{
+ const mutations=[
+  saved=>Object.defineProperty(saved,'extra',{value:true}),
+  saved=>Object.defineProperty(saved.actor,'extra',{value:true}),
+  saved=>{saved.extra=undefined;},
+  saved=>{saved.actor.extra=undefined;},
+  saved=>{saved[Symbol('extra')]=true;},
+  saved=>{saved.actor[Symbol('extra')]=true;},
+  saved=>{saved.actor.extra=NaN;},
+  saved=>{saved.actor.extra=()=>{};},
+  saved=>{saved.actor.extra=new Date();},
+  saved=>{saved.actor.extra=saved;},
+  saved=>{delete saved.interactions.stairs[0].path[1];},
+  saved=>{Object.setPrototypeOf(saved.actor,{inherited:true});}
+ ];
+ for(const mutate of mutations){const saved=JSON.parse(createStarterHost().save());mutate(saved);assert.throws(()=>createStarterHost(saved));}
+ let calls=0;const saved=JSON.parse(createStarterHost().save());saved.toJSON=()=>{calls++;return saved;};
+ assert.throws(()=>createStarterHost(saved));assert.equal(calls,0);
+});
+test('only omitted starter input creates a new host; malformed and over-budget saves reject',()=>{
+ assert.ok(createStarterHost().actor);
+ for(const value of [null,false,0,'',[],{},'null','false','0'])assert.throws(()=>createStarterHost(value));
+ const saved=JSON.parse(createStarterHost().save());saved.extra='x'.repeat(8000001);
+ assert.throws(()=>createStarterHost(saved),error=>error.code==='INPUT_LIMIT');
+ assert.throws(()=>createStarterHost(' '.repeat(8000001)),error=>error.code==='BYTE_LIMIT');
+});

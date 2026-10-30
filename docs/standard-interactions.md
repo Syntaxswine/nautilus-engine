@@ -80,8 +80,9 @@ function commit(result) {
   if (!result.ok) throw Error(result.reason);
   if (result.expected.worldRevision !== state.revision ||
       result.expected.actorRevision !== mover.revision) throw Error('Stale commit');
-  state = result.state;
-  mover = result.actor;
+  const retained = structuredClone({state: result.state, actor: result.actor});
+  state = retained.state;
+  mover = retained.actor;
   for (const event of result.events) {
     if (presented.has(event.id)) continue;
     presented.add(event.id); // Bind animation/audio here after durable commit.
@@ -114,6 +115,8 @@ if (mover.floorId !== 'floor-1') throw Error('The route did not finish');
 ```
 
 The complete reference binding is [game-starter-host.js](https://github.com/Syntaxswine/nautilus-engine/blob/9d33ca65edf7b4d6b169d50e17dfc6bb40276373/examples/game-starter-host.js). Its yard has a real gate opening and a stair flight to a 2.12 m deck. These dimensions are an example, not a forced floor height. UI inspection never commits a result. A game commits only the returned records, then refreshes its current local references.
+
+The workshop host retains its own copy of accepted state and actor records; caller edits to an interaction, walk or traversal result cannot change the live yard or its next save. Its complete starter-save envelope is validated as bounded plain JSON before cloning, including nested descriptors, then each component is validated against its schema. The envelope has an 8 MB UTF-8 budget; interaction sidecars retain their own existing limits. Explicit invalid input rejects; only an omitted host argument creates a fresh yard.
 
 ## Authored records
 
