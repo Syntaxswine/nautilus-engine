@@ -84,6 +84,22 @@ test('a CopyBatch bounds each copy by the sphere its own mesh would have, and th
   }finally{layer.dispose();}
 });
 
+test('each copy sits where its own node would, also when a provider nests the batch meshes',async()=>{
+  // The standard providers put batch meshes straight under the root; this one nests them
+  // in a moved and turned group, so a node's place in its template is not the identity.
+  const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})}),original=providers.get('original');
+  providers.set('original',{load:original.load,create(library,id){const model=original.create(library,id),root=new T.Group();model.root.position.set(1.5,.25,-2);model.root.rotation.y=.3;root.add(model.root);return {root,setView:(view,options)=>model.setView(view,options),dispose:()=>model.dispose()};}});
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers}),at=new T.Matrix4();
+  try{
+    await layer.update({map:{buildingPrefabs:{instances:[0,1].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i,clearance:2}))}}},{level:0,showAllLevels:true,roofs:true,walls:true});
+    assert.ok(layer.instanced.length>0);
+    for(const {mesh:batch,copies}of layer.instanced)copies.forEach((copy,k)=>{
+      copy.updateWorldMatrix(true,false);assert.ok(!copy.matrixWorld.equals(copy.parent.parent.matrixWorld),'the node is not at its copy root');
+      assert.deepEqual(new Float32Array(batch.getMatrixAt(k,at).elements),new Float32Array(copy.matrixWorld.elements),'copy '+k+' of '+batch.name);
+    });
+  }finally{layer.dispose();}
+});
+
 test('a CopyBatch draws through the template geometry and adds no raycast hits of its own',async()=>{
   const layer=await row();
   try{
