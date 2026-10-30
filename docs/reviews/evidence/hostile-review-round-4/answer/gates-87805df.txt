@@ -1,0 +1,12 @@
+head 87805dfadd229ee55dcccd95ef0696c68a03e568
+status before []
+check -- --tracked exit 0 5s
+test  exit 0 44s
+test:upstream  exit 0 3s
+build  exit 0 15s
+test:package  exit 0 6s
+review:integration  exit 0 46s
+status after gates []
+answer-proof exit 0 1719s
+sweep exit 0 1697s
+status after all []

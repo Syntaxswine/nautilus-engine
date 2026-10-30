@@ -1,0 +1,869 @@
+{
+ "old": "editor-f8f8f0c.js",
+ "new": "editor-f8f8f0c.js",
+ "steps": 107,
+ "round2Steps": 81,
+ "round2StepsAfter": 82,
+ "differencesInRound2Steps": 78,
+ "differencesInExtra": 27,
+ "differences": [
+  {
+   "i": 3,
+   "part": "round-2 steps",
+   "before": "connect undefined THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "connect undefined THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 4,
+   "part": "round-2 steps",
+   "before": "connect null THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "connect null THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 5,
+   "part": "round-2 steps",
+   "before": "connect zero THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "connect zero THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 6,
+   "part": "round-2 steps",
+   "before": "connect empty THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "connect empty THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 7,
+   "part": "round-2 steps",
+   "before": "connect openMap string THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 8,
+   "part": "round-2 steps",
+   "before": "connect features only THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "connect openMap string => function"
+  },
+  {
+   "i": 9,
+   "part": "round-2 steps",
+   "before": "hasGameAdapter after malformed => false",
+   "after": "connect features only THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 10,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "hasGameAdapter after malformed => true"
+  },
+  {
+   "i": 11,
+   "part": "round-2 steps",
+   "before": "connect manifest-no-roofs => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 12,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send feature map THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+   "after": "connect manifest-no-roofs => function"
+  },
+  {
+   "i": 13,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send block THROWS Error | Place this block in a full map first. |  | ",
+   "after": "manifest-no-roofs send feature map THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]"
+  },
+  {
+   "i": 14,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+   "after": "manifest-no-roofs send block THROWS Error | Place this block in a full map first. |  | "
+  },
+  {
+   "i": 15,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+   "after": "manifest-no-roofs send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | "
+  },
+  {
+   "i": 16,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send object input THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+   "after": "manifest-no-roofs send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | "
+  },
+  {
+   "i": 17,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs send() default THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+   "after": "manifest-no-roofs send object input THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]"
+  },
+  {
+   "i": 18,
+   "part": "round-2 steps",
+   "before": "manifest-no-roofs calls []",
+   "after": "manifest-no-roofs send() default THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]"
+  },
+  {
+   "i": 19,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "manifest-no-roofs calls []"
+  },
+  {
+   "i": 20,
+   "part": "round-2 steps",
+   "before": "disconnect manifest-no-roofs => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 21,
+   "part": "round-2 steps",
+   "before": "disconnect again manifest-no-roofs => undefined",
+   "after": "disconnect manifest-no-roofs => undefined"
+  },
+  {
+   "i": 22,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "disconnect again manifest-no-roofs => undefined"
+  },
+  {
+   "i": 23,
+   "part": "round-2 steps",
+   "before": "connect features-no-original => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 24,
+   "part": "round-2 steps",
+   "before": "features-no-original send feature map THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+   "after": "connect features-no-original => function"
+  },
+  {
+   "i": 25,
+   "part": "round-2 steps",
+   "before": "features-no-original send block THROWS Error | Place this block in a full map first. |  | ",
+   "after": "features-no-original send feature map THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | "
+  },
+  {
+   "i": 26,
+   "part": "round-2 steps",
+   "before": "features-no-original send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+   "after": "features-no-original send block THROWS Error | Place this block in a full map first. |  | "
+  },
+  {
+   "i": 27,
+   "part": "round-2 steps",
+   "before": "features-no-original send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+   "after": "features-no-original send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | "
+  },
+  {
+   "i": 28,
+   "part": "round-2 steps",
+   "before": "features-no-original send object input THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+   "after": "features-no-original send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | "
+  },
+  {
+   "i": 29,
+   "part": "round-2 steps",
+   "before": "features-no-original send() default THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+   "after": "features-no-original send object input THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | "
+  },
+  {
+   "i": 30,
+   "part": "round-2 steps",
+   "before": "features-no-original calls []",
+   "after": "features-no-original send() default THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | "
+  },
+  {
+   "i": 31,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "features-no-original calls []"
+  },
+  {
+   "i": 32,
+   "part": "round-2 steps",
+   "before": "disconnect features-no-original => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 33,
+   "part": "round-2 steps",
+   "before": "disconnect again features-no-original => undefined",
+   "after": "disconnect features-no-original => undefined"
+  },
+  {
+   "i": 34,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "disconnect again features-no-original => undefined"
+  },
+  {
+   "i": 35,
+   "part": "round-2 steps",
+   "before": "connect silent => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 36,
+   "part": "round-2 steps",
+   "before": "silent send feature map THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+   "after": "connect silent => function"
+  },
+  {
+   "i": 37,
+   "part": "round-2 steps",
+   "before": "silent send block THROWS Error | Place this block in a full map first. |  | ",
+   "after": "silent send feature map THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | "
+  },
+  {
+   "i": 38,
+   "part": "round-2 steps",
+   "before": "silent send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+   "after": "silent send block THROWS Error | Place this block in a full map first. |  | "
+  },
+  {
+   "i": 39,
+   "part": "round-2 steps",
+   "before": "silent send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+   "after": "silent send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | "
+  },
+  {
+   "i": 40,
+   "part": "round-2 steps",
+   "before": "silent send object input THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+   "after": "silent send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | "
+  },
+  {
+   "i": 41,
+   "part": "round-2 steps",
+   "before": "silent send() default THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+   "after": "silent send object input THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | "
+  },
+  {
+   "i": 42,
+   "part": "round-2 steps",
+   "before": "silent calls []",
+   "after": "silent send() default THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | "
+  },
+  {
+   "i": 43,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "silent calls []"
+  },
+  {
+   "i": 44,
+   "part": "round-2 steps",
+   "before": "disconnect silent => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 45,
+   "part": "round-2 steps",
+   "before": "disconnect again silent => undefined",
+   "after": "disconnect silent => undefined"
+  },
+  {
+   "i": 46,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "disconnect again silent => undefined"
+  },
+  {
+   "i": 47,
+   "part": "round-2 steps",
+   "before": "connect full-manifest => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 48,
+   "part": "round-2 steps",
+   "before": "full-manifest send feature map => \"full-manifest-result\"",
+   "after": "connect full-manifest => function"
+  },
+  {
+   "i": 49,
+   "part": "round-2 steps",
+   "before": "full-manifest send block THROWS Error | Place this block in a full map first. |  | ",
+   "after": "full-manifest send feature map => \"full-manifest-result\""
+  },
+  {
+   "i": 50,
+   "part": "round-2 steps",
+   "before": "full-manifest send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+   "after": "full-manifest send block THROWS Error | Place this block in a full map first. |  | "
+  },
+  {
+   "i": 51,
+   "part": "round-2 steps",
+   "before": "full-manifest send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+   "after": "full-manifest send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | "
+  },
+  {
+   "i": 52,
+   "part": "round-2 steps",
+   "before": "full-manifest send object input => \"full-manifest-result\"",
+   "after": "full-manifest send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | "
+  },
+  {
+   "i": 53,
+   "part": "round-2 steps",
+   "before": "full-manifest send() default => \"full-manifest-result\"",
+   "after": "full-manifest send object input => \"full-manifest-result\""
+  },
+  {
+   "i": 54,
+   "part": "round-2 steps",
+   "before": "full-manifest calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+   "after": "full-manifest send() default => \"full-manifest-result\""
+  },
+  {
+   "i": 55,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "full-manifest calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]"
+  },
+  {
+   "i": 56,
+   "part": "round-2 steps",
+   "before": "disconnect full-manifest => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 57,
+   "part": "round-2 steps",
+   "before": "disconnect again full-manifest => undefined",
+   "after": "disconnect full-manifest => undefined"
+  },
+  {
+   "i": 58,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "disconnect again full-manifest => undefined"
+  },
+  {
+   "i": 59,
+   "part": "round-2 steps",
+   "before": "connect full-features => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 60,
+   "part": "round-2 steps",
+   "before": "full-features send feature map => \"full-features-result\"",
+   "after": "connect full-features => function"
+  },
+  {
+   "i": 61,
+   "part": "round-2 steps",
+   "before": "full-features send block THROWS Error | Place this block in a full map first. |  | ",
+   "after": "full-features send feature map => \"full-features-result\""
+  },
+  {
+   "i": 62,
+   "part": "round-2 steps",
+   "before": "full-features send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+   "after": "full-features send block THROWS Error | Place this block in a full map first. |  | "
+  },
+  {
+   "i": 63,
+   "part": "round-2 steps",
+   "before": "full-features send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+   "after": "full-features send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | "
+  },
+  {
+   "i": 64,
+   "part": "round-2 steps",
+   "before": "full-features send object input => \"full-features-result\"",
+   "after": "full-features send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | "
+  },
+  {
+   "i": 65,
+   "part": "round-2 steps",
+   "before": "full-features send() default => \"full-features-result\"",
+   "after": "full-features send object input => \"full-features-result\""
+  },
+  {
+   "i": 66,
+   "part": "round-2 steps",
+   "before": "full-features calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+   "after": "full-features send() default => \"full-features-result\""
+  },
+  {
+   "i": 67,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "full-features calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]"
+  },
+  {
+   "i": 68,
+   "part": "round-2 steps",
+   "before": "disconnect full-features => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 69,
+   "part": "round-2 steps",
+   "before": "disconnect again full-features => undefined",
+   "after": "disconnect full-features => undefined"
+  },
+  {
+   "i": 70,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "disconnect again full-features => undefined"
+  },
+  {
+   "i": 71,
+   "part": "round-2 steps",
+   "before": "connect A => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 72,
+   "part": "round-2 steps",
+   "before": "refresh:connected",
+   "after": "connect A => function"
+  },
+  {
+   "i": 73,
+   "part": "round-2 steps",
+   "before": "connect B => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 74,
+   "part": "round-2 steps",
+   "before": "stale disconnect A => undefined",
+   "after": "connect B => function"
+  },
+  {
+   "i": 75,
+   "part": "round-2 steps",
+   "before": "hasGameAdapter after stale => true",
+   "after": "stale disconnect A => undefined"
+  },
+  {
+   "i": 76,
+   "part": "round-2 steps",
+   "before": "send after stale => \"B-result\"",
+   "after": "hasGameAdapter after stale => true"
+  },
+  {
+   "i": 77,
+   "part": "round-2 steps",
+   "before": "A calls 0, B calls 1",
+   "after": "send after stale => \"B-result\""
+  },
+  {
+   "i": 78,
+   "part": "round-2 steps",
+   "before": "refresh:none",
+   "after": "A calls 0, B calls 1"
+  },
+  {
+   "i": 79,
+   "part": "round-2 steps",
+   "before": "disconnect B => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 80,
+   "part": "round-2 steps",
+   "before": "hasGameAdapter end => false",
+   "after": "disconnect B => undefined"
+  },
+  {
+   "i": 81,
+   "part": "extra",
+   "before": "refresh:connected",
+   "after": "hasGameAdapter end => false"
+  },
+  {
+   "i": 82,
+   "part": "extra",
+   "before": "x: connect C => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 83,
+   "part": "extra",
+   "before": "x: refused connect while C is connected THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+   "after": "x: connect C => function"
+  },
+  {
+   "i": 84,
+   "part": "extra",
+   "before": "x: hasGameAdapter after refused connect => true",
+   "after": "x: refused connect while C is connected THROWS TypeError | Expected a game adapter. |  | "
+  },
+  {
+   "i": 85,
+   "part": "extra",
+   "before": "x: send after refused connect => \"C-result\"",
+   "after": "x: hasGameAdapter after refused connect => true"
+  },
+  {
+   "i": 86,
+   "part": "extra",
+   "before": "x: C calls 1",
+   "after": "x: send after refused connect => \"C-result\""
+  },
+  {
+   "i": 87,
+   "part": "extra",
+   "before": "x: detached sendToGame() => \"C-result\"",
+   "after": "x: C calls 1"
+  },
+  {
+   "i": 88,
+   "part": "extra",
+   "before": "x: sendToGame.call(other object with export) => \"C-result\"",
+   "after": "x: detached sendToGame() => \"C-result\""
+  },
+  {
+   "i": 89,
+   "part": "extra",
+   "before": "x: sendToGame.call(null) => \"C-result\"",
+   "after": "x: sendToGame.call(other object with export) => \"C-result\""
+  },
+  {
+   "i": 90,
+   "part": "extra",
+   "before": "x: spread copy sendToGame() after the document changed => \"C-result\"",
+   "after": "x: sendToGame.call(null) => \"C-result\""
+  },
+  {
+   "i": 91,
+   "part": "extra",
+   "before": "x: sendToGame(undefined) uses the default => \"C-result\"",
+   "after": "x: spread copy sendToGame() after the document changed => \"C-result\""
+  },
+  {
+   "i": 92,
+   "part": "extra",
+   "before": "x: sendToGame(null) THROWS Error | Expected a map or block for sloped-roof validation. |  | ",
+   "after": "x: sendToGame(undefined) uses the default => \"C-result\""
+  },
+  {
+   "i": 93,
+   "part": "extra",
+   "before": "x: C call jsons [\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-other\",\"export-of-other\"]",
+   "after": "x: sendToGame(null) THROWS Error | Expected a map or block for sloped-roof validation. |  | "
+  },
+  {
+   "i": 94,
+   "part": "extra",
+   "before": "refresh:connected",
+   "after": "x: C call jsons [\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-other\",\"export-of-other\"]"
+  },
+  {
+   "i": 95,
+   "part": "extra",
+   "before": "x: detached connectGame(D) => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 96,
+   "part": "extra",
+   "before": "refresh:connected",
+   "after": "x: detached connectGame(D) => function"
+  },
+  {
+   "i": 97,
+   "part": "extra",
+   "before": "x: connect D again => function",
+   "after": "refresh:connected"
+  },
+  {
+   "i": 98,
+   "part": "extra",
+   "before": "refresh:none",
+   "after": "x: connect D again => function"
+  },
+  {
+   "i": 99,
+   "part": "extra",
+   "before": "x: first D disconnect (same host connected twice) => undefined",
+   "after": "refresh:none"
+  },
+  {
+   "i": 100,
+   "part": "extra",
+   "before": "x: hasGameAdapter after first D disconnect => false",
+   "after": "x: first D disconnect (same host connected twice) => undefined"
+  },
+  {
+   "i": 101,
+   "part": "extra",
+   "before": "x: second D disconnect => undefined",
+   "after": "x: hasGameAdapter after first D disconnect => false"
+  },
+  {
+   "i": 102,
+   "part": "extra",
+   "before": "x: stale C disconnect after D => undefined",
+   "after": "x: second D disconnect => undefined"
+  },
+  {
+   "i": 103,
+   "part": "extra",
+   "before": "x: hasGameAdapter final => false",
+   "after": "x: stale C disconnect after D => undefined"
+  },
+  {
+   "i": 104,
+   "part": "extra",
+   "before": "x: typeof hasGameAdapter => \"boolean\"",
+   "after": "x: hasGameAdapter final => false"
+  },
+  {
+   "i": 105,
+   "part": "extra",
+   "before": "x: descriptors [\"version:string\",\"contract:object\",\"manifest:object\",\"document:get\",\"hasGameAdapter:get\",\"export:function\",\"open:function\",\"connectGame:function\",\"sendToGame:function\"]",
+   "after": "x: typeof hasGameAdapter => \"boolean\""
+  },
+  {
+   "i": 106,
+   "part": "extra",
+   "before": "x: names [\"connectGame\",\"sendToGame\",1,0]",
+   "after": "x: descriptors [\"version:string\",\"contract:object\",\"manifest:object\",\"document:get\",\"hasGameAdapter:get\",\"export:function\",\"open:function\",\"connectGame:function\",\"sendToGame:function\"]"
+  },
+  {
+   "i": 107,
+   "part": "extra",
+   "after": "x: names [\"connectGame\",\"sendToGame\",1,0]"
+  }
+ ],
+ "readsEqual": true,
+ "reads": [
+  67,
+  67
+ ],
+ "round2ReadsEqual": true,
+ "round2Reads": [
+  46,
+  46
+ ],
+ "logOld": [
+  "send() while loading, no host THROWS Error | The editor is still loading. |  | ",
+  "send(json), no host THROWS Error | Connect a game adapter first. |  | ",
+  "hasGameAdapter => false",
+  "connect undefined THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "connect null THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "connect zero THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "connect empty THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "connect openMap string THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "connect features only THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "hasGameAdapter after malformed => false",
+  "refresh:connected",
+  "connect manifest-no-roofs => function",
+  "manifest-no-roofs send feature map THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs send block THROWS Error | Place this block in a full map first. |  | ",
+  "manifest-no-roofs send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "manifest-no-roofs send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "manifest-no-roofs send object input THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs send() default THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs calls []",
+  "refresh:none",
+  "disconnect manifest-no-roofs => undefined",
+  "disconnect again manifest-no-roofs => undefined",
+  "refresh:connected",
+  "connect features-no-original => function",
+  "features-no-original send feature map THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original send block THROWS Error | Place this block in a full map first. |  | ",
+  "features-no-original send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "features-no-original send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "features-no-original send object input THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original send() default THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original calls []",
+  "refresh:none",
+  "disconnect features-no-original => undefined",
+  "disconnect again features-no-original => undefined",
+  "refresh:connected",
+  "connect silent => function",
+  "silent send feature map THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent send block THROWS Error | Place this block in a full map first. |  | ",
+  "silent send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "silent send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "silent send object input THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent send() default THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent calls []",
+  "refresh:none",
+  "disconnect silent => undefined",
+  "disconnect again silent => undefined",
+  "refresh:connected",
+  "connect full-manifest => function",
+  "full-manifest send feature map => \"full-manifest-result\"",
+  "full-manifest send block THROWS Error | Place this block in a full map first. |  | ",
+  "full-manifest send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "full-manifest send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "full-manifest send object input => \"full-manifest-result\"",
+  "full-manifest send() default => \"full-manifest-result\"",
+  "full-manifest calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+  "refresh:none",
+  "disconnect full-manifest => undefined",
+  "disconnect again full-manifest => undefined",
+  "refresh:connected",
+  "connect full-features => function",
+  "full-features send feature map => \"full-features-result\"",
+  "full-features send block THROWS Error | Place this block in a full map first. |  | ",
+  "full-features send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "full-features send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "full-features send object input => \"full-features-result\"",
+  "full-features send() default => \"full-features-result\"",
+  "full-features calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+  "refresh:none",
+  "disconnect full-features => undefined",
+  "disconnect again full-features => undefined",
+  "refresh:connected",
+  "connect A => function",
+  "refresh:connected",
+  "connect B => function",
+  "stale disconnect A => undefined",
+  "hasGameAdapter after stale => true",
+  "send after stale => \"B-result\"",
+  "A calls 0, B calls 1",
+  "refresh:none",
+  "disconnect B => undefined",
+  "hasGameAdapter end => false",
+  "refresh:connected",
+  "x: connect C => function",
+  "x: refused connect while C is connected THROWS TypeError | A game adapter needs openMap({json, contract}). |  | ",
+  "x: hasGameAdapter after refused connect => true",
+  "x: send after refused connect => \"C-result\"",
+  "x: C calls 1",
+  "x: detached sendToGame() => \"C-result\"",
+  "x: sendToGame.call(other object with export) => \"C-result\"",
+  "x: sendToGame.call(null) => \"C-result\"",
+  "x: spread copy sendToGame() after the document changed => \"C-result\"",
+  "x: sendToGame(undefined) uses the default => \"C-result\"",
+  "x: sendToGame(null) THROWS Error | Expected a map or block for sloped-roof validation. |  | ",
+  "x: C call jsons [\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-other\",\"export-of-other\"]",
+  "refresh:connected",
+  "x: detached connectGame(D) => function",
+  "refresh:connected",
+  "x: connect D again => function",
+  "refresh:none",
+  "x: first D disconnect (same host connected twice) => undefined",
+  "x: hasGameAdapter after first D disconnect => false",
+  "x: second D disconnect => undefined",
+  "x: stale C disconnect after D => undefined",
+  "x: hasGameAdapter final => false",
+  "x: typeof hasGameAdapter => \"boolean\"",
+  "x: descriptors [\"version:string\",\"contract:object\",\"manifest:object\",\"document:get\",\"hasGameAdapter:get\",\"export:function\",\"open:function\",\"connectGame:function\",\"sendToGame:function\"]",
+  "x: names [\"connectGame\",\"sendToGame\",1,0]"
+ ],
+ "logNew": [
+  "send() while loading, no host THROWS Error | The editor is still loading. |  | ",
+  "send(json), no host THROWS Error | Connect a game adapter first. |  | ",
+  "hasGameAdapter => false",
+  "connect undefined THROWS TypeError | Expected a game adapter. |  | ",
+  "connect null THROWS TypeError | Expected a game adapter. |  | ",
+  "connect zero THROWS TypeError | Expected a game adapter. |  | ",
+  "connect empty THROWS TypeError | Expected a game adapter. |  | ",
+  "refresh:connected",
+  "connect openMap string => function",
+  "connect features only THROWS TypeError | Expected a game adapter. |  | ",
+  "hasGameAdapter after malformed => true",
+  "refresh:connected",
+  "connect manifest-no-roofs => function",
+  "manifest-no-roofs send feature map THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs send block THROWS Error | Place this block in a full map first. |  | ",
+  "manifest-no-roofs send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "manifest-no-roofs send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "manifest-no-roofs send object input THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs send() default THROWS CompatibilityError | nautilus-engine does not support nautilus-sloped-roofs-v1 versions 1–1. | NAUTILUS_COMPATIBILITY | [\"UNSUPPORTED_REQUIRED_FEATURE:nautilus-sloped-roofs-v1\"]",
+  "manifest-no-roofs calls []",
+  "refresh:none",
+  "disconnect manifest-no-roofs => undefined",
+  "disconnect again manifest-no-roofs => undefined",
+  "refresh:connected",
+  "connect features-no-original => function",
+  "features-no-original send feature map THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original send block THROWS Error | Place this block in a full map first. |  | ",
+  "features-no-original send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "features-no-original send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "features-no-original send object input THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original send() default THROWS Error | This game adapter does not support original building prefabs (nautilus-original-buildings-v1). |  | ",
+  "features-no-original calls []",
+  "refresh:none",
+  "disconnect features-no-original => undefined",
+  "disconnect again features-no-original => undefined",
+  "refresh:connected",
+  "connect silent => function",
+  "silent send feature map THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent send block THROWS Error | Place this block in a full map first. |  | ",
+  "silent send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "silent send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "silent send object input THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent send() default THROWS Error | This game adapter does not support building prefabs (nautilus-building-prefabs-v1). |  | ",
+  "silent calls []",
+  "refresh:none",
+  "disconnect silent => undefined",
+  "disconnect again silent => undefined",
+  "refresh:connected",
+  "connect full-manifest => function",
+  "full-manifest send feature map => \"full-manifest-result\"",
+  "full-manifest send block THROWS Error | Place this block in a full map first. |  | ",
+  "full-manifest send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "full-manifest send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "full-manifest send object input => \"full-manifest-result\"",
+  "full-manifest send() default => \"full-manifest-result\"",
+  "full-manifest calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+  "refresh:none",
+  "disconnect full-manifest => undefined",
+  "disconnect again full-manifest => undefined",
+  "refresh:connected",
+  "connect full-features => function",
+  "full-features send feature map => \"full-features-result\"",
+  "full-features send block THROWS Error | Place this block in a full map first. |  | ",
+  "full-features send unreachable map THROWS Error | Unreachable start, marker or patrol waypoint at 30,30, level 1. Add doors or stairs. |  | ",
+  "full-features send bad JSON THROWS SyntaxError | Expected property name or '}' in JSON at position 1 (line 1 column 2) |  | ",
+  "full-features send object input => \"full-features-result\"",
+  "full-features send() default => \"full-features-result\"",
+  "full-features calls [{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true},{\"json\":\"export-of-feature\",\"contractIsMap\":true,\"keys\":\"json,contract\",\"thisIsHost\":true}]",
+  "refresh:none",
+  "disconnect full-features => undefined",
+  "disconnect again full-features => undefined",
+  "refresh:connected",
+  "connect A => function",
+  "refresh:connected",
+  "connect B => function",
+  "stale disconnect A => undefined",
+  "hasGameAdapter after stale => true",
+  "send after stale => \"B-result\"",
+  "A calls 0, B calls 1",
+  "refresh:none",
+  "disconnect B => undefined",
+  "hasGameAdapter end => false",
+  "refresh:connected",
+  "x: connect C => function",
+  "x: refused connect while C is connected THROWS TypeError | Expected a game adapter. |  | ",
+  "x: hasGameAdapter after refused connect => true",
+  "x: send after refused connect => \"C-result\"",
+  "x: C calls 1",
+  "x: detached sendToGame() => \"C-result\"",
+  "x: sendToGame.call(other object with export) => \"C-result\"",
+  "x: sendToGame.call(null) => \"C-result\"",
+  "x: spread copy sendToGame() after the document changed => \"C-result\"",
+  "x: sendToGame(undefined) uses the default => \"C-result\"",
+  "x: sendToGame(null) THROWS Error | Expected a map or block for sloped-roof validation. |  | ",
+  "x: C call jsons [\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-feature\",\"export-of-other\",\"export-of-other\"]",
+  "refresh:connected",
+  "x: detached connectGame(D) => function",
+  "refresh:connected",
+  "x: connect D again => function",
+  "refresh:none",
+  "x: first D disconnect (same host connected twice) => undefined",
+  "x: hasGameAdapter after first D disconnect => false",
+  "x: second D disconnect => undefined",
+  "x: stale C disconnect after D => undefined",
+  "x: hasGameAdapter final => false",
+  "x: typeof hasGameAdapter => \"boolean\"",
+  "x: descriptors [\"version:string\",\"contract:object\",\"manifest:object\",\"document:get\",\"hasGameAdapter:get\",\"export:function\",\"open:function\",\"connectGame:function\",\"sendToGame:function\"]",
+  "x: names [\"connectGame\",\"sendToGame\",1,0]"
+ ]
+}

@@ -7,3 +7,9 @@ tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe
 # Preserve raw captured proof bytes and their SHA-256 inventory.
 docs/reviews/evidence/grenade-integrated/** -text
 docs/reviews/evidence/farmyard-door-integrated/** -text whitespace=cr-at-eol
+
+# Preserve the historical capture, including its original trailing spaces.
+docs/reviews/evidence/hostile-review-round-4/reviewer/headless-run1.log -text whitespace=-blank-at-eol
+
+# Preserve original current-composition capture bytes.
+docs/reviews/evidence/hostile-review-integrated/** -text whitespace=cr-at-eol
