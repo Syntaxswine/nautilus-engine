@@ -36,3 +36,5 @@ assert.equal(sourceHero.weapon,'smg');
 assert.equal(sourceHero.ammo.grenade,2);
 assert.equal(installed.openGrenadeState(installed.serializeGrenadeState(sourceStaged.next)).actors[0].ap,sourceHero.ap);
 console.log('Installed grenade module and actual pinned Farmyard game: public projection, command parity, finite stock and reload pass.');
+
+for(const id of ['@nautilus-engine/core/grenades/ui','@nautilus-engine/core/grenades/style.css','@nautilus-engine/core/grenades/view'])await assert.rejects(()=>import(id),{code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});

@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {engineManifest,schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {negotiateCapabilities} from '../packages/map-core/capabilities.js';
 import {distribution} from '../tools/distribution.mjs';
+import {sharedAsset} from '../packages/assets/index.js';
 import {GRENADE_CONTRACT,GRENADE_COMPONENT,createGrenadeExample,grenadeRequirements,assertGrenadeCompatible} from '../packages/grenades-core/index.js';
 
 test('grenade requirements use the shared compatibility contract and require actual host bindings',()=>{
@@ -24,6 +25,8 @@ test('grenade requirements use the shared compatibility contract and require act
  const core=distribution('core');
  for(const file of ['packages/grenades-core/index.js','packages/grenades-core/aim.js','docs/grenades.md'])assert.ok(core.files.includes(file),file);
  assert.equal(core.files.some(file=>file.startsWith('vendor/farmyard-grenades/')),false);
+ for(const id of ['./grenades/ui','./grenades/style.css','./grenades/view'])assert.equal(Object.hasOwn(core.exports,id),false,'Headless profile excludes '+id);
+ assert.equal(core.files.some(file=>file.startsWith('packages/grenade-ui/')),false);
 });
 
 test('grenade preview, commit, context checkpoint, reload and aim execute with ambient services sealed',()=>{
@@ -53,3 +56,16 @@ async function sealed(urls){
  assert.equal(forbiddenReads,0);
  process.stdout.write(JSON.stringify({forbiddenReads,grenades:actor.grenades,hp:actor.hp,ap:actor.ap,repeated:replay.repeated}));
 }
+
+test('grenade discovery binds the public item, logic profile and explicit host checklist without pulling visuals into core',()=>{
+ const asset=sharedAsset('item:grenade');
+ assert.equal(asset.entry,'./grenades/three');assert.equal(asset.factory,'createGrenadeModel');assert.equal(asset.logicEntry,'./grenades');
+ assert.equal(asset.guide,GRENADE_COMPONENT.guide);assert.equal(asset.profile,GRENADE_COMPONENT.profile);assert.deepEqual(asset.requiredHostServices,[...GRENADE_COMPONENT.requiredHostServices]);
+ assert.equal(asset.capability.id,GRENADE_CONTRACT.capability);assert.equal(asset.dimensions.metresPerUnit,1);
+ const core=distribution('core'),renderer=distribution('renderer');
+ assert.equal(Object.hasOwn(core.exports,'./grenades/three'),false);assert.equal(core.files.some(file=>file.startsWith('packages/grenade-visuals/')),false);
+ assert.equal(renderer.exports['./grenades/three'],'./packages/grenade-visuals/three.js');
+ const pin=JSON.parse(fs.readFileSync(new URL('../upstream.json',import.meta.url))).aft.root+'/dist/';
+ for(const file of ['tactics/horse-10k-data.json','assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png','assets/equipment/painted-ui/grenade-surface.png'])assert.ok(renderer.files.includes(pin+file),file);
+ assert.equal(renderer.files.some(file=>file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')),false);
+});

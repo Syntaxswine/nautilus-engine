@@ -1,10 +1,10 @@
 # Native grenade visual provider: builder guide
 
-**Status: working source candidate, API version 1; public registration and integrated browser/player acceptance pending.** Proposed optional entry `@nautilus-engine/map-core/grenades/three` is [packages/grenade-visuals/three.js](../../../packages/grenade-visuals/three.js). Root owns package exports, distribution, catalogue/upstream metadata and combined release. This guide does not register a gameplay capability or change the source-authoritative grenade profile.
+**Status: reviewed integration candidate, API version 1; integrated browser/player acceptance pending.** Optional public entry `@nautilus-engine/map-core/grenades/three` is [packages/grenade-visuals/three.js](../../../packages/grenade-visuals/three.js). The compatibility and renderer packages register this optional provider. Headless core excludes its renderer entry and files. This guide does not register a gameplay capability or change the source-authoritative grenade profile.
 
 The fixed integration target is core candidate `c7beb44fa254b2d72657f7e3a959920216f09b35` (0.9.0). This provider branch remains based on artist audit `958e8a6a41675db8d4eba0750411153306b6153d`; it imports no dirty worker files or grenade authority. UI binds those fixed candidates through the frame ABI below.
 
-The provider reuses the original horse/normal paint and 820-triangle grenade, the same Three r180 instance as `./render-effects/three`, and published Farmyard throw source `251bf8094b5f9ebe44208443084c1a6d6658512a`. The [initial audit](README.md), [native measurements](measurements.json), [generated-source ledger](../../../packages/grenade-visuals/source.json) and [reference-only immutable inputs](../../../vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json) retain exact pins/bytes. The visual snapshot is separate from the architect's strict `vendor/farmyard-grenades` gameplay snapshot. No original vendor bytes, shared package/build/upstream files, game pins, other worker branch or Sites setting is changed by this provider.
+The provider reuses the original horse/normal paint and 820-triangle grenade, the same Three r180 instance as `./render-effects/three`, and published Farmyard throw source `251bf8094b5f9ebe44208443084c1a6d6658512a`. The [initial audit](https://github.com/Syntaxswine/nautilus-engine/blob/2b7d57dcd45a30d5b02a1ac357d559fedb35b854/docs/reviews/grenade-presentation/README.md), [native measurements](https://github.com/Syntaxswine/nautilus-engine/blob/2b7d57dcd45a30d5b02a1ac357d559fedb35b854/docs/reviews/grenade-presentation/measurements.json), [generated-source ledger](../../../packages/grenade-visuals/source.json) and [reference-only immutable inputs](https://github.com/Syntaxswine/nautilus-engine/blob/2b7d57dcd45a30d5b02a1ac357d559fedb35b854/vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json) retain exact pins/bytes. The visual snapshot is separate from the architect's strict `vendor/farmyard-grenades` gameplay snapshot. No original vendor bytes, shared package/build/upstream files, game pins, other worker branch or Sites setting is changed by this provider.
 
 ## Concrete ABI
 
@@ -76,12 +76,12 @@ All existing visual resources use `vendor/aft/781246a668c723d5a4c5463e70534cc04b
 
 The generated adapter is `packages/grenade-visuals/throw-motion.js`; only its Three import is redirected, with LF normalization labelled separately from unchanged vendor bytes. `horse-balance.js` contains the original 1,841 horse rows (48,967 bytes including its generated module wrapper), rather than loading the whole twelve-animal preparation table. The reference inputs retain 626,567 original bytes under `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/`. Their dependency ledger explicitly maps Three/MIT to the reused immutable closure; raw reference modules are not runtime entry points. Preserve [Nautilus notices](../../../NOTICE.md); provenance grants no new licence.
 
-## Small source consumers
+## Small consumers
 
-Until root registers the proposed public export/distribution, the following imports are source-only. After integration replace the import with `@nautilus-engine/map-core/grenades/three` and run the same examples from an installed package. `hostScene`, `hostRenderer`, `committedPresentation` and `borrowedGrenadePaint` are retained host values.
+These examples use the public compatibility entry. For the renderer-only profile, use the equivalent `@nautilus-engine/renderer/grenades/three` and its `render-effects/three` namespace. Keep one renderer package/Three namespace per scene. `hostScene`, `hostRenderer`, `committedPresentation` and `borrowedGrenadePaint` are retained host values.
 
 ```js
-import {createGrenadeModel} from './packages/grenade-visuals/three.js';
+import {createGrenadeModel} from '@nautilus-engine/map-core/grenades/three';
 
 const prop = await createGrenadeModel({texture: borrowedGrenadePaint});
 hostScene.add(prop.root);
@@ -90,7 +90,7 @@ prop.dispose(); // Borrowed paint, scene and renderer survive.
 ```
 
 ```js
-import {createNativeGrenadePresentation} from './packages/grenade-visuals/three.js';
+import {createNativeGrenadePresentation} from '@nautilus-engine/map-core/grenades/three';
 
 const controller = new AbortController();
 const visual = await createNativeGrenadePresentation({
@@ -138,10 +138,10 @@ visual.dispose();
 - [ ] Root register the optional public export, source/upstream/distribution resources and item catalogue/card; run offline installed-package checks. This branch makes no shared metadata edits.
 - [ ] UI bind the fixed grenade core presentation and this provider in the actual reference view with desktop/phone controls.
 - [ ] Artist compare native painted phase captures, transformed/elevated independent instances, release bridge/ended projectile, actual paint loading failures and cancellation/reopen.
-- [ ] Combined host save/restore preserves presentation identity/time and authoritative receipts without replaying costs, damage, events or sound; reject incompatible state atomically. The provider owns no game save.
+- [ ] Combined host save/reload preserves authoritative receipts and spent/injured state without replaying presentation, costs, damage, events or sound. The source grenade profile saves no transient clip. A consumer that deliberately resumes a pose must separately persist its clip identity/time, validate it and use seek without replaying authority. The provider owns no game save.
 - [ ] Architect record exact combined pins, CI/browser results, budgets/limits and cleanup before release; games adopt separately.
 
-Focused tests are [grenade-visuals.test.mjs](../../../tests/grenade-visuals.test.mjs). [Candidate check evidence](provider-checks.json) records local gates and source hashes. No preview helper is needed for this coding checkpoint; UI's integrated browser proof and artist review follow a fixed candidate.
+Focused tests are [grenade-visuals.test.mjs](https://github.com/Syntaxswine/nautilus-engine/blob/2b7d57dcd45a30d5b02a1ac357d559fedb35b854/tests/grenade-visuals.test.mjs). [Candidate check evidence](https://github.com/Syntaxswine/nautilus-engine/blob/2b7d57dcd45a30d5b02a1ac357d559fedb35b854/docs/reviews/grenade-presentation/provider-checks.json) records local gates and source hashes. No preview helper is needed for this coding checkpoint; UI's integrated browser proof and artist review follow a fixed candidate.
 
 **Accuracy:** prefer the original native art/IK and measured hand/feet to scaled replacement models. The 0.12 s blend is explicitly cosmetic; source flight/collision remains authoritative. Measured action clearance is larger than unarmed standing and remains a selected game/query policy.
 

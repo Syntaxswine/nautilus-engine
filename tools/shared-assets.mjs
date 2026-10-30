@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {BUILDING_ASSETS, ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/registry.js';
 import {ROCK_ITEM, ROCK_PROFILE} from '../packages/items-core/index.js';
+import {GRENADE_COMPONENT,FARMYARD_GRENADE_PROFILE,GRENADE_CONTRACT} from '../packages/grenades-core/profile.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function sharedAssetCatalogueSource() {
   const upstream = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'), 'utf8'));
@@ -21,6 +22,13 @@ export function sharedAssetCatalogueSource() {
     source:{project:'nautilus',commit:'9029dc11f4611ca46ea886ec9c03cbb6c0cfe3c5'},availability:'shared-item-renderer',
     entry:'./items/three',factory:'createRockModel',
     note:'Original native-scale visual. Optional ./items stages pickup, throw and impact noise; consumer owns inventory, world collision, hearing and guard behavior.'});
+  assets.push({id:GRENADE_COMPONENT.id,name:'Frag grenade',category:'Items',
+    dimensions:{width:.08173276484,depth:.07494000345,height:.11100000143,metresPerUnit:1},
+    source:{project:'aft',commit:upstream.aft.commit,reviewedFarmyardCommit:upstream.farmyardGrenades.commit},
+    availability:'shared-item-renderer',entry:'./grenades/three',factory:'createGrenadeModel',logicEntry:'./grenades',
+    guide:'docs/grenades.md',visualGuide:'docs/reviews/grenade-presentation/provider.md',profile:FARMYARD_GRENADE_PROFILE.id,
+    capability:{id:GRENADE_CONTRACT.capability,version:1},requiredHostServices:[...GRENADE_COMPONENT.requiredHostServices],
+    note:'Original painted prop; optional ordinary same-floor grenade transactions and native horse throw. Bind inventory, complete host context and supported consequences explicitly; reactive and multilevel scenes refuse before costs.'});
   return '// Generated from reviewed registries; no editor or renderer runtime imports.\nexport const SHARED_ASSETS = ' + JSON.stringify(assets, null, 2) + ';\n';
 }
 export function checkSharedAssets() {

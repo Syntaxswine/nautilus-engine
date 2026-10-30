@@ -4,6 +4,7 @@ import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
 import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
+import {checkGrenadeVisuals} from './check-grenade-visuals.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -82,6 +83,7 @@ await import('./check-building-catalog.mjs');
 checkSharedAssets();
 const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
 console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
+console.log('Verified native grenade source and derived modules: '+JSON.stringify(checkGrenadeVisuals(root,{tracked})));
 
 if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 

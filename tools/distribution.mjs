@@ -25,20 +25,21 @@ function resources() {
   const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'))), base = sources.tinderboxPrefabs.root;
   return ['assets/buildings/painted-materials-v2.png', base + '/assets/art/gross-housing-v1/houses.json',
     ...['gross-housing-v1/clapboard-ivory-v1.png', 'gross-housing-v1/cedar-shingles-v1.png', 'gross-housing-v1/floorboards-oak-v1.png',
-      'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file)];
+      'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file), ...['tactics/horse-10k-data.json','assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png','assets/equipment/painted-ui/grenade-surface.png'].map(file=>sources.aft.root+'/dist/'+file)];
 }
-const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/grenades.md', 'docs/reviews/2026-10-29-farmyard-grenades.sources.json', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
+const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELOG.md', 'docs/compatibility.md', 'docs/distribution.md', 'docs/rock-distraction.md', 'docs/grenades.md', 'docs/ui/grenade-controls.md', 'docs/ui/grenade-controls.sources.json', 'docs/ui/grenade-existing-assets.json', 'docs/reviews/2026-10-29-farmyard-grenades.sources.json', 'docs/reviews/2026-10-29-rock-distraction.sources.json', 'docs/progression.md', 'docs/reviews/2026-10-29-basic-progression.md', 'docs/reviews/2026-10-29-basic-progression.sources.json',
   'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json',
-  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !file.startsWith('vendor/farmyard-grenades/')).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
-  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/')));
-  else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects')); exports['.'] = './packages/assets/three.js'; extras = resources(); }
+  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id)));
+  else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects' || id === './grenades/view')); exports['.'] = './packages/assets/three.js'; extras = resources(); }
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
   else throw Error('Unknown package profile: ' + profile);
+  if(profile==='renderer'||profile==='compatibility')extras.push('packages/grenade-visuals/README.md','packages/grenade-visuals/source.json','docs/reviews/grenade-presentation/provider.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
-  if (files.some(file => file.startsWith('vendor/farmyard-grenades/'))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
+  if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
   for (const file of files) { inside(path.resolve(root, file)); if (!fs.existsSync(path.join(root, file))) throw Error('Missing distribution file: ' + file); }
   return {exports, files, name: profile === 'compatibility' ? source.name : '@nautilus-engine/' + (profile === 'assets' ? 'building-assets' : profile)};
@@ -65,7 +66,7 @@ export function packProfile(profile) {
   fs.writeFileSync(path.join(output, profile + '-report.json'), JSON.stringify(result, null, 2)); return result;
 }
 export function testExternalPackage(profile='core') {
-  if(!['core','assets'].includes(profile))throw Error('Unsupported external package proof profile.');
+  if(!['core','assets','renderer'].includes(profile))throw Error('Unsupported external package proof profile.');
   const packed = packProfile(profile), consumer = fs.mkdtempSync(path.join(os.tmpdir(), 'nautilus-consumer-'));
   try {
     fs.writeFileSync(path.join(consumer, 'package.json'), JSON.stringify({name:'nautilus-external-proof',private:true,type:'module'}));
@@ -73,7 +74,7 @@ export function testExternalPackage(profile='core') {
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).tinderboxConformance.root;if(!/^tests\/fixtures\/consumers\/tinderbox\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'tinderbox-proof'),{recursive:true});}
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardRulesConformance.root;if(!/^tests\/fixtures\/consumers\/farmyard-rules\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid Farmyard conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'farmyard-proof'),{recursive:true});}
     if(profile==='core'){const pin=JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardGrenades.root;if(!/^vendor\/farmyard-grenades\/[a-f0-9]{40}$/.test(pin))throw Error('Invalid grenade conformance source pin.');fs.cpSync(path.join(root,pin),path.join(consumer,'grenade-proof'),{recursive:true});}
-    const test = profile==='assets' ? `import assert from 'node:assert/strict';
+    const test = profile==='renderer' ? fs.readFileSync(path.join(root,'tests/fixtures/grenades/renderer-package-proof.mjs'),'utf8') : profile==='assets' ? `import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {listBuildingAssets,buildingAssetURLs} from '@nautilus-engine/building-assets';
 const assets=listBuildingAssets();assert.equal(assets.length,48);
@@ -119,6 +120,7 @@ const invoked = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).
 if (invoked) {
   if (process.argv.includes('--write')) { const pkg=sourcePackage();pkg.files=distribution().files;fs.writeFileSync(packagePath,JSON.stringify(pkg,null,2)+'\n');console.log('Updated explicit compatibility-package file whitelist.'); }
   else if (process.argv.includes('--check')) { if (JSON.stringify(sourcePackage().files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');console.log('Verified explicit distributable files and runtime dependency closure.'); }
+  else if (process.argv.includes('--test-grenade-renderer')) console.log(JSON.stringify(testExternalPackage('renderer'),null,2));
   else if (process.argv.includes('--test-assets')) console.log(JSON.stringify(testExternalPackage('assets'),null,2));
   else if (process.argv.includes('--test')) console.log(JSON.stringify(testExternalPackage(),null,2));
   else { const option=process.argv.indexOf('--profile'); console.log(JSON.stringify(packProfile(option<0?'core':process.argv[option+1]),null,2)); }
