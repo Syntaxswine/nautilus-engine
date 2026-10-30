@@ -113,3 +113,12 @@ See the [implementation checkpoint](docs/modular-foundation.md), [module contrac
 
 
 The [grenade reference player](https://github.com/Syntaxswine/nautilus-engine/blob/cc49e030eca70f2708268d028ad5f7474f84e450/examples/grenade-reference.html) combines those public entries with the native assets. After `npm run build`, run `npm run review:grenades` and `npm run review:grenades:installed` for deterministic desktop/touch, save/recovery and source-versus-installed browser proof.
+## Standard game interactions and title screen
+
+Open /examples/game-starter.html after building for a reusable title flow and a playable gate/stair yard. The interactions entry supplies headless door transactions, live obstruction checks and saved continuous stair travel. The optional game-ui/title entry plus game-ui/style.css supplies start/continue/settings/credits, save checking, confirmation and retry. The headless game-ui entry exposes usage cards linking the shipped guides.
+
+See [asset handoffs](docs/asset-handoffs.md), [door/stair bindings](docs/standard-interactions.md) and [title-screen setup](docs/game-title.md). The reference AABB provider has explicit geometry limits; games adopt their own reviewed providers/pins.
+
+The candidate `./parts` facade adds strict native part definitions/instances, a deterministic geometry/interaction/render compiler, source diagnostics and complete bounded runtime saves. `./parts/fixtures` supplies an executable conformance-only two-story recipe with transformed and wider layouts. Read the [functional-parts builder guide](docs/functional-parts.md) for public imports, installed examples, host bindings and limits. Artist kit, editor authoring, presentation and integrated game adoption require their separate fixed-commit acceptance.
+
+The optional `./adapters/farmyard/doors` entry supplies Farmyard's source-sized single-leaf doors, clear reach, combat AP and post-door sight/fog transitions while retaining an existing game's movement. Its [builder card](docs/adapters/farmyard-doors.md) carries required services, schema URLs, connection example, save/retry rules and adoption checklist. Native conservative clearance remains a separate profile.

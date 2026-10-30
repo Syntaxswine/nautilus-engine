@@ -1,0 +1,383 @@
+[
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:assembly",
+    "contentVersion": "1",
+    "label": "Conformance assembly",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [],
+    "floors": [],
+    "parts": [],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  },
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:slab",
+    "contentVersion": "1",
+    "label": "Shared slab",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [
+      {
+        "id": "widthM",
+        "type": "number",
+        "default": 8,
+        "min": 8,
+        "max": 12,
+        "unit": "metres"
+      },
+      {
+        "id": "depthM",
+        "type": "number",
+        "default": 6,
+        "min": 6,
+        "max": 8,
+        "unit": "metres"
+      },
+      {
+        "id": "stairHole",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "floors": [
+      {
+        "id": "level",
+        "elevationM": 0
+      }
+    ],
+    "parts": [
+      {
+        "id": "deck",
+        "type": "slab",
+        "floorId": "level",
+        "material": "conformance:timber",
+        "bounds": {
+          "min": {
+            "x": 0,
+            "y": 0,
+            "h": -0.12
+          },
+          "max": {
+            "x": {
+              "parameter": "widthM",
+              "scale": 1,
+              "offset": 0
+            },
+            "y": {
+              "parameter": "depthM",
+              "scale": 1,
+              "offset": 0
+            },
+            "h": 0
+          }
+        },
+        "holes": [
+          {
+            "id": "stairwell",
+            "enabled": {
+              "parameter": "stairHole"
+            },
+            "rect": {
+              "min": {
+                "x": 2.2,
+                "y": 2.35
+              },
+              "max": {
+                "x": 6.35,
+                "y": 3.65
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  },
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:wall",
+    "contentVersion": "1",
+    "label": "Shared wall",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [
+      {
+        "id": "lengthM",
+        "type": "number",
+        "default": 8,
+        "min": 1,
+        "max": 12,
+        "unit": "metres"
+      },
+      {
+        "id": "doorOffsetM",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "max": 10,
+        "unit": "metres"
+      },
+      {
+        "id": "hasDoor",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "floors": [
+      {
+        "id": "level",
+        "elevationM": 0
+      }
+    ],
+    "parts": [
+      {
+        "id": "wall",
+        "type": "wall",
+        "floorId": "level",
+        "material": "conformance:painted-plaster",
+        "axis": "x",
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "h": 0
+        },
+        "lengthM": {
+          "parameter": "lengthM",
+          "scale": 1,
+          "offset": 0
+        },
+        "heightM": 2,
+        "thicknessM": 0.12,
+        "openings": [
+          {
+            "id": "entry",
+            "enabled": {
+              "parameter": "hasDoor"
+            },
+            "offsetM": {
+              "parameter": "doorOffsetM",
+              "scale": 1,
+              "offset": 0
+            },
+            "widthM": 1,
+            "heightM": 1.85,
+            "bottomM": 0
+          }
+        ]
+      }
+    ],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  },
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:door",
+    "contentVersion": "1",
+    "label": "Shared hinged door",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [],
+    "floors": [
+      {
+        "id": "level",
+        "elevationM": 0
+      }
+    ],
+    "parts": [
+      {
+        "id": "leaf",
+        "type": "door",
+        "floorId": "level",
+        "material": "conformance:door-wood",
+        "portalId": null,
+        "axis": "x",
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "h": 0
+        },
+        "hand": "start",
+        "hingeInsetM": 0.03,
+        "leaf": {
+          "widthM": 0.94,
+          "heightM": 1.85,
+          "thicknessM": 0.04,
+          "offsetM": 0,
+          "bottomM": 0
+        },
+        "swing": -1,
+        "reachM": 1.6,
+        "initial": {
+          "open": false,
+          "locked": false
+        }
+      }
+    ],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  },
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:stairs",
+    "contentVersion": "1",
+    "label": "Shared route stair",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [],
+    "floors": [
+      {
+        "id": "lower",
+        "elevationM": 0
+      },
+      {
+        "id": "upper",
+        "elevationM": 2.12
+      }
+    ],
+    "parts": [
+      {
+        "id": "flight",
+        "type": "stairs",
+        "floorId": "lower",
+        "material": "conformance:stair-wood",
+        "from": {
+          "floorId": "lower",
+          "surfaceId": null,
+          "position": {
+            "x": 2,
+            "y": 3,
+            "h": 0
+          }
+        },
+        "to": {
+          "floorId": "upper",
+          "surfaceId": null,
+          "position": {
+            "x": 7.1,
+            "y": 3,
+            "h": 2.12
+          }
+        },
+        "path": [
+          {
+            "x": 2,
+            "y": 3,
+            "h": 0
+          },
+          {
+            "x": 5.8,
+            "y": 3,
+            "h": 2.12
+          },
+          {
+            "x": 7.1,
+            "y": 3,
+            "h": 2.12
+          }
+        ],
+        "widthM": 1.2,
+        "clearanceM": 2,
+        "bidirectional": true,
+        "reachM": 0.75
+      }
+    ],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  },
+  {
+    "kind": "nautilus-part-definition",
+    "version": 1,
+    "id": "conformance:roof",
+    "contentVersion": "1",
+    "label": "Shared roof box",
+    "profileId": "native-aabb-parts-v1",
+    "parameters": [
+      {
+        "id": "widthM",
+        "type": "number",
+        "default": 8,
+        "min": 8,
+        "max": 12,
+        "unit": "metres"
+      },
+      {
+        "id": "depthM",
+        "type": "number",
+        "default": 6,
+        "min": 6,
+        "max": 8,
+        "unit": "metres"
+      }
+    ],
+    "floors": [
+      {
+        "id": "level",
+        "elevationM": 0
+      }
+    ],
+    "parts": [
+      {
+        "id": "roof",
+        "type": "solid",
+        "floorId": "level",
+        "material": "conformance:roof",
+        "bounds": {
+          "min": {
+            "x": 0,
+            "y": 0,
+            "h": 2
+          },
+          "max": {
+            "x": {
+              "parameter": "widthM",
+              "scale": 1,
+              "offset": 0
+            },
+            "y": {
+              "parameter": "depthM",
+              "scale": 1,
+              "offset": 0
+            },
+            "h": 2.12
+          }
+        }
+      }
+    ],
+    "source": {
+      "project": "Nautilus Engine conformance",
+      "commit": null,
+      "path": "packages/parts-core/fixtures.js",
+      "notice": "NOTICE.md",
+      "guide": "docs/functional-parts.md"
+    }
+  }
+]
