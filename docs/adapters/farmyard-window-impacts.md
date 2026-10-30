@@ -152,7 +152,16 @@ order. Actor damage, spent AP/stamina/ammo, queues, clocks, seeds, inventory and
 future fields are copied without normalization. Only acknowledged glass changes
 the source mask, sequence and its native revision; the trusted host stages its
 own other consequences. The three native fog/detection sets are explicitly
-preserved through `setFields` (`seen`, `visible`, `detected` order). Missing masks
+preserved through `setFields` (`seen`, `visible`, `detected` order). Every marked
+array must encode a lossless native Set: `seen`/`visible` entries are canonical
+safe-integer `x,y` strings from the source `key` convention, and `detected`
+entries are bounded typed actor IDs. Numeric `7` and string `"7"` remain distinct.
+Duplicate entries and invalid native elements refuse before reconstruction in
+standalone open/serialize and before any live restore CAS/publication. The host
+save schema applies these uniqueness/type constraints only to marked fields;
+unmarked retained arrays preserve their ordinary values, duplicates and order,
+including beside a native Set. These checks add bounded linear validation, with
+at most 65,536 entries per field; no CPU benchmark is claimed. Missing masks
 or counters refuse. Source cosmetic event tails are preserved but never produced
 or replayed by loading; live once-only pane observations use the acknowledged
 receipt path. No source game repair/relocation loader is called.

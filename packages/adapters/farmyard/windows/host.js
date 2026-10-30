@@ -7,6 +7,16 @@ import {checkWindowImpact,windowReceiptId,createWindowImpactAuthority,retireWind
 import {sha256} from '../../../parts-core/hash.js';
 import {queryWindowSegment} from '../../../windows-core/query.js';
 const kind='nautilus-farmyard-window-host-save',setKeys=['seen','visible','detected'],saveKeys=['kind','version','geometry','windowState','sequenceOrigin','source','setFields'];
+function nativeSourceSet(values,key){
+  list(values,65536,'/source/'+key);const set=new Set();
+  for(const [i,value]of values.entries()){
+    const path='/source/'+key+'/'+i;
+    if(key==='detected'){if(typeof value==='string')id(value,path);else integer(value,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER,path);}
+    else if(typeof value!=='string'||value.length>35||!/^(0|-?[1-9][0-9]*),(0|-?[1-9][0-9]*)(?![\s\S])/.test(value)||value.split(',').some(part=>!Number.isSafeInteger(Number(part))))fail('INVALID_SOURCE_SET',path,'Retain native coordinate keys as canonical safe-integer x,y strings.');
+    if(set.has(value))fail('INVALID_SOURCE_SET',path,'An encoded native set must retain every typed entry and its insertion order without deduplication.');set.add(value);
+  }
+  return set;
+}
 function copySource(input){
   if(!plain(input))fail('INVALID_SOURCE','/source','Retain the complete plain source save.');const source={},setFields=[];
   for(const key of Reflect.ownKeys(input)){
@@ -16,11 +26,12 @@ function copySource(input){
   }
   setFields.sort((a,b)=>setKeys.indexOf(a)-setKeys.indexOf(b));return {source:data(source),setFields};
 }
-const restoreSource=(source,keys)=>{const copy=clone(source);for(const key of keys)copy[key]=new Set(copy[key]);return copy;};
+const restoreSource=(source,keys)=>{const copy=clone(source);for(const key of keys)copy[key]=nativeSourceSet(copy[key],key);return copy;};
 function portable(input){
   const value=ownService(input,saveKeys,'/save'),copied=copySource(value.source),metadata=data(Object.fromEntries(saveKeys.filter(key=>key!=='source').map(key=>[key,value[key]])));
   list(metadata.setFields,3,'/setFields');if(new Set(metadata.setFields).size!==metadata.setFields.length||metadata.setFields.some(key=>!setKeys.includes(key))||canonical(metadata.setFields)!==canonical([...metadata.setFields].sort((a,b)=>setKeys.indexOf(a)-setKeys.indexOf(b))))fail('INVALID_SET_FIELDS','/setFields','Preserve explicit native set types in the documented order.');
   if(copied.setFields.length&&canonical(copied.setFields)!==canonical(metadata.setFields))fail('INVALID_SET_FIELDS','/setFields','Source set types and their saved representation disagree.');
+  for(const key of metadata.setFields)nativeSourceSet(copied.source[key],key);
   const save=data({...metadata,source:copied.source});if(save.kind!==kind||save.version!==1)fail('UNSUPPORTED_HOST_SAVE','/kind','Use the complete retained Farmyard pane host-save v1.');return save;
 }
 const live=save=>({...clone(save),source:restoreSource(save.source,save.setFields)});
@@ -34,7 +45,7 @@ function checkSource(save,state,base){
   for(const key of ['revision','seed','elapsed'])finite(s[key],'/source/'+key);integer(s.revision,0,Number.MAX_SAFE_INTEGER,'/source/revision');integer(save.sequenceOrigin,0,Number.MAX_SAFE_INTEGER,'/sequenceOrigin');integer(s.windowSequence,0,Number.MAX_SAFE_INTEGER,'/source/windowSequence');
   list(s.map,240,'/source/map');if(s.map.length!==g.world.grid.height||s.map.some(row=>!Array.isArray(row)||row.length!==g.world.grid.width||row.some(cell=>typeof cell!=='string')))fail('CONTENT_MISMATCH','/source/map','The complete retained grid must match the fixed window world.');
   for(const key of ['queue','log','units','windows','interactables'])list(s[key],key==='units'?128:key==='windows'?1024:65536,'/source/'+key);
-  for(const key of setKeys)list(s[key],65536,'/source/'+key);
+  for(const key of setKeys){list(s[key],65536,'/source/'+key);if(save.setFields.includes(key))nativeSourceSet(s[key],key);}
   if(!plain(s.edges)||!plain(s.windowBreaks)||s.edgeLocks!==undefined&&!plain(s.edgeLocks))fail('INVALID_SOURCE','/source','Retain explicit edges and broken masks; loading cannot repair missing fields.');
   if(canonical(s.windowBreaks)!==canonical(state.broken))fail('HOST_PANE_MISMATCH','/source/windowBreaks','Host masks and authoritative pane state must agree atomically.');
   if(s.windowSequence!==save.sequenceOrigin+state.receipts.filter(r=>r.outcome==='pane-broken').length)fail('HOST_PANE_MISMATCH','/source/windowSequence','Preserve the original sequence and every accepted break.');

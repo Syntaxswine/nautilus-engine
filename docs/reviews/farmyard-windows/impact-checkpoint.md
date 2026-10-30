@@ -26,6 +26,21 @@ installed-package evidence were updated. This decision authorizes branch
 delivery for subsequent Architect review, not acceptance of the entire impact
 implementation, merging, release or game adoption.
 
+The verified registration is preserved in separate commit
+`c46d03f859b69ad5ba5307887551dd4328fab102`. Subsequent Architect review reproduced
+a persistence defect in `cc23bea`: a marked encoded fog Set containing duplicate
+entries could be silently deduplicated during open. The focused correction now
+checks exact native element semantics and uniqueness before reconstruction,
+standalone serialization and live restore. Source `key` supplies canonical
+integer coordinate strings for `seen`/`visible`; `detected` retains typed actor
+IDs, including distinct numeric/string identities. Unmarked arrays retain their
+ordinary duplicate/order/value behavior, even beside native Sets. The host schema
+adds conditional marked-field constraints; the geometry and pane-state schemas
+are byte-unchanged and remain compatible through their existing v1 references.
+All three schemas are independently validated together. Three regressions first
+failed against the pre-fix loader, then passed; restore refusals assert zero CAS
+attempts, writes and publication even with a permissive outer save validator.
+
 Evidence uses fixed Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a` and the
 unchanged original source audit. No renderer, Editor/UI, guard policy, weapon-cost
 implementation, production consumer pin or other game adoption is added. The
@@ -38,7 +53,7 @@ Validation on 2026-10-30:
 
 - `npm run check`: passed; 603 pinned source files and the existing
   headless, original-building, package whitelist and source checks remain valid.
-- `npm test`: **606 passed**, including 18 new impact/host tests and 17 native
+- `npm test`: **611 passed**, including 23 impact/host tests and 17 native
   geometry tests. Released door/grenade window refusals remain unchanged.
 - `npm run test:upstream`: **32 passed**.
 - `npm run build`: passed, **445 module paths** checked and own/adapted scripts
@@ -54,27 +69,31 @@ Validation on 2026-10-30:
   verified through the installed entries and all six bound services. The earlier
   implementation-only overlay proof remains historical evidence; it is not the
   declared registration proof.
-- Independent Draft 2020-12 validation: **3 schemas / 16 cases passed**. Complete
+- Independent Draft 2020-12 validation: **3 schemas / 27 cases passed**, including
+  conditional uniqueness/native element types for marked fields and ordinary
+  retained-array semantics when unmarked. Complete
   deterministic replay, capacity, mutation, context and live authority are
   separately verified by the JavaScript tests.
 - Fixed Git-object audit: passed unchanged, 23 source and four Editor evidence
   files; the source-native headless closure remains 3 modules / 16,515 bytes.
-  Registered runtime is 14 pure engine modules / **92,864 bytes**, including reused
+  Registered runtime is 14 pure engine modules / **93,811 bytes**, including reused
   hash/identity and negotiation modules. These are raw byte measurements, not CPU
   or FPS benchmarks.
 - Exact comparison with `cc23bea012abaca8bd552b0cece59fee45e8c5ef` preserves all prior
   declarations and adds only the approved two exports, three schemas, one engine
-  capability and **17 whitelist files**. All **47 focused window tests** passed.
+  capability and **17 whitelist files**. All **52 focused window tests** passed,
+  including the five persistence regressions.
 - Whitespace checks passed. Engine version, CI, upstream/consumer pins, donor
   bytes, released door/grenade refusals and other worktrees are unchanged.
 
 Gate logs are local ignored artifacts at
-`artifacts/farmyard-windows/registration-{check,tests,upstream,build}.log`.
+`artifacts/farmyard-windows/fog-set-{check,tests,upstream,build}.log`; the separate
+registration logs remain as historical evidence for `c46d03f`.
 `artifacts/farmyard-windows/installed-impact-report.json` records `declared: true`,
 actual installed entries/schema URLs/support files, conformance and archive hash.
 The core archive is `artifacts/distribution/nautilus-engine-core-0.10.0.tgz`;
 final verified SHA-256:
-`882c47e890511340e8ecdba61456c822b89a4e35cdbed478e38e0c59fa2fd3a0`.
+`2ef006b8952586ce7ed0436afd1c9401b84a96ae7e4256f5106ddb8e9df5930d`.
 This branch package is not a new release or consumer pin. The source-closure
 reporter's pre-registration status strings are historical wording; actual
 declared availability is determined by the default package gate and installed

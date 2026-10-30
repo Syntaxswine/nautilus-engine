@@ -51,6 +51,34 @@ test('complete prospective saves preserve unknown retained data and source set/f
   let called=0;const getter=clone(opened);Object.defineProperty(getter.source,'hidden',{enumerable:true,get(){called++;return 1;}});refused(()=>F.openFarmyardWindowHostSave(getter,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),'INVALID_DATA');assert.equal(called,0);
 });
 
+for(const field of ['seen','visible','detected'])test('encoded '+field+' rejects lossy native sets before standalone loads or any live restore write',t=>{
+  const h=make(t,{validate:()=>true}),saved=h.binding.save(),before=h.token(),entry=field==='detected'?h.store.source.units[1].id:Source.key(1,2),bad=JSON.parse(saved);bad.source[field]=[entry,entry];
+  for(const input of [bad,JSON.stringify(bad)]){
+    refused(()=>F.openFarmyardWindowHostSave(input,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),'INVALID_SOURCE_SET');
+    refused(()=>F.serializeFarmyardWindowHostSave(input,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),'INVALID_SOURCE_SET');
+    refused(()=>h.binding.restore(input),'INVALID_SOURCE_SET');
+  }
+  const invalid=field==='detected'?[{},true,1.5]:[{},17,'duplicate-cell','01,2','-0,2','1,2\n','9007199254740992,0'];
+  for(const entry of invalid){const value=JSON.parse(saved);value.source[field]=[entry];assert.throws(()=>F.openFarmyardWindowHostSave(value,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}));assert.throws(()=>F.serializeFarmyardWindowHostSave(value,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}));assert.throws(()=>h.binding.restore(value));}
+  assert.equal(h.token(),before);assert.equal(h.binding.save(),saved);assert.equal(h.candidates.length,0);assert.equal(h.writes,0);assert.equal(h.publications.length,0);
+});
+
+test('native fog sets retain insertion order and detected IDs retain their source types across save and live restore',t=>{
+  const h=make(t),{state}=kernel(h),source=clone(h.store.source);source.seen=new Set([Source.key(9,10),Source.key(1,2)]);source.visible=new Set([Source.key(3,4),Source.key(1,2)]);source.detected=new Set([7,'7',0,'guard:one']);
+  const save=F.createFarmyardWindowHostSave(state,source,{sequenceOrigin:0}),text=F.serializeFarmyardWindowHostSave(save,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),opened=F.openFarmyardWindowHostSave(text,{definitions:F.FARMYARD_WINDOW_DEFINITIONS});
+  for(const field of ['seen','visible','detected']){assert.ok(opened.source[field] instanceof Set);assert.deepEqual([...opened.source[field]],[...source[field]]);}
+  assert.equal(F.serializeFarmyardWindowHostSave(opened,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),text);assert.equal(h.binding.restore(text).committed,true);assert.equal(h.binding.save(),text);assert.equal(h.writes,1);assert.deepEqual(h.publications.map(p=>p.name),['invalidate','publish']);assert.deepEqual([...h.store.source.detected],[7,'7',0,'guard:one']);
+});
+
+test('unmarked source arrays keep ordinary duplicates, element values and ordering, including beside native sets',t=>{
+  const h=make(t),{state}=kernel(h),source=clone(h.store.source),arrays={seen:['duplicate-cell','duplicate-cell','1,2'],visible:[{retained:1},{retained:1},false],detected:[7,'7',7,{retained:true}]};Object.assign(source,clone(arrays));
+  for(const marked of [null,'seen','visible','detected']){
+    const mixed=clone(source);if(marked)mixed[marked]=new Set(marked==='detected'?[7,'7']:['9,10','1,2']);const save=F.createFarmyardWindowHostSave(state,mixed,{sequenceOrigin:0}),text=F.serializeFarmyardWindowHostSave(save,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),opened=F.openFarmyardWindowHostSave(text,{definitions:F.FARMYARD_WINDOW_DEFINITIONS});
+    assert.deepEqual(opened.setFields,marked?[marked]:[]);for(const field of ['seen','visible','detected'])if(field!==marked){assert.ok(Array.isArray(opened.source[field]));assert.deepEqual(opened.source[field],arrays[field]);}assert.equal(F.serializeFarmyardWindowHostSave(opened,{definitions:F.FARMYARD_WINDOW_DEFINITIONS}),text);
+    if(marked===null){h.binding.dispose();h.store=opened;h.binding=F.connectFarmyardWindows(h.services);const next=JSON.parse(text);next.source.seen.push('duplicate-cell');assert.equal(h.binding.restore(next).committed,true);assert.deepEqual(h.store.source.seen,[...arrays.seen,'duplicate-cell']);assert.ok(Array.isArray(h.store.source.seen));}
+  }
+});
+
 test('all six exact versioned services are necessary; an engine-only manifest cannot claim a connected host',t=>{
   const h=make(t);for(const service of W.WINDOW_HOST_SERVICES){const missing={...h.services};delete missing[service.id];refused(()=>F.connectFarmyardWindows(missing),'MISSING_BINDING');const wrong={...h.services,[service.id]:{...h.services[service.id],version:2}};refused(()=>F.connectFarmyardWindows(wrong),'UNSUPPORTED_HOST_SERVICE');}
   const {state}=kernel(h),requirements=W.windowRequirements(state);assert.equal(requirements.required.length,7);const engineOnly=W.windowCompatibility(state);assert.equal(engineOnly.ok,false);for(const service of W.WINDOW_HOST_SERVICES)assert.ok(engineOnly.errors.some(e=>e.feature===service.id&&e.action===service.action));assert.equal(W.assertWindowCompatible(state,h.binding.manifest()).ok,true);

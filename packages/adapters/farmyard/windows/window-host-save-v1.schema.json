@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:nautilus:schema:farmyard-window-host-save:1",
   "title": "Complete retained Farmyard pane host save v1",
-  "description": "Closed joint envelope, complete pane journal and geometry plus bounded retained source JSON. Unknown source data is preserved without behavior or normalization. The versioned host save service validates game-specific meaning before adoption; the executable adapter validates resource presence, pane/sequence/content agreement, semantic conflicts and aggregate budgets.",
+  "description": "Closed joint envelope, complete pane journal and geometry plus bounded retained source JSON. Fields marked in setFields encode lossless native sets: seen/visible contain unique canonical coordinate keys; detected contains unique typed actor IDs. Unmarked arrays preserve ordinary duplicates and order. The executable adapter additionally checks safe coordinate integers, resource presence, pane/sequence/content agreement, semantic conflicts and aggregate budgets. The versioned host save service validates game-specific meaning before adoption.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -48,7 +48,120 @@
       "uniqueItems": true
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "setFields"
+        ],
+        "properties": {
+          "setFields": {
+            "contains": {
+              "const": "seen"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "seen": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/fogCell"
+                },
+                "maxItems": 65536,
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "setFields"
+        ],
+        "properties": {
+          "setFields": {
+            "contains": {
+              "const": "visible"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "visible": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/fogCell"
+                },
+                "maxItems": 65536,
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "setFields"
+        ],
+        "properties": {
+          "setFields": {
+            "contains": {
+              "const": "detected"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "detected": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/actorId"
+                },
+                "maxItems": 65536,
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
+    "fogCell": {
+      "type": "string",
+      "maxLength": 35,
+      "pattern": "^(0|-?[1-9][0-9]*),(0|-?[1-9][0-9]*)(?![\\s\\S])",
+      "description": "Source.key(x,y) canonical integer coordinate string; executable loading also checks safe integer headroom."
+    },
+    "actorId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      ]
+    },
     "data": {
       "anyOf": [
         {
@@ -100,19 +213,7 @@
       ],
       "properties": {
         "id": {
-          "anyOf": [
-            {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96,
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
-            },
-            {
-              "type": "integer",
-              "minimum": -9007199254740991,
-              "maximum": 9007199254740991
-            }
-          ]
+          "$ref": "#/$defs/actorId"
         },
         "team": {
           "enum": [

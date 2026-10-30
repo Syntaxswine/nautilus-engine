@@ -47,12 +47,15 @@
   "validation": {
     "date": "2026-10-30",
     "implementationCommit": "cc23bea012abaca8bd552b0cece59fee45e8c5ef",
+    "registrationCommit": "c46d03f859b69ad5ba5307887551dd4328fab102",
+    "persistenceCorrection": "Architect-requested follow-up rejects lossy or invalid native seen/visible/detected Set encodings in standalone open/serialize and live restore before CAS/publication. Native Sets, typed actor IDs and deliberately unmarked arrays retain exact values/order/type. Five focused regressions include zero-CAS refusal with a permissive outer validator; three duplicate-set regressions failed before the correction.",
     "declaredPackageCommand": "node tools/test-farmyard-window-impacts-package.mjs",
     "declared": true,
     "installedAssertions": "Both exports, all three installed schema URLs/URIs and manifest versions, all seven support files, engine-only pane capability and six missing host promises; retained save/retry conformance with 43 hash-verified original files outside the runtime package.",
-    "requiredGates": {"npm run check":"pass","npm test":"606 passed","npm run test:upstream":"32 passed","npm run build":"pass; 445 module paths"},
+    "requiredGates": {"npm run check":"pass","npm test":"611 passed","npm run test:upstream":"32 passed","npm run build":"pass; 445 module paths"},
+    "independentSchemaValidation": "Draft 2020-12: all three schemas / 27 cases passed, including marked-set duplicates/types and unmarked retained arrays",
     "runtimeModules": 14,
-    "runtimeBytes": 92864,
+    "runtimeBytes": 93811,
     "whitelistFilesAdded": 17,
     "actualArchiveEvidence": "artifacts/farmyard-windows/installed-impact-report.json; archive SHA-256 is recorded outside the shipped request to avoid a self-referential package hash"
   },
