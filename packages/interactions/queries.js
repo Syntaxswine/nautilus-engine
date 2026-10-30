@@ -67,14 +67,14 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
       const state=openInteractionState(value);
       if(state.worldId!==snapshot.id)fail('WRONG_WORLD','Bind the interaction sidecar to its matching authored world.');
       for(const door of state.doors){
-        const floor=world.getFloor(door.floorId);point(door.position);if(Math.abs(door.position.h-floor.elevationM)>epsilon)fail('INVALID_LANDING','Door interaction position must match its declared floor height.');
-        if(!inside(door.position)||![door.closedBounds,door.openBounds,door.motionBounds].filter(Boolean).every(bounds=>inside(bounds.min)&&inside(bounds.max)))fail('OUTSIDE_WORLD','Door bounds are outside the authored world.');
-        const clearance=doorClearance(state,door);if(!clearance.ok)fail(clearance.code,clearance.reason);
+        const floor=world.getFloor(door.floorId);point(door.position);if(Math.abs(door.position.h-floor.elevationM)>epsilon)fail('INVALID_LANDING','Door interaction position must match its declared floor height.',door.id);
+        if(!inside(door.position)||![door.closedBounds,door.openBounds,door.motionBounds].filter(Boolean).every(bounds=>inside(bounds.min)&&inside(bounds.max)))fail('OUTSIDE_WORLD','Door bounds are outside the authored world.',door.id);
+        const clearance=doorClearance(state,door);if(!clearance.ok)fail(clearance.code,clearance.reason,door.id);
       }
       for(const stair of state.stairs)for(const landing of [stair.from,stair.to]){
         const actor={radiusM:stair.widthM/2,heightM:stair.clearanceM};
         const result=support({from:landing.position,actor,floorId:landing.floorId,surfaceId:landing.surfaceId});
-        if(!result.ok)fail(result.code,stair.id+': '+result.reason);
+        if(!result.ok)fail(result.code,stair.id+': '+result.reason,stair.id);
       }
       return copy(state);
     },

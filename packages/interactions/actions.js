@@ -20,10 +20,15 @@ function plan(state,actor,targetId,kind,bindings){
   if(door){
     if(actor.floorId!==door.floorId||distance(actor.position,door.position)>door.reachM)fail('OUT_OF_REACH','Move closer to '+door.label+'.');
     kind??=door.open?'close-door':'open-door';
-    if(!['open-door','close-door','unlock-door'].includes(kind))fail('UNSUPPORTED_ACTION','Use a door action for this target.');
+    if(!['open-door','close-door','unlock-door','lock-door'].includes(kind))fail('UNSUPPORTED_ACTION','Use a door action for this target.');
     if(kind==='unlock-door'){
       if(!door.locked)fail('ALREADY_UNLOCKED','This door is already unlocked.');
       query(bindings,'canUnlock',{state,actor,door});return {kind,target:door,label:'Unlock '+door.label};
+    }
+    if(kind==='lock-door'){
+      if(door.open)fail('DOOR_OPEN','Close the door before locking it.');
+      if(door.locked)fail('ALREADY_LOCKED','This door is already locked.');
+      query(bindings,'canLock',{state,actor,door});return {kind,target:door,label:'Lock '+door.label};
     }
     if(kind==='open-door'&&door.locked)fail('LOCKED','This door is locked. Find a key or another way in.');
     if((kind==='open-door')===door.open)fail('ALREADY_SET','The door is already '+(door.open?'open.':'closed.'));
@@ -56,16 +61,17 @@ export function applyInteraction(input,actorInput,command,bindings){
   return operate(input,actorInput,(state,actor)=>{
     command=interactionData(command);
     object(command,['kind','targetId','worldId','worldRevision','actorId','actorRevision'],'interaction command');
-    if(!['open-door','close-door','unlock-door','traverse-stairs'].includes(command.kind))fail('UNSUPPORTED_ACTION','Choose a supported explicit interaction action.');
+    if(!['open-door','close-door','unlock-door','lock-door','traverse-stairs'].includes(command.kind))fail('UNSUPPORTED_ACTION','Choose a supported explicit interaction action.');
     id(command.worldId);id(command.actorId);integer(command.worldRevision,'world revision');integer(command.actorRevision,'actor revision');
     if(command.worldId!==state.worldId||command.actorId!==actor.id)fail('WRONG_SUBJECT','Command belongs to another world or actor.');
     if(command.worldRevision!==state.revision||command.actorRevision!==actor.revision)fail('STALE_ACTION','The world or actor changed. Preview the action again.');
     const planned=plan(state,actor,command.targetId,command.kind,bindings);
     if(planned.kind==='traverse-stairs')actor.traversal={stairId:planned.target.id,direction:planned.direction,distanceM:0,path:planned.path};
     else if(planned.kind==='unlock-door')planned.target.locked=false;
+    else if(planned.kind==='lock-door')planned.target.locked=true;
     else planned.target.open=planned.kind==='open-door';
     bump(state);bump(actor);
-    const type=planned.kind==='traverse-stairs'?'stairs-started':planned.kind==='unlock-door'?'door-unlocked':planned.target.open?'door-opened':'door-closed';
+    const type=planned.kind==='traverse-stairs'?'stairs-started':planned.kind==='unlock-door'?'door-unlocked':planned.kind==='lock-door'?'door-locked':planned.target.open?'door-opened':'door-closed';
     return {ok:true,state,actor,expected:{worldRevision:command.worldRevision,actorRevision:command.actorRevision},events:[event(state,actor,type,command.targetId)]};
   });
 }

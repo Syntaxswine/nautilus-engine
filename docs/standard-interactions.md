@@ -136,7 +136,7 @@ State and actor revisions are bounded to 1e9. A game must checkpoint/migrate del
 
 ## Behavior and bindings
 
-`previewInteraction(state,actor,{targetId,kind?},queries)` proposes `open-door`, `close-door`, `unlock-door` or `traverse-stairs`. Omitting kind chooses open/close or stairs. Locked doors require an explicit unlock intent and permission. Unlocking does not also open the leaf. A command carries world and actor identities/revisions.
+`previewInteraction(state,actor,{targetId,kind?},queries)` proposes `open-door`, `close-door`, `unlock-door`, `lock-door` or `traverse-stairs`. Omitting kind chooses open/close or stairs. Locking/unlocking requires an explicit intent and its bound policy; a door must be closed before locking. Unlocking does not also open the leaf. A command carries world and actor identities/revisions.
 
 `applyInteraction` rechecks reach, permissions and current occupancy, returning copied `state,actor,events,expected`. Rejection returns no events and leaves inputs unchanged. The host must still compare/commit atomically; a returned result does not write the live world.
 
@@ -148,6 +148,7 @@ Custom query providers must declare matching `worldId` and return `{ok:true}` or
 | --- | --- |
 | `canSetDoor({state,actor,door,open})` | Can the complete pose change happen now? Include all actors and the actual leaf sweep when the game needs exact hinges. |
 | `canUnlock({state,actor,door})` | Permission/key/lock policy. Required for unlock; no default permission or skill roll. |
+| `canLock({state,actor,door})` | Permission/lock policy. Required for locking a closed door; no automatic permission. |
 | `landing({state,actor,landing})` | Confirm floor, named support, body footprint and game eligibility. |
 | `walk({state,actor,from,to})` | Continuous clearance and support along ordinary walking, including live actors/doors. |
 | `sweep({state,actor,from,to})` | Continuous body clearance along a stair segment. Authored route supplies the walking support between confirmed endpoints. |

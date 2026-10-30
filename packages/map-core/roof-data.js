@@ -1,5 +1,6 @@
 import {roofErrors,roofsOf} from '../roof-core/index.js';
 import {buildingLot} from '../prefab-core/index.js';
+import {refusePartsEnvelope} from '../world-core/parts-refusal.js';
 
 const EPS=1e-6;
 export const roofSize=map=>map?.kind==='red-shift-block'?24:map?.width||240;
@@ -32,6 +33,7 @@ export function roofAuthoringErrors(map,size=roofSize(map)) {
   return [...new Set(errors)];
 }
 export function assertRoofData(map,size) {
+  refusePartsEnvelope(map);
   const errors=roofAuthoringErrors(map,size);if(errors.length)throw Error(errors.join(' '));return map;
 }
 export function setRoofs(target,roofs,extension=target.slopedRoofs) {

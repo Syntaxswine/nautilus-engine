@@ -2,6 +2,7 @@ import {EditingDocument} from './roof-document.js';
 import {parseMap} from './roof-maps.js';
 import {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS} from './contract-manifest.js';
 import {blueprintRequirements, assertRequirements, CompatibilityError} from './capabilities.js';
+import {refusePartsEnvelope} from '../world-core/parts-refusal.js';
 
 const MAX_BYTES = 4000000;
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -42,18 +43,18 @@ export class BlueprintError extends Error {
 }
 export function loadBlueprint(input) {
   try {
-    const raw = inputData(input), block = raw.kind === 'red-shift-block';
+    const raw = refusePartsEnvelope(inputData(input)), block = raw.kind === 'red-shift-block';
     if (!block && raw.version === 1) throw new BlueprintError('Legacy map version 1 needs an explicit migration.', 'MIGRATION_REQUIRED', '/version');
     if (raw.version !== (block ? 1 : 2)) throw new BlueprintError('Unsupported ' + (block ? 'block' : 'map') + ' schema version.', 'UNSUPPORTED_SCHEMA', '/version');
     const document = new EditingDocument().open(JSON.stringify(raw));
     // Use the editor to validate, not to normalize persistence. Return the
     // original copied JSON, including opaque fields and unfilled resources.
     return raw;
-  } catch (error) { if (error instanceof BlueprintError || error instanceof CompatibilityError) throw error; throw new BlueprintError(error.message); }
+  } catch (error) { if (error instanceof BlueprintError || error instanceof CompatibilityError || error.code==='UNSUPPORTED_PARTS_ENVELOPE') throw error; throw new BlueprintError(error.message); }
 }
 export function validateBlueprint(input) { try { loadBlueprint(input); return []; } catch (error) { return error.diagnostics || [{code: 'INVALID_BLUEPRINT', path: '/', message: error.message, action: 'Correct the blueprint.'}]; } }
 export function migrateBlueprint(input) {
-  const raw = inputData(input);
+  const raw = refusePartsEnvelope(inputData(input));
   if (raw.version === 2 || raw.kind === 'red-shift-block') return {blueprint: loadBlueprint(raw), migrations: []};
   if (raw.version !== 1) throw new BlueprintError('No migration exists for this map schema version.', 'UNSUPPORTED_SCHEMA', '/version');
   // The inherited v1 conversion copied only these geometry fields. Reject other

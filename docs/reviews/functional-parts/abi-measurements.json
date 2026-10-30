@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "status": "local-headless-measurement",
+  "nodeVersion": "v24.15.0",
+  "platform": "win32",
+  "arch": "x64",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+  "method": "Single process; 5 warmups then sequential samples, perf_hooks.performance.now. Includes validation, compilation, canonical hashing and immutable output. Timing is not a test assertion.",
+  "scenes": [
+    {
+      "variant": "single",
+      "assemblies": 1,
+      "authoredInstances": 14,
+      "surfaces": 23,
+      "doors": 1,
+      "stairs": 1,
+      "bindings": 24,
+      "authoredBytes": 3854,
+      "definitionsBytes": 4526,
+      "sceneBytes": 31991,
+      "compile": {
+        "samples": 40,
+        "medianMs": 4.727199999999982,
+        "p95Ms": 5.834400000000002
+      }
+    },
+    {
+      "variant": "transformed",
+      "assemblies": 2,
+      "authoredInstances": 28,
+      "surfaces": 45,
+      "doors": 2,
+      "stairs": 2,
+      "bindings": 48,
+      "authoredBytes": 7041,
+      "definitionsBytes": 4526,
+      "sceneBytes": 61329,
+      "compile": {
+        "samples": 40,
+        "medianMs": 7.964799999999968,
+        "p95Ms": 9.633299999999963
+      }
+    },
+    {
+      "variant": "second-layout",
+      "assemblies": 3,
+      "authoredInstances": 42,
+      "surfaces": 67,
+      "doors": 3,
+      "stairs": 3,
+      "bindings": 72,
+      "authoredBytes": 10238,
+      "definitionsBytes": 4526,
+      "sceneBytes": 90723,
+      "compile": {
+        "samples": 40,
+        "medianMs": 12.377899999999954,
+        "p95Ms": 15.848600000000033
+      }
+    }
+  ],
+  "runtime": {
+    "actors": 1,
+    "staticSurfaces": 23,
+    "startingReceipts": 240,
+    "previewAndCommit": {
+      "samples": 40,
+      "medianMs": 1.2602999999999156,
+      "p95Ms": 1.7928999999999178
+    },
+    "endingReceipts": 280,
+    "saveBytes": 102644,
+    "restore": {
+      "samples": 20,
+      "medianMs": 60.04160000000002,
+      "p95Ms": 65.7976000000001
+    }
+  },
+  "rendering": "Not measured: this headless workload creates no renderer, GPU calls, art or animation."
+}

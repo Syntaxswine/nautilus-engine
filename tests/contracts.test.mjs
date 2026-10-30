@@ -94,7 +94,7 @@ test('plain-data persistence rejects fields JSON would omit and never invokes ge
 
 test('public schema URLs resolve every registered document and absolute cross-schema reference',async()=>{
  const {schemaDocuments}=await import('../packages/map-core/index.js');const documents=schemaDocuments(),uris=new Set(documents.map(item=>item.uri));assert.equal(uris.size,documents.length);
- function refs(value){if(!value||typeof value!=='object')return;for(const [key,child]of Object.entries(value)){if(key==='$ref'&&!child.startsWith('#'))assert.ok(uris.has(child),'Unregistered schema reference: '+child);else refs(child);}}
+ function refs(value){if(!value||typeof value!=='object')return;for(const [key,child]of Object.entries(value)){if(key==='$ref'&&!child.startsWith('#')){const [uri,pointer]=child.split('#');assert.ok(uris.has(uri),'Unregistered schema reference: '+child);if(pointer){let target=JSON.parse(fs.readFileSync(new URL(documents.find(item=>item.uri===uri).url),'utf8'));for(const part of pointer.slice(1).split('/'))target=target?.[part.replaceAll('~1','/').replaceAll('~0','~')];assert.ok(target,'Missing schema fragment: '+child);}}else refs(child);}}
  for(const entry of documents){const schema=JSON.parse(fs.readFileSync(new URL(entry.url),'utf8'));assert.equal(schema.$id,entry.uri);refs(schema);}
 });
 

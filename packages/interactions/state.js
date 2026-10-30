@@ -7,7 +7,7 @@ export const INTERACTION_CONTRACT=Object.freeze({
 });
 export const copy=value=>structuredClone(value);
 export const axes=['x','y','h'];
-export function fail(code,message){const error=new Error(message);error.code=code;throw error;}
+export function fail(code,message,targetId){const error=new Error(message);error.code=code;if(targetId!==undefined)error.targetId=targetId;throw error;}
 export function object(value,keys,name,required=keys){
   if(!value||typeof value!=='object'||![Object.prototype,null].includes(Object.getPrototypeOf(value))||Reflect.ownKeys(value).some(key=>{const descriptor=Object.getOwnPropertyDescriptor(value,key);return typeof key!=='string'||!keys.includes(key)||!descriptor.enumerable||!Object.hasOwn(descriptor,'value');})||required.some(key=>!Object.hasOwn(value,key)))fail('INVALID_DATA','Invalid '+name+' fields.');
 }
