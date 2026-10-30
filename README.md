@@ -1,6 +1,6 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.8 adds optional module composition, a Farmyard stat adapter, native-height world data and five-label floor controls.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. Optional modules cover map authoring, assets, rules, native-height worlds, interactions and game UI.
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
@@ -122,3 +122,9 @@ See [asset handoffs](docs/asset-handoffs.md), [door/stair bindings](docs/standar
 The candidate `./parts` facade adds strict native part definitions/instances, a deterministic geometry/interaction/render compiler, source diagnostics and complete bounded runtime saves. `./parts/fixtures` supplies an executable conformance-only two-story recipe with transformed and wider layouts. Read the [functional-parts builder guide](docs/functional-parts.md) for public imports, installed examples, host bindings and limits. Artist kit, editor authoring, presentation and integrated game adoption require their separate fixed-commit acceptance.
 
 The optional `./adapters/farmyard/doors` entry supplies Farmyard's source-sized single-leaf doors, clear reach, combat AP and post-door sight/fog transitions while retaining an existing game's movement. Its [builder card](docs/adapters/farmyard-doors.md) carries required services, schema URLs, connection example, save/retry rules and adoption checklist. Native conservative clearance remains a separate profile.
+
+## Native Farmyard windows (Unreleased)
+
+The optional `./windows` and `./adapters/farmyard/windows` entries provide native quarter-turn pane geometry, purpose-specific queries, trusted confirmed impacts, durable retries and complete retained saves. Games bind all six required host services before activation. The [builder card](docs/adapters/farmyard-window-impacts.md) includes schemas, an installed example and adoption checklist; `npm run test:windows` proves the actual shipped entries offline.
+
+The [artist audit](docs/reviews/window-art/README.md) records the original 39 presets and tall-sheet reference. The [integration record](docs/reviews/2026-10-30-farmyard-window-integration.md) identifies accepted scope and later renderer/editor work. Existing grenade and door profiles keep their explicit window refusals.

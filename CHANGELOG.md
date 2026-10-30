@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add optional native Farmyard window geometry/query and confirmed-impact entries with three registered v1 schemas, durable receipts and complete retained saves.
+- Reject lossy encoded fog Sets before save reconstruction or live restore; preserve ordinary retained arrays and typed actor IDs.
+- Keep all six live host services explicit, and exercise the actual installed window package in CI. Record the source-native artist audit separately from renderer/editor/game adoption.
+
 - Strengthen editor/game-host handoff, actual-page bridge, clearance, persistence and import-limit coverage while retaining current floor controls.
 - Share the deployed Send patch with headless tests and build guards; diagnose browser loading and host-await failures.
 - Assert Settings feedback placement and bound the module CI job to 15 minutes, retaining the reviewed test timing margins.

@@ -1,6 +1,6 @@
 # Portable contracts and compatibility
 
-Nautilus 0.9 exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
+Nautilus exposes engine-owned plain-data interfaces. Import public package entry points; donor modules, editor classes, storage and renderer internals are implementation details. The inherited map vocabulary remains an explicit compatibility profile, with four squad starts, one travel marker and the reviewed content allowlists. A facade does not make that profile universal.
 
 ## Schemas and persistence
 
@@ -57,3 +57,9 @@ Version 0.9 adds the separate `nautilus-grenade-state` v1 schema and capabilitie
 The optional module preserves ordinary Farmyard grenade behavior at its recorded source pin. Windows, fueled/volatile targets, active fire and multilevel contexts require separately reviewed complete consequence adapters and reject before costs in this profile. Runtime capability declarations must describe these limits. The engine manifest advertises available code; a game must additionally implement atomic context commits, visibility refresh and body registration before advertising a usable host.
 
 Grenade loading validates the complete retained journal and current resource state. Future schemas/profiles and unknown functional fields reject; no automatic migration, receipt eviction, healing or ammunition refill occurs. New state must fit aggregate load/save limits before a transaction succeeds. Presentation is transient and never replays from loading or an exact command retry. All production game pins remain independently owned.
+
+## Native window contracts (Unreleased)
+
+The independent v1 schemas are `nautilus-window-geometry`, `nautilus-window-pane-state` and `nautilus-farmyard-window-host-save`, discoverable through `schemaDocuments()`. `nautilus-window-panes-v1` describes the available bounded engine behavior. A live consumer must additionally bind all six v1 services named by `windowRequirements`; the engine manifest does not promise their implementation.
+
+The [window guide](adapters/farmyard-window-impacts.md) records native dimensions, immutable content epochs, a complete 128-impact journal and 8 MB joint-save budget. Unknown functional fields/future versions, unsupported floors/topologies and changed/missing receipt history refuse. Retained bounded game extensions and unmarked array order/duplicates survive; fields marked as native Sets require exact typed entries and reject duplicates before reconstruction. Loading does not repair resources, evict receipts or replay effects. Topology changes or deliberate rewind require a separately reviewed migration/archive.

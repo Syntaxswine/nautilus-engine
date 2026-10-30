@@ -11,6 +11,8 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/windows-core/` | Optional headless native window geometry, confirmed pane impacts and complete durable state |
+| `packages/adapters/farmyard/windows/` | Retained whole-game window saves and six explicit host-service bindings |
 | `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
 | `packages/item-visuals/` | Original item models using the host Three namespace |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
@@ -124,3 +126,9 @@ The optional [standard interaction module](standard-interactions.md) adds revisi
 The separate [title screen](game-title.md) standardizes menu behavior with host-owned saves, settings and scene loading. A headless usage-card export points to both modules and their required bindings. [Asset handoffs](asset-handoffs.md) records what a new game team must decide. The reference yard proves the combination; game adoption and publication remain separate.
 
 The candidate [functional-parts facade](functional-parts.md) is the explicit authoring-to-runtime bridge. Versioned native recipes and assembly instances compile into matching static worlds, dynamic door/stair records and renderer bindings with stable semantic/source IDs. Content-bound runtime checkpoints preserve continuous travel and command/event receipts. Core remains headless; Editor owns authoring/history, Artist supplies measured native content, UI owns presentation/player bindings, and Architect integrates fixed reviewed commits. Existing map/block and strict world-v1 formats stay separate and refuse parts envelopes they cannot preserve.
+
+## Native window boundary
+
+The [optional window adapter](adapters/farmyard-window-impacts.md) preserves the fixed Farmyard first-hit/quarter-turn policy. Engine-owned geometry/state is headless; complete-world queries, successful outcomes, actual costs, atomic context commits, invalidation and whole-save approval stay with the host. The engine advertises its pane behavior without claiming those six borrowed services. Current door/grenade profiles remain separately bounded.
+
+The [artist audit](reviews/window-art/README.md) is source research for a later host-Three provider. Renderer, editor authoring and production game adoption need their own reviewed bindings. [Architect acceptance](reviews/2026-10-30-farmyard-window-integration.md) records the fixed inputs and persistence correction.
