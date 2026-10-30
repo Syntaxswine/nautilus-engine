@@ -1,4 +1,5 @@
 import {createWorld,openWorld} from '../packages/world-core/index.js';
+import {fields,inputData} from '../packages/world-core/validation.js';
 import {createInteractionState,openInteractionState,serializeInteractionState,createInteractionActor,openInteractionActor,serializeInteractionActor,createInteractionQueries,previewInteraction,applyInteraction,walkActor,advanceTraversal} from '../packages/interactions/index.js';
 export function starterFixture(){
   const world=createWorld({id:'threshold-yard',name:'The threshold yard',widthM:14,depthM:10,floorCount:2,storyHeightM:2.12,groundHeightM:0,heightM:6});
@@ -17,9 +18,10 @@ export function starterFixture(){
 }
 export function createStarterHost(saved){
   let fixture=starterFixture(),state=fixture.state,actor=fixture.actor,world=fixture.world,blocker=false,hasKey=true;
-  if(saved){
-    const input=typeof saved==='string'?JSON.parse(saved):structuredClone(saved);
-    if(input.kind!=='nautilus-starter-save'||input.version!==1||Object.keys(input).sort().join(',')!=='actor,interactions,kind,version,world')throw Error('Use a complete starter save version 1.');
+  if(saved!==undefined){
+    // Validate descriptors and the complete byte-bounded envelope before cloning or reading fields.
+    const input=inputData(saved);fields(input,['kind','version','world','interactions','actor'],'/starter');
+    if(input.kind!=='nautilus-starter-save'||input.version!==1)throw Error('Use a complete starter save version 1.');
     world=openWorld(input.world);state=openInteractionState(input.interactions);actor=openInteractionActor(input.actor);
   }
   const queries={...createInteractionQueries(world,{actors:()=>blocker?[createInteractionActor({id:'waiting-visitor',floorId:'floor-0',position:{x:4,y:5,h:0}})]:[]}),
@@ -31,7 +33,8 @@ export function createStarterHost(saved){
     const support=queries.landing({actor,landing:{floorId:actor.floorId,surfaceId:world.surfaces.find(s=>s.supports&&s.supportFloorId===actor.floorId&&s.bounds.max.h===actor.position.h&&actor.position.x>=s.bounds.min.x&&actor.position.x<=s.bounds.max.x&&actor.position.y>=s.bounds.min.y&&actor.position.y<=s.bounds.max.y)?.id,position:actor.position}});
     if(!support.ok||!queries.sweep({state,actor,from:actor.position,to:actor.position}).ok)throw Error('Saved actor has no clear, supported position.');
   }
-  const commit=result=>{if(result.ok){state=result.state;actor=result.actor;}return result;};
+  // Returned action records belong to the caller; retain a separate, atomic copy.
+  const commit=result=>{if(result.ok){const next=structuredClone({state:result.state,actor:result.actor});state=next.state;actor=next.actor;}return result;};
   return {
     get state(){return structuredClone(state);},get actor(){return structuredClone(actor);},get world(){return structuredClone(world);},
     inspect(targetId,kind){return previewInteraction(state,actor,kind===undefined?{targetId}:{targetId,kind},queries);},
