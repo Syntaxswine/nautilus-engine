@@ -1371,9 +1371,12 @@
   },
   "enginePacketProposal": {
     "version": 1,
-    "id": "shot-7:round-0",
+    "id": "[\"window-impact-v1\",[\"string\",\"shot-7\"],0,0]",
+    "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
     "sceneId": "window-yard",
     "stateId": "window-yard:panes",
+    "contentEpoch": "content-epoch-1",
+    "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4",
     "expectedRevision": 0,
     "placementId": "clear-a",
     "partId": "r0c0",
@@ -1382,6 +1385,7 @@
     "confirmation": {
       "hostCommandId": "shot-7",
       "round": 0,
+      "impactIndex": 0,
       "geometryRevision": 0,
       "cause": "bullet",
       "point": {
@@ -1393,13 +1397,16 @@
     }
   },
   "engineReceiptProposal": {
-    "id": "[\"window-pane-v1\",\"window-yard\",\"shot-7:round-0\"]",
+    "id": "[\"window-pane-receipt-v1\",\"farmyard-quarter-turn-first-hit-pane-v1\",\"window-yard\",\"window-yard:panes\",\"content-epoch-1\",\"c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4\",[\"string\",\"shot-7\"],0,0]",
     "type": "confirmed-window-impact",
     "command": {
       "version": 1,
-      "id": "shot-7:round-0",
+      "id": "[\"window-impact-v1\",[\"string\",\"shot-7\"],0,0]",
+      "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
       "sceneId": "window-yard",
       "stateId": "window-yard:panes",
+      "contentEpoch": "content-epoch-1",
+      "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4",
       "expectedRevision": 0,
       "placementId": "clear-a",
       "partId": "r0c0",
@@ -1408,6 +1415,7 @@
       "confirmation": {
         "hostCommandId": "shot-7",
         "round": 0,
+        "impactIndex": 0,
         "geometryRevision": 0,
         "cause": "bullet",
         "point": {
@@ -1422,6 +1430,202 @@
     "outcome": "pane-broken",
     "effects": []
   },
+  "identityContract": {
+    "scope": {
+      "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
+      "sceneId": "window-yard",
+      "stateId": "window-yard:panes",
+      "contentEpoch": "content-epoch-1",
+      "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4"
+    },
+    "hostServices": [
+      {
+        "id": "fixed-window-definitions-v1",
+        "action": "Bind a fixed content lookup and verify definition/content digests before connecting panes.",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "complete-window-query-composition-v1",
+        "action": "Bind complete current world/member/actor queries; a window-only candidate cannot confirm the nearest world hit.",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "confirmed-impact-authority-v1",
+        "action": "Bind the trusted host impact boundary with stable typed host command, round and impact identities.",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "atomic-window-context-commit-v1",
+        "action": "Bind atomic state/context/host comparison and the final active write fence; preserve original IDs on unknown outcomes.",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "window-geometry-invalidation-v1",
+        "action": "Bind current geometry/route invalidation and publication after an acknowledged commit.",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "complete-window-save-staging-v1",
+        "action": "Bind whole-save staging that preserves scope, content epoch, durable journal and retained host resources.",
+        "minVersion": 1,
+        "maxVersion": 1
+      }
+    ],
+    "impactTuple": [
+      "window-impact-v1",
+      [
+        "type",
+        "hostCommandId"
+      ],
+      "round",
+      "impactIndex"
+    ],
+    "receiptTuple": [
+      "window-pane-receipt-v1",
+      "profileId",
+      "sceneId",
+      "stateId",
+      "contentEpoch",
+      "contentDigest",
+      [
+        "type",
+        "hostCommandId"
+      ],
+      "round",
+      "impactIndex"
+    ],
+    "limits": {
+      "scopeString": 96,
+      "hostString": 96,
+      "indexMaximum": 65535,
+      "impactIdMaximum": 192,
+      "receiptIdMaximum": 768,
+      "journal": 128
+    },
+    "journal": {
+      "scope": {
+        "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
+        "sceneId": "window-yard",
+        "stateId": "window-yard:panes",
+        "contentEpoch": "content-epoch-1",
+        "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4"
+      },
+      "revision": 3,
+      "receipts": [
+        {
+          "id": "[\"window-pane-receipt-v1\",\"farmyard-quarter-turn-first-hit-pane-v1\",\"window-yard\",\"window-yard:panes\",\"content-epoch-1\",\"c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4\",[\"string\",\"shot-7\"],0,0]",
+          "type": "confirmed-window-impact",
+          "command": {
+            "version": 1,
+            "id": "[\"window-impact-v1\",[\"string\",\"shot-7\"],0,0]",
+            "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
+            "sceneId": "window-yard",
+            "stateId": "window-yard:panes",
+            "contentEpoch": "content-epoch-1",
+            "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4",
+            "expectedRevision": 0,
+            "placementId": "clear-a",
+            "partId": "r0c0",
+            "paneId": "r0c0",
+            "definitionDigest": "24e1a2aa69fc2abf64b5bbb9aaf7397548d81f9cc4c8d0670517f8ad7ccd7057",
+            "confirmation": {
+              "hostCommandId": "shot-7",
+              "round": 0,
+              "impactIndex": 0,
+              "geometryRevision": 0,
+              "cause": "bullet",
+              "point": {
+                "x": 8,
+                "y": 12.5,
+                "h": 1.1
+              },
+              "direction": -1
+            }
+          },
+          "revision": 1,
+          "outcome": "pane-broken",
+          "effects": []
+        },
+        {
+          "id": "[\"window-pane-receipt-v1\",\"farmyard-quarter-turn-first-hit-pane-v1\",\"window-yard\",\"window-yard:panes\",\"content-epoch-1\",\"c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4\",[\"string\",\"shot-8\"],0,0]",
+          "type": "confirmed-window-impact",
+          "command": {
+            "version": 1,
+            "id": "[\"window-impact-v1\",[\"string\",\"shot-8\"],0,0]",
+            "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
+            "sceneId": "window-yard",
+            "stateId": "window-yard:panes",
+            "contentEpoch": "content-epoch-1",
+            "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4",
+            "expectedRevision": 1,
+            "placementId": "waist-grid",
+            "partId": "r0c1",
+            "paneId": "r0c1",
+            "definitionDigest": "13f495111b3ee9ce8d9595fcbbecf88184997ac64c923f0d615aa566e8c4e7e9",
+            "confirmation": {
+              "hostCommandId": "shot-8",
+              "round": 0,
+              "impactIndex": 0,
+              "geometryRevision": 1,
+              "cause": "bullet",
+              "point": {
+                "x": 20.98125,
+                "y": 20.5,
+                "h": 1.1525
+              },
+              "direction": 1
+            }
+          },
+          "revision": 2,
+          "outcome": "pane-broken",
+          "effects": []
+        },
+        {
+          "id": "[\"window-pane-receipt-v1\",\"farmyard-quarter-turn-first-hit-pane-v1\",\"window-yard\",\"window-yard:panes\",\"content-epoch-1\",\"c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4\",[\"string\",\"shot-9\"],0,0]",
+          "type": "confirmed-window-impact",
+          "command": {
+            "version": 1,
+            "id": "[\"window-impact-v1\",[\"string\",\"shot-9\"],0,0]",
+            "profileId": "farmyard-quarter-turn-first-hit-pane-v1",
+            "sceneId": "window-yard",
+            "stateId": "window-yard:panes",
+            "contentEpoch": "content-epoch-1",
+            "contentDigest": "c13c176ea28b5ba8a81c4df451d3add99469ba9d4e28fdfe812264bd58a75fe4",
+            "expectedRevision": 2,
+            "placementId": "sheet-tall-a",
+            "partId": "r0c0",
+            "paneId": "r0c0",
+            "definitionDigest": "af70e54559bf1f1c7ffbb4e2474635e56b75bf8a74f5cf73b24a04798529672e",
+            "confirmation": {
+              "hostCommandId": "shot-9",
+              "round": 0,
+              "impactIndex": 0,
+              "geometryRevision": 2,
+              "cause": "bullet",
+              "point": {
+                "x": 39.5,
+                "y": 32.5,
+                "h": 9
+              },
+              "direction": 1
+            }
+          },
+          "revision": 3,
+          "outcome": "pane-broken",
+          "effects": []
+        }
+      ]
+    },
+    "sourceProfileImpactIndices": [
+      0
+    ],
+    "sourceProfileNote": "Identity syntax distinguishes independent impacts; current single-path Farmyard rounds use only impactIndex 0. Additional indices do not enable penetration, pellets, cascades or another source hit policy."
+  },
   "requirementsProposal": {
     "schema": {
       "id": "nautilus-window-pane-state",
@@ -1432,13 +1636,53 @@
         "id": "nautilus-window-panes-v1",
         "minVersion": 1,
         "maxVersion": 1
+      },
+      {
+        "id": "fixed-window-definitions-v1",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "complete-window-query-composition-v1",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "confirmed-impact-authority-v1",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "atomic-window-context-commit-v1",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "window-geometry-invalidation-v1",
+        "minVersion": 1,
+        "maxVersion": 1
+      },
+      {
+        "id": "complete-window-save-staging-v1",
+        "minVersion": 1,
+        "maxVersion": 1
       }
     ],
     "optional": []
   },
   "refusalVectors": [
     "UNCONFIRMED_IMPACT",
+    "INVALID_IMPACT_ID",
+    "INVALID_HOST_COMMAND_ID",
+    "INVALID_IMPACT_INDEX",
+    "UNSUPPORTED_IMPACT_INDEX",
+    "WRONG_WINDOW_PROFILE",
+    "WRONG_WINDOW_SCENE",
+    "WRONG_WINDOW_STATE",
+    "STALE_CONTENT_EPOCH",
     "STALE_WINDOW_REVISION",
+    "STALE_WINDOW_GEOMETRY",
+    "COMMAND_ID_CONFLICT",
     "CONTENT_MISMATCH",
     "UNKNOWN_PANE",
     "WINDOW_DOOR_CONFLICT",

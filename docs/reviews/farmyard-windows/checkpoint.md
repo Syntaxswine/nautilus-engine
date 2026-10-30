@@ -1,5 +1,7 @@
 # First window contract / fixture checkpoint
 
+The first-checkpoint measurements/checks below belong to `76f6198d2dae7babce2d211606df94037ea2740b`. The follow-up [requirements and identity correction](proposal-correction.md) freezes all six required host services and epoch-scoped per-impact receipts before ABI acceptance.
+
 Owner: Coder. Branch `codex/farmyard-windows-contract`, based exactly on Root's reviewed provisional composition `e7cf702b794174d7a010ef3380efc36af5441104`. Door checkpoints remain preserved on `codex/farmyard-doors`, ending at `a1981b3ec38071fda93a5e384b503fb5a618e9bc`. This checkpoint stops for Root review before pane runtime/provider implementation and dependent Editor/UI work.
 
 Read the [contract proposal](../../proposals/farmyard-windows.md), [immutable source audit](source-audit.json) and [source-generated fixture](../../../tests/fixtures/farmyard-windows-contract/proposal.json). Proposed APIs, capabilities, schema names and service interfaces remain review decisions. No pane feature is registered or advertised as released.
