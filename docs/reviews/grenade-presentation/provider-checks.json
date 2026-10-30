@@ -1,0 +1,267 @@
+{
+  "status": "Fixed source presentation candidate; root export/distribution and integrated UI/browser acceptance pending.",
+  "baseline": "958e8a6a41675db8d4eba0750411153306b6153d",
+  "coreIntegrationTarget": "c7beb44fa254b2d72657f7e3a959920216f09b35",
+  "source": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "verifiedAt": "2026-10-30T01:34:16.052Z",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "logSha256": "ad96a2fbd355d5b5914a8b91d6891c40f043274eeb06beae4571280cf59829e3"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "logSha256": "a8c377443d09ec0e8e1a1f943f7dfe89512251d3ba69016622c79804e9aefd15"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "logSha256": "2cd8e4f78d6a1aa74f54ee5861e4c2637f9ef7decf82938df3f88b8baaed8a7e"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logSha256": "54f1e048749a91dc3aba5f75204704596add717060fc227b2ace69a4738c8b06"
+    },
+    {
+      "command": "node --test tests/grenade-visuals.test.mjs",
+      "exitCode": 0,
+      "logSha256": "16f112315e23fae1d02a33d290fc7afdb24b8870db980d411f49c3f67e0cb553"
+    }
+  ],
+  "focusedTests": 19,
+  "repositoryTests": 376,
+  "upstreamTests": 32,
+  "links": {
+    "count": 28,
+    "checked": [
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "../../../packages/grenade-visuals/three.js"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "../../../packages/grenade-visuals/source.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "../../../vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "../../../NOTICE.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "../../../tests/grenade-visuals.test.mjs"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/provider.md",
+        "target": "provider-checks.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "component-handoff.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "provider.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "../actor-height-intake/README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "checks.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../component-handoffs.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../../art/grenade-review/audit.mjs"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "provider.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../../NOTICE.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md#reproduce-and-next-review"
+      },
+      {
+        "source": "packages/grenade-visuals/README.md",
+        "target": "three.js"
+      },
+      {
+        "source": "packages/grenade-visuals/README.md",
+        "target": "../../docs/reviews/grenade-presentation/provider.md"
+      },
+      {
+        "source": "packages/grenade-visuals/README.md",
+        "target": "source.json"
+      }
+    ]
+  },
+  "sourceExample": {
+    "propOnlyVerbatim": true,
+    "exitCode": 0,
+    "borrowedPaintSurvives": true,
+    "nativeBrowserExamplePending": true
+  },
+  "runtimeClosure": {
+    "modules": [
+      "packages/grenade-visuals/three.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/grenade-model.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+      "packages/render-effects/three.js",
+      "packages/grenade-visuals/horse-balance.js",
+      "packages/grenade-visuals/paint.js",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+      "packages/grenade-visuals/throw-motion.js"
+    ],
+    "threeModuleCopies": 1,
+    "threeCoreCopies": 1,
+    "rawVisualSnapshotLoaded": false
+  },
+  "coordinateContract": "actor/projectile and diagnostics are presentation-root-local; retained root/parent transforms apply afterward; no automatic inverse-world mapping.",
+  "helperCleanup": {
+    "previewHelpersStarted": 0,
+    "retainedHelpers": 0,
+    "foregroundChecksOnly": true
+  },
+  "publicRegistrationChanged": false,
+  "installedPackageAccepted": false,
+  "integratedBrowserAccepted": false,
+  "files": [
+    {
+      "path": "art/grenade-review/build-provider-source.mjs",
+      "bytes": 4174,
+      "sha256": "da83c4d1b7734f6c7f8d11290dc1fcdf67e38ff58e5863bbe4b44e7ebb57ec3b"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/README.md",
+      "bytes": 10817,
+      "sha256": "b58dc7224d6f309f94a4463ff345ff9854b9b06cb935c446b513a8ac7ab0f812"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/checks.json",
+      "bytes": 4594,
+      "sha256": "51ccd06be2ab164c097ca173583e90fde6d638e71b06d49009d14aa91f6c5c7a"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/component-handoff.md",
+      "bytes": 8748,
+      "sha256": "d29a6b25327554f87d368771d119027ba9121d7fbfb7207229c8fe0e0574e514"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/provider.md",
+      "bytes": 16230,
+      "sha256": "db283d0f334ce39b4975df503e4dba6ae89940f6d7c4717eb2b85b8199e06020"
+    },
+    {
+      "path": "packages/grenade-visuals/README.md",
+      "bytes": 1091,
+      "sha256": "77973aedf711344b9eb605ccfe76faf3cdece7af25c5881064659f8a13cb04b7"
+    },
+    {
+      "path": "packages/grenade-visuals/horse-balance.js",
+      "bytes": 48967,
+      "sha256": "1efdd676bbc51546e66f07d84d1262cd3042c8646d1172a7f1b30736068f34e8"
+    },
+    {
+      "path": "packages/grenade-visuals/paint.js",
+      "bytes": 4204,
+      "sha256": "492f582852f54d34e04f3bda2dd5a43e79f992fae90dc4461396e244039a3a60"
+    },
+    {
+      "path": "packages/grenade-visuals/source.json",
+      "bytes": 917,
+      "sha256": "beba14c59df020bd0fc1e54710a9f00baa0bfa771fcd64ebc3396b5e0355391c"
+    },
+    {
+      "path": "packages/grenade-visuals/three.js",
+      "bytes": 17784,
+      "sha256": "30469dccb57fb77d8f6b510e6cc13db60c9b0f30a746f056d7422273c731e86c"
+    },
+    {
+      "path": "packages/grenade-visuals/throw-motion.js",
+      "bytes": 41285,
+      "sha256": "cf944b32ead565b4f47b065c8fb38c03ab0b34867374499acf8efef11448265c"
+    },
+    {
+      "path": "tests/grenade-visuals.test.mjs",
+      "bytes": 22479,
+      "sha256": "ec8d2fa5809fea0b36f7a8c745909c591b5ea2656eebeaacc24b51ead01c9b9a"
+    },
+    {
+      "path": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "bytes": 2744,
+      "sha256": "9e3a8c38eae93ac7faf86056b24bbcd80cb8e4ea49877a45dad42a3a96434fbc"
+    },
+    {
+      "path": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/tactics/grenade-prepared.js",
+      "bytes": 585406,
+      "sha256": "778f5b2c36a8b76e9fd1d642e3b5b563657bbb318f22966398f4f7043bebdd77"
+    },
+    {
+      "path": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/tactics/grenade-throw-motion.js",
+      "bytes": 41161,
+      "sha256": "59ef935ebcd70d7340b0862f209fd8ee0d5ed6443499701fc32853fb694ed22a"
+    }
+  ]
+}
