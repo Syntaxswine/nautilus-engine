@@ -168,3 +168,10 @@ test('failed native paint draw restores renderer state and releases projection, 
  try{await assert.rejects(createNativeGrenadePresentation(options({renderer,preparePaint:undefined,loadTexture:async()=>{const value=validTexture();inputs.push(value);return value.texture;}})),/Projection draw failed/);}finally{T.WebGLRenderTarget.prototype.dispose=originalTarget;T.DepthTexture.prototype.dispose=originalDepth;}
  assert.deepEqual(renderer.snapshot(),before);assert.equal(targetDisposals,1);assert.equal(depthDisposals,1);assert.ok(materialDisposals>0);assert.ok(inputs.every(input=>input.disposals===1));
 });
+
+test('borrowed cached paint validity remains typed in private clones and the host mask survives unchanged',async()=>{
+ const horse=validTexture(),grenade=validTexture(),renderer=rendererStub(()=>{}),original=horse.texture.userData.paintValidity;
+ const visual=await createNativeGrenadePresentation(options({renderer,preparePaint:undefined,horseTexture:horse.texture,grenadeTexture:grenade.texture,loadTexture(){throw Error('Borrowed paints must not load again');}}));
+ try{let material;visual.root.traverse(object=>{if(object.isSkinnedMesh)material=object.material;});const shader={uniforms:{},vertexShader:'void main(){}',fragmentShader:'void main(){}'};material.onBeforeCompile(shader);const mask=shader.uniforms.uPaintMask.value.image.data;assert.ok(mask instanceof Uint8Array);assert.notEqual(mask,original);assert.deepEqual(mask,original);assert.equal(horse.texture.userData.paintValidity,original);}finally{visual.dispose();}
+ assert.equal(horse.disposals,0);assert.equal(grenade.disposals,0);assert.deepEqual(original,new Uint8Array(4).fill(255));horse.texture.dispose();grenade.texture.dispose();
+});
