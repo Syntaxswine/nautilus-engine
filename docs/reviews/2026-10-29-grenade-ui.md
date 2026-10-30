@@ -19,10 +19,16 @@ Include the builder card and its two JSON source/comparison records as package d
 - Required `npm run check`, `npm test` (360), `npm run test:upstream` (32), `npm run build` (385 checked module paths) pass.
 - Three overlay tests use actual shared Three: accepted-coordinate mapping, source-helper delegation, refusal/malformed geometry and exactly-once owned cleanup with borrowed scene/art surviving.
 - Eight built-browser groups pass. They cover scoped real keyboard/mouse/touch, held-target neutral, explicit confirm/cancel, injected pointer-cancel/window blur, forms/modal, displayed cost/stock/refusal/danger, unknown-outcome reconciliation, known-commit playback/context faults, stale/late session and disposal, 44 px controls, 390 px phone, 320 px reflow and reduced motion.
-- The built fixture requests four non-navigation resources, 22,367 encoded bytes / 23,567 transfer bytes in the local no-cache review, with zero unexpected console/page/resource errors. These counts exclude document navigation and all native/engine content; they are not a renderer or phone performance benchmark. Later source comments add attribution only; runtime browser behavior is unchanged.
-- Two isolated helper lifetimes were verified stopped by PID plus creation time and closed ports. The first caught a fixture favicon 404; the corrected built rerun is clean. No retained helper/service exists.
+- The built fixture requests four non-navigation resources, 24,816 encoded bytes / 26,016 transfer bytes in the local no-cache review, with zero unexpected console/page/resource errors. These counts exclude document navigation and all native/engine content; they are not a renderer or phone performance benchmark.
+- Five isolated helper lifetimes were verified stopped by PID plus creation time and closed ports. The first caught a fixture favicon 404; the corrected built rerun is clean. No retained helper/service exists.
 
 [Desktop controls](evidence/grenade-controls-preparation/desktop-aim.png), [phone controls](evidence/grenade-controls-preparation/phone-aim.png), [320 px controls](evidence/grenade-controls-preparation/narrow-aim.png) were visually inspected. They deliberately display their injected-response scope.
+
+## Follow-on guard review
+
+Final built regressions additionally hold a key before input/modal focus, reject nested/pre-authority session replacement/disposal from `onPreview`, and retire accepted playback after `onModeChange` or `onAimEnd` replaces/disposes the owner. Known committed results remain successful even after UI disposal; no old-session accepted callback or second spend follows. Releasing a joystick does not clear a still-held keyboard key. Dragging outside Throw before release clears its pressed gate without clicking it; later Enter works once.
+
+The fixed public kernel checkpoint is now available at `c7beb44fa254b2d72657f7e3a959920216f09b35`; it will be adopted after this UI follow-on checkpoint. The native provider remains artist-owned. These UI checks continue to distinguish their spy/injected scope from the real reference binding.
 
 ## Still required for the same contribution
 
