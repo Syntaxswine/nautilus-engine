@@ -47,7 +47,10 @@ test('shared instances draw one design from display batches, share its view and 
   // One view per design: a cutaway on one copy is the cutaway of every copy.
   const visible=root=>{const out=[];root.traverse(node=>out.push(node.visible));return out;};
   const groups=()=>meshes(copies[0].root).map(mesh=>JSON.stringify(mesh.geometry.groups)).join('|'),exterior=groups();
-  copies[3].setView({view:'cutaway',level:0});assert.notEqual(groups(),exterior);assert.deepEqual(visible(copies[0].root),visible(copies[31].root));
+  const exteriorNodes=visible(copies[0].root);
+  copies[3].setView({view:'cutaway',level:0});assert.notEqual(groups(),exterior);
+  const design=visible(copies[3].template.root);assert.notDeepEqual(design,exteriorNodes,'the cutaway hides some of the design\'s nodes');
+  copies.forEach((copy,k)=>assert.deepEqual(visible(copy.root),design,'copy '+k+' shows what the design shows'));
   let released=0;for(const geometry of geometries)geometry.addEventListener('dispose',()=>released++);
   for(const copy of copies.slice(1))copy.dispose();assert.equal(released,0,'the design outlives all but the last copy');
   copies[0].dispose();assert.equal(released,geometries.size,'the last copy releases each batch geometry once');

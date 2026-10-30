@@ -55,14 +55,16 @@ export class RoofLayer {
     return this.slots.materials;
   }
   // Exactly the default adapter's output: one indexed shell at the map offset, drawn
-  // with this layer's slot materials. Any other model draws itself.
+  // with this layer's slot materials, whole (no draw range, morphs or open-ended group),
+  // visible, in the default layer and order. Any other model draws itself.
   mergeable(model) {
-    const root=model.root,mesh=root.children[0],geometry=mesh?.geometry,shared=new Set(this.slots?.materials.values());
-    if(root.children.length!==1||!mesh.isMesh||mesh.children.length||!Array.isArray(mesh.material)||!geometry?.index||!mesh.castShadow||!mesh.receiveShadow)return false;
+    const root=model.root,mesh=root.children[0],geometry=mesh?.geometry,shared=new Set(this.slots?.materials.values()),plain=node=>node.renderOrder===0&&node.layers.mask===1;
+    if(root.children.length!==1||!mesh.isMesh||mesh.children.length||!Array.isArray(mesh.material)||!geometry?.index||!mesh.castShadow||!mesh.receiveShadow||!mesh.visible||!plain(root)||!plain(mesh))return false;
     root.updateMatrix();mesh.updateMatrix();if(!root.matrix.equals(AT_OFFSET)||!mesh.matrix.equals(IDENTITY))return false;
+    if(geometry.drawRange.start!==0||geometry.drawRange.count!==Infinity||Object.keys(geometry.morphAttributes).length)return false;
     const names=Object.keys(geometry.attributes);
     if(names.length!==4||names.some(name=>{const a=geometry.attributes[name];return a.itemSize!==SHELL[name]||a.isInterleavedBufferAttribute||a.normalized||!(a.array instanceof Float32Array);}))return false;
-    return geometry.groups.length>0&&geometry.groups.every(group=>shared.has(mesh.material[group.materialIndex]));
+    return geometry.groups.length>0&&geometry.groups.every(group=>Number.isInteger(group.start)&&Number.isInteger(group.count)&&group.start>=0&&group.start+group.count<=geometry.index.count&&shared.has(mesh.material[group.materialIndex]));
   }
   remerge(order) {
     this.releaseMerged();if(!this.merge)return;

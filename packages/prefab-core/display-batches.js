@@ -106,7 +106,8 @@ export function batchPrefab(T,source) {
 // re-derives its program. Two fixed-side copies draw the same halves, with the same
 // programs and uniforms, in the same order: they share the object's depth and the back
 // copy is created first, so it sorts first. The front copy casts the shadow,
-// double-sided as before; the back copy casts none. The daylight rig prepares each
+// double-sided as before; the back copy casts none (castShadow off for any host,
+// noShadow for the editor's daylight rig, which sets castShadow). The rig prepares each
 // copy itself (it adds its shader patch to every lit material on first sight).
 function halves(T,mesh,cache){
   const source=mesh.material;
@@ -116,7 +117,7 @@ function halves(T,mesh,cache){
     pair=[T.BackSide,T.FrontSide].map(side=>{const material=source.clone();material.side=side;delete material.userData.daylightPrepared;return material;});
     pair[1].shadowSide=T.DoubleSide;cache.set(source,pair);
   }
-  return pair.map((material,i)=>{const copy=mesh.clone();copy.material=material;if(!i)copy.userData={...copy.userData,noShadow:true};return copy;});
+  return pair.map((material,i)=>{const copy=mesh.clone();copy.material=material;if(!i){copy.userData={...copy.userData,noShadow:true};copy.castShadow=false;}return copy;});
 }
 
 // Original buildings: every opaque mesh, door leaves included, merges per

@@ -3,6 +3,7 @@ import {InspectionScene as OriginalScene} from './wall-scene.js';
 import {buildingTransform} from '../../packages/prefab-core/index.js';
 import {buildingAsset} from '../../packages/prefab-core/registry.js';
 import {createPrefabProviders} from './prefab-providers.js';
+import {CopyBatch} from './copy-batch.js';
 
 // Batch meshes (material arrays drawn through geometry groups) can be instanced;
 // glass stays one mesh per placed copy so it still sorts back to front.
@@ -10,9 +11,10 @@ const instanceable=node=>node.isMesh&&Array.isArray(node.material);
 
 // Libraries and templates are owned by one scene. Stale loads release their own
 // resources, and failed loads are removed so a later selection can retry.
-// A design placed more than once draws each batch mesh as one InstancedMesh on
-// the template's own geometry, so views (geometry groups) still follow the
-// template; the copies keep their nodes, hidden, for bounds and bookkeeping.
+// A design placed more than once draws each batch mesh as one CopyBatch on the
+// template's own geometry, which every camera culls copy by copy; views (geometry
+// groups) still follow the template. The copies keep their nodes, hidden, for
+// bounds and bookkeeping.
 export class PrefabLayer {
   constructor(scene,renderer,changed,error,{providers=createPrefabProviders(T),instancing=true}={}) {Object.assign(this,{scene,renderer,changed,error,providers,instancing});this.templates=new Map();this.models=new Map();this.libraries=new Map();this.instanced=[];this.ticket=0;}
   load(providerId) {
@@ -64,9 +66,8 @@ export class PrefabLayer {
       template.model.root.updateMatrixWorld(true);for(const model of models)model.root.updateMatrixWorld(true);
       template.nodes.forEach((node,i)=>{
         if(!instanceable(node))return;
-        const mesh=new T.InstancedMesh(node.geometry,node.material,models.length),local=new T.Matrix4().copy(template.model.root.matrixWorld).invert().multiply(node.matrixWorld),matrix=new T.Matrix4();
-        models.forEach((model,k)=>mesh.setMatrixAt(k,matrix.multiplyMatrices(model.root.matrixWorld,local)));
-        mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();mesh.name=node.name;mesh.castShadow=node.castShadow;mesh.receiveShadow=node.receiveShadow;
+        const local=new T.Matrix4().copy(template.model.root.matrixWorld).invert().multiply(node.matrixWorld);
+        const mesh=new CopyBatch(node,models.map(model=>new T.Matrix4().multiplyMatrices(model.root.matrixWorld,local)));
         this.scene.add(mesh);this.instanced.push({mesh,node,copies:models.map(model=>model.nodes[i])});
       });
     }
@@ -80,7 +81,7 @@ export class PrefabLayer {
       template.model.setView(override||{view:cut?'cutaway':'exterior',level:floor,showFurniture:cut},this.options);
       for(const model of this.models.values())if(model.asset===id)model.nodes.forEach((node,i)=>{node.visible=template.nodes[i].visible;});
     }
-    // Instanced nodes draw through their InstancedMesh; the copies' own nodes stay hidden.
+    // Instanced nodes draw through their CopyBatch; the copies' own nodes stay hidden.
     for(const {mesh,node,copies}of this.instanced){mesh.visible=node.visible;for(const copy of copies)copy.visible=false;}
   }
   clearModels() {this.releaseInstances();for(const model of this.models.values())model.root.removeFromParent();this.models.clear();for(const template of this.templates.values())template.model.dispose();this.templates.clear();}

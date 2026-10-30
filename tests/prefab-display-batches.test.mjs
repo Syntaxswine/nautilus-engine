@@ -102,13 +102,13 @@ test('placed copies share batch geometry and follow their template through views
     assert.notDeepEqual(groups(),exterior);
     for(const model of layer.models.values()){
       assert.deepEqual(model.nodes.map(n=>n.visible),template.nodes.map(n=>n.visible));
-      model.nodes.forEach((node,i)=>{if(node.isMesh)assert.equal(node.geometry,template.nodes[i].geometry);});
+      model.nodes.forEach((node,i)=>{if(node.isMesh)assert.ok(node.geometry===template.nodes[i].geometry,'node.geometry is template.nodes[i].geometry');});
     }
   }finally{layer.dispose();}
   assert.equal(layer.templates.size,0);assert.equal(layer.models.size,0);
 });
 
-test('a design placed more than once draws each batch mesh as one InstancedMesh that follows the template',async()=>{
+test('a design placed more than once draws each batch mesh as one CopyBatch that follows the template',async()=>{
   const providers=createPrefabProviders(T,{original:atlas()}),scene=new T.Scene();
   const layer=new PrefabLayer(scene,{},()=>{},error=>{throw error;},{providers});
   const instances=[...[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i%4,clearance:2})),{id:'single',asset:'bramble-ranch',x:20,y:120,turns:0,clearance:2}];
@@ -116,12 +116,12 @@ test('a design placed more than once draws each batch mesh as one InstancedMesh 
   try{
     await layer.update({map:{buildingPrefabs:{instances}}},options);
     const template=layer.templates.get('dockside-warehouse'),batches=template.nodes.filter(node=>node.isMesh&&Array.isArray(node.material));
-    assert.equal(layer.instanced.length,batches.length,'one InstancedMesh per batch mesh of the repeated design only');
-    const copies=['copy-0','copy-1','copy-2'].map(id=>layer.models.get(id)),expected=new Float32Array(16);
+    assert.equal(layer.instanced.length,batches.length,'one CopyBatch per batch mesh of the repeated design only');
+    const copies=['copy-0','copy-1','copy-2'].map(id=>layer.models.get(id)),expected=new Float32Array(16),at=new T.Matrix4();
     for(const {mesh,node}of layer.instanced){
-      assert.equal(mesh.count,3);assert.equal(mesh.geometry,node.geometry,'shares the template geometry');assert.equal(mesh.parent,scene);
+      assert.ok(mesh.isBatchedMesh);assert.equal(mesh.instanceCount,3);assert.equal(mesh.geometry,node.geometry,'shares the template geometry');assert.ok(mesh.parent===scene,'mesh.parent is scene');
       const i=template.nodes.indexOf(node);
-      copies.forEach((copy,k)=>{copy.nodes[i].updateMatrixWorld(true);copy.nodes[i].matrixWorld.toArray(expected);assert.deepEqual(mesh.instanceMatrix.array.slice(k*16,k*16+16),expected,'instance '+k+' sits where its copy would');assert.equal(copy.nodes[i].visible,false,'the copy hides its own batch node');});
+      copies.forEach((copy,k)=>{copy.nodes[i].updateMatrixWorld(true);copy.nodes[i].matrixWorld.toArray(expected);assert.deepEqual(new Float32Array(mesh.getMatrixAt(k,at).elements),expected,'instance '+k+' sits where its copy would');assert.equal(copy.nodes[i].visible,false,'the copy hides its own batch node');});
     }
     // Glass stays per copy and visible; the single design is not instanced.
     const glass=template.nodes.map((node,i)=>[node,i]).filter(([node])=>node.isMesh&&!Array.isArray(node.material));
@@ -133,9 +133,11 @@ test('a design placed more than once draws each batch mesh as one InstancedMesh 
     assert.ok(layer.instanced.some(({mesh})=>mesh.visible));
     // Removing the copies releases the instances; the template geometry is disposed once, by the template.
     const shared=new Map(layer.instanced.map(({mesh})=>[mesh.geometry,0]));for(const geometry of shared.keys())geometry.addEventListener('dispose',()=>shared.set(geometry,shared.get(geometry)+1));
-    const removed=layer.instanced.map(({mesh})=>mesh);
+    const removed=layer.instanced.map(({mesh})=>mesh),disposed=new Map(removed.map(mesh=>[mesh,0]));
+    for(const mesh of removed){const dispose=mesh.dispose;mesh.dispose=function(){disposed.set(mesh,disposed.get(mesh)+1);return dispose.call(this);};}
     await layer.update({map:{buildingPrefabs:{instances:instances.slice(3)}}},options);
     assert.equal(layer.instanced.length,0);assert.ok(removed.every(mesh=>!mesh.parent));
+    assert.deepEqual([...disposed.values()],removed.map(()=>1),'each released CopyBatch disposed once');
     assert.deepEqual([...shared.values()],[...shared.values()].map(()=>1),'each shared geometry disposed once');
     const off=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers:createPrefabProviders(T,{original:atlas()}),instancing:false});
     try{await off.update({map:{buildingPrefabs:{instances}}},options);assert.equal(off.instanced.length,0);}finally{off.dispose();}
@@ -154,12 +156,12 @@ test('double-sided glass draws as two fixed-side copies in the order the rendere
     for(const {mesh,copies}of batch.glass){
       const [back,front]=copies,original=sources.get(mesh.geometry);
       assert.equal(original.material.side,T.DoubleSide);assert.equal(copies.length,2);assert.equal(front,mesh);
-      assert.equal(back.geometry,original.geometry);assert.equal(front.geometry,original.geometry);
+      assert.ok(back.geometry===original.geometry,'back.geometry is original.geometry');assert.ok(front.geometry===original.geometry,'front.geometry is original.geometry');
       assert.equal(back.material.side,T.BackSide);assert.equal(front.material.side,T.FrontSide);
       assert.ok(back.id<front.id,'at equal depth the back half sorts first, as the renderer draws it');
-      assert.equal(back.parent,batch.root);assert.equal(front.parent,batch.root);
+      assert.ok(back.parent===batch.root,'back.parent is batch.root');assert.ok(front.parent===batch.root,'front.parent is batch.root');
       assert.ok(back.matrix.equals(original.matrix)&&front.matrix.equals(original.matrix));
-      assert.equal(back.userData.noShadow,true,'the back half casts no shadow');assert.notEqual(front.userData.noShadow,true);
+      assert.equal(back.userData.noShadow,true,'the back half casts no shadow');assert.equal(back.castShadow,false,'in any host');assert.equal(front.castShadow,true);assert.notEqual(front.userData.noShadow,true);
       assert.equal(front.material.shadowSide,T.DoubleSide,'the front half casts the double-sided shadow');
       for(const half of copies){assert.deepEqual(settings(half.material),settings(original.material));assert.equal(half.material.userData.daylightPrepared,undefined);}
       for(const half of copies)if(!disposed.has(half.material)){disposed.set(half.material,0);half.material.addEventListener('dispose',()=>disposed.set(half.material,disposed.get(half.material)+1));}
