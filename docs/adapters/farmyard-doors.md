@@ -82,6 +82,25 @@ A CAS exception or non-boolean acknowledgement has an **unknown** outcome, since
 
 Dispose the connection when leaving the host; this disables its methods and leaves all borrowed movement, renderer and persistence services alive. The component has no timer, async load or late-owned resource to dispose.
 
+## Optional native painted leaf
+
+Import `createFarmyardDoorPresentation` and `farmyardDoorVisualResourceURLs` from `@nautilus-engine/renderer/adapters/farmyard/doors/three` (or the compatibility package's same subpath). The optional renderer owns one 12-triangle source-sized box and preserves Farmyard's wood PNG, standard material colour `0xb5ad86`, roughness `.9` and shadow flags. This source uses instantaneous endpoints; it has no authored hinge animation.
+
+```js
+const visual = await createFarmyardDoorPresentation({
+  collider: currentDoorCollider, known: true, visible: true, signal
+});
+scene.add(visual.root);
+// After the accepted host transaction, or after a quiet load/reconciliation:
+visual.update({collider: currentDoorCollider, known, visible});
+// On retirement:
+visual.dispose();
+```
+
+Supply the public normalized current collider, including `id`, matching `interactionId`, `kind:'wall'`, metre bounds, `z0:0` and `height:2`. Its footprint must remain the native 1.12 × .16 m leaf at either endpoint, with the same door ID. Attach the root in the same metre frame: engine `(x,y,height)` maps to Three `(x,height,y)`. Do not resize to a decorative opening or derive collision from the mesh. View updates validate before changing the mesh and contain no gameplay mutation. Remembered `known` visibility controls the leaf; `visible` does not recolour the original source material.
+
+Default loading resolves the exact packaged PNG. An optional `texture` from Nautilus's shared Three is borrowed and privately cloned. `loadTexture(url,{signal,kind})` or `loader` may replace loading; successful textures transfer ownership to this provider, while the loader itself stays borrowed. Cancellation rejects promptly and retires placeholder/late resources. `dispose()` is idempotent and leaves the host renderer, scene and borrowed texture alive. Diagnostics report cleanup errors without invoking error getters. Preload before installing a new scene; visual preparation failure must never re-spend an already accepted action. One shared Three instance is used by doors, grenades and existing assets.
+
 ## Adopt fresh host context and restore complete saves
 
 Movement, injury, phase changes, AP use, guard alerts, routes or relevant geometry can change independently. Before a new door action/save, project the fresh host. If `matchesFarmyardDoorContext(state,projection)` is false, capture `{version:1,id,expectedRevision,...projection}` and pass that **complete captured command** to `binding.adopt`. Keep it for retry. The adoption CAS compares its fresh context, not the old sidecar's context. If the live host changed since capture, `STALE_CONTEXT` refuses adoption. An unchanged new capture returns `NO_CONTEXT_CHANGE` without adding a receipt. Changes confined to inventory/RNG/stamina need no context receipt; the complete host CAS/save still preserves them.
