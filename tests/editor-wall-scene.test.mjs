@@ -103,9 +103,11 @@ test('every placed panel is its own BoxGeometry(width) at its own transform, ins
         for (let v = 0; v < 24; v++) assert.equal(Math.fround(unit.attributes.position.getX(v) * w), reference.attributes.position.getX(v));
         reference.dispose();
       }
-      // The instance's scaled box lies inside its mesh's bounding sphere (culling stays safe).
-      const box = new T.Box3(new T.Vector3(-w / 2, -WALL_KIT.height / 2, -WALL_KIT.thickness / 2), new T.Vector3(w / 2, WALL_KIT.height / 2, WALL_KIT.thickness / 2)).applyMatrix4(matrix);
-      for (const corner of [box.min, box.max]) assert.ok(slot.mesh.boundingSphere.distanceToPoint(corner) <= 1e-6, 'bounds of panel ' + panels);
+      // Each instance's own sphere (the shared geometry's sphere at its matrix, the unit the mesh's
+      // bounds are built from) holds all eight corners of its scaled box, so culling stays safe.
+      const sphere = slot.mesh.geometry.boundingSphere.clone().applyMatrix4(matrix);
+      for (const x of [-w / 2, w / 2]) for (const y of [-WALL_KIT.height / 2, WALL_KIT.height / 2]) for (const z of [-WALL_KIT.thickness / 2, WALL_KIT.thickness / 2])
+        assert.ok(sphere.distanceToPoint(new T.Vector3(x, y, z).applyMatrix4(matrix)) <= 1e-6, 'bounds of panel ' + panels);
       panels++;
     }
     for (const {mesh, next} of byMaterial.values()) assert.equal(next, mesh.count, 'every instance accounted for');
