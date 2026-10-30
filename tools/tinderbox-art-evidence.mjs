@@ -9,7 +9,7 @@ const a=read('artifacts/tinderbox-art-source/review.json'),b=read('artifacts/tin
 if(a.records.length!==51||b.records.length!==51||a.records.some((r,i)=>r.selected!==b.records[i].selected||r.sha256!==b.records[i].sha256)||a.errors.length||b.errors.length||a.failedRequests.length||b.failedRequests.length||!a.canvasRemoved||!b.canvasRemoved)throw Error('Native source/installed browser parity failed.');
 const cleanup=read('docs/reviews/tinderbox-art-helper-cleanup.json');
 if(cleanup.retainedHelpers||cleanup.lifetimes.some(r=>!r.portReleased||r.identities.some(p=>!p.exactLifetimeEnded)))throw Error('A review helper remains unresolved.');
-const evidence={schemaVersion:1,baseline:'8644b44ce1c049983fd722d83237ebb2dcec0eb3',
+const evidence={schemaVersion:1,baseline:'8644b44ce1c049983fd722d83237ebb2dcec0eb3',reviewedCodeCommit:'e24de0c688f53d55f38c87d7f41ba9f8e6888dc4',
  sources:[verifyTinderboxArt(),verifyTinderboxMedicine()],profile:'tinderbox-native-art-v1',
  assets:{furnishings:35,waterfront:9,medicine:3,additiveLayouts:4,total:51},
  checks:{check:true,trackedGitBlobIntegrity:true,build:true,builtModulePaths:417,repositoryTests:460,upstreamTests:32,focusedTests:12,sourceAndAdaptationIntegrity:true},

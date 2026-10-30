@@ -35,7 +35,7 @@ desk.dispose();
 library.dispose();
 ```
 
-The [interactive source/static gallery](../../examples/tinderbox-art.html) searches every entry, retains native model scale and fits the camera to the selected bounds. Its floor grid and lights are review aids. It is a reference consumer, not the map editor or a playable level. The installed snippet above needs no gallery or sibling checkout.
+The searchable source/static gallery ([fixed source](https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html)) searches every entry, retains native model scale and fits the camera to the selected bounds. Its floor grid and lights are review aids. It is a reference consumer, not the map editor or a playable level. The installed snippet above needs no gallery or sibling checkout.
 
 ## Layouts and compatibility
 

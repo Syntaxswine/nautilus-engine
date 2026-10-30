@@ -34,7 +34,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -73,7 +73,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -112,7 +112,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -151,7 +151,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -190,7 +190,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -229,7 +229,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -268,7 +268,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -307,7 +307,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -346,7 +346,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -385,7 +385,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -424,7 +424,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -463,7 +463,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -502,7 +502,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -541,7 +541,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -580,7 +580,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -619,7 +619,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -658,7 +658,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -697,7 +697,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -736,7 +736,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -775,7 +775,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -814,7 +814,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -853,7 +853,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -892,7 +892,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -931,7 +931,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -970,7 +970,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1009,7 +1009,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1048,7 +1048,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1087,7 +1087,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1126,7 +1126,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1165,7 +1165,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1204,7 +1204,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1243,7 +1243,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1282,7 +1282,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1321,7 +1321,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1360,7 +1360,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1399,7 +1399,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1438,7 +1438,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1477,7 +1477,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1516,7 +1516,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1555,7 +1555,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1594,7 +1594,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1633,7 +1633,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1672,7 +1672,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1711,7 +1711,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1750,7 +1750,9 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
+    "snapshotFactory": "loadTinderboxMedicine",
+    "snapshotVersion": 1,
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1789,7 +1791,9 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
+    "snapshotFactory": "loadTinderboxMedicine",
+    "snapshotVersion": 1,
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1828,7 +1832,9 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
+    "snapshotFactory": "loadTinderboxMedicine",
+    "snapshotVersion": 1,
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy."
@@ -1867,7 +1873,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Partitions and furnishings only. Requires the matching source shell/floors/access and named replacements; no collision, fire or traversal binding."
@@ -1906,7 +1912,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Partitions and furnishings only. Requires the matching source shell/floors/access and named replacements; no collision, fire or traversal binding."
@@ -1945,7 +1951,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Partitions and furnishings only. Requires the matching source shell/floors/access and named replacements; no collision, fire or traversal binding."
@@ -1984,7 +1990,7 @@ export const TINDERBOX_ART_ASSETS = [
     "entry": "./assets/three",
     "factory": "loadTinderboxArt",
     "guide": "packages/tinderbox-art/README.md",
-    "example": "examples/tinderbox-art.html",
+    "example": "https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html",
     "profile": "tinderbox-native-art-v1",
     "version": 1,
     "note": "Partitions and furnishings only. Requires the matching source shell/floors/access and named replacements; no collision, fire or traversal binding."

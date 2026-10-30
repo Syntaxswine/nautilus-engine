@@ -19,7 +19,8 @@ export function tinderboxArtCatalogueSource(){
    bounds:{min:b.min.toArray().map(rounded),max:b.max.toArray().map(rounded)},triangles:d.triangles,
    source:{project:'tinderbox',commit:family==='medicine'?MEDICINE_COMMIT:SOURCE_COMMIT,status:['waterfront','medicine'].includes(family)?'published-master-equivalent':'fixed-artist-candidate'},
    availability:'optional-visual-provider',entry:'./assets/three',factory:'loadTinderboxArt',
-   guide:'packages/tinderbox-art/README.md',example:'examples/tinderbox-art.html',
+   guide:'packages/tinderbox-art/README.md',example:'https://github.com/Syntaxswine/nautilus-engine/blob/e24de0c688f53d55f38c87d7f41ba9f8e6888dc4/examples/tinderbox-art.html',
+   ...(family==='medicine'?{snapshotFactory:'loadTinderboxMedicine',snapshotVersion:1}:{}),
    profile:'tinderbox-native-art-v1',version:1,
    note:family==='layout'?'Partitions and furnishings only. Requires the matching source shell/floors/access and named replacements; no collision, fire or traversal binding.':'Native metre-scale art. Host owns placement persistence, physical materials, collision, traversal and damage policy.'});
  }finally{model.dispose();}}
