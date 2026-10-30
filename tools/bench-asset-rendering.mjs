@@ -4,6 +4,7 @@
 //        [--runs 4] [--backend gpu|swiftshader|both] [--scenes a,b] [--frames 60]
 //        [--out artifacts/bench/result.json]
 //   node tools/bench-asset-rendering.mjs --node --a <tree> [--b <tree>] [--runs 6]
+//   node tools/bench-asset-rendering.mjs --editor --a <tree> [--assets-only] [--expect] …
 //
 // Browser mode serves /a/ and /b/ from the two trees and /bench/ from this
 // checkout, so both arms run the same page (tools/bench/asset-rendering.js) on
@@ -170,9 +171,21 @@ async function editorBench() {
             for (let k = 0; k < nBlocks; k++) for (const arm of [0, 3].includes(k % 4) ? order[run] : [...order[run]].reverse())
               record[arm].push(await pages[arm].evaluate(([count, v]) => window.__bench.frames(count, v), [n, view]));
           };
-          for (const [name, view] of Object.entries(views)) await measure(name, view);
+          // --assets-only: each view again with every non-asset mesh hidden while the
+          // frame renders (round 2's direct method), plus one frame with every mesh
+          // hidden (the fixed passes). The summary refuses the run unless isolated draws
+          // minus that frame equal this frame minus the blank map's, exactly.
+          const isolated = async (name, view) => {
+            const none = {};
+            for (const arm of ['a', 'b']) {await pages[arm].evaluate(() => window.__bench.isolate('none')); none[arm] = await pages[arm].evaluate(v => window.__bench.frames(1, v, {warmup: 1}).counts, view);}
+            for (const arm of ['a', 'b']) await pages[arm].evaluate(() => window.__bench.isolate('assets'));
+            try {await measure(name + ':assets', view);} finally {for (const arm of ['a', 'b']) await pages[arm].evaluate(() => window.__bench.isolate(null));}
+            (sample.isolation ??= {})[name] = {none};
+          };
+          for (const [name, view] of Object.entries(views)) {await measure(name, view); if (flag('assets-only')) await isolated(name, view);}
           for (const page of Object.values(pages)) await page.evaluate(() => window.__bench.cutaway(true));
           await measure('cutaway', views.overview);
+          if (flag('assets-only')) await isolated('cutaway', views.overview);
           if (capture) {
             fs.mkdirSync(captureDir, {recursive: true});
             for (const arm of ['a', 'b']) {
@@ -197,15 +210,43 @@ async function editorBench() {
     const list = result.samples.filter(s => s.backend === backend && s.map === id), row = {backend, map: id, views: {}};
     const ratios = values => ({median: median(values), min: Math.min(...values), max: Math.max(...values)});
     row.openMs = {a: median(list.map(s => median(s.openMs.a))), b: median(list.map(s => median(s.openMs.b))), speedup: ratios(list.map(s => median(s.openMs.a) / median(s.openMs.b)))};
-    for (const view of ['overview', 'close', 'cutaway']) {
+    for (const view of Object.keys(list[0].views)) {
       const per = arm => list.map(s => median(s.views[view][arm].map(b => median(b.total))));
       const cpu = arm => list.map(s => median(s.views[view][arm].map(b => median(b.cpu))));
       const counts = arm => [...new Set(list.flatMap(s => s.views[view][arm].map(b => JSON.stringify(b.counts))))].map(t => JSON.parse(t));
       row.views[view] = {totalMs: {a: median(per('a')), b: median(per('b'))}, cpuMs: {a: median(cpu('a')), b: median(cpu('b'))},
         speedup: ratios(per('a').map((v, i) => v / per('b')[i])), counts: {a: counts('a'), b: counts('b')}};
+      // The subtraction estimate of the assets' own time: this frame minus the same
+      // run's blank-map frame, per run. Below the blank map's spread it means little.
+      const blank = result.samples.filter(s => s.backend === backend && s.map === 'w0-blank'), own = arm => list.map(s => median(s.views[view][arm].map(b => median(b.total))) - median(blank.find(z => z.run === s.run).views[view][arm].map(b => median(b.total))));
+      if (id !== 'w0-blank' && blank.length && blank[0].views[view]) row.views[view].estimateBySubtraction = {ms: {a: median(own('a')), b: median(own('b'))}, speedup: ratios(own('a').map((v, i) => v / own('b')[i]))};
     }
     result.summary.push(row);
   }
+  // Exactness of the isolation, per run, map, view and arm: asset draws counted two ways.
+  const minus = (x, y) => ({calls: x.calls - y.calls, shadowCalls: x.shadowCalls - y.shadowCalls, triangles: x.triangles - y.triangles});
+  const refusals = [];
+  for (const s of result.samples) for (const [view, {none}] of Object.entries(s.isolation || {})) for (const arm of ['a', 'b']) {
+    const blank = result.samples.find(z => z.backend === s.backend && z.run === s.run && z.map === 'w0-blank');
+    if (!blank) {refusals.push('--assets-only needs w0-blank in the same run'); break;}
+    const isolatedDraws = minus(s.views[view + ':assets'][arm][0].counts, none[arm]), frameDraws = minus(s.views[view][arm][0].counts, blank.views[view][arm][0].counts);
+    if (JSON.stringify(isolatedDraws) !== JSON.stringify(frameDraws)) refusals.push(`${s.map} ${view} ${arm} run ${s.run}: isolated ${JSON.stringify(isolatedDraws)} against frame minus blank ${JSON.stringify(frameDraws)}`);
+  }
+  // --expect: the candidate's whole-map frames (overview, cutaway) minus the blank map
+  // must issue exactly the pinned headless counts (tests/fixtures/asset-draw-counts.json).
+  if (flag('expect')) {
+    const pinned = JSON.parse(fs.readFileSync(path.join(trees.b, 'tests/fixtures/asset-draw-counts.json'), 'utf8')).workloads;
+    for (const s of result.samples) for (const [view, headless] of [['overview', 'exterior'], ['cutaway', 'cutaway']]) {
+      const blank = result.samples.find(z => z.backend === s.backend && z.run === s.run && z.map === 'w0-blank'), layers = pinned[s.map]?.[headless];
+      if (!blank || !layers) {refusals.push('--expect needs w0-blank and a pinned count for ' + s.map); continue;}
+      const sum = key => Object.values(layers).reduce((total, layer) => total + layer[key], 0), b = s.views[view].b[0].counts, z = blank.views[view].b[0].counts;
+      const measured = {main: (b.calls - b.shadowCalls) - (z.calls - z.shadowCalls), shadow: b.shadowCalls - z.shadowCalls, triangles: b.triangles - z.triangles};
+      const expected = {main: sum('main'), shadow: sum('shadow'), triangles: sum('mainTriangles') + sum('shadowTriangles')};
+      (result.expect ??= []).push({map: s.map, view, run: s.run, backend: s.backend, measured, expected});
+      if (JSON.stringify(measured) !== JSON.stringify(expected)) refusals.push(`${s.map} ${view} run ${s.run}: candidate drew ${JSON.stringify(measured)}, pinned ${JSON.stringify(expected)}`);
+    }
+  }
+  if (refusals.length) result.refused = refusals;
   // Pixel comparison of the SwiftShader captures (run 0), with run 1 as the repeat control.
   if (fs.existsSync(captureDir)) {
     result.pixels = [];
@@ -368,3 +409,4 @@ const result = flag('node') ? await nodeBench() : flag('editor') ? await editorB
 fs.writeFileSync(out, JSON.stringify(result, null, 1));
 console.log('Wrote ' + path.relative(here, out));
 console.log(JSON.stringify(result.summary, null, 1).slice(0, 6000));
+if (result.refused) {console.error('Refused:\n' + result.refused.join('\n')); process.exit(1);}

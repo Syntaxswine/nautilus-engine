@@ -44,6 +44,36 @@ window.__bench = (() => {
   async function cutaway(on) {
     const s = scene(); s.setOptions({showAllLevels: !on, level: 0}); await s.prefabs.update(window.editor3d.document, s.options);
   }
+  // --assets-only (round 2's direct method): while a frame renders, every mesh outside
+  // the asset layers is hidden, so the frame times the asset layers alone plus the
+  // frame's fixed passes. The asset layers are the placed prefab copies and their
+  // instances, the wall group, and the roof models and their merge. 'none' hides
+  // every mesh (the fixed passes alone); null restores. The list is taken per call,
+  // so call it after the view's last rebuild.
+  let isolation = null;
+  function assetRoots() {
+    const s = scene(), roots = new Set();
+    for (const model of s.prefabs?.models?.values() || []) roots.add(model.root);
+    for (const {mesh} of s.prefabs?.instanced || []) roots.add(mesh);
+    if (s.wallGroup) roots.add(s.wallGroup);
+    for (const model of s.slopedRoofs?.models?.values() || []) roots.add(model.root);
+    if (s.slopedRoofs?.merged) roots.add(s.slopedRoofs.merged.mesh);
+    return roots;
+  }
+  function isolate(mode) {
+    const s = scene();
+    if (isolation) {if (isolation.own) s.lights.render = isolation.render; else delete s.lights.render; isolation = null;}
+    if (!mode) return null;
+    const roots = assetRoots(), hide = [], under = node => {for (let n = node; n; n = n.parent) if (roots.has(n)) return true; return false;};
+    s.scene.traverse(node => {if ((node.isMesh || node.isLine || node.isPoints || node.isSprite) && (mode === 'none' || !under(node))) hide.push(node);});
+    const render = s.lights.render;
+    isolation = {render, own: Object.hasOwn(s.lights, 'render')};
+    s.lights.render = function (...args) {
+      const hidden = []; for (const node of hide) if (node.visible) {node.visible = false; hidden.push(node);}
+      try {return render.apply(this, args);} finally {for (const node of hidden) node.visible = true;}
+    };
+    return {hidden: hide.length, roots: roots.size};
+  }
   function gpu() {const gl = scene().renderer.getContext(), ext = gl.getExtension('WEBGL_debug_renderer_info'); return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);}
-  return {frames, capture, cutaway, gpu};
+  return {frames, capture, cutaway, isolate, gpu};
 })();
