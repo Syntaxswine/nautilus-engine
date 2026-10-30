@@ -1,6 +1,6 @@
 {
   "name": "@nautilus-engine/map-core",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "description": "Nautilus Engine: optional shared systems, native-height worlds, authoring, rules and assets",
@@ -30,7 +30,9 @@
     "./adapters/farmyard/rules": "./packages/adapters/farmyard/rules.js",
     "./floors": "./packages/floor-navigation/index.js",
     "./floors/ui": "./packages/floor-navigation/dom.js",
-    "./floors/style.css": "./packages/floor-navigation/style.css"
+    "./floors/style.css": "./packages/floor-navigation/style.css",
+    "./grenades": "./packages/grenades-core/index.js",
+    "./grenades/aim": "./packages/grenades-core/aim.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -42,10 +44,12 @@
     "docs/distribution.md",
     "docs/extended-world-core.md",
     "docs/floor-navigation.md",
+    "docs/grenades.md",
     "docs/modular-foundation.md",
     "docs/progression.md",
     "docs/reviews/2026-10-29-basic-progression.md",
     "docs/reviews/2026-10-29-basic-progression.sources.json",
+    "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
     "docs/reviews/2026-10-29-farmyard-rules.sources.json",
     "docs/reviews/2026-10-29-rock-distraction.sources.json",
     "docs/rock-distraction.md",
@@ -61,6 +65,16 @@
     "packages/floor-navigation/dom.js",
     "packages/floor-navigation/index.js",
     "packages/floor-navigation/style.css",
+    "packages/grenades-core/aim.js",
+    "packages/grenades-core/example.js",
+    "packages/grenades-core/farmyard.js",
+    "packages/grenades-core/geometry.js",
+    "packages/grenades-core/index.js",
+    "packages/grenades-core/mechanics.js",
+    "packages/grenades-core/model.js",
+    "packages/grenades-core/profile.js",
+    "packages/grenades-core/state.js",
+    "packages/grenades-core/validation.js",
     "packages/item-visuals/rock.js",
     "packages/items-core/actions.js",
     "packages/items-core/flight.js",
@@ -124,6 +138,7 @@
     "schemas/aft-block-v1.schema.json",
     "schemas/aft-map-v2.schema.json",
     "schemas/capability-requirements-v1.schema.json",
+    "schemas/grenade-state-v1.schema.json",
     "schemas/module-configuration-v1.schema.json",
     "schemas/nautilus-save-v1.schema.json",
     "schemas/progression-v1.schema.json",
@@ -242,7 +257,8 @@
     "review:progression": "node tools/review-character-development.mjs",
     "review:floors": "node tools/review-floor-navigation.mjs",
     "review:world": "node tools/review-extended-world.mjs",
-    "review:materials": "node tools/review-editor-materials.mjs"
+    "review:materials": "node tools/review-editor-materials.mjs",
+    "check:grenade-source": "node tools/intake-farmyard-grenades.mjs --verify"
   },
   "engines": {
     "node": ">=22"
