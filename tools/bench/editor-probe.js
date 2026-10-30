@@ -55,8 +55,13 @@ window.__bench = (() => {
     const b64 = bytes => {let out = ''; for (let i = 0; i < bytes.length; i += 32768) out += String.fromCharCode.apply(null, bytes.subarray(i, i + 32768)); return btoa(out);};
     return {width: W, height: H, pixels: b64(lastWins), strict: b64(firstWins), ties: b64(mask)};
   }
+  // Through the editor's own path: setOptions rebuilds every layer (the prefab layer
+  // without awaiting its update), so wait for the update that rebuild started. A tree
+  // whose prefab layer keeps no pending update (main 0.10, the A arm) is updated again,
+  // as the benchmark did before.
   async function cutaway(on) {
-    const s = scene(); s.setOptions({showAllLevels: !on, level: 0}); await s.prefabs.update(window.editor3d.document, s.options);
+    const s = scene(); s.setOptions({showAllLevels: !on, level: 0});
+    if ('pending' in s.prefabs) await s.prefabs.pending; else await s.prefabs.update(window.editor3d.document, s.options);
   }
   // --assets-only (round 2's direct method): while a frame renders, every mesh outside
   // the asset layers is hidden, so the frame times the asset layers alone plus the

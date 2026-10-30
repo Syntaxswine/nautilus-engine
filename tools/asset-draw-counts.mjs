@@ -67,39 +67,70 @@ export function submissions(objects) {
 class HeadlessAft {
   constructor(canvas, changed = () => {}) {Object.assign(this, {changed, scene: new T.Scene(), renderer: {capabilities: {getMaxAnisotropy: () => 1}}, diagnostics: [], dimMaterials: new Map(), options: {...VIEWS.exterior}});}
 }
+// The AFT scene's drive path without the inherited scene's own work: opening or updating
+// a document sets it and rebuilds, and setOptions merges the options and rebuilds; each
+// layer's rebuild then runs as in the editor. driven() puts it between the wall scene and
+// the AFT scene while it counts; checkDrivePath refuses if the pinned AFT scene stops
+// saying so.
+const drive = {
+  async open(document) {this.document = document; this.rebuild();},
+  async update(document) {this.document = document; this.rebuild();},
+  setOptions(options) {Object.assign(this.options, options); this.rebuild();},
+  rebuild() {}
+};
+export function checkDrivePath(source) {
+  if (!source.includes('setOptions(options){Object.assign(this.options,options);this.rebuild();}')) throw Error('The AFT scene\'s setOptions no longer merges the options and rebuilds; update tools/asset-draw-counts.mjs.');
+  for (const name of ['async open(document){', 'async update(document){']) {
+    const at = source.indexOf(name), body = at < 0 ? '' : source.slice(at, source.indexOf('await', at));
+    if (!body.includes('this.document=document') || !body.includes('this.rebuild();')) throw Error('The AFT scene\'s ' + name + ' no longer sets the document and rebuilds before it waits; update tools/asset-draw-counts.mjs.');
+  }
+}
+checkDrivePath(fs.readFileSync(new URL('../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js', import.meta.url), 'utf8'));
 export function editorScene() {
   const base = [Object.getPrototypeOf(WallScene), Object.getPrototypeOf(WallScene.prototype)];
   if (base[0] !== LegacyScene) throw Error('The wall scene no longer extends the AFT scene; update tools/asset-draw-counts.mjs.');
   Object.setPrototypeOf(WallScene, HeadlessAft); Object.setPrototypeOf(WallScene.prototype, HeadlessAft.prototype);
   try {return new EditorScene(null, () => {});} finally {Object.setPrototypeOf(WallScene, base[0]); Object.setPrototypeOf(WallScene.prototype, base[1]);}
 }
+export async function driven(run) {
+  const s = editorScene(), base = Object.getPrototypeOf(WallScene.prototype);
+  Object.setPrototypeOf(WallScene.prototype, Object.assign(Object.create(base), drive));
+  try {return await run(s);} finally {Object.setPrototypeOf(WallScene.prototype, base);}
+}
 
 // The asset layers as the editor builds them: placed prefabs (copies and their batches),
-// the wall group and the roof layer (models and their merge). Only texture loading is
-// replaced (the building providers and the roof atlas the editor fetches).
-async function countWorkload(map) {
-  const s = editorScene(), document = {map};
+// the wall group and the roof layer (models and their merge), through the editor's own
+// path: the document opens in the default view, and each other view is set as the
+// toolbar sets it (setOptions, whose rebuild starts the prefab update without awaiting
+// it). Only texture loading is replaced (the building providers and the roof atlas the
+// editor fetches, which is marked loaded).
+export function prepare(s) {
   const providers = createPrefabProviders(T, {original: createOriginalBuildingProvider(T, {loadTexture: async () => new T.Texture()})});
   providers.set('gross', {...providers.get('gross'), load: async () => ({catalogue: grossCatalogue, textures: {}, dispose() {}})});
-  s.prefabs.providers = providers; s.slopedRoofs.setAtlas(new T.Texture()); s.document = document;
-  const counts = {};
+  s.prefabs.providers = providers; s.slopedRoofs.setAtlas(new T.Texture()); s.roofPaintReady = Promise.resolve();
+}
+const countWorkload = map => driven(async s => {
+  const document = {map}, counts = {}; prepare(s);
   try {
     for (const [view, options] of Object.entries(VIEWS)) {
-      s.options = {...options}; s.rebuildWalls();
-      await s.prefabs.update(document, s.options); s.slopedRoofs.update(document, s.options);
+      if (view === 'exterior') await s.open(document); else s.setOptions(options);
+      await s.prefabs.pending;
+      if (JSON.stringify(s.options) !== JSON.stringify(options)) throw Error('The editor is not in the ' + view + ' view: ' + JSON.stringify(s.options));
       counts[view] = {
         prefabs: submissions([...[...s.prefabs.models.values()].map(model => model.root), ...s.prefabs.instanced.map(({mesh}) => mesh)]),
         walls: submissions([s.wallGroup]),
         roofs: submissions([...[...s.slopedRoofs.models.values()].map(model => model.root), ...(s.slopedRoofs.merged ? [s.slopedRoofs.merged.mesh] : [])])
       };
     }
-  } finally {
-    s.prefabs.dispose(); s.slopedRoofs.dispose(); s.roofPreview.dispose();
-    for (const mesh of s.wallGroup.children) {mesh.geometry.dispose(); mesh.dispose();}
-    for (const material of s.wallMaterials.values()) {material.map.dispose(); material.dispose();}
-    s.wallShadows?.depth.dispose(); s.wallShadows?.distance.dispose(); s.anchorGeometry.dispose(); s.anchorMaterial.dispose();
-  }
+  } finally {release(s);}
   return counts;
+});
+// What the editor scene's layers hold, released without the AFT scene's renderer.
+export function release(s) {
+  s.prefabs.dispose(); s.slopedRoofs.dispose(); s.roofPreview.dispose();
+  for (const mesh of s.wallGroup.children) {mesh.geometry.dispose(); mesh.dispose();}
+  for (const material of s.wallMaterials.values()) {material.map.dispose(); material.dispose();}
+  s.wallShadows?.depth.dispose(); s.wallShadows?.distance.dispose(); s.anchorGeometry.dispose(); s.anchorMaterial.dispose();
 }
 
 export async function assetDrawCounts() {
