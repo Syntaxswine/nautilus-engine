@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(samples.some(sample=>sample.native.projectileState==='flying'))
+
+    at withArtReview.output (file:///C:/Users/baals/.codex/worktrees/nautilus-integration/Nautilus%20Engine/artifacts/review-grenade-live.mjs:39:70)
+    at async withArtReview (file:///C:/Users/baals/.codex/worktrees/nautilus-integration/Nautilus%20Engine/tools/art-review-browser.mjs:16:512)
+    at async file:///C:/Users/baals/.codex/worktrees/nautilus-integration/Nautilus%20Engine/artifacts/review-grenade-live.mjs:7:1 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

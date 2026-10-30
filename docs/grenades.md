@@ -1,6 +1,6 @@
 # Farmyard grenade component
 
-Status: reviewed candidate. Public entries are `./grenades` and `./grenades/aim`; component identity is `item:grenade`. The source pin is Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. The optional public module is an engine-owned extraction; its runtime never imports the donor or editor. The complete preserved original workproduct is conformance evidence, not a second game runtime dependency. Production Farmyard retains its current implementation and pin.
+Optional Nautilus 0.9 component. Public entries are `./grenades` and `./grenades/aim`; component identity is `item:grenade`. The source pin is Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. The optional public module is an engine-owned extraction; its runtime never imports the donor or editor. The complete preserved original workproduct is conformance evidence, not a second game runtime dependency. Production Farmyard retains its current implementation and pin.
 
 ## Usage card and smallest example
 
@@ -79,3 +79,11 @@ The single durable ID namespace covers throws and context checkpoints. Receipt I
 - [ ] Run the adopting game's own workflow/checks, retain a rollback pin and stop owned preview helpers.
 
 For accuracy, prefer this explicit source profile when matching Farmyard's tactical abstraction; richer reactive scenes require its complete retained policies. For efficiency, the ordinary math is bounded and headless, but journal replay/data copying adds cost and no speedup has been measured. For narrative, retaining Farmyard's existing costs, damage and equipment choices preserves its authored solo experience. This component does not introduce a cast, balance redesign or production adoption.
+
+## Playable reference and browser proof
+
+[Grenade field](https://github.com/Syntaxswine/nautilus-engine/blob/cc49e030eca70f2708268d028ad5f7474f84e450/examples/grenade-reference.html) binds the public kernel, aiming, DOM controls, overlay and native painted horse/grenade through a small retained host. It demonstrates finite resources, ordinary casualties, refusal reasons, explicit save/load and quiet command retry. It is a component reference; production games retain their own complete state and adopt through the host contract above.
+
+The reference host detaches returned values, checks the active durable record before writes, tracks uncertain throw and load writes, and exposes explicit validated recovery. A new confirmation has a fresh command identity even after restoring an earlier save; an actual retry retains its original identity. Loading and recovering a record never replay choreography or consequences.
+
+Run `npm run build`, then `npm run review:grenades` and `npm run review:grenades:installed`. Set `NAUTILUS_REVIEW_SOURCE=1` for the source-tree variant. The installed proof packs and installs the compatibility package offline, redirects only the consumer fixture's public import map/style/guide URLs, and checks identical behavior groups and final context against the same fingerprinted source/build inputs. It cannot fall back to sibling source modules. Disposable isolated browser/server lifetimes close after each review; reports and captures remain under ignored `artifacts/grenade-reference-*`.

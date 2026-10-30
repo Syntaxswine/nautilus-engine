@@ -110,3 +110,6 @@ Use individual public imports directly, or opt into `./runtime` to validate a se
 Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
 
 See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.
+
+
+The [grenade reference player](https://github.com/Syntaxswine/nautilus-engine/blob/cc49e030eca70f2708268d028ad5f7474f84e450/examples/grenade-reference.html) combines those public entries with the native assets. After `npm run build`, run `npm run review:grenades` and `npm run review:grenades:installed` for deterministic desktop/touch, save/recovery and source-versus-installed browser proof.
