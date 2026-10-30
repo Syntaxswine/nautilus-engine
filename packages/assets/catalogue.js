@@ -6254,5 +6254,38 @@ export const SHARED_ASSETS = [
     "entry": "./items/three",
     "factory": "createRockModel",
     "note": "Original native-scale visual. Optional ./items stages pickup, throw and impact noise; consumer owns inventory, world collision, hearing and guard behavior."
+  },
+  {
+    "id": "item:grenade",
+    "name": "Frag grenade",
+    "category": "Items",
+    "dimensions": {
+      "width": 0.08173276484,
+      "depth": 0.07494000345,
+      "height": 0.11100000143,
+      "metresPerUnit": 1
+    },
+    "source": {
+      "project": "aft",
+      "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "reviewedFarmyardCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a"
+    },
+    "availability": "shared-item-renderer",
+    "entry": "./grenades/three",
+    "factory": "createGrenadeModel",
+    "logicEntry": "./grenades",
+    "guide": "docs/grenades.md",
+    "visualGuide": "docs/reviews/grenade-presentation/provider.md",
+    "profile": "farmyard-static-same-plane-v1",
+    "capability": {
+      "id": "nautilus-grenades-static-planar-v1",
+      "version": 1
+    },
+    "requiredHostServices": [
+      "atomic-grenade-context-commit-v1",
+      "farmyard-visibility-refresh-v1",
+      "farmyard-body-registration-v1"
+    ],
+    "note": "Original painted prop; optional ordinary same-floor grenade transactions and native horse throw. Bind inventory, complete host context and supported consequences explicitly; reactive and multilevel scenes refuse before costs."
   }
 ];

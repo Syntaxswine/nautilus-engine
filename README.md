@@ -72,6 +72,12 @@ Open `/examples/rock-distraction.html` after building and serving to try pickup,
 
 `./items` exports headless, copied rock state and staged actions. `./items/three` supplies an original 11 cm, texture-free rock model using the host's Three namespace. Discovery includes `item:rock`. Saves retain explicit flight time; previews stay silent and hearing uses the actual impact point. Combat and confirmed threats take priority over distraction. See [the item contract](docs/rock-distraction.md).
 
+## Farmyard grenade profile
+
+`./grenades` and optional `./grenades/aim` reuse Farmyard Commando's grenade costs, finite stock, same-plane trajectory/cover/damage and aiming controls. Transactions and retained-host checkpoints preserve command identity and spent/injured state; flight playback is transient. The supported first profile is static and non-reactive: windows, fueled targets, active fire and other floors refuse before costs. The frozen full game source is test evidence rather than a runtime dependency. See the [component guide and builder checklist](docs/grenades.md) and [source intake](docs/intake/2026-10-29-farmyard-grenades.md). Game adoption remains a separate change.
+
+`./grenades/ui` and `./grenades/style.css` supply optional desktop/touch controls; `./grenades/view` supplies the borrowed-scene preview. `./grenades/three` reuses the original painted grenade and native horse throw, with prop-only loading and explicit ownership. Discovery includes `item:grenade` and its logic/renderer guides. Headless core excludes browser and renderer entries.
+
 ## Optional contour effect
 
 `./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.
@@ -104,3 +110,6 @@ Use individual public imports directly, or opt into `./runtime` to validate a se
 Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
 
 See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.
+
+
+The [grenade reference player](https://github.com/Syntaxswine/nautilus-engine/blob/cc49e030eca70f2708268d028ad5f7474f84e450/examples/grenade-reference.html) combines those public entries with the native assets. After `npm run build`, run `npm run review:grenades` and `npm run review:grenades:installed` for deterministic desktop/touch, save/recovery and source-versus-installed browser proof.

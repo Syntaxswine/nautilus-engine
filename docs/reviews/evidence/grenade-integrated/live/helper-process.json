@@ -1,0 +1,37 @@
+{
+  "owner": "01a18107-b4af-78c0-850f-0235d4df307f",
+  "purpose": "Real-time native grenade playback and authority continuity",
+  "project": "Nautilus Engine",
+  "startedAt": "2026-10-30T03:02:06.527Z",
+  "expiresAt": "2026-10-30T03:04:06.527Z",
+  "process": {
+    "pid": 13484,
+    "creationFiletime": "134378029255739486",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 45240,
+    "creationFiletime": "134378029260128462",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 64778,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine\\artifacts\\grenade-reference-live\\STOP",
+  "stopMethod": "STOP marker, bounded 120000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "artifacts/review-grenade-live.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-integration\\Nautilus Engine\\artifacts\\review-grenade-live.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Static dist/ tree built from project source",
+    "outputs": "artifacts/grenade-reference-live",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "status": "Initial source/native presentation audit only; public/integrated visual review pending.",
+  "verifiedAt": "2026-10-30T01:02:23.642Z",
+  "sourceAudit": {
+    "command": "node --experimental-vm-modules art/grenade-review/audit.mjs <fixed-source-repository>",
+    "exitCode": 0,
+    "logSha256": "8e9465c3502330ca35e7de7cce88d073761b4bdb0ec6cf9f3feefcacda2ee5dd",
+    "samples": 155,
+    "unreachablePoses": 0,
+    "modelDependencyComparisons": 14,
+    "originalSourceObjects": 42,
+    "repeatedAndOutOfOrderSeeks": true,
+    "restoredSkinWeights": true,
+    "borrowedPropPaintSurvives": true
+  },
+  "links": {
+    "count": 15,
+    "checked": [
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "component-handoff.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "../actor-height-intake/README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/README.md",
+        "target": "checks.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../component-handoffs.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../../art/grenade-review/audit.mjs"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "../../../NOTICE.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "sources.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "measurements.json"
+      },
+      {
+        "source": "docs/reviews/grenade-presentation/component-handoff.md",
+        "target": "README.md#reproduce-and-next-review"
+      }
+    ]
+  },
+  "helperLifecycle": {
+    "previewHelpersStarted": 0,
+    "retainedHelpers": 0,
+    "foregroundProbeOnly": true
+  },
+  "files": [
+    {
+      "path": "art/grenade-review/audit.mjs",
+      "bytes": 14612,
+      "sha256": "f20507e203a69d6c69f0ae7cfa06e600276e0fcc3dd0055be28116647c2c6e51"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/README.md",
+      "bytes": 10486,
+      "sha256": "b49ee07f852582d34516cdfca4e201835caede17c0c51fa7b5e67549b5099890"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/component-handoff.md",
+      "bytes": 8511,
+      "sha256": "4fc559eb88d99201c6d7286a1b87a3809d932dbb99ffbf4b03fc474107605e3e"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/sources.json",
+      "bytes": 31655,
+      "sha256": "054287e3c0e8476ad7831024ce5d098ca6967c50ba133073d02c95112527d31d"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/measurements.json",
+      "bytes": 316591,
+      "sha256": "40f07d4a2830ff3de1474ae7f05c6d2d1a078610f974a2d47fcf724d40730c6e"
+    }
+  ],
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "logSha256": "ad96a2fbd355d5b5914a8b91d6891c40f043274eeb06beae4571280cf59829e3"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 357,
+      "passed": 357,
+      "logSha256": "d46366c73c3e94c3c83ace96436d20b4cadcb160e9a22b6860426654464977b5"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "passed": 32,
+      "logSha256": "46862269619f6efe728595616ba3ceedaa50315cf786edaa357bc1ce2d1d071f"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logSha256": "78cb3b7a06205da6a9ce65884ad742902b0511d6ca94d2616e71cc17cd9a37e8"
+    }
+  ],
+  "sourceCheckpointCommit": "958e8a6a41675db8d4eba0750411153306b6153d",
+  "fileHashScope": "The original initial-audit file bytes at sourceCheckpointCommit; provider follow-on links are covered separately by provider-checks.json."
+}

@@ -11,6 +11,7 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
 | `packages/item-visuals/` | Original item models using the host Three namespace |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
@@ -49,6 +50,8 @@ The [rules contract](rules.md) defines the portable character schema and the bou
 ## Shared item boundary
 
 [The rock contract](rock-distraction.md) defines plain-data instance state, strict sidecar versions, explicit metre/second units and staged actions. Items do not extend portable maps or take over actor inventories. A consumer atomically commits state and inventory deltas, deduplicates command/event IDs, supplies swept collision and audibility, and arbitrates guard investigation. The optional rock mesh and reference yard use the same collision radius; they require no donor runtime.
+
+The optional [Farmyard grenade profile](grenades.md) adds source-exact ordinary same-plane throws, costs/stock, wall/fog previews, staged damage/alerts and durable retry protection. It preserves injured/spent state and keeps host visibility/body registration explicit. Reactive windows/fuel/fire and other floors are refused by this first profile. Full original game sources are immutable conformance evidence outside runtime distributions; no game production pin changes.
 
 ## Public map API
 
