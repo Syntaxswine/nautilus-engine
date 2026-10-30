@@ -5,10 +5,13 @@
 - Strengthen editor/game-host handoff, actual-page bridge, clearance, persistence and import-limit coverage while retaining current floor controls.
 - Share the deployed Send patch with headless tests and build guards; diagnose browser loading and host-await failures.
 - Assert Settings feedback placement and bound the module CI job to 15 minutes, retaining the reviewed test timing margins.
-- Render editor assets in far fewer and cheaper draws: original and Gross buildings draw from display batches (one draw per material per view), a design placed more than once draws as instances, wall panels draw as one width-scaled instance set per material, sloped roofs merge into one draw per slot material, and double-sided glass draws as two fixed-side copies, so its two halves no longer re-derive their shader programs every frame. The original building generator is about 3.5 times faster with bit-identical output.
+- Render editor assets in far fewer and cheaper draws: original and Gross buildings draw from display batches (one draw per material per view), a design placed more than once draws its copies together, every camera (the view, the sun and each lamp face) culling them copy by copy, wall panels draw as one width-scaled instance set per material, sloped roofs merge into one draw per slot material, and double-sided glass draws as two fixed-side copies, so its two halves no longer re-derive their shader programs every frame. The original building generator is 3.2 (game) to 3.4 (authoring) times faster with bit-identical output.
 - `./assets/three`: `loadBuildingAssets(THREE, {shared: true})` opts into batched instances that share one design's geometry, materials and view; the default remains one independent model per instance.
 - `./roofs/three`: add `createRoofMaterial(THREE, id, options)`, the material the adapter generates for one slot, so hosts can share slot materials across roofs.
-- Pin the editor asset layers' exact draw counts per benchmark workload and view, and add the paired asset-rendering benchmark (A/B editor frames, SwiftShader pixel captures with depth-tie masks, direct assets-only timing).
+- Pin the editor asset layers' exact draw counts per benchmark workload and view, counted through the editor's own scene classes, and add the paired asset-rendering benchmark (A/B editor frames with GPU timer queries, SwiftShader pixel captures with depth-tie masks, direct assets-only timing, lamp-lit maps and a far view).
+- CI runs `npm run review:asset-counts`: every benchmark map's asset draws, culled as the editor's frames draw them (lamps and all) and unculled, must equal the counts pinned for its rig.
+- The original-building geometry digest covers every serialized material setting (`Material.toJSON`), so an unlisted setting such as an emissive term cannot change a reviewed building unseen; `tools/record-building-geometry.mjs` re-records the reviewed digests from the reviewed commit's own renderer.
+- Shared-mode glass: the back half of a double-sided pane casts no shadow in any host, not only under the editor's daylight rig.
 
 ## 0.10.0 — 2026-10-30
 
