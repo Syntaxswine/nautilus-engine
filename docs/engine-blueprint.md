@@ -43,6 +43,8 @@ Keep `map-core` and `rules-core` plain-data, deterministic and loadable in Node 
 
 Every new or materially revised part follows the [component handoff standard](component-handoffs.md) and its [copyable guide](templates/component-handoff.md). Builders receive public connections, a working example, remaining game decisions and an acceptance checklist. Standard recipes bind known semantic parts after the game supplies compatible providers; incomplete recipes or unsupported geometry remain visible gaps. The title-screen template follows the same handoff while each game supplies its identity, save and session policies.
 
+The user-authorized [functional editor parts project](projects/functional-editor-parts.md) scopes automatic wiring: placed parts will compile into matching visuals, world/query geometry, interactions and saved state. Its first complete proof is a two-story building with a usable door and stairs, followed by catalogue conversion and further part profiles. The scope assigns bounded work and fixed-checkpoint dependencies to the existing helpers.
+
 The first contract tranche needs these small, explicit agreements:
 
 1. **Identity and requirements.** Stable module, content, entity, command and event IDs; separate package, schema, capability and policy versions. A selected module declares required/optional capabilities and provider interfaces. Reject missing providers, version conflicts and dependency cycles before mutating a live scene. Proposed recipe names are not new public exports until implemented and versioned.
