@@ -1,0 +1,733 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "baseline": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "gates": {
+    "check": "pass; 603 existing pinned sources plus headless/closure/whitelist checks",
+    "tests": "638 pass, zero failures/skips/cancellations",
+    "upstream": "32 pass",
+    "build": "pass; 457 module paths, 11 recorded deployment patches"
+  },
+  "scope": "Optional appearance candidate only. No root exports/whitelist/version/global capability/CI or consumer pin changed.",
+  "geometry": {
+    "presets": 39,
+    "rotationsJoins": 624,
+    "tallMetres": [
+      20,
+      10.6
+    ],
+    "standardStoreyMetres": 2.12
+  },
+  "browser": [
+    {
+      "schemaVersion": 1,
+      "mode": "source",
+      "status": "pass",
+      "presets": 39,
+      "cases": [
+        {
+          "name": "native-six",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "finish": "sage"
+          },
+          "phone": false,
+          "sha256": "5bf697ae1a8ded5e4956341a85ef7dd4fbd51bda84d7d94b51a4ffb892dcb69c",
+          "calls": 34,
+          "triangles": 326,
+          "geometries": 8,
+          "textures": 0
+        },
+        {
+          "name": "waist-brick",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "finish": "ivory",
+            "wall": "brick"
+          },
+          "phone": false,
+          "sha256": "3b980ca5075e1b49d1a146bd8b8de9ba788390eafbb628c3a1acd9205b0721c7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-concrete-back",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "wall": "concrete",
+            "angle": "back"
+          },
+          "phone": false,
+          "sha256": "6162263a2aa6a6577aa328f55a766ac9a8dfcb0a93338c33da731ae0da0575d7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-corrugated",
+          "options": {
+            "definitionId": "window.waist.vertical-3.3m",
+            "wall": "corrugated"
+          },
+          "phone": false,
+          "sha256": "9f24cc7c1dffee134295ee12cf1fd6332d99d49f7ddf3eae198273e95d06507d",
+          "calls": 26,
+          "triangles": 266,
+          "geometries": 6,
+          "textures": 1
+        },
+        {
+          "name": "joined-frames",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "dfa69aad7fbca2f26cd3c15393adccce5dc06523bd76f2412e378799c9505e95",
+          "calls": 67,
+          "triangles": 650,
+          "geometries": 14,
+          "textures": 0
+        },
+        {
+          "name": "joined-sheets",
+          "options": {
+            "definitionId": "window.full.borderless.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "855245b83f48e0c60b0988214609a5d269d465b5f71a8dec2ca69f412ef9f48d",
+          "calls": 3,
+          "triangles": 10,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "tall-sheet",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": false,
+          "sha256": "cbb809d08c583973b576f1dc509d54bcb519fbad26a5ab104ff8978dd2068b37",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "quarter-phone",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "angle": "quarter",
+            "finish": "sage"
+          },
+          "phone": true,
+          "sha256": "da4b5c22ca2cb2bad13cfab54c5f7b4934f1eaa38c151553d019b1e02b7481f7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "tall-phone",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": true,
+          "sha256": "0174f41f5557ce9bdfbd1970266621f5bc330283682f453d19b358c4df3f453b",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        }
+      ],
+      "phone": "390x844",
+      "backend": "Isolated Edge/Chromium WebGL via SwiftShader; no real-device FPS claim",
+      "interactions": [
+        "confirm fixture-owned pane",
+        "host elapsed seconds",
+        "quiet reload",
+        "tall landing/fade",
+        "owned close"
+      ],
+      "errors": 0,
+      "failedRequests": 0
+    },
+    {
+      "schemaVersion": 1,
+      "mode": "built",
+      "status": "pass",
+      "presets": 39,
+      "cases": [
+        {
+          "name": "native-six",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "finish": "sage"
+          },
+          "phone": false,
+          "sha256": "5bf697ae1a8ded5e4956341a85ef7dd4fbd51bda84d7d94b51a4ffb892dcb69c",
+          "calls": 34,
+          "triangles": 326,
+          "geometries": 8,
+          "textures": 0
+        },
+        {
+          "name": "waist-brick",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "finish": "ivory",
+            "wall": "brick"
+          },
+          "phone": false,
+          "sha256": "3b980ca5075e1b49d1a146bd8b8de9ba788390eafbb628c3a1acd9205b0721c7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-concrete-back",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "wall": "concrete",
+            "angle": "back"
+          },
+          "phone": false,
+          "sha256": "6162263a2aa6a6577aa328f55a766ac9a8dfcb0a93338c33da731ae0da0575d7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-corrugated",
+          "options": {
+            "definitionId": "window.waist.vertical-3.3m",
+            "wall": "corrugated"
+          },
+          "phone": false,
+          "sha256": "9f24cc7c1dffee134295ee12cf1fd6332d99d49f7ddf3eae198273e95d06507d",
+          "calls": 26,
+          "triangles": 266,
+          "geometries": 6,
+          "textures": 1
+        },
+        {
+          "name": "joined-frames",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "dfa69aad7fbca2f26cd3c15393adccce5dc06523bd76f2412e378799c9505e95",
+          "calls": 67,
+          "triangles": 650,
+          "geometries": 14,
+          "textures": 0
+        },
+        {
+          "name": "joined-sheets",
+          "options": {
+            "definitionId": "window.full.borderless.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "855245b83f48e0c60b0988214609a5d269d465b5f71a8dec2ca69f412ef9f48d",
+          "calls": 3,
+          "triangles": 10,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "tall-sheet",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": false,
+          "sha256": "cbb809d08c583973b576f1dc509d54bcb519fbad26a5ab104ff8978dd2068b37",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "quarter-phone",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "angle": "quarter",
+            "finish": "sage"
+          },
+          "phone": true,
+          "sha256": "da4b5c22ca2cb2bad13cfab54c5f7b4934f1eaa38c151553d019b1e02b7481f7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "tall-phone",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": true,
+          "sha256": "0174f41f5557ce9bdfbd1970266621f5bc330283682f453d19b358c4df3f453b",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        }
+      ],
+      "phone": "390x844",
+      "backend": "Isolated Edge/Chromium WebGL via SwiftShader; no real-device FPS claim",
+      "interactions": [
+        "confirm fixture-owned pane",
+        "host elapsed seconds",
+        "quiet reload",
+        "tall landing/fade",
+        "owned close"
+      ],
+      "errors": 0,
+      "failedRequests": 0
+    },
+    {
+      "schemaVersion": 1,
+      "mode": "installed",
+      "status": "pass",
+      "presets": 39,
+      "cases": [
+        {
+          "name": "native-six",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "finish": "sage"
+          },
+          "phone": false,
+          "sha256": "5bf697ae1a8ded5e4956341a85ef7dd4fbd51bda84d7d94b51a4ffb892dcb69c",
+          "calls": 34,
+          "triangles": 326,
+          "geometries": 8,
+          "textures": 0
+        },
+        {
+          "name": "waist-brick",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "finish": "ivory",
+            "wall": "brick"
+          },
+          "phone": false,
+          "sha256": "3b980ca5075e1b49d1a146bd8b8de9ba788390eafbb628c3a1acd9205b0721c7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-concrete-back",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "wall": "concrete",
+            "angle": "back"
+          },
+          "phone": false,
+          "sha256": "6162263a2aa6a6577aa328f55a766ac9a8dfcb0a93338c33da731ae0da0575d7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-corrugated",
+          "options": {
+            "definitionId": "window.waist.vertical-3.3m",
+            "wall": "corrugated"
+          },
+          "phone": false,
+          "sha256": "9f24cc7c1dffee134295ee12cf1fd6332d99d49f7ddf3eae198273e95d06507d",
+          "calls": 26,
+          "triangles": 266,
+          "geometries": 6,
+          "textures": 1
+        },
+        {
+          "name": "joined-frames",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "dfa69aad7fbca2f26cd3c15393adccce5dc06523bd76f2412e378799c9505e95",
+          "calls": 67,
+          "triangles": 650,
+          "geometries": 14,
+          "textures": 0
+        },
+        {
+          "name": "joined-sheets",
+          "options": {
+            "definitionId": "window.full.borderless.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "855245b83f48e0c60b0988214609a5d269d465b5f71a8dec2ca69f412ef9f48d",
+          "calls": 3,
+          "triangles": 10,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "tall-sheet",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": false,
+          "sha256": "cbb809d08c583973b576f1dc509d54bcb519fbad26a5ab104ff8978dd2068b37",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "quarter-phone",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "angle": "quarter",
+            "finish": "sage"
+          },
+          "phone": true,
+          "sha256": "da4b5c22ca2cb2bad13cfab54c5f7b4934f1eaa38c151553d019b1e02b7481f7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "tall-phone",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": true,
+          "sha256": "0174f41f5557ce9bdfbd1970266621f5bc330283682f453d19b358c4df3f453b",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        }
+      ],
+      "phone": "390x844",
+      "backend": "Isolated Edge/Chromium WebGL via SwiftShader; no real-device FPS claim",
+      "interactions": [
+        "confirm fixture-owned pane",
+        "host elapsed seconds",
+        "quiet reload",
+        "tall landing/fade",
+        "owned close"
+      ],
+      "errors": 0,
+      "failedRequests": 0
+    }
+  ],
+  "captures": [
+    {
+      "file": "joined-frames.png",
+      "sha256": "dfa69aad7fbca2f26cd3c15393adccce5dc06523bd76f2412e378799c9505e95",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "joined-sheets.png",
+      "sha256": "855245b83f48e0c60b0988214609a5d269d465b5f71a8dec2ca69f412ef9f48d",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "native-six.png",
+      "sha256": "5bf697ae1a8ded5e4956341a85ef7dd4fbd51bda84d7d94b51a4ffb892dcb69c",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "quarter-phone.png",
+      "sha256": "da4b5c22ca2cb2bad13cfab54c5f7b4934f1eaa38c151553d019b1e02b7481f7",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "shatter-phone.png",
+      "sha256": "ec08b978b0dfdf52c0972e79a54d449cb33dbf127908c0c28c02cb4105ff43ef",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "tall-phone.png",
+      "sha256": "0174f41f5557ce9bdfbd1970266621f5bc330283682f453d19b358c4df3f453b",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "tall-shatter-phone.png",
+      "sha256": "897b9752cdd7210ff7493865f4e7d499f773a3c328602faa016b017214ccc8fb",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "tall-sheet.png",
+      "sha256": "cbb809d08c583973b576f1dc509d54bcb519fbad26a5ab104ff8978dd2068b37",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "waist-brick.png",
+      "sha256": "3b980ca5075e1b49d1a146bd8b8de9ba788390eafbb628c3a1acd9205b0721c7",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "waist-concrete-back.png",
+      "sha256": "6162263a2aa6a6577aa328f55a766ac9a8dfcb0a93338c33da731ae0da0575d7",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    },
+    {
+      "file": "waist-corrugated.png",
+      "sha256": "9f24cc7c1dffee134295ee12cf1fd6332d99d49f7ddf3eae198273e95d06507d",
+      "pixelIdenticalModes": [
+        "source",
+        "built",
+        "installed"
+      ]
+    }
+  ],
+  "installed": {
+    "schemaVersion": 1,
+    "status": "pass",
+    "candidateOverlay": true,
+    "rootRegistration": "pending, untouched",
+    "core": {
+      "file": "artifacts\\distribution\\nautilus-engine-core-0.10.0.tgz",
+      "sha256": "85d66f48edad647dcda5952e10e5174b9cfbc53b827489fbbed171f5bf41026f"
+    },
+    "renderer": {
+      "file": "artifacts\\window-presentation-package\\nautilus-engine-renderer-0.10.0.tgz",
+      "sha256": "3a3e770a10f68a2a934157dfdaa245ae48362c57f39321e2a35c5efe05d875d0"
+    },
+    "closure": {
+      "modules": 8,
+      "bytes": 42331,
+      "files": [
+        "packages/window-visuals/native/catalog.js",
+        "packages/window-visuals/native/diagonal-roads.js",
+        "packages/window-visuals/native/geometry.js",
+        "packages/window-visuals/native/shatter.js",
+        "packages/window-visuals/native/surfaces.js",
+        "packages/window-visuals/native/world-dimensions.js",
+        "packages/window-visuals/projection.js",
+        "packages/window-visuals/three.js"
+      ]
+    },
+    "proof": "Separately installed actual core + renderer: borrowed owning functions, JSON projection, one shared Three, exact masks, quiet restore/retry, elapsed effects and retirement pass.",
+    "browser": {
+      "schemaVersion": 1,
+      "mode": "installed",
+      "status": "pass",
+      "presets": 39,
+      "cases": [
+        {
+          "name": "native-six",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "finish": "sage"
+          },
+          "phone": false,
+          "sha256": "5bf697ae1a8ded5e4956341a85ef7dd4fbd51bda84d7d94b51a4ffb892dcb69c",
+          "calls": 34,
+          "triangles": 326,
+          "geometries": 8,
+          "textures": 0
+        },
+        {
+          "name": "waist-brick",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "finish": "ivory",
+            "wall": "brick"
+          },
+          "phone": false,
+          "sha256": "3b980ca5075e1b49d1a146bd8b8de9ba788390eafbb628c3a1acd9205b0721c7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-concrete-back",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "wall": "concrete",
+            "angle": "back"
+          },
+          "phone": false,
+          "sha256": "6162263a2aa6a6577aa328f55a766ac9a8dfcb0a93338c33da731ae0da0575d7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "waist-corrugated",
+          "options": {
+            "definitionId": "window.waist.vertical-3.3m",
+            "wall": "corrugated"
+          },
+          "phone": false,
+          "sha256": "9f24cc7c1dffee134295ee12cf1fd6332d99d49f7ddf3eae198273e95d06507d",
+          "calls": 26,
+          "triangles": 266,
+          "geometries": 6,
+          "textures": 1
+        },
+        {
+          "name": "joined-frames",
+          "options": {
+            "definitionId": "window.full.grid-3x2.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "dfa69aad7fbca2f26cd3c15393adccce5dc06523bd76f2412e378799c9505e95",
+          "calls": 67,
+          "triangles": 650,
+          "geometries": 14,
+          "textures": 0
+        },
+        {
+          "name": "joined-sheets",
+          "options": {
+            "definitionId": "window.full.borderless.3m",
+            "neighbor": true
+          },
+          "phone": false,
+          "sha256": "855245b83f48e0c60b0988214609a5d269d465b5f71a8dec2ca69f412ef9f48d",
+          "calls": 3,
+          "triangles": 10,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "tall-sheet",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": false,
+          "sha256": "cbb809d08c583973b576f1dc509d54bcb519fbad26a5ab104ff8978dd2068b37",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        },
+        {
+          "name": "quarter-phone",
+          "options": {
+            "definitionId": "window.waist.grid-3x2.3m",
+            "angle": "quarter",
+            "finish": "sage"
+          },
+          "phone": true,
+          "sha256": "da4b5c22ca2cb2bad13cfab54c5f7b4934f1eaa38c151553d019b1e02b7481f7",
+          "calls": 35,
+          "triangles": 338,
+          "geometries": 9,
+          "textures": 1
+        },
+        {
+          "name": "tall-phone",
+          "options": {
+            "definitionId": "window.full.borderless"
+          },
+          "phone": true,
+          "sha256": "0174f41f5557ce9bdfbd1970266621f5bc330283682f453d19b358c4df3f453b",
+          "calls": 2,
+          "triangles": 6,
+          "geometries": 2,
+          "textures": 0
+        }
+      ],
+      "phone": "390x844",
+      "backend": "Isolated Edge/Chromium WebGL via SwiftShader; no real-device FPS claim",
+      "interactions": [
+        "confirm fixture-owned pane",
+        "host elapsed seconds",
+        "quiet reload",
+        "tall landing/fade",
+        "owned close"
+      ],
+      "errors": 0,
+      "failedRequests": 0
+    },
+    "cleanup": {
+      "consumerRemoved": true,
+      "privateStageRemoved": true,
+      "helpersRetained": 0
+    }
+  },
+  "cleanup": {
+    "file": "helper-cleanup.json",
+    "retained": 0
+  },
+  "limits": [
+    "Private renderer artifact overlay pending Root registration; actual separately installed core and renderer were exercised.",
+    "SwiftShader desktop/phone viewport proof, not physical-phone performance.",
+    "Audio, editor authoring bindings and production game adoption remain deferred."
+  ],
+  "gateLogs": [
+    {
+      "file": "artifacts/window-presentation-check.log",
+      "sha256": "277aeed875ad95885a99a1a47ee5ad2eae022fc4604fae0b31559154cb9e4750"
+    },
+    {
+      "file": "artifacts/window-presentation-tests.log",
+      "sha256": "9fac3755c423af4cbcc1d3847a1d5d531fb3a7bc3bd6a584f21d369733e9d756"
+    },
+    {
+      "file": "artifacts/window-presentation-upstream.log",
+      "sha256": "940a06c04c8ebdc47a8ee40ebc291ddd671a9cce9bb6499bdc8a924a965ac5c0"
+    },
+    {
+      "file": "artifacts/window-presentation-build.log",
+      "sha256": "9464549e75bc520be094df9e43f496e365ce549657df25e47715cf31fd168e11"
+    }
+  ]
+}

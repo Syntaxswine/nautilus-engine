@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as W from '@nautilus-engine/core/windows';
+import * as F from '@nautilus-engine/core/adapters/farmyard/windows';
+import * as T from '@nautilus-engine/renderer/render-effects/three';
+import {createFarmyardWindowPresentation,projectAcceptedWindowPresentation} from '@nautilus-engine/renderer/adapters/farmyard/windows/three';
+import {windowFixture} from './fixture.js';
+const f=windowFixture(W,F),scene=new T.Scene();let borrowedDisposals=0;const borrowed=new T.Mesh(new T.BoxGeometry(),new T.MeshBasicMaterial());borrowed.geometry.addEventListener('dispose',()=>borrowedDisposals++);scene.add(borrowed);
+const rendererRoot=new URL('node_modules/@nautilus-engine/renderer/',import.meta.url),coreRoot=new URL('node_modules/@nautilus-engine/core/',import.meta.url);
+assert.notEqual(rendererRoot.href,coreRoot.href);
+for(const name of ['README.md','NOTICE.md','source.json'])assert.ok(fs.existsSync(new URL('packages/window-visuals/'+name,rendererRoot)));
+assert.equal(fs.existsSync(new URL('packages/window-visuals/three.js',coreRoot)),false,'Core tarball stays renderer-free.');
+assert.equal(fs.existsSync(new URL('vendor/farmyard-window-visuals/',rendererRoot)),false,'Raw game/study/audio evidence stays out of runtime.');
+const calls=[],core=Object.fromEntries(['serializeWindowState','windowStateGeometry','inspectWindowGeometry'].map(k=>[k,(...args)=>{calls.push(k);return W[k](...args);}])) ;
+const p=projectAcceptedWindowPresentation(core,f.state);assert.deepEqual(calls,['serializeWindowState','windowStateGeometry','inspectWindowGeometry']);assert.throws(()=>projectAcceptedWindowPresentation(W,structuredClone(f.state)),'An opaque state copy is not module-owned.');
+const view=createFarmyardWindowPresentation({THREE:T,scene});await view.prepare(JSON.parse(JSON.stringify(p)));assert.ok(view.root instanceof T.Group);assert.equal(view.root.getObjectByName('native-view').scale.x,1);
+const result=f.impact({commandId:'installed-receipt'}),accepted=JSON.parse(JSON.stringify(projectAcceptedWindowPresentation(W,f.state))),observation={receiptId:result.receipt.id,effects:result.effects};view.update(accepted,{observation,timeSeconds:31});assert.equal(view.diagnostics().activeEffects,1);assert.equal(view.root.getObjectByName(p.windows[0].panes[0].visualId).visible,false);view.update(accepted,{observation,timeSeconds:31.5});assert.equal(view.diagnostics().activeEffects,1);view.sample(40);assert.equal(view.diagnostics().activeEffects,0);await view.prepare(accepted);view.update(accepted,{observation,timeSeconds:0});assert.equal(view.diagnostics().activeEffects,0);view.dispose();assert.deepEqual(scene.children,[borrowed]);assert.equal(borrowedDisposals,0);borrowed.geometry.dispose();borrowed.material.dispose();
+console.log('Separately installed actual core + renderer: borrowed owning functions, JSON projection, one shared Three, exact masks, quiet restore/retry, elapsed effects and retirement pass.');

@@ -1,0 +1,16 @@
+// Fixture confirmation belongs to this test/example, never to the renderer.
+export function windowFixture(W,F,{definitionId='window.full.grid-3x2.3m',rotation=0,joins={},dimensions,broken={},epoch='epoch-1',neighbor=false,finish='steel',wall='brick'}={}){
+  const spec=F.farmyardWindowDefinition({id:definitionId,joins,...(dimensions?{dimensions}:{})}),width=spec.width,along=20+(width%2===0?.5:0),across=20.5;
+  const placement={id:'native-window',definitionId,x:rotation%180?across:along,y:rotation%180?along:across,rotation,joins:neighbor?{...joins,right:true}:joins,finish,wall,...(dimensions?{dimensions}:{})};
+  const start=along-(width-1)/2,edgeFacts=Array.from({length:width},(_,i)=>({edge:rotation%180?`e:${across-.5}:${start+i}`:`s:${start+i}:${across-.5}`,semantic:'wall',locked:false,sourceKind:'wall'}));
+  const placements=[placement];if(neighbor){const sign=rotation===90||rotation===180?-1:1;placements.push({...placement,id:'native-neighbor',x:placement.x+(rotation%180?0:sign*width),y:placement.y+(rotation%180?sign*width:0),joins:{left:true,right:false}});for(let i=0;i<width;i++)edgeFacts.push({edge:rotation%180?`e:${across-.5}:${start+sign*width+i}`:`s:${start+sign*width+i}:${across-.5}`,semantic:'wall',locked:false,sourceKind:'wall'});}
+  const base=W.compileWindowPlacements({kind:'nautilus-window-placement-document',version:1,id:'native-yard',profileId:W.WINDOW_GEOMETRY_CONTRACT.profileId,queryRevision:0,placements,bindings:placements.map((p,i)=>({placementId:p.id,engineInstanceId:i?'neighbor-view':'native-view'})),observedBroken:broken},{definitions:F.FARMYARD_WINDOW_DEFINITIONS,world:{id:'native-world',floorId:'ground',grid:{width:64,height:64}},edgeFacts});
+  let state=W.createWindowState(base,{id:'native-state',contentEpoch:epoch,broken});
+  return {base,placement,get state(){return state;},impact({paneId='r0c0',commandId='native-command',direction=1}={}){
+    const g=W.windowStateGeometry(state),info=W.inspectWindowGeometry(g),member=info.members.find(m=>m.paneId===paneId),b=member.bounds,point={x:(b.x0+b.x1)/2,y:(b.y0+b.y1)/2,h:(b.z0+b.height)/2},r=rotation*Math.PI/180,dx=Math.sin(r)*direction,dy=Math.cos(r)*direction;
+    const packet={version:1,id:W.windowImpactId(commandId,0,0),profileId:state.profileId,sceneId:state.sceneId,stateId:state.id,contentEpoch:state.contentEpoch,contentDigest:state.contentDigest,expectedRevision:state.revision,placementId:placement.id,partId:paneId,paneId,definitionDigest:member.definitionDigest,confirmation:{hostCommandId:commandId,round:0,impactIndex:0,geometryRevision:g.queryRevision,geometryDigest:g.geometryDigest,hostToken:'1'.repeat(64),queryToken:'2'.repeat(64),cause:'bullet',point,direction,ray:{purpose:'projectile',floorId:'ground',from:{x:point.x-dx*3,y:point.y-dy*3,h:point.h},to:{x:point.x+dx*3,y:point.y+dy*3,h:point.h}}}};
+    packet.confirmation.point=W.queryWindowSegment(g,packet.confirmation.ray).nearest.point;
+    const authority=W.createWindowImpactAuthority({version:1,confirm:loan=>W.windowImpactAttestation(loan.command)});
+    try{const result=W.stageConfirmedWindowImpact(g,state,packet,{authority});if(!result.ok)throw Error(result.code);state=result.next;return result;}finally{W.retireWindowImpactAuthority(authority);}
+  }};
+}

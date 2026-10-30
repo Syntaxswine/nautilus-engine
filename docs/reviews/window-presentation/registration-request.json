@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "artist candidate; Architect review and registration required",
+  "baseline": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "proposedExport": {"./adapters/farmyard/windows/three": "./packages/window-visuals/three.js"},
+  "profiles": ["renderer", "compatibility"],
+  "excludeFromCore": true,
+  "candidateEntry": "packages/window-visuals/three.js",
+  "supportFiles": ["packages/window-visuals/README.md", "packages/window-visuals/NOTICE.md", "packages/window-visuals/source.json", "docs/reviews/window-presentation/registration-request.json"],
+  "resources": [],
+  "rawEvidenceRoot": "vendor/farmyard-window-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "rawEvidenceRuntime": false,
+  "globalCapability": "No registration made. Optional appearance provider; no host authority, automatic recipe or game-adoption claim.",
+  "proofCommand": "node docs/reviews/window-presentation/package-proof.mjs --candidate",
+  "afterRegistrationProofCommand": "node docs/reviews/window-presentation/package-proof.mjs",
+  "candidateProof": "Actual core tarball plus private renderer artifact overlay only; root metadata/exports/whitelist/version/CI/upstream untouched. Default proof refuses missing registration.",
+  "deferred": ["audio/unlock/late-load ownership", "editor authoring bindings", "production game adoption"],
+  "rootOwnedFollowUp": ["export/profile registration", "support whitelist/runtime closure", "version/capability/compatibility policy", "CI installed proof", "exact candidate review"]
+}
