@@ -22,6 +22,7 @@ let binding=wireFarmyardDoors(retained);
 function request(action,id){return {version:1,id,expectedRevision:store.doorState.revision,actorId:Source.hero(store.host).id,doorId:'installed-leaf',action};}
 const open=request('open','installed-open'),original=structuredClone(store.host),before=D.farmyardDoorHostToken(store.host);assert.ok(binding.preview(open).ok);assert.equal(D.farmyardDoorHostToken(store.host),before);assert.ok(Source.performInteraction(original,'installed-leaf','open').ok);
 const accepted=binding.perform(open);assert.ok(accepted.committed);assert.deepEqual(accepted.presentationErrors,[]);assert.equal(D.farmyardDoorHostToken(store.host),D.farmyardDoorHostToken(original));assert.equal(published.length,4);assert.equal(published.find(([kind])=>kind==='geometry')[1].filter(box=>box.interactionId==='installed-leaf').length,1);
+const authority=D.farmyardDoorHostToken(store.host),ownedSave=binding.save();assert.notEqual(accepted.hostNext,store.host);accepted.hostNext.units[0].hp=-999;accepted.hostNext.seen.clear();accepted.next.actors[0].hp=-999;assert.equal(D.farmyardDoorHostToken(store.host),authority);assert.equal(binding.save(),ownedSave,'Mutating a successful returned result cannot change installed authority or persistence.');
 
 // Keep the actual source movement implementation. No mover runtime, route
 // translation, copied scene interaction handler or replacement actor is used.

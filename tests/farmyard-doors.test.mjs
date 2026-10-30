@@ -145,3 +145,100 @@ test('journal retains all 128 durable IDs and quiet exact retries at capacity, i
   for(let index=0;index<128;index++){const request=command(state,state.doors[0],index%2?'close':'open',index===0?1:index===1?'1':'capacity-'+index);if(!index)first=request;const result=D.stageFarmyardDoor(state,request);assert.ok(result.ok,result.code);state=result.next;}
   const wire=D.serializeFarmyardDoorState(state),full=D.openFarmyardDoorState(wire);assert.equal(full.receipts.length,128);assert.equal(D.stageFarmyardDoor(full,first).repeated,true);assert.equal(D.stageFarmyardDoor(full,command(full,full.doors[0],'open','new')).code,'JOURNAL_LIMIT');assert.equal(D.serializeFarmyardDoorState(full),wire);assert.equal(D.stageFarmyardDoor(full,{...first,action:'close'}).code,'COMMAND_ID_CONFLICT');
 });
+
+// These services deliberately retain the exact objects supplied to CAS, as a
+// real synchronous authoritative store does. Callback hooks exercise ownership
+// and lifecycle boundaries without substituting another gameplay kernel.
+function connected(hooks={}){
+  const host=ready({isolated:true}),h={store:{host,doorState:sourceState(host)},hooks,binding:null,candidates:[],publications:[],reads:0,queries:0};
+  h.token=()=>D.farmyardDoorHostToken(h.store.host);
+  h.save=()=>D.serializeFarmyardDoorHostSave(h.store.doorState,h.store.host,{geometry:Source.geometry(h.store.host)});
+  h.request=(action='open',id='connection-open')=>command(h.store.doorState,h.store.host.interactables[0],action,id);
+  const publish=name=>value=>{h.publications.push({name,value});h.hooks[name]?.(h,value);};
+  h.binding=D.connectFarmyardDoors({consumer:consumer(h.store.doorState),
+    read(){h.reads++;if(h.binding)h.hooks.read?.(h);return {doorState:h.store.doorState,host:h.store.host};},
+    geometry(input){h.queries++;if(h.binding)h.hooks.geometry?.(h,input);return Source.geometry(input);},
+    compareAndSwap(candidate){
+      h.candidates.push(candidate);if(h.hooks.cas)return h.hooks.cas(h,candidate);h.hooks.beforeWrite?.(h,candidate);
+      if(candidate.expected.state!==D.serializeFarmyardDoorState(h.store.doorState)||candidate.expected.context!==D.farmyardDoorContextToken(projection(h.store.host))||candidate.expected.host!==h.token()||!candidate.canCommit())return false;
+      h.store.doorState=candidate.doorState;h.store.host=candidate.host;h.hooks.afterWrite?.(h,candidate);
+      return h.hooks.ack?h.hooks.ack(h,candidate):true;
+    },invalidateRoutes:publish('invalidateRoutes'),publishVisibility:publish('publishVisibility'),publishColliders:publish('publishColliders'),present:publish('present')});
+  return h;
+}
+function mutateResult(result){result.hostNext.units[0].hp=-999;result.hostNext.units[0].ammo.pistol=999;result.hostNext.seen.clear();result.hostNext.interactables[0].inventory.push({id:'result-only'});result.next.actors[0].hp=-999;result.next.world.bounds.w=99;if(result.receipt)result.receipt.command.id='result-only';}
+
+test('accepted, refused, repeated and adoption results never alias CAS-owned authority, including nested save data',t=>{
+  for(const mode of ['accepted','refused','repeated','adoption']){
+    const h=connected(mode==='refused'?{cas:()=>false}:{});t.after(()=>h.binding.dispose());let result;
+    if(mode==='adoption'){h.store.host.units[0].hp=37;h.store.host.units[0].ap=1.25;result=h.binding.adopt(capture(h.store.doorState,h.store.host,'adopt-owned'));assert.equal(result.committed,true);}
+    else{const request=h.request();result=h.binding.perform(request);if(mode==='repeated'){assert.equal(result.committed,true);result=h.binding.perform(request);assert.equal(result.repeated,true);}else assert.equal(result.committed,mode==='accepted');}
+    if(mode==='refused')assert.equal(result.code,'STALE_HOST');
+    const before=h.token(),saved=h.save(),state=D.serializeFarmyardDoorState(h.store.doorState);assert.notEqual(result.hostNext,h.store.host);assert.notEqual(result.next,h.store.doorState);mutateResult(result);assert.equal(h.token(),before,mode);assert.equal(h.save(),saved,mode);assert.equal(D.serializeFarmyardDoorState(h.store.doorState),state,mode);
+  }
+});
+
+test('arbitrary hostile thrown values in every postcommit service preserve committed outcomes and remaining publication',t=>{
+  let invoked=0;
+  const hostile=[()=>Object.create(null),()=>Object.defineProperty({},'message',{get(){invoked++;throw Error('getter');}}),()=>({message:{toString(){invoked++;throw Error('coercion');}}}),()=>new Proxy({},{getOwnPropertyDescriptor(){throw Error('descriptor trap');}}),()=>({[Symbol.toPrimitive](){invoked++;throw Error('coercion');}})];
+  for(const service of ['invalidateRoutes','publishVisibility','publishColliders','present'])for(const make of hostile){
+    const h=connected({[service](){throw make();}});t.after(()=>h.binding.dispose());const result=h.binding.perform(h.request());assert.equal(result.committed,true);assert.equal(result.ok,true);assert.equal(result.presentationErrors.length,1);assert.equal(result.presentationErrors[0].service,service);assert.equal(typeof result.presentationErrors[0].message,'string');assert.equal(result.publicationStopped,null);assert.deepEqual(h.publications.map(value=>value.name),['invalidateRoutes','publishVisibility','publishColliders','present']);assert.equal(h.store.host.interactables[0].open,true);assert.equal(h.store.doorState.receipts.length,1);assert.ok(h.save().length>0);
+  }
+  assert.equal(invoked,0);
+});
+
+test('read/geometry disposal prevents CAS; the expiring final CAS fence prevents writes after disposal or callback return',t=>{
+  for(const service of ['read','geometry']){
+    const h=connected({[service](owner){owner.binding.dispose();}}),before=h.token(),saved=h.save();t.after(()=>h.binding.dispose());assert.throws(()=>h.binding.perform(h.request()),error=>error.code==='DISPOSED');assert.equal(h.candidates.length,0);assert.equal(h.publications.length,0);assert.equal(h.token(),before);assert.equal(h.save(),saved);
+  }
+  const h=connected({beforeWrite(owner,candidate){assert.equal(candidate.canCommit(),true);owner.binding.dispose();assert.equal(candidate.canCommit(),false);}}),before=h.token();t.after(()=>h.binding.dispose());const result=h.binding.perform(h.request());assert.equal(result.committed,false);assert.equal(result.code,'DISPOSED');assert.equal(h.token(),before);assert.equal(h.publications.length,0);assert.equal(h.candidates[0].canCommit(),false);
+  const success=connected({invalidateRoutes(owner){assert.equal(owner.candidates[0].canCommit(),false,'The write fence must close before postcommit services.');}});t.after(()=>success.binding.dispose());assert.equal(success.binding.perform(success.request()).committed,true);const expired=success.candidates[0].canCommit;assert.equal(expired(),false);success.hooks.beforeWrite=()=>assert.equal(expired(),false,'An old fence cannot revive during a later operation.');assert.equal(success.binding.perform(success.request('close','fence-close')).committed,true);
+});
+
+test('same-connection reentry is refused throughout borrowed services and cannot publish a stale nested close',t=>{
+  for(const service of ['read','geometry','beforeWrite','invalidateRoutes','publishVisibility','publishColliders','present']){
+    let attempted=false;const h=connected({[service](owner){if(attempted)return;attempted=true;assert.throws(()=>owner.binding.perform(owner.request('close','nested-close')),error=>error.code==='REENTRANT_OPERATION');assert.throws(()=>owner.binding.save(),error=>error.code==='REENTRANT_OPERATION');}});t.after(()=>h.binding.dispose());const result=h.binding.perform(h.request());assert.equal(result.committed,true,service);assert.equal(h.store.host.interactables[0].open,true);assert.equal(h.candidates.length,1);assert.equal(h.publications.length,4);assert.equal(h.store.doorState.receipts.length,1);
+  }
+  const uncaught=connected({invalidateRoutes(owner){owner.binding.perform(owner.request('close','uncaught-nested-close'));}});t.after(()=>uncaught.binding.dispose());const result=uncaught.binding.perform(uncaught.request());assert.equal(result.committed,true);assert.equal(result.presentationErrors[0].service,'invalidateRoutes');assert.equal(uncaught.store.host.interactables[0].open,true);assert.equal(uncaught.store.doorState.receipts.length,1);
+});
+
+test('disposal after acknowledged write stops further publications without undoing the accepted action',t=>{
+  const names=['invalidateRoutes','publishVisibility','publishColliders','present'];
+  for(const service of ['afterWrite',...names]){const h=connected({[service](owner){owner.binding.dispose();}});t.after(()=>h.binding.dispose());const result=h.binding.perform(h.request());assert.equal(result.committed,true,service);assert.equal(result.ok,true);assert.equal(result.publicationStopped,'disposed');assert.equal(h.store.host.interactables[0].open,true);assert.equal(h.store.doorState.receipts.length,1);assert.equal(h.publications.length,service==='afterWrite'?0:names.indexOf(service)+1);assert.equal(h.candidates[0].canCommit(),false);assert.ok(h.save().length>0);}
+  const h=connected();t.after(()=>h.binding.dispose());let committed=false;h.hooks.afterWrite=()=>{committed=true;};h.hooks.read=owner=>{if(committed)owner.binding.dispose();};const result=h.binding.perform(h.request());assert.equal(result.committed,true);assert.equal(result.publicationStopped,'disposed');assert.equal(h.publications.length,0);
+});
+
+test('a later independent authority change or unreadable authority suppresses remaining stale publication',t=>{
+  const h=connected({invalidateRoutes(owner){const closing=D.stageFarmyardDoorHost(owner.store.doorState,owner.store.host,owner.request('close','other-owner-close'),{geometry:Source.geometry(owner.store.host)});assert.equal(closing.ok,true);owner.store.doorState=closing.next;owner.store.host=closing.hostNext;}});t.after(()=>h.binding.dispose());const opening=h.request(),result=h.binding.perform(opening);assert.equal(result.committed,true);assert.equal(result.publicationStopped,'stale');assert.deepEqual(h.publications.map(value=>value.name),['invalidateRoutes']);assert.equal(h.store.host.interactables[0].open,false);assert.equal(h.binding.perform(opening).repeated,true);assert.equal(h.publications.length,1);assert.ok(h.save().length>0);
+  const broken=connected({afterWrite(owner){owner.hooks.read=()=>{throw Object.create(null);};}});t.after(()=>broken.binding.dispose());const accepted=broken.binding.perform(broken.request());assert.equal(accepted.committed,true);assert.equal(accepted.publicationStopped,'unavailable');assert.equal(accepted.presentationErrors[0].service,'read');assert.equal(broken.publications.length,0);assert.ok(broken.save().length>0);
+});
+
+test('unknown before/after-write exceptions and invalid acknowledgements preserve original commands for quiet recovery',t=>{
+  for(const mode of ['throw-before','throw-after','invalid-before','invalid-after']){
+    const h=connected(),request=h.request(),initial=h.token();t.after(()=>h.binding.dispose());
+    if(mode==='throw-before')h.hooks.beforeWrite=()=>{throw Object.create(null);};
+    if(mode==='throw-after')h.hooks.afterWrite=()=>{throw Object.defineProperty({},'message',{get(){throw Error('must not invoke');}});};
+    if(mode==='invalid-before')h.hooks.cas=()=>undefined;
+    if(mode==='invalid-after')h.hooks.ack=()=>Object.create(null);
+    const result=h.binding.perform(request);assert.equal(result.code,'COMMIT_OUTCOME_UNKNOWN');assert.equal(result.committed,null);assert.deepEqual(result.recovery.command,request);assert.equal(typeof result.recovery.receiptId,'string');assert.deepEqual(result.consequences,[]);assert.equal(result.presentation,null);assert.equal(h.publications.length,0);const after=mode.endsWith('after');assert.equal(h.store.doorState.receipts.length,after?1:0);if(!after)assert.equal(h.token(),initial);const current=h.token();mutateResult(result);assert.equal(h.token(),current);
+    h.hooks={};const recovered=h.binding.perform(request);assert.equal(recovered.ok,true);assert.equal(recovered.repeated,after);assert.equal(recovered.committed,!after);assert.equal(h.store.doorState.receipts.length,1);assert.equal(h.store.host.units[0].ap,11);assert.equal(h.publications.length,after?0:4);assert.ok(h.save().length>0);assert.equal(h.candidates[0].canCommit(),false);
+  }
+  const h=connected({afterWrite(){throw Error('acknowledgement lost after the durable write');}});t.after(()=>h.binding.dispose());const original=h.request(),unknown=h.binding.perform(original);assert.equal(unknown.committed,null);h.hooks={};const hero=Source.hero(h.store.host),startY=hero.y;assert.equal(Source.move(h.store.host,hero,hero.x,hero.y+.1),true);for(let step=0;step<4;step++)Source.tick(h.store.host,.05);assert.ok(hero.y>startY);hero.hp=37;hero.ap=1.25;assert.equal(h.binding.adopt(capture(h.store.doorState,h.store.host,'recovery-movement')).committed,true);assert.equal(h.binding.perform(h.request('close','recovery-close')).committed,true);const current=h.token(),saved=h.save(),writes=h.candidates.length,published=h.publications.length;const repeated=h.binding.perform(unknown.recovery.command);assert.equal(repeated.repeated,true);assert.equal(repeated.committed,false);assert.equal(h.candidates.length,writes);assert.equal(h.publications.length,published);assert.equal(h.token(),current);assert.equal(h.save(),saved);assert.equal(h.store.host.interactables[0].open,false);assert.equal(h.store.host.units[0].hp,37);assert.equal(h.store.host.units[0].ap,.25);const loaded=D.openFarmyardDoorHostSave(saved,{geometryForHost:Source.geometry});h.store.host=loaded.host;h.store.doorState=loaded.doorState;assert.equal(h.binding.perform(original).repeated,true);assert.equal(h.token(),current);assert.equal(h.publications.length,published);
+  const changedIntent=connected({cas(){throw Error('before write');}});t.after(()=>changedIntent.binding.dispose());const request=changedIntent.request(),captured=clone(request);changedIntent.hooks.read=()=>{request.id='borrowed-read-mutation';};const outcome=changedIntent.binding.perform(request);assert.equal(outcome.committed,null);assert.deepEqual(outcome.recovery.command,captured,'Capture the original typed command before any borrowed service runs.');changedIntent.hooks={};assert.equal(changedIntent.binding.perform(outcome.recovery.command).committed,true);assert.equal(changedIntent.store.doorState.receipts[0].command.id,captured.id);
+});
+
+test('borrowed query inputs/outputs cannot retain aliases into installed host, saved loads or later publications',t=>{
+  const loans=[],rawLoans=[],h=connected({geometry(owner,input){loans.push(input);rawLoans.push(Source.geometry(input));},invalidateRoutes(){for(const boxes of rawLoans)for(const box of boxes)box.x0=-999;}});t.after(()=>h.binding.dispose());const result=h.binding.perform(h.request());assert.equal(result.committed,true);assert.equal(result.presentationErrors.length,0);const before=h.token(),saved=h.save();for(const loan of loans){loan.units[0].hp=-999;loan.seen.clear();}assert.equal(h.token(),before);assert.equal(h.save(),saved);const published=h.publications.find(value=>value.name==='publishColliders').value.colliders.find(box=>box.interactionId===h.store.host.interactables[0].id);assert.equal(published.x0,D.farmyardDoorColliders(h.store.doorState)[0].x0);
+  let loadedQuery;const restored=D.openFarmyardDoorHostSave(saved,{geometryForHost(input){loadedQuery=input;return Source.geometry(input);}}),loadedToken=D.farmyardDoorHostToken(restored.host);loadedQuery.units[0].hp=-999;loadedQuery.seen.clear();assert.equal(D.farmyardDoorHostToken(restored.host),loadedToken);
+});
+
+test('legacy omitted flags preserve source refresh write presence and subsequent endTurn behavior without load/adopt normalization',()=>{
+  const host=ready({isolated:true}),door=host.interactables[0],hero=Source.hero(host),guard=host.units.find(unit=>unit.team==='guard');guard.x=door.x+.75;guard.y=door.y;guard.heading=180;delete hero.isMoving;delete guard.alert;delete guard.lastKnown;delete guard.alertAge;
+  const unseen=host.units.filter(unit=>unit.team==='guard')[1];unseen.x=36;unseen.y=29;unseen.heading=0;delete unseen.isMoving;delete unseen.alert;delete unseen.lastKnown;
+  const original=clone(host),state=sourceState(host),request=command(state,door,'open','legacy-open'),saved=D.serializeFarmyardDoorHostSave(state,host,{geometry:Source.geometry(host)}),loaded=D.openFarmyardDoorHostSave(saved,{geometryForHost:Source.geometry});for(const key of ['isMoving'])assert.equal(Object.hasOwn(loaded.host.units[0],key),false);for(const key of ['alert','lastKnown','alertAge'])assert.equal(Object.hasOwn(loaded.host.units.find(unit=>unit.id===guard.id),key),false);
+  const changed=clone(host);changed.units[0].hp=37;const adopted=D.adoptFarmyardDoorHost(state,changed,capture(state,changed,'legacy-injury'),{geometry:Source.geometry(changed)});assert.equal(adopted.ok,true);assert.equal(Object.hasOwn(adopted.hostNext.units[0],'isMoving'),false);assert.equal(Object.hasOwn(adopted.hostNext.units.find(unit=>unit.id===guard.id),'alertAge'),false);
+  const result=D.stageFarmyardDoorHost(state,host,request,{geometry:Source.geometry(host)});assert.equal(result.ok,true);assert.equal(Source.performInteraction(original,door.id,'open').ok,true);assert.equal(D.farmyardDoorHostToken(result.hostNext),D.farmyardDoorHostToken(original));assert.equal(result.hostNext.units[0].isMoving,false);assert.equal(result.hostNext.units.find(unit=>unit.id===guard.id).alertAge,0);for(const key of ['isMoving','alert','lastKnown'])assert.equal(Object.hasOwn(result.hostNext.units.find(unit=>unit.id===unseen.id),key),false,key);
+  assert.equal(Source.endTurn(original),true);assert.equal(Source.endTurn(result.hostNext),true);assert.equal(result.hostNext.units.find(unit=>unit.id===guard.id).alertAge,1);assert.equal(Number.isFinite(result.hostNext.units.find(unit=>unit.id===guard.id).alertAge),true);assert.equal(D.farmyardDoorHostToken(result.hostNext),D.farmyardDoorHostToken(original));
+  const reordered=ready({isolated:true}),reorderedDoor=reordered.interactables[0],reorderedHero=Source.hero(reordered),reorderedGuard=reordered.units.find(unit=>unit.team==='guard');reorderedGuard.x=reorderedDoor.x+.75;reorderedGuard.y=reorderedDoor.y;reorderedGuard.heading=180;reorderedGuard.lastKnown={y:reorderedHero.y,x:reorderedHero.x};reorderedGuard.alert=true;reorderedGuard.alertAge=0;const expected=clone(reordered),reorderedState=sourceState(reordered),written=D.stageFarmyardDoorHost(reorderedState,reordered,command(reorderedState,reorderedDoor,'open','last-known-write'),{geometry:Source.geometry(reordered)});assert.equal(Source.performInteraction(expected,reorderedDoor.id,'open').ok,true);assert.equal(D.farmyardDoorHostToken(written.hostNext),D.farmyardDoorHostToken(expected),'Even an equal lastKnown value is rewritten with source field order.');
+  const untouched=ready({isolated:true}),distant=untouched.units.find(unit=>unit.team==='guard');distant.x=36;distant.y=29;distant.heading=0;delete distant.alertAge;const untouchedState=sourceState(untouched),untouchedWire=D.serializeFarmyardDoorHostSave(untouchedState,untouched,{geometry:Source.geometry(untouched)}),untouchedLoad=D.openFarmyardDoorHostSave(untouchedWire,{geometryForHost:Source.geometry});assert.equal(Object.hasOwn(untouchedLoad.host.units.find(unit=>unit.id===distant.id),'alertAge'),false);untouched.units[0].hp=37;const unchangedAge=D.adoptFarmyardDoorHost(untouchedState,untouched,capture(untouchedState,untouched,'unseen-counter'),{geometry:Source.geometry(untouched)});assert.equal(unchangedAge.ok,true);assert.equal(Object.hasOwn(unchangedAge.hostNext.units.find(unit=>unit.id===distant.id),'alertAge'),false);
+});

@@ -32,7 +32,7 @@ export function projectSource(input,options){
   const actors=list(source.units,128,'/source/units').map((unit,i)=>{
     const at='/source/units/'+i;rejectFacts(unit,at);closed(unit,unitKeys,at);if(unit.burningTurns)fail('UNSUPPORTED_FEATURE',at+'/burningTurns','Active fire/control is outside this profile.');if(!plain(unit.ammo)||!Array.isArray(unit.pack))fail('UNSUPPORTED_SOURCE',at,'Retain finite source ammunition and pack records.');
     const carrying=unit.weapon==='flamethrower'||unit.pack.some(item=>item?.type==='weapon'&&item.kind==='flamethrower');if(carrying&&!unit.tanksExploded&&(unit.ammo.flamethrower??0)>0)fail('UNSUPPORTED_FEATURE',at+'/ammo/flamethrower','Fueled actors require their complete reactive profile.');
-    const normalized={...unit,z:unit.z??0,cone:unit.cone??null,burningTurns:unit.burningTurns??0,lastKnown:unit.lastKnown??null,alertAge:unit.alertAge??0};return Object.fromEntries(ACTOR_FIELDS.map(key=>[key,normalized[key]]));
+    const normalized={...unit,z:unit.z??0,cone:unit.cone??null,burningTurns:unit.burningTurns??0,isMoving:unit.isMoving===undefined?false:unit.isMoving,alert:unit.alert===undefined?false:unit.alert,lastKnown:unit.lastKnown??null,alertAge:unit.alertAge??0};return Object.fromEntries(ACTOR_FIELDS.map(key=>[key,normalized[key]]));
   });
   const raw=list(settings.geometry,8192,'/options/geometry'),doorById=new Map(doors.map(door=>[door.id,door])),found=new Set(),boxKeys=['id','x0','x1','y0','y1','z0','height','kind','windowPart','interactionId','cover','windowId','partId','role','paneId','propId','source','material'],staticBoxes=[],usedIds=new Set(doorById.keys());let serial=0;
   for(const [i,box]of raw.entries()){
