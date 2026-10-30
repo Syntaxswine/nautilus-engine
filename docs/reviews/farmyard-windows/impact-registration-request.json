@@ -1,10 +1,10 @@
 {
   "kind": "nautilus-window-impact-registration-request",
   "version": 1,
-  "status": "Unapplied integration request; automatic approval review rejected edits to root registration",
+  "status": "Applied and locally verified on the coder branch; pending Architect integration review, with no merge or release approval",
   "implementationBase": "38db463ac44acb5d9a93d3d94a7532123d0c121c",
   "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
-  "reason": "Root exports, global schema/capability registration and package/test metadata are integration-owned; explicit approval is required before applying them.",
+  "reason": "Automatic approval review initially rejected integration-owned root edits. On 2026-10-30 Architect, Nautilus Engine reviewed this exact request at cc23bea012abaca8bd552b0cece59fee45e8c5ef and explicitly approved only scoped registration, declared proof, four gates and branch commit/push for subsequent integration review. That decision does not authorize merge or release and does not independently accept the entire implementation.",
   "entries": {
     "./windows": "./packages/windows-core/index.js",
     "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js"
@@ -43,6 +43,18 @@
     "tests/farmyard-windows-queries.test.mjs: replace absent root-entry expectations with the actual declared targets after approval"
   ],
   "testBehavior": "Requires actual declared core exports, all three registered schemas and support-file whitelist. Without those it refuses FULL_PROFILE_REGISTRATION_PENDING. Only explicit --candidate enables the clearly labelled private overlay.",
-  "afterApproval": "Apply only these entry/schema/capability/support/test changes, regenerate the exact package whitelist with the existing distribution tool, run the declared installed proof and four gates, commit/push for Architect review.",
+  "afterApproval": "Only these entry/schema/capability/support/test changes were applied and the exact package whitelist regenerated. The declared installed proof and four gates passed; branch delivery is for Architect review only.",
+  "validation": {
+    "date": "2026-10-30",
+    "implementationCommit": "cc23bea012abaca8bd552b0cece59fee45e8c5ef",
+    "declaredPackageCommand": "node tools/test-farmyard-window-impacts-package.mjs",
+    "declared": true,
+    "installedAssertions": "Both exports, all three installed schema URLs/URIs and manifest versions, all seven support files, engine-only pane capability and six missing host promises; retained save/retry conformance with 43 hash-verified original files outside the runtime package.",
+    "requiredGates": {"npm run check":"pass","npm test":"606 passed","npm run test:upstream":"32 passed","npm run build":"pass; 445 module paths"},
+    "runtimeModules": 14,
+    "runtimeBytes": 92864,
+    "whitelistFilesAdded": 17,
+    "actualArchiveEvidence": "artifacts/farmyard-windows/installed-impact-report.json; archive SHA-256 is recorded outside the shipped request to avoid a self-referential package hash"
+  },
   "preserved": "No version bump, CI workflow edit, release/tag, upstream/consumer pin, renderer, Editor/UI, other-game adoption or private audience change is requested. Released door/grenade capabilities continue refusing windows before costs."
 }

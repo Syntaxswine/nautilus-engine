@@ -130,9 +130,9 @@ test('maximum source population remains within the declared aggregate geometry s
   prep.document.placements.push({...placements[0],id:'overflow'});refused(()=>compile(prep),'INVALID_LIST');
 });
 
-test('geometry-only structural schema remains reproducible and root release metadata stays unregistered',()=>{
+test('geometry-only structural schema remains reproducible and registered entries preserve the release version',()=>{
   const file=new URL('../packages/windows-core/window-geometry-v1.schema.json',import.meta.url);assert.equal(fs.readFileSync(file,'utf8'),JSON.stringify(windowGeometrySchema(),null,2)+'\n');
-  const root=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url)));assert.equal(root.version,'0.10.0');assert.equal(root.exports['./windows'],undefined);assert.equal(root.exports['./adapters/farmyard/windows'],undefined);
+  const root=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url)));assert.equal(root.version,'0.10.0');assert.equal(root.exports['./windows'],'./packages/windows-core/index.js');assert.equal(root.exports['./adapters/farmyard/windows'],'./packages/adapters/farmyard/windows.js');
   const bad=preparation();bad.document.placements[0].rotation=null;refused(()=>compile(bad),'UNSUPPORTED_ROTATION');const ground=preparation();ground.document.placements[0].z=null;refused(()=>compile(ground),'UNSUPPORTED_FLOOR');refused(()=>farmyardWindowDefinition({id:'window.full.clear.1m',joins:null}),'INVALID_RECORD');
   let calls=0;refused(()=>windows.openWindowGeometry(windows.serializeWindowGeometry(compile()),{get definitions(){calls++;return definitions;}}),'INVALID_OPTIONS');assert.equal(calls,0);
 });

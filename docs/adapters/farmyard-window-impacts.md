@@ -4,15 +4,17 @@ Status: **bounded implementation candidate for Architect review**. This continue
 accepted compile/query head `38db463ac44acb5d9a93d3d94a7532123d0c121c` on
 `codex/farmyard-window-impacts`. It supplies headless state, confirmed-impact,
 transaction and complete retained-save boundaries. Public root registration is
-**unapplied**: automatic approval review rejected that integration-owned change.
+**prepared on this branch for Architect integration review**. After the initial
+automatic approval rejection, Architect explicitly approved scoped preparation
+on 2026-10-30 against implementation `cc23bea012abaca8bd552b0cece59fee45e8c5ef`.
 [The exact registration request](../reviews/farmyard-windows/impact-registration-request.json)
-is reviewable separately. Until it is approved and the declared package proof
-passes, full-profile adoption remains unavailable; the installed proof is an
-explicit private overlay. Engine release version and consumer pins are unchanged.
+records that scope. The default installed proof requires the declared entries,
+schema URLs and support whitelist. Architect acceptance, merging, release and
+game adoption remain separate. Engine release version and consumer pins are unchanged.
 
 | Builder field | Implemented boundary |
 | --- | --- |
-| Proposed entries | `./windows` (kernel/geometry), `./adapters/farmyard/windows` (native definitions and retained host connector) |
+| Registered branch entries | `./windows` (kernel/geometry), `./adapters/farmyard/windows` (native definitions and retained host connector) |
 | Schema/API | `nautilus-window-pane-state` v1; `nautilus-farmyard-window-host-save` v1; geometry snapshot v1 |
 | Named policy | `farmyard-quarter-turn-first-hit-pane-v1`; exact accepted native bounds/joins/IDs/quarter turns; a confirmed first glass hit stops and breaks one pane |
 | Authority | Explicit trusted synchronous host callback, bound through an opaque authority handle. A query, saved mask or `confirmed:true` value cannot authorize a fresh transition. |
@@ -95,9 +97,9 @@ services, a metadata-only promise or version 2 refuse. The bound connection's
 manifest describes actual bindings; the engine manifest must never advertise
 these host promises. `windowRequirements` requires pane behavior plus all six for
 authored live panes; `windowCompatibility`/`assertWindowCompatible` give individual
-service/version diagnostics and binding remedies. Root currently has not
-registered the new engine schema/behavior either, so offline candidate APIs do
-not imply package availability.
+service/version diagnostics and binding remedies. The branch registers the three
+engine schemas and pane behavior, so an engine-only negotiation still refuses
+each of the six missing services. Offline loaders do not establish a live host.
 
 `binding.query(ray)` returns a read-only complete-world candidate, exact host/query
 tokens and packet scope. The native window query is independently checked before
@@ -186,8 +188,9 @@ door/grenade capability IDs continue refusing windows before costs.
 Reproduce: `node --test tests/farmyard-window-impacts.test.mjs`,
 `node tools/farmyard-window-state-schemas.mjs`,
 `node tools/check-farmyard-window-queries.mjs --write`, and
-`node tools/test-farmyard-window-impacts-package.mjs --candidate`.
+`node tools/test-farmyard-window-impacts-package.mjs`.
 The package proof removes temporary stage/source fixtures/consumer in `finally`;
-no server, browser or watcher is started. **After root registration approval**,
-run the package tool without `--candidate` to require actual declared exports,
-schemas and whitelist, then run the four repository gates and stop for review.
+no server, browser or watcher is started. The default proof requires actual
+declared exports, installed schema URLs and support files. An explicit
+`--candidate` remains available for private overlay diagnostics but cannot replace
+the declared proof. Run all four repository gates and stop for Architect review.
