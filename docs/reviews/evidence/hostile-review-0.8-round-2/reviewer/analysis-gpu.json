@@ -1,0 +1,650 @@
+{
+ "source": "bench-editor-gpu.json",
+ "runs": 4,
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "logicalCpus": 16,
+  "loadavg": [
+   0,
+   0,
+   0
+  ]
+ },
+ "browsers": [
+  {
+   "backend": "gpu",
+   "version": "156.0.4314.56",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  }
+ ],
+ "trees": {
+  "a": {
+   "dir": "<a>",
+   "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+   "status": ""
+  },
+  "b": {
+   "dir": "<b>",
+   "head": "f2a63929600abb224ae57443475b056070825def",
+   "status": ""
+  }
+ },
+ "served": {
+  "a": {
+   "files": 337,
+   "digest": "44fa643659a925bd56284fc0e9f68e6408f7000b83c2329b727c4c2bf5cbe223"
+  },
+  "b": {
+   "files": 337,
+   "digest": "1f9539b0dd45deb78b68a27b7c1dd21715b06f4000b773902ab0c2af3bd06c82"
+  }
+ },
+ "rows": [
+  {
+   "map": "w0-blank",
+   "view": "overview",
+   "calls": "1121 -> 1121",
+   "shadow": "554 -> 554",
+   "aMs": 5.01,
+   "bMs": 4.97,
+   "whole": {
+    "median": 0.99,
+    "min": 0.94,
+    "max": 1.03
+   },
+   "assets": null
+  },
+  {
+   "map": "w0-blank",
+   "view": "close",
+   "calls": "419 -> 419",
+   "shadow": "303 -> 303",
+   "aMs": 2.79,
+   "bMs": 2.79,
+   "whole": {
+    "median": 1.05,
+    "min": 0.94,
+    "max": 1.07
+   },
+   "assets": null
+  },
+  {
+   "map": "w0-blank",
+   "view": "cutaway",
+   "calls": "1121 -> 1121",
+   "shadow": "554 -> 554",
+   "aMs": 5.2,
+   "bMs": 5.1,
+   "whole": {
+    "median": 1.02,
+    "min": 0.99,
+    "max": 1.05
+   },
+   "assets": null
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "overview",
+   "calls": "4155 -> 1919",
+   "shadow": "2026 -> 906",
+   "aMs": 16.79,
+   "bMs": 10.07,
+   "whole": {
+    "median": 1.67,
+    "min": 1.55,
+    "max": 1.77
+   },
+   "assets": {
+    "perRunMedian": 2.36,
+    "min": 2.12,
+    "max": 2.62,
+    "fromMedians": 2.31,
+    "candidateAssetMs": 5.1,
+    "candidateAssetMsRange": [
+     4.72,
+     5.15
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "close",
+   "calls": "1678 -> 732",
+   "shadow": "1190 -> 468",
+   "aMs": 7.47,
+   "bMs": 4.75,
+   "whole": {
+    "median": 1.57,
+    "min": 1.53,
+    "max": 1.62
+   },
+   "assets": {
+    "perRunMedian": 2.22,
+    "min": 2.09,
+    "max": 2.72,
+    "fromMedians": 2.39,
+    "candidateAssetMs": 1.96,
+    "candidateAssetMsRange": [
+     1.8,
+     2.2
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "cutaway",
+   "calls": "1948 -> 1567",
+   "shadow": "970 -> 778",
+   "aMs": 8.44,
+   "bMs": 6.57,
+   "whole": {
+    "median": 1.29,
+    "min": 1.18,
+    "max": 1.37
+   },
+   "assets": {
+    "perRunMedian": 2.34,
+    "min": 1.57,
+    "max": 3.26,
+    "fromMedians": 2.19,
+    "candidateAssetMs": 1.47,
+    "candidateAssetMsRange": [
+     1.25,
+     1.8
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "overview",
+   "calls": "4480 -> 1877",
+   "shadow": "2209 -> 896",
+   "aMs": 25.96,
+   "bMs": 11.95,
+   "whole": {
+    "median": 2.1,
+    "min": 2.09,
+    "max": 2.29
+   },
+   "assets": {
+    "perRunMedian": 2.95,
+    "min": 2.63,
+    "max": 3.24,
+    "fromMedians": 3,
+    "candidateAssetMs": 6.98,
+    "candidateAssetMsRange": [
+     6.6,
+     7.03
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "close",
+   "calls": "1934 -> 720",
+   "shadow": "1324 -> 457",
+   "aMs": 12.61,
+   "bMs": 5.4,
+   "whole": {
+    "median": 2.34,
+    "min": 2.21,
+    "max": 2.49
+   },
+   "assets": {
+    "perRunMedian": 3.92,
+    "min": 2.92,
+    "max": 4.33,
+    "fromMedians": 3.76,
+    "candidateAssetMs": 2.61,
+    "candidateAssetMsRange": [
+     2.45,
+     2.85
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "cutaway",
+   "calls": "2596 -> 1512",
+   "shadow": "1297 -> 750",
+   "aMs": 14.77,
+   "bMs": 7.71,
+   "whole": {
+    "median": 1.92,
+    "min": 1.83,
+    "max": 2.01
+   },
+   "assets": {
+    "perRunMedian": 3.39,
+    "min": 2.87,
+    "max": 4.42,
+    "fromMedians": 3.67,
+    "candidateAssetMs": 2.61,
+    "candidateAssetMsRange": [
+     2.39,
+     2.94
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "overview",
+   "calls": "8657 -> 1941",
+   "shadow": "4353 -> 964",
+   "aMs": 35.65,
+   "bMs": 9.22,
+   "whole": {
+    "median": 3.76,
+    "min": 3,
+    "max": 4.08
+   },
+   "assets": {
+    "perRunMedian": 6.99,
+    "min": 4.46,
+    "max": 8.88,
+    "fromMedians": 7.21,
+    "candidateAssetMs": 4.25,
+    "candidateAssetMsRange": [
+     3.87,
+     4.3
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "close",
+   "calls": "3894 -> 785",
+   "shadow": "2787 -> 517",
+   "aMs": 18.81,
+   "bMs": 4.8,
+   "whole": {
+    "median": 4,
+    "min": 3.89,
+    "max": 4.08
+   },
+   "assets": {
+    "perRunMedian": 8.24,
+    "min": 7.37,
+    "max": 8.79,
+    "fromMedians": 7.96,
+    "candidateAssetMs": 2.01,
+    "candidateAssetMsRange": [
+     1.85,
+     2.25
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "cutaway",
+   "calls": "4486 -> 1874",
+   "shadow": "2251 -> 931",
+   "aMs": 19.8,
+   "bMs": 9.35,
+   "whole": {
+    "median": 2.14,
+    "min": 2.05,
+    "max": 2.25
+   },
+   "assets": {
+    "perRunMedian": 3.52,
+    "min": 3.11,
+    "max": 3.93,
+    "fromMedians": 3.44,
+    "candidateAssetMs": 4.25,
+    "candidateAssetMsRange": [
+     4.03,
+     4.57
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "overview",
+   "calls": "5916 -> 1127",
+   "shadow": "2956 -> 557",
+   "aMs": 32.89,
+   "bMs": 5.61,
+   "whole": {
+    "median": 5.88,
+    "min": 5.76,
+    "max": 6.07
+   },
+   "assets": {
+    "perRunMedian": 58.01,
+    "min": 36.35,
+    "max": 75.27,
+    "fromMedians": 43.73,
+    "candidateAssetMs": 0.64,
+    "candidateAssetMsRange": [
+     0.26,
+     0.69
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "close",
+   "calls": "1618 -> 425",
+   "shadow": "1293 -> 306",
+   "aMs": 11.14,
+   "bMs": 3.48,
+   "whole": {
+    "median": 3.11,
+    "min": 2.88,
+    "max": 3.64
+   },
+   "assets": {
+    "perRunMedian": 11.78,
+    "min": 7.91,
+    "max": 19.82,
+    "fromMedians": 12.15,
+    "candidateAssetMs": 0.69,
+    "candidateAssetMsRange": [
+     0.52,
+     0.93
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "cutaway",
+   "calls": "1920 -> 1123",
+   "shadow": "954 -> 555",
+   "aMs": 10.04,
+   "bMs": 5.31,
+   "whole": {
+    "median": 1.87,
+    "min": 1.82,
+    "max": 1.97
+   },
+   "assets": {
+    "perRunMedian": 12.47,
+    "min": -99.5,
+    "max": 169,
+    "fromMedians": 22.76,
+    "candidateAssetMs": 0.21,
+    "candidateAssetMsRange": [
+     -0.01,
+     0.54
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "overview",
+   "calls": "1985 -> 1985",
+   "shadow": "986 -> 986",
+   "aMs": 10.45,
+   "bMs": 10.61,
+   "whole": {
+    "median": 0.98,
+    "min": 0.96,
+    "max": 1.03
+   },
+   "assets": {
+    "perRunMedian": 1,
+    "min": 0.94,
+    "max": 1.03,
+    "fromMedians": 0.96,
+    "candidateAssetMs": 5.64,
+    "candidateAssetMsRange": [
+     5.26,
+     5.69
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "close",
+   "calls": "701 -> 701",
+   "shadow": "519 -> 519",
+   "aMs": 4.37,
+   "bMs": 4.35,
+   "whole": {
+    "median": 1.03,
+    "min": 0.97,
+    "max": 1.06
+   },
+   "assets": {
+    "perRunMedian": 1.01,
+    "min": 0.8,
+    "max": 1.25,
+    "fromMedians": 1.02,
+    "candidateAssetMs": 1.56,
+    "candidateAssetMsRange": [
+     1.4,
+     1.8
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "cutaway",
+   "calls": "1121 -> 1121",
+   "shadow": "554 -> 554",
+   "aMs": 5.46,
+   "bMs": 5.65,
+   "whole": {
+    "median": 0.98,
+    "min": 0.91,
+    "max": 1.04
+   },
+   "assets": {
+    "perRunMedian": 0.48,
+    "min": -0.09,
+    "max": 0.93,
+    "fromMedians": 0.48,
+    "candidateAssetMs": 0.55,
+    "candidateAssetMsRange": [
+     0.33,
+     0.87
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "overview",
+   "calls": "6542 -> 1940",
+   "shadow": "3246 -> 938",
+   "aMs": 35.7,
+   "bMs": 12.22,
+   "whole": {
+    "median": 2.89,
+    "min": 2.62,
+    "max": 2.93
+   },
+   "assets": {
+    "perRunMedian": 4.23,
+    "min": 3.57,
+    "max": 4.38,
+    "fromMedians": 4.23,
+    "candidateAssetMs": 7.25,
+    "candidateAssetMsRange": [
+     6.87,
+     7.3
+    ],
+    "blankBRange": [
+     4.93,
+     5.35
+    ]
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "close",
+   "calls": "2333 -> 736",
+   "shadow": "1691 -> 468",
+   "aMs": 15.88,
+   "bMs": 5.47,
+   "whole": {
+    "median": 2.91,
+    "min": 2.62,
+    "max": 3.01
+   },
+   "assets": {
+    "perRunMedian": 4.66,
+    "min": 4.11,
+    "max": 5.51,
+    "fromMedians": 4.87,
+    "candidateAssetMs": 2.69,
+    "candidateAssetMsRange": [
+     2.52,
+     2.93
+    ],
+    "blankBRange": [
+     2.55,
+     2.95
+    ]
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "cutaway",
+   "calls": "3366 -> 1663",
+   "shadow": "1681 -> 825",
+   "aMs": 20.07,
+   "bMs": 9.96,
+   "whole": {
+    "median": 1.98,
+    "min": 1.84,
+    "max": 2.08
+   },
+   "assets": {
+    "perRunMedian": 2.97,
+    "min": 2.53,
+    "max": 3.21,
+    "fromMedians": 3.06,
+    "candidateAssetMs": 4.86,
+    "candidateAssetMsRange": [
+     4.64,
+     5.19
+    ],
+    "blankBRange": [
+     4.78,
+     5.32
+    ]
+   }
+  }
+ ],
+ "opens": [
+  {
+   "map": "w0-blank",
+   "aMs": 1320,
+   "bMs": 1404,
+   "ratio": 0.95,
+   "min": 0.83,
+   "max": 1.14
+  },
+  {
+   "map": "w1-32x-largest",
+   "aMs": 1513,
+   "bMs": 1445,
+   "ratio": 1.06,
+   "min": 0.94,
+   "max": 1.18
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "aMs": 3153,
+   "bMs": 2139,
+   "ratio": 1.49,
+   "min": 1.37,
+   "max": 1.62
+  },
+  {
+   "map": "w4-32-gross",
+   "aMs": 1830,
+   "bMs": 1546,
+   "ratio": 1.19,
+   "min": 0.99,
+   "max": 1.43
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "aMs": 1541,
+   "bMs": 1455,
+   "ratio": 1.08,
+   "min": 0.9,
+   "max": 1.26
+  },
+  {
+   "map": "w6-roofs-144",
+   "aMs": 1330,
+   "bMs": 1365,
+   "ratio": 0.98,
+   "min": 0.84,
+   "max": 1.23
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "aMs": 3252,
+   "bMs": 2149,
+   "ratio": 1.54,
+   "min": 1.41,
+   "max": 1.69
+  }
+ ]
+}

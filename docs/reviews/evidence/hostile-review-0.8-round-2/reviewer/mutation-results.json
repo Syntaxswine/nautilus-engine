@@ -1,0 +1,2514 @@
+{
+ "script": "mutate.mjs",
+ "started": "2026-10-30T06:57:30.579Z",
+ "node": "v24.15.0",
+ "head": "f2a63929600abb224ae57443475b056070825def",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "B1-order-ignores-class",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 8510,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: juniper-suite one run per material"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B2-class-order-reversed",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "expect": "equivalent for run counts (a reversed sequence keeps every contiguous range contiguous); changes only buffer order",
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 9740,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B3-C2-ascending",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3533,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: juniper-suite one run per material"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B4-gross-key-swap",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 9511,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B5-runs-never-merge",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 2839,
+     "pass": 29,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: bramble-ranch one run per material",
+      "  AssertionError [ERR_ASSERTION]: grossdale-spire at most two runs"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B6-hidden-piece-keeps-run",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 7716,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: grossdale-spire {\"view\":\"cutaway\",\"level\":1,\"showFurniture\":true} walls true"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B7-no-release",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3213,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: bramble-ranch releases the merged source arrays"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B8-dispose-leaks-batches",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 12503,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B9-glass-merged",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 5103,
+     "pass": 29,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Transparent door parts are not batched/. Input:",
+      "  \"TypeError: Cannot read properties of undefined (reading 'getX')\"",
+      "    actual: TypeError: Cannot read properties of undefined (reading 'getX')"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B10-glass-always-visible",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 5177,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: bramble-ranch {\"view\":\"cutaway\",\"level\":0} walls true"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B11-never-exact",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "expect": "bakes identity transforms: -0 becomes +0 and normals are renormalised",
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 19073,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B12-uv-swapped",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 14426,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B13-normals-not-rotated",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 15304,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B14-exact-uv-dropped",
+   "files": [
+    "apps/editor/prefab-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 22967,
+     "pass": 31,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "P1-view-not-forwarded",
+   "files": [
+    "apps/editor/prefab-providers.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/editor-roof-paint.test.mjs tests/building-library-lifecycle.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 20266,
+     "pass": 30,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected \"actual\" not to be strictly deep-equal to:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W1-shader-no-width",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 826,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /#include <begin_vertex>\\n\\ttransformed\\.x \\*= wallWidth;/. Input:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W2-no-depth-material",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 730,
+     "pass": 5,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W3-depth-material-unpatched",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 924,
+     "pass": 5,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W4-bounds-quarter",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 868,
+     "pass": 5,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W5-scaleU-inverted",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 492,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: 0.05 u of vertex 1"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W6-widths-all-one",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 498,
+     "pass": 5,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W7-matrices-slot-zero",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 551,
+     "pass": 5,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W8-geometry-not-disposed",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 462,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Each rebuild releases the previous geometries"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W9-no-program-key",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 490,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W10-uv-unscaled",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-wall-scene.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 480,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /vMapUv = \\( mapTransform \\* vec3\\( wallScaleU > 0\\.5 \\? uv\\.x \\* wallWidth : uv\\.x, uv\\.y, 1\\.0 \\) \\)\\.xy;/. Input:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "F1-never-release",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1122,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the last instance releases each template geometry once"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "F2-no-refcount",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1606,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the last instance releases each template geometry once"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "F3-inherits-current-view",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1250,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: a new instance starts in the default view"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "F4-stale-template-kept",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1800,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: a released template is rebuilt"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "F5-views-shared",
+   "files": [
+    "packages/assets/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1585,
+     "pass": 4,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G1-channel-keeps-open-batches",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 15290,
+     "pass": 16,
+     "fail": 5,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: catalogue submissions 426 of 1499"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G2-normals-not-grown",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 16567,
+     "pass": 17,
+     "fail": 4,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "  Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: bramble-ranch"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G3-flip-without-zero-start",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "expect": "equivalent: only the sign test <0 reads the sum, and -0<0 is false",
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 15178,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G4-normal-sqrt-not-hypot",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 17781,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G5-glass-opacity-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf"
+   ],
+   "note": "materials are outside the geometry digest; npm run build:buildings run as check-building-catalog instructs",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 13116,
+     "pass": 17,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 234,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G5b-glass-opacity-hash-only",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json"
+   ],
+   "note": "renderer hash line updated by hand, exports not rebuilt",
+   "hooks": [
+    {
+     "hook": "catalogue-sha",
+     "ok": true
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10402,
+     "pass": 20,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1983,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "if(fs.readFileSync(path.join(root,'packages/prefab-core/original-catalogue.js'),'utf8')!==originalCatalogueSource())throw Error('Original building registry differs from reviewed source identities and full model envelopes.');\r",
+      "Error: Original building registry differs from reviewed source identities and full model envelopes.\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G6-roughness-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf"
+   ],
+   "note": "materials are outside the geometry digest",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 9807,
+     "pass": 17,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 237,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G7-cutaway-shows-trim-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf"
+   ],
+   "note": "setView rules are outside the digest and the exports",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 11191,
+     "pass": 20,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1891,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "if(fs.readFileSync(path.join(root,'packages/prefab-core/original-catalogue.js'),'utf8')!==originalCatalogueSource())throw Error('Original building registry differs from reviewed source identities and full model envelopes.');\r",
+      "Error: Original building registry differs from reviewed source identities and full model envelopes.\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G8-door-swing-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "the open-door envelope is regenerated into the registry",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    },
+    {
+     "hook": "registry",
+     "ok": true,
+     "out": "Verified 48 original prefab source bindings and closed/open-door envelopes."
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10212,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3348,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G8b-door-swing-rebuilt-no-registry",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf"
+   ],
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10285,
+     "pass": 20,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1894,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "if(fs.readFileSync(path.join(root,'packages/prefab-core/original-catalogue.js'),'utf8')!==originalCatalogueSource())throw Error('Original building registry differs from reviewed source identities and full model envelopes.');\r",
+      "Error: Original building registry differs from reviewed source identities and full model envelopes.\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G9-stairs-refreshed-no-exports",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "tests/fixtures/original-building-geometry.json",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "geometry change, then renderer hash, fixture and registry refreshed; exports left stale",
+   "hooks": [
+    {
+     "hook": "catalogue-sha",
+     "ok": true
+    },
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    },
+    {
+     "hook": "registry",
+     "ok": true,
+     "out": "Verified 48 original prefab source bindings and closed/open-door envelopes."
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10037,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3341,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G9b-stairs-refreshed-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf",
+    "tests/fixtures/original-building-geometry.json",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "the same with npm run build:buildings",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":762822,\"authoringTriangles\":1357628,\"binaryMiB\":69.84}"
+    },
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    },
+    {
+     "hook": "registry",
+     "ok": false,
+     "out": "<sandbox>/tools/prefab-original-catalog.mjs:28\r\n if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Or"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 9927,
+     "pass": 17,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 231,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G10-stairs-raw",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json"
+   ],
+   "hooks": [
+    {
+     "hook": "catalogue-sha",
+     "ok": true
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10020,
+     "pass": 19,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: juniper-suite"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1135,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r",
+      "Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: juniper-suite\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D1-digest-ignores-bytes-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10044,
+     "pass": 20,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected \"actual\" to be strictly unequal to:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D2-digest-ignores-matrices-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10062,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D3-digest-ignores-userdata-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10183,
+     "pass": 21,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D4-digest-sorted-lines-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/prefab-registry.test.mjs tests/prefab-display-batches.test.mjs tests/shared-assets.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10149,
+     "pass": 20,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected \"actual\" to be strictly unequal to:"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "V1-check-skips-geometry",
+   "files": [
+    "tools/prefab-original-catalog.mjs"
+   ],
+   "expect": "redundant with tests/building-geometry.test.mjs on its own",
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-registry.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1032,
+     "pass": 4,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3323,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "V2-catalogue-content-edited",
+   "files": [
+    "assets/buildings/catalogue.json"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-registry.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 167,
+     "pass": 0,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 226,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      " if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/bui",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: assets/buildings/catalogue.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "V3-catalogue-content-edited-pin-off",
+   "files": [
+    "assets/buildings/catalogue.json",
+    "tools/prefab-original-catalog.mjs",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "hooks": [
+    {
+     "hook": "registry",
+     "ok": true,
+     "out": "Verified 48 original prefab source bindings and closed/open-door envelopes."
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/prefab-registry.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1143,
+     "pass": 4,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 3396,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  }
+ ],
+ "finished": "2026-10-30T07:04:51.560Z",
+ "headAfter": "f2a63929600abb224ae57443475b056070825def",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 50,
+  "killed": [
+   "B1-order-ignores-class",
+   "B3-C2-ascending",
+   "B5-runs-never-merge",
+   "B6-hidden-piece-keeps-run",
+   "B7-no-release",
+   "B9-glass-merged",
+   "B10-glass-always-visible",
+   "P1-view-not-forwarded",
+   "W1-shader-no-width",
+   "W5-scaleU-inverted",
+   "W8-geometry-not-disposed",
+   "W9-no-program-key",
+   "W10-uv-unscaled",
+   "F1-never-release",
+   "F2-no-refcount",
+   "F3-inherits-current-view",
+   "F4-stale-template-kept",
+   "F5-views-shared",
+   "G1-channel-keeps-open-batches",
+   "G2-normals-not-grown",
+   "G5-glass-opacity-rebuilt",
+   "G5b-glass-opacity-hash-only",
+   "G6-roughness-rebuilt",
+   "G7-cutaway-shows-trim-rebuilt",
+   "G8b-door-swing-rebuilt-no-registry",
+   "G9b-stairs-refreshed-rebuilt",
+   "G10-stairs-raw",
+   "D1-digest-ignores-bytes-refreshed",
+   "D4-digest-sorted-lines-refreshed",
+   "V2-catalogue-content-edited"
+  ],
+  "survived": [
+   "B2-class-order-reversed",
+   "B4-gross-key-swap",
+   "B8-dispose-leaks-batches",
+   "B11-never-exact",
+   "B12-uv-swapped",
+   "B13-normals-not-rotated",
+   "B14-exact-uv-dropped",
+   "W2-no-depth-material",
+   "W3-depth-material-unpatched",
+   "W4-bounds-quarter",
+   "W6-widths-all-one",
+   "W7-matrices-slot-zero",
+   "G3-flip-without-zero-start",
+   "G4-normal-sqrt-not-hypot",
+   "G8-door-swing-rebuilt",
+   "G9-stairs-refreshed-no-exports",
+   "D2-digest-ignores-matrices-refreshed",
+   "D3-digest-ignores-userdata-refreshed",
+   "V1-check-skips-geometry",
+   "V3-catalogue-content-edited-pin-off"
+  ],
+  "invalid": []
+ }
+}

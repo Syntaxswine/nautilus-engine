@@ -1,0 +1,109 @@
+﻿B1-order-ignores-class: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+B2-class-order-reversed: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B3-C2-ascending: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+B4-gross-key-swap: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B5-runs-never-merge: killed [node.exe --test exit 1 pass 29 fail 2 cancelled 0]
+B6-hidden-piece-keeps-run: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+B7-no-release: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+B8-dispose-leaks-batches: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B9-glass-merged: killed [node.exe --test exit 1 pass 29 fail 2 cancelled 0]
+B10-glass-always-visible: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+B11-never-exact: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B12-uv-swapped: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B13-normals-not-rotated: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+B14-exact-uv-dropped: SURVIVED [node.exe --test exit 0 pass 31 fail 0 cancelled 0]
+P1-view-not-forwarded: killed [node.exe --test exit 1 pass 30 fail 1 cancelled 0]
+W1-shader-no-width: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+W2-no-depth-material: SURVIVED [node.exe --test exit 0 pass 5 fail 0 cancelled 0]
+W3-depth-material-unpatched: SURVIVED [node.exe --test exit 0 pass 5 fail 0 cancelled 0]
+W4-bounds-quarter: SURVIVED [node.exe --test exit 0 pass 5 fail 0 cancelled 0]
+W5-scaleU-inverted: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+W6-widths-all-one: SURVIVED [node.exe --test exit 0 pass 5 fail 0 cancelled 0]
+W7-matrices-slot-zero: SURVIVED [node.exe --test exit 0 pass 5 fail 0 cancelled 0]
+W8-geometry-not-disposed: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+W9-no-program-key: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+W10-uv-unscaled: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+F1-never-release: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+F2-no-refcount: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+F3-inherits-current-view: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+F4-stale-template-kept: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+F5-views-shared: killed [node.exe --test exit 1 pass 4 fail 1 cancelled 0]
+G1-channel-keeps-open-batches: killed [node.exe --test exit 1 pass 16 fail 5 cancelled 0]
+G2-normals-not-grown: killed [node.exe --test exit 1 pass 17 fail 4 cancelled 0]
+G3-flip-without-zero-start: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0]
+G4-normal-sqrt-not-hypot: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0]
+G5-glass-opacity-rebuilt: killed [node.exe --test exit 1 pass 17 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G5b-glass-opacity-hash-only: killed [node.exe --test exit 1 pass 20 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G6-roughness-rebuilt: killed [node.exe --test exit 1 pass 17 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G7-cutaway-shows-trim-rebuilt: killed [node.exe --test exit 1 pass 20 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G8-door-swing-rebuilt: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0] [node.exe tools/check.mjs exit 0 pass null fail null cancelled null]
+G8b-door-swing-rebuilt-no-registry: killed [node.exe --test exit 1 pass 20 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G9-stairs-refreshed-no-exports: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0] [node.exe tools/check.mjs exit 0 pass null fail null cancelled null]
+G9b-stairs-refreshed-rebuilt: killed [node.exe --test exit 1 pass 17 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G10-stairs-raw: killed [node.exe --test exit 1 pass 19 fail 2 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+D1-digest-ignores-bytes-refreshed: killed [node.exe --test exit 1 pass 20 fail 1 cancelled 0]
+D2-digest-ignores-matrices-refreshed: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0]
+D3-digest-ignores-userdata-refreshed: SURVIVED [node.exe --test exit 0 pass 21 fail 0 cancelled 0]
+D4-digest-sorted-lines-refreshed: killed [node.exe --test exit 1 pass 20 fail 1 cancelled 0]
+V1-check-skips-geometry: SURVIVED [node.exe --test exit 0 pass 4 fail 0 cancelled 0] [node.exe tools/check.mjs exit 0 pass null fail null cancelled null]
+V2-catalogue-content-edited: killed [node.exe --test exit 1 pass 0 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+V3-catalogue-content-edited-pin-off: SURVIVED [node.exe --test exit 0 pass 4 fail 0 cancelled 0] [node.exe tools/check.mjs exit 0 pass null fail null cancelled null]
+{
+ "total": 50,
+ "killed": [
+  "B1-order-ignores-class",
+  "B3-C2-ascending",
+  "B5-runs-never-merge",
+  "B6-hidden-piece-keeps-run",
+  "B7-no-release",
+  "B9-glass-merged",
+  "B10-glass-always-visible",
+  "P1-view-not-forwarded",
+  "W1-shader-no-width",
+  "W5-scaleU-inverted",
+  "W8-geometry-not-disposed",
+  "W9-no-program-key",
+  "W10-uv-unscaled",
+  "F1-never-release",
+  "F2-no-refcount",
+  "F3-inherits-current-view",
+  "F4-stale-template-kept",
+  "F5-views-shared",
+  "G1-channel-keeps-open-batches",
+  "G2-normals-not-grown",
+  "G5-glass-opacity-rebuilt",
+  "G5b-glass-opacity-hash-only",
+  "G6-roughness-rebuilt",
+  "G7-cutaway-shows-trim-rebuilt",
+  "G8b-door-swing-rebuilt-no-registry",
+  "G9b-stairs-refreshed-rebuilt",
+  "G10-stairs-raw",
+  "D1-digest-ignores-bytes-refreshed",
+  "D4-digest-sorted-lines-refreshed",
+  "V2-catalogue-content-edited"
+ ],
+ "survived": [
+  "B2-class-order-reversed",
+  "B4-gross-key-swap",
+  "B8-dispose-leaks-batches",
+  "B11-never-exact",
+  "B12-uv-swapped",
+  "B13-normals-not-rotated",
+  "B14-exact-uv-dropped",
+  "W2-no-depth-material",
+  "W3-depth-material-unpatched",
+  "W4-bounds-quarter",
+  "W6-widths-all-one",
+  "W7-matrices-slot-zero",
+  "G3-flip-without-zero-start",
+  "G4-normal-sqrt-not-hypot",
+  "G8-door-swing-rebuilt",
+  "G9-stairs-refreshed-no-exports",
+  "D2-digest-ignores-matrices-refreshed",
+  "D3-digest-ignores-userdata-refreshed",
+  "V1-check-skips-geometry",
+  "V3-catalogue-content-edited-pin-off"
+ ],
+ "invalid": []
+}
+NODE_EXIT=0

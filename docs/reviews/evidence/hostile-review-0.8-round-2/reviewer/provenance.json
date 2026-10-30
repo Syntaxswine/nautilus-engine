@@ -1,0 +1,66 @@
+{
+ "script": "provenance.mjs",
+ "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
+ "ee7c18eRendererSha": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba",
+ "baselineRendererSha": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba",
+ "sandboxRendererSha": "4b01be137007f47e35734f11063ad93ea179996eb46320bc953677663a37ce99",
+ "packages/building-catalog/index.js": {
+  "ee7c18e": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108",
+  "sandbox": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
+ },
+ "packages/building-catalog/designs.js": {
+  "ee7c18e": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6",
+  "sandbox": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
+ },
+ "fixture": {
+  "entries": 96,
+  "recordedFrom": {
+   "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
+   "renderer": "packages/building-catalog/three.js",
+   "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
+  },
+  "matchesReviewedRenderer": 96,
+  "sameKeys": true,
+  "fixtureFileSha": "d4b70fd64a31672c3758038e1ff56c2cc2af95bee582c1c0ee3c97b85ac2ec3d",
+  "controlForgedEntryMatches": 95,
+  "hashPinnedIn": []
+ },
+ "catalogue": {
+  "pinned": "49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223",
+  "ee7c18e": "49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223",
+  "sandbox": "49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223",
+  "ee7c18eBytesSha": "ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e",
+  "sandboxBytesSha": "dff6f1d685402f4f6709660f9fd9141ee66ab2e56b948dcd8c68cf1d2b0d2ad7"
+ },
+ "registrySource": {
+  "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
+  "catalogueSha256": "dff6f1d685402f4f6709660f9fd9141ee66ab2e56b948dcd8c68cf1d2b0d2ad7",
+  "catalogueAtCommitSha": "ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e",
+  "inputs": [
+   {
+    "file": "packages/building-catalog/designs.js",
+    "recorded": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6",
+    "atCommit": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6",
+    "matchesCommit": true
+   },
+   {
+    "file": "packages/building-catalog/index.js",
+    "recorded": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108",
+    "atCommit": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108",
+    "matchesCommit": true
+   },
+   {
+    "file": "packages/building-catalog/three.js",
+    "recorded": "4b01be137007f47e35734f11063ad93ea179996eb46320bc953677663a37ce99",
+    "atCommit": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba",
+    "matchesCommit": false
+   },
+   {
+    "file": "tools/build-building-assets.mjs",
+    "recorded": "dcdb070b835f8279ec550b7485fc8ae629c6b478fff9f185a435a0b3b1e1187d",
+    "atCommit": "dcdb070b835f8279ec550b7485fc8ae629c6b478fff9f185a435a0b3b1e1187d",
+    "matchesCommit": true
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+// Injected by assets-only.mjs. Times editor frames (draw + 1-pixel readPixels, as
+// the answer's probe does) either whole, or with every mesh outside the asset
+// layers (placed prefab copies, the wall group, roof models) hidden at render
+// time. The hidden list is computed once per map from the inherited scene, so
+// hiding costs the same in both arms.
+window.__assets = (() => {
+  const scene = () => window.editor3d.scene;
+  const size = () => {const c = scene().renderer.domElement; return [c.clientWidth, c.clientHeight];};
+  let patch = null;
+  function roots() {
+    const s = scene(), set = new Set();
+    for (const m of s.prefabs?.models?.values() || []) set.add(m.root);
+    if (s.wallGroup) set.add(s.wallGroup);
+    for (const key of Object.keys(s)) {const v = s[key]; if (v && v.models instanceof Map && v !== s.prefabs) for (const m of v.models.values()) if (m?.root?.isObject3D && key.toLowerCase().includes('roof')) set.add(m.root);}
+    return set;
+  }
+  function isolate(on) {
+    const s = scene();
+    if (patch) {s.lights.render = patch.original; patch = null;}
+    if (!on) return {hidden: 0};
+    const assetRoots = roots(), under = n => {for (let p = n; p; p = p.parent) if (assetRoots.has(p)) return true; return false;}, others = [];
+    s.scene.traverse(n => {if ((n.isMesh || n.isLine || n.isPoints || n.isSprite) && !under(n)) others.push(n);});
+    const original = s.lights.render;
+    patch = {original, others};
+    s.lights.render = function (...args) {
+      const hidden = []; for (const n of others) if (n.visible) {n.visible = false; hidden.push(n);}
+      try {return original.apply(this, args);} finally {for (const n of hidden) n.visible = true;}
+    };
+    return {hidden: others.length, assetRoots: assetRoots.size};
+  }
+  function frames(n, view, warmup = 3) {
+    const s = scene(), r = s.renderer, gl = r.getContext(), sm = r.shadowMap, [w, h] = size(), shadowRender = sm.render; let shadow = 0;
+    sm.render = function (...args) {const c = r.info.render.calls, out = shadowRender.apply(this, args); shadow += r.info.render.calls - c; return out;};
+    r.info.autoReset = false; const total = [], cpu = []; let counts = null;
+    try {
+      for (let i = 0; i < warmup + n; i++) {
+        r.info.reset(); shadow = 0;
+        const a = performance.now(); s.draw(view, w, h); const b = performance.now(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); const c = performance.now();
+        const now = {calls: r.info.render.calls, shadowCalls: shadow, triangles: r.info.render.triangles};
+        if (counts && i >= warmup && JSON.stringify(now) !== JSON.stringify(counts)) throw Error('counts changed: ' + JSON.stringify([counts, now]));
+        counts = now; if (i >= warmup) {total.push(c - a); cpu.push(b - a);}
+      }
+    } finally {sm.render = shadowRender; r.info.autoReset = true;}
+    return {total, cpu, counts};
+  }
+  async function cutaway(on) {const s = scene(); s.setOptions({showAllLevels: !on, level: 0}); await s.prefabs.update(window.editor3d.document, s.options);}
+  return {isolate, frames, cutaway};
+})();

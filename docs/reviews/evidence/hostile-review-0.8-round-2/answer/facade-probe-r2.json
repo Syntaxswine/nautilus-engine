@@ -1,0 +1,45 @@
+{
+ "script": "facade-probe-r2.mjs",
+ "node": "v24.15.0",
+ "main": {
+  "tree": "<baseline>",
+  "options": {},
+  "design": "dockside-warehouse",
+  "instances": 32,
+  "meshesPerInstance": 46,
+  "drawsPerPassFor32": 1472,
+  "uniqueGeometries": 1472,
+  "uniqueMaterials": 288,
+  "tintOneInstanceChangesAnother": false,
+  "genericCleanupOfOneInstanceDisposesGeometryOfAnother": false,
+  "viewIndependent": true
+ },
+ "candidate": {
+  "tree": "<candidate>",
+  "options": {},
+  "design": "dockside-warehouse",
+  "instances": 32,
+  "meshesPerInstance": 46,
+  "drawsPerPassFor32": 1472,
+  "uniqueGeometries": 1472,
+  "uniqueMaterials": 288,
+  "tintOneInstanceChangesAnother": false,
+  "genericCleanupOfOneInstanceDisposesGeometryOfAnother": false,
+  "viewIndependent": true
+ },
+ "candidateShared": {
+  "tree": "<candidate>",
+  "options": {
+   "shared": true
+  },
+  "design": "dockside-warehouse",
+  "instances": 32,
+  "meshesPerInstance": 11,
+  "drawsPerPassFor32": 352,
+  "uniqueGeometries": 11,
+  "uniqueMaterials": 9,
+  "tintOneInstanceChangesAnother": true,
+  "genericCleanupOfOneInstanceDisposesGeometryOfAnother": true,
+  "viewIndependent": false
+ }
+}
