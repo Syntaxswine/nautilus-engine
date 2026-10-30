@@ -71,6 +71,14 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-standard-game-starter
+      - run: npm run review:doors
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-reference
+      - run: npm run review:doors:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-installed
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -87,4 +95,8 @@ jobs:
             artifacts/extended-world-editor/
             artifacts/editor-materials/
             artifacts/game-starter/
+            artifacts/farmyard-door-reference-source/
+            artifacts/farmyard-door-reference-built/
+            artifacts/farmyard-door-reference-installed/
+            artifacts/farmyard-door-installed-reference/installation.json
           if-no-files-found: ignore
