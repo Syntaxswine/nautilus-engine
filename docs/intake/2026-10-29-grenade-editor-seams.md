@@ -1,6 +1,6 @@
 # Farmyard grenades: editor dependency and contract seams
 
-Status: dependency recorded; editor wiring awaits the architect-reviewed public item checkpoint and fixed parts ABI. The architect is extracting Farmyard's existing work on `codex/farmyard-grenades` from Nautilus `f6caeef309e56423fea5e32eb717533f33b59cbb`. This editor checkpoint stays on `codex/functional-parts-editor`; other feature branches remain intact.
+Status: dependency recorded; the architect's fixed grenade candidate `c7beb44fa254b2d72657f7e3a959920216f09b35` and Coder parts candidate `03c0d06ebea59720751f7c678f6165d1c179cadd` have now been inspected. The [minimal binding plan](2026-10-29-grenade-editor-binding-plan.md) records which requests they answer and the remaining typed authoring/projection seam. Neither candidate is imported into this editor checkpoint. The architect's extraction starts from Nautilus `f6caeef309e56423fea5e32eb717533f33b59cbb`; editor work stays on `codex/functional-parts-editor`, with other feature branches intact.
 
 Authorized donor source: Farmyard published commit `251bf8094b5f9ebe44208443084c1a6d6658512a` in `C:/Users/baals/Documents/ChatGPT/Tactical Animal`. Inspection used `git ls-tree`, `git grep` and `git show` against that exact object. No uncommitted donor files, moving branches or source imports are used. The architect owns the extraction, dependency closure, source hashes/notices and behavior review. No donor/game pin changes are part of editor preparation.
 
