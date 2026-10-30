@@ -35,7 +35,7 @@ export function neighbourhoods(spheres) {
   return [...clusters.values()];
 }
 // A template's extent in its root's frame: every mesh's sphere, glass included.
-function extent(template) {
+export function extent(template) {
   const sphere=new T.Sphere().makeEmpty(),inverse=new T.Matrix4().copy(template.model.root.matrixWorld).invert(),matrix=new T.Matrix4();
   for(const node of template.nodes)if(node.isMesh){node.geometry.boundingSphere??node.geometry.computeBoundingSphere();if(!node.geometry.boundingSphere.isEmpty())sphere.union(node.geometry.boundingSphere.clone().applyMatrix4(matrix.multiplyMatrices(inverse,node.matrixWorld)));}
   return sphere;

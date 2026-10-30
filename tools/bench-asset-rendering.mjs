@@ -186,11 +186,15 @@ async function editorBench() {
           // from the origin (or the far corner), where wrong bounds or float32 show first.
           const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: first ? {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'} : {x: 50, y: 50, span: 40, preset: '0'},
             far: last ? {x: last.x + 10, y: last.y + 10, span: 40, preset: '0'} : {x: 190, y: 190, span: 40, preset: '0'}};
+          // The editor's open() fires its floor control once the scene is open, and that
+          // control's setOptions starts one more prefab update, which open() does not await.
+          // Wait for it where the layer keeps it (main 0.10's, the A arm's, keeps none).
+          const openMap = (page, text) => page.evaluate(async t => {await window.nautilus.open(t); await window.editor3d.scene.prefabs?.pending;}, text);
           if (countsOnly) {
             // One page, no timing: open the reference then the map, and count with draws stubbed.
             // At the rig's own canvas size (COUNT_SIZE), whatever this page's layout.
             const page = pages.b, count = (fn, view) => page.evaluate(([f, v, z]) => window.__bench[f](v, z), [fn, view, COUNT_SIZE]);
-            await page.evaluate(b => window.nautilus.open(b), blank); await page.evaluate(j => window.nautilus.open(j), json);
+            await openMap(page, blank); await openMap(page, json);
             await page.evaluate(() => window.__bench.stubDraws(true));
             try {
               for (const [name, view] of Object.entries(views)) ((sample.culled ??= {})[name] = {}).b = await count('culled', view);
@@ -209,9 +213,9 @@ async function editorBench() {
           // first time the blank map is open, its draws are counted at those same cameras
           // (the references for --assets-only).
           for (let k = 0; k < opens; k++) for (const arm of k % 2 ? [...order[run]].reverse() : order[run]) {
-            await pages[arm].evaluate(b => window.nautilus.open(b), blank);
+            await openMap(pages[arm], blank);
             if (!k) for (const name of ['close', 'far']) ((sample.blankAt ??= {})[name] ??= {})[arm] = await pages[arm].evaluate(async v => (await window.__bench.frames(1, v, {warmup: 1})).counts, views[name]);
-            sample.openMs[arm].push(await pages[arm].evaluate(async j => {const t = performance.now(); await window.nautilus.open(j); return performance.now() - t;}, json));
+            sample.openMs[arm].push(await pages[arm].evaluate(async j => {const t = performance.now(); await window.nautilus.open(j); const ms = performance.now() - t; await window.editor3d.scene.prefabs?.pending; return ms;}, json));
           }
           for (const page of Object.values(pages)) await page.waitForTimeout(150);
           const measure = async (name, view) => {

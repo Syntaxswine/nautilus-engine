@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {createPrefabProviders} from '../apps/editor/prefab-providers.js';
-import {PrefabLayer,BATCHED,neighbourhoods} from '../apps/editor/prefab-scene.js';
+import {PrefabLayer,BATCHED,neighbourhoods,extent} from '../apps/editor/prefab-scene.js';
 import {CopyBatch} from '../apps/editor/copy-batch.js';
 import {createOriginalBuildingProvider} from '../packages/prefab-core/provider-original.js';
 import {GROSS_BUILDING_ASSETS} from '../packages/prefab-core/registry.js';
@@ -93,6 +93,30 @@ test('neighbourhoods links copies whose spheres touch or overlap, through chains
     const brute=new Map();spheres.forEach((_,k)=>{const r=root(k);if(!brute.has(r))brute.set(r,[]);brute.get(r).push(k);});
     assert.deepEqual(neighbourhoods(spheres),[...brute.values()],'trial '+trial);
   }
+});
+
+test('a building\'s extent holds every vertex of every mesh in its root\'s frame, plain and nested meshes included',async()=>{
+  const inside=(template,sphere,label)=>{
+    const inverse=template.model.root.matrixWorld.clone().invert(),v=new T.Vector3();let meshes=0;
+    for(const node of template.nodes)if(node.isMesh){
+      meshes++;const p=node.geometry.attributes.position,m=inverse.clone().multiply(node.matrixWorld);
+      for(let i=0;i<p.count;i++)assert.ok(sphere.distanceToPoint(v.fromBufferAttribute(p,i).applyMatrix4(m))<=1e-6,label+': a vertex of '+(node.name||node.type)+' lies outside the extent');
+    }
+    assert.ok(meshes>1,label+' has meshes');
+  };
+  // A moved root, a batch mesh at it, and a plain mesh nested under a turned group far off.
+  const root=new T.Group();root.position.set(5,0,7);root.rotation.y=0.6;
+  const batchMesh=new T.Mesh(new T.BoxGeometry(2,2,2),[new T.MeshBasicMaterial()]),group=new T.Group(),plain=new T.Mesh(new T.BoxGeometry(1,1,1),new T.MeshBasicMaterial());
+  group.position.set(0,10,0);group.rotation.z=0.4;plain.position.set(50,3,-20);root.add(batchMesh,group);group.add(plain);root.updateMatrixWorld(true);
+  const synthetic={model:{root},nodes:[batchMesh,group,plain]},sphere=extent(synthetic);
+  inside(synthetic,sphere,'synthetic');assert.ok(sphere.radius<40,'the extent stays near the meshes: '+sphere.radius);
+  // A provider's design, as the layer builds its template.
+  const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})});
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers});
+  try{
+    await layer.update({map:{buildingPrefabs:{instances:[{id:'a',asset:'dockside-warehouse',x:20,y:20,turns:1,clearance:1}]}}},{level:0,showAllLevels:true,roofs:true,walls:true});
+    const template=layer.templates.get('dockside-warehouse');template.model.root.updateMatrixWorld(true);inside(template,extent(template),'dockside-warehouse');
+  }finally{layer.dispose();}
 });
 
 test('only a cluster of at least BATCHED neighbouring copies draws through CopyBatches; any other copy draws itself',async()=>{
