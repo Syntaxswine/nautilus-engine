@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {createPrefabProviders} from '../apps/editor/prefab-providers.js';
 import {PrefabLayer} from '../apps/editor/prefab-scene.js';
+import {CopyBatch} from '../apps/editor/copy-batch.js';
 import {createOriginalBuildingProvider} from '../packages/prefab-core/provider-original.js';
 import {GROSS_BUILDING_ASSETS} from '../packages/prefab-core/registry.js';
 
@@ -73,6 +74,24 @@ test('every camera culls a CopyBatch copy by copy: the view, each face of a lamp
   }finally{layer.dispose();}
 });
 
+test('with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy',()=>{
+  // Five copies of a box along x, at 0, 10, 200, 20 and 30 m.
+  const geometry=new T.BoxGeometry(2,2,2).toNonIndexed();geometry.addGroup(0,geometry.attributes.position.count,0);geometry.computeBoundingSphere();geometry.computeBoundingBox();
+  const node=new T.Mesh(geometry,[new T.MeshStandardMaterial()]),batch=new CopyBatch(node,[0,10,200,20,30].map(x=>new T.Matrix4().makeTranslation(x,0,0)));
+  const group=geometry.groups[0],count=group.count,multi={extensions:{has:name=>name==='WEBGL_multi_draw'}};
+  const draw=(renderer,camera)=>{batch.onBeforeRender(renderer,new T.Scene(),camera,geometry,node.material[0],group);const n=batch._multiDrawCount;return {n,counts:[...batch._multiDrawCounts.slice(0,n)],instances:batch._multiDrawInstances&&[...batch._multiDrawInstances.slice(0,n)]};};
+  try{
+    // A view of x 0-30 m: copies 0-1 are a run, 2 is out, 3-4 a run, placed at copies 0 and 3.
+    const near=looking(new T.PerspectiveCamera(60,1,.1,100),new T.Vector3(15,40,.01),new T.Vector3(15,0,0));
+    assert.deepEqual(draw(multi,near),{n:4,counts:[count,0,0,count],instances:[2,0,0,2]});
+    // A view of all five: one sub-draw of five instances, as an InstancedMesh would draw them.
+    assert.deepEqual(draw(multi,looking(new T.PerspectiveCamera(60,1,.1,2000),new T.Vector3(100,400,.01),new T.Vector3(100,0,0))),{n:1,counts:[count],instances:[5]});
+    // Without the extension three loops over plain sub-draws: one per copy in view.
+    assert.deepEqual(draw(null,near),{n:5,counts:[count,count,0,count,count],instances:null});
+    assert.equal(draw({extensions:{has:()=>false}},near).instances,null);
+  }finally{batch.dispose();geometry.dispose();node.material[0].dispose();}
+});
+
 test('a CopyBatch bounds each copy by the sphere its own mesh would have, and the set by all of them',async()=>{
   const layer=await row(),point=new T.Vector3();
   try{
@@ -139,10 +158,15 @@ test('a CopyBatch draws through the template geometry and adds no raycast hits o
 });
 
 // CopyBatch relies on these lines of the vendored renderer: a group's shadow draw passes
-// the group, a BatchedMesh draws its _multiDraw lists, and the colour-texture test that
-// re-derives the program unless colorTexture is null. Re-verify CopyBatch if they change.
+// the group; a BatchedMesh draws its _multiDraw lists, instanced when it has instance
+// counts (deprecated since r174, removed in r184), with triangles counted per instance;
+// the colour-texture test that re-derives the program unless colorTexture is null; and the
+// batching chunks it patches to read the copy table at gl_DrawID + gl_InstanceID.
 test('the vendored renderer still draws a BatchedMesh the way CopyBatch relies on',()=>{
   const source=fs.readFileSync(new URL('../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js',import.meta.url),'utf8');
-  for(const line of ['object.onBeforeShadow( renderer, object, camera, shadowCamera, geometry, depthMaterial, group );','renderer.renderMultiDraw( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount );','uniforms.setValue( _gl, \'_gl_DrawID\', i );','object.isBatchedMesh && materialProperties.batchingColor === false && object.colorTexture !== null'])
+  for(const line of ['object.onBeforeShadow( renderer, object, camera, shadowCamera, geometry, depthMaterial, group );','renderer.renderMultiDraw( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount );','uniforms.setValue( _gl, \'_gl_DrawID\', i );','object.isBatchedMesh && materialProperties.batchingColor === false && object.colorTexture !== null',
+    'renderer.renderMultiDrawInstances( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount, object._multiDrawInstances );','extension.multiDrawArraysInstancedWEBGL( mode, starts, 0, counts, 0, primcount, 0, drawCount );','elementCount += counts[ i ] * primcount[ i ];',
+    'mat4 batchingMatrix = getBatchingMatrix( getIndirectIndex( gl_DrawID ) );'])
     assert.ok(source.includes(line),'renderer line changed: '+line);
+  assert.ok(T.ShaderChunk.batching_vertex.includes('getBatchingMatrix( getIndirectIndex( gl_DrawID + gl_InstanceID ) )'),'the batching chunk reads the copy table per instance');
 });
