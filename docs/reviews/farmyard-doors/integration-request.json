@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate; Architect owns production composition",
+  "baseCommit": "03c0d06ebea59720751f7c678f6165d1c179cadd",
+  "component": "door:farmyard-single-leaf",
+  "entry": "./adapters/farmyard/doors",
+  "target": "./packages/adapters/farmyard/doors.js",
+  "apiVersion": 1,
+  "profile": {"id": "farmyard-single-ground-leaf-endpoint-v1", "version": 1},
+  "schemas": [
+    {"id": "nautilus-farmyard-door-state", "version": 1, "uri": "urn:nautilus:schema:farmyard-door-state:1", "file": "packages/adapters/farmyard/doors/door-state-v1.schema.json"},
+    {"id": "nautilus-farmyard-door-host-save", "version": 1, "uri": "urn:nautilus:schema:farmyard-door-host-save:1", "file": "packages/adapters/farmyard/doors/door-host-save-v1.schema.json"}
+  ],
+  "capability": {"id": "nautilus-farmyard-doors-v1", "versions": [1]},
+  "requiredHostServices": [
+    {"id": "atomic-farmyard-door-context-commit-v1", "versions": [1]},
+    {"id": "farmyard-visibility-refresh-v1", "versions": [1]},
+    {"id": "farmyard-route-invalidation-v1", "versions": [1]},
+    {"id": "farmyard-current-door-collider-v1", "versions": [1]}
+  ],
+  "runtimeFiles": "Static ESM closure from tools/distribution.mjs moduleClosure(['packages/adapters/farmyard/doors.js']); excludes parts/mover runtime, source fixture, editor, renderer and capability discovery graph.",
+  "additionalPackageFiles": [
+    "docs/adapters/farmyard-doors.md",
+    "docs/reviews/farmyard-doors.sources.json",
+    "docs/reviews/farmyard-doors/integration-request.json",
+    "packages/adapters/farmyard/doors/door-state-v1.schema.json",
+    "packages/adapters/farmyard/doors/door-host-save-v1.schema.json"
+  ],
+  "testOnlySource": {"commit": "251bf8094b5f9ebe44208443084c1a6d6658512a", "reusedEvidenceCommit": "c7beb44fa254b2d72657f7e3a959920216f09b35", "root": "vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a", "manifest": "docs/reviews/farmyard-doors.sources.json", "modules": 22, "bytes": 151675, "productionRuntimeDependency": false},
+  "checks": ["node tools/farmyard-door-schemas.mjs", "node --test tests/farmyard-doors.test.mjs", "node tools/test-farmyard-doors-package.mjs", "npm run check -- --tracked", "npm test", "npm run test:upstream", "npm run build"],
+  "compositionNotes": [
+    "Reuse the same immutable vendor directory from c7beb44; do not add a second Farmyard closure path.",
+    "This slice factors the native flag transition helper without changing native schema/profile or starting mover history.",
+    "Add only the behavior capability to the engine implementation manifest; the four service capabilities are declarations the adopting host must actually satisfy.",
+    "The package proof modifies only a disposable stage export overlay, not production metadata; it is not final composed distribution/CI acceptance.",
+    "Register both schemas in schema discovery and packaged resources; the host-save schema references the door-state URI.",
+    "Keep game pins, private Sites audience and donor worktrees unchanged. A production game adoption and composed browser/visual review are separate Architect-owned changes."
+  ]
+}
