@@ -1,0 +1,48 @@
+// Test/proposal data generator, not a public window kernel or provider.
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {partIdentity} from '../packages/parts-core/identity.js';
+import {WINDOW_DEFINITIONS,WINDOW_METRICS,BORDERLESS_WINDOW_ID} from '../vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/art/windows/catalog.js';
+import {windowSystem,windowDefinition} from '../vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/window-catalogue.js';
+import {windowToWorld,SHATTER_LIMITS} from '../vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/window-system.js';
+const base=new URL('../',import.meta.url),clone=value=>structuredClone(value),hash=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
+// Execute only the exact original box/air math declaration slice. No solo-game
+// module, actor, roll, navigation, guard AI, renderer or clock is imported.
+export function sourceWindowMath(){
+  const text=fs.readFileSync(new URL('vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/solo-game.js',base),'utf8'),start=text.indexOf('function boxInterval('),end=text.indexOf('// Only walls block standing',start);
+  if(start<0||end<0)throw Error('Original source math landmarks changed.');const source=text.slice(start,end),context=vm.createContext({});
+  vm.runInContext('const EPS=1e-7;'+source+';globalThis.probe={boxInterval,airSpan};',context,{timeout:1000});return {source,sha256:createHash('sha256').update(source).digest('hex'),...context.probe};
+}
+export function sourceWindowProbe(state,ray,purpose='projectile'){
+  const math=sourceWindowMath();return windowSystem.boxes(state).map((box,index)=>{
+    if(purpose==='sight'&&box.kind!=='wall'||['projectile','flame'].includes(purpose)&&box.kind==='prop')return null;
+    const span=purpose==='walk'?math.boxInterval(ray.from,ray.to,box):math.airSpan(ray.from,ray.to,ray.from.h,ray.to.h,box);
+    if(!span||span[0]<=1e-7)return null;
+    return {placementId:box.windowId,partId:box.partId,paneId:box.paneId??null,kind:box.kind,role:box.role??null,t:span[0],sourceOrder:index};
+  }).filter(Boolean).sort((a,b)=>a.t-b.t||a.sourceOrder-b.sourceOrder);
+}
+const compact=spec=>({sourceCommit:'251bf8094b5f9ebe44208443084c1a6d6658512a',version:spec.raw.version,id:spec.id,joins:spec.raw.joins,dimensions:spec.raw.dimensions??null,width:spec.width,height:spec.height,bounds:spec.bounds,panes:spec.panes,solids:spec.solids});
+export function windowContractFixture(){
+  const longId='window-'+ 'a'.repeat(70),placements=[
+    {id:'clear-a',definitionId:'window.full.clear.3m',x:8,y:12.5,rotation:0},
+    {id:'clear-b',definitionId:'window.full.clear.3m',x:8,y:8.5,rotation:0},
+    {id:'waist-grid',definitionId:'window.waist.grid-2x2.2m',x:20.5,y:20.5,rotation:0},
+    {id:'sheet-tall-a',definitionId:BORDERLESS_WINDOW_ID,x:39.5,y:32.5,rotation:0,dimensions:{width:20,height:10.6}},
+    {id:'sheet-tall-b',definitionId:BORDERLESS_WINDOW_ID,x:39.5,y:36.5,rotation:0,dimensions:{width:20,height:10.6}},
+    {id:longId,definitionId:'window.full.clear.1m',x:10,y:30.5,rotation:0}
+  ],grid={width:64,height:64},state={map:Array.from({length:grid.height},()=>Array(grid.width).fill('yard')),windows:clone(placements),revision:0,seed:2091,host:{hp:37,ap:.25,stamina:.125}},records=windowSystem.compile(state);
+  const content=records.map(({placement:p,spec,edges},index)=>({placementId:p.id,definitionId:p.definitionId,definitionDigest:hash(compact(spec)),engineInstanceId:'window-'+(index+1),coveredEdges:edges,panes:spec.panes.map(pane=>({paneId:pane.id,visualId:partIdentity('window-'+(index+1),'visual','pane:'+pane.id)})),solids:spec.solids.map(part=>({partId:part.id,role:part.role})),bounds:spec.bounds}));
+  const ray={from:{x:8,y:15.5,h:1.1},to:{x:8,y:5.5,h:1.1}},initial=sourceWindowProbe(state,ray),gridPlacement=placements[2],localRay=(x,h)=>({from:windowToWorld(gridPlacement,[x,h,3]),to:windowToWorld(gridPlacement,[x,h,-3])});
+  const queryVectors=[...['projectile','sight','walk','flame'].map(purpose=>({id:'clear-'+purpose,purpose,ray,expected:sourceWindowProbe(state,ray,purpose)[0]??null})),...[[0,1.15,'mullion'],[-.5,.8725,'sill'],[-.5,.2,'lower-wall'],[-.5,1.15,'pane']].map(([x,h,name])=>({id:'grid-'+name,purpose:'projectile',ray:localRay(x,h),expected:sourceWindowProbe(state,localRay(x,h))[0]??null}))];
+  const before=JSON.stringify(state),preview=sourceWindowProbe(state,ray);if(before!==JSON.stringify(state))throw Error('Source query probe mutated its input.');
+  const first=windowSystem.breakPane(state,'clear-a','r0c0',{x:8,y:12.5,h:1.1},{cause:'bullet',direction:-1}),afterFirst={breaks:clone(state.windowBreaks),sequence:state.windowSequence,revision:state.revision,nextProjectile:sourceWindowProbe(state,ray)[0],walking:sourceWindowProbe(state,ray,'walk')[0]},repeated=windowSystem.breakPane(state,'clear-a','r0c0',first.point,{cause:'bullet'});
+  const gridSpec=windowDefinition(placements[2].definitionId),pane=gridSpec.panes.find(value=>value.id==='r0c1'),center=pane.min.map((n,i)=>(n+pane.max[i])/2);windowSystem.breakPane(state,'waist-grid','r0c1',windowToWorld(gridPlacement,center),{cause:'bullet'});windowSystem.breakPane(state,'sheet-tall-a','r0c0',{x:39.5,y:32.5,h:9},{cause:'bullet'});
+  const saved={windows:clone(state.windows),windowBreaks:clone(state.windowBreaks),windowSequence:state.windowSequence,revision:state.revision,seed:state.seed,host:clone(state.host)},restored=windowSystem.restore({...clone(saved),windowEvents:clone(state.windowEvents)}),rotations=[0,90,180,270].map(rotation=>{const p={id:'rot-'+rotation,definitionId:BORDERLESS_WINDOW_ID,x:39.5,y:39.5,rotation,dimensions:{width:20,height:10.6}},r=windowSystem.compile({windows:[p]})[0];return {rotation,placement:p,coveredEdges:r.edges,paneIds:r.spec.panes.map(p=>p.id),bounds:windowSystem.boxes({windows:[p]}).find(box=>box.kind==='glass')};});
+  const joinId='window.full.grid-3x2.2m',unjoined=windowDefinition(joinId),joined=windowDefinition(joinId,{left:true,right:true});
+  const packet={version:1,id:'shot-7:round-0',sceneId:'window-yard',stateId:'window-yard:panes',expectedRevision:0,placementId:'clear-a',partId:'r0c0',paneId:'r0c0',definitionDigest:content[0].definitionDigest,confirmation:{hostCommandId:'shot-7',round:0,geometryRevision:0,cause:'bullet',point:first.point,direction:-1}};
+  return {kind:'nautilus-window-contract-fixture-proposal',version:1,status:'source-executed structural proposal; no engine pane API/provider implementation',engineBase:'e7cf702b794174d7a010ef3380efc36af5441104',sourceCommit:'251bf8094b5f9ebe44208443084c1a6d6658512a',reviewedWindowsCommit:'3c29604bdfb4210864910369ec09c59095249e8a',editorEvidence:'9f525026f3185e0dce8115ce3a69f3a175ec7cf4',profileProposal:'farmyard-quarter-turn-first-hit-pane-v1',grid,placements,content,catalogue:{presets:WINDOW_DEFINITIONS.length,ids:WINDOW_DEFINITIONS.map(value=>value.id),customTemplate:BORDERLESS_WINDOW_ID,metrics:WINDOW_METRICS},mathProbe:{source:'solo-game.js boxInterval/intersectsBox/airSpan declarations only',sha256:sourceWindowMath().sha256,scope:'point segments through window members only; no complete-world/body/actor/AI query implementation'},queryVectors,rotations,joins:{definitionId:joinId,paneIdsStable:JSON.stringify(unjoined.panes.map(p=>p.id))===JSON.stringify(joined.panes.map(p=>p.id)),unjoinedPostWidth:unjoined.solids[0].max[0]-unjoined.solids[0].min[0],joinedPostWidth:joined.solids[0].max[0]-joined.solids[0].min[0]},sourceLifecycle:{previewUnchanged:JSON.stringify(initial)===JSON.stringify(preview),firstEvent:first,afterFirst,repeatedBreak:repeated,saved,restoreHasEvents:Object.hasOwn(restored,'windowEvents'),restoredBoxes:windowSystem.boxes(restored),hostUnchanged:JSON.stringify(state.host)===JSON.stringify({hp:37,ap:.25,stamina:.125}),seedUnchanged:state.seed===2091,cosmeticLimits:SHATTER_LIMITS},enginePacketProposal:packet,engineReceiptProposal:{id:JSON.stringify(['window-pane-v1','window-yard',packet.id]),type:'confirmed-window-impact',command:packet,revision:1,outcome:'pane-broken',effects:[]},requirementsProposal:{schema:{id:'nautilus-window-pane-state',version:1},required:[{id:'nautilus-window-panes-v1',minVersion:1,maxVersion:1}],optional:[]},refusalVectors:['UNCONFIRMED_IMPACT','STALE_WINDOW_REVISION','CONTENT_MISMATCH','UNKNOWN_PANE','WINDOW_DOOR_CONFLICT','UNSUPPORTED_FLOOR','UNSUPPORTED_ROTATION','UNSUPPORTED_DIMENSIONS','UNSUPPORTED_WINDOW_CONSUMER','WINDOW_LEGACY_EXPORT_REFUSED','JOURNAL_LIMIT','STATE_LIMIT'],knownSourceGaps:['Opaque Farmyard extension retention does not derive an engine pane capability.','The source authoring door-prefix check admits jail-door-closed.','Source breakPane accepts a supplied point without proving a confirmed hit.','Compile cache keys source.windows array identity; mutable placements need a separate engine revision/content boundary.','The 128 source cosmetic events are not durable gameplay-command receipts.']};
+}
+if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){const file=new URL('../tests/fixtures/farmyard-windows-contract/proposal.json',import.meta.url),text=JSON.stringify(windowContractFixture(),null,2)+'\n';if(process.argv.includes('--write'))fs.writeFileSync(file,text);else if(fs.readFileSync(file,'utf8')!==text)throw Error('Window contract fixture drift.');console.log('Verified source-executed window structural fixture; no engine pane provider was created.');}
