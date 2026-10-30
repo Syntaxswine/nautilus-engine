@@ -5,6 +5,10 @@
 - Strengthen editor/game-host handoff, actual-page bridge, clearance, persistence and import-limit coverage while retaining current floor controls.
 - Share the deployed Send patch with headless tests and build guards; diagnose browser loading and host-await failures.
 - Assert Settings feedback placement and bound the module CI job to 15 minutes, retaining the reviewed test timing margins.
+- Render editor assets in far fewer draws: original and Gross buildings draw from display batches (one draw per material per view), a design placed more than once draws as instances, wall panels draw as one width-scaled instance set per material, and sloped roofs merge into one draw per slot material. The original building generator is about 3.5 times faster with bit-identical output.
+- `./assets/three`: `loadBuildingAssets(THREE, {shared: true})` opts into batched instances that share one design's geometry, materials and view; the default remains one independent model per instance.
+- `./roofs/three`: add `createRoofMaterial(THREE, id, options)`, the material the adapter generates for one slot, so hosts can share slot materials across roofs.
+- Pin the editor asset layers' exact draw counts per benchmark workload and view, and add the paired asset-rendering benchmark (A/B editor frames, SwiftShader pixel captures with depth-tie masks, direct assets-only timing).
 
 ## 0.10.0 — 2026-10-30
 

@@ -24,7 +24,8 @@ export function unitWallGeometry(maxWidth=1) {
   const geometry=new T.BoxGeometry(1,WALL_KIT.height,WALL_KIT.thickness),uv=geometry.attributes.uv,scaleU=new Float32Array(uv.count);
   for (let i=0;i<uv.count;i++) {const face=Math.floor(i/4),w=face<2?WALL_KIT.thickness:1,h=face===2||face===3?WALL_KIT.thickness:WALL_KIT.height;uv.setXY(i,uv.getX(i)*w,uv.getY(i)*h);scaleU[i]=face<2?0:1;}
   geometry.setAttribute('wallScaleU',new T.BufferAttribute(scaleU,1));
-  // Bounds of the widest instance, so culling never drops a long panel.
+  // Bounds of the widest instance. Panels are at most WALL_KIT.panel (1 m) wide, so
+  // this only tightens the unit box, when every panel of a material is a cut panel.
   geometry.boundingBox=new T.Box3(new T.Vector3(-maxWidth/2,-WALL_KIT.height/2,-WALL_KIT.thickness/2),new T.Vector3(maxWidth/2,WALL_KIT.height/2,WALL_KIT.thickness/2));
   geometry.boundingSphere=geometry.boundingBox.getBoundingSphere(new T.Sphere());
   return geometry;

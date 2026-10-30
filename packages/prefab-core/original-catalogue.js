@@ -16,7 +16,7 @@ export const ORIGINAL_BUILDING_SOURCE = freeze({
   },
   "current": {
     "catalogue": "assets/buildings/catalogue.json",
-    "catalogueSha256": "dff6f1d685402f4f6709660f9fd9141ee66ab2e56b948dcd8c68cf1d2b0d2ad7",
+    "catalogueSha256": "0bd2dd7728d97b59e7eef2c431d64740fb0956e8c719fda0ff02b2828d15c449",
     "inputs": [
       {
         "file": "packages/building-catalog/designs.js",
@@ -28,7 +28,7 @@ export const ORIGINAL_BUILDING_SOURCE = freeze({
       },
       {
         "file": "packages/building-catalog/three.js",
-        "sha256": "4b01be137007f47e35734f11063ad93ea179996eb46320bc953677663a37ce99"
+        "sha256": "b02c43b563af2aec2189f839438b49d63e9449b4960829589f4bebb7150f276e"
       },
       {
         "file": "tools/build-building-assets.mjs",

@@ -17,6 +17,9 @@ class Floats{
 }
 // Scalar arithmetic below keeps the evaluation order of the vector helpers it
 // replaces (hypot, cross, lerp, dot), so every vertex, normal and UV is bit-identical.
+// Two pieces are kept for fidelity, not need: quad's flip test reads only a sign, so
+// its leading 0 + cannot matter (-0 < 0 is false), and Math.hypot in emit could be a
+// plain square root without changing any of the 96 shipped outputs.
 class Surfaces{
  constructor(T,lod){this.T=T;this.lod=lod;this.batches=new Map();this.open=new Map();this.current={kind:'exterior',level:0};}
  channel(kind,level=0){this.current={kind,level};this.open=new Map();return this;}
