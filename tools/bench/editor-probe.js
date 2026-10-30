@@ -74,6 +74,18 @@ window.__bench = (() => {
     };
     return {hidden: hide.length, roots: roots.size};
   }
+  // --expect: the asset layers' draws with frustum culling off (in the main and shadow
+  // passes), which is what the headless count states for a view's level options; a
+  // camera that clips a building's edge cannot change it.
+  function unculled(view) {
+    const saved = [];
+    for (const root of assetRoots()) root.traverse(node => {if (node.isMesh && node.frustumCulled) {node.frustumCulled = false; saved.push(node);}});
+    try {
+      isolate('assets'); const assets = frames(1, view, {warmup: 1}).counts;
+      isolate('none'); const none = frames(1, view, {warmup: 1}).counts;
+      return {main: (assets.calls - assets.shadowCalls) - (none.calls - none.shadowCalls), shadow: assets.shadowCalls - none.shadowCalls, triangles: assets.triangles - none.triangles};
+    } finally {isolate(null); for (const node of saved) node.frustumCulled = true;}
+  }
   function gpu() {const gl = scene().renderer.getContext(), ext = gl.getExtension('WEBGL_debug_renderer_info'); return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);}
-  return {frames, capture, cutaway, isolate, gpu};
+  return {frames, capture, cutaway, isolate, unculled, gpu};
 })();
