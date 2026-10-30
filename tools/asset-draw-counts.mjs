@@ -1,6 +1,6 @@
 // Exact draw submissions of the editor's asset layers (building prefabs, wall
-// runs, sloped roofs) for every benchmark workload, in the editor's two views:
-// all levels, and the level-0 cutaway. The layers are the editor's own: its scene
+// runs, sloped roofs) for every benchmark workload, in three of the editor's views:
+// all levels, the level-0 cutaway, and the level-1 cutaway (a higher floor's runs). The layers are the editor's own: its scene
 // classes (roofs -> prefabs -> walls) are constructed on a headless stand-in for
 // the inherited AFT scene, so the counts follow how the editor builds each layer.
 // One submission is one draw the renderer issues: a visible mesh with a material
@@ -26,22 +26,25 @@ import {createOriginalBuildingProvider} from '../packages/prefab-core/provider-o
 import {buildWorkloads} from './bench/workloads.mjs';
 
 export const ASSET_DRAW_COUNTS = new URL('../tests/fixtures/asset-draw-counts.json', import.meta.url);
-// The editor's default options, and its cutaway as the benchmark sets it.
-export const VIEWS = {exterior: {level: 0, showAllLevels: true, roofs: true, walls: true}, cutaway: {level: 0, showAllLevels: false, roofs: true, walls: true}};
+// The editor's default options, its cutaway as the benchmark sets it, and the cutaway one
+// floor up (the benchmark checks the first two in the browser).
+export const VIEWS = {exterior: {level: 0, showAllLevels: true, roofs: true, walls: true}, cutaway: {level: 0, showAllLevels: false, roofs: true, walls: true}, upper: {level: 1, showAllLevels: false, roofs: true, walls: true}};
 const grossCatalogue = JSON.parse(fs.readFileSync(new URL('../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json', import.meta.url)));
 // On every update the editor's daylight rig sets each lit mesh to cast and receive
 // shadows unless userData.noShadow, whatever its layer set. Count casters by that rule,
 // and refuse to count if the pinned rig no longer states it.
-const daylight = fs.readFileSync(new URL('../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/daylight-rig.js', import.meta.url), 'utf8');
-for (const rule of ['materials.some(m=>m?.isMeshStandardMaterial||m?.isMeshPhongMaterial||m?.isMeshLambertMaterial)', 'object.castShadow=!object.userData.noShadow;'])
-  if (!daylight.includes(rule)) throw Error('The daylight rig no longer states its shadow rule; update tools/asset-draw-counts.mjs: ' + rule);
+export function checkDaylightRule(source) {
+  for (const rule of ['materials.some(m=>m?.isMeshStandardMaterial||m?.isMeshPhongMaterial||m?.isMeshLambertMaterial)', 'object.castShadow=!object.userData.noShadow;'])
+    if (!source.includes(rule)) throw Error('The daylight rig no longer states its shadow rule; update tools/asset-draw-counts.mjs: ' + rule);
+}
+checkDaylightRule(fs.readFileSync(new URL('../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/daylight-rig.js', import.meta.url), 'utf8'));
 const casts = mesh => !mesh.userData.noShadow && [].concat(mesh.material).some(m => m?.isMeshStandardMaterial || m?.isMeshPhongMaterial || m?.isMeshLambertMaterial);
 
 // A transparent double-sided material draws twice (back faces, then front); since the
 // glass halves (bd27cb5) the asset layers hold none, so the model refuses one.
 const single = material => {if (material.transparent && material.side === T.DoubleSide && !material.forceSinglePass) throw Error('A transparent double-sided asset material draws twice; extend tools/asset-draw-counts.mjs: ' + material.name); return material;};
 
-function submissions(objects) {
+export function submissions(objects) {
   const out = {main: 0, shadow: 0, mainTriangles: 0, shadowTriangles: 0};
   for (const object of objects) object.traverseVisible(mesh => {
     if (!mesh.isMesh) return;
@@ -64,7 +67,7 @@ function submissions(objects) {
 class HeadlessAft {
   constructor(canvas, changed = () => {}) {Object.assign(this, {changed, scene: new T.Scene(), renderer: {capabilities: {getMaxAnisotropy: () => 1}}, diagnostics: [], dimMaterials: new Map(), options: {...VIEWS.exterior}});}
 }
-function editorScene() {
+export function editorScene() {
   const base = [Object.getPrototypeOf(WallScene), Object.getPrototypeOf(WallScene.prototype)];
   if (base[0] !== LegacyScene) throw Error('The wall scene no longer extends the AFT scene; update tools/asset-draw-counts.mjs.');
   Object.setPrototypeOf(WallScene, HeadlessAft); Object.setPrototypeOf(WallScene.prototype, HeadlessAft.prototype);

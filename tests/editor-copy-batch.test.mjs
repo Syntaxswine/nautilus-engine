@@ -5,6 +5,7 @@ import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/
 import {createPrefabProviders} from '../apps/editor/prefab-providers.js';
 import {PrefabLayer} from '../apps/editor/prefab-scene.js';
 import {createOriginalBuildingProvider} from '../packages/prefab-core/provider-original.js';
+import {GROSS_BUILDING_ASSETS} from '../packages/prefab-core/registry.js';
 
 // Three copies of one design, 40 m apart along x; each is about 25 m across.
 async function row(turns=i=>i%4) {
@@ -103,6 +104,26 @@ test('each copy sits where its own node would, also when a provider nests the ba
       assert.deepEqual(new Float32Array(batch.getMatrixAt(k,at).elements),new Float32Array(copy.matrixWorld.elements),'copy '+k+' of '+batch.name);
     });
   }finally{layer.dispose();}
+});
+
+test('while a building library loads, removed copies are gone and the rest draw themselves',async()=>{
+  const providers=createPrefabProviders(T,{original:createOriginalBuildingProvider(T,{loadTexture:async()=>new T.Texture()})}),gross=providers.get('gross');
+  const catalogue=JSON.parse(fs.readFileSync(new URL('../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json',import.meta.url)));
+  // The layer starts a load in a microtask: the gate exists first, so release() always opens it.
+  let release;const gate=new Promise(resolve=>{release=resolve;});providers.set('gross',{...gross,load:()=>gate.then(()=>({catalogue,textures:{},dispose(){}}))});
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers}),options={level:0,showAllLevels:true,roofs:true,walls:true};
+  const copies=[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:0,clearance:2}));
+  try{
+    await layer.update({map:{buildingPrefabs:{instances:copies}}},options);assert.ok(layer.instanced.length>0);
+    const removed=layer.models.get('copy-2').root,template=layer.templates.get('dockside-warehouse');
+    // Drop one copy and add a Gross house, whose library is not loaded yet.
+    const pending=layer.update({map:{buildingPrefabs:{instances:[...copies.slice(0,2),{id:'house',asset:GROSS_BUILDING_ASSETS[0].id,x:20,y:120,turns:0,clearance:2}]}}},options);
+    assert.equal(layer.instanced.length,0,'no batch draws the old copies while the load is pending');
+    assert.ok(removed.parent===null,'the dropped copy is gone at once');
+    for(const id of ['copy-0','copy-1'])assert.deepEqual(layer.models.get(id).nodes.map(node=>node.visible),template.nodes.map(node=>node.visible),id+' draws itself meanwhile');
+    release();await pending;
+    assert.ok(layer.instanced.length>0&&layer.instanced.every(({mesh})=>mesh.instanceCount===2),'batched again once loaded, without the dropped copy');
+  }finally{release();layer.dispose();}
 });
 
 test('a CopyBatch draws through the template geometry and adds no raycast hits of its own',async()=>{
