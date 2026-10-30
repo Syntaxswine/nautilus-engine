@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import {checkSearchHalo} from './check-search-halo.mjs';
 import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
 import {checkGrenadeVisuals} from './check-grenade-visuals.mjs';
+import {checkDoorVisuals} from './check-door-visuals.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -41,6 +42,7 @@ for (const [index,record] of moduleReferencesBatch(pinnedModules).entries()) for
   if (dependency!==null && !fs.existsSync(dependency)) throw Error('Missing import: '+pinnedModules[index].entry+' -> '+specifier);
 }
 const haloEvidence = checkSearchHalo(root, sources, tracked);
+console.log('Verified native Farmyard door presentation: '+JSON.stringify(checkDoorVisuals(root,{tracked})));
 const core = await import('../packages/map-core/index.js');
 const editorAssets = checkEditorAssets(root,sources,tracked);
 if(fs.readFileSync(path.join(root,'packages/prefab-core/catalogue.js'),'utf8')!==prefabCatalogueSource())throw Error('Building registry differs from the pinned native geometry and source plans.');

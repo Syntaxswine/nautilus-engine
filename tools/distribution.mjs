@@ -6,6 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {moduleReferenceGraph} from './module-references.mjs';
+import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
 const slash = value => value.replaceAll('\\', '/');
@@ -23,7 +24,7 @@ function walk(folder) {
 }
 function resources() {
   const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'))), base = sources.tinderboxPrefabs.root;
-  return ['assets/buildings/painted-materials-v2.png', base + '/assets/art/gross-housing-v1/houses.json',
+  return [...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS), 'assets/buildings/painted-materials-v2.png', base + '/assets/art/gross-housing-v1/houses.json',
     ...['gross-housing-v1/clapboard-ivory-v1.png', 'gross-housing-v1/cedar-shingles-v1.png', 'gross-housing-v1/floorboards-oak-v1.png',
       'gross-housing-v1/wallpaper-botanical-v1.png', 'exposition-skins-v1/brick-sienna-v1.png', 'exposition-skins-v1/roof-slate-v1.png'].map(file => base + '/assets/art/' + file), ...['tactics/horse-10k-data.json','assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png','assets/equipment/painted-ui/grenade-surface.png'].map(file=>sources.aft.root+'/dist/'+file)];
 }
@@ -37,7 +38,7 @@ export function distribution(profile = 'compatibility') {
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
   else throw Error('Unknown package profile: ' + profile);
-  if(profile==='renderer'||profile==='compatibility')extras.push('packages/grenade-visuals/README.md','packages/grenade-visuals/source.json','docs/reviews/grenade-presentation/provider.md');
+  if(profile==='renderer'||profile==='compatibility')extras.push(JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardDoorVisuals.manifest,'packages/grenade-visuals/README.md','packages/grenade-visuals/source.json','docs/reviews/grenade-presentation/provider.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
@@ -107,7 +108,8 @@ const restored=loadTinderboxScene(saveTinderboxScene(scene));assert.equal(compil
 function replay(project){const sim=createSimulation({scenario:project.scenario,seed:project.policy.seed,config:{input:{cameraRelative:false}}});try{sim.dispatch({type:'move',x:1,y:0});let state;for(let tick=0;tick<300;tick++)state=sim.advance(1/60);return state;}finally{sim.dispose();}}
 const state=replay(scene);assert.ok(state.player.x>10&&state.player.x<=13.5-.08-.56+1e-8);assert.deepEqual(replay(restored),state);
 assert.equal(typeof globalThis.window,'undefined');console.log('Installed external core and actual pinned Tinderbox compiler/simulation: authoring, collision, saves and replay pass.');`;
-    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/grenades/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/game-kit/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/parts/package-proof.mjs'),'utf8') : ''));
+    if(profile==='renderer')fs.copyFileSync(path.join(root,'tests/fixtures/doors/renderer-package-proof.mjs'),path.join(consumer,'door-renderer-proof.mjs'));
+    fs.writeFileSync(path.join(consumer,'proof.mjs'), test + (profile==='renderer' ? "\nawait import('./door-renderer-proof.mjs');\n" : '') + (profile==='core' ? '\n' + fs.readFileSync(path.join(root,'tests/fixtures/items/rock-package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/progression/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/modules/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/grenades/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/game-kit/package-proof.mjs'),'utf8') + '\n' + fs.readFileSync(path.join(root,'tests/fixtures/parts/package-proof.mjs'),'utf8') : ''));
     const output = execFileSync(process.execPath, ['proof.mjs'], {cwd:consumer,encoding:'utf8',windowsHide:true});
     return {...packed, proof:output.trim()};
   } finally {
