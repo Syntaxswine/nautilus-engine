@@ -1,6 +1,6 @@
 # Farmyard door reference: UI binding
 
-Status: reference candidate under browser review. API baseline: `48a0192777a8a5ade0448b313123418398ce044a`; adopt corrections only from an Architect-supplied fixed commit. The reference consumes the named Farmyard endpoint profile and the retained game host. Production registration, versioning, exports, schemas, CI and game adoption remain Architect-owned.
+Status: reference candidate under browser review. API baseline: `a1981b3ec38071fda93a5e384b503fb5a618e9bc`, composed on Root `56d7813e0b5f178461856ad71ff9b8375ff34908`. The reference consumes the named Farmyard endpoint profile and the retained game host. Production registration, versioning, exports, schemas, CI and game adoption remain Architect-owned.
 
 ## Builder card
 
@@ -46,13 +46,41 @@ This reference does not add pairs, locks/keys/difficulty, damage/breaching, uppe
 
 Open /examples/farmyard-door-reference.html in the source or built workshop. It uses the actual declared public door/world/interaction/grenade entries through its import map. The reference host, controls and view remain workshop examples; they are not new installed package exports. The renderer borrows the engine's existing Three instance and uses exact original timber pixels.
 
-The complete synchronous fixture owner is examples/farmyard-door-reference-host.js. Construct it with the generated fixture and synchronous getItem/setItem storage. Construction performs no write. command(doorId,action) creates a fresh intent; preview(intent) is pure; perform(theSameIntent) invokes the actual connection. Keep that intent for retry. The fixture owner compares complete state/context/host tokens, prepares and validates the entire strict joint save, then writes before adopting. An exception leaves the transaction pending until reconcile() establishes the stored before/after outcome. A conflicting active record requires explicit validated adoptActive(). These methods belong to the private example, not the engine's door API.
+The complete synchronous fixture owner is examples/farmyard-door-reference-host.js. Construct it with the generated fixture and synchronous getItem/setItem storage. Construction performs no write. command(doorId,action) creates a fresh intent; preview(intent) is pure; perform(theSameIntent) invokes the actual connection. Keep that intent for retry. The fixture owner compares complete state/context/host tokens, prepares and validates the entire strict joint save, checks candidate.canCommit() immediately before the synchronous write, then adopts. A CAS exception returns committed:null with recovery.command; the fixture transaction remains pending until reconcile() establishes the stored before/after outcome. A conflicting active record requires explicit validated adoptActive(). These methods belong to the private example, not the engine's door API.
 
 save()/load() use the complete strict bundle. Load and active-record adoption restore poses quietly and retire UI targets. retry() retains the original command ID and payload. A known committed result with presentationErrors stays committed; repair the view from snapshot()/geometry() instead of re-spending AP or replaying effects. Returned snapshots and UI diagnostics are detached copies. Dispose the page's controls/view before its owned connection.
 
-Movement is a deliberately labelled reference step of .25 m per fresh directional press, without travel AP or a movement clock. It consumes the existing public upright AABB walking query against the same current geometry and checkpoints through the public context-adoption stage. It is not Farmyard's rounded source movement implementation and creates no native mover history. The installed Coder proof separately executes original source movement. Do not copy these reference movement choices into a game as an implicit policy.
+Movement supports the standing reference actor with a .23 m square footprint and 1.7 m upright query body; other stances require the retained game mover. It is a deliberately labelled reference step of .25 m per fresh directional press, without travel AP or a movement clock. It consumes the existing public upright AABB walking query against the same current geometry and checkpoints through the public context-adoption stage. It is not Farmyard's rounded source movement implementation and creates no native mover history. The installed Coder proof separately executes original source movement. Do not copy these reference movement choices into a game as an implicit policy.
 
 The fixed static layout is protected by a source-layout fingerprint. The geometry bridge caches source leaf poses and obtains each current leaf from farmyardDoorColliders; it contains no footprint formula. Source NPC/fog/contact rules stay in the adapter. The reference's small read-only grenade projection is used only for query evidence at view/action boundaries; no grenade command is issued. Source-shaped inventory, injury, stamina, ammunition and RNG remain in the retained host.
+
+## Smallest workshop consumer
+
+Run this module beside the supplied example files through the workshop HTTP server. The installed engine-only service binding remains in the adapter guide; this snippet uses the complete private reference owner.
+
+```js
+import {createFarmyardDoorReferenceHost}
+  from './farmyard-door-reference-host.js';
+const response = await fetch('./farmyard-door-reference.fixture.json');
+if (!response.ok) throw Error('Reference fixture unavailable');
+const reference = createFarmyardDoorReferenceHost({
+  fixture: await response.json(), storage: localStorage
+});
+const intent = reference.command('reference-gate', 'open');
+const preview = reference.preview(intent);
+if (preview.ok) {
+  const result = reference.perform(intent);
+  if (result.committed === null) {
+    // Keep this owner and original intent. Show the explicit recovery action;
+    // call reference.reconcile() when authoritative storage is readable.
+    console.log('Reconciliation required', result.recovery.command);
+  } else {
+    console.log(result.committed, result.presentationErrors);
+    reference.save();
+  }
+}
+// Retire the owned view and controls, then reference.dispose(), on teardown.
+```
 
 ## Decisions for the next game
 
@@ -65,3 +93,5 @@ The fixed static layout is protected by a source-layout fingerprint. The geometr
 ## Deferred integration queue
 
 Finish this fixed door reference and Architect review first. Subsequent UI discoverability, phone/accessibility and async-lifecycle work requires Root-distributed full fixed contracts for Coder's FC pane provider; Artist's independently loadable waterfront, three medicines and landmark catalogue; and completed AFT appearances behind the queued bear. Coldwell exact-provider and exterior-ghost work starts only when real controls change after their contracts exist. Actual editor undo/reload acceptance belongs to the accepted editor binding; this reference exercises the corresponding target/session retirement without inventing an editor handler. No physical-device performance claim follows from desktop/emulated-touch review.
+
+Queue authority: deduplicated integration orders e773317cdf605262c0f714eb90154c22c9f0d64a and intake 69829f9afdd224b7f55f159b852ee16532b1861a. The TB-dc7f537 comparison contributes acceptance cases only; no Tinderbox source or moving pin is imported.

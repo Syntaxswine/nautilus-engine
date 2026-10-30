@@ -7,13 +7,13 @@ const metrics={attempts:0,knownCommits:0,quietLoads:0,cancelled:0,lateInputs:0},
 const storage={getItem:key=>{if(readFault)throw Error('Injected unavailable active storage');return localStorage.getItem(key);},setItem:(key,value)=>localStorage.setItem(key,value)};
 function retireTarget(){targetEpoch++;if(pressed)pressed.cancelled=true;displayed=null;controls?.stop();view?.clearInput();}
 function select(id){if(retired)return;retireTarget();selected=id;sync();}
-function capture(){if(!displayed||paused||retired||busy)return null;const value={command:host.command(displayed.doorId,displayed.action),epoch:targetEpoch,session,cancelled:false};return value;}
+function capture(){if(!displayed||paused||retired||busy)return null;const info=host.diagnostics();if(info.pending||info.conflict||info.disposed)return null;const shown={...displayed},epoch=targetEpoch,subject=session,command=host.command(shown.doorId,shown.action);if(retired||epoch!==targetEpoch||subject!==session)return null;return {command:{...command,...shown},epoch,session:subject,cancelled:false};}
 function sync(){
  if(retired||!host||!view)return;const value=host.snapshot(),actor=value.host.units.find(unit=>unit.team==='squad'),door=value.doorState.doors.find(door=>door.id===selected),info=host.diagnostics();let preview=null;
- displayed=door?{doorId:door.id,action:door.open?'close':'open'}:null;
+ displayed=door?{doorId:door.id,action:door.open?'close':'open',actorId:actor.id,expectedRevision:value.doorState.revision}:null;
  if(displayed&&!info.pending&&!info.conflict)try{preview=host.preview({version:1,id:'reference-preview',expectedRevision:value.doorState.revision,actorId:actor.id,...displayed});}catch(error){preview={ok:false,reason:error.message};}
  const available=!!preview?.ok&&!info.pending&&!info.conflict;
- controls.update({active:true,paused,busy,actionLabel:door?(door.open?'Close ':'Open ')+door.name+' · '+(preview?.cost??'—')+' AP':'Select a door',actionAvailable:available,actionReason:info.pending?'Reconcile the save outcome before another action.':info.conflict?'Validate and use the active record to continue.':!door?'Select a timber leaf or named door.':preview?.ok?'The displayed leaf is within clear reach.':preview?.reason??'Reference unavailable.',checkpointAvailable:false});
+ controls.update({active:true,paused,busy:busy||info.pending||info.conflict,actionLabel:door?(door.open?'Close ':'Open ')+door.name+' · '+(preview?.cost??'—')+' AP':'Select a door',actionAvailable:available,actionReason:info.pending?'Reconcile the save outcome before another action.':info.conflict?'Validate and use the active record to continue.':!door?'Select a timber leaf or named door.':preview?.ok?'The displayed leaf is within clear reach.':preview?.reason??'Reference unavailable.',checkpointAvailable:false});
  $('resources').textContent=actor.hp+' HP · '+actor.ap.toFixed(2)+' AP · '+value.host.phase+' · '+value.host.detected.size+' contact'+(value.host.detected.size===1?'':'s');
  $('targets').replaceChildren(...value.doorState.doors.map(door=>{const button=document.createElement('button');button.type='button';button.textContent=door.name;button.setAttribute('aria-pressed',String(door.id===selected));button.onclick=()=>select(door.id);return button;}));
  $('reconcile').hidden=!info.pending;$('adopt-active').hidden=!info.conflict;$('retry').disabled=!info.lastCommand||info.pending||info.conflict||paused;$('save').disabled=$('load').disabled=info.pending||info.conflict||busy;
@@ -37,6 +37,7 @@ async function start(){
  listen(action,'pointerdown',event=>{if(event.button===0&&!action.disabled)pressed={...capture(),pointer:event.pointerId};},{capture:true});
  listen(action,'keydown',event=>{if(['Enter',' '].includes(event.key)&&!event.repeat&&!action.disabled)pressed=capture();},{capture:true});
  listen(view.canvas,'keydown',event=>{if(event.key.toLowerCase()==='e'&&!event.repeat)pressed=capture();},{capture:true});
+ listen(action,'focusout',()=>{if(pressed)pressed.cancelled=true;});
  listen(action,'pointerup',event=>{if(pressed?.pointer===event.pointerId)pressed.released=true;});
  listen(action,'pointercancel',()=>{if(pressed)pressed.cancelled=true;});listen(action,'lostpointercapture',()=>{if(pressed&&!pressed.released)pressed.cancelled=true;});
  listen(window,'pointermove',event=>{if(pressed&&!pressed.released&&pressed.pointer===event.pointerId&&(event.pointerType==='mouse'||event.pointerType==='pen')&&event.buttons===0)pressed.cancelled=true;},{capture:true});
