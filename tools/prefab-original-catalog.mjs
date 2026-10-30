@@ -3,20 +3,29 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {buildingDigest} from './building-geometry.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const ORIGINAL_BUILDING_COMMIT='ee7c18ecdc2669168247b94a82156634b2c4ffe5';
 // Fingerprints were verified against the fixed Git objects. Keep CI independent
 // of a historical commit being present in its shallow checkout.
 const fixedFiles={
-  'assets/buildings/catalogue.json':'ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e',
   'assets/buildings/painted-materials-v2.png':'bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2',
   'art/buildings/reference-register.json':'70eec5f387f94fd1a1df88a8a9a6af73b84f19dfde98306332695d9d99dbcfcd',
   'packages/building-catalog/index.js':'6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108',
-  'packages/building-catalog/designs.js':'87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6',
-  'packages/building-catalog/three.js':'a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba'
+  'packages/building-catalog/designs.js':'87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6'
 };
 for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);
+// The renderer's source is not pinned: its arithmetic may be rewritten (it was,
+// for speed) while its output may not change. Its reviewed output is pinned
+// instead: geometry digests recorded with the ee7c18e renderer (three.js
+// a6a71831…), and the catalogue's reviewed content apart from the line that
+// records the renderer's own hash.
+const REVIEWED_RENDERER='a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba',REVIEWED_CATALOGUE_CONTENT='49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223';
+export const REVIEWED_GEOMETRY=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/original-building-geometry.json')));
+if(REVIEWED_GEOMETRY.recordedFrom.commit!==ORIGINAL_BUILDING_COMMIT||REVIEWED_GEOMETRY.recordedFrom.sha256!==REVIEWED_RENDERER)throw Error('Reviewed building geometry was not recorded with the ee7c18e renderer.');
+{const catalogue=JSON.parse(fs.readFileSync(path.join(root,'assets/buildings/catalogue.json')));
+ if(createHash('sha256').update(JSON.stringify({...catalogue,inputs:catalogue.inputs.filter(input=>input.file!=='packages/building-catalog/three.js')})).digest('hex')!==REVIEWED_CATALOGUE_CONTENT)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': assets/buildings/catalogue.json');}
 const {createBuildingModel}=await import('../packages/building-catalog/three.js');
 export function originalCatalogueSource() {
   const bytes=fs.readFileSync(path.join(root,'assets/buildings/catalogue.json')),catalogue=JSON.parse(bytes);
@@ -24,6 +33,7 @@ export function originalCatalogueSource() {
   const assets=catalogue.buildings.map(entry=>{
     const model=createBuildingModel(T,entry.id,{lod:'game'});
     try {
+      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);
       const bounds=new T.Box3().setFromObject(model.root);model.setDoorsOpen(true);bounds.union(new T.Box3().setFromObject(model.root));
       const number=n=>Math.round(n*1e6)/1e6;
       return {id:entry.id,name:entry.name,provider:'original',collectionId:'original',collection:'Original architecture',group:entry.group,style:entry.style,

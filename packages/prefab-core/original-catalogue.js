@@ -3,7 +3,7 @@ const freeze = value => {if(value && typeof value === "object"){Object.values(va
 export const ORIGINAL_BUILDING_SOURCE = freeze({
   "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
   "catalogue": "assets/buildings/catalogue.json",
-  "catalogueSha256": "ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e",
+  "catalogueSha256": "dff6f1d685402f4f6709660f9fd9141ee66ab2e56b948dcd8c68cf1d2b0d2ad7",
   "atlas": {
     "file": "assets/buildings/painted-materials-v2.png",
     "width": 1254,
@@ -21,7 +21,7 @@ export const ORIGINAL_BUILDING_SOURCE = freeze({
     },
     {
       "file": "packages/building-catalog/three.js",
-      "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
+      "sha256": "4b01be137007f47e35734f11063ad93ea179996eb46320bc953677663a37ce99"
     },
     {
       "file": "tools/build-building-assets.mjs",

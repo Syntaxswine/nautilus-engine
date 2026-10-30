@@ -1,0 +1,25 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
+import {DESIGNS} from '../packages/building-catalog/index.js';
+import {createBuildingModel} from '../packages/building-catalog/three.js';
+import {buildingDigest,buildingDigests} from '../tools/building-geometry.mjs';
+const reviewed=JSON.parse(fs.readFileSync(new URL('./fixtures/original-building-geometry.json',import.meta.url)));
+
+test('every original building matches the reviewed renderer byte for byte at game and authoring detail',()=>{
+  assert.equal(reviewed.recordedFrom.commit,'ee7c18ecdc2669168247b94a82156634b2c4ffe5');
+  const digests=buildingDigests(T,createBuildingModel,DESIGNS.map(d=>d.id));
+  assert.equal(Object.keys(digests).length,96);assert.deepEqual(digests,reviewed.digests);
+});
+
+test('the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh',()=>{
+  const id='bramble-ranch',fresh=()=>createBuildingModel(T,id),expected=reviewed.digests['game:'+id];
+  const nudged=fresh(),position=nudged.root.children[0].geometry.attributes.position;
+  position.array[4]=new Float32Array(new Uint32Array([new Uint32Array(new Float32Array([position.array[4]]).buffer)[0]+1]).buffer)[0];
+  assert.notEqual(buildingDigest(nudged),expected);nudged.dispose();
+  const reordered=fresh(),[first,second]=reordered.root.children;reordered.root.children[0]=second;reordered.root.children[1]=first;
+  assert.notEqual(buildingDigest(reordered),expected);reordered.dispose();
+  const renamed=fresh();renamed.root.children[0].name+='!';assert.notEqual(buildingDigest(renamed),expected);renamed.dispose();
+  const control=fresh();assert.equal(buildingDigest(control),expected);control.dispose();
+});
