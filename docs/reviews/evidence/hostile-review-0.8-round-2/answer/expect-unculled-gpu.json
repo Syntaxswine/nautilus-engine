@@ -1,0 +1,5767 @@
+{
+ "mode": "editor",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "logicalCpus": 16,
+  "loadavg": [
+   0,
+   0,
+   0
+  ]
+ },
+ "trees": {
+  "a": {
+   "dir": "<a>",
+   "head": "fb352776b714b097cb1bfb94350f8e18a62bfc52",
+   "status": "extracted archive (git archive fb35277 | tar -x)"
+  },
+  "b": {
+   "dir": "<b>",
+   "head": "1101b56bf4b3a3455e403910765a834b9bf27b24",
+   "status": "M tools/bench-asset-rendering.mjs\n M tools/bench/editor-probe.js\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/integration-captures-vs-main.txt\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/mutate-glass.mjs\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/mutate-r2-rerun.mjs\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/patch-glass-halves.mjs\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/patch-instance-groups.mjs\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/pilot-clones-vs-instances-gpu.json\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/pilot-glass-halves-gpu.json\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/pilot-instances-vs-groups-of-8-gpu.json\n?? docs/reviews/evidence/hostile-review-0.8-round-2/answer/r2-survivors-rerun.json"
+  }
+ },
+ "runs": 2,
+ "backends": [
+  "gpu"
+ ],
+ "maps": [
+  "w0-blank",
+  "w1-32x-largest",
+  "w2-32-distinct-most-meshes",
+  "w3-32-distinct-most-triangles",
+  "w4-32-gross",
+  "w5a-walls-axis",
+  "w5b-walls-free-angle",
+  "w6-roofs-144",
+  "w7-mixed-13-gross-19-largest"
+ ],
+ "framesPerBlock": 2,
+ "blocks": 1,
+ "opens": 1,
+ "samples": [
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w0-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1020.5
+    ],
+    "b": [
+     1144.3000001907349
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.1999998092651367,
+        4.299999952316284
+       ],
+       "total": [
+        8.899999856948853,
+        6
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.099999904632568,
+        5.799999952316284
+       ],
+       "total": [
+        15,
+        7.599999904632568
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.5,
+        1.7000000476837158
+       ],
+       "total": [
+        4.099999904632568,
+        4
+       ],
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.5,
+        1.5999999046325684
+       ],
+       "total": [
+        6.299999952316284,
+        4.299999952316284
+       ],
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.799999952316284,
+        3.799999952316284
+       ],
+       "total": [
+        5.200000047683716,
+        7.5
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.299999952316284,
+        4.799999952316284
+       ],
+       "total": [
+        6.700000047683716,
+        6.199999809265137
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1226.9000000953674
+    ],
+    "b": [
+     1306.7999999523163
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        15.700000047683716,
+        14.599999904632568
+       ],
+       "total": [
+        16.700000047683716,
+        16.59999990463257
+       ],
+       "counts": {
+        "calls": 4155,
+        "shadowCalls": 2026,
+        "triangles": 5307446,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.299999952316284,
+        4.699999809265137
+       ],
+       "total": [
+        8.100000143051147,
+        16.299999952316284
+       ],
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.699999809265137,
+        5.699999809265137
+       ],
+       "total": [
+        14.5,
+        10.899999856948853
+       ],
+       "counts": {
+        "calls": 1678,
+        "shadowCalls": 1190,
+        "triangles": 1951724,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.0999999046325684,
+        2.6999998092651367
+       ],
+       "total": [
+        3.200000047683716,
+        3.6999998092651367
+       ],
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.1000001430511475,
+        4.5
+       ],
+       "total": [
+        5.6000001430511475,
+        5.200000047683716
+       ],
+       "counts": {
+        "calls": 1948,
+        "shadowCalls": 970,
+        "triangles": 2938918,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.299999952316284,
+        4.699999809265137
+       ],
+       "total": [
+        4.900000095367432,
+        6.299999952316284
+       ],
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1568,
+      "shadow": 1472,
+      "triangles": 2766336
+     },
+     "b": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2766336
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 416,
+      "shadow": 416,
+      "triangles": 397568
+     },
+     "b": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397568
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w2-32-distinct-most-meshes",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2649.100000143051
+    ],
+    "b": [
+     1966.9000000953674
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        22.09999990463257,
+        20
+       ],
+       "total": [
+        22.59999990463257,
+        20.40000009536743
+       ],
+       "counts": {
+        "calls": 4480,
+        "shadowCalls": 2209,
+        "triangles": 3766342,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        8.299999952316284,
+        7.400000095367432
+       ],
+       "total": [
+        8.799999952316284,
+        8.200000047683716
+       ],
+       "counts": {
+        "calls": 1877,
+        "shadowCalls": 896,
+        "triangles": 3766698,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        8.100000143051147,
+        8
+       ],
+       "total": [
+        8.600000143051147,
+        8.5
+       ],
+       "counts": {
+        "calls": 1934,
+        "shadowCalls": 1324,
+        "triangles": 1263800,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.299999952316284,
+        3.700000047683716
+       ],
+       "total": [
+        3.8999998569488525,
+        4.200000047683716
+       ],
+       "counts": {
+        "calls": 720,
+        "shadowCalls": 457,
+        "triangles": 1278182,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        9,
+        8.5
+       ],
+       "total": [
+        10,
+        9.299999952316284
+       ],
+       "counts": {
+        "calls": 2596,
+        "shadowCalls": 1297,
+        "triangles": 2802022,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.099999904632568,
+        5.599999904632568
+       ],
+       "total": [
+        5,
+        6.200000047683716
+       ],
+       "counts": {
+        "calls": 1512,
+        "shadowCalls": 750,
+        "triangles": 2802174,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1729,
+      "shadow": 1655,
+      "triangles": 1224996
+     },
+     "b": {
+      "main": 416,
+      "shadow": 342,
+      "triangles": 1224996
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 743,
+      "shadow": 743,
+      "triangles": 260440
+     },
+     "b": {
+      "main": 196,
+      "shadow": 196,
+      "triangles": 260440
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w3-32-distinct-most-triangles",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2538.4000000953674
+    ],
+    "b": [
+     1765.2000000476837
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        18.5,
+        22.700000047683716
+       ],
+       "total": [
+        22.59999990463257,
+        23.200000047683716
+       ],
+       "counts": {
+        "calls": 4425,
+        "shadowCalls": 2176,
+        "triangles": 3788864,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.299999952316284,
+        5.800000190734863
+       ],
+       "total": [
+        7.699999809265137,
+        6.400000095367432
+       ],
+       "counts": {
+        "calls": 1863,
+        "shadowCalls": 888,
+        "triangles": 3789080,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        8.299999952316284,
+        6.700000047683716
+       ],
+       "total": [
+        9.299999952316284,
+        7.200000047683716
+       ],
+       "counts": {
+        "calls": 1900,
+        "shadowCalls": 1309,
+        "triangles": 1233892,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.5999999046325684,
+        3.1000001430511475
+       ],
+       "total": [
+        3.299999952316284,
+        3.5
+       ],
+       "counts": {
+        "calls": 711,
+        "shadowCalls": 446,
+        "triangles": 1248580,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.700000047683716,
+        7.8999998569488525
+       ],
+       "total": [
+        8.600000143051147,
+        8.899999856948853
+       ],
+       "counts": {
+        "calls": 2546,
+        "shadowCalls": 1271,
+        "triangles": 2806786,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        6.400000095367432,
+        5.5
+       ],
+       "total": [
+        7,
+        6.200000047683716
+       ],
+       "counts": {
+        "calls": 1501,
+        "shadowCalls": 744,
+        "triangles": 2806926,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1696,
+      "shadow": 1622,
+      "triangles": 1247106
+     },
+     "b": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 717,
+      "shadow": 717,
+      "triangles": 264952
+     },
+     "b": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1330.6999998092651
+    ],
+    "b": [
+     1499.5
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        19.200000047683716,
+        20.59999990463257
+       ],
+       "total": [
+        19.90000009536743,
+        21.200000047683716
+       ],
+       "counts": {
+        "calls": 8657,
+        "shadowCalls": 4353,
+        "triangles": 3370761,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1653,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.1000001430511475,
+        3.8999998569488525
+       ],
+       "total": [
+        6.1000001430511475,
+        4.699999809265137
+       ],
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        15.200000047683716,
+        12.799999952316284
+       ],
+       "total": [
+        16.200000047683716,
+        13.600000143051147
+       ],
+       "counts": {
+        "calls": 3894,
+        "shadowCalls": 2787,
+        "triangles": 997120,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1653,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.200000047683716,
+        3.0999999046325684
+       ],
+       "total": [
+        3.9000000953674316,
+        3.8999998569488525
+       ],
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        13.099999904632568,
+        16.600000143051147
+       ],
+       "total": [
+        13.699999809265137,
+        17.40000009536743
+       ],
+       "counts": {
+        "calls": 4486,
+        "shadowCalls": 2251,
+        "triangles": 2922324,
+        "passes": 2
+       },
+       "programs": 26,
+       "geometries": 1700,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.400000095367432,
+        4
+       ],
+       "total": [
+        5.299999952316284,
+        5.1000001430511475
+       ],
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 3799,
+      "shadow": 3799,
+      "triangles": 830576
+     },
+     "b": {
+      "main": 168,
+      "shadow": 168,
+      "triangles": 830576
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 1697,
+      "shadow": 1697,
+      "triangles": 381110
+     },
+     "b": {
+      "main": 149,
+      "shadow": 149,
+      "triangles": 381110
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w5a-walls-axis",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1086.9000000953674
+    ],
+    "b": [
+     1186.5
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.5999999046325684,
+        3.799999952316284
+       ],
+       "total": [
+        6.5,
+        11.200000047683716
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.6000001430511475,
+        4
+       ],
+       "total": [
+        7.1000001430511475,
+        14.899999856948853
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.4000000953674316,
+        1.1999998092651367
+       ],
+       "total": [
+        4.900000095367432,
+        10.299999952316284
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.5,
+        1.9000000953674316
+       ],
+       "total": [
+        10.799999952316284,
+        5.400000095367432
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.200000047683716,
+        3.4000000953674316
+       ],
+       "total": [
+        6.5,
+        5.400000095367432
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.5999999046325684,
+        3
+       ],
+       "total": [
+        5.400000095367432,
+        10.899999856948853
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w5b-walls-free-angle",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1134.2000000476837
+    ],
+    "b": [
+     1167.8999998569489
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        20.799999952316284,
+        17.800000190734863
+       ],
+       "total": [
+        25.09999990463257,
+        23.5
+       ],
+       "counts": {
+        "calls": 5916,
+        "shadowCalls": 2956,
+        "triangles": 3165242,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 2500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.700000047683716,
+        3.1000001430511475
+       ],
+       "total": [
+        3.5,
+        4.300000190734863
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3165422,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.6000001430511475,
+        4.700000047683716
+       ],
+       "total": [
+        6.200000047683716,
+        6.599999904632568
+       ],
+       "counts": {
+        "calls": 1618,
+        "shadowCalls": 1293,
+        "triangles": 1416518,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 2500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.7000000476837158,
+        1.6000001430511475
+       ],
+       "total": [
+        2.799999952316284,
+        2.700000047683716
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1488338,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.400000095367432,
+        5.799999952316284
+       ],
+       "total": [
+        8.400000095367432,
+        6.8999998569488525
+       ],
+       "counts": {
+        "calls": 1920,
+        "shadowCalls": 954,
+        "triangles": 2604338,
+        "passes": 2
+       },
+       "programs": 20,
+       "geometries": 500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.299999952316284,
+        4.3999998569488525
+       ],
+       "total": [
+        5,
+        5.099999904632568
+       ],
+       "counts": {
+        "calls": 1123,
+        "shadowCalls": 555,
+        "triangles": 2604350,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 101,
+       "textures": 35
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 2402,
+      "shadow": 2402,
+      "triangles": 623448
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 400,
+      "shadow": 400,
+      "triangles": 62376
+     },
+     "b": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w6-roofs-144",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1310.2000000476837
+    ],
+    "b": [
+     1317.3000001907349
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        10.399999856948853,
+        8.199999809265137
+       ],
+       "total": [
+        12.700000047683716,
+        9.699999809265137
+       ],
+       "counts": {
+        "calls": 1985,
+        "shadowCalls": 986,
+        "triangles": 2546966,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.900000095367432,
+        4.200000047683716
+       ],
+       "total": [
+        6.6000001430511475,
+        7.799999952316284
+       ],
+       "counts": {
+        "calls": 1131,
+        "shadowCalls": 559,
+        "triangles": 2546966,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2,
+        3.0999999046325684
+       ],
+       "total": [
+        9.5,
+        5.099999904632568
+       ],
+       "counts": {
+        "calls": 701,
+        "shadowCalls": 519,
+        "triangles": 866514,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.3999998569488525,
+        1.8999998569488525
+       ],
+       "total": [
+        5,
+        4.5
+       ],
+       "counts": {
+        "calls": 429,
+        "shadowCalls": 308,
+        "triangles": 869882,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.700000047683716,
+        4.200000047683716
+       ],
+       "total": [
+        10.400000095367432,
+        5.599999904632568
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.099999904632568,
+        3.9000000953674316
+       ],
+       "total": [
+        5.599999904632568,
+        11.100000143051147
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 432,
+      "shadow": 432,
+      "triangles": 4992
+     },
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w7-mixed-13-gross-19-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2669.300000190735
+    ],
+    "b": [
+     1888.2000000476837
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        27.899999856948853,
+        24.799999952316284
+       ],
+       "total": [
+        28.5,
+        25.59999990463257
+       ],
+       "counts": {
+        "calls": 6542,
+        "shadowCalls": 3246,
+        "triangles": 3758312,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 2792,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.599999904632568,
+        6.5
+       ],
+       "total": [
+        8.299999952316284,
+        7.200000047683716
+       ],
+       "counts": {
+        "calls": 1940,
+        "shadowCalls": 938,
+        "triangles": 3758528,
+        "passes": 2
+       },
+       "programs": 34,
+       "geometries": 481,
+       "textures": 43
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        9.299999952316284,
+        8.799999952316284
+       ],
+       "total": [
+        9.799999952316284,
+        9.399999856948853
+       ],
+       "counts": {
+        "calls": 2333,
+        "shadowCalls": 1691,
+        "triangles": 1206803,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 2792,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.6000001430511475,
+        3.5
+       ],
+       "total": [
+        4.200000047683716,
+        4.200000047683716
+       ],
+       "counts": {
+        "calls": 736,
+        "shadowCalls": 468,
+        "triangles": 1227381,
+        "passes": 2
+       },
+       "programs": 34,
+       "geometries": 481,
+       "textures": 43
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        13.5,
+        16.5
+       ],
+       "total": [
+        14.5,
+        17.299999952316284
+       ],
+       "counts": {
+        "calls": 3366,
+        "shadowCalls": 1681,
+        "triangles": 2857572,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 2839,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.400000095367432,
+        7
+       ],
+       "total": [
+        5.5,
+        7.799999952316284
+       ],
+       "counts": {
+        "calls": 1663,
+        "shadowCalls": 825,
+        "triangles": 2857712,
+        "passes": 2
+       },
+       "programs": 38,
+       "geometries": 510,
+       "textures": 43
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 2743,
+      "shadow": 2692,
+      "triangles": 1216554
+     },
+     "b": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 1127,
+      "shadow": 1127,
+      "triangles": 315738
+     },
+     "b": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w0-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1115.9000000953674
+    ],
+    "b": [
+     1039.0999999046326
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.5,
+        4.900000095367432
+       ],
+       "total": [
+        6.299999952316284,
+        15.600000143051147
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.799999952316284,
+        4.800000190734863
+       ],
+       "total": [
+        13.599999904632568,
+        6.200000047683716
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.7000000476837158,
+        1.8999998569488525
+       ],
+       "total": [
+        4.200000047683716,
+        4.299999952316284
+       ],
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.9000000953674316,
+        1.5999999046325684
+       ],
+       "total": [
+        7.1000001430511475,
+        4.3999998569488525
+       ],
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.4000000953674316,
+        4.700000047683716
+       ],
+       "total": [
+        10.200000047683716,
+        6.3999998569488525
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.400000095367432,
+        4.299999952316284
+       ],
+       "total": [
+        6.200000047683716,
+        9.099999904632568
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1465.3000001907349
+    ],
+    "b": [
+     1182.6000001430511
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        13.900000095367432,
+        18.40000009536743
+       ],
+       "total": [
+        16.5,
+        22
+       ],
+       "counts": {
+        "calls": 4155,
+        "shadowCalls": 2026,
+        "triangles": 5307446,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.5,
+        5.1000001430511475
+       ],
+       "total": [
+        16.5,
+        17.600000143051147
+       ],
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        6.299999952316284,
+        5.6000001430511475
+       ],
+       "total": [
+        7.400000095367432,
+        10.5
+       ],
+       "counts": {
+        "calls": 1678,
+        "shadowCalls": 1190,
+        "triangles": 1951724,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.7999999523162842,
+        2.200000047683716
+       ],
+       "total": [
+        12.799999952316284,
+        10.800000190734863
+       ],
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.700000047683716,
+        5.599999904632568
+       ],
+       "total": [
+        10.100000143051147,
+        6.5
+       ],
+       "counts": {
+        "calls": 1948,
+        "shadowCalls": 970,
+        "triangles": 2938918,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 146,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.5,
+        5
+       ],
+       "total": [
+        6.799999952316284,
+        6
+       ],
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1568,
+      "shadow": 1472,
+      "triangles": 2766336
+     },
+     "b": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2766336
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 416,
+      "shadow": 416,
+      "triangles": 397568
+     },
+     "b": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397568
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w2-32-distinct-most-meshes",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2831.2000000476837
+    ],
+    "b": [
+     1833.2000000476837
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        18.899999856948853,
+        19.700000047683716
+       ],
+       "total": [
+        19.899999856948853,
+        20.299999952316284
+       ],
+       "counts": {
+        "calls": 4480,
+        "shadowCalls": 2209,
+        "triangles": 3766342,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.700000047683716,
+        7.099999904632568
+       ],
+       "total": [
+        15.100000143051147,
+        9.799999952316284
+       ],
+       "counts": {
+        "calls": 1877,
+        "shadowCalls": 896,
+        "triangles": 3766698,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.1000001430511475,
+        7.8999998569488525
+       ],
+       "total": [
+        7.800000190734863,
+        8.699999809265137
+       ],
+       "counts": {
+        "calls": 1934,
+        "shadowCalls": 1324,
+        "triangles": 1263800,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.9000000953674316,
+        4.5
+       ],
+       "total": [
+        7.099999904632568,
+        6.1000001430511475
+       ],
+       "counts": {
+        "calls": 720,
+        "shadowCalls": 457,
+        "triangles": 1278182,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        10,
+        10.5
+       ],
+       "total": [
+        11,
+        11.599999904632568
+       ],
+       "counts": {
+        "calls": 2596,
+        "shadowCalls": 1297,
+        "triangles": 2802022,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1755,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.5,
+        3.9000000953674316
+       ],
+       "total": [
+        6.200000047683716,
+        4.6000001430511475
+       ],
+       "counts": {
+        "calls": 1512,
+        "shadowCalls": 750,
+        "triangles": 2802174,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 442,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1729,
+      "shadow": 1655,
+      "triangles": 1224996
+     },
+     "b": {
+      "main": 416,
+      "shadow": 342,
+      "triangles": 1224996
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 743,
+      "shadow": 743,
+      "triangles": 260440
+     },
+     "b": {
+      "main": 196,
+      "shadow": 196,
+      "triangles": 260440
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w3-32-distinct-most-triangles",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2582
+    ],
+    "b": [
+     1831.8000001907349
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        18.5,
+        18.200000047683716
+       ],
+       "total": [
+        21.200000047683716,
+        19.59999990463257
+       ],
+       "counts": {
+        "calls": 4425,
+        "shadowCalls": 2176,
+        "triangles": 3788864,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        12.5,
+        9
+       ],
+       "total": [
+        14.600000143051147,
+        15.599999904632568
+       ],
+       "counts": {
+        "calls": 1863,
+        "shadowCalls": 888,
+        "triangles": 3789080,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        7.700000047683716,
+        8.200000047683716
+       ],
+       "total": [
+        8.299999952316284,
+        8.900000095367432
+       ],
+       "counts": {
+        "calls": 1900,
+        "shadowCalls": 1309,
+        "triangles": 1233892,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3,
+        3.299999952316284
+       ],
+       "total": [
+        7.200000047683716,
+        4.8999998569488525
+       ],
+       "counts": {
+        "calls": 711,
+        "shadowCalls": 446,
+        "triangles": 1248580,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        9.700000047683716,
+        10.400000095367432
+       ],
+       "total": [
+        10.5,
+        11.300000190734863
+       ],
+       "counts": {
+        "calls": 2546,
+        "shadowCalls": 1271,
+        "triangles": 2806786,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 1722,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.200000047683716,
+        4.700000047683716
+       ],
+       "total": [
+        5.200000047683716,
+        5.200000047683716
+       ],
+       "counts": {
+        "calls": 1501,
+        "shadowCalls": 744,
+        "triangles": 2806926,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 434,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 1696,
+      "shadow": 1622,
+      "triangles": 1247106
+     },
+     "b": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 717,
+      "shadow": 717,
+      "triangles": 264952
+     },
+     "b": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1489.7999999523163
+    ],
+    "b": [
+     1364.8999998569489
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        21.200000047683716,
+        22.100000143051147
+       ],
+       "total": [
+        23.899999856948853,
+        23.200000047683716
+       ],
+       "counts": {
+        "calls": 8657,
+        "shadowCalls": 4353,
+        "triangles": 3370761,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 1653,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.799999952316284,
+        4.799999952316284
+       ],
+       "total": [
+        6.700000047683716,
+        9.700000047683716
+       ],
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        18.299999952316284,
+        16.700000047683716
+       ],
+       "total": [
+        20.09999990463257,
+        18.299999952316284
+       ],
+       "counts": {
+        "calls": 3894,
+        "shadowCalls": 2787,
+        "triangles": 997120,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 1653,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.799999952316284,
+        2.5999999046325684
+       ],
+       "total": [
+        4.200000047683716,
+        4
+       ],
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        17.100000143051147,
+        17.09999990463257
+       ],
+       "total": [
+        17.600000143051147,
+        18.399999856948853
+       ],
+       "counts": {
+        "calls": 4486,
+        "shadowCalls": 2251,
+        "triangles": 2922324,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 1700,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        6.5,
+        5.099999904632568
+       ],
+       "total": [
+        7.700000047683716,
+        6.299999952316284
+       ],
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 3799,
+      "shadow": 3799,
+      "triangles": 830576
+     },
+     "b": {
+      "main": 168,
+      "shadow": 168,
+      "triangles": 830576
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 1697,
+      "shadow": 1697,
+      "triangles": 381110
+     },
+     "b": {
+      "main": 149,
+      "shadow": 149,
+      "triangles": 381110
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w5a-walls-axis",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1164.5
+    ],
+    "b": [
+     1084.7999999523163
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4,
+        4.700000047683716
+       ],
+       "total": [
+        12.5,
+        14.400000095367432
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.1000001430511475,
+        2.5999999046325684
+       ],
+       "total": [
+        9.600000143051147,
+        9.199999809265137
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.2999999523162842,
+        1.5999999046325684
+       ],
+       "total": [
+        5.1000001430511475,
+        11.099999904632568
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.2000000476837158,
+        1.6999998092651367
+       ],
+       "total": [
+        12.600000143051147,
+        6.799999952316284
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.299999952316284,
+        3.799999952316284
+       ],
+       "total": [
+        4.900000095367432,
+        5.099999904632568
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 101,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.099999904632568,
+        3.799999952316284
+       ],
+       "total": [
+        11.299999952316284,
+        5.5
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w5b-walls-free-angle",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1334.9000000953674
+    ],
+    "b": [
+     1079.4000000953674
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        25.800000190734863,
+        22.59999990463257
+       ],
+       "total": [
+        27.90000009536743,
+        27.200000047683716
+       ],
+       "counts": {
+        "calls": 5916,
+        "shadowCalls": 2956,
+        "triangles": 3165242,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 2500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.0999999046325684,
+        3.700000047683716
+       ],
+       "total": [
+        17,
+        12.200000047683716
+       ],
+       "counts": {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3165422,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.799999952316284,
+        5
+       ],
+       "total": [
+        6.700000047683716,
+        6.200000047683716
+       ],
+       "counts": {
+        "calls": 1618,
+        "shadowCalls": 1293,
+        "triangles": 1416518,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 2500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.1000001430511475,
+        2.1999998092651367
+       ],
+       "total": [
+        2.6000001430511475,
+        3.5
+       ],
+       "counts": {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1488338,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 103,
+       "textures": 35
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.799999952316284,
+        6.8999998569488525
+       ],
+       "total": [
+        7,
+        8.099999904632568
+       ],
+       "counts": {
+        "calls": 1920,
+        "shadowCalls": 954,
+        "triangles": 2604338,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 500,
+       "textures": 35
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        2.799999952316284,
+        3
+       ],
+       "total": [
+        4.099999904632568,
+        3.9000000953674316
+       ],
+       "counts": {
+        "calls": 1123,
+        "shadowCalls": 555,
+        "triangles": 2604350,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 101,
+       "textures": 35
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 2402,
+      "shadow": 2402,
+      "triangles": 623448
+     },
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 400,
+      "shadow": 400,
+      "triangles": 62376
+     },
+     "b": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w6-roofs-144",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1186.1000001430511
+    ],
+    "b": [
+     1383.3999998569489
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        6.199999809265137,
+        7.200000047683716
+       ],
+       "total": [
+        12.099999904632568,
+        8.700000047683716
+       ],
+       "counts": {
+        "calls": 1985,
+        "shadowCalls": 986,
+        "triangles": 2546966,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5,
+        3.5999999046325684
+       ],
+       "total": [
+        7.1000001430511475,
+        11.099999904632568
+       ],
+       "counts": {
+        "calls": 1131,
+        "shadowCalls": 559,
+        "triangles": 2546966,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3,
+        3.200000047683716
+       ],
+       "total": [
+        5.099999904632568,
+        9
+       ],
+       "counts": {
+        "calls": 701,
+        "shadowCalls": 519,
+        "triangles": 866514,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        1.7999999523162842,
+        1.8000001907348633
+       ],
+       "total": [
+        4.8999998569488525,
+        4.6000001430511475
+       ],
+       "counts": {
+        "calls": 429,
+        "shadowCalls": 308,
+        "triangles": 869882,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3,
+        3.8999998569488525
+       ],
+       "total": [
+        11.200000047683716,
+        5.199999809265137
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 244,
+       "textures": 36
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        4.900000095367432,
+        3.9000000953674316
+       ],
+       "total": [
+        6.799999952316284,
+        10
+       ],
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 101,
+       "textures": 36
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 432,
+      "shadow": 432,
+      "triangles": 4992
+     },
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w7-mixed-13-gross-19-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     2690.9000000953674
+    ],
+    "b": [
+     1711.5999999046326
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        28,
+        28.5
+       ],
+       "total": [
+        28.90000009536743,
+        29.59999990463257
+       ],
+       "counts": {
+        "calls": 6542,
+        "shadowCalls": 3246,
+        "triangles": 3758312,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 2792,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        14.200000047683716,
+        8.300000190734863
+       ],
+       "total": [
+        17.5,
+        14.100000143051147
+       ],
+       "counts": {
+        "calls": 1940,
+        "shadowCalls": 938,
+        "triangles": 3758528,
+        "passes": 2
+       },
+       "programs": 34,
+       "geometries": 481,
+       "textures": 43
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        11,
+        11.900000095367432
+       ],
+       "total": [
+        11.700000047683716,
+        12.700000047683716
+       ],
+       "counts": {
+        "calls": 2333,
+        "shadowCalls": 1691,
+        "triangles": 1206803,
+        "passes": 2
+       },
+       "programs": 25,
+       "geometries": 2792,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        3.4000000953674316,
+        3
+       ],
+       "total": [
+        4.5,
+        3.700000047683716
+       ],
+       "counts": {
+        "calls": 736,
+        "shadowCalls": 468,
+        "triangles": 1227381,
+        "passes": 2
+       },
+       "programs": 34,
+       "geometries": 481,
+       "textures": 43
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        14.599999904632568,
+        14.600000143051147
+       ],
+       "total": [
+        15.299999952316284,
+        15.400000095367432
+       ],
+       "counts": {
+        "calls": 3366,
+        "shadowCalls": 1681,
+        "triangles": 2857572,
+        "passes": 2
+       },
+       "programs": 29,
+       "geometries": 2839,
+       "textures": 43
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": [
+        5.200000047683716,
+        6.200000047683716
+       ],
+       "total": [
+        6,
+        6.700000047683716
+       ],
+       "counts": {
+        "calls": 1663,
+        "shadowCalls": 825,
+        "triangles": 2857712,
+        "passes": 2
+       },
+       "programs": 38,
+       "geometries": 510,
+       "textures": 43
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "a": {
+      "main": 2743,
+      "shadow": 2692,
+      "triangles": 1216554
+     },
+     "b": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     }
+    },
+    "cutaway": {
+     "a": {
+      "main": 1127,
+      "shadow": 1127,
+      "triangles": 315738
+     },
+     "b": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    }
+   }
+  }
+ ],
+ "browsers": [
+  {
+   "backend": "gpu",
+   "version": "156.0.4314.56",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  }
+ ],
+ "served_a": {
+  "files": 340,
+  "digest": "cd8053d22e941a00dcb54f8dad9cb1ae3fe4f52e1c3cbf75bc86dedbdb39e5d6"
+ },
+ "served_b": {
+  "files": 341,
+  "digest": "a1bde7c78b44dee05f8758e8b5a6974c1bf834137716dd8968b2c6e2e078252d"
+ },
+ "summary": [
+  {
+   "backend": "gpu",
+   "map": "w0-blank",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 9.199999988079071,
+      "b": 10.599999964237213
+     },
+     "cpuMs": {
+      "a": 4.224999964237213,
+      "b": 4.625
+     },
+     "speedup": {
+      "median": 0.8826763226957232,
+      "min": 0.6592920318506124,
+      "max": 1.106060613540834
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 4.149999976158142,
+      "b": 5.524999976158142
+     },
+     "cpuMs": {
+      "a": 1.699999988079071,
+      "b": 1.649999976158142
+     },
+     "speedup": {
+      "median": 0.7516406880284591,
+      "min": 0.7391304347826086,
+      "max": 0.7641509412743095
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 7.324999988079071,
+      "b": 7.049999952316284
+     },
+     "cpuMs": {
+      "a": 3.925000011920929,
+      "b": 4.199999988079071
+     },
+     "speedup": {
+      "median": 1.0347317280271964,
+      "min": 0.9844961386447301,
+      "max": 1.0849673174096628
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ]
+     }
+    }
+   },
+   "openMs": {
+    "a": 1068.2000000476837,
+    "b": 1091.7000000476837,
+    "speedup": {
+     "median": 0.982860851217094,
+     "min": 0.8918115877216642,
+     "max": 1.0739101147125238
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 17.94999998807907,
+      "b": 14.625000059604645
+     },
+     "cpuMs": {
+      "a": 15.650000035762787,
+      "b": 4.899999976158142
+     },
+     "speedup": {
+      "median": 1.2468931722002168,
+      "min": 1.1290322533281714,
+      "max": 1.364754091072262
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 4155,
+        "shadowCalls": 2026,
+        "triangles": 5307446,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 8.75,
+       "b": 4.025000095367432
+      },
+      "speedup": {
+       "median": 5.691530165352656,
+       "min": 1.1608391386867185,
+       "max": 10.222221192018594
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 10.824999988079071,
+      "b": 7.625
+     },
+     "cpuMs": {
+      "a": 5.574999928474426,
+      "b": 2.1999999284744263
+     },
+     "speedup": {
+      "median": 2.219817025795241,
+      "min": 0.7584745757146938,
+      "max": 3.681159475875788
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1678,
+        "shadowCalls": 1190,
+        "triangles": 1951724,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 6.850000083446503,
+      "b": 6
+     },
+     "cpuMs": {
+      "a": 4.725000023841858,
+      "b": 4.624999940395355
+     },
+     "speedup": {
+      "median": 1.1305803716086489,
+      "min": 0.9642857272101908,
+      "max": 1.2968750160071068
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1948,
+        "shadowCalls": 970,
+        "triangles": 2938918,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": -0.47499990463256836,
+       "b": -1.0499999523162842
+      },
+      "speedup": {
+       "median": 0.5588235023524957,
+       "min": -9.5367431640625e-8,
+       "max": 1.117647100072423
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1346.1000001430511,
+    "b": 1244.7000000476837,
+    "speedup": {
+     "median": 1.0889539158604757,
+     "min": 0.9388582798746065,
+     "max": 1.239049551846345
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w2-32-distinct-most-meshes",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 20.799999952316284,
+      "b": 10.475000023841858
+     },
+     "cpuMs": {
+      "a": 20.174999952316284,
+      "b": 7.625
+     },
+     "speedup": {
+      "median": 2.0719347910938737,
+      "min": 1.6144578174818651,
+      "max": 2.5294117647058822
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 4480,
+        "shadowCalls": 2209,
+        "triangles": 3766342,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1877,
+        "shadowCalls": 896,
+        "triangles": 3766698,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 11.599999964237213,
+       "b": -0.12499994039535522
+      },
+      "speedup": {
+       "median": -0.7148110582418588,
+       "min": -5.01785725385559,
+       "max": 3.5882351373718726
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 8.400000035762787,
+      "b": 5.324999988079071
+     },
+     "cpuMs": {
+      "a": 7.775000035762787,
+      "b": 3.850000023841858
+     },
+     "speedup": {
+      "median": 1.6805555745559766,
+      "min": 1.2499999954844967,
+      "max": 2.1111111536274563
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1934,
+        "shadowCalls": 1324,
+        "triangles": 1263800,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 720,
+        "shadowCalls": 457,
+        "triangles": 1278182,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 10.474999964237213,
+      "b": 5.500000059604645
+     },
+     "cpuMs": {
+      "a": 9.5,
+      "b": 4.774999976158142
+     },
+     "speedup": {
+      "median": 1.9079034104630153,
+      "min": 1.72321427412027,
+      "max": 2.0925925468057605
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 2596,
+        "shadowCalls": 1297,
+        "triangles": 2802022,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1512,
+        "shadowCalls": 750,
+        "triangles": 2802174,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 3.149999976158142,
+       "b": -1.5499998927116394
+      },
+      "speedup": {
+       "median": -2.607843362321086,
+       "min": -3.8823533206662932,
+       "max": -1.333333403975879
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 2740.1500000953674,
+    "b": 1900.0500000715256,
+    "speedup": {
+     "median": 1.445621717359197,
+     "min": 1.3468402054067856,
+     "max": 1.5444032293116086
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w3-32-distinct-most-triangles",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 21.649999976158142,
+      "b": 11.074999988079071
+     },
+     "cpuMs": {
+      "a": 19.475000023841858,
+      "b": 8.650000035762787
+     },
+     "speedup": {
+      "median": 2.299610171357018,
+      "min": 1.3509933737713875,
+      "max": 3.2482269689426486
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 4425,
+        "shadowCalls": 2176,
+        "triangles": 3788864,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1863,
+        "shadowCalls": 888,
+        "triangles": 3789080,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 12.449999988079071,
+       "b": 0.4750000238418579
+      },
+      "speedup": {
+       "median": -0.9089932334892973,
+       "min": -3.635294128866757,
+       "max": 1.8173076618881623
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 8.425000011920929,
+      "b": 4.724999964237213
+     },
+     "cpuMs": {
+      "a": 7.725000023841858,
+      "b": 3
+     },
+     "speedup": {
+      "median": 1.923979111850327,
+      "min": 1.4214876184501932,
+      "max": 2.426470605250461
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1900,
+        "shadowCalls": 1309,
+        "triangles": 1233892,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 711,
+        "shadowCalls": 446,
+        "triangles": 1248580,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 9.825000047683716,
+      "b": 5.900000035762787
+     },
+     "cpuMs": {
+      "a": 8.925000011920929,
+      "b": 5.200000047683716
+     },
+     "speedup": {
+      "median": 1.710955708120263,
+      "min": 1.3257575709684055,
+      "max": 2.0961538452721205
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 2546,
+        "shadowCalls": 1271,
+        "triangles": 2806786,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1501,
+        "shadowCalls": 744,
+        "triangles": 2806926,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 2.5000000596046448,
+       "b": -1.1499999165534973
+      },
+      "speedup": {
+       "median": 7.469382544684578,
+       "min": -1.0612245791656507,
+       "max": 15.999989668534807
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 2560.2000000476837,
+    "b": 1798.5000001192093,
+    "speedup": {
+     "median": 1.4237832731430928,
+     "min": 1.409542526329922,
+     "max": 1.438024019956264
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 22.05000001192093,
+      "b": 6.800000011920929
+     },
+     "cpuMs": {
+      "a": 20.775000035762787,
+      "b": 4.649999976158142
+     },
+     "speedup": {
+      "median": 3.3387533912998126,
+      "min": 2.871951196996461,
+      "max": 3.8055555856031646
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 8657,
+        "shadowCalls": 4353,
+        "triangles": 3370761,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 12.850000023841858,
+       "b": -3.799999952316284
+      },
+      "speedup": {
+       "median": -4.8160519889473274,
+       "min": -7.411764961625476,
+       "max": -2.220339016269179
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 17.05000001192093,
+      "b": 4
+     },
+     "cpuMs": {
+      "a": 15.75,
+      "b": 2.924999952316284
+     },
+     "speedup": {
+      "median": 4.25171982645667,
+      "min": 3.8205128683219374,
+      "max": 4.682926784591403
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 3894,
+        "shadowCalls": 2787,
+        "triangles": 997120,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 16.774999976158142,
+      "b": 6.100000023841858
+     },
+     "cpuMs": {
+      "a": 15.975000023841858,
+      "b": 5
+     },
+     "speedup": {
+      "median": 2.780906575110789,
+      "min": 2.5714285714285716,
+      "max": 2.990384578793007
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 4486,
+        "shadowCalls": 2251,
+        "triangles": 2922324,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 9.449999988079071,
+       "b": -0.9499999284744263
+      },
+      "speedup": {
+       "median": -11.141539094247804,
+       "min": -14.923077543811708,
+       "max": -7.3600006446838995
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1410.2499998807907,
+    "b": 1432.1999999284744,
+    "speedup": {
+     "median": 0.9894688392118931,
+     "min": 0.8874291429204836,
+     "max": 1.0915085355033027
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w5a-walls-axis",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 11.150000035762787,
+      "b": 10.199999988079071
+     },
+     "cpuMs": {
+      "a": 4.024999976158142,
+      "b": 3.325000047683716
+     },
+     "speedup": {
+      "median": 1.117698264622292,
+      "min": 0.8045454567128961,
+      "max": 1.4308510725316876
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3463574,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 1.9500000476837158,
+       "b": -0.3999999761581421
+      },
+      "speedup": {
+       "median": -4.8333338631524825,
+       "min": -5,
+       "max": -4.666667726304964
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 7.850000023841858,
+      "b": 8.900000035762787
+     },
+     "cpuMs": {
+      "a": 1.3749999403953552,
+      "b": 1.574999988079071
+     },
+     "speedup": {
+      "median": 0.8866615749323279,
+      "min": 0.8350515447446905,
+      "max": 0.9382716051199654
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1786490,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 5.475000023841858,
+      "b": 8.274999976158142
+     },
+     "cpuMs": {
+      "a": 3.925000011920929,
+      "b": 3.8749999403953552
+     },
+     "speedup": {
+      "median": 0.6626497273036458,
+      "min": 0.5952380969275693,
+      "max": 0.7300613576797221
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 2695574,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": -1.8499999642372131,
+       "b": 1.225000023841858
+      },
+      "speedup": {
+       "median": -2.3176470167221632,
+       "min": -4.399999936421712,
+       "max": -0.23529409702261483
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1125.7000000476837,
+    "b": 1135.6499999761581,
+    "speedup": {
+     "median": 0.9947626949647507,
+     "min": 0.9160556258705161,
+     "max": 1.0734697640589852
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w5b-walls-free-angle",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 25.92500001192093,
+      "b": 9.250000059604645
+     },
+     "cpuMs": {
+      "a": 21.750000059604645,
+      "b": 3.150000035762787
+     },
+     "speedup": {
+      "median": 4.058877684683946,
+      "min": 1.8869863031874188,
+      "max": 6.230769066180472
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 5916,
+        "shadowCalls": 2956,
+        "triangles": 3165242,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1127,
+        "shadowCalls": 557,
+        "triangles": 3165422,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 16.725000023841858,
+       "b": -1.3499999046325684
+      },
+      "speedup": {
+       "median": 0.627443894295084,
+       "min": -2.277027074266648,
+       "max": 3.5319148628568158
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 6.425000011920929,
+      "b": 2.900000035762787
+     },
+     "cpuMs": {
+      "a": 4.775000035762787,
+      "b": 1.6500000357627869
+     },
+     "speedup": {
+      "median": 2.221013391502254,
+      "min": 2.114754064401547,
+      "max": 2.327272718602961
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1618,
+        "shadowCalls": 1293,
+        "triangles": 1416518,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 425,
+        "shadowCalls": 306,
+        "triangles": 1488338,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 7.599999964237213,
+      "b": 4.524999976158142
+     },
+     "cpuMs": {
+      "a": 6.474999964237213,
+      "b": 3.6249999403953552
+     },
+     "speedup": {
+      "median": 1.7011757414050692,
+      "min": 1.5148514947310674,
+      "max": 1.887499988079071
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1920,
+        "shadowCalls": 954,
+        "triangles": 2604338,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1123,
+        "shadowCalls": 555,
+        "triangles": 2604350,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 0.2749999761581421,
+       "b": -2.524999976158142
+      },
+      "speedup": {
+       "median": -0.36154597846405945,
+       "min": -0.9285714103251085,
+       "max": 0.20547945339698956
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1234.5500000715256,
+    "b": 1123.6499999761581,
+    "speedup": {
+     "median": 1.1039251835525083,
+     "min": 0.9711447899534268,
+     "max": 1.2367055771515898
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w6-roofs-144",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 10.799999952316284,
+      "b": 8.150000035762787
+     },
+     "cpuMs": {
+      "a": 7.9999998807907104,
+      "b": 4.425000011920929
+     },
+     "speedup": {
+      "median": 1.3492063362811506,
+      "min": 1.1428571372428906,
+      "max": 1.5555555353194108
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1985,
+        "shadowCalls": 986,
+        "triangles": 2546966,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1131,
+        "shadowCalls": 559,
+        "triangles": 2546966,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 1.5999999642372131,
+       "b": -2.4499999284744263
+      },
+      "speedup": {
+       "median": -0.11356701861550267,
+       "min": -0.9146341676161736,
+       "max": 0.6875001303851682
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 7.174999952316284,
+      "b": 4.75
+     },
+     "cpuMs": {
+      "a": 2.824999988079071,
+      "b": 1.9749999642372131
+     },
+     "speedup": {
+      "median": 1.5105263057507967,
+      "min": 1.4842105162771124,
+      "max": 1.5368420952244808
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 701,
+        "shadowCalls": 519,
+        "triangles": 866514,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 429,
+        "shadowCalls": 308,
+        "triangles": 869882,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 8.099999964237213,
+      "b": 8.375
+     },
+     "cpuMs": {
+      "a": 3.699999988079071,
+      "b": 4.200000047683716
+     },
+     "speedup": {
+      "median": 0.9671371500229826,
+      "min": 0.9580838295997007,
+      "max": 0.9761904704462644
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 0.7749999761581421,
+       "b": 1.3250000476837158
+      },
+      "speedup": {
+       "median": 0.367543815685883,
+       "min": -0.1333333651224772,
+       "max": 0.8684209964942432
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1248.1500000953674,
+    "b": 1350.3500000238419,
+    "speedup": {
+     "median": 0.9259952774001063,
+     "min": 0.857380367403282,
+     "max": 0.9946101873969307
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w7-mixed-13-gross-19-largest",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 28.149999976158142,
+      "b": 11.775000035762787
+     },
+     "cpuMs": {
+      "a": 27.299999952316284,
+      "b": 9.150000035762787
+     },
+     "speedup": {
+      "median": 2.670794194448337,
+      "min": 1.85126581440425,
+      "max": 3.490322574492424
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 6542,
+        "shadowCalls": 3246,
+        "triangles": 3758312,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1940,
+        "shadowCalls": 938,
+        "triangles": 3758528,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 18.94999998807907,
+       "b": 1.1750000715255737
+      },
+      "speedup": {
+       "median": -1.209715992201404,
+       "min": -5.521126841439353,
+       "max": 3.1016948570365446
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 10.899999976158142,
+      "b": 4.150000035762787
+     },
+     "cpuMs": {
+      "a": 10.25,
+      "b": 3.3750000596046448
+     },
+     "speedup": {
+      "median": 2.630661993740869,
+      "min": 2.2857142370574333,
+      "max": 2.9756097504243053
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 2333,
+        "shadowCalls": 1691,
+        "triangles": 1206803,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 736,
+        "shadowCalls": 468,
+        "triangles": 1227381,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 15.625,
+      "b": 6.5
+     },
+     "cpuMs": {
+      "a": 14.800000011920929,
+      "b": 5.700000047683716
+     },
+     "speedup": {
+      "median": 2.404150138960085,
+      "min": 2.390977448596013,
+      "max": 2.417322829324156
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 3366,
+        "shadowCalls": 1681,
+        "triangles": 2857572,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1663,
+        "shadowCalls": 825,
+        "triangles": 2857712,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 8.300000011920929,
+       "b": -0.5499999523162842
+      },
+      "speedup": {
+       "median": 21.16345560004158,
+       "min": -5.42307717701388,
+       "max": 47.74998837709704
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 2680.100000143051,
+    "b": 1799.8999999761581,
+    "speedup": {
+     "median": 1.4929145540756106,
+     "min": 1.4136743989637357,
+     "max": 1.5721547091874852
+    }
+   }
+  }
+ ],
+ "expect": [
+  {
+   "map": "w0-blank",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w0-blank",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 200,
+    "shadow": 104,
+    "triangles": 2766336
+   },
+   "expected": {
+    "main": 200,
+    "shadow": 104,
+    "triangles": 2766336
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 7,
+    "shadow": 7,
+    "triangles": 397568
+   },
+   "expected": {
+    "main": 7,
+    "shadow": 7,
+    "triangles": 397568
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 416,
+    "shadow": 342,
+    "triangles": 1224996
+   },
+   "expected": {
+    "main": 416,
+    "shadow": 342,
+    "triangles": 1224996
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 196,
+    "shadow": 196,
+    "triangles": 260440
+   },
+   "expected": {
+    "main": 196,
+    "shadow": 196,
+    "triangles": 260440
+   }
+  },
+  {
+   "map": "w3-32-distinct-most-triangles",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 408,
+    "shadow": 334,
+    "triangles": 1247106
+   },
+   "expected": {
+    "main": 408,
+    "shadow": 334,
+    "triangles": 1247106
+   }
+  },
+  {
+   "map": "w3-32-distinct-most-triangles",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 190,
+    "shadow": 190,
+    "triangles": 264952
+   },
+   "expected": {
+    "main": 190,
+    "shadow": 190,
+    "triangles": 264952
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 168,
+    "shadow": 168,
+    "triangles": 830576
+   },
+   "expected": {
+    "main": 168,
+    "shadow": 168,
+    "triangles": 830576
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 149,
+    "shadow": 149,
+    "triangles": 381110
+   },
+   "expected": {
+    "main": 149,
+    "shadow": 149,
+    "triangles": 381110
+   }
+  },
+  {
+   "map": "w5a-walls-axis",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 921600
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 921600
+   }
+  },
+  {
+   "map": "w5a-walls-axis",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 153600
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 153600
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 623448
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 623448
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 1,
+    "shadow": 1,
+    "triangles": 62376
+   },
+   "expected": {
+    "main": 1,
+    "shadow": 1,
+    "triangles": 62376
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 5,
+    "shadow": 5,
+    "triangles": 4992
+   },
+   "expected": {
+    "main": 5,
+    "shadow": 5,
+    "triangles": 4992
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "overview",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 435,
+    "shadow": 384,
+    "triangles": 1216554
+   },
+   "expected": {
+    "main": 435,
+    "shadow": 384,
+    "triangles": 1216554
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "cutaway",
+   "run": 0,
+   "backend": "gpu",
+   "measured": {
+    "main": 271,
+    "shadow": 271,
+    "triangles": 315738
+   },
+   "expected": {
+    "main": 271,
+    "shadow": 271,
+    "triangles": 315738
+   }
+  },
+  {
+   "map": "w0-blank",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w0-blank",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 200,
+    "shadow": 104,
+    "triangles": 2766336
+   },
+   "expected": {
+    "main": 200,
+    "shadow": 104,
+    "triangles": 2766336
+   }
+  },
+  {
+   "map": "w1-32x-largest",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 7,
+    "shadow": 7,
+    "triangles": 397568
+   },
+   "expected": {
+    "main": 7,
+    "shadow": 7,
+    "triangles": 397568
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 416,
+    "shadow": 342,
+    "triangles": 1224996
+   },
+   "expected": {
+    "main": 416,
+    "shadow": 342,
+    "triangles": 1224996
+   }
+  },
+  {
+   "map": "w2-32-distinct-most-meshes",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 196,
+    "shadow": 196,
+    "triangles": 260440
+   },
+   "expected": {
+    "main": 196,
+    "shadow": 196,
+    "triangles": 260440
+   }
+  },
+  {
+   "map": "w3-32-distinct-most-triangles",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 408,
+    "shadow": 334,
+    "triangles": 1247106
+   },
+   "expected": {
+    "main": 408,
+    "shadow": 334,
+    "triangles": 1247106
+   }
+  },
+  {
+   "map": "w3-32-distinct-most-triangles",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 190,
+    "shadow": 190,
+    "triangles": 264952
+   },
+   "expected": {
+    "main": 190,
+    "shadow": 190,
+    "triangles": 264952
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 168,
+    "shadow": 168,
+    "triangles": 830576
+   },
+   "expected": {
+    "main": 168,
+    "shadow": 168,
+    "triangles": 830576
+   }
+  },
+  {
+   "map": "w4-32-gross",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 149,
+    "shadow": 149,
+    "triangles": 381110
+   },
+   "expected": {
+    "main": 149,
+    "shadow": 149,
+    "triangles": 381110
+   }
+  },
+  {
+   "map": "w5a-walls-axis",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 921600
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 921600
+   }
+  },
+  {
+   "map": "w5a-walls-axis",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 153600
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 153600
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 623448
+   },
+   "expected": {
+    "main": 3,
+    "shadow": 3,
+    "triangles": 623448
+   }
+  },
+  {
+   "map": "w5b-walls-free-angle",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 1,
+    "shadow": 1,
+    "triangles": 62376
+   },
+   "expected": {
+    "main": 1,
+    "shadow": 1,
+    "triangles": 62376
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 5,
+    "shadow": 5,
+    "triangles": 4992
+   },
+   "expected": {
+    "main": 5,
+    "shadow": 5,
+    "triangles": 4992
+   }
+  },
+  {
+   "map": "w6-roofs-144",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   },
+   "expected": {
+    "main": 0,
+    "shadow": 0,
+    "triangles": 0
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "overview",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 435,
+    "shadow": 384,
+    "triangles": 1216554
+   },
+   "expected": {
+    "main": 435,
+    "shadow": 384,
+    "triangles": 1216554
+   }
+  },
+  {
+   "map": "w7-mixed-13-gross-19-largest",
+   "view": "cutaway",
+   "run": 1,
+   "backend": "gpu",
+   "measured": {
+    "main": 271,
+    "shadow": 271,
+    "triangles": 315738
+   },
+   "expected": {
+    "main": 271,
+    "shadow": 271,
+    "triangles": 315738
+   }
+  }
+ ]
+}
