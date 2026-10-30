@@ -1,0 +1,15 @@
+
+> @nautilus-engine/map-core@0.8.0 review:integration
+> node tools/review-engine-integration.mjs
+
+Capturing layout-preview.png
+Capturing procedural-roofs.png
+Capturing editor-desktop.png
+Capturing original-interior.png
+Capturing gross-preview.png
+Capturing editor-mobile-library.png
+{"sourceCommit":"f6caeef309e56423fea5e32eb717533f33b59cbb","buildProvenanceSha256":"cc989ec4ef3cb99b45c8b278a8bd9a68c1055f6e54f5c02e9feffa680e61f408","host":{"calls":1,"buildings":6,"contract":["nautilus-wall-runs-v1","nautilus-building-prefabs-v1","nautilus-original-buildings-v1","nautilus-sloped-roofs-v1"]},"versionedUnsupportedHostRejected":true,"browser":"156.0.4314.50","renderer":"Isolated software WebGL; correctness only, no performance claim","initial":{"version":"v0.8.0","diagnostics":[],"renderer":"WebKit WebGL"},"schemaFiles":[{"id":"aft-map","ok":true},{"id":"aft-block","ok":true},{"id":"nautilus-save","ok":true},{"id":"nautilus-capability-requirements","ok":true},{"id":"nautilus-sloped-roofs","ok":true},{"id":"nautilus-rock","ok":true},{"id":"nautilus-rock-impact-noise","ok":true},{"id":"nautilus-progression","ok":true},{"id":"nautilus-module-configuration","ok":true},{"id":"nautilus-extended-world","ok":true}],"inventory":"64 of 64 buildings","seededBuildings":6,"proceduralRoofs":3,"roofPreview":true,"roofUndoRedo":true,"roofRejection":{"ok":false,"error":"Sloped roof roof-4 overlaps a whole-building prefab lot or its access clearance. Edit that prefab separately.","unchanged":true},"undoRedo":true,"distantWall":{"ok":true},"overlapRejection":{"ok":false,"error":"A wall run intersects the building lot or its access clearance. Move the entire wall thickness outside the reserved lot.","unchanged":true},"saveReload":true,"jsonRoundtrip":true,"assetCloseReopen":2,"desktop":{"width":1280,"height":900},"mobile":{"width":390,"height":844,"pageOverflow":false,"header":{"x":0,"y":0,"width":390,"height":132,"top":0,"right":390,"bottom":132,"left":0},"modal":{"left":8,"right":382,"top":25.3125,"bottom":818.671875}},"final":{"buildings":6,"walls":1,"roofs":3,"features":["nautilus-wall-runs-v1","nautilus-building-prefabs-v1","nautilus-original-buildings-v1","nautilus-sloped-roofs-v1"],"diagnostics":[],"memory":{"geometries":358,"textures":40},"drawCalls":1},"errors":[],"failedRequests":[],"captures":[{"file":"editor-desktop.png","sha256":"f287d1a900fe316ad35c0c3097ae9f0cca9b254f94fb25767d455c8d0a84ef3b"},{"file":"editor-mobile-library.png","sha256":"40ae0b967a9f1463ad85924b7ec25a4de2a48631dd7c66b71b2d0e248b26e077"},{"file":"gross-preview.png","sha256":"6f121c27c6980cf0e869aec24dcd5167feead3c5a02f1d47c7efb7374a2df944"},{"file":"layout-preview.png","sha256":"efcf93235ef68a363e1242714e6082871e90c635984fdda0cb4090b0d2f0bb3b"},{"file":"original-interior.png","sha256":"d363742a695eed6796d3c8e7786b66795135caa788e0d68f5cc1fec48d2e658f"},{"file":"procedural-roofs.png","sha256":"525b095362bbc6e20b157e6c06af7e595e9f58aa9b67af34de7c377ab0aef228"}]}
+
+--- stderr ---
+
+EXIT_CODE=0 SIGNAL=null MS=66173

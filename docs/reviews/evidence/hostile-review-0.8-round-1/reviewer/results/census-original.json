@@ -1,0 +1,4767 @@
+{
+  "generatedAt": "2026-10-30T02:47:52.386Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "method": "Headless Node, vendored three r180 (AFT 781246a), placeholder atlas Texture. Timings: 1 warm-up + 7 timed builds per design and LOD; machine shared, indicative only. Call counts are exact (V8 precise coverage) and load-independent.",
+  "designs": 48,
+  "totals": {
+    "game": {
+      "meshes": 1981,
+      "doorPivots": 573,
+      "triangles": 763402,
+      "vertices": 2290206,
+      "attributeMiB": 69.889,
+      "buildMsMedianSum": 11987,
+      "geometries": 1981,
+      "materialsCreated": 960
+    },
+    "authoring": {
+      "meshes": 1981,
+      "doorPivots": 573,
+      "triangles": 1358208,
+      "vertices": 4074624,
+      "attributeMiB": 124.348,
+      "buildMsMedianSum": 21093,
+      "geometries": 1981,
+      "materialsCreated": 960
+    }
+  },
+  "largestGameByTriangles": [
+    {
+      "id": "dockside-warehouse",
+      "triangles": 42822,
+      "meshes": 46,
+      "doorPivots": 12,
+      "buildMs": 184.429
+    },
+    {
+      "id": "marlow-courtyard-flats",
+      "triangles": 41048,
+      "meshes": 100,
+      "doorPivots": 37,
+      "buildMs": 875.13
+    },
+    {
+      "id": "coach-yard-inn",
+      "triangles": 31974,
+      "meshes": 81,
+      "doorPivots": 29,
+      "buildMs": 477.957
+    },
+    {
+      "id": "stone-bank-barn",
+      "triangles": 25412,
+      "meshes": 56,
+      "doorPivots": 19,
+      "buildMs": 608.614
+    },
+    {
+      "id": "red-crest-barn",
+      "triangles": 24810,
+      "meshes": 64,
+      "doorPivots": 23,
+      "buildMs": 653.47
+    },
+    {
+      "id": "narrow-court",
+      "triangles": 22908,
+      "meshes": 85,
+      "doorPivots": 29,
+      "buildMs": 124.881
+    },
+    {
+      "id": "market-terrace",
+      "triangles": 20784,
+      "meshes": 46,
+      "doorPivots": 9,
+      "buildMs": 89.543
+    },
+    {
+      "id": "copper-watch-firehouse",
+      "triangles": 20346,
+      "meshes": 34,
+      "doorPivots": 8,
+      "buildMs": 167.705
+    },
+    {
+      "id": "exchange-hall",
+      "triangles": 19970,
+      "meshes": 40,
+      "doorPivots": 9,
+      "buildMs": 218.615
+    },
+    {
+      "id": "batten-general-store",
+      "triangles": 19690,
+      "meshes": 34,
+      "doorPivots": 7,
+      "buildMs": 103.84
+    }
+  ],
+  "mostGameMeshes": [
+    {
+      "id": "marlow-courtyard-flats",
+      "meshes": 100,
+      "doorPivots": 37,
+      "triangles": 41048
+    },
+    {
+      "id": "narrow-court",
+      "meshes": 85,
+      "doorPivots": 29,
+      "triangles": 22908
+    },
+    {
+      "id": "coach-yard-inn",
+      "meshes": 81,
+      "doorPivots": 29,
+      "triangles": 31974
+    },
+    {
+      "id": "willow-pair",
+      "meshes": 75,
+      "doorPivots": 26,
+      "triangles": 19228
+    },
+    {
+      "id": "rowan-family",
+      "meshes": 72,
+      "doorPivots": 23,
+      "triangles": 17692
+    },
+    {
+      "id": "elm-cross-gable",
+      "meshes": 66,
+      "doorPivots": 19,
+      "triangles": 18346
+    },
+    {
+      "id": "violet-bay-house",
+      "meshes": 66,
+      "doorPivots": 19,
+      "triangles": 18950
+    },
+    {
+      "id": "red-crest-barn",
+      "meshes": 64,
+      "doorPivots": 23,
+      "triangles": 24810
+    },
+    {
+      "id": "juniper-suite",
+      "meshes": 63,
+      "doorPivots": 20,
+      "triangles": 19434
+    },
+    {
+      "id": "fennel-mansard",
+      "meshes": 63,
+      "doorPivots": 19,
+      "triangles": 15724
+    }
+  ],
+  "callCounts": {
+    "game": {
+      "totalCalls": 66261040,
+      "top": [
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 13466432
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 13420026
+        },
+        {
+          "fn": "lerp",
+          "line": 4,
+          "calls": 4599212
+        },
+        {
+          "fn": "sub",
+          "line": 4,
+          "calls": 4473342
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 3824304
+        },
+        {
+          "fn": "local",
+          "line": 12,
+          "calls": 3383128
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 2710572
+        },
+        {
+          "fn": "length",
+          "line": 4,
+          "calls": 2323232
+        },
+        {
+          "fn": "inside",
+          "line": 15,
+          "calls": 2256918
+        },
+        {
+          "fn": "cross",
+          "line": 4,
+          "calls": 1843800
+        },
+        {
+          "fn": "uv",
+          "line": 12,
+          "calls": 1691564
+        },
+        {
+          "fn": "point",
+          "line": 18,
+          "calls": 1312268
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 18,
+          "calls": 1312268
+        },
+        {
+          "fn": "mul",
+          "line": 4,
+          "calls": 1274768
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 974640
+        },
+        {
+          "fn": "add",
+          "line": 4,
+          "calls": 903524
+        },
+        {
+          "fn": "unit",
+          "line": 4,
+          "calls": 828850
+        },
+        {
+          "fn": "tri",
+          "line": 13,
+          "calls": 798010
+        },
+        {
+          "fn": "batch",
+          "line": 11,
+          "calls": 763402
+        },
+        {
+          "fn": "P",
+          "line": 19,
+          "calls": 526440
+        },
+        {
+          "fn": "cuts",
+          "line": 7,
+          "calls": 449620
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 19,
+          "calls": 421152
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 16,
+          "calls": 379296
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 16,
+          "calls": 379296
+        },
+        {
+          "fn": "clip",
+          "line": 15,
+          "calls": 342776
+        },
+        {
+          "fn": "dot",
+          "line": 4,
+          "calls": 324880
+        },
+        {
+          "fn": "quad",
+          "line": 18,
+          "calls": 232124
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 30,
+          "calls": 158456
+        },
+        {
+          "fn": "lerp2",
+          "line": 29,
+          "calls": 147776
+        },
+        {
+          "fn": "point",
+          "line": 29,
+          "calls": 147776
+        }
+      ]
+    },
+    "authoring": {
+      "totalCalls": 126110701,
+      "top": [
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 25331262
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 22388300
+        },
+        {
+          "fn": "sub",
+          "line": 4,
+          "calls": 8443754
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 8311254
+        },
+        {
+          "fn": "lerp",
+          "line": 4,
+          "calls": 7577252
+        },
+        {
+          "fn": "local",
+          "line": 12,
+          "calls": 5967524
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 5469576
+        },
+        {
+          "fn": "inside",
+          "line": 15,
+          "calls": 4651534
+        },
+        {
+          "fn": "length",
+          "line": 4,
+          "calls": 4359376
+        },
+        {
+          "fn": "cross",
+          "line": 4,
+          "calls": 3570828
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 4,
+          "calls": 3453996
+        },
+        {
+          "fn": "uv",
+          "line": 12,
+          "calls": 2983762
+        },
+        {
+          "fn": "mul",
+          "line": 4,
+          "calls": 2770418
+        },
+        {
+          "fn": "point",
+          "line": 18,
+          "calls": 2296780
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 18,
+          "calls": 2296780
+        },
+        {
+          "fn": "add",
+          "line": 4,
+          "calls": 1823192
+        },
+        {
+          "fn": "unit",
+          "line": 4,
+          "calls": 1712848
+        },
+        {
+          "fn": "tri",
+          "line": 13,
+          "calls": 1489248
+        },
+        {
+          "fn": "P",
+          "line": 19,
+          "calls": 1431714
+        },
+        {
+          "fn": "batch",
+          "line": 11,
+          "calls": 1358208
+        },
+        {
+          "fn": "dot",
+          "line": 4,
+          "calls": 1151332
+        },
+        {
+          "fn": "cuts",
+          "line": 7,
+          "calls": 755548
+        },
+        {
+          "fn": "clip",
+          "line": 15,
+          "calls": 740592
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 16,
+          "calls": 686982
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 16,
+          "calls": 686982
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 14,
+          "calls": 670800
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 14,
+          "calls": 670800
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 22,
+          "calls": 567216
+        },
+        {
+          "fn": "quad",
+          "line": 18,
+          "calls": 385760
+        },
+        {
+          "fn": "(anonymous)",
+          "line": 14,
+          "calls": 335400
+        }
+      ]
+    }
+  },
+  "profiles": [
+    {
+      "lod": "game",
+      "passes": 3,
+      "sampledMs": 26488,
+      "topSelf": [
+        {
+          "fn": "tri building-catalog/three.js:13",
+          "selfMs": 4101,
+          "pct": 15.5
+        },
+        {
+          "fn": "batch building-catalog/three.js:11",
+          "selfMs": 3925,
+          "pct": 14.8
+        },
+        {
+          "fn": "(anonymous) building-catalog/three.js:4",
+          "selfMs": 2986,
+          "pct": 11.3
+        },
+        {
+          "fn": "quad building-catalog/three.js:18",
+          "selfMs": 2715,
+          "pct": 10.3
+        },
+        {
+          "fn": "sub building-catalog/three.js:4",
+          "selfMs": 1899,
+          "pct": 7.2
+        },
+        {
+          "fn": "lerp building-catalog/three.js:4",
+          "selfMs": 1719,
+          "pct": 6.5
+        },
+        {
+          "fn": "(garbage collector) (native):0",
+          "selfMs": 1210,
+          "pct": 4.6
+        },
+        {
+          "fn": "tiledTriangle building-catalog/three.js:14",
+          "selfMs": 833,
+          "pct": 3.1
+        },
+        {
+          "fn": "createBuildingModel building-catalog/three.js:68",
+          "selfMs": 753,
+          "pct": 2.8
+        },
+        {
+          "fn": "length building-catalog/three.js:4",
+          "selfMs": 644,
+          "pct": 2.4
+        },
+        {
+          "fn": "Float32BufferAttribute vendor/three.core.js:18744",
+          "selfMs": 607,
+          "pct": 2.3
+        },
+        {
+          "fn": "mul building-catalog/three.js:4",
+          "selfMs": 548,
+          "pct": 2.1
+        },
+        {
+          "fn": "box building-catalog/three.js:19",
+          "selfMs": 491,
+          "pct": 1.9
+        },
+        {
+          "fn": "uv building-catalog/three.js:12",
+          "selfMs": 386,
+          "pct": 1.5
+        },
+        {
+          "fn": "(anonymous) building-catalog/three.js:18",
+          "selfMs": 357,
+          "pct": 1.3
+        },
+        {
+          "fn": "add building-catalog/three.js:4",
+          "selfMs": 332,
+          "pct": 1.3
+        },
+        {
+          "fn": "cross building-catalog/three.js:4",
+          "selfMs": 312,
+          "pct": 1.2
+        },
+        {
+          "fn": "computeBoundingBox vendor/three.core.js:19355",
+          "selfMs": 273,
+          "pct": 1
+        },
+        {
+          "fn": "setFromBufferAttribute vendor/three.core.js:9518",
+          "selfMs": 229,
+          "pct": 0.9
+        },
+        {
+          "fn": "wallSurface building-catalog/three.js:29",
+          "selfMs": 216,
+          "pct": 0.8
+        },
+        {
+          "fn": "splitRooms building-catalog/index.js:30",
+          "selfMs": 213,
+          "pct": 0.8
+        },
+        {
+          "fn": "compileBuilding building-catalog/index.js:45",
+          "selfMs": 166,
+          "pct": 0.6
+        },
+        {
+          "fn": "cuts building-catalog/three.js:7",
+          "selfMs": 150,
+          "pct": 0.6
+        },
+        {
+          "fn": "openings building-catalog/three.js:36",
+          "selfMs": 132,
+          "pct": 0.5
+        },
+        {
+          "fn": "post node:inspector:115",
+          "selfMs": 116,
+          "pct": 0.4
+        }
+      ],
+      "byFile": [
+        {
+          "file": "building-catalog/three.js",
+          "pct": 86.7
+        },
+        {
+          "file": "vendor/three.core.js",
+          "pct": 5.4
+        },
+        {
+          "file": "collector) (native)",
+          "pct": 4.6
+        },
+        {
+          "file": "building-catalog/index.js",
+          "pct": 2.3
+        },
+        {
+          "file": "node:inspector",
+          "pct": 0.4
+        },
+        {
+          "file": "r08-1/census-original.mjs",
+          "pct": 0.4
+        },
+        {
+          "file": "(native)",
+          "pct": 0.2
+        }
+      ]
+    },
+    {
+      "lod": "authoring",
+      "passes": 3,
+      "sampledMs": 13390,
+      "topSelf": [
+        {
+          "fn": "tri building-catalog/three.js:13",
+          "selfMs": 2246,
+          "pct": 16.8
+        },
+        {
+          "fn": "batch building-catalog/three.js:11",
+          "selfMs": 1715,
+          "pct": 12.8
+        },
+        {
+          "fn": "(anonymous) building-catalog/three.js:4",
+          "selfMs": 1367,
+          "pct": 10.2
+        },
+        {
+          "fn": "quad building-catalog/three.js:18",
+          "selfMs": 1288,
+          "pct": 9.6
+        },
+        {
+          "fn": "sub building-catalog/three.js:4",
+          "selfMs": 1076,
+          "pct": 8
+        },
+        {
+          "fn": "lerp building-catalog/three.js:4",
+          "selfMs": 811,
+          "pct": 6.1
+        },
+        {
+          "fn": "(garbage collector) (native):0",
+          "selfMs": 702,
+          "pct": 5.2
+        },
+        {
+          "fn": "tiledTriangle building-catalog/three.js:14",
+          "selfMs": 584,
+          "pct": 4.4
+        },
+        {
+          "fn": "box building-catalog/three.js:19",
+          "selfMs": 376,
+          "pct": 2.8
+        },
+        {
+          "fn": "post node:inspector:115",
+          "selfMs": 348,
+          "pct": 2.6
+        },
+        {
+          "fn": "Float32BufferAttribute vendor/three.core.js:18744",
+          "selfMs": 336,
+          "pct": 2.5
+        },
+        {
+          "fn": "mul building-catalog/three.js:4",
+          "selfMs": 333,
+          "pct": 2.5
+        },
+        {
+          "fn": "length building-catalog/three.js:4",
+          "selfMs": 329,
+          "pct": 2.5
+        },
+        {
+          "fn": "add building-catalog/three.js:4",
+          "selfMs": 219,
+          "pct": 1.6
+        },
+        {
+          "fn": "createBuildingModel building-catalog/three.js:68",
+          "selfMs": 206,
+          "pct": 1.5
+        },
+        {
+          "fn": "(anonymous) building-catalog/three.js:14",
+          "selfMs": 184,
+          "pct": 1.4
+        },
+        {
+          "fn": "(anonymous) building-catalog/three.js:18",
+          "selfMs": 179,
+          "pct": 1.3
+        },
+        {
+          "fn": "uv building-catalog/three.js:12",
+          "selfMs": 142,
+          "pct": 1.1
+        },
+        {
+          "fn": "cross building-catalog/three.js:4",
+          "selfMs": 108,
+          "pct": 0.8
+        },
+        {
+          "fn": "computeBoundingBox vendor/three.core.js:19355",
+          "selfMs": 101,
+          "pct": 0.8
+        },
+        {
+          "fn": "setFromBufferAttribute vendor/three.core.js:9518",
+          "selfMs": 98,
+          "pct": 0.7
+        },
+        {
+          "fn": "openings building-catalog/three.js:36",
+          "selfMs": 69,
+          "pct": 0.5
+        },
+        {
+          "fn": "cuts building-catalog/three.js:7",
+          "selfMs": 62,
+          "pct": 0.5
+        },
+        {
+          "fn": "computeBoundingSphere vendor/three.core.js:19430",
+          "selfMs": 55,
+          "pct": 0.4
+        },
+        {
+          "fn": "wallSurface building-catalog/three.js:29",
+          "selfMs": 51,
+          "pct": 0.4
+        }
+      ],
+      "byFile": [
+        {
+          "file": "building-catalog/three.js",
+          "pct": 85.6
+        },
+        {
+          "file": "collector) (native)",
+          "pct": 5.2
+        },
+        {
+          "file": "vendor/three.core.js",
+          "pct": 4.9
+        },
+        {
+          "file": "node:inspector",
+          "pct": 2.6
+        },
+        {
+          "file": "building-catalog/index.js",
+          "pct": 1.5
+        },
+        {
+          "file": "r08-1/census-original.mjs",
+          "pct": 0.1
+        },
+        {
+          "file": "(native)",
+          "pct": 0
+        }
+      ]
+    }
+  ],
+  "allocationSampling": {
+    "lod": "game",
+    "samplingIntervalBytes": 32768,
+    "sampledTotalMiB": 0,
+    "top": [
+      {
+        "fn": "(anonymous) building-catalog/index.js:49",
+        "sampledMiB": 0.1,
+        "pct": 26.5
+      },
+      {
+        "fn": "Object3D vendor/three.core.js:13222",
+        "sampledMiB": 0.1,
+        "pct": 20
+      },
+      {
+        "fn": "map (native):0",
+        "sampledMiB": 0,
+        "pct": 6.9
+      },
+      {
+        "fn": "(anonymous) building-catalog/three.js:4",
+        "sampledMiB": 0,
+        "pct": 6.9
+      },
+      {
+        "fn": "BufferGeometry vendor/three.core.js:18792",
+        "sampledMiB": 0,
+        "pct": 6.7
+      },
+      {
+        "fn": "splitRooms building-catalog/index.js:30",
+        "sampledMiB": 0,
+        "pct": 6.6
+      },
+      {
+        "fn": "partitions building-catalog/index.js:31",
+        "sampledMiB": 0,
+        "pct": 6.6
+      },
+      {
+        "fn": "MeshStandardMaterial vendor/three.core.js:38041",
+        "sampledMiB": 0,
+        "pct": 6.6
+      },
+      {
+        "fn": "BufferAttribute vendor/three.core.js:17750",
+        "sampledMiB": 0,
+        "pct": 6.6
+      },
+      {
+        "fn": "P building-catalog/three.js:36",
+        "sampledMiB": 0,
+        "pct": 6.6
+      },
+      {
+        "fn": "(root) (native):0",
+        "sampledMiB": 0,
+        "pct": 0
+      },
+      {
+        "fn": "(anonymous) (native):0",
+        "sampledMiB": 0,
+        "pct": 0
+      },
+      {
+        "fn": "(anonymous) r08-1/census-original.mjs:1",
+        "sampledMiB": 0,
+        "pct": 0
+      },
+      {
+        "fn": "createBuildingModel building-catalog/three.js:68",
+        "sampledMiB": 0,
+        "pct": 0
+      },
+      {
+        "fn": "quad building-catalog/three.js:18",
+        "sampledMiB": 0,
+        "pct": 0
+      }
+    ]
+  },
+  "fingerprintControl": {
+    "design": "bramble-ranch",
+    "unchangedRebuildMatches": true,
+    "oneFloatPerturbedDiffers": true
+  },
+  "catalogueFingerprint": "d990f69476ac742450acca97ac330f4be9f09f0a0f17b65cc3979d43786cfdbf",
+  "perDesign": [
+    {
+      "id": "bramble-ranch",
+      "stories": 1,
+      "game": {
+        "meshes": 34,
+        "doorPivots": 10,
+        "doorLeafMeshes": 19,
+        "structureMeshes": 15,
+        "triangles": 9220,
+        "vertices": 27660,
+        "attributeMiB": 0.844,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 34,
+        "rootChildren": 25,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 19
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 9220,
+        "fingerprint": "ec203be49e50884068f77615c34fc0a5653a52e8a441edd9161d0c05e4355134",
+        "buildMs": {
+          "n": 7,
+          "median": 205.174,
+          "min": 87.845,
+          "max": 323.518,
+          "spreadPct": 114.865
+        }
+      },
+      "authoring": {
+        "meshes": 34,
+        "doorPivots": 10,
+        "doorLeafMeshes": 19,
+        "structureMeshes": 15,
+        "triangles": 15760,
+        "vertices": 47280,
+        "attributeMiB": 1.443,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 34,
+        "rootChildren": 25,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 19
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 15760,
+        "fingerprint": "a0bd3684612401cb5eb1f07ad6fc2d853efb9d0b511cd398e2a4662ddcabdbd8",
+        "buildMs": {
+          "n": 7,
+          "median": 344.598,
+          "min": 276.492,
+          "max": 501.405,
+          "spreadPct": 65.268
+        }
+      }
+    },
+    {
+      "id": "cedar-split",
+      "stories": 1,
+      "game": {
+        "meshes": 30,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 12,
+        "triangles": 11770,
+        "vertices": 35310,
+        "attributeMiB": 1.078,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 21,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11770,
+        "fingerprint": "fb6c209428fe3c9261fa07064a6e56027cdcb046049973e6f3decd6a2af4116b",
+        "buildMs": {
+          "n": 7,
+          "median": 65.928,
+          "min": 60.224,
+          "max": 77.485,
+          "spreadPct": 26.18
+        }
+      },
+      "authoring": {
+        "meshes": 30,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 12,
+        "triangles": 24012,
+        "vertices": 72036,
+        "attributeMiB": 2.198,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 21,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 24012,
+        "fingerprint": "ac3ff21abd14944703446548af4aa79f1786bb2d821d4526606665ae54dd594e",
+        "buildMs": {
+          "n": 7,
+          "median": 256.124,
+          "min": 117.438,
+          "max": 422.541,
+          "spreadPct": 119.123
+        }
+      }
+    },
+    {
+      "id": "juniper-suite",
+      "stories": 2,
+      "game": {
+        "meshes": 63,
+        "doorPivots": 20,
+        "doorLeafMeshes": 40,
+        "structureMeshes": 23,
+        "triangles": 19434,
+        "vertices": 58302,
+        "attributeMiB": 1.779,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 63,
+        "rootChildren": 43,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 40
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 19434,
+        "fingerprint": "555dae0cd7a776421ac603937b2e2005104d0dc8318a1f954768758d34ee0f4b",
+        "buildMs": {
+          "n": 7,
+          "median": 438.667,
+          "min": 294.862,
+          "max": 1753.954,
+          "spreadPct": 332.619
+        }
+      },
+      "authoring": {
+        "meshes": 63,
+        "doorPivots": 20,
+        "doorLeafMeshes": 40,
+        "structureMeshes": 23,
+        "triangles": 31464,
+        "vertices": 94392,
+        "attributeMiB": 2.881,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 63,
+        "rootChildren": 43,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 40
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 31464,
+        "fingerprint": "929f02151a52ae800938410acd66a8733532f7f5ed4a316e479d4362e05f450c",
+        "buildMs": {
+          "n": 7,
+          "median": 580.106,
+          "min": 345.503,
+          "max": 610.028,
+          "spreadPct": 45.599
+        }
+      }
+    },
+    {
+      "id": "rowan-family",
+      "stories": 2,
+      "game": {
+        "meshes": 72,
+        "doorPivots": 23,
+        "doorLeafMeshes": 45,
+        "structureMeshes": 27,
+        "triangles": 17692,
+        "vertices": 53076,
+        "attributeMiB": 1.62,
+        "geometries": 72,
+        "materialsCreated": 20,
+        "materialsUsed": 12,
+        "transparentMeshes": 4,
+        "castShadowMeshes": 72,
+        "rootChildren": 50,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 45
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 17692,
+        "fingerprint": "c5760ff027aee6f006c434432a0e4ed36493ba305b1320c35c7e7a8b1ed48e2d",
+        "buildMs": {
+          "n": 7,
+          "median": 227.391,
+          "min": 149.42,
+          "max": 337.69,
+          "spreadPct": 82.796
+        }
+      },
+      "authoring": {
+        "meshes": 72,
+        "doorPivots": 23,
+        "doorLeafMeshes": 45,
+        "structureMeshes": 27,
+        "triangles": 31920,
+        "vertices": 95760,
+        "attributeMiB": 2.922,
+        "geometries": 72,
+        "materialsCreated": 20,
+        "materialsUsed": 12,
+        "transparentMeshes": 4,
+        "castShadowMeshes": 72,
+        "rootChildren": 50,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 45
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 31920,
+        "fingerprint": "fc8d99f5ed2cae9c4e2d2d940c1ec0abdfe7abdaa4e1d28a527fa7515ef654d2",
+        "buildMs": {
+          "n": 7,
+          "median": 522.948,
+          "min": 165.746,
+          "max": 779.106,
+          "spreadPct": 117.289
+        }
+      }
+    },
+    {
+      "id": "willow-pair",
+      "stories": 2,
+      "game": {
+        "meshes": 75,
+        "doorPivots": 26,
+        "doorLeafMeshes": 52,
+        "structureMeshes": 23,
+        "triangles": 19228,
+        "vertices": 57684,
+        "attributeMiB": 1.76,
+        "geometries": 75,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 75,
+        "rootChildren": 49,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 52
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 19228,
+        "fingerprint": "fd8ea26e91b066701616ab40ac1aca2eb90338b78214f9fdd81b1efa458a65d4",
+        "buildMs": {
+          "n": 7,
+          "median": 218.125,
+          "min": 127.034,
+          "max": 984.961,
+          "spreadPct": 393.32
+        }
+      },
+      "authoring": {
+        "meshes": 75,
+        "doorPivots": 26,
+        "doorLeafMeshes": 52,
+        "structureMeshes": 23,
+        "triangles": 35058,
+        "vertices": 105174,
+        "attributeMiB": 3.21,
+        "geometries": 75,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 75,
+        "rootChildren": 49,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 52
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 35058,
+        "fingerprint": "c14a1536c50f0529c4d70c9e300b25c22cb2edc8d408539b3228da631ed2a753",
+        "buildMs": {
+          "n": 7,
+          "median": 218.822,
+          "min": 172.846,
+          "max": 1181.385,
+          "spreadPct": 460.895
+        }
+      }
+    },
+    {
+      "id": "narrow-court",
+      "stories": 3,
+      "game": {
+        "meshes": 85,
+        "doorPivots": 29,
+        "doorLeafMeshes": 58,
+        "structureMeshes": 27,
+        "triangles": 22908,
+        "vertices": 68724,
+        "attributeMiB": 2.097,
+        "geometries": 85,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 85,
+        "rootChildren": 56,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 5,
+          "door-leaf": 58
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 22908,
+        "fingerprint": "395e11cd8066d03749ba0fe2de4317c9c452f3813dc2440e4fdd4817bf35a08e",
+        "buildMs": {
+          "n": 7,
+          "median": 124.881,
+          "min": 105.801,
+          "max": 1034.014,
+          "spreadPct": 743.276
+        }
+      },
+      "authoring": {
+        "meshes": 85,
+        "doorPivots": 29,
+        "doorLeafMeshes": 58,
+        "structureMeshes": 27,
+        "triangles": 39950,
+        "vertices": 119850,
+        "attributeMiB": 3.658,
+        "geometries": 85,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 85,
+        "rootChildren": 56,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 5,
+          "door-leaf": 58
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 39950,
+        "fingerprint": "9516a5515dd1fe174d8b4f434872f359f6440d916f89464d12faf65f6278383e",
+        "buildMs": {
+          "n": 7,
+          "median": 521.948,
+          "min": 178.318,
+          "max": 1345.293,
+          "spreadPct": 223.581
+        }
+      }
+    },
+    {
+      "id": "mews-corner",
+      "stories": 2,
+      "game": {
+        "meshes": 59,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 21,
+        "triangles": 15450,
+        "vertices": 46350,
+        "attributeMiB": 1.414,
+        "geometries": 59,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 59,
+        "rootChildren": 40,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 15450,
+        "fingerprint": "1c3f2cb3ede3938605b676bc30e663e80729be71e6d84233c1551ee3d6f14013",
+        "buildMs": {
+          "n": 7,
+          "median": 71.465,
+          "min": 69.491,
+          "max": 86.648,
+          "spreadPct": 24.009
+        }
+      },
+      "authoring": {
+        "meshes": 59,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 21,
+        "triangles": 28172,
+        "vertices": 84516,
+        "attributeMiB": 2.579,
+        "geometries": 59,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 59,
+        "rootChildren": 40,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 28172,
+        "fingerprint": "81afea8eb6278d6a329c1664cc080c8ae760bce670883f9fe9a47dd5347fd5ee",
+        "buildMs": {
+          "n": 7,
+          "median": 607.78,
+          "min": 177.29,
+          "max": 932.331,
+          "spreadPct": 124.229
+        }
+      }
+    },
+    {
+      "id": "canal-studio",
+      "stories": 1,
+      "game": {
+        "meshes": 11,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 9,
+        "triangles": 6362,
+        "vertices": 19086,
+        "attributeMiB": 0.582,
+        "geometries": 11,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 11,
+        "rootChildren": 10,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 6362,
+        "fingerprint": "4ca67e07c65cebf0ab63de7fa69a5f82320199155606123f04c8d5930e79310a",
+        "buildMs": {
+          "n": 7,
+          "median": 33.266,
+          "min": 27.239,
+          "max": 36.58,
+          "spreadPct": 28.079
+        }
+      },
+      "authoring": {
+        "meshes": 11,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 9,
+        "triangles": 11030,
+        "vertices": 33090,
+        "attributeMiB": 1.01,
+        "geometries": 11,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 11,
+        "rootChildren": 10,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11030,
+        "fingerprint": "f62960bc6d8729930204b320e386e047eb6fa94c93da95287dcebaab6adf9f9e",
+        "buildMs": {
+          "n": 7,
+          "median": 78.422,
+          "min": 50.019,
+          "max": 172.216,
+          "spreadPct": 155.82
+        }
+      }
+    },
+    {
+      "id": "ochre-patio",
+      "stories": 1,
+      "game": {
+        "meshes": 21,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 7,
+        "triangles": 10130,
+        "vertices": 30390,
+        "attributeMiB": 0.927,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 21,
+        "rootChildren": 14,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "door-leaf": 14
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 10130,
+        "fingerprint": "b815353b7343d49ec0d5a2a5329596188decf79739b74f6bdb6bf847db0bf430",
+        "buildMs": {
+          "n": 7,
+          "median": 63.155,
+          "min": 50.72,
+          "max": 465.359,
+          "spreadPct": 656.545
+        }
+      },
+      "authoring": {
+        "meshes": 21,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 7,
+        "triangles": 16634,
+        "vertices": 49902,
+        "attributeMiB": 1.523,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 21,
+        "rootChildren": 14,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "door-leaf": 14
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 16634,
+        "fingerprint": "9dd51d20b43c53035d779527b32490766f5d796e85b9999ebd406a2d69cdb616",
+        "buildMs": {
+          "n": 7,
+          "median": 255.725,
+          "min": 81.912,
+          "max": 682.899,
+          "spreadPct": 235.013
+        }
+      }
+    },
+    {
+      "id": "longlight-house",
+      "stories": 1,
+      "game": {
+        "meshes": 30,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 12,
+        "triangles": 11252,
+        "vertices": 33756,
+        "attributeMiB": 1.03,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 21,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11252,
+        "fingerprint": "50a7f8dd41a3511b8bc50a23c28df8d8306dfea7562f24073ce2de0b7aa83767",
+        "buildMs": {
+          "n": 7,
+          "median": 61.561,
+          "min": 56.074,
+          "max": 88.22,
+          "spreadPct": 52.218
+        }
+      },
+      "authoring": {
+        "meshes": 30,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 12,
+        "triangles": 21474,
+        "vertices": 64422,
+        "attributeMiB": 1.966,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 21,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 21474,
+        "fingerprint": "fbb196560faac40fd283d732bb92bf168469a82f44af60bdafd22793a0314f29",
+        "buildMs": {
+          "n": 7,
+          "median": 189.635,
+          "min": 102.177,
+          "max": 1579.326,
+          "spreadPct": 778.945
+        }
+      }
+    },
+    {
+      "id": "dogwood-breezeway",
+      "stories": 1,
+      "game": {
+        "meshes": 18,
+        "doorPivots": 2,
+        "doorLeafMeshes": 4,
+        "structureMeshes": 14,
+        "triangles": 8296,
+        "vertices": 24888,
+        "attributeMiB": 0.76,
+        "geometries": 18,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 18,
+        "rootChildren": 16,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 4
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 8296,
+        "fingerprint": "c20a2c966a2e561bc4b01bab376baa68343e84b75f57fbc178f64fbff0a5ecbc",
+        "buildMs": {
+          "n": 7,
+          "median": 47.253,
+          "min": 38.18,
+          "max": 53.781,
+          "spreadPct": 33.015
+        }
+      },
+      "authoring": {
+        "meshes": 18,
+        "doorPivots": 2,
+        "doorLeafMeshes": 4,
+        "structureMeshes": 14,
+        "triangles": 16872,
+        "vertices": 50616,
+        "attributeMiB": 1.545,
+        "geometries": 18,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 18,
+        "rootChildren": 16,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 4
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 16872,
+        "fingerprint": "424fe11de918c9931a2c75c519bec677e772c2c84febaddc50144da68eb008ba",
+        "buildMs": {
+          "n": 7,
+          "median": 150.159,
+          "min": 85.16,
+          "max": 451.523,
+          "spreadPct": 243.983
+        }
+      }
+    },
+    {
+      "id": "saltmarsh-lean-to",
+      "stories": 2,
+      "game": {
+        "meshes": 58,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 20,
+        "triangles": 15570,
+        "vertices": 46710,
+        "attributeMiB": 1.425,
+        "geometries": 58,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 58,
+        "rootChildren": 39,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 15570,
+        "fingerprint": "bc6d34db3ead02a30634e0106584b7936e5c82ef97d4561365575086a4582550",
+        "buildMs": {
+          "n": 7,
+          "median": 551.614,
+          "min": 74.078,
+          "max": 998.496,
+          "spreadPct": 167.584
+        }
+      },
+      "authoring": {
+        "meshes": 58,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 20,
+        "triangles": 28212,
+        "vertices": 84636,
+        "attributeMiB": 2.583,
+        "geometries": 58,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 58,
+        "rootChildren": 39,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 28212,
+        "fingerprint": "7e84e85b4eacb12e7c3226cce6efc3f52249ca470dda6e469088912bcfe8dd34",
+        "buildMs": {
+          "n": 7,
+          "median": 144.308,
+          "min": 132.658,
+          "max": 175.832,
+          "spreadPct": 29.918
+        }
+      }
+    },
+    {
+      "id": "hearth-cape",
+      "stories": 1,
+      "game": {
+        "meshes": 36,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 18,
+        "triangles": 8300,
+        "vertices": 24900,
+        "attributeMiB": 0.76,
+        "geometries": 36,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 36,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 8300,
+        "fingerprint": "599188fe925aab25b45de4069da4bb753296039307646fecc28e86c1287da487",
+        "buildMs": {
+          "n": 7,
+          "median": 36.126,
+          "min": 32.662,
+          "max": 38.741,
+          "spreadPct": 16.829
+        }
+      },
+      "authoring": {
+        "meshes": 36,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 18,
+        "triangles": 17182,
+        "vertices": 51546,
+        "attributeMiB": 1.573,
+        "geometries": 36,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 36,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 17182,
+        "fingerprint": "04d67a16880a5820b8ca6f818082b3e9decaf19a2b34fb3234b6a8b813516112",
+        "buildMs": {
+          "n": 7,
+          "median": 77.463,
+          "min": 72.172,
+          "max": 109.073,
+          "spreadPct": 47.636
+        }
+      }
+    },
+    {
+      "id": "foxglove-bungalow",
+      "stories": 1,
+      "game": {
+        "meshes": 33,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 15,
+        "triangles": 9602,
+        "vertices": 28806,
+        "attributeMiB": 0.879,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 33,
+        "rootChildren": 24,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 9602,
+        "fingerprint": "a114ca44dce65868397a33e45e1c9524cd6719ba4e5986f2ae3feeb095c59682",
+        "buildMs": {
+          "n": 7,
+          "median": 73.886,
+          "min": 40.205,
+          "max": 136.65,
+          "spreadPct": 130.532
+        }
+      },
+      "authoring": {
+        "meshes": 33,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 15,
+        "triangles": 19902,
+        "vertices": 59706,
+        "attributeMiB": 1.822,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 33,
+        "rootChildren": 24,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 19902,
+        "fingerprint": "be8c3b6ed31bce605f25e2039ce44c55cdd877c684e2e246313112458e9fa66a",
+        "buildMs": {
+          "n": 7,
+          "median": 275.715,
+          "min": 194.147,
+          "max": 453.974,
+          "spreadPct": 94.238
+        }
+      }
+    },
+    {
+      "id": "elm-cross-gable",
+      "stories": 2,
+      "game": {
+        "meshes": 66,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 28,
+        "triangles": 18346,
+        "vertices": 55038,
+        "attributeMiB": 1.68,
+        "geometries": 66,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 66,
+        "rootChildren": 47,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 6,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 18346,
+        "fingerprint": "5267bb84aca99331c40be756ca2139721d4624b640aecf893b0f94bab28d6b1d",
+        "buildMs": {
+          "n": 7,
+          "median": 250.327,
+          "min": 122.018,
+          "max": 362.589,
+          "spreadPct": 96.102
+        }
+      },
+      "authoring": {
+        "meshes": 66,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 28,
+        "triangles": 34144,
+        "vertices": 102432,
+        "attributeMiB": 3.126,
+        "geometries": 66,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 66,
+        "rootChildren": 47,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 6,
+          "porch": 3,
+          "details": 5,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 34144,
+        "fingerprint": "9856901480566393467baeb25300cac3203ba0f81049da6772a34c3f2bb83c16",
+        "buildMs": {
+          "n": 7,
+          "median": 441.896,
+          "min": 372.902,
+          "max": 641.335,
+          "spreadPct": 60.746
+        }
+      }
+    },
+    {
+      "id": "violet-bay-house",
+      "stories": 2,
+      "game": {
+        "meshes": 66,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 28,
+        "triangles": 18950,
+        "vertices": 56850,
+        "attributeMiB": 1.735,
+        "geometries": 66,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 66,
+        "rootChildren": 47,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 3,
+          "tower": 4,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 18950,
+        "fingerprint": "d64b5acdd71d43e79012878d263956704b5199a1a2f779ec89999d484f621bab",
+        "buildMs": {
+          "n": 7,
+          "median": 277.349,
+          "min": 180.593,
+          "max": 378.277,
+          "spreadPct": 71.276
+        }
+      },
+      "authoring": {
+        "meshes": 66,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 28,
+        "triangles": 34546,
+        "vertices": 103638,
+        "attributeMiB": 3.163,
+        "geometries": 66,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 66,
+        "rootChildren": 47,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 3,
+          "tower": 4,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 34546,
+        "fingerprint": "d8970bf8853960141dc6b1e0afc422bf2f5b0f76c880c305bbe3d238ea5662d7",
+        "buildMs": {
+          "n": 7,
+          "median": 664.055,
+          "min": 548.228,
+          "max": 1183.979,
+          "spreadPct": 95.738
+        }
+      }
+    },
+    {
+      "id": "fennel-mansard",
+      "stories": 2,
+      "game": {
+        "meshes": 63,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 25,
+        "triangles": 15724,
+        "vertices": 47172,
+        "attributeMiB": 1.44,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 4,
+        "castShadowMeshes": 63,
+        "rootChildren": 44,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 4,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 15724,
+        "fingerprint": "2990f22b45b3bf4e0a3d78036c76de7c620de60dfe8d65fc2efb1e492f93d3f7",
+        "buildMs": {
+          "n": 7,
+          "median": 336.945,
+          "min": 136.268,
+          "max": 652.196,
+          "spreadPct": 153.12
+        }
+      },
+      "authoring": {
+        "meshes": 63,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 25,
+        "triangles": 26418,
+        "vertices": 79254,
+        "attributeMiB": 2.419,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 4,
+        "castShadowMeshes": 63,
+        "rootChildren": 44,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 4,
+          "porch": 3,
+          "details": 4,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 26418,
+        "fingerprint": "e5648eb1eae8042ed528488d69b50319e0ac6f1962c8c92ad54f957c1c61f0fa",
+        "buildMs": {
+          "n": 7,
+          "median": 552.66,
+          "min": 311.218,
+          "max": 948.325,
+          "spreadPct": 115.28
+        }
+      }
+    },
+    {
+      "id": "cypress-shotgun",
+      "stories": 1,
+      "game": {
+        "meshes": 20,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 12,
+        "triangles": 6226,
+        "vertices": 18678,
+        "attributeMiB": 0.57,
+        "geometries": 20,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 20,
+        "rootChildren": 16,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 6226,
+        "fingerprint": "f2d8dd51c599f1415b84dac25624d4cfb3520e4e27431171cf1b4e968e58fd96",
+        "buildMs": {
+          "n": 7,
+          "median": 119.634,
+          "min": 79.933,
+          "max": 208.394,
+          "spreadPct": 107.379
+        }
+      },
+      "authoring": {
+        "meshes": 20,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 12,
+        "triangles": 12582,
+        "vertices": 37746,
+        "attributeMiB": 1.152,
+        "geometries": 20,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 20,
+        "rootChildren": 16,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 12582,
+        "fingerprint": "34777b9b2f651dd6ac90dfbcdadfd48016444f8306cd22b053f1de6cf1e1a1ea",
+        "buildMs": {
+          "n": 7,
+          "median": 234.125,
+          "min": 149.67,
+          "max": 464.285,
+          "spreadPct": 134.379
+        }
+      }
+    },
+    {
+      "id": "sun-well-court",
+      "stories": 1,
+      "game": {
+        "meshes": 28,
+        "doorPivots": 10,
+        "doorLeafMeshes": 20,
+        "structureMeshes": 8,
+        "triangles": 11608,
+        "vertices": 34824,
+        "attributeMiB": 1.063,
+        "geometries": 28,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 28,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 2,
+          "door-leaf": 20
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11608,
+        "fingerprint": "c6a45016976060ac299cdb200a89259fc41a8219beb7ea73d54a9b01d37ed56f",
+        "buildMs": {
+          "n": 7,
+          "median": 314.481,
+          "min": 127.373,
+          "max": 1206.295,
+          "spreadPct": 343.081
+        }
+      },
+      "authoring": {
+        "meshes": 28,
+        "doorPivots": 10,
+        "doorLeafMeshes": 20,
+        "structureMeshes": 8,
+        "triangles": 19700,
+        "vertices": 59100,
+        "attributeMiB": 1.804,
+        "geometries": 28,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 28,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 2,
+          "door-leaf": 20
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 19700,
+        "fingerprint": "4af5e2fca73081df1db8287b12e1be1b9efd89b1c1edb1c52bec2b9654a9194b",
+        "buildMs": {
+          "n": 7,
+          "median": 228.226,
+          "min": 95.293,
+          "max": 971.193,
+          "spreadPct": 383.786
+        }
+      }
+    },
+    {
+      "id": "prairie-corner",
+      "stories": 2,
+      "game": {
+        "meshes": 62,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 24,
+        "triangles": 17968,
+        "vertices": 53904,
+        "attributeMiB": 1.645,
+        "geometries": 62,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 62,
+        "rootChildren": 43,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 2,
+          "porch": 3,
+          "details": 3,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 17968,
+        "fingerprint": "2a9818f70ff79b9a127c5347ee6947effb690910f80562f32f4d8f0ae6029a18",
+        "buildMs": {
+          "n": 7,
+          "median": 76.343,
+          "min": 66.324,
+          "max": 86.628,
+          "spreadPct": 26.596
+        }
+      },
+      "authoring": {
+        "meshes": 62,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 24,
+        "triangles": 29768,
+        "vertices": 89304,
+        "attributeMiB": 2.725,
+        "geometries": 62,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 62,
+        "rootChildren": 43,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 2,
+          "porch": 3,
+          "details": 3,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 29768,
+        "fingerprint": "1fae10e046b748915564ec5ce2c4de5e7537b1bfeedf5418fbab5e903078ce60",
+        "buildMs": {
+          "n": 7,
+          "median": 529.948,
+          "min": 149.272,
+          "max": 731.107,
+          "spreadPct": 109.791
+        }
+      }
+    },
+    {
+      "id": "alpine-timber",
+      "stories": 2,
+      "game": {
+        "meshes": 63,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 25,
+        "triangles": 16938,
+        "vertices": 50814,
+        "attributeMiB": 1.551,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 63,
+        "rootChildren": 44,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 16938,
+        "fingerprint": "3773ecdf156ae5e4bb2d03d0f65f1276bd35aea05852fd3c93d52824a272cc62",
+        "buildMs": {
+          "n": 7,
+          "median": 321.888,
+          "min": 191.248,
+          "max": 492.397,
+          "spreadPct": 93.557
+        }
+      },
+      "authoring": {
+        "meshes": 63,
+        "doorPivots": 19,
+        "doorLeafMeshes": 38,
+        "structureMeshes": 25,
+        "triangles": 31504,
+        "vertices": 94512,
+        "attributeMiB": 2.884,
+        "geometries": 63,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 63,
+        "rootChildren": 44,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "balcony": 2,
+          "door-leaf": 38
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 31504,
+        "fingerprint": "efdf721b9cb2f1d22b2f5c072600ef1f394bc1714ada3b42591172ef48d7933c",
+        "buildMs": {
+          "n": 7,
+          "median": 1110.633,
+          "min": 744.066,
+          "max": 1865.551,
+          "spreadPct": 100.977
+        }
+      }
+    },
+    {
+      "id": "estuary-cottage",
+      "stories": 1,
+      "game": {
+        "meshes": 29,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 11,
+        "triangles": 9066,
+        "vertices": 27198,
+        "attributeMiB": 0.83,
+        "geometries": 29,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 29,
+        "rootChildren": 20,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 2,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 9066,
+        "fingerprint": "9f147943dc9bd4a510b00f491556c852b53418a39b4bd7e548581d1b87d28312",
+        "buildMs": {
+          "n": 7,
+          "median": 233.824,
+          "min": 74.844,
+          "max": 339.611,
+          "spreadPct": 113.234
+        }
+      },
+      "authoring": {
+        "meshes": 29,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 11,
+        "triangles": 15710,
+        "vertices": 47130,
+        "attributeMiB": 1.438,
+        "geometries": 29,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 29,
+        "rootChildren": 20,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 2,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 15710,
+        "fingerprint": "dc473968ac40f59349966b3b99cbee50914c29b286df05e14aaf6db9cebc5231",
+        "buildMs": {
+          "n": 7,
+          "median": 466.703,
+          "min": 346.263,
+          "max": 631.615,
+          "spreadPct": 61.142
+        }
+      }
+    },
+    {
+      "id": "marlow-courtyard-flats",
+      "stories": 3,
+      "game": {
+        "meshes": 100,
+        "doorPivots": 37,
+        "doorLeafMeshes": 74,
+        "structureMeshes": 26,
+        "triangles": 41048,
+        "vertices": 123144,
+        "attributeMiB": 3.758,
+        "geometries": 100,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 100,
+        "rootChildren": 63,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 1,
+          "details": 3,
+          "door-leaf": 74
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 41048,
+        "fingerprint": "8a11350b25410b585f971fefba7f0c2db20dd5b4a6057d03eb4162a54f823703",
+        "buildMs": {
+          "n": 7,
+          "median": 875.13,
+          "min": 741.949,
+          "max": 1203.735,
+          "spreadPct": 52.768
+        }
+      },
+      "authoring": {
+        "meshes": 100,
+        "doorPivots": 37,
+        "doorLeafMeshes": 74,
+        "structureMeshes": 26,
+        "triangles": 65672,
+        "vertices": 197016,
+        "attributeMiB": 6.012,
+        "geometries": 100,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 100,
+        "rootChildren": 63,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 1,
+          "details": 3,
+          "door-leaf": 74
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 65672,
+        "fingerprint": "3a002a56404d69ac6084930142db1b2c5345bb47a601623dee7ab11d3951511d",
+        "buildMs": {
+          "n": 7,
+          "median": 1403.113,
+          "min": 1040.877,
+          "max": 1812.117,
+          "spreadPct": 54.966
+        }
+      }
+    },
+    {
+      "id": "market-terrace",
+      "stories": 3,
+      "game": {
+        "meshes": 46,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 28,
+        "triangles": 20784,
+        "vertices": 62352,
+        "attributeMiB": 1.903,
+        "geometries": 46,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 5,
+        "castShadowMeshes": 46,
+        "rootChildren": 37,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 4,
+          "details": 2,
+          "door-leaf": 18
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 20784,
+        "fingerprint": "be3fb854c59d7961e600452ea7bc4c7a6aa839d2142fbfc1fd06647ca394c2bc",
+        "buildMs": {
+          "n": 7,
+          "median": 89.543,
+          "min": 83.86,
+          "max": 100.166,
+          "spreadPct": 18.21
+        }
+      },
+      "authoring": {
+        "meshes": 46,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 28,
+        "triangles": 33326,
+        "vertices": 99978,
+        "attributeMiB": 3.051,
+        "geometries": 46,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 5,
+        "castShadowMeshes": 46,
+        "rootChildren": 37,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 4,
+          "details": 2,
+          "door-leaf": 18
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 33326,
+        "fingerprint": "1ec3cb25bcd60bdf9e3c81d3a52cd34c3e4f7592c139c9d893652c41be698592",
+        "buildMs": {
+          "n": 7,
+          "median": 159.878,
+          "min": 129.235,
+          "max": 366.174,
+          "spreadPct": 148.2
+        }
+      }
+    },
+    {
+      "id": "eastfield-school",
+      "stories": 1,
+      "game": {
+        "meshes": 33,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 15,
+        "triangles": 16348,
+        "vertices": 49044,
+        "attributeMiB": 1.497,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 33,
+        "rootChildren": 24,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 16348,
+        "fingerprint": "44958f465126c5ec50ce4db0594790c8b9a6ee87bb80bae0e5f34a4b3981110a",
+        "buildMs": {
+          "n": 7,
+          "median": 196.118,
+          "min": 133.401,
+          "max": 294.681,
+          "spreadPct": 82.236
+        }
+      },
+      "authoring": {
+        "meshes": 33,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 15,
+        "triangles": 33816,
+        "vertices": 101448,
+        "attributeMiB": 3.096,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 33,
+        "rootChildren": 24,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 18
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 33816,
+        "fingerprint": "df42edf06d0c9fe22bcb3a90f282c5ccd2cce824d29bf1887fe2c06251dfa431",
+        "buildMs": {
+          "n": 7,
+          "median": 352.875,
+          "min": 185.413,
+          "max": 516.731,
+          "spreadPct": 93.891
+        }
+      }
+    },
+    {
+      "id": "orchard-schoolhouse",
+      "stories": 1,
+      "game": {
+        "meshes": 19,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 17,
+        "triangles": 7362,
+        "vertices": 22086,
+        "attributeMiB": 0.674,
+        "geometries": 19,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 19,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 6,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 7362,
+        "fingerprint": "d78738300a5239defba49a04b9f331e59ec0f1367176c06e52e675339777e28e",
+        "buildMs": {
+          "n": 7,
+          "median": 57.792,
+          "min": 42.588,
+          "max": 80.45,
+          "spreadPct": 65.514
+        }
+      },
+      "authoring": {
+        "meshes": 19,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 17,
+        "triangles": 15778,
+        "vertices": 47334,
+        "attributeMiB": 1.445,
+        "geometries": 19,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 19,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 6,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 15778,
+        "fingerprint": "3e738a1a0122a6d35fa85e354bce071ca9ca16a2b200f980ddcc361694cfdee7",
+        "buildMs": {
+          "n": 7,
+          "median": 120.767,
+          "min": 79.415,
+          "max": 154.594,
+          "spreadPct": 62.252
+        }
+      }
+    },
+    {
+      "id": "greywell-chapel",
+      "stories": 1,
+      "game": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 10586,
+        "vertices": 31758,
+        "attributeMiB": 0.969,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "tower": 4,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 10586,
+        "fingerprint": "2925374e80ff12943cb3eb1d8c62c0196622238457230371f83fdef2836031d4",
+        "buildMs": {
+          "n": 7,
+          "median": 92.147,
+          "min": 48.351,
+          "max": 125.58,
+          "spreadPct": 83.81
+        }
+      },
+      "authoring": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 22848,
+        "vertices": 68544,
+        "attributeMiB": 2.092,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "tower": 4,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 22848,
+        "fingerprint": "63bfd6e5916e2ae57b945955aa9ce376caab73aee840ef5c5da91f342c193e7d",
+        "buildMs": {
+          "n": 7,
+          "median": 184.09,
+          "min": 114.409,
+          "max": 254.187,
+          "spreadPct": 75.93
+        }
+      }
+    },
+    {
+      "id": "bell-court-chapel",
+      "stories": 1,
+      "game": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 11520,
+        "vertices": 34560,
+        "attributeMiB": 1.055,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "tower": 4,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11520,
+        "fingerprint": "2c51bd7576b0c055a9a607bb6d83218c1fb1fddebebcc29e4dc2e14125e87bd8",
+        "buildMs": {
+          "n": 7,
+          "median": 83.659,
+          "min": 49.863,
+          "max": 175.732,
+          "spreadPct": 150.455
+        }
+      },
+      "authoring": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 23294,
+        "vertices": 69882,
+        "attributeMiB": 2.133,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "tower": 4,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 23294,
+        "fingerprint": "85a39790f4087e4a18e65d6bdc234de60d1896628307b55245a5dd9d841d593b",
+        "buildMs": {
+          "n": 7,
+          "median": 240.532,
+          "min": 166.318,
+          "max": 421.026,
+          "spreadPct": 105.893
+        }
+      }
+    },
+    {
+      "id": "copper-watch-firehouse",
+      "stories": 2,
+      "game": {
+        "meshes": 34,
+        "doorPivots": 8,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 20346,
+        "vertices": 61038,
+        "attributeMiB": 1.863,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 34,
+        "rootChildren": 28,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 2,
+          "tower": 4,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 20346,
+        "fingerprint": "b33fdc63af6cf2a450c12457ddb15deaab19c3079301d53cf59f50bfadabfaa7",
+        "buildMs": {
+          "n": 7,
+          "median": 167.705,
+          "min": 128.346,
+          "max": 240.804,
+          "spreadPct": 67.057
+        }
+      },
+      "authoring": {
+        "meshes": 34,
+        "doorPivots": 8,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 32420,
+        "vertices": 97260,
+        "attributeMiB": 2.968,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 34,
+        "rootChildren": 28,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 2,
+          "tower": 4,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 32420,
+        "fingerprint": "831689c5c0efba40996ce2afade0a7f57b5eea388ac9770d04b6fc5175fdcaca",
+        "buildMs": {
+          "n": 7,
+          "median": 343.224,
+          "min": 322.915,
+          "max": 365.886,
+          "spreadPct": 12.52
+        }
+      }
+    },
+    {
+      "id": "branchline-depot",
+      "stories": 1,
+      "game": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 9462,
+        "vertices": 28386,
+        "attributeMiB": 0.866,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 9462,
+        "fingerprint": "005c6376869fbcf647eb4140851cac6fdde8fc55a2b5ab81a537c1bfc0f306f5",
+        "buildMs": {
+          "n": 7,
+          "median": 91.452,
+          "min": 62.71,
+          "max": 108.818,
+          "spreadPct": 50.418
+        }
+      },
+      "authoring": {
+        "meshes": 21,
+        "doorPivots": 4,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 15502,
+        "vertices": 46506,
+        "attributeMiB": 1.419,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 21,
+        "rootChildren": 17,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 15502,
+        "fingerprint": "0f69ba9128d82d31beb43b2274ae42ab1d7fb1e76926a3ce168f1bb586c338bd",
+        "buildMs": {
+          "n": 7,
+          "median": 183.329,
+          "min": 152.603,
+          "max": 295.481,
+          "spreadPct": 77.935
+        }
+      }
+    },
+    {
+      "id": "alder-reading-room",
+      "stories": 1,
+      "game": {
+        "meshes": 23,
+        "doorPivots": 5,
+        "doorLeafMeshes": 10,
+        "structureMeshes": 13,
+        "triangles": 10554,
+        "vertices": 31662,
+        "attributeMiB": 0.966,
+        "geometries": 23,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 23,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "porch": 3,
+          "door-leaf": 10
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 10554,
+        "fingerprint": "927eb471a7698a760c7c902973289d21369e1dbf45537030576a185e484379f4",
+        "buildMs": {
+          "n": 7,
+          "median": 117.417,
+          "min": 89.378,
+          "max": 149.454,
+          "spreadPct": 51.164
+        }
+      },
+      "authoring": {
+        "meshes": 23,
+        "doorPivots": 5,
+        "doorLeafMeshes": 10,
+        "structureMeshes": 13,
+        "triangles": 18750,
+        "vertices": 56250,
+        "attributeMiB": 1.717,
+        "geometries": 23,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 23,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "porch": 3,
+          "door-leaf": 10
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 18750,
+        "fingerprint": "81a1255375bd78413a217c102e981d3567ec5d10d2aaa0535964499eaa11dd24",
+        "buildMs": {
+          "n": 7,
+          "median": 205.938,
+          "min": 151.443,
+          "max": 309.127,
+          "spreadPct": 76.569
+        }
+      }
+    },
+    {
+      "id": "exchange-hall",
+      "stories": 2,
+      "game": {
+        "meshes": 40,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 22,
+        "triangles": 19970,
+        "vertices": 59910,
+        "attributeMiB": 1.828,
+        "geometries": 40,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 40,
+        "rootChildren": 31,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 1,
+          "porch": 3,
+          "tower": 4,
+          "door-leaf": 18
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 19970,
+        "fingerprint": "361264900eede236d2f9a7116de03b0275c6291190faefdc7f4cb4c06e0a6c1c",
+        "buildMs": {
+          "n": 7,
+          "median": 218.615,
+          "min": 150.212,
+          "max": 335.313,
+          "spreadPct": 84.67
+        }
+      },
+      "authoring": {
+        "meshes": 40,
+        "doorPivots": 9,
+        "doorLeafMeshes": 18,
+        "structureMeshes": 22,
+        "triangles": 32120,
+        "vertices": 96360,
+        "attributeMiB": 2.941,
+        "geometries": 40,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 40,
+        "rootChildren": 31,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 1,
+          "porch": 3,
+          "tower": 4,
+          "door-leaf": 18
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 32120,
+        "fingerprint": "eba361a7de14618fef1e4040d9a75ffd65f10be713a39ee02f4ae4b065b63978",
+        "buildMs": {
+          "n": 7,
+          "median": 328.845,
+          "min": 265.364,
+          "max": 412.261,
+          "spreadPct": 44.671
+        }
+      }
+    },
+    {
+      "id": "pepper-corner-shop",
+      "stories": 2,
+      "game": {
+        "meshes": 34,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 16644,
+        "vertices": 49932,
+        "attributeMiB": 1.524,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 34,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "awning": 1,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 16644,
+        "fingerprint": "e6ecc8b151f44ed2878aeca02050f0980e168e780b4e4970fcc5e0f1c7382a83",
+        "buildMs": {
+          "n": 7,
+          "median": 135.539,
+          "min": 110.003,
+          "max": 200.747,
+          "spreadPct": 66.951
+        }
+      },
+      "authoring": {
+        "meshes": 34,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 26700,
+        "vertices": 80100,
+        "attributeMiB": 2.444,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 34,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 5,
+          "awning": 1,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 26700,
+        "fingerprint": "97b105184228cba434c13d59dbfa5cb7e256425428b56de0c72ff8a7b9645660",
+        "buildMs": {
+          "n": 7,
+          "median": 263.754,
+          "min": 218.836,
+          "max": 285.541,
+          "spreadPct": 25.291
+        }
+      }
+    },
+    {
+      "id": "batten-general-store",
+      "stories": 2,
+      "game": {
+        "meshes": 34,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 19690,
+        "vertices": 59070,
+        "attributeMiB": 1.803,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 34,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 19690,
+        "fingerprint": "cd0068e5cdd047226e751c8b7da22c3368f444481b25b987edc3142963ff7661",
+        "buildMs": {
+          "n": 7,
+          "median": 103.84,
+          "min": 72.813,
+          "max": 225.954,
+          "spreadPct": 147.479
+        }
+      },
+      "authoring": {
+        "meshes": 34,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 20,
+        "triangles": 35566,
+        "vertices": 106698,
+        "attributeMiB": 3.256,
+        "geometries": 34,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 34,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 35566,
+        "fingerprint": "7881c41d82c8e0448bdd1cb466ecc394b9f52701153e6fece112e5c368d0df1e",
+        "buildMs": {
+          "n": 7,
+          "median": 323.336,
+          "min": 215.961,
+          "max": 568.256,
+          "spreadPct": 108.956
+        }
+      }
+    },
+    {
+      "id": "linden-clinic",
+      "stories": 1,
+      "game": {
+        "meshes": 30,
+        "doorPivots": 10,
+        "doorLeafMeshes": 20,
+        "structureMeshes": 10,
+        "triangles": 11480,
+        "vertices": 34440,
+        "attributeMiB": 1.051,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 20,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 20
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11480,
+        "fingerprint": "3652c6a3d115ccf94d85a4b199c85a24b0094d88599d6586284b62282154aa80",
+        "buildMs": {
+          "n": 7,
+          "median": 152.516,
+          "min": 82.529,
+          "max": 227.55,
+          "spreadPct": 95.086
+        }
+      },
+      "authoring": {
+        "meshes": 30,
+        "doorPivots": 10,
+        "doorLeafMeshes": 20,
+        "structureMeshes": 10,
+        "triangles": 18286,
+        "vertices": 54858,
+        "attributeMiB": 1.674,
+        "geometries": 30,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 30,
+        "rootChildren": 20,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 20
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 18286,
+        "fingerprint": "4752079e4fb3a40719ef415488a15edcbea5c202842cfa394076b35d838f8bfd",
+        "buildMs": {
+          "n": 7,
+          "median": 290.073,
+          "min": 216.566,
+          "max": 389.592,
+          "spreadPct": 59.649
+        }
+      }
+    },
+    {
+      "id": "coach-yard-inn",
+      "stories": 2,
+      "game": {
+        "meshes": 81,
+        "doorPivots": 29,
+        "doorLeafMeshes": 58,
+        "structureMeshes": 23,
+        "triangles": 31974,
+        "vertices": 95922,
+        "attributeMiB": 2.927,
+        "geometries": 81,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 81,
+        "rootChildren": 52,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 58
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 31974,
+        "fingerprint": "b68fe18c59118e7013abc48efaf9208a7f2f01c3a6b88b98ac9725cbb139dee0",
+        "buildMs": {
+          "n": 7,
+          "median": 477.957,
+          "min": 405.38,
+          "max": 899.804,
+          "spreadPct": 103.445
+        }
+      },
+      "authoring": {
+        "meshes": 81,
+        "doorPivots": 29,
+        "doorLeafMeshes": 58,
+        "structureMeshes": 23,
+        "triangles": 58676,
+        "vertices": 176028,
+        "attributeMiB": 5.372,
+        "geometries": 81,
+        "materialsCreated": 20,
+        "materialsUsed": 11,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 81,
+        "rootChildren": 52,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "porch": 3,
+          "details": 3,
+          "door-leaf": 58
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 58676,
+        "fingerprint": "c911bcd1b73451fc596e67f062264b69c10d1447fc2b217bd7cd7a5746ac42b3",
+        "buildMs": {
+          "n": 7,
+          "median": 837.212,
+          "min": 205.263,
+          "max": 1058.858,
+          "spreadPct": 101.957
+        }
+      }
+    },
+    {
+      "id": "dockside-warehouse",
+      "stories": 3,
+      "game": {
+        "meshes": 46,
+        "doorPivots": 12,
+        "doorLeafMeshes": 21,
+        "structureMeshes": 25,
+        "triangles": 42822,
+        "vertices": 128466,
+        "attributeMiB": 3.92,
+        "geometries": 46,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 46,
+        "rootChildren": 37,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 2,
+          "loading-dock": 1,
+          "door-leaf": 21
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 42822,
+        "fingerprint": "eab64a8c7ccdd2d2b4a087522943fa755bd0ce661fc7211d0a9eb2b2e632712c",
+        "buildMs": {
+          "n": 7,
+          "median": 184.429,
+          "min": 165.333,
+          "max": 552.509,
+          "spreadPct": 209.933
+        }
+      },
+      "authoring": {
+        "meshes": 46,
+        "doorPivots": 12,
+        "doorLeafMeshes": 21,
+        "structureMeshes": 25,
+        "triangles": 65074,
+        "vertices": 195222,
+        "attributeMiB": 5.958,
+        "geometries": 46,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 46,
+        "rootChildren": 37,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 2,
+          "loading-dock": 1,
+          "door-leaf": 21
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 65074,
+        "fingerprint": "7d1e735af29bed1cd7888e561823985c53c6dbc0c3d3f3bd8d506b91f1f3ccfc",
+        "buildMs": {
+          "n": 7,
+          "median": 765.209,
+          "min": 305.414,
+          "max": 949.342,
+          "spreadPct": 84.151
+        }
+      }
+    },
+    {
+      "id": "northlight-works",
+      "stories": 1,
+      "game": {
+        "meshes": 21,
+        "doorPivots": 5,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 14356,
+        "vertices": 43068,
+        "attributeMiB": 1.314,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "details": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 14356,
+        "fingerprint": "71bf91906187607bf4100d8a1ab3d6a18c317c75cfc882a105305dbb930f24b8",
+        "buildMs": {
+          "n": 7,
+          "median": 201.597,
+          "min": 87.901,
+          "max": 327.354,
+          "spreadPct": 118.778
+        }
+      },
+      "authoring": {
+        "meshes": 21,
+        "doorPivots": 5,
+        "doorLeafMeshes": 8,
+        "structureMeshes": 13,
+        "triangles": 28850,
+        "vertices": 86550,
+        "attributeMiB": 2.641,
+        "geometries": 21,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 21,
+        "rootChildren": 18,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 4,
+          "details": 3,
+          "door-leaf": 8
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 28850,
+        "fingerprint": "b2ed4b538dc7994ab840b8c216b1f7ad7aa28c1b2a0ffd09e7234f22ca12fb3e",
+        "buildMs": {
+          "n": 7,
+          "median": 345.878,
+          "min": 291.2,
+          "max": 494.589,
+          "spreadPct": 58.804
+        }
+      }
+    },
+    {
+      "id": "glass-garden-hall",
+      "stories": 1,
+      "game": {
+        "meshes": 12,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 10,
+        "triangles": 11166,
+        "vertices": 33498,
+        "attributeMiB": 1.022,
+        "geometries": 12,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 12,
+        "rootChildren": 11,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 5,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 11166,
+        "fingerprint": "8bca13dfeb0c6aa75c798688878372671f234eef538ac712a9f339d658484e5c",
+        "buildMs": {
+          "n": 7,
+          "median": 124.646,
+          "min": 71.981,
+          "max": 267.11,
+          "spreadPct": 156.547
+        }
+      },
+      "authoring": {
+        "meshes": 12,
+        "doorPivots": 1,
+        "doorLeafMeshes": 2,
+        "structureMeshes": 10,
+        "triangles": 18094,
+        "vertices": 54282,
+        "attributeMiB": 1.657,
+        "geometries": 12,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 12,
+        "rootChildren": 11,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 5,
+          "door-leaf": 2
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 18094,
+        "fingerprint": "c9f05ab8885ae52c1f9e6c2c680fdc9b95dcb85e4065b33c9739316289758856",
+        "buildMs": {
+          "n": 7,
+          "median": 239.608,
+          "min": 147.762,
+          "max": 363.669,
+          "spreadPct": 90.109
+        }
+      }
+    },
+    {
+      "id": "post-lane-office",
+      "stories": 1,
+      "game": {
+        "meshes": 20,
+        "doorPivots": 5,
+        "doorLeafMeshes": 10,
+        "structureMeshes": 10,
+        "triangles": 8626,
+        "vertices": 25878,
+        "attributeMiB": 0.79,
+        "geometries": 20,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 20,
+        "rootChildren": 15,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 10
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 8626,
+        "fingerprint": "8e91e1a9e1831eeb267a540638c99d63fafc279db3733a83fa793f5397e5e931",
+        "buildMs": {
+          "n": 7,
+          "median": 78.176,
+          "min": 55.693,
+          "max": 126.716,
+          "spreadPct": 90.85
+        }
+      },
+      "authoring": {
+        "meshes": 20,
+        "doorPivots": 5,
+        "doorLeafMeshes": 10,
+        "structureMeshes": 10,
+        "triangles": 13746,
+        "vertices": 41238,
+        "attributeMiB": 1.258,
+        "geometries": 20,
+        "materialsCreated": 20,
+        "materialsUsed": 8,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 20,
+        "rootChildren": 15,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 1,
+          "porch": 3,
+          "door-leaf": 10
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 13746,
+        "fingerprint": "9342e73f087902233705709b4075dc81a267c1be3c4ac6ec7ae0774a56cdba35",
+        "buildMs": {
+          "n": 7,
+          "median": 170.844,
+          "min": 91.335,
+          "max": 242.499,
+          "spreadPct": 88.48
+        }
+      }
+    },
+    {
+      "id": "red-crest-barn",
+      "stories": 2,
+      "game": {
+        "meshes": 64,
+        "doorPivots": 23,
+        "doorLeafMeshes": 45,
+        "structureMeshes": 19,
+        "triangles": 24810,
+        "vertices": 74430,
+        "attributeMiB": 2.271,
+        "geometries": 64,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 64,
+        "rootChildren": 42,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 1,
+          "stairs": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 45
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 24810,
+        "fingerprint": "b939f4dd524fb7cc466fab47d2d4ef46feb0401461ee0681906c06bd619b1847",
+        "buildMs": {
+          "n": 7,
+          "median": 653.47,
+          "min": 387.297,
+          "max": 1083.774,
+          "spreadPct": 106.581
+        }
+      },
+      "authoring": {
+        "meshes": 64,
+        "doorPivots": 23,
+        "doorLeafMeshes": 45,
+        "structureMeshes": 19,
+        "triangles": 44926,
+        "vertices": 134778,
+        "attributeMiB": 4.113,
+        "geometries": 64,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 64,
+        "rootChildren": 42,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 1,
+          "stairs": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 45
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 44926,
+        "fingerprint": "7cf3b63fc5c1e385fff22fe55a8b71747b6f743b8467940d1cdb2ee434ebbdd1",
+        "buildMs": {
+          "n": 7,
+          "median": 1287.62,
+          "min": 315.063,
+          "max": 2096.149,
+          "spreadPct": 138.324
+        }
+      }
+    },
+    {
+      "id": "stone-bank-barn",
+      "stories": 2,
+      "game": {
+        "meshes": 56,
+        "doorPivots": 19,
+        "doorLeafMeshes": 37,
+        "structureMeshes": 19,
+        "triangles": 25412,
+        "vertices": 76236,
+        "attributeMiB": 2.327,
+        "geometries": 56,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 56,
+        "rootChildren": 38,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 1,
+          "stairs": 1,
+          "roof": 6,
+          "door-leaf": 37
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 25412,
+        "fingerprint": "04d6625871290d27a141f655c90a118a4e09775b0c144a15a1c4a532cee80c98",
+        "buildMs": {
+          "n": 7,
+          "median": 608.614,
+          "min": 259.211,
+          "max": 1006.868,
+          "spreadPct": 122.846
+        }
+      },
+      "authoring": {
+        "meshes": 56,
+        "doorPivots": 19,
+        "doorLeafMeshes": 37,
+        "structureMeshes": 19,
+        "triangles": 45464,
+        "vertices": 136392,
+        "attributeMiB": 4.162,
+        "geometries": 56,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 56,
+        "rootChildren": 38,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 1,
+          "stairs": 1,
+          "roof": 6,
+          "door-leaf": 37
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 45464,
+        "fingerprint": "a86b96a5877cea5a0326c3236859e5a6622504afbff2ece4d3f3d1af0fb2554a",
+        "buildMs": {
+          "n": 7,
+          "median": 1101.255,
+          "min": 208.787,
+          "max": 5727.011,
+          "spreadPct": 501.085
+        }
+      }
+    },
+    {
+      "id": "longspan-machine-shed",
+      "stories": 1,
+      "game": {
+        "meshes": 11,
+        "doorPivots": 4,
+        "doorLeafMeshes": 4,
+        "structureMeshes": 7,
+        "triangles": 10360,
+        "vertices": 31080,
+        "attributeMiB": 0.948,
+        "geometries": 11,
+        "materialsCreated": 20,
+        "materialsUsed": 5,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 11,
+        "rootChildren": 11,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 2,
+          "door-leaf": 4
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 10360,
+        "fingerprint": "6438f4372a6aaa90bb4719b21867892e0cdf9e2ee085cfd0dbe6a5916ae1dc64",
+        "buildMs": {
+          "n": 7,
+          "median": 940.11,
+          "min": 355.484,
+          "max": 2636.417,
+          "spreadPct": 242.624
+        }
+      },
+      "authoring": {
+        "meshes": 11,
+        "doorPivots": 4,
+        "doorLeafMeshes": 4,
+        "structureMeshes": 7,
+        "triangles": 20742,
+        "vertices": 62226,
+        "attributeMiB": 1.899,
+        "geometries": 11,
+        "materialsCreated": 20,
+        "materialsUsed": 5,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 11,
+        "rootChildren": 11,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "roof": 2,
+          "door-leaf": 4
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 20742,
+        "fingerprint": "f48d4b60c2cb607e0f05ac7f8a9842476008bf3bf5882143709a8308cc39abd0",
+        "buildMs": {
+          "n": 7,
+          "median": 1047.744,
+          "min": 361.033,
+          "max": 2312.627,
+          "spreadPct": 186.266
+        }
+      }
+    },
+    {
+      "id": "whitegate-dairy",
+      "stories": 1,
+      "game": {
+        "meshes": 38,
+        "doorPivots": 13,
+        "doorLeafMeshes": 26,
+        "structureMeshes": 12,
+        "triangles": 12532,
+        "vertices": 37596,
+        "attributeMiB": 1.147,
+        "geometries": 38,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 38,
+        "rootChildren": 25,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 26
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 12532,
+        "fingerprint": "3a16c72d90421a4977c891d16a34111b2eb530bd9e8ebea80788bce7a21edd5b",
+        "buildMs": {
+          "n": 7,
+          "median": 520.304,
+          "min": 169.634,
+          "max": 3130.949,
+          "spreadPct": 569.151
+        }
+      },
+      "authoring": {
+        "meshes": 38,
+        "doorPivots": 13,
+        "doorLeafMeshes": 26,
+        "structureMeshes": 12,
+        "triangles": 24352,
+        "vertices": 73056,
+        "attributeMiB": 2.229,
+        "geometries": 38,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 38,
+        "rootChildren": 25,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "details": 3,
+          "door-leaf": 26
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 24352,
+        "fingerprint": "66f3242a018ee5d27a3738ef1e6ffd81bff6f52fe77b89e1157393342040435b",
+        "buildMs": {
+          "n": 7,
+          "median": 794.802,
+          "min": 332.233,
+          "max": 1298.426,
+          "spreadPct": 121.564
+        }
+      }
+    },
+    {
+      "id": "horseshoe-stables",
+      "stories": 1,
+      "game": {
+        "meshes": 35,
+        "doorPivots": 13,
+        "doorLeafMeshes": 26,
+        "structureMeshes": 9,
+        "triangles": 15066,
+        "vertices": 45198,
+        "attributeMiB": 1.379,
+        "geometries": 35,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 35,
+        "rootChildren": 22,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "door-leaf": 26
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 15066,
+        "fingerprint": "e04993b94cb908843bcca43275c336c84bf53f22d3f6c669db8da9c471b8a7aa",
+        "buildMs": {
+          "n": 7,
+          "median": 566.777,
+          "min": 146.292,
+          "max": 1312.446,
+          "spreadPct": 205.752
+        }
+      },
+      "authoring": {
+        "meshes": 35,
+        "doorPivots": 13,
+        "doorLeafMeshes": 26,
+        "structureMeshes": 9,
+        "triangles": 30990,
+        "vertices": 92970,
+        "attributeMiB": 2.837,
+        "geometries": 35,
+        "materialsCreated": 20,
+        "materialsUsed": 7,
+        "transparentMeshes": 1,
+        "castShadowMeshes": 35,
+        "rootChildren": 22,
+        "kinds": {
+          "floor": 1,
+          "exterior": 2,
+          "trim": 1,
+          "glazing": 1,
+          "interior": 1,
+          "roof": 3,
+          "door-leaf": 26
+        },
+        "levels": [
+          0
+        ],
+        "reportedTriangles": 30990,
+        "fingerprint": "8fc0da06cadb355f14e82c1a9832d2978278054530c18ca2adeab0b28b23798f",
+        "buildMs": {
+          "n": 7,
+          "median": 140.065,
+          "min": 124.077,
+          "max": 1015.744,
+          "spreadPct": 636.61
+        }
+      }
+    },
+    {
+      "id": "grainwatch-granary",
+      "stories": 3,
+      "game": {
+        "meshes": 47,
+        "doorPivots": 10,
+        "doorLeafMeshes": 19,
+        "structureMeshes": 28,
+        "triangles": 19292,
+        "vertices": 57876,
+        "attributeMiB": 1.766,
+        "geometries": 47,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 47,
+        "rootChildren": 38,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 6,
+          "door-leaf": 19
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 19292,
+        "fingerprint": "dc6e488d6837b1a4bd9001f722afb69848f333f3d6cc8028ba2eaaa31b2ff5ab",
+        "buildMs": {
+          "n": 7,
+          "median": 466.507,
+          "min": 89.14,
+          "max": 566.856,
+          "spreadPct": 102.403
+        }
+      },
+      "authoring": {
+        "meshes": 47,
+        "doorPivots": 10,
+        "doorLeafMeshes": 19,
+        "structureMeshes": 28,
+        "triangles": 33826,
+        "vertices": 101478,
+        "attributeMiB": 3.097,
+        "geometries": 47,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 47,
+        "rootChildren": 38,
+        "kinds": {
+          "floor": 3,
+          "exterior": 8,
+          "trim": 3,
+          "glazing": 3,
+          "interior": 3,
+          "stairs": 2,
+          "roof": 6,
+          "door-leaf": 19
+        },
+        "levels": [
+          0,
+          1,
+          2
+        ],
+        "reportedTriangles": 33826,
+        "fingerprint": "0a09176d97f17794bfdb5a28b36a96939c9407717163de58e20ff9dc27c5464f",
+        "buildMs": {
+          "n": 7,
+          "median": 690.873,
+          "min": 416.177,
+          "max": 1255.426,
+          "spreadPct": 121.477
+        }
+      }
+    },
+    {
+      "id": "carriage-court",
+      "stories": 2,
+      "game": {
+        "meshes": 33,
+        "doorPivots": 8,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 19,
+        "triangles": 13600,
+        "vertices": 40800,
+        "attributeMiB": 1.245,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 33,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "details": 2,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 13600,
+        "fingerprint": "e78042241a55735c24b1edb51d8cf11ec1af5f7af2d916f4b94be99b52e1d12d",
+        "buildMs": {
+          "n": 7,
+          "median": 370.216,
+          "min": 118.019,
+          "max": 437.374,
+          "spreadPct": 86.262
+        }
+      },
+      "authoring": {
+        "meshes": 33,
+        "doorPivots": 8,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 19,
+        "triangles": 24816,
+        "vertices": 74448,
+        "attributeMiB": 2.272,
+        "geometries": 33,
+        "materialsCreated": 20,
+        "materialsUsed": 9,
+        "transparentMeshes": 3,
+        "castShadowMeshes": 33,
+        "rootChildren": 27,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 3,
+          "details": 2,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 24816,
+        "fingerprint": "f73c13dc6d23b69a632062a41fc79264f550228e55252aecd3bfc466cdcf0f18",
+        "buildMs": {
+          "n": 7,
+          "median": 453.933,
+          "min": 355.89,
+          "max": 520.888,
+          "spreadPct": 36.349
+        }
+      }
+    },
+    {
+      "id": "millrace-workhouse",
+      "stories": 2,
+      "game": {
+        "meshes": 39,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 25,
+        "triangles": 17552,
+        "vertices": 52656,
+        "attributeMiB": 1.607,
+        "geometries": 39,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 39,
+        "rootChildren": 32,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 6,
+          "details": 3,
+          "waterwheel": 2,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 17552,
+        "fingerprint": "57e3395db1148ff3f316faf2b8a92e9b88d7a7b4764c60dc0594c9ff5d8169ae",
+        "buildMs": {
+          "n": 7,
+          "median": 263.007,
+          "min": 144.125,
+          "max": 3276.774,
+          "spreadPct": 1191.087
+        }
+      },
+      "authoring": {
+        "meshes": 39,
+        "doorPivots": 7,
+        "doorLeafMeshes": 14,
+        "structureMeshes": 25,
+        "triangles": 32560,
+        "vertices": 97680,
+        "attributeMiB": 2.981,
+        "geometries": 39,
+        "materialsCreated": 20,
+        "materialsUsed": 10,
+        "transparentMeshes": 2,
+        "castShadowMeshes": 39,
+        "rootChildren": 32,
+        "kinds": {
+          "floor": 2,
+          "exterior": 5,
+          "trim": 2,
+          "glazing": 2,
+          "interior": 2,
+          "stairs": 1,
+          "roof": 6,
+          "details": 3,
+          "waterwheel": 2,
+          "door-leaf": 14
+        },
+        "levels": [
+          0,
+          1
+        ],
+        "reportedTriangles": 32560,
+        "fingerprint": "952efd2d5919b751dae6e1461b811940b1b1fc441a776445098daa737cb75da0",
+        "buildMs": {
+          "n": 7,
+          "median": 366.449,
+          "min": 237.956,
+          "max": 516.13,
+          "spreadPct": 75.911
+        }
+      }
+    }
+  ]
+}

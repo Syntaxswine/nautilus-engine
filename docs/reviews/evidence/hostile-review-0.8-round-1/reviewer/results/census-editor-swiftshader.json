@@ -1,0 +1,2976 @@
+{
+  "generatedAt": "2026-10-30T03:05:17.158Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only.",
+    "browser": "156.0.4314.50",
+    "angle": "swiftshader",
+    "gpuString": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "deviceScaleFactor": 1,
+    "editorPixelRatio": "min(devicePixelRatio,1.5) = 1"
+  },
+  "method": "Built editor (npm run build) served from dist/ on 127.0.0.1; Playwright-driven headless Edge. Open time: 5 cold opens (a blank map between opens releases all templates). Frames: 7 synchronous scene.draw() calls each followed by a 1-pixel readPixels to complete GPU work; first 2 discarded. Draw calls from renderer.info with autoReset=false (all passes of the frame), shadow pass isolated by wrapping renderer.shadowMap.render.",
+  "results": [
+    {
+      "workload": "w0-blank",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 2273.7,
+        "min": 2201.2,
+        "max": 2369.9,
+        "spreadPct": 7.42
+      },
+      "openSamplesMs": [
+        2273,
+        2370,
+        2292,
+        2201,
+        2274
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 697,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          }
+        },
+        "uniqueGeometries": 90,
+        "uniqueMaterials": 32,
+        "programs": 19,
+        "memory": {
+          "geometries": 100,
+          "textures": 32
+        },
+        "templates": [],
+        "templateMeshTotal": 0,
+        "instanceMeshTotal": 0
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1121,
+          "triangles": 2541974,
+          "shadowCalls": 554,
+          "shadowTris": 1273708,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 554,
+          "mainAndComposite": 567,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 959,
+          "min": 953.1,
+          "max": 965.6,
+          "spreadPct": 1.303
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 567,
+          "triangles": 1268266,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 567,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 573.4,
+          "min": 530.3,
+          "max": 596.9,
+          "spreadPct": 11.615
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 419,
+          "triangles": 864890,
+          "shadowCalls": 303,
+          "shadowTris": 626268,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 303,
+          "mainAndComposite": 116,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 502.8,
+          "min": 497.9,
+          "max": 515.3,
+          "spreadPct": 3.461
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 1121,
+            "triangles": 2541974,
+            "shadowCalls": 554,
+            "shadowTris": 1273708,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 19,
+          "split": {
+            "shadowPass": 554,
+            "mainAndComposite": 567,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1067,
+            "min": 1028.9,
+            "max": 1079.2,
+            "spreadPct": 4.714
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w1-32x-largest",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 3876,
+        "min": 3651.9,
+        "max": 4239.3,
+        "spreadPct": 15.155
+      },
+      "openSamplesMs": [
+        3876,
+        4196,
+        3662,
+        4239,
+        3652
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 2585,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1472,
+            "visibleMeshes": 1472,
+            "visibleDrawItems": 1472,
+            "visibleShadowItems": 1472,
+            "visibleTransparentItems": 96,
+            "visibleTriangles": 1370304,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 136,
+        "uniqueMaterials": 41,
+        "programs": 23,
+        "memory": {
+          "geometries": 146,
+          "textures": 33
+        },
+        "templates": [
+          {
+            "id": "dockside-warehouse",
+            "meshes": 46,
+            "instances": 32
+          }
+        ],
+        "templateMeshTotal": 46,
+        "instanceMeshTotal": 1472
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 4155,
+          "triangles": 5307446,
+          "shadowCalls": 2026,
+          "shadowTris": 2644012,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 23,
+        "split": {
+          "shadowPass": 2026,
+          "mainAndComposite": 2129,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1376.1,
+          "min": 1354.2,
+          "max": 1426.6,
+          "spreadPct": 5.261
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 2129,
+          "triangles": 2663434,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 2129,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 814.2,
+          "min": 765.1,
+          "max": 823.7,
+          "spreadPct": 7.197
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1678,
+          "triangles": 1951724,
+          "shadowCalls": 1190,
+          "shadowTris": 1383364,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 1190,
+          "mainAndComposite": 488,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 588.6,
+          "min": 577.7,
+          "max": 598.1,
+          "spreadPct": 3.466
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1472,
+            "visibleMeshes": 416,
+            "visibleDrawItems": 416,
+            "visibleShadowItems": 416,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 198784,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 1948,
+            "triangles": 2938918,
+            "shadowCalls": 970,
+            "shadowTris": 1472492,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 25,
+          "split": {
+            "shadowPass": 970,
+            "mainAndComposite": 978,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1111.9,
+            "min": 1083.8,
+            "max": 1134.9,
+            "spreadPct": 4.596
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w2-32-distinct-most-meshes",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 5229.9,
+        "min": 4870.4,
+        "max": 5369.3,
+        "spreadPct": 9.539
+      },
+      "openSamplesMs": [
+        4870,
+        5369,
+        5230,
+        5124,
+        5268
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 2881,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1655,
+            "visibleMeshes": 1655,
+            "visibleDrawItems": 1655,
+            "visibleShadowItems": 1655,
+            "visibleTransparentItems": 74,
+            "visibleTriangles": 606242,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 1745,
+        "uniqueMaterials": 332,
+        "programs": 23,
+        "memory": {
+          "geometries": 610,
+          "textures": 33
+        },
+        "templates": [
+          {
+            "id": "marlow-courtyard-flats",
+            "meshes": 100,
+            "instances": 1
+          },
+          {
+            "id": "narrow-court",
+            "meshes": 85,
+            "instances": 1
+          },
+          {
+            "id": "coach-yard-inn",
+            "meshes": 81,
+            "instances": 1
+          },
+          {
+            "id": "willow-pair",
+            "meshes": 75,
+            "instances": 1
+          },
+          {
+            "id": "rowan-family",
+            "meshes": 72,
+            "instances": 1
+          },
+          {
+            "id": "elm-cross-gable",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "violet-bay-house",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "red-crest-barn",
+            "meshes": 64,
+            "instances": 1
+          },
+          {
+            "id": "juniper-suite",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "fennel-mansard",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "alpine-timber",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "prairie-corner",
+            "meshes": 62,
+            "instances": 1
+          },
+          {
+            "id": "mews-corner",
+            "meshes": 59,
+            "instances": 1
+          },
+          {
+            "id": "saltmarsh-lean-to",
+            "meshes": 58,
+            "instances": 1
+          },
+          {
+            "id": "stone-bank-barn",
+            "meshes": 56,
+            "instances": 1
+          },
+          {
+            "id": "grainwatch-granary",
+            "meshes": 47,
+            "instances": 1
+          },
+          {
+            "id": "market-terrace",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "dockside-warehouse",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "exchange-hall",
+            "meshes": 40,
+            "instances": 1
+          },
+          {
+            "id": "millrace-workhouse",
+            "meshes": 39,
+            "instances": 1
+          },
+          {
+            "id": "whitegate-dairy",
+            "meshes": 38,
+            "instances": 1
+          },
+          {
+            "id": "hearth-cape",
+            "meshes": 36,
+            "instances": 1
+          },
+          {
+            "id": "horseshoe-stables",
+            "meshes": 35,
+            "instances": 1
+          },
+          {
+            "id": "bramble-ranch",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "copper-watch-firehouse",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "pepper-corner-shop",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "batten-general-store",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "foxglove-bungalow",
+            "meshes": 33,
+            "instances": 1
+          },
+          {
+            "id": "eastfield-school",
+            "meshes": 33,
+            "instances": 1
+          },
+          {
+            "id": "carriage-court",
+            "meshes": 33,
+            "instances": 1
+          },
+          {
+            "id": "cedar-split",
+            "meshes": 30,
+            "instances": 1
+          },
+          {
+            "id": "longlight-house",
+            "meshes": 30,
+            "instances": 1
+          }
+        ],
+        "templateMeshTotal": 1655,
+        "instanceMeshTotal": 1655
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 4480,
+          "triangles": 3766342,
+          "shadowCalls": 2209,
+          "shadowTris": 1879950,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 23,
+        "split": {
+          "shadowPass": 2209,
+          "mainAndComposite": 2271,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1146,
+          "min": 1140.2,
+          "max": 1161.2,
+          "spreadPct": 1.832
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 2271,
+          "triangles": 1886392,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 2271,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 628.8,
+          "min": 615.8,
+          "max": 649.3,
+          "spreadPct": 5.328
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1934,
+          "triangles": 1263800,
+          "shadowCalls": 1324,
+          "shadowTris": 855778,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 1324,
+          "mainAndComposite": 610,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 495.7,
+          "min": 490.1,
+          "max": 534.2,
+          "spreadPct": 8.897
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1655,
+            "visibleMeshes": 743,
+            "visibleDrawItems": 743,
+            "visibleShadowItems": 743,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 130220,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 2596,
+            "triangles": 2802022,
+            "shadowCalls": 1297,
+            "shadowTris": 1403928,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 25,
+          "split": {
+            "shadowPass": 1297,
+            "mainAndComposite": 1299,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1049.4,
+            "min": 1040.2,
+            "max": 1115.7,
+            "spreadPct": 7.195
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w3-32-distinct-most-triangles",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 5205.9,
+        "min": 4521,
+        "max": 5755.9,
+        "spreadPct": 23.721
+      },
+      "openSamplesMs": [
+        4521,
+        5206,
+        5362,
+        5756,
+        4852
+      ],
+      "openProfile": {
+        "sampledMs": 5405,
+        "topSelf": [
+          {
+            "fn": "getProgramInfoLog (native):0",
+            "pct": 32.9
+          },
+          {
+            "fn": "tri three.js:13",
+            "pct": 9.2
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 8.9
+          },
+          {
+            "fn": "quad three.js:18",
+            "pct": 7.6
+          },
+          {
+            "fn": "paintValidity horse-model-paint.js:14",
+            "pct": 6.8
+          },
+          {
+            "fn": "(anonymous) three.js:4",
+            "pct": 3.8
+          },
+          {
+            "fn": "(garbage collector) (native):0",
+            "pct": 3.1
+          },
+          {
+            "fn": "texSubImage2D (native):0",
+            "pct": 2.1
+          },
+          {
+            "fn": "(anonymous) maps.js:96",
+            "pct": 1.9
+          },
+          {
+            "fn": "tiledTriangle three.js:14",
+            "pct": 1.9
+          },
+          {
+            "fn": "environmentVisuals environment-visuals.js:21",
+            "pct": 1.6
+          },
+          {
+            "fn": "buildWorld hybrid-world.js:31",
+            "pct": 1.3
+          },
+          {
+            "fn": "createLightHorse horse-light-model.js:8",
+            "pct": 1.2
+          },
+          {
+            "fn": "mesh three.js:26",
+            "pct": 1
+          },
+          {
+            "fn": "createBuildingModel three.js:68",
+            "pct": 1
+          },
+          {
+            "fn": "(anonymous) horse-light-model.js:118",
+            "pct": 0.9
+          },
+          {
+            "fn": "rebuild editor-3d-scene.js:91",
+            "pct": 0.8
+          },
+          {
+            "fn": "box three.js:19",
+            "pct": 0.8
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 49.1
+          },
+          {
+            "file": "building-catalog/three.js",
+            "pct": 26.5
+          },
+          {
+            "file": "tactics/horse-model-paint.js",
+            "pct": 6.9
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 3
+          },
+          {
+            "file": "tactics/horse-light-model.js",
+            "pct": 2.8
+          },
+          {
+            "file": "core/maps.js",
+            "pct": 2.2
+          },
+          {
+            "file": "tactics/editor-3d-scene.js",
+            "pct": 1.6
+          },
+          {
+            "file": "tactics/environment-visuals.js",
+            "pct": 1.6
+          },
+          {
+            "file": "tactics/hybrid-world.js",
+            "pct": 1.3
+          },
+          {
+            "file": "building-catalog/index.js",
+            "pct": 1.1
+          },
+          {
+            "file": "vendor/three.module.js",
+            "pct": 0.8
+          },
+          {
+            "file": "app/wall-scene.js",
+            "pct": 0.5
+          }
+        ]
+      },
+      "sceneStats": {
+        "objects": 2840,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1622,
+            "visibleMeshes": 1622,
+            "visibleDrawItems": 1622,
+            "visibleShadowItems": 1622,
+            "visibleTransparentItems": 74,
+            "visibleTriangles": 616832,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 1712,
+        "uniqueMaterials": 324,
+        "programs": 23,
+        "memory": {
+          "geometries": 572,
+          "textures": 33
+        },
+        "templates": [
+          {
+            "id": "dockside-warehouse",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "marlow-courtyard-flats",
+            "meshes": 100,
+            "instances": 1
+          },
+          {
+            "id": "coach-yard-inn",
+            "meshes": 81,
+            "instances": 1
+          },
+          {
+            "id": "stone-bank-barn",
+            "meshes": 56,
+            "instances": 1
+          },
+          {
+            "id": "red-crest-barn",
+            "meshes": 64,
+            "instances": 1
+          },
+          {
+            "id": "narrow-court",
+            "meshes": 85,
+            "instances": 1
+          },
+          {
+            "id": "market-terrace",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "copper-watch-firehouse",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "exchange-hall",
+            "meshes": 40,
+            "instances": 1
+          },
+          {
+            "id": "batten-general-store",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "juniper-suite",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "grainwatch-granary",
+            "meshes": 47,
+            "instances": 1
+          },
+          {
+            "id": "willow-pair",
+            "meshes": 75,
+            "instances": 1
+          },
+          {
+            "id": "violet-bay-house",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "elm-cross-gable",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "prairie-corner",
+            "meshes": 62,
+            "instances": 1
+          },
+          {
+            "id": "rowan-family",
+            "meshes": 72,
+            "instances": 1
+          },
+          {
+            "id": "millrace-workhouse",
+            "meshes": 39,
+            "instances": 1
+          },
+          {
+            "id": "alpine-timber",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "pepper-corner-shop",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "eastfield-school",
+            "meshes": 33,
+            "instances": 1
+          },
+          {
+            "id": "fennel-mansard",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "saltmarsh-lean-to",
+            "meshes": 58,
+            "instances": 1
+          },
+          {
+            "id": "mews-corner",
+            "meshes": 59,
+            "instances": 1
+          },
+          {
+            "id": "horseshoe-stables",
+            "meshes": 35,
+            "instances": 1
+          },
+          {
+            "id": "northlight-works",
+            "meshes": 21,
+            "instances": 1
+          },
+          {
+            "id": "carriage-court",
+            "meshes": 33,
+            "instances": 1
+          },
+          {
+            "id": "whitegate-dairy",
+            "meshes": 38,
+            "instances": 1
+          },
+          {
+            "id": "cedar-split",
+            "meshes": 30,
+            "instances": 1
+          },
+          {
+            "id": "sun-well-court",
+            "meshes": 28,
+            "instances": 1
+          },
+          {
+            "id": "bell-court-chapel",
+            "meshes": 21,
+            "instances": 1
+          },
+          {
+            "id": "linden-clinic",
+            "meshes": 30,
+            "instances": 1
+          }
+        ],
+        "templateMeshTotal": 1622,
+        "instanceMeshTotal": 1622
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 4425,
+          "triangles": 3788864,
+          "shadowCalls": 2176,
+          "shadowTris": 1890540,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 23,
+        "split": {
+          "shadowPass": 2176,
+          "mainAndComposite": 2249,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1172.9,
+          "min": 1130.9,
+          "max": 1180.9,
+          "spreadPct": 4.263
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 2249,
+          "triangles": 1898324,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 2249,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 651.8,
+          "min": 648.9,
+          "max": 662.8,
+          "spreadPct": 2.133
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1900,
+          "triangles": 1233892,
+          "shadowCalls": 1309,
+          "shadowTris": 853340,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 1309,
+          "mainAndComposite": 591,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 515.7,
+          "min": 501.1,
+          "max": 535.5,
+          "spreadPct": 6.671
+        }
+      },
+      "frameProfile": {
+        "sampledMs": 12453,
+        "topSelf": [
+          {
+            "fn": "readPixels (native):0",
+            "pct": 96
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 1.4
+          },
+          {
+            "fn": "WebGLRenderer.renderBufferDirect three.module.js:15939",
+            "pct": 0.2
+          },
+          {
+            "fn": "bindVertexArray (native):0",
+            "pct": 0.2
+          },
+          {
+            "fn": "renderObject three.module.js:8733",
+            "pct": 0.2
+          },
+          {
+            "fn": "getParameters three.module.js:6828",
+            "pct": 0.1
+          },
+          {
+            "fn": "projectObject three.module.js:16553",
+            "pct": 0.1
+          },
+          {
+            "fn": "setProgram three.module.js:17025",
+            "pct": 0.1
+          },
+          {
+            "fn": "getBindingState three.module.js:1656",
+            "pct": 0.1
+          },
+          {
+            "fn": "copy three.core.js:10340",
+            "pct": 0.1
+          },
+          {
+            "fn": "renderObjects three.module.js:16818",
+            "pct": 0.1
+          },
+          {
+            "fn": "needsUpdate three.module.js:1723",
+            "pct": 0.1
+          },
+          {
+            "fn": "updateMatrixWorld three.core.js:14280",
+            "pct": 0.1
+          },
+          {
+            "fn": "renderObject three.module.js:16847",
+            "pct": 0.1
+          },
+          {
+            "fn": "multiplyMatrices three.core.js:11843",
+            "pct": 0.1
+          },
+          {
+            "fn": "setValueM4 three.module.js:4736",
+            "pct": 0.1
+          },
+          {
+            "fn": "uniformMatrix4fv (native):0",
+            "pct": 0.1
+          },
+          {
+            "fn": "update three.module.js:3880",
+            "pct": 0
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 97.8
+          },
+          {
+            "file": "vendor/three.module.js",
+            "pct": 1.7
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 0.4
+          },
+          {
+            "file": "tactics/daylight-rig.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/light-renderer.js",
+            "pct": 0
+          }
+        ]
+      },
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 1622,
+            "visibleMeshes": 717,
+            "visibleDrawItems": 717,
+            "visibleShadowItems": 717,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 132476,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 2546,
+            "triangles": 2806786,
+            "shadowCalls": 1271,
+            "shadowTris": 1406184,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 25,
+          "split": {
+            "shadowPass": 1271,
+            "mainAndComposite": 1275,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 2067.5,
+            "min": 1243.7,
+            "max": 2234.6,
+            "spreadPct": 47.927
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w4-32-gross",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 3317.8,
+        "min": 3026.2,
+        "max": 3628.3,
+        "spreadPct": 18.148
+      },
+      "openSamplesMs": [
+        3628,
+        3424,
+        3318,
+        3026,
+        3148
+      ],
+      "openProfile": {
+        "sampledMs": 3355,
+        "topSelf": [
+          {
+            "fn": "getProgramInfoLog (native):0",
+            "pct": 34.4
+          },
+          {
+            "fn": "paintValidity horse-model-paint.js:14",
+            "pct": 12.5
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 6.7
+          },
+          {
+            "fn": "(garbage collector) (native):0",
+            "pct": 4.1
+          },
+          {
+            "fn": "(anonymous) prefab-batches.js:6",
+            "pct": 3.8
+          },
+          {
+            "fn": "(anonymous) maps.js:96",
+            "pct": 3.6
+          },
+          {
+            "fn": "texSubImage2D (native):0",
+            "pct": 3.2
+          },
+          {
+            "fn": "rebuild editor-3d-scene.js:91",
+            "pct": 2.7
+          },
+          {
+            "fn": "environmentVisuals environment-visuals.js:21",
+            "pct": 2
+          },
+          {
+            "fn": "createLightHorse horse-light-model.js:8",
+            "pct": 1.7
+          },
+          {
+            "fn": "(anonymous) horse-light-model.js:118",
+            "pct": 1.5
+          },
+          {
+            "fn": "(idle) (native):0",
+            "pct": 1.2
+          },
+          {
+            "fn": "grassTufts foliage-models.js:30",
+            "pct": 1.2
+          },
+          {
+            "fn": "materialKind hybrid-materials.js:51",
+            "pct": 1.2
+          },
+          {
+            "fn": "box hybrid-world.js:35",
+            "pct": 1.1
+          },
+          {
+            "fn": "Object3D three.core.js:13222",
+            "pct": 1
+          },
+          {
+            "fn": "tile hybrid-world.js:39",
+            "pct": 0.8
+          },
+          {
+            "fn": "traverseVisible three.core.js:14220",
+            "pct": 0.8
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 50.7
+          },
+          {
+            "file": "tactics/horse-model-paint.js",
+            "pct": 12.6
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 7.7
+          },
+          {
+            "file": "tactics/horse-light-model.js",
+            "pct": 5.4
+          },
+          {
+            "file": "app/prefab-batches.js",
+            "pct": 4.6
+          },
+          {
+            "file": "core/maps.js",
+            "pct": 4.1
+          },
+          {
+            "file": "tactics/editor-3d-scene.js",
+            "pct": 2.9
+          },
+          {
+            "file": "tactics/hybrid-world.js",
+            "pct": 2.3
+          },
+          {
+            "file": "tactics/environment-visuals.js",
+            "pct": 2.2
+          },
+          {
+            "file": "tactics/foliage-models.js",
+            "pct": 1.3
+          },
+          {
+            "file": "tactics/hybrid-materials.js",
+            "pct": 1.2
+          },
+          {
+            "file": "art/gross-housing.js",
+            "pct": 1.2
+          }
+        ]
+      },
+      "sceneStats": {
+        "objects": 4840,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 4111,
+            "visibleMeshes": 3799,
+            "visibleDrawItems": 3799,
+            "visibleShadowItems": 3799,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 415288,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 1768,
+        "uniqueMaterials": 266,
+        "programs": 21,
+        "memory": {
+          "geometries": 1208,
+          "textures": 38
+        },
+        "templates": [
+          {
+            "id": "grossdale-spire",
+            "meshes": 126,
+            "instances": 3
+          },
+          {
+            "id": "grossdale-hip",
+            "meshes": 118,
+            "instances": 3
+          },
+          {
+            "id": "grossdale-octagon",
+            "meshes": 136,
+            "instances": 3
+          },
+          {
+            "id": "grossdale-cross-gable",
+            "meshes": 122,
+            "instances": 3
+          },
+          {
+            "id": "grossdale-balcony",
+            "meshes": 129,
+            "instances": 3
+          },
+          {
+            "id": "dauphin-park",
+            "meshes": 124,
+            "instances": 3
+          },
+          {
+            "id": "calumet-heights",
+            "meshes": 150,
+            "instances": 2
+          },
+          {
+            "id": "brookdale-villa",
+            "meshes": 189,
+            "instances": 2
+          },
+          {
+            "id": "humboldt-cottage",
+            "meshes": 116,
+            "instances": 2
+          },
+          {
+            "id": "albany-cottage",
+            "meshes": 116,
+            "instances": 2
+          },
+          {
+            "id": "ashland-worker",
+            "meshes": 90,
+            "instances": 2
+          },
+          {
+            "id": "archer-worker",
+            "meshes": 89,
+            "instances": 2
+          },
+          {
+            "id": "monroe-row",
+            "meshes": 173,
+            "instances": 2
+          }
+        ],
+        "templateMeshTotal": 1678,
+        "instanceMeshTotal": 4111
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 8657,
+          "triangles": 3370761,
+          "shadowCalls": 4353,
+          "shadowTris": 1688996,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 21,
+        "split": {
+          "shadowPass": 4353,
+          "mainAndComposite": 4304,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1139.2,
+          "min": 1137,
+          "max": 1154.8,
+          "spreadPct": 1.562
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 4304,
+          "triangles": 1681765,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 21,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 4304,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 631.1,
+          "min": 622.9,
+          "max": 638.1,
+          "spreadPct": 2.408
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 3894,
+          "triangles": 997120,
+          "shadowCalls": 2787,
+          "shadowTris": 707958,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 21,
+        "split": {
+          "shadowPass": 2787,
+          "mainAndComposite": 1107,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 518.7,
+          "min": 515.5,
+          "max": 520.1,
+          "spreadPct": 0.887
+        }
+      },
+      "frameProfile": {
+        "sampledMs": 11912,
+        "topSelf": [
+          {
+            "fn": "readPixels (native):0",
+            "pct": 95.3
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 1.7
+          },
+          {
+            "fn": "WebGLRenderer.renderBufferDirect three.module.js:15939",
+            "pct": 0.3
+          },
+          {
+            "fn": "renderObject three.module.js:8733",
+            "pct": 0.2
+          },
+          {
+            "fn": "bindVertexArray (native):0",
+            "pct": 0.2
+          },
+          {
+            "fn": "setProgram three.module.js:17025",
+            "pct": 0.2
+          },
+          {
+            "fn": "copy three.core.js:10340",
+            "pct": 0.2
+          },
+          {
+            "fn": "multiplyMatrices three.core.js:11843",
+            "pct": 0.2
+          },
+          {
+            "fn": "renderObjects three.module.js:16818",
+            "pct": 0.2
+          },
+          {
+            "fn": "getBindingState three.module.js:1656",
+            "pct": 0.1
+          },
+          {
+            "fn": "needsUpdate three.module.js:1723",
+            "pct": 0.1
+          },
+          {
+            "fn": "renderObject three.module.js:16847",
+            "pct": 0.1
+          },
+          {
+            "fn": "update three.module.js:4328",
+            "pct": 0.1
+          },
+          {
+            "fn": "setup three.module.js:1599",
+            "pct": 0.1
+          },
+          {
+            "fn": "setMaterial three.module.js:9583",
+            "pct": 0.1
+          },
+          {
+            "fn": "projectObject three.module.js:16553",
+            "pct": 0.1
+          },
+          {
+            "fn": "drawArrays (native):0",
+            "pct": 0.1
+          },
+          {
+            "fn": "setValue three.module.js:5522",
+            "pct": 0.1
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 97.4
+          },
+          {
+            "file": "vendor/three.module.js",
+            "pct": 2.1
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 0.5
+          },
+          {
+            "file": "tactics/daylight-rig.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/editor-3d-scene.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/daylight.js",
+            "pct": 0
+          }
+        ]
+      },
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 4111,
+            "visibleMeshes": 1697,
+            "visibleDrawItems": 1697,
+            "visibleShadowItems": 1697,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 190555,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 4486,
+            "triangles": 2922324,
+            "shadowCalls": 2251,
+            "shadowTris": 1464263,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 25,
+          "split": {
+            "shadowPass": 2251,
+            "mainAndComposite": 2235,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1107.7,
+            "min": 1095.6,
+            "max": 1121.1,
+            "spreadPct": 2.302
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w5a-walls-axis",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 4426.7,
+        "min": 4243.5,
+        "max": 4489.8,
+        "spreadPct": 5.564
+      },
+      "openSamplesMs": [
+        4372,
+        4427,
+        4244,
+        4475,
+        4490
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 700,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "walls": {
+            "meshes": 3,
+            "visibleMeshes": 3,
+            "visibleDrawItems": 3,
+            "visibleShadowItems": 3,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 460800,
+            "instancedMeshes": 3,
+            "instances": 38400
+          }
+        },
+        "uniqueGeometries": 91,
+        "uniqueMaterials": 35,
+        "programs": 19,
+        "memory": {
+          "geometries": 101,
+          "textures": 35
+        },
+        "templates": [],
+        "templateMeshTotal": 0,
+        "instanceMeshTotal": 0
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1127,
+          "triangles": 3463574,
+          "shadowCalls": 557,
+          "shadowTris": 1734508,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 557,
+          "mainAndComposite": 570,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1485.9,
+          "min": 1480.4,
+          "max": 1594.2,
+          "spreadPct": 7.659
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 570,
+          "triangles": 1729066,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 570,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 791.4,
+          "min": 774.8,
+          "max": 799.5,
+          "spreadPct": 3.121
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 425,
+          "triangles": 1786490,
+          "shadowCalls": 306,
+          "shadowTris": 1087068,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 306,
+          "mainAndComposite": 119,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1124,
+          "min": 1083.9,
+          "max": 1139.1,
+          "spreadPct": 4.911
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "walls": {
+            "meshes": 3,
+            "visibleMeshes": 3,
+            "visibleDrawItems": 3,
+            "visibleShadowItems": 3,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 76800,
+            "instancedMeshes": 3,
+            "instances": 6400
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 1127,
+            "triangles": 2695574,
+            "shadowCalls": 557,
+            "shadowTris": 1350508,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 19,
+          "split": {
+            "shadowPass": 557,
+            "mainAndComposite": 570,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1111.8,
+            "min": 1083.9,
+            "max": 1125.4,
+            "spreadPct": 3.733
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w5b-walls-free-angle",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 3899.1,
+        "min": 3488.2,
+        "max": 5384.5,
+        "spreadPct": 48.634
+      },
+      "openSamplesMs": [
+        3879,
+        3899,
+        4356,
+        5385,
+        3488
+      ],
+      "openProfile": {
+        "sampledMs": 3767,
+        "topSelf": [
+          {
+            "fn": "getProgramInfoLog (native):0",
+            "pct": 52.4
+          },
+          {
+            "fn": "paintValidity horse-model-paint.js:14",
+            "pct": 10.6
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 4.9
+          },
+          {
+            "fn": "(anonymous) maps.js:96",
+            "pct": 2.9
+          },
+          {
+            "fn": "texSubImage2D (native):0",
+            "pct": 2.6
+          },
+          {
+            "fn": "(garbage collector) (native):0",
+            "pct": 2.3
+          },
+          {
+            "fn": "(anonymous) horse-light-model.js:118",
+            "pct": 1.7
+          },
+          {
+            "fn": "rebuild editor-3d-scene.js:91",
+            "pct": 1.6
+          },
+          {
+            "fn": "environmentVisuals environment-visuals.js:21",
+            "pct": 1.4
+          },
+          {
+            "fn": "(idle) (native):0",
+            "pct": 1.4
+          },
+          {
+            "fn": "createLightHorse horse-light-model.js:8",
+            "pct": 1.3
+          },
+          {
+            "fn": "grassTufts foliage-models.js:30",
+            "pct": 1
+          },
+          {
+            "fn": "box hybrid-world.js:35",
+            "pct": 0.9
+          },
+          {
+            "fn": "parseMap maps.js:130",
+            "pct": 0.8
+          },
+          {
+            "fn": "tile hybrid-world.js:39",
+            "pct": 0.8
+          },
+          {
+            "fn": "measureWallRun wall-runs.js:31",
+            "pct": 0.7
+          },
+          {
+            "fn": "uvColor horse-light-model.js:73",
+            "pct": 0.6
+          },
+          {
+            "fn": "createEditor editor-model.js:9",
+            "pct": 0.6
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 65
+          },
+          {
+            "file": "tactics/horse-model-paint.js",
+            "pct": 10.7
+          },
+          {
+            "file": "tactics/horse-light-model.js",
+            "pct": 4.9
+          },
+          {
+            "file": "core/maps.js",
+            "pct": 3.8
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 3.2
+          },
+          {
+            "file": "tactics/hybrid-world.js",
+            "pct": 1.8
+          },
+          {
+            "file": "tactics/editor-3d-scene.js",
+            "pct": 1.8
+          },
+          {
+            "file": "map-core/wall-runs.js",
+            "pct": 1.8
+          },
+          {
+            "file": "tactics/environment-visuals.js",
+            "pct": 1.4
+          },
+          {
+            "file": "tactics/foliage-models.js",
+            "pct": 1.1
+          },
+          {
+            "file": "app/wall-scene.js",
+            "pct": 0.7
+          },
+          {
+            "file": "vendor/three.module.js",
+            "pct": 0.7
+          }
+        ]
+      },
+      "sceneStats": {
+        "objects": 3099,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "walls": {
+            "meshes": 2402,
+            "visibleMeshes": 2402,
+            "visibleDrawItems": 2402,
+            "visibleShadowItems": 2402,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 311724,
+            "instancedMeshes": 2402,
+            "instances": 25977
+          }
+        },
+        "uniqueGeometries": 2490,
+        "uniqueMaterials": 35,
+        "programs": 19,
+        "memory": {
+          "geometries": 230,
+          "textures": 35
+        },
+        "templates": [],
+        "templateMeshTotal": 0,
+        "instanceMeshTotal": 0
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 5916,
+          "triangles": 3165242,
+          "shadowCalls": 2956,
+          "shadowTris": 1585432,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 2956,
+          "mainAndComposite": 2960,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1383.5,
+          "min": 1378.2,
+          "max": 1451.3,
+          "spreadPct": 5.284
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 2960,
+          "triangles": 1579810,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 2960,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 706.5,
+          "min": 704.1,
+          "max": 741.7,
+          "spreadPct": 5.322
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1618,
+          "triangles": 1416518,
+          "shadowCalls": 1293,
+          "shadowTris": 909936,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 19,
+        "split": {
+          "shadowPass": 1293,
+          "mainAndComposite": 325,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 761.3,
+          "min": 736.8,
+          "max": 787.4,
+          "spreadPct": 6.647
+        }
+      },
+      "frameProfile": {
+        "sampledMs": 13781,
+        "topSelf": [
+          {
+            "fn": "readPixels (native):0",
+            "pct": 97.1
+          },
+          {
+            "fn": "(program) (native):0",
+            "pct": 0.8
+          },
+          {
+            "fn": "(garbage collector) (native):0",
+            "pct": 0.2
+          },
+          {
+            "fn": "WebGLRenderer.renderBufferDirect three.module.js:15939",
+            "pct": 0.2
+          },
+          {
+            "fn": "setProgram three.module.js:17025",
+            "pct": 0.1
+          },
+          {
+            "fn": "bindVertexArray (native):0",
+            "pct": 0.1
+          },
+          {
+            "fn": "update three.module.js:4328",
+            "pct": 0.1
+          },
+          {
+            "fn": "multiplyMatrices three.core.js:11843",
+            "pct": 0.1
+          },
+          {
+            "fn": "update three.module.js:3880",
+            "pct": 0.1
+          },
+          {
+            "fn": "getBindingState three.module.js:1656",
+            "pct": 0.1
+          },
+          {
+            "fn": "renderObjects three.module.js:16818",
+            "pct": 0.1
+          },
+          {
+            "fn": "renderObject three.module.js:8733",
+            "pct": 0.1
+          },
+          {
+            "fn": "intersectsObject three.core.js:26484",
+            "pct": 0.1
+          },
+          {
+            "fn": "needsUpdate three.module.js:1723",
+            "pct": 0.1
+          },
+          {
+            "fn": "setup three.module.js:1599",
+            "pct": 0.1
+          },
+          {
+            "fn": "projectObject three.module.js:16553",
+            "pct": 0.1
+          },
+          {
+            "fn": "drawElementsInstanced (native):0",
+            "pct": 0.1
+          },
+          {
+            "fn": "updateMatrixWorld three.core.js:14280",
+            "pct": 0
+          }
+        ],
+        "byFile": [
+          {
+            "file": "(native)",
+            "pct": 98.4
+          },
+          {
+            "file": "vendor/three.module.js",
+            "pct": 1.3
+          },
+          {
+            "file": "vendor/three.core.js",
+            "pct": 0.3
+          },
+          {
+            "file": "tactics/daylight-rig.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/daylight.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/editor-3d-camera.js",
+            "pct": 0
+          },
+          {
+            "file": "tactics/editor-3d-scene.js",
+            "pct": 0
+          }
+        ]
+      },
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "walls": {
+            "meshes": 400,
+            "visibleMeshes": 400,
+            "visibleDrawItems": 400,
+            "visibleShadowItems": 400,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 31188,
+            "instancedMeshes": 400,
+            "instances": 2599
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 1920,
+            "triangles": 2604338,
+            "shadowCalls": 954,
+            "shadowTris": 1304896,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 19,
+          "split": {
+            "shadowPass": 954,
+            "mainAndComposite": 966,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1098.2,
+            "min": 1084.9,
+            "max": 1112.8,
+            "spreadPct": 2.541
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w6-roofs-144",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 3192.2,
+        "min": 2906.2,
+        "max": 3400.4,
+        "spreadPct": 15.481
+      },
+      "openSamplesMs": [
+        2906,
+        3152,
+        3400,
+        3312,
+        3192
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 985,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "roofs": {
+            "meshes": 144,
+            "visibleMeshes": 144,
+            "visibleDrawItems": 432,
+            "visibleShadowItems": 432,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 2496,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 234,
+        "uniqueMaterials": 464,
+        "programs": 24,
+        "memory": {
+          "geometries": 113,
+          "textures": 33
+        },
+        "templates": [],
+        "templateMeshTotal": 0,
+        "instanceMeshTotal": 0
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 1985,
+          "triangles": 2546966,
+          "shadowCalls": 986,
+          "shadowTris": 1276204,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 986,
+          "mainAndComposite": 999,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1040.2,
+          "min": 1016.8,
+          "max": 1050.1,
+          "spreadPct": 3.201
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 999,
+          "triangles": 1270762,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 999,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 559.5,
+          "min": 556,
+          "max": 576,
+          "spreadPct": 3.575
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 701,
+          "triangles": 866514,
+          "shadowCalls": 519,
+          "shadowTris": 627516,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 25,
+        "split": {
+          "shadowPass": 519,
+          "mainAndComposite": 182,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 500.1,
+          "min": 490.2,
+          "max": 514.7,
+          "spreadPct": 4.899
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "roofs": {
+            "meshes": 144,
+            "visibleMeshes": 0,
+            "visibleDrawItems": 0,
+            "visibleShadowItems": 0,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 0,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 1121,
+            "triangles": 2541974,
+            "shadowCalls": 554,
+            "shadowTris": 1273708,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 25,
+          "split": {
+            "shadowPass": 554,
+            "mainAndComposite": 567,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1025.3,
+            "min": 1010.6,
+            "max": 1029.3,
+            "spreadPct": 1.824
+          }
+        }
+      },
+      "pageErrors": []
+    },
+    {
+      "workload": "w7-mixed-13-gross-19-largest",
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "openMs": {
+        "n": 5,
+        "median": 4248.9,
+        "min": 4163.4,
+        "max": 5954.5,
+        "spreadPct": 42.154
+      },
+      "openSamplesMs": [
+        5955,
+        4922,
+        4228,
+        4163,
+        4249
+      ],
+      "openProfile": null,
+      "sceneStats": {
+        "objects": 3890,
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 2817,
+            "visibleMeshes": 2692,
+            "visibleDrawItems": 2692,
+            "visibleShadowItems": 2692,
+            "visibleTransparentItems": 51,
+            "visibleTriangles": 603717,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "uniqueGeometries": 2907,
+        "uniqueMaterials": 450,
+        "programs": 22,
+        "memory": {
+          "geometries": 561,
+          "textures": 33
+        },
+        "templates": [
+          {
+            "id": "dockside-warehouse",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "marlow-courtyard-flats",
+            "meshes": 100,
+            "instances": 1
+          },
+          {
+            "id": "coach-yard-inn",
+            "meshes": 81,
+            "instances": 1
+          },
+          {
+            "id": "stone-bank-barn",
+            "meshes": 56,
+            "instances": 1
+          },
+          {
+            "id": "red-crest-barn",
+            "meshes": 64,
+            "instances": 1
+          },
+          {
+            "id": "narrow-court",
+            "meshes": 85,
+            "instances": 1
+          },
+          {
+            "id": "market-terrace",
+            "meshes": 46,
+            "instances": 1
+          },
+          {
+            "id": "copper-watch-firehouse",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "exchange-hall",
+            "meshes": 40,
+            "instances": 1
+          },
+          {
+            "id": "batten-general-store",
+            "meshes": 34,
+            "instances": 1
+          },
+          {
+            "id": "juniper-suite",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "grainwatch-granary",
+            "meshes": 47,
+            "instances": 1
+          },
+          {
+            "id": "willow-pair",
+            "meshes": 75,
+            "instances": 1
+          },
+          {
+            "id": "violet-bay-house",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "elm-cross-gable",
+            "meshes": 66,
+            "instances": 1
+          },
+          {
+            "id": "prairie-corner",
+            "meshes": 62,
+            "instances": 1
+          },
+          {
+            "id": "rowan-family",
+            "meshes": 72,
+            "instances": 1
+          },
+          {
+            "id": "millrace-workhouse",
+            "meshes": 39,
+            "instances": 1
+          },
+          {
+            "id": "alpine-timber",
+            "meshes": 63,
+            "instances": 1
+          },
+          {
+            "id": "grossdale-spire",
+            "meshes": 126,
+            "instances": 1
+          },
+          {
+            "id": "grossdale-hip",
+            "meshes": 118,
+            "instances": 1
+          },
+          {
+            "id": "grossdale-octagon",
+            "meshes": 136,
+            "instances": 1
+          },
+          {
+            "id": "grossdale-cross-gable",
+            "meshes": 122,
+            "instances": 1
+          },
+          {
+            "id": "grossdale-balcony",
+            "meshes": 129,
+            "instances": 1
+          },
+          {
+            "id": "dauphin-park",
+            "meshes": 124,
+            "instances": 1
+          },
+          {
+            "id": "calumet-heights",
+            "meshes": 150,
+            "instances": 1
+          },
+          {
+            "id": "brookdale-villa",
+            "meshes": 189,
+            "instances": 1
+          },
+          {
+            "id": "humboldt-cottage",
+            "meshes": 116,
+            "instances": 1
+          },
+          {
+            "id": "albany-cottage",
+            "meshes": 116,
+            "instances": 1
+          },
+          {
+            "id": "ashland-worker",
+            "meshes": 90,
+            "instances": 1
+          },
+          {
+            "id": "archer-worker",
+            "meshes": 89,
+            "instances": 1
+          },
+          {
+            "id": "monroe-row",
+            "meshes": 173,
+            "instances": 1
+          }
+        ],
+        "templateMeshTotal": 2817,
+        "instanceMeshTotal": 2817
+      },
+      "framesOverview": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 6542,
+          "triangles": 3758312,
+          "shadowCalls": 3246,
+          "shadowTris": 1877425,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 24,
+        "split": {
+          "shadowPass": 3246,
+          "mainAndComposite": 3296,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 1143.2,
+          "min": 1132,
+          "max": 1182.3,
+          "spreadPct": 4.4
+        }
+      },
+      "framesNoShadow": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 3296,
+          "triangles": 1880887,
+          "shadowCalls": 0,
+          "shadowTris": 0,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 26,
+        "split": {
+          "shadowPass": 0,
+          "mainAndComposite": 3296,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 652.9,
+          "min": 637.6,
+          "max": 655.2,
+          "spreadPct": 2.696
+        }
+      },
+      "framesClose": {
+        "canvas": [
+          1056,
+          916
+        ],
+        "pixelRatio": 1,
+        "last": {
+          "calls": 2333,
+          "triangles": 1206803,
+          "shadowCalls": 1691,
+          "shadowTris": 830999,
+          "renderPasses": 2
+        },
+        "stableCounts": true,
+        "programs": 26,
+        "split": {
+          "shadowPass": 1691,
+          "mainAndComposite": 642,
+          "renderPasses": 2
+        },
+        "ms": {
+          "n": 5,
+          "median": 495,
+          "min": 487.2,
+          "max": 498.3,
+          "spreadPct": 2.242
+        }
+      },
+      "frameProfile": null,
+      "cutaway": {
+        "categories": {
+          "other": {
+            "meshes": 575,
+            "visibleMeshes": 567,
+            "visibleDrawItems": 567,
+            "visibleShadowItems": 554,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 1273996,
+            "instancedMeshes": 480,
+            "instances": 76877
+          },
+          "prefabs": {
+            "meshes": 2817,
+            "visibleMeshes": 1127,
+            "visibleDrawItems": 1127,
+            "visibleShadowItems": 1127,
+            "visibleTransparentItems": 0,
+            "visibleTriangles": 157869,
+            "instancedMeshes": 0,
+            "instances": 0
+          }
+        },
+        "frames": {
+          "canvas": [
+            1056,
+            916
+          ],
+          "pixelRatio": 1,
+          "last": {
+            "calls": 3366,
+            "triangles": 2857572,
+            "shadowCalls": 1681,
+            "shadowTris": 1431577,
+            "renderPasses": 2
+          },
+          "stableCounts": true,
+          "programs": 30,
+          "split": {
+            "shadowPass": 1681,
+            "mainAndComposite": 1685,
+            "renderPasses": 2
+          },
+          "ms": {
+            "n": 5,
+            "median": 1055.3,
+            "min": 1042.8,
+            "max": 1072.9,
+            "spreadPct": 2.852
+          }
+        }
+      },
+      "pageErrors": []
+    }
+  ],
+  "browserErrors": [],
+  "failedRequests": []
+}
