@@ -1,0 +1,765 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:part-definition:1",
+  "title": "Native functional part definition",
+  "description": "Structural v1 schema. Runtime validation additionally checks finite plain data, byte/count/depth budgets, exact references, native geometry/clearance, capability/provider readiness, scene/content identity and journal replay. Unsupported input is never normalized or installed as code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "contentVersion",
+    "label",
+    "profileId",
+    "parameters",
+    "floors",
+    "parts",
+    "source"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-part-definition"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+    },
+    "contentVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*(?![\\s\\S])"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "profileId": {
+      "const": "native-aabb-parts-v1"
+    },
+    "parameters": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "default",
+              "min",
+              "max",
+              "unit"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "number"
+              },
+              "default": {
+                "type": "number",
+                "minimum": -4096,
+                "maximum": 4096
+              },
+              "min": {
+                "type": "number",
+                "minimum": -4096,
+                "maximum": 4096
+              },
+              "max": {
+                "type": "number",
+                "minimum": -4096,
+                "maximum": 4096
+              },
+              "unit": {
+                "enum": [
+                  "metres",
+                  "scalar"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "default"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "boolean"
+              },
+              "default": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "floors": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "elevationM"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "elevationM": {
+            "$ref": "#/$defs/scalar"
+          }
+        }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "floorId",
+              "material",
+              "bounds",
+              "holes"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "slab"
+              },
+              "floorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "bounds": {
+                "$ref": "#/$defs/bounds"
+              },
+              "holes": {
+                "type": "array",
+                "maxItems": 32,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "enabled",
+                    "rect"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "enabled": {
+                      "$ref": "#/$defs/condition"
+                    },
+                    "rect": {
+                      "$ref": "#/$defs/rect"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "floorId",
+              "material",
+              "bounds"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "solid"
+              },
+              "floorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "bounds": {
+                "$ref": "#/$defs/bounds"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "floorId",
+              "material",
+              "axis",
+              "origin",
+              "lengthM",
+              "heightM",
+              "thicknessM",
+              "openings"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "wall"
+              },
+              "floorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "axis": {
+                "enum": [
+                  "x",
+                  "y"
+                ]
+              },
+              "origin": {
+                "$ref": "#/$defs/point"
+              },
+              "lengthM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "heightM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "thicknessM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "openings": {
+                "type": "array",
+                "maxItems": 32,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "enabled",
+                    "offsetM",
+                    "widthM",
+                    "heightM",
+                    "bottomM"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "enabled": {
+                      "$ref": "#/$defs/condition"
+                    },
+                    "offsetM": {
+                      "$ref": "#/$defs/scalar"
+                    },
+                    "widthM": {
+                      "$ref": "#/$defs/scalar"
+                    },
+                    "heightM": {
+                      "$ref": "#/$defs/scalar"
+                    },
+                    "bottomM": {
+                      "$ref": "#/$defs/scalar"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "floorId",
+              "material",
+              "portalId",
+              "axis",
+              "origin",
+              "hand",
+              "hingeInsetM",
+              "leaf",
+              "swing",
+              "reachM",
+              "initial"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "door"
+              },
+              "floorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "portalId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 32,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "axis": {
+                "enum": [
+                  "x",
+                  "y"
+                ]
+              },
+              "origin": {
+                "$ref": "#/$defs/point"
+              },
+              "hand": {
+                "enum": [
+                  "start",
+                  "end"
+                ]
+              },
+              "hingeInsetM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "leaf": {
+                "$ref": "#/$defs/leaf"
+              },
+              "swing": {
+                "enum": [
+                  -1,
+                  1
+                ]
+              },
+              "reachM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "initial": {
+                "$ref": "#/$defs/initial"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "floorId",
+              "material",
+              "from",
+              "to",
+              "path",
+              "widthM",
+              "clearanceM",
+              "bidirectional",
+              "reachM"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "type": {
+                "const": "stairs"
+              },
+              "floorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "from": {
+                "$ref": "#/$defs/landing"
+              },
+              "to": {
+                "$ref": "#/$defs/landing"
+              },
+              "path": {
+                "type": "array",
+                "maxItems": 128,
+                "items": {
+                  "$ref": "#/$defs/point"
+                },
+                "minItems": 2
+              },
+              "widthM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "clearanceM": {
+                "$ref": "#/$defs/scalar"
+              },
+              "bidirectional": {
+                "type": "boolean"
+              },
+              "reachM": {
+                "$ref": "#/$defs/scalar"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "commit",
+        "path",
+        "notice",
+        "guide"
+      ],
+      "properties": {
+        "project": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "commit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "notice": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "guide": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      }
+    }
+  },
+  "$defs": {
+    "scalar": {
+      "oneOf": [
+        {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "parameter",
+            "scale",
+            "offset"
+          ],
+          "properties": {
+            "parameter": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "scale": {
+              "type": "number",
+              "minimum": -4096,
+              "maximum": 4096
+            },
+            "offset": {
+              "type": "number",
+              "minimum": -65536,
+              "maximum": 65536
+            }
+          }
+        }
+      ]
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "parameter"
+          ],
+          "properties": {
+            "parameter": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            }
+          }
+        }
+      ]
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/scalar"
+        },
+        "y": {
+          "$ref": "#/$defs/scalar"
+        },
+        "h": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/point"
+        },
+        "max": {
+          "$ref": "#/$defs/point"
+        }
+      }
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "$ref": "#/$defs/scalar"
+            },
+            "y": {
+              "$ref": "#/$defs/scalar"
+            }
+          }
+        },
+        "max": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "$ref": "#/$defs/scalar"
+            },
+            "y": {
+              "$ref": "#/$defs/scalar"
+            }
+          }
+        }
+      }
+    },
+    "initial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "open",
+        "locked"
+      ],
+      "properties": {
+        "open": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "landing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "floorId",
+        "surfaceId",
+        "position"
+      ],
+      "properties": {
+        "floorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "surfaceId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        }
+      }
+    },
+    "leaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "widthM",
+        "heightM",
+        "thicknessM",
+        "offsetM",
+        "bottomM"
+      ],
+      "properties": {
+        "widthM": {
+          "$ref": "#/$defs/scalar"
+        },
+        "heightM": {
+          "$ref": "#/$defs/scalar"
+        },
+        "thicknessM": {
+          "$ref": "#/$defs/scalar"
+        },
+        "offsetM": {
+          "$ref": "#/$defs/scalar"
+        },
+        "bottomM": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    }
+  }
+}

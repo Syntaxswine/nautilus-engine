@@ -18,6 +18,7 @@ jobs:
       - run: npm run build
       - run: npm run test:package
       - run: npm run test:grenade-renderer
+      - run: npm run test:game-ui-package
   browser-workflow:
     runs-on: ubuntu-latest
     timeout-minutes: 16
@@ -65,6 +66,10 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-grenade-installed
+      - run: npm run review:starter
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-standard-game-starter
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -80,4 +85,5 @@ jobs:
             artifacts/floor-navigation/
             artifacts/extended-world-editor/
             artifacts/editor-materials/
+            artifacts/game-starter/
           if-no-files-found: ignore
