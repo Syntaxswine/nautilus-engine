@@ -1,0 +1,73 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {withArtReview} from './art-review-browser.mjs';
+const results=[];
+await withArtReview('Grenade controls-only keyboard, pointer, touch and lifecycle review',async({page,browser,baseURL,out,errors,failedRequests})=>{
+ const url=baseURL+'/examples/grenade-controls-preparation.html';await page.goto(url);await page.waitForFunction(()=>!!window.grenadePreparation);
+ const reset=options=>page.evaluate(options=>window.grenadePreparation.reset(options),options);
+ const snapshot=()=>page.evaluate(()=>window.grenadePreparation.snapshot());
+ const ready=async(options={})=>{await reset(options);await page.locator('.gc-trigger').click();await page.evaluate(()=>window.grenadePreparation.setPoint());};
+ const group=async(name,run)=>{await run();results.push({name,status:'pass'});console.log('PASS '+name);};
+ await group('scoped keyboard, held inputs, separate confirmation and native button Enter',async()=>{
+  await reset();await page.locator('#controls').focus();await page.keyboard.press('g');assert.equal((await snapshot()).state.active,true);
+  await page.keyboard.down('d');await page.keyboard.down('w');await page.evaluate(()=>window.grenadePreparation.advance(1));
+  let s=await snapshot();assert.deepEqual(s.metrics.nudge.at(-1).direction,{x:1,y:-1});assert.equal(s.metrics.nudge.at(-1).dt,.05);assert.equal(s.state.ready,false);
+  await page.keyboard.press('Enter');assert.equal((await snapshot()).metrics.confirm.length,0);
+  await page.keyboard.up('d');await page.keyboard.up('w');s=await snapshot();assert.equal(s.state.ready,true);assert.deepEqual(s.state.point,{x:12,y:8});
+  await page.keyboard.press('Enter');await page.evaluate(()=>window.grenadePreparation.settled());s=await snapshot();assert.equal(s.metrics.confirm.length,1);assert.equal(s.metrics.accepted.length,1);assert.equal(s.metrics.end.at(-1).linger,800);assert.equal(s.state.active,false);
+  await ready();await page.locator('.gc-trigger').focus();await page.keyboard.press('Enter');await page.evaluate(()=>window.grenadePreparation.settled());assert.equal((await snapshot()).metrics.confirm.length,1);
+  await ready();await page.keyboard.press('Escape');s=await snapshot();assert.equal(s.state.active,false);assert.equal(s.metrics.confirm.length,0);
+ });
+ await group('pointer displacement, neutral held target and explicit pointer cancellation',async()=>{
+  await reset();await page.locator('.gc-trigger').click();let box=await page.locator('.gc-stick').boundingBox();await page.mouse.move(box.x+box.width*.75,box.y+box.height/2);await page.mouse.down();
+  let s=await snapshot();assert.equal(s.state.adjusting,true);assert.equal(s.state.ready,false);assert.ok(Math.abs(s.metrics.aim.at(-1).offset.x-5/6)<.001);assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);
+  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);s=await snapshot();assert.deepEqual(s.metrics.aim.at(-1).offset,{x:0,y:0});assert.deepEqual(s.state.point,{x:12,y:8});
+  await page.mouse.up();s=await snapshot();assert.equal(s.state.ready,true);assert.equal(s.metrics.confirm.length,0);
+  await page.locator('.gc-stick').evaluate(node=>node.addEventListener('pointerdown',event=>window.reviewPointerId=event.pointerId,{once:true}));await page.mouse.move(box.x+box.width*.7,box.y+box.height/2);await page.mouse.down();
+  await page.locator('.gc-stick').evaluate(node=>node.dispatchEvent(new PointerEvent('pointercancel',{pointerId:window.reviewPointerId,bubbles:true})));s=await snapshot();assert.equal(s.state.adjusting,false);assert.deepEqual(s.state.point,{x:12,y:8});await page.mouse.up();assert.equal((await snapshot()).metrics.confirm.length,0);
+ });
+ await group('forms, local keyboard scope, modal and blur interruption guards',async()=>{
+  await reset();await page.locator('#text-guard').focus();await page.keyboard.press('g');assert.equal((await snapshot()).state.active,false);
+  await page.evaluate(()=>{document.body.tabIndex=0;document.body.focus();});await page.keyboard.press('g');assert.equal((await snapshot()).state.active,false);
+  await page.evaluate(()=>{const dialog=document.createElement('dialog');dialog.id='review-modal';dialog.innerHTML='<button>Modal focus</button>';document.querySelector('#controls').append(dialog);dialog.showModal();});await page.keyboard.press('g');assert.equal((await snapshot()).state.active,false);await page.evaluate(()=>document.querySelector('#review-modal').remove());
+  await ready();await page.keyboard.down('w');await page.evaluate(()=>window.dispatchEvent(new Event('blur')));let s=await snapshot();assert.equal(s.state.adjusting,false);assert.equal(s.state.ready,false);assert.deepEqual(s.state.point,{x:12,y:8});await page.keyboard.up('w');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.equal((await snapshot()).state.ready,true);
+  await page.keyboard.down('d');await page.evaluate(()=>window.grenadePreparation.context({paused:true}));s=await snapshot();assert.equal(s.state.adjusting,false);assert.equal(s.state.ready,false);await page.keyboard.up('d');await page.evaluate(()=>window.grenadePreparation.context({paused:false,controlEpoch:'enemy-1',canControl:false}));assert.equal((await snapshot()).state.active,false);
+ });
+ await group('host-owned costs, stock, refusal text, unsupported data and self-danger',async()=>{
+  await ready({previewMode:'blocked'});assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);assert.equal((await snapshot()).metrics.confirm.length,0);assert.match(await page.locator('.gc-warning').innerText(),/Throw path is blocked/);
+  await page.evaluate(()=>window.grenadePreparation.configure({previewMode:'unsupported'}));assert.match(await page.locator('.gc-detail').innerText(),/— m blast/);assert.doesNotMatch(await page.locator('.gc-detail').innerText(),/undefined|NaN/);
+  await page.evaluate(()=>window.grenadePreparation.configure({previewMode:'danger',confirmMode:'refused'}));assert.match(await page.locator('.gc-warning').innerText(),/Your animal is exposed to the blast/);assert.equal((await snapshot()).state.ready,true);assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);assert.equal((await snapshot()).state.active,true);assert.match(await page.locator('.gc-warning').innerText(),/Not enough AP/);
+  await page.evaluate(()=>window.grenadePreparation.context({cost:2.5,stock:2}));assert.match(await page.locator('.gc-detail').innerText(),/2.5 AP · 2 left/);
+  await reset();await page.evaluate(()=>window.grenadePreparation.context({stock:0,canAim:false,reason:'No grenades remaining'}));await page.locator('.gc-trigger').click();assert.equal((await snapshot()).state.active,false);assert.match(await page.locator('.gc-status').innerText(),/No grenades remaining/);
+ });
+ await group('unknown confirmation locks until explicit successful reconciliation',async()=>{
+  await ready({confirmMode:'unknown'});assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);let s=await snapshot();assert.equal(s.state.fault.phase,'confirm');assert.equal(s.metrics.confirm.length,1);
+  await page.evaluate(()=>window.grenadePreparation.configure({confirmMode:'accepted',retryMode:'refused'}));assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);await page.locator('.gc-retry').click();await page.evaluate(()=>window.grenadePreparation.settled());assert.equal((await snapshot()).state.fault.phase,'confirm');assert.equal((await snapshot()).metrics.confirm.length,1);
+  await page.evaluate(()=>window.grenadePreparation.configure({retryMode:'accepted'}));await page.locator('.gc-retry').click();await page.evaluate(()=>window.grenadePreparation.settled());s=await snapshot();assert.equal(s.state.fault,null);assert.equal(s.state.active,false);assert.equal(s.metrics.confirm.length,1);assert.equal(s.metrics.accepted.length,0);
+  await page.locator('.gc-trigger').click();await page.evaluate(()=>window.grenadePreparation.setPoint());assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),true);assert.equal((await snapshot()).metrics.confirm.length,2);
+ });
+ await group('known commits survive playback and subsequent context failures',async()=>{
+  await ready({playbackFailure:true});assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),true);let s=await snapshot();assert.equal(s.state.fault.phase,'playback');assert.equal(s.state.active,false);assert.match(s.state.fault.message,/Throw committed/);assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);assert.equal((await snapshot()).metrics.confirm.length,1);
+  await ready({breakContextOnCommit:true});assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),true);s=await snapshot();assert.equal(s.state.fault.phase,'committed-context');assert.equal(s.metrics.confirm.length,1);assert.equal(s.metrics.accepted.length,0);assert.equal(s.metrics.end.at(-1).linger,0);
+ });
+ await group('late confirmation, session replacement and disposal retire presentation only',async()=>{
+  await ready();await page.evaluate(()=>window.grenadePreparation.context({actorId:'replacement-animal'},false));assert.equal(await page.evaluate(()=>window.grenadePreparation.confirm()),false);assert.equal((await snapshot()).metrics.confirm.length,0);assert.equal((await snapshot()).state.active,false);
+  await ready({confirmMode:'delayed'});await page.evaluate(()=>{window.reviewConfirmation=window.grenadePreparation.confirm();});assert.equal((await snapshot()).state.busy,true);await page.keyboard.press('Enter');assert.equal((await snapshot()).metrics.confirm.length,1);await page.evaluate(()=>window.grenadePreparation.context({sessionKey:'replacement-session'}));await page.evaluate(()=>window.grenadePreparation.complete());assert.equal(await page.evaluate(()=>window.reviewConfirmation),true);let s=await snapshot();assert.equal(s.metrics.accepted.length,0);assert.equal(s.metrics.end.at(-1).linger,0);
+  await ready({confirmMode:'delayed'});await page.evaluate(()=>{window.reviewConfirmation=window.grenadePreparation.confirm();window.grenadePreparation.dispose();window.grenadePreparation.complete();});assert.equal(await page.evaluate(()=>window.reviewConfirmation),false);s=await snapshot();assert.equal(s.metrics.confirm.length,1);assert.equal(s.metrics.accepted.length,0);assert.equal(await page.locator('.nautilus-grenade-controls').count(),0);
+  await ready({confirmMode:'unknown',retryMode:'delayed'});await page.evaluate(()=>window.grenadePreparation.confirm());await page.locator('.gc-retry').click();await page.waitForFunction(()=>window.grenadePreparation.snapshot().metrics.retry===1);await page.evaluate(()=>window.grenadePreparation.dispose());await page.evaluate(()=>window.grenadePreparation.settled());assert.equal((await snapshot()).metrics.retryAborted,true);assert.equal(await page.locator('.nautilus-grenade-controls').count(),0);
+ });
+ await ready({previewMode:'danger'});await page.screenshot({path:path.join(out,'desktop-aim.png'),fullPage:true});
+ const resources=await page.evaluate(()=>performance.getEntriesByType('resource').map(item=>({path:new URL(item.name).pathname,encodedBodySize:item.encodedBodySize,transferSize:item.transferSize})));assert.equal(resources.some(item=>/three|vendor|designer/.test(item.path)),false);
+ await group('real phone touch, 320px layout and reduced-motion readiness',async()=>{
+  const phone=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});const mobile=await phone.newPage();mobile.on('pageerror',error=>errors.push(error.message));mobile.on('console',message=>{if(message.type()==='error')errors.push(message.text());});mobile.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
+  try{
+   await mobile.goto(url);await mobile.waitForFunction(()=>!!window.grenadePreparation);await mobile.locator('.gc-trigger').tap();const box=await mobile.locator('.gc-stick').boundingBox();await mobile.touchscreen.tap(box.x+box.width*.72,box.y+box.height*.4);let s=await mobile.evaluate(()=>window.grenadePreparation.snapshot());assert.equal(s.state.ready,true);assert.equal(s.metrics.confirm.length,0);assert.ok(s.metrics.aim.length>0);
+   await mobile.evaluate(()=>window.grenadePreparation.configure({previewMode:'danger'}));await mobile.screenshot({path:path.join(out,'phone-aim.png'),fullPage:true});
+   for(const selector of ['.gc-trigger','.gc-cancel']){const box=await mobile.locator(selector).boundingBox();assert.ok(box.height>=44&&box.width>=44);}
+   await mobile.locator('.gc-trigger').tap();await mobile.evaluate(()=>window.grenadePreparation.settled());s=await mobile.evaluate(()=>window.grenadePreparation.snapshot());assert.equal(s.metrics.confirm.length,1);assert.equal(s.metrics.accepted.length,1);
+   await mobile.setViewportSize({width:320,height:700});await mobile.locator('.gc-trigger').tap();await mobile.evaluate(()=>window.grenadePreparation.setPoint());await mobile.emulateMedia({reducedMotion:'reduce'});assert.equal(await mobile.locator('.gc-trigger').evaluate(node=>getComputedStyle(node).animationName),'none');assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await mobile.screenshot({path:path.join(out,'narrow-aim.png'),fullPage:true});
+  }finally{await phone.close();}
+ });
+ const report={scope:'Controls-only injected responses and aim spy; no engine, native rendering, trajectory/camera or save acceptance',source:process.env.NAUTILUS_REVIEW_SOURCE==='1',browser:'isolated Edge desktop and touch emulation',results,resources,resourceCount:resources.length,resourceEncodedBytes:resources.reduce((n,item)=>n+item.encodedBodySize,0),resourceTransferBytes:resources.reduce((n,item)=>n+item.transferSize,0),errors,failedRequests};fs.writeFileSync(path.join(out,'review.json'),JSON.stringify(report,null,2));
+},{output:'grenade-controls-preparation',timeoutMs:180000,source:process.env.NAUTILUS_REVIEW_SOURCE==='1'});

@@ -1,0 +1,57 @@
+# Grenade controls builder card
+
+**UI candidate; integrated native player acceptance is pending.** The optional DOM adapter is `packages/grenade-ui/controls.js`, with `style.css`. Proposed public entries are `@nautilus-engine/map-core/grenades/ui` and `@nautilus-engine/map-core/grenades/style.css`; the architect registers exports and the package whitelist. This checkpoint does not register them itself. The [preparation fixture](../../examples/grenade-controls-preparation.html) and [browser tool](../../tools/review-grenade-controls-preparation.mjs) use an explicitly labelled aim spy and injected responses. They prove controls and callback lifecycle only. They do not implement a grenade game, physics, save format or native animation.
+
+## Use and ownership
+
+Supply a DOM container, one source-exact `GrenadeAim` instance from the committed public aim entry, and host callbacks. The adapter never calculates costs/damage, spends AP/stock, changes the equipped weapon, owns a renderer or saves gameplay. The host pauses its movement input when aim mode starts, continues its accepted simulation clock as appropriate, and supplies snapshots. Keep title/menu/modal permissions in that host. A standard control is not authority to act in a new game.
+
+`mountGrenadeControls(container, bindings)` returns `element`, `panel`, `stick`, `trigger`, `refresh()`, `arm()`, `cancel()`, asynchronous `confirm()`, `advanceAim(seconds)`, read-only copied `state`, `settled()` and idempotent `dispose()`. `state` contains `active,point,adjusting,busy,ready,fault`; it is presentation, not a save payload. `refresh` follows accepted host/context changes; drive `advanceAim` from the UI frame clock. It delegates keyboard direction and a 0–0.05 s frame delta to the supplied aim instance; there is no second aim/trajectory implementation here.
+
+| Binding | Host obligation |
+| --- | --- |
+| `aim` | Source-exact instance exposing `active,point,start,cancel,aim,nudge`. Each mount has its own instance. |
+| `context()` | Return `{actorId,sessionKey,controlEpoch,origin:{x,y},range,cost,stock,canControl,canAim,paused,loading,reason}`. Finite metre coordinates, positive range, nonnegative finite displayed cost and nonnegative integer stock are required. Costs and permissions come from the accepted profile. |
+| Identity | `sessionKey` changes on replace/load. `controlEpoch` changes on actor/turn-control transitions; it is not the general world revision. These cancel old aim. During a pending confirmation the host still settles its command; late presentation is retired if actor/session changed. |
+| `preview(point)` | Return the public preview result: boolean `ok`, optional `reason`, distance/blast/cost and `selfDanger`. Unsupported results can omit geometry. Preserve original refusal text. Never mutate state. |
+| `confirm(point)` | Capture a fresh command ID, expected revision, actor and exact point. Stage with the public kernel; atomically persist/adopt or return a known refusal. Return `{ok:true,receipt,presentation}` only after authority is known committed. A thrown error or missing result means **unknown outcome**, never permission to spend again. |
+| `onModeChange(active)` | Gate movement/other actions and viewer aim mode; preserve accepted equipment. Restore from current host state when leaving. |
+| `onPreview({point,preview})` | Render the accepted arc, clipped blast footprint, maximum ring and self-danger state through a borrowed view. Preview work never applies consequences. |
+| `onAimEnd({linger})` | Restore camera on cancel (0 ms); a known same-session accepted throw requests the original 800 ms linger. No authority timing is implied. |
+| `onAccepted(result)` | Observe a known commit once and schedule presentation. Sync/async playback failure is reported as **committed** and cannot resubmit a grenade. Do not create authority in an animation callback. |
+| `onRetry({phase,signal})` | Optional explicit resource/outcome reconciliation; return `{ok:true}` only after the current command outcome and resources are settled. Do not create a new command to retry an unknown one. Successful unknown-outcome reconciliation cancels the old aim quietly; it never plays an accepted effect again. The signal cancels UI resource retry on disposal, not a committed authority transaction. |
+| `onError(error,{phase})` | Record a UI/presentation failure. The adapter retains an actionable status. This callback cannot change an unknown outcome into a refusal. |
+| `keyboardTarget` | Defaults to the container. Focus must be inside the chosen scope. Forms, editable content and open modal dialogs suppress shortcuts. Avoid a global window target when several sessions exist. |
+
+DOM use: load the public CSS, mount the controls in a labelled focus scope, bind the callbacks above to the committed kernel/view, then dispose the mount when its session ends. The controls expose their elements for host layout/HUD-safe camera measurement. They remove only their own listeners and DOM. Disposal clears captures/held keys, cancels aim and resource retry, and restores view mode; it does not abort or roll back a pending authority command. The host must still persist/deduplicate that command after the UI has gone away.
+
+## Borrowed-scene preview
+
+Proposed `./grenades/view` exports `createGrenadeOverlay(THREE,{scene,cameraFrame})`. Supply the existing host Three and borrowed scene plus the committed source-exact `grenadeCameraFrame` function. `update({actor,point,preview})` consumes the public kernel's trajectory, footprint and blast radius, mapping simulation `x/y/z` to Three `X/height/Z`. It draws the source gold/coral arc, target marker, maximum ring and clipped exposed-ground fan. Compatibility refusals with no geometry hide the overlay; controls still show the refusal. Invalid coordinates throw visibly. It does not generate trajectories, collide, own an animal or schedule an effect.
+
+`frame(viewport,minimumSpan)` delegates arc points, actor foot/head and sixteen maximum-blast perimeter points to the supplied source helper. The host owns its camera, HUD-safe viewport measurement, source 0.14 camera interpolation, follow mode and 800 ms linger clock. `clear()` hides the overlay; `dispose()` retires only owned geometry/materials/group, once. No DOM/renderer/native driver/texture import is required by this entry. The artist's `./grenades/three` provider remains separate.
+
+## Player behavior
+
+G arms. WASD/arrows or the thumbstick select a target. Enter/Throw explicitly confirms; Escape/Cancel abandons aim. Native button Enter dispatches only its click. Holding movement keys or a captured joystick pointer prevents confirmation. Pointer up/cancel/lost capture centres the visual stick while keeping the selected point; neutral does not silently throw. Blur/pause/hidden/loading clear held inputs; actor/session/turn changes retire aim. The source aim instance supplies 12% dead zone, radial range, screen-to-ground axes and diagonal normalization.
+
+The ready yellow pulse appears only for a valid held target after input release, in a visible, focused, loaded, controllable session. Reduced-motion uses a steady ready light. Buttons are at least 44 CSS px; the fixed 155 px joystick reflows below the panel on phones. Theme hooks are `--gc-panel`, `--gc-ink`, `--gc-muted` and `--gc-accent`. Retain clear danger/refusal text when changing appearance. The green/paper/brass default follows Farmyard direction; another game's surrounding materials, tone and HUD hierarchy should guide its skin.
+
+## Decisions for the next game
+
+- Choose and validate the supported profile before controls arm. The first `farmyard-static-same-plane-v1` profile is planar/static/non-reactive; windows/fire, fuel-loaded held/stowed flamethrowers, volatile targets and unsupported floors must be explicitly refused by authority before spending.
+- Bind inventory, current actor/turn, AP, range, seen ground, collision and host context updates. The source 5 AP / 2.5 AP equipment discount and finite stock are game rules, not DOM defaults. A displayed profile is not integration.
+- Choose source 700 ms line/ring playback or the separately reviewed native horse/paint/grenade choreography. The designer clip's 1.92 s release is cosmetic; Farmyard resolves its accepted throw immediately. Keep the original 1.1 m arc start and source consequences. A hand-to-current-arc transition is a labelled visual bridge, never a new logical projectile or altered collision.
+- Keep one host Three/renderer, explicit texture/model ownership and current equipment restoration. Ask the native provider for the measured action envelope; standing clearance does not prove throw clearance. Stop both clip and visual bridge on cancel/impact/session replacement.
+- Save accepted authority/receipts through the public serializer. Aim/keyboard/pointers and transient playback are not saved or replayed on load. Mid-animation pose restore, if supported, requires an accepted presentation checkpoint contract; inventing a pose clock in the UI cannot establish one.
+- Measure HUD bounds for phone/desktop camera framing with the public source-exact camera helper. Check target/arc/blast visibility and obstruction readability with actual native assets before acceptance.
+
+## Source and design record
+
+Fixed Farmyard Git object `251bf8094b5f9ebe44208443084c1a6d6658512a`; [source inventory](grenade-controls.sources.json). Reads use Git objects, not donor/worker working files. The engine-owned DOM shell follows `app.js` controls/readiness/input behavior without importing its full game runtime or copying its grenade math. Current `field-view.js` uses arc/ring playback and native ordinary locomotion; the independent designer choreography is not wired there. [Existing-asset comparison](grenade-existing-assets.json) distinguishes normalized text equivalence from raw-byte equality and does not overwrite vendor bytes. Artist audit pin: `958e8a6a41675db8d4eba0750411153306b6153d`.
+
+**Accuracy:** the source-exact aim/kernel remains preferable for Farmyard outcome parity. The DOM adds no ballistic approximation. The measured native hand is 0.547317 m from the original authoritative start; a cosmetic bridge improves visible contact but does not prove physical accuracy.
+
+**Efficiency:** this adapter has no model, renderer or vendor import; preview follows host/aim changes and keyboard sampling follows the UI clock. That is a code-based dependency/update estimate, not a phone frame-rate benchmark. The source runtime line/ring is the cheaper presentation option by inspection; native geometry adds visible choreography and requires measured review.
+
+**Narrative:** explicit held aim, self-danger and separate confirmation support tactical intent (subjective judgment). Prefer the native painted horse/grenade choreography for the requested shared visual proof, and retain reduced arc/ring playback as an explicit option. Preserve the source authority timing in both. Integrated native browser/installed-package/save acceptance remains outstanding until fixed public providers are adopted.
