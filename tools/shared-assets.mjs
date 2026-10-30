@@ -5,6 +5,7 @@ import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {BUILDING_ASSETS, ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/registry.js';
 import {ROCK_ITEM, ROCK_PROFILE} from '../packages/items-core/index.js';
 import {GRENADE_COMPONENT,FARMYARD_GRENADE_PROFILE,GRENADE_CONTRACT} from '../packages/grenades-core/profile.js';
+import {TINDERBOX_ART_ASSETS} from '../packages/tinderbox-art/catalogue.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function sharedAssetCatalogueSource() {
   const upstream = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'), 'utf8'));
@@ -29,6 +30,7 @@ export function sharedAssetCatalogueSource() {
     guide:'docs/grenades.md',visualGuide:'docs/reviews/grenade-presentation/provider.md',profile:FARMYARD_GRENADE_PROFILE.id,
     capability:{id:GRENADE_CONTRACT.capability,version:1},requiredHostServices:[...GRENADE_COMPONENT.requiredHostServices],
     note:'Original painted prop; optional ordinary same-floor grenade transactions and native horse throw. Bind inventory, complete host context and supported consequences explicitly; reactive and multilevel scenes refuse before costs.'});
+  assets.push(...TINDERBOX_ART_ASSETS);
   return '// Generated from reviewed registries; no editor or renderer runtime imports.\nexport const SHARED_ASSETS = ' + JSON.stringify(assets, null, 2) + ';\n';
 }
 export function checkSharedAssets() {

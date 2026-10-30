@@ -20,6 +20,7 @@
 | `vendor/farmyard/<commit>/` | Byte-preserved painted UI materials and their provenance |
 | `vendor/tinderbox-prefabs/<commit>/` | Byte-preserved Gross house assemblies, source plates/plans, materials and handoff |
 | `packages/assets/` | Headless shared asset discovery, optional building renderer and model-file URL contracts |
+| `packages/tinderbox-art/` | Optional native furnishings, waterfront, medicine snapshots and additive interior arrangements; visual reuse only |
 | `upstream.json` | Reviewed donor pins and their purpose |
 | `tools/snapshot-source.mjs` | Read-only Git-object importer; writes only a new local snapshot |
 | `tools/build.mjs` | Self-contained static editor, recorded deployment patches and isolated storage |

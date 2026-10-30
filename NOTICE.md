@@ -1,5 +1,11 @@
 # Sources and notices
 
+## Tinderbox native furnishings and waterfront
+
+The fixed artist source `e261e7c749a4957470195b993a53051cae15416f` is preserved under `vendor/tinderbox-art/<commit>/`, including original handoffs, historical source registers, Git blobs and SHA-256 values. It supplies 35 period furnishings, nine waterfront recipes and four additive interior arrangements. Waterfront runtime and dependencies also match published integration `dc7f537a83a7e832a0dfa0757d0b2700b909c053`. Preserve Arnold/Higinbotham, Gutenberg, original plans/reports and embedded source credits. No blanket donor license was found; this provenance grants no new license. Research pixels and the donor game are excluded from runtime. The separate runtime copies normalize line endings and redirect only module imports to Nautilus's existing wall compiler and shared form helper. Appearance metadata does not adopt the donor's damage or fire rules.
+
+The three medicine presentations retain their own immutable `988b4aca32343c9f2e566db74bb018c705820742` snapshot under `vendor/tinderbox-medicine/`, including the original control-symbol SVG, contours, hashes and notices. The runtime selects the unchanged palette constant and preserves the native factory/marks with import and line-ending adaptations. No medicine rule or pickup transaction is imported; source provenance adds no license grant.
+
 Nautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.
 
 The imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.

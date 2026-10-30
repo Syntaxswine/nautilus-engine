@@ -1,4 +1,5 @@
 // Public visual asset facade. Hosts supply their existing Three and renderer.
+export {loadTinderboxArt,loadTinderboxMedicine} from '../tinderbox-art/three.js';
 import {loadGrossHousing,createGrossHouse} from '../../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
 import {createOriginalBuildingProvider} from '../prefab-core/provider-original.js';
 import {buildingAsset} from '../prefab-core/registry.js';
