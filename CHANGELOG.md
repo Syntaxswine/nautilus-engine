@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Strengthen editor/game-host handoff, actual-page bridge, clearance, persistence and import-limit coverage while retaining current floor controls.
+- Share the deployed Send patch with headless tests and build guards; diagnose browser loading and host-await failures.
+- Assert Settings feedback placement and bound the module CI job to 15 minutes, retaining the reviewed test timing margins.
+
 ## 0.10.0 — 2026-10-30
 
 - Add optional Farmyard single-leaf door interactions with source reach, endpoint occupancy, AP/control/fog transitions and one current collider shared by dependent systems.
