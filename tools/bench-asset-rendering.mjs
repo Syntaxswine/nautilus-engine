@@ -159,13 +159,16 @@ async function editorBench() {
         for (const id of maps) {
           const json = fs.readFileSync(path.join(mapsDir, id + '.json'), 'utf8'), first = JSON.parse(json).buildingPrefabs?.instances[0];
           const sample = {run, backend, map: id, gpu, openMs: {a: [], b: []}, views: {}};
+          const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: first ? {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'} : {x: 50, y: 50, span: 40, preset: '0'}};
           // Open time: blank first (releases templates and libraries), then the map; arms alternate.
+          // The close view sits at this map's first building, so the first time the blank map
+          // is open, its draws are counted at that same camera (the reference for --assets-only).
           for (let k = 0; k < opens; k++) for (const arm of k % 2 ? [...order[run]].reverse() : order[run]) {
             await pages[arm].evaluate(b => window.nautilus.open(b), blank);
+            if (!k) (sample.blankAtClose ??= {})[arm] = await pages[arm].evaluate(v => window.__bench.frames(1, v, {warmup: 1}).counts, views.close);
             sample.openMs[arm].push(await pages[arm].evaluate(async j => {const t = performance.now(); await window.nautilus.open(j); return performance.now() - t;}, json));
           }
           for (const page of Object.values(pages)) await page.waitForTimeout(150);
-          const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: first ? {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'} : {x: 50, y: 50, span: 40, preset: '0'}};
           const measure = async (name, view) => {
             const record = sample.views[name] = {a: [], b: []};
             for (let k = 0; k < nBlocks; k++) for (const arm of [0, 3].includes(k % 4) ? order[run] : [...order[run]].reverse())
@@ -218,8 +221,9 @@ async function editorBench() {
         speedup: ratios(per('a').map((v, i) => v / per('b')[i])), counts: {a: counts('a'), b: counts('b')}};
       // The subtraction estimate of the assets' own time: this frame minus the same
       // run's blank-map frame, per run. Below the blank map's spread it means little.
+      // Only where both use one camera: the close view sits at each map's first building.
       const blank = result.samples.filter(s => s.backend === backend && s.map === 'w0-blank'), own = arm => list.map(s => median(s.views[view][arm].map(b => median(b.total))) - median(blank.find(z => z.run === s.run).views[view][arm].map(b => median(b.total))));
-      if (id !== 'w0-blank' && blank.length && blank[0].views[view]) row.views[view].estimateBySubtraction = {ms: {a: median(own('a')), b: median(own('b'))}, speedup: ratios(own('a').map((v, i) => v / own('b')[i]))};
+      if (id !== 'w0-blank' && !view.startsWith('close') && blank.length && blank[0].views[view]) row.views[view].estimateBySubtraction = {ms: {a: median(own('a')), b: median(own('b'))}, speedup: ratios(own('a').map((v, i) => v / own('b')[i]))};
     }
     result.summary.push(row);
   }
@@ -229,7 +233,9 @@ async function editorBench() {
   for (const s of result.samples) for (const [view, {none}] of Object.entries(s.isolation || {})) for (const arm of ['a', 'b']) {
     const blank = result.samples.find(z => z.backend === s.backend && z.run === s.run && z.map === 'w0-blank');
     if (!blank) {refusals.push('--assets-only needs w0-blank in the same run'); break;}
-    const isolatedDraws = minus(s.views[view + ':assets'][arm][0].counts, none[arm]), frameDraws = minus(s.views[view][arm][0].counts, blank.views[view][arm][0].counts);
+    const reference = view === 'close' ? s.blankAtClose?.[arm] : blank.views[view][arm][0].counts;
+    if (!reference) {refusals.push(s.map + ' close: no blank-map count at its camera'); continue;}
+    const isolatedDraws = minus(s.views[view + ':assets'][arm][0].counts, none[arm]), frameDraws = minus(s.views[view][arm][0].counts, reference);
     if (JSON.stringify(isolatedDraws) !== JSON.stringify(frameDraws)) refusals.push(`${s.map} ${view} ${arm} run ${s.run}: isolated ${JSON.stringify(isolatedDraws)} against frame minus blank ${JSON.stringify(frameDraws)}`);
   }
   // --expect: the candidate's whole-map frames (overview, cutaway) minus the blank map
