@@ -43,7 +43,8 @@
     "./game-ui": "./packages/game-ui/index.js",
     "./game-ui/title": "./packages/game-ui/title.js",
     "./game-ui/style.css": "./packages/game-ui/style.css",
-    "./adapters/farmyard/doors": "./packages/adapters/farmyard/doors.js"
+    "./adapters/farmyard/doors": "./packages/adapters/farmyard/doors.js",
+    "./adapters/farmyard/doors/three": "./packages/door-visuals/three.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -95,6 +96,7 @@
     "packages/building-catalog/designs.js",
     "packages/building-catalog/index.js",
     "packages/building-catalog/three.js",
+    "packages/door-visuals/three.js",
     "packages/floor-navigation/dom.js",
     "packages/floor-navigation/index.js",
     "packages/floor-navigation/style.css",
@@ -300,6 +302,9 @@
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/babble/LICENSE",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
     "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+    "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/NOTICE.md",
+    "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/brick-sienna-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/roof-slate-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/cedar-shingles-v1.png",
@@ -341,7 +346,9 @@
     "review:starter": "node tools/review-game-starter.mjs",
     "test:game-ui-package": "node tools/distribution.mjs --test-ui",
     "test:doors": "node tools/test-farmyard-doors-package.mjs",
-    "check:door-source": "node tools/check-farmyard-doors.mjs"
+    "check:door-source": "node tools/check-farmyard-doors.mjs",
+    "review:doors": "node tools/review-farmyard-door-reference.mjs",
+    "review:doors:installed": "node tools/review-farmyard-door-installed.mjs"
   },
   "engines": {
     "node": ">=22"
