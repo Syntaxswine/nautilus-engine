@@ -4,10 +4,17 @@ import {buildingTransform} from '../../packages/prefab-core/index.js';
 import {buildingAsset} from '../../packages/prefab-core/registry.js';
 import {createPrefabProviders} from './prefab-providers.js';
 
+// Batch meshes (material arrays drawn through geometry groups) can be instanced;
+// glass stays one mesh per placed copy so it still sorts back to front.
+const instanceable=node=>node.isMesh&&Array.isArray(node.material);
+
 // Libraries and templates are owned by one scene. Stale loads release their own
 // resources, and failed loads are removed so a later selection can retry.
+// A design placed more than once draws each batch mesh as one InstancedMesh on
+// the template's own geometry, so views (geometry groups) still follow the
+// template; the copies keep their nodes, hidden, for bounds and bookkeeping.
 export class PrefabLayer {
-  constructor(scene,renderer,changed,error,{providers=createPrefabProviders(T)}={}) {Object.assign(this,{scene,renderer,changed,error,providers});this.templates=new Map();this.models=new Map();this.libraries=new Map();this.ticket=0;}
+  constructor(scene,renderer,changed,error,{providers=createPrefabProviders(T),instancing=true}={}) {Object.assign(this,{scene,renderer,changed,error,providers,instancing});this.templates=new Map();this.models=new Map();this.libraries=new Map();this.instanced=[];this.ticket=0;}
   load(providerId) {
     let record=this.libraries.get(providerId);
     if(record?.library)return Promise.resolve({library:record.library});
@@ -25,6 +32,8 @@ export class PrefabLayer {
   async update(document,options) {
     if(this.disposed)return;
     const ticket=++this.ticket;this.document=document;this.options={...options};
+    // Copies draw themselves again until instancing is rebuilt below (it may span a load).
+    this.releaseInstances();
     const wanted=document?.map.buildingPrefabs?.instances||[],keep=new Map(wanted.map(p=>[p.id,p.asset]));
     const usedAssets=new Set(wanted.map(p=>p.asset)),usedProviders=new Set(wanted.map(p=>buildingAsset(p.asset)?.provider));
     for(const [id,model]of this.models)if(keep.get(id)!==model.asset){model.root.removeFromParent();this.models.delete(id);}
@@ -43,8 +52,26 @@ export class PrefabLayer {
         const transform=buildingTransform(instance);model.root.position.set(transform.x,0,transform.y);model.root.rotation.y=transform.angle;
       }catch(error){this.error(error);}
     }
-    this.setView();this.changed();
+    this.instance();this.setView();this.changed();
   }
+  // Rebuilt on every update: instance matrices are each copy's world matrix times the
+  // node's place in its template. The shared geometry belongs to the template.
+  instance() {
+    this.releaseInstances();if(!this.instancing)return;
+    const copies=new Map();for(const model of this.models.values()){if(!copies.has(model.asset))copies.set(model.asset,[]);copies.get(model.asset).push(model);}
+    for(const [id,models]of copies){
+      const template=this.templates.get(id);if(!template||models.length<2)continue;
+      template.model.root.updateMatrixWorld(true);for(const model of models)model.root.updateMatrixWorld(true);
+      template.nodes.forEach((node,i)=>{
+        if(!instanceable(node))return;
+        const mesh=new T.InstancedMesh(node.geometry,node.material,models.length),local=new T.Matrix4().copy(template.model.root.matrixWorld).invert().multiply(node.matrixWorld),matrix=new T.Matrix4();
+        models.forEach((model,k)=>mesh.setMatrixAt(k,matrix.multiplyMatrices(model.root.matrixWorld,local)));
+        mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();mesh.name=node.name;mesh.castShadow=node.castShadow;mesh.receiveShadow=node.receiveShadow;
+        this.scene.add(mesh);this.instanced.push({mesh,node,copies:models.map(model=>model.nodes[i])});
+      });
+    }
+  }
+  releaseInstances() {for(const {mesh,node,copies}of this.instanced){mesh.removeFromParent();mesh.dispose();for(const copy of copies)copy.visible=node.visible;}this.instanced=[];}
   setView(override=this.override) {
     this.override=override;
     for(const [id,template]of this.templates) {
@@ -53,8 +80,10 @@ export class PrefabLayer {
       template.model.setView(override||{view:cut?'cutaway':'exterior',level:floor,showFurniture:cut},this.options);
       for(const model of this.models.values())if(model.asset===id)model.nodes.forEach((node,i)=>{node.visible=template.nodes[i].visible;});
     }
+    // Instanced nodes draw through their InstancedMesh; the copies' own nodes stay hidden.
+    for(const {mesh,node,copies}of this.instanced){mesh.visible=node.visible;for(const copy of copies)copy.visible=false;}
   }
-  clearModels() {for(const model of this.models.values())model.root.removeFromParent();this.models.clear();for(const template of this.templates.values())template.model.dispose();this.templates.clear();}
+  clearModels() {this.releaseInstances();for(const model of this.models.values())model.root.removeFromParent();this.models.clear();for(const template of this.templates.values())template.model.dispose();this.templates.clear();}
   dispose() {if(this.disposed)return;this.disposed=true;++this.ticket;this.clearModels();for(const id of this.libraries.keys())this.releaseLibrary(id);}
 }
 export class InspectionScene extends OriginalScene {

@@ -91,7 +91,8 @@ test('gross display batches draw exactly the native-visible triangles for floors
 
 test('placed copies share batch geometry and follow their template through views and disposal',async()=>{
   const providers=createPrefabProviders(T,{original:atlas()});
-  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers});
+  // Clone semantics only; instancing (which hides the copies' batch nodes) is tested below.
+  const layer=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers,instancing:false});
   const instances=[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i%4,clearance:2}));
   try{
     await layer.update({map:{buildingPrefabs:{instances}}},{level:0,showAllLevels:true,roofs:true,walls:true});
@@ -105,6 +106,40 @@ test('placed copies share batch geometry and follow their template through views
     }
   }finally{layer.dispose();}
   assert.equal(layer.templates.size,0);assert.equal(layer.models.size,0);
+});
+
+test('a design placed more than once draws each batch mesh as one InstancedMesh that follows the template',async()=>{
+  const providers=createPrefabProviders(T,{original:atlas()}),scene=new T.Scene();
+  const layer=new PrefabLayer(scene,{},()=>{},error=>{throw error;},{providers});
+  const instances=[...[0,1,2].map(i=>({id:'copy-'+i,asset:'dockside-warehouse',x:20+i*40,y:20,turns:i%4,clearance:2})),{id:'single',asset:'bramble-ranch',x:20,y:120,turns:0,clearance:2}];
+  const options={level:0,showAllLevels:true,roofs:true,walls:true};
+  try{
+    await layer.update({map:{buildingPrefabs:{instances}}},options);
+    const template=layer.templates.get('dockside-warehouse'),batches=template.nodes.filter(node=>node.isMesh&&Array.isArray(node.material));
+    assert.equal(layer.instanced.length,batches.length,'one InstancedMesh per batch mesh of the repeated design only');
+    const copies=['copy-0','copy-1','copy-2'].map(id=>layer.models.get(id)),expected=new Float32Array(16);
+    for(const {mesh,node}of layer.instanced){
+      assert.equal(mesh.count,3);assert.equal(mesh.geometry,node.geometry,'shares the template geometry');assert.equal(mesh.parent,scene);
+      const i=template.nodes.indexOf(node);
+      copies.forEach((copy,k)=>{copy.nodes[i].updateMatrixWorld(true);copy.nodes[i].matrixWorld.toArray(expected);assert.deepEqual(mesh.instanceMatrix.array.slice(k*16,k*16+16),expected,'instance '+k+' sits where its copy would');assert.equal(copy.nodes[i].visible,false,'the copy hides its own batch node');});
+    }
+    // Glass stays per copy and visible; the single design is not instanced.
+    const glass=template.nodes.map((node,i)=>[node,i]).filter(([node])=>node.isMesh&&!Array.isArray(node.material));
+    for(const [node,i]of glass)for(const copy of copies)assert.equal(copy.nodes[i].visible,node.visible);
+    assert.ok(layer.instanced.every(({mesh})=>!layer.models.get('single').nodes.some(node=>node.geometry===mesh.geometry)));
+    // Views follow the template: a cutaway hides batches whose runs empty.
+    layer.options={...options,showAllLevels:false};layer.setView();
+    for(const {mesh,node}of layer.instanced)assert.equal(mesh.visible,node.visible);
+    assert.ok(layer.instanced.some(({mesh})=>mesh.visible));
+    // Removing the copies releases the instances; the template geometry is disposed once, by the template.
+    const shared=new Map(layer.instanced.map(({mesh})=>[mesh.geometry,0]));for(const geometry of shared.keys())geometry.addEventListener('dispose',()=>shared.set(geometry,shared.get(geometry)+1));
+    const removed=layer.instanced.map(({mesh})=>mesh);
+    await layer.update({map:{buildingPrefabs:{instances:instances.slice(3)}}},options);
+    assert.equal(layer.instanced.length,0);assert.ok(removed.every(mesh=>!mesh.parent));
+    assert.deepEqual([...shared.values()],[...shared.values()].map(()=>1),'each shared geometry disposed once');
+    const off=new PrefabLayer(new T.Scene(),{},()=>{},error=>{throw error;},{providers:createPrefabProviders(T,{original:atlas()}),instancing:false});
+    try{await off.update({map:{buildingPrefabs:{instances}}},options);assert.equal(off.instanced.length,0);}finally{off.dispose();}
+  }finally{layer.dispose();}
 });
 
 test('releasing a batch disposes every merged geometry exactly once, for both collections',async()=>{
