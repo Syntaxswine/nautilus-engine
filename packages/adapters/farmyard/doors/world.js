@@ -21,9 +21,15 @@ export function clearReach(context,actor,door){
   if(distance(actor,door)>door.range+P.epsilon)return false;const boxes=geometry(context).filter(box=>box.interactionId!==door.id&&box.kind!=='part'),steps=Math.max(1,Math.ceil(distance(actor,door)/P.reachStepM));
   for(let i=0;i<=steps;i++){const point={x:actor.x+(door.x-actor.x)*i/steps,y:actor.y+(door.y-actor.y)*i/steps};if(boxes.some(box=>boxDistance(point,box)<P.actorRadiusM-P.epsilon))return false;}return true;
 }
+// Source refresh writes all three fields even when their projected values are
+// unchanged or optional raw fields were absent. Preserve that write intent.
+export function guardRefreshIds(context,boxes=geometry(context)){
+  const hero=context.actors.find(actor=>actor.id===context.control.actorId);
+  return context.actors.filter(actor=>actor.team==='guard'&&actor.hp>0&&canSee(boxes,actor,hero)).map(actor=>actor.id);
+}
 export function refreshAfterDoor(context,consequences){
   const {control,actors,world}=context,hero=actors.find(actor=>actor.id===control.actorId),guards=actors.filter(actor=>actor.team==='guard'&&actor.hp>0),boxes=geometry(context);
-  control.detected=guards.filter(guard=>canSee(boxes,hero,guard)).map(guard=>guard.id);for(const guard of guards)if(canSee(boxes,guard,hero)){guard.alert=true;guard.lastKnown={x:hero.x,y:hero.y};guard.alertAge=0;}
+  control.detected=guards.filter(guard=>canSee(boxes,hero,guard)).map(guard=>guard.id);const refreshed=new Set(guardRefreshIds(context,boxes));for(const guard of guards)if(refreshed.has(guard.id)){guard.alert=true;guard.lastKnown={x:hero.x,y:hero.y};guard.alertAge=0;}
   // Door operations always request forceFog:true, even without hero movement.
   const b=world.bounds,range=35,x0=Math.max(0,Math.ceil(b.x),Math.ceil(hero.x-range)),x1=Math.min(world.grid.width-1,Math.ceil(b.x+b.w)-1,Math.floor(hero.x+range)),y0=Math.max(0,Math.ceil(b.y),Math.ceil(hero.y-range)),y1=Math.min(world.grid.height-1,Math.ceil(b.y+b.h)-1,Math.floor(hero.y+range)),seen=new Set(world.seen);world.visible=[];
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)if(distance(hero,{x,y})<range&&lineClear(boxes,hero,{x,y})){const key=cellKey(x,y);world.visible.push(key);seen.add(key);}world.seen=[...seen];world.fogAt={x:hero.x,y:hero.y};
