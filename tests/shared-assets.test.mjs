@@ -21,6 +21,22 @@ test('public building facade uses host Three at native scale and owns only loade
  library.dispose();library.dispose();building.dispose();assert.equal(textureDisposed,1);assert.equal(rendererDisposed,0);
  assert.throws(()=>library.create('bramble-ranch'),/disposed/);assert.throws(()=>building.setView(),/disposed/);
 });
+test('original instances share one template per design, keep independent views and release it with the last instance',async()=>{
+ const atlas=new THREE.Texture(),library=await loadBuildingAssets(THREE,{providers:['original'],loadTexture:async()=>atlas});
+ const meshes=root=>{const out=[];root.traverse(node=>{if(node.isMesh)out.push(node);});return out;},visible=root=>{const out=[];root.traverse(node=>out.push(node.visible));return out;};
+ const copies=Array.from({length:32},()=>library.create('building:dockside-warehouse')),geometries=new Set(copies.flatMap(copy=>meshes(copy.root).map(mesh=>mesh.geometry)));
+ assert.equal(geometries.size,meshes(copies[0].root).length,'32 copies draw from one template');
+ assert.notEqual(copies[0].root,copies[1].root);
+ // A control first: a cutaway hides nodes; then views stay per instance.
+ const exterior=visible(copies[1].root);copies[0].setView({view:'cutaway',level:0});
+ assert.ok(visible(copies[0].root).some(v=>!v));assert.deepEqual(visible(copies[1].root),exterior,'another instance keeps its view');
+ const late=library.create('dockside-warehouse');assert.deepEqual(visible(late.root),exterior,'a new instance starts in the default view');
+ let released=0;for(const geometry of geometries)geometry.addEventListener('dispose',()=>released++);
+ for(const copy of copies)copy.dispose();assert.equal(released,0,'the template outlives all but the last instance');
+ late.dispose();assert.equal(released,geometries.size,'the last instance releases each template geometry once');
+ const again=library.create('dockside-warehouse');assert.ok(meshes(again.root).every(mesh=>!geometries.has(mesh.geometry)),'a released template is rebuilt');
+ library.dispose();assert.throws(()=>again.setView(),/disposed/);
+});
 test('public library disposes a successfully loaded provider if another provider fails',async()=>{
  const originalFetch=globalThis.fetch;let disposed=0;const atlas=new THREE.Texture();atlas.addEventListener('dispose',()=>disposed++);
  globalThis.fetch=async()=>{throw Error('Intentional unavailable source');};
