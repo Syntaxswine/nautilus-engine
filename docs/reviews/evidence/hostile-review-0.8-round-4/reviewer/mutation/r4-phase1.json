@@ -1,0 +1,432 @@
+{
+ "script": "mutate-r4.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T18:53:52.456Z",
+ "node": "v24.15.0",
+ "head": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "Q0a-control-editor-never-batches",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "control (the answer's P1, round 3's E1): must be killed",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 30796,
+     "minFreeGB": 44.8,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view",
+      "failing tests:",
+      "the editor asset layers issue exactly the pinned draws for every benchmark workload and view"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: w1-32x-largest changed: re-pin with node tools/asset-draw-counts.mjs --write only as part of a reviewed change"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q0b-control-no-per-copy-culling",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "control (the answer's K3): must be killed",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 37211,
+     "minFreeGB": 42.4,
+     "tests": 38,
+     "pass": 36,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q1-shadow-culled-by-view-camera",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a shadow camera culls copies by the view camera instead of its own frustum",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 49580,
+     "minFreeGB": 41.5,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  TypeError: Cannot read properties of null (reading 'projectionMatrix')"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q2-draw-range-ignored",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a sub-draw ignores geometry.drawRange (the renderer clips a group to it)",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 64913,
+     "minFreeGB": 41.9,
+     "tests": 38,
+     "pass": 38,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q3-index-offset-in-elements",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "an indexed geometry's sub-draw start in elements, not bytes",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 59383,
+     "minFreeGB": 41.3,
+     "tests": 38,
+     "pass": 38,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q4-frustum-ignores-batch-transform",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "copies culled in world space whatever the batch's own transform",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 60061,
+     "minFreeGB": 41,
+     "tests": 38,
+     "pass": 38,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q5-editor-rebuild-never-cuts-prefabs",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the editor's own rebuild (every setOptions) asks the prefab layer for all levels",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 53683,
+     "minFreeGB": 40.6,
+     "tests": 38,
+     "pass": 38,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q6-editor-local-clipping-off",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "pre-existing line, a probe of the gates: Gross cutaways stop clipping their walls",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 66222,
+     "minFreeGB": 40.8,
+     "tests": 38,
+     "pass": 38,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q7-shader-patch-darkens-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "onBeforeCompile is not serialized: every original building drawn at half brightness",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 57575,
+     "minFreeGB": 40.6,
+     "tests": 22,
+     "pass": 22,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q8-clipping-plane-on-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "clippingPlanes are not serialized: every original building cut 3 m up where local clipping is on (the editor)",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 56825,
+     "minFreeGB": 40.5,
+     "tests": 22,
+     "pass": 22,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q9-draw-range-one-triangle",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "geometry.drawRange is not in the node line: every batch draws one triangle",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 52783,
+     "minFreeGB": 40.4,
+     "tests": 22,
+     "pass": 21,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "window and door apertures are real holes in both source and game envelope geometry",
+      "failing tests:",
+      "window and door apertures are real holes in both source and game envelope geometry"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q10-render-order",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "renderOrder is not in the node line: glass and opaque batches re-sorted",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/building-geometry.test.mjs tests/building-catalog.test.mjs tests/shared-assets.test.mjs tests/prefab-display-batches.test.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 49124,
+     "minFreeGB": 40.8,
+     "tests": 22,
+     "pass": 22,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  }
+ ],
+ "finished": "2026-10-30T19:04:36.616Z",
+ "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 12,
+  "killed": [
+   "Q0a-control-editor-never-batches",
+   "Q0b-control-no-per-copy-culling",
+   "Q1-shadow-culled-by-view-camera",
+   "Q9-draw-range-one-triangle"
+  ],
+  "survived": [
+   "Q2-draw-range-ignored",
+   "Q3-index-offset-in-elements",
+   "Q4-frustum-ignores-batch-transform",
+   "Q5-editor-rebuild-never-cuts-prefabs",
+   "Q6-editor-local-clipping-off",
+   "Q7-shader-patch-darkens-every-material",
+   "Q8-clipping-plane-on-every-material",
+   "Q10-render-order"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

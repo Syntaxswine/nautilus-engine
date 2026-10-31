@@ -1,0 +1,19 @@
+run 0 gpu q16-blank: open 986/1142 ms, overview 20.20/19.57 ms 4573/4573 calls, overview:assets 1.15/1.05 ms 2/2 calls, close 7.95/8.07 ms 1809/1809 calls, close:assets 0.70/0.70 ms 1/1 calls, far 2.68/2.52 ms 359/359 calls, far:assets 0.50/0.50 ms 1/1 calls, cutaway 20.38/19.43 ms 4573/4573 calls, cutaway:assets 1.10/1.05 ms 2/2 calls
+run 0 gpu q16-gross-rows-of-16-lamps: open 1218/1336 ms, overview 27.90/26.05 ms 6942/5118 calls, overview:assets 7.88/6.63 ms 2371/547 calls, close 12.88/11.38 ms 2759/2024 calls, close:assets 4.10/4.70 ms 1033/298 calls, far 9.52/8.95 ms 1905/1406 calls, far:assets 2.90/3.30 ms 682/183 calls, cutaway 31.98/28.53 ms 7104/5156 calls, cutaway:assets 10.98/8.07 ms 2533/585 calls
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: Draw counts changed between frames: [{"calls":1807,"shadowCalls":1662,"triangles":2716926,"passes":2},{"calls":1808,"shadowCalls":1662,"triangles":2717036,"passes":2}]
+    at Object.frames (<anonymous>:30:91)
+    at eval (eval at evaluate (:311:30), <anonymous>:1:32)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at measure (<author>\tools\bench-asset-rendering.mjs:219:49)
+    at async editorBench (<author>\tools\bench-asset-rendering.mjs:236:62)
+    at async file:///<user-dir> {
+  log: []
+}
+
+Node.js v24.15.0
+EXIT 1

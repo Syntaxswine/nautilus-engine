@@ -1,0 +1,45 @@
+// Injected into the built editor by pixel-probe.mjs. capture(view) returns the
+// frame drawn with the default depth test (<=), a repeat of it, and the frame
+// drawn with strict < on every material, plus the frame's per-pass draw counts.
+window.__probe = (() => {
+  const scene = () => window.editor3d.scene;
+  const size = () => {const c = scene().renderer.domElement; return [c.clientWidth, c.clientHeight];};
+  const b64 = bytes => {let out = ''; for (let i = 0; i < bytes.length; i += 32768) out += String.fromCharCode.apply(null, bytes.subarray(i, i + 32768)); return btoa(out);};
+  function counts(view) {
+    const s = scene(), r = s.renderer, sm = r.shadowMap, shadowRender = sm.render, [w, h] = size(); let shadow = 0;
+    sm.render = function (...args) {const c = r.info.render.calls, out = shadowRender.apply(this, args); shadow += r.info.render.calls - c; return out;};
+    r.info.autoReset = false;
+    try {r.info.reset(); s.draw(view, w, h); return {calls: r.info.render.calls, shadowCalls: shadow, triangles: r.info.render.triangles};}
+    finally {sm.render = shadowRender; r.info.autoReset = true;}
+  }
+  function capture(view) {
+    const s = scene(), r = s.renderer, gl = r.getContext(), [w, h] = size(), W = r.domElement.width, H = r.domElement.height;
+    const read = () => {const p = new Uint8Array(W * H * 4); gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, p); return p;};
+    s.draw(view, w, h); s.draw(view, w, h); const le = read();
+    s.draw(view, w, h); const again = read();
+    let same = le.length === again.length; for (let i = 0; same && i < le.length; i++) if (le[i] !== again[i]) same = false;
+    const materials = new Set(); s.scene.traverse(node => {for (const m of [].concat(node.material || [])) materials.add(m);});
+    const saved = [...materials].map(m => [m, m.depthFunc]); for (const [m] of saved) m.depthFunc = 2; // THREE.LessDepth
+    let lt; try {s.draw(view, w, h); s.draw(view, w, h); lt = read();} finally {for (const [m, f] of saved) m.depthFunc = f;}
+    s.draw(view, w, h);
+    return {width: W, height: H, le: b64(le), lt: b64(lt), repeatIdentical: same, counts: counts(view)};
+  }
+  // Baseline arm only: the frame with every placed door pivot hidden. Pixels that
+  // change are where door leaves (or their shadows) are seen.
+  function withoutDoors(view) {
+    const s = scene(), r = s.renderer, gl = r.getContext(), [w, h] = size(), W = r.domElement.width, H = r.domElement.height, hidden = [];
+    for (const m of s.prefabs?.models?.values() || []) m.root.traverse(n => {if (n.userData?.kind === 'door' && n.visible) {n.visible = false; hidden.push(n);}});
+    const read = () => {const p = new Uint8Array(W * H * 4); gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, p); return p;};
+    let frame; try {s.draw(view, w, h); s.draw(view, w, h); frame = read();} finally {for (const n of hidden) n.visible = true;}
+    s.draw(view, w, h);
+    return {doors: hidden.length, frame: b64(frame)};
+  }
+  async function cutaway(on, level = 0) {const s = scene(); s.setOptions({showAllLevels: !on, level: on ? level : 0}); await s.prefabs.update(window.editor3d.document, s.options);}
+  function info() {
+    const s = scene(), out = {walls: [], lights: []};
+    for (const m of s.wallGroup?.children || []) if (m.isInstancedMesh) out.walls.push({count: m.count, depth: !!m.customDepthMaterial, distance: !!m.customDistanceMaterial, width: !!m.geometry.attributes.wallWidth});
+    s.scene.traverse(n => {if (n.isLight && n.castShadow) out.lights.push({type: n.type, visible: n.visible});});
+    return out;
+  }
+  return {capture, cutaway, info, withoutDoors};
+})();

@@ -1,0 +1,35 @@
+I1-instance-bounds-template-only: INVALID needle occurs 0 times in apps/editor/prefab-scene.js: mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere(); 
+I2-instance-matrix-root-only: INVALID needle occurs 0 times in apps/editor/prefab-scene.js: mesh.setMatrixAt(k,matrix.multiplyMatrices(model.root.matrixWorld,local)) 
+I6-no-early-release: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 29s]
+I7-release-leaves-copies-hidden: SURVIVED [node.exe --test exit 0 tests 30 pass 30 fail 0 cancelled 0 38s]
+I8-instanced-mesh-never-disposed: killed [node.exe --test exit 1 tests 30 pass 29 fail 1 cancelled 0 32s]
+E1-editor-never-instances: killed [node.exe --test exit 1 tests 30 pass 29 fail 1 cancelled 0 32s]
+R1-merged-bounds-first-roof: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 20s]
+E2-editor-never-merges-roofs: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 21s]
+RC1-slot-material-unnamed: killed [node.exe --test exit 1 tests 40 pass 39 fail 1 cancelled 0 21s]
+C1-one-pass-always: INVALID needle occurs 0 times in tools/asset-draw-counts.mjs: const passes = material => material.transparent && material.side === T.DoubleSid 
+C5-rig-rule-check-off: SURVIVED [node.exe --test exit 0 tests 1 pass 1 fail 0 cancelled 0 14s]
+F7-shared-view-not-mirrored: killed [node.exe --test exit 1 tests 6 pass 5 fail 1 cancelled 0 1s]
+{
+ "total": 12,
+ "killed": [
+  "I8-instanced-mesh-never-disposed",
+  "E1-editor-never-instances",
+  "R1-merged-bounds-first-roof",
+  "E2-editor-never-merges-roofs",
+  "RC1-slot-material-unnamed",
+  "F7-shared-view-not-mirrored"
+ ],
+ "survived": [
+  "I6-no-early-release",
+  "I7-release-leaves-copies-hidden",
+  "C5-rig-rule-check-off"
+ ],
+ "errors": [],
+ "invalid": [
+  "I1-instance-bounds-template-only",
+  "I2-instance-matrix-root-only",
+  "C1-one-pass-always"
+ ]
+}
+R3_EXIT 0

@@ -1,0 +1,8 @@
+(async () => {
+  const s = window.editor3d.scene, r = s.renderer, gl = r.getContext(), t = gl.getExtension('EXT_disjoint_timer_query_webgl2'), c = r.domElement;
+  const view = window.__view, qs = [], cpu = [];
+  for (let i = 0; i < 25; i++) {const q = gl.createQuery(); const a = performance.now(); gl.beginQuery(t.TIME_ELAPSED_EXT, q); s.draw(view, c.clientWidth, c.clientHeight); gl.endQuery(t.TIME_ELAPSED_EXT); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); cpu.push(performance.now() - a); qs.push(q);}
+  for (let k = 0; k < 50 && !gl.getQueryParameter(qs.at(-1), gl.QUERY_RESULT_AVAILABLE); k++) await new Promise(res => setTimeout(res, 20));
+  const disjoint = gl.getParameter(t.GPU_DISJOINT_EXT), gpu = qs.slice(5).map(q => gl.getQueryParameter(q, gl.QUERY_RESULT) / 1e6), med = a => [...a].sort((x, y) => x - y)[a.length >> 1];
+  return {gpuMs: +med(gpu).toFixed(2), frameMs: +med(cpu.slice(5)).toFixed(2), disjoint};
+})()

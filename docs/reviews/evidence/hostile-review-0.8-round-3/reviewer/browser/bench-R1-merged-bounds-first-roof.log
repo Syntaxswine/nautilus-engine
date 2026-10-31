@@ -1,0 +1,344 @@
+run 0 gpu w0-blank: open 12106/1933 ms, overview 13.05/11.60 ms 1121/1121 calls, overview:assets 1.20/1.30 ms 1/1 calls, close 5.40/5.70 ms 419/419 calls, close:assets 1.05/1.10 ms 1/1 calls, cutaway 7.70/8.85 ms 1121/1121 calls, cutaway:assets 1.10/0.95 ms 1/1 calls
+run 0 gpu w6-roofs-144: open 2057/3009 ms, overview 18.70/13.00 ms 1131/1131 calls, overview:assets 1.10/1.20 ms 11/11 calls, close 3.55/4.30 ms 429/424 calls, close:assets 1.10/0.95 ms 11/6 calls, cutaway 6.10/5.65 ms 1121/1121 calls, cutaway:assets 0.90/0.85 ms 1/1 calls
+run 1 gpu w0-blank: open 2256/4691 ms, overview 8.35/15.15 ms 1121/1121 calls, overview:assets 1.25/1.20 ms 1/1 calls, close 3.80/3.95 ms 419/419 calls, close:assets 0.90/3.10 ms 1/1 calls, cutaway 7.60/18.25 ms 1121/1121 calls, cutaway:assets 1.00/3.35 ms 1/1 calls
+run 1 gpu w6-roofs-144: open 3100/8665 ms, overview 17.00/77.80 ms 1131/1131 calls, overview:assets 1.80/5.40 ms 11/11 calls, close 7.70/94.80 ms 429/424 calls, close:assets 2.60/64.15 ms 11/6 calls, cutaway 10.55/190.35 ms 1121/1121 calls, cutaway:assets 2.00/46.50 ms 1/1 calls
+Wrote artifacts\r08-3\browser\bench-R1-merged-bounds-first-roof.json
+[
+ {
+  "backend": "gpu",
+  "map": "w0-blank",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 10.699999988079071,
+     "b": 13.374999940395355
+    },
+    "cpuMs": {
+     "a": 5.875,
+     "b": 10.225000023841858
+    },
+    "speedup": {
+     "median": 0.8380775615454832,
+     "min": 0.5511551179526349,
+     "max": 1.1250000051383315
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 1.2249999046325684,
+     "b": 1.25
+    },
+    "cpuMs": {
+     "a": 0.30000001192092896,
+     "b": 0.3250000476837158
+    },
+    "speedup": {
+     "median": 0.9823717233418143,
+     "min": 0.9230768172698671,
+     "max": 1.0416666294137615
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 4.600000023841858,
+     "b": 4.824999988079071
+    },
+    "cpuMs": {
+     "a": 2.300000011920929,
+     "b": 2.425000011920929
+    },
+    "speedup": {
+     "median": 0.9546968712210671,
+     "min": 0.9473684496716673,
+     "max": 0.9620252927704667
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 419,
+       "shadowCalls": 303,
+       "triangles": 864890,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "close:assets": {
+    "totalMs": {
+     "a": 0.9750000834465027,
+     "b": 2.0999999046325684
+    },
+    "cpuMs": {
+     "a": 0.2749999761581421,
+     "b": 0.3500000238418579
+    },
+    "speedup": {
+     "median": 0.6224341113329108,
+     "min": 0.2903226203402433,
+     "max": 0.9545456023255784
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway": {
+    "totalMs": {
+     "a": 7.650000035762787,
+     "b": 13.550000011920929
+    },
+    "cpuMs": {
+     "a": 5.275000035762787,
+     "b": 10.724999904632568
+    },
+    "speedup": {
+     "median": 0.6432474288449952,
+     "min": 0.4164383574707867,
+     "max": 0.8700565002192037
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1121,
+       "shadowCalls": 554,
+       "triangles": 2541974,
+       "passes": 2
+      }
+     ]
+    }
+   },
+   "cutaway:assets": {
+    "totalMs": {
+     "a": 1.050000011920929,
+     "b": 2.150000035762787
+    },
+    "cpuMs": {
+     "a": 0.375,
+     "b": 0.8999999165534973
+    },
+    "speedup": {
+     "median": 0.7282010821911205,
+     "min": 0.29850746056209776,
+     "max": 1.157894703820143
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     ]
+    }
+   }
+  },
+  "openMs": {
+   "a": 7181,
+   "b": 3312.0499999523163,
+   "speedup": {
+    "median": 3.371872504236909,
+    "min": 0.48088934363002495,
+    "max": 6.2628556648437925
+   }
+  }
+ },
+ {
+  "backend": "gpu",
+  "map": "w6-roofs-144",
+  "views": {
+   "overview": {
+    "totalMs": {
+     "a": 17.84999990463257,
+     "b": 45.39999997615814
+    },
+    "cpuMs": {
+     "a": 10.54999989271164,
+     "b": 34.22499996423721
+    },
+    "speedup": {
+     "median": 0.8284852644952743,
+     "min": 0.21850899603097726,
+     "max": 1.4384615329595714
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 1131,
+       "shadowCalls": 559,
+       "triangles": 2546966,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 1131,
+       "shadowCalls": 559,
+       "triangles": 2546966,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 7.149999916553497,
+      "b": 32.02500003576279
+     },
+     "speedup": {
+      "median": 2.086891313408866,
+      "min": 0.13806863304454373,
+      "max": 4.0357139937731885
+     }
+    }
+   },
+   "overview:assets": {
+    "totalMs": {
+     "a": 1.4500000476837158,
+     "b": 3.299999952316284
+    },
+    "cpuMs": {
+     "a": 0.5,
+     "b": 0.925000011920929
+    },
+    "speedup": {
+     "median": 0.6250000832441465,
+     "min": 0.3333333259747352,
+     "max": 0.9166668405135576
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 11,
+       "shadowCalls": 5,
+       "triangles": 4994,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 11,
+       "shadowCalls": 5,
+       "triangles": 4994,
+       "passes": 2
+      }
+     ]
+    },
+    "estimateBySubtraction": {
+     "ms": {
+      "a": 0.22500014305114746,
+      "b": 2.049999952316284
+     },
+     "speedup": {
+      "median": 0.5654744101109858,
+      "min": 0.1309523964955421,
+      "max": 0.9999964237264294
+     }
+    }
+   },
+   "close": {
+    "totalMs": {
+     "a": 5.625,
+     "b": 49.54999989271164
+    },
+    "cpuMs": {
+     "a": 2.975000023841858,
+     "b": 18.349999964237213
+    },
+    "speedup": {
+     "median": 0.45340252460912256,
+     "min": 0.0812236280804861,
+     "max": 0.825581421137759
+    },
+    "counts": {
+     "a": [
+      {
+       "calls": 429,
+       "shadowCalls": 308,
+       "triangles": 869882,
+       "passes": 2
+      }
+     ],
+     "b": [
+      {
+       "calls": 424,
+       "shadowCalls": 308,
+       "triangles": 867386,
+       "passes": 2
+      }
+     ]
+    }
+ 

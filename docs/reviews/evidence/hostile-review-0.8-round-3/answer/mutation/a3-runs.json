@@ -1,0 +1,419 @@
+{
+ "script": "mutate-a3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T15:40:37.862Z",
+ "node": "v24.15.0",
+ "head": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "K3-no-per-copy-culling",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "every camera draws every copy: round 3 MF-B again",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24992,
+     "tests": 38,
+     "pass": 36,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K4-runs-draw-nothing",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24156,
+     "tests": 38,
+     "pass": 36,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: no trailing empty sub-draw",
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K5-table-rewritten-per-camera",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "the D3D11 stall: the copy table uploaded for every camera",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24206,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun",
+      "failing tests:",
+      "every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the copy table was rewritten"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K6-empty-sub-draws-trail",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23399,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K13-runs-never-used",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "one sub-draw per copy even with WEBGL_multi_draw (the f98d4cc behaviour)",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24227,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K14-run-spans-a-culled-copy",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a gap does not end a run: the culled copy is drawn",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24233,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K15-shader-reads-draw-id-only",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "every instance of a run drawn at its first copy",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23674,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the vendored renderer still draws a BatchedMesh the way CopyBatch relies on",
+      "failing tests:",
+      "the vendored renderer still draws a BatchedMesh the way CopyBatch relies on"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: the batching chunk reads the copy table per instance"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "K16-runs-without-the-extension",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "three's instanced fallback sets no draw id",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23913,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy",
+      "failing tests:",
+      "with WEBGL_multi_draw, each run of consecutive copies in view is one instanced sub-draw at its first copy"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "P7-no-early-release",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 I6: old batches draw the old copies while a load is pending",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 23776,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "while a building library loads, removed copies are gone and the rest draw themselves",
+      "failing tests:",
+      "while a building library loads, removed copies are gone and the rest draw themselves"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: no batch draws the old copies while the load is pending"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "P8-release-leaves-copies-hidden",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "round 3 I7: nothing draws the copies while a load is pending",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/editor-copy-batch.test.mjs tests/prefab-display-batches.test.mjs tests/building-prefabs.test.mjs tests/prefab-providers.test.mjs tests/building-library-life",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 24083,
+     "tests": 38,
+     "pass": 37,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "while a building library loads, removed copies are gone and the rest draw themselves",
+      "failing tests:",
+      "while a building library loads, removed copies are gone and the rest draw themselves"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: copy-0 draws itself meanwhile"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  },
+  {
+   "id": "C5b-daylight-rule-refusal-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "round 3 C5, after the refusal moved into checkDaylightRule",
+   "headBefore": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 9900,
+     "tests": 2,
+     "pass": 1,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count model refuses what it does not model",
+      "failing tests:",
+      "the count model refuses what it does not model"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647"
+  }
+ ],
+ "finished": "2026-10-30T15:44:49.933Z",
+ "headAfter": "d7b38bf448b5ca6972c7ff9e13292e5e1b85f647",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 11,
+  "killed": [
+   "K3-no-per-copy-culling",
+   "K4-runs-draw-nothing",
+   "K5-table-rewritten-per-camera",
+   "K6-empty-sub-draws-trail",
+   "K13-runs-never-used",
+   "K14-run-spans-a-culled-copy",
+   "K15-shader-reads-draw-id-only",
+   "K16-runs-without-the-extension",
+   "P7-no-early-release",
+   "P8-release-leaves-copies-hidden",
+   "C5b-daylight-rule-refusal-off"
+  ],
+  "survived": [],
+  "errors": [],
+  "invalid": []
+ }
+}

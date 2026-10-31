@@ -9,6 +9,7 @@ import {generateConnectedMap as legacyGenerate} from '../packages/map-core/prefa
 import {ROOF_FEATURE,roofsOf,createSlopedRoof} from '../packages/roof-core/index.js';
 import {roofFootprint} from '../packages/map-core/roof-data.js';
 import {RoofLayer,ROOF_MAP_OFFSET} from '../apps/editor/roof-scene.js';
+import {createRoofGroup,createRoofMaterial,PAINTED_ROOF_MATERIALS} from '../packages/roof-core/three.js';
 import * as T from '../packages/render-effects/three.js';
 
 const document=(block=false)=>new EditingDocument().open(JSON.stringify(block?extractBlock(blockCanvas('Roof block')):blankMap('Roof map')));
@@ -185,4 +186,98 @@ test('roof models borrow the shared paint atlas and repaint without retaining ob
     layer.setAtlas(atlas);assert.equal(layer.models.get(roof.id),current);assert.equal(atlasDisposed,0);
   }finally{layer.dispose();assert.equal(atlasDisposed,0);atlas.dispose();}
   assert.equal(atlasDisposed,1);assert.equal(scene.children.length,0);
+});
+
+// What a frame draws: every visible triangle, keyed by its slot material, its mesh's shadow
+// flags and the exact world positions, normals, UVs and colours of its vertices.
+const drawn=scene=>{
+  scene.updateMatrixWorld(true);const out=[],v=new T.Vector3(),shown=node=>{for(let n=node;n;n=n.parent)if(!n.visible)return false;return true;};
+  scene.traverse(mesh=>{
+    if(!mesh.isMesh||!shown(mesh))return;const g=mesh.geometry,a=g.attributes,index=g.index.array;
+    for(const group of Array.isArray(mesh.material)?g.groups:[{start:0,count:index.length,materialIndex:0}])for(let t=group.start;t<group.start+group.count;t+=3){
+      const corner=k=>{const i=index[t+k];return [...v.fromBufferAttribute(a.position,i).applyMatrix4(mesh.matrixWorld).toArray(),a.normal.getX(i),a.normal.getY(i),a.normal.getZ(i),a.uv.getX(i),a.uv.getY(i),a.color.getX(i),a.color.getY(i),a.color.getZ(i)].join(',');};
+      out.push((Array.isArray(mesh.material)?mesh.material[group.materialIndex]:mesh.material).name+(mesh.castShadow?'+casts':'')+(mesh.receiveShadow?'+receives':'')+'|'+corner(0)+'|'+corner(1)+'|'+corner(2));
+    }
+  });
+  return out.sort();
+};
+const draws=scene=>{let n=0;scene.traverse(mesh=>{if(mesh.isMesh&&mesh.visible&&mesh.parent?.visible!==false)n+=Array.isArray(mesh.material)?mesh.geometry.groups.length:1;});return n;};
+const roofRow=(count,options={})=>Array.from({length:count},(_,i)=>({id:'roof-'+i,x:4+(i%12)*18,y:4+Math.floor(i/12)*14,width:10,depth:8,z:1+i%3,
+  style:['gable','hip','shed'][i%3],axis:i%4<2?'x':'y',direction:i%2?1:-1,pitch:30+i%4*5,overhang:.25,material:['slate','clay','metal'][Math.floor(i/3)%3],seed:i,...options}));
+
+test('the scene layer draws its roofs as one mesh: the same triangles, one draw per slot material',()=>{
+  const doc={map:{slopedRoofs:{version:1,roofs:roofRow(9)}}},atlas=new T.DataTexture(new Uint8Array(4*4*4),4,4);
+  const scene=new T.Scene(),plainScene=new T.Scene(),layer=new RoofLayer(scene,{atlas}),plain=new RoofLayer(plainScene,{atlas,merge:false});
+  try{
+    for(const options of [{showAllLevels:true,roofs:true},{showAllLevels:false,level:2},{showAllLevels:false,level:1},{showAllLevels:false,level:0},{roofs:false}]){
+      layer.update(doc,options);plain.update(doc,options);
+      assert.deepEqual(drawn(scene),drawn(plainScene),'merged triangles equal the per-roof triangles: '+JSON.stringify(options));
+      const visible=roofsOf(doc.map).filter(roof=>options.roofs!==false&&(options.showAllLevels!==false||roof.z<=options.level));
+      // Sorted by level, a cut is a prefix: one draw per material of the visible roofs.
+      assert.equal(draws(scene),visible.length?new Set(visible.map(roof=>roof.material)).size+2:0,'draws: '+JSON.stringify(options));
+      assert.equal(draws(plainScene),visible.length*3);
+      for(const [id,model]of layer.models){assert.equal(model.root.visible,visible.some(roof=>roof.id===id),'roots keep their own visibility');assert.equal(model.root.children[0].visible,false,'shells draw through the merge');}
+    }
+    assert.ok(layer.merged.mesh.parent===scene,'the merge is in the scene');assert.equal(layer.merged.mesh.geometry.index.array.constructor,Uint16Array);
+    // The merge is culled as one mesh: its sphere and box hold every vertex of every roof it draws.
+    const merged=layer.merged.mesh;merged.updateMatrixWorld(true);const sphere=merged.geometry.boundingSphere.clone().applyMatrix4(merged.matrixWorld),box=merged.geometry.boundingBox.clone().applyMatrix4(merged.matrixWorld).expandByScalar(1e-9),point=new T.Vector3();let outside=0;
+    for(const model of layer.models.values()){const shell=model.root.children[0];shell.updateMatrixWorld(true);const position=shell.geometry.attributes.position;for(let v=0;v<position.count;v++){point.fromBufferAttribute(position,v).applyMatrix4(shell.matrixWorld);if(sphere.distanceToPoint(point)>1e-9||!box.containsPoint(point))outside++;}}
+    assert.equal(outside,0,'roof vertices outside the merged bounds');
+    // Slot materials are the layer's: one per painted slot, named as the adapter names them,
+    // shared by every roof, never the atlas's owner.
+    assert.deepEqual([...layer.slots.materials].map(([id,material])=>material.name),Object.keys(PAINTED_ROOF_MATERIALS).map(id=>'roof:'+id));
+    assert.equal(createRoofMaterial(T,'slate').name,'roof:slate');
+    const shared=new Set(layer.slots.materials.values());
+    for(const model of layer.models.values())assert.ok(model.root.children[0].material.every(material=>shared.has(material)&&material.map===atlas));
+  }finally{layer.dispose();plain.dispose();}
+  assert.equal(scene.children.length,0);atlas.dispose();
+});
+
+test('a merged layer rebuilds on edits, restores shells it no longer draws and releases what it owns once',()=>{
+  const roofs=roofRow(6),doc=list=>({map:{slopedRoofs:{version:1,roofs:list}}}),atlas=new T.DataTexture(new Uint8Array(4*4*4),4,4),second=new T.DataTexture(new Uint8Array(4*4*4),4,4);
+  const scene=new T.Scene(),layer=new RoofLayer(scene,{atlas}),count=(target,map=new Map())=>{map.set(target,0);target.addEventListener('dispose',()=>map.set(target,map.get(target)+1));return map;};
+  let atlasDisposed=0;for(const texture of [atlas,second])texture.addEventListener('dispose',()=>atlasDisposed++);
+  try{
+    layer.update(doc(roofs));const first=layer.merged.mesh,firstGeometry=count(first.geometry);
+    layer.update(doc(roofs));assert.equal(layer.merged.mesh,first,'an unchanged document keeps the merge');
+    layer.update(doc([...roofs].reverse()));assert.notEqual(layer.merged.mesh,first,'document order breaks ties, so a reorder re-merges');
+    assert.equal(firstGeometry.get(first.geometry),1);assert.ok(first.parent===null,'the replaced merge left the scene');
+    const pitched=doc(roofs.map((roof,i)=>i===2?{...roof,pitch:45}:roof)),plainScene=new T.Scene(),plain=new RoofLayer(plainScene,{atlas,merge:false});
+    try{layer.update(pitched);plain.update(pitched);assert.deepEqual(drawn(scene),drawn(plainScene),'an edited roof re-merges');}finally{plain.dispose();}
+    const edited=layer.merged.mesh;
+    // One roof left: it draws itself again, with the shared materials.
+    layer.update(doc(roofs.slice(0,1)));assert.ok(layer.merged===null,'one roof is not merged');assert.ok(edited.parent===null,'the old merge left the scene');
+    const [single]=layer.models.values();assert.equal(single.root.children[0].visible,true);assert.equal(scene.children.length,1);
+    // A new atlas rebuilds every roof, then retires each old slot material once.
+    layer.update(doc(roofs));const old=new Map();for(const material of layer.slots.materials.values())count(material,old);
+    assert.equal(old.size,5);layer.setAtlas(second);assert.deepEqual([...old.values()],[1,1,1,1,1]);
+    for(const model of layer.models.values())assert.ok(model.root.children[0].material.every(material=>material.map===second));
+    const last=new Map();for(const material of layer.slots.materials.values())count(material,last);const merged=count(layer.merged.mesh.geometry);
+    layer.dispose();layer.dispose();assert.deepEqual([...last.values()],[1,1,1,1,1]);assert.deepEqual([...merged.values()],[1]);
+    assert.equal(scene.children.length,0);assert.equal(atlasDisposed,0,'the host atlas outlives the layer');
+  }finally{layer.dispose();atlas.dispose();second.dispose();}
+});
+
+test('roofs the layer cannot merge draw themselves, and a large layer indexes with 32 bits',()=>{
+  const factory=(T,spec)=>{const root=new T.Group(),mesh=new T.Mesh(new T.BoxGeometry(2,.12,3),new T.MeshBasicMaterial());root.add(mesh);return {root,dispose(){mesh.geometry.dispose();mesh.material.dispose();}};};
+  const custom=new RoofLayer(new T.Scene(),{factory});
+  try{custom.update({map:{slopedRoofs:{version:1,roofs:roofRow(4)}}});assert.ok(custom.merged===null,'a custom factory is not merged');for(const model of custom.models.values())assert.equal(model.root.children[0].visible,true);}
+  finally{custom.dispose();}
+  // The adapter's own materials, or a root moved off the map offset, would draw wrongly from a merge.
+  const own=(T,spec,options)=>createRoofGroup(T,spec,{atlas:options.atlas}),lifted=(T,spec,options)=>{const root=createRoofGroup(T,spec,options);root.position.y=1;return root;};
+  const varied=(name,change)=>Object.defineProperty((T,spec,options)=>{const root=createRoofGroup(T,spec,options);change(root,root.children[0]);return root;},'name',{value:name});
+  const guarded=[varied('drawRange',(root,shell)=>shell.geometry.setDrawRange(0,30)),varied('morphs',(root,shell)=>{shell.geometry.morphAttributes.position=[shell.geometry.attributes.position.clone()];}),
+    varied('hidden',(root,shell)=>{shell.visible=false;}),varied('renderOrder',(root,shell)=>{shell.renderOrder=3;}),varied('rootOrder',root=>{root.renderOrder=3;}),varied('layers',(root,shell)=>shell.layers.set(2)),
+    varied('openGroup',(root,shell)=>{shell.geometry.groups[0].count=Infinity;})];
+  for(const factory of [own,lifted,...guarded.filter(f=>f.name!=='openGroup')]){
+    const scene=new T.Scene(),plainScene=new T.Scene(),layer=new RoofLayer(scene,{factory}),plain=new RoofLayer(plainScene,{factory,merge:false}),doc={map:{slopedRoofs:{version:1,roofs:roofRow(4)}}};
+    try{layer.update(doc);plain.update(doc);assert.ok(layer.merged===null,'not merged: '+factory.name);assert.deepEqual(drawn(scene),drawn(plainScene),'drawn as the plain layer draws it: '+factory.name);}finally{layer.dispose();plain.dispose();}
+  }
+  {const layer=new RoofLayer(new T.Scene(),{factory:guarded.find(f=>f.name==='openGroup')});try{layer.update({map:{slopedRoofs:{version:1,roofs:roofRow(4)}}});assert.ok(layer.merged===null,'not merged: an open-ended group');}finally{layer.dispose();}}
+  const scene=new T.Scene(),plainScene=new T.Scene(),layer=new RoofLayer(scene),plain=new RoofLayer(plainScene,{merge:false}),doc={map:{slopedRoofs:{version:1,roofs:roofRow(2000,{x:4,y:4})}}};
+  try{
+    layer.update(doc);plain.update(doc);const geometry=layer.merged.mesh.geometry;
+    assert.ok(geometry.attributes.position.count>65535,'enough vertices to need 32-bit indices: '+geometry.attributes.position.count);
+    assert.equal(geometry.index.array.constructor,Uint32Array);const a=drawn(scene),b=drawn(plainScene);assert.equal(a.length,b.length,'triangle count');assert.ok(a.every((t,i)=>t===b[i]),'the 32-bit merge draws exactly the roofs\' triangles');
+  }finally{layer.dispose();plain.dispose();}
 });

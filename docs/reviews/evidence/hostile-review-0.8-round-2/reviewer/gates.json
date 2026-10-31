@@ -1,0 +1,84 @@
+{
+ "script": "gates.mjs",
+ "started": "2026-10-30T07:05:20.721Z",
+ "node": "v24.15.0",
+ "platform": "win32 10.0.26200",
+ "head": "f2a63929600abb224ae57443475b056070825def",
+ "statusBefore": "(clean)",
+ "results": [
+  {
+   "gate": "build",
+   "command": "npm run build",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 13102,
+   "nodeTestSummary": {}
+  },
+  {
+   "gate": "check-tracked",
+   "command": "npm run check -- --tracked",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 4868,
+   "nodeTestSummary": {}
+  },
+  {
+   "gate": "test",
+   "command": "npm test",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 47561,
+   "nodeTestSummary": {
+    "tests": 366,
+    "suites": 0,
+    "pass": 366,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+   }
+  },
+  {
+   "gate": "test-upstream",
+   "command": "npm run test:upstream",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 3607,
+   "nodeTestSummary": {
+    "tests": 32,
+    "suites": 0,
+    "pass": 32,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+   }
+  },
+  {
+   "gate": "test-package",
+   "command": "npm run test:package",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 6316,
+   "nodeTestSummary": {}
+  },
+  {
+   "gate": "check-buildings",
+   "command": "npm run check:buildings",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 930,
+   "nodeTestSummary": {}
+  },
+  {
+   "gate": "review-integration",
+   "command": "npm run review:integration",
+   "exitCode": 0,
+   "signal": null,
+   "ms": 48937,
+   "nodeTestSummary": {}
+  }
+ ],
+ "statusAfter": "(clean)",
+ "finished": "2026-10-30T07:07:26.237Z"
+}

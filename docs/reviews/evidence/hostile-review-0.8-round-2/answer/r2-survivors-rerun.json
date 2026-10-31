@@ -1,0 +1,1155 @@
+{
+ "script": "mutate.mjs",
+ "started": "2026-10-30T08:43:33.125Z",
+ "node": "v24.15.0",
+ "head": "e21caf6a434e914206692fbf4270a7dbdaeb318c",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "B4-gross-key-swap",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 93610,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3346ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.4923ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.6509ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (5.4878ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 6423,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B8-dispose-leaks-batches",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 99976,
+     "pass": 591,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3184ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.44ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (10.4796ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.841ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 8873,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B12-uv-swapped",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 85290,
+     "pass": 592,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3306ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (6.2984ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (5.8466ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (5.3281ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 9762,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B13-normals-not-rotated",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 96874,
+     "pass": 592,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.2921ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (64.1837ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (3.8381ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (3.3387ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 4816,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "B14-exact-uv-dropped",
+   "files": [
+    "packages/prefab-core/display-batches.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 55073,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.336ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (20.4563ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.6341ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (7.0784ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 4772,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W2-no-depth-material",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 86118,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.2828ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.9158ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (25.9786ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.9447ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 24549,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W2b-no-distance-material",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 83980,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.96ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.4932ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.421ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (3.6074ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 15350,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W3-depth-material-unpatched",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 125444,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3585ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (10.5369ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.4209ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (25.5441ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 13444,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W3b-distance-material-unpatched",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 130513,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3259ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.8645ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.3609ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (5.6226ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 21329,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W4-bounds-quarter",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 125700,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3577ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.5615ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (19.9092ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.9725ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 4740,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W6-widths-all-one",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 68424,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3112ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.812ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.6078ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (5.5711ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 10362,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "W7-matrices-slot-zero",
+   "files": [
+    "apps/editor/wall-scene.js"
+   ],
+   "hooks": [],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 81679,
+     "pass": 593,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3222ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.9897ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (5.0019ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (25.0471ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "timedOut": false,
+     "ms": 7471,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G8-door-swing-rebuilt",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "the open-door envelope is regenerated into the registry",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    },
+    {
+     "hook": "registry",
+     "ok": false,
+     "out": "file:///<sandbox>/tools/prefab-original-catalog.mjs:38\r\n      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r\n                     "
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 99003,
+     "pass": 591,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3368ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.0464ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (88.7813ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (91.5807ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 2277,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r",
+      "Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: bramble-ranch\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G5c-glass-opacity-hash-and-registry",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "hash line and registry refreshed, exports not rebuilt",
+   "hooks": [
+    {
+     "hook": "catalogue-sha",
+     "ok": true
+    },
+    {
+     "hook": "registry",
+     "ok": false,
+     "out": "file:///<sandbox>/tools/prefab-original-catalog.mjs:38\r\n      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r\n                     "
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 64818,
+     "pass": 591,
+     "fail": 3,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.3462ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (5.1617ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (6.1319ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.8405ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 2441,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r",
+      "Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: bramble-ranch\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G7c-cutaway-shows-trim-rebuilt-and-registry",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "assets/buildings/models/alder-reading-room.bin",
+    "assets/buildings/models/alder-reading-room.blueprint.json",
+    "assets/buildings/models/alder-reading-room.gltf",
+    "assets/buildings/models/alpine-timber.bin",
+    "assets/buildings/models/alpine-timber.blueprint.json",
+    "assets/buildings/models/alpine-timber.gltf",
+    "assets/buildings/models/batten-general-store.bin",
+    "assets/buildings/models/batten-general-store.blueprint.json",
+    "assets/buildings/models/batten-general-store.gltf",
+    "assets/buildings/models/bell-court-chapel.bin",
+    "assets/buildings/models/bell-court-chapel.blueprint.json",
+    "assets/buildings/models/bell-court-chapel.gltf",
+    "assets/buildings/models/bramble-ranch.bin",
+    "assets/buildings/models/bramble-ranch.blueprint.json",
+    "assets/buildings/models/bramble-ranch.gltf",
+    "assets/buildings/models/branchline-depot.bin",
+    "assets/buildings/models/branchline-depot.blueprint.json",
+    "assets/buildings/models/branchline-depot.gltf",
+    "assets/buildings/models/canal-studio.bin",
+    "assets/buildings/models/canal-studio.blueprint.json",
+    "assets/buildings/models/canal-studio.gltf",
+    "assets/buildings/models/carriage-court.bin",
+    "assets/buildings/models/carriage-court.blueprint.json",
+    "assets/buildings/models/carriage-court.gltf",
+    "assets/buildings/models/cedar-split.bin",
+    "assets/buildings/models/cedar-split.blueprint.json",
+    "assets/buildings/models/cedar-split.gltf",
+    "assets/buildings/models/coach-yard-inn.bin",
+    "assets/buildings/models/coach-yard-inn.blueprint.json",
+    "assets/buildings/models/coach-yard-inn.gltf",
+    "assets/buildings/models/copper-watch-firehouse.bin",
+    "assets/buildings/models/copper-watch-firehouse.blueprint.json",
+    "assets/buildings/models/copper-watch-firehouse.gltf",
+    "assets/buildings/models/cypress-shotgun.bin",
+    "assets/buildings/models/cypress-shotgun.blueprint.json",
+    "assets/buildings/models/cypress-shotgun.gltf",
+    "assets/buildings/models/dockside-warehouse.bin",
+    "assets/buildings/models/dockside-warehouse.blueprint.json",
+    "assets/buildings/models/dockside-warehouse.gltf",
+    "assets/buildings/models/dogwood-breezeway.bin",
+    "assets/buildings/models/dogwood-breezeway.blueprint.json",
+    "assets/buildings/models/dogwood-breezeway.gltf",
+    "assets/buildings/models/eastfield-school.bin",
+    "assets/buildings/models/eastfield-school.blueprint.json",
+    "assets/buildings/models/eastfield-school.gltf",
+    "assets/buildings/models/elm-cross-gable.bin",
+    "assets/buildings/models/elm-cross-gable.blueprint.json",
+    "assets/buildings/models/elm-cross-gable.gltf",
+    "assets/buildings/models/estuary-cottage.bin",
+    "assets/buildings/models/estuary-cottage.blueprint.json",
+    "assets/buildings/models/estuary-cottage.gltf",
+    "assets/buildings/models/exchange-hall.bin",
+    "assets/buildings/models/exchange-hall.blueprint.json",
+    "assets/buildings/models/exchange-hall.gltf",
+    "assets/buildings/models/fennel-mansard.bin",
+    "assets/buildings/models/fennel-mansard.blueprint.json",
+    "assets/buildings/models/fennel-mansard.gltf",
+    "assets/buildings/models/foxglove-bungalow.bin",
+    "assets/buildings/models/foxglove-bungalow.blueprint.json",
+    "assets/buildings/models/foxglove-bungalow.gltf",
+    "assets/buildings/models/glass-garden-hall.bin",
+    "assets/buildings/models/glass-garden-hall.blueprint.json",
+    "assets/buildings/models/glass-garden-hall.gltf",
+    "assets/buildings/models/grainwatch-granary.bin",
+    "assets/buildings/models/grainwatch-granary.blueprint.json",
+    "assets/buildings/models/grainwatch-granary.gltf",
+    "assets/buildings/models/greywell-chapel.bin",
+    "assets/buildings/models/greywell-chapel.blueprint.json",
+    "assets/buildings/models/greywell-chapel.gltf",
+    "assets/buildings/models/hearth-cape.bin",
+    "assets/buildings/models/hearth-cape.blueprint.json",
+    "assets/buildings/models/hearth-cape.gltf",
+    "assets/buildings/models/horseshoe-stables.bin",
+    "assets/buildings/models/horseshoe-stables.blueprint.json",
+    "assets/buildings/models/horseshoe-stables.gltf",
+    "assets/buildings/models/juniper-suite.bin",
+    "assets/buildings/models/juniper-suite.blueprint.json",
+    "assets/buildings/models/juniper-suite.gltf",
+    "assets/buildings/models/linden-clinic.bin",
+    "assets/buildings/models/linden-clinic.blueprint.json",
+    "assets/buildings/models/linden-clinic.gltf",
+    "assets/buildings/models/longlight-house.bin",
+    "assets/buildings/models/longlight-house.blueprint.json",
+    "assets/buildings/models/longlight-house.gltf",
+    "assets/buildings/models/longspan-machine-shed.bin",
+    "assets/buildings/models/longspan-machine-shed.blueprint.json",
+    "assets/buildings/models/longspan-machine-shed.gltf",
+    "assets/buildings/models/market-terrace.bin",
+    "assets/buildings/models/market-terrace.blueprint.json",
+    "assets/buildings/models/market-terrace.gltf",
+    "assets/buildings/models/marlow-courtyard-flats.bin",
+    "assets/buildings/models/marlow-courtyard-flats.blueprint.json",
+    "assets/buildings/models/marlow-courtyard-flats.gltf",
+    "assets/buildings/models/mews-corner.bin",
+    "assets/buildings/models/mews-corner.blueprint.json",
+    "assets/buildings/models/mews-corner.gltf",
+    "assets/buildings/models/millrace-workhouse.bin",
+    "assets/buildings/models/millrace-workhouse.blueprint.json",
+    "assets/buildings/models/millrace-workhouse.gltf",
+    "assets/buildings/models/narrow-court.bin",
+    "assets/buildings/models/narrow-court.blueprint.json",
+    "assets/buildings/models/narrow-court.gltf",
+    "assets/buildings/models/northlight-works.bin",
+    "assets/buildings/models/northlight-works.blueprint.json",
+    "assets/buildings/models/northlight-works.gltf",
+    "assets/buildings/models/ochre-patio.bin",
+    "assets/buildings/models/ochre-patio.blueprint.json",
+    "assets/buildings/models/ochre-patio.gltf",
+    "assets/buildings/models/orchard-schoolhouse.bin",
+    "assets/buildings/models/orchard-schoolhouse.blueprint.json",
+    "assets/buildings/models/orchard-schoolhouse.gltf",
+    "assets/buildings/models/pepper-corner-shop.bin",
+    "assets/buildings/models/pepper-corner-shop.blueprint.json",
+    "assets/buildings/models/pepper-corner-shop.gltf",
+    "assets/buildings/models/post-lane-office.bin",
+    "assets/buildings/models/post-lane-office.blueprint.json",
+    "assets/buildings/models/post-lane-office.gltf",
+    "assets/buildings/models/prairie-corner.bin",
+    "assets/buildings/models/prairie-corner.blueprint.json",
+    "assets/buildings/models/prairie-corner.gltf",
+    "assets/buildings/models/red-crest-barn.bin",
+    "assets/buildings/models/red-crest-barn.blueprint.json",
+    "assets/buildings/models/red-crest-barn.gltf",
+    "assets/buildings/models/rowan-family.bin",
+    "assets/buildings/models/rowan-family.blueprint.json",
+    "assets/buildings/models/rowan-family.gltf",
+    "assets/buildings/models/saltmarsh-lean-to.bin",
+    "assets/buildings/models/saltmarsh-lean-to.blueprint.json",
+    "assets/buildings/models/saltmarsh-lean-to.gltf",
+    "assets/buildings/models/stone-bank-barn.bin",
+    "assets/buildings/models/stone-bank-barn.blueprint.json",
+    "assets/buildings/models/stone-bank-barn.gltf",
+    "assets/buildings/models/sun-well-court.bin",
+    "assets/buildings/models/sun-well-court.blueprint.json",
+    "assets/buildings/models/sun-well-court.gltf",
+    "assets/buildings/models/violet-bay-house.bin",
+    "assets/buildings/models/violet-bay-house.blueprint.json",
+    "assets/buildings/models/violet-bay-house.gltf",
+    "assets/buildings/models/whitegate-dairy.bin",
+    "assets/buildings/models/whitegate-dairy.blueprint.json",
+    "assets/buildings/models/whitegate-dairy.gltf",
+    "assets/buildings/models/willow-pair.bin",
+    "assets/buildings/models/willow-pair.blueprint.json",
+    "assets/buildings/models/willow-pair.gltf",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "the documented refresh: build:buildings, then the registry",
+   "hooks": [
+    {
+     "hook": "exports",
+     "ok": true,
+     "out": "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}"
+    },
+    {
+     "hook": "registry",
+     "ok": false,
+     "out": "file:///<sandbox>/tools/prefab-original-catalog.mjs:38\r\n      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r\n                     "
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 87027,
+     "pass": 590,
+     "fail": 4,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (10.5859ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (24.9873ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.7977ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.7244ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 1481,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "      if(buildingDigest(model)!==REVIEWED_GEOMETRY.digests['game:'+entry.id])throw Error('Original building geometry differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+entry.id);\r",
+      "Error: Original building geometry differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: bramble-ranch\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "G9-stairs-refreshed-no-exports",
+   "files": [
+    "packages/building-catalog/three.js",
+    "assets/buildings/catalogue.json",
+    "tests/fixtures/original-building-geometry.json",
+    "packages/prefab-core/original-catalogue.js"
+   ],
+   "note": "geometry change, then renderer hash, fixture and registry refreshed; exports left stale",
+   "hooks": [
+    {
+     "hook": "catalogue-sha",
+     "ok": true
+    },
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    },
+    {
+     "hook": "registry",
+     "ok": false,
+     "out": "file:///<sandbox>/tools/prefab-original-catalog.mjs:20\r\nfor(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from revie"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 101703,
+     "pass": 589,
+     "fail": 2,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.4254ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.3322ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.4497ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.9001ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 500,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);\r",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: tests/fixtures/original-building-geometry.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D2-digest-ignores-matrices-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 58359,
+     "pass": 590,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.4192ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.6919ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.1549ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.4448ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 292,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);\r",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: tests/fixtures/original-building-geometry.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  },
+  {
+   "id": "D3-digest-ignores-userdata-refreshed",
+   "files": [
+    "tools/building-geometry.mjs",
+    "tests/fixtures/original-building-geometry.json"
+   ],
+   "hooks": [
+    {
+     "hook": "fixture",
+     "ok": true,
+     "out": "re-recorded 96 digests"
+    }
+   ],
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/building-catalog.test.mjs tests/building-geometry.test.mjs tests/building-library-lifecycle.test.mjs tests/building-prefabs.test.mjs tests/contracts.test.mjs tests/door-visuals.test.mjs tests/editor-assets-lifecycle.test.mjs tests/editor-assets.test.mjs tests/editor-host-bridge.test.mjs tests/editor-roof-paint.test.mjs tests/editor-roofs.test.mjs tests/editor-toolbar-materials.test.mjs tests/editor-wall-scene.test.mjs tests/extended-world-core.test.mjs tests/extended-world-editor.test.mjs tests/extended-world-fixture.test.mjs tests/farmyard-door-reference.test.mjs tests/farmyard-doors.test.mjs tests/farmyard-grenades-provenance.test.mjs tests/farmyard-rules-adapter.test.mjs tests/floor-navigation.test.mjs tests/game-handoff.test.mjs tests/game-ui.test.mjs tests/grenade-browser-proof.test.mjs tests/grenade-integration.test.mjs tests/grenade-reference-host.test.mjs tests/grenade-ui-view.test.mjs tests/grenade-visuals.test.mjs tests/grenades-aim.test.mjs tests/grenades-core.test.mjs tests/halo-walls.test.mjs tests/headless-boundary.test.mjs tests/headless-document.test.mjs tests/interaction-foundation.test.mjs tests/map-core.test.mjs tests/modular-headless.test.mjs tests/module-references.test.mjs tests/part-identity.test.mjs tests/parts-boundaries.test.mjs tests/parts-compiler.test.mjs tests/parts-runtime.test.mjs tests/prefab-boundaries.test.mjs tests/prefab-display-batches.test.mjs tests/prefab-mixed-saves.test.mjs tests/prefab-providers.test.mjs tests/prefab-registry.test.mjs tests/prefab-roofs.test.mjs tests/progression-public-contract.test.mjs tests/rock-adapters.test.mjs tests/rock-core.test.mjs tests/rock-flight.test.mjs tests/rock-hearing.test.mjs tests/rock-model.test.mjs tests/rock-public-contract.test.mjs tests/rock-transactions.test.mjs tests/rock-validation.test.mjs tests/roof-core.test.mjs tests/rules-core.test.mjs tests/runtime-modules.test.mjs tests/search-halo.test.mjs tests/shared-assets.test.mjs tests/standard-interactions.test.mjs tests/tinderbox-adapter.test.mjs tests/wall-runs.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 55636,
+     "pass": 590,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ existing Misha throw keeps its source marker, one release identity and explicit rock/support blockers (0.2309ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (13.2862ms)",
+      "✔ pre-return duplicate results all retire on error, throw or abort even when disposal callbacks throw (4.2887ms)",
+      "✔ legacy representability identifies high floors, exact mismatched heights and every unconverted stable record (4.6718ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "timedOut": false,
+     "ms": 279,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const [relative,expected]of Object.entries(fixedFiles))if(createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex')!==expected)throw Error('Original prefab input differs from reviewed commit '+ORIGINAL_BUILDING_COMMIT+': '+relative);\r",
+      "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: tests/fixtures/original-building-geometry.json\r"
+     ]
+    }
+   ],
+   "killed": true,
+   "restored": true,
+   "statusAfterRestore": "(clean)"
+  }
+ ],
+ "finished": "2026-10-30T09:12:57.302Z",
+ "headAfter": "e21caf6a434e914206692fbf4270a7dbdaeb318c",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 18,
+  "killed": [
+   "B4-gross-key-swap",
+   "B8-dispose-leaks-batches",
+   "B12-uv-swapped",
+   "B13-normals-not-rotated",
+   "B14-exact-uv-dropped",
+   "W2-no-depth-material",
+   "W2b-no-distance-material",
+   "W3-depth-material-unpatched",
+   "W3b-distance-material-unpatched",
+   "W4-bounds-quarter",
+   "W6-widths-all-one",
+   "W7-matrices-slot-zero",
+   "G8-door-swing-rebuilt",
+   "G5c-glass-opacity-hash-and-registry",
+   "G7c-cutaway-shows-trim-rebuilt-and-registry",
+   "G9-stairs-refreshed-no-exports",
+   "D2-digest-ignores-matrices-refreshed",
+   "D3-digest-ignores-userdata-refreshed"
+  ],
+  "survived": [],
+  "invalid": []
+ }
+}

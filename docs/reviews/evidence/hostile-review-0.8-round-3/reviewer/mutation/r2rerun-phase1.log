@@ -1,0 +1,47 @@
+B4-gross-key-swap: SURVIVED [node.exe --test exit 0 pass 35 fail 0 cancelled 0]
+B8-dispose-leaks-batches: killed [node.exe --test exit 1 pass 33 fail 2 cancelled 0]
+B12-uv-swapped: killed [node.exe --test exit 1 pass 33 fail 2 cancelled 0]
+B13-normals-not-rotated: killed [node.exe --test exit 1 pass 33 fail 2 cancelled 0]
+B14-exact-uv-dropped: killed [node.exe --test exit 1 pass 34 fail 1 cancelled 0]
+W2-no-depth-material: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W2b-no-distance-material: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W3-depth-material-unpatched: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W3b-distance-material-unpatched: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W4-bounds-quarter: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W6-widths-all-one: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+W7-matrices-slot-zero: killed [node.exe --test exit 1 pass 6 fail 1 cancelled 0]
+G8-door-swing-rebuilt: killed [node.exe --test exit 1 pass 23 fail 3 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G5c-glass-opacity-hash-and-registry: killed [node.exe --test exit 1 pass 23 fail 3 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G7c-cutaway-shows-trim-rebuilt-and-registry: killed [node.exe --test exit 1 pass 23 fail 3 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G9-stairs-refreshed-no-exports: killed [node.exe --test exit 1 pass 22 fail 1 cancelled 0] [node.exe tools/check.mjs exit 1 pass null fail null cancelled null]
+G11-emissive-outside-key-refreshed: SURVIVED [node.exe --test exit 0 pass 26 fail 0 cancelled 0] [node.exe tools/check.mjs exit 0 pass null fail null cancelled null]
+D2-digest-ignores-matrices-refreshed: killed [node.exe --test exit 1 pass 22 fail 1 cancelled 0]
+D3-digest-ignores-userdata-refreshed: killed [node.exe --test exit 1 pass 22 fail 1 cancelled 0]
+{
+ "total": 19,
+ "killed": [
+  "B8-dispose-leaks-batches",
+  "B12-uv-swapped",
+  "B13-normals-not-rotated",
+  "B14-exact-uv-dropped",
+  "W2-no-depth-material",
+  "W2b-no-distance-material",
+  "W3-depth-material-unpatched",
+  "W3b-distance-material-unpatched",
+  "W4-bounds-quarter",
+  "W6-widths-all-one",
+  "W7-matrices-slot-zero",
+  "G8-door-swing-rebuilt",
+  "G5c-glass-opacity-hash-and-registry",
+  "G7c-cutaway-shows-trim-rebuilt-and-registry",
+  "G9-stairs-refreshed-no-exports",
+  "D2-digest-ignores-matrices-refreshed",
+  "D3-digest-ignores-userdata-refreshed"
+ ],
+ "survived": [
+  "B4-gross-key-swap",
+  "G11-emissive-outside-key-refreshed"
+ ],
+ "errors": [],
+ "invalid": []
+}

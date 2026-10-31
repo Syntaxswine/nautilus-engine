@@ -2,32 +2,47 @@
 const freeze = value => {if(value && typeof value === "object"){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};
 export const ORIGINAL_BUILDING_SOURCE = freeze({
   "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
-  "catalogue": "assets/buildings/catalogue.json",
-  "catalogueSha256": "ac106fb34b169b9f2a331955bbafcad170acd0c9c1b63865da69d3f84e4ce71e",
+  "reviewed": {
+    "commit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5",
+    "renderer": {
+      "file": "packages/building-catalog/three.js",
+      "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
+    },
+    "catalogueContentSha256": "49ac30fc2fa74dd5f01d936ef6a5d78f7e8421248178d88abd82682327e1d223",
+    "geometry": {
+      "file": "tests/fixtures/original-building-geometry.json",
+      "sha256": "179c8e702d447d266cc32ac161968cc21ab631b82c953b2b351a45bb76778211"
+    }
+  },
+  "current": {
+    "catalogue": "assets/buildings/catalogue.json",
+    "catalogueSha256": "0bd2dd7728d97b59e7eef2c431d64740fb0956e8c719fda0ff02b2828d15c449",
+    "inputs": [
+      {
+        "file": "packages/building-catalog/designs.js",
+        "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
+      },
+      {
+        "file": "packages/building-catalog/index.js",
+        "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
+      },
+      {
+        "file": "packages/building-catalog/three.js",
+        "sha256": "b02c43b563af2aec2189f839438b49d63e9449b4960829589f4bebb7150f276e"
+      },
+      {
+        "file": "tools/build-building-assets.mjs",
+        "sha256": "dcdb070b835f8279ec550b7485fc8ae629c6b478fff9f185a435a0b3b1e1187d"
+      }
+    ],
+    "note": "The renderer differs from the reviewed commit in source, not in output (reviewed.geometry)."
+  },
   "atlas": {
     "file": "assets/buildings/painted-materials-v2.png",
     "width": 1254,
     "height": 1254,
     "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
-  },
-  "inputs": [
-    {
-      "file": "packages/building-catalog/designs.js",
-      "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
-    },
-    {
-      "file": "packages/building-catalog/index.js",
-      "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
-    },
-    {
-      "file": "packages/building-catalog/three.js",
-      "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
-    },
-    {
-      "file": "tools/build-building-assets.mjs",
-      "sha256": "dcdb070b835f8279ec550b7485fc8ae629c6b478fff9f185a435a0b3b1e1187d"
-    }
-  ]
+  }
 });
 export const ORIGINAL_BUILDING_ASSETS = freeze([
   {

@@ -1,0 +1,24 @@
+open: a row of eight neighbours and one far copy: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+setOptions: level-0 cutaway: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+setOptions: level-1 cutaway: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+move n0 away (the cluster drops to seven): 9 copies, 0 CopyBatches (sizes -), 0 problems
+move n0 back (eight again): 9 copies, 8 CopyBatches (sizes 8), 0 problems
+delete n3 (the row splits three and four): 8 copies, 0 CopyBatches (sizes -), 0 problems
+undo the delete (n3 back, same id and place): 9 copies, 8 CopyBatches (sizes 8), 0 problems
+turn n5 a quarter: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+turn n5 a half: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+two edits, the first not awaited: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+setOptions: exterior: 9 copies, 8 CopyBatches (sizes 8), 0 problems
+while the Gross library loads: 9 copies, 0 CopyBatches, 0 problems
+a view change while it is still pending: 9 copies, 0 CopyBatches (sizes -), 0 problems
+the library loaded (and the cutaway set while it was pending): 10 copies, 8 CopyBatches (sizes 8), 0 problems
+setOptions: exterior again: 10 copies, 8 CopyBatches (sizes 8), 0 problems
+setView override: cutaway level 0 with furniture: 10 copies, 8 CopyBatches (sizes 8), 0 problems
+an edit under the override: 10 copies, 8 CopyBatches (sizes 8), 0 problems
+override cleared, exterior: 10 copies, 8 CopyBatches (sizes 8), 0 problems
+control a batched copy also draws itself: FAILS the audit (n0 node 1 (building batch, batch mesh): drawn 1 by itself + 1 by a CopyBatch, the template 1)
+control a CopyBatch matrix moved by 1 m: FAILS the audit (n2 node 1: CopyBatch matrix off by 1)
+control a CopyBatch left in the scene: FAILS the audit (an unlisted CopyBatch is in the scene)
+control restored (must pass): passes
+every step passed the audit
+EXIT 0

@@ -1,0 +1,109 @@
+{
+ "script": "instancing-edits.mjs",
+ "steps": [
+  {
+   "step": "initial: 4 copies + 1 single",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "rotate one copy",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "remove three copies: one left, not instanced",
+   "instancedSets": 0,
+   "liveInstancedMeshesInScene": 0,
+   "orphanInstancedMeshes": 0,
+   "triangles": 52990,
+   "referenceTriangles": 52990,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "undo: four copies again",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "undo: rotation undone",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "redo: rotated",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "cutaway view",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 28224,
+   "referenceTriangles": 28224,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "back to all levels",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "overlapping updates (stale first)",
+   "instancedSets": 0,
+   "liveInstancedMeshesInScene": 0,
+   "orphanInstancedMeshes": 0,
+   "triangles": 52990,
+   "referenceTriangles": 52990,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "step": "overlapping updates, view and document both change",
+   "instancedSets": 8,
+   "liveInstancedMeshesInScene": 8,
+   "orphanInstancedMeshes": 0,
+   "triangles": 183868,
+   "referenceTriangles": 183868,
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "instancedMeshesCreated": 64,
+ "instancedMeshDisposeCalls": 64,
+ "leftInScene": 0,
+ "allOk": true
+}

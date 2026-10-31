@@ -1,0 +1,14 @@
+# Round 1's door control (docs/reviews/evidence/hostile-review-0.8-round-1/answer/control-doors-unbaked.json).
+# Built by copying 0ba89e0's dist/ and applying this to dist/app/prefab-batches.js
+# (the source file was apps/editor/prefab-batches.js; it is now packages/prefab-core/display-batches.js).
+# Door pivots stay unbaked: each is cloned whole and drawn like glass, one mesh per source pivot.
+--- a/dist/app/prefab-batches.js (0ba89e0)
++++ b/dist/app/prefab-batches.js (door control)
+@@ -125,6 +125,7 @@
+   const pieces=[],glass=[],root=new T.Group();root.name=source.root.name;let order=0;
+   for(const top of tops){
+     const k=key(top),visible=()=>top.visible;
++    if(!top.isMesh){const copy=top.clone(true);copy.visible=top.visible;glass.push({top,mesh:copy});continue;} // CONTROL: door pivots stay unbaked
+     top.traverse(mesh=>{
+       if(!mesh.isMesh)return;
+       if(mesh.material.transparent){if(mesh!==top)throw Error('Transparent door parts are not batched.');const copy=mesh.clone();copy.visible=top.visible;glass.push({top,mesh:copy});return;}

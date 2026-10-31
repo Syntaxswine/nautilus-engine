@@ -1,0 +1,1223 @@
+{
+ "note": "The editor asset layers' draws as their frames draw them (culled by the view, the sun and every lamp face), per rig, benchmark map and view; tools/bench-asset-rendering.mjs --counts-only --expect checks them, --write-culled re-pins this rig's.",
+ "rigs": [
+  {
+   "rig": {
+    "canvas": [
+     1056,
+     916
+    ],
+    "multiDraw": true,
+    "maxTextures": 16,
+    "maxCombinedTextures": 32,
+    "maxVertexTextures": 16
+   },
+   "browser": "gpu 156.0.4314.56",
+   "maps": {
+    "l1-32x-largest-lamps": {
+     "overview": {
+      "main": 400,
+      "shadow": 580,
+      "triangles": 8326160
+     },
+     "close": {
+      "main": 64,
+      "shadow": 309,
+      "triangles": 3374408
+     },
+     "far": {
+      "main": 64,
+      "shadow": 282,
+      "triangles": 3468400
+     },
+     "cutaway": {
+      "main": 14,
+      "shadow": 177,
+      "triangles": 1181736
+     }
+    },
+    "l1-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4-32-gross-lamps": {
+     "overview": {
+      "main": 820,
+      "shadow": 1768,
+      "triangles": 2753912
+     },
+     "close": {
+      "main": 125,
+      "shadow": 1117,
+      "triangles": 1346351
+     },
+     "far": {
+      "main": 240,
+      "shadow": 1151,
+      "triangles": 1511941
+     },
+     "cutaway": {
+      "main": 752,
+      "shadow": 1578,
+      "triangles": 1243371
+     }
+    },
+    "l4-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4n-32-gross-12-night-lamps": {
+     "overview": {
+      "main": 1230,
+      "shadow": 2624,
+      "triangles": 4270457
+     },
+     "close": {
+      "main": 250,
+      "shadow": 1249,
+      "triangles": 1728550
+     },
+     "far": {
+      "main": 240,
+      "shadow": 1677,
+      "triangles": 2174501
+     },
+     "cutaway": {
+      "main": 1128,
+      "shadow": 2326,
+      "triangles": 1916054
+     }
+    },
+    "l4n-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4s-32-gross-6-spotlights": {
+     "overview": {
+      "main": 820,
+      "shadow": 550,
+      "triangles": 1401713
+     },
+     "close": {
+      "main": 125,
+      "shadow": 389,
+      "triangles": 535157
+     },
+     "far": {
+      "main": 240,
+      "shadow": 386,
+      "triangles": 667157
+     },
+     "cutaway": {
+      "main": 752,
+      "shadow": 502,
+      "triangles": 639538
+     }
+    },
+    "l4s-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4x-32-gross-18-fires": {
+     "overview": {
+      "main": 2050,
+      "shadow": 4484,
+      "triangles": 7061505
+     },
+     "close": {
+      "main": 375,
+      "shadow": 2358,
+      "triangles": 3029896
+     },
+     "far": {
+      "main": 480,
+      "shadow": 2928,
+      "triangles": 3759415
+     },
+     "cutaway": {
+      "main": 1880,
+      "shadow": 3996,
+      "triangles": 3185800
+     }
+    },
+    "l4x-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l5b-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l5b-walls-free-angle-lamps": {
+     "overview": {
+      "main": 6,
+      "shadow": 111,
+      "triangles": 12157236
+     },
+     "close": {
+      "main": 3,
+      "shadow": 57,
+      "triangles": 6234480
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "cutaway": {
+      "main": 2,
+      "shadow": 37,
+      "triangles": 1216332
+     }
+    },
+    "l6-roofs-144-lamps": {
+     "overview": {
+      "main": 10,
+      "shadow": 185,
+      "triangles": 97344
+     },
+     "close": {
+      "main": 5,
+      "shadow": 95,
+      "triangles": 49920
+     },
+     "far": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l7-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l7-mixed-13-gross-19-largest-lamps": {
+     "overview": {
+      "main": 870,
+      "shadow": 1622,
+      "triangles": 4322550
+     },
+     "close": {
+      "main": 125,
+      "shadow": 899,
+      "triangles": 2198784
+     },
+     "far": {
+      "main": 99,
+      "shadow": 699,
+      "triangles": 1724150
+     },
+     "cutaway": {
+      "main": 542,
+      "shadow": 1127,
+      "triangles": 1081720
+     }
+    },
+    "l8-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l8-gross-rows-of-8-lamps": {
+     "overview": {
+      "main": 254,
+      "shadow": 879,
+      "triangles": 2611157
+     },
+     "close": {
+      "main": 90,
+      "shadow": 589,
+      "triangles": 1215341
+     },
+     "far": {
+      "main": 23,
+      "shadow": 349,
+      "triangles": 1045349
+     },
+     "cutaway": {
+      "main": 260,
+      "shadow": 881,
+      "triangles": 1347095
+     }
+    },
+    "w0-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "w1-32x-largest": {
+     "overview": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2765724
+     },
+     "close": {
+      "main": 64,
+      "shadow": 76,
+      "triangles": 1375576
+     },
+     "far": {
+      "main": 64,
+      "shadow": 94,
+      "triangles": 1687526
+     },
+     "cutaway": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397196
+     }
+    },
+    "w2-32-distinct-most-meshes": {
+     "overview": {
+      "main": 414,
+      "shadow": 342,
+      "triangles": 1224724
+     },
+     "close": {
+      "main": 120,
+      "shadow": 233,
+      "triangles": 696000
+     },
+     "far": {
+      "main": 78,
+      "shadow": 290,
+      "triangles": 682020
+     },
+     "cutaway": {
+      "main": 195,
+      "shadow": 196,
+      "triangles": 260200
+     }
+    },
+    "w3-32-distinct-most-triangles": {
+     "overview": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     },
+     "close": {
+      "main": 122,
+      "shadow": 222,
+      "triangles": 666398
+     },
+     "far": {
+      "main": 85,
+      "shadow": 298,
+      "triangles": 711718
+     },
+     "cutaway": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    },
+    "w4-32-gross": {
+     "overview": {
+      "main": 410,
+      "shadow": 410,
+      "triangles": 830576
+     },
+     "close": {
+      "main": 125,
+      "shadow": 293,
+      "triangles": 429510
+     },
+     "far": {
+      "main": 120,
+      "shadow": 310,
+      "triangles": 449176
+     },
+     "cutaway": {
+      "main": 376,
+      "shadow": 377,
+      "triangles": 381086
+     }
+    },
+    "w5a-walls-axis": {
+     "overview": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "close": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "cutaway": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    },
+    "w5b-walls-free-angle": {
+     "overview": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "close": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "cutaway": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    },
+    "w6-roofs-144": {
+     "overview": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "close": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "far": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "w7-mixed-13-gross-19-largest": {
+     "overview": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     },
+     "close": {
+      "main": 125,
+      "shadow": 244,
+      "triangles": 645199
+     },
+     "far": {
+      "main": 99,
+      "shadow": 266,
+      "triangles": 615186
+     },
+     "cutaway": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    },
+    "w8-gross-rows-of-8": {
+     "overview": {
+      "main": 127,
+      "shadow": 140,
+      "triangles": 809812
+     },
+     "close": {
+      "main": 90,
+      "shadow": 114,
+      "triangles": 429339
+     },
+     "far": {
+      "main": 23,
+      "shadow": 85,
+      "triangles": 427482
+     },
+     "cutaway": {
+      "main": 130,
+      "shadow": 143,
+      "triangles": 422688
+     }
+    }
+   }
+  },
+  {
+   "rig": {
+    "canvas": [
+     1056,
+     916
+    ],
+    "multiDraw": true,
+    "maxTextures": 32,
+    "maxCombinedTextures": 64,
+    "maxVertexTextures": 32
+   },
+   "browser": "swiftshader 156.0.4314.56",
+   "maps": {
+    "l1-32x-largest-lamps": {
+     "overview": {
+      "main": 400,
+      "shadow": 580,
+      "triangles": 8326160
+     },
+     "close": {
+      "main": 64,
+      "shadow": 309,
+      "triangles": 3374408
+     },
+     "far": {
+      "main": 64,
+      "shadow": 282,
+      "triangles": 3468400
+     },
+     "cutaway": {
+      "main": 14,
+      "shadow": 177,
+      "triangles": 1181736
+     }
+    },
+    "l1-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4-32-gross-lamps": {
+     "overview": {
+      "main": 820,
+      "shadow": 1768,
+      "triangles": 2753912
+     },
+     "close": {
+      "main": 125,
+      "shadow": 1117,
+      "triangles": 1346351
+     },
+     "far": {
+      "main": 120,
+      "shadow": 1151,
+      "triangles": 1378843
+     },
+     "cutaway": {
+      "main": 752,
+      "shadow": 1578,
+      "triangles": 1243371
+     }
+    },
+    "l4-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4n-32-gross-12-night-lamps": {
+     "overview": {
+      "main": 1230,
+      "shadow": 2624,
+      "triangles": 4270457
+     },
+     "close": {
+      "main": 250,
+      "shadow": 1249,
+      "triangles": 1728550
+     },
+     "far": {
+      "main": 240,
+      "shadow": 1677,
+      "triangles": 2174501
+     },
+     "cutaway": {
+      "main": 1128,
+      "shadow": 2326,
+      "triangles": 1916054
+     }
+    },
+    "l4n-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4s-32-gross-6-spotlights": {
+     "overview": {
+      "main": 820,
+      "shadow": 550,
+      "triangles": 1401713
+     },
+     "close": {
+      "main": 125,
+      "shadow": 389,
+      "triangles": 535157
+     },
+     "far": {
+      "main": 120,
+      "shadow": 386,
+      "triangles": 534059
+     },
+     "cutaway": {
+      "main": 752,
+      "shadow": 502,
+      "triangles": 639538
+     }
+    },
+    "l4s-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l4x-32-gross-18-fires": {
+     "overview": {
+      "main": 2050,
+      "shadow": 4484,
+      "triangles": 7061505
+     },
+     "close": {
+      "main": 250,
+      "shadow": 2358,
+      "triangles": 2898328
+     },
+     "far": {
+      "main": 360,
+      "shadow": 2928,
+      "triangles": 3626317
+     },
+     "cutaway": {
+      "main": 1880,
+      "shadow": 3996,
+      "triangles": 3185800
+     }
+    },
+    "l4x-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l5b-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l5b-walls-free-angle-lamps": {
+     "overview": {
+      "main": 6,
+      "shadow": 111,
+      "triangles": 12157236
+     },
+     "close": {
+      "main": 3,
+      "shadow": 57,
+      "triangles": 6234480
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "cutaway": {
+      "main": 2,
+      "shadow": 37,
+      "triangles": 1216332
+     }
+    },
+    "l6-roofs-144-lamps": {
+     "overview": {
+      "main": 10,
+      "shadow": 185,
+      "triangles": 97344
+     },
+     "close": {
+      "main": 5,
+      "shadow": 95,
+      "triangles": 49920
+     },
+     "far": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l7-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l7-mixed-13-gross-19-largest-lamps": {
+     "overview": {
+      "main": 870,
+      "shadow": 1622,
+      "triangles": 4322550
+     },
+     "close": {
+      "main": 125,
+      "shadow": 899,
+      "triangles": 2198784
+     },
+     "far": {
+      "main": 99,
+      "shadow": 699,
+      "triangles": 1724150
+     },
+     "cutaway": {
+      "main": 542,
+      "shadow": 1127,
+      "triangles": 1081720
+     }
+    },
+    "l8-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "l8-gross-rows-of-8-lamps": {
+     "overview": {
+      "main": 254,
+      "shadow": 879,
+      "triangles": 2611157
+     },
+     "close": {
+      "main": 90,
+      "shadow": 589,
+      "triangles": 1215341
+     },
+     "far": {
+      "main": 23,
+      "shadow": 349,
+      "triangles": 1045349
+     },
+     "cutaway": {
+      "main": 260,
+      "shadow": 881,
+      "triangles": 1347095
+     }
+    },
+    "w0-blank": {
+     "overview": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "close": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "far": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "w1-32x-largest": {
+     "overview": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2765724
+     },
+     "close": {
+      "main": 64,
+      "shadow": 76,
+      "triangles": 1375576
+     },
+     "far": {
+      "main": 64,
+      "shadow": 94,
+      "triangles": 1687526
+     },
+     "cutaway": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397196
+     }
+    },
+    "w2-32-distinct-most-meshes": {
+     "overview": {
+      "main": 414,
+      "shadow": 342,
+      "triangles": 1224724
+     },
+     "close": {
+      "main": 120,
+      "shadow": 233,
+      "triangles": 696000
+     },
+     "far": {
+      "main": 78,
+      "shadow": 290,
+      "triangles": 682020
+     },
+     "cutaway": {
+      "main": 195,
+      "shadow": 196,
+      "triangles": 260200
+     }
+    },
+    "w3-32-distinct-most-triangles": {
+     "overview": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     },
+     "close": {
+      "main": 122,
+      "shadow": 222,
+      "triangles": 666398
+     },
+     "far": {
+      "main": 85,
+      "shadow": 298,
+      "triangles": 711718
+     },
+     "cutaway": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    },
+    "w4-32-gross": {
+     "overview": {
+      "main": 410,
+      "shadow": 410,
+      "triangles": 830576
+     },
+     "close": {
+      "main": 125,
+      "shadow": 293,
+      "triangles": 429510
+     },
+     "far": {
+      "main": 120,
+      "shadow": 310,
+      "triangles": 449176
+     },
+     "cutaway": {
+      "main": 376,
+      "shadow": 377,
+      "triangles": 381086
+     }
+    },
+    "w5a-walls-axis": {
+     "overview": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "close": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     },
+     "cutaway": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    },
+    "w5b-walls-free-angle": {
+     "overview": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "close": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "far": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     },
+     "cutaway": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    },
+    "w6-roofs-144": {
+     "overview": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "close": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "far": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     },
+     "cutaway": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "w7-mixed-13-gross-19-largest": {
+     "overview": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     },
+     "close": {
+      "main": 125,
+      "shadow": 244,
+      "triangles": 645199
+     },
+     "far": {
+      "main": 99,
+      "shadow": 266,
+      "triangles": 615186
+     },
+     "cutaway": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    },
+    "w8-gross-rows-of-8": {
+     "overview": {
+      "main": 127,
+      "shadow": 140,
+      "triangles": 809812
+     },
+     "close": {
+      "main": 90,
+      "shadow": 114,
+      "triangles": 429339
+     },
+     "far": {
+      "main": 23,
+      "shadow": 85,
+      "triangles": 427482
+     },
+     "cutaway": {
+      "main": 130,
+      "shadow": 143,
+      "triangles": 422688
+     }
+    }
+   }
+  }
+ ]
+}

@@ -153,8 +153,14 @@ await withArtReview('Combined engine editor acceptance',async({page,baseURL,out,
   await page.locator('#close-settings').click();await page.evaluate(()=>window.integrationDisconnect());
   const closed=await handoff();assert(!closed.connected,'The page still reports a host after it disconnected: '+JSON.stringify(closed));assert(closed.disabled,'Send is still enabled after the host disconnected: '+JSON.stringify(closed));
   await feedbacks('after the handoff');
-  const final=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return {buildings:window.editor3d.document.map.buildingPrefabs.instances.length,walls:window.editor3d.document.map.wallRuns.segments.length,roofs:window.editor3d.document.map.slopedRoofs.roofs.length,features:core.requiredMapFeatures(window.editor3d.document.map),diagnostics:window.editor3d.scene.diagnostics,memory:window.editor3d.scene.renderer.info.memory,drawCalls:window.editor3d.scene.renderer.info.render.calls};});
+  const final=await page.evaluate(async()=>{const core=await import('/packages/map-core/index.js');return {buildings:window.editor3d.document.map.buildingPrefabs.instances.length,walls:window.editor3d.document.map.wallRuns.segments.length,roofs:window.editor3d.document.map.slopedRoofs.roofs.length,features:core.requiredMapFeatures(window.editor3d.document.map),diagnostics:window.editor3d.scene.diagnostics,memory:window.editor3d.scene.renderer.info.memory,
+    // One whole frame at a fixed overview: shadow pass, main pass and composite. With
+    // autoReset on, info.render keeps only the last pass (the composite, 1 call).
+    drawCalls:(()=>{const scene=window.editor3d.scene,r=scene.renderer,canvas=r.domElement,shadows=r.shadowMap,render=shadows.render;let shadowPass=0;r.info.autoReset=false;r.info.reset();
+      shadows.render=function(...args){const before=r.info.render.calls,result=render.apply(this,args);shadowPass+=r.info.render.calls-before;return result;};
+      try{scene.draw({x:119.5,y:119.5,span:250,preset:'0'},canvas.clientWidth,canvas.clientHeight);return {frame:r.info.render.calls,shadowPass,view:'overview, centre 119.5/119.5, span 250 m'};}finally{shadows.render=render;r.info.autoReset=true;}})()};});
   assert(!final.diagnostics.length,'Final scene reports missing assets.');
+  assert(final.drawCalls.shadowPass>0&&final.drawCalls.frame>final.drawCalls.shadowPass+1,'The draw-call record must cover a whole frame, not only the composite pass.');
   assert(final.features.includes('nautilus-original-buildings-v1'),'Original feature is absent.');
   assert(final.features.includes('nautilus-sloped-roofs-v1')&&final.roofs===3,'Roof capability or saved geometry is absent.');
   const captures=fs.readdirSync(out).filter(n=>n.endsWith('.png')).map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(out,file))).digest('hex')}));

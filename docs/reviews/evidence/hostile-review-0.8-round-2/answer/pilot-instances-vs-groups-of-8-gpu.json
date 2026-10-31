@@ -1,0 +1,9544 @@
+{
+ "mode": "editor",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "logicalCpus": 16,
+  "loadavg": [
+   0,
+   0,
+   0
+  ]
+ },
+ "trees": {
+  "a": {
+   "dir": "<a>",
+   "head": "59e7b4e0266a9dc3943b5722ba21f3b840842299",
+   "status": "M docs/asset-rendering-benchmark.md\n?? docs/reviews/2026-10-30-hostile-review-0.8-round-2.md\n?? docs/reviews/evidence/hostile-review-0.8-round-2/"
+  },
+  "b": {
+   "dir": "<b>",
+   "head": "e21caf6 + patch-instance-groups.mjs 8 (pilot)",
+   "status": "extracted archive (git archive e21caf6 | tar -x, then the patch)"
+  }
+ },
+ "runs": 2,
+ "backends": [
+  "gpu"
+ ],
+ "maps": [
+  "w0-blank",
+  "w1-32x-largest",
+  "w4-32-gross"
+ ],
+ "framesPerBlock": 30,
+ "blocks": 4,
+ "opens": 1,
+ "samples": [
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w0-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1005.6000001430511
+    ],
+    "b": [
+     1163.6999998092651
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.7,
+        "min": 2.6,
+        "max": 5.2
+       },
+       "total": {
+        "n": 30,
+        "median": 7.4,
+        "min": 4.9,
+        "max": 12
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.15,
+        "min": 2.4,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 4.1,
+        "min": 3.4,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.05,
+        "min": 2.4,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.95,
+        "min": 3.2,
+        "max": 5.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.75,
+        "min": 2.2,
+        "max": 3.4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.5,
+        "min": 3,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.6,
+        "min": 2.5,
+        "max": 4.8
+       },
+       "total": {
+        "n": 30,
+        "median": 4.9,
+        "min": 3.8,
+        "max": 11
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.5,
+        "max": 5
+       },
+       "total": {
+        "n": 30,
+        "median": 4.25,
+        "min": 3.5,
+        "max": 6.1
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.4,
+        "min": 2.7,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 4.2,
+        "min": 3.7,
+        "max": 5.6
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.3,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.85,
+        "min": 3,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.7
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.4,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.4,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.4,
+        "max": 0.8
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.6,
+        "min": 1,
+        "max": 2.1
+       },
+       "total": {
+        "n": 30,
+        "median": 2.55,
+        "min": 2.1,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 1.1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.4,
+        "min": 2,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 0.9,
+        "max": 2.1
+       },
+       "total": {
+        "n": 30,
+        "median": 2.25,
+        "min": 2,
+        "max": 3.1
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.8
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2.1,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 2,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.45,
+        "min": 0.3,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.45,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.75,
+        "min": 2.1,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.2,
+        "max": 5.5
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.95,
+        "min": 2.3,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 3.2,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.2,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.55,
+        "min": 3.1,
+        "max": 4.6
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.85,
+        "min": 2.2,
+        "max": 3.7
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 3,
+        "max": 4.5
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.4,
+        "max": 3.8
+       },
+       "total": {
+        "n": 30,
+        "median": 4.1,
+        "min": 3.5,
+        "max": 5.6
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.5,
+        "max": 3.9
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.3,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.95,
+        "min": 2.3,
+        "max": 3.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.1,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.95,
+        "min": 2.2,
+        "max": 3.7
+       },
+       "total": {
+        "n": 30,
+        "median": 3.8,
+        "min": 3,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.45,
+        "min": 0.3,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.1,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.8
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1143.6000001430511
+    ],
+    "b": [
+     1339.2000000476837
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 6.7,
+        "min": 4.6,
+        "max": 13.5
+       },
+       "total": {
+        "n": 30,
+        "median": 7.75,
+        "min": 5.1,
+        "max": 17.6
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.75,
+        "min": 4.6,
+        "max": 8.5
+       },
+       "total": {
+        "n": 30,
+        "median": 6.15,
+        "min": 5,
+        "max": 8.8
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 6.35,
+        "min": 4.8,
+        "max": 7.9
+       },
+       "total": {
+        "n": 30,
+        "median": 6.8,
+        "min": 5.2,
+        "max": 8.5
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 6.8,
+        "min": 4.7,
+        "max": 8.1
+       },
+       "total": {
+        "n": 30,
+        "median": 7.3,
+        "min": 5.1,
+        "max": 8.5
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 7.05,
+        "min": 5,
+        "max": 11.4
+       },
+       "total": {
+        "n": 30,
+        "median": 7.35,
+        "min": 5.3,
+        "max": 11.9
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 6.55,
+        "min": 5.3,
+        "max": 8
+       },
+       "total": {
+        "n": 30,
+        "median": 7,
+        "min": 5.6,
+        "max": 8.6
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.85,
+        "min": 4.8,
+        "max": 7.5
+       },
+       "total": {
+        "n": 30,
+        "median": 6.25,
+        "min": 5.1,
+        "max": 7.8
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.8,
+        "min": 4.6,
+        "max": 6.8
+       },
+       "total": {
+        "n": 30,
+        "median": 6.1,
+        "min": 5,
+        "max": 7.5
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.4,
+        "max": 3.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.2,
+        "max": 5
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.15,
+        "min": 2.6,
+        "max": 4.4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.15,
+        "min": 3.5,
+        "max": 5.7
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.4,
+        "max": 4.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.95,
+        "min": 3.4,
+        "max": 5.6
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.4,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.95,
+        "min": 3.5,
+        "max": 4.7
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.5,
+        "max": 4.3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.6,
+        "min": 3.4,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.5,
+        "max": 3.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 2.9,
+        "max": 5.5
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.5,
+        "min": 2.6,
+        "max": 4.8
+       },
+       "total": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3.5,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.5,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.3,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.7,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.5,
+        "min": 3.2,
+        "max": 4.2
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.65,
+        "min": 2.1,
+        "max": 3.3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.6,
+        "min": 3.1,
+        "max": 5
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.9,
+        "max": 4
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 3,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 3,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.5,
+        "min": 2,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.4,
+        "min": 3,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 2.9,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.1,
+        "min": 2.9,
+        "max": 4.6
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 2.3
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 0.9,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.25,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 1,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.25,
+        "min": 1,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 3
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.5,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.4,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.85,
+        "min": 2.3,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.1,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.5,
+        "min": 2.8,
+        "max": 4.3
+       },
+       "total": {
+        "n": 30,
+        "median": 4.6,
+        "min": 3.6,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.2,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.1,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.15,
+        "min": 2.3,
+        "max": 3.8
+       },
+       "total": {
+        "n": 30,
+        "median": 4.05,
+        "min": 3.1,
+        "max": 5.1
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.4,
+        "min": 2.6,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 4.25,
+        "min": 3.3,
+        "max": 5.1
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.6,
+        "min": 2.7,
+        "max": 4.3
+       },
+       "total": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3.7,
+        "max": 5.8
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.05,
+        "min": 2.5,
+        "max": 3.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.3,
+        "max": 5
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.5,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.2,
+        "max": 0.5
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.5,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.2,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.6,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.6,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.5
+       },
+       "total": {
+        "n": 30,
+        "median": 0.8,
+        "min": 0.7,
+        "max": 1.6
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.6
+       },
+       "total": {
+        "n": 30,
+        "median": 0.8,
+        "min": 0.7,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.5
+       },
+       "total": {
+        "n": 30,
+        "median": 0.9,
+        "min": 0.7,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.5
+       },
+       "total": {
+        "n": 30,
+        "median": 0.9,
+        "min": 0.7,
+        "max": 1.4
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1453.0999999046326
+    ],
+    "b": [
+     1596.8000001907349
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.5,
+        "min": 4.7,
+        "max": 7.5
+       },
+       "total": {
+        "n": 30,
+        "median": 8,
+        "min": 5.7,
+        "max": 14.6
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.1,
+        "min": 3.1,
+        "max": 5.6
+       },
+       "total": {
+        "n": 30,
+        "median": 4.95,
+        "min": 3.9,
+        "max": 6.4
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.2,
+        "min": 3.6,
+        "max": 7.1
+       },
+       "total": {
+        "n": 30,
+        "median": 6,
+        "min": 4.3,
+        "max": 7.9
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.7,
+        "min": 3.4,
+        "max": 6.1
+       },
+       "total": {
+        "n": 30,
+        "median": 5.5,
+        "min": 4.3,
+        "max": 6.7
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3.2,
+        "max": 6
+       },
+       "total": {
+        "n": 30,
+        "median": 5.25,
+        "min": 4.1,
+        "max": 6.7
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.55,
+        "min": 3.3,
+        "max": 5.4
+       },
+       "total": {
+        "n": 30,
+        "median": 5.4,
+        "min": 4.1,
+        "max": 6.8
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.8,
+        "min": 3.1,
+        "max": 6
+       },
+       "total": {
+        "n": 30,
+        "median": 4.8,
+        "min": 3.9,
+        "max": 6.7
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.2,
+        "min": 3.4,
+        "max": 5.1
+       },
+       "total": {
+        "n": 30,
+        "median": 5.15,
+        "min": 4.2,
+        "max": 5.8
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.8,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.7,
+        "max": 2.6
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 0.9,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.7,
+        "max": 2.6
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 0.9,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.7,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 3.1
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 1,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 1.9,
+        "min": 1.7,
+        "max": 2.1
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 0.9,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 0.9,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 1.95,
+        "min": 1.7,
+        "max": 2.6
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.8,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.1,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.85,
+        "min": 3.1,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.8,
+        "max": 2.9
+       },
+       "total": {
+        "n": 30,
+        "median": 3.35,
+        "min": 3,
+        "max": 3.9
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.9,
+        "max": 4.5
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.8,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.7,
+        "max": 5.1
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.5,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.6,
+        "min": 2.9,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.8,
+        "max": 2.9
+       },
+       "total": {
+        "n": 30,
+        "median": 3.4,
+        "min": 2.9,
+        "max": 4.5
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.8,
+        "max": 3.3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.25,
+        "min": 2.8,
+        "max": 4.1
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.6,
+        "min": 1.9,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.6,
+        "min": 3,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.4,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.05,
+        "min": 0.9,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 2,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.8,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3.6
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.8,
+        "max": 1.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 0.9,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 2,
+        "max": 3
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.8,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.9,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.3,
+        "min": 4,
+        "max": 7.1
+       },
+       "total": {
+        "n": 30,
+        "median": 6.5,
+        "min": 4.9,
+        "max": 10.2
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.4,
+        "min": 3.4,
+        "max": 5.4
+       },
+       "total": {
+        "n": 30,
+        "median": 5.55,
+        "min": 4.5,
+        "max": 6.4
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.05,
+        "min": 3.6,
+        "max": 6.4
+       },
+       "total": {
+        "n": 30,
+        "median": 5.9,
+        "min": 4.6,
+        "max": 7.4
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.85,
+        "min": 3.7,
+        "max": 6.5
+       },
+       "total": {
+        "n": 30,
+        "median": 5.95,
+        "min": 4.6,
+        "max": 7.5
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.65,
+        "min": 3.6,
+        "max": 6.9
+       },
+       "total": {
+        "n": 30,
+        "median": 6.45,
+        "min": 4.4,
+        "max": 8.8
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.7,
+        "min": 3.3,
+        "max": 6.2
+       },
+       "total": {
+        "n": 30,
+        "median": 5.6,
+        "min": 4.1,
+        "max": 7
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.6,
+        "min": 3.3,
+        "max": 9.2
+       },
+       "total": {
+        "n": 30,
+        "median": 5.5,
+        "min": 4.2,
+        "max": 10.3
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.25,
+        "min": 3.4,
+        "max": 6.1
+       },
+       "total": {
+        "n": 30,
+        "median": 5.15,
+        "min": 4.2,
+        "max": 7
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.35,
+        "min": 1,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.6,
+        "min": 1.2,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.35,
+        "min": 2,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 2,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 1,
+        "max": 2.2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w0-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1120.4000000953674
+    ],
+    "b": [
+     995
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.7,
+        "min": 2.6,
+        "max": 5.4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3.4,
+        "max": 6.1
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.4,
+        "max": 6.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.85,
+        "min": 3.2,
+        "max": 7.3
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.25,
+        "min": 2.5,
+        "max": 4.3
+       },
+       "total": {
+        "n": 30,
+        "median": 4.15,
+        "min": 3.3,
+        "max": 5.1
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.3,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.1,
+        "max": 5
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.7,
+        "min": 2.6,
+        "max": 5.2
+       },
+       "total": {
+        "n": 30,
+        "median": 7.8,
+        "min": 3.2,
+        "max": 20
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.05,
+        "min": 2.3,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.2,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.4,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.2,
+        "max": 5
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.4,
+        "max": 3.9
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 3.1,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.45,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.4,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.4,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.4,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 4.1
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.15,
+        "min": 1.8,
+        "max": 2.6
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 2,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 0.9,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.8,
+        "max": 3
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.45,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.25,
+        "min": 2,
+        "max": 3.1
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.4,
+        "min": 1,
+        "max": 2.1
+       },
+       "total": {
+        "n": 30,
+        "median": 2.25,
+        "min": 1.8,
+        "max": 3
+       },
+       "counts": {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.7,
+        "min": 2.2,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.8,
+        "min": 3.1,
+        "max": 5.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.35,
+        "min": 2.4,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.25,
+        "min": 3.4,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.1,
+        "min": 2.3,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.1,
+        "max": 4.7
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.3,
+        "max": 3.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.1,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.7,
+        "min": 2.2,
+        "max": 3.7
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.2,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.25,
+        "min": 2.2,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.15,
+        "min": 3.1,
+        "max": 4.8
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.7,
+        "min": 2.2,
+        "max": 3.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 3.1,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.2,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.6,
+        "min": 3.1,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.4,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.1,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.5
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.5,
+        "min": 0.3,
+        "max": 1.1
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.15,
+        "min": 0.1,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.4,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0,
+        "max": 0.3
+       },
+       "total": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.6
+       },
+       "counts": {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       },
+       "programs": 19,
+       "geometries": 100,
+       "textures": 32
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    },
+    "a": {
+     "calls": 419,
+     "shadowCalls": 303,
+     "triangles": 864890,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1323.3999998569489
+    ],
+    "b": [
+     1377.5999999046326
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 6.95,
+        "min": 4.7,
+        "max": 8.9
+       },
+       "total": {
+        "n": 30,
+        "median": 7.5,
+        "min": 5.3,
+        "max": 9.4
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.8,
+        "min": 4.8,
+        "max": 7
+       },
+       "total": {
+        "n": 30,
+        "median": 6.3,
+        "min": 5.2,
+        "max": 7.5
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.95,
+        "min": 4.9,
+        "max": 8.6
+       },
+       "total": {
+        "n": 30,
+        "median": 6.4,
+        "min": 5.3,
+        "max": 9
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.3,
+        "min": 4.5,
+        "max": 6.6
+       },
+       "total": {
+        "n": 30,
+        "median": 5.75,
+        "min": 4.9,
+        "max": 7
+       },
+       "counts": {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 7.05,
+        "min": 5.2,
+        "max": 13.7
+       },
+       "total": {
+        "n": 30,
+        "median": 8.55,
+        "min": 6.3,
+        "max": 17.2
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.75,
+        "min": 4.8,
+        "max": 7.3
+       },
+       "total": {
+        "n": 30,
+        "median": 6.1,
+        "min": 5.3,
+        "max": 8
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 7.2,
+        "min": 5.5,
+        "max": 8.7
+       },
+       "total": {
+        "n": 30,
+        "median": 7.55,
+        "min": 6,
+        "max": 9.2
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.4,
+        "min": 4.7,
+        "max": 6.4
+       },
+       "total": {
+        "n": 30,
+        "median": 5.9,
+        "min": 5.1,
+        "max": 7
+       },
+       "counts": {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       },
+       "programs": 21,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.4,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.4,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.5,
+        "max": 4.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.85,
+        "min": 3.5,
+        "max": 5.6
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.5,
+        "max": 4.9
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.5,
+        "max": 6.1
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2.5,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.7,
+        "max": 5
+       },
+       "counts": {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.6,
+        "max": 4.4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.2,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.65,
+        "min": 2.6,
+        "max": 4.7
+       },
+       "total": {
+        "n": 30,
+        "median": 4.4,
+        "min": 3.4,
+        "max": 5.8
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.85,
+        "min": 2.4,
+        "max": 3.3
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.2,
+        "max": 5
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.5,
+        "max": 4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.4,
+        "max": 5.3
+       },
+       "counts": {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.7,
+        "max": 3.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.4,
+        "min": 2.9,
+        "max": 5.5
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.45,
+        "min": 2,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.4,
+        "min": 3,
+        "max": 4.4
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.25,
+        "min": 1.9,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 3,
+        "max": 4.6
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.8,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.1,
+        "min": 2.7,
+        "max": 3.9
+       },
+       "counts": {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.15,
+        "min": 1.9,
+        "max": 4.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.3,
+        "min": 3,
+        "max": 4.9
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.55,
+        "min": 1.8,
+        "max": 3.3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.55,
+        "min": 2.9,
+        "max": 4.3
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.15,
+        "min": 2.7,
+        "max": 4
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.9,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.1,
+        "min": 2.6,
+        "max": 4
+       },
+       "counts": {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 2.6
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.05,
+        "min": 1.8,
+        "max": 3.1
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.5,
+        "min": 1,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.5,
+        "min": 2,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "counts": {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 2.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.35,
+        "min": 1.1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 3.7
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.35,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.4,
+        "min": 1.9,
+        "max": 3.7
+       },
+       "counts": {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.05,
+        "min": 2.3,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.2,
+        "max": 6
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.3,
+        "max": 4.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.9,
+        "min": 3.2,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.45,
+        "min": 2.5,
+        "max": 4.2
+       },
+       "total": {
+        "n": 30,
+        "median": 4.45,
+        "min": 3.5,
+        "max": 5.2
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.2,
+        "max": 3.8
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.1,
+        "max": 5
+       },
+       "counts": {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3,
+        "min": 2.4,
+        "max": 3.7
+       },
+       "total": {
+        "n": 30,
+        "median": 4,
+        "min": 3.4,
+        "max": 5.1
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.45,
+        "min": 2.7,
+        "max": 4.5
+       },
+       "total": {
+        "n": 30,
+        "median": 4.25,
+        "min": 3.6,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.4,
+        "max": 4.4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.2,
+        "min": 3.3,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.9,
+        "min": 2.4,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.7,
+        "min": 3.3,
+        "max": 4.5
+       },
+       "counts": {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.2,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.5,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.2,
+        "min": 0.2,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.6,
+        "min": 0.5,
+        "max": 0.9
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.2,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.65,
+        "min": 0.6,
+        "max": 1.2
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.3,
+        "min": 0.2,
+        "max": 0.4
+       },
+       "total": {
+        "n": 30,
+        "median": 0.7,
+        "min": 0.6,
+        "max": 1
+       },
+       "counts": {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.2,
+        "max": 0.6
+       },
+       "total": {
+        "n": 30,
+        "median": 0.9,
+        "min": 0.7,
+        "max": 1.3
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.3,
+        "max": 0.5
+       },
+       "total": {
+        "n": 30,
+        "median": 0.9,
+        "min": 0.7,
+        "max": 1.6
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.2,
+        "max": 0.6
+       },
+       "total": {
+        "n": 30,
+        "median": 0.9,
+        "min": 0.7,
+        "max": 1.5
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 0.4,
+        "min": 0.2,
+        "max": 0.7
+       },
+       "total": {
+        "n": 30,
+        "median": 0.85,
+        "min": 0.7,
+        "max": 1.5
+       },
+       "counts": {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       },
+       "programs": 22,
+       "geometries": 111,
+       "textures": 33
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  },
+  {
+   "run": 1,
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [
+     1595.2999999523163
+    ],
+    "b": [
+     1500
+    ]
+   },
+   "views": {
+    "overview": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.35,
+        "min": 3.3,
+        "max": 6.1
+       },
+       "total": {
+        "n": 30,
+        "median": 5.65,
+        "min": 4.2,
+        "max": 6.9
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.35,
+        "min": 3.5,
+        "max": 9.2
+       },
+       "total": {
+        "n": 30,
+        "median": 5.2,
+        "min": 4.4,
+        "max": 10.2
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.75,
+        "min": 3.4,
+        "max": 6.2
+       },
+       "total": {
+        "n": 30,
+        "median": 5.65,
+        "min": 4.5,
+        "max": 7.1
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3,
+        "max": 5.8
+       },
+       "total": {
+        "n": 30,
+        "median": 5.2,
+        "min": 3.8,
+        "max": 6.8
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.95,
+        "min": 3.5,
+        "max": 6.9
+       },
+       "total": {
+        "n": 30,
+        "median": 9.2,
+        "min": 5.8,
+        "max": 14.4
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.7,
+        "min": 3.8,
+        "max": 6.7
+       },
+       "total": {
+        "n": 30,
+        "median": 5.6,
+        "min": 4.6,
+        "max": 7.4
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.1,
+        "min": 3.1,
+        "max": 5.2
+       },
+       "total": {
+        "n": 30,
+        "median": 5,
+        "min": 4,
+        "max": 6
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.1,
+        "min": 3.2,
+        "max": 5.4
+       },
+       "total": {
+        "n": 30,
+        "median": 4.95,
+        "min": 4.1,
+        "max": 6.3
+       },
+       "counts": {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "overview:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.8,
+        "max": 1.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.7,
+        "max": 2.3
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.8,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.5,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.9,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.05,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 1.9,
+        "min": 1.7,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 0.9,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.05,
+        "min": 1.7,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.5,
+        "min": 1.1,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.6,
+        "min": 1,
+        "max": 1.8
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.5,
+        "min": 0.9,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.7,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.4,
+        "min": 1.8,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.8,
+        "max": 3.9
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.4,
+        "min": 1.8,
+        "max": 3.1
+       },
+       "total": {
+        "n": 30,
+        "median": 3.35,
+        "min": 2.9,
+        "max": 4
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.3,
+        "min": 1.7,
+        "max": 3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.8,
+        "max": 4
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.45,
+        "min": 2,
+        "max": 3.6
+       },
+       "total": {
+        "n": 30,
+        "median": 3.4,
+        "min": 3,
+        "max": 5.4
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 2.8
+       },
+       "total": {
+        "n": 30,
+        "median": 3.2,
+        "min": 2.8,
+        "max": 4
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.35,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "total": {
+        "n": 30,
+        "median": 3.3,
+        "min": 2.8,
+        "max": 4.2
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.8,
+        "min": 2,
+        "max": 3.5
+       },
+       "total": {
+        "n": 30,
+        "median": 3.75,
+        "min": 3,
+        "max": 5.8
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 2.95,
+        "min": 2,
+        "max": 3.4
+       },
+       "total": {
+        "n": 30,
+        "median": 3.8,
+        "min": 2.9,
+        "max": 4.5
+       },
+       "counts": {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "close:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.8,
+        "max": 1.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.8,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.8,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.8,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2,
+        "min": 1.8,
+        "max": 2.8
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.8,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 3.6
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.9,
+        "max": 1.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 2.7
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1,
+        "min": 0.9,
+        "max": 1.4
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.9,
+        "max": 3.3
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.1,
+        "min": 0.8,
+        "max": 1.6
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 1.9,
+        "max": 3.8
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.15,
+        "min": 0.8,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.2,
+        "min": 2,
+        "max": 3.6
+       },
+       "counts": {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       },
+       "programs": 23,
+       "geometries": 265,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.95,
+        "min": 3.4,
+        "max": 6.4
+       },
+       "total": {
+        "n": 30,
+        "median": 5.9,
+        "min": 4.2,
+        "max": 7.5
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.7,
+        "min": 3.4,
+        "max": 8.5
+       },
+       "total": {
+        "n": 30,
+        "median": 5.9,
+        "min": 4,
+        "max": 9.2
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.35,
+        "min": 3.7,
+        "max": 6.7
+       },
+       "total": {
+        "n": 30,
+        "median": 6.1,
+        "min": 4.7,
+        "max": 8.7
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.5,
+        "min": 3.2,
+        "max": 7.3
+       },
+       "total": {
+        "n": 30,
+        "median": 5.6,
+        "min": 4,
+        "max": 8
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.85,
+        "min": 3.5,
+        "max": 7.5
+       },
+       "total": {
+        "n": 30,
+        "median": 6.25,
+        "min": 4.7,
+        "max": 8.6
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 5.45,
+        "min": 4.1,
+        "max": 8.7
+       },
+       "total": {
+        "n": 30,
+        "median": 6.3,
+        "min": 4.8,
+        "max": 9.4
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.7,
+        "min": 3.5,
+        "max": 6.3
+       },
+       "total": {
+        "n": 30,
+        "median": 5.7,
+        "min": 4.4,
+        "max": 7.6
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 4.15,
+        "min": 3.4,
+        "max": 5.3
+       },
+       "total": {
+        "n": 30,
+        "median": 5.15,
+        "min": 4.4,
+        "max": 6
+       },
+       "counts": {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    },
+    "cutaway:assets": {
+     "a": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.6,
+        "min": 1.1,
+        "max": 2.1
+       },
+       "total": {
+        "n": 30,
+        "median": 2.5,
+        "min": 2.2,
+        "max": 3
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.6,
+        "min": 1,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.5,
+        "min": 2.1,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.35,
+        "min": 1,
+        "max": 2.2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.4,
+        "min": 2.2,
+        "max": 3
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 1.9
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.7,
+        "max": 2.9
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ],
+     "b": [
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.35,
+        "min": 1,
+        "max": 1.7
+       },
+       "total": {
+        "n": 30,
+        "median": 2.3,
+        "min": 2,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.55,
+        "min": 1.1,
+        "max": 2
+       },
+       "total": {
+        "n": 30,
+        "median": 2.5,
+        "min": 2.1,
+        "max": 3.1
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.2,
+        "min": 1,
+        "max": 1.5
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 2.5
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      },
+      {
+       "canvas": [
+        1056,
+        916
+       ],
+       "pixelRatio": 1,
+       "cpu": {
+        "n": 30,
+        "median": 1.3,
+        "min": 1,
+        "max": 2.3
+       },
+       "total": {
+        "n": 30,
+        "median": 2.1,
+        "min": 1.8,
+        "max": 3.2
+       },
+       "counts": {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       },
+       "programs": 27,
+       "geometries": 294,
+       "textures": 38
+      }
+     ]
+    }
+   },
+   "blankAtClose": {
+    "b": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    },
+    "a": {
+     "calls": 367,
+     "shadowCalls": 224,
+     "triangles": 582182,
+     "passes": 2
+    }
+   },
+   "isolation": {
+    "overview": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "close": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    },
+    "cutaway": {
+     "none": {
+      "a": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      },
+      "b": {
+       "calls": 1,
+       "shadowCalls": 0,
+       "triangles": 2,
+       "passes": 2
+      }
+     }
+    }
+   }
+  }
+ ],
+ "browsers": [
+  {
+   "backend": "gpu",
+   "version": "156.0.4314.56",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  }
+ ],
+ "served_a": {
+  "files": 341,
+  "digest": "915457df88835c46328423ae08eed7107d9659e7689c1e871c4399e86f9d1032"
+ },
+ "served_b": {
+  "files": 341,
+  "digest": "b259a3824d0f35bb0f3a1f97f553a2542e7009d9819f86221c1ea05bd74b84c5"
+ },
+ "summary": [
+  {
+   "backend": "gpu",
+   "map": "w0-blank",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 4.012500017881393,
+      "b": 4.087499976158142
+     },
+     "cpuMs": {
+      "a": 3.112499952316284,
+      "b": 3.2125000655651093
+     },
+     "speedup": {
+      "median": 0.982660484233683,
+      "min": 0.9526627377541161,
+      "max": 1.01265823071325
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "overview:assets": {
+     "totalMs": {
+      "a": 0.5,
+      "b": 0.5
+     },
+     "cpuMs": {
+      "a": 0.20000004768371582,
+      "b": 0.20000004768371582
+     },
+     "speedup": {
+      "median": 1,
+      "min": 1,
+      "max": 1
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 2.2749999165534973,
+      "b": 2.225000023841858
+     },
+     "cpuMs": {
+      "a": 1.2999999523162842,
+      "b": 1.3250000178813934
+     },
+     "speedup": {
+      "median": 1.0229797488347017,
+      "min": 0.9777777459886339,
+      "max": 1.0681817516807697
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 419,
+        "shadowCalls": 303,
+        "triangles": 864890,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "close:assets": {
+     "totalMs": {
+      "a": 0.4750000238418579,
+      "b": 0.48750001192092896
+     },
+     "cpuMs": {
+      "a": 0.20000001788139343,
+      "b": 0.20000001788139343
+     },
+     "speedup": {
+      "median": 0.9763158107398303,
+      "min": 0.9000000953674316,
+      "max": 1.052631526112229
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 3.8124999701976776,
+      "b": 3.837500035762787
+     },
+     "cpuMs": {
+      "a": 2.912499964237213,
+      "b": 2.9125000536441803
+     },
+     "speedup": {
+      "median": 0.9950089030020699,
+      "min": 0.9430379693352666,
+      "max": 1.0469798366688732
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1121,
+        "shadowCalls": 554,
+        "triangles": 2541974,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway:assets": {
+     "totalMs": {
+      "a": 0.40000009536743164,
+      "b": 0.40000009536743164
+     },
+     "cpuMs": {
+      "a": 0.19999995827674866,
+      "b": 0.1999998390674591
+     },
+     "speedup": {
+      "median": 1,
+      "min": 1,
+      "max": 1
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1,
+        "shadowCalls": 0,
+        "triangles": 2,
+        "passes": 2
+       }
+      ]
+     }
+    }
+   },
+   "openMs": {
+    "a": 1063.0000001192093,
+    "b": 1079.3499999046326,
+    "speedup": {
+     "median": 0.9950851967223384,
+     "min": 0.8641402425950613,
+     "max": 1.1260301508496156
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 6.699999988079071,
+      "b": 6.725000023841858
+     },
+     "cpuMs": {
+      "a": 6.200000017881393,
+      "b": 6.300000011920929
+     },
+     "speedup": {
+      "median": 0.9972769312047893,
+      "min": 0.9304029267880557,
+      "max": 1.064150935621523
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1425,
+        "shadowCalls": 658,
+        "triangles": 5308310,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1473,
+        "shadowCalls": 682,
+        "triangles": 5308310,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 2.6874999701976776,
+       "b": 2.637500047683716
+      },
+      "speedup": {
+       "median": 1.038903944151665,
+       "min": 0.8173912881227429,
+       "max": 1.2604166001805872
+      }
+     }
+    },
+    "overview:assets": {
+     "totalMs": {
+      "a": 3.912500023841858,
+      "b": 3.949999988079071
+     },
+     "cpuMs": {
+      "a": 2.8500000536441803,
+      "b": 2.950000047683716
+     },
+     "speedup": {
+      "median": 0.9905063382824004,
+      "min": 0.9810126463852333,
+      "max": 1.0000000301795675
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 305,
+        "shadowCalls": 104,
+        "triangles": 2766338,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 353,
+        "shadowCalls": 128,
+        "triangles": 2766338,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 3.412500023841858,
+       "b": 3.449999988079071
+      },
+      "speedup": {
+       "median": 0.9891304452988665,
+       "min": 0.9782608560443151,
+       "max": 1.000000034553418
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 3.324999988079071,
+      "b": 3.2625000178813934
+     },
+     "cpuMs": {
+      "a": 2.225000023841858,
+      "b": 2.3749999701976776
+     },
+     "speedup": {
+      "median": 1.019203655444235,
+      "min": 1.0151515003735043,
+      "max": 1.0232558105149654
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 507,
+        "shadowCalls": 300,
+        "triangles": 3304646,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 547,
+        "shadowCalls": 324,
+        "triangles": 2968502,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "close:assets": {
+     "totalMs": {
+      "a": 2.1250000298023224,
+      "b": 2.175000011920929
+     },
+     "cpuMs": {
+      "a": 1.1250000596046448,
+      "b": 1.2374999523162842
+     },
+     "speedup": {
+      "median": 0.978571437518883,
+      "min": 0.9333333174387614,
+      "max": 1.0238095575990045
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 141,
+        "shadowCalls": 76,
+        "triangles": 2722466,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 181,
+        "shadowCalls": 100,
+        "triangles": 2386322,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 3.9249999821186066,
+      "b": 4.125
+     },
+     "cpuMs": {
+      "a": 2.975000023841858,
+      "b": 3.2125000059604645
+     },
+     "speedup": {
+      "median": 0.9515868308050515,
+      "min": 0.9397590214359273,
+      "max": 0.9634146401741758
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1135,
+        "shadowCalls": 561,
+        "triangles": 2939542,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1177,
+        "shadowCalls": 582,
+        "triangles": 2939542,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 0.11250001192092896,
+       "b": 0.28749996423721313
+      },
+      "speedup": {
+       "median": 0.5041667297482091,
+       "min": 0.13333368301391602,
+       "max": 0.8749997764825022
+      }
+     }
+    },
+    "cutaway:assets": {
+     "totalMs": {
+      "a": 0.6875,
+      "b": 0.875
+     },
+     "cpuMs": {
+      "a": 0.2999999523162842,
+      "b": 0.40000003576278687
+     },
+     "speedup": {
+      "median": 0.786764705825062,
+      "min": 0.7499999668863075,
+      "max": 0.8235294447638163
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 15,
+        "shadowCalls": 7,
+        "triangles": 397570,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 57,
+        "shadowCalls": 28,
+        "triangles": 397570,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 0.28749990463256836,
+       "b": 0.47499990463256836
+      },
+      "speedup": {
+       "median": 0.6083332558472767,
+       "min": 0.5499998450278867,
+       "max": 0.6666666666666666
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1233.5,
+    "b": 1358.3999999761581,
+    "speedup": {
+     "median": 0.9072994330369094,
+     "min": 0.8539426524061619,
+     "max": 0.960656213667657
+    }
+   }
+  },
+  {
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "views": {
+    "overview": {
+     "totalMs": {
+      "a": 5.5875000059604645,
+      "b": 5.25
+     },
+     "cpuMs": {
+      "a": 4.687499970197678,
+      "b": 4.375000029802322
+     },
+     "speedup": {
+      "median": 1.0646770694557603,
+      "min": 1.0235849056073294,
+      "max": 1.1057692333041915
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1457,
+        "shadowCalls": 722,
+        "triangles": 3372550,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 1.574999988079071,
+       "b": 1.162500023841858
+      },
+      "speedup": {
+       "median": 1.4123930952296315,
+       "min": 1.0555555481969572,
+       "max": 1.769230642262306
+      }
+     }
+    },
+    "overview:assets": {
+     "totalMs": {
+      "a": 2,
+      "b": 2.137499988079071
+     },
+     "cpuMs": {
+      "a": 1.1624999344348907,
+      "b": 1.324999988079071
+     },
+     "speedup": {
+      "median": 0.9411117255213206,
+      "min": 0.8695652354191746,
+      "max": 1.0126582156234667
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 337,
+        "shadowCalls": 168,
+        "triangles": 830578,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 1.5,
+       "b": 1.637499988079071
+      },
+      "speedup": {
+       "median": 0.9251412457567821,
+       "min": 0.8333333554091282,
+       "max": 1.016949136104436
+      }
+     }
+    },
+    "close": {
+     "totalMs": {
+      "a": 3.3250000178813934,
+      "b": 3.5124999582767487
+     },
+     "cpuMs": {
+      "a": 2.3499999940395355,
+      "b": 2.4999999403953552
+     },
+     "speedup": {
+      "median": 0.9466312220739557,
+      "min": 0.9432624143455886,
+      "max": 0.9500000298023229
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 676,
+        "shadowCalls": 392,
+        "triangles": 1368222,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "close:assets": {
+     "totalMs": {
+      "a": 2.049999952316284,
+      "b": 2.150000035762787
+     },
+     "cpuMs": {
+      "a": 1.0499999523162842,
+      "b": 1.0750000476837158
+     },
+     "speedup": {
+      "median": 0.9534883346990879,
+      "min": 0.9302325168772624,
+      "max": 0.9767441525209133
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 310,
+        "shadowCalls": 168,
+        "triangles": 786042,
+        "passes": 2
+       }
+      ]
+     }
+    },
+    "cutaway": {
+     "totalMs": {
+      "a": 5.9124999940395355,
+      "b": 5.762500047683716
+     },
+     "cpuMs": {
+      "a": 4.887500047683716,
+      "b": 4.712499976158142
+     },
+     "speedup": {
+      "median": 1.0275076230038158,
+      "min": 0.9874477007899914,
+      "max": 1.06756754521764
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 1419,
+        "shadowCalls": 703,
+        "triangles": 2923084,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 2.100000023841858,
+       "b": 1.925000011920929
+      },
+      "speedup": {
+       "median": 1.131944438339108,
+       "min": 0.8888889418707954,
+       "max": 1.3749999348074207
+      }
+     }
+    },
+    "cutaway:assets": {
+     "totalMs": {
+      "a": 2.375,
+      "b": 2.2250000834465027
+     },
+     "cpuMs": {
+      "a": 1.399999976158142,
+      "b": 1.3125000298023224
+     },
+     "speedup": {
+      "median": 1.0679292509296405,
+      "min": 1.0222222010294597,
+      "max": 1.1136363008298211
+     },
+     "counts": {
+      "a": [
+       {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       }
+      ],
+      "b": [
+       {
+        "calls": 299,
+        "shadowCalls": 149,
+        "triangles": 381112,
+        "passes": 2
+       }
+      ]
+     },
+     "estimateBySubtraction": {
+      "ms": {
+       "a": 1.9749999046325684,
+       "b": 1.824999988079071
+      },
+      "speedup": {
+       "median": 1.0829579098939233,
+       "min": 1.0270270026452866,
+       "max": 1.13888881714256
+      }
+     }
+    }
+   },
+   "openMs": {
+    "a": 1524.1999999284744,
+    "b": 1548.4000000953674,
+    "speedup": {
+     "median": 0.9867704240815908,
+     "min": 0.9100075148616373,
+     "max": 1.0635333333015442
+    }
+   }
+  }
+ ]
+}

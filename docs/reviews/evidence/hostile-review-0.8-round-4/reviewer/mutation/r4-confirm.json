@@ -1,0 +1,431 @@
+{
+ "script": "mutate-r4.mjs",
+ "phase": "confirm: whole suite + tools/check.mjs",
+ "started": "2026-10-30T19:04:37.098Z",
+ "node": "v24.15.0",
+ "head": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "Q2-draw-range-ignored",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "a sub-draw ignores geometry.drawRange (the renderer clips a group to it)",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 72860,
+     "minFreeGB": 37.6,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (52.0055ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.754ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.9243ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 13388,
+     "minFreeGB": 40.3,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q3-index-offset-in-elements",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "an indexed geometry's sub-draw start in elements, not bytes",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 108574,
+     "minFreeGB": 37.1,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (147.8479ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (5.2715ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.8656ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 24410,
+     "minFreeGB": 40.5,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q4-frustum-ignores-batch-transform",
+   "files": [
+    "apps/editor/copy-batch.js"
+   ],
+   "why": "copies culled in world space whatever the batch's own transform",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 115652,
+     "minFreeGB": 37.3,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (55.3159ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (13.4014ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.9719ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 41088,
+     "minFreeGB": 40,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q5-editor-rebuild-never-cuts-prefabs",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the editor's own rebuild (every setOptions) asks the prefab layer for all levels",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 124784,
+     "minFreeGB": 37,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (125.8831ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.4558ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.3956ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 28035,
+     "minFreeGB": 40,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q6-editor-local-clipping-off",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "pre-existing line, a probe of the gates: Gross cutaways stop clipping their walls",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 98758,
+     "minFreeGB": 38.3,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (119.2629ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (82.1087ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.6527ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 8802,
+     "minFreeGB": 42.3,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q7-shader-patch-darkens-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "onBeforeCompile is not serialized: every original building drawn at half brightness",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 73992,
+     "minFreeGB": 39.3,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (110.866ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.1625ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (11.9191ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 3910,
+     "minFreeGB": 42.5,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const input of manifest.inputs)if(hash(fs.readFileSync(path.join(root,input.file)))!==input.sha256)throw Error('Stale building exports: '+input.file+'; run npm run build:buildings.');\r",
+      "Error: Stale building exports: packages/building-catalog/three.js; run npm run build:buildings.\r"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q8-clipping-plane-on-every-material",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "clippingPlanes are not serialized: every original building cut 3 m up where local clipping is on (the editor)",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 72937,
+     "minFreeGB": 39.2,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (50.7591ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (2.6662ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (3.4125ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 3024,
+     "minFreeGB": 42.5,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const input of manifest.inputs)if(hash(fs.readFileSync(path.join(root,input.file)))!==input.sha256)throw Error('Stale building exports: '+input.file+'; run npm run build:buildings.');\r",
+      "Error: Stale building exports: packages/building-catalog/three.js; run npm run build:buildings.\r"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  },
+  {
+   "id": "Q10-render-order",
+   "files": [
+    "packages/building-catalog/three.js"
+   ],
+   "why": "renderOrder is not in the node line: glass and opaque batches re-sorted",
+   "headBefore": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 84911,
+     "minFreeGB": 39.1,
+     "tests": 603,
+     "pass": 603,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (46.8872ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.2257ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.504ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 1,
+     "signal": null,
+     "stopped": null,
+     "ms": 3911,
+     "minFreeGB": 42.4,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": [
+      "for(const input of manifest.inputs)if(hash(fs.readFileSync(path.join(root,input.file)))!==input.sha256)throw Error('Stale building exports: '+input.file+'; run npm run build:buildings.');\r",
+      "Error: Stale building exports: packages/building-catalog/three.js; run npm run build:buildings.\r"
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e"
+  }
+ ],
+ "finished": "2026-10-30T19:19:21.232Z",
+ "headAfter": "cb720d826d42fd4c79219cffed76c7d8ea3c2c2e",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 8,
+  "killed": [
+   "Q7-shader-patch-darkens-every-material",
+   "Q8-clipping-plane-on-every-material",
+   "Q10-render-order"
+  ],
+  "survived": [
+   "Q2-draw-range-ignored",
+   "Q3-index-offset-in-elements",
+   "Q4-frustum-ignores-batch-transform",
+   "Q5-editor-rebuild-never-cuts-prefabs",
+   "Q6-editor-local-clipping-off"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

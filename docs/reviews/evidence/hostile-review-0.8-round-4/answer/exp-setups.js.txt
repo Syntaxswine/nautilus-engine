@@ -1,0 +1,35 @@
+// In the built editor (served dist/, bench maps copied to dist/bench-check/; the browser pane,
+// ANGLE D3D11 on the RTX 3080, canvas 1056 x 916): per frame, the CopyBatch setups that drew
+// copies and those whose camera saw none, in the view passes and in the shadow passes (the sun
+// and each lamp face), with the sub-draws they issued, at the bench's cameras. Round 3's
+// exp-wasted.js, for the CopyBatch without runs. The batches are wrapped afresh for every
+// count, and every open waits for the prefab update that the editor's floor control starts
+// after open() resolves (without that wait the first counts found no batch at all).
+window.__setups = {done: false, out: {}, error: null};
+(async () => {
+  const s = window.editor3d.scene, W = 1056, H = 916, out = window.__setups.out;
+  const count = view => {
+    const stats = {view: [0, 0], shadow: [0, 0], subDraws: 0}; let inShadow = false, on = false;
+    const wrapped = s.prefabs.instanced.map(({mesh}) => {
+      const render = mesh.onBeforeRender, shadow = mesh.onBeforeShadow;
+      mesh.onBeforeRender = function (...a) {const r = render.apply(this, a); if (on) {stats[inShadow ? 'shadow' : 'view'][this._multiDrawCount ? 0 : 1]++; for (let i = 0; i < this._multiDrawCount; i++) if (this._multiDrawCounts[i]) stats.subDraws++;} return r;};
+      mesh.onBeforeShadow = function (...a) {inShadow = true; try {return shadow.apply(this, a);} finally {inShadow = false;}};
+      return [mesh, render, shadow];
+    });
+    try {s.draw(view, W, H); on = true; s.draw(view, W, H);} finally {for (const [mesh, render, shadow] of wrapped) {mesh.onBeforeRender = render; mesh.onBeforeShadow = shadow;}}
+    return {batches: wrapped.length, viewDrew: stats.view[0], viewEmpty: stats.view[1], shadowDrew: stats.shadow[0], shadowEmpty: stats.shadow[1], subDraws: stats.subDraws};
+  };
+  try {
+    for (const id of ['w1-32x-largest', 'l1-32x-largest-lamps', 'w8-gross-rows-of-8', 'l8-gross-rows-of-8-lamps']) {
+      const json = await (await fetch('/bench-check/' + id + '.json', {cache: 'reload'})).text(), doc = JSON.parse(json);
+      await window.nautilus.open(json); await s.prefabs.pending;
+      const placed = doc.buildingPrefabs?.instances || [], first = placed[0], last = placed.at(-1);
+      const views = {overview: {x: 119.5, y: 119.5, span: 250, preset: '0'}, close: {x: first.x + 10, y: first.y + 10, span: 40, preset: '0'}, far: {x: last.x + 10, y: last.y + 10, span: 40, preset: '0'}};
+      const row = out[id] = {copies: s.prefabs.models.size};
+      for (const [name, view] of Object.entries(views)) row[name] = count(view);
+      s.setOptions({showAllLevels: false, level: 0}); await s.prefabs.pending;
+      row.cutaway = count(views.overview);
+      s.setOptions({showAllLevels: true, level: 0}); await s.prefabs.pending;
+    }
+  } catch (e) {window.__setups.error = String(e && e.stack || e);} finally {window.__setups.done = true;}
+})();

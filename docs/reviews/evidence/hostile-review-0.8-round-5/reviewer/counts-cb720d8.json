@@ -1,0 +1,583 @@
+{
+ "note": "Exact draw submissions of the editor asset layers per benchmark workload; see tools/asset-draw-counts.mjs.",
+ "views": {
+  "exterior": {
+   "level": 0,
+   "showAllLevels": true,
+   "roofs": true,
+   "walls": true
+  },
+  "cutaway": {
+   "level": 0,
+   "showAllLevels": false,
+   "roofs": true,
+   "walls": true
+  },
+  "upper": {
+   "level": 1,
+   "showAllLevels": false,
+   "roofs": true,
+   "walls": true
+  }
+ },
+ "workloads": {
+  "w0-blank": {
+   "exterior": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w1-32x-largest": {
+   "exterior": {
+    "prefabs": {
+     "main": 200,
+     "shadow": 104,
+     "mainTriangles": 1396032,
+     "shadowTriangles": 1370304
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 7,
+     "shadow": 7,
+     "mainTriangles": 198784,
+     "shadowTriangles": 198784
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 7,
+     "shadow": 7,
+     "mainTriangles": 384768,
+     "shadowTriangles": 384768
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w2-32-distinct-most-meshes": {
+   "exterior": {
+    "prefabs": {
+     "main": 416,
+     "shadow": 342,
+     "mainTriangles": 618754,
+     "shadowTriangles": 606242
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 196,
+     "shadow": 196,
+     "mainTriangles": 130220,
+     "shadowTriangles": 130220
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 196,
+     "shadow": 196,
+     "mainTriangles": 206004,
+     "shadowTriangles": 206004
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w3-32-distinct-most-triangles": {
+   "exterior": {
+    "prefabs": {
+     "main": 408,
+     "shadow": 334,
+     "mainTriangles": 630274,
+     "shadowTriangles": 616832
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 190,
+     "shadow": 190,
+     "mainTriangles": 132476,
+     "shadowTriangles": 132476
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 190,
+     "shadow": 190,
+     "mainTriangles": 208260,
+     "shadowTriangles": 208260
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w4-32-gross": {
+   "exterior": {
+    "prefabs": {
+     "main": 168,
+     "shadow": 168,
+     "mainTriangles": 415288,
+     "shadowTriangles": 415288
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 149,
+     "shadow": 149,
+     "mainTriangles": 190555,
+     "shadowTriangles": 190555
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 184,
+     "shadow": 184,
+     "mainTriangles": 204171,
+     "shadowTriangles": 204171
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w5a-walls-axis": {
+   "exterior": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 3,
+     "shadow": 3,
+     "mainTriangles": 460800,
+     "shadowTriangles": 460800
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 3,
+     "shadow": 3,
+     "mainTriangles": 76800,
+     "shadowTriangles": 76800
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 6,
+     "shadow": 6,
+     "mainTriangles": 153600,
+     "shadowTriangles": 153600
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w5b-walls-free-angle": {
+   "exterior": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 3,
+     "shadow": 3,
+     "mainTriangles": 311724,
+     "shadowTriangles": 311724
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 1,
+     "shadow": 1,
+     "mainTriangles": 31188,
+     "shadowTriangles": 31188
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 2,
+     "shadow": 2,
+     "mainTriangles": 62412,
+     "shadowTriangles": 62412
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  },
+  "w6-roofs-144": {
+   "exterior": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 5,
+     "shadow": 5,
+     "mainTriangles": 2496,
+     "shadowTriangles": 2496
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 5,
+     "shadow": 5,
+     "mainTriangles": 2496,
+     "shadowTriangles": 2496
+    }
+   }
+  },
+  "w7-mixed-13-gross-19-largest": {
+   "exterior": {
+    "prefabs": {
+     "main": 435,
+     "shadow": 384,
+     "mainTriangles": 612837,
+     "shadowTriangles": 603717
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "cutaway": {
+    "prefabs": {
+     "main": 271,
+     "shadow": 271,
+     "mainTriangles": 157869,
+     "shadowTriangles": 157869
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   },
+   "upper": {
+    "prefabs": {
+     "main": 306,
+     "shadow": 306,
+     "mainTriangles": 228897,
+     "shadowTriangles": 228897
+    },
+    "walls": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    },
+    "roofs": {
+     "main": 0,
+     "shadow": 0,
+     "mainTriangles": 0,
+     "shadowTriangles": 0
+    }
+   }
+  }
+ }
+}

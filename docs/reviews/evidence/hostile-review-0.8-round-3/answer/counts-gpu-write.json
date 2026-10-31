@@ -1,0 +1,1129 @@
+{
+ "mode": "editor counts",
+ "rig": {
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "logicalCpus": 16,
+  "loadavg": [
+   0,
+   0,
+   0
+  ]
+ },
+ "trees": {
+  "a": {
+   "dir": "<a>",
+   "head": "d62da1bb25dba551ce3bca9e9d083f0acc6291ed",
+   "status": "M .github/workflows/check.yml\n M CHANGELOG.md\n M docs/asset-rendering-benchmark.md\n M package.json\n M tools/bench-asset-rendering.mjs\n M tools/bench/editor-probe.js\n M tools/bench/workloads.mjs\n?? docs/reviews/2026-10-30-hostile-review-0.8-round-3.md\n?? docs/reviews/evidence/hostile-review-0.8-round-3/\n?? tests/fixtures/asset-culled-counts.json"
+  },
+  "b": {
+   "dir": "<b>",
+   "head": "d62da1bb25dba551ce3bca9e9d083f0acc6291ed",
+   "status": "M .github/workflows/check.yml\n M CHANGELOG.md\n M docs/asset-rendering-benchmark.md\n M package.json\n M tools/bench-asset-rendering.mjs\n M tools/bench/editor-probe.js\n M tools/bench/workloads.mjs\n?? docs/reviews/2026-10-30-hostile-review-0.8-round-3.md\n?? docs/reviews/evidence/hostile-review-0.8-round-3/\n?? tests/fixtures/asset-culled-counts.json"
+  }
+ },
+ "runs": 1,
+ "backends": [
+  "gpu"
+ ],
+ "channel": "msedge",
+ "maps": [
+  "l1-32x-largest-lamps",
+  "l1-blank",
+  "l4-32-gross-lamps",
+  "l4-blank",
+  "l5b-blank",
+  "l5b-walls-free-angle-lamps",
+  "l6-roofs-144-lamps",
+  "l7-blank",
+  "l7-mixed-13-gross-19-largest-lamps",
+  "w0-blank",
+  "w1-32x-largest",
+  "w2-32-distinct-most-meshes",
+  "w3-32-distinct-most-triangles",
+  "w4-32-gross",
+  "w5a-walls-axis",
+  "w5b-walls-free-angle",
+  "w6-roofs-144",
+  "w7-mixed-13-gross-19-largest"
+ ],
+ "references": {
+  "l1-32x-largest-lamps": "l1-blank",
+  "l1-blank": "l1-blank",
+  "l4-32-gross-lamps": "l4-blank",
+  "l4-blank": "l4-blank",
+  "l5b-blank": "l5b-blank",
+  "l5b-walls-free-angle-lamps": "l5b-blank",
+  "l6-roofs-144-lamps": "l5b-blank",
+  "l7-blank": "l7-blank",
+  "l7-mixed-13-gross-19-largest-lamps": "l7-blank",
+  "w0-blank": "w0-blank",
+  "w1-32x-largest": "w0-blank",
+  "w2-32-distinct-most-meshes": "w0-blank",
+  "w3-32-distinct-most-triangles": "w0-blank",
+  "w4-32-gross": "w0-blank",
+  "w5a-walls-axis": "w0-blank",
+  "w5b-walls-free-angle": "w0-blank",
+  "w6-roofs-144": "w0-blank",
+  "w7-mixed-13-gross-19-largest": "w0-blank"
+ },
+ "framesPerBlock": 60,
+ "blocks": 4,
+ "opens": 3,
+ "samples": [
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l1-32x-largest-lamps",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 400,
+      "shadow": 580,
+      "triangles": 8326160
+     }
+    },
+    "close": {
+     "b": {
+      "main": 64,
+      "shadow": 309,
+      "triangles": 3374408
+     }
+    },
+    "far": {
+     "b": {
+      "main": 64,
+      "shadow": 282,
+      "triangles": 3468400
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 14,
+      "shadow": 177,
+      "triangles": 1181736
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 400,
+      "shadow": 3848,
+      "triangles": 53493312
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 14,
+      "shadow": 259,
+      "triangles": 7752576
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l1-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "close": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "far": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l4-32-gross-lamps",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 336,
+      "shadow": 1526,
+      "triangles": 2753912
+     }
+    },
+    "close": {
+     "b": {
+      "main": 125,
+      "shadow": 992,
+      "triangles": 1346351
+     }
+    },
+    "far": {
+     "b": {
+      "main": 224,
+      "shadow": 1009,
+      "triangles": 1511941
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 298,
+      "shadow": 1350,
+      "triangles": 1243371
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 336,
+      "shadow": 6216,
+      "triangles": 16196232
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 298,
+      "shadow": 5513,
+      "triangles": 7431645
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l4-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "close": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "far": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l5b-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "close": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "far": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l5b-walls-free-angle-lamps",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 6,
+      "shadow": 111,
+      "triangles": 12157236
+     }
+    },
+    "close": {
+     "b": {
+      "main": 3,
+      "shadow": 57,
+      "triangles": 6234480
+     }
+    },
+    "far": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 2,
+      "shadow": 37,
+      "triangles": 1216332
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 6,
+      "shadow": 111,
+      "triangles": 12157236
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 2,
+      "shadow": 37,
+      "triangles": 1216332
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l6-roofs-144-lamps",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 10,
+      "shadow": 185,
+      "triangles": 97344
+     }
+    },
+    "close": {
+     "b": {
+      "main": 5,
+      "shadow": 95,
+      "triangles": 49920
+     }
+    },
+    "far": {
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 10,
+      "shadow": 185,
+      "triangles": 97344
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l7-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "close": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "far": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "l7-mixed-13-gross-19-largest-lamps",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 870,
+      "shadow": 1622,
+      "triangles": 4322550
+     }
+    },
+    "close": {
+     "b": {
+      "main": 125,
+      "shadow": 899,
+      "triangles": 2198784
+     }
+    },
+    "far": {
+     "b": {
+      "main": 99,
+      "shadow": 699,
+      "triangles": 1724150
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 542,
+      "shadow": 1127,
+      "triangles": 1081720
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 870,
+      "shadow": 14208,
+      "triangles": 23563203
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 542,
+      "shadow": 10027,
+      "triangles": 6156891
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w0-blank",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "close": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "far": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w1-32x-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2765724
+     }
+    },
+    "close": {
+     "b": {
+      "main": 64,
+      "shadow": 76,
+      "triangles": 1375576
+     }
+    },
+    "far": {
+     "b": {
+      "main": 64,
+      "shadow": 94,
+      "triangles": 1687526
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397196
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 200,
+      "shadow": 104,
+      "triangles": 2766336
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 7,
+      "shadow": 7,
+      "triangles": 397568
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w2-32-distinct-most-meshes",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 414,
+      "shadow": 342,
+      "triangles": 1224724
+     }
+    },
+    "close": {
+     "b": {
+      "main": 120,
+      "shadow": 233,
+      "triangles": 696000
+     }
+    },
+    "far": {
+     "b": {
+      "main": 78,
+      "shadow": 290,
+      "triangles": 682020
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 195,
+      "shadow": 196,
+      "triangles": 260200
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 416,
+      "shadow": 342,
+      "triangles": 1224996
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 196,
+      "shadow": 196,
+      "triangles": 260440
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w3-32-distinct-most-triangles",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     }
+    },
+    "close": {
+     "b": {
+      "main": 122,
+      "shadow": 222,
+      "triangles": 666398
+     }
+    },
+    "far": {
+     "b": {
+      "main": 85,
+      "shadow": 298,
+      "triangles": 711718
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 408,
+      "shadow": 334,
+      "triangles": 1247106
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 190,
+      "shadow": 190,
+      "triangles": 264952
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w4-32-gross",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 168,
+      "shadow": 168,
+      "triangles": 830576
+     }
+    },
+    "close": {
+     "b": {
+      "main": 125,
+      "shadow": 168,
+      "triangles": 429510
+     }
+    },
+    "far": {
+     "b": {
+      "main": 112,
+      "shadow": 168,
+      "triangles": 449176
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 149,
+      "shadow": 149,
+      "triangles": 381086
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 168,
+      "shadow": 168,
+      "triangles": 830576
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 149,
+      "shadow": 149,
+      "triangles": 381110
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w5a-walls-axis",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "close": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "far": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 921600
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 153600
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w5b-walls-free-angle",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "close": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "far": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 3,
+      "shadow": 3,
+      "triangles": 623448
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 1,
+      "shadow": 1,
+      "triangles": 62376
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w6-roofs-144",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "close": {
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "far": {
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 5,
+      "shadow": 5,
+      "triangles": 4992
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 0,
+      "shadow": 0,
+      "triangles": 0
+     }
+    }
+   }
+  },
+  {
+   "run": 0,
+   "backend": "gpu",
+   "map": "w7-mixed-13-gross-19-largest",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "openMs": {
+    "a": [],
+    "b": []
+   },
+   "views": {},
+   "culled": {
+    "overview": {
+     "b": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     }
+    },
+    "close": {
+     "b": {
+      "main": 125,
+      "shadow": 244,
+      "triangles": 645199
+     }
+    },
+    "far": {
+     "b": {
+      "main": 99,
+      "shadow": 266,
+      "triangles": 615186
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    }
+   },
+   "unculled": {
+    "exterior": {
+     "b": {
+      "main": 435,
+      "shadow": 384,
+      "triangles": 1216554
+     }
+    },
+    "cutaway": {
+     "b": {
+      "main": 271,
+      "shadow": 271,
+      "triangles": 315738
+     }
+    }
+   }
+  }
+ ],
+ "browsers": [
+  {
+   "backend": "gpu",
+   "version": "156.0.4314.56",
+   "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "caps": {
+    "canvas": [
+     1056,
+     916
+    ],
+    "multiDraw": true,
+    "gpuTimer": true,
+    "maxTextures": 16,
+    "maxCombinedTextures": 32,
+    "maxVertexTextures": 16
+   }
+  }
+ ],
+ "served_a": {
+  "files": 0,
+  "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "served_b": {
+  "files": 342,
+  "digest": "43ac7a4d48fcab7b37b9feaf46ef5e1c224bcd9e32b66c4c121c29c27b46a34d"
+ },
+ "summary": []
+}

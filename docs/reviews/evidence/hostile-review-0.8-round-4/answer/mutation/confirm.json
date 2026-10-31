@@ -1,0 +1,210 @@
+{
+ "script": "mutate-a4.mjs",
+ "phase": "confirm: whole suite + tools/check.mjs",
+ "started": "2026-10-30T23:13:25.797Z",
+ "node": "v24.15.0",
+ "head": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "M7-extent-without-node-transform",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "each mesh sphere taken in its own frame",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 66083,
+     "tests": 607,
+     "pass": 607,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (40.5212ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.28ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.8403ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 7108,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "M8-extent-batch-meshes-only",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the extent leaves out glass and other plain meshes",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 67249,
+     "tests": 607,
+     "pass": 607,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (43.1936ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.5278ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.3201ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6611,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "D5-count-sets-options-directly",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "the count bypasses the editor: options set and the layer updated by the tool (the round 3 path)",
+   "expect": "equivalent on a correct editor; with Q5 it would survive (the point of SF-F)",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 65336,
+     "tests": 607,
+     "pass": 607,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (40.1047ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.9587ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (7.821ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6605,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  },
+  {
+   "id": "W1-lamp-kinds-check-off",
+   "files": [
+    "tools/bench/workloads.mjs"
+   ],
+   "expect": "by design: it refuses lamps lost by openDocument",
+   "headBefore": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 65960,
+     "tests": 607,
+     "pass": 607,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (38.6065ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (9.1099ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.414ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "error": null,
+     "ms": 6361,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa"
+  }
+ ],
+ "finished": "2026-10-30T23:18:17.901Z",
+ "headAfter": "1d2edb1ea063da7f0d44720be82cffadd4254aaa",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 4,
+  "killed": [],
+  "survived": [
+   "M7-extent-without-node-transform",
+   "M8-extent-batch-meshes-only",
+   "D5-count-sets-options-directly",
+   "W1-lamp-kinds-check-off"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

@@ -1,0 +1,48 @@
+21:24:42 K0a-control-editor-never-batches: killed [exit 1 65/67 cancelled 0 28s free>=43G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:25:11 K0b-control-no-per-copy-culling: killed [exit 1 64/67 cancelled 0 28s free>=43G every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+21:25:26 R-Q5-editor-rebuild-never-cuts-prefabs: killed [exit 1 1/3 cancelled 0 15s free>=43.8G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:25:40 R-Q5b-editor-edit-never-cuts-prefabs: killed [exit 1 2/3 cancelled 0 14s free>=43.8G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:25:55 R-Q5c-editor-open-cuts-prefabs: killed [exit 1 1/3 cancelled 0 15s free>=43.9G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:26:23 C1-extent-ignores-template-root: killed [exit 1 66/67 cancelled 0 28s free>=43G a building's extent holds every vertex of every mesh in its root's frame, plain and nested meshes included]
+21:26:51 C2-copy-matrices-stale: killed [exit 1 62/67 cancelled 0 27s free>=43.2G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:27:19 C3-exactly-eight-not-batched: killed [exit 1 58/67 cancelled 0 27s free>=42.9G the count drives the editor as the editor drives itself: it opens, a view is set, an edit keeps the view]
+21:27:46 C4-union-links-a-node-not-its-root: killed [exit 1 65/67 cancelled 0 27s free>=43.1G the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+21:28:14 C5-release-shows-every-copy-node: SURVIVED [exit 0 67/67 cancelled 0 28s free>=43.1G ]
+21:28:43 C6-glass-batched-too: killed [exit 1 65/67 cancelled 0 28s free>=42.8G the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+21:29:13 C7-cluster-spheres-unturned: killed [exit 1 62/67 cancelled 0 30s free>=42.4G every camera culls a CopyBatch copy by copy: the view, each face of a lamp, the sun]
+21:29:29 D6-drive-open-no-rebuild: killed [exit 1 2/3 cancelled 0 16s free>=43.1G the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+21:29:44 D7-drive-update-no-rebuild: SURVIVED [exit 0 3/3 cancelled 0 16s free>=43.2G ]
+21:29:59 D10-roof-atlas-not-marked-loaded: killed [exit 1 2/3 cancelled 0 15s free>=43.2G the editor asset layers issue exactly the pinned draws for every benchmark workload and view]
+21:30:29 F1-roofs-off-no-cut: SURVIVED [exit 0 67/67 cancelled 0 29s free>=42.2G ]
+21:31:01 F2-walls-off-ignored: SURVIVED [exit 0 67/67 cancelled 0 32s free>=42.6G ]
+21:31:31 F3-rebuild-walls-always-on: SURVIVED [exit 0 67/67 cancelled 0 30s free>=42.1G ]
+21:31:59 F4-library-override-ignored: SURVIVED [exit 0 67/67 cancelled 0 28s free>=42.6G ]
+{
+ "total": 19,
+ "killed": [
+  "K0a-control-editor-never-batches",
+  "K0b-control-no-per-copy-culling",
+  "R-Q5-editor-rebuild-never-cuts-prefabs",
+  "R-Q5b-editor-edit-never-cuts-prefabs",
+  "R-Q5c-editor-open-cuts-prefabs",
+  "C1-extent-ignores-template-root",
+  "C2-copy-matrices-stale",
+  "C3-exactly-eight-not-batched",
+  "C4-union-links-a-node-not-its-root",
+  "C6-glass-batched-too",
+  "C7-cluster-spheres-unturned",
+  "D6-drive-open-no-rebuild",
+  "D10-roof-atlas-not-marked-loaded"
+ ],
+ "survived": [
+  "C5-release-shows-every-copy-node",
+  "D7-drive-update-no-rebuild",
+  "F1-roofs-off-no-cut",
+  "F2-walls-off-ignored",
+  "F3-rebuild-walls-always-on",
+  "F4-library-override-ignored"
+ ],
+ "errors": [],
+ "invalid": []
+}
+EXIT 0

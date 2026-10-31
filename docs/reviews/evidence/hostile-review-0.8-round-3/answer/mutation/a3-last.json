@@ -1,0 +1,93 @@
+{
+ "script": "mutate-a3.mjs",
+ "phase": "phase 1: module tests",
+ "started": "2026-10-30T14:26:21.699Z",
+ "node": "v24.15.0",
+ "head": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "C7-headless-base-check-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it refuses a changed scene chain",
+   "headBefore": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 10792,
+     "tests": 2,
+     "pass": 1,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count model refuses what it does not model",
+      "failing tests:",
+      "the count model refuses what it does not model"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249"
+  },
+  {
+   "id": "C8-two-pass-refusal-off",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "expect": "by design: it refuses a material the model does not count",
+   "headBefore": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=240000 tests/asset-draw-counts.test.mjs",
+     "exit": 1,
+     "signal": null,
+     "error": null,
+     "ms": 10104,
+     "tests": 2,
+     "pass": 1,
+     "fail": 1,
+     "cancelled": 0,
+     "failing": [
+      "the count model refuses what it does not model",
+      "failing tests:",
+      "the count model refuses what it does not model"
+     ],
+     "tail": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected exception."
+     ]
+    }
+   ],
+   "error": false,
+   "killed": true,
+   "killedByTimeoutOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249"
+  }
+ ],
+ "finished": "2026-10-30T14:26:42.855Z",
+ "headAfter": "f98d4cc48c6d23ab2aa041c7d46d266833644249",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 2,
+  "killed": [
+   "C7-headless-base-check-off",
+   "C8-two-pass-refusal-off"
+  ],
+  "survived": [],
+  "errors": [],
+  "invalid": []
+ }
+}
