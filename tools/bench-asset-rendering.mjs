@@ -279,7 +279,9 @@ async function editorBench() {
       // no longer than the CPU's submit time the frame is fed slower than the GPU draws it,
       // and the span follows the feed (round 4 of the 0.8 series: with the page's CPU
       // throttled x3 and the same draws it grew x4.4). own says, per arm, whether the span
-      // exceeds the submit time: only then is it the GPU's own time.
+      // exceeds the submit time, with no margin: only then does the GPU's work show in it,
+      // and even then the span bounds the GPU's own time from above (less the submit time,
+      // from below).
       const gpuMs = arm => list.map(s => s.views[view][arm].every(b => b.gpu) ? median(s.views[view][arm].map(b => median(b.gpu))) : null);
       if (gpuMs('a').every(v => v !== null) && gpuMs('b').every(v => v !== null)) {
         const ms = {a: median(gpuMs('a')), b: median(gpuMs('b'))};

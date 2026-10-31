@@ -1,0 +1,471 @@
+{
+ "script": "mutate-r5.mjs",
+ "phase": "confirm: whole suite + tools/check.mjs",
+ "started": "2026-10-31T01:31:59.713Z",
+ "node": "v24.15.0",
+ "head": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+ "statusBefore": "(clean)",
+ "mutants": [
+  {
+   "id": "C5-release-shows-every-copy-node",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "released copies show every node, whatever the view (the pending-load window)",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 60237,
+     "minFreeGB": 40.3,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (47.13ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (32.977ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.5088ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5044,
+     "minFreeGB": 43.7,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "D7-drive-update-no-rebuild",
+   "files": [
+    "tools/asset-draw-counts.mjs"
+   ],
+   "why": "the stand-in's update sets the document without rebuilding",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 59889,
+     "minFreeGB": 40.6,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (39.2329ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.1127ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.0115ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5181,
+     "minFreeGB": 43.4,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "F1-roofs-off-no-cut",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "unticking Roofs no longer shows the buildings' cutaway",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 56453,
+     "minFreeGB": 40.4,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (36.5369ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.4044ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.2406ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5027,
+     "minFreeGB": 43.5,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "F2-walls-off-ignored",
+   "files": [
+    "packages/prefab-core/provider-original.js"
+   ],
+   "why": "unticking Walls no longer hides original buildings' walls",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 58142,
+     "minFreeGB": 40.4,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (34.5845ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.7776ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.67ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 4964,
+     "minFreeGB": 43.8,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "F3-rebuild-walls-always-on",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the editor's rebuild tells the prefab layer walls are on (Q5's analogue for the Walls option)",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 56393,
+     "minFreeGB": 40.8,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (34.434ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.3906ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (4.2273ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 4963,
+     "minFreeGB": 43.8,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "F4-library-override-ignored",
+   "files": [
+    "apps/editor/prefab-scene.js"
+   ],
+   "why": "the building library's floor control (setView override) no longer changes the view",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 57454,
+     "minFreeGB": 40.8,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (40.4356ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.8731ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.9966ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5206,
+     "minFreeGB": 43.7,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "B1-own-flag-always-true",
+   "files": [
+    "tools/bench-asset-rendering.mjs"
+   ],
+   "why": "every GPU span reported as the GPU's own time",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 65014,
+     "minFreeGB": 40.6,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (36.4514ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (3.0082ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.2572ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5263,
+     "minFreeGB": 43.6,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "B2-open-wait-dropped",
+   "files": [
+    "tools/bench-asset-rendering.mjs"
+   ],
+   "why": "the bench stops waiting for the update the floor control starts after open",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 56643,
+     "minFreeGB": 40.5,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (34.6528ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (5.3529ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.6346ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 5065,
+     "minFreeGB": 43.7,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  },
+  {
+   "id": "B3-cutaway-no-wait",
+   "files": [
+    "tools/bench/editor-probe.js"
+   ],
+   "why": "the bench's cutaway stops waiting for the update setOptions starts",
+   "headBefore": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+   "statusBefore": "(clean)",
+   "runs": [
+    {
+     "cmd": "node.exe --test --test-timeout=300000 tests/actor-height-intake.test.mjs tests/asset-draw-counts.test.mjs tests/basic-progression-core.test.mjs tests/basic-progression-validation.test.mjs tests/buildi",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 56012,
+     "minFreeGB": 40.4,
+     "tests": 608,
+     "pass": 608,
+     "fail": 0,
+     "cancelled": 0,
+     "failing": [],
+     "tail": [
+      "✔ each existing body factory, data file and normal paint points at unchanged vendored bytes (37.4309ms)",
+      "✔ falsy synchronous loader throws and arbitrary onError values settle safely without invoking message hooks (4.186ms)",
+      "✔ roof scene projects edge coordinates once, reuses unchanged models and releases obsolete previews (5.2364ms)"
+     ]
+    },
+    {
+     "cmd": "node.exe tools/check.mjs",
+     "exit": 0,
+     "signal": null,
+     "stopped": null,
+     "ms": 4928,
+     "minFreeGB": 43.7,
+     "tests": null,
+     "pass": null,
+     "fail": null,
+     "cancelled": null,
+     "failing": [],
+     "tail": []
+    }
+   ],
+   "error": false,
+   "killed": false,
+   "killedByCancelOnly": false,
+   "restored": true,
+   "statusAfterRestore": "(clean)",
+   "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81"
+  }
+ ],
+ "finished": "2026-10-31T01:41:33.419Z",
+ "headAfter": "059e71a98d098987a75e6bd7b7d18d5d03865f81",
+ "statusAfter": "(clean)",
+ "summary": {
+  "total": 9,
+  "killed": [],
+  "survived": [
+   "C5-release-shows-every-copy-node",
+   "D7-drive-update-no-rebuild",
+   "F1-roofs-off-no-cut",
+   "F2-walls-off-ignored",
+   "F3-rebuild-walls-always-on",
+   "F4-library-override-ignored",
+   "B1-own-flag-always-true",
+   "B2-open-wait-dropped",
+   "B3-cutaway-no-wait"
+  ],
+  "errors": [],
+  "invalid": []
+ }
+}

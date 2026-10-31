@@ -1,0 +1,43 @@
+✔ building library keeps original footprints, native dimensions and connected descriptive room plans (193.9527ms)
+✔ mitered wall contours join on actual thickness and reject malformed designs (0.4578ms)
+✔ window and door apertures are real holes in both source and game envelope geometry (113.7069ms)
+✔ game derivation preserves room/aperture data, unit scale and working door hinges (298.7737ms)
+✔ all runtime meshes have finite positions, unit normals and atlas UVs inside the image (948.233ms)
+✔ gable and hipped surfaces retain metre-based texture scale across tile-clipped triangles (34.7238ms)
+✔ every original building matches the reviewed renderer byte for byte at game and authoring detail (3039.1191ms)
+✔ the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh (59.0054ms)
+✖ the geometry digest sees transforms, user data, material settings, view rules and the door swing (329.8852ms)
+✔ original display batches draw exactly the source-visible triangles in every editor view, one run per material (12326.371ms)
+✔ gross display batches draw exactly the native-visible triangles for floors, furniture and walls (6554.6567ms)
+✔ placed copies share batch geometry and follow their template through views and disposal (39.8378ms)
+✔ a cluster of neighbouring copies draws each batch mesh as one CopyBatch that follows the template (91.055ms)
+✔ double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow (35.1296ms)
+✔ releasing a batch disposes every merged geometry exactly once, for both collections (60.173ms)
+✔ a building that cannot be batched releases its source model and reports why (0.6317ms)
+✔ shared asset discovery uses copied engine-owned IDs and matches reviewed registries (15.7366ms)
+✔ public building facade uses host Three at native scale and owns only loaded resources (48.8384ms)
+✔ by default every building instance is independent: its own geometry, materials and view (149.8486ms)
+✔ shared instances draw one design from display batches, share its view and release it with the last copy (224.9434ms)
+✔ public library disposes a successfully loaded provider if another provider fails (0.7103ms)
+✔ every distribution carrying Three preserves its complete original MIT license (616.2121ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19513.2854
+
+✖ failing tests:
+
+test at tests\building-geometry.test.mjs:27:1
+✖ the geometry digest sees transforms, user data, material settings, view rules and the door swing (329.8852ms)
+  TypeError: Cannot read properties of null (reading 'repeat')
+      at TestContext.<anonymous> (file:///<scratch>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

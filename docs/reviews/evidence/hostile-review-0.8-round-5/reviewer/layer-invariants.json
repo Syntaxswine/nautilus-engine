@@ -1,0 +1,206 @@
+{
+ "steps": [
+  {
+   "label": "open: a row of eight neighbours and one far copy",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "setOptions: level-0 cutaway",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "setOptions: level-1 cutaway",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "move n0 away (the cluster drops to seven)",
+   "copies": 9,
+   "batchedNodes": 0,
+   "copyBatches": 0,
+   "sizes": [],
+   "problems": []
+  },
+  {
+   "label": "move n0 back (eight again)",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "delete n3 (the row splits three and four)",
+   "copies": 8,
+   "batchedNodes": 0,
+   "copyBatches": 0,
+   "sizes": [],
+   "problems": []
+  },
+  {
+   "label": "undo the delete (n3 back, same id and place)",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "turn n5 a quarter",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "turn n5 a half",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "two edits, the first not awaited",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "setOptions: exterior",
+   "copies": 9,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "while the Gross library loads",
+   "copies": 9,
+   "batchedNodes": 0,
+   "copyBatches": 0,
+   "sizes": [],
+   "problems": []
+  },
+  {
+   "label": "a view change while it is still pending",
+   "copies": 9,
+   "batchedNodes": 0,
+   "copyBatches": 0,
+   "sizes": [],
+   "problems": []
+  },
+  {
+   "label": "the library loaded (and the cutaway set while it was pending)",
+   "copies": 10,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "setOptions: exterior again",
+   "copies": 10,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "setView override: cutaway level 0 with furniture",
+   "copies": 10,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "an edit under the override",
+   "copies": 10,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "label": "override cleared, exterior",
+   "copies": 10,
+   "batchedNodes": 64,
+   "copyBatches": 8,
+   "sizes": [
+    8
+   ],
+   "problems": []
+  },
+  {
+   "controls": [
+    {
+     "control": "a batched copy also draws itself",
+     "fails": true,
+     "problems": [
+      "n0 node 1 (building batch, batch mesh): drawn 1 by itself + 1 by a CopyBatch, the template 1"
+     ]
+    },
+    {
+     "control": "a CopyBatch matrix moved by 1 m",
+     "fails": true,
+     "problems": [
+      "n2 node 1: CopyBatch matrix off by 1"
+     ]
+    },
+    {
+     "control": "a CopyBatch left in the scene",
+     "fails": true,
+     "problems": [
+      "an unlisted CopyBatch is in the scene"
+     ]
+    },
+    {
+     "control": "restored (must pass)",
+     "fails": false,
+     "problems": []
+    }
+   ]
+  }
+ ]
+}

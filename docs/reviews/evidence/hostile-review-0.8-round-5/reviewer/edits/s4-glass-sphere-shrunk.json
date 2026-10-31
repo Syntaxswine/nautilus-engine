@@ -1,0 +1,1 @@
+[{"file":"packages/building-catalog/three.js","needle":"g.computeBoundingBox();g.computeBoundingSphere();const mesh=new this.T.Mesh(g,materials.get(b.material));","replace":"g.computeBoundingBox();g.computeBoundingSphere();if(b.material==='glass')g.boundingSphere.radius*=.01;const mesh=new this.T.Mesh(g,materials.get(b.material));"}]

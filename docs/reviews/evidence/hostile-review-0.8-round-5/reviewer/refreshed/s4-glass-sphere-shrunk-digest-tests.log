@@ -1,0 +1,30 @@
+✔ building library keeps original footprints, native dimensions and connected descriptive room plans (208.0391ms)
+✔ mitered wall contours join on actual thickness and reject malformed designs (1.1039ms)
+✔ window and door apertures are real holes in both source and game envelope geometry (131.1375ms)
+✔ game derivation preserves room/aperture data, unit scale and working door hinges (297.393ms)
+✔ all runtime meshes have finite positions, unit normals and atlas UVs inside the image (952.2778ms)
+✔ gable and hipped surfaces retain metre-based texture scale across tile-clipped triangles (28.8188ms)
+✔ every original building matches the reviewed renderer byte for byte at game and authoring detail (3063.8308ms)
+✔ the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh (57.4569ms)
+✔ the geometry digest sees transforms, user data, material settings, view rules and the door swing (360.5715ms)
+✔ original display batches draw exactly the source-visible triangles in every editor view, one run per material (12964.9677ms)
+✔ gross display batches draw exactly the native-visible triangles for floors, furniture and walls (6538.3736ms)
+✔ placed copies share batch geometry and follow their template through views and disposal (38.8131ms)
+✔ a cluster of neighbouring copies draws each batch mesh as one CopyBatch that follows the template (94.3048ms)
+✔ double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow (35.5228ms)
+✔ releasing a batch disposes every merged geometry exactly once, for both collections (62.0241ms)
+✔ a building that cannot be batched releases its source model and reports why (0.6355ms)
+✔ shared asset discovery uses copied engine-owned IDs and matches reviewed registries (29.2746ms)
+✔ public building facade uses host Three at native scale and owns only loaded resources (55.3043ms)
+✔ by default every building instance is independent: its own geometry, materials and view (151.6602ms)
+✔ shared instances draw one design from display batches, share its view and release it with the last copy (205.8051ms)
+✔ public library disposes a successfully loaded provider if another provider fails (0.5297ms)
+✔ every distribution carrying Three preserves its complete original MIT license (655.922ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20191.0025

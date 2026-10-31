@@ -17,9 +17,9 @@ const instanceable=node=>node.isMesh&&Array.isArray(node.material);
 // 2.1 times slower than per-copy batches); and a close view or a lamp face sees few copies
 // of any set. Copies are neighbours when their buildings' spheres overlap; a cluster of
 // BATCHED or more neighbours draws through CopyBatches, and any other copy draws its own
-// batch meshes, which the renderer culls copy by copy. Measured against per-copy batches
-// (assets alone, 2 paired runs), Gross clusters of 3 were x0.90-1.07 unlit and x0.81-0.94
-// lit by six fires; of 6 to 8, x1.13-1.20 and x0.90-1.03; of 16, x1.38-2.14 and x1.00-1.30.
+// batch meshes, which the renderer culls copy by copy. Against per-copy batches (assets
+// alone, 4 paired runs), Gross rows of eight were x1.00-1.30 unlit and x0.82-1.03 under
+// six fires, 32 copies of one design x1.07-2.06 and x0.86-1.21 (pilots: building-prefabs.md).
 export const BATCHED=8;
 export function neighbourhoods(spheres) {
   const parent=spheres.map((_,k)=>k),root=k=>{while(parent[k]!==k)k=parent[k]=parent[parent[k]];return k;};

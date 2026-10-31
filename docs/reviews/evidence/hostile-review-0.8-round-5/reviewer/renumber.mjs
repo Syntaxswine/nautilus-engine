@@ -1,0 +1,21 @@
+// Renumber this round's nits N8-N13 (round 4's were N1-N7) and fix cross-references in review.md.
+import fs from 'node:fs';
+const file = process.argv[2];
+let t = fs.readFileSync(file, 'utf8');
+const rep = (a, b, n = 1) => {const k = t.split(a).length - 1; if (k !== n) throw Error(`expected ${n} of ${JSON.stringify(a)}, found ${k}`); t = t.split(a).join(b);};
+rep('- **N1. The `own` flag has no margin and no test.**', '- **N8. The `own` flag has no margin and no test.**');
+rep('- **N2. The threshold comment quotes the pilot.**', '- **N9. The threshold comment quotes the pilot.**');
+rep('- **N3. "Loses in close and far views under lamps" is stated as general**', '- **N10. "Loses in close and far views under lamps" is stated as general**');
+rep('- **N4. The cluster rule turns on a metre**', '- **N11. The cluster rule turns on a metre**');
+rep('- **N5. The bench\'s waits are untested.**', '- **N12. The bench\'s waits are untested.**');
+rep('- **N6. Two documented bounds read slightly low.**', '- **N13. Two documented bounds read slightly low.**');
+rep('so the loss is not general (N3). Eight: supported.', 'so the loss is not general (N10). Eight: supported.');
+rep('**Holds** (one bound reads 20, not 19: N6)', '**Holds** (one bound reads 20, not 19: N13)');
+rep('| **Holds** (N1) | Re-derived from the formal JSON exactly;', '| **Holds** (N8) | Re-derived from the formal JSON exactly;');
+rep('the dense grid +18–34 % under night lamps (N6).', 'the dense grid +18–34 % under night lamps (N13).');
+rep('| **survived** (N1) |', '| **survived** (N8) |');
+rep('| survived (N5) |', '| survived (N12) |');
+rep('| survived (N5) [PENDING:b3-row] |', '| survived (N12) [PENDING:b3-row] |');
+rep('S1b, S2, S2b, S3, S4, S6 and S7 (table above)', 'S1b, S2, S2b, S3, S4, S6 and S7 (the table under "The answer\'s SF-G, re-measured")');
+fs.writeFileSync(file, t);
+console.log('renumbered');

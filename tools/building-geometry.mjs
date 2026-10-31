@@ -4,14 +4,19 @@
 // every attribute byte and the draw range; bounds and the triangle count. It also
 // covers the visibility of every node in each view the model's setView offers (roofs
 // off, every floor's cutaway, every floor limit) and every door pivot with its doors
-// open. Equal digests mean the renderer drew the same model, whatever its source
-// text. The model is left exactly as it was found.
+// open. Equal digests mean the same untextured model as far as this key sees, whatever
+// its source text (what it does not see is listed below). The model is left exactly as
+// it was found.
 // A material is every setting it holds (each own property, which is what the renderer
 // reads: clipping planes and defines included), with each texture's settings in place of
 // its id, and what the renderer compiles from it that no setting shows: the shader its
 // onBeforeCompile writes from the material's own shader, and a custom program cache
-// key. Any other hook is refused rather than left out (round 4 of the 0.8 series:
+// key. Any other own hook is refused rather than left out (round 4 of the 0.8 series:
 // Material.toJSON, the key before, left out clipping planes and shader patches).
+// Not keyed (round 5, SF-J): the atlas the editor passes (the digests are made without
+// one), what a hook does given a renderer or the renderer's own parameters (it runs with
+// null and a five-field stub), hooks inherited from a prototype, morph targets, geometry
+// bounds, and the original provider's own changes to the materials it copies.
 import {createHash} from 'node:crypto';
 import * as T from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 const sha256=data=>createHash('sha256').update(data).digest('hex');

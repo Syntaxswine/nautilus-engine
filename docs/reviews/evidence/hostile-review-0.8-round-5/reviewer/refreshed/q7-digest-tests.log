@@ -1,0 +1,268 @@
+✔ building library keeps original footprints, native dimensions and connected descriptive room plans (215.7657ms)
+✔ mitered wall contours join on actual thickness and reject malformed designs (0.4512ms)
+✔ window and door apertures are real holes in both source and game envelope geometry (128.1147ms)
+✔ game derivation preserves room/aperture data, unit scale and working door hinges (320.8795ms)
+✔ all runtime meshes have finite positions, unit normals and atlas UVs inside the image (986.0388ms)
+✔ gable and hipped surfaces retain metre-based texture scale across tile-clipped triangles (32.7104ms)
+✖ every original building matches the reviewed renderer byte for byte at game and authoring detail (3152.3823ms)
+✖ the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh (56.2836ms)
+✔ the geometry digest sees transforms, user data, material settings, view rules and the door swing (379.0692ms)
+✔ original display batches draw exactly the source-visible triangles in every editor view, one run per material (12540.6848ms)
+✔ gross display batches draw exactly the native-visible triangles for floors, furniture and walls (6768.1486ms)
+✔ placed copies share batch geometry and follow their template through views and disposal (40.8698ms)
+✔ a cluster of neighbouring copies draws each batch mesh as one CopyBatch that follows the template (94.2277ms)
+✔ double-sided glass draws as two fixed-side copies in the order the renderer draws its halves, casting one double-sided shadow (39.0279ms)
+✔ releasing a batch disposes every merged geometry exactly once, for both collections (56.6181ms)
+✔ a building that cannot be batched releases its source model and reports why (0.6359ms)
+✔ shared asset discovery uses copied engine-owned IDs and matches reviewed registries (16.29ms)
+✔ public building facade uses host Three at native scale and owns only loaded resources (49.2525ms)
+✔ by default every building instance is independent: its own geometry, materials and view (168.3366ms)
+✔ shared instances draw one design from display batches, share its view and release it with the last copy (212.0597ms)
+✔ public library disposes a successfully loaded provider if another provider fails (0.5864ms)
+✔ every distribution carrying Three preserves its complete original MIT license (628.7874ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 20
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19945.9753
+
+✖ failing tests:
+
+test at tests\building-geometry.test.mjs:10:1
+✖ every original building matches the reviewed renderer byte for byte at game and authoring detail (3152.3823ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   'authoring:alder-reading-room': '19d93c4c31a8dbdecc6674e6f57b906b4851e9ce5dc955282da542bd9261ee39',
+  +   'authoring:alpine-timber': '4ada4bcccbc7fcb0472a44480f040999d19b98955c3a7aa6cbacca64a25e4160',
+  +   'authoring:batten-general-store': 'ec1f864bd3186567f35770a69f16881901ada596419ba652d4bbd1052059c697',
+  +   'authoring:bell-court-chapel': 'a9e28538389cebddaf696b3570e27c7bd3b5151e48ca9075a465b575f202bca0',
+  +   'authoring:bramble-ranch': '0399d8ce6d766f8af2fdaccae9bafa6c88029a85f60d6e170360bb116f992dae',
+  +   'authoring:branchline-depot': '88808864a75976df62be311cba6cc4524d56bde6f094586c6ef75fd1e227a8ef',
+  +   'authoring:canal-studio': '2ce04d0f9179ca2401439a58b0c112ce84bd54396f173a4bed9a7f25b94529b2',
+  +   'authoring:carriage-court': '329a91f6f584993e4131495572b4e1547c4e081d8646b6448436c75309b4b659',
+  +   'authoring:cedar-split': 'a422c94d87a345db2e3f38e60f1d7ee837790fef1386b8e2e4d9b97446d9d9a7',
+  +   'authoring:coach-yard-inn': '871022c38062d46e2acf2184d71bfe24a70d7a29788445a3166a0c206268f941',
+  +   'authoring:copper-watch-firehouse': '8e87d5fcdf5828b7b2a402ddbc5409801da323f79769b59f1ef7d38e311a371d',
+  +   'authoring:cypress-shotgun': 'd525a359a81d788957933ea37c0ebd15a9358827ee0a568d634c220a7934c6f2',
+  +   'authoring:dockside-warehouse': '7155655d5e2f9368068703bd58b27d9d1b028fc73afc29549ff2be8c9e637c0c',
+  +   'authoring:dogwood-breezeway': 'a98d0c9bf27d98dc77f52666700576ca0f902ccf2acbf81dc8a31bd8998fe144',
+  +   'authoring:eastfield-school': 'bf979381c627f49526fd1d66c07770f5199e06357c0a3366ef5c0560ae3ef058',
+  +   'authoring:elm-cross-gable': 'c2aa1ea395696edee85937b681951e44f0d3eb8a38214a5461e0b24cf98f542b',
+  +   'authoring:estuary-cottage': '38ca7e97eda09ddd2d9220db1655f844d23acaa55f59e07dbdfa3b36316ea1ed',
+  +   'authoring:exchange-hall': '69955129fe698c32333b39cd454602e42b7131dcbb602d5ad65d09b0c2f537db',
+  +   'authoring:fennel-mansard': 'c32960efef4a8480316338f0192a67c51155cf9129113be0141dfb4c51a5349e',
+  +   'authoring:foxglove-bungalow': '72e264c56090fb2fc76ced84e6cd3c8d354aa7ed1a343d6a71ba7121cbeead35',
+  +   'authoring:glass-garden-hall': '0306fbb396e7940ebfd9bcb18826d9c7397033d9b4187c7b4ecedcddf97477bf',
+  +   'authoring:grainwatch-granary': 'a7c68f7a281d8939967aefbcb64542fb7f9df0a6542f51a5e30119b058a98d89',
+  +   'authoring:greywell-chapel': '1e43b6f223a8b9f8f8b4f56648bf6bce2b2949b40f3fa9c2c7602b1212cd361c',
+  +   'authoring:hearth-cape': '4cd8345d937c38cd37ffbc8f151da9856df6d0be1a98418844da3ba4980cd290',
+  +   'authoring:horseshoe-stables': '1c0a9d5518c00c44f4de3dc7f8179a590b251e019c8975bd3cf50444a9a58185',
+  +   'authoring:juniper-suite': '00665f169e54c61d922b37f91f48e721a42a07155a55b32f5f83baf71cb27e0b',
+  +   'authoring:linden-clinic': 'f452797e5dc0227d81bead0acb8d3d9a20b89323d20a31798151caa961c16a82',
+  +   'authoring:longlight-house': '7acbdba2e87b1e772f13ac41416d3b2fdb7539503c60b96985081c8bd751c620',
+  +   'authoring:longspan-machine-shed': 'f449fdd0cb0988848fdae0685594d0724c7744c7ae377dccfe8276c781a95dc2',
+  +   'authoring:market-terrace': '47aeb957c02d1d0d7575af6bcbe9a306cb24d78372f0c3c44b9a027b1db17b27',
+  +   'authoring:marlow-courtyard-flats': '33f5a783fbc5f30d40285e1d59c533526949648e13699606b155bc2762bb3dec',
+  +   'authoring:mews-corner': '95e1ee00a32156020951e6ff22c685cb4ac09053f20eede09cf5a2656133bef2',
+  +   'authoring:millrace-workhouse': '677fb60efe894233ff2e43d113daf0ab27fd0c8b86740bafcfc392a76732792f',
+  +   'authoring:narrow-court': '0abbc9f277d1e2e3ab437b39bb37106cfab4d4b6a1ab071af5d40bf61eae3e6b',
+  +   'authoring:northlight-works': '44c6aca2e538e61e1ce2c92783ddbffc8f60f1f1f6a5c295f305e644fe44df5c',
+  +   'authoring:ochre-patio': 'fe067a9791f578e715dfdddbea86ccbd6905875698a4a14521343622bc0eb998',
+  +   'authoring:orchard-schoolhouse': '87b594d7bc307107d2209f42e2f3a859d4da8c060cc18a31fc91af566765a524',
+  +   'authoring:pepper-corner-shop': 'c18e29b55886998da42b765182f66351d5329377570db074cc6273e05fc5fb42',
+  +   'authoring:post-lane-office': '4037bf18cfd4fdb89e313a430e18a645a720d3534ad55da1d8a2c845f2af19c6',
+  +   'authoring:prairie-corner': '8e024ffe6a844a91eded311ea8ee6c1a7cd1190b39574a047f501ff7c541f07c',
+  +   'authoring:red-crest-barn': '32ab259f494de28500568e30c185ffbd3b5a430a63d612b0eb13b41955b3d624',
+  +   'authoring:rowan-family': '2ac9918377f1016b9b384d99ef976330cae998f551ce590d9b73d97ab36bd773',
+  +   'authoring:saltmarsh-lean-to': '5adea72948ed4f6416b84c3ce7371cf3de4f9ca474a5aa680387c3840a2fc048',
+  +   'authoring:stone-bank-barn': 'e261fc6bdc1e98112d48d066f717cd55ac01ab04e7d4a4494220917ac4eed605',
+  +   'authoring:sun-well-court': '3ad54df189d61b748c2fd6d24af6cc45641c1dde6bda71a7ba520e4463fbad76',
+  +   'authoring:violet-bay-house': 'f331b8e5fb50b450ed48c1ef66276f8a16d8fca0710cc7466cc849965f74d691',
+  +   'authoring:whitegate-dairy': '45437113e86eb3d32becc50df3be44fc711bb7c115f344fa14e8850fb7758066',
+  +   'authoring:willow-pair': '8dc9517ca2c581a5baf8e9f2c66e62d57dd6c5248186fba74b23f3f0f621e03f',
+  +   'game:alder-reading-room': '2ffee6699c10eb7119886adf1ffdb574e67a7350ecc149b6fe56d3054ff4c156',
+  +   'game:alpine-timber': '144de47d85eb7ef31f9ac5bfc7755e480879d913197673c28367434ebecd855a',
+  +   'game:batten-general-store': '4785afb0f90541d0b4810cb629882adcfe57276b56e7d7be324dc905f9c5fdeb',
+  +   'game:bell-court-chapel': 'df1861ccfd86c67145db338141dec4f30d8333d24c8dddec89b17c2e2af43171',
+  +   'game:bramble-ranch': '225d237570a0e8860025d684d91bf68878692a9a8fe3bf1e22b34120c4d4950b',
+  +   'game:branchline-depot': 'dab0613d7272d9a952c1f7c044050d5cba2e901ad3622d0879a2a53c2739673c',
+  +   'game:canal-studio': 'f452f0b6a3d98d09a923952d0818e684102a24ee863e949c2e3592d56cddbd95',
+  +   'game:carriage-court': '249016841e77fc4c54bedaa6655aa6dca076db20cc19df022389e61e1fef57e3',
+  +   'game:cedar-split': '31245d2ff892dba77dcbd63699bcdba9ae314362f9480061cb39c1034d0bbc3e',
+  +   'game:coach-yard-inn': '7ed07fed8bae87499bd65a7f0de5bbbe88012600bbf743f36fe2f8a84e6ede70',
+  +   'game:copper-watch-firehouse': 'b7dd30922daf75a2a6892de3eb082113e5ff11243084b5aec25b5aa3092e6587',
+  +   'game:cypress-shotgun': 'e3074cc6ff16b3cab1b753e4d68914f58c6cd8801d33d565372e84e0a07bb963',
+  +   'game:dockside-warehouse': 'dee50ee92bff96b47fd194de83dbc6c6e0c6dc2ab445509c7cb0cd996f705fd3',
+  +   'game:dogwood-breezeway': '78fea0a234b828b07c565e6554d4b0f9fef6d841b6bf73353653a10e24a8e575',
+  +   'game:eastfield-school': '8326714f2673eba8e67356ee6040cc49b5618be8b2ab683836d34bcaf1decbab',
+  +   'game:elm-cross-gable': '32e88f6e0610a2c73a2badad7ccb0e9f53acd94ccbb7b20e1a65975c3bba71a7',
+  +   'game:estuary-cottage': '7f7436a28e905e6664a18e467db63c5cc8ee7cdec754b5674a0995a361faf61c',
+  +   'game:exchange-hall': '2fa4327c81a5316f012eb9efd84377e5e39785ec6c32228ad9a2ff0e9ac9fa46',
+  +   'game:fennel-mansard': 'a5b20945f8c757016b36b0b9b2a511ec98cf4c27354ede4de6dc6c0b72921a37',
+  +   'game:foxglove-bungalow': '8d8161b0dd7339f75d47c3e0fb805a43f3fe97b480e9e377c7143d5dc3ff6d71',
+  +   'game:glass-garden-hall': '52789cb4ee160d90ee7821683b647c1bfe0537ed768a87a98c6149655610a45a',
+  +   'game:grainwatch-granary': '2d9109df9a8bf70d7a34a922d1b97c17f59ccbf8d4b7deb3803acbd6730cf219',
+  +   'game:greywell-chapel': 'ecadd75fe63b6992a3bc706caa9dd48c9ab766404cd55580dfde6e6be14d36e9',
+  +   'game:hearth-cape': 'e982995a24fe56af2702315bcb64b36f0cf41fdfc9ecfd62d7fd9820819bec59',
+  +   'game:horseshoe-stables': '3745bed01cfa6ab733761c53367c9126b7de788f5a2f1113b958ad7479ecd05e',
+  +   'game:juniper-suite': 'e748ae6267c3f75c72b8bded419d75160287beb50a9709d90621e4b9c463c528',
+  +   'game:linden-clinic': 'b7799cd7bcc4962ac41e7de4bb88ffcae5555a4e341c5d74c73c7ad48136d991',
+  +   'game:longlight-house': 'a66c52a61ec5bc7020fbcb7f3a29ab2614e2e961b3228a4727e53df341274450',
+  +   'game:longspan-machine-shed': '92e5ed124cfe66fdeae64d4fa4cf54dbca118382423a5fa102d475d57f935d87',
+  +   'game:market-terrace': '2f555fa767f1d383ae4fb7bb2bc0158e251a34edc7608d42f19dcec022573c71',
+  +   'game:marlow-courtyard-flats': '6554274035cbf21506e25bd7cf0ab338481af3fe293675cf87316f1325ff5df2',
+  +   'game:mews-corner': 'b4038e70d8fc9297eacfcb8e0b8cacfb9d10e91368b8d7f2bbbcb164cd367091',
+  +   'game:millrace-workhouse': '0dd62a03fc2956dd21e25e7e87e1a0f2c518d45b95d748a6dc377cc295a4855b',
+  +   'game:narrow-court': '1cdb01ca49652a390dbd2f33310bc1383d443c30a522f07679c53cc8087dcde5',
+  +   'game:northlight-works': 'e1fb23476c4eaafd16bc0b29b9c50d43fef403f9d7286e245f681a72e7636978',
+  +   'game:ochre-patio': '5bcf8b7a7ff24b6903461ab46c82844fa1d035fe059ada7893124cff897f57bd',
+  +   'game:orchard-schoolhouse': '308876598980366a939353d6a508ffa448771c55fa2eedc9857526fe848e12b2',
+  +   'game:pepper-corner-shop': '47004c671f6019a83c8c851a608149a87349a31bedf6661d72663bfff81fb44c',
+  +   'game:post-lane-office': 'c4c877ab33a09e37c623d55bf2e73111060d54b2ab354a2788ab3ef4d333b9d3',
+  +   'game:prairie-corner': '6db10d493fffd46bcf2e4cfab54fd5f8befb1808f28ceea174876f52be1590fe',
+  +   'game:red-crest-barn': '5be30c348a57a152fa590a544ca8b182fde1e762bd7fab40a4820f24ef8b72b0',
+  +   'game:rowan-family': '80ec576773fdd75506a32de036195b2e255f9581b0d811a42125e1848bfebd51',
+  +   'game:saltmarsh-lean-to': '1c85d9a4e051277847605f62e167fe0ed71f845e8e9dad9b9d8b8147fa74e55c',
+  +   'game:stone-bank-barn': 'd4d6f0d6fb3c121676d6cf0bdc44b924804099ce43404ee4cd59764f0c37c038',
+  +   'game:sun-well-court': 'ddccc4873f3ac6f387f2e68a4ab979b669c8546b16762fb34d3e415d8a52f7e8',
+  +   'game:violet-bay-house': 'b02defce99cc12495f2afb3878d18127d5a3964e8385917881d669740831b1e0',
+  +   'game:whitegate-dairy': 'ead4b116dfd39cd3bdc3fc0d3124b85df4157ac5200da13967734bcee0faa830',
+  +   'game:willow-pair': 'c5fee8dd2bfb397d34086f4442366fd780704e793116f6fb3754559c3d11c5a1'
+  -   'authoring:alder-reading-room': 'da41ecc96afd4026e135b482da168770635fa2fb7c7f26596829a50ca9ab7617',
+  -   'authoring:alpine-timber': 'd9de075a230e51f5768c8a205268d63ddeb9c4947df6d8b4dbb29010cfe00da1',
+  -   'authoring:batten-general-store': '7b79823630bdf607d996d6206133ffcc79795e3266e01d6acab5aedbf6f250fb',
+  -   'authoring:bell-court-chapel': '0ba43fbf1e07dbce4dc56df0227affeb6b7eb564a5104000553977f33ce51cf7',
+  -   'authoring:bramble-ranch': '2ad2e758b8dad4f520c18278cd5b073b25d9f8eb799ffbc582aaa36af8831396',
+  -   'authoring:branchline-depot': 'dc96cf8d647f4cfb674da87e821f8caec745ac33b7d56a1b05ffb84b2a7e8ba2',
+  -   'authoring:canal-studio': '049109cc590bd38a36dfc67b5d578a38bd5b67a0559f537dd6efd80c870e22f4',
+  -   'authoring:carriage-court': '00d1ffe1f78e0071190adc9e083bc0be5a2d8d604e143966d7d2725acc2d7d58',
+  -   'authoring:cedar-split': '949ea8cbf16a7980a3331e2680cb989096c1c0a4dfd317732a254ee8e0126bca',
+  -   'authoring:coach-yard-inn': '77d41eec388d73c0e2fb95d4d78567ea6ad3a8d76fcd32d06fa173bd9911fcc8',
+  -   'authoring:copper-watch-firehouse': 'c1bb18092206ae54733655e628b7e53fac6060af32e1b1dc28c382ffb3dccef7',
+  -   'authoring:cypress-shotgun': 'df2d0f893a442ab4a7cf882759340cdb8d268dd89fd937c6cb5d9962dd92ffdf',
+  -   'authoring:dockside-warehouse': 'e0cd6be58b9d87b90a5eb8af844873e937671be6da92303537af46dd28827426',
+  -   'authoring:dogwood-breezeway': '450eb83b707c3efe8a7ca007c1a306118ab561573100b8af42c79562ae77a439',
+  -   'authoring:eastfield-school': '78ca9f4bc44c91fc3a7d7aa46048e70286397759636936ac887b514eeeac3bd3',
+  -   'authoring:elm-cross-gable': 'c349bd95d27fc3576f9401a9ff4d76aede53a9121ebcb78d30769ceb0c33137b',
+  -   'authoring:estuary-cottage': '8d427059d21909c268c305e3a65c98893470ac0635c579e8d4180a74bf01a6bc',
+  -   'authoring:exchange-hall': '31a13d5d3bba9a2121e1b361db60277fc18aa8edfc9c1844a87f722cf3462842',
+  -   'authoring:fennel-mansard': '7a1d7ed1d80f46f00196f1baa088240089d7cd1c2736966c1a1f46f91b614734',
+  -   'authoring:foxglove-bungalow': 'd0a2c750ffae38046a9bc593f72476d26a727c95d2b8b1beae68db5c31d47973',
+  -   'authoring:glass-garden-hall': '232ac286f5886d63763d53fac57b559e01eeb2ba47714ede891263c04fbef925',
+  -   'authoring:grainwatch-granary': '182e5ecffef071b5ecef1bce2a1bc938a6040808934a17244342d99ef3530773',
+  -   'authoring:greywell-chapel': 'c179427f5109ed549c192efd64633b6be4c0d9892962273cb248bc6b8ad39394',
+  -   'authoring:hearth-cape': '44d8561303f0985d9b0b8973f423f11dd63c13d260f61976b945e4f10e311ffc',
+  -   'authoring:horseshoe-stables': '16b1d673b3ec38b6084bbffddaacc34586d0f72425f861bb924f11d1bfff7f7c',
+  -   'authoring:juniper-suite': '9654d0986323cfb640a7ed18da2db241f3fd5a7898fd333e58b1e5b7bad40069',
+  -   'authoring:linden-clinic': '8989967d817c40240ec6a1caae84df62f11e5ca33b4b3a9c4824302e338fbd1d',
+  -   'authoring:longlight-house': 'f6361095c1521db792db5e364da7901c42a1fa9f264e8817f1207a10cb3c4968',
+  -   'authoring:longspan-machine-shed': 'cd56b8edc4170603099a6493d7d5e0e0c5747bcf6c691ee167b31db8011adcdd',
+  -   'authoring:market-terrace': 'd2002ecf2479e6bcfde47fdacc0b069d3778ece3bdff8864c9a5cdc8ef8614b8',
+  -   'authoring:marlow-courtyard-flats': 'b5f6561cc11e8f894f25d57d20d7dc9b324c00621a921cb837d6053f71ae2268',
+  -   'authoring:mews-corner': '8565f562219bfb57f118648109450016204c0077e1a59b3e9b1d7b922eaef682',
+  -   'authoring:millrace-workhouse': '2377caea6f58eaa87ce957b5489cf57b39a4388ffefc52703cb9b3c3208a96fb',
+  -   'authoring:narrow-court': '1e26aea80544fcf0e4b4beeb650593e0cd8e7259d65ad0bdd32c9a2b9bf7d886',
+  -   'authoring:northlight-works': '8df03826c5b39961ab470b574543cdfd779240a6ffef18b8be73040286c31d90',
+  -   'authoring:ochre-patio': 'b51a94516c2e0631f4a36a820b2c0dd185c69296b51e035d6a65501b48ca498a',
+  -   'authoring:orchard-schoolhouse': '029431b3cb650c385ec8aadfaa521f6570f8c65279eef08c0173f46ca7476aa3',
+  -   'authoring:pepper-corner-shop': '43383a27b4ffa1d231c4187cc25d2ba789f8ddb72ece7edd4477cc339d18b44d',
+  -   'authoring:post-lane-office': 'cb6fbd27e31cb570ef059c31ff52a02e399cb9f01bf7a148c3653b28f8929bc6',
+  -   'authoring:prairie-corner': 'd62d2961d4b8e71b0135d7527ea383728d650be01792b4e028d53202f63a4fea',
+  -   'authoring:red-crest-barn': '7bad955807a4f1e1865d052e0b9adc17e216238610135e0003fbd67b465109de',
+  -   'authoring:rowan-family': 'a160fb351db8aecd8262d85889e924936c4682b7a2abacfcfb7694aa8393a911',
+  -   'authoring:saltmarsh-lean-to': 'a8b9d8492f274beece8999c1246fd054824bcdab3b99a9bdeaa6f9392986fdfa',
+  -   'authoring:stone-bank-barn': '46a9517658af9130307e36890c6eb6c825562077cc0d3e694381b5eeb5f82019',
+  -   'authoring:sun-well-court': 'bb993a6b21bc6b1b66c87c83d224d175564c1adc5682aedf5eebea6f824bdfc0',
+  -   'authoring:violet-bay-house': '6f0be8c3136f32775d90d6ffa0ba589b4f8c3289646a6b86c096af58da62d0ef',
+  -   'authoring:whitegate-dairy': '1805f1509364c6e172ede7d4f10dd82cb7baf4e3f88e52ad350281c335bf6bed',
+  -   'authoring:willow-pair': 'c78941f58792762ed1fb4f4d83604df335af77bcec607a10970dce3bc69db4f9',
+  -   'game:alder-reading-room': '348ac29725f67fe34b11fca54b2006c5b168d5acc04298edf9b54ceb7aa8aae2',
+  -   'game:alpine-timber': 'e99291127139122f0d1b540f6d675cc5570744132b9f33f4dbb2d0d94b1ea8b7',
+  -   'game:batten-general-store': 'af94ca8e2264c9c50d4a5901514a711d9cf2d9c568725f55085f74d6721b9397',
+  -   'game:bell-court-chapel': '550b9c6a508b091341202168a3c231446fa6e23ccc5617b7671eda01d5c17bd1',
+  -   'game:bramble-ranch': '7112a37c1cf95bf89333eab74b75fda16fa27c2293817d9f7eb20985db076665',
+  -   'game:branchline-depot': '410df13f9952dedc17732404fcd1eeb272902d20aec69da8b9cec93762c607c8',
+  -   'game:canal-studio': '05bfd71af0945067f504d0ed95b5b45e009272c270686c948d7c5e2c390aa2e2',
+  -   'game:carriage-court': '7299b80c6c9f456c6ddeaf7009c0e31feea6e54db8635f2b710d1d7affcfa305',
+  -   'game:cedar-split': 'cf9a3200c8b0d1ad4f99034d8a4cff334a4860f5acd58ab92915b0f263049ca8',
+  -   'game:coach-yard-inn': 'ec3cc051101acb37ecad31fccb7b16bac6d7c4c1f028f5335d074e3bc54831c5',
+  -   'game:copper-watch-firehouse': '49766b588df29a63918b7031981b6711617e05f2ef600dac4a081ea6eb56f758',
+  -   'game:cypress-shotgun': '52cb20eca1254d92f830266ba8a41099128b6ca8e9a3ecbd07606fd8da6ac195',
+  -   'game:dockside-warehouse': '2e06a200ef895c9c924a436d3f9586c870a5c497d3dedf9c5e3dcbdf6fd85e81',
+  -   'game:dogwood-breezeway': '8b0e0704e83e0c4cb21a3280232f13b609af4490fa18ae4cafb918a4ec6a2f0c',
+  -   'game:eastfield-school': '5e39e27d7a47f47d28df8a641ac6418dfbf578c5980403a44ac1c9d50030de39',
+  -   'game:elm-cross-gable': '456387b32f0482ba504d7e2280b0cf14e009173b6e1754ec50cea0b91ed5660f',
+  -   'game:estuary-cottage': '5923d593539af616cee793a9fd9a6d3b772153b96e8f4c929509d5efbe41bcd8',
+  -   'game:exchange-hall': 'c3ae90c45e01eb84f87449e83ac3dc3795a7ff879a79c211a9c3b0414a3baeed',
+  -   'game:fennel-mansard': '69f19413a5b11e66365fa45c7e54c9af710fd350db01022518aca8286e6237ef',
+  -   'game:foxglove-bungalow': '33fed8f9e4e1529e2b79c9867eef36b8e466c40a3c89088bf5eb7903b3307def',
+  -   'game:glass-garden-hall': '168973d3da132e19391d94b92248dc9e3dac17ade51e622b3794965e11579d38',
+  -   'game:grainwatch-granary': 'ee60203b53ae2451c45da598339d2f5380b889819521dffc789ef59d3f5aba8e',
+  -   'game:greywell-chapel': '4cb72bb294c0001d7deff52b54ff2df10f39ee692d8f72333f3e4ccc4d1728e1',
+  -   'game:hearth-cape': 'a1e6c0363279017e7c3a41477f4e8926f8564fabb035a467b81d089eab343bfc',
+  -   'game:horseshoe-stables': 'f14357f15328f609bd0370153e392d0ca127a5404f9cb70925c7913a52f22976',
+  -   'game:juniper-suite': 'f3b6bc25a4c0a82e49506228923c912219a103563dcb3be8929e1e2e4e846943',
+  -   'game:linden-clinic': '1e8325abcb39611f6d1148dfc31faa65a165ff0b13bee557fc21528fb9b8e503',
+  -   'game:longlight-house': '65ad26e9de030da8fc924da66f34025c27f819080832a803a1c09907aaaf326d',
+  -   'game:longspan-machine-shed': '060a56cbc0b649c6c0b99ee506b20ee935f94a9f6197bb6b633cc9283291268b',
+  -   'game:market-terrace': 'e509a9695a4af9984f9d5148879b8d1a85e35a428b3b6e5967254d32402606bd',
+  -   'game:marlow-courtyard-flats': '91f13008ac645d80f68e027b081364169d5fa312711a900d76abee03b34cc633',
+  -   'game:mews-corner': 'd7960a04820b04346c75128964a92d68b604cf6021b043b796d7ea7b9f7dac27',
+  -   'game:millrace-workhouse': '25c37798560c3862f93a7224b964800ace4387656a7e942ac042ab2e8dc3eb56',
+  -   'game:narrow-court': '56405528f693ab22dbf12c61e909e98ddcb0b0ab05b3cd8ca89e8c24758404d8',
+  -   'game:northlight-works': '7930e91477dddeab7caa49b5729fb1ca6bf920025984c53c01a0fb8439ff1fbf',
+  -   'game:ochre-patio': 'da20118432e858f285e99fb5c3dfa41caee555e15e31b631e1648d9558d7e917',
+  -   'game:orchard-schoolhouse': '9ed1804f20ab4634733dbc9fb2d4507d4e0be9b4e26e624f0aae5b399946e8ad',
+  -   'game:pepper-corner-shop': '519fb72375b0be49e687dd0445cf7c2731c4b886ac912874e186e51ffb799c8e',
+  -   'game:post-lane-office': '807c0bef5c932b84e8dc3ede5f475a4d54fd1eb728074b3f944c8efd3650101b',
+  -   'game:prairie-corner': 'cd4e1ee47bdf1cfb7b9af286c4a6364768336ac11de1e4848850df5b65c7cefb',
+  -   'game:red-crest-barn': '3d4ad6a9b9d93aa38cf59cca63e2f3974e722e7900b515c9d022b5bca4ad2e3c',
+  -   'game:rowan-family': 'c10a6cb4ed40a39a8cf4d8d0f8a126a2f3cf52f6963d28bd5804046fa6dbf04e',
+  -   'game:saltmarsh-lean-to': 'f13d4d2783ba03c7ace65356940d72da8ccbe61f950e84a1cd98f4bc2a3e0ce3',
+  -   'game:stone-bank-barn': 'd02d9bf88c2851e833e1f38dc50f546c973f867a694538a41794b34a35755e1c',
+  -   'game:sun-well-court': 'd66ccd5696e85525011e534f7bcf681be5bba5ca3d44918a793370bd9d0a79ea',
+  -   'game:violet-bay-house': 'f0aa0bf12cd12cafaca9b02b354cd6a5610782c9baa91e40cfdd1ac6dcc77943',
+  -   'game:whitegate-dairy': 'eb07dc589bda4fdcbf2f4478d7638dd01d56b434f4b50c8ff39f3392108b7e0d',
+  -   'game:willow-pair': '8170d2380fd97a1ecb41e9aa79fd745b0f934745a65b4a6fc696260c9dee8ae8'
+    }
+  
+      at TestContext.<anonymous> (file:///<scratch>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { 'game:bramble-ranch': '225d237570a0e8860025d684d91bf68878692a9a8fe3bf1e22b34120c4d4950b', 'game:cedar-split': '31245d2ff892dba77dcbd63699bcdba9ae314362f9480061cb39c1034d0bbc3e', 'game:juniper-suite': 'e748ae6267c3f75c72b8bded419d75160287beb50a9709d90621e4b9c463c528', 'game:rowan-family': '80ec576773fdd75506a32de036195b2e255f9581b0d811a42125e1848bfebd51', 'game:willow-pair': 'c5fee8dd2bfb397d34086f4442366fd780704e793116f6fb3754559c3d11c5a1', 'game:narrow-court': '1cdb01ca49652a390dbd2f33310bc1383d443c30a522f07679c53cc8087dcde5', 'game:mews-corner': 'b4038e70d8fc9297eacfcb8e0b8cacfb9d10e91368b8d7f2bbbcb164cd367091', 'game:canal-studio': 'f452f0b6a3d98d09a923952d0818e684102a24ee863e949c2e3592d56cddbd95', 'game:ochre-patio': '5bcf8b7a7ff24b6903461ab46c82844fa1d035fe059ada7893124cff897f57bd', 'game:longlight-house': 'a66c52a61ec5bc7020fbcb7f3a29ab2614e2e961b3228a4727e53df341274450', 'game:dogwood-breezeway': '78fea0a234b828b07c565e6554d4b0f9fef6d841b6bf73353653a10e24a8e575', 'game:saltmarsh-lean-to': '1c85d9a4e051277847605f62e167fe0ed71f845e8e9dad9b9d8b8147fa74e55c', 'game:hearth-cape': 'e982995a24fe56af2702315bcb64b36f0cf41fdfc9ecfd62d7fd9820819bec59', 'game:foxglove-bungalow': '8d8161b0dd7339f75d47c3e0fb805a43f3fe97b480e9e377c7143d5dc3ff6d71', 'game:elm-cross-gable': '32e88f6e0610a2c73a2badad7ccb0e9f53acd94ccbb7b20e1a65975c3bba71a7', 'game:violet-bay-house': 'b02defce99cc12495f2afb3878d18127d5a3964e8385917881d669740831b1e0', 'game:fennel-mansard': 'a5b20945f8c757016b36b0b9b2a511ec98cf4c27354ede4de6dc6c0b72921a37', 'game:cypress-shotgun': 'e3074cc6ff16b3cab1b753e4d68914f58c6cd8801d33d565372e84e0a07bb963', 'game:sun-well-court': 'ddccc4873f3ac6f387f2e68a4ab979b669c8546b16762fb34d3e415d8a52f7e8', 'game:prairie-corner': '6db10d493fffd46bcf2e4cfab54fd5f8befb1808f28ceea174876f52be1590fe', 'game:alpine-timber': '144de47d85eb7ef31f9ac5bfc7755e480879d913197673c28367434ebecd855a', 'game:estuary-cottage': '7f7436a28e905e6664a18e467db63c5cc8ee7cdec754b5674a0995a361faf61c', 'game:marlow-courtyard-flats': '6554274035cbf21506e25bd7cf0ab338481af3fe293675cf87316f1325ff5df2', 'game:market-terrace': '2f555fa767f1d383ae4fb7bb2bc0158e251a34edc7608d42f19dcec022573c71', 'game:eastfield-school': '8326714f2673eba8e67356ee6040cc49b5618be8b2ab683836d34bcaf1decbab', 'game:orchard-schoolhouse': '308876598980366a939353d6a508ffa448771c55fa2eedc9857526fe848e12b2', 'game:greywell-chapel': 'ecadd75fe63b6992a3bc706caa9dd48c9ab766404cd55580dfde6e6be14d36e9', 'game:bell-court-chapel': 'df1861ccfd86c67145db338141dec4f30d8333d24c8dddec89b17c2e2af43171', 'game:copper-watch-firehouse': 'b7dd30922daf75a2a6892de3eb082113e5ff11243084b5aec25b5aa3092e6587', 'game:branchline-depot': 'dab0613d7272d9a952c1f7c044050d5cba2e901ad3622d0879a2a53c2739673c', 'game:alder-reading-room': '2ffee6699c10eb7119886adf1ffdb574e67a7350ecc149b6fe56d3054ff4c156', 'game:exchange-hall': '2fa4327c81a5316f012eb9efd84377e5e39785ec6c32228ad9a2ff0e9ac9fa46', 'game:pepper-corner-shop': '47004c671f6019a83c8c851a608149a87349a31bedf6661d72663bfff81fb44c', 'game:batten-general-store': '4785afb0f90541d0b4810cb629882adcfe57276b56e7d7be324dc905f9c5fdeb', 'game:linden-clinic': 'b7799cd7bcc4962ac41e7de4bb88ffcae5555a4e341c5d74c73c7ad48136d991', 'game:coach-yard-inn': '7ed07fed8bae87499bd65a7f0de5bbbe88012600bbf743f36fe2f8a84e6ede70', 'game:dockside-warehouse': 'dee50ee92bff96b47fd194de83dbc6c6e0c6dc2ab445509c7cb0cd996f705fd3', 'game:northlight-works': 'e1fb23476c4eaafd16bc0b29b9c50d43fef403f9d7286e245f681a72e7636978', 'game:glass-garden-hall': '52789cb4ee160d90ee7821683b647c1bfe0537ed768a87a98c6149655610a45a', 'game:post-lane-office': 'c4c877ab33a09e37c623d55bf2e73111060d54b2ab354a2788ab3ef4d333b9d3', 'game:red-crest-barn': '5be30c348a57a152fa590a544ca8b182fde1e762bd7fab40a4820f24ef8b72b0', 'game:stone-bank-barn': 'd4d6f0d6fb3c121676d6cf0bdc44b924804099ce43404ee4cd59764f0c37c038', 'game:longspan-machine-shed': '92e5ed124cfe66fdeae64d4fa4cf54dbca118382423a5fa102d475d57f935d87', 'game:whitegate-dairy': 'ead4b116dfd39cd3bdc3fc0d3124b85df4157ac5200da13967734bcee0faa830', 'game:horseshoe-stables': '3745bed01cfa6ab733761c53367c9126b7de788f5a2f1113b958ad7479ecd05e', 'game:grainwatch-granary': '2d9109df9a8bf70d7a34a922d1b97c17f59ccbf8d4b7deb3803acbd6730cf219', 'game:carriage-court': '249016841e77fc4c54bedaa6655aa6dca076db20cc19df022389e61e1fef57e3', 'game:millrace-workhouse': '0dd62a03fc2956dd21e25e7e87e1a0f2c518d45b95d748a6dc377cc295a4855b', 'authoring:bramble-ranch': '0399d8ce6d766f8af2fdaccae9bafa6c88029a85f60d6e170360bb116f992dae', 'authoring:cedar-split': 'a422c94d87a345db2e3f38e60f1d7ee837790fef1386b8e2e4d9b97446d9d9a7', 'authoring:juniper-suite': '00665f169e54c61d922b37f91f48e721a42a07155a55b32f5f83baf71cb27e0b', 'authoring:rowan-family': '2ac9918377f1016b9b384d99ef976330cae998f551ce590d9b73d97ab36bd773', 'authoring:willow-pair': '8dc9517ca2c581a5baf8e9f2c66e62d57dd6c5248186fba74b23f3f0f621e03f', 'authoring:narrow-court': '0abbc9f277d1e2e3ab437b39bb37106cfab4d4b6a1ab071af5d40bf61eae3e6b', 'authoring:mews-corner': '95e1ee00a32156020951e6ff22c685cb4ac09053f20eede09cf5a2656133bef2', 'authoring:canal-studio': '2ce04d0f9179ca2401439a58b0c112ce84bd54396f173a4bed9a7f25b94529b2', 'authoring:ochre-patio': 'fe067a9791f578e715dfdddbea86ccbd6905875698a4a14521343622bc0eb998', 'authoring:longlight-house': '7acbdba2e87b1e772f13ac41416d3b2fdb7539503c60b96985081c8bd751c620', 'authoring:dogwood-breezeway': 'a98d0c9bf27d98dc77f52666700576ca0f902ccf2acbf81dc8a31bd8998fe144', 'authoring:saltmarsh-lean-to': '5adea72948ed4f6416b84c3ce7371cf3de4f9ca474a5aa680387c3840a2fc048', 'authoring:hearth-cape': '4cd8345d937c38cd37ffbc8f151da9856df6d0be1a98418844da3ba4980cd290', 'authoring:foxglove-bungalow': '72e264c56090fb2fc76ced84e6cd3c8d354aa7ed1a343d6a71ba7121cbeead35', 'authoring:elm-cross-gable': 'c2aa1ea395696edee85937b681951e44f0d3eb8a38214a5461e0b24cf98f542b', 'authoring:violet-bay-house': 'f331b8e5fb50b450ed48c1ef66276f8a16d8fca0710cc7466cc849965f74d691', 'authoring:fennel-mansard': 'c32960efef4a8480316338f0192a67c51155cf9129113be0141dfb4c51a5349e', 'authoring:cypress-shotgun': 'd525a359a81d788957933ea37c0ebd15a9358827ee0a568d634c220a7934c6f2', 'authoring:sun-well-court': '3ad54df189d61b748c2fd6d24af6cc45641c1dde6bda71a7ba520e4463fbad76', 'authoring:prairie-corner': '8e024ffe6a844a91eded311ea8ee6c1a7cd1190b39574a047f501ff7c541f07c', 'authoring:alpine-timber': '4ada4bcccbc7fcb0472a44480f040999d19b98955c3a7aa6cbacca64a25e4160', 'authoring:estuary-cottage': '38ca7e97eda09ddd2d9220db1655f844d23acaa55f59e07dbdfa3b36316ea1ed', 'authoring:marlow-courtyard-flats': '33f5a783fbc5f30d40285e1d59c533526949648e13699606b155bc2762bb3dec', 'authoring:market-terrace': '47aeb957c02d1d0d7575af6bcbe9a306cb24d78372f0c3c44b9a027b1db17b27', 'authoring:eastfield-school': 'bf979381c627f49526fd1d66c07770f5199e06357c0a3366ef5c0560ae3ef058', 'authoring:orchard-schoolhouse': '87b594d7bc307107d2209f42e2f3a859d4da8c060cc18a31fc91af566765a524', 'authoring:greywell-chapel': '1e43b6f223a8b9f8f8b4f56648bf6bce2b2949b40f3fa9c2c7602b1212cd361c', 'authoring:bell-court-chapel': 'a9e28538389cebddaf696b3570e27c7bd3b5151e48ca9075a465b575f202bca0', 'authoring:copper-watch-firehouse': '8e87d5fcdf5828b7b2a402ddbc5409801da323f79769b59f1ef7d38e311a371d', 'authoring:branchline-depot': '88808864a75976df62be311cba6cc4524d56bde6f094586c6ef75fd1e227a8ef', 'authoring:alder-reading-room': '19d93c4c31a8dbdecc6674e6f57b906b4851e9ce5dc955282da542bd9261ee39', 'authoring:exchange-hall': '69955129fe698c32333b39cd454602e42b7131dcbb602d5ad65d09b0c2f537db', 'authoring:pepper-corner-shop': 'c18e29b55886998da42b765182f66351d5329377570db074cc6273e05fc5fb42', 'authoring:batten-general-store': 'ec1f864bd3186567f35770a69f16881901ada596419ba652d4bbd1052059c697', 'authoring:linden-clinic': 'f452797e5dc0227d81bead0acb8d3d9a20b89323d20a31798151caa961c16a82', 'authoring:coach-yard-inn': '871022c38062d46e2acf2184d71bfe24a70d7a29788445a3166a0c206268f941', 'authoring:dockside-warehouse': '7155655d5e2f9368068703bd58b27d9d1b028fc73afc29549ff2be8c9e637c0c', 'authoring:northlight-works': '44c6aca2e538e61e1ce2c92783ddbffc8f60f1f1f6a5c295f305e644fe44df5c', 'authoring:glass-garden-hall': '0306fbb396e7940ebfd9bcb18826d9c7397033d9b4187c7b4ecedcddf97477bf', 'authoring:post-lane-office': '4037bf18cfd4fdb89e313a430e18a645a720d3534ad55da1d8a2c845f2af19c6', 'authoring:red-crest-barn': '32ab259f494de28500568e30c185ffbd3b5a430a63d612b0eb13b41955b3d624', 'authoring:stone-bank-barn': 'e261fc6bdc1e98112d48d066f717cd55ac01ab04e7d4a4494220917ac4eed605', 'authoring:longspan-machine-shed': 'f449fdd0cb0988848fdae0685594d0724c7744c7ae377dccfe8276c781a95dc2', 'authoring:whitegate-dairy': '45437113e86eb3d32becc50df3be44fc711bb7c115f344fa14e8850fb7758066', 'authoring:horseshoe-stables': '1c0a9d5518c00c44f4de3dc7f8179a590b251e019c8975bd3cf50444a9a58185', 'authoring:grainwatch-granary': 'a7c68f7a281d8939967aefbcb64542fb7f9df0a6542f51a5e30119b058a98d89', 'authoring:carriage-court': '329a91f6f584993e4131495572b4e1547c4e081d8646b6448436c75309b4b659', 'authoring:millrace-workhouse': '677fb60efe894233ff2e43d113daf0ab27fd0c8b86740bafcfc392a76732792f' },
+    expected: { 'game:bramble-ranch': '7112a37c1cf95bf89333eab74b75fda16fa27c2293817d9f7eb20985db076665', 'game:cedar-split': 'cf9a3200c8b0d1ad4f99034d8a4cff334a4860f5acd58ab92915b0f263049ca8', 'game:juniper-suite': 'f3b6bc25a4c0a82e49506228923c912219a103563dcb3be8929e1e2e4e846943', 'game:rowan-family': 'c10a6cb4ed40a39a8cf4d8d0f8a126a2f3cf52f6963d28bd5804046fa6dbf04e', 'game:willow-pair': '8170d2380fd97a1ecb41e9aa79fd745b0f934745a65b4a6fc696260c9dee8ae8', 'game:narrow-court': '56405528f693ab22dbf12c61e909e98ddcb0b0ab05b3cd8ca89e8c24758404d8', 'game:mews-corner': 'd7960a04820b04346c75128964a92d68b604cf6021b043b796d7ea7b9f7dac27', 'game:canal-studio': '05bfd71af0945067f504d0ed95b5b45e009272c270686c948d7c5e2c390aa2e2', 'game:ochre-patio': 'da20118432e858f285e99fb5c3dfa41caee555e15e31b631e1648d9558d7e917', 'game:longlight-house': '65ad26e9de030da8fc924da66f34025c27f819080832a803a1c09907aaaf326d', 'game:dogwood-breezeway': '8b0e0704e83e0c4cb21a3280232f13b609af4490fa18ae4cafb918a4ec6a2f0c', 'game:saltmarsh-lean-to': 'f13d4d2783ba03c7ace65356940d72da8ccbe61f950e84a1cd98f4bc2a3e0ce3', 'game:hearth-cape': 'a1e6c0363279017e7c3a41477f4e8926f8564fabb035a467b81d089eab343bfc', 'game:foxglove-bungalow': '33fed8f9e4e1529e2b79c9867eef36b8e466c40a3c89088bf5eb7903b3307def', 'game:elm-cross-gable': '456387b32f0482ba504d7e2280b0cf14e009173b6e1754ec50cea0b91ed5660f', 'game:violet-bay-house': 'f0aa0bf12cd12cafaca9b02b354cd6a5610782c9baa91e40cfdd1ac6dcc77943', 'game:fennel-mansard': '69f19413a5b11e66365fa45c7e54c9af710fd350db01022518aca8286e6237ef', 'game:cypress-shotgun': '52cb20eca1254d92f830266ba8a41099128b6ca8e9a3ecbd07606fd8da6ac195', 'game:sun-well-court': 'd66ccd5696e85525011e534f7bcf681be5bba5ca3d44918a793370bd9d0a79ea', 'game:prairie-corner': 'cd4e1ee47bdf1cfb7b9af286c4a6364768336ac11de1e4848850df5b65c7cefb', 'game:alpine-timber': 'e99291127139122f0d1b540f6d675cc5570744132b9f33f4dbb2d0d94b1ea8b7', 'game:estuary-cottage': '5923d593539af616cee793a9fd9a6d3b772153b96e8f4c929509d5efbe41bcd8', 'game:marlow-courtyard-flats': '91f13008ac645d80f68e027b081364169d5fa312711a900d76abee03b34cc633', 'game:market-terrace': 'e509a9695a4af9984f9d5148879b8d1a85e35a428b3b6e5967254d32402606bd', 'game:eastfield-school': '5e39e27d7a47f47d28df8a641ac6418dfbf578c5980403a44ac1c9d50030de39', 'game:orchard-schoolhouse': '9ed1804f20ab4634733dbc9fb2d4507d4e0be9b4e26e624f0aae5b399946e8ad', 'game:greywell-chapel': '4cb72bb294c0001d7deff52b54ff2df10f39ee692d8f72333f3e4ccc4d1728e1', 'game:bell-court-chapel': '550b9c6a508b091341202168a3c231446fa6e23ccc5617b7671eda01d5c17bd1', 'game:copper-watch-firehouse': '49766b588df29a63918b7031981b6711617e05f2ef600dac4a081ea6eb56f758', 'game:branchline-depot': '410df13f9952dedc17732404fcd1eeb272902d20aec69da8b9cec93762c607c8', 'game:alder-reading-room': '348ac29725f67fe34b11fca54b2006c5b168d5acc04298edf9b54ceb7aa8aae2', 'game:exchange-hall': 'c3ae90c45e01eb84f87449e83ac3dc3795a7ff879a79c211a9c3b0414a3baeed', 'game:pepper-corner-shop': '519fb72375b0be49e687dd0445cf7c2731c4b886ac912874e186e51ffb799c8e', 'game:batten-general-store': 'af94ca8e2264c9c50d4a5901514a711d9cf2d9c568725f55085f74d6721b9397', 'game:linden-clinic': '1e8325abcb39611f6d1148dfc31faa65a165ff0b13bee557fc21528fb9b8e503', 'game:coach-yard-inn': 'ec3cc051101acb37ecad31fccb7b16bac6d7c4c1f028f5335d074e3bc54831c5', 'game:dockside-warehouse': '2e06a200ef895c9c924a436d3f9586c870a5c497d3dedf9c5e3dcbdf6fd85e81', 'game:northlight-works': '7930e91477dddeab7caa49b5729fb1ca6bf920025984c53c01a0fb8439ff1fbf', 'game:glass-garden-hall': '168973d3da132e19391d94b92248dc9e3dac17ade51e622b3794965e11579d38', 'game:post-lane-office': '807c0bef5c932b84e8dc3ede5f475a4d54fd1eb728074b3f944c8efd3650101b', 'game:red-crest-barn': '3d4ad6a9b9d93aa38cf59cca63e2f3974e722e7900b515c9d022b5bca4ad2e3c', 'game:stone-bank-barn': 'd02d9bf88c2851e833e1f38dc50f546c973f867a694538a41794b34a35755e1c', 'game:longspan-machine-shed': '060a56cbc0b649c6c0b99ee506b20ee935f94a9f6197bb6b633cc9283291268b', 'game:whitegate-dairy': 'eb07dc589bda4fdcbf2f4478d7638dd01d56b434f4b50c8ff39f3392108b7e0d', 'game:horseshoe-stables': 'f14357f15328f609bd0370153e392d0ca127a5404f9cb70925c7913a52f22976', 'game:grainwatch-granary': 'ee60203b53ae2451c45da598339d2f5380b889819521dffc789ef59d3f5aba8e', 'game:carriage-court': '7299b80c6c9f456c6ddeaf7009c0e31feea6e54db8635f2b710d1d7affcfa305', 'game:millrace-workhouse': '25c37798560c3862f93a7224b964800ace4387656a7e942ac042ab2e8dc3eb56', 'authoring:bramble-ranch': '2ad2e758b8dad4f520c18278cd5b073b25d9f8eb799ffbc582aaa36af8831396', 'authoring:cedar-split': '949ea8cbf16a7980a3331e2680cb989096c1c0a4dfd317732a254ee8e0126bca', 'authoring:juniper-suite': '9654d0986323cfb640a7ed18da2db241f3fd5a7898fd333e58b1e5b7bad40069', 'authoring:rowan-family': 'a160fb351db8aecd8262d85889e924936c4682b7a2abacfcfb7694aa8393a911', 'authoring:willow-pair': 'c78941f58792762ed1fb4f4d83604df335af77bcec607a10970dce3bc69db4f9', 'authoring:narrow-court': '1e26aea80544fcf0e4b4beeb650593e0cd8e7259d65ad0bdd32c9a2b9bf7d886', 'authoring:mews-corner': '8565f562219bfb57f118648109450016204c0077e1a59b3e9b1d7b922eaef682', 'authoring:canal-studio': '049109cc590bd38a36dfc67b5d578a38bd5b67a0559f537dd6efd80c870e22f4', 'authoring:ochre-patio': 'b51a94516c2e0631f4a36a820b2c0dd185c69296b51e035d6a65501b48ca498a', 'authoring:longlight-house': 'f6361095c1521db792db5e364da7901c42a1fa9f264e8817f1207a10cb3c4968', 'authoring:dogwood-breezeway': '450eb83b707c3efe8a7ca007c1a306118ab561573100b8af42c79562ae77a439', 'authoring:saltmarsh-lean-to': 'a8b9d8492f274beece8999c1246fd054824bcdab3b99a9bdeaa6f9392986fdfa', 'authoring:hearth-cape': '44d8561303f0985d9b0b8973f423f11dd63c13d260f61976b945e4f10e311ffc', 'authoring:foxglove-bungalow': 'd0a2c750ffae38046a9bc593f72476d26a727c95d2b8b1beae68db5c31d47973', 'authoring:elm-cross-gable': 'c349bd95d27fc3576f9401a9ff4d76aede53a9121ebcb78d30769ceb0c33137b', 'authoring:violet-bay-house': '6f0be8c3136f32775d90d6ffa0ba589b4f8c3289646a6b86c096af58da62d0ef', 'authoring:fennel-mansard': '7a1d7ed1d80f46f00196f1baa088240089d7cd1c2736966c1a1f46f91b614734', 'authoring:cypress-shotgun': 'df2d0f893a442ab4a7cf882759340cdb8d268dd89fd937c6cb5d9962dd92ffdf', 'authoring:sun-well-court': 'bb993a6b21bc6b1b66c87c83d224d175564c1adc5682aedf5eebea6f824bdfc0', 'authoring:prairie-corner': 'd62d2961d4b8e71b0135d7527ea383728d650be01792b4e028d53202f63a4fea', 'authoring:alpine-timber': 'd9de075a230e51f5768c8a205268d63ddeb9c4947df6d8b4dbb29010cfe00da1', 'authoring:estuary-cottage': '8d427059d21909c268c305e3a65c98893470ac0635c579e8d4180a74bf01a6bc', 'authoring:marlow-courtyard-flats': 'b5f6561cc11e8f894f25d57d20d7dc9b324c00621a921cb837d6053f71ae2268', 'authoring:market-terrace': 'd2002ecf2479e6bcfde47fdacc0b069d3778ece3bdff8864c9a5cdc8ef8614b8', 'authoring:eastfield-school': '78ca9f4bc44c91fc3a7d7aa46048e70286397759636936ac887b514eeeac3bd3', 'authoring:orchard-schoolhouse': '029431b3cb650c385ec8aadfaa521f6570f8c65279eef08c0173f46ca7476aa3', 'authoring:greywell-chapel': 'c179427f5109ed549c192efd64633b6be4c0d9892962273cb248bc6b8ad39394', 'authoring:bell-court-chapel': '0ba43fbf1e07dbce4dc56df0227affeb6b7eb564a5104000553977f33ce51cf7', 'authoring:copper-watch-firehouse': 'c1bb18092206ae54733655e628b7e53fac6060af32e1b1dc28c382ffb3dccef7', 'authoring:branchline-depot': 'dc96cf8d647f4cfb674da87e821f8caec745ac33b7d56a1b05ffb84b2a7e8ba2', 'authoring:alder-reading-room': 'da41ecc96afd4026e135b482da168770635fa2fb7c7f26596829a50ca9ab7617', 'authoring:exchange-hall': '31a13d5d3bba9a2121e1b361db60277fc18aa8edfc9c1844a87f722cf3462842', 'authoring:pepper-corner-shop': '43383a27b4ffa1d231c4187cc25d2ba789f8ddb72ece7edd4477cc339d18b44d', 'authoring:batten-general-store': '7b79823630bdf607d996d6206133ffcc79795e3266e01d6acab5aedbf6f250fb', 'authoring:linden-clinic': '8989967d817c40240ec6a1caae84df62f11e5ca33b4b3a9c4824302e338fbd1d', 'authoring:coach-yard-inn': '77d41eec388d73c0e2fb95d4d78567ea6ad3a8d76fcd32d06fa173bd9911fcc8', 'authoring:dockside-warehouse': 'e0cd6be58b9d87b90a5eb8af844873e937671be6da92303537af46dd28827426', 'authoring:northlight-works': '8df03826c5b39961ab470b574543cdfd779240a6ffef18b8be73040286c31d90', 'authoring:glass-garden-hall': '232ac286f5886d63763d53fac57b559e01eeb2ba47714ede891263c04fbef925', 'authoring:post-lane-office': 'cb6fbd27e31cb570ef059c31ff52a02e399cb9f01bf7a148c3653b28f8929bc6', 'authoring:red-crest-barn': '7bad955807a4f1e1865d052e0b9adc17e216238610135e0003fbd67b465109de', 'authoring:stone-bank-barn': '46a9517658af9130307e36890c6eb6c825562077cc0d3e694381b5eeb5f82019', 'authoring:longspan-machine-shed': 'cd56b8edc4170603099a6493d7d5e0e0c5747bcf6c691ee167b31db8011adcdd', 'authoring:whitegate-dairy': '1805f1509364c6e172ede7d4f10dd82cb7baf4e3f88e52ad350281c335bf6bed', 'authoring:horseshoe-stables': '16b1d673b3ec38b6084bbffddaacc34586d0f72425f861bb924f11d1bfff7f7c', 'authoring:grainwatch-granary': '182e5ecffef071b5ecef1bce2a1bc938a6040808934a17244342d99ef3530773', 'authoring:carriage-court': '00d1ffe1f78e0071190adc9e083bc0be5a2d8d604e143966d7d2725acc2d7d58', 'authoring:millrace-workhouse': '2377caea6f58eaa87ce957b5489cf57b39a4388ffefc52703cb9b3c3208a96fb' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\building-geometry.test.mjs:16:1
+✖ the geometry digest sees a one-ulp vertex change, a reordered mesh and a renamed mesh (56.2836ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '225d237570a0e8860025d684d91bf68878692a9a8fe3bf1e22b34120c4d4950b'
+  - '7112a37c1cf95bf89333eab74b75fda16fa27c2293817d9f7eb20985db076665'
+  
+      at TestContext.<anonymous> (file:///<scratch>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '225d237570a0e8860025d684d91bf68878692a9a8fe3bf1e22b34120c4d4950b',
+    expected: '7112a37c1cf95bf89333eab74b75fda16fa27c2293817d9f7eb20985db076665',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
