@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-31T12:29:49.576Z",
+  "verifiedAt": "2026-10-31T12:41:29.638Z",
   "helpers": [
     {
       "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
@@ -210,6 +210,47 @@
       "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
       "purpose": "White House painterly model/furnishing review",
       "project": "Nautilus Engine",
+      "startedAt": "2026-10-31T12:40:19.035Z",
+      "expiresAt": "2026-10-31T12:43:19.035Z",
+      "process": {
+        "pid": 59748,
+        "creationFiletime": "134379240161607892",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 27216,
+        "creationFiletime": "134379240176736012",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 59266,
+      "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\white-house-source\\STOP",
+      "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+      "sourceFiles": [
+        "tools/art-review-browser.mjs",
+        "tools/review-white-house.mjs",
+        "package.json"
+      ],
+      "restart": {
+        "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\review-white-house.mjs",
+          "--source"
+        ],
+        "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+        "inputs": "Project source tree and its referenced local assets",
+        "outputs": "artifacts/white-house-source",
+        "pendingWork": "Stateless review; no in-memory state is needed",
+        "secretReferences": []
+      },
+      "nodeLifetimeEnded": true,
+      "browserLifetimeEnded": true,
+      "portReleased": true
+    },
+    {
+      "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+      "purpose": "White House painterly model/furnishing review",
+      "project": "Nautilus Engine",
       "startedAt": "2026-10-31T12:28:04.705Z",
       "expiresAt": "2026-10-31T12:31:04.705Z",
       "process": {
@@ -245,24 +286,64 @@
       "nodeLifetimeEnded": true,
       "browserLifetimeEnded": true,
       "portReleased": true
+    },
+    {
+      "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+      "purpose": "White House painterly model/furnishing review",
+      "project": "Nautilus Engine",
+      "startedAt": "2026-10-31T12:40:42.448Z",
+      "expiresAt": "2026-10-31T12:43:42.448Z",
+      "process": {
+        "pid": 31284,
+        "creationFiletime": "134379240415039191",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 59436,
+        "creationFiletime": "134379240420521784",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 59757,
+      "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\white-house-built\\STOP",
+      "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+      "sourceFiles": [
+        "tools/art-review-browser.mjs",
+        "tools/review-white-house.mjs",
+        "package.json"
+      ],
+      "restart": {
+        "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\review-white-house.mjs"
+        ],
+        "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+        "inputs": "Static dist/ tree built from project source",
+        "outputs": "artifacts/white-house-built",
+        "pendingWork": "Stateless review; no in-memory state is needed",
+        "secretReferences": []
+      },
+      "nodeLifetimeEnded": true,
+      "browserLifetimeEnded": true,
+      "portReleased": true
     }
   ],
   "receipts": [
     {
       "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
       "purpose": "White House painterly model/furnishing review",
-      "stoppedAt": "2026-10-31T12:27:59.419Z",
+      "stoppedAt": "2026-10-31T12:40:39.254Z",
       "process": {
-        "pid": 70408,
-        "creationFiletime": "134379232678662363",
+        "pid": 59748,
+        "creationFiletime": "134379240161607892",
         "executable": "C:\\Program Files\\nodejs\\node.exe"
       },
       "browser": {
-        "pid": 19328,
-        "creationFiletime": "134379232682950399",
+        "pid": 27216,
+        "creationFiletime": "134379240176736012",
         "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
       },
-      "port": 56527,
+      "port": 59266,
       "httpClosed": true,
       "browserClosed": true,
       "method": "Supported Playwright browser close and HTTP close in finally"
@@ -270,18 +351,18 @@
     {
       "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
       "purpose": "White House painterly model/furnishing review",
-      "stoppedAt": "2026-10-31T12:28:13.934Z",
+      "stoppedAt": "2026-10-31T12:40:53.601Z",
       "process": {
-        "pid": 43300,
-        "creationFiletime": "134379232840868999",
+        "pid": 31284,
+        "creationFiletime": "134379240415039191",
         "executable": "C:\\Program Files\\nodejs\\node.exe"
       },
       "browser": {
-        "pid": 16492,
-        "creationFiletime": "134379232844298268",
+        "pid": 59436,
+        "creationFiletime": "134379240420521784",
         "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
       },
-      "port": 57820,
+      "port": 59757,
       "httpClosed": true,
       "browserClosed": true,
       "method": "Supported Playwright browser close and HTTP close in finally"

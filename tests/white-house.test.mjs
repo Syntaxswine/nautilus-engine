@@ -7,6 +7,7 @@ test('editor recipe preserves six Z strata, double-height voids, stairwell apert
  const p=whiteHousePlan();assert.equal(p.rooms.length,46);assert.equal(FURNISHINGS.length,51);assert.equal(p.furnishings.length,463);assert.deepEqual(C.occupiedZ,[0,1,3,5]);assert.equal(new Set(p.furnishings.map(f=>f.id)).size,463);
  for(const r of p.rooms){assert.ok(C.occupiedZ.includes(r.level));assert.ok([r.x,r.z,r.w,r.d].every(Number.isInteger));assert.equal(r.local.x,r.x-p.sections[r.section].x);}
  for(const level of [0,1,2,3,4,5]){const tiles=whiteHouseFloorTiles(p,level);assert.equal(new Set(tiles.map(t=>[t.level,t.x,t.z].join(','))).size,tiles.length);if([2,4].includes(level))assert.deepEqual(tiles,[]);if(level>0)assert.ok(!tiles.some(t=>t.section==='residence'&&t.x>=56&&t.x<60&&t.z>=33&&t.z<40));}
+ for(const f of p.furnishings.filter(f=>f.roomId==='kitchen')){const spec=FURNISHINGS.find(a=>a.id===f.assetId),half=(Math.abs(Math.sin(f.yaw))>.5?spec.footprint[1]:spec.footprint[0])/2;assert.ok(f.x-half>60,'Kitchen fixtures must stay east of the stairwell');}
  assert.deepEqual(FURNISHINGS.find(f=>f.id==='bath-stall').footprint,[1,2]);assert.equal(whiteHouseCompatibility().ok,false);assert.equal(whiteHouseCompatibility({features:p.requirements}).ok,true);assert.equal(typeof globalThis.window,'undefined');assert.ok(moduleClosure(['packages/white-house/plan.js']).every(f=>f==='packages/white-house/plan.js'));
 });
 test('all independent furniture designs have finite geometry/paint UVs, distinct stable IDs and no normal/displacement maps',()=>{
