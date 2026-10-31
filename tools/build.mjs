@@ -82,6 +82,7 @@ const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
 const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
 fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
+fs.cpSync(path.join(root, 'assets/white-house'), path.join(output, 'assets/white-house'), {recursive: true});
 fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});
 write('buildings/references.json', fs.readFileSync(path.join(root, 'art/buildings/reference-register.json')));
 write('upstream.json', JSON.stringify(sources, null, 2));

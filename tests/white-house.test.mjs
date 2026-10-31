@@ -1,0 +1,29 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';import path from'node:path';import{createHash}from'node:crypto';
+import * as T from'../packages/render-effects/three.js';
+import{whiteHousePlan,whiteHouseFloorTiles,whiteHouseCompatibility,WHITE_HOUSE_CONTRACT as C,FURNISHINGS,PAINT_RECTS}from'../packages/white-house/plan.js';
+import{createWhiteHouseModel,createWhiteHouseFurnishing,whiteHouseModelFiles}from'../packages/white-house/three.js';
+import{distribution,moduleClosure}from'../tools/distribution.mjs';
+test('editor recipe preserves six Z strata, double-height voids, stairwell apertures, room identities and native stall lot',()=>{
+ const p=whiteHousePlan();assert.equal(p.rooms.length,46);assert.equal(FURNISHINGS.length,51);assert.equal(p.furnishings.length,463);assert.deepEqual(C.occupiedZ,[0,1,3,5]);assert.equal(new Set(p.furnishings.map(f=>f.id)).size,463);
+ for(const r of p.rooms){assert.ok(C.occupiedZ.includes(r.level));assert.ok([r.x,r.z,r.w,r.d].every(Number.isInteger));assert.equal(r.local.x,r.x-p.sections[r.section].x);}
+ for(const level of [0,1,2,3,4,5]){const tiles=whiteHouseFloorTiles(p,level);assert.equal(new Set(tiles.map(t=>[t.level,t.x,t.z].join(','))).size,tiles.length);if([2,4].includes(level))assert.deepEqual(tiles,[]);if(level>0)assert.ok(!tiles.some(t=>t.section==='residence'&&t.x>=56&&t.x<60&&t.z>=33&&t.z<40));}
+ assert.deepEqual(FURNISHINGS.find(f=>f.id==='bath-stall').footprint,[1,2]);assert.equal(whiteHouseCompatibility().ok,false);assert.equal(whiteHouseCompatibility({features:p.requirements}).ok,true);assert.equal(typeof globalThis.window,'undefined');assert.ok(moduleClosure(['packages/white-house/plan.js']).every(f=>f==='packages/white-house/plan.js'));
+});
+test('all independent furniture designs have finite geometry/paint UVs, distinct stable IDs and no normal/displacement maps',()=>{
+ const atlas=new T.Texture();let borrowedDisposed=0;atlas.addEventListener('dispose',()=>borrowedDisposed++);
+ for(const p of FURNISHINGS){const m=createWhiteHouseFurnishing(T,p.id,{atlas});try{assert.equal(m.metadata.id,p.id);assert.ok(m.triangles>0);m.root.traverse(o=>{if(!o.isMesh)return;assert.equal(o.material.normalMap,null);assert.equal(o.material.displacementMap,null);assert.ok(!o.material.map||o.material.map!==atlas);for(const key of ['position','normal','uv'])assert.ok(o.geometry.attributes[key].array.every(Number.isFinite));for(const n of o.geometry.attributes.uv.array)assert.ok(n>=0&&n<=1);});}finally{m.dispose();m.dispose();}assert.equal(borrowedDisposed,0);}
+ assert.throws(()=>createWhiteHouseFurnishing(T,'missing',{atlas}));assert.throws(()=>createWhiteHouseFurnishing(T,'bench',{lod:'bad'}));atlas.dispose();assert.equal(borrowedDisposed,1);
+});
+test('full simplified scene retains authored dimensions, reduces settled detailed source, and culls by room/floor without geometry edits',()=>{
+ const game=createWhiteHouseModel(T),source=createWhiteHouseModel(T,{lod:'authoring'});try{assert.ok(game.triangles<source.triangles*.5);assert.ok(Math.abs(game.bounds.max[0]-132)<1e-6);assert.ok(Math.abs(game.bounds.max[2]-96)<1e-6);
+  for(const o of game.root.children)if(o.userData.section==='residence'&&[0,3,5].includes(o.userData.level)&&o.userData.kind==='exterior'){o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;assert.ok(b.min.x>=41.79&&b.max.x<=90.21);assert.ok(b.min.z>=31.79&&b.max.z<=56.21,'Side walls must close the residence, never extend past its ends.');}
+  const arrays=game.root.children.map(o=>o.geometry.attributes.position.array);game.setView({level:1,roof:false,cutaway:true,grounds:false,roomId:'blue-room'});assert.ok(game.root.children.some(o=>o.visible));for(const o of game.root.children.filter(o=>o.visible)){assert.equal(o.userData.roomId,'blue-room');assert.equal(o.userData.level,1);assert.ok(!['roof','grounds','exterior','trim'].includes(o.userData.kind));}assert.deepEqual(game.root.children.map(o=>o.geometry.attributes.position.array),arrays);const scene=new T.Scene(),borrowed=new T.Group();scene.add(borrowed,game.root);game.dispose();assert.deepEqual(scene.children,[borrowed]);assert.equal(game.diagnostics().disposed,true);assert.equal(game.diagnostics().meshes,0);
+ }finally{game.dispose();source.dispose();}
+});
+test('exports retain every original asset and texture hash, glTF closure, atlas rectangles and explicit core/renderer separation',()=>{
+ const dir='assets/white-house',manifest=JSON.parse(fs.readFileSync(dir+'/manifest.json'));assert.equal(manifest.models.length,53);assert.equal(manifest.paint.width,1254);assert.equal(PAINT_RECTS.length,16);
+ for(const input of manifest.inputs)assert.equal(createHash('sha256').update(fs.readFileSync(input.file)).digest('hex'),input.sha256,'Export source changed: '+input.file);
+ for(const row of [manifest.paint,...manifest.models.flatMap(m=>m.files)]){const data=fs.readFileSync(path.join(dir,row.file));assert.equal(createHash('sha256').update(data).digest('hex'),row.sha256);}
+ for(const row of manifest.models){const g=JSON.parse(fs.readFileSync(path.join(dir,row.files[0].file)));assert.equal(g.asset.version,'2.0');const base=path.dirname(path.join(dir,row.files[0].file));assert.equal(fs.statSync(path.join(base,g.buffers[0].uri)).size,g.buffers[0].byteLength);assert.ok(fs.existsSync(path.join(base,g.images[0].uri)));assert.ok(row.authoringTriangles>=row.gameTriangles);}
+ assert.ok(distribution('core').files.includes('packages/white-house/plan.js'));assert.ok(!distribution('core').files.some(f=>f.startsWith('assets/white-house/')));assert.ok(distribution('renderer').files.includes('assets/white-house/painted-heritage-v1.png'));assert.ok(distribution('assets').exports['./white-house']);assert.throws(()=>whiteHouseModelFiles('unknown'));assert.ok(whiteHouseModelFiles().model.endsWith('/white-house.gltf'));
+});

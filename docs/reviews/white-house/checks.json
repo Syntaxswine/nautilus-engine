@@ -1,0 +1,489 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "contract": {
+    "id": "white-house-public-tour-v1",
+    "version": 1,
+    "grid": 1,
+    "zStep": 2.12,
+    "editableZ": 6,
+    "occupiedZ": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "axes": [
+      "x",
+      "height",
+      "z"
+    ],
+    "site": [
+      132,
+      96
+    ],
+    "residence": [
+      48,
+      24
+    ],
+    "origin": "northwest site corner",
+    "period": "classic public-tour configuration, informed by 2001–2016 public archives",
+    "status": "original visual landmark and furnishing kit; game behavior requires consumer binding"
+  },
+  "models": 53,
+  "rooms": 46,
+  "kit": 51,
+  "interiorPlacements": 463,
+  "main": {
+    "id": "white-house",
+    "gameTriangles": 259474,
+    "authoringTriangles": 1147630,
+    "reduction": 0.7739044814095135,
+    "bounds": {
+      "min": [
+        0,
+        -0.3199999928474426,
+        0
+      ],
+      "max": [
+        132,
+        15.25,
+        96
+      ]
+    },
+    "files": [
+      {
+        "file": "models/white-house.gltf",
+        "bytes": 751073,
+        "sha256": "d3046d2ff0016c34bffce7634f6120e413ffd1feb2f42a5fe13b7471210aa330"
+      },
+      {
+        "file": "models/white-house.bin",
+        "bytes": 24909504,
+        "sha256": "79f5b16ff87b8f5e2432f6e2c3952d2b1dd7f7d098dc75b35c015c4bc19e5e11"
+      }
+    ]
+  },
+  "exterior": {
+    "id": "white-house-exterior",
+    "gameTriangles": 81030,
+    "authoringTriangles": 658614,
+    "reduction": 0.8769689074328818,
+    "bounds": {
+      "min": [
+        0,
+        -0.3199999928474426,
+        0
+      ],
+      "max": [
+        132,
+        15.25,
+        96
+      ]
+    },
+    "files": [
+      {
+        "file": "models/white-house-exterior.gltf",
+        "bytes": 242215,
+        "sha256": "bc7e07f1b6282652a7a108e439860588df455ec05906a18a784d26f7d7ec166d"
+      },
+      {
+        "file": "models/white-house-exterior.bin",
+        "bytes": 7778880,
+        "sha256": "bf44fc13308b518404190aa55ee9846a8ad442a8e967af422901ab29cf5a7758"
+      }
+    ]
+  },
+  "gates": {
+    "check": "pass",
+    "tests": "631 passed",
+    "upstream": "32 passed",
+    "build": "pass; 451 module paths"
+  },
+  "installed": {
+    "status": "pass",
+    "profiles": [
+      {
+        "profile": "core",
+        "compressedBytes": 1439748
+      },
+      {
+        "profile": "renderer",
+        "compressedBytes": 29883783
+      },
+      {
+        "profile": "assets",
+        "compressedBytes": 16460617
+      }
+    ],
+    "proof": "Installed core, shared-Three renderer and asset-only White House entries: model, 53 glTF/BIN pairs, paint hashes, cutaway, refusal and borrowed-resource retirement pass.",
+    "consumerRemoved": true
+  },
+  "browser": [
+    {
+      "schemaVersion": 1,
+      "mode": "source",
+      "status": "pass",
+      "captures": [
+        {
+          "name": "north",
+          "mode": "north",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "south",
+          "mode": "south",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "estate",
+          "mode": "estate",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "state-floor",
+          "mode": "state",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 210,
+          "textures": 1,
+          "geometries": 210,
+          "disposed": false
+        },
+        {
+          "name": "blue-room",
+          "mode": "state",
+          "detail": "blue-room",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 15,
+          "textures": 1,
+          "geometries": 15,
+          "disposed": false
+        },
+        {
+          "name": "oval-office",
+          "mode": "state",
+          "detail": "oval-office",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 18,
+          "textures": 1,
+          "geometries": 18,
+          "disposed": false
+        },
+        {
+          "name": "east-room",
+          "mode": "state",
+          "detail": "east-room",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 11,
+          "textures": 1,
+          "geometries": 11,
+          "disposed": false
+        },
+        {
+          "name": "ground-floor",
+          "mode": "ground",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 132,
+          "textures": 1,
+          "geometries": 132,
+          "disposed": false
+        },
+        {
+          "name": "furnishing-kit",
+          "mode": "kit",
+          "detail": "",
+          "lod": "game",
+          "models": 51,
+          "triangles": 9204,
+          "draws": 120,
+          "textures": 1,
+          "geometries": 120,
+          "disposed": false
+        },
+        {
+          "name": "resolute-desk",
+          "mode": "piece",
+          "detail": "resolute-desk",
+          "lod": "game",
+          "models": 1,
+          "triangles": 192,
+          "draws": 3,
+          "textures": 1,
+          "geometries": 3,
+          "disposed": false
+        }
+      ],
+      "phone": "390 x 844",
+      "errors": 0,
+      "failedRequests": 0,
+      "backend": "Isolated browser with SwiftShader WebGL; not a physical-phone FPS measurement"
+    },
+    {
+      "schemaVersion": 1,
+      "mode": "built",
+      "status": "pass",
+      "captures": [
+        {
+          "name": "north",
+          "mode": "north",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "south",
+          "mode": "south",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "estate",
+          "mode": "estate",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 81030,
+          "draws": 195,
+          "textures": 1,
+          "geometries": 195,
+          "disposed": false
+        },
+        {
+          "name": "state-floor",
+          "mode": "state",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 210,
+          "textures": 1,
+          "geometries": 210,
+          "disposed": false
+        },
+        {
+          "name": "blue-room",
+          "mode": "state",
+          "detail": "blue-room",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 15,
+          "textures": 1,
+          "geometries": 15,
+          "disposed": false
+        },
+        {
+          "name": "oval-office",
+          "mode": "state",
+          "detail": "oval-office",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 18,
+          "textures": 1,
+          "geometries": 18,
+          "disposed": false
+        },
+        {
+          "name": "east-room",
+          "mode": "state",
+          "detail": "east-room",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 11,
+          "textures": 1,
+          "geometries": 11,
+          "disposed": false
+        },
+        {
+          "name": "ground-floor",
+          "mode": "ground",
+          "detail": "",
+          "lod": "game",
+          "models": 1,
+          "triangles": 228290,
+          "draws": 132,
+          "textures": 1,
+          "geometries": 132,
+          "disposed": false
+        },
+        {
+          "name": "furnishing-kit",
+          "mode": "kit",
+          "detail": "",
+          "lod": "game",
+          "models": 51,
+          "triangles": 9204,
+          "draws": 120,
+          "textures": 1,
+          "geometries": 120,
+          "disposed": false
+        },
+        {
+          "name": "resolute-desk",
+          "mode": "piece",
+          "detail": "resolute-desk",
+          "lod": "game",
+          "models": 1,
+          "triangles": 192,
+          "draws": 3,
+          "textures": 1,
+          "geometries": 3,
+          "disposed": false
+        }
+      ],
+      "phone": "390 x 844",
+      "errors": 0,
+      "failedRequests": 0,
+      "backend": "Isolated browser with SwiftShader WebGL; not a physical-phone FPS measurement"
+    }
+  ],
+  "captures": [
+    {
+      "file": "authoring-chair-phone.png",
+      "sha256": "956e49740f432a9ff9a1a0b1633b9d307f5e92741e95b910c39e2d8dc173d2fb",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "blue-room-phone.png",
+      "sha256": "6ebb47067bcb0e4ebcad3f3a2be6995ed0cff54144911f7be019bc67d2f02535",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "blue-room.png",
+      "sha256": "ee20d72966afc1207866e70c526f263b8fdc957346fac362eb9a4fdd417f3dc4",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "east-room.png",
+      "sha256": "1c91988d1d866244dff7b5c28664f528acb2d5e54c127e3fabf15f888eecf64f",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "estate.png",
+      "sha256": "9ff668e4826d555d984be3993ffc78dab4077ffba0b26aec0057837cd9965769",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "furnishing-kit.png",
+      "sha256": "9dcc584878b8e7fdaa965e4cfddb857b0c1c438c49c26770ace1821411dfb6a6",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "ground-floor.png",
+      "sha256": "be61a8cce85cd51a0e61b2b14031cce3a6a92fe3f2ed827937be49727ab2a7bc",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "north.png",
+      "sha256": "6a409b8eb2cb959517a16a7d8d297880b43fdade28bb713a2ebec56c638144a7",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "oval-office.png",
+      "sha256": "ceebc5c0f2755582f25e8a9c434338f853c862f4ffc3b5d4574736c1eb11e181",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "resolute-desk.png",
+      "sha256": "7f169c8f68988821de02f5aa9cd0d94831e1074a2cbbdd4eac5b17f3e0e7f9d0",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "south.png",
+      "sha256": "9158a06cb3b362c5fd0c4dfbca8cd3a1ff8e7cfa19caa8bd5b5f0e0b3445918a",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    },
+    {
+      "file": "state-floor.png",
+      "sha256": "08ea65d8e6fdda0bf817c149d902a99fe876d4b3d99b328f1a665b26432e6286",
+      "identicalModes": [
+        "source",
+        "built"
+      ]
+    }
+  ],
+  "limits": [
+    "Editor-scale historical interpretation; adapted/representative private/service rooms.",
+    "Native sidecar is not a portable legacy map or a bound navigation/interaction simulation.",
+    "SwiftShader desktop/phone viewports are not physical-device FPS evidence."
+  ]
+}
