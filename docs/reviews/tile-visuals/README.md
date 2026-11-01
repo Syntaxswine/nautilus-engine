@@ -1,5 +1,11 @@
 # Canonical surface provider handoff
 
+Focused lifecycle follow-up: `codex/tile-visual-lifecycle` from preserved
+`e9846df52c67c790fc1792f380a0370463aa8650`. The
+[correction record](lifecycle-correction.md) documents actual-Three observer
+failure containment and red/green source/installed proofs. Accepted geometry,
+material and input behavior, the original branch and all staged art are unchanged.
+
 Artist branch `codex/canonical-tile-art` starts at reviewed integration **708ed1c14e69699e4baa4483cbc5a50901d5be4e**. The original **7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab** art checkpoint is preserved by an attributed cherry-pick. All 294 studies, their source descriptors and original 32-border evidence remain unchanged. The new provider does not relabel those studies as canonical or reuse their measurements.
 
 The [usage card, installed example and builder checklist](../../../packages/tile-visuals/README.md) describe the bounded provider. `examples/canonical-tile-art.html` reviews joined paving, native binary fields, a courtyard hole, clipping and a curved constant-width path. The old workbench stays available separately. Root alone owns public registration and integration; this provider is packaged privately for proof.

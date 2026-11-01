@@ -72,3 +72,39 @@ Use `core.openTileBundle(saved,{requireResolved:true})` for restore. Regenerate 
 - Run focused combined tests, fresh contour measurements, the actual installed proof, source/built desktop/phone review and all four repository gates. Verify temporary helper process identities and released ports.
 
 Plain input and options records are copied through bounded descriptor-first guards; getters and hidden/symbol fields refuse before host allocation or callback execution. Deliberately borrowed Three, materials and callbacks retain identity. Per-instance detail uses own properties, including core-valid IDs such as `constructor` and `toString`. Boundary materials follow actual canonical edges through every interior subdivision, including parents touching multiple same-profile edges.
+
+## Lifecycle observer failures
+
+The focused follow-up from `e9846df52c67c790fc1792f380a0370463aa8650`
+preserves the accepted material/accessor/ID/analytic-grade corrections. No
+descriptor, tessellation, material-selection or gameplay policy is changed.
+
+Mutating lifecycle calls are serialized. Nested `removeInstance` and
+`setResident` throw `REENTRANT_LIFECYCLE`; nested `dispose()` latches intent and
+the outer operation finishes disposal before returning. Diagnostics stay
+readable during callbacks. After disposal, removal returns false and residency
+is a no-op, as before.
+
+Retirement unpublishes the instance and its interfaces and decrements its
+triangle/refinement counters once, before callbacks. It transfers all owned
+nodes/geometries into an exhaustive cleanup snapshot. Every native removal and
+geometry disposal is attempted despite another listener throwing or requesting
+disposal. The constructor tracks partial ownership before callbacks and uses
+the same rollback path. A duplicate instance ID refuses instead of overwriting
+an ownership record.
+
+Final repair detaches retiring owned nodes, including nodes reparented by a
+listener, without refiring events indefinitely. Borrowed materials/textures,
+scene siblings and surviving neighbour attributes remain untouched. Failures
+throw `AggregateError` with code `TILE_ART_LIFECYCLE_FAILED` after consistent
+cleanup; at most 64 errors are retained, with the full `failureCount`. Repeated
+disposal neither repeats resource calls nor decrements counters again. Native
+Three dispatch semantics remain intact: a throwing listener stops later
+listeners on that same event; no Three prototype is patched and no event is
+retried/replayed by the provider.
+
+`node tools/check-tile-visuals-lifecycle.mjs --baseline` intentionally fails
+against exact `e9846df52c67c790fc1792f380a0370463aa8650`. Without the flag it
+passes the actual pinned-Three/public-core cases. The actual installed private
+provider proof runs the same cases. See
+`docs/reviews/tile-visuals/lifecycle-correction.md` for evidence/provenance.

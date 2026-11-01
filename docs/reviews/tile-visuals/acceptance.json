@@ -4,7 +4,7 @@
   "dependency": "708ed1c14e69699e4baa4483cbc5a50901d5be4e",
   "harnessCorrection": "b8dd25d8c7f1097e9c129a9271e2834ff357bd4c",
   "preservedArt": "7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab",
-  "branch": "codex/canonical-tile-art",
+  "branch": "codex/tile-visual-lifecycle",
   "policy": "canonical-surface-v1-cuts16-interior8-16-32",
   "runtime": "v24.15.0",
   "platform": "win32",
@@ -120,7 +120,7 @@
     "authoredGeometryCases": 7
   },
   "combinedProof": {
-    "focusedTests": 20,
+    "focusedTests": 30,
     "binaryMaskSaddleD4Cases": 144,
     "canonicalSchedules": [
       7,
@@ -138,14 +138,14 @@
   },
   "gates": {
     "status": "pass",
-    "checkedAt": "2026-11-01T02:00:14.610Z",
+    "checkedAt": "2026-11-01T03:58:23.132Z",
     "runtime": "v24.15.0",
     "platform": "win32",
     "checks": [
       {
         "command": "npm run check",
         "exitCode": 0,
-        "durationMs": 6244,
+        "durationMs": 17248,
         "log": "artifacts/tile-visuals/check.log",
         "tail": [
           "> node tools/check.mjs",
@@ -163,29 +163,29 @@
       {
         "command": "npm test",
         "exitCode": 0,
-        "durationMs": 67617,
+        "durationMs": 83230,
         "log": "artifacts/tile-visuals/test.log",
         "tail": [
-          "✔ aggregate native-panel overflow is rejected before assembly commits (429.7563ms)",
-          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (573.7622ms)",
-          "ℹ tests 702",
+          "✔ aggregate native-panel overflow is rejected before assembly commits (512.7544ms)",
+          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (648.2126ms)",
+          "ℹ tests 712",
           "ℹ suites 0",
-          "ℹ pass 702",
+          "ℹ pass 712",
           "ℹ fail 0",
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 67323.3317"
+          "ℹ duration_ms 82653.1691"
         ]
       },
       {
         "command": "npm run test:upstream",
         "exitCode": 0,
-        "durationMs": 3428,
+        "durationMs": 4592,
         "log": "artifacts/tile-visuals/test-upstream.log",
         "tail": [
-          "✔ seeded lines deterministic and malformed plans rejected (248.8684ms)",
-          "✔ a straight fence cannot drift between its north and south edges (178.4856ms)",
+          "✔ seeded lines deterministic and malformed plans rejected (348.1083ms)",
+          "✔ a straight fence cannot drift between its north and south edges (229.0333ms)",
           "ℹ tests 32",
           "ℹ suites 0",
           "ℹ pass 32",
@@ -193,20 +193,20 @@
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 2969.3329"
+          "ℹ duration_ms 4050.9062"
         ]
       },
       {
         "command": "npm run build",
         "exitCode": 0,
-        "durationMs": 24571,
+        "durationMs": 29641,
         "log": "artifacts/tile-visuals/build.log",
         "tail": [
           "> @nautilus-engine/map-core@0.10.0 build",
           "> node tools/build.mjs",
           "",
           "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
-          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 475 module paths checked and own/adapted scripts syntax-checked."
+          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 476 module paths checked and own/adapted scripts syntax-checked."
         ]
       }
     ]
@@ -225,13 +225,131 @@
     },
     "provider": {
       "private": true,
-      "compressedBytes": 20726,
-      "fileCount": 8,
-      "sha256": "938006e343550bef84f80fe4fe4b6421140477d23ead4e3a8ee5056ad3be7898"
+      "compressedBytes": 23046,
+      "fileCount": 9,
+      "sha256": "79651991e829252b15f223c33c141e55b0a7f2fc31c4ed3b60292b610174b5a7"
     },
     "proof": {
       "status": "pass",
       "actualDeclaredCore": true,
+      "lifecycle": {
+        "status": "pass",
+        "actualThreeRevision": "180",
+        "actualPublicCore": true,
+        "cases": 10,
+        "results": [
+          {
+            "name": "throwing first dispose listener cannot strand target, neighbours or final resources",
+            "status": "pass",
+            "observed": {
+              "created": 17,
+              "afterRemove": {
+                "disposed": false,
+                "instances": 4,
+                "interfaces": 8,
+                "ownedGeometry": 12,
+                "triangles": 2239,
+                "quantizationLimitedRefinements": 1,
+                "scope": "Native flat surfaces only; body/support/gameplay unbound"
+              },
+              "end": {
+                "disposed": true,
+                "instances": 0,
+                "interfaces": 0,
+                "ownedGeometry": 0,
+                "triangles": 0,
+                "quantizationLimitedRefinements": 0,
+                "scope": "Native flat surfaces only; body/support/gameplay unbound"
+              },
+              "attempted": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "throwing removed listener cannot double-decrement counters on global retry",
+            "status": "pass",
+            "observed": {
+              "before": {
+                "disposed": false,
+                "instances": 5,
+                "interfaces": 12,
+                "ownedGeometry": 17,
+                "triangles": 2329,
+                "quantizationLimitedRefinements": 1,
+                "scope": "Native flat surfaces only; body/support/gameplay unbound"
+              },
+              "afterRemove": {
+                "disposed": false,
+                "instances": 4,
+                "interfaces": 8,
+                "ownedGeometry": 12,
+                "triangles": 2239,
+                "quantizationLimitedRefinements": 1,
+                "scope": "Native flat surfaces only; body/support/gameplay unbound"
+              },
+              "end": {
+                "disposed": true,
+                "instances": 0,
+                "interfaces": 0,
+                "ownedGeometry": 0,
+                "triangles": 0,
+                "quantizationLimitedRefinements": 0,
+                "scope": "Native flat surfaces only; body/support/gameplay unbound"
+              }
+            }
+          },
+          {
+            "name": "dispose requested by a geometry listener drains once without recursive removal",
+            "status": "pass"
+          },
+          {
+            "name": "removed/dispose failures during full disposal attempt every resource and keep borrowed scene",
+            "status": "pass"
+          },
+          {
+            "name": "nested remove/cull reject while readonly diagnostics and neighbour attributes stay valid",
+            "status": "pass"
+          },
+          {
+            "name": "actual added listener failure plus rollback dispose failure clears constructor ownership",
+            "status": "pass"
+          },
+          {
+            "name": "actual partial mesh attachment rollback retires unparented nodes and all interface buffers",
+            "status": "pass"
+          },
+          {
+            "name": "borrowed material callback failure and throwing rollback listeners preserve every prior resource",
+            "status": "pass"
+          },
+          {
+            "name": "removed/dispose reparenting cannot retain owned parents or disturb borrowed scene siblings",
+            "status": "pass"
+          },
+          {
+            "name": "error reporting is bounded while all dense-chunk resources retire",
+            "status": "pass"
+          }
+        ],
+        "borrowedPoolSurvival": true
+      },
       "materialBindingCases": 48,
       "materialEdgesChecked": 384,
       "accessorCases": 12,
@@ -760,7 +878,7 @@
     ]
   },
   "cleanup": {
-    "verifiedAt": "2026-11-01T02:04:16.138Z",
+    "verifiedAt": "2026-11-01T04:00:46.643Z",
     "method": "Matched supported-close receipts to PID + creation time + executable; queried live processes and recorded listening ports. No process killed.",
     "helpers": [
       {
@@ -884,6 +1002,26 @@
         "method": "Supported Playwright browser close and HTTP close in finally"
       },
       {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Canonical tile surface provider: actual core, constraints and native height",
+        "startedAt": "2026-11-01T03:56:10.475Z",
+        "expiresAt": "2026-11-01T03:59:10.475Z",
+        "process": {
+          "pid": 54440,
+          "creationFiletime": "134379789680567702",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 19964,
+          "creationFiletime": "134379789695404556",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 54217,
+        "stoppedAt": "2026-11-01T03:57:36.832Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
         "mode": "built",
         "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
         "purpose": "Canonical tile surface provider: actual core, constraints and native height",
@@ -942,6 +1080,26 @@
         "port": 57691,
         "stoppedAt": "2026-11-01T02:01:13.475Z",
         "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "built",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Canonical tile surface provider: actual core, constraints and native height",
+        "startedAt": "2026-11-01T03:58:34.876Z",
+        "expiresAt": "2026-11-01T04:01:34.876Z",
+        "process": {
+          "pid": 7352,
+          "creationFiletime": "134379791141930038",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 65612,
+          "creationFiletime": "134379791145380636",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 62128,
+        "stoppedAt": "2026-11-01T03:59:09.288Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
       }
     ],
     "originalLifetimesAlive": 0,
@@ -956,5 +1114,32 @@
     "Variable widths, Boolean source graphs, arbitrary sections, graded stairs and full-edge-zero field exposure remain staged",
     "No Smart Tile editor/game adoption or consumer pin change",
     "SwiftShader review and geometry counts are not device performance measurements"
-  ]
+  ],
+  "lifecycleCorrection": {
+    "base": "e9846df52c67c790fc1792f380a0370463aa8650",
+    "before": "lifecycle-before.json",
+    "fixed": "lifecycle-fixed.json",
+    "audit": "lifecycle-source-audit.json",
+    "cases": 10,
+    "actualThree": true,
+    "unchangedAcceptedModules": [
+      {
+        "path": "packages/tile-visuals/data.js",
+        "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313",
+        "unchangedFrom": "e9846df52c67c790fc1792f380a0370463aa8650"
+      },
+      {
+        "path": "packages/tile-visuals/mesh.js",
+        "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9",
+        "unchangedFrom": "e9846df52c67c790fc1792f380a0370463aa8650"
+      },
+      {
+        "path": "packages/tile-visuals/prepare.js",
+        "sha256": "0924cba982e65b508c6b37c7d2b134439602727358898885185542079c58bef5",
+        "unchangedFrom": "e9846df52c67c790fc1792f380a0370463aa8650"
+      }
+    ],
+    "matchesAcceptedImages": true,
+    "matchesAcceptedMeasurements": true
+  }
 }
