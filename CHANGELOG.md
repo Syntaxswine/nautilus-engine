@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Retire the completed desktop review page and wait for visible mobile layout/paint before full-page starter captures; retain capture metrics and all behavioral assertions.
+
 - Add optional headless procedural tile recipes, analytic curves, canonical layered boundaries, deterministic repair and complete authored bundle saves through ./tiles.
 - Register four v1 schemas and the engine-only boundary capability; test the actual installed core in CI while presentation and gameplay bindings remain explicit.
 - Refuse unsupported checkerboard conditioning, account for omitted compound endpoints in error/work bounds, and validate changed contacts individually during repair.

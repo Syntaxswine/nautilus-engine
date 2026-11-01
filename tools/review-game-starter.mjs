@@ -142,10 +142,19 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  await page.evaluate(()=>Promise.resolve());assert.equal(await page.evaluate(()=>window.starterFrames.calls),teardown.calls);
  check('menu-open mid-stair retirement blocks disposal scheduling, cancelled RAF callbacks and stale inputs',{method:'Injected pagehide, native RAF tracking, controlled invocation of a cancelled callback and synthetic stale inputs; not a navigation test.'});
 
+ // Desktop retirement assertions are complete; release its compositor surface.
+ await page.close();
  const phone=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,hasTouch:true,isMobile:true});
  try{
    const mobile=await phone.newPage();mobile.on('pageerror',error=>errors.push(error.message));mobile.on('console',msg=>{if(msg.type()==='error')errors.push(msg.text());});mobile.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
-   await mobile.goto(url);await mobile.waitForFunction(()=>!document.querySelector('[data-action=start]').disabled);
+   await mobile.bringToFront();
+   await mobile.goto(url);await mobile.locator('[data-action=start]').waitFor({state:'visible'});await mobile.waitForFunction(()=>!document.querySelector('[data-action=start]').disabled);
+   // JS readiness does not establish that the new mobile surface has painted.
+   await mobile.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});
+   const captureSession=await phone.newCDPSession(mobile);let layoutMetrics;
+   try{layoutMetrics=await captureSession.send('Page.getLayoutMetrics');}finally{await captureSession.detach();}
+   const captureState=await mobile.evaluate(()=>({visibility:document.visibilityState,focused:document.hasFocus(),inner:{width:innerWidth,height:innerHeight},visual:visualViewport?{width:visualViewport.width,height:visualViewport.height,scale:visualViewport.scale}:null,root:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},body:{width:document.body.scrollWidth,height:document.body.scrollHeight}}));
+   fs.writeFileSync(path.join(out,'phone-capture-state.json'),JSON.stringify({browserVersion:browser.version(),viewport:mobile.viewportSize(),...captureState,layoutMetrics},null,2));
    await mobile.screenshot({path:path.join(out,'title-phone.png'),fullPage:true});
    const titleTargets=await mobile.locator('.ng-actions button:visible').evaluateAll(nodes=>nodes.map(node=>({label:node.textContent,width:node.getBoundingClientRect().width,height:node.getBoundingClientRect().height})));
    assert.ok(titleTargets.every(target=>target.height>=44&&target.width>=44));
