@@ -1,4 +1,9 @@
-# Tile v2 A/B candidate
+# Tile v2 private A/B and C1 candidate
+
+The Architect-approved [C1 line-region inspector](procedural-tiles-c1-candidate.md)
+adds bounded exact regularized planar root geometry/classification. It does not
+weaken the authored-load, complete-layout or live-adoption gates below. General
+Boolean/curved/ribbon/section/stair evaluators and public registration remain held.
 
 Reviewed A/B candidate available in the source repository. Public v2 registration
 and native evaluators remain deferred. The registered `./tiles` still points
@@ -29,7 +34,7 @@ native sections are inline complete data. Layout annotations contain only bounde
 
 | Shape | Retained controls | A/B evaluator state |
 | --- | --- | --- |
-| shape-graph | Root, stable nodes, leaves, union/intersection inputs, ordered difference | Unimplemented |
+| shape-graph | Root, stable nodes, leaves, union/intersection inputs, ordered difference | C1 planar line-root inspection only; general integration unimplemented |
 | ribbon-sweep | Original curve, independent left/right stations, explicit parameter/arc-length metric, caps/corners | Unimplemented |
 | section-sweep | Original curve, native section contours/vertices/materials, frame, authored scale/caps | Unimplemented |
 | stair-run | Plan, explicit count convention, per-step or total rise/run, base/landings, lower-riser/first-tread/top interfaces | Unimplemented |
@@ -62,9 +67,10 @@ requests. It does not invoke accessors or mutate source/history. Malformed ident
 v2 bundles also return structured failures with `next:null`, rather than escaping
 through dispatch as an exception.
 
-No Boolean/ribbon/section/stair evaluator is implemented. In particular the saved
-`A-A` graph is not falsely evaluated as a zero-width boundary or an empty result.
-Regularized Boolean reasoning and native stair geometry remain later C/D work.
+C1 resolves supported level line-region `A-A` to an explicit empty mathematical
+footprint. Unsupported leaves, including unsupported `A-A`, remain unresolved.
+General Boolean/ribbon/section/stair evaluators and native stair geometry remain
+later work; root-only evidence is not complete layout adoption.
 
 ## Shared render-edge plans
 

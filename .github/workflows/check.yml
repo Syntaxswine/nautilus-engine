@@ -25,6 +25,7 @@ jobs:
       - run: npm run test:windows:authoring
       - run: npm run test:tiles
       - run: npm run test:tiles:v2:candidate
+      - run: python3 -B tools/verify-tile-c1-oracle.py artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json
   browser-workflow:
     runs-on: ubuntu-latest
     timeout-minutes: 16
