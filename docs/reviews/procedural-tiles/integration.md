@@ -74,7 +74,7 @@ count different from the total. The installed correction suite must really run.
   injured/spent resources, queues, clocks and random streams were preserved.
 
 The final local core archive SHA-256 is
-`6fdf8d557748266f528b40574b4c15484dcfef441258868fcaa41db276d9bf70`.
+`40d910bdef93997624afe977753f6d22a61a42c2813a076d907bb26e58ccfbe7`.
 This source-only record is excluded from the archive. The tile dependency closure
 is fourteen pure modules / 91,604 raw bytes after registration metadata changes,
 including the existing hash utility. These are measured byte/work/test counts,
@@ -85,6 +85,31 @@ Local reports and logs live under ignored `artifacts/procedural-tiles/` and
 before main promotion is reported complete. No new editor or renderer source is
 included; existing browser workflow CI remains required. The v0.10.0 release tag
 is unchanged; this work belongs under Unreleased.
+
+## Browser capture correction during integration
+
+The first integration head, 708ed1c14e69699e4baa4483cbc5a50901d5be4e,
+passed both module CI jobs. Both browser jobs failed at the first full-page phone
+title capture with Page.captureScreenshot reporting an empty capture; the bdda
+worker run failed at the same point. The starter application and prior harness
+were byte-identical to the integrated base. Desktop workflow/retirement assertions
+passed before each failure. These runs are retained as failures, not relabelled.
+
+The narrow review-harness correction closes the completed desktop page after all
+retirement assertions, activates the fresh phone page, waits for visible/enabled
+Start, fonts and two native animation frames, and records browser/DOM/CDP layout
+metrics before the original full-page capture. No retry, viewport-only substitute,
+skipped assertion or application change is introduced. Scoped independent review
+found no must-fix in its lifecycle/test integrity. Whether paint readiness is the
+Linux cause remains a hypothesis until exact-head CI passes.
+
+The unmodified Edge baseline passed. Corrected source and built isolated Edge
+reviews also passed every desktop/touch/reflow assertion; representative phone
+output was visually inspected. Integrity, 673 engine tests, 32 inherited tests and
+the static build passed again after the harness change. The actual installed core
+and all eleven corrections passed; the archive hash above includes the new
+changelog entry. Browser reports, capture metrics and helper receipts are preserved
+under ignored artifacts/tiles-starter-* and artifacts/game-starter/.
 
 ## Remaining broad tool work
 
@@ -118,7 +143,11 @@ change as part of this foundation.
 
 ## Helper lifecycle
 
-No server, browser, watcher or retained helper was started for this headless
-integration. Foreground checks completed. The package proof removed its isolated
-stage/consumer in `finally`; its receipt confirms no retained helper or port.
-Reviewer execution used exact objects or read-only inspection and retained none.
+The headless package checks retain no helper. The later capture diagnosis used
+three short-lived isolated Edge/server lifetimes: baseline, corrected source and
+corrected build. Their supported-close receipts, exact PID/creation-time/executable
+identities and released listening ports were checked before delivery. The helper
+wrapper enforces a four-minute expiry as well as finally cleanup. Foreground
+checks completed. The package proof removed its isolated stage/consumer in
+`finally`. Reviewers retained no helpers. No preview, browser, watcher or service
+is retained by the Architect.
