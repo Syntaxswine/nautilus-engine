@@ -139,3 +139,9 @@ The [artist audit](reviews/window-art/README.md) is source research for a later 
 The optional [procedural tile module](procedural-tiles.md) preserves authored line, arc, cubic and compound controls, shared-corner fields, region outlines and native profile paths. Its registered ./tiles entry owns catalogue/layout/bundle validation, canonical border inspection, explicit layered joins and bounded deterministic repair. One semantic shape may cover many derived cells. Editor owns atomic history and save adoption; family mesh/query/support/navigation/fire providers remain unbound.
 
 [Architect acceptance](reviews/procedural-tiles/integration.md) records the fixed source, focused corrections and actual installed-package evidence. The expansive art-family and Smart Tile editor work remain separate checkpoints; this boundary does not claim that all 294 artist studies are already adopted.
+
+## Experimental tile source
+
+The separate [A/B tile candidate](procedural-tiles-v2-candidate.md) lives in source behind candidate-v2.js. It preserves the registered v1 entry and all eighteen accepted runtime/schema files. Typed Boolean/ribbon/section/stair intent remains unresolved, while bounded render-edge inspection recompiles accepted v1 source and zero-edge inspection separates analytic sign from conservative native certainty.
+
+The explicit private-package CI proof is source tooling. Candidate code and v2 schemas are excluded from normal distributions, and no v2 capability is assigned. [Architect acceptance](reviews/procedural-tiles/v2-integration.md) records the focused corrections; native evaluators, public registration, renderer/editor and game adoption require later fixed reviews.

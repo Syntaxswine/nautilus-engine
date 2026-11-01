@@ -1,0 +1,1649 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:compiled-tiles:2",
+  "title": "Candidate Nautilus compiled-tiles v2",
+  "description": "Unregistered A/B candidate. Structural records are not evaluator, exact-root, mesh, contact, support or live-adoption certificates. Candidate v2 authored loads always remain unresolved in this checkpoint.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "version",
+        "mode",
+        "source",
+        "options",
+        "edges",
+        "bindings",
+        "work",
+        "statuses"
+      ],
+      "properties": {
+        "kind": {
+          "const": "nautilus-compiled-tiles"
+        },
+        "version": {
+          "const": 2
+        },
+        "mode": {
+          "const": "render-plan"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bundles",
+            "windows"
+          ],
+          "properties": {
+            "bundles": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:schema:tile-bundle:1"
+              },
+              "minItems": 0,
+              "maxItems": 128
+            },
+            "windows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "recipe",
+                  "options"
+                ],
+                "properties": {
+                  "recipe": {
+                    "$ref": "urn:nautilus:schema:tile-recipe:1"
+                  },
+                  "options": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "placement",
+                      "floors",
+                      "floorId",
+                      "channel",
+                      "layerId",
+                      "boundaryProfile",
+                      "cellSizeM",
+                      "window",
+                      "borderSegments",
+                      "curveSampling",
+                      "maxCells",
+                      "maxWork",
+                      "uv"
+                    ],
+                    "properties": {
+                      "placement": {
+                        "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/instance"
+                      },
+                      "floors": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/floor"
+                        },
+                        "minItems": 1,
+                        "maxItems": 64
+                      },
+                      "floorId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 96,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                      },
+                      "channel": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 96,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                      },
+                      "layerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 96,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                      },
+                      "boundaryProfile": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "version"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 96,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                          },
+                          "version": {
+                            "const": 1
+                          }
+                        }
+                      },
+                      "cellSizeM": {
+                        "type": "number",
+                        "minimum": 0.000001,
+                        "maximum": 10000
+                      },
+                      "window": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "properties": {
+                          "min": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "minimum": -1000000,
+                              "maximum": 1000000
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "max": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "minimum": -1000000,
+                              "maximum": 1000000
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          }
+                        }
+                      },
+                      "borderSegments": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 16
+                      },
+                      "curveSampling": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "segmentsPerPart",
+                          "maxChordErrorM",
+                          "maxSegmentM",
+                          "maxWork"
+                        ],
+                        "properties": {
+                          "segmentsPerPart": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 128
+                          },
+                          "maxChordErrorM": {
+                            "type": "number",
+                            "minimum": 1e-12,
+                            "maximum": 100000
+                          },
+                          "maxSegmentM": {
+                            "type": "number",
+                            "minimum": 0.000001,
+                            "maximum": 1000000
+                          },
+                          "maxWork": {
+                            "type": "integer",
+                            "minimum": 2,
+                            "maximum": 65536
+                          }
+                        }
+                      },
+                      "maxCells": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 4096
+                      },
+                      "maxWork": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 10000000
+                      },
+                      "uv": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "policy",
+                          "axes",
+                          "scaleM",
+                          "phase"
+                        ],
+                        "properties": {
+                          "policy": {
+                            "const": "world-linear-exact-v1"
+                          },
+                          "axes": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "number",
+                                "minimum": -1000000,
+                                "maximum": 1000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "scaleM": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "minimum": 0.000001,
+                              "maximum": 1000000
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "phase": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "minimum": -1000000,
+                              "maximum": 1000000
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "minItems": 0,
+              "maxItems": 128
+            }
+          }
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "densityPerM",
+            "maxChordErrorM",
+            "maxSegmentM",
+            "rootToleranceM",
+            "maxCutNodes",
+            "maxPortNodes",
+            "maxTotalNodes",
+            "maxEdges",
+            "maxWork",
+            "maxRootTests",
+            "maxRootDepth",
+            "maxEventsPerEdge",
+            "maxBindings"
+          ],
+          "properties": {
+            "densityPerM": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxChordErrorM": {
+              "type": "number",
+              "minimum": 1e-12,
+              "maximum": 100000
+            },
+            "maxSegmentM": {
+              "type": "number",
+              "minimum": 0.000001,
+              "maximum": 1000000
+            },
+            "rootToleranceM": {
+              "type": "number",
+              "minimum": 0.000001,
+              "maximum": 1
+            },
+            "maxCutNodes": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 129
+            },
+            "maxPortNodes": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 4097
+            },
+            "maxTotalNodes": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 65536
+            },
+            "maxEdges": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxRootTests": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200000
+            },
+            "maxRootDepth": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            "maxEventsPerEdge": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxBindings": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65536
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "edgeKey",
+              "policy",
+              "nodes",
+              "events",
+              "bounds",
+              "planDigest",
+              "mandatoryCount",
+              "scope",
+              "normalPolicy",
+              "materialIntervals"
+            ],
+            "properties": {
+              "edgeKey": {
+                "type": "string",
+                "pattern": "^tile-render-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "policy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "densityPerM",
+                  "maxChordErrorM",
+                  "maxSegmentM",
+                  "rootToleranceM"
+                ],
+                "properties": {
+                  "id": {
+                    "const": "shared-render-edge-v1"
+                  },
+                  "densityPerM": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 128
+                  },
+                  "maxChordErrorM": {
+                    "type": "number",
+                    "minimum": 1e-12,
+                    "maximum": 100000
+                  },
+                  "maxSegmentM": {
+                    "type": "number",
+                    "minimum": 0.000001,
+                    "maximum": 1000000
+                  },
+                  "rootToleranceM": {
+                    "type": "number",
+                    "minimum": 0.000001,
+                    "maximum": 1
+                  }
+                }
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "t",
+                    "attributes",
+                    "mandatory"
+                  ],
+                  "properties": {
+                    "t": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "attributes": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "position",
+                            "normal",
+                            "tangent",
+                            "uv"
+                          ],
+                          "properties": {
+                            "position": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": -1000000000000,
+                                "maximum": 1000000000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "normal": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": -1000000000000,
+                                "maximum": 1000000000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "tangent": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": -1000000000000,
+                                "maximum": 1000000000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "uv": {
+                              "type": "array",
+                              "items": {
+                                "type": "number",
+                                "minimum": -1000000000000000,
+                                "maximum": 1000000000000000
+                              },
+                              "minItems": 2,
+                              "maxItems": 2
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "position",
+                            "normal",
+                            "uv",
+                            "field",
+                            "classification",
+                            "certainty",
+                            "scalarApproximationBoundM",
+                            "paint"
+                          ],
+                          "properties": {
+                            "position": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": -1000000000000,
+                                "maximum": 1000000000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "normal": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": -1000000000000,
+                                "maximum": 1000000000000
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "uv": {
+                              "type": "array",
+                              "items": {
+                                "type": "number",
+                                "minimum": -1000000000000000,
+                                "maximum": 1000000000000000
+                              },
+                              "minItems": 2,
+                              "maxItems": 2
+                            },
+                            "field": {
+                              "type": "number",
+                              "minimum": -1000000000000,
+                              "maximum": 1000000000000
+                            },
+                            "classification": {
+                              "enum": [
+                                "positive",
+                                "negative"
+                              ]
+                            },
+                            "certainty": {
+                              "enum": [
+                                "model-exact",
+                                "bounded",
+                                "uncertain"
+                              ]
+                            },
+                            "scalarApproximationBoundM": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1000000
+                            },
+                            "paint": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "mandatory": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "minItems": 2,
+                "maxItems": 4097
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "from",
+                        "to",
+                        "proof"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "const": "zero-interval"
+                        },
+                        "from": {
+                          "const": 0
+                        },
+                        "to": {
+                          "const": 1
+                        },
+                        "proof": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "kind",
+                            "from",
+                            "to"
+                          ],
+                          "properties": {
+                            "kind": {
+                              "enum": [
+                                "shared-field-border-zero-values",
+                                "native-field-border-zero-corners",
+                                "identically-zero-source-field",
+                                "covered-axis-aligned-region-polyline"
+                              ]
+                            },
+                            "from": {
+                              "const": 0
+                            },
+                            "to": {
+                              "const": 1
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "from",
+                        "to",
+                        "t",
+                        "positionUncertaintyBoundM",
+                        "meaning",
+                        "parameterPositionBoundM",
+                        "representationBoundM",
+                        "sourceScalarApproximationBoundM",
+                        "scope"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "const": "contour-bracket"
+                        },
+                        "from": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "to": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "t": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "positionUncertaintyBoundM": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "meaning": {
+                          "const": "Conservative possible-zero band; no topology, exact-root or traversal certificate."
+                        },
+                        "parameterPositionBoundM": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000
+                        },
+                        "representationBoundM": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000
+                        },
+                        "sourceScalarApproximationBoundM": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000
+                        },
+                        "scope": {
+                          "const": "Common evaluator restriction; native-curve contour uncertainty remains separate."
+                        }
+                      }
+                    }
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 128
+              },
+              "bounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "errorBoundM",
+                  "analyticErrorBoundM",
+                  "nodeDeviationBoundM",
+                  "encodingBoundM",
+                  "floatingBoundM"
+                ],
+                "properties": {
+                  "errorBoundM": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "analyticErrorBoundM": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "nodeDeviationBoundM": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "encodingBoundM": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "floatingBoundM": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  }
+                }
+              },
+              "planDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "mandatoryCount": {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 4097
+              },
+              "scope": {
+                "enum": [
+                  "canonical public interface; rendering refinement only",
+                  "derived cell cut; not a join/support token"
+                ]
+              },
+              "normalPolicy": {
+                "enum": [
+                  "Added normals/tangents interpolate retained canonical directions; no analytic angular-error claim.",
+                  "Shared whole-shape evaluator; native curve contour approximation remains explicit."
+                ]
+              },
+              "materialIntervals": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "from",
+                    "to",
+                    "material"
+                  ],
+                  "properties": {
+                    "from": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "to": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "material": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "version"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 96,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                        },
+                        "version": {
+                          "const": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                "minItems": 0,
+                "maxItems": 32
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 16384
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "edgeKey",
+                  "kind",
+                  "sourceIndex",
+                  "instanceId",
+                  "portId"
+                ],
+                "properties": {
+                  "edgeKey": {
+                    "type": "string",
+                    "pattern": "^tile-render-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "kind": {
+                    "const": "port"
+                  },
+                  "sourceIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  },
+                  "instanceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "edgeKey",
+                  "kind",
+                  "sourceIndex",
+                  "instanceId",
+                  "portId"
+                ],
+                "properties": {
+                  "edgeKey": {
+                    "type": "string",
+                    "pattern": "^tile-render-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "kind": {
+                    "const": "window-port"
+                  },
+                  "sourceIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  },
+                  "instanceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "edgeKey",
+                  "kind",
+                  "sourceIndex",
+                  "endpoints"
+                ],
+                "properties": {
+                  "edgeKey": {
+                    "type": "string",
+                    "pattern": "^tile-render-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "kind": {
+                    "const": "cut"
+                  },
+                  "sourceIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  },
+                  "endpoints": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": -1000000000000,
+                        "maximum": 1000000000000
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 65536
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source",
+            "analytic",
+            "root",
+            "merge",
+            "total",
+            "edges",
+            "nodes"
+          ],
+          "properties": {
+            "source": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "analytic": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "root": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200000
+            },
+            "merge": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "edges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16384
+            },
+            "nodes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65536
+            }
+          }
+        },
+        "statuses": {
+          "const": {
+            "availability": "candidate-unregistered-v2",
+            "geometry": "render-edge-inspection",
+            "presentation": "provider-required",
+            "query": "unbound",
+            "support": "unbound",
+            "navigation": "unbound",
+            "fire": "unbound",
+            "liveAdoption": false
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "version",
+        "mode",
+        "source",
+        "options",
+        "a",
+        "b",
+        "matched",
+        "decision",
+        "diagnostics",
+        "workUnits",
+        "conditions",
+        "statuses"
+      ],
+      "properties": {
+        "kind": {
+          "const": "nautilus-compiled-tiles"
+        },
+        "version": {
+          "const": 2
+        },
+        "mode": {
+          "const": "zero-exposure"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "a",
+            "b"
+          ],
+          "properties": {
+            "a": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "recipe",
+                "placement",
+                "floors",
+                "portId"
+              ],
+              "properties": {
+                "recipe": {
+                  "$ref": "urn:nautilus:schema:tile-recipe:1"
+                },
+                "placement": {
+                  "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/instance"
+                },
+                "floors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/floor"
+                  },
+                  "minItems": 1,
+                  "maxItems": 64
+                },
+                "portId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                }
+              }
+            },
+            "b": {
+              "anyOf": [
+                {
+                  "const": null
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "recipe",
+                    "placement",
+                    "floors",
+                    "portId"
+                  ],
+                  "properties": {
+                    "recipe": {
+                      "$ref": "urn:nautilus:schema:tile-recipe:1"
+                    },
+                    "placement": {
+                      "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/instance"
+                    },
+                    "floors": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/floor"
+                      },
+                      "minItems": 1,
+                      "maxItems": 64
+                    },
+                    "portId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "collarM",
+            "residentA",
+            "residentB",
+            "maxWork"
+          ],
+          "properties": {
+            "collarM": {
+              "type": "number",
+              "minimum": 0.000001,
+              "maximum": 1000000
+            },
+            "residentA": {
+              "type": "boolean"
+            },
+            "residentB": {
+              "type": "boolean"
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            }
+          }
+        },
+        "a": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "edgeKey",
+            "port",
+            "zero",
+            "side",
+            "floor"
+          ],
+          "properties": {
+            "edgeKey": {
+              "type": "string",
+              "pattern": "^tile-zero-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "port": {
+              "$ref": "urn:nautilus:schema:compiled-tiles:1#/$defs/compiledPort"
+            },
+            "zero": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "proved",
+                    "interval",
+                    "reason"
+                  ],
+                  "properties": {
+                    "proved": {
+                      "const": false
+                    },
+                    "interval": {
+                      "const": null
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "proved",
+                    "interval",
+                    "proof",
+                    "scope"
+                  ],
+                  "properties": {
+                    "proved": {
+                      "const": true
+                    },
+                    "interval": {
+                      "const": [
+                        0,
+                        1
+                      ]
+                    },
+                    "proof": {
+                      "const": "native-field-border-zero-corners-and-exact-zero-fade-v1"
+                    },
+                    "scope": {
+                      "const": "The complete original analytic port restriction, not merely its samples."
+                    }
+                  }
+                }
+              ]
+            },
+            "side": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "state",
+                    "reason"
+                  ],
+                  "properties": {
+                    "state": {
+                      "const": "unknown"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "state",
+                    "proof",
+                    "collarM"
+                  ],
+                  "properties": {
+                    "state": {
+                      "const": "inside"
+                    },
+                    "proof": {
+                      "const": "identically-zero-native-scalar; zero-positive-v1"
+                    },
+                    "collarM": {
+                      "type": "number",
+                      "minimum": 0.000001,
+                      "maximum": 1000000
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "state",
+                    "proof",
+                    "analyticState",
+                    "collarM",
+                    "normalizedCoefficientBounds",
+                    "normalFactor",
+                    "seedScope",
+                    "nativeProof",
+                    "reason"
+                  ],
+                  "properties": {
+                    "state": {
+                      "enum": [
+                        "inside",
+                        "unknown"
+                      ]
+                    },
+                    "proof": {
+                      "const": "analytic-collar-and-frozen-native-evaluator-v1"
+                    },
+                    "analyticState": {
+                      "enum": [
+                        "inside",
+                        "outside",
+                        "unknown"
+                      ]
+                    },
+                    "collarM": {
+                      "type": "number",
+                      "minimum": 0.000001,
+                      "maximum": 1000000
+                    },
+                    "normalizedCoefficientBounds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "minimum": -1000000,
+                        "maximum": 1000000
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "normalFactor": {
+                      "const": "positive inward squared distance"
+                    },
+                    "seedScope": {
+                      "const": "all allowed interior seeds"
+                    },
+                    "nativeProof": {
+                      "anyOf": [
+                        {
+                          "const": null
+                        },
+                        {
+                          "const": "nonnegative-native-corners-zero-amplitude-v1"
+                        }
+                      ]
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "state": {
+                            "const": "inside"
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "nativeProof": {
+                            "const": "nonnegative-native-corners-zero-amplitude-v1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "nativeProof": {
+                            "const": null
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "floor": {
+              "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/floor"
+            }
+          }
+        },
+        "b": {
+          "anyOf": [
+            {
+              "const": null
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "edgeKey",
+                "port",
+                "zero",
+                "side",
+                "floor"
+              ],
+              "properties": {
+                "edgeKey": {
+                  "type": "string",
+                  "pattern": "^tile-zero-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+                },
+                "port": {
+                  "$ref": "urn:nautilus:schema:compiled-tiles:1#/$defs/compiledPort"
+                },
+                "zero": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "proved",
+                        "interval",
+                        "reason"
+                      ],
+                      "properties": {
+                        "proved": {
+                          "const": false
+                        },
+                        "interval": {
+                          "const": null
+                        },
+                        "reason": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "proved",
+                        "interval",
+                        "proof",
+                        "scope"
+                      ],
+                      "properties": {
+                        "proved": {
+                          "const": true
+                        },
+                        "interval": {
+                          "const": [
+                            0,
+                            1
+                          ]
+                        },
+                        "proof": {
+                          "const": "native-field-border-zero-corners-and-exact-zero-fade-v1"
+                        },
+                        "scope": {
+                          "const": "The complete original analytic port restriction, not merely its samples."
+                        }
+                      }
+                    }
+                  ]
+                },
+                "side": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "state",
+                        "reason"
+                      ],
+                      "properties": {
+                        "state": {
+                          "const": "unknown"
+                        },
+                        "reason": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "state",
+                        "proof",
+                        "collarM"
+                      ],
+                      "properties": {
+                        "state": {
+                          "const": "inside"
+                        },
+                        "proof": {
+                          "const": "identically-zero-native-scalar; zero-positive-v1"
+                        },
+                        "collarM": {
+                          "type": "number",
+                          "minimum": 0.000001,
+                          "maximum": 1000000
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "state",
+                        "proof",
+                        "analyticState",
+                        "collarM",
+                        "normalizedCoefficientBounds",
+                        "normalFactor",
+                        "seedScope",
+                        "nativeProof",
+                        "reason"
+                      ],
+                      "properties": {
+                        "state": {
+                          "enum": [
+                            "inside",
+                            "unknown"
+                          ]
+                        },
+                        "proof": {
+                          "const": "analytic-collar-and-frozen-native-evaluator-v1"
+                        },
+                        "analyticState": {
+                          "enum": [
+                            "inside",
+                            "outside",
+                            "unknown"
+                          ]
+                        },
+                        "collarM": {
+                          "type": "number",
+                          "minimum": 0.000001,
+                          "maximum": 1000000
+                        },
+                        "normalizedCoefficientBounds": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "minimum": -1000000,
+                            "maximum": 1000000
+                          },
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "normalFactor": {
+                          "const": "positive inward squared distance"
+                        },
+                        "seedScope": {
+                          "const": "all allowed interior seeds"
+                        },
+                        "nativeProof": {
+                          "anyOf": [
+                            {
+                              "const": null
+                            },
+                            {
+                              "const": "nonnegative-native-corners-zero-amplitude-v1"
+                            }
+                          ]
+                        },
+                        "reason": {
+                          "type": "string"
+                        }
+                      },
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "state": {
+                                "const": "inside"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "nativeProof": {
+                                "const": "nonnegative-native-corners-zero-amplitude-v1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "properties": {
+                              "nativeProof": {
+                                "const": null
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "floor": {
+                  "$ref": "urn:nautilus:schema:tile-layout:1#/$defs/floor"
+                }
+              }
+            }
+          ]
+        },
+        "matched": {
+          "type": "boolean"
+        },
+        "decision": {
+          "enum": [
+            "retain-exterior",
+            "internal-skirt-suppression-eligible"
+          ]
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "joinId": {
+                "type": "string"
+              },
+              "a": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "instanceId",
+                  "portId"
+                ],
+                "properties": {
+                  "instanceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                }
+              },
+              "b": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "instanceId",
+                  "portId"
+                ],
+                "properties": {
+                  "instanceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                }
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "workUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "conditions": {
+          "const": [
+            "Inspection is not a live adoption token.",
+            "Host rechecks matching resident geometry and complete context before presentation changes.",
+            "Every side keeps its own canonical boundary; support remains host-owned."
+          ]
+        },
+        "statuses": {
+          "const": {
+            "availability": "candidate-unregistered-v2",
+            "geometry": "zero-edge-evidence",
+            "presentation": "provider-required",
+            "query": "unbound",
+            "support": "unbound",
+            "navigation": "unbound",
+            "fire": "unbound",
+            "liveAdoption": false
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {}
+}

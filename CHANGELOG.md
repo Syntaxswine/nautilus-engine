@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add reviewed A/B tile candidate source with typed future authoring records, bounded shared render-edge plans and conservative native zero-edge evidence; keep v2 unresolved and outside the distributed API.
+- Test the private installed candidate explicitly in CI, preserving all eighteen accepted v1 runtime/schema files and public v1 registration.
+
 - Retire the completed desktop review page and wait for visible mobile layout/paint before full-page starter captures; retain capture metrics and all behavioral assertions.
 
 - Add optional headless procedural tile recipes, analytic curves, canonical layered boundaries, deterministic repair and complete authored bundle saves through ./tiles.

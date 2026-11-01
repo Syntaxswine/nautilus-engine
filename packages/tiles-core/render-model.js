@@ -1,0 +1,76 @@
+// Private deterministic evaluator records; callers recompile authored sources.
+import {token,clone,fail} from './data.js';
+import {Q,DQ,qp,metres,direction,parts,sample,curveDescriptor,transformPoint,inversePoint,transformVector} from './curves.js';
+import {effectiveOrigin,effectiveTransform} from './recipes.js';
+const clean=x=>Object.is(x,-0)?0:x;
+const trim=p=>{while(p.length>1&&p.at(-1)===0)p.pop();return p.map(clean);};
+function algebra(charge){
+  const add=(a,b)=>{charge(Math.max(a.length,b.length),'analytic');return trim(Array.from({length:Math.max(a.length,b.length)},(_,i)=>(a[i]||0)+(b[i]||0)));};
+  const mul=(a,b)=>{charge(a.length*b.length,'analytic');const p=Array(a.length+b.length-1).fill(0);for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)p[i+j]+=a[i]*b[j];return trim(p);};
+  const scale=(a,n)=>{charge(a.length,'analytic');return trim(a.map(v=>v*n));},pow=(a,n)=>{let p=[1];while(n--)p=mul(p,a);return p;};
+  const oneMinus=a=>add([1],scale(a,-1)),smooth=a=>add(scale(pow(a,2),3),scale(pow(a,3),-2));
+  const blend=(v,u,w)=>add(add([v[0]],scale(u,v[1]-v[0])),add(scale(w,v[3]-v[0]),scale(mul(u,w),v[0]-v[1]+v[2]-v[3])));
+  return {add,mul,scale,pow,oneMinus,smooth,blend};
+}
+const derivative=p=>p.length===1?[0]:p.slice(1).map((v,i)=>v*(i+1));
+const bound=p=>p.reduce((s,v)=>s+Math.abs(v),0);
+export function polynomial(p,t,charge){charge(p.length,'analytic');let value=0;for(let i=p.length-1;i>=0;i--)value=value*t+p[i];return clean(value);}
+const uvAt=(mapping,p)=>{const m=metres(p);return mapping.axes.map((a,i)=>a.reduce((n,v,k)=>n+v*m[k],0)/mapping.scaleM[i]+mapping.phase[i]);};
+const noOwnership=p=>({floorId:p.floorId,channel:p.channel,layerId:p.layerId,profiles:clone(p.profiles),widthM:p.widthM,thicknessM:p.thicknessM,endpoint:clone(p.endpoint),uvMapping:clone(p.uvMapping),geometry:clone(p.geometry)});
+function primitive(c,u){if(c.points&&(u===0||u===1))return [...c.points[u===0?0:c.points.length-1]];if(c.kind==='line')return c.points[0].map((v,k)=>v+(c.points[1][k]-v)*u);if(c.kind==='cubic'){const v=1-u;return [0,1,2].map(k=>v*v*v*c.points[0][k]+3*v*v*u*c.points[1][k]+3*v*u*u*c.points[2][k]+u*u*u*c.points[3][k]);}const a=Math.atan2(c.start[1],c.start[0])+c.sweepRad*u;return [c.center[0]+c.radius*Math.cos(a),c.center[1]+c.radius*Math.sin(a),c.heights[0]+(c.heights[1]-c.heights[0])*u];}
+function primitiveBounds(c){if(c.kind==='line')return {speed:Math.hypot(...c.points[0].map((v,k)=>c.points[1][k]-v)),second:0};if(c.kind==='arc')return {speed:Math.hypot(c.radius*c.sweepRad,c.heights[1]-c.heights[0]),second:c.radius*c.sweepRad*c.sweepRad};return {speed:3*Math.max(...[0,1,2].map(i=>Math.hypot(...c.points[i].map((v,k)=>c.points[i+1][k]-v)))),second:6*Math.max(...[0,1].map(i=>Math.hypot(...c.points[i].map((v,k)=>v-2*c.points[i+1][k]+c.points[i+2][k]))))};}
+function floats(common,charge){let magnitude=1;function visit(v){if(typeof v==='number'){charge(1,'analytic');magnitude=Math.max(magnitude,Math.abs(v));}else if(v&&typeof v==='object')Object.values(v).forEach(visit);}visit(common);return 128*Number.EPSILON*magnitude;}
+export function publicModel(port,charge,context){
+  charge(port.geometry.descriptor.length*32,'analytic');
+  const common={kind:'public-analytic-v1',...noOwnership(port)},g=common.geometry,ps=g.descriptor,P=ps.length,n=g.sampling.segmentsPerPart,pieces=ps.map((p,i)=>{const b=primitiveBounds(p),from=i/P,to=(i+1)/P,span=to-from;return {from,to,index:i,parts:P,speed:b.speed/span,second:b.second/(span*span),baseIntervals:n};}),mandatory=g.positions.map((position,i)=>({t:i===P*n?1:(Math.floor(i/n)+(i%n)/n)/P,attributes:{position:clone(position),normal:clone(g.normals[i]),tangent:clone(g.tangents[i]),uv:clone(g.uv[i])},originalIndex:i}));
+  let scalar=null,zero=null;const normal=g.normalEvaluator;if(normal.kind==='shared-field-edge-c1-v1'){
+    // The old normal descriptor stores quantized field ends. A curve merely
+    // q-coincident with that plane need not be an exact scalar-zero border.
+    // Derive the actual source restriction, including nonuniform cubic controls.
+    const {add,mul,scale,pow,oneMinus,smooth,blend}=algebra(charge),r=context.recipe,raw=r.ports.find(p=>p.id===port.id),field=r.shape.kind==='field-cell'?r.shape:raw.boundary.normal.field,c=parts(raw.boundary.curve)[0],t=effectiveTransform(r,context.placement),origin=effectiveOrigin(r,context.placement),forward=curveDescriptor(raw.boundary.curve,t,origin),reverse=JSON.stringify(forward)!==JSON.stringify(g.descriptor),points=c.kind==='line'?[c.a,c.b]:c.points,ordered=reverse?[...points].reverse():points,coordinate=k=>ordered.length===2?[ordered[0][k],ordered[1][k]-ordered[0][k]]:[ordered[0][k],3*(ordered[1][k]-ordered[0][k]),3*(ordered[0][k]-2*ordered[1][k]+ordered[2][k]),-ordered[0][k]+3*ordered[1][k]-3*ordered[2][k]+ordered[3][k]],U=scale(add(coordinate(0),[-field.bounds[0]]),1/(field.bounds[2]-field.bounds[0])),V=scale(add(coordinate(1),[-field.bounds[1]]),1/(field.bounds[3]-field.bounds[1])),boundary=(U.length===1&&(U[0]===0||U[0]===1))||(V.length===1&&(V[0]===0||V[0]===1)),fade=boundary?[0]:scale(mul(mul(pow(U,2),pow(oneMinus(U),2)),mul(pow(V,2),pow(oneMinus(V),2))),256),mask=field.values.reduce((m,v,i)=>m|(v>=0?1<<i:0),0),bias=[5,10].includes(mask)?(field.saddle==='connect-positive'?1:-1)*(2+Math.abs(field.fieldAmplitude)):0,noise=Number.parseInt(token(['tile-interior-v1',field.variantSeed]).slice(0,8),16)/4294967295*2-1;
+    if(points.some(p=>p[0]<field.bounds[0]||p[0]>field.bounds[2]||p[1]<field.bounds[1]||p[1]>field.bounds[3]))fail('RENDER_FIELD_DOMAIN','/source','The full control hull is not proved inside the saved field domain; coarse sample agreement cannot authorize extrapolation.');scalar=add(blend(field.values,smooth(U),smooth(V)),scale(fade,field.fieldAmplitude*noise+bias));common.fieldScalar=scalar;const corners=boundary?(U.length===1?(U[0]===0?[0,3]:[1,2]):(V[0]===0?[0,1]:[3,2])):null;zero=corners?.every(i=>field.values[i]===0)?{kind:'native-field-border-zero-corners',from:0,to:1}:field.values.every(v=>v===0)&&field.fieldAmplitude===0?{kind:'identically-zero-source-field',from:0,to:1}:null;
+  }
+  const rawAt=(t,side='right')=>{
+    charge(1,'analytic');let lo=0,hi=P;
+    // Select with retained interval boundaries. Multiplication by P cannot
+    // recover a knot reliably: (15/22)*22 is below 15 in binary64.
+    while(hi-lo>1){charge(1,'analytic');const mid=(lo+hi)>>1;if(pieces[mid].from<=t)lo=mid;else hi=mid;}
+    let i=lo;if(side==='left'&&i>0&&t===pieces[i].from)i--;const piece=pieces[i],u=t===piece.from?0:t===piece.to?1:(t-piece.from)/(piece.to-piece.from);
+    return primitive(ps[i],u);
+  };
+  const attributes=t=>{const p=qp(rawAt(t)),x=t*(mandatory.length-1),i=Math.min(mandatory.length-2,Math.floor(x)),u=x-i,interpolate=k=>direction(mandatory[i].attributes[k].map((v,j)=>(v+(mandatory[i+1].attributes[k][j]-v)*u)/DQ));return {position:p,normal:interpolate('normal'),tangent:interpolate('tangent'),uv:uvAt(common.uvMapping,p)};};
+  const encodingBoundM=Math.max(0,...ps.filter(p=>p.kind==='arc').map(p=>p.radius*4e-12));
+  return {common,pieces,mandatory,rawAt,attributes,scalar,zero,scalarAt:t=>scalar?polynomial(scalar,t,charge):null,lipschitz:scalar?bound(derivative(scalar)):0,encodingBoundM,floatingBoundM:floats({positions:g.positions.map(metres),descriptors:ps.map(p=>p.kind==='arc'?{center:p.center,radius:p.radius,heights:p.heights}:p.points)},charge),materialEvents:g.materialIntervals.flatMap(x=>[x.from,x.to])};
+}
+export function fieldCutModel(r,placement,edge,options,charge){
+  const {add,mul,scale,pow,oneMinus,smooth,blend}=algebra(charge);charge(32,'analytic');
+  const s=r.shape,t=effectiveTransform(r,placement),origin=effectiveOrigin(r,placement),ends=edge.endpoints,local=ends.map(p=>inversePoint([p[0]/Q,p[1]/Q,0],t,origin)),U=[(local[0][0]-s.bounds[0])/(s.bounds[2]-s.bounds[0]),(local[1][0]-local[0][0])/(s.bounds[2]-s.bounds[0])],V=[(local[0][1]-s.bounds[1])/(s.bounds[3]-s.bounds[1]),(local[1][1]-local[0][1])/(s.bounds[3]-s.bounds[1])];
+  if(U[1]!==0&&V[1]!==0)fail('UNSUPPORTED_RENDER_CUT','/source','Field cuts must follow a D4-aligned world grid.');
+  const boundary=(U[1]===0&&(U[0]===0||U[0]===1))||(V[1]===0&&(V[0]===0||V[0]===1)),noise=Number.parseInt(token(['tile-interior-v1',s.variantSeed]).slice(0,8),16)/4294967295*2-1,Su=smooth(U),Sv=smooth(V),fade=boundary?[0]:scale(mul(mul(pow(U,2),pow(oneMinus(U),2)),mul(pow(V,2),pow(oneMinus(V),2))),256),mask=s.values.reduce((m,v,i)=>m|(v>=0?1<<i:0),0),bias=[5,10].includes(mask)?(s.saddle==='connect-positive'?1:-1)*(2+Math.abs(s.fieldAmplitude)):0;
+  const scalar=add(blend(s.values,Su,Sv),scale(fade,s.fieldAmplitude*noise+bias)),height=add(add(blend(s.heights,Su,Sv),scale(fade,s.heightAmplitudeM*noise)),[origin[2]]),paint=blend(s.paint,Su,Sv);
+  const du=scale(mul(U,oneMinus(U)),6),dv=scale(mul(V,oneMinus(V)),6);
+  const fu=boundary?[0]:scale(mul(mul(mul(U,oneMinus(U)),add([1],scale(U,-2))),mul(pow(V,2),pow(oneMinus(V),2))),512);
+  const fv=boundary?[0]:scale(mul(mul(mul(V,oneMinus(V)),add([1],scale(V,-2))),mul(pow(U,2),pow(oneMinus(U),2))),512);
+  const cross=s.heights[0]-s.heights[1]+s.heights[2]-s.heights[3];
+  const gx=scale(add(mul(add([s.heights[1]-s.heights[0]],scale(Sv,cross)),du),scale(fu,s.heightAmplitudeM*noise)),1/(s.bounds[2]-s.bounds[0]));
+  const gy=scale(add(mul(add([s.heights[3]-s.heights[0]],scale(Su,cross)),dv),scale(fv,s.heightAmplitudeM*noise)),1/(s.bounds[3]-s.bounds[1]));
+  const world=[[],[]];for(let i=0;i<Math.max(gx.length,gy.length);i++){const g=transformVector([gx[i]||0,gy[i]||0,0],t);world[0][i]=g[0];world[1][i]=g[1];}
+  const common={kind:'shared-field-polynomial-cut-v1',endpoints:clone(ends),height:trim(height),scalar:trim(scalar),paint:trim(paint),gradientX:trim(world[0]),gradientY:trim(world[1]),floorId:edge.floorId,channel:edge.channel,layerId:edge.layerId,boundaryProfile:clone(edge.boundaryProfile),uvMapping:clone(options.uv)};
+  const rawAt=u=>{charge(1,'analytic');return [ends[0][0]/Q+(ends[1][0]-ends[0][0])/Q*u,ends[0][1]/Q+(ends[1][1]-ends[0][1])/Q*u,polynomial(height,u,charge)];},scalarAt=u=>polynomial(scalar,u,charge),attributes=u=>{const position=qp(rawAt(u)),value=scalarAt(u);return {position,normal:direction([-polynomial(common.gradientX,u,charge),-polynomial(common.gradientY,u,charge),1]),uv:uvAt(common.uvMapping,position),field:value,classification:value>=0?'positive':'negative',certainty:'model-exact',scalarApproximationBoundM:0,paint:polynomial(paint,u,charge)};};
+  const borderIndices=boundary?(U[1]===0?(U[0]===0?[0,3]:[1,2]):(V[0]===0?[0,1]:[3,2])):null,zero=borderIndices?.every(i=>s.values[i]===0)?{kind:'native-field-border-zero-corners',from:0,to:1}:s.values.every(v=>v===0)&&s.fieldAmplitude===0?{kind:'identically-zero-source-field',from:0,to:1}:null;
+  return {common,pieces:[{from:0,to:1,speed:Math.hypot((ends[1][0]-ends[0][0])/Q,(ends[1][1]-ends[0][1])/Q,bound(derivative(height))),second:bound(derivative(derivative(height))),baseIntervals:edge.samples.length-1}],mandatory:edge.samples.map((attributes,i)=>({t:i/(edge.samples.length-1),attributes:clone(attributes),originalIndex:i})),rawAt,attributes,scalar,scalarAt,lipschitz:bound(derivative(scalar)),zero,encodingBoundM:0,floatingBoundM:floats({xy:ends.map(p=>p.map(v=>v/Q)),height},charge),materialEvents:[]};
+}
+export function levelCutFactory(r,placement,sampling,charge){
+  const t=effectiveTransform(r,placement),origin=effectiveOrigin(r,placement),s=r.shape,curves=s.kind==='region'?s.outlines:[s.path],polylines=[],analytic=[];let approximation=0;
+  for(const c of curves){const n=parts(c).length*sampling.segmentsPerPart+1;charge(2*n+parts(c).length-1,'analytic');const result=sample(c,sampling);approximation=Math.max(approximation,result.errorBoundM);polylines.push(result.positions.map(p=>transformPoint(metres(p),t,origin)));analytic.push(curveDescriptor(c,t,origin));}
+  charge(polylines.reduce((n,p)=>n+p.length,0),'analytic');const evaluatorDigest=token({polylines,analytic,region:s.kind==='region',widthM:s.kind==='region'?null:s.widthM,approximation}),coordinateRoundoff=floats(polylines,charge);
+  return function(edge,options){
+    const first=parts(curves[0])[0],nativeLevel=s.kind==='region'?s.baseM:first.kind==='arc'?first.h0:first.kind==='line'?first.a[2]:first.points[0][2],ends=edge.endpoints,height=nativeLevel+origin[2],common={kind:'level-polyline-cut-v1',endpoints:clone(ends),height,evaluatorDigest,region:s.kind==='region',widthM:s.kind==='region'?null:s.widthM,scalarApproximationBoundM:approximation,floorId:edge.floorId,channel:edge.channel,layerId:edge.layerId,boundaryProfile:clone(edge.boundaryProfile),uvMapping:clone(options.uv)},rawAt=u=>{charge(1,'analytic');return [ends[0][0]/Q+(ends[1][0]-ends[0][0])/Q*u,ends[0][1]/Q+(ends[1][1]-ends[0][1])/Q*u,height];};
+    const scalarAt=u=>{const p=rawAt(u);let distance=Infinity,inside=false;for(const points of polylines)for(let i=1;i<points.length;i++){charge(1,'analytic');const a=points[i-1],b=points[i],dx=b[0]-a[0],dy=b[1]-a[1],length=dx*dx+dy*dy,v=length?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/length)):0;distance=Math.min(distance,Math.hypot(p[0]-a[0]-v*dx,p[1]-a[1]-v*dy));if(common.region&&(a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])inside=!inside;}return clean(common.region?(distance===0?0:inside?distance:-distance):common.widthM/2-distance);};
+    const attributes=u=>{const position=qp(rawAt(u)),value=scalarAt(u);return {position,normal:[0,0,DQ],uv:uvAt(common.uvMapping,position),field:value,classification:value>=0?'positive':'negative',certainty:Math.abs(value)<=approximation?'uncertain':'bounded',scalarApproximationBoundM:approximation,paint:0};};
+    // Exact full-edge proof for an axis-aligned straight region boundary. No
+    // inference from two zero samples, and no fuzzy collinearity test.
+    const axis=ends[0][0]===ends[1][0]?0:1,along=1-axis,constant=ends[0][axis]/Q,lo=ends[0][along]/Q,hi=ends[1][along]/Q,intervals=[];if(common.region)for(const points of polylines)for(let i=1;i<points.length;i++){charge(1,'analytic');const a=points[i-1],b=points[i];if(a[axis]===constant&&b[axis]===constant)intervals.push([Math.min(a[along],b[along]),Math.max(a[along],b[along])]);}intervals.sort((a,b)=>{charge(1,'analytic');return a[0]-b[0];});let covered=lo;for(const [a,b]of intervals)if(a<=covered)covered=Math.max(covered,b);
+    return {common,pieces:[{from:0,to:1,speed:Math.hypot((ends[1][0]-ends[0][0])/Q,(ends[1][1]-ends[0][1])/Q),second:0,baseIntervals:edge.samples.length-1}],mandatory:edge.samples.map((attributes,i)=>({t:i/(edge.samples.length-1),attributes:clone(attributes),originalIndex:i})),rawAt,attributes,scalar:null,scalarAt,lipschitz:Math.hypot((ends[1][0]-ends[0][0])/Q,(ends[1][1]-ends[0][1])/Q),zero:covered>=hi?{kind:'covered-axis-aligned-region-polyline',from:0,to:1}:null,encodingBoundM:0,floatingBoundM:coordinateRoundoff+floats({xy:ends.map(p=>p.map(v=>v/Q)),height},charge),materialEvents:[]};
+  };
+}
