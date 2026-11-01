@@ -49,7 +49,10 @@
     "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js",
     "./tiles": "./packages/tiles-core/index.js",
     "./windows/authoring": "./packages/windows-authoring/index.js",
-    "./adapters/farmyard/windows/three": "./packages/native-window-presenter/three.js"
+    "./adapters/farmyard/windows/three": "./packages/native-window-presenter/three.js",
+    "./tiles/art": "./packages/tile-visuals/prepare.js",
+    "./tiles/art/example": "./packages/tile-visuals/example.js",
+    "./tiles/art/three": "./packages/tile-visuals/three.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -219,6 +222,15 @@
     "packages/runtime-core/index.js",
     "packages/runtime-core/lifecycle.js",
     "packages/runtime-core/planner.js",
+    "packages/tile-visuals/NOTICE.md",
+    "packages/tile-visuals/README.md",
+    "packages/tile-visuals/cleanup.js",
+    "packages/tile-visuals/data.js",
+    "packages/tile-visuals/example.js",
+    "packages/tile-visuals/mesh.js",
+    "packages/tile-visuals/prepare.js",
+    "packages/tile-visuals/source.json",
+    "packages/tile-visuals/three.js",
     "packages/tiles-core/NOTICE.md",
     "packages/tiles-core/cells.js",
     "packages/tiles-core/compiled-tiles-v1.schema.json",
@@ -421,7 +433,10 @@
     "test:windows:authoring": "node tools/test-window-authoring-package.mjs",
     "test:windows:renderer": "node tools/test-native-window-presenter-package.mjs",
     "review:windows": "node tools/review-native-window-presenter.mjs",
-    "review:windows:installed": "node tools/review-native-window-presenter.mjs --installed"
+    "review:windows:installed": "node tools/review-native-window-presenter.mjs --installed",
+    "test:tiles:art": "node tools/test-tile-visuals-package.mjs",
+    "review:tiles:art": "node tools/review-tile-visuals.mjs",
+    "review:tiles:art:installed": "node tools/review-tile-visuals.mjs --installed"
   },
   "engines": {
     "node": ">=22"
