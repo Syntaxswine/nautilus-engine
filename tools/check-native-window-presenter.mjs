@@ -1,0 +1,14 @@
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {createHash} from 'node:crypto';
+import {root,baseCommit,sourceCommit,vendorRoot,verifySnapshot} from './snapshot-native-window-presenter.mjs';
+import {moduleClosure,distribution} from './distribution.mjs';
+const git=(...args)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:20*1024*1024});
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const unchanged=['package.json','upstream.json','packages/map-core/capabilities.js','packages/map-core/contract-manifest.js',...git('ls-tree','-r','--name-only',baseCommit,'packages/windows-core','packages/adapters/farmyard/windows','schemas','.github').toString().trim().split('\n'),'packages/adapters/farmyard/windows.js'];
+for(const file of unchanged)if(!fs.readFileSync(path.join(root,file)).equals(git('show',baseCommit+':'+file)))throw Error('Root/accepted window source changed: '+file);
+const closure=moduleClosure(['packages/native-window-presenter/three.js']);if(closure.some(f=>!f.startsWith('packages/native-window-presenter/')))throw Error('Candidate imports another renderer/core/donor.');
+const audit=JSON.parse(git('show','69115f6c283c4c60588d8462b943ea944ab17aca:docs/reviews/window-art/sources.json')),manifest=JSON.parse(fs.readFileSync(path.join(root,vendorRoot,'provenance.json')));
+for(const f of manifest.files){const expected=audit.files.find(v=>v.path===f.path);if(!expected||f.sha256!==expected.sha256||f.gitBlob!==expected.gitBlob||f.bytes!==expected.bytes)throw Error('Unreviewed native snapshot.');}
+for(const profile of ['core','renderer','compatibility'])if(distribution(profile).files.some(f=>f.startsWith('packages/native-window-presenter/')||f.startsWith(vendorRoot+'/')))throw Error('Candidate unexpectedly registered in public distribution.');
+const packageJSON=JSON.parse(fs.readFileSync(path.join(root,'package.json')));if(JSON.stringify(packageJSON.files)!==JSON.stringify(distribution().files))throw Error('Root whitelist changed through a side effect.');
+const report={status:'pass',baseCommit,sourceCommit,snapshot:verifySnapshot(),unchangedRootAndAcceptedWindowFiles:unchanged.length,privateRuntime:closure.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:sha(fs.readFileSync(path.join(root,file)))})),publicRegistration:false,coreOrThreeImports:false,sourceNotice:'Original Three notice bytes stored with .original suffix, original path/hash in provenance. Root alone decides eventual public notice/whitelist registration.'};
+fs.mkdirSync(path.join(root,'artifacts/native-window-presenter'),{recursive:true});fs.writeFileSync(path.join(root,'artifacts/native-window-presenter/source-audit.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
