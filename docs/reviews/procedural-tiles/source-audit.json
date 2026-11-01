@@ -1,0 +1,115 @@
+{
+  "kind": "nautilus-procedural-tiles-source-review",
+  "version": 1,
+  "date": "2026-10-31",
+  "engineBase": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "status": "Design/conformance reference only; no new runtime import or donor repin",
+  "reviewedAFT": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+    "files": [
+      {
+        "path": "core/connections.js",
+        "bytes": 5263,
+        "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29",
+        "gitBlob": "afdab7e13ef65efe3379845e46f2a183842abf75"
+      },
+      {
+        "path": "core/feature-plan.js",
+        "bytes": 2588,
+        "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3",
+        "gitBlob": "cd59a1046c264e337dbe980ad898dc71104bec7f"
+      },
+      {
+        "path": "scenery-block-rotation.js",
+        "bytes": 2490,
+        "sha256": "9cf6c3c3051aa161b7b92842a947882e6681960daeebe8d862119ba90a714aeb",
+        "gitBlob": "cce35bfd19ae672fa4f5e8942bafe76fbda1c8e9"
+      },
+      {
+        "path": "shore-tiles.js",
+        "bytes": 1252,
+        "sha256": "fe118fb783eafe944b0280b21f8cc5862f6d51f3c3e391180f8fcebc2f51ea77",
+        "gitBlob": "c6e7e47b68af02c73b65f83fab99957a29f81ef4"
+      },
+      {
+        "path": "cliff-tiles.js",
+        "bytes": 8988,
+        "sha256": "a6f438d290edc4f689c159436e75f20c32c68f144f982587453198e59177b924",
+        "gitBlob": "e88c047ebe789602ab0bcf169e8470ee65184cfc"
+      },
+      {
+        "path": "cliff-rim.js",
+        "bytes": 875,
+        "sha256": "d838a875819b9d34f22fb848dee6010dbbececfcc27a221af57ce14b66b6fc6c",
+        "gitBlob": "a5adbd9914fbe74d0927f48b3984cc8823e3feab"
+      },
+      {
+        "path": "cliff-models.js",
+        "bytes": 7426,
+        "sha256": "716a29711e33f862932fd4c389e350758ba303fd10f7c67b963c3e22c6152093",
+        "gitBlob": "ee0a390aedf5330a1fb8cfb35003e2cd203d43d7"
+      }
+    ]
+  },
+  "historicalTests": {
+    "repository": "https://github.com/Syntaxswine/animal-factory",
+    "commit": "b23334cb77f82e2373b9552b0d8752271a18326e",
+    "access": "Exact Git objects; per-command safe.directory; no donor writes",
+    "files": [
+      {
+        "path": "tests/shore-tiles.test.mjs",
+        "bytes": 1334,
+        "sha256": "11b988b34626faf9372204ab3e1c6ce529fc5d3f5438be25a5f29539a970d877",
+        "gitBlob": "2e858269b21758fbd6cd1f4f00c1bc39a1654d67"
+      },
+      {
+        "path": "tests/cliff-tiles.test.mjs",
+        "bytes": 8075,
+        "sha256": "f7aa2d29fd432bc459c36a8f97979abd782e6747c152f53adb16391700a1481c",
+        "gitBlob": "9ee5496618ded671d1f93ab5be56259e14d6f524"
+      }
+    ]
+  },
+  "observedAFT": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "commit": "131fde44c0c3a77decfc612f0b06bc31312b35b8",
+    "access": "Exact Git objects; per-command safe.directory; no donor writes",
+    "files": [
+      {
+        "path": "dist/tactics/shore-tiles.js",
+        "bytes": 1252,
+        "sha256": "fe118fb783eafe944b0280b21f8cc5862f6d51f3c3e391180f8fcebc2f51ea77",
+        "gitBlob": "c6e7e47b68af02c73b65f83fab99957a29f81ef4",
+        "sameAsReviewedVendor": true
+      },
+      {
+        "path": "dist/tactics/cliff-tiles.js",
+        "bytes": 8988,
+        "sha256": "a6f438d290edc4f689c159436e75f20c32c68f144f982587453198e59177b924",
+        "gitBlob": "e88c047ebe789602ab0bcf169e8470ee65184cfc",
+        "sameAsReviewedVendor": true
+      }
+    ]
+  },
+  "cpuReference": {
+    "status": "pass",
+    "variations": 48,
+    "compatibleDirectionalPairs": 1152,
+    "boundaryPixelSamples": 27648,
+    "midpointCrossings": "pass within original 1e-10 tolerance",
+    "scope": "Pinned CPU shoreline reference only; not new-kit, renderer, GPU, physics or game acceptance"
+  },
+  "legacyPreserved": {
+    "blockMetres": 24,
+    "featuresPerSide": 1,
+    "roadMetres": 6,
+    "cornerBits": {
+      "NW": 1,
+      "NE": 2,
+      "SE": 4,
+      "SW": 8
+    }
+  },
+  "newKitRecommendation": "Canonical whole-shape/path and common world-border geometry with arbitrary supported offsets, spans, heights and layered channels; interior variation/detail may not change shared borders."
+}

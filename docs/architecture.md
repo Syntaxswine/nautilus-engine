@@ -5,6 +5,7 @@
 | Path | Responsibility |
 | --- | --- |
 | `packages/map-core/` | Headless public API and portable example content |
+| `packages/tiles-core/` | Optional headless authored shapes, canonical boundaries, joins, derived cell windows and pure bounded repair |
 | `packages/prefab-core/` | Headless whole-building identities, conservative placement lots and deterministic settlement candidates |
 | `packages/building-catalog/` | Original architectural recipes, descriptive rooms/openings and an optional host-supplied Three renderer |
 | `packages/render-effects/` | Optional standard-depth WebGL2 effects and the shared Three entry; game eligibility stays outside |
@@ -132,3 +133,9 @@ The candidate [functional-parts facade](functional-parts.md) is the explicit aut
 The [optional window adapter](adapters/farmyard-window-impacts.md) preserves the fixed Farmyard first-hit/quarter-turn policy. Engine-owned geometry/state is headless; complete-world queries, successful outcomes, actual costs, atomic context commits, invalidation and whole-save approval stay with the host. The engine advertises its pane behavior without claiming those six borrowed services. Current door/grenade profiles remain separately bounded.
 
 The [artist audit](reviews/window-art/README.md) is source research for a later host-Three provider. Renderer, editor authoring and production game adoption need their own reviewed bindings. [Architect acceptance](reviews/2026-10-30-farmyard-window-integration.md) records the fixed inputs and persistence correction.
+
+## Procedural tile boundary
+
+The optional [procedural tile module](procedural-tiles.md) preserves authored line, arc, cubic and compound controls, shared-corner fields, region outlines and native profile paths. Its registered ./tiles entry owns catalogue/layout/bundle validation, canonical border inspection, explicit layered joins and bounded deterministic repair. One semantic shape may cover many derived cells. Editor owns atomic history and save adoption; family mesh/query/support/navigation/fire providers remain unbound.
+
+[Architect acceptance](reviews/procedural-tiles/integration.md) records the fixed source, focused corrections and actual installed-package evidence. The expansive art-family and Smart Tile editor work remain separate checkpoints; this boundary does not claim that all 294 artist studies are already adopted.

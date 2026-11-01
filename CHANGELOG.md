@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add optional headless procedural tile recipes, analytic curves, canonical layered boundaries, deterministic repair and complete authored bundle saves through ./tiles.
+- Register four v1 schemas and the engine-only boundary capability; test the actual installed core in CI while presentation and gameplay bindings remain explicit.
+- Refuse unsupported checkerboard conditioning, account for omitted compound endpoints in error/work bounds, and validate changed contacts individually during repair.
+
 - Add optional native Farmyard window geometry/query and confirmed-impact entries with three registered v1 schemas, durable receipts and complete retained saves.
 - Reject lossy encoded fog Sets before save reconstruction or live restore; preserve ordinary retained arrays and typed actor IDs.
 - Keep all six live host services explicit, and exercise the actual installed window package in CI. Record the source-native artist audit separately from renderer/editor/game adoption.
