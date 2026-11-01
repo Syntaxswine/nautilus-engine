@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {cores,smartTileFixture,finishOperation} from './fixtures/smart-tile-editor/source.mjs';
-import {SMART_TILE_INTERFACE,smartTileActions,assertSmartTileAdapter} from '../apps/editor/smart-tile/contract.js';
+import {SMART_TILE_INTERFACE,SMART_TILE_OPTIONAL_METHODS,SMART_TILE_READINESS_KEYS,SMART_TILE_RESOURCE_FIELDS,smartTileActions,assertSmartTileAdapter} from '../apps/editor/smart-tile/contract.js';
 import {openSmartTileCheckpoint,serializeSmartTileCheckpoint,smartTileCheckpointToken,smartTileDigest,stageSmartTileOperation,settleSmartTileOperation,inspectSmartTileRecovery} from '../apps/editor/smart-tile/checkpoint.js';
 const clone=structuredClone,code=(run,expected)=>assert.throws(run,e=>e.code===expected);
 
@@ -64,4 +64,29 @@ test('unknown acceptance freezes editing, undo/redo, saving/opening and preserve
 
 test('the UI seam is one own-method adapter and installs no input/floor authority',()=>{
   const adapter=Object.fromEntries(SMART_TILE_INTERFACE.methods.map(name=>[name,()=>{}]));assert.equal(assertSmartTileAdapter(adapter),adapter);let calls=0;Object.defineProperty(adapter,'apply',{get(){calls++;},enumerable:true});assert.throws(()=>assertSmartTileAdapter(adapter));assert.equal(calls,0);assert.deepEqual(SMART_TILE_INTERFACE.tools,['rectangle','path','finish']);
+  assert.equal(SMART_TILE_INTERFACE.methods.length,15);assert.deepEqual(SMART_TILE_OPTIONAL_METHODS,['lockOwner']);assert.deepEqual(SMART_TILE_READINESS_KEYS,['authoring','shape','visual','query','support','navigation','fire','water','game']);assert.deepEqual(SMART_TILE_RESOURCE_FIELDS,['accepted','candidate','acquiring','retiring','roots','triangles','cells','maxRoots','maxTriangles','maxCells']);
+});
+
+test('operation targets retain the accepted layout identity and captured edit expectations',()=>{
+  const {checkpoint}=smartTileFixture(),op=finishOperation(checkpoint);
+  const foreign=clone(op);foreign.targetBundle.layout.id='foreign-tile-yard';code(()=>stageSmartTileOperation(cores,checkpoint,foreign),'OPERATION_LAYOUT_MISMATCH');
+  for(const mutate of [v=>v.request.expected.revision++,v=>v.request.expected.layoutDigest='0'.repeat(64),v=>v.request.expected.catalogueDigest='0'.repeat(64),v=>v.request.expected.contextToken='0'.repeat(64),v=>v.targetBundle.layout.revision++]){const bad=clone(op);mutate(bad);code(()=>stageSmartTileOperation(cores,checkpoint,bad),'OPERATION_EXPECTATION_MISMATCH');}
+  assert.equal(stageSmartTileOperation(cores,checkpoint,op).journal.pending.id,op.id);
+});
+
+test('ordinary checkpoint opening rejects changed receipt digests and contradictory outcomes',()=>{
+  const {checkpoint}=smartTileFixture(),op=finishOperation(checkpoint),pending=stageSmartTileOperation(cores,checkpoint,op),committed=settleSmartTileOperation(cores,pending,op.id,'committed'),refused=settleSmartTileOperation(cores,pending,op.id,'not-committed');
+  const wrongDigest=clone(committed);wrongDigest.journal.receipts[0].afterDocumentDigest='0'.repeat(64);code(()=>openSmartTileCheckpoint(cores,wrongDigest),'RECEIPT_OUTCOME_MISMATCH');
+  const malformed=clone(committed);malformed.journal.receipts[0]=null;code(()=>openSmartTileCheckpoint(cores,malformed),'INVALID_CHECKPOINT_RECORD');
+  const wrongOutcome=clone(committed);wrongOutcome.journal.receipts[0].outcome='not-committed';assert.throws(()=>openSmartTileCheckpoint(cores,wrongOutcome),e=>['RECEIPT_BEFORE_MISMATCH','OPERATION_EXPECTATION_MISMATCH'].includes(e.code));
+  const refusedAsCommitted=clone(refused);refusedAsCommitted.journal.receipts[0].outcome='committed';assert.throws(()=>openSmartTileCheckpoint(cores,refusedAsCommitted),e=>['RECEIPT_OUTCOME_MISMATCH','RECEIPT_DOCUMENT_MISMATCH'].includes(e.code));
+  for(const actual of [pending,committed,refused])assert.deepEqual(openSmartTileCheckpoint(cores,serializeSmartTileCheckpoint(cores,actual)),actual);
+});
+
+test('receipt chain binds later operations to prior accepted targets and the final document',()=>{
+  const {checkpoint}=smartTileFixture(),op=finishOperation(checkpoint),first=settleSmartTileOperation(cores,stageSmartTileOperation(cores,checkpoint,op),op.id,'committed');
+  const next=finishOperation(first,'second-finish'),second=settleSmartTileOperation(cores,stageSmartTileOperation(cores,first,next),next.id,'not-committed');
+  assert.deepEqual(openSmartTileCheckpoint(cores,serializeSmartTileCheckpoint(cores,second)),second);
+  const bad=clone(second);bad.journal.receipts[1].outcome='committed';assert.throws(()=>openSmartTileCheckpoint(cores,bad));
+  const altered=clone(second);altered.document.tileBundle.layout.selection.seed++;code(()=>openSmartTileCheckpoint(cores,altered),'RECEIPT_DOCUMENT_MISMATCH');
 });
