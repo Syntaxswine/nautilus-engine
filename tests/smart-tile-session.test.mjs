@@ -5,10 +5,10 @@ import * as examples from '../packages/tile-visuals/example.js';
 import {createFloorNavigation} from '../packages/floor-navigation/index.js';
 import {createSmartTileAuthority} from '../apps/editor/smart-tile/authority.js';
 import {createSmartTileSession} from '../apps/editor/smart-tile/session.js';
-import {smartTileDigest} from '../apps/editor/smart-tile/checkpoint.js';
+import {smartTileDigest,createSmartTileCheckpoint} from '../apps/editor/smart-tile/checkpoint.js';
 const clone=structuredClone,rectangle=(origin=[20,20])=>({tool:'rectangle',ownerId:null,origin,widthM:8,depthM:4,seed:17});
-async function harness({empty=true}={}){
-  const f=smartTileFixture({empty});let raw=JSON.stringify(f.checkpoint),ordinal=0,hook=()=>{},acquireHook=null,attachHook=null,session;
+async function harness({empty=true,fixture=null}={}){
+  const f=fixture||smartTileFixture({empty});let raw=JSON.stringify(f.checkpoint),ordinal=0,hook=()=>{},acquireHook=null,attachHook=null,session;
   const calls=[],views=[];
   const authority=createSmartTileAuthority(cores,{read:()=>raw,write(packet){calls.push({phase:packet.phase,requestId:packet.requestId});const result=hook(packet,'before');if(result!==undefined)return result;if(smartTileDigest(JSON.parse(raw))!==packet.expectedRecordDigest||!packet.canCommit())return false;raw=packet.nextJSON;const after=hook(packet,'after');return after===undefined?true:after;}});
   const floors=createFloorNavigation({floors:f.floors,selectedId:'0',cancelPreview(){session?.cancel('before-plane');}});
@@ -33,6 +33,20 @@ test('real public rectangle repair, straight join, explicit lock/finish and one 
  assert.equal(finished.document.sourceJSON,h.f.sourceJSON);assert.equal(h.session.getSnapshot().history.undo,4);assert.equal(h.calls.filter(v=>v.phase==='commit').length,4);
  assert.equal((await h.session.undo()).committed,true);assert.deepEqual(saved(h).document,locked.document);assert.equal((await h.session.redo()).committed,true);assert.deepEqual(saved(h).document,finished.document);
  assert.equal((await h.session.apply(r.reviewId)).ok,false);
+});
+
+for(const subset of [[],['paving-shared.region']])test('Finish Apply/save preserves existing anchor subset '+JSON.stringify(subset),async t=>{
+ const f=smartTileFixture(),recipe=clone(f.recipe);recipe.anchors.push({...clone(recipe.anchors[0]),id:'paving-shared.optional'});
+ const catalogue=cores.tiles.createTileCatalogue([recipe]),layout=clone(f.checkpoint.document.tileBundle.layout),digest=cores.tiles.compileTileRecipe(recipe).contentDigest;
+ layout.catalogueDigest=catalogue.digest;for(const instance of layout.instances){instance.contentDigest=digest;instance.anchorIds=instance.id==='surface-a'?clone(subset):recipe.anchors.map(a=>a.id);}
+ f.checkpoint=createSmartTileCheckpoint(cores,{...f.checkpoint.document,tileBundle:cores.tiles.tileBundle(layout,catalogue)});
+ const h=await harness({fixture:f});t.after(()=>h.session.dispose());const before=saved(h),oldA=before.document.tileBundle.layout.instances.find(v=>v.id==='surface-a'),oldB=before.document.tileBundle.layout.instances.find(v=>v.id==='surface-b');
+ await apply(h,{tool:'finish',ownerId:oldA.id,skinId:'skin.slate'});const after=saved(h),nextA=after.document.tileBundle.layout.instances.find(v=>v.id===oldA.id),nextRecipe=after.document.tileBundle.recipes.find(v=>v.id===nextA.recipeId);
+ assert.deepEqual(nextA,{...oldA,recipeId:nextA.recipeId,contentDigest:nextA.contentDigest});assert.deepEqual(nextA.anchorIds,subset);
+ const expected=clone(recipe);expected.id=nextRecipe.id;expected.contentVersion=nextRecipe.contentVersion;expected.interior.skinId='skin.slate';assert.deepEqual(nextRecipe,expected);
+ assert.deepEqual(after.document.tileBundle.layout.instances.find(v=>v.id===oldB.id),oldB);assert.deepEqual(after.document.tileBundle.recipes.find(v=>v.id===recipe.id),recipe);
+ assert.deepEqual(after.document.tileBundle.layout.joins,before.document.tileBundle.layout.joins);assert.deepEqual(after.document.tileBundle.layout.relations,before.document.tileBundle.layout.relations);assert.equal(after.document.sourceJSON,before.document.sourceJSON);
+ assert.deepEqual(after.journal.receipts.at(-1).operation.request.slots[0].anchorIds,subset);assert.equal(h.session.getSnapshot().history.undo,1);
 });
 
 test('exact line arc and cubic controls and actual supplied upper floor survive save/reopen',async t=>{

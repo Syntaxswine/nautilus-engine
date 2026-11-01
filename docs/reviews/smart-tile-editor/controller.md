@@ -1,5 +1,7 @@
 # Smart Tile Editor controller candidate
 
+Preserved review of `f7521d829de9e4ef971b0a087467c1cdaf565c9b`. Its evidence remains unchanged below; see the [focused input/Finish correction](input-finish-correction.md) for the subsequent candidate and current proof.
+
 This tranche provides the isolated `examples/smart-tile-editor.html` reference host. Rectangle, isolated level line/arc/cubic paths and Finish whole surface use the actual public resolver and native Three presenter. The original portable map remains a verbatim read-only source beside the canonical v1 tile bundle. Review and Apply remain separate native activations on desktop and phone layouts.
 
 The parent is the accepted authority correction `8aac00de19c80c1143945b4dd4f2a88e59e86013`. Public runtime bytes remain at `0fbc5c3630e257dfcd7a6ea82027634dfe6989b6`. Root relayed the UI at `dcd8783055fe57b7a02d25b5dfa101dc94c35cf5` and accepted its focused correction `e4196e43da9f7c480817b9ae22e237451d3c7a86`. The [source record](sources.json) records exact Git-object imports and hashes. This candidate does not change engine packages, main, consumer pins, private Sites settings or release state. Root owns integration and release.
