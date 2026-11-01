@@ -1,6 +1,6 @@
 {
   "status": "pass",
-  "checkedAt": "2026-11-01T03:04:33.398Z",
+  "checkedAt": "2026-11-01T03:45:20.664Z",
   "method": "Supported Playwright/HTTP close in finally, actual 180-second expiry, then exact PID+creation+executable and listening-port check. No unrelated process stopped.",
   "lifetimes": [
     {
@@ -124,6 +124,66 @@
       }
     },
     {
+      "mode": "source",
+      "record": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter source desktop/phone review",
+        "project": "Nautilus Engine",
+        "startedAt": "2026-11-01T03:42:09.233Z",
+        "expiresAt": "2026-11-01T03:45:09.233Z",
+        "process": {
+          "pid": 66508,
+          "creationFiletime": "134379781283708787",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 29956,
+          "creationFiletime": "134379781287635411",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 58695,
+        "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\native-window-presenter-source\\STOP",
+        "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+        "sourceFiles": [
+          "tools/art-review-browser.mjs",
+          "tools/review-native-window-presenter.mjs",
+          "package.json"
+        ],
+        "restart": {
+          "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+          "executable": "C:\\Program Files\\nodejs\\node.exe",
+          "args": [
+            "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\review-native-window-presenter.mjs",
+            "--source"
+          ],
+          "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+          "inputs": "Project source tree and its referenced local assets",
+          "outputs": "artifacts/native-window-presenter-source",
+          "pendingWork": "Stateless review; no in-memory state is needed",
+          "secretReferences": []
+        }
+      },
+      "receipt": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter source desktop/phone review",
+        "stoppedAt": "2026-11-01T03:42:15.248Z",
+        "process": {
+          "pid": 66508,
+          "creationFiletime": "134379781283708787",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 29956,
+          "creationFiletime": "134379781287635411",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 58695,
+        "httpClosed": true,
+        "browserClosed": true,
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      }
+    },
+    {
       "mode": "built",
       "record": {
         "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
@@ -177,6 +237,65 @@
           "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
         },
         "port": 51904,
+        "httpClosed": true,
+        "browserClosed": true,
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      }
+    },
+    {
+      "mode": "built",
+      "record": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter built desktop/phone review",
+        "project": "Nautilus Engine",
+        "startedAt": "2026-11-01T03:43:00.889Z",
+        "expiresAt": "2026-11-01T03:46:00.889Z",
+        "process": {
+          "pid": 64968,
+          "creationFiletime": "134379781802617374",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 12048,
+          "creationFiletime": "134379781806141009",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 63650,
+        "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\native-window-presenter-built\\STOP",
+        "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+        "sourceFiles": [
+          "tools/art-review-browser.mjs",
+          "tools/review-native-window-presenter.mjs",
+          "package.json"
+        ],
+        "restart": {
+          "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+          "executable": "C:\\Program Files\\nodejs\\node.exe",
+          "args": [
+            "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\review-native-window-presenter.mjs"
+          ],
+          "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+          "inputs": "Static dist/ tree built from project source",
+          "outputs": "artifacts/native-window-presenter-built",
+          "pendingWork": "Stateless review; no in-memory state is needed",
+          "secretReferences": []
+        }
+      },
+      "receipt": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter built desktop/phone review",
+        "stoppedAt": "2026-11-01T03:43:06.441Z",
+        "process": {
+          "pid": 64968,
+          "creationFiletime": "134379781802617374",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 12048,
+          "creationFiletime": "134379781806141009",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 63650,
         "httpClosed": true,
         "browserClosed": true,
         "method": "Supported Playwright browser close and HTTP close in finally"
@@ -241,14 +360,77 @@
         "browserClosed": true,
         "method": "Supported Playwright browser close and HTTP close in finally"
       }
+    },
+    {
+      "mode": "installed",
+      "record": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter installed desktop/phone review",
+        "project": "Nautilus Engine",
+        "startedAt": "2026-11-01T03:43:59.498Z",
+        "expiresAt": "2026-11-01T03:46:59.498Z",
+        "process": {
+          "pid": 55556,
+          "creationFiletime": "134379782330535005",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 20504,
+          "creationFiletime": "134379782392493751",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 57693,
+        "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\native-window-presenter-installed\\STOP",
+        "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+        "sourceFiles": [
+          "tools/art-review-browser.mjs",
+          "tools/review-native-window-presenter.mjs",
+          "package.json"
+        ],
+        "restart": {
+          "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+          "executable": "C:\\Program Files\\nodejs\\node.exe",
+          "args": [
+            "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\review-native-window-presenter.mjs",
+            "--installed"
+          ],
+          "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+          "inputs": "Project source tree and its referenced local assets",
+          "outputs": "artifacts/native-window-presenter-installed",
+          "pendingWork": "Stateless review; no in-memory state is needed",
+          "secretReferences": []
+        }
+      },
+      "receipt": {
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Native static window presenter installed desktop/phone review",
+        "stoppedAt": "2026-11-01T03:44:05.222Z",
+        "process": {
+          "pid": 55556,
+          "creationFiletime": "134379782330535005",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 20504,
+          "creationFiletime": "134379782392493751",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 57693,
+        "httpClosed": true,
+        "browserClosed": true,
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      }
     }
   ],
-  "originalLifetimesEnded": 8,
+  "originalLifetimesEnded": 14,
   "portsReleased": [
     51749,
     54509,
+    58695,
     51904,
-    61643
+    63650,
+    61643,
+    57693
   ],
   "retainedHelpers": 0
 }

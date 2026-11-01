@@ -16,7 +16,7 @@ try{
   fs.writeFileSync(path.join(privateStage,'package.json'),JSON.stringify({name:'@nautilus-private/native-window-presenter',version:'0.0.0',private:true,type:'module',exports:{'.':'./packages/native-window-presenter/three.js'},files:['packages/native-window-presenter',...attribution]}));
   const staged=stageAuthoring(authoringStage),pack=dir=>{const r=JSON.parse(npm(['pack','--offline','--ignore-scripts','--json','--pack-destination',out],dir))[0];return path.join(out,r.filename);},presenter=pack(privateStage),authoring=pack(authoringStage);
   fs.writeFileSync(path.join(consumer,'package.json'),JSON.stringify({name:'native-window-installed-proof',private:true,type:'module'}));npm(['install','--offline','--ignore-scripts','--no-audit','--no-fund','--package-lock=false',core.file,renderer.file,presenter,authoring],consumer);
-  for(const f of ['package-proof.mjs','proof.mjs'])fs.copyFileSync(path.join(root,'tests/fixtures/native-window-presenter',f),path.join(consumer,f));
+  for(const f of ['package-proof.mjs','proof.mjs','lifecycle-proof.mjs'])fs.copyFileSync(path.join(root,'tests/fixtures/native-window-presenter',f),path.join(consumer,f));
   const proof=JSON.parse(execFileSync(process.execPath,['package-proof.mjs'],{cwd:consumer,encoding:'utf8',windowsHide:true,maxBuffer:4000000,timeout:120000}).trim());
   report={status:'pass',baseCommit,publicCore:core,publicRenderer:renderer,privatePresenter:{archive:presenter,sha256:createHash('sha256').update(fs.readFileSync(presenter)).digest('hex'),modules:files,attribution},privateAuthoring:{archive:authoring,registered:false,commit:staged.authoringCommit,dependencyCommit:staged.dependencyCommit,files:staged.files},proof};
 }finally{

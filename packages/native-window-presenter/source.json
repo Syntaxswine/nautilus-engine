@@ -8,10 +8,11 @@
   "sourceManifest": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
   "runtimeImportsOriginalSnapshot": false,
   "adaptations": {
+    "cleanup.js": "New exhaustive ownership snapshot retirement, bounded callback error aggregation and final owned-parent repair. Actual native remove/dispose events are attempted; no borrowed resource is disposed.",
     "geometry.js": "Native unit boxes, broad-face-only borderless sheet, enamel stripes, two-sided framed glints and metre wall UVs. Receives actual public fixed definitions; borrows Three/materials; owns geometry per placement.",
     "paint.js": "Selected literal finish options and exactly the brick/concrete/corrugated 128x128 pixel formulas. Returns data only; host allocates and owns materials/textures.",
     "prepare.js": "New descriptor-first validation. Actual owning core's windowStateGeometry/inspectWindowGeometry/serializeWindowState; plain projections reopened and fully compared through public openWindowGeometry. Host-owned publication current fence.",
-    "three.js": "New bounded offscene staging, current fence, abort, cull and idempotent owned-geometry retirement. No donor state, costs, impacts, save or clock."
+    "three.js": "New bounded offscene staging, current fence, abort, cull and idempotent owned-geometry retirement. Follow-up serializes lifecycle mutations, latches reentrant abort/dispose and fences callback-producing attachment before committing. No donor state, costs, impacts, save or clock."
   },
   "authoringProof": {
     "commit": "e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a",

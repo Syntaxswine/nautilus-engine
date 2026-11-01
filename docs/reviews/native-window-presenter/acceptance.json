@@ -9,7 +9,7 @@
         "name": "check",
         "status": "pass",
         "exitCode": 0,
-        "elapsedMs": 10298,
+        "elapsedMs": 7146,
         "log": "artifacts/native-window-presenter/gates/check.log",
         "summary": [
           "> @nautilus-engine/map-core@0.10.0 check",
@@ -30,34 +30,34 @@
         "name": "test",
         "status": "pass",
         "exitCode": 0,
-        "elapsedMs": 94142,
+        "elapsedMs": 61008,
         "log": "artifacts/native-window-presenter/gates/test.log",
         "summary": [
-          "✔ empty extension metadata survives the last deletion, saved reload and block rotation (1073.5953ms)",
-          "✔ generation rejects a wall body reaching a seam when its endpoints are inset (350.0577ms)",
-          "✔ aggregate native-panel overflow is rejected before assembly commits (552.475ms)",
-          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (627.9394ms)",
-          "ℹ tests 718",
+          "✔ empty extension metadata survives the last deletion, saved reload and block rotation (655.2539ms)",
+          "✔ generation rejects a wall body reaching a seam when its endpoints are inset (251.2342ms)",
+          "✔ aggregate native-panel overflow is rejected before assembly commits (347.9359ms)",
+          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (443.3511ms)",
+          "ℹ tests 736",
           "ℹ suites 0",
-          "ℹ pass 718",
+          "ℹ pass 736",
           "ℹ fail 0",
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 93728.4963"
+          "ℹ duration_ms 60649.2075"
         ]
       },
       {
         "name": "upstream",
         "status": "pass",
         "exitCode": 0,
-        "elapsedMs": 5092,
+        "elapsedMs": 3375,
         "log": "artifacts/native-window-presenter/gates/upstream.log",
         "summary": [
-          "✔ planned map fills the road/fence crossing, keeps all offsets and roundtrips (1380.7051ms)",
-          "✔ missing crossing reports exact sector and cannot mutate the plan or library (289.1204ms)",
-          "✔ seeded lines deterministic and malformed plans rejected (337.2126ms)",
-          "✔ a straight fence cannot drift between its north and south edges (254.6477ms)",
+          "✔ planned map fills the road/fence crossing, keeps all offsets and roundtrips (899.5816ms)",
+          "✔ missing crossing reports exact sector and cannot mutate the plan or library (221.9423ms)",
+          "✔ seeded lines deterministic and malformed plans rejected (233.2034ms)",
+          "✔ a straight fence cannot drift between its north and south edges (198.5083ms)",
           "ℹ tests 32",
           "ℹ suites 0",
           "ℹ pass 32",
@@ -65,26 +65,32 @@
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 4574.7775"
+          "ℹ duration_ms 2978.3392"
         ]
       },
       {
         "name": "build",
         "status": "pass",
         "exitCode": 0,
-        "elapsedMs": 40862,
+        "elapsedMs": 27804,
         "log": "artifacts/native-window-presenter/gates/build.log",
         "summary": [
           "> @nautilus-engine/map-core@0.10.0 build",
           "> node tools/build.mjs",
           "",
           "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
-          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 473 module paths checked and own/adapted scripts syntax-checked."
+          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 474 module paths checked and own/adapted scripts syntax-checked."
         ]
       }
     ]
   },
-  "focusedTests": 10,
+  "focusedTests": 28,
+  "lifecycleCorrection": {
+    "original": "9fe6fc989a147a2a2c578727ebebfec5ef1e8b58",
+    "before": "lifecycle-before.json",
+    "fixed": "lifecycle-fixed.json",
+    "cases": 18
+  },
   "installedProof": {
     "status": "pass",
     "actualDeclaredCore": true,
@@ -105,6 +111,87 @@
       },
       "borrowedResourcesSurvived": true
     },
+    "lifecycle": {
+      "status": "pass",
+      "actualThreeRevision": "180",
+      "actualPublicCore": true,
+      "cases": 18,
+      "results": [
+        {
+          "name": "added listener throws: reject and detach candidate, preserve accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "added listener disposes presenter: activation never reports success",
+          "status": "pass"
+        },
+        {
+          "name": "geometry dispose listener throws: visit all resources, finish records, repeat quietly",
+          "status": "pass"
+        },
+        {
+          "name": "abort removed/dispose listeners throw or reenter: pending ownership always drains",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance removed/dispose faults preserve neighbour geometry and borrowed pool",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance geometry disposal can request whole-presenter disposal without recursion",
+          "status": "pass"
+        },
+        {
+          "name": "actual Three acquisition event and rollback disposal faults leave no partial parents/resources",
+          "status": "pass"
+        },
+        {
+          "name": "added/removed callbacks changing the current publication roll back to the old view",
+          "status": "pass"
+        },
+        {
+          "name": "added callback can cancel only its pending candidate",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary mutators refuse reentry from actual added/removed/dispose events",
+          "status": "pass"
+        },
+        {
+          "name": "retirement callbacks can stale a committed replacement but cannot return activation success",
+          "status": "pass"
+        },
+        {
+          "name": "removed/dispose reparenting cannot strand owned nodes or remove borrowed neighbours",
+          "status": "pass"
+        },
+        {
+          "name": "deferred unrelated cancellation is settled before replacing accepted geometry",
+          "status": "pass"
+        },
+        {
+          "name": "removed listener failure during activation restores the still-owned accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "old-geometry notification failure is reported after a consistent replacement commit",
+          "status": "pass"
+        },
+        {
+          "name": "acquisition and rollback observer failures preserve an accepted view without global disposal",
+          "status": "pass"
+        },
+        {
+          "name": "reverse-order cancellation chains drain all three staged records once",
+          "status": "pass"
+        },
+        {
+          "name": "bounded error aggregation still attempts every owned resource and repairs every parent",
+          "status": "pass"
+        }
+      ],
+      "borrowedPoolSurvival": true
+    },
     "authoring": {
       "registered": false,
       "dependency": "e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a",
@@ -118,6 +205,7 @@
   "sourceBuiltInstalledVisuals": {
     "capturesPerMode": 10,
     "byteIdentical": true,
+    "matchesPreCorrectionImages": true,
     "captures": [
       {
         "name": "catalogue-desktop",
@@ -310,7 +398,7 @@
   "sourceAudit": "source-audit.json",
   "helperCleanup": "helper-cleanup.json",
   "helpers": {
-    "lifetimes": 4,
+    "lifetimes": 7,
     "retained": 0
   },
   "registration": "pending Root review/integration",

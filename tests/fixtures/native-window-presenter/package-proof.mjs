@@ -8,7 +8,9 @@ import * as T from '@nautilus-engine/renderer/render-effects/three';
 import * as V from '@nautilus-private/native-window-presenter';
 import * as A from '@nautilus-private/staged-window-authoring';
 import {runParity,makePool,compileCase,planRuntime,assertViewParity} from './proof.mjs';
+import {runLifecycleProof} from './lifecycle-proof.mjs';
 const parity=runParity({W,F,T,V});
+const lifecycle=runLifecycleProof({W,F,T,V});
 const privateRoot='node_modules/@nautilus-private/native-window-presenter/',attribution=JSON.parse(fs.readFileSync(privateRoot+'packages/native-window-presenter/source.json')),manifest=JSON.parse(fs.readFileSync(privateRoot+attribution.sourceManifest)),notice=manifest.files.find(f=>f.path.endsWith('THREE-LICENSE.txt')),noticeBytes=fs.readFileSync(privateRoot+attribution.sourceManifest.replace('provenance.json',notice.storedPath));assert.equal(createHash('sha256').update(noticeBytes).digest('hex'),notice.sha256);
 const base=MapCore.blankMap('Preserved underlay'),id='authoring-source-'+('x'.repeat(65));base.edges['s:14:12']='wall-brick';const savedBase=JSON.stringify(base);
 const c=compileCase(W,F,{definitionId:'window.full.clear.1m',id}),wire={kind:'nautilus-window-authoring',version:1,id:'native-window-yard',worldId:'native-world',profileId:W.WINDOW_GEOMETRY_CONTRACT.profileId,definitions:{sourceCommit:F.FARMYARD_WINDOW_DEFINITIONS.sourceCommit,version:F.FARMYARD_WINDOW_DEFINITIONS.version},baseBlueprint:base,placements:[c.placement],bindings:[{placementId:id,engineInstanceId:'native-view'}]};
@@ -30,4 +32,4 @@ try{
 await assert.rejects(import('@nautilus-engine/core/windows/authoring'),e=>e.code==='ERR_PACKAGE_PATH_NOT_EXPORTED');
 await assert.rejects(import('@nautilus-engine/renderer/adapters/farmyard/windows/three'),e=>e.code==='ERR_PACKAGE_PATH_NOT_EXPORTED');
 const runtime=compileCase(W,F),runtimePlan=planRuntime(V,W,F,runtime);assert.equal(runtimePlan.mode,'runtime');
-console.log(JSON.stringify({status:'pass',actualDeclaredCore:true,separatePrivatePresenter:true,noBundledCoreOrThree:true,originalNoticeAndManifestInstalled:true,parity,authoring,publicRegistrationAbsent:true}));
+console.log(JSON.stringify({status:'pass',actualDeclaredCore:true,separatePrivatePresenter:true,noBundledCoreOrThree:true,originalNoticeAndManifestInstalled:true,parity,lifecycle,authoring,publicRegistrationAbsent:true}));

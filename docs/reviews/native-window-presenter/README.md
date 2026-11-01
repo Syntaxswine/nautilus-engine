@@ -4,6 +4,12 @@ Bounded first tranche: native frames/glass/glints, exact accepted masks, legacy
 opaque-wall composition and quiet restores. **Root integration/registration
 pending; no consumer/game adoption.** Shatter and audio are excluded.
 
+The [focused lifecycle correction](lifecycle-correction.md) follows the preserved
+original `9fe6fc989a147a2a2c578727ebebfec5ef1e8b58`. Eighteen actual pinned-Three
+regressions cover observer throws/reentry, cancellation, rollback and exhaustive
+retirement; their red/green source hashes and installed proof accompany the
+updated acceptance record. Geometry, masks, clips and reviewed pixels are unchanged.
+
 Fixed base: `e4b5106f6967614ddc60661a6cdddde5d37b5c2b`. Accepted windows remain
 unchanged from `69115f6c283c4c60588d8462b943ea944ab17aca`; accepted art audit
 `0c5dee8e168a2c01e07f956c84b6501f2d2db5f7`. The separate accepted tile branch

@@ -23,8 +23,9 @@
   },
   "privatePresenter": {
     "archive": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\native-window-presenter-package\\nautilus-private-native-window-presenter-0.0.0.tgz",
-    "sha256": "12d46d2ee6ee5c9c86ff80916fcb8a995fb61f1a3cc9246f9acb555ea333a9db",
+    "sha256": "cfe7f6bc88a285c0ab7a85ffab957af9258a45d4ce4cbb8df42de4597b3c88ba",
     "modules": [
+      "packages/native-window-presenter/cleanup.js",
       "packages/native-window-presenter/data.js",
       "packages/native-window-presenter/geometry.js",
       "packages/native-window-presenter/paint.js",
@@ -105,6 +106,87 @@
         "triangles": 4
       },
       "borrowedResourcesSurvived": true
+    },
+    "lifecycle": {
+      "status": "pass",
+      "actualThreeRevision": "180",
+      "actualPublicCore": true,
+      "cases": 18,
+      "results": [
+        {
+          "name": "added listener throws: reject and detach candidate, preserve accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "added listener disposes presenter: activation never reports success",
+          "status": "pass"
+        },
+        {
+          "name": "geometry dispose listener throws: visit all resources, finish records, repeat quietly",
+          "status": "pass"
+        },
+        {
+          "name": "abort removed/dispose listeners throw or reenter: pending ownership always drains",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance removed/dispose faults preserve neighbour geometry and borrowed pool",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance geometry disposal can request whole-presenter disposal without recursion",
+          "status": "pass"
+        },
+        {
+          "name": "actual Three acquisition event and rollback disposal faults leave no partial parents/resources",
+          "status": "pass"
+        },
+        {
+          "name": "added/removed callbacks changing the current publication roll back to the old view",
+          "status": "pass"
+        },
+        {
+          "name": "added callback can cancel only its pending candidate",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary mutators refuse reentry from actual added/removed/dispose events",
+          "status": "pass"
+        },
+        {
+          "name": "retirement callbacks can stale a committed replacement but cannot return activation success",
+          "status": "pass"
+        },
+        {
+          "name": "removed/dispose reparenting cannot strand owned nodes or remove borrowed neighbours",
+          "status": "pass"
+        },
+        {
+          "name": "deferred unrelated cancellation is settled before replacing accepted geometry",
+          "status": "pass"
+        },
+        {
+          "name": "removed listener failure during activation restores the still-owned accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "old-geometry notification failure is reported after a consistent replacement commit",
+          "status": "pass"
+        },
+        {
+          "name": "acquisition and rollback observer failures preserve an accepted view without global disposal",
+          "status": "pass"
+        },
+        {
+          "name": "reverse-order cancellation chains drain all three staged records once",
+          "status": "pass"
+        },
+        {
+          "name": "bounded error aggregation still attempts every owned resource and repairs every parent",
+          "status": "pass"
+        }
+      ],
+      "borrowedPoolSurvival": true
     },
     "authoring": {
       "registered": false,

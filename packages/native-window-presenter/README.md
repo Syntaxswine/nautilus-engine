@@ -108,6 +108,31 @@ failed candidate is retired; the last accepted root stays. `abort(handle)`
 retires only a pending view. At most three views coexist. There is no loader,
 watcher, private frame loop or async work hidden inside this synchronous API.
 
+Lifecycle mutations are serialized. Reentrant `stage`, `activate`,
+`removeInstance` and `setResident` throw `REENTRANT_LIFECYCLE`. Reentrant
+`abort(pendingHandle)` and `dispose()` latch cancellation without running nested
+destructors. The outer operation settles those requests before returning;
+repeated abort/dispose is harmless. `inspect`/`stats` remain readable during a
+callback, including while cancellation is pending.
+
+Activation attaches the candidate hidden, checks cancellation and the current
+fence after native attachment/removal callbacks, and keeps the old geometry
+owned until those checks pass. Failure before that commit retires the candidate
+and restores the old root unless the host intentionally disposed the presenter.
+Old-resource notification errors after commit are reported with the replacement
+consistent; disposed old geometry is never resurrected. A stale/retired
+replacement returns false or throws after cleanup, never true.
+
+Retirement transfers all owned nodes/geometries out of live records before
+calling native Three removal/disposal. It attempts every owned resource despite
+listener exceptions, then repairs owned parent/child links without replaying
+events. This also handles a listener reparenting a retiring node. Cleanup
+failures throw `AggregateError` with code `WINDOW_VIEW_LIFECYCLE_FAILED` after
+consistency is restored; at most 64 errors are retained, with the full
+`failureCount`. Native dispatch semantics remain intact: one throwing listener
+can stop later listeners on that same event; the provider does not retry/replay
+it or change Three prototypes. All other owned resource attempts still run.
+
 `setResident(completePlacementIds)` changes presentation visibility only and
 preserves pane masks. `removeInstance(id)` retires only that owned instance;
 neighbour geometry/materials remain live. `dispose()` detaches all owned roots
@@ -129,3 +154,7 @@ gates. Browser reference: `examples/native-window-presenter.html`; reproducible
 bounded review: `node tools/review-native-window-presenter.mjs --source`, then
 the default built review and `--installed`. See the review report for exact
 provenance, results, remaining gaps and the registration request.
+`node tools/check-native-window-lifecycle.mjs --baseline` intentionally fails
+against exact `9fe6fc989a147a2a2c578727ebebfec5ef1e8b58`; the command without
+that flag passes the current source using actual pinned Three events and public
+core. The installed private-package proof runs the same lifecycle cases.
