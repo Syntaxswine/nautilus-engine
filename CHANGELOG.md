@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add optional native window renderer with frames/glass, acknowledged masks, explicit legacy-wall clipping and quiet restores; borrow host core/Three/materials and keep game authority separate.
+- Make attachment/retirement exception-safe across Three observers, with bounded reentrant cancellation and exhaustive owned cleanup. Prove actual public authoring/renderer installs, notices, guide and desktop/phone reference parity.
+
 - Add reviewed private C1 exact planar line-region union/intersection/difference evidence for joined footprints, courtyards, islands and point contacts; keep complete v2 layout/live/presentation adoption closed.
 - Prove complete void outer-boundary component associations and independent installed Fraction-oracle checks in CI without changing the public tile API or distributions.
 

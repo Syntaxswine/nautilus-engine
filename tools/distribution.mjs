@@ -32,6 +32,7 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
   'docs/adapters/farmyard-doors.md', 'docs/reviews/farmyard-doors.sources.json', 'docs/reviews/farmyard-doors/integration-request.json', 'docs/functional-parts.md', 'docs/standard-interactions.md', 'docs/game-title.md', 'docs/asset-handoffs.md', 'docs/modular-foundation.md', 'docs/floor-navigation.md', 'docs/runtime-modules.md', 'docs/extended-world-core.md', 'docs/adapters/farmyard-rules.md', 'docs/reviews/2026-10-29-farmyard-rules.sources.json',
   'docs/reviews/2026-10-30-farmyard-window-integration.md', 'packages/adapters/farmyard/windows/NOTICE.md', 'docs/adapters/farmyard-window-impacts.md', 'docs/reviews/farmyard-windows/source-audit.json', 'docs/reviews/farmyard-windows/impact-registration-request.json',
   'docs/window-authoring.md', 'docs/reviews/window-authoring/registration-request.json', 'docs/reviews/window-authoring/dependencies.json',
+  'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json', 'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original',
   'packages/tiles-core/NOTICE.md', 'docs/procedural-tiles.md', 'docs/proposals/procedural-tiles-v1.md', 'docs/reviews/procedural-tiles/source-audit.json', 'docs/reviews/procedural-tiles/registration-request.json',
   ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
@@ -42,6 +43,7 @@ export function distribution(profile = 'compatibility') {
   else if (profile === 'compatibility') extras = resources();
   else throw Error('Unknown package profile: ' + profile);
   if(profile==='renderer'||profile==='compatibility')extras.push(JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardDoorVisuals.manifest,'packages/grenade-visuals/README.md','packages/grenade-visuals/source.json','docs/reviews/grenade-presentation/provider.md');
+  if(profile==='renderer'||profile==='compatibility')extras.push('packages/native-window-presenter/README.md','packages/native-window-presenter/NOTICE.md','packages/native-window-presenter/source.json');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

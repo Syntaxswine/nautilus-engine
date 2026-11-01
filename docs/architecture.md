@@ -12,6 +12,7 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/native-window-presenter/` | Optional borrowed-Three native frames/glass/masks, explicit wall clipping and owned-geometry lifecycle |
 | `packages/windows-authoring/` | Optional headless complete-map window wrapper, transactional commands/history and detached native geometry projection |
 | `packages/windows-core/` | Optional headless native window geometry, confirmed pane impacts and complete durable state |
 | `packages/adapters/farmyard/windows/` | Retained whole-game window saves and six explicit host-service bindings |
@@ -135,7 +136,7 @@ The [optional window adapter](adapters/farmyard-window-impacts.md) preserves the
 
 The optional [window-authoring entry](window-authoring.md) preserves complete base/covered-edge data, native configuration and bounded atomic history. Its registered v1 schema does not advertise the six live host services. Detached previews and prerequisite checks allocate no runtime pane epoch; editor chrome, native presentation and complete-game adoption require their own reviewed integration.
 
-The [artist audit](reviews/window-art/README.md) is source research for a later host-Three provider. Renderer, editor authoring and production game adoption need their own reviewed bindings. [Architect acceptance](reviews/2026-10-30-farmyard-window-integration.md) records the fixed inputs and persistence correction.
+The [optional native presenter](../packages/native-window-presenter/README.md) consumes actual public window state or detached public authoring projections. It borrows core/Three/materials and owns geometry only; original native references remain outside runtime. Its exception-safe lifecycle is independent of gameplay publication. The [artist audit](reviews/window-art/README.md) records the source-native study. Editor chrome and production game adoption need their own reviewed bindings. [Architect acceptance](reviews/2026-10-30-farmyard-window-integration.md) records the fixed inputs and persistence correction.
 
 ## Procedural tile boundary
 

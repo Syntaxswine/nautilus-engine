@@ -10,6 +10,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -23,6 +30,7 @@ jobs:
       - run: npm run test:doors
       - run: npm run test:windows
       - run: npm run test:windows:authoring
+      - run: npm run test:windows:renderer
       - run: npm run test:tiles
       - run: npm run test:tiles:v2:candidate
       - run: python3 -B tools/verify-tile-c1-oracle.py artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json
@@ -31,6 +39,13 @@ jobs:
     timeout-minutes: 16
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -85,11 +100,30 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-farmyard-door-installed
+      - run: node tools/review-native-window-presenter.mjs --source
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-source
+      - run: npm run review:windows
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-built
+      - run: npm run test:windows:renderer
+      - run: npm run review:windows:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-installed
+      - run: node tools/verify-native-window-browser-parity.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: authoring-browser-evidence
           path: |
+            artifacts/native-window-presenter-source/
+            artifacts/native-window-presenter-built/
+            artifacts/native-window-presenter-installed/
+            artifacts/native-window-presenter-package/report.json
+            artifacts/native-window-presenter-browser-parity.json
             artifacts/engine-integration/
             artifacts/rock-distraction/
             artifacts/character-development/

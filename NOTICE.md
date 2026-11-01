@@ -39,3 +39,7 @@ The separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d66585
 ## Procedural tile design references
 
 The optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.
+
+## Native Farmyard window presentation
+
+The reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.
