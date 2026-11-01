@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "Applied by Architect: optional renderer/compatibility candidate entry and exact closure/support; editor UI and game adoption remain separate",
+  "baseCommit": "e4b5106f6967614ddc60661a6cdddde5d37b5c2b",
+  "proposedEntry": "./adapters/farmyard/windows/three",
+  "candidateFile": "packages/native-window-presenter/three.js",
+  "guide": "packages/native-window-presenter/README.md",
+  "example": "examples/native-window-presenter.html",
+  "fixedDefinitions": {
+    "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "version": "industrial-windows/2"
+  },
+  "privateRuntimeModules": [
+    "packages/native-window-presenter/cleanup.js",
+    "packages/native-window-presenter/data.js",
+    "packages/native-window-presenter/geometry.js",
+    "packages/native-window-presenter/paint.js",
+    "packages/native-window-presenter/prepare.js",
+    "packages/native-window-presenter/three.js"
+  ],
+  "explicitSupport": [
+    "packages/native-window-presenter/README.md",
+    "packages/native-window-presenter/NOTICE.md",
+    "packages/native-window-presenter/source.json",
+    "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original"
+  ],
+  "noticeDecisionRequired": "Retain the source Three MIT notice and unresolved art rights. Original notice is hash-preserved with .original storage suffix in the reference snapshot; deliberately include/reference the appropriate notice rather than changing the root automatic whitelist in the artist branch. No new art licence grant.",
+  "borrowed": [
+    "actual owning public windows API",
+    "fixed Farmyard definitions",
+    "acknowledged publication/current fence",
+    "one host Three namespace",
+    "host materials/textures"
+  ],
+  "owned": [
+    "presenter/view/placement roots",
+    "native geometry only"
+  ],
+  "authoringProof": {
+    "publicEntry": "@nautilus-engine/core/windows/authoring",
+    "registered": true,
+    "isolationCommit": "e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a",
+    "boundary": "Actual public authoring and renderer are primary. Separate private physical instances test foreign-handle refusal and detached projection transport only."
+  },
+  "registeredHere": true,
+  "schemaOrCapabilityChanges": false,
+  "gameOrDonorPinChanges": false,
+  "sitesAudienceChanges": false,
+  "shatterOrAudio": false,
+  "rootOwns": [
+    "integration",
+    "public exports",
+    "whitelist/distribution",
+    "notice registration",
+    "CI wiring",
+    "any future release or consumer adoption"
+  ],
+  "integrationBase": "3f602272a3a2ecbe4ade0d33773a0e4f52da0706",
+  "acceptedSource": "5f027e039ba9307fd25719c6307d9760baf54e20",
+  "noticeDecision": "Preserve exact original MIT notice suffix/bytes, reference manifest and unresolved inherited art rights; no reference JavaScript/Three runtime dependency or new licence grant."
+}

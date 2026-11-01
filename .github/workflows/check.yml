@@ -23,6 +23,7 @@ jobs:
       - run: npm run test:doors
       - run: npm run test:windows
       - run: npm run test:windows:authoring
+      - run: npm run test:windows:renderer
       - run: npm run test:tiles
       - run: npm run test:tiles:v2:candidate
       - run: python3 -B tools/verify-tile-c1-oracle.py artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json
@@ -85,11 +86,30 @@ jobs:
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
           CODEX_THREAD_ID: github-farmyard-door-installed
+      - run: node tools/review-native-window-presenter.mjs --source
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-source
+      - run: npm run review:windows
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-built
+      - run: npm run test:windows:renderer
+      - run: npm run review:windows:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-installed
+      - run: node tools/verify-native-window-browser-parity.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: authoring-browser-evidence
           path: |
+            artifacts/native-window-presenter-source/
+            artifacts/native-window-presenter-built/
+            artifacts/native-window-presenter-installed/
+            artifacts/native-window-presenter-package/report.json
+            artifacts/native-window-presenter-browser-parity.json
             artifacts/engine-integration/
             artifacts/rock-distraction/
             artifacts/character-development/

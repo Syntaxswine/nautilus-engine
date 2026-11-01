@@ -48,7 +48,8 @@
     "./windows": "./packages/windows-core/index.js",
     "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js",
     "./tiles": "./packages/tiles-core/index.js",
-    "./windows/authoring": "./packages/windows-authoring/index.js"
+    "./windows/authoring": "./packages/windows-authoring/index.js",
+    "./adapters/farmyard/windows/three": "./packages/native-window-presenter/three.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -178,6 +179,15 @@
     "packages/map-core/roof-maps.js",
     "packages/map-core/roof-rotation.js",
     "packages/map-core/wall-runs.js",
+    "packages/native-window-presenter/NOTICE.md",
+    "packages/native-window-presenter/README.md",
+    "packages/native-window-presenter/cleanup.js",
+    "packages/native-window-presenter/data.js",
+    "packages/native-window-presenter/geometry.js",
+    "packages/native-window-presenter/paint.js",
+    "packages/native-window-presenter/prepare.js",
+    "packages/native-window-presenter/source.json",
+    "packages/native-window-presenter/three.js",
     "packages/parts-core/clearance.js",
     "packages/parts-core/compiler.js",
     "packages/parts-core/data.js",
@@ -359,6 +369,8 @@
     "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/NOTICE.md",
     "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
     "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+    "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/brick-sienna-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/roof-slate-v1.png",
     "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/cedar-shingles-v1.png",
@@ -406,7 +418,10 @@
     "test:windows": "node tools/test-farmyard-window-impacts-package.mjs",
     "test:tiles": "node tools/test-procedural-tiles-package.mjs",
     "test:tiles:v2:candidate": "node tools/test-tile-v2-package.mjs --candidate",
-    "test:windows:authoring": "node tools/test-window-authoring-package.mjs"
+    "test:windows:authoring": "node tools/test-window-authoring-package.mjs",
+    "test:windows:renderer": "node tools/test-native-window-presenter-package.mjs",
+    "review:windows": "node tools/review-native-window-presenter.mjs",
+    "review:windows:installed": "node tools/review-native-window-presenter.mjs --installed"
   },
   "engines": {
     "node": ">=22"
