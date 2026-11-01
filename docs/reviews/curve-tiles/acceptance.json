@@ -1,0 +1,493 @@
+{
+  "schemaVersion": 1,
+  "status": "artist checkpoint verified; canonical core/editor adoption pending",
+  "baseline": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "branch": "codex/modular-curve-tiles",
+  "runtime": "v24.15.0",
+  "platform": "win32",
+  "measured": {
+    "studies": 294,
+    "focusedTests": 9,
+    "aftBorderComparisons": 3456,
+    "cornerSaddleComparisons": 256,
+    "d4NeighborComparisons": 576
+  },
+  "gates": {
+    "status": "pass",
+    "checkedAt": "2026-11-01T00:12:50.845Z",
+    "runtime": "v24.15.0",
+    "platform": "win32",
+    "checks": [
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "durationMs": 6229,
+        "log": "artifacts/curve-tiles/check.log",
+        "tail": [
+          "> @nautilus-engine/map-core@0.10.0 check",
+          "> node tools/check.mjs",
+          "",
+          "Verified native Farmyard door presentation: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalFiles\":2,\"originalBytes\":2762865,\"staticReferenceModules\":17,\"runtimeResources\":1,\"deferredChestResources\":2,\"duplicateThreeModules\":0}",
+          "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules/progression/items APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules.",
+          "Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs, atlas, glTF graphs/buffers and all export hashes.",
+          "Verified Farmyard door source and headless closure: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalModules\":22,\"originalBytes\":151675,\"runtimeModules\":14,\"sharedSnapshot\":true}",
+          "Verified pinned Farmyard grenade source and conformance closure: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"snapshotRoot\":\"vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a\",\"files\":43,\"bytes\":894207,\"modules\":36,\"copiedBinaryAssets\":0}",
+          "Verified native grenade source and derived modules: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalFiles\":2,\"originalBytes\":626567,\"generatedModules\":2,\"duplicateThreeModules\":0}",
+          "Verified 3 byte-preserved Farmyard conformance modules, kept outside runtime distributions."
+        ]
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "durationMs": 53637,
+        "log": "artifacts/curve-tiles/test.log",
+        "tail": [
+          "✔ aggregate native-panel overflow is rejected before assembly commits (296.0784ms)",
+          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (359.9013ms)",
+          "ℹ tests 636",
+          "ℹ suites 0",
+          "ℹ pass 636",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0",
+          "ℹ todo 0",
+          "ℹ duration_ms 53350.2106"
+        ]
+      },
+      {
+        "command": "npm run test:upstream",
+        "exitCode": 0,
+        "durationMs": 2958,
+        "log": "artifacts/curve-tiles/test-upstream.log",
+        "tail": [
+          "✔ seeded lines deterministic and malformed plans rejected (245.9407ms)",
+          "✔ a straight fence cannot drift between its north and south edges (172.1048ms)",
+          "ℹ tests 32",
+          "ℹ suites 0",
+          "ℹ pass 32",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0",
+          "ℹ todo 0",
+          "ℹ duration_ms 2636.215"
+        ]
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "durationMs": 21562,
+        "log": "artifacts/curve-tiles/build.log",
+        "tail": [
+          "> @nautilus-engine/map-core@0.10.0 build",
+          "> node tools/build.mjs",
+          "",
+          "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 456 module paths checked and own/adapted scripts syntax-checked."
+        ]
+      }
+    ]
+  },
+  "installed": {
+    "status": "pass",
+    "core": {
+      "name": "@nautilus-engine/core",
+      "version": "0.10.0",
+      "integrity": "sha512-NdN6p0KMlnNTV7tro3GSWFSrocTa0IVjQgQ3q0uDOKG1i+d6iy7sFlUAgMsH/iUqjmxq7X2MaGf58LmrD+jyxA=="
+    },
+    "renderer": {
+      "name": "@nautilus-engine/renderer",
+      "version": "0.10.0",
+      "integrity": "sha512-dOx/+SO/RilStshmt2+pG4C/aMG7ryIoVzBHvwsMi1rCTowK28gCfE0HneEQYA9K+8B9675pdkD0YoxweCitRg=="
+    },
+    "candidate": {
+      "private": true,
+      "compressedBytes": 31753,
+      "fileCount": 18,
+      "sha256": "87ed9cbd522bf721f771567776139b88f89398fa7e4da695a55d1fbb463a3d40"
+    },
+    "proof": {
+      "status": "pass",
+      "studies": 294,
+      "hostThreeRevision": "180",
+      "headless": true,
+      "borrowedResourcesPreserved": true,
+      "coreMapUnchanged": true,
+      "canonicalTileCoreAvailable": false,
+      "qualification": "Actual declared core/renderer packages plus a private artist-candidate package. This does not prove frozen TileRecipe binding, engine registration, editor repair or game adoption."
+    }
+  },
+  "browser": {
+    "source": {
+      "schemaVersion": 1,
+      "status": "pass",
+      "mode": "source",
+      "cases": [
+        {
+          "scene": "drive",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 110426,
+          "geometries": 4,
+          "textures": 2,
+          "disposed": false
+        },
+        {
+          "scene": "s-bend",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 86052,
+          "geometries": 4,
+          "textures": 3,
+          "disposed": false
+        },
+        {
+          "scene": "junction",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 105532,
+          "geometries": 4,
+          "textures": 3,
+          "disposed": false
+        },
+        {
+          "scene": "layers",
+          "detail": 16,
+          "seed": 17,
+          "views": 4,
+          "calls": 10,
+          "triangles": 151611,
+          "geometries": 10,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "wall",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 6,
+          "triangles": 85545,
+          "geometries": 6,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "heights",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 2,
+          "triangles": 3712,
+          "geometries": 2,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "profiles",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 2,
+          "triangles": 17664,
+          "geometries": 2,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "sheet",
+          "detail": 16,
+          "seed": 17,
+          "views": 64,
+          "calls": 244,
+          "triangles": 80104,
+          "geometries": 244,
+          "textures": 4,
+          "disposed": false
+        }
+      ],
+      "phone": "390 x 844",
+      "backend": "Isolated browser / SwiftShader WebGL; not a real-device performance measurement",
+      "errors": 0,
+      "failedRequests": 0,
+      "qualification": "Artist geometry study. Canonical core/editor contract and gameplay providers are separate."
+    },
+    "built": {
+      "schemaVersion": 1,
+      "status": "pass",
+      "mode": "built",
+      "cases": [
+        {
+          "scene": "drive",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 110426,
+          "geometries": 4,
+          "textures": 2,
+          "disposed": false
+        },
+        {
+          "scene": "s-bend",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 86052,
+          "geometries": 4,
+          "textures": 3,
+          "disposed": false
+        },
+        {
+          "scene": "junction",
+          "detail": 16,
+          "seed": 17,
+          "views": 1,
+          "calls": 4,
+          "triangles": 105532,
+          "geometries": 4,
+          "textures": 3,
+          "disposed": false
+        },
+        {
+          "scene": "layers",
+          "detail": 16,
+          "seed": 17,
+          "views": 4,
+          "calls": 10,
+          "triangles": 151611,
+          "geometries": 10,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "wall",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 6,
+          "triangles": 85545,
+          "geometries": 6,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "heights",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 2,
+          "triangles": 3712,
+          "geometries": 2,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "profiles",
+          "detail": 16,
+          "seed": 17,
+          "views": 2,
+          "calls": 2,
+          "triangles": 17664,
+          "geometries": 2,
+          "textures": 4,
+          "disposed": false
+        },
+        {
+          "scene": "sheet",
+          "detail": 16,
+          "seed": 17,
+          "views": 64,
+          "calls": 244,
+          "triangles": 80104,
+          "geometries": 244,
+          "textures": 4,
+          "disposed": false
+        }
+      ],
+      "phone": "390 x 844",
+      "backend": "Isolated browser / SwiftShader WebGL; not a real-device performance measurement",
+      "errors": 0,
+      "failedRequests": 0,
+      "qualification": "Artist geometry study. Canonical core/editor contract and gameplay providers are separate."
+    },
+    "captures": [
+      {
+        "path": "previews/concave.png",
+        "bytes": 226312,
+        "sha256": "5555a04f549519b4ed56777e6ba7024ae48fdc966241a84917fbca9c1fcffa12",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/detail-32.png",
+        "bytes": 421050,
+        "sha256": "588a66ee4220c3194e38214f6c23b5ff27afc3068fd65e43823a1bbda74ed3bb",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/detail-8.png",
+        "bytes": 419211,
+        "sha256": "b8f4775c2c1576c25d1e856efcdca51a9d9226ed0b5bcc445d2615f491c9dc0f",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/drive.png",
+        "bytes": 419745,
+        "sha256": "6e707a124ec24d9fc1d0c8cce320191c9efa99d79338822707415e4a71a90833",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/heights.png",
+        "bytes": 390617,
+        "sha256": "1aa4cebf8a352f4e86173ed29d935718f1bc50df514b113b4e6f855ce4bc0394",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/junction.png",
+        "bytes": 378035,
+        "sha256": "cba34c4638dad01fd3998525d5806a8a66e649880092a38b0f784376620eb345",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/layers.png",
+        "bytes": 344568,
+        "sha256": "e68d1c28b9d18a5d4f72fd57c20a3792e5e003a76009d84dcc42695d1d3636db",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/phone.png",
+        "bytes": 77200,
+        "sha256": "3133484bf87a71bbd61b99cac3323cef4022bc3fce36ff84a48679f1fb1711e4",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/profiles.png",
+        "bytes": 123169,
+        "sha256": "fb2fd85a8c55a4eccdf6b4a0531f300271db6d763be00385de119b9dc687be8d",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/s-bend.png",
+        "bytes": 371361,
+        "sha256": "dc0a98073a4e8ebd4d129ce988904e578c76b09fbfa20eee06b623814419a26c",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/sheet.png",
+        "bytes": 265321,
+        "sha256": "fb08cf0a14de89160258cf8830af4a9f4c3576ae7f22ec315a27edccf5b9210f",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/wall.png",
+        "bytes": 413818,
+        "sha256": "4bbaf5678a6c3b1458a574e4e1368746d99e05d5104f2345e2834859ba8723d2",
+        "sourceBuild": "byte-identical"
+      }
+    ]
+  },
+  "cleanup": {
+    "verifiedAt": "2026-11-01T00:14:11.991Z",
+    "method": "Matched supported-close receipts to PID + creation time + executable; queried live processes and recorded TCP listening ports. No processes killed.",
+    "helpers": [
+      {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Reusable curve tile art prototype: geometry, skins and layers",
+        "startedAt": "2026-10-31T23:49:25.579Z",
+        "expiresAt": "2026-10-31T23:52:25.579Z",
+        "process": {
+          "pid": 9168,
+          "creationFiletime": "134379641650150285",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 65672,
+          "creationFiletime": "134379641653063762",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 53040,
+        "stoppedAt": "2026-10-31T23:49:36.226Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Reusable curve tile art prototype: geometry, skins and layers",
+        "startedAt": "2026-11-01T00:03:14.020Z",
+        "expiresAt": "2026-11-01T00:06:14.020Z",
+        "process": {
+          "pid": 44384,
+          "creationFiletime": "134379649933937315",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 70468,
+          "creationFiletime": "134379649937283745",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 62478,
+        "stoppedAt": "2026-11-01T00:03:25.088Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Reusable curve tile art prototype: geometry, skins and layers",
+        "startedAt": "2026-11-01T00:11:27.044Z",
+        "expiresAt": "2026-11-01T00:14:27.044Z",
+        "process": {
+          "pid": 59680,
+          "creationFiletime": "134379654864687376",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 72368,
+          "creationFiletime": "134379654867690639",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 52825,
+        "stoppedAt": "2026-11-01T00:12:03.790Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "built",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Reusable curve tile art prototype: geometry, skins and layers",
+        "startedAt": "2026-11-01T00:13:15.155Z",
+        "expiresAt": "2026-11-01T00:16:15.155Z",
+        "process": {
+          "pid": 36700,
+          "creationFiletime": "134379655945666243",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 63324,
+          "creationFiletime": "134379655948763188",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 51925,
+        "stoppedAt": "2026-11-01T00:13:26.021Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      }
+    ],
+    "originalLifetimesAlive": 0,
+    "portsListening": 0,
+    "retainedHelpers": []
+  },
+  "limitations": [
+    "No fixed reviewed canonical kernel/projection dependency supplied at this checkpoint",
+    "No registered tile exports/save schema or authoritative matcher from these lab records",
+    "No Smart Tile editor paint/repair/locks/save/undo workflow",
+    "Appearance only; game collision/support/nav/fire/water adoption unbound",
+    "Open surfaces, not a closed-solid manifold proof",
+    "Full-edge exact-zero contour ownership needs the canonical core decision",
+    "SwiftShader review and draw/triangle counts are not real-device performance measurements"
+  ]
+}

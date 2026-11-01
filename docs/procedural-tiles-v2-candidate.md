@@ -1,4 +1,11 @@
-# Tile v2 A/B candidate
+# Tile v2 private A/B, C1 and C2a candidate
+
+The explicit [C2a rectangle-composition profile](procedural-tiles-c2a-candidate.md) now provides private complete-layout resolution and pure preparation for one bounded typed group. Group-free A/B and broader native grammar retain their unresolved gates; public registration, presentation and Editor/game adoption remain held.
+
+The Architect-approved [C1 line-region inspector](procedural-tiles-c1-candidate.md)
+adds bounded exact regularized planar root geometry/classification. It does not
+weaken the authored-load, complete-layout or live-adoption gates below. General
+Boolean/curved/ribbon/section/stair evaluators and public registration remain held.
 
 Reviewed A/B candidate available in the source repository. Public v2 registration
 and native evaluators remain deferred. The registered `./tiles` still points
@@ -29,7 +36,7 @@ native sections are inline complete data. Layout annotations contain only bounde
 
 | Shape | Retained controls | A/B evaluator state |
 | --- | --- | --- |
-| shape-graph | Root, stable nodes, leaves, union/intersection inputs, ordered difference | Unimplemented |
+| shape-graph | Root, stable nodes, leaves, union/intersection inputs, ordered difference | C1 planar line-root inspection only; general integration unimplemented |
 | ribbon-sweep | Original curve, independent left/right stations, explicit parameter/arc-length metric, caps/corners | Unimplemented |
 | section-sweep | Original curve, native section contours/vertices/materials, frame, authored scale/caps | Unimplemented |
 | stair-run | Plan, explicit count convention, per-step or total rise/run, base/landings, lower-riser/first-tread/top interfaces | Unimplemented |
@@ -47,11 +54,11 @@ leaves: omission or a valid bounds object is supported; `null`, `false`, `0` and
 as absent, although the v1 structural schema rejects them. This inherited v1
 discrepancy remains documented and unchanged; it does not carry into v2 syntax.
 
-Every v2 recipe/layout is **saveable but unresolved** in this checkpoint, including
+Except for the separately documented explicit C2a complete-layout profile, every v2 recipe/layout is **saveable but unresolved**, including
 a v2 layout containing only legacy recipes. `openTileBundle(...,{requireResolved:
 true})`, complete compilation, projection, interface matching, cell derivation and
-requirements/live editing refuse v2. Pure prepare returns `next:null`; retained
-host preparation cannot produce a committable v2 handle. Structural schemas never
+requirements/live editing refuse v2. Group-free A/B pure prepare returns `next:null`; retained
+host preparation cannot produce a group-free/general native v2 handle. C2a private preparation is separately scoped and never a public adoption claim. Structural schemas never
 stand in for evaluator availability. The metadata-only private view used to reuse
 accepted common-field validators is never returned, hashed as authored intent or
 compiled as v2 geometry.
@@ -62,9 +69,10 @@ requests. It does not invoke accessors or mutate source/history. Malformed ident
 v2 bundles also return structured failures with `next:null`, rather than escaping
 through dispatch as an exception.
 
-No Boolean/ribbon/section/stair evaluator is implemented. In particular the saved
-`A-A` graph is not falsely evaluated as a zero-width boundary or an empty result.
-Regularized Boolean reasoning and native stair geometry remain later C/D work.
+C1 resolves supported level line-region `A-A` to an explicit empty mathematical
+footprint. Unsupported leaves, including unsupported `A-A`, remain unresolved.
+General Boolean/ribbon/section/stair evaluators and native stair geometry remain
+later work; root-only evidence is not complete layout adoption.
 
 ## Shared render-edge plans
 
@@ -161,7 +169,7 @@ two zero samples cannot substitute. The side proof separately verifies the true 
 after D4, then bounds the entire inward collar. With normalized inward s and
 tangential t, the scalar factors as:
 
-`F(s,t) = s² * [(3-2s) O(t) + A*256(1-s)²*t²*(1-t)²]`.
+`F(s,t) = sÂ² * [(3-2s) O(t) + A*256(1-s)Â²*tÂ²*(1-t)Â²]`.
 
 O is a convex smooth blend of the two opposite corners. For every allowed seed,
 `abs(A)<=abs(fieldAmplitude)` and the variation term is bounded by

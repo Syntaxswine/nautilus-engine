@@ -1,0 +1,411 @@
+{
+  "status": "pass",
+  "baseCommit": "e4b5106f6967614ddc60661a6cdddde5d37b5c2b",
+  "candidate": "Exact delivered SHA is the Git commit containing this report; no circular self-hash.",
+  "gates": {
+    "status": "pass",
+    "results": [
+      {
+        "name": "check",
+        "status": "pass",
+        "exitCode": 0,
+        "elapsedMs": 7146,
+        "log": "artifacts/native-window-presenter/gates/check.log",
+        "summary": [
+          "> @nautilus-engine/map-core@0.10.0 check",
+          "> node tools/check.mjs",
+          "",
+          "Verified native Farmyard door presentation: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalFiles\":2,\"originalBytes\":2762865,\"staticReferenceModules\":17,\"runtimeResources\":1,\"deferredChestResources\":2,\"duplicateThreeModules\":0}",
+          "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules/progression/items APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules.",
+          "Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs, atlas, glTF graphs/buffers and all export hashes.",
+          "Verified Farmyard door source and headless closure: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalModules\":22,\"originalBytes\":151675,\"runtimeModules\":14,\"sharedSnapshot\":true}",
+          "Verified pinned Farmyard grenade source and conformance closure: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"snapshotRoot\":\"vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a\",\"files\":43,\"bytes\":894207,\"modules\":36,\"copiedBinaryAssets\":0}",
+          "Verified native grenade source and derived modules: {\"commit\":\"251bf8094b5f9ebe44208443084c1a6d6658512a\",\"originalFiles\":2,\"originalBytes\":626567,\"generatedModules\":2,\"duplicateThreeModules\":0}",
+          "Verified 3 byte-preserved Farmyard conformance modules, kept outside runtime distributions.",
+          "Verified procedural tiles: {\"modules\":14,\"bytes\":91604,\"schemas\":4,\"sourceFiles\":7,\"headless\":true}",
+          "Verified A/B tile candidate source: {\"declared\":false,\"modules\":20,\"bytes\":151822,\"unchangedV1Files\":18}"
+        ]
+      },
+      {
+        "name": "test",
+        "status": "pass",
+        "exitCode": 0,
+        "elapsedMs": 61008,
+        "log": "artifacts/native-window-presenter/gates/test.log",
+        "summary": [
+          "✔ empty extension metadata survives the last deletion, saved reload and block rotation (655.2539ms)",
+          "✔ generation rejects a wall body reaching a seam when its endpoints are inset (251.2342ms)",
+          "✔ aggregate native-panel overflow is rejected before assembly commits (347.9359ms)",
+          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (443.3511ms)",
+          "ℹ tests 736",
+          "ℹ suites 0",
+          "ℹ pass 736",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0",
+          "ℹ todo 0",
+          "ℹ duration_ms 60649.2075"
+        ]
+      },
+      {
+        "name": "upstream",
+        "status": "pass",
+        "exitCode": 0,
+        "elapsedMs": 3375,
+        "log": "artifacts/native-window-presenter/gates/upstream.log",
+        "summary": [
+          "✔ planned map fills the road/fence crossing, keeps all offsets and roundtrips (899.5816ms)",
+          "✔ missing crossing reports exact sector and cannot mutate the plan or library (221.9423ms)",
+          "✔ seeded lines deterministic and malformed plans rejected (233.2034ms)",
+          "✔ a straight fence cannot drift between its north and south edges (198.5083ms)",
+          "ℹ tests 32",
+          "ℹ suites 0",
+          "ℹ pass 32",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0",
+          "ℹ todo 0",
+          "ℹ duration_ms 2978.3392"
+        ]
+      },
+      {
+        "name": "build",
+        "status": "pass",
+        "exitCode": 0,
+        "elapsedMs": 27804,
+        "log": "artifacts/native-window-presenter/gates/build.log",
+        "summary": [
+          "> @nautilus-engine/map-core@0.10.0 build",
+          "> node tools/build.mjs",
+          "",
+          "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 474 module paths checked and own/adapted scripts syntax-checked."
+        ]
+      }
+    ]
+  },
+  "focusedTests": 28,
+  "lifecycleCorrection": {
+    "original": "9fe6fc989a147a2a2c578727ebebfec5ef1e8b58",
+    "before": "lifecycle-before.json",
+    "fixed": "lifecycle-fixed.json",
+    "cases": 18
+  },
+  "installedProof": {
+    "status": "pass",
+    "actualDeclaredCore": true,
+    "separatePrivatePresenter": true,
+    "noBundledCoreOrThree": true,
+    "originalNoticeAndManifestInstalled": true,
+    "parity": {
+      "poses": 624,
+      "masks": 594,
+      "compiledMembers": 5856,
+      "meshBoundComparisons": 5232,
+      "maximumMeshBoundErrorMetres": 1.7763568394002505e-15,
+      "tall": {
+        "width": 20,
+        "height": 10.6,
+        "panes": 1,
+        "triangles": 4
+      },
+      "borrowedResourcesSurvived": true
+    },
+    "lifecycle": {
+      "status": "pass",
+      "actualThreeRevision": "180",
+      "actualPublicCore": true,
+      "cases": 18,
+      "results": [
+        {
+          "name": "added listener throws: reject and detach candidate, preserve accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "added listener disposes presenter: activation never reports success",
+          "status": "pass"
+        },
+        {
+          "name": "geometry dispose listener throws: visit all resources, finish records, repeat quietly",
+          "status": "pass"
+        },
+        {
+          "name": "abort removed/dispose listeners throw or reenter: pending ownership always drains",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance removed/dispose faults preserve neighbour geometry and borrowed pool",
+          "status": "pass"
+        },
+        {
+          "name": "removeInstance geometry disposal can request whole-presenter disposal without recursion",
+          "status": "pass"
+        },
+        {
+          "name": "actual Three acquisition event and rollback disposal faults leave no partial parents/resources",
+          "status": "pass"
+        },
+        {
+          "name": "added/removed callbacks changing the current publication roll back to the old view",
+          "status": "pass"
+        },
+        {
+          "name": "added callback can cancel only its pending candidate",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary mutators refuse reentry from actual added/removed/dispose events",
+          "status": "pass"
+        },
+        {
+          "name": "retirement callbacks can stale a committed replacement but cannot return activation success",
+          "status": "pass"
+        },
+        {
+          "name": "removed/dispose reparenting cannot strand owned nodes or remove borrowed neighbours",
+          "status": "pass"
+        },
+        {
+          "name": "deferred unrelated cancellation is settled before replacing accepted geometry",
+          "status": "pass"
+        },
+        {
+          "name": "removed listener failure during activation restores the still-owned accepted view",
+          "status": "pass"
+        },
+        {
+          "name": "old-geometry notification failure is reported after a consistent replacement commit",
+          "status": "pass"
+        },
+        {
+          "name": "acquisition and rollback observer failures preserve an accepted view without global disposal",
+          "status": "pass"
+        },
+        {
+          "name": "reverse-order cancellation chains drain all three staged records once",
+          "status": "pass"
+        },
+        {
+          "name": "bounded error aggregation still attempts every owned resource and repairs every parent",
+          "status": "pass"
+        }
+      ],
+      "borrowedPoolSurvival": true
+    },
+    "authoring": {
+      "registered": false,
+      "dependency": "e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a",
+      "foreignHandleRefused": true,
+      "plainProjectionParity": true,
+      "history": "prepare/stage/accept/undo/redo/cancel",
+      "underlayPreserved": true
+    },
+    "publicRegistrationAbsent": true
+  },
+  "sourceBuiltInstalledVisuals": {
+    "capturesPerMode": 10,
+    "byteIdentical": true,
+    "matchesPreCorrectionImages": true,
+    "captures": [
+      {
+        "name": "catalogue-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/catalogue-desktop.png",
+        "bytes": 171425,
+        "sha256": "d6b6b3c4cc4dcfe93e043fbff5015212c30bb870a9cf746eb3cee0b22205ae0f",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "skins-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/skins-desktop.png",
+        "bytes": 232362,
+        "sha256": "54efe0df96994e5762ef1d4a5c76887a040d3a51a0d404cdb3cfd2d74e457206",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "joins-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/joins-desktop.png",
+        "bytes": 184593,
+        "sha256": "d98751bdf6f17b88ec359c21fe0e09e098b6b61df41ecde10e5afc28aea07849",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "borderless-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/borderless-desktop.png",
+        "bytes": 30717,
+        "sha256": "4422393f8389b97e615478405a38e78a940d66352aad4a4053ea2957021da873",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "clipping-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/clipping-desktop.png",
+        "bytes": 222505,
+        "sha256": "7971ee008bb3345c4e62a889df8406e9ffc31a2cba43e42b70fb867902411f78",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "clipping-back",
+        "file": "docs/reviews/native-window-presenter/previews/clipping-back.png",
+        "bytes": 202668,
+        "sha256": "5229e0eea46418bb163a7ef28a9b4a937a8c5f957d7a4c002813adb1b9293255",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "broken-restored-desktop",
+        "file": "docs/reviews/native-window-presenter/previews/broken-restored-desktop.png",
+        "bytes": 220842,
+        "sha256": "5bbe73666a15dc2afbea051bc4a48b1472a84f12deed8bf70c6017c49d3910e7",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "borderless-back",
+        "file": "docs/reviews/native-window-presenter/previews/borderless-back.png",
+        "bytes": 31127,
+        "sha256": "33eadbd8f25f016dde33bf47a7f398d41eba7662da1bb5c54bc83a712cdef609",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "clipping-phone",
+        "file": "docs/reviews/native-window-presenter/previews/clipping-phone.png",
+        "bytes": 84463,
+        "sha256": "c3c869a8c38fab711dcd57c7efecb8e3f6689d6dbc369f75cc24177cb5b5ee0c",
+        "sourceBuiltInstalledByteIdentical": true
+      },
+      {
+        "name": "broken-restored-phone",
+        "file": "docs/reviews/native-window-presenter/previews/broken-restored-phone.png",
+        "bytes": 83608,
+        "sha256": "c1469422665a6b774513d6e977f075ea5d258832ca2a925043f7f1773206228c",
+        "sourceBuiltInstalledByteIdentical": true
+      }
+    ],
+    "checks": [
+      {
+        "study": "skins",
+        "snapshot": {
+          "mode": "skins",
+          "back": false,
+          "placements": 9,
+          "visiblePanes": 54,
+          "hiddenPanes": 0,
+          "glints": 54,
+          "presentations": 0,
+          "underlayPreserved": true,
+          "clippedWalls": 0,
+          "legacyViewWalls": 0,
+          "geometries": 72,
+          "restore": null,
+          "threeRevision": "180",
+          "rendererMemory": {
+            "geometries": 73,
+            "textures": 4
+          }
+        }
+      },
+      {
+        "study": "joins",
+        "snapshot": {
+          "mode": "joins",
+          "back": false,
+          "placements": 4,
+          "visiblePanes": 24,
+          "hiddenPanes": 0,
+          "glints": 24,
+          "presentations": 0,
+          "underlayPreserved": true,
+          "clippedWalls": 0,
+          "legacyViewWalls": 0,
+          "geometries": 32,
+          "restore": null,
+          "threeRevision": "180",
+          "rendererMemory": {
+            "geometries": 33,
+            "textures": 4
+          }
+        }
+      },
+      {
+        "study": "borderless",
+        "snapshot": {
+          "mode": "borderless",
+          "back": false,
+          "placements": 4,
+          "visiblePanes": 4,
+          "hiddenPanes": 0,
+          "glints": 0,
+          "presentations": 0,
+          "underlayPreserved": true,
+          "clippedWalls": 0,
+          "legacyViewWalls": 0,
+          "geometries": 8,
+          "restore": null,
+          "threeRevision": "180",
+          "rendererMemory": {
+            "geometries": 5,
+            "textures": 4
+          }
+        }
+      },
+      {
+        "study": "clipping",
+        "snapshot": {
+          "mode": "clipping",
+          "back": false,
+          "placements": 1,
+          "visiblePanes": 6,
+          "hiddenPanes": 0,
+          "glints": 6,
+          "presentations": 0,
+          "underlayPreserved": true,
+          "clippedWalls": 6,
+          "legacyViewWalls": 6,
+          "geometries": 13,
+          "restore": null,
+          "threeRevision": "180",
+          "rendererMemory": {
+            "geometries": 14,
+            "textures": 4
+          }
+        }
+      },
+      {
+        "study": "acknowledged break / quiet live restore / retry",
+        "snapshot": {
+          "mode": "clipping",
+          "back": false,
+          "placements": 1,
+          "visiblePanes": 5,
+          "hiddenPanes": 1,
+          "glints": 5,
+          "presentations": 1,
+          "underlayPreserved": true,
+          "clippedWalls": 6,
+          "legacyViewWalls": 6,
+          "geometries": 13,
+          "restore": {
+            "committed": true,
+            "quiet": true,
+            "savePreserved": true
+          },
+          "threeRevision": "180",
+          "rendererMemory": {
+            "geometries": 13,
+            "textures": 4
+          }
+        }
+      }
+    ]
+  },
+  "sourceAudit": "source-audit.json",
+  "helperCleanup": "helper-cleanup.json",
+  "helpers": {
+    "lifetimes": 7,
+    "retained": 0
+  },
+  "registration": "pending Root review/integration",
+  "remainingGaps": [
+    "Root public registration/whitelist/notice/CI decisions",
+    "Staged authoring is not a registered editor UI",
+    "Real games must bind all six live host services and actual complete-world/actor queries",
+    "Shatter/audio, free rotations, upper floors, framed resizing, arbitrary wall provenance, physical glass/fire and gameplay adoption excluded"
+  ]
+}

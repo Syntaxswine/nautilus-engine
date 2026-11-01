@@ -9,15 +9,26 @@ const checks=[],check=(name,details={})=>{checks.push({name,passed:true,...detai
 await withArtReview('Standard title and door/stair acceptance',async({page,browser,baseURL,out,errors,failedRequests})=>{
  page.setDefaultTimeout(10000);
  const url=baseURL+'/examples/game-starter.html',snapshot=()=>page.evaluate(()=>window.nautilusStarter.snapshot());
+ const focusStates=[];
+ const captureFocus=async stage=>{
+   if(page.isClosed())return;
+   try{focusStates.push({stage,...await page.evaluate(()=>({active:{tag:document.activeElement?.tagName,id:document.activeElement?.id,action:document.activeElement?.dataset?.action,text:document.activeElement?.textContent?.slice(0,100)},title:{hidden:document.querySelector('.nautilus-title')?.hidden,busy:document.querySelector('.nautilus-title')?.getAttribute('aria-busy'),status:document.querySelector('.ng-status')?.textContent},game:{hidden:document.getElementById('game')?.hidden,display:document.getElementById('game')?getComputedStyle(document.getElementById('game')).display:null},dialogs:[...document.querySelectorAll('dialog')].map(dialog=>({id:dialog.id,open:dialog.open,label:dialog.getAttribute('aria-labelledby')})),nativeClose:window.starterCloseProbe??null,events:window.starterFocusEvents??[],dom:document.body.outerHTML.slice(0,64000)}))});}catch(error){focusStates.push({stage,captureError:error.message});}
+ };
+ await page.addInitScript(()=>{window.starterCloseProbe={ordinary:null,late:null,confirmation:null};window.starterFocusEvents=[];for(const type of ['focusin','focusout','cancel','close'])document.addEventListener(type,event=>{const target=event.target,active=document.activeElement;window.starterFocusEvents.push({type,time:performance.now(),trusted:event.isTrusted,target:{tag:target.tagName,id:target.id,action:target.dataset?.action},active:{tag:active?.tagName,id:active?.id,action:active?.dataset?.action}});if(window.starterFocusEvents.length>128)window.starterFocusEvents.shift();},true);});
+ try{
  await page.goto(url);await page.locator('[data-action=start]').waitFor({state:'visible'});await page.waitForFunction(()=>!document.querySelector('[data-action=start]').disabled);
  assert.equal(await page.locator('[data-action=continue]').isDisabled(),true);
  await page.screenshot({path:path.join(out,'title-desktop.png'),fullPage:true});
  await page.locator('[data-action=settings]').click();await page.locator('#auto-walk').uncheck();await page.getByRole('button',{name:'Apply',exact:true}).click();
  await page.locator('[data-action=credits]').click();assert.equal(await page.locator('.ng-dialog[open]').count(),1);
- // Escape returns before the dialog's close event, whose handler refocuses Credits: focus taken in that gap is lost and Enter reopens Credits.
- // Focus already on Credits proves nothing, because the browser restores it inside close(); only the event does.
- await page.evaluate(()=>{window.creditsClosed=false;document.querySelector('.ng-dialog[open]').addEventListener('close',()=>{window.creditsClosed=true;},{once:true});});
- await page.keyboard.press('Escape');await page.waitForFunction(()=>window.creditsClosed);assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'credits');
+ await page.evaluate(()=>{window.starterCloseProbe={ordinary:null,late:null,confirmation:null};document.querySelector('.ng-dialog[open]').addEventListener('close',event=>{window.starterCloseProbe.ordinary={trusted:event.isTrusted,action:document.activeElement?.dataset?.action};},{once:true});});
+ await page.keyboard.press('Escape');await page.waitForFunction(()=>window.starterCloseProbe.ordinary!==null);
+ assert.equal(await page.evaluate(()=>window.starterCloseProbe.ordinary.trusted),true);assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'credits');
+ await page.locator('[data-action=credits]').click();
+ // close() queues a real native event. Explicit focus moves in this same task before delivery.
+ await page.evaluate(()=>{const dialog=document.querySelector('.ng-dialog[open]');dialog.addEventListener('close',event=>{window.starterCloseProbe.late={trusted:event.isTrusted,action:document.activeElement?.dataset?.action};},{once:true});dialog.close();document.querySelector('[data-action=start]').focus();});
+ await page.waitForFunction(()=>window.starterCloseProbe.late!==null);assert.equal(await page.evaluate(()=>window.starterCloseProbe.late.trusted),true);assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'start');
+ check('native queued close preserves deliberate New game focus while ordinary Escape restores Credits',{method:'Native dialog.close() and New game focus in one browser task, followed by trusted close delivery; no synthetic close or timing sleep.'});
  await page.locator('[data-action=start]').focus();await page.keyboard.press('Enter');await page.locator('#game').waitFor({state:'visible'});
  assert.equal(await page.evaluate(()=>document.activeElement.id),'yard');
  await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');
@@ -44,7 +55,8 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  const beforeMenuArrow=await snapshot();await page.keyboard.press('ArrowRight');assert.deepEqual(await snapshot(),beforeMenuArrow);
  await page.locator('[data-action=start]').click();assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Keep playing');
  await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Start new game');await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Keep playing');
- await page.keyboard.press('Escape');assert.deepEqual(await snapshot(),beforeMenuArrow);
+ await page.evaluate(()=>document.querySelector('.ng-dialog[open]').addEventListener('close',event=>{window.starterCloseProbe.confirmation={trusted:event.isTrusted,action:document.activeElement?.dataset?.action};},{once:true}));
+ await page.keyboard.press('Escape');await page.waitForFunction(()=>window.starterCloseProbe.confirmation!==null);assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'start');assert.deepEqual(await snapshot(),beforeMenuArrow);
  check('menu input isolation, confirmation focus trap and cancellation');
  await page.locator('[data-action=settings]').click();await page.locator('#auto-walk').check();await page.getByRole('button',{name:'Apply',exact:true}).click();
  await page.locator('[data-action=continue]').click();await page.waitForFunction(()=>window.nautilusStarter.snapshot().actor.floorId==='floor-1');
@@ -147,7 +159,7 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  check('menu-open mid-stair retirement blocks disposal scheduling, cancelled RAF callbacks and stale inputs',{method:'Injected pagehide, native RAF tracking, controlled invocation of a cancelled callback and synthetic stale inputs; not a navigation test.'});
 
  // Desktop retirement assertions are complete; release its compositor surface.
- await page.close();
+ await captureFocus('desktop-before-close');await page.close();
  const phone=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,hasTouch:true,isMobile:true});
  try{
    const mobile=await phone.newPage();mobile.on('pageerror',error=>errors.push(error.message));mobile.on('console',msg=>{if(msg.type()==='error')errors.push(msg.text());});mobile.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
@@ -179,5 +191,6 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  const reviewedFiles=['examples/game-starter-host.js','examples/game-starter.js','examples/game-starter.html','packages/game-ui/title.js','packages/world-core/validation.js'].map(file=>{const digest=root=>createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');return {path:file,servedSha256:digest(reviewedRoot),workingTreeSha256:digest(projectRoot)};});
  assert.ok(reviewedFiles.every(file=>file.servedSha256===file.workingTreeSha256),'The reviewed starter must match the working tree.');
  fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify({sourceCommit:git,sourceMode,reviewedFiles,reviewScriptSha256:createHash('sha256').update(fs.readFileSync(fileURLToPath(import.meta.url))).digest('hex'),buildProvenanceSha256:fs.existsSync(provenance)?createHash('sha256').update(fs.readFileSync(provenance)).digest('hex'):null,checks,errors,failedRequests},null,2));
+ }finally{await captureFocus('review-final');fs.writeFileSync(path.join(out,'starter-focus-state.json'),JSON.stringify({scope:'Bounded native focus/close and final DOM diagnostics; exact historical CI cause remains unproved.',sourceMode:process.env.NAUTILUS_REVIEW_SOURCE==='1',focusStates,checks,errors,failedRequests},null,2));}
 },{output:'game-starter',timeoutMs:240000,source:process.env.NAUTILUS_REVIEW_SOURCE==='1'});
 console.log('Standard game starter browser acceptance passed.');

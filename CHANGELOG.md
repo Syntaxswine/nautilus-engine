@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Add the reviewed private C2a rectangle-composition profile with explicit finish ownership, exact native interval provenance and bounded retained preparation.
+- Refuse unproved actual overlaps independently of reservations, retain schema-valid generated identities, and verify all eight schemas plus independent source/installed geometry in CI.
+
+- Register optional native flat tile surfaces with headless preparation/example entries and a host-Three renderer; preserve canonical controls, borders, materials and whole source bundles.
+- Prove real public-package installs, the executable builder guide, exhaustive owned cleanup and fresh source/built/installed visual parity while keeping Editor, Boolean composition and gameplay readiness separate.
+
+- Add optional native window renderer with frames/glass, acknowledged masks, explicit legacy-wall clipping and quiet restores; borrow host core/Three/materials and keep game authority separate.
+- Make attachment/retirement exception-safe across Three observers, with bounded reentrant cancellation and exhaustive owned cleanup. Prove actual public authoring/renderer installs, notices, guide and desktop/phone reference parity.
+
+- Add reviewed private C1 exact planar line-region union/intersection/difference evidence for joined footprints, courtyards, islands and point contacts; keep complete v2 layout/live/presentation adoption closed.
+- Prove complete void outer-boundary component associations and independent installed Fraction-oracle checks in CI without changing the public tile API or distributions.
+
 - Add optional registered headless window authoring with complete base-map/underlay preservation, native configuration and transactional commands/history.
 - Register its single v1 schema and exact runtime/support closure, and prove the actual declared package in CI while retaining explicit presentation and live-host boundaries.
 

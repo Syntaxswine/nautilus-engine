@@ -1,0 +1,6150 @@
+{
+  "kind": "nautilus-artist-tile-catalogue",
+  "contentVersion": 1,
+  "status": "Unregistered art studies, not a core TileCatalogue or save bundle",
+  "guide": "packages/curve-tiles/README.md",
+  "units": "metres",
+  "gridMetres": 1,
+  "zStepMetres": 2.12,
+  "interiorStepsPerMetre": [
+    8,
+    16,
+    32
+  ],
+  "boundaryProfile": "metre-32-v1 (artist schedule; shared-core identity pending)",
+  "families": [
+    {
+      "id": "surface-masks",
+      "art": "prototype",
+      "coverage": "full/empty/half/diagonal/inner/outer/saddle",
+      "gameplay": "unbound"
+    },
+    {
+      "id": "paving-and-paths",
+      "art": "prototype",
+      "coverage": "arbitrary straight/curved stroke, rings, Beziers, caps and junctions",
+      "gameplay": "unbound"
+    },
+    {
+      "id": "terrain-and-water",
+      "art": "prototype",
+      "coverage": "independent surface/bank skins and masks",
+      "gameplay": "unbound; no water simulation"
+    },
+    {
+      "id": "linear-edges",
+      "art": "prototype",
+      "coverage": "solid contour extrusion; profile adapters for kerb/wall/quay",
+      "gameplay": "unbound; not a collision provider"
+    },
+    {
+      "id": "height-transitions",
+      "art": "open-surface-prototype",
+      "coverage": "native-height ramp/stair art studies; terraces and layered overpasses",
+      "gameplay": "requires frozen shared height/support contract"
+    },
+    {
+      "id": "barriers-and-trim",
+      "art": "sampled-profile-prototype",
+      "coverage": "curved panel fence and stepped cornice from independent profile sweeps",
+      "gameplay": "requires registered core RecipePort/UV profile binding"
+    }
+  ],
+  "studies": [
+    {
+      "id": "mask-0-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 0,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 0,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-1-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 1,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 1,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-2-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 2,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 2,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-3-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 3,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 3,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-4-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 4,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 4,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-5-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 5,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 5,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-5-outside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 5,
+        "center": "outside"
+      },
+      "parameters": {
+        "mask": 5,
+        "center": "outside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-6-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 6,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 6,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-7-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 7,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 7,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-8-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 8,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 8,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-9-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 9,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 9,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-10-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 10,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 10,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-10-outside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 10,
+        "center": "outside"
+      },
+      "parameters": {
+        "mask": 10,
+        "center": "outside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-11-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 11,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 11,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-12-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 12,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 12,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-13-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 13,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 13,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-14-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 14,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 14,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "mask-15-inside",
+      "family": "corner-connectivity",
+      "recipe": {
+        "kind": "corners",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 15,
+        "center": "inside"
+      },
+      "parameters": {
+        "mask": 15,
+        "center": "inside"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-0-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 0,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 0,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-0-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 0,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 0,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-0-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 0,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 0,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-1-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 1,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 1,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-1-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 1,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 1,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-1-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 1,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 1,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-2-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 2,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 2,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-2-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 2,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 2,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-2-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 2,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 2,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-3-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 3,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 3,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-3-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 3,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 3,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-3-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 3,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 3,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-4-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 4,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 4,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-4-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 4,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 4,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-4-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 4,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 4,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-5-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 5,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 5,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-5-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 5,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 5,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-5-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 5,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 5,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-6-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 6,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 6,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-6-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 6,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 6,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-6-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 6,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 6,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-7-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 7,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 7,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-7-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 7,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 7,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-7-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 7,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 7,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-8-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 8,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 8,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-8-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 8,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 8,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-8-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 8,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 8,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-9-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 9,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 9,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-9-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 9,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 9,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-9-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 9,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 9,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-10-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 10,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 10,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-10-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 10,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 10,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-10-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 10,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 10,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-11-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 11,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 11,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-11-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 11,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 11,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-11-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 11,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 11,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-12-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 12,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 12,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-12-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 12,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 12,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-12-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 12,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 12,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-13-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 13,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 13,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-13-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 13,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 13,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-13-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 13,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 13,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-14-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 14,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 14,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-14-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 14,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 14,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-14-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 14,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 14,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-15-0",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 15,
+        "variant": 0
+      },
+      "parameters": {
+        "mask": 15,
+        "variant": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-15-1",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 15,
+        "variant": 1
+      },
+      "parameters": {
+        "mask": 15,
+        "variant": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "aft-mask-15-2",
+      "family": "aft-reference",
+      "recipe": {
+        "kind": "aft-shore",
+        "cell": [
+          0,
+          0
+        ],
+        "mask": 15,
+        "variant": 2
+      },
+      "parameters": {
+        "mask": 15,
+        "variant": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-0",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          1,
+          0
+        ],
+        "offset": 0.5
+      },
+      "parameters": {
+        "angle": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-15",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9659258262890683,
+          0.25881904510252074
+        ],
+        "offset": 0.6123724356957945
+      },
+      "parameters": {
+        "angle": 15
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-30",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.8660254037844387,
+          0.49999999999999994
+        ],
+        "offset": 0.6830127018922193
+      },
+      "parameters": {
+        "angle": 30
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-45",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.7071067811865476,
+          0.7071067811865475
+        ],
+        "offset": 0.7071067811865475
+      },
+      "parameters": {
+        "angle": 45
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-60",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.5000000000000001,
+          0.8660254037844386
+        ],
+        "offset": 0.6830127018922194
+      },
+      "parameters": {
+        "angle": 60
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-75",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.25881904510252074,
+          0.9659258262890683
+        ],
+        "offset": 0.6123724356957945
+      },
+      "parameters": {
+        "angle": 75
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-90",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          6.123233995736766e-17,
+          1
+        ],
+        "offset": 0.5
+      },
+      "parameters": {
+        "angle": 90
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-105",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.25881904510252085,
+          0.9659258262890683
+        ],
+        "offset": 0.35355339059327373
+      },
+      "parameters": {
+        "angle": 105
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-120",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.4999999999999998,
+          0.8660254037844387
+        ],
+        "offset": 0.18301270189221946
+      },
+      "parameters": {
+        "angle": 120
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-135",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "offset": 5.551115123125783e-17
+      },
+      "parameters": {
+        "angle": 135
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-150",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.8660254037844387,
+          0.49999999999999994
+        ],
+        "offset": -0.18301270189221938
+      },
+      "parameters": {
+        "angle": 150
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-165",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9659258262890682,
+          0.258819045102521
+        ],
+        "offset": -0.3535533905932736
+      },
+      "parameters": {
+        "angle": 165
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-180",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -1,
+          1.2246467991473532e-16
+        ],
+        "offset": -0.49999999999999994
+      },
+      "parameters": {
+        "angle": 180
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-195",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9659258262890684,
+          -0.25881904510252035
+        ],
+        "offset": -0.6123724356957944
+      },
+      "parameters": {
+        "angle": 195
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-210",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.8660254037844386,
+          -0.5000000000000001
+        ],
+        "offset": -0.6830127018922194
+      },
+      "parameters": {
+        "angle": 210
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-225",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.7071067811865477,
+          -0.7071067811865475
+        ],
+        "offset": -0.7071067811865476
+      },
+      "parameters": {
+        "angle": 225
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-240",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.5000000000000004,
+          -0.8660254037844385
+        ],
+        "offset": -0.6830127018922194
+      },
+      "parameters": {
+        "angle": 240
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-255",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.25881904510252063,
+          -0.9659258262890683
+        ],
+        "offset": -0.6123724356957945
+      },
+      "parameters": {
+        "angle": 255
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-270",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -1.8369701987210297e-16,
+          -1
+        ],
+        "offset": -0.5000000000000001
+      },
+      "parameters": {
+        "angle": 270
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-285",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.25881904510252113,
+          -0.9659258262890682
+        ],
+        "offset": -0.3535533905932735
+      },
+      "parameters": {
+        "angle": 285
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-300",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.5000000000000001,
+          -0.8660254037844386
+        ],
+        "offset": -0.18301270189221924
+      },
+      "parameters": {
+        "angle": 300
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-315",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.7071067811865474,
+          -0.7071067811865477
+        ],
+        "offset": -1.6653345369377348e-16
+      },
+      "parameters": {
+        "angle": 315
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-330",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.8660254037844384,
+          -0.5000000000000004
+        ],
+        "offset": 0.18301270189221897
+      },
+      "parameters": {
+        "angle": 330
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "cut-345",
+      "family": "diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9659258262890683,
+          -0.2588190451025207
+        ],
+        "offset": 0.35355339059327384
+      },
+      "parameters": {
+        "angle": 345
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2--1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.8944271909999159,
+          -0.4472135954999579
+        ],
+        "offset": 0.22360679774997896
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 2,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2--1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.44721359549995804,
+          0.8944271909999159
+        ],
+        "offset": 0.6708203932499369
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 2,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2--1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.8944271909999159,
+          0.4472135954999581
+        ],
+        "offset": -0.22360679774997888
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 2,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2--1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.44721359549995815,
+          -0.8944271909999157
+        ],
+        "offset": -0.6708203932499369
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 2,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2-1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.8944271909999159,
+          0.4472135954999579
+        ],
+        "offset": 0.6708203932499369
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 2,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2-1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.4472135954999579,
+          0.8944271909999159
+        ],
+        "offset": 0.22360679774997896
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 2,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2-1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.894427190999916,
+          -0.44721359549995787
+        ],
+        "offset": -0.6708203932499369
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 2,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-2-1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.4472135954999578,
+          -0.894427190999916
+        ],
+        "offset": -0.22360679774997907
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 2,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3--1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9486832980505138,
+          -0.31622776601683794
+        ],
+        "offset": 0.3162277660168379
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 3,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3--1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.31622776601683794,
+          0.9486832980505138
+        ],
+        "offset": 0.6324555320336759
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 3,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3--1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9486832980505138,
+          0.316227766016838
+        ],
+        "offset": -0.3162277660168379
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 3,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3--1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.31622776601683805,
+          -0.9486832980505138
+        ],
+        "offset": -0.6324555320336759
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 3,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3-1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9486832980505138,
+          0.31622776601683794
+        ],
+        "offset": 0.6324555320336759
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 3,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3-1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.31622776601683783,
+          0.9486832980505139
+        ],
+        "offset": 0.316227766016838
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 3,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3-1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9486832980505139,
+          -0.3162277660168378
+        ],
+        "offset": -0.6324555320336758
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 3,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-3-1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.3162277660168377,
+          -0.9486832980505139
+        ],
+        "offset": -0.3162277660168381
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 3,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4--1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9701425001453319,
+          -0.24253562503633297
+        ],
+        "offset": 0.36380343755449945
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 4,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4--1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.2425356250363331,
+          0.9701425001453319
+        ],
+        "offset": 0.6063390625908325
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 4,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4--1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9701425001453319,
+          0.24253562503633316
+        ],
+        "offset": -0.36380343755449934
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 4,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4--1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.24253562503633322,
+          -0.9701425001453319
+        ],
+        "offset": -0.6063390625908326
+      },
+      "parameters": {
+        "rise": -1,
+        "run": 4,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4-1-0",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.9701425001453319,
+          0.24253562503633297
+        ],
+        "offset": 0.6063390625908325
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 4,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4-1-1",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.242535625036333,
+          0.9701425001453319
+        ],
+        "offset": 0.36380343755449945
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 4,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4-1-2",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          -0.9701425001453319,
+          -0.2425356250363329
+        ],
+        "offset": -0.6063390625908324
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 4,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "slope-1-4-1-3",
+      "family": "shallow-diagonals",
+      "recipe": {
+        "kind": "half-plane",
+        "normal": [
+          0.24253562503633286,
+          -0.9701425001453319
+        ],
+        "offset": -0.3638034375544995
+      },
+      "parameters": {
+        "rise": 1,
+        "run": 4,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          0.14644660940672627,
+          0.14644660940672627
+        ],
+        "radius": 0.5
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              0.14644660940672627,
+              0.14644660940672627
+            ],
+            "radius": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          0.8535533905932737,
+          0.14644660940672627
+        ],
+        "radius": 0.5
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              0.8535533905932737,
+              0.14644660940672627
+            ],
+            "radius": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          0.8535533905932737,
+          0.8535533905932737
+        ],
+        "radius": 0.5
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              0.8535533905932737,
+              0.8535533905932737
+            ],
+            "radius": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          0.14644660940672627,
+          0.8535533905932737
+        ],
+        "radius": 0.5
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-0.5-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              0.14644660940672627,
+              0.8535533905932737
+            ],
+            "radius": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 0.5,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -0.20710678118654746,
+          -0.20710678118654746
+        ],
+        "radius": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -0.20710678118654746,
+              -0.20710678118654746
+            ],
+            "radius": 1
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          1.2071067811865475,
+          -0.20710678118654746
+        ],
+        "radius": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              1.2071067811865475,
+              -0.20710678118654746
+            ],
+            "radius": 1
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          1.2071067811865475,
+          1.2071067811865475
+        ],
+        "radius": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              1.2071067811865475,
+              1.2071067811865475
+            ],
+            "radius": 1
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -0.20710678118654746,
+          1.2071067811865475
+        ],
+        "radius": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-1-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -0.20710678118654746,
+              1.2071067811865475
+            ],
+            "radius": 1
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 1,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -0.9142135623730949,
+          -0.9142135623730949
+        ],
+        "radius": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -0.9142135623730949,
+              -0.9142135623730949
+            ],
+            "radius": 2
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          1.914213562373095,
+          -0.9142135623730949
+        ],
+        "radius": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              1.914213562373095,
+              -0.9142135623730949
+            ],
+            "radius": 2
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          1.914213562373095,
+          1.914213562373095
+        ],
+        "radius": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              1.914213562373095,
+              1.914213562373095
+            ],
+            "radius": 2
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -0.9142135623730949,
+          1.914213562373095
+        ],
+        "radius": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-2-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -0.9142135623730949,
+              1.914213562373095
+            ],
+            "radius": 2
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 2,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -1.6213203435596424,
+          -1.6213203435596424
+        ],
+        "radius": 3
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -1.6213203435596424,
+              -1.6213203435596424
+            ],
+            "radius": 3
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          2.6213203435596424,
+          -1.6213203435596424
+        ],
+        "radius": 3
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              2.6213203435596424,
+              -1.6213203435596424
+            ],
+            "radius": 3
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          2.6213203435596424,
+          2.6213203435596424
+        ],
+        "radius": 3
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              2.6213203435596424,
+              2.6213203435596424
+            ],
+            "radius": 3
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -1.6213203435596424,
+          2.6213203435596424
+        ],
+        "radius": 3
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-3-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -1.6213203435596424,
+              2.6213203435596424
+            ],
+            "radius": 3
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 3,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -2.32842712474619,
+          -2.32842712474619
+        ],
+        "radius": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -2.32842712474619,
+              -2.32842712474619
+            ],
+            "radius": 4
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          3.32842712474619,
+          -2.32842712474619
+        ],
+        "radius": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              3.32842712474619,
+              -2.32842712474619
+            ],
+            "radius": 4
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          3.32842712474619,
+          3.32842712474619
+        ],
+        "radius": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              3.32842712474619,
+              3.32842712474619
+            ],
+            "radius": 4
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -2.32842712474619,
+          3.32842712474619
+        ],
+        "radius": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-4-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -2.32842712474619,
+              3.32842712474619
+            ],
+            "radius": 4
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 4,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -3.7426406871192848,
+          -3.7426406871192848
+        ],
+        "radius": 6
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -3.7426406871192848,
+              -3.7426406871192848
+            ],
+            "radius": 6
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          4.742640687119285,
+          -3.7426406871192848
+        ],
+        "radius": 6
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              4.742640687119285,
+              -3.7426406871192848
+            ],
+            "radius": 6
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          4.742640687119285,
+          4.742640687119285
+        ],
+        "radius": 6
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              4.742640687119285,
+              4.742640687119285
+            ],
+            "radius": 6
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -3.7426406871192848,
+          4.742640687119285
+        ],
+        "radius": 6
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-6-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -3.7426406871192848,
+              4.742640687119285
+            ],
+            "radius": 6
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 6,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -5.15685424949238,
+          -5.15685424949238
+        ],
+        "radius": 8
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -5.15685424949238,
+              -5.15685424949238
+            ],
+            "radius": 8
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          6.15685424949238,
+          -5.15685424949238
+        ],
+        "radius": 8
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              6.15685424949238,
+              -5.15685424949238
+            ],
+            "radius": 8
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          6.15685424949238,
+          6.15685424949238
+        ],
+        "radius": 8
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              6.15685424949238,
+              6.15685424949238
+            ],
+            "radius": 8
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -5.15685424949238,
+          6.15685424949238
+        ],
+        "radius": 8
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-8-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -5.15685424949238,
+              6.15685424949238
+            ],
+            "radius": 8
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 8,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -7.9852813742385695,
+          -7.9852813742385695
+        ],
+        "radius": 12
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -7.9852813742385695,
+              -7.9852813742385695
+            ],
+            "radius": 12
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          8.98528137423857,
+          -7.9852813742385695
+        ],
+        "radius": 12
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              8.98528137423857,
+              -7.9852813742385695
+            ],
+            "radius": 12
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          8.98528137423857,
+          8.98528137423857
+        ],
+        "radius": 12
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              8.98528137423857,
+              8.98528137423857
+            ],
+            "radius": 12
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -7.9852813742385695,
+          8.98528137423857
+        ],
+        "radius": 12
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-12-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -7.9852813742385695,
+              8.98528137423857
+            ],
+            "radius": 12
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 12,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -10.81370849898476,
+          -10.81370849898476
+        ],
+        "radius": 16
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -10.81370849898476,
+              -10.81370849898476
+            ],
+            "radius": 16
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          11.81370849898476,
+          -10.81370849898476
+        ],
+        "radius": 16
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              11.81370849898476,
+              -10.81370849898476
+            ],
+            "radius": 16
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          11.81370849898476,
+          11.81370849898476
+        ],
+        "radius": 16
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              11.81370849898476,
+              11.81370849898476
+            ],
+            "radius": 16
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -10.81370849898476,
+          11.81370849898476
+        ],
+        "radius": 16
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-16-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -10.81370849898476,
+              11.81370849898476
+            ],
+            "radius": 16
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 16,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -16.47056274847714,
+          -16.47056274847714
+        ],
+        "radius": 24
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -16.47056274847714,
+              -16.47056274847714
+            ],
+            "radius": 24
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          17.47056274847714,
+          -16.47056274847714
+        ],
+        "radius": 24
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              17.47056274847714,
+              -16.47056274847714
+            ],
+            "radius": 24
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          17.47056274847714,
+          17.47056274847714
+        ],
+        "radius": 24
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              17.47056274847714,
+              17.47056274847714
+            ],
+            "radius": 24
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -16.47056274847714,
+          17.47056274847714
+        ],
+        "radius": 24
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-24-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -16.47056274847714,
+              17.47056274847714
+            ],
+            "radius": 24
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 24,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-0-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -22.12741699796952,
+          -22.12741699796952
+        ],
+        "radius": 32
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 0,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-0-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -22.12741699796952,
+              -22.12741699796952
+            ],
+            "radius": 32
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 0,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-1-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          23.12741699796952,
+          -22.12741699796952
+        ],
+        "radius": 32
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 1,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-1-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              23.12741699796952,
+              -22.12741699796952
+            ],
+            "radius": 32
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 1,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-2-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          23.12741699796952,
+          23.12741699796952
+        ],
+        "radius": 32
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 2,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-2-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              23.12741699796952,
+              23.12741699796952
+            ],
+            "radius": 32
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 2,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-3-convex",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "disk",
+        "center": [
+          -22.12741699796952,
+          23.12741699796952
+        ],
+        "radius": 32
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 3,
+        "side": "convex"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "arc-32-3-concave",
+      "family": "adjustable-arcs",
+      "recipe": {
+        "kind": "difference",
+        "shapes": [
+          {
+            "kind": "fill"
+          },
+          {
+            "kind": "disk",
+            "center": [
+              -22.12741699796952,
+              23.12741699796952
+            ],
+            "radius": 32
+          }
+        ]
+      },
+      "parameters": {
+        "radius": 32,
+        "quarterTurn": 3,
+        "side": "concave"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-0.25-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.29549512883486595,
+          -0.29549512883486595
+        ],
+        "radius": 1,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 0.25,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-0.25-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.11871843353822908,
+          -0.11871843353822908
+        ],
+        "radius": 1,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 0.25,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-0.5-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.3838834764831843,
+          -0.3838834764831843
+        ],
+        "radius": 1,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 0.5,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-0.5-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.030330085889910596,
+          -0.030330085889910596
+        ],
+        "radius": 1,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 0.5,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-1-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.5606601717798212,
+          -0.5606601717798212
+        ],
+        "radius": 1,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 1,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-1-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          0.14644660940672627,
+          0.14644660940672627
+        ],
+        "radius": 1,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 1,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-2-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.9142135623730949,
+          -0.9142135623730949
+        ],
+        "radius": 1,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 2,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-1-2-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          0.5,
+          0.5
+        ],
+        "radius": 1,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 1,
+        "width": 2,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-0.25-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.0026019100214134,
+          -1.0026019100214134
+        ],
+        "radius": 2,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 0.25,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-0.25-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.8258252147247764,
+          -0.8258252147247764
+        ],
+        "radius": 2,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 0.25,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-0.5-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.090990257669732,
+          -1.090990257669732
+        ],
+        "radius": 2,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 0.5,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-0.5-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.7374368670764582,
+          -0.7374368670764582
+        ],
+        "radius": 2,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 0.5,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-1-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.2677669529663687,
+          -1.2677669529663687
+        ],
+        "radius": 2,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 1,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-1-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.5606601717798212,
+          -0.5606601717798212
+        ],
+        "radius": 2,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 1,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-2-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.6213203435596424,
+          -1.6213203435596424
+        ],
+        "radius": 2,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 2,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-2-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.20710678118654746,
+          -0.20710678118654746
+        ],
+        "radius": 2,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 2,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-3-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.9748737341529163,
+          -1.9748737341529163
+        ],
+        "radius": 2,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 3,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-3-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          0.14644660940672627,
+          0.14644660940672627
+        ],
+        "radius": 2,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 3,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-4-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.32842712474619,
+          -2.32842712474619
+        ],
+        "radius": 2,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 4,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-2-4-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          0.5,
+          0.5
+        ],
+        "radius": 2,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 2,
+        "width": 4,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-0.25-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.4168154723945086,
+          -2.4168154723945086
+        ],
+        "radius": 4,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 0.25,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-0.25-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.2400387770978716,
+          -2.2400387770978716
+        ],
+        "radius": 4,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 0.25,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-0.5-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.505203820042827,
+          -2.505203820042827
+        ],
+        "radius": 4,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 0.5,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-0.5-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.151650429449553,
+          -2.151650429449553
+        ],
+        "radius": 4,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 0.5,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-1-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -2.681980515339464,
+          -2.681980515339464
+        ],
+        "radius": 4,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 1,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-1-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.9748737341529163,
+          -1.9748737341529163
+        ],
+        "radius": 4,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 1,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-2-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -3.0355339059327373,
+          -3.0355339059327373
+        ],
+        "radius": 4,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 2,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-2-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.6213203435596424,
+          -1.6213203435596424
+        ],
+        "radius": 4,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 2,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-3-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -3.3890872965260113,
+          -3.3890872965260113
+        ],
+        "radius": 4,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 3,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-3-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -1.2677669529663687,
+          -1.2677669529663687
+        ],
+        "radius": 4,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 3,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-4-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -3.7426406871192848,
+          -3.7426406871192848
+        ],
+        "radius": 4,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 4,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-4-4-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -0.9142135623730949,
+          -0.9142135623730949
+        ],
+        "radius": 4,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 4,
+        "width": 4,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-0.25-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -5.245242597140698,
+          -5.245242597140698
+        ],
+        "radius": 8,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 0.25,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-0.25-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -5.068465901844061,
+          -5.068465901844061
+        ],
+        "radius": 8,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 0.25,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-0.5-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -5.333630944789017,
+          -5.333630944789017
+        ],
+        "radius": 8,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 0.5,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-0.5-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -4.980077554195743,
+          -4.980077554195743
+        ],
+        "radius": 8,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 0.5,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-1-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -5.510407640085654,
+          -5.510407640085654
+        ],
+        "radius": 8,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 1,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-1-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -4.803300858899106,
+          -4.803300858899106
+        ],
+        "radius": 8,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 1,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-2-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -5.863961030678928,
+          -5.863961030678928
+        ],
+        "radius": 8,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 2,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-2-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -4.449747468305833,
+          -4.449747468305833
+        ],
+        "radius": 8,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 2,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-3-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -6.217514421272201,
+          -6.217514421272201
+        ],
+        "radius": 8,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 3,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-3-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -4.096194077712559,
+          -4.096194077712559
+        ],
+        "radius": 8,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 3,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-4-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -6.571067811865475,
+          -6.571067811865475
+        ],
+        "radius": 8,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 4,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-8-4-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -3.7426406871192848,
+          -3.7426406871192848
+        ],
+        "radius": 8,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 8,
+        "width": 4,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-0.25-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.902096846633079,
+          -10.902096846633079
+        ],
+        "radius": 16,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 0.25,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-0.25-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.725320151336442,
+          -10.725320151336442
+        ],
+        "radius": 16,
+        "width": 0.25
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 0.25,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-0.5-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.990485194281396,
+          -10.990485194281396
+        ],
+        "radius": 16,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 0.5,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-0.5-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.636931803688123,
+          -10.636931803688123
+        ],
+        "radius": 16,
+        "width": 0.5
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 0.5,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-1-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -11.167261889578034,
+          -11.167261889578034
+        ],
+        "radius": 16,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 1,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-1-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.460155108391486,
+          -10.460155108391486
+        ],
+        "radius": 16,
+        "width": 1
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 1,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-2-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -11.520815280171307,
+          -11.520815280171307
+        ],
+        "radius": 16,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 2,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-2-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -10.106601717798211,
+          -10.106601717798211
+        ],
+        "radius": 16,
+        "width": 2
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 2,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-3-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -11.87436867076458,
+          -11.87436867076458
+        ],
+        "radius": 16,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 3,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-3-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -9.753048327204938,
+          -9.753048327204938
+        ],
+        "radius": 16,
+        "width": 3
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 3,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-4-outer",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -12.227922061357855,
+          -12.227922061357855
+        ],
+        "radius": 16,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 4,
+        "anchor": "outer"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "band-16-4-inner",
+      "family": "bands-and-banks",
+      "recipe": {
+        "kind": "ring",
+        "center": [
+          -9.399494936611665,
+          -9.399494936611665
+        ],
+        "radius": 16,
+        "width": 4
+      },
+      "parameters": {
+        "radius": 16,
+        "width": 4,
+        "anchor": "inner"
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "round-cap-0.25",
+      "family": "caps",
+      "recipe": {
+        "kind": "stroke",
+        "points": [
+          [
+            -2,
+            0.5
+          ],
+          [
+            0.4,
+            0.5
+          ]
+        ],
+        "width": 0.25
+      },
+      "parameters": {
+        "width": 0.25
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "junction-t-0.25",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 0.25
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                0.5
+              ]
+            ],
+            "width": 0.25
+          }
+        ]
+      },
+      "parameters": {
+        "width": 0.25
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "crossing-0.25",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 0.25
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                3
+              ]
+            ],
+            "width": 0.25
+          }
+        ]
+      },
+      "parameters": {
+        "width": 0.25
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "round-cap-0.5",
+      "family": "caps",
+      "recipe": {
+        "kind": "stroke",
+        "points": [
+          [
+            -2,
+            0.5
+          ],
+          [
+            0.4,
+            0.5
+          ]
+        ],
+        "width": 0.5
+      },
+      "parameters": {
+        "width": 0.5
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "junction-t-0.5",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 0.5
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                0.5
+              ]
+            ],
+            "width": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "width": 0.5
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "crossing-0.5",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 0.5
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                3
+              ]
+            ],
+            "width": 0.5
+          }
+        ]
+      },
+      "parameters": {
+        "width": 0.5
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "round-cap-1",
+      "family": "caps",
+      "recipe": {
+        "kind": "stroke",
+        "points": [
+          [
+            -2,
+            0.5
+          ],
+          [
+            0.4,
+            0.5
+          ]
+        ],
+        "width": 1
+      },
+      "parameters": {
+        "width": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "junction-t-1",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 1
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                0.5
+              ]
+            ],
+            "width": 1
+          }
+        ]
+      },
+      "parameters": {
+        "width": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "crossing-1",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 1
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                3
+              ]
+            ],
+            "width": 1
+          }
+        ]
+      },
+      "parameters": {
+        "width": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "round-cap-2",
+      "family": "caps",
+      "recipe": {
+        "kind": "stroke",
+        "points": [
+          [
+            -2,
+            0.5
+          ],
+          [
+            0.4,
+            0.5
+          ]
+        ],
+        "width": 2
+      },
+      "parameters": {
+        "width": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "junction-t-2",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 2
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                0.5
+              ]
+            ],
+            "width": 2
+          }
+        ]
+      },
+      "parameters": {
+        "width": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "crossing-2",
+      "family": "junctions",
+      "recipe": {
+        "kind": "union",
+        "shapes": [
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                -2,
+                0.5
+              ],
+              [
+                3,
+                0.5
+              ]
+            ],
+            "width": 2
+          },
+          {
+            "kind": "stroke",
+            "points": [
+              [
+                0.5,
+                -2
+              ],
+              [
+                0.5,
+                3
+              ]
+            ],
+            "width": 2
+          }
+        ]
+      },
+      "parameters": {
+        "width": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.25-0.3",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.3
+          ],
+          [
+            0.5,
+            -0.3
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.25
+      },
+      "parameters": {
+        "width": 0.25,
+        "bend": 0.3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.25-0.7",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.25
+      },
+      "parameters": {
+        "width": 0.25,
+        "bend": 0.7
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.25-1.2",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            2.2
+          ],
+          [
+            0.5,
+            -1.2
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.25
+      },
+      "parameters": {
+        "width": 0.25,
+        "bend": 1.2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.5-0.3",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.3
+          ],
+          [
+            0.5,
+            -0.3
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.5
+      },
+      "parameters": {
+        "width": 0.5,
+        "bend": 0.3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.5-0.7",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.5
+      },
+      "parameters": {
+        "width": 0.5,
+        "bend": 0.7
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-0.5-1.2",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            2.2
+          ],
+          [
+            0.5,
+            -1.2
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 0.5
+      },
+      "parameters": {
+        "width": 0.5,
+        "bend": 1.2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-1-0.3",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.3
+          ],
+          [
+            0.5,
+            -0.3
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 1
+      },
+      "parameters": {
+        "width": 1,
+        "bend": 0.3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-1-0.7",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 1
+      },
+      "parameters": {
+        "width": 1,
+        "bend": 0.7
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "s-bend-1-1.2",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            2.2
+          ],
+          [
+            0.5,
+            -1.2
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "width": 1
+      },
+      "parameters": {
+        "width": 1,
+        "bend": 1.2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-0.25-1.25-0",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            1.5,
+            0.5
+          ]
+        ],
+        "startWidth": 0.25,
+        "endWidth": 1.25
+      },
+      "parameters": {
+        "startWidth": 0.25,
+        "endWidth": 1.25,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-0.25-1.25-1",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            -0.5
+          ],
+          [
+            0.5,
+            1.5
+          ]
+        ],
+        "startWidth": 0.25,
+        "endWidth": 1.25
+      },
+      "parameters": {
+        "startWidth": 0.25,
+        "endWidth": 1.25,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-0.25-1.25-2",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            1.5,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ]
+        ],
+        "startWidth": 0.25,
+        "endWidth": 1.25
+      },
+      "parameters": {
+        "startWidth": 0.25,
+        "endWidth": 1.25,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-0.25-1.25-3",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            1.5
+          ],
+          [
+            0.5,
+            -0.5
+          ]
+        ],
+        "startWidth": 0.25,
+        "endWidth": 1.25
+      },
+      "parameters": {
+        "startWidth": 0.25,
+        "endWidth": 1.25,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-1-2-0",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            1.5,
+            0.5
+          ]
+        ],
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "parameters": {
+        "startWidth": 1,
+        "endWidth": 2,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-1-2-1",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            -0.5
+          ],
+          [
+            0.5,
+            1.5
+          ]
+        ],
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "parameters": {
+        "startWidth": 1,
+        "endWidth": 2,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-1-2-2",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            1.5,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ]
+        ],
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "parameters": {
+        "startWidth": 1,
+        "endWidth": 2,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-1-2-3",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            1.5
+          ],
+          [
+            0.5,
+            -0.5
+          ]
+        ],
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "parameters": {
+        "startWidth": 1,
+        "endWidth": 2,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-2-0.5-0",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            1.5,
+            0.5
+          ]
+        ],
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "parameters": {
+        "startWidth": 2,
+        "endWidth": 0.5,
+        "quarterTurn": 0
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-2-0.5-1",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            -0.5
+          ],
+          [
+            0.5,
+            1.5
+          ]
+        ],
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "parameters": {
+        "startWidth": 2,
+        "endWidth": 0.5,
+        "quarterTurn": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-2-0.5-2",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            1.5,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ]
+        ],
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "parameters": {
+        "startWidth": 2,
+        "endWidth": 0.5,
+        "quarterTurn": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "taper-2-0.5-3",
+      "family": "tapers",
+      "recipe": {
+        "kind": "variable-stroke",
+        "points": [
+          [
+            0.5,
+            1.5
+          ],
+          [
+            0.5,
+            -0.5
+          ]
+        ],
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "parameters": {
+        "startWidth": 2,
+        "endWidth": 0.5,
+        "quarterTurn": 3
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "variable-cubic-0.25-1",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "variable-bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "startWidth": 0.25,
+        "endWidth": 1
+      },
+      "parameters": {
+        "startWidth": 0.25,
+        "endWidth": 1
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "variable-cubic-1-2",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "variable-bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "parameters": {
+        "startWidth": 1,
+        "endWidth": 2
+      },
+      "appearanceOnly": true
+    },
+    {
+      "id": "variable-cubic-2-0.5",
+      "family": "compound-curves",
+      "recipe": {
+        "kind": "variable-bezier",
+        "points": [
+          [
+            -0.5,
+            0.1
+          ],
+          [
+            0.5,
+            1.7
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            1.5,
+            0.9
+          ]
+        ],
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "parameters": {
+        "startWidth": 2,
+        "endWidth": 0.5
+      },
+      "appearanceOnly": true
+    }
+  ]
+}

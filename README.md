@@ -129,10 +129,14 @@ The optional `./windows` and `./adapters/farmyard/windows` entries provide nativ
 
 The optional `./windows/authoring` entry preserves a complete portable base map and window underlay, native placements, transactional commands and bounded undo/redo. The [authoring builder guide](docs/window-authoring.md) includes the installed example, schema, readiness and host checklist. Run `npm run test:windows:authoring` for the actual declared-package proof. Editor chrome, native presentation and complete game adoption remain separate.
 
+The optional renderer `./adapters/farmyard/windows/three` entry supplies native frames/glass, accepted pane masks, explicit legacy-wall clipping and quiet restores. Its [builder usage card](packages/native-window-presenter/README.md) has a runnable installed preview and ownership checklist. Run `npm run test:windows:renderer` for actual public renderer/authoring proof. Host core, Three and materials are borrowed; editor chrome and complete-game adoption remain separate.
+
 The [artist audit](docs/reviews/window-art/README.md) records the original 39 presets and tall-sheet reference. The [integration record](docs/reviews/2026-10-30-farmyard-window-integration.md) identifies accepted scope and later renderer/editor work. Existing grenade and door profiles keep their explicit window refusals.
 
 ## Procedural tile foundation
 
 The optional ./tiles entry supplies editable analytic shapes, canonical layered joins, deterministic neighbour repair and complete authored saves. See the [tile contract and builder checklist](docs/procedural-tiles.md). Run npm run test:tiles for the actual offline installed-package proof. Art-family rendering and the Smart Tile Paint/Rectangle/Path editor remain separate integration work.
 
-The [experimental A/B tile source](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-v2-candidate.md) adds typed future records and shared-edge inspection for further tool development. Run npm run test:tiles:v2:candidate from the source checkout. Native v2 evaluators and public v2 package registration remain deferred.
+The [experimental tile source](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-v2-candidate.md) adds typed future records and shared-edge inspection. Its [private C1 inspector](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-c1-candidate.md) computes bounded exact line-region Boolean footprints, including L/H unions, courtyards, islands and point contacts. Run npm run test:tiles:v2:candidate from the source checkout. Complete v2 layout resolution, presentation/live adoption and public v2 package registration remain deferred.
+
+Optional [native tile surfaces](packages/tile-visuals/README.md) turn complete canonical bundles into flat binary-field, region and constant-width curve presentation with preserved boundaries. Public preparation stays headless; meshes borrow the host Three/material pool. The [standalone surface review](examples/canonical-tile-art.html) and executable installed guide keep preview availability separate from Editor and game adoption.

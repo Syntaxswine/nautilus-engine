@@ -1,0 +1,114 @@
+{
+  "source": "current source",
+  "runtime": [
+    {
+      "path": "packages/native-window-presenter/cleanup.js",
+      "bytes": 2270,
+      "sha256": "d3e01d3218e97449afdd8566053761b8095dbdf4583d81f7f1910d8b09561ed7"
+    },
+    {
+      "path": "packages/native-window-presenter/data.js",
+      "bytes": 3940,
+      "sha256": "52bb4c75fe4550763b2ce3f6c87391850c987ffcb8f844d33ffae11a7a003afe"
+    },
+    {
+      "path": "packages/native-window-presenter/geometry.js",
+      "bytes": 4093,
+      "sha256": "801b4aa890031c2c44b8d93354f370b1f842076430903234659ff9186ccf04a1"
+    },
+    {
+      "path": "packages/native-window-presenter/paint.js",
+      "bytes": 1814,
+      "sha256": "adf267e5a5498bde318ab2e0c09dfc1f9ae6b712b6a4fe9284227019941eef69"
+    },
+    {
+      "path": "packages/native-window-presenter/prepare.js",
+      "bytes": 4664,
+      "sha256": "46dec10be1485439c51cb46964f3f859c43f3bf96d40f3bc7de6246f0463f38f"
+    },
+    {
+      "path": "packages/native-window-presenter/three.js",
+      "bytes": 10614,
+      "sha256": "61189a3affb0b94a8e295e3578825255407066b62da05f2cfb6fe63bcae84acf"
+    }
+  ],
+  "status": "pass",
+  "actualThreeRevision": "180",
+  "actualPublicCore": true,
+  "cases": 18,
+  "results": [
+    {
+      "name": "added listener throws: reject and detach candidate, preserve accepted view",
+      "status": "pass"
+    },
+    {
+      "name": "added listener disposes presenter: activation never reports success",
+      "status": "pass"
+    },
+    {
+      "name": "geometry dispose listener throws: visit all resources, finish records, repeat quietly",
+      "status": "pass"
+    },
+    {
+      "name": "abort removed/dispose listeners throw or reenter: pending ownership always drains",
+      "status": "pass"
+    },
+    {
+      "name": "removeInstance removed/dispose faults preserve neighbour geometry and borrowed pool",
+      "status": "pass"
+    },
+    {
+      "name": "removeInstance geometry disposal can request whole-presenter disposal without recursion",
+      "status": "pass"
+    },
+    {
+      "name": "actual Three acquisition event and rollback disposal faults leave no partial parents/resources",
+      "status": "pass"
+    },
+    {
+      "name": "added/removed callbacks changing the current publication roll back to the old view",
+      "status": "pass"
+    },
+    {
+      "name": "added callback can cancel only its pending candidate",
+      "status": "pass"
+    },
+    {
+      "name": "ordinary mutators refuse reentry from actual added/removed/dispose events",
+      "status": "pass"
+    },
+    {
+      "name": "retirement callbacks can stale a committed replacement but cannot return activation success",
+      "status": "pass"
+    },
+    {
+      "name": "removed/dispose reparenting cannot strand owned nodes or remove borrowed neighbours",
+      "status": "pass"
+    },
+    {
+      "name": "deferred unrelated cancellation is settled before replacing accepted geometry",
+      "status": "pass"
+    },
+    {
+      "name": "removed listener failure during activation restores the still-owned accepted view",
+      "status": "pass"
+    },
+    {
+      "name": "old-geometry notification failure is reported after a consistent replacement commit",
+      "status": "pass"
+    },
+    {
+      "name": "acquisition and rollback observer failures preserve an accepted view without global disposal",
+      "status": "pass"
+    },
+    {
+      "name": "reverse-order cancellation chains drain all three staged records once",
+      "status": "pass"
+    },
+    {
+      "name": "bounded error aggregation still attempts every owned resource and repairs every parent",
+      "status": "pass"
+    }
+  ],
+  "borrowedPoolSurvival": true
+}

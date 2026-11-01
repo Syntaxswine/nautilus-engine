@@ -1,0 +1,617 @@
+{
+  "kind": "nautilus-tile-c2a-correction-source-audit",
+  "version": 1,
+  "reviewDate": "2026-11-01",
+  "beforeCommit": "e95e644aaebc972c6b055fc3d90ddd6fcdf85963",
+  "approvedBase": "3f602272a3a2ecbe4ade0d33773a0e4f52da0706",
+  "reviewedCommit": "Full fixed follow-up commit is supplied in delivery; audit/checkpoint are not self-hashed.",
+  "branch": "codex/tile-c2a-rectangle-composition",
+  "declared": false,
+  "scope": [
+    "Actual rectangle contacts independent of reservations; old/new actual bounds in dependency closure; conservative lock/source/redo refusal.",
+    "Bounded deterministic precharged generated root identity; unchanged 96-character schema/v1 constraints."
+  ],
+  "sourceFiles": [
+    {
+      "file": "docs/procedural-tiles-c2a-candidate.md",
+      "bytes": 14768,
+      "sha256": "c712cdfdc34cb3178c5def6456052b643b68e086160b7473c85ca72528661cce"
+    },
+    {
+      "file": "packages/tiles-core/composition-geometry.js",
+      "bytes": 14561,
+      "sha256": "296f01f3c851cbbcd1209992abdce8db935d8ca32b3ae2ece993e450bddb243b"
+    },
+    {
+      "file": "packages/tiles-core/composition-layout.js",
+      "bytes": 11846,
+      "sha256": "fa34d5559ce99c58e9555f6bac23cb4988db99cac5280309d489126a6a3b648c"
+    },
+    {
+      "file": "packages/tiles-core/composition-prepare.js",
+      "bytes": 10841,
+      "sha256": "92c95d0d249bc376a2482dfec2c677996479558fbbd85b31b6f4e875f020cdf0"
+    },
+    {
+      "file": "tests/fixtures/procedural-tiles/c2a.mjs",
+      "bytes": 7981,
+      "sha256": "c3a480f1078e692392a98a4470949a1521e045d289cff1da75b9c05d89053834"
+    },
+    {
+      "file": "tests/procedural-tiles-c2a.test.mjs",
+      "bytes": 23914,
+      "sha256": "6f6b36d264f934ceb1dc236f92ce6359b8e787478d553a10f29355d459814793"
+    },
+    {
+      "file": "tools/measure-tile-c2a.mjs",
+      "bytes": 2672,
+      "sha256": "b8e9bf8415aa8d538f57ba25d2b504f95a7ddab641a0f6a1266f4d85234f5d59"
+    },
+    {
+      "file": "tools/test-tile-v2-package.mjs",
+      "bytes": 8488,
+      "sha256": "06b5c2e105dbbe790ddbb98502fcf4802f158bca124d1a2d890e80322fcf52c4"
+    },
+    {
+      "file": "tools/verify-tile-c2a-oracle.py",
+      "bytes": 20789,
+      "sha256": "04f40ad39812028425ca171dff6e98e224f74873cd2d4035ff29e40098e02ba5"
+    }
+  ],
+  "runtime": [
+    {
+      "file": "packages/parts-core/hash.js",
+      "bytes": 2105,
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "file": "packages/tiles-core/candidate-v2.js",
+      "bytes": 864,
+      "sha256": "e4d4476eb71ae2180ecdb1620662ed24b495f1403a71e7d1eaa4cc58abd2bb8d"
+    },
+    {
+      "file": "packages/tiles-core/cells.js",
+      "bytes": 8266,
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+    },
+    {
+      "file": "packages/tiles-core/composition-geometry.js",
+      "bytes": 14561,
+      "sha256": "296f01f3c851cbbcd1209992abdce8db935d8ca32b3ae2ece993e450bddb243b"
+    },
+    {
+      "file": "packages/tiles-core/composition-layout.js",
+      "bytes": 11846,
+      "sha256": "fa34d5559ce99c58e9555f6bac23cb4988db99cac5280309d489126a6a3b648c"
+    },
+    {
+      "file": "packages/tiles-core/composition-model.js",
+      "bytes": 4303,
+      "sha256": "da8a78d32a716c6348b61ae6f2f442cc6038b1df3bc54ead4b0fd51ca838c955"
+    },
+    {
+      "file": "packages/tiles-core/composition-prepare.js",
+      "bytes": 10841,
+      "sha256": "92c95d0d249bc376a2482dfec2c677996479558fbbd85b31b6f4e875f020cdf0"
+    },
+    {
+      "file": "packages/tiles-core/contract.js",
+      "bytes": 1730,
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+    },
+    {
+      "file": "packages/tiles-core/curves.js",
+      "bytes": 9480,
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+    },
+    {
+      "file": "packages/tiles-core/data.js",
+      "bytes": 4579,
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+    },
+    {
+      "file": "packages/tiles-core/dependencies.js",
+      "bytes": 8832,
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+    },
+    {
+      "file": "packages/tiles-core/example.js",
+      "bytes": 2579,
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+    },
+    {
+      "file": "packages/tiles-core/fields.js",
+      "bytes": 5394,
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+    },
+    {
+      "file": "packages/tiles-core/index.js",
+      "bytes": 728,
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+    },
+    {
+      "file": "packages/tiles-core/interfaces.js",
+      "bytes": 11429,
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+    },
+    {
+      "file": "packages/tiles-core/layout.js",
+      "bytes": 12740,
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+    },
+    {
+      "file": "packages/tiles-core/planar-arrangement.js",
+      "bytes": 7585,
+      "sha256": "b65ec1c32fc07bfd64ab95e4686df589470cdf332fad271699aa574843eafc19"
+    },
+    {
+      "file": "packages/tiles-core/planar-boolean.js",
+      "bytes": 6422,
+      "sha256": "e2a1084d44e7c301965b85c132f3bd7b498cf3c6058fe45a01d9b0a1785d6d38"
+    },
+    {
+      "file": "packages/tiles-core/planar-exact.js",
+      "bytes": 7654,
+      "sha256": "9c0c0532129a0acb22e379e3680bae82aab46afdf0c11d2668b7fd9ff70b4e06"
+    },
+    {
+      "file": "packages/tiles-core/planar-topology.js",
+      "bytes": 9441,
+      "sha256": "481774668ce414649a8eb019cd8e15682e2460ab8c026ac88236b8ee2554a8ee"
+    },
+    {
+      "file": "packages/tiles-core/projection.js",
+      "bytes": 1657,
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+    },
+    {
+      "file": "packages/tiles-core/recipes.js",
+      "bytes": 10523,
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+    },
+    {
+      "file": "packages/tiles-core/render-model.js",
+      "bytes": 14956,
+      "sha256": "cd8d5c7ba662dd010af0fa9ed05d0d27e93baa1493211023d7d1f0e6bca16516"
+    },
+    {
+      "file": "packages/tiles-core/render-plan.js",
+      "bytes": 14806,
+      "sha256": "68fba7ae8d22b0dd42957eae815236307b2686d80137a1d84aff08d9aa9936b7"
+    },
+    {
+      "file": "packages/tiles-core/repair.js",
+      "bytes": 11562,
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+    },
+    {
+      "file": "packages/tiles-core/retained-candidate.js",
+      "bytes": 2745,
+      "sha256": "bda58d2b83ab9e42cab42984c276b7dfed8010008cb6657314cc325b0678d7bc"
+    },
+    {
+      "file": "packages/tiles-core/v2-records.js",
+      "bytes": 14799,
+      "sha256": "0c6d9430af82200ea56a5075e3de3fece94e35dd5d06f744280aa0d98416906e"
+    },
+    {
+      "file": "packages/tiles-core/v2-shapes.js",
+      "bytes": 9270,
+      "sha256": "dbed685abc2d7b6ad448658e6acf182de49602130c1bc89bc1f477689b2e787d"
+    },
+    {
+      "file": "packages/tiles-core/zero-exposure.js",
+      "bytes": 7494,
+      "sha256": "2813063048b3a15e5aec4f762524ac73a32c17b3f420f15a884493fbd719c7cb"
+    }
+  ],
+  "runtimeBytes": 229191,
+  "installedFiles": [
+    {
+      "file": "NOTICE.md",
+      "sha256": "a5f12ec9439f60bfd1c14f9f783d2f97a7f8e419fc6cc2f0d61cdbb3b472a6e8",
+      "bytes": 6890
+    },
+    {
+      "file": "docs/procedural-tiles-c1-candidate.md",
+      "sha256": "cf224ee2898690f5942b296cba417474d75cbc7dba75afadc27d682c02ea5c9c",
+      "bytes": 12714
+    },
+    {
+      "file": "docs/procedural-tiles-c2a-candidate.md",
+      "sha256": "c712cdfdc34cb3178c5def6456052b643b68e086160b7473c85ca72528661cce",
+      "bytes": 14768
+    },
+    {
+      "file": "docs/procedural-tiles-v2-candidate.md",
+      "sha256": "ff863f32c9947faaf4b5de02f93e222827fca01bef5ed13a96fd57a32adc8b53",
+      "bytes": 16169
+    },
+    {
+      "file": "docs/procedural-tiles.md",
+      "sha256": "a539c85a4a28d7ce67a649061d14073e9e4fe8acddaab2440d059a2912ea117e",
+      "bytes": 18799
+    },
+    {
+      "file": "docs/proposals/procedural-tiles-v1.md",
+      "sha256": "956687a23e631d483259c3d2158e2ea12b27bcd0ef717042857fc338887a2e0f",
+      "bytes": 4556
+    },
+    {
+      "file": "docs/reviews/procedural-tiles/registration-request.json",
+      "sha256": "6c1df50bfbc23f0bc21e9b63e7775054bf8cc62401da6213322529df0e0ceea2",
+      "bytes": 3298
+    },
+    {
+      "file": "docs/reviews/procedural-tiles/source-audit.json",
+      "sha256": "e28c485de6cd0d6c4696e3611ed079427ea2ceb79d20a582617262291cd2d7ff",
+      "bytes": 4240
+    },
+    {
+      "file": "docs/reviews/procedural-tiles/v2-registration-request.json",
+      "sha256": "51b48bdee510ca9780f87cd33d426207f5576b6f74bd9b1bdf9a068022552c9d",
+      "bytes": 5505
+    },
+    {
+      "file": "packages/parts-core/hash.js",
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+      "bytes": 2105
+    },
+    {
+      "file": "packages/tiles-core/NOTICE.md",
+      "sha256": "88e4bb85dbcb102784441e5e0aab6d8c0bd35cf37a6059b0e173f15f23d16989",
+      "bytes": 1041
+    },
+    {
+      "file": "packages/tiles-core/candidate-v2.js",
+      "sha256": "e4d4476eb71ae2180ecdb1620662ed24b495f1403a71e7d1eaa4cc58abd2bb8d",
+      "bytes": 864
+    },
+    {
+      "file": "packages/tiles-core/cells.js",
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811",
+      "bytes": 8266
+    },
+    {
+      "file": "packages/tiles-core/compiled-tiles-v1.schema.json",
+      "sha256": "e8e677205d213d632c15d54558a5d271652e81b9b0427ddcd7bb9fb9259a85f2",
+      "bytes": 53575
+    },
+    {
+      "file": "packages/tiles-core/compiled-tiles-v2.schema.json",
+      "sha256": "5ce707e258bf7e5fab5148f5faebbc957aff271d9b50a6e3f7dd397c8c88aee3",
+      "bytes": 187092
+    },
+    {
+      "file": "packages/tiles-core/composition-geometry.js",
+      "sha256": "296f01f3c851cbbcd1209992abdce8db935d8ca32b3ae2ece993e450bddb243b",
+      "bytes": 14561
+    },
+    {
+      "file": "packages/tiles-core/composition-layout.js",
+      "sha256": "fa34d5559ce99c58e9555f6bac23cb4988db99cac5280309d489126a6a3b648c",
+      "bytes": 11846
+    },
+    {
+      "file": "packages/tiles-core/composition-model.js",
+      "sha256": "da8a78d32a716c6348b61ae6f2f442cc6038b1df3bc54ead4b0fd51ca838c955",
+      "bytes": 4303
+    },
+    {
+      "file": "packages/tiles-core/composition-prepare.js",
+      "sha256": "92c95d0d249bc376a2482dfec2c677996479558fbbd85b31b6f4e875f020cdf0",
+      "bytes": 10841
+    },
+    {
+      "file": "packages/tiles-core/contract.js",
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7",
+      "bytes": 1730
+    },
+    {
+      "file": "packages/tiles-core/curves.js",
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402",
+      "bytes": 9480
+    },
+    {
+      "file": "packages/tiles-core/data.js",
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed",
+      "bytes": 4579
+    },
+    {
+      "file": "packages/tiles-core/dependencies.js",
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d",
+      "bytes": 8832
+    },
+    {
+      "file": "packages/tiles-core/example.js",
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0",
+      "bytes": 2579
+    },
+    {
+      "file": "packages/tiles-core/fields.js",
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667",
+      "bytes": 5394
+    },
+    {
+      "file": "packages/tiles-core/index.js",
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2",
+      "bytes": 728
+    },
+    {
+      "file": "packages/tiles-core/interfaces.js",
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136",
+      "bytes": 11429
+    },
+    {
+      "file": "packages/tiles-core/layout.js",
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7",
+      "bytes": 12740
+    },
+    {
+      "file": "packages/tiles-core/planar-arrangement.js",
+      "sha256": "b65ec1c32fc07bfd64ab95e4686df589470cdf332fad271699aa574843eafc19",
+      "bytes": 7585
+    },
+    {
+      "file": "packages/tiles-core/planar-boolean.js",
+      "sha256": "e2a1084d44e7c301965b85c132f3bd7b498cf3c6058fe45a01d9b0a1785d6d38",
+      "bytes": 6422
+    },
+    {
+      "file": "packages/tiles-core/planar-exact.js",
+      "sha256": "9c0c0532129a0acb22e379e3680bae82aab46afdf0c11d2668b7fd9ff70b4e06",
+      "bytes": 7654
+    },
+    {
+      "file": "packages/tiles-core/planar-topology.js",
+      "sha256": "481774668ce414649a8eb019cd8e15682e2460ab8c026ac88236b8ee2554a8ee",
+      "bytes": 9441
+    },
+    {
+      "file": "packages/tiles-core/projection.js",
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9",
+      "bytes": 1657
+    },
+    {
+      "file": "packages/tiles-core/recipes.js",
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19",
+      "bytes": 10523
+    },
+    {
+      "file": "packages/tiles-core/render-model.js",
+      "sha256": "cd8d5c7ba662dd010af0fa9ed05d0d27e93baa1493211023d7d1f0e6bca16516",
+      "bytes": 14956
+    },
+    {
+      "file": "packages/tiles-core/render-plan.js",
+      "sha256": "68fba7ae8d22b0dd42957eae815236307b2686d80137a1d84aff08d9aa9936b7",
+      "bytes": 14806
+    },
+    {
+      "file": "packages/tiles-core/repair.js",
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f",
+      "bytes": 11562
+    },
+    {
+      "file": "packages/tiles-core/retained-candidate.js",
+      "sha256": "bda58d2b83ab9e42cab42984c276b7dfed8010008cb6657314cc325b0678d7bc",
+      "bytes": 2745
+    },
+    {
+      "file": "packages/tiles-core/tile-bundle-v1.schema.json",
+      "sha256": "cc610c40a8c700f8dc343872717412a3344c607d308283a42e14e6bec4381441",
+      "bytes": 1156
+    },
+    {
+      "file": "packages/tiles-core/tile-bundle-v2.schema.json",
+      "sha256": "5868348ce49c133d027fe9e073f2585e54224e2a338b2d98ff6a99dd446cbf99",
+      "bytes": 1283
+    },
+    {
+      "file": "packages/tiles-core/tile-layout-v1.schema.json",
+      "sha256": "6598ca7e1a681837e8eadd2ce2cbeaae998ea44e9f51e5d727799a7861c72e20",
+      "bytes": 16602
+    },
+    {
+      "file": "packages/tiles-core/tile-layout-v2.schema.json",
+      "sha256": "fe7169a1caebce1317fc189546e7b57f2a024cc402741255bc5fe1b44e0ed893",
+      "bytes": 20827
+    },
+    {
+      "file": "packages/tiles-core/tile-recipe-v1.schema.json",
+      "sha256": "cedf8c251d6088927ed60296c949eac954284ccc085f8660b81911f0b1b6c045",
+      "bytes": 61530
+    },
+    {
+      "file": "packages/tiles-core/tile-recipe-v2.schema.json",
+      "sha256": "46e94800ec6ba9ab357124bcc892608ee8fe50abb81fabda5f921df233686be5",
+      "bytes": 84370
+    },
+    {
+      "file": "packages/tiles-core/v2-records.js",
+      "sha256": "0c6d9430af82200ea56a5075e3de3fece94e35dd5d06f744280aa0d98416906e",
+      "bytes": 14799
+    },
+    {
+      "file": "packages/tiles-core/v2-shapes.js",
+      "sha256": "dbed685abc2d7b6ad448658e6acf182de49602130c1bc89bc1f477689b2e787d",
+      "bytes": 9270
+    },
+    {
+      "file": "packages/tiles-core/zero-exposure.js",
+      "sha256": "2813063048b3a15e5aec4f762524ac73a32c17b3f420f15a884493fbd719c7cb",
+      "bytes": 7494
+    }
+  ],
+  "unchangedV1Files": [
+    {
+      "file": "packages/parts-core/hash.js",
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "file": "packages/tiles-core/cells.js",
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+    },
+    {
+      "file": "packages/tiles-core/contract.js",
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+    },
+    {
+      "file": "packages/tiles-core/curves.js",
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+    },
+    {
+      "file": "packages/tiles-core/data.js",
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+    },
+    {
+      "file": "packages/tiles-core/dependencies.js",
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+    },
+    {
+      "file": "packages/tiles-core/example.js",
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+    },
+    {
+      "file": "packages/tiles-core/fields.js",
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+    },
+    {
+      "file": "packages/tiles-core/index.js",
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+    },
+    {
+      "file": "packages/tiles-core/interfaces.js",
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+    },
+    {
+      "file": "packages/tiles-core/layout.js",
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+    },
+    {
+      "file": "packages/tiles-core/projection.js",
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+    },
+    {
+      "file": "packages/tiles-core/recipes.js",
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+    },
+    {
+      "file": "packages/tiles-core/repair.js",
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+    },
+    {
+      "file": "packages/tiles-core/tile-recipe-v1.schema.json",
+      "sha256": "cedf8c251d6088927ed60296c949eac954284ccc085f8660b81911f0b1b6c045"
+    },
+    {
+      "file": "packages/tiles-core/tile-layout-v1.schema.json",
+      "sha256": "6598ca7e1a681837e8eadd2ce2cbeaae998ea44e9f51e5d727799a7861c72e20"
+    },
+    {
+      "file": "packages/tiles-core/tile-bundle-v1.schema.json",
+      "sha256": "cc610c40a8c700f8dc343872717412a3344c607d308283a42e14e6bec4381441"
+    },
+    {
+      "file": "packages/tiles-core/compiled-tiles-v1.schema.json",
+      "sha256": "e8e677205d213d632c15d54558a5d271652e81b9b0427ddcd7bb9fb9259a85f2"
+    }
+  ],
+  "beforeGitObjectHashRecords": 57,
+  "installedTests": {
+    "count": 78,
+    "pass": 78,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "c2aOracle": {
+    "status": "pass",
+    "cases": 68,
+    "cells": 784,
+    "intervals": 1252,
+    "bindings": 1344,
+    "certificates": 100,
+    "sectors": 1948,
+    "rejectedForgeries": 11,
+    "contactRefusals": 16,
+    "rejectedContactForgeries": 2,
+    "scope": "Independent Fraction source ownership, precedence, atomic intervals, port coverage, primary reservation certificates and topology associations. No physical/game binding.",
+    "sha256": "df1c5d80d8792ea6a6c3b1c91a073c54f7685da298e86994a9c6a574b9c84f1e",
+    "output": "installed-c2a-oracle-cases.json",
+    "contactSha256": "a8d05dc011c61afce2db290edcbb0b76b250ec00e18082456e6c3d517b58c61c",
+    "contactOutput": "installed-c2a-contact-cases.json"
+  },
+  "c1Oracle": {
+    "cases": 249,
+    "sha256": "19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863",
+    "output": "installed-c1-oracle-cases.json",
+    "scope": "Actual installed exact evidence; independently verify with tools/verify-tile-c1-oracle.py."
+  },
+  "sourceInstalledArtifactsEqual": true,
+  "sourceInstalledContactArtifactsEqual": true,
+  "schemaEvidence": {
+    "schemas": 8,
+    "cases": 532,
+    "c2aCases": 174,
+    "validator": "jsonschema==4.23.0 isolated test dependency; no schema contract relaxed"
+  },
+  "archiveSha256": "fb1e063a07ef3c7d8082fbd7272a37a07f73fe3bae77ff81e09e5e6b31b7f879",
+  "gates": {
+    "check": {
+      "status": "pass",
+      "log": "artifacts/procedural-tiles-c2a/correction-gates/check.log",
+      "sha256": "31be60de5e03fd267a40111dccfd1868c585b9916de6956e524879fc59602029"
+    },
+    "test": {
+      "status": "pass",
+      "log": "artifacts/procedural-tiles-c2a/correction-gates/test.log",
+      "sha256": "a8410565bbab5c702f1113811406b88595a528b5cdd31ae6228d68170ab039e1"
+    },
+    "upstream": {
+      "status": "pass",
+      "log": "artifacts/procedural-tiles-c2a/correction-gates/upstream.log",
+      "sha256": "e9cc8a4895e08d1392b680383c9692fb4f2c76e5804eaa00ada14a1379546fa9"
+    },
+    "build": {
+      "status": "pass",
+      "log": "artifacts/procedural-tiles-c2a/correction-gates/build.log",
+      "sha256": "bf89aa77a41080b187ab772ce049ab8f50137d43aeff9cbeb619c99c34d68d65"
+    },
+    "installed": {
+      "status": "pass",
+      "log": "artifacts/procedural-tiles-c2a/correction-gates/installed.log",
+      "sha256": "ecbd43afeeabd2f51150c1abad72948c37bb095dec4e1380324943ae8b4895fa"
+    }
+  },
+  "beforeEvidence": [
+    {
+      "file": "artifacts/procedural-tiles-c2a/geometry-contact-before.log",
+      "sha256": "78c6dc5822de16d28dde083589b04b43cec44f95ffd99962b40bd8888ca6239d"
+    },
+    {
+      "file": "artifacts/procedural-tiles-c2a/generated-root-before.log",
+      "sha256": "89e216cb95717cfdf53f60ac2ad01a648ab1b01f5fab0c26a3ca99a3144884bf"
+    }
+  ],
+  "notices": [
+    {
+      "file": "NOTICE.md",
+      "sha256": "a5f12ec9439f60bfd1c14f9f783d2f97a7f8e419fc6cc2f0d61cdbb3b472a6e8",
+      "bytes": 6890
+    },
+    {
+      "file": "packages/tiles-core/NOTICE.md",
+      "sha256": "88e4bb85dbcb102784441e5e0aab6d8c0bd35cf37a6059b0e173f15f23d16989",
+      "bytes": 1041
+    }
+  ],
+  "helpers": {
+    "retained": [],
+    "cleanup": "Verified isolated stage/consumer removed in finally. Foreground children finished; no server/browser/watcher or retained helper.",
+    "ports": "No listener/server created; all foreground command sessions completed."
+  },
+  "unchanged": "All public-v1 bytes/policies, C1 oracle identity, normal exports/schema registry/capabilities/whitelists/version/CI, pins, other worktrees, Sites audience and renderer/Editor/game adoption. No merge/amend/force-push.",
+  "measurementMeaning": "Counts and file bytes are measured; deterministic work/precharge units and finite search/pair bounds are not CPU/GPU/device benchmarks."
+}

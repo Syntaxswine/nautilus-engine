@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "status": "Architect contract spine received; exact fixed Coder checkpoint and checked projection shape pending",
+  "baseline": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "branch": "codex/modular-curve-tiles",
+  "ownership": {
+    "artist": "Native geometry, materials, profiles, visual seams and lifecycle evidence",
+    "coder": "Actual core catalogue/compile/transform/field topology/layout/matcher/bundle/repair authority",
+    "architect": "Public registration, schemas, whitelist, capability/version, cross-component integration",
+    "editorUI": "One Smart Tile tool: Paint/Rectangle/Path with pure preparation, locks and atomic neighbor repair"
+  },
+  "canonicalSpine": {
+    "TileRecipe": [
+      "kind=nautilus-tile-recipe",
+      "version=1",
+      "id",
+      "contentVersion",
+      "features",
+      "shape",
+      "reservations",
+      "ports",
+      "allowedTransforms",
+      "interior.seed",
+      "interior.detail"
+    ],
+    "shapeTags": [
+      "field-cell",
+      "region",
+      "profile-sweep"
+    ],
+    "curvePrimitives": [
+      "line",
+      "arc",
+      "cubic Bezier",
+      "compound"
+    ],
+    "RecipePort": [
+      "stable id",
+      "semantic faceId",
+      "explicit local floor slot/offset",
+      "endpoint/outward/tangent",
+      "width/thickness",
+      "channel/layerId",
+      "versioned surface/edge/boundary material/border profiles",
+      "analytic boundary descriptor and samples",
+      "UV mapping and phase"
+    ],
+    "TileLayout": [
+      "explicit world floors/elevations",
+      "catalogue digest",
+      "stable instances/origins/floor bindings/allowed D4 transform",
+      "validated joins",
+      "seed and policy version"
+    ],
+    "persistence": "self-contained nautilus-tile-bundle v1: raw generated recipes, deduplicated pinned template references and layout; source controls/anchors/layers/locks/seeds preserved. Meshes/caches derived."
+  },
+  "provisionalCoreSeams": [
+    "createTileCatalogue",
+    "validateTileRecipe",
+    "compileTileRecipe",
+    "sampleTileCurve",
+    "sampleTileField",
+    "tileFieldTopology",
+    "transformTileRecipe",
+    "validateTileLayout",
+    "compileTileLayout",
+    "inspectTileLayout",
+    "matchTileInterfaces (one interface only)",
+    "tileRequirements",
+    "prepareTileRepair",
+    "prepareTileEdit"
+  ],
+  "policies": {
+    "position": "metres-q1e6-v1: only derived positions quantize; raw authored controls/dimensions retained",
+    "direction": "unit-q1e12-v1, separate from position and UV policy",
+    "uv": "world-linear-exact-v1; strict direct border profile/material/mapping/phase equality; explicit transition on incompatibility",
+    "sampling": "Analytic descriptor/evaluator identity AND agreed samples; separate segmentsPerPart/maxChordErrorM/maxSegmentM/maxWork. Interior detail cannot alter agreed border samples.",
+    "topology": "Explicit saddle decision separate from zero-positive classification; refuse collapsed/degenerate geometry; point contact alone is not traversable.",
+    "space": "Engine [x,y,h] becomes Three [X,h,Y]. N/S offsets increase world x; E/W offsets increase world y. Outward normals oppose but canonical parameter tangents do not automatically reverse.",
+    "placement": "World-frame descriptors include explicit clip/frame; never apply placement twice. Local elevation is origin.h+local.h, checked against floor elevation+offset, not summed twice.",
+    "ownership": "Every chunk retains its own border geometry. IDs are dedup hints only; unload/culling/deletion must not remove remaining seams.",
+    "sharing": "Actual core instance validates and compiles. Separate installations exchange detached inspected plain geometry/border/mask/readiness records, never copied kernel handles."
+  },
+  "artistStudy": {
+    "kind": "nautilus-artist-tile-study",
+    "count": 294,
+    "canonicalBorderSchedule": "32 intervals/metre, independent of 8/16/32 interior steps",
+    "status": "Private art harness only, not a second engine document/matcher",
+    "implemented": [
+      "Shared border geometry/normals/UV",
+      "Explicit masks/saddles, diagonals, holes, caps, tapers, variable-width cubic and junction regions",
+      "Native ramp/stair endpoints",
+      "Layered water/bank/bridge/kerb appearance",
+      "Independent curved fence/cornice profile sweep from supplied path samples",
+      "Saved seed input in lab fixture; cosmetic fade at borders, no game RNG"
+    ],
+    "diagnosticMatcher": "curveEdgesMatch/inspectCurveAssembly are lab checks only; no analytic identity, semantic readiness or live adoption authority. Do not register them.",
+    "limits": [
+      "No authoritative port/layout/bundle adapter until the fixed core dependency exists",
+      "Full-edge exact-zero contours need canonical step/side ownership",
+      "No bottom caps/closed-solid support",
+      "No automatic collision/nav/fire/water/floor providers"
+    ]
+  },
+  "fieldsNeededFromCheckedProjection": [
+    "Accepted canonical border sample schedule, exact world positions, normals and parameter tangents after transform",
+    "Analytic evaluator/profile identities plus paint/UV mapping and phase",
+    "Exposed-interface decisions, including full-edge zero contours and independent chunk retention",
+    "Explicit coordinate frame, floor elevation/origin and clip region to avoid double transform/height",
+    "Typed channel/layer joins vs crossings/alongside, readiness and semantic chunk ownership",
+    "Native profile cross-section endpoint records, including stair lower riser versus first tread"
+  ],
+  "compatibility": "Retain AFT 24 m blocks, one feature per side and centered six-metre roads only in their named legacy profile. New art families do not inherit these restrictions.",
+  "next": "Consume the fixed reviewed Coder API through a plain-projection adapter, then run combined geometry/matcher/transform/bundle/repair/provider acceptance before Root registers anything."
+}

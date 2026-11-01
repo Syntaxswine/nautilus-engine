@@ -19,6 +19,9 @@ import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
 import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
 import {checkProceduralTiles} from './check-procedural-tiles.mjs';
 import {checkTileV2} from './check-tile-v2.mjs';
+import {checkNativeWindowPresenter} from './check-native-window-presenter.mjs';
+import {checkTileVisualsSource} from './check-tile-visuals-source.mjs';
+import {checkTileC2aSource} from './check-tile-c2a-source.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -137,3 +140,12 @@ console.log('Verified procedural tiles: '+JSON.stringify({modules:tiles.runtime.
 
 const tileV2=checkTileV2();
 console.log('Verified A/B tile candidate source: '+JSON.stringify({declared:tileV2.declared,modules:tileV2.runtime.length,bytes:tileV2.runtimeBytes,unchangedV1Files:tileV2.unchangedV1Files}));
+
+const tileC2a=checkTileC2aSource(root,{tracked});
+console.log('Verified private C2a source: '+JSON.stringify({declared:tileC2a.declared,modules:tileC2a.runtime.length,bytes:tileC2a.runtimeBytes,privateSchemas:tileC2a.privateSchemas.length,proofInputs:tileC2a.proofInputs.length,unchangedV1:tileC2a.unchangedV1.length}));
+
+const nativeWindows=checkNativeWindowPresenter(root,{tracked});
+console.log('Verified native window presentation: '+JSON.stringify({sourceCommit:nativeWindows.sourceCommit,referenceFiles:nativeWindows.snapshot.files,referenceBytes:nativeWindows.snapshot.bytes,runtimeModules:nativeWindows.runtime.length,registered:nativeWindows.registered}));
+
+const tileArt=checkTileVisualsSource(root,{tracked});
+console.log('Verified native tile surfaces: '+JSON.stringify({registered:tileArt.registered,modules:tileArt.runtime.length,unchangedV1:tileArt.coreFiles.length,studies:tileArt.studies,preservedArtFiles:tileArt.preservedArtFiles}));

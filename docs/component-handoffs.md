@@ -35,6 +35,12 @@ The [functional editor parts project](projects/functional-editor-parts.md) assig
 
 Provide one working connection example using these steps, not only a list of method signatures. The smallest example should retain a host service so gradual adoption remains practical. If an automatic binding or recipe is still missing, list that gap and its owner; documentation alone does not implement it.
 
+## Observer errors and owned resources
+
+A renderer/provider handoff must define its activation commit point and the policy for callbacks that throw or re-enter. Check cancellation and current context after callback-producing attachment. A rejected candidate preserves the accepted view before commit; notification errors after commit must report the committed state clearly. Serialize mutations and bound allowed cancellation requests.
+
+Transfer or drain ownership before notifying native removal/disposal observers. Attempt every owned resource even if one observer fails, preserve neighbours and borrowed pools, then report bounded errors with an honest failure count. Keep native event dispatch semantics: do not retry/replay an event to conceal a throwing listener. Test the actual framework events, including attachment, removal, disposal, stale completion and cancellation, alongside allocation rollback and repeated retirement. These checks establish the provider's owned-state guarantees; they do not certify arbitrary observer code.
+
 ## Examples of the intended standard
 
 | Part | Declared semantics and standard behavior | Game-supplied decisions |
