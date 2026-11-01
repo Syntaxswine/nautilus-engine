@@ -43,14 +43,21 @@ export function derivative(c,t){
 export function sampling(v,p='/sampling'){fields(v,['segmentsPerPart','maxChordErrorM','maxSegmentM','maxWork'],p);integer(v.segmentsPerPart,p+'/segmentsPerPart',1,128);number(v.maxChordErrorM,p+'/maxChordErrorM',1e-12,100000);number(v.maxSegmentM,p+'/maxSegmentM',0.000001,1000000);integer(v.maxWork,p+'/maxWork',2,65536);return v;}
 function errorBound(c,n){if(c.kind==='line')return 0;if(c.kind==='arc')return Math.abs(c.sweepRad)/n>Math.PI?2*c.radius:c.radius*(1-Math.cos(Math.abs(c.sweepRad)/n/2));return .75*Math.max(...[0,1].map(i=>length(add(sub(c.points[i],scale(c.points[i+1],2)),c.points[i+2]))))/(n*n);}
 export function sample(c,s,t={quarterTurns:0,mirrorX:false},origin=[0,0,0]){
-  const ps=parts(c),work=2*(ps.length*s.segmentsPerPart+1);if(work>s.maxWork)fail('CURVE_WORK_LIMIT','/sampling/maxWork','Canonical sampling exceeds its declared evaluator work bound.');
-  const points=[],tangents=[],parameters=[];let bound=0,quantizationBound=0;
+  const ps=parts(c),work=2*(ps.length*s.segmentsPerPart+1)+ps.length-1;if(work>s.maxWork)fail('CURVE_WORK_LIMIT','/sampling/maxWork','Canonical sampling including every compound start exceeds its declared evaluator work bound.');
+  const points=[],tangents=[],parameters=[];let bound=0,quantizationBound=0,junctionBound=0;
   for(const [i,part]of ps.entries()){
     const error=errorBound(part,s.segmentsPerPart);bound=Math.max(bound,error);if(error>s.maxChordErrorM)fail('CHORD_ERROR_LIMIT','/sampling/maxChordErrorM','Declared fixed border schedule cannot meet its analytic interpolation-error bound.',{curveId:part.id,errorBoundM:error});
-    for(let j=0;j<=s.segmentsPerPart;j++){if(i&&j===0)continue;const u=j/s.segmentsPerPart,raw=transformPoint(evaluate(part,u),t,origin),p=qp(raw);quantizationBound=Math.max(quantizationBound,length(sub(raw,metres(p))));if(points.length){const d=length(sub(p,points.at(-1)))/Q;if(d===0)fail('COLLAPSED_SPAN','/curve','Adjacent canonical border samples collapsed.');if(d>s.maxSegmentM)fail('SEGMENT_LENGTH_LIMIT','/sampling/maxSegmentM','Canonical chord exceeds its declared length bound.');}points.push(p);tangents.push(direction(transformVector(derivative(part,u),t)));parameters.push((i+u)/ps.length);}
+    for(let j=0;j<=s.segmentsPerPart;j++){
+      const u=j/s.segmentsPerPart,raw=transformPoint(evaluate(part,u),t,origin),p=qp(raw);quantizationBound=Math.max(quantizationBound,length(sub(raw,metres(p))));
+      // A q-coincident local compound start is omitted from the returned nodes.
+      // Its raw point can differ from the previous end, and translation can
+      // change which grid point it rounds to. Bound against the ACTUAL node.
+      if(i&&j===0){junctionBound=Math.max(junctionBound,length(sub(raw,metres(points.at(-1)))));continue;}
+      if(points.length){const d=length(sub(p,points.at(-1)))/Q;if(d===0)fail('COLLAPSED_SPAN','/curve','Adjacent canonical border samples collapsed.');if(d>s.maxSegmentM)fail('SEGMENT_LENGTH_LIMIT','/sampling/maxSegmentM','Canonical chord exceeds its declared length bound.');}points.push(p);tangents.push(direction(transformVector(derivative(part,u),t)));parameters.push((i+u)/ps.length);
+    }
   }
   if(same(points[0],points.at(-1))){const a=points[0],b=points.find(p=>!same(a,p)),u=b?.map((v,i)=>BigInt(v-a[i]));if(!b||!points.some(p=>{const v=p.map((n,i)=>BigInt(n-a[i]));return u[0]*v[1]-u[1]*v[0]!==0n||u[1]*v[2]-u[2]*v[1]!==0n||u[2]*v[0]-u[0]*v[2]!==0n;}))fail('DEGENERATE_CLOSED_SAMPLING','/sampling','A closed canonical border needs non-collinear samples; select a sufficient fixed schedule.');}
-  if(bound+quantizationBound>s.maxChordErrorM)fail('CHORD_ERROR_LIMIT','/sampling/maxChordErrorM','Analytic interpolation plus measured node quantization exceeds the declared chord-error bound.');return {positions:points,tangents,parameters,errorBoundM:bound+quantizationBound,analyticErrorBoundM:bound,positionQuantizationBoundM:quantizationBound,workUnits:work};
+  const errorBoundM=bound+Math.max(quantizationBound,junctionBound);if(errorBoundM>s.maxChordErrorM)fail('CHORD_ERROR_LIMIT','/sampling/maxChordErrorM','Analytic interpolation plus all original endpoint deviations from the returned nodes exceeds the declared chord-error bound.',{errorBoundM,analyticErrorBoundM:bound,positionQuantizationBoundM:quantizationBound,compoundJunctionDeviationBoundM:junctionBound});return {positions:points,tangents,parameters,errorBoundM,analyticErrorBoundM:bound,positionQuantizationBoundM:quantizationBound,compoundJunctionDeviationBoundM:junctionBound,workUnits:work};
 }
 function primitiveDescriptor(c,t,origin,reverse=false){
   if(c.kind==='line'){const p=[c.a,c.b].map(v=>transformPoint(v,t,origin));return {kind:'line',points:reverse?p.reverse():p};}

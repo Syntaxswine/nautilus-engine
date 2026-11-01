@@ -7,6 +7,12 @@ on codex/farmyard-window-impacts. No reset, force push, other-worktree change or
 moving donor import is part of this checkpoint. The delivery reply supplies the
 full fixed implementation commit.
 
+The initial implementation was 4a027bf00019c0a8e9c2b862b47b17943ae32ee2.
+Its historical evidence is retained below; Architect reproduced three invariant
+failures in that checkpoint. The focused correction and current evidence at the
+end of this document supersede those affected claims. Formal recheck is pending;
+registration and integration remain unapplied.
+
 [The maintained guide](../../procedural-tiles.md) documents the actual public
 prepare/inspect/transform/repair/requirements/serialization seam and checklist.
 [The reconciled decision](../../proposals/procedural-tiles-v1.md) records the
@@ -56,7 +62,7 @@ cuts across interior-detail changes. These internal cuts are sampling aids, not
 another join/support authority. Canonical external ports remain mandatory mesh
 constraints and a provider must stitch to them or refuse.
 
-Validation on the final runtime:
+Historical validation of the initial 4a checkpoint:
 
 - npm run check: passed, including 603 pinned source files and existing shared
   closure/headless/assets/package/source checks.
@@ -92,7 +98,7 @@ Local ignored evidence:
 - artifacts/procedural-tiles/installed-report.json
 - artifacts/procedural-tiles/nautilus-engine-tile-candidate-0.0.0-tile-candidate.tgz
 
-Final private archive SHA-256:
+Initial private archive SHA-256 (historical):
 0cf827113bd0bc9675a82cc25a319ae7950c214c4da5bdb0a07a70c0bcf99858.
 This review document is outside the candidate package, avoiding a self-referential
 archive hash. Runtime file hashes were compared to the current tree after the
@@ -111,3 +117,76 @@ run the actual declared package proof before claiming public package availabilit
 No helper is retained. Offline stage/consumer directories were removed in finally
 with absolute-path validation; foreground child processes completed. No server,
 browser, watcher, port or unbounded cleanup daemon was created.
+
+## Focused correction for Architect recheck
+
+This pass preserves 4a history on the existing branch. Architect explicitly
+approved refusal of unsupported ambiguous field conditioning, complete compound
+endpoint accounting and per-geometric-contact repair proof. No root registration,
+new schema ID/capability, renderer/editor change or consumer adoption is included.
+Accepted window head remains 573f18b2017eb7ccc6ce68ec64a20e16871416ea.
+
+- Field model: masks 5/10 require exactly [1,-1,1,-1] or [-1,1,-1,1]. The reported
+  [1,-1000,1,-1000] counterexample and asymmetric/extreme/small-positive/zero
+  checkerboards refuse unchanged in evaluation, topology, normal fields,
+  recipes/bundles and all schema embeddings. General non-checkerboards remain
+  supported. Full selected-diagonal path/barrier reasoning bounds the signed
+  bubble coefficient below by 2 for every allowed amplitude/seed. Regressions
+  exercise both saddle choices, nonzero amplitude extremes, D4/complement and
+  both signs. Complement revalidates after negation, preserves derived zero as
+  positive zero and refuses [0,1,0,1]'s unsupported negated conditioning.
+- Compound curves: every original start is measured, including omitted nodes.
+  The reported 0.4 micrometre gap now fails a 1e-12 m tolerance. Total returned
+  error includes analytic interpolation plus the larger of nearest-node
+  quantization and skipped-start deviation from the actual retained node.
+  Independent interpolation checks cover both primitive orders, all D4 choices
+  and translated grid phases; sampler/layout/repair work charges the extra starts.
+- Repair: exact per-contact geometry/placement/floor/reservation fingerprints
+  replace old pair exemptions. Cosmetic interior data, anchors, locks and content
+  versions do not invalidate unchanged contacts. Each changed/new contact needs
+  its own measured relation or actual finite joined boundary. Cross/alongside
+  and transition/join pair waivers are all covered by regressions, including
+  additional contacts, changed side/rotation/shape/height/floor, finite segment/
+  thickness and channel/layer identity, old/new closure and fixed locks.
+  Automatic join proof is limited to continuous straight axis-aligned lateral
+  spans and thickness. Valid curved/diagonal/cap or gapped joins remain authored/
+  compiled data; an actionable INCOMPLETE_REPAIR requests a specific measured
+  relation or supported finite boundary. This limit is prominent in the guide.
+
+Current validation:
+
+- Final correction suite: **11 tests**. Against the exact 14 runtime modules
+  read from 4a Git objects: **9 expected failures / 2 preservation positives**.
+  The donor and worker checkouts were not edited. The same suite passes on the
+  correction and through the offline installed entry. Baseline staging used a
+  disposable Node ESM wrapper over those exact objects and was removed in finally.
+- Focused tile suites: **46 passed** (35 initial + 11 correction tests).
+- npm run check: passed, including the 603 pinned source files.
+- npm test: **673 passed**, zero failures/skips.
+- npm run test:upstream: **32 passed**.
+- npm run build: passed; **459 module paths**, 11 recorded deployment patches.
+- Independent Draft 2020-12: **4 schemas / 59 cases passed**. The expanded cases
+  first reproduced the old schema's false acceptance, then passed after adding
+  the shared conditional restriction. Shape, embedded normal, bundle and compiled
+  source references all enforce the same conditioning. Other schema IDs/versions
+  and capability/registration requests are unchanged.
+- Private offline installed overlay: passed, **declared:false**; the mixed
+  retained-host proof and all 11 correction tests use the installed ./tiles entry.
+  Ten support files remain included; default declared proof still refuses
+  TILE_REGISTRATION_PENDING. Availability remains partial.
+- Verified decoded runtime: **14 pure modules / 91,615 raw bytes**. Runtime hashes
+  in the installed report match the current source tree. These are byte and
+  deterministic work measurements, not processor/renderer/game acceptance.
+
+Current private archive SHA-256:
+706e9abf9166ea4285c0c9ead6e41eae06da731ec980e0de810ba9e04d9cee68.
+This document is excluded from the archive. The current source-closure and
+installed reports plus gate logs are under artifacts/procedural-tiles; additional
+evidence is corrections-before.log, corrections-baseline.log, focused.log,
+schema-before.log, schema-after.log and installed-corrections.log.
+
+All foreground validation processes completed. Both isolated baseline and offline
+consumer directories were removed after checking their exact temporary parent
+and task-specific prefixes. No helper, server, browser, watcher or port is retained.
+The fixed commit is offered for Architect review, with integration and public
+registration still pending.

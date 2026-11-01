@@ -536,7 +536,72 @@
                               "connect-negative"
                             ]
                           }
-                        }
+                        },
+                        "description": "General finite values remain supported for non-checkerboards. Under zero-positive classification, ambiguous masks 5/10 require exactly [1,-1,1,-1] or [-1,1,-1,1]; unequal magnitudes and zero-valued checkerboards are unsupported and must not be normalized.",
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "values": {
+                                  "anyOf": [
+                                    {
+                                      "prefixItems": [
+                                        {
+                                          "minimum": 0
+                                        },
+                                        {
+                                          "exclusiveMaximum": 0
+                                        },
+                                        {
+                                          "minimum": 0
+                                        },
+                                        {
+                                          "exclusiveMaximum": 0
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "prefixItems": [
+                                        {
+                                          "exclusiveMaximum": 0
+                                        },
+                                        {
+                                          "minimum": 0
+                                        },
+                                        {
+                                          "exclusiveMaximum": 0
+                                        },
+                                        {
+                                          "minimum": 0
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "then": {
+                              "properties": {
+                                "values": {
+                                  "enum": [
+                                    [
+                                      1,
+                                      -1,
+                                      1,
+                                      -1
+                                    ],
+                                    [
+                                      -1,
+                                      1,
+                                      -1,
+                                      1
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
                   }
@@ -1037,7 +1102,72 @@
                 "connect-negative"
               ]
             }
-          }
+          },
+          "description": "General finite values remain supported for non-checkerboards. Under zero-positive classification, ambiguous masks 5/10 require exactly [1,-1,1,-1] or [-1,1,-1,1]; unequal magnitudes and zero-valued checkerboards are unsupported and must not be normalized.",
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "values": {
+                    "anyOf": [
+                      {
+                        "prefixItems": [
+                          {
+                            "minimum": 0
+                          },
+                          {
+                            "exclusiveMaximum": 0
+                          },
+                          {
+                            "minimum": 0
+                          },
+                          {
+                            "exclusiveMaximum": 0
+                          }
+                        ]
+                      },
+                      {
+                        "prefixItems": [
+                          {
+                            "exclusiveMaximum": 0
+                          },
+                          {
+                            "minimum": 0
+                          },
+                          {
+                            "exclusiveMaximum": 0
+                          },
+                          {
+                            "minimum": 0
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "values": {
+                    "enum": [
+                      [
+                        1,
+                        -1,
+                        1,
+                        -1
+                      ],
+                      [
+                        -1,
+                        1,
+                        -1,
+                        1
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          ]
         },
         {
           "type": "object",
@@ -1591,7 +1721,72 @@
                             "connect-negative"
                           ]
                         }
-                      }
+                      },
+                      "description": "General finite values remain supported for non-checkerboards. Under zero-positive classification, ambiguous masks 5/10 require exactly [1,-1,1,-1] or [-1,1,-1,1]; unequal magnitudes and zero-valued checkerboards are unsupported and must not be normalized.",
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "values": {
+                                "anyOf": [
+                                  {
+                                    "prefixItems": [
+                                      {
+                                        "minimum": 0
+                                      },
+                                      {
+                                        "exclusiveMaximum": 0
+                                      },
+                                      {
+                                        "minimum": 0
+                                      },
+                                      {
+                                        "exclusiveMaximum": 0
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "prefixItems": [
+                                      {
+                                        "exclusiveMaximum": 0
+                                      },
+                                      {
+                                        "minimum": 0
+                                      },
+                                      {
+                                        "exclusiveMaximum": 0
+                                      },
+                                      {
+                                        "minimum": 0
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "values": {
+                                "enum": [
+                                  [
+                                    1,
+                                    -1,
+                                    1,
+                                    -1
+                                  ],
+                                  [
+                                    -1,
+                                    1,
+                                    -1,
+                                    1
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }

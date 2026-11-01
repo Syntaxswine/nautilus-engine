@@ -61,6 +61,14 @@ line/arc/cubic/compound path, native width/thickness and optional clip. Clip use
 the descriptor's frame and remains an instruction for a reviewed family provider;
 it is not permission to discard the original path.
 
+Provisional field limitation: ambiguous checkerboard masks 5/10 support exactly
+[1,-1,1,-1] and [-1,1,-1,1]. Unequal magnitudes, small positive values and zeros
+in a checkerboard refuse with UNSUPPORTED_FIELD_CONDITIONING; input is preserved,
+never normalized. General finite corner values remain supported for all other
+masks. This applies equally to whole shapes and embedded field normal evaluators,
+recipe/bundle loading, schemas and topology operations. It does not restrict the
+separate line/arc/cubic/compound curve families.
+
 Shapes/paths/primitives retain stable IDs. Anchors retain region/path/segment/node
 IDs; a node parentId/controlIndex identifies an original control. Controls, widths,
 angles, layer choices, locks and seeds are saved exactly, not replaced with samples.
@@ -88,7 +96,15 @@ dimensionless phase/mapping agreement. Periodic equivalence is not guessed.
 Sampling declares segmentsPerPart, maxChordErrorM, maxSegmentM and maxWork.
 Line interpolation is exact; arc sagitta and a conservative cubic second-
 derivative bound limit interpolation. Node quantization is measured separately
-and included in the chord-error test. A fixed schedule is not silently increased.
+and included in the chord-error test. Compound starts must meet on the local
+canonical position grid, but their original controls can differ within a quantum.
+Every original start is evaluated, including starts omitted from output nodes.
+compoundJunctionDeviationBoundM measures each such start against the actual
+retained previous node after placement; translation can change the rounding phase.
+The full returned interpolation bound is analyticErrorBoundM plus the maximum of
+positionQuantizationBoundM and compoundJunctionDeviationBoundM. It must satisfy
+maxChordErrorM. Sampler and aggregate layout/repair work include the extra start
+evaluations. A fixed schedule is not silently increased.
 Complete analytic/evaluator identity remains in matching: sparse coincident
 samples do not prove two cubics equal. Canonical numeric order is world x, then y,
 then h, preserving AFT N/S west-to-east and E/W north-to-south offsets. Compound
@@ -122,9 +138,19 @@ Field perturbation and its first derivative are exactly zero on borders, without
 sin(pi) residue. Ports use their whole shape's boundary-relevant corner data.
 Shared field edge scalar/height/paint and analytic normals agree, and a world
 corner registry validates corner-only contacts as well as accepted edge joins.
-Zero is positive. Ambiguous checkerboards additionally save connect-positive or
-connect-negative, with guarded saddle bias and deterministic diagonal/D4/complement
-metadata. Corner connectivity or point contact does not grant walkability.
+Zero is positive. Supported binary checkerboards save connect-positive or
+connect-negative. Along the selected full diagonal the bilinear term equals
+sign * (1 - 2*smooth(t))^2. The bubble coefficient has that same sign with
+magnitude at least 2 for every allowed amplitude/seed: its signed bias is
+2 + abs(fieldAmplitude), and the bounded noise contribution cannot cancel it.
+The fade is strictly positive in the interior. This proves a strict-sign path
+joining the selected corners and a barrier separating the other corners; a
+centre-sign check alone would prove neither. D4 and value-negation/saddle-flip
+operations revalidate the resulting conditioning. Derived negated zero is kept
+as positive zero. For example [0,1,0,1] is valid, but negation produces an
+unsupported zero-valued checkerboard and explicitly refuses. Literal negation
+with zero-positive classification is not automatically a Boolean land/water
+complement. Corner connectivity or point contact does not grant walkability.
 
 ## Semantic objects, derived windows and work
 
@@ -168,14 +194,43 @@ lock and anchor IDs. Shared updates cannot bypass manual locks.
 
 The kernel discovers old and new spatial reservations over all finite alternatives,
 alongside semantic links. New neighbours and old locations enter bounded closure.
-New contacts need explicit join/cross/alongside/transition semantics; incomplete
-repair refuses with the discovered pair. Editor supplies intent/finite choices,
+Only unchanged individual geometric contacts carry forward: fingerprints include
+exact authored shape/interface/reservation/template data, effective origin/D4,
+floor identities/elevations and each actual projected reservation pair including
+height. Cosmetic interior skin/detail/seed, anchors, locks and content-version
+bookkeeping do not change that identity. A previous east/west contact cannot
+authorize a new north/south contact, and one unchanged contact cannot waive an
+additional contact between the same instances.
+
+Changed/new contacts each need covering join/cross/alongside/transition semantics;
+incomplete repair refuses with the discovered pair and exact reservation records,
+including floor/channel/layer and intervals. One valid named link elsewhere on
+the instance pair grants no exemption. Editor supplies intent/finite choices,
 uses these diagnostics and owns no second matching or selection algorithm.
 
 Crossing requires explicit positive vertical clearance for every XY-overlapping
 reservation pair. Alongside requires overlapping length/height at the exact
 lateral gap. Transition requires an actual accepted interface. Tags/layer names
 never waive positive-volume geometry conflicts.
+
+A relation names two instances without reservation selectors. During repair its
+measured condition must hold separately for each contact it covers: cross covers
+only XY-overlapping intervals at the declared vertical clearance; alongside
+covers only exact-gap intervals with overlapping length/height. Explicit
+relations can describe different floors/channels/layers (for example bridge over
+water), but cannot waive a different contact that fails their measured condition.
+Transition adds no coverage beyond its actual joined boundary.
+
+Automatic join coverage currently proves a continuous straight axis-aligned
+lateral boundary covering the full finite contact interval, declared width and
+vertical thickness above the boundary base. Each side's actual reservation
+floor/channel/layer must match the joined port. It uses attained analytic
+endpoints, not an infinite line, sparse samples or cubic control-hull extents.
+An otherwise valid curved, diagonal, cap or nonexactly continuous compound join
+remains saveable and compilable; it does not by itself prove repair contact
+coverage. INCOMPLETE_REPAIR explains this limitation and requests a measured
+relation covering the specific contact or a supported finite joined boundary.
+Additional proof shapes require later review; no curve data is discarded.
 
 Pure SHA-256 ranks stable content/slot/transform identities with the saved uint32
 seed. No game random stream advances. Failure returns next:null and preserves
@@ -213,6 +268,8 @@ borrowed services/history/game resources remain owned by the host.
 8. Bind actual query/support/navigation/fire/consumer adapters independently.
    Saveable data, resolved boundaries and mesh availability grant none of them.
 
-Reproduce with tests/procedural-tiles.test.mjs, tools/tile-schemas.mjs, independent
+Reproduce with tests/procedural-tiles.test.mjs and
+tests/procedural-tile-corrections.test.mjs, tools/tile-schemas.mjs, independent
 schema cases and the explicit private installed proof, then the four repository
-gates. This headless checkpoint needs no server/browser/watcher.
+gates. The installed proof runs the correction suite through its installed entry.
+This headless checkpoint needs no server/browser/watcher.

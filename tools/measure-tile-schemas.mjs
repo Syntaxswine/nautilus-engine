@@ -10,4 +10,13 @@ for(const [schema,label,change]of [
   ['bundle','future bundle',v=>v.version=2],['bundle','missing complete recipes',v=>v.recipes=[]],['bundle','forged compiled proof',v=>v.compiled={accepted:true}],
   ['compiled','unknown compiled field',v=>v.extra=1],['compiled','false support claim',v=>v.statuses.gameplay.support='available'],['compiled','unknown compiled version',v=>v.version=2]
 ]){const source=schema==='recipe'?yard.recipes[0]:schema==='layout'?prepared.next.bundle.layout:schema==='bundle'?prepared.next.bundle:prepared.next.compiled,value=clone(source);change(value);add(schema,label,value,false);}
+for(const values of [[1,-1000,1,-1000],[1e-9,-1,1e-9,-1],[1,-2,3,-4],[0,-1,0,-1],[-1000000,1,-.001,1],[-1,0,-1,0]]){
+  const r=field('unsupported-schema',5);r.shape.values=values;for(const p of r.ports)p.boundary.normal.field=clone(r.shape);
+  add('recipe','unsupported checkerboard shape '+values,r,false);
+  const normal=region('normal-schema');normal.ports[0].boundary.normal={kind:'field-cell',field:clone(r.shape)};add('recipe','unsupported embedded normal '+values,normal,false);
+  const bundle=clone(prepared.next.bundle);bundle.recipes.push(r);add('bundle','unsupported embedded bundle field '+values,bundle,false);
+  const compiled=clone(prepared.next.compiled);compiled.instances[0].shape=clone(r.shape);add('compiled','unsupported compiled source shape '+values,compiled,false);
+}
+for(const mask of [5,10])for(const saddle of ['connect-positive','connect-negative']){const r=field('binary-schema',mask);r.shape.saddle=saddle;for(const p of r.ports)p.boundary.normal.field=clone(r.shape);add('recipe','supported binary saddle '+mask+' '+saddle,r);}
+for(const values of [[1,-1000,-.001,7],[0,1,0,1],[0,0,0,0]]){const r=field('general-schema');r.shape.values=values;for(const p of r.ports)p.boundary.normal.field=clone(r.shape);add('recipe','supported general non-checkerboard '+values,r);}
 const future=clone(prepared.next.bundle.layout);future.extensions.futureEditor={rawControls:[.123456789,3.5000000001],queue:['keep','keep']};add('layout','unknown bounded authoring extensions retained',future);const unresolved=clone(prepared.next.bundle.layout);unresolved.instances[0].origin[0]+=1;add('layout','structural schema is not a persisted join proof',unresolved);const folder=new URL('../artifacts/procedural-tiles/',import.meta.url);fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(new URL('schema-cases.json',folder),JSON.stringify(cases,null,2)+'\n');console.log(JSON.stringify({status:'pass',schemas:4,cases:cases.length}));

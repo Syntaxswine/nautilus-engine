@@ -53,3 +53,16 @@ Root owns proposed ./tiles, four recipe/layout/bundle/compiled v1 registrations,
 engine-only capability, whitelist/version/CI integration. Those stay unapplied
 here; private overlay is partial availability. No renderer/editor adoption,
 consumer pin, release, other worktree or private audience change is proposed.
+
+Architect's focused correction approval, 2026-10-31: preserve the initial
+4a027bf00019c0a8e9c2b862b47b17943ae32ee2 history and refuse unsupported ambiguous
+field conditioning. Binary checkerboards have full path/barrier evidence across
+both saddle choices, D4/complement and allowed variation; general non-checkerboard
+values and wider analytic curves remain available. Include every original
+compound start's deviation from the actual returned node and charge its work.
+Carry only unchanged geometric contacts; revalidate each changed/new contact
+against its actual finite joined boundary or measured relation, without pair-wide
+waivers. Automatic join coverage is conservatively limited to proved straight
+axis-aligned lateral spans/thickness; other valid joins receive actionable repair
+refusals. The guide defines these limits. No new schema ID, capability or root
+registration is part of this pass.
