@@ -57,3 +57,7 @@ The optional `./adapters/farmyard/doors/three` entry ships in renderer/compatibi
 ## Installed procedural tiles
 
 npm run test:tiles packs and installs the actual declared core offline through ./tiles, with all four registered schema documents, the engine-only capability and the explicit support whitelist. It checks mixed retained-host save/repair behavior and all 11 correction regressions through the installed entry. The default command cannot use a private export overlay. Test fixtures, art studies and browser/editor providers remain outside this runtime closure. The temporary consumer is removed in finally.
+
+## Experimental A/B source
+
+The A/B tile candidate is available in the source repository. Normal core, renderer and compatibility distributions retain the registered v1 API and exclude candidate-v2.js, its five candidate helpers and all four v2 schemas. From a source checkout, npm run test:tiles:v2:candidate constructs an explicitly private offline package, checks all installed hashes and runs the complete candidate runtime suite. Its default mode refuses missing public registration. This source/CI evidence does not grant v2 availability to installed engine consumers.

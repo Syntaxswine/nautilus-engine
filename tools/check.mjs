@@ -18,6 +18,7 @@ import {partsSchemas} from './parts-schemas.mjs';
 import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
 import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
 import {checkProceduralTiles} from './check-procedural-tiles.mjs';
+import {checkTileV2} from './check-tile-v2.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -133,3 +134,6 @@ console.log('Verified '+farmyardCopies+' byte-preserved Farmyard conformance mod
 
 const tiles=checkProceduralTiles();
 console.log('Verified procedural tiles: '+JSON.stringify({modules:tiles.runtime.length,bytes:tiles.runtimeBytes,schemas:tiles.schemas.length,sourceFiles:tiles.sourceFiles,headless:true}));
+
+const tileV2=checkTileV2();
+console.log('Verified A/B tile candidate source: '+JSON.stringify({declared:tileV2.declared,modules:tileV2.runtime.length,bytes:tileV2.runtimeBytes,unchangedV1Files:tileV2.unchangedV1Files}));

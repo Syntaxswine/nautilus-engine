@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {moduleClosure} from './distribution.mjs';
+import {tileV2Schemas} from './tile-v2-schemas.mjs';
+import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
+const root=fileURLToPath(new URL('../',import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
+export function checkTileV2(){
+  const golden=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/procedural-tiles/v2-golden-v1.json'))),request=JSON.parse(fs.readFileSync(path.join(root,'docs/reviews/procedural-tiles/v2-registration-request.json'))),pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json')));for(const f of golden.files)if(sha(fs.readFileSync(path.join(root,f.file)))!==f.sha256)throw Error('Accepted v1 bytes changed: '+f.file);
+  if(pkg.exports['./tiles']!==request.registeredV1EntryRemains||request.schemas.some(s=>schemaDocuments().some(d=>d.uri===s.uri)))throw Error('Root registration changed; candidate proof must not imply that unapplied registration is accepted.');
+  for(const {file,schema}of tileV2Schemas())if(fs.readFileSync(path.join(root,file),'utf8')!==JSON.stringify(schema,null,2)+'\n')throw Error('Candidate schema drift: '+file);
+  const files=moduleClosure(['packages/tiles-core/candidate-v2.js']);if(files.some(f=>!f.startsWith('packages/tiles-core/')&&f!=='packages/parts-core/hash.js'))throw Error('Candidate closure reaches an unexpected dependency.');const runtime=files.map(file=>{const bytes=fs.readFileSync(path.join(root,file));return {file,bytes:bytes.length,sha256:sha(bytes)};});
+  const probe=spawnSync(process.execPath,['--input-type=module','-e',`for(const key of ['window','document','navigator','THREE','fetch','localStorage','performance','setTimeout','setInterval'])Object.defineProperty(globalThis,key,{get(){throw Error(key)}});Math.random=()=>{throw Error('game RNG')};Date.now=()=>{throw Error('clock')};const T=await import('./packages/tiles-core/candidate-v2.js'),F=await import('./tests/fixtures/procedural-tiles/v2.mjs');const s=F.mixedV2(T);if(T.openTileBundle(s.bundle).ok)throw Error('false readiness');T.inspectTileZeroExposure(F.zeroPair(T),{collarM:.125,residentA:true,residentB:true,maxWork:100000});`],{cwd:root,encoding:'utf8',windowsHide:true,timeout:20000});if(probe.status!==0)throw Error('Candidate headless probe refused: '+probe.stderr);
+  return {status:'pass',declared:false,base:golden.base,runtime,runtimeBytes:runtime.reduce((n,f)=>n+f.bytes,0),schemas:request.schemas,unchangedV1Files:golden.files.length,availability:'Private A/B candidate; v2 requireResolved and live adoption remain unavailable.'};
+}
+if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){const report=checkTileV2();if(process.argv.includes('--write')){const folder=path.join(root,'artifacts/procedural-tiles-v2');fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(path.join(folder,'source-closure-report.json'),JSON.stringify(report,null,2)+'\n');}console.log(JSON.stringify({status:report.status,declared:report.declared,modules:report.runtime.length,bytes:report.runtimeBytes,unchangedV1Files:report.unchangedV1Files}));}
