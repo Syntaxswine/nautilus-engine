@@ -47,7 +47,8 @@
     "./adapters/farmyard/doors/three": "./packages/door-visuals/three.js",
     "./windows": "./packages/windows-core/index.js",
     "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js",
-    "./tiles": "./packages/tiles-core/index.js"
+    "./tiles": "./packages/tiles-core/index.js",
+    "./windows/authoring": "./packages/windows-authoring/index.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -82,12 +83,15 @@
     "docs/reviews/grenade-presentation/provider.md",
     "docs/reviews/procedural-tiles/registration-request.json",
     "docs/reviews/procedural-tiles/source-audit.json",
+    "docs/reviews/window-authoring/dependencies.json",
+    "docs/reviews/window-authoring/registration-request.json",
     "docs/rock-distraction.md",
     "docs/runtime-modules.md",
     "docs/standard-interactions.md",
     "docs/ui/grenade-controls.md",
     "docs/ui/grenade-controls.sources.json",
     "docs/ui/grenade-existing-assets.json",
+    "docs/window-authoring.md",
     "packages/adapters/farmyard/doors.js",
     "packages/adapters/farmyard/doors/data.js",
     "packages/adapters/farmyard/doors/door-host-save-v1.schema.json",
@@ -223,6 +227,13 @@
     "packages/tiles-core/tile-bundle-v1.schema.json",
     "packages/tiles-core/tile-layout-v1.schema.json",
     "packages/tiles-core/tile-recipe-v1.schema.json",
+    "packages/windows-authoring/commands.js",
+    "packages/windows-authoring/data.js",
+    "packages/windows-authoring/document.js",
+    "packages/windows-authoring/index.js",
+    "packages/windows-authoring/journal.js",
+    "packages/windows-authoring/prepare.js",
+    "packages/windows-authoring/window-authoring-v1.schema.json",
     "packages/windows-core/compatibility.js",
     "packages/windows-core/compiler.js",
     "packages/windows-core/contract.js",
@@ -394,7 +405,8 @@
     "review:doors:installed": "node tools/review-farmyard-door-installed.mjs",
     "test:windows": "node tools/test-farmyard-window-impacts-package.mjs",
     "test:tiles": "node tools/test-procedural-tiles-package.mjs",
-    "test:tiles:v2:candidate": "node tools/test-tile-v2-package.mjs --candidate"
+    "test:tiles:v2:candidate": "node tools/test-tile-v2-package.mjs --candidate",
+    "test:windows:authoring": "node tools/test-window-authoring-package.mjs"
   },
   "engines": {
     "node": ">=22"

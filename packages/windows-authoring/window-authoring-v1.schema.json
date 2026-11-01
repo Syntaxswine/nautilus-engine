@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:window-authoring:1",
+  "title": "Map-only native window authoring v1",
+  "description": "New closed authoring wrapper, not runtime pane state. Executable validation additionally enforces aggregate 8 MB / 500000 nodes / depth 24, the base 4 MB limit, native definitions/geometry/identities, semantic occupancy and recursive refusal of embedded legacy pane authorities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "worldId",
+    "profileId",
+    "definitions",
+    "baseBlueprint",
+    "placements",
+    "bindings"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-window-authoring"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "worldId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "profileId": {
+      "const": "farmyard-quarter-turn-first-hit-pane-v1"
+    },
+    "definitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceCommit",
+        "version"
+      ],
+      "properties": {
+        "sourceCommit": {
+          "const": "251bf8094b5f9ebe44208443084c1a6d6658512a"
+        },
+        "version": {
+          "const": "industrial-windows/2"
+        }
+      }
+    },
+    "baseBlueprint": {
+      "$ref": "urn:nautilus:schema:map:2",
+      "not": {
+        "anyOf": [
+          {
+            "required": ["kind"],
+            "properties": {"kind": {"const": "red-shift-block"}}
+          },
+          {
+            "required": [
+              "farmyardWindows"
+            ]
+          },
+          {
+            "required": [
+              "windows"
+            ]
+          },
+          {
+            "required": [
+              "windowBreaks"
+            ]
+          },
+          {
+            "required": [
+              "windowSequence"
+            ]
+          },
+          {
+            "required": [
+              "windowEvents"
+            ]
+          },
+          {
+            "required": [
+              "windowState"
+            ]
+          },
+          {
+            "required": [
+              "windowPaneState"
+            ]
+          }
+        ]
+      }
+    },
+    "placements": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "definitionId",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "definitionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "const": 0
+          },
+          "rotation": {
+            "enum": [
+              0,
+              90,
+              180,
+              270
+            ]
+          },
+          "joins": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "left": {
+                "type": "boolean"
+              },
+              "right": {
+                "type": "boolean"
+              }
+            }
+          },
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "width",
+              "height"
+            ],
+            "properties": {
+              "width": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 240
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "finish": {
+            "enum": [
+              "steel",
+              "sage",
+              "ivory"
+            ]
+          },
+          "wall": {
+            "enum": [
+              "brick",
+              "concrete",
+              "corrugated"
+            ]
+          }
+        }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "placementId",
+          "engineInstanceId"
+        ],
+        "properties": {
+          "placementId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "engineInstanceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 24,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          }
+        }
+      }
+    }
+  }
+}

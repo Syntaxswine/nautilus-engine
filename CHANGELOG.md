@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add optional registered headless window authoring with complete base-map/underlay preservation, native configuration and transactional commands/history.
+- Register its single v1 schema and exact runtime/support closure, and prove the actual declared package in CI while retaining explicit presentation and live-host boundaries.
+
 - Add reviewed A/B tile candidate source with typed future authoring records, bounded shared render-edge plans and conservative native zero-edge evidence; keep v2 unresolved and outside the distributed API.
 - Test the private installed candidate explicitly in CI, preserving all eighteen accepted v1 runtime/schema files and public v1 registration.
 
