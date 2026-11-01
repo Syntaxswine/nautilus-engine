@@ -1,0 +1,37 @@
+name: Starter capture probe
+on:
+  push:
+    branches:
+      - claude/starter-capture-probe
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    strategy:
+      fail-fast: false
+      matrix:
+        job: [1, 2, 3, 4, 5, 6]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: node tools/probe-starter-capture.mjs
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-starter-probe
+          PROBE_JOB: ${{ matrix.job }}
+          PROBE_CYCLES: '100'
+          PROBE_BUDGET_MINUTES: '45'
+          PROBE_ARMS: '{"main":"close,front,visible,paint,state","fixed":"close,front,visible,paint,state,event"}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: starter-probe-${{ matrix.job }}
+          path: artifacts/starter-probe/
+          if-no-files-found: error

@@ -13,7 +13,11 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  assert.equal(await page.locator('[data-action=continue]').isDisabled(),true);
  await page.screenshot({path:path.join(out,'title-desktop.png'),fullPage:true});
  await page.locator('[data-action=settings]').click();await page.locator('#auto-walk').uncheck();await page.getByRole('button',{name:'Apply',exact:true}).click();
- await page.locator('[data-action=credits]').click();assert.equal(await page.locator('.ng-dialog[open]').count(),1);await page.keyboard.press('Escape');
+ await page.locator('[data-action=credits]').click();assert.equal(await page.locator('.ng-dialog[open]').count(),1);
+ // Escape returns before the dialog's close event, whose handler refocuses Credits: focus taken in that gap is lost and Enter reopens Credits.
+ // Focus already on Credits proves nothing, because the browser restores it inside close(); only the event does.
+ await page.evaluate(()=>{window.creditsClosed=false;document.querySelector('.ng-dialog[open]').addEventListener('close',()=>{window.creditsClosed=true;},{once:true});});
+ await page.keyboard.press('Escape');await page.waitForFunction(()=>window.creditsClosed);assert.equal(await page.evaluate(()=>document.activeElement.dataset.action),'credits');
  await page.locator('[data-action=start]').focus();await page.keyboard.press('Enter');await page.locator('#game').waitFor({state:'visible'});
  assert.equal(await page.evaluate(()=>document.activeElement.id),'yard');
  await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');
@@ -149,7 +153,7 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
    const mobile=await phone.newPage();mobile.on('pageerror',error=>errors.push(error.message));mobile.on('console',msg=>{if(msg.type()==='error')errors.push(msg.text());});mobile.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
    await mobile.bringToFront();
    await mobile.goto(url);await mobile.locator('[data-action=start]').waitFor({state:'visible'});await mobile.waitForFunction(()=>!document.querySelector('[data-action=start]').disabled);
-   // JS readiness does not establish that the new mobile surface has painted.
+   // JS readiness does not establish paint: a capture in a new page's first frames can come back empty while another page is open.
    await mobile.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});
    const captureSession=await phone.newCDPSession(mobile);let layoutMetrics;
    try{layoutMetrics=await captureSession.send('Page.getLayoutMetrics');}finally{await captureSession.detach();}
