@@ -18,13 +18,13 @@ This is a separate wrapper, not an extension of parts-v1 or world-v1. Embedded `
 
 ## Native space and identities
 
-Definitions remain fixed to Farmyard source `251bf8094b5f9ebe44208443084c1a6d6658512a`, version `industrial-windows/2`, profile `farmyard-quarter-turn-first-hit-pane-v1`. There are 39 presets and the configurable `window.full.borderless` template. The retained [catalogue facts](../tests/fixtures/window-authoring/source-catalogue.json) are original preparation evidence from `9f525026f3185e0dce8115ce3a69f3a175ec7cf4`; historical metadata in those bytes is unchanged. [Extraction provenance](reviews/window-authoring/dependencies.json) records the two copied fixtures and small headless journal extraction from `136e3ae7227b8b280e452fc9bcd5f11c3d91ac02`.
+Definitions remain fixed to Farmyard source `251bf8094b5f9ebe44208443084c1a6d6658512a`, version `industrial-windows/2`, profile `farmyard-quarter-turn-first-hit-pane-v1`. There are 39 presets and the configurable `window.full.borderless` template. Inspect `FARMYARD_WINDOW_CATALOGUE` and resolve each preset through `FARMYARD_WINDOW_DEFINITIONS` from the public `@nautilus-engine/core/adapters/farmyard/windows` entry, as the example below does. [Extraction provenance](reviews/window-authoring/dependencies.json) records the small headless journal extraction from `136e3ae7227b8b280e452fc9bcd5f11c3d91ac02` and the original comparison fixtures from `9f525026f3185e0dce8115ce3a69f3a175ec7cf4`. Those fixtures retain their original bytes and historical metadata as test-only inputs; they are excluded from runtime packages and staged separately into the temporary installed-proof consumer.
 
 Placement uses native planar metre `x,y`, vertical metre geometry and ground floor only. Source `z` is a layer index and only zero is supported. Positive quarter turns around +Y map a planar offset `(dx,dy)` to `(dy,-dx)`. The `quarter-turn` command requires an explicit native metre pivot; it never rounds or snaps invalid results. Upper floors, nonzero actor/prop layers, stairs and climbs remain saveable base data but prevent a nonempty-pane handoff. No layer-to-metre conversion or scale correction is guessed.
 
 For a window of integer native width `w`, `windowPlacementAtEdge` starts its span at the selected cell: `s:x:y` gives centre `(x+(w-1)/2,y+.5)`; `e:x:y` gives `(x+.5,y+(w-1)/2)`. Axis-compatible rotations are 0/180 or 90/270. Full native placement IDs stay intact (up to 96 characters, no slash); every placement has a distinct explicit visual alias of at most 24 characters. Copies require new IDs and aliases and carry authored configuration only.
 
-Full native presets are 2.12 m tall, distinct from the inherited 2 m wall. Native wall thickness is .20 m, frame depth .16 m and glass thickness .008 m. A template height entered as 5 metres stays 5 m; 5 storeys explicitly uses the source conversion to 10.6 m. It remains one pane, without invented mullions. Joins are explicit left/right values; adjacent placement does not auto-edit its neighbor. Dimensions do not rescale the base or imply a traversal policy.
+Framed full and waist presets have a 2 m overall height; borderless presets are 2.12 m tall. Native lower-wall thickness is .16 m, frame depth .20 m and glass thickness .008 m. A template height entered as 5 metres stays 5 m; 5 storeys explicitly uses the source conversion to 10.6 m. It remains one pane, without invented mullions. Joins are explicit left/right values; adjacent placement does not auto-edit its neighbor. Dimensions do not rescale the base or imply a traversal policy.
 
 The earlier compact/period decorative sash sculptures at commit `90054d07134116a5d9661f8318a76fe68f922aad`, `packages/window-kit/index.js` and `three.js`, are **2 m complete wall bays: .5 m flank + 1 m opening + .5 m flank**. Their IDs are `window-bay-compact` and `window-bay-period`. They are different assets from a 2 m glazing preset in this native catalogue; this authoring checkpoint does not import or reinterpret those sculptures.
 
@@ -39,12 +39,19 @@ These are the proposed public imports after Root registration. Today the install
 ```js
 import {blankMap} from '@nautilus-engine/core';
 import {
+  FARMYARD_WINDOW_CATALOGUE, FARMYARD_WINDOW_DEFINITIONS
+} from '@nautilus-engine/core/adapters/farmyard/windows';
+import {
   createWindowAuthoring, createWindowAuthoringDocument,
   windowPlacementAtEdge, windowAuthoringDimensions,
   windowAuthoringGeometryProjection, openWindowAuthoring,
   windowAuthoringUsageCard
 } from '@nautilus-engine/core/windows/authoring';
 
+const catalogue = FARMYARD_WINDOW_CATALOGUE.presets.map(({id}) => {
+  const {width,height} = FARMYARD_WINDOW_DEFINITIONS.resolve({id});
+  return {id,widthM:width,heightM:height};
+});
 const base = blankMap('Window study');
 base.edges = {'s:20:21':'wall-brick'};
 base.metadata = {retained:{hp:37,ap:0,clock:.125}};
@@ -98,4 +105,4 @@ Nonempty legacy map, block, generation and unsupported consumer handoffs refuse.
 
 For this bounded Farmyard pane-authoring use case, prefer the fixed native compiler plus lossless base underlay to resizing windows to fit old wall art or extending old runtime fields. **Accuracy:** source dimensions, semantic doors and explicit pivots agree with the accepted native model, while real traversal/body/physical glass behavior remains host policy. **Efficiency:** bounded full-document preparations/history avoid another live simulation; copying/compilation costs grow with the base and panes (code-based estimate, no frame-rate claim). **Narrative:** explicit presets/finishes and the tall sheet preserve Farmyard's industrial appearance; Tinderbox's decorative sash bays remain separate compatible art (subjective preference). Richer multilevel/traversal policies need their own reviewed profile rather than silent conversion.
 
-Focused tests are `tests/window-authoring.test.mjs`; executable fixtures are `tools/fixtures/window-authoring.mjs`. `node tools/test-window-authoring-package.mjs --candidate` records a clearly private installed overlay, plain projection crossing a physical package boundary, guide/schema URLs and cleanup. After Root registration the same tool without `--candidate` must prove the actual declared core. Independent Draft 2020-12 cases and the four required gates are recorded in the checkpoint review. No browser evidence is claimed because no presentation/chrome changes are included.
+Source-checkout tests are `tests/window-authoring.test.mjs`; executable fixtures are `tools/fixtures/window-authoring.mjs`. `node tools/test-window-authoring-package.mjs --candidate` records a clearly private installed overlay, plain projection crossing a physical package boundary, guide/schema URLs and cleanup. It stages the two historical comparison fixtures into the temporary consumer, verifies their original hashes, and checks their absence from both installed runtime packages. After Root registration the same tool without `--candidate` must prove the actual declared core. Independent Draft 2020-12 cases and the four required gates are recorded in the checkpoint review. No browser evidence is claimed because no presentation/chrome changes are included.

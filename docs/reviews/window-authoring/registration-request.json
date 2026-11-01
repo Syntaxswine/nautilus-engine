@@ -29,10 +29,13 @@
     "packages/windows-authoring/window-authoring-v1.schema.json",
     "docs/window-authoring.md",
     "docs/reviews/window-authoring/registration-request.json",
-    "docs/reviews/window-authoring/dependencies.json",
+    "docs/reviews/window-authoring/dependencies.json"
+  ],
+  "testOnlyInputs": [
     "tests/fixtures/window-authoring/source-catalogue.json",
     "tests/fixtures/window-authoring/source-underlay.json"
   ],
+  "testInputPolicy": "Exclude comparison/proof fixtures from runtime packages. Preserve their original hashes and stage them only into the temporary installed consumer; builder catalogue inspection uses public APIs.",
   "rootOwnedChanges": [
     "Register the single optional export in package.json",
     "Register the single authoring schema ID/version/URI/URL in the shared schema tables and manifest",

@@ -36,3 +36,15 @@ Native presenter integration, editor chrome, live actor-body measurements, trave
 The earlier decorative compact/period sash assets are a distinct fixed art checkpoint at `90054d07134116a5d9661f8318a76fe68f922aad`: `packages/window-kit/index.js` and `three.js`. Both are 2 m complete bays (.5 m wall + 1 m opening + .5 m wall); this authoring candidate neither imports nor rescales them. Native Farmyard catalogue dimensions remain unchanged.
 
 The installed tool removed its temporary stage/consumer in `finally` and verified removal. No preview/browser/server/watchers or retained helper were launched. Isolated schema dependencies, local logs and package archives are data artifacts only. No deployment was requested or performed. Branch delivery ends at this fixed checkpoint for Architect review.
+
+## Publication correction — 31 October 2026
+
+The focused `codex/window-authoring-publication` branch descends from preserved checkpoint `5276df04270efaab0ed1106b763421d285c1526c`. Architect's independent review passed all 23 authoring tests and requested two publication corrections. Runtime authoring code and original comparison fixture bytes remain unchanged.
+
+The builder guide now reports the fixed provider's native overall heights: framed full/waist presets 2 m, borderless presets 2.12 m. Lower-wall thickness is .16 m, frame depth .20 m and glass thickness .008 m. The guide's installed example inspects all 39 presets through the existing public catalogue/definition APIs; no geometry is normalized or rescaled.
+
+The registration request's runtime support list now excludes both historical fixtures. Provenance explicitly marks them test-only. The proof tool verifies their original hashes, stages both in the temporary consumer's `comparison-fixtures` directory, compares the installed public catalogue and retained underlay against them, and checks that both installed packages contain no window-authoring test/proof fixtures. Usage-card guide/schema/request URLs still resolve without the fixtures. No replacement public evidence format is introduced.
+
+The package-support regression failed against the earlier request and passed after correction. The corrected private installed proof passes all 39 preset comparisons, the six explicit native dimension assertions, underlay removal/round-trip and both installed-package exclusion checks. All 19 independent structural schema cases also pass. Private-overlay status remains explicit; actual declared registration/proof stays with Architect. Renderer, editor chrome and portable-base-to-complete-game adoption remain unimplemented.
+
+All four mandatory gates passed again on this correction: `npm run check`; `npm test` (650 passed, including 23 authoring tests); `npm run test:upstream` (32 passed); and `npm run build` (452 module paths). Default installed proof still refuses `AUTHORING_REGISTRATION_PENDING` as intended. Temporary consumer/comparison fixtures were removed in `finally`; no preview server, browser or retained helper was launched. Delivery stops for Architect recheck with no root registration, version, CI or Smart Tile changes.

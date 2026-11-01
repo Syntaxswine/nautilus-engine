@@ -188,6 +188,7 @@ test('complete retained base requirements cannot be omitted by a pane-capable co
 test('installed support metadata links the schema/guide and fixed facts keep their original hashes',()=>{
   const card=A.windowAuthoringUsageCard(),request=JSON.parse(fs.readFileSync(new URL(card.registration))),dependencies=JSON.parse(fs.readFileSync(new URL('../docs/reviews/window-authoring/dependencies.json',import.meta.url)));
   assert.equal(card.schemaUri,A.WINDOW_AUTHORING_CONTRACT.schemaUri);assert.equal(JSON.parse(fs.readFileSync(new URL(card.schema))).$id,card.schemaUri);assert.match(fs.readFileSync(new URL(card.guide),'utf8'),/adopted:false/);assert.equal(request.engineCapability,null);
+  assert.equal(request.packageSupport.some(file=>file.startsWith('tests/fixtures/window-authoring/')),false,'Historical comparison inputs must remain outside runtime packages.');
   for(const file of dependencies.sourceFacts.files){const bytes=fs.readFileSync(new URL('../'+file.target,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),file.sha256);}
   const fragment=JSON.parse(fs.readFileSync(new URL('./fixtures/window-authoring/source-underlay.json',import.meta.url)));assert.deepEqual(fixture().baseBlueprint.edges,fragment.beforeEdges);assert.deepEqual(fragment.afterRemoveEdges,fragment.beforeEdges);
 });
