@@ -1,0 +1,38 @@
+.smart-tile-panel{--st-paper:#ece7d2;--st-ink:#f3efde;--st-muted:#c1cbb8;--st-panel:#20392f;--st-line:#71806a;--st-accent:#e0c487;color:var(--st-ink);background:var(--st-panel);border:1px solid var(--st-line);border-radius:8px;padding:20px;font:15px/1.5 system-ui,sans-serif;max-width:720px;min-width:0;box-sizing:border-box}
+.smart-tile-panel *{box-sizing:border-box}
+.smart-tile-panel [hidden]{display:none!important}
+.smart-tile-panel h2{font:30px/1.2 Georgia,serif;margin:0 0 8px;color:var(--st-paper)}
+.smart-tile-panel h3{font-size:16px;margin:22px 0 10px}
+.smart-tile-panel p{margin:8px 0;overflow-wrap:anywhere}
+.smart-tile-panel .st-intro,.smart-tile-panel .st-hint{color:var(--st-muted);font-size:13px}
+.smart-tile-panel .st-phase{display:block;border-left:4px solid var(--st-accent);padding:9px 12px;background:#14291f;margin:16px 0 8px;font-weight:650}
+.smart-tile-panel label{display:flex;flex-direction:column;gap:5px;margin:10px 0;font-size:14px;min-width:0}
+.smart-tile-panel input,.smart-tile-panel select,.smart-tile-panel textarea,.smart-tile-panel button{font:inherit;min-height:44px;max-width:100%;color:inherit;border:1px solid var(--st-line);border-radius:5px;background:#152c23;padding:9px 11px}
+.smart-tile-panel input,.smart-tile-panel select,.smart-tile-panel textarea{width:100%;min-width:0}
+.smart-tile-panel textarea{resize:vertical;overflow-wrap:anywhere;font:13px/1.5 ui-monospace,monospace}
+.smart-tile-panel button{cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.smart-tile-panel button:hover:enabled{background:#3a5140;border-color:var(--st-accent)}
+.smart-tile-panel button:disabled,.smart-tile-panel fieldset:disabled{opacity:.55;cursor:default}
+.smart-tile-panel :focus-visible{outline:3px solid var(--st-accent);outline-offset:3px}
+.smart-tile-panel .st-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.smart-tile-panel .st-tools button[aria-pressed=true]{background:#705538;border-color:var(--st-accent)}
+.smart-tile-panel .st-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.smart-tile-panel fieldset{border:1px solid var(--st-line);border-radius:6px;padding:12px;margin:18px 0;min-width:0}
+.smart-tile-panel legend{padding:0 6px;font-weight:600}
+.smart-tile-panel details{border-top:1px solid var(--st-line);padding-top:10px;margin-top:16px}
+.smart-tile-panel summary{cursor:pointer;min-height:44px;display:list-item;padding:10px 0;overflow-wrap:anywhere}
+.smart-tile-panel .st-actions,.smart-tile-panel .st-secondary{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.smart-tile-panel .st-actions button,.smart-tile-panel .st-secondary button{flex:1 1 100px}
+.smart-tile-panel [data-action=apply]{background:#dec28b;color:#213227;font-weight:700}
+.smart-tile-panel .st-actions{position:sticky;bottom:0;background:var(--st-panel);border-top:1px solid var(--st-line);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:1}
+.smart-tile-panel .st-fault{border:2px solid #f0b297;background:#3f2d27;padding:10px}
+.smart-tile-panel .st-diagnostics{padding:0;list-style:none;margin:0}
+.smart-tile-panel .st-diagnostics li{border:1px dashed #d5b68c;padding:10px;margin:8px 0;overflow-wrap:anywhere}
+.smart-tile-panel .st-diagnostics strong{color:#ffe0b0}
+.smart-tile-panel .st-repair{font-size:13px;border-left:3px solid var(--st-accent);padding-left:8px}
+.smart-tile-panel .st-readiness{display:grid;grid-template-columns:minmax(80px,1fr) minmax(0,2fr);margin:0;gap:1px}
+.smart-tile-panel .st-readiness dt,.smart-tile-panel .st-readiness dd{padding:7px 8px;margin:0;overflow-wrap:anywhere;background:#182f25}
+.smart-tile-panel .st-readiness dt{font-weight:600}
+@media(max-width:420px){.smart-tile-panel{padding:14px;font-size:14px}.smart-tile-panel .st-tools{grid-template-columns:1fr}.smart-tile-panel .st-fields{gap:0 8px}.smart-tile-panel .st-readiness{grid-template-columns:minmax(75px,1fr) minmax(0,1.6fr)}}
+@media(prefers-reduced-motion:reduce){.smart-tile-panel *{scroll-behavior:auto;transition:none}}
+@media(forced-colors:active){.smart-tile-panel [aria-pressed=true]{outline:3px solid Highlight}.smart-tile-panel .st-phase{border-color:Highlight}}

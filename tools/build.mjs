@@ -78,6 +78,9 @@ fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: 
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});
 fs.cpSync(path.join(root, 'examples'), path.join(output, 'examples'), {recursive: true});
+// Isolated Smart Tile reference host keeps its application-relative closure;
+// this does not mount it in or change the inherited map workshop.
+fs.cpSync(path.join(root,'apps/editor/smart-tile'),path.join(output,'apps/editor/smart-tile'),{recursive:true});
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
 const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};

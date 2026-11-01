@@ -1,0 +1,13 @@
+# Checkpoint authority correction
+
+Foundation: `5c4e6964fdccf3b7df79a87dd1cefd8e82ee9e1a`, fixed reviewed runtime base `0fbc5c3630e257dfcd7a6ea82027634dfe6989b6`. This correction changes only Editor-local checkpoint validation and its conformance evidence. The adapter, checkpoint fields and public tile runtime remain unchanged.
+
+Root reproduced a foreign target layout ID and ordinary opening of a committed checkpoint whose receipt digest/outcome contradicted its retained document. Both cases now refuse. Every operation retains the layout identity and native floor table. Edit requests retain the captured context, source layout revision/digest, catalogue digest and exactly one prospective revision; saved layout extensions remain intact. History restores bind their exact target document digest.
+
+Opening checks each committed target against its receipt's complete document digest, checks refusal chains against unchanged accepted documents, checks all subsequent before-tokens once a committed target is known, and binds the final receipt to the retained document. When no operation committed, the unchanged retained document supplies every before-token. The original initial bundle is not duplicated before the first committed target; refused prefixes before that target retain one consistent document digest. These are consistency checks, not a signature or resolver replay. The live retained controller must still use its actual public-core prepared handle and final write fence.
+
+Focused conformance: 15 passing cases. New counterexamples cover foreign layout identity, changed source revision/digests/context, changed prospective revision, zeroed receipt document digest, contradictory committed/refused outcomes, altered final document and a multi-operation receipt chain. Positive committed, refused, pending, serialization and same-ID recovery cases remain covered.
+
+Validation: `npm run check` passed; `npm test` passed 840 cases (including 10 still-uncommitted controller cases, which are not part of this focused checkpoint); `npm run test:upstream` passed 32 cases; `npm run build` passed (501 module paths). The focused 15 cases were repeated after adding the exact UI declarations and malformed-receipt guard. No browser/interactive acceptance is claimed by this authority-only correction.
+
+The fixed contract also records readiness `{state}` values and the confirmed visual revision, aggregate acquiring/retiring resource fields, the optional `lockOwner` Review→Apply hook, and the current-authority reopen boundary. The 15 required methods and interface version remain unchanged. UI owns presentation/controls only; the Editor retains the sole canvas gesture, floor binding, history and persistence owner.

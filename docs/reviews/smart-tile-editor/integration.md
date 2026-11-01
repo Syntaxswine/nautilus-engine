@@ -1,0 +1,21 @@
+# Architect acceptance: isolated Smart Tile reference host
+
+The accepted source is `9e996f96b69ba4867e643b558e9fdfeaf752d19e`, a focused correction of `f7521d829de9e4ef971b0a087467c1cdaf565c9b`. Its foundation is `8aac00de19c80c1143945b4dd4f2a88e59e86013` and its exact UI is `e4196e43da9f7c480817b9ae22e237451d3c7a86`. The [source record](integration-sources.json) preserves all fifteen host files as unchanged committed Git objects. The original controller and correction reviews/evidence remain alongside this record.
+
+## Result and limits
+
+The isolated `examples/smart-tile-editor.html` uses actual public v1 core/preparation/Three entries. Rectangle, level line/arc/cubic and whole-owner Finish share one retained authority, combined Undo/Redo, complete checkpoints, owner locks and cancel-before-floor-change behavior. The original 240 m map remains verbatim; tiles remain a complete sibling bundle. The existing floor widget uses the three actual supplied floor records and can display up to five available labels. This does not extend the inherited workshop, author stacked floor intent, register private C2a, supply physics/navigation/fire/water, or adopt an engine pin in any game.
+
+Root's first focused review found three runtime defects: a UI-first held touch could admit later canvas construction; Escape/focus loss could clear held-contact quarantine; Finish could bind all recipe anchors instead of preserving the selected subset. The separate correction preserves the original witness/evidence and fixes those classes. Independent rechecks cover empty/proper anchor subsets through actual Apply/save and Undo/Redo, uncertain storage/recovery controls, UI-first ownership, held-contact cancellation and fresh-sequence recovery. Presentation ownership/budget/source-installed closure review remains accepted on unchanged runtime.
+
+Root integration changes tooling and documentation only: a portable npm resolver, accurate helper owner, current-source fingerprints, a global source fence, read-only matrix verification and a separate 15-minute CI job. The public packages, schemas, capabilities, upstream pins, version, release tags and private Sites audience stay unchanged. Installed packages are real offline distributions; copied journal/hash/floor DOM files are explicitly host helpers, not a public package claim.
+
+## Evidence
+
+Worker correction: all four gates, 875 engine tests, 32 upstream regressions and 27 actual-host browser checks per mode passed. Root combined checks pass: source integrity, 912 engine tests, 32 upstream regressions and a 519-module static build. Fresh isolated Edge runs pass all 27 checks per mode (81 total), with eighteen hashed captures; read-only matrix verification passes. All eight recorded local process lifetimes are absent, all three ports are released and the installed stage is removed. The PR records subsequent exact-head and promoted-main CI. Cross-mode comparison covers deterministic authority, readiness, owner descriptors, floor and history semantics. UUID-bearing full checkpoints and pixels are not claimed identical. Screenshots are individually hashed and visually reviewed. Each browser/server closes in finally with bounded expiry and cleanup receipts; no preview is retained.
+
+Raw CDP contact-teleport streams can omit a native compatibility click in both mounted and never-mounted controls. This unresolved harness/browser observation remains recorded with the original evidence. Complete browser gestures and native UI activation pass with the cancellation click guard retained; physical phones and performance are not certified.
+
+## Design decision
+
+Accuracy: retaining analytic controls, canonical boundaries, original anchor subsets and supplied floor elevations is preferable to reverse engineering sampled meshes. Efficiency: one coalesced latest intent, bounded repair and shared allocation accounting constrain work; these are code-based controls, not timing measurements. Narrative: the shared painterly materials and Farmyard-compatible panel are the preferred first reference presentation, a subjective choice. Preserve the AFT workflow independently while additional reusable tile families mature behind the same contracts.
