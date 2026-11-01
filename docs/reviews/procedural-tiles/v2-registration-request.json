@@ -1,23 +1,96 @@
 {
   "kind": "nautilus-tile-v2-registration-request",
   "version": 2,
-  "status": "Unapplied A/B candidate; Architect owns fixed review, final capability identity, public registration, whitelist and CI",
+  "status": "Unapplied A/B + C1 + C2a candidate; Architect owns public registration, capability, whitelist and integration",
   "proposalBase": "708ed1c14e69699e4baa4483cbc5a50901d5be4e",
   "reviewedBaseIncorporated": "69115f6c283c4c60588d8462b943ea944ab17aca",
   "preservedCorrection": "bdda3da7cdde3b155c76c661721d5b9d4aff542e",
   "c1ApprovedBase": "e4b5106f6967614ddc60661a6cdddde5d37b5c2b",
   "c1Status": "Architect-approved private root-only regularized planar lines candidate; no public registration or layout/live adoption",
-  "c1Budgets": {"maxGraphNodes":128,"maxDepth":12,"maxOperands":16,"maxLeaves":16,"maxRingsPerLeaf":8,"maxSegments":128,"maxPairTests":8128,"maxVertices":2048,"maxAtomicEdges":4096,"maxHalfEdges":8192,"maxContours":128,"maxBoundarySegments":4096,"maxProvenanceLinks":16384,"maxQueries":256,"maxSerializedBytes":4000000,"maxInputBits":128,"maxRationalBits":512,"maxIntermediateBits":4096,"maxWork":10000000},
-  "candidateEntry": {"./tiles": "./packages/tiles-core/candidate-v2.js"},
+  "c1Budgets": {
+    "maxGraphNodes": 128,
+    "maxDepth": 12,
+    "maxOperands": 16,
+    "maxLeaves": 16,
+    "maxRingsPerLeaf": 8,
+    "maxSegments": 128,
+    "maxPairTests": 8128,
+    "maxVertices": 2048,
+    "maxAtomicEdges": 4096,
+    "maxHalfEdges": 8192,
+    "maxContours": 128,
+    "maxBoundarySegments": 4096,
+    "maxProvenanceLinks": 16384,
+    "maxQueries": 256,
+    "maxSerializedBytes": 4000000,
+    "maxInputBits": 128,
+    "maxRationalBits": 512,
+    "maxIntermediateBits": 4096,
+    "maxWork": 10000000
+  },
+  "candidateEntry": {
+    "./tiles": "./packages/tiles-core/candidate-v2.js"
+  },
   "registeredV1EntryRemains": "./packages/tiles-core/index.js",
   "schemas": [
-    {"id":"nautilus-tile-recipe","version":2,"uri":"urn:nautilus:schema:tile-recipe:2","file":"packages/tiles-core/tile-recipe-v2.schema.json"},
-    {"id":"nautilus-tile-layout","version":2,"uri":"urn:nautilus:schema:tile-layout:2","file":"packages/tiles-core/tile-layout-v2.schema.json"},
-    {"id":"nautilus-tile-bundle","version":2,"uri":"urn:nautilus:schema:tile-bundle:2","file":"packages/tiles-core/tile-bundle-v2.schema.json"},
-    {"id":"nautilus-compiled-tiles","version":2,"uri":"urn:nautilus:schema:compiled-tiles:2","file":"packages/tiles-core/compiled-tiles-v2.schema.json"}
+    {
+      "id": "nautilus-tile-recipe",
+      "version": 2,
+      "uri": "urn:nautilus:schema:tile-recipe:2",
+      "file": "packages/tiles-core/tile-recipe-v2.schema.json"
+    },
+    {
+      "id": "nautilus-tile-layout",
+      "version": 2,
+      "uri": "urn:nautilus:schema:tile-layout:2",
+      "file": "packages/tiles-core/tile-layout-v2.schema.json"
+    },
+    {
+      "id": "nautilus-tile-bundle",
+      "version": 2,
+      "uri": "urn:nautilus:schema:tile-bundle:2",
+      "file": "packages/tiles-core/tile-bundle-v2.schema.json"
+    },
+    {
+      "id": "nautilus-compiled-tiles",
+      "version": 2,
+      "uri": "urn:nautilus:schema:compiled-tiles:2",
+      "file": "packages/tiles-core/compiled-tiles-v2.schema.json"
+    }
   ],
-  "engineCapability": {"id":null,"version":null,"status":"Architect decision deferred; no new root capability is declared","availableInspectionOnly":["typed saveable v2 intent with explicit version dispatch","bounded source-recompiled render-edge plans","independent bounded native-field zero-edge and collar evidence","bounded exact regularized C1 planar line-root geometry/classification"],"unavailable":["general/curved Boolean evaluator","ribbon evaluator","section evaluator","stair evaluator","graded/multi-surface cell evaluator","v2 layout resolution and live repair","renderer/game adoption"]},
-  "renderBudgets": {"cutFinalNodes":129,"portFinalNodes":4097,"totalFinalNodes":65536,"edges":16384,"bindings":65536,"workUnits":10000000,"rootTests":200000,"rootDepth":32,"eventsPerEdge":128,"meaning":"Separate caller-selected render workload, not authored semantic-chunk or scene-size limits. Full mandatory/refinement/event union counts. Preserve or refuse; never truncate a public port, relax v1 limits or shrink the requested window."},
+  "engineCapability": {
+    "id": null,
+    "version": null,
+    "status": "Architect decision deferred; no new root capability is declared",
+    "availableInspectionOnly": [
+      "typed saveable v2 intent with explicit version dispatch",
+      "bounded source-recompiled render-edge plans",
+      "independent bounded native-field zero-edge and collar evidence",
+      "bounded exact regularized C1 planar line-root geometry/classification",
+      "private C2a source-bound complete rectangle composition/preparation; no public adoption"
+    ],
+    "unavailable": [
+      "general/curved Boolean evaluator",
+      "ribbon evaluator",
+      "section evaluator",
+      "stair evaluator",
+      "graded/multi-surface cell evaluator",
+      "general v2 layout resolution and public live repair",
+      "renderer/game adoption"
+    ]
+  },
+  "renderBudgets": {
+    "cutFinalNodes": 129,
+    "portFinalNodes": 4097,
+    "totalFinalNodes": 65536,
+    "edges": 16384,
+    "bindings": 65536,
+    "workUnits": 10000000,
+    "rootTests": 200000,
+    "rootDepth": 32,
+    "eventsPerEdge": 128,
+    "meaning": "Separate caller-selected render workload, not authored semantic-chunk or scene-size limits. Full mandatory/refinement/event union counts. Preserve or refuse; never truncate a public port, relax v1 limits or shrink the requested window."
+  },
   "runtimeClosure": "Decode packages/tiles-core/candidate-v2.js with tools/check-tile-v2.mjs. Only tiles-core and existing parts-core/hash.js are allowed. Original v1 entry and its 14-module closure remain byte-identical to reviewedBaseIncorporated.",
   "supportFiles": [
     "NOTICE.md",
@@ -36,8 +109,11 @@
     "docs/reviews/procedural-tiles/registration-request.json",
     "docs/procedural-tiles-v2-candidate.md",
     "docs/procedural-tiles-c1-candidate.md",
-    "docs/reviews/procedural-tiles/v2-registration-request.json"
+    "docs/reviews/procedural-tiles/v2-registration-request.json",
+    "docs/procedural-tiles-c2a-candidate.md"
   ],
   "proof": "node tools/test-tile-v2-package.mjs --candidate: explicit private offline overlay only, including the unchanged v1 corpus and complete positive installed A/B test summary. Default refuses TILE_V2_REGISTRATION_PENDING before creating scratch directories. The private /baseline export is a proof-only alias and is not requested as a public export.",
-  "preserved": "No root entry/schema registry/capability/whitelist/version/CI change in C1. C1 is private root-only planar line evidence; no C2/ribbon/section/stair/curved evaluator, renderer/editor source, donor import/pin, consumer pin, release/tag or Sites audience change. All candidate v2 authored loads remain saveable/unresolved and requireResolved/live adoption refuse. Current conservative contact proof stays unchanged."
+  "preserved": "Public v1 bytes/behavior, registration, schemas, capability, whitelist, version and CI remain unchanged. C1 stays root-only. Explicit C2a groups may resolve/prepare only in the private candidate; group-free A/B and all broader native grammar remain unresolved. No renderer/Editor/game adoption, source/consumer pin, release/tag, Sites or other-worktree change.",
+  "c2aApprovedBase": "3f602272a3a2ecbe4ade0d33773a0e4f52da0706",
+  "c2aStatus": "Architect-approved private owner-preserving level-rectangle composition and pure preparation. Unregistered; renderer, Editor and game adoption held."
 }
