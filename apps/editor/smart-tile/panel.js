@@ -28,7 +28,7 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
   if(!container?.ownerDocument)throw new TypeError('Mount into a DOM container.');
   if(typeof onError!=='function')throw new TypeError('onError must be a function.');
   const doc=container.ownerDocument,prefix='smart-tile-'+(++nextPanel),abort=new doc.defaultView.AbortController();
-  let retired=false,unsubscribe=null,snapshot=null,inflight=false,generation=0,formKey='',lastNotice='',fault=null,reportingFault=false,rendering=false,queuedSnapshot=null,subscriptionBroken=false;
+  let retired=false,unsubscribe=null,snapshot=null,inflight=false,generation=0,formKey='',lastNotice='',fault=null,reportingFault=false,rendering=false,queuedSnapshot=null,subscriptionBroken=false,refreshing=false,updateEpoch=0,renderFailures=0;
   const root=doc.createElement('section');root.className='smart-tile-panel';root.setAttribute('aria-label','Smart Tile construction');
   const make=(tag,text,className)=>{const element=doc.createElement(tag);if(text!==undefined)element.textContent=text;if(className)element.className=className;return element;};
   const listen=(node,type,callback)=>node.addEventListener(type,callback,{signal:abort.signal});
@@ -65,11 +65,11 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
     if(type==='number')input.step=step;if(min!==undefined)input.min=String(min);if(max!==undefined)input.max=String(max);
     wrap.htmlFor=input.id;wrap.append(input);fields.append(wrap);inputMap.set(name,input);return input;
   }
-  function buildFields(draft,tool){
+  function buildFields(draft,tool,value){
     inputMap.clear();fields.replaceChildren();const values=smartTileFormValues(draft);if(tool==='path'&&!draft)values.widthM=2;
     scope.textContent=tool==='finish'?'Changes the selected whole owner; shared recipes and locks are handled by Editor.':draft?.ownerId?'Editing whole owner '+draft.ownerId:'New authored owner';
     legend.textContent=toolLabels[tool]+' controls';
-    if(tool==='finish'){field('skinId','Finish ID',{type:'text',value:draft?.skinId??snapshot.owners.find(owner=>owner.id===snapshot.selectedOwnerId)?.skinId??''});formHint.textContent='Enter a registered cosmetic finish. Boundary material/profile and locked neighbours remain unchanged.';return;}
+    if(tool==='finish'){field('skinId','Finish ID',{type:'text',value:draft?.skinId??value.owners.find(owner=>owner.id===value.selectedOwnerId)?.skinId??''});formHint.textContent='Enter a registered cosmetic finish. Boundary material/profile and locked neighbours remain unchanged.';return;}
     field('x','Origin X (m)',{value:values.x});field('y','Origin Y (m)',{value:values.y});
     field('widthM','Native width (m)',{value:values.widthM,min:0});if(tool==='rectangle')field('depthM','Native depth (m)',{value:values.depthM,min:0});
     field('seed','Saved variation seed',{value:values.seed,min:0,max:4294967295,step:1});
@@ -104,9 +104,9 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
   const resources=make('p','','st-hint'),history=make('p','','st-hint');
   const actions=make('div',undefined,'st-actions');
   const review=button('Review','review',()=>run('review'));
-  const apply=button('Apply','apply',()=>{const current=fresh();if(current?.reviewId)run('apply',[current.reviewId]);else showFault(new Error('The Editor has not supplied a current review identity.'));});
+  const apply=button('Apply','apply',()=>run('apply'));
   const cancel=button('Cancel draft','cancel',()=>run('cancel',['panel-cancel']));
-  const recover=button('Check edit result','recover',()=>{const current=fresh();if(current?.recoveryId)run('recover',[current.recoveryId]);else showFault(new Error('Recovery needs the original Editor request identity.'));});
+  const recover=button('Check edit result','recover',()=>run('recover'));
   const retry=button('Retry accepted preview','retryPresentation',()=>run('retryPresentation'));
   actions.append(review,apply,cancel,recover,retry);
   const historyActions=make('div',undefined,'st-secondary');
@@ -130,9 +130,15 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
     try{onError(error);}catch{/* Error observers cannot escape into Editor acceptance. */}finally{reportingFault=false;}
   }
   function fresh(){
-    if(retired||subscriptionBroken)return null;
-    try{const value=checkSnapshot(adapter.getSnapshot());receive(value);return value;}
-    catch(error){snapshot=null;disable();showFault(error);return null;}
+    if(retired||subscriptionBroken||rendering||refreshing)return null;
+    const epoch=updateEpoch,failures=renderFailures;refreshing=true;
+    try{
+      const value=adapter.getSnapshot();
+      if(retired||subscriptionBroken||updateEpoch!==epoch)return null;
+      receive(value);
+      return !retired&&!subscriptionBroken&&!rendering&&renderFailures===failures?snapshot:null;
+    }catch(error){snapshot=null;disable();showFault(error);return null;}
+    finally{refreshing=false;}
   }
   function disable(){for(const {button}of gates)button.disabled=true;owners.disabled=true;fieldset.disabled=true;checkpointInput.disabled=true;}
   function enable(){
@@ -143,13 +149,13 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
     checkpointInput.disabled=!snapshot.actions.open||inflight;
   }
   function receive(value){
-    if(retired||subscriptionBroken)return;queuedSnapshot={value};if(rendering)return;rendering=true;let turns=0;
-    try{while(queuedSnapshot&&!retired){if(++turns>8){snapshot=null;disable();showFault(new Error('Editor observer reentry exceeded the UI update bound.'));queuedSnapshot=null;break;}const next=queuedSnapshot.value;queuedSnapshot=null;renderSnapshot(next);}}finally{rendering=false;}
+    if(retired||subscriptionBroken)return;updateEpoch++;snapshot=null;queuedSnapshot={value};if(rendering)return;rendering=true;let turns=0;
+    try{while(queuedSnapshot&&!retired){if(++turns>8){renderFailures++;snapshot=null;disable();showFault(new Error('Editor observer reentry exceeded the UI update bound.'));queuedSnapshot=null;break;}const next=queuedSnapshot.value;queuedSnapshot=null;renderSnapshot(next);}}finally{rendering=false;}
   }
   function renderSnapshot(value){
     if(retired)return;
     try{
-      value=checkSnapshot(value);snapshot=value;
+      value=checkSnapshot(value);
       root.dataset.phase=value.phase;phase.textContent=statusLabels[value.phase];review.textContent=value.tool==='path'?'Finish path & review':'Review';
       if(!value.actions.save){saved.value='';saved.hidden=true;}
       floorReadout.textContent='Working floor: '+value.floor.label+' · '+value.floor.elevationM+' m · '+human(value.floor.mode);
@@ -164,7 +170,7 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
       const owner=value.owners.find(item=>item.id===value.selectedOwnerId);
       ownerReadout.textContent=owner?(owner.locked?'Owner locked. ':'Whole owner. ')+owner.id+' · recipe '+owner.recipeId+' · finish '+owner.skinId:'Select a surface to inspect or finish. Each selection covers the complete shape.';
       const signature=JSON.stringify([value.tool,value.draft,value.selectedOwnerId,value.floor.id,value.floor.mode,value.revision,value.checkpointSerial]);
-      if(signature!==formKey){const focused=doc.activeElement?.name;formKey=signature;buildFields(value.draft,value.tool);if(focused&&inputMap.has(focused))inputMap.get(focused).focus({preventScroll:true});}
+      if(signature!==formKey){const active=doc.activeElement,focused=[...inputMap.values()].includes(active)?active.name:null;formKey=signature;buildFields(value.draft,value.tool,value);if(focused&&inputMap.has(focused))inputMap.get(focused).focus({preventScroll:true});}
       diagnostics.replaceChildren(...value.diagnostics.slice(0,128).map((item,index)=>{
         const li=make('li');li.dataset.code=item.code;
         li.append(make('strong',(index+1)+'. '+item.code),make('p',item.message));
@@ -183,11 +189,12 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
       if(value.phase==='recovery-required')notice.textContent='Showing the last confirmed scene. Recover original request '+(value.recoveryId??'identity unavailable')+'. A new edit cannot settle it.';
       else if(value.phase==='presentation-error')notice.textContent='Use the Editor’s diagnostics to check acceptance. Retrying presentation rebuilds only the accepted view; it never repeats an edit.';
       else notice.textContent=lastNotice;
-      enable();
-    }catch(error){snapshot=null;disable();showFault(error);}
+      if(!retired&&!queuedSnapshot){snapshot=value;enable();}
+    }catch(error){renderFailures++;snapshot=null;disable();showFault(error);}
   }
   async function run(name,args=[]){
     const current=fresh();if(!current||!current.actions[name]||(inflight&&name!=='cancel'))return;
+    if(name==='apply'||name==='recover'){const id=name==='apply'?current.reviewId:current.recoveryId;if(typeof id!=='string'||!id){showFault(new Error('Editor must supply the current '+(name==='apply'?'review':'original recovery')+' identity.'));return;}args=[id];}
     if(name==='cancel'){generation++;inflight=false;}
     const owner=++generation;inflight=true;fault=null;faultBox.hidden=true;enable();
     try{
@@ -210,7 +217,7 @@ export function mountSmartTilePanel(container,adapter,{floorElement=null,onError
   return Object.freeze({
     element:root,refresh:fresh,
     dispose(){
-      if(retired)return Object.freeze([]);retired=true;generation++;inflight=false;queuedSnapshot=null;
+      if(retired)return Object.freeze([]);retired=true;generation++;inflight=false;queuedSnapshot=null;snapshot=null;
       const errors=[],stop=unsubscribe;unsubscribe=null;
       for(const cleanup of [()=>abort.abort(),()=>stop?.(),()=>root.remove()])try{cleanup();}catch(error){errors.push(error);}
       return Object.freeze(errors);

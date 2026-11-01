@@ -70,7 +70,13 @@ and a local in-flight guard prevents duplicate activation without granting actio
 Update draft changes intent; Review (Finish path & review for paths) requests
 preparation; Apply sends the current exact reviewId once. Recovery passes the
 original supplied recoveryId. Retry accepted preview calls retryPresentation only.
-Malformed snapshots/read failures disable controls without resetting Editor.
+Malformed snapshots/read/render failures disable controls without resetting Editor.
+Only a completely rendered stable snapshot can authorize an action. Refreshes
+that fail, are superseded during reading or reenter rendering cannot dispatch;
+a later successful stable action remains available. Apply/recovery identities come
+from that same stable snapshot. Field replacement restores focus only when the
+previous active element was an exact field owned by this panel; same-named host
+controls keep their focus.
 
 Save/open go only through adapter.save/open. Saved JSON is shown verbatim in a
 read-only field; pasted JSON is forwarded unchanged, never parsed or normalized
@@ -114,7 +120,7 @@ There are no auto-focus jumps to Apply, animated previews or toast-only errors.
 Run:
 
 ~~~text
-node --test tests/smart-tile-panel-fields.test.mjs
+node --test tests/smart-tile-panel-fields.test.mjs tests/smart-tile-panel-boundaries.test.mjs
 node tools/review-smart-tile-ui.mjs
 npm run check
 npm test
@@ -133,7 +139,9 @@ UI checks cover action flags/all phases, exact controls/seeds, whole-owner routi
 diagnostic text safety, native single activation, exact review/recovery identities,
 presentation-only retry, cancelled late replies, unknown-outcome save races,
 checkpoint/history method routing, borrowed floor/input scopes, malformed reads,
-callback reentry, throwing cleanup and phone layout.
+callback reentry, throwing cleanup and phone layout. Seven focused control-flow
+counterexamples also cover render-refused dispatch, same-click recovery rejection,
+superseded reads, bounded reentry, external/owned focus and disposal during refresh.
 
 Actual Editor browser acceptance still must prove real finite preparation and
 shared-recipe finishing, source/redo retention, sole-history undo/redo, complete
