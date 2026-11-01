@@ -53,3 +53,7 @@ The optional `./adapters/farmyard/doors/three` entry ships in renderer/compatibi
 ## Installed native windows
 
 `npm run test:windows` packs and installs the actual declared core offline. It requires both public window entries, all three registered schema URLs/versions and the explicit support whitelist; no candidate overlay is permitted by this command. It composes the retained connector with hash-verified pinned Farmyard complete-world queries in the temporary consumer, checks committed impacts/recovery, quiet retries and malformed-set refusal before CAS, then removes its temporary consumer in `finally`. Raw donor gameplay, artist preview images and test fixtures remain outside the runtime package.
+
+## Installed procedural tiles
+
+npm run test:tiles packs and installs the actual declared core offline through ./tiles, with all four registered schema documents, the engine-only capability and the explicit support whitelist. It checks mixed retained-host save/repair behavior and all 11 correction regressions through the installed entry. The default command cannot use a private export overlay. Test fixtures, art studies and browser/editor providers remain outside this runtime closure. The temporary consumer is removed in finally.
