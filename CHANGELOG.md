@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Register optional native flat tile surfaces with headless preparation/example entries and a host-Three renderer; preserve canonical controls, borders, materials and whole source bundles.
+- Prove real public-package installs, the executable builder guide, exhaustive owned cleanup and fresh source/built/installed visual parity while keeping Editor, Boolean composition and gameplay readiness separate.
+
 - Add optional native window renderer with frames/glass, acknowledged masks, explicit legacy-wall clipping and quiet restores; borrow host core/Three/materials and keep game authority separate.
 - Make attachment/retirement exception-safe across Three observers, with bounded reentrant cancellation and exhaustive owned cleanup. Prove actual public authoring/renderer installs, notices, guide and desktop/phone reference parity.
 

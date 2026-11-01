@@ -1,0 +1,16 @@
+# Initial provider review corrections
+
+This focused pass corrects the four blockers reported against **78c891b7521e97fe3ab47298981218ef56e9a61d**. It preserves that history, the reviewed core dependency, all 294 staged studies and the existing bounded surface scope. It changes no root registration, schema, consumer pin or family grammar.
+
+| Finding | Correction | Evidence |
+| --- | --- | --- |
+| Refinement assumed the port was always on child edge 1; triangles touching several same-profile edges lost paint bindings | Each child resolves the actual unchanged canonical outer edge. Interior faces receive the interior material | 48 combinations: three detail levels × eight D4 placements × shared/distinct face profiles. All 384 canonical boundary edges are checked against actual mesh material identity; interior faces and multi-boundary parents are also checked |
+| A projection's own `kind` getter ran before descriptor validation; options could also execute getters | Bounded descriptor-first copies guard plain data and configuration records. Borrowed Three, materials and callbacks retain identity | 12 accessor cases require zero getter invocation, host allocation, callback execution and core calls. Borrowed interface identity is checked separately |
+| Default detail lookup inherited `constructor`/`toString` values | Use an own-property lookup on validated detail data | Seven core-valid prototype-like IDs with defaults and explicit overrides: 14 passing cases, IDs unchanged |
+| Coarse sampling hid authored grades, including a cubic with a 1.5 m peak | Prove level geometry from authored line endpoints, cubic controls, arc heights and every compound part before approximation. Regions must also agree with their base datum | Seven authored geometry cases include the bowed cubic, subquantum line/arc grades, compound level changes, region height mismatch, closed-arc grade and a genuinely flat coarse cubic positive |
+
+`initial-review-before.json` executes the exact old three provider modules read from Git objects, borrowing the same actual reviewed core and host Three. It records the failures. `initial-review-fixed.json` runs the corrected provider and passes. Sorted triangle position/normal/UV records have identical SHA-256 values for all 48 material cases before and after; this fixes bindings without changing the geometry.
+
+Reproduce with `node tools/check-tile-review-regressions.mjs --baseline` (expected failure), then `node tools/check-tile-review-regressions.mjs`. The shared fixtures also run in the actual declared core/renderer plus private-provider installed proof. The review workbench adds two diagnostic material matrices; each checks 192 real boundary edges in the browser before capture. Magenta is interior paint, cyan or face-specific colours are explicit boundary bindings. These are diagnostics of existing surfaces, not new content families.
+
+The complete combined suite, actual installed package, source/built desktop/phone review and four required repository gates are rerun for the fixed checkpoint. Temporary review helpers close through their supported APIs and are verified by PID, creation time, executable and released ports. Public provider registration and game adoption remain pending Architect recheck.

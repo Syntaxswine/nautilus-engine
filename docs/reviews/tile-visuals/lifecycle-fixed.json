@@ -1,0 +1,146 @@
+{
+  "source": "current source",
+  "runtime": [
+    {
+      "path": "packages/tile-visuals/cleanup.js",
+      "bytes": 2059,
+      "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+    },
+    {
+      "path": "packages/tile-visuals/data.js",
+      "bytes": 3780,
+      "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+    },
+    {
+      "path": "packages/tile-visuals/mesh.js",
+      "bytes": 13034,
+      "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "bytes": 12550,
+      "sha256": "0924cba982e65b508c6b37c7d2b134439602727358898885185542079c58bef5"
+    },
+    {
+      "path": "packages/tile-visuals/three.js",
+      "bytes": 9772,
+      "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+    }
+  ],
+  "status": "pass",
+  "actualThreeRevision": "180",
+  "actualPublicCore": true,
+  "cases": 10,
+  "results": [
+    {
+      "name": "throwing first dispose listener cannot strand target, neighbours or final resources",
+      "status": "pass",
+      "observed": {
+        "created": 17,
+        "afterRemove": {
+          "disposed": false,
+          "instances": 4,
+          "interfaces": 8,
+          "ownedGeometry": 12,
+          "triangles": 2239,
+          "quantizationLimitedRefinements": 1,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound"
+        },
+        "end": {
+          "disposed": true,
+          "instances": 0,
+          "interfaces": 0,
+          "ownedGeometry": 0,
+          "triangles": 0,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound"
+        },
+        "attempted": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "throwing removed listener cannot double-decrement counters on global retry",
+      "status": "pass",
+      "observed": {
+        "before": {
+          "disposed": false,
+          "instances": 5,
+          "interfaces": 12,
+          "ownedGeometry": 17,
+          "triangles": 2329,
+          "quantizationLimitedRefinements": 1,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound"
+        },
+        "afterRemove": {
+          "disposed": false,
+          "instances": 4,
+          "interfaces": 8,
+          "ownedGeometry": 12,
+          "triangles": 2239,
+          "quantizationLimitedRefinements": 1,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound"
+        },
+        "end": {
+          "disposed": true,
+          "instances": 0,
+          "interfaces": 0,
+          "ownedGeometry": 0,
+          "triangles": 0,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound"
+        }
+      }
+    },
+    {
+      "name": "dispose requested by a geometry listener drains once without recursive removal",
+      "status": "pass"
+    },
+    {
+      "name": "removed/dispose failures during full disposal attempt every resource and keep borrowed scene",
+      "status": "pass"
+    },
+    {
+      "name": "nested remove/cull reject while readonly diagnostics and neighbour attributes stay valid",
+      "status": "pass"
+    },
+    {
+      "name": "actual added listener failure plus rollback dispose failure clears constructor ownership",
+      "status": "pass"
+    },
+    {
+      "name": "actual partial mesh attachment rollback retires unparented nodes and all interface buffers",
+      "status": "pass"
+    },
+    {
+      "name": "borrowed material callback failure and throwing rollback listeners preserve every prior resource",
+      "status": "pass"
+    },
+    {
+      "name": "removed/dispose reparenting cannot retain owned parents or disturb borrowed scene siblings",
+      "status": "pass"
+    },
+    {
+      "name": "error reporting is bounded while all dense-chunk resources retire",
+      "status": "pass"
+    }
+  ],
+  "borrowedPoolSurvival": true
+}

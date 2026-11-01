@@ -44,6 +44,7 @@ export function distribution(profile = 'compatibility') {
   else throw Error('Unknown package profile: ' + profile);
   if(profile==='renderer'||profile==='compatibility')extras.push(JSON.parse(fs.readFileSync(path.join(root,'upstream.json'))).farmyardDoorVisuals.manifest,'packages/grenade-visuals/README.md','packages/grenade-visuals/source.json','docs/reviews/grenade-presentation/provider.md');
   if(profile==='renderer'||profile==='compatibility')extras.push('packages/native-window-presenter/README.md','packages/native-window-presenter/NOTICE.md','packages/native-window-presenter/source.json');
+  if(profile!=='assets')extras.push('packages/tile-visuals/README.md','packages/tile-visuals/NOTICE.md','packages/tile-visuals/source.json');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

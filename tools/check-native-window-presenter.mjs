@@ -75,7 +75,11 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   assert.match(pin.purpose,/reference/i,'The new pin must identify reference-only use.');
   const pkg=json('package.json'),basePackage=JSON.parse(object(integrationBase,'package.json'));
   assert.equal(pkg.exports[entry],entryFile,'Register the actual optional native renderer entry.');
-  const priorExports={...pkg.exports};delete priorExports[entry];assert.deepEqual(priorExports,basePackage.exports,'Existing public exports must remain unchanged.');
+  const priorExports={...pkg.exports};delete priorExports[entry];
+  // Later reviewed optional tile-art registration adds only these three entries.
+  const tileEntries={'./tiles/art':'./packages/tile-visuals/prepare.js','./tiles/art/example':'./packages/tile-visuals/example.js','./tiles/art/three':'./packages/tile-visuals/three.js'};
+  for(const [name,target]of Object.entries(tileEntries))if(Object.hasOwn(priorExports,name)){assert.equal(priorExports[name],target,'Unexpected tile-art registration target: '+name);delete priorExports[name];}
+  assert.deepEqual(priorExports,basePackage.exports,'Existing public exports must remain unchanged.');
   assert.equal(pkg.version,basePackage.version,'This registration does not decide a release version.');
   const request=json('docs/reviews/native-window-presenter/registration-request.json');
   assert.deepEqual([...request.explicitSupport].sort(),[...support].sort(),'Keep the exact five reviewed support files.');

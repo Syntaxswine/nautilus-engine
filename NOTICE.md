@@ -43,3 +43,7 @@ The optional engine-owned tile kernel uses the alignment and shared-border princ
 ## Native Farmyard window presentation
 
 The reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.
+
+## Native canonical tile surfaces
+
+The optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.

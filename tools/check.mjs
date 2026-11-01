@@ -20,6 +20,7 @@ import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
 import {checkProceduralTiles} from './check-procedural-tiles.mjs';
 import {checkTileV2} from './check-tile-v2.mjs';
 import {checkNativeWindowPresenter} from './check-native-window-presenter.mjs';
+import {checkTileVisualsSource} from './check-tile-visuals-source.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -141,3 +142,6 @@ console.log('Verified A/B tile candidate source: '+JSON.stringify({declared:tile
 
 const nativeWindows=checkNativeWindowPresenter(root,{tracked});
 console.log('Verified native window presentation: '+JSON.stringify({sourceCommit:nativeWindows.sourceCommit,referenceFiles:nativeWindows.snapshot.files,referenceBytes:nativeWindows.snapshot.bytes,runtimeModules:nativeWindows.runtime.length,registered:nativeWindows.registered}));
+
+const tileArt=checkTileVisualsSource(root,{tracked});
+console.log('Verified native tile surfaces: '+JSON.stringify({registered:tileArt.registered,modules:tileArt.runtime.length,unchangedV1:tileArt.coreFiles.length,studies:tileArt.studies,preservedArtFiles:tileArt.preservedArtFiles}));

@@ -142,7 +142,7 @@ The [optional native presenter](../packages/native-window-presenter/README.md) c
 
 The optional [procedural tile module](procedural-tiles.md) preserves authored line, arc, cubic and compound controls, shared-corner fields, region outlines and native profile paths. Its registered ./tiles entry owns catalogue/layout/bundle validation, canonical border inspection, explicit layered joins and bounded deterministic repair. One semantic shape may cover many derived cells. Editor owns atomic history and save adoption; family mesh/query/support/navigation/fire providers remain unbound.
 
-[Architect acceptance](reviews/procedural-tiles/integration.md) records the fixed source, focused corrections and actual installed-package evidence. The expansive art-family and Smart Tile editor work remain separate checkpoints; this boundary does not claim that all 294 artist studies are already adopted.
+[Architect acceptance](reviews/procedural-tiles/integration.md) records the fixed source, focused corrections and actual installed-package evidence. The optional [native flat-surface provider](../packages/tile-visuals/README.md) prepares detached data through the actual v1 core and borrows the host Three/material pool for geometry. Its public entries do not adopt the preserved 294-study lab matcher, physical/query/navigation policies or Editor history. Broader family evaluators and Smart Tile integration remain separate checkpoints.
 
 ## Experimental tile source
 
