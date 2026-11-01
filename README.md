@@ -127,6 +127,8 @@ The optional `./adapters/farmyard/doors` entry supplies Farmyard's source-sized 
 
 The optional `./windows` and `./adapters/farmyard/windows` entries provide native quarter-turn pane geometry, purpose-specific queries, trusted confirmed impacts, durable retries and complete retained saves. Games bind all six required host services before activation. The [builder card](docs/adapters/farmyard-window-impacts.md) includes schemas, an installed example and adoption checklist; `npm run test:windows` proves the actual shipped entries offline.
 
+The optional `./windows/authoring` entry preserves a complete portable base map and window underlay, native placements, transactional commands and bounded undo/redo. The [authoring builder guide](docs/window-authoring.md) includes the installed example, schema, readiness and host checklist. Run `npm run test:windows:authoring` for the actual declared-package proof. Editor chrome, native presentation and complete game adoption remain separate.
+
 The [artist audit](docs/reviews/window-art/README.md) records the original 39 presets and tall-sheet reference. The [integration record](docs/reviews/2026-10-30-farmyard-window-integration.md) identifies accepted scope and later renderer/editor work. Existing grenade and door profiles keep their explicit window refusals.
 
 ## Procedural tile foundation

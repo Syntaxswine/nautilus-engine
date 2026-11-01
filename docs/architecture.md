@@ -12,6 +12,7 @@
 | `packages/roof-core/` | Headless gable/hip/shed contracts and optional host-supplied Three meshes |
 | `packages/adapters/tinderbox/` | Bounded map projection, inverse export and scene saves with real-game conformance |
 | `packages/items-core/` | Headless rock sidecars, staged pickup/throws, fixed-step impact and hearing requests |
+| `packages/windows-authoring/` | Optional headless complete-map window wrapper, transactional commands/history and detached native geometry projection |
 | `packages/windows-core/` | Optional headless native window geometry, confirmed pane impacts and complete durable state |
 | `packages/adapters/farmyard/windows/` | Retained whole-game window saves and six explicit host-service bindings |
 | `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
@@ -131,6 +132,8 @@ The candidate [functional-parts facade](functional-parts.md) is the explicit aut
 ## Native window boundary
 
 The [optional window adapter](adapters/farmyard-window-impacts.md) preserves the fixed Farmyard first-hit/quarter-turn policy. Engine-owned geometry/state is headless; complete-world queries, successful outcomes, actual costs, atomic context commits, invalidation and whole-save approval stay with the host. The engine advertises its pane behavior without claiming those six borrowed services. Current door/grenade profiles remain separately bounded.
+
+The optional [window-authoring entry](window-authoring.md) preserves complete base/covered-edge data, native configuration and bounded atomic history. Its registered v1 schema does not advertise the six live host services. Detached previews and prerequisite checks allocate no runtime pane epoch; editor chrome, native presentation and complete-game adoption require their own reviewed integration.
 
 The [artist audit](reviews/window-art/README.md) is source research for a later host-Three provider. Renderer, editor authoring and production game adoption need their own reviewed bindings. [Architect acceptance](reviews/2026-10-30-farmyard-window-integration.md) records the fixed inputs and persistence correction.
 
