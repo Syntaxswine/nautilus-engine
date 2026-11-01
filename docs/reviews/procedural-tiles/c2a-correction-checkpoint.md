@@ -1,0 +1,29 @@
+# C2a Architect-review corrections
+
+Before checkpoint: `e95e644aaebc972c6b055fc3d90ddd6fcdf85963` remains preserved and is the direct parent of the separate follow-up. Delivery supplies the full reviewed follow-up SHA. No amend, rebase, merge, public registration or adoption occurs in this pass. The previous [checkpoint](c2a-checkpoint.md) and [audit](c2a-source-audit.json) remain historical records for the before commit; the new [correction audit](c2a-correction-source-audit.json) binds this corrected source and actual installed bytes.
+
+## Two concrete fixes
+
+1. External source rectangles cannot escape contact validation by removing or displacing reservations. Exact actual geometry is checked independently for every owner pair, with the same shared budget. Uncomposed positive-volume overlap refuses; other actual contacts need their own supported full join or exact relation. Only explicit composition has the already-proved primary rectangle geometry; every other reservation still gets independent validation. Old and candidate actual bounds both enter dependency closure even with no reservation or semantic link. This restores the precondition for conservative visible locks instead of inventing external draw order or a pair-wide exemption.
+2. The internal union ID is chosen from `c2a/root/0` through `c2a/root/32`. At most 32 checked owners guarantee an available <=11-character candidate within 33 checks. Each allocation/lookup is precharged to the shared graph budget. Source IDs remain exact, no truncation/collision is accepted, and the original 96-character compiled/source schema bound is unchanged. A one-member root uses its retained owner ID and performs no generated-name search.
+
+Before regressions reproduce the external missing-reservation admission and missed old/new closure, plus the valid 18-owner suffix namespace that emitted a 98-character root. Ignored before logs are retained with hashes in the correction audit. The tests cover the Architect's clean `[3,5]` to `[1,3]` movement, whose overlap with locked `[0,2]²` is exactly 2 m²; strictly separated old sources must resolve before their edits refuse. Unlocked/locked and absent/displaced variants all preserve next:null, changes:null, original source and redo/history. Full joins that genuinely prove actual geometry still pass independently of reservation placement. Existing cross/alongside, required/terminal, additional-reservation, owner-finish and retained-CAS semantics remain intact.
+
+The two hostile-ID fixtures include 18 valid suffix-chain owners (only two members) and a full 32-owner generated-name collision namespace (again two members). Runtime, actual installed output and independent compiled-schema validation cover both; a forged 97-character output is rejected structurally. Search work increases with collisions and stays in the existing whole-operation limit.
+
+## Final proof
+
+- Required gates pass: integrity/source check, **776/776** repository tests, **32/32** upstream tests and build (**480 module paths**, eleven inherited build patches). No test failure, skip, cancellation or TODO.
+- Focused C2a/private-distribution: **33/33**. C2a source tests: **31**. Actual private installed A/B+C1+C2a: **78/78**, zero fail/skip/cancel/TODO with inherited NODE_TEST_CONTEXT removed.
+- Independent Draft2020-12: **8 schemas / 532 cases**, including **174 C2a** cases. Public/v1 schema bytes and all constraints remain unchanged; this pass modifies no schema file.
+- Independent source and actual-installed Fraction proof: **68 positive cases**, preserving the original 66 and all eleven forgery checks; **784 occupied cells**, **1,252 atomic intervals**, **1,344 port bindings**, **100 primary certificates** and **1,948 sectors**. Added **16** labelled contact refusals and **2** forged contact-admission/preparation rejections. Source and installed positive AND negative artifact JSON compare equal. Negative geometry checks derive overlap from original placed rectangles independently of reservations.
+- C1 remains **249 cases / 1,514 slabs / 849 queries / 2,964 owner edges / 644 void outer spans / 353 void outer associations / 5,928 sector owners / 5 relation forgeries**, with identical exported SHA-256 `19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863`.
+- Private runtime: **29 modules / 229,191 raw bytes**. All **47** installed runtime/support files match final source; all **18** public-v1 file hashes/goldens are preserved. The original before checkpoint's **57** unique audited paths were rechecked against its unchanged Git objects.
+
+Private archive SHA-256: `fb1e063a07ef3c7d8082fbd7272a37a07f73fe3bae77ff81e09e5e6b31b7f879`.
+Installed positive oracle SHA-256: `df1c5d80d8792ea6a6c3b1c91a073c54f7685da298e86994a9c6a574b9c84f1e`.
+Installed contact-refusal artifact SHA-256: `a8d05dc011c61afce2db290edcbb0b76b250ec00e18082456e6c3d517b58c61c`.
+
+The new correction checkpoint/audit remain outside the archive to avoid self-hashing. Runtime/support, source fixtures/tools and original notices are individually hashed in the audit. Evidence is retained under `artifacts/procedural-tiles-c2a/`, correction gate logs in its `correction-gates/`, and actual installation/oracle data under `artifacts/procedural-tiles-v2/`.
+
+Accuracy favors source geometry and schema-valid internal identities over optional reservation proxies. Added geometry pair/search work has explicit shared charges and finite bounds; these counts are not measured device performance. Reliable locked surfaces/alignment serve the existing narrative/tool direction without changing game profiles. Preview, physical queries/support/navigation, general native evaluators, public registration and renderer/Editor/game adoption remain held. All foreground commands ended; private proof stage/consumer cleanup is verified in finally. No task-owned listener/server/browser/watcher or retained helper remains.

@@ -2,7 +2,7 @@
 import {data,fields,array,integer,choice,number,token,freeze,TileError} from './data.js';
 import {checkTransform} from './curves.js';
 import {validateTileRecipe} from './v2-records.js';
-import {PLANAR_C1_LIMITS,PlanarBudget,PlanarRefusal,arithmetic} from './planar-exact.js';
+import {PLANAR_C1_LIMITS,PlanarBudget,PlanarRefusal,arithmetic,planarJsonBound,chargePlanarSource} from './planar-exact.js';
 import {arrangePlanar} from './planar-arrangement.js';
 import {planarTopology} from './planar-topology.js';
 export {PLANAR_C1_LIMITS};
@@ -13,19 +13,12 @@ function options(input){
 }
 // Count the complete JSON before constructing its serialized string. Work is
 // modeled from actual traversal; UTF-8 and JSON escaping have explicit bounds.
-function jsonBound(value,budget,cap){
-  let size=0;const add=n=>{if(size+n>cap)throw new PlanarRefusal('C1_SERIALIZED_BYTES_LIMIT','Complete evidence exceeds the captured serialized-byte budget.','/options/limits/maxSerializedBytes');size+=n;};
-  function string(s){add(2);for(let i=0;i<s.length;i++){budget.take('serialization');const c=s.charCodeAt(i);if(c===34||c===92||[8,9,10,12,13].includes(c))add(2);else if(c<32)add(6);else if(c<128)add(1);else if(c<2048)add(2);else if(c>=0xd800&&c<=0xdbff&&i+1<s.length&&s.charCodeAt(i+1)>=0xdc00&&s.charCodeAt(i+1)<=0xdfff){add(4);i++;}else if(c>=0xd800&&c<=0xdfff)add(6);else add(3);}}
-  function visit(v){budget.take('serialization');if(v===null){add(4);return;}if(typeof v==='string'){string(v);return;}if(typeof v!=='object'){add(JSON.stringify(v).length);return;}const list=Array.isArray(v)?v:Object.entries(v);add(2);for(let i=0;i<list.length;i++){if(i)add(1);if(Array.isArray(v))visit(list[i]);else{string(list[i][0]);add(1);visit(list[i][1]);}}}
-  visit(value);return size;
-}
-function sourceUnits(value,budget){if(value&&typeof value==='object'){budget.take('source',3);for(const [key,v]of Object.entries(value)){budget.take('source',3*key.length);sourceUnits(v,budget);}}else budget.take('source',3*(typeof value==='string'?value.length:1));}
 export function inspectTilePlanarBoolean(input,capturedOptions){
   let source=null,sourceDigest=null,o=null,budget=null,phase='source';
   try{
     // Both inherited copying/validation passes are descriptor-first and bounded.
     // Keep their original Number-valued result/digest; rational data is separate.
-    const snapshot=data(input);sourceDigest=token(snapshot);source=validateTileRecipe(snapshot);phase='options';o=options(capturedOptions);budget=new PlanarBudget(o.limits);phase='evaluation';sourceUnits(source,budget);sourceUnits(o,budget);budget.count('maxQueries',o.queries.length);
+    const snapshot=data(input);sourceDigest=token(snapshot);source=validateTileRecipe(snapshot);phase='options';o=options(capturedOptions);budget=new PlanarBudget(o.limits);phase='evaluation';chargePlanarSource(source,budget);chargePlanarSource(o,budget);budget.count('maxQueries',o.queries.length);
     if(source.frame==='world'&&(o.origin.some(v=>v!==0)||o.transform.quarterTurns||o.transform.mirrorX))throw new PlanarRefusal('C1_WORLD_FRAME_PLACEMENT','World-frame source cannot receive a second transform/translation.','/options');
     if(!source.allowedTransforms.some(t=>t.quarterTurns===o.transform.quarterTurns&&t.mirrorX===o.transform.mirrorX))throw new PlanarRefusal('C1_TRANSFORM_UNSUPPORTED','The captured D4 transform is not permitted by this source.','/options/transform');
     const E=arithmetic(budget),hash=value=>{const text=JSON.stringify(value);budget.take('provenance',text.length*2+1);return token(value);},arrangement=arrangePlanar(source,E,budget),topology=planarTopology(arrangement,E,budget,hash),plane={baseM:E.encode(E.number(arrangement.plane.baseM)),thicknessM:E.encode(E.number(arrangement.plane.thicknessM))};
@@ -35,7 +28,7 @@ export function inspectTilePlanarBoolean(input,capturedOptions){
     const result={kind:'nautilus-compiled-tiles',version:2,mode:'planar-boolean',source,sourceDigest,sourceBindingDigest,options:o,resolution:{state:topology.selected.length?'resolved-nonempty':'resolved-empty',diagnostics:[]},geometry:{plane,...topology.encoded,sourceLeafIds:arrangement.leaves.map(l=>l.nodeId),nodeStates:arrangement.nodeStates},geometryDigest,worldProjection,worldDigest,queries,statuses};
     // Work counters change while preflighting. Reserve the maximal counter
     // record, then publish the smaller actual snapshot after all charging.
-    const upperWork={total:o.limits.maxWork,units:Object.fromEntries(Object.keys(budget.units).map(k=>[k,o.limits.maxWork])),counts:{...o.limits}},bytes=jsonBound({...result,work:upperWork},budget,o.limits.maxSerializedBytes);budget.peak('maxSerializedBytes',bytes);result.work=budget.snapshot();return freeze(result);
+    const upperWork={total:o.limits.maxWork,units:Object.fromEntries(Object.keys(budget.units).map(k=>[k,o.limits.maxWork])),counts:{...o.limits}},bytes=planarJsonBound({...result,work:upperWork},budget,o.limits.maxSerializedBytes);budget.peak('maxSerializedBytes',bytes);result.work=budget.snapshot();return freeze(result);
   }catch(error){
     if(!(error instanceof TileError)&&!(error instanceof PlanarRefusal))throw error;
     const bounded=s=>s.length<=2048?s:s.slice(0,2034)+'...[truncated]',diagnostics=(error instanceof TileError?error.diagnostics:[{code:error.code,path:error.path,message:error.message,action:'Retain complete authored source and accepted state/history; no fallback or partial resolved artifact is provided.'}]).map(({code,path,message,action})=>({code:bounded(code),path:bounded(path),message:bounded(message),action:bounded(action)}));

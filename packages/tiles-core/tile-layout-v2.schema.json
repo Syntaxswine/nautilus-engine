@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:nautilus:schema:tile-layout:2",
   "title": "Candidate authored tile layout v2",
-  "description": "Saveable candidate source only; requireResolved and live editing refuse v2 in A/B.",
+  "description": "Group-free A/B source remains unresolved; explicit C2a rectangle compositions may resolve/prepare privately. Public adoption remains unavailable.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -357,6 +357,83 @@
           "maxLength": 2048
         }
       }
+    },
+    "compositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "const": "planar-composition"
+          },
+          "version": {
+            "const": 1
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "operation": {
+            "const": "union"
+          },
+          "profile": {
+            "const": "level-rectangles-c2a"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "instanceId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "primaryReservationId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                }
+              },
+              "required": [
+                "instanceId",
+                "primaryReservationId"
+              ]
+            },
+            "maxItems": 16,
+            "minItems": 0
+          },
+          "finishOrder": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "maxItems": 16,
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "kind",
+          "version",
+          "id",
+          "operation",
+          "profile",
+          "members",
+          "finishOrder"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 1
     }
   },
   "$defs": {
@@ -670,6 +747,78 @@
           "const": 1
         }
       }
+    },
+    "compositionGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "planar-composition"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "operation": {
+          "const": "union"
+        },
+        "profile": {
+          "const": "level-rectangles-c2a"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "instanceId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "primaryReservationId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              }
+            },
+            "required": [
+              "instanceId",
+              "primaryReservationId"
+            ]
+          },
+          "maxItems": 16,
+          "minItems": 0
+        },
+        "finishOrder": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "maxItems": 16,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "operation",
+        "profile",
+        "members",
+        "finishOrder"
+      ]
     }
   }
 }

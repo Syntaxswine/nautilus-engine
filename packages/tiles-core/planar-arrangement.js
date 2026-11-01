@@ -1,6 +1,6 @@
 import {PlanarRefusal} from './planar-exact.js';
 
-export function arrangePlanar(recipe,E,budget){
+export function arrangePlanar(recipe,E,budget,placements=null){
   if(recipe.version!==2||recipe.shape.kind!=='shape-graph')throw new PlanarRefusal('C1_SHAPE_UNSUPPORTED','C1 evaluates only a candidate shape-graph root.');
   const graph=recipe.shape,nodes=new Map(graph.nodes.map((n,i)=>[n.id,{...n,sourceIndex:i}])),references=n=>n.kind==='leaf'?[]:n.kind==='difference'?[n.baseId,n.subtractId]:n.inputs,depths=new Map();budget.count('maxGraphNodes',nodes.size);
   function depth(id){if(depths.has(id))return depths.get(id);const n=nodes.get(id),refs=references(n);budget.take('graph',1+refs.length);budget.peak('maxOperands',refs.length);const d=1+Math.max(0,...refs.map(depth));budget.peak('maxDepth',d);depths.set(id,d);return d;}for(const id of nodes.keys())depth(id);
@@ -11,14 +11,15 @@ export function arrangePlanar(recipe,E,budget){
   for(const node of order.filter(n=>n.kind==='leaf').sort((a,b)=>{budget.take('sort');return a.id<b.id?-1:a.id>b.id?1:0;})){
     budget.count('maxLeaves');const s=node.shape,path='/shape/nodes/'+node.sourceIndex+'/shape';
     if(s.kind!=='region'||Object.hasOwn(s,'clip'))throw new PlanarRefusal('C1_LEAF_UNSUPPORTED','Use an unclipped level region with original straight line controls; other native source remains unresolved.',path);
-    if(plane&&(s.baseM!==plane.baseM||s.thicknessM!==plane.thicknessM))throw new PlanarRefusal('C1_PLANE_MISMATCH','Every reachable leaf must retain the exact same base and thickness.',path);plane??={baseM:s.baseM,thicknessM:s.thicknessM};
+    const placement=placements?.get(node.id),nativePlane=placement?.plane??{baseM:s.baseM,thicknessM:s.thicknessM};
+    if(plane&&(placement?(!E.eq(nativePlane.baseM,plane.baseM)||!E.eq(nativePlane.thicknessM,plane.thicknessM)):(s.baseM!==plane.baseM||s.thicknessM!==plane.thicknessM)))throw new PlanarRefusal('C1_PLANE_MISMATCH','Every reachable leaf must retain the exact same base and thickness.',path);plane??=nativePlane;
     budget.peak('maxRingsPerLeaf',s.outlines.length);const leaf={nodeId:node.id,index:leaves.length,shapeId:s.id,segments:[]};leaves.push(leaf);
     for(const [ring,outline]of s.outlines.entries()){
       const ps=outline.kind==='compound'?outline.segments:[outline],cycle=[];
       for(const [part,c]of ps.entries()){
         budget.take('source');if(c.kind!=='line')throw new PlanarRefusal('C1_CURVE_UNSUPPORTED','Arcs/cubics are retained source, not flattened into C1 lines.',path+'/outlines/'+ring);
         if(c.a[2]!==s.baseM||c.b[2]!==s.baseM)throw new PlanarRefusal('C1_LEVEL_REQUIRED','Every original endpoint must have the common native base height.',path+'/outlines/'+ring);
-        budget.count('maxSegments');const a=c.a.slice(0,2).map(E.number),b=c.b.slice(0,2).map(E.number),record={index:segments.length,a,b,part,ring,ringSize:ps.length,leaf:leaf.index,nodeId:node.id,shapeId:s.id,outlineId:outline.id,primitiveId:c.id,events:new Map()};
+        budget.count('maxSegments');const a=placement?placement.point(c.a).slice(0,2):c.a.slice(0,2).map(E.number),b=placement?placement.point(c.b).slice(0,2):c.b.slice(0,2).map(E.number),record={index:segments.length,a,b,part,ring,ringSize:ps.length,leaf:leaf.index,nodeId:node.id,shapeId:s.id,outlineId:outline.id,primitiveId:c.id,events:new Map()};
         if(E.pointEq(a,b))throw new PlanarRefusal('C1_ZERO_EDGE','A native line must have positive planar extent.',path);segments.push(record);leaf.segments.push(record);cycle.push(record);event(record,E.zero,a);event(record,E.one,b);
       }
       if(cycle.some((s,i)=>!E.pointEq(s.b,cycle[(i+1)%cycle.length].a)))throw new PlanarRefusal('C1_NATIVE_RING_OPEN','Original endpoints must meet exactly; canonical-grid coincidence cannot close a native gap.',path+'/outlines/'+ring);

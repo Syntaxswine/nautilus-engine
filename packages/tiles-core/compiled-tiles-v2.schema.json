@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:nautilus:schema:compiled-tiles:2",
   "title": "Candidate Nautilus compiled-tiles v2",
-  "description": "Unregistered A/B candidate. Structural records are not evaluator, exact-root, mesh, contact, support or live-adoption certificates. Candidate v2 authored loads always remain unresolved in this checkpoint.",
+  "description": "Unregistered A/B candidate. Structural records are not evaluator, exact-root, mesh, contact, support or live-adoption certificates. Group-free/general native v2 stays unresolved; only explicit C2a rectangle groups have private complete-layout preparation.",
   "oneOf": [
     {
       "type": "object",
@@ -3228,7 +3228,2364 @@
           ]
         }
       ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-compiled-tiles"
+        },
+        "version": {
+          "const": 2
+        },
+        "mode": {
+          "const": "rectangle-composition"
+        },
+        "source": {
+          "$ref": "urn:nautilus:schema:tile-layout:2"
+        },
+        "layoutDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "catalogueDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "profile": {
+              "const": "level-rectangles-c2a"
+            },
+            "limits": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "maxGraphNodes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 128
+                },
+                "maxDepth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                },
+                "maxOperands": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                "maxLeaves": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                "maxRingsPerLeaf": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 8
+                },
+                "maxSegments": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 128
+                },
+                "maxPairTests": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 8128
+                },
+                "maxVertices": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2048
+                },
+                "maxAtomicEdges": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4096
+                },
+                "maxHalfEdges": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 8192
+                },
+                "maxContours": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 128
+                },
+                "maxBoundarySegments": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4096
+                },
+                "maxProvenanceLinks": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16384
+                },
+                "maxQueries": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 256
+                },
+                "maxSerializedBytes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4000000
+                },
+                "maxInputBits": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 128
+                },
+                "maxRationalBits": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 512
+                },
+                "maxIntermediateBits": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4096
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxGroupRectangles": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                "maxAffectedOwners": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 32
+                },
+                "maxOriginalSegments": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 128
+                },
+                "maxPartitions": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2048
+                },
+                "maxPortBindings": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4096
+                }
+              },
+              "required": [
+                "maxGraphNodes",
+                "maxDepth",
+                "maxOperands",
+                "maxLeaves",
+                "maxRingsPerLeaf",
+                "maxSegments",
+                "maxPairTests",
+                "maxVertices",
+                "maxAtomicEdges",
+                "maxHalfEdges",
+                "maxContours",
+                "maxBoundarySegments",
+                "maxProvenanceLinks",
+                "maxQueries",
+                "maxSerializedBytes",
+                "maxInputBits",
+                "maxRationalBits",
+                "maxIntermediateBits",
+                "maxWork",
+                "maxGroupRectangles",
+                "maxAffectedOwners",
+                "maxOriginalSegments",
+                "maxPartitions",
+                "maxPortBindings"
+              ]
+            }
+          },
+          "required": [
+            "profile",
+            "limits"
+          ]
+        },
+        "sourceBindingDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "groupId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "geometry": {
+          "anyOf": [
+            {
+              "const": null
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "plane": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "baseM": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "thicknessM": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  },
+                  "required": [
+                    "baseM",
+                    "thicknessM"
+                  ]
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "maxLength": 1400
+                      },
+                      "point": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "string",
+                              "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                              "maxLength": 156
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                              "maxLength": 155
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "point"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 2048
+                },
+                "edges": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^c1-edge:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "from": {
+                        "type": "string",
+                        "maxLength": 1400
+                      },
+                      "to": {
+                        "type": "string",
+                        "maxLength": 1400
+                      },
+                      "coverage": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "nodeId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 96,
+                              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                            },
+                            "shapeId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 96,
+                              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                            },
+                            "outlineId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 96,
+                              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                            },
+                            "primitiveId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 96,
+                              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                            },
+                            "from": {
+                              "type": "array",
+                              "prefixItems": [
+                                {
+                                  "type": "string",
+                                  "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                                  "maxLength": 156
+                                },
+                                {
+                                  "type": "string",
+                                  "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                                  "maxLength": 155
+                                }
+                              ],
+                              "items": false,
+                              "minItems": 2,
+                              "maxItems": 2
+                            },
+                            "to": {
+                              "type": "array",
+                              "prefixItems": [
+                                {
+                                  "type": "string",
+                                  "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                                  "maxLength": 156
+                                },
+                                {
+                                  "type": "string",
+                                  "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                                  "maxLength": 155
+                                }
+                              ],
+                              "items": false,
+                              "minItems": 2,
+                              "maxItems": 2
+                            },
+                            "direction": {
+                              "enum": [
+                                -1,
+                                1
+                              ]
+                            }
+                          },
+                          "required": [
+                            "nodeId",
+                            "shapeId",
+                            "outlineId",
+                            "primitiveId",
+                            "from",
+                            "to",
+                            "direction"
+                          ]
+                        },
+                        "minItems": 1,
+                        "maxItems": 16384
+                      },
+                      "leftMembership": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535
+                      },
+                      "rightMembership": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "from",
+                      "to",
+                      "coverage",
+                      "leftMembership",
+                      "rightMembership"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 4096
+                },
+                "contours": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "side": {
+                        "enum": [
+                          "occupied",
+                          "empty"
+                        ]
+                      },
+                      "orientation": {
+                        "enum": [
+                          "ccw",
+                          "cw"
+                        ]
+                      },
+                      "area": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "string",
+                            "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                            "maxLength": 156
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                            "maxLength": 155
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      "weak": {
+                        "type": "boolean"
+                      },
+                      "spans": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "pattern": "^c1-edge:[a-f0-9]{64}(?![\\s\\S])"
+                            },
+                            "direction": {
+                              "enum": [
+                                -1,
+                                1
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "direction"
+                          ]
+                        },
+                        "minItems": 3,
+                        "maxItems": 4096
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "side",
+                      "orientation",
+                      "area",
+                      "weak",
+                      "spans"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 128
+                },
+                "components": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "outerWalk": {
+                        "type": "string",
+                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "holeWalks": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                        },
+                        "minItems": 0,
+                        "maxItems": 128
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "outerWalk",
+                      "holeWalks"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 128
+                },
+                "voids": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "outerWalk": {
+                        "type": "string",
+                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      },
+                      "holeWalks": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                        },
+                        "minItems": 0,
+                        "maxItems": 128
+                      },
+                      "surroundingComponents": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                        },
+                        "minItems": 1,
+                        "maxItems": 128,
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "outerWalk",
+                      "holeWalks",
+                      "surroundingComponents"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 128
+                },
+                "unboundedWalks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "minItems": 0,
+                  "maxItems": 128
+                },
+                "incidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "vertex": {
+                        "type": "string",
+                        "maxLength": 1400
+                      },
+                      "rays": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "pattern": "^c1-edge:[a-f0-9]{64}(?![\\s\\S])"
+                            },
+                            "direction": {
+                              "enum": [
+                                -1,
+                                1
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "direction"
+                          ]
+                        },
+                        "minItems": 2,
+                        "maxItems": 8192
+                      },
+                      "sectors": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "from": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "pattern": "^c1-edge:[a-f0-9]{64}(?![\\s\\S])"
+                                },
+                                "direction": {
+                                  "enum": [
+                                    -1,
+                                    1
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "direction"
+                              ]
+                            },
+                            "to": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "pattern": "^c1-edge:[a-f0-9]{64}(?![\\s\\S])"
+                                },
+                                "direction": {
+                                  "enum": [
+                                    -1,
+                                    1
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "direction"
+                              ]
+                            },
+                            "occupied": {
+                              "type": "boolean"
+                            },
+                            "regionId": {
+                              "anyOf": [
+                                {
+                                  "const": null
+                                },
+                                {
+                                  "type": "string",
+                                  "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "from",
+                            "to",
+                            "occupied",
+                            "regionId"
+                          ]
+                        },
+                        "minItems": 2,
+                        "maxItems": 8192
+                      },
+                      "touching": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "vertex",
+                      "rays",
+                      "sectors",
+                      "touching"
+                    ]
+                  },
+                  "minItems": 0,
+                  "maxItems": 2048
+                },
+                "area": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                      "maxLength": 156
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                      "maxLength": 155
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "sourceLeafIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "minItems": 1,
+                  "maxItems": 16
+                },
+                "nodeStates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "nodeId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 96,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                      },
+                      "state": {
+                        "enum": [
+                          "evaluated",
+                          "unrequested-unresolved"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "nodeId",
+                      "state"
+                    ]
+                  },
+                  "minItems": 1,
+                  "maxItems": 128
+                }
+              },
+              "required": [
+                "plane",
+                "vertices",
+                "edges",
+                "contours",
+                "components",
+                "voids",
+                "unboundedWalks",
+                "incidence",
+                "area",
+                "sourceLeafIds",
+                "nodeStates"
+              ]
+            }
+          ]
+        },
+        "partitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^c2a-[a-z-]+:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "bounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "min": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 2,
+                    "minItems": 2
+                  },
+                  "max": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 2,
+                    "minItems": 2
+                  }
+                },
+                "required": [
+                  "min",
+                  "max"
+                ]
+              },
+              "ownerIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "maxItems": 16,
+                "minItems": 0
+              },
+              "finishOwnerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "skinId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "area": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "string",
+                    "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                    "maxLength": 156
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                    "maxLength": 155
+                  }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "bounds",
+              "ownerIds",
+              "finishOwnerId",
+              "skinId",
+              "area"
+            ]
+          },
+          "maxItems": 2048,
+          "minItems": 0
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^c2a-[a-z-]+:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "a": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                      "maxLength": 156
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                      "maxLength": 155
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "maxItems": 2,
+                "minItems": 2
+              },
+              "b": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                      "maxLength": 156
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                      "maxLength": 155
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "maxItems": 2,
+                "minItems": 2
+              },
+              "leftOwners": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "maxItems": 16,
+                "minItems": 0
+              },
+              "rightOwners": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "maxItems": 16,
+                "minItems": 0
+              },
+              "leftFinishOwnerId": {
+                "anyOf": [
+                  {
+                    "const": null
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                ]
+              },
+              "rightFinishOwnerId": {
+                "anyOf": [
+                  {
+                    "const": null
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                ]
+              },
+              "coverage": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "nodeId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "shapeId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "outlineId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "primitiveId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "from": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "to": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "direction": {
+                      "enum": [
+                        -1,
+                        1
+                      ]
+                    }
+                  },
+                  "required": [
+                    "nodeId",
+                    "shapeId",
+                    "outlineId",
+                    "primitiveId",
+                    "from",
+                    "to",
+                    "direction"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 16384
+              }
+            },
+            "required": [
+              "id",
+              "a",
+              "b",
+              "leftOwners",
+              "rightOwners",
+              "leftFinishOwnerId",
+              "rightFinishOwnerId",
+              "coverage"
+            ]
+          },
+          "maxItems": 4096,
+          "minItems": 0
+        },
+        "portBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^c2a-[a-z-]+:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "instanceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "recipeId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "shapeId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "outlineId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "primitiveId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "portPrimitiveId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  },
+                  "from": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "string",
+                        "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                        "maxLength": 156
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                        "maxLength": 155
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "to": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "string",
+                        "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                        "maxLength": 156
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                        "maxLength": 155
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": [
+                  "instanceId",
+                  "recipeId",
+                  "shapeId",
+                  "outlineId",
+                  "primitiveId",
+                  "portId",
+                  "portPrimitiveId",
+                  "from",
+                  "to"
+                ]
+              },
+              "interfaceId": {
+                "type": "string",
+                "pattern": "^c2a-[a-z-]+:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "start": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                      "maxLength": 156
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                      "maxLength": 155
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "maxItems": 2,
+                "minItems": 2
+              },
+              "end": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                      "maxLength": 156
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                      "maxLength": 155
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "maxItems": 2,
+                "minItems": 2
+              },
+              "exposure": {
+                "enum": [
+                  "internal",
+                  "exposed"
+                ]
+              },
+              "finishVisible": {
+                "type": "boolean"
+              },
+              "insideOwners": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "maxItems": 16,
+                "minItems": 0
+              },
+              "outsideOwners": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                "maxItems": 16,
+                "minItems": 0
+              },
+              "insideFinishOwnerId": {
+                "anyOf": [
+                  {
+                    "const": null
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                ]
+              },
+              "outsideFinishOwnerId": {
+                "anyOf": [
+                  {
+                    "const": null
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                  }
+                ]
+              },
+              "spanKey": {
+                "type": "string",
+                "pattern": "^c2a-[a-z-]+:[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "renderPlan": {
+                "const": null
+              }
+            },
+            "required": [
+              "id",
+              "source",
+              "interfaceId",
+              "start",
+              "end",
+              "exposure",
+              "finishVisible",
+              "insideOwners",
+              "outsideOwners",
+              "insideFinishOwnerId",
+              "outsideFinishOwnerId",
+              "spanKey",
+              "renderPlan"
+            ]
+          },
+          "maxItems": 4096,
+          "minItems": 0
+        },
+        "instances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "recipeId",
+              "contentDigest",
+              "frame",
+              "shape",
+              "origin",
+              "transform",
+              "anchors",
+              "ports",
+              "reservations"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "recipeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "contentDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "frame": {
+                "enum": [
+                  "local",
+                  "world"
+                ]
+              },
+              "shape": {
+                "$ref": "urn:nautilus:schema:tile-recipe:1#/$defs/shape"
+              },
+              "origin": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "transform": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "quarterTurns",
+                  "mirrorX"
+                ],
+                "properties": {
+                  "quarterTurns": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 3
+                  },
+                  "mirrorX": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "anchors": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "urn:nautilus:schema:tile-recipe:1#/$defs/anchor"
+                    },
+                    {
+                      "$ref": "urn:nautilus:schema:tile-recipe:2#/$defs/anchor"
+                    }
+                  ]
+                },
+                "maxItems": 256,
+                "minItems": 0
+              },
+              "ports": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:schema:compiled-tiles:1#/$defs/compiledPort"
+                },
+                "minItems": 0,
+                "maxItems": 64
+              },
+              "reservations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "instanceId",
+                    "floorId",
+                    "channel",
+                    "layerId",
+                    "min",
+                    "max"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "instanceId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "floorId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "channel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "layerId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "min": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": -1000000000000,
+                        "maximum": 1000000000000
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "max": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": -1000000000000,
+                        "maximum": 1000000000000
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    }
+                  }
+                },
+                "minItems": 0,
+                "maxItems": 64
+              }
+            }
+          },
+          "maxItems": 32,
+          "minItems": 0
+        },
+        "joins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "pairs"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "pairs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "a",
+                    "b",
+                    "worldEdgeId",
+                    "dedupOwner",
+                    "accepted",
+                    "skirtPolicy",
+                    "geometryCopies",
+                    "supportOwner"
+                  ],
+                  "properties": {
+                    "a": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "instanceId",
+                        "portId"
+                      ],
+                      "properties": {
+                        "instanceId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 96,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                        },
+                        "portId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 96,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                        }
+                      }
+                    },
+                    "b": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "instanceId",
+                        "portId"
+                      ],
+                      "properties": {
+                        "instanceId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 96,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                        },
+                        "portId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 96,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                        }
+                      }
+                    },
+                    "worldEdgeId": {
+                      "type": "string",
+                      "pattern": "^tile-edge-v1:[a-f0-9]{64}(?![\\s\\S])"
+                    },
+                    "dedupOwner": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 96,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                    },
+                    "accepted": {
+                      "const": true
+                    },
+                    "skirtPolicy": {
+                      "const": {
+                        "eligible": true,
+                        "requiresBothResident": true,
+                        "otherwise": "retain-exterior-boundary"
+                      }
+                    },
+                    "geometryCopies": {
+                      "const": "each-port"
+                    },
+                    "supportOwner": {
+                      "const": "retained-host"
+                    }
+                  }
+                },
+                "minItems": 1,
+                "maxItems": 64
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 512
+        },
+        "certificates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "exact-primary-rectangle-contact"
+              },
+              "groupId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "a": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "b": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "reservationA": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "reservationB": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "bounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "min": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 3,
+                    "minItems": 3
+                  },
+                  "max": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 3,
+                    "minItems": 3
+                  }
+                },
+                "required": [
+                  "min",
+                  "max"
+                ]
+              },
+              "positiveVolume": {
+                "type": "boolean"
+              },
+              "meaning": {
+                "const": "Only these named primary reservation intervals; no support, navigation or pair-wide permission."
+              }
+            },
+            "required": [
+              "kind",
+              "groupId",
+              "a",
+              "b",
+              "reservationA",
+              "reservationB",
+              "bounds",
+              "positiveVolume",
+              "meaning"
+            ]
+          },
+          "maxItems": 16384,
+          "minItems": 0
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "a": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "b": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "reservationA": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "reservationB": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "bounds": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "min": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 3,
+                    "minItems": 3
+                  },
+                  "max": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^(0|-?[1-9][0-9]*)(?![\\s\\S])",
+                          "maxLength": 156
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*(?![\\s\\S])",
+                          "maxLength": 155
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "maxItems": 3,
+                    "minItems": 3
+                  }
+                },
+                "required": [
+                  "min",
+                  "max"
+                ]
+              }
+            },
+            "required": [
+              "a",
+              "b",
+              "reservationA",
+              "reservationB",
+              "bounds"
+            ]
+          },
+          "maxItems": 16384,
+          "minItems": 0
+        },
+        "statuses": {
+          "const": {
+            "availability": "candidate-unregistered-v2",
+            "authored": "saveable",
+            "geometry": "resolved-planar-rectangles",
+            "layout": "resolved",
+            "preparation": "private-headless-only",
+            "presentation": "unbound",
+            "nativeClassification": "unbound",
+            "physicalQuery": "unbound",
+            "support": "unbound",
+            "navigation": "unbound",
+            "fire": "unbound",
+            "game": "unbound",
+            "liveAdoption": false
+          }
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "units": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "exact": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "pairs": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "split": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "sort": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "membership": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "graph": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "topology": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "provenance": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "serialization": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                }
+              },
+              "required": [
+                "source",
+                "exact",
+                "pairs",
+                "split",
+                "sort",
+                "membership",
+                "graph",
+                "topology",
+                "provenance",
+                "serialization"
+              ]
+            },
+            "counts": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "maxGraphNodes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 128
+                },
+                "maxDepth": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 12
+                },
+                "maxOperands": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 16
+                },
+                "maxLeaves": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 16
+                },
+                "maxRingsPerLeaf": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 8
+                },
+                "maxSegments": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 128
+                },
+                "maxPairTests": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 8128
+                },
+                "maxVertices": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2048
+                },
+                "maxAtomicEdges": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4096
+                },
+                "maxHalfEdges": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 8192
+                },
+                "maxContours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 128
+                },
+                "maxBoundarySegments": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4096
+                },
+                "maxProvenanceLinks": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 16384
+                },
+                "maxQueries": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 256
+                },
+                "maxSerializedBytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4000000
+                },
+                "maxInputBits": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 128
+                },
+                "maxRationalBits": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 512
+                },
+                "maxIntermediateBits": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4096
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000000
+                },
+                "maxGroupRectangles": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 16
+                },
+                "maxAffectedOwners": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 32
+                },
+                "maxOriginalSegments": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 128
+                },
+                "maxPartitions": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2048
+                },
+                "maxPortBindings": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4096
+                }
+              },
+              "required": []
+            }
+          },
+          "required": [
+            "total",
+            "units",
+            "counts"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "mode",
+        "source",
+        "layoutDigest",
+        "catalogueDigest",
+        "options",
+        "sourceBindingDigest",
+        "groupId",
+        "geometry",
+        "partitions",
+        "interfaces",
+        "portBindings",
+        "instances",
+        "joins",
+        "certificates",
+        "contacts",
+        "statuses",
+        "work"
+      ]
     }
   ],
-  "$defs": {}
+  "$defs": {
+    "compositionRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "planar-composition-edit"
+        },
+        "version": {
+          "const": 2
+        },
+        "profile": {
+          "const": "level-rectangles-c2a"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "expected": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "layoutDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "catalogueDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "contextToken": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            }
+          },
+          "required": [
+            "revision",
+            "layoutDigest",
+            "catalogueDigest",
+            "contextToken"
+          ]
+        },
+        "editedOwnerIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "maxItems": 32,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "finishCopies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "instanceId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "fromRecipeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              "toRecipeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              }
+            },
+            "required": [
+              "instanceId",
+              "fromRecipeId",
+              "toRecipeId"
+            ]
+          },
+          "maxItems": 16,
+          "minItems": 0
+        },
+        "nextBundle": {
+          "$ref": "urn:nautilus:schema:tile-bundle:2"
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "maxGraphNodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxDepth": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "maxOperands": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            "maxLeaves": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            "maxRingsPerLeaf": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "maxSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxPairTests": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8128
+            },
+            "maxVertices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2048
+            },
+            "maxAtomicEdges": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            },
+            "maxHalfEdges": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8192
+            },
+            "maxContours": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxBoundarySegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            },
+            "maxProvenanceLinks": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            },
+            "maxQueries": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "maxSerializedBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4000000
+            },
+            "maxInputBits": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxRationalBits": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 512
+            },
+            "maxIntermediateBits": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxGroupRectangles": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            "maxAffectedOwners": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            "maxOriginalSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            },
+            "maxPartitions": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2048
+            },
+            "maxPortBindings": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            }
+          },
+          "required": [
+            "maxGraphNodes",
+            "maxDepth",
+            "maxOperands",
+            "maxLeaves",
+            "maxRingsPerLeaf",
+            "maxSegments",
+            "maxPairTests",
+            "maxVertices",
+            "maxAtomicEdges",
+            "maxHalfEdges",
+            "maxContours",
+            "maxBoundarySegments",
+            "maxProvenanceLinks",
+            "maxQueries",
+            "maxSerializedBytes",
+            "maxInputBits",
+            "maxRationalBits",
+            "maxIntermediateBits",
+            "maxWork",
+            "maxGroupRectangles",
+            "maxAffectedOwners",
+            "maxOriginalSegments",
+            "maxPartitions",
+            "maxPortBindings"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "profile",
+        "id",
+        "expected",
+        "editedOwnerIds",
+        "finishCopies",
+        "nextBundle",
+        "limits"
+      ]
+    }
+  }
 }

@@ -1,4 +1,6 @@
-# Tile v2 private A/B and C1 candidate
+# Tile v2 private A/B, C1 and C2a candidate
+
+The explicit [C2a rectangle-composition profile](procedural-tiles-c2a-candidate.md) now provides private complete-layout resolution and pure preparation for one bounded typed group. Group-free A/B and broader native grammar retain their unresolved gates; public registration, presentation and Editor/game adoption remain held.
 
 The Architect-approved [C1 line-region inspector](procedural-tiles-c1-candidate.md)
 adds bounded exact regularized planar root geometry/classification. It does not
@@ -52,11 +54,11 @@ leaves: omission or a valid bounds object is supported; `null`, `false`, `0` and
 as absent, although the v1 structural schema rejects them. This inherited v1
 discrepancy remains documented and unchanged; it does not carry into v2 syntax.
 
-Every v2 recipe/layout is **saveable but unresolved** in this checkpoint, including
+Except for the separately documented explicit C2a complete-layout profile, every v2 recipe/layout is **saveable but unresolved**, including
 a v2 layout containing only legacy recipes. `openTileBundle(...,{requireResolved:
 true})`, complete compilation, projection, interface matching, cell derivation and
-requirements/live editing refuse v2. Pure prepare returns `next:null`; retained
-host preparation cannot produce a committable v2 handle. Structural schemas never
+requirements/live editing refuse v2. Group-free A/B pure prepare returns `next:null`; retained
+host preparation cannot produce a group-free/general native v2 handle. C2a private preparation is separately scoped and never a public adoption claim. Structural schemas never
 stand in for evaluator availability. The metadata-only private view used to reuse
 accepted common-field validators is never returned, hashed as authored intent or
 compiled as v2 geometry.
@@ -167,7 +169,7 @@ two zero samples cannot substitute. The side proof separately verifies the true 
 after D4, then bounds the entire inward collar. With normalized inward s and
 tangential t, the scalar factors as:
 
-`F(s,t) = s² * [(3-2s) O(t) + A*256(1-s)²*t²*(1-t)²]`.
+`F(s,t) = sÂ² * [(3-2s) O(t) + A*256(1-s)Â²*tÂ²*(1-t)Â²]`.
 
 O is a convex smooth blend of the two opposite corners. For every allowed seed,
 `abs(A)<=abs(fieldAmplitude)` and the variation term is bounded by

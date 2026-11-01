@@ -46,3 +46,11 @@ export function arithmetic(budget){
   const area=segments=>mul(segments.reduce((v,{a,b})=>add(v,cross(a,b)),zero),half);
   return {zero,one,half,number,make,add,sub,mul,div,neg,cmp,eq,sign,vector,plus,scale,cross,pointEq,pointCmp,encode,key,pointKey,encodePoint,affineSign,onSegment,parity,witness,area};
 }
+
+export function planarJsonBound(value,budget,cap){
+  let size=0;const add=n=>{if(size+n>cap)throw new PlanarRefusal('C1_SERIALIZED_BYTES_LIMIT','Complete evidence exceeds the captured serialized-byte budget.','/options/limits/maxSerializedBytes');size+=n;};
+  function string(s){add(2);for(let i=0;i<s.length;i++){budget.take('serialization');const c=s.charCodeAt(i);if(c===34||c===92||[8,9,10,12,13].includes(c))add(2);else if(c<32)add(6);else if(c<128)add(1);else if(c<2048)add(2);else if(c>=0xd800&&c<=0xdbff&&i+1<s.length&&s.charCodeAt(i+1)>=0xdc00&&s.charCodeAt(i+1)<=0xdfff){add(4);i++;}else if(c>=0xd800&&c<=0xdfff)add(6);else add(3);}}
+  function visit(v){budget.take('serialization');if(v===null){add(4);return;}if(typeof v==='string'){string(v);return;}if(typeof v!=='object'){add(JSON.stringify(v).length);return;}const list=Array.isArray(v)?v:Object.entries(v);add(2);for(let i=0;i<list.length;i++){if(i)add(1);if(Array.isArray(v))visit(list[i]);else{string(list[i][0]);add(1);visit(list[i][1]);}}}
+  visit(value);return size;
+}
+export function chargePlanarSource(value,budget){if(value&&typeof value==='object'){budget.take('source',3);for(const [key,v]of Object.entries(value)){budget.take('source',3*key.length);chargePlanarSource(v,budget);}}else budget.take('source',3*(typeof value==='string'?value.length:1));}
