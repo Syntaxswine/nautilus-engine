@@ -1,0 +1,361 @@
+{
+  "sourceCommit": "48f3b786e7df0721c884baacafa6ee63273895bf",
+  "sourceMode": false,
+  "buildProvenanceSha256": "5aa755b0b6a5bcea63edbf2de2622b5090305be79c628ece526e9e777f3a262d",
+  "resources": [
+    {
+      "path": "/packages/game-ui/style.css",
+      "transferBytes": 4005,
+      "encodedBodyBytes": 3705,
+      "decodedBodyBytes": 3705
+    },
+    {
+      "path": "/packages/floor-navigation/style.css",
+      "transferBytes": 3311,
+      "encodedBodyBytes": 3011,
+      "decodedBodyBytes": 3011
+    },
+    {
+      "path": "/packages/functional-scene-ui/style.css",
+      "transferBytes": 3627,
+      "encodedBodyBytes": 3327,
+      "decodedBodyBytes": 3327
+    },
+    {
+      "path": "/examples/functional-player-preparation.css",
+      "transferBytes": 4994,
+      "encodedBodyBytes": 4694,
+      "decodedBodyBytes": 4694
+    },
+    {
+      "path": "/examples/functional-player-preparation.js",
+      "transferBytes": 8886,
+      "encodedBodyBytes": 8586,
+      "decodedBodyBytes": 8586
+    },
+    {
+      "path": "/packages/functional-scene-ui/readiness-dom.js",
+      "transferBytes": 3637,
+      "encodedBodyBytes": 3337,
+      "decodedBodyBytes": 3337
+    },
+    {
+      "path": "/packages/game-ui/title.js",
+      "transferBytes": 9496,
+      "encodedBodyBytes": 9196,
+      "decodedBodyBytes": 9196
+    },
+    {
+      "path": "/packages/functional-scene-ui/readiness.js",
+      "transferBytes": 4278,
+      "encodedBodyBytes": 3978,
+      "decodedBodyBytes": 3978
+    },
+    {
+      "path": "/packages/functional-scene-ui/controls.js",
+      "transferBytes": 5335,
+      "encodedBodyBytes": 5035,
+      "decodedBodyBytes": 5035
+    },
+    {
+      "path": "/packages/functional-scene-ui/floors.js",
+      "transferBytes": 2960,
+      "encodedBodyBytes": 2660,
+      "decodedBodyBytes": 2660
+    },
+    {
+      "path": "/packages/functional-scene-ui/session-controller.js",
+      "transferBytes": 6070,
+      "encodedBodyBytes": 5770,
+      "decodedBodyBytes": 5770
+    },
+    {
+      "path": "/packages/floor-navigation/dom.js",
+      "transferBytes": 5634,
+      "encodedBodyBytes": 5334,
+      "decodedBodyBytes": 5334
+    },
+    {
+      "path": "/packages/floor-navigation/index.js",
+      "transferBytes": 6636,
+      "encodedBodyBytes": 6336,
+      "decodedBodyBytes": 6336
+    },
+    {
+      "path": "/examples/threshold-art.svg",
+      "transferBytes": 2792,
+      "encodedBodyBytes": 2492,
+      "decodedBodyBytes": 2492
+    }
+  ],
+  "resourceNote": "Measured local HTTP resource timing for this UI fixture only; excludes the navigation document and any native compiler/scene/package workload.",
+  "scope": "UI preparation only; native art, compiled runtime, physical door/stair traversal, game checkpoints and installed public package acceptance are not run.",
+  "compilerPin": null,
+  "artistKitPin": null,
+  "checks": [
+    "scoped held keyboard input, normalized diagonals, no frame-driven commands and pause/resume",
+    "native pointer release and focus loss clear held movement",
+    "failed and cancelled replacement retains accepted resources; retry and title continue reuse correct handles",
+    "functional/decorative/incomplete/unsupported feedback and exact source selection",
+    "host-confirmed landing identity, five-label follow/manual return and visibility-only floor callbacks",
+    "native phone touch down/up, 44px targets, 320px reflow and component cleanup"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "final": {
+    "flow": {
+      "view": "disposed",
+      "phase": "disposed",
+      "hasSession": false,
+      "busy": false,
+      "progress": null,
+      "error": {
+        "code": "UI_PREPARATION_FAILED",
+        "reason": "Resolve the listed connections before entering play.",
+        "remedy": "Correct the reported bindings or retry. The accepted session is retained."
+      },
+      "cleanupErrors": []
+    },
+    "acceptedId": null,
+    "owned": 0,
+    "retired": 2,
+    "borrowedDisposals": 0,
+    "floor": {
+      "floors": [
+        {
+          "id": "fixture-floor-0",
+          "label": "1",
+          "elevationM": 0
+        },
+        {
+          "id": "fixture-floor-1",
+          "label": "2",
+          "elevationM": 2.12
+        },
+        {
+          "id": "fixture-floor-2",
+          "label": "3",
+          "elevationM": 4.24
+        },
+        {
+          "id": "fixture-floor-3",
+          "label": "4",
+          "elevationM": 6.36
+        },
+        {
+          "id": "fixture-floor-4",
+          "label": "5",
+          "elevationM": 8.48
+        },
+        {
+          "id": "fixture-floor-5",
+          "label": "6",
+          "elevationM": 10.600000000000001
+        },
+        {
+          "id": "fixture-floor-6",
+          "label": "7",
+          "elevationM": 12.72
+        }
+      ],
+      "selectedId": "fixture-floor-6",
+      "mode": "character-follow",
+      "character": {
+        "id": "fixture-subject",
+        "floorId": "fixture-floor-6"
+      },
+      "contact": null,
+      "revision": 10
+    },
+    "logs": [
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-0",
+          "visibleFloorIds": [
+            "fixture-floor-0",
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4"
+          ],
+          "mode": "manual"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-0",
+          "visibleFloorIds": [
+            "fixture-floor-0",
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "move": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "move": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        }
+      },
+      {
+        "move": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "move": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "userPaused": true
+      },
+      {
+        "userPaused": false
+      },
+      {
+        "interactRequested": true,
+        "authoritativeEffects": 0
+      },
+      {
+        "move": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "move": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "move": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "move": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "lifecycleError": "UI_PREPARATION_FAILED"
+      },
+      {
+        "selection": {
+          "instanceId": "sample-assembly",
+          "partId": "sample-door",
+          "path": "/instances/0/connections/upper"
+        }
+      },
+      {
+        "lifecycleError": "UI_PREPARATION_FAILED"
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-1",
+          "visibleFloorIds": [
+            "fixture-floor-0",
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-2",
+          "visibleFloorIds": [
+            "fixture-floor-0",
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-3",
+          "visibleFloorIds": [
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4",
+            "fixture-floor-5"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-4",
+          "visibleFloorIds": [
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4",
+            "fixture-floor-5",
+            "fixture-floor-6"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-5",
+          "visibleFloorIds": [
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4",
+            "fixture-floor-5",
+            "fixture-floor-6"
+          ],
+          "mode": "character-follow"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-3",
+          "visibleFloorIds": [
+            "fixture-floor-1",
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4",
+            "fixture-floor-5"
+          ],
+          "mode": "manual"
+        }
+      },
+      {
+        "visibilityOnly": {
+          "selectedFloorId": "fixture-floor-6",
+          "visibleFloorIds": [
+            "fixture-floor-2",
+            "fixture-floor-3",
+            "fixture-floor-4",
+            "fixture-floor-5",
+            "fixture-floor-6"
+          ],
+          "mode": "character-follow"
+        }
+      }
+    ]
+  }
+}
