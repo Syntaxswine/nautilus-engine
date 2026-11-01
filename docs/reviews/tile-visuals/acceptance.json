@@ -109,8 +109,18 @@
     "normalization": "Git blob comparison uses configured text filters; SHA-256 records the actual working bytes. No donor or worker files imported.",
     "ownership": "Public exports/schemas/capability/whitelist/CI and consumer pins remain unchanged by this provider tranche."
   },
+  "initialReview": {
+    "baseline": "78c891b7521e97fe3ab47298981218ef56e9a61d",
+    "before": "fail",
+    "fixed": "pass",
+    "materialCases": 48,
+    "materialEdgesChecked": 384,
+    "getterCases": 12,
+    "prototypeIdCases": 14,
+    "authoredGeometryCases": 7
+  },
   "combinedProof": {
-    "focusedTests": 16,
+    "focusedTests": 20,
     "binaryMaskSaddleD4Cases": 144,
     "canonicalSchedules": [
       7,
@@ -128,14 +138,14 @@
   },
   "gates": {
     "status": "pass",
-    "checkedAt": "2026-11-01T01:35:46.064Z",
+    "checkedAt": "2026-11-01T02:00:14.610Z",
     "runtime": "v24.15.0",
     "platform": "win32",
     "checks": [
       {
         "command": "npm run check",
         "exitCode": 0,
-        "durationMs": 5905,
+        "durationMs": 6244,
         "log": "artifacts/tile-visuals/check.log",
         "tail": [
           "> node tools/check.mjs",
@@ -153,29 +163,29 @@
       {
         "command": "npm test",
         "exitCode": 0,
-        "durationMs": 64559,
+        "durationMs": 67617,
         "log": "artifacts/tile-visuals/test.log",
         "tail": [
-          "✔ aggregate native-panel overflow is rejected before assembly commits (450.5047ms)",
-          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (552.6424ms)",
-          "ℹ tests 698",
+          "✔ aggregate native-panel overflow is rejected before assembly commits (429.7563ms)",
+          "✔ failed wall imports, replacements and boundary placements preserve redo and document flags (573.7622ms)",
+          "ℹ tests 702",
           "ℹ suites 0",
-          "ℹ pass 698",
+          "ℹ pass 702",
           "ℹ fail 0",
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 64267.4369"
+          "ℹ duration_ms 67323.3317"
         ]
       },
       {
         "command": "npm run test:upstream",
         "exitCode": 0,
-        "durationMs": 3389,
+        "durationMs": 3428,
         "log": "artifacts/tile-visuals/test-upstream.log",
         "tail": [
-          "✔ seeded lines deterministic and malformed plans rejected (281.426ms)",
-          "✔ a straight fence cannot drift between its north and south edges (185.1381ms)",
+          "✔ seeded lines deterministic and malformed plans rejected (248.8684ms)",
+          "✔ a straight fence cannot drift between its north and south edges (178.4856ms)",
           "ℹ tests 32",
           "ℹ suites 0",
           "ℹ pass 32",
@@ -183,20 +193,20 @@
           "ℹ cancelled 0",
           "ℹ skipped 0",
           "ℹ todo 0",
-          "ℹ duration_ms 3041.6045"
+          "ℹ duration_ms 2969.3329"
         ]
       },
       {
         "command": "npm run build",
         "exitCode": 0,
-        "durationMs": 25300,
+        "durationMs": 24571,
         "log": "artifacts/tile-visuals/build.log",
         "tail": [
           "> @nautilus-engine/map-core@0.10.0 build",
           "> node tools/build.mjs",
           "",
           "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
-          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 474 module paths checked and own/adapted scripts syntax-checked."
+          "Built Nautilus Engine 0.10.0: independent editor, headless map, rules/progression and item cores, 11 recorded deployment patches; 475 module paths checked and own/adapted scripts syntax-checked."
         ]
       }
     ]
@@ -215,13 +225,18 @@
     },
     "provider": {
       "private": true,
-      "compressedBytes": 19001,
-      "fileCount": 7,
-      "sha256": "0cd25deba28b01967f1bfed35c1af435dbe0336388aad107263542a15cf55b3a"
+      "compressedBytes": 20726,
+      "fileCount": 8,
+      "sha256": "938006e343550bef84f80fe4fe4b6421140477d23ead4e3a8ee5056ad3be7898"
     },
     "proof": {
       "status": "pass",
       "actualDeclaredCore": true,
+      "materialBindingCases": 48,
+      "materialEdgesChecked": 384,
+      "accessorCases": 12,
+      "prototypeIdCases": 14,
+      "authoredGradeCases": 7,
       "coreContract": 1,
       "threeRevision": "180",
       "canonicalSamplesReferenced": 124,
@@ -437,6 +452,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 5,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 124,
           "sourcePreserved": true
         },
@@ -452,6 +468,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 18,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 936,
           "sourcePreserved": true
         },
@@ -467,6 +484,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 2,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 144,
           "sourcePreserved": true
         },
@@ -482,7 +500,48 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 2,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 0,
+          "sourcePreserved": true
+        },
+        {
+          "scene": "material-shared",
+          "detail": 1,
+          "disposed": false,
+          "instances": 24,
+          "interfaces": 96,
+          "ownedGeometry": 144,
+          "triangles": 624,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound",
+          "calls": 48,
+          "textures": 3,
+          "materialAudit": {
+            "boundaryEdges": 192,
+            "interiorTriangles": 464,
+            "violations": 0
+          },
+          "canonicalSamples": 288,
+          "sourcePreserved": true
+        },
+        {
+          "scene": "material-faces",
+          "detail": 1,
+          "disposed": false,
+          "instances": 24,
+          "interfaces": 96,
+          "ownedGeometry": 216,
+          "triangles": 1456,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound",
+          "calls": 120,
+          "textures": 3,
+          "materialAudit": {
+            "boundaryEdges": 192,
+            "interiorTriangles": 1264,
+            "violations": 0
+          },
+          "canonicalSamples": 288,
           "sourcePreserved": true
         }
       ],
@@ -499,6 +558,7 @@
         "scope": "Native flat surfaces only; body/support/gameplay unbound",
         "calls": 5,
         "textures": 3,
+        "materialAudit": null,
         "canonicalSamples": 72,
         "sourcePreserved": true
       },
@@ -522,6 +582,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 5,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 124,
           "sourcePreserved": true
         },
@@ -537,6 +598,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 18,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 936,
           "sourcePreserved": true
         },
@@ -552,6 +614,7 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 2,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 144,
           "sourcePreserved": true
         },
@@ -567,7 +630,48 @@
           "scope": "Native flat surfaces only; body/support/gameplay unbound",
           "calls": 2,
           "textures": 3,
+          "materialAudit": null,
           "canonicalSamples": 0,
+          "sourcePreserved": true
+        },
+        {
+          "scene": "material-shared",
+          "detail": 1,
+          "disposed": false,
+          "instances": 24,
+          "interfaces": 96,
+          "ownedGeometry": 144,
+          "triangles": 624,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound",
+          "calls": 48,
+          "textures": 3,
+          "materialAudit": {
+            "boundaryEdges": 192,
+            "interiorTriangles": 464,
+            "violations": 0
+          },
+          "canonicalSamples": 288,
+          "sourcePreserved": true
+        },
+        {
+          "scene": "material-faces",
+          "detail": 1,
+          "disposed": false,
+          "instances": 24,
+          "interfaces": 96,
+          "ownedGeometry": 216,
+          "triangles": 1456,
+          "quantizationLimitedRefinements": 0,
+          "scope": "Native flat surfaces only; body/support/gameplay unbound",
+          "calls": 120,
+          "textures": 3,
+          "materialAudit": {
+            "boundaryEdges": 192,
+            "interiorTriangles": 1264,
+            "violations": 0
+          },
+          "canonicalSamples": 288,
           "sourcePreserved": true
         }
       ],
@@ -584,6 +688,7 @@
         "scope": "Native flat surfaces only; body/support/gameplay unbound",
         "calls": 5,
         "textures": 3,
+        "materialAudit": null,
         "canonicalSamples": 72,
         "sourcePreserved": true
       },
@@ -617,6 +722,18 @@
         "sourceBuild": "byte-identical"
       },
       {
+        "path": "previews/material-faces.png",
+        "bytes": 45517,
+        "sha256": "698a8019533188a5647e7dde6e968d6c1b445c7276e0ef1cce10d1e07b81c7ec",
+        "sourceBuild": "byte-identical"
+      },
+      {
+        "path": "previews/material-shared.png",
+        "bytes": 36950,
+        "sha256": "f5be515f2a20e2a3a5ee7e8c190038587e659b230613e91ab02cf8ffa8abc9ab",
+        "sourceBuild": "byte-identical"
+      },
+      {
         "path": "previews/phone.png",
         "bytes": 21341,
         "sha256": "963de18b06a0daf9c17f9985239e967a942c97e202f98106fd84be5d9c47de3a",
@@ -643,7 +760,7 @@
     ]
   },
   "cleanup": {
-    "verifiedAt": "2026-11-01T01:37:34.348Z",
+    "verifiedAt": "2026-11-01T02:04:16.138Z",
     "method": "Matched supported-close receipts to PID + creation time + executable; queried live processes and recorded listening ports. No process killed.",
     "helpers": [
       {
@@ -727,6 +844,46 @@
         "method": "Supported Playwright browser close and HTTP close in finally"
       },
       {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Canonical tile surface provider: actual core, constraints and native height",
+        "startedAt": "2026-11-01T01:52:47.164Z",
+        "expiresAt": "2026-11-01T01:55:47.164Z",
+        "process": {
+          "pid": 31688,
+          "creationFiletime": "134379715665763680",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 10724,
+          "creationFiletime": "134379715668849253",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 56663,
+        "stoppedAt": "2026-11-01T01:53:17.097Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "source",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Canonical tile surface provider: actual core, constraints and native height",
+        "startedAt": "2026-11-01T01:58:38.645Z",
+        "expiresAt": "2026-11-01T02:01:38.645Z",
+        "process": {
+          "pid": 35696,
+          "creationFiletime": "134379719180663497",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 67196,
+          "creationFiletime": "134379719183733930",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 62548,
+        "stoppedAt": "2026-11-01T01:59:49.320Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
         "mode": "built",
         "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
         "purpose": "Canonical tile surface provider: actual core, constraints and native height",
@@ -764,6 +921,26 @@
         },
         "port": 59321,
         "stoppedAt": "2026-11-01T01:36:39.722Z",
+        "method": "Supported Playwright browser close and HTTP close in finally"
+      },
+      {
+        "mode": "built",
+        "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+        "purpose": "Canonical tile surface provider: actual core, constraints and native height",
+        "startedAt": "2026-11-01T02:00:42.158Z",
+        "expiresAt": "2026-11-01T02:03:42.158Z",
+        "process": {
+          "pid": 20052,
+          "creationFiletime": "134379720415570769",
+          "executable": "C:\\Program Files\\nodejs\\node.exe"
+        },
+        "browser": {
+          "pid": 23720,
+          "creationFiletime": "134379720418721154",
+          "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        },
+        "port": 57691,
+        "stoppedAt": "2026-11-01T02:01:13.475Z",
         "method": "Supported Playwright browser close and HTTP close in finally"
       }
     ],

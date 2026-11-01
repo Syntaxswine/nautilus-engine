@@ -1,3 +1,4 @@
+import {copyPlainData,recordSlots} from './data.js';
 // No core import: the host supplies its actual registered ./tiles instance.
 export const TILE_ART_DEPENDENCY='708ed1c14e69699e4baa4483cbc5a50901d5be4e';
 export function artRefusal(code,message){const error=new Error(message);error.code=code;throw error;}
@@ -5,6 +6,9 @@ const copy=v=>JSON.parse(JSON.stringify(v));
 const parts=c=>c.kind==='compound'?c.segments:[c];
 const IDENTITY={quarterTurns:0,mirrorX:false},DEFAULT_UV={policy:'world-linear-exact-v1',axes:[[1,0,0],[0,1,0]],scaleM:[1,1],phase:[0,0]};
 export const TILE_ART_SAMPLING=Object.freeze({segmentsPerPart:64,maxChordErrorM:.01,maxSegmentM:4,maxWork:65536});
+function authoredLevel(curve,code,expected){
+ let level=expected;for(const part of parts(curve)){const heights=part.kind==='arc'?[part.h0,part.h1]:part.kind==='line'?[part.a[2],part.b[2]]:part.points.map(p=>p[2]);if(level===undefined)level=heights[0];if(heights.some(h=>h!==level))artRefusal(code,'Authored primitive heights are not level; an approximation budget cannot supply a graded provider.');}return level;
+}
 const close=(a,b)=>a.every((v,i)=>Math.abs(v-b[i])<1e-9);
 const uvAt=(uv,p)=>uv.axes.map((a,i)=>a.reduce((s,v,j)=>s+v*p[j],0)/uv.scaleM[i]+uv.phase[i]);
 
@@ -23,15 +27,16 @@ function pathOutline(core,path,width,sampling){
  return {loops:[quantized],errorBoundM:error+nodeQuantizationBoundM,nodeQuantizationBoundM,centrelineBoundM:path.errorBoundM,method:'Simple polyline capsule envelope; original analytic path retained. Non-simple envelopes refuse in the tessellator.'};
 }
 
-export function prepareTileArt(core,bundle,{detail=1,detailsByInstance={},curveSampling=TILE_ART_SAMPLING,maxInstances=128}={}){
+export function prepareTileArt(core,bundle,options={}){
+ const values=recordSlots(copyPlainData(options,{code:'ART_OPTIONS'}),'ART_OPTIONS',['detail','detailsByInstance','curveSampling','maxInstances']),detail=Object.hasOwn(values,'detail')?values.detail:1,detailsByInstance=Object.hasOwn(values,'detailsByInstance')?values.detailsByInstance:Object.create(null),curveSampling=Object.hasOwn(values,'curveSampling')?values.curveSampling:TILE_ART_SAMPLING,maxInstances=Object.hasOwn(values,'maxInstances')?values.maxInstances:128;
  if(!core?.openTileBundle||!core.sampleTileCurve||!core.deriveTileCells||!core.sampleTileField)artRefusal('BORROW_CORE','Supply the actual registered tile core instance.');
  if(![0,1,2].includes(detail)||!Number.isInteger(maxInstances)||maxInstances<1||maxInstances>128)artRefusal('ART_BUDGET','Use detail 0/1/2 and at most 128 semantic instances.');
- const opened=core.openTileBundle(bundle,{requireResolved:true}),compiled=opened.compiled,raw=opened.bundle;
+ const opened=core.openTileBundle(copyPlainData(bundle,{code:'ART_INPUT'}),{requireResolved:true}),compiled=opened.compiled,raw=opened.bundle;
  if(compiled.instances.length>maxInstances)artRefusal('ART_BUDGET','The requested art chunk exceeds its explicit instance budget.');
- if(!detailsByInstance||Array.isArray(detailsByInstance)||Object.values(detailsByInstance).some(v=>![0,1,2].includes(v))||Object.keys(detailsByInstance).some(id=>!compiled.instances.some(v=>v.id===id)))artRefusal('ART_DETAIL','Use presentation detail 0/1/2 for existing instance IDs.');
+ if(!detailsByInstance||typeof detailsByInstance!=='object'||Array.isArray(detailsByInstance)||Object.values(detailsByInstance).some(v=>![0,1,2].includes(v))||Object.keys(detailsByInstance).some(id=>!compiled.instances.some(v=>v.id===id)))artRefusal('ART_DETAIL','Use presentation detail 0/1/2 for existing instance IDs.');
  const entries=[];
  for(const inspected of compiled.instances){
-  const interiorDetail=detailsByInstance[inspected.id]??detail;
+  const interiorDetail=Object.hasOwn(detailsByInstance,inspected.id)?detailsByInstance[inspected.id]:detail;
   const recipe=raw.recipes.find(r=>r.id===inspected.recipeId),placement=raw.layout.instances.find(v=>v.id===inspected.id),s=recipe.shape,transform=recipe.frame==='world'?IDENTITY:placement.transform,origin=recipe.frame==='world'?[0,0,0]:placement.origin;
   if(recipe.features.some(f=>f!=='canonical-boundaries-v1'))artRefusal('ART_FEATURE','This surface provider cannot interpret additional family features.');
   const ports=inspected.ports;
@@ -57,9 +62,9 @@ export function prepareTileArt(core,bundle,{detail=1,detailsByInstance={},curveS
    entry.renderingPolicy='canonical-surface-v1-cuts16-interior8-16-32';entry.topology=core.tileFieldTopology(s,{transform,complement:false});entry.approximation={policy:'core sampled scalar field with planar native height',internalBorderSegments:16,interiorCellsPerM:n,external:'verbatim canonical port schedules; no 32/m dependency'};
   }else if(s.kind==='region'){
    if(s.outlines.some(c=>parts(c).some(p=>!['line','arc'].includes(p.kind))))artRefusal('REGION_PROFILE','This tranche supports line/arc region outlines; preserve other controls for a later evaluator.');
-   for(const c of s.outlines){const sampled=sample(c);if(sampled.positionsM.some(p=>Math.abs(p[2]-(s.baseM+origin[2]))>1e-6))artRefusal('GRADED_REGION_PROFILE','A region surface must be level at its authored base.');entry.loops.push(sampled.positionsM);(entry.sourceDescriptors??=[]).push(sampled.descriptor);entry.approximation.curveBoundM=Math.max(entry.approximation.curveBoundM||0,sampled.errorBoundM);}
+   for(const c of s.outlines){authoredLevel(c,'GRADED_REGION_PROFILE',s.baseM);const sampled=sample(c);if(sampled.positionsM.some(p=>Math.abs(p[2]-(s.baseM+origin[2]))>1e-6))artRefusal('GRADED_REGION_PROFILE','A region surface must be level at its authored base.');entry.loops.push(sampled.positionsM);(entry.sourceDescriptors??=[]).push(sampled.descriptor);entry.approximation.curveBoundM=Math.max(entry.approximation.curveBoundM||0,sampled.errorBoundM);}
   }else if(s.kind==='profile-sweep'){
-   const sampled=sample(s.path);if(sampled.positionsM.some(p=>Math.abs(p[2]-sampled.positionsM[0][2])>1e-6))artRefusal('GRADED_PATH_PROFILE','Graded ramps/stairs remain staged; no flattening of controls is allowed.');
+   authoredLevel(s.path,'GRADED_PATH_PROFILE');const sampled=sample(s.path);if(sampled.positionsM.some(p=>Math.abs(p[2]-sampled.positionsM[0][2])>1e-6))artRefusal('GRADED_PATH_PROFILE','Graded ramps/stairs remain staged; no flattening of controls is allowed.');
    const envelope=pathOutline(core,sampled,s.widthM,curveSampling);entry.loops=envelope.loops;entry.approximation={...entry.approximation,...envelope};delete entry.approximation.loops;
   }else artRefusal('SHAPE_PROFILE','No surface provider is bound for this shape.');
   if(s.clip){const sampled=sample({kind:'line',id:'clip-diagonal',a:s.clip.min,b:s.clip.max}),ends=[sampled.positionsM[0],sampled.positionsM.at(-1)];entry.clip={min:[0,1,2].map(k=>Math.min(...ends.map(p=>p[k]))),max:[0,1,2].map(k=>Math.max(...ends.map(p=>p[k])))};}
