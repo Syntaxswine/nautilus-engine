@@ -4,11 +4,12 @@ import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import fs from 'node:fs';
 import {native,mixedV2,put,field,line} from './fixtures/procedural-tiles/v2.mjs';
-import {matrix,options,rectangle,polygon,recipe,union,intersection,difference,clone,fullInputCeiling} from './fixtures/procedural-tiles/c1.mjs';
+import {matrix,options,rectangle,polygon,recipe,union,intersection,difference,clone,fullInputCeiling,pointContactRing,reorderSource} from './fixtures/procedural-tiles/c1.mjs';
 const T=await import(process.env.NAUTILUS_TILE_V2_PACKAGE?process.env.NAUTILUS_TILE_V2_PACKAGE+'/tiles':'../packages/tiles-core/candidate-v2.js');
 const V1=await import(process.env.NAUTILUS_TILE_V2_PACKAGE?process.env.NAUTILUS_TILE_V2_PACKAGE+'/baseline':'../packages/tiles-core/index.js');
 const rational=([n,d])=>Number(n)/Number(d);
 const resolved=(r)=>{assert.ok(r.resolution.state.startsWith('resolved-'),JSON.stringify(r.resolution));assert.ok(r.geometry);return r;};
+const contourSources=(g,id)=>{const w=g.contours.find(w=>w.id===id),edges=new Map(g.edges.map(e=>[e.id,e]));return [...new Set(w.spans.flatMap(s=>edges.get(s.id).coverage.map(c=>c.nodeId)))].sort();};
 test('C1 regularized rectangle/line acceptance matrix has independent expected areas, components, voids and queries',()=>{
   for(const c of matrix()){
     const source=JSON.stringify(c.recipe),result=resolved(T.inspectTilePlanarBoolean(c.recipe,options(T,{queries:c.queries.map(q=>q[0])})));assert.equal(rational(result.geometry.area),Number(c.area),c.name);assert.equal(result.geometry.components.length,c.components,c.name);assert.equal(result.geometry.voids.length,c.voids,c.name);assert.deepEqual(result.queries.map(q=>q.classification),c.queries.map(q=>q[1]),c.name);assert.equal(JSON.stringify(c.recipe),source);assert.equal(result.statuses.liveAdoption,false);
@@ -20,7 +21,7 @@ test('C1 exact occupied sectors and dual walks preserve tangent voids and positi
     const c=matrix().find(c=>c.name===name),r=resolved(T.inspectTilePlanarBoolean(c.recipe,options(T))),g=r.geometry;
     for(const incidence of g.incidence){assert.equal(incidence.rays.length,incidence.sectors.length);for(const sector of incidence.sectors){assert.ok(g.edges.some(e=>e.id===sector.from.id));if(sector.occupied)assert.ok(g.components.some(c=>c.id===sector.regionId));else if(sector.regionId!==null)assert.ok(g.voids.some(v=>v.id===sector.regionId));}}
     if(name==='point tangent union'){const vertex=g.incidence.find(v=>v.vertex==='1/1,1/1');assert.equal(vertex.touching,true);assert.equal(vertex.sectors.filter(s=>s.occupied).length,2);assert.equal(new Set(vertex.sectors.filter(s=>s.occupied).map(s=>s.regionId)).size,2);}
-    if(name==='tangent diamond hole'){assert.ok(g.contours.some(c=>c.side==='occupied'&&c.weak));assert.equal(g.voids.length,1);assert.equal(g.voids[0].surroundingComponent,g.components[0].id);}
+    if(name==='tangent diamond hole'){assert.ok(g.contours.some(c=>c.side==='occupied'&&c.weak));assert.equal(g.voids.length,1);assert.deepEqual(g.voids[0].surroundingComponents,[g.components[0].id]);}
     if(name==='nested island void grouping'){assert.equal(g.voids[0].holeWalks.length,1);assert.equal(g.components.filter(c=>c.holeWalks.length===1).length,1);}
   }
 });
@@ -94,4 +95,14 @@ test('C1 executes with browser/storage/network/clock/game RNG poisoned and has n
 });
 test('C1 resolves the actual 16-leaf/128-segment/8128-pair ceiling and refuses one fewer pair atomically',()=>{
   const source=fullInputCeiling(),r=resolved(T.inspectTilePlanarBoolean(source,options(T)));assert.equal(r.work.counts.maxLeaves,16);assert.equal(r.work.counts.maxSegments,128);assert.equal(r.work.counts.maxPairTests,8128);assert.equal(r.geometry.components.length,16);assert.equal(rational(r.geometry.area),16);const failed=T.inspectTilePlanarBoolean(source,options(T,{limits:{maxPairTests:8127}}));assert.equal(failed.resolution.state,'unresolved');assert.equal(failed.resolution.diagnostics[0].code,'C1_PAIR_TESTS_LIMIT');assert.equal(failed.geometry,null);assert.deepEqual(r.source,source);
+});
+test('C1 void outer adjacency includes all four point-contact components and excludes an inner island',()=>{
+  for(const island of [false,true]){const r=resolved(T.inspectTilePlanarBoolean(pointContactRing(island),options(T))),g=r.geometry,v=g.voids[0],outer=g.components.filter(c=>!contourSources(g,c.outerWalk).includes('island')),actual=v.surroundingComponents??[v.surroundingComponent];assert.equal(g.components.length,island?5:4);assert.equal(g.voids.length,1);assert.equal(rational(g.area),island?4.25:4);assert.equal(actual.length,4,'all four components own the void outer boundary');assert.deepEqual(actual,outer.map(c=>c.id).sort());assert.ok(!Object.hasOwn(v,'surroundingComponent'));if(island){assert.equal(v.holeWalks.length,1);assert.deepEqual(contourSources(g,v.holeWalks[0]),['island']);}}
+});
+test('C1 complete void adjacency survives source/ring/commutative order and every D4 placement',()=>{
+  const names=['courtyard','tangent diamond hole','nested island void grouping','four-component point-contact ring','point-contact ring with inner island'];
+  for(const name of names)for(let mask=0;mask<16;mask++)for(let d4=0;d4<8;d4++){
+    const source=reorderSource(matrix().find(c=>c.name===name).recipe,mask),before=JSON.stringify(source),r=resolved(T.inspectTilePlanarBoolean(source,options(T,{transform:{quarterTurns:d4%4,mirrorX:d4>=4},origin:[100000,.0000003,.0000001]}))),g=r.geometry,v=g.voids[0],expected=g.components.filter(c=>!contourSources(g,c.outerWalk).some(id=>id==='c'||id==='island')).map(c=>c.id).sort();assert.deepEqual(v.surroundingComponents,expected,name+' mask '+mask+' D4 '+d4);assert.ok(!Object.hasOwn(v,'surroundingComponent'));assert.equal(new Set(v.surroundingComponents).size,v.surroundingComponents.length);assert.equal(JSON.stringify(source),before);
+    if(name==='nested island void grouping'||name==='point-contact ring with inner island'){const inner=name==='nested island void grouping'?'c':'island';assert.equal(v.holeWalks.length,1);assert.deepEqual(contourSources(g,v.holeWalks[0]),[inner]);}
+  }
 });

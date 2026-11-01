@@ -52,16 +52,24 @@ export function planarTopology(arrangement,E,budget,hash){
   function parent(list,witness){
     let best=null;for(const w of list){budget.take('topology');if(E.parity(w.edges.map(h=>({a:h.from.p,b:h.to.p})),witness.m,witness.n)&&(!best||E.cmp(w.area,best.area)<0))best=w;}return best;
   }
-  const witness=(h,left=true)=>E.witness(h.from.p,h.to.p,left),components=outer.map(w=>({id:w.id,outerWalk:w.id,holeWalks:[]})),voidRecords=voids.map(w=>({id:w.id,outerWalk:w.id,holeWalks:[],surroundingComponent:null})),componentMap=new Map(components.map(c=>[c.id,c])),voidMap=new Map(voidRecords.map(c=>[c.id,c])),unboundedWalks=[];
-  for(const w of filled.filter(w=>E.sign(w.area)<0)){const p=parent(outer,witness(w.edges[0]));if(!p)fail('An occupied hole cycle has no occupied outer component.');componentMap.get(p.id).holeWalks.push(w.id);}
+  const witness=(h,left=true)=>E.witness(h.from.p,h.to.p,left),components=outer.map(w=>({id:w.id,outerWalk:w.id,holeWalks:[]})),voidRecords=voids.map(w=>({id:w.id,outerWalk:w.id,holeWalks:[],surroundingComponents:[]})),componentMap=new Map(components.map(c=>[c.id,c])),voidMap=new Map(voidRecords.map(c=>[c.id,c])),unboundedWalks=[],walkOwners=new Map(),occupiedOwners=new Map();
+  for(const w of outer){budget.take('topology');walkOwners.set(w.id,w.id);}
+  for(const w of filled.filter(w=>E.sign(w.area)<0)){const p=parent(outer,witness(w.edges[0]));if(!p)fail('An occupied hole cycle has no occupied outer component.');componentMap.get(p.id).holeWalks.push(w.id);budget.take('topology');walkOwners.set(w.id,p.id);}
   for(const w of empty.filter(w=>E.sign(w.area)<0)){const p=parent(voids,witness(w.edges[0]));if(p)voidMap.get(p.id).holeWalks.push(w.id);else unboundedWalks.push(w.id);}
-  for(const w of voids){const p=parent(outer,witness(w.edges[0],false));if(!p)fail('A bounded void has no surrounding occupied component.');voidMap.get(w.id).surroundingComponent=p.id;}
+  // A walk's LEFT face is connected through its exact sectors. Prove each
+  // occupied span agrees with that component, then reuse its checked owner.
+  for(const w of filled)for(const h of w.edges){budget.take('topology',2);const owner=walkOwners.get(w.id),p=parent(outer,witness(h));if(!owner||!p||p.id!==owner||!h.insideLeft||h.insideRight||occupiedOwners.has(h.index))fail('An occupied walk/span component association is unproved.');occupiedOwners.set(h.index,owner);}
+  if(occupiedOwners.size!==selected.length)fail('Some occupied boundary spans have no checked component.');
+  // The RIGHT face need not stay in one occupied component: point-touching
+  // pieces may collectively border one void. Include ALL outer-walk spans;
+  // inner island hole walks are intentionally separate from this relation.
+  for(const w of voids){const owners=new Set();for(const h of w.edges){budget.take('topology',2);const owner=occupiedOwners.get(h.twin);if(h.insideLeft||!h.insideRight||!owner||!componentMap.has(owner))fail('A void outer span has no checked adjacent occupied component.');if(!owners.has(owner)){budget.count('maxProvenanceLinks');budget.take('topology');owners.add(owner);}}if(!owners.size)fail('A bounded void has no proved outer-boundary adjacency.');budget.take('topology',owners.size);voidMap.get(w.id).surroundingComponents=[...owners].sort(strings);}
   const usedVertices=new Map();for(const h of selected){usedVertices.set(h.from.key,h.from);usedVertices.set(h.to.key,h.to);}
   const incidence=[];
   for(const vertex of usedVertices.values()){
     const rays=vertex.out.filter(h=>h.insideLeft!==h.insideRight),sectors=[];
     for(let i=0;i<rays.length;i++){
-      const h=rays[i],next=rays[(i+1)%rays.length];if(h.insideLeft!==next.insideRight)fail('Reduced boundary-sector labels disagree.');const p=parent(h.insideLeft?outer:voids,witness(h));if(h.insideLeft&&!p)fail('An occupied sector has no interior component.');sectors.push({from:boundaryByIndex.get(h.index),to:boundaryByIndex.get(next.index),occupied:h.insideLeft,regionId:p?.id??null});
+      const h=rays[i],next=rays[(i+1)%rays.length];if(h.insideLeft!==next.insideRight)fail('Reduced boundary-sector labels disagree.');budget.take('topology',2);const owner=h.insideLeft?occupiedOwners.get(h.index):parent(voids,witness(h))?.id??null;if(h.insideLeft&&(!owner||occupiedOwners.get(next.twin)!==owner))fail('An occupied sector disagrees with its checked boundary-span components.');sectors.push({from:boundaryByIndex.get(h.index),to:boundaryByIndex.get(next.index),occupied:h.insideLeft,regionId:owner});
     }
     incidence.push({vertex:vertex.key,rays:rays.map(h=>boundaryByIndex.get(h.index)),sectors,touching:rays.length>2});
   }

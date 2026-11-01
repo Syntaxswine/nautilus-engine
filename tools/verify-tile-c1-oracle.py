@@ -7,6 +7,7 @@ Manual JS cases separately assert component/void/sector topology.
 """
 import json
 import sys
+from copy import deepcopy
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -170,15 +171,24 @@ def connectivity(xs, slabs, empty=False, yrange=None):
                     if max(a,c) < min(b,d):
                         join((i,j),(i-1,k))
     roots = {find(k) for k in parent}
-    if not empty:
-        return len(roots)
     exterior = set()
-    for i,intervals in enumerate(bands):
-        x = (xs[i]+xs[i+1])/2
-        for j,(a,b) in enumerate(intervals):
-            if i in (0,len(bands)-1) or at(a,x)==yrange[0] or at(b,x)==yrange[1]:
-                exterior.add(find((i,j)))
-    return len(roots-exterior)
+    if empty:
+        for i,intervals in enumerate(bands):
+            x = (xs[i]+xs[i+1])/2
+            for j,(a,b) in enumerate(intervals):
+                if i in (0,len(bands)-1) or at(a,x)==yrange[0] or at(b,x)==yrange[1]:
+                    exterior.add(find((i,j)))
+    def locate(point):
+        x,y = point
+        candidates = set()
+        for i,intervals in enumerate(bands):
+            if xs[i] <= x <= xs[i+1]:
+                for j,(a,b) in enumerate(intervals):
+                    if at(a,x) < y < at(b,x):
+                        candidates.add(find((i,j)))
+        assert len(candidates)==1, ('Expected one independent open-band region',point,candidates)
+        return next(iter(candidates))
+    return {'count':len(roots-exterior),'roots':roots,'bounded':roots-exterior,'exterior':exterior,'locate':locate}
 
 def leaf_bits(tagged, p):
     bits = {}
@@ -193,7 +203,9 @@ def side_witnesses(a,b,segments):
     m = ((a[0]+b[0])/2,(a[1]+b[1])/2)
     d = sub(b,a)
     n = (-d[1],d[0])
-    epsilon = F(1)
+    # Stay inside the oracle's strict exterior box as well as in the same
+    # exact source-line/endpoint cell. This is a proved finite oracle witness.
+    epsilon = F(1)/(2*max(abs(n[0]),abs(n[1]),F(1)))
     # This finite exact oracle probe is bounded away from every other source
     # line/endpoint, unlike the implementation's formal horizontal-ray probe.
     for p,q in segments:
@@ -206,6 +218,64 @@ def side_witnesses(a,b,segments):
                 if n[axis] and endpoint[axis]!=m[axis]:
                     epsilon = min(epsilon,abs((endpoint[axis]-m[axis])/n[axis])/2)
     return tuple((m[0]+sign*epsilon*n[0],m[1]+sign*epsilon*n[1]) for sign in (1,-1))
+
+def verify_associations(case, points, source_segments, tagged, evaluate, occupied, empty):
+    g = case['result']['geometry']
+    edges = {e['id']:e for e in g['edges']}
+    walks = {w['id']:w for w in g['contours']}
+    def directed(span):
+        edge = edges[span['id']]
+        a,b = points[edge['from']],points[edge['to']]
+        return (a,b) if span['direction']==1 else (b,a)
+    def walk_roots(walk_id, complex, expected_occupied):
+        roots = set()
+        for span in walks[walk_id]['spans']:
+            a,b = directed(span)
+            left,_ = side_witnesses(a,b,source_segments)
+            assert evaluate(leaf_bits(tagged,left))==expected_occupied, (case['name'],'walk occupancy')
+            roots.add(complex['locate'](left))
+        assert len(roots)==1, (case['name'],'walk crosses independent open-band components',walk_id)
+        return next(iter(roots))
+    components = {c['id']:walk_roots(c['outerWalk'],occupied,True) for c in g['components']}
+    assert len(set(components.values()))==len(components) and set(components.values())==occupied['roots'], (case['name'],'occupied component labels are not a bijection')
+    for c in g['components']:
+        for walk_id in c['holeWalks']:
+            assert walk_roots(walk_id,occupied,True)==components[c['id']], (case['name'],'occupied hole-walk association')
+    voids = {v['id']:walk_roots(v['outerWalk'],empty,False) for v in g['voids']}
+    assert len(set(voids.values()))==len(voids) and set(voids.values())==empty['bounded'], (case['name'],'bounded void labels are not a bijection')
+    inverse_components = {root:id for id,root in components.items()}
+    inverse_voids = {root:id for id,root in voids.items()}
+    outer_spans = outer_relations = sector_owners = 0
+    for v in g['voids']:
+        for walk_id in v['holeWalks']:
+            assert walk_roots(walk_id,empty,False)==voids[v['id']], (case['name'],'inner island hole-walk void association')
+        expected = set()
+        for span in walks[v['outerWalk']]['spans']:
+            a,b = directed(span)
+            left,right = side_witnesses(a,b,source_segments)
+            assert empty['locate'](left)==voids[v['id']], (case['name'],'void outer span owner')
+            assert evaluate(leaf_bits(tagged,right)), (case['name'],'void outer right side must be occupied')
+            expected.add(inverse_components[occupied['locate'](right)])
+            outer_spans += 1
+        assert 'surroundingComponent' not in v, (case['name'],'singular winning void owner is unsupported')
+        assert v['surroundingComponents']==sorted(expected), (case['name'],'complete sorted outer-boundary component adjacency',v['surroundingComponents'],sorted(expected))
+        outer_relations += len(expected)
+    for incidence in g['incidence']:
+        for sector in incidence['sectors']:
+            a,b = directed(sector['from'])
+            c,_ = directed(sector['to'])
+            assert a==c==points[incidence['vertex']], (case['name'],'sector ray origins')
+            left,_ = side_witnesses(a,b,source_segments)
+            inside = evaluate(leaf_bits(tagged,left))
+            assert inside==sector['occupied'], (case['name'],'sector occupancy')
+            if inside:
+                expected = inverse_components[occupied['locate'](left)]
+            else:
+                root = empty['locate'](left)
+                expected = None if root in empty['exterior'] else inverse_voids[root]
+            assert sector['regionId']==expected, (case['name'],'per-sector independent component/void ownership')
+            sector_owners += 1
+    return outer_spans,outer_relations,sector_owners
 
 def verify(case):
     result = case['result']
@@ -233,8 +303,11 @@ def verify(case):
     assert decode(result['geometry']['area']) == area, (case['name'],'area')
     assert (area == 0) == (result['resolution']['state']=='resolved-empty')
     ys = [p[1] for s in source_segments for p in s]
-    assert connectivity(xs,expected_slabs) == len(result['geometry']['components']), (case['name'],'occupied components')
-    assert connectivity(xs,expected_slabs,True,(min(ys)-1,max(ys)+1)) == len(result['geometry']['voids']), (case['name'],'bounded voids')
+    occupied = connectivity(xs,expected_slabs)
+    empty = connectivity(xs,expected_slabs,True,(min(ys)-1,max(ys)+1))
+    assert occupied['count'] == len(result['geometry']['components']), (case['name'],'occupied components')
+    assert empty['count'] == len(result['geometry']['voids']), (case['name'],'bounded voids')
+    associations = verify_associations(case,points,source_segments,tagged,evaluate,occupied,empty)
     for q in result['queries']:
         x,y = map(decode,q['point'])
         assert classify(x,y,xs,expected_slabs) == q['classification'], (case['name'],'query',q)
@@ -267,13 +340,46 @@ def verify(case):
             x,y = -y,x
         assert tuple(map(decode,v['point'])) == (x+exact(o['origin'][0]),y+exact(o['origin'][1]))
     assert decode(result['worldProjection']['baseM']) == exact(result['source']['shape']['nodes'][next(i for i,n in enumerate(result['source']['shape']['nodes']) if n['kind']=='leaf')]['shape']['baseM'])+exact(o['origin'][2])
-    return len(xs)-1, len(result['queries']), len(output)
+    return (len(xs)-1, len(result['queries']), len(output), *associations)
+
+def reject_relation_forgeries(cases):
+    ring = next(c for c in cases if c['name']=='four-component point-contact ring')
+    island = next(c for c in cases if c['name']=='point-contact ring with inner island')
+    mutations = []
+    missing = deepcopy(ring)
+    missing['result']['geometry']['voids'][0]['surroundingComponents'] = missing['result']['geometry']['voids'][0]['surroundingComponents'][:1]
+    mutations.append(('missing three outer neighbors',missing))
+    mixed = deepcopy(island)
+    g = mixed['result']['geometry']
+    extra = next(c['id'] for c in g['components'] if c['id'] not in g['voids'][0]['surroundingComponents'])
+    g['voids'][0]['surroundingComponents'] = sorted(g['voids'][0]['surroundingComponents']+[extra])
+    mutations.append(('inner island conflated with outer adjacency',mixed))
+    duplicate = deepcopy(ring)
+    values = duplicate['result']['geometry']['voids'][0]['surroundingComponents']
+    values.append(values[0])
+    mutations.append(('duplicate neighbor',duplicate))
+    unordered = deepcopy(ring)
+    unordered['result']['geometry']['voids'][0]['surroundingComponents'].reverse()
+    mutations.append(('unordered neighbors',unordered))
+    wrong_sector = deepcopy(ring)
+    g = wrong_sector['result']['geometry']
+    sector = next(s for i in g['incidence'] for s in i['sectors'] if s['occupied'])
+    sector['regionId'] = next(c['id'] for c in g['components'] if c['id']!=sector['regionId'])
+    mutations.append(('wrong occupied-sector owner',wrong_sector))
+    for label,case in mutations:
+        try:
+            verify(case)
+        except AssertionError:
+            continue
+        raise AssertionError(('Independent oracle accepted forged relation',label))
+    return len(mutations)
 
 root = Path(__file__).resolve().parent.parent
 path = Path(sys.argv[1]) if len(sys.argv)>1 else root/'artifacts/procedural-tiles-c1/oracle-cases.json'
 cases = json.loads(path.read_text(encoding='utf-8'))
-counts = [0,0,0]
+counts = [0]*6
 for case in cases:
     totals = verify(case)
     counts = [a+b for a,b in zip(counts,totals)]
-print(json.dumps({'status':'pass','cases':len(cases),'exactSlabs':counts[0],'queries':counts[1],'allOwnerEdges':counts[2],'scope':'Exact Fraction slab/event-line set, area, open-band components/voids, query, all-owner/side-bit provenance and affine checks; manual incidence cases remain separate.'}))
+negative = reject_relation_forgeries(cases)
+print(json.dumps({'status':'pass','cases':len(cases),'exactSlabs':counts[0],'queries':counts[1],'allOwnerEdges':counts[2],'voidOuterSpans':counts[3],'voidOuterAssociations':counts[4],'sectorOwners':counts[5],'rejectedRelationForgeries':negative,'scope':'Independent exact open-band component/void labels, complete outer-boundary adjacency, separate inner hole walks and per-sector ownership, alongside set/area/query/provenance/affine checks.'}))

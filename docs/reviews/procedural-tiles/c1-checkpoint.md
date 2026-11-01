@@ -1,5 +1,11 @@
 # Private C1 candidate for Architect review
 
+The original sections below record `55624c1af8d60e99da4f34f12731df4100da7a12`.
+Formal review found one incomplete void/component association. The correction
+record at the end supersedes its association claims, validation counts and hashes;
+the original commit/evidence remain preserved. The linked source audit now records
+the corrected candidate, still held for Architect recheck before integration.
+
 Date: 2026-10-31. Branch: `codex/tile-c1-planar-boolean`, created directly from
 approved fixed main `e4b5106f6967614ddc60661a6cdddde5d37b5c2b`, tree
 `c96a98b4dccd99fd84362936ce48ef0af8b83258`. The separate clean A/B branch remains
@@ -112,3 +118,73 @@ consumer in finally and verified absence. The preview disposed all GDI resources
 in finally. Every foreground child exited; no server, browser, watcher, worker,
 listening port or retained helper remains. Reproduction commands/code and inputs
 are durable project tools/fixtures; nothing depends on uncheckpointed process state.
+
+## Required void-association correction (2026-10-31)
+
+The first C1 implementation chose a void's `surroundingComponent` from one outer
+edge witness. Four unit squares touching around a central void have area 4, four
+occupied interior components and one void; no single component owns its whole
+outer boundary. The saved failing-before regression reports **1 versus 4 owners**.
+
+The only changed runtime file is `planar-topology.js`. It now checks every occupied
+span against its walk component and an exact side witness. Void outer walks collect
+the checked opposite-side owners of **all spans** into sorted unique
+`surroundingComponents`. Occupied sectors must agree with both bounding span owners.
+Unproved associations return structured unresolved results. Traversal/cache/set work,
+sorting and serialized output are charged; distinct void outer adjacency links also
+consume the unchanged 16,384 provenance-link ceiling. No ceiling is relaxed.
+
+This relation means **outer-boundary adjacency**. Inner-island `holeWalks` remain
+separate. The four-square ring resolves to four components/one void with four outer
+neighbors. Adding the central 0.5 m square island resolves to area 4.25, five
+components/one void, still four outer neighbors; only its inner hole walk borders
+the island. Ordinary courtyard, tangent-hole and nested-island expected associations
+also pass. Source/node order, commutative operand order, ring start/winding and all
+eight D4 placements cover **640 combinations**. Reauthored exact D4 inputs are also
+checked independently. The original **124** cases preserve all geometry, sectors,
+queries and source/mathematical/affine identities; only the relation and charged
+work change.
+
+The Fraction oracle now independently maps every reported component/void walk to
+its exact open-band region, checks that labeling is bijective, checks separate
+inner hole-walk ownership, and derives complete outer adjacency from every span.
+It also verifies every sector's component/void owner. Five deliberate corruptions
+(missing neighbors, conflated inner island, duplicate, unordered list and wrong
+sector owner) must be rejected. The private schema rejects the singular field,
+duplicates, empty adjacency and untyped IDs; it does not pretend structural syntax
+proves completeness.
+
+Final corrected evidence:
+
+- Focused source/distribution **49/49**; actual installed runtime **47/47**, zero
+  failure/cancel/skip/TODO. Independent structure: **8 schemas / 358 cases**.
+- Independent source and installed oracle: **249 cases each**, **1,514 exact slabs**,
+  **849 queries**, **2,964 all-owner spans**, **644 void outer spans**, **353 complete
+  outer adjacency relations**, **5,928 sector owners**, and **5 rejected relation
+  forgeries** in each run. Source/installed JSON is byte-identical, SHA-256
+  `19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863`.
+- Required gates: integrity (**603 pins**), **722/722 tests**, **32/32 upstream**,
+  build (**469 module paths**, eleven recorded deployment patches), all passed.
+- All **18 v1 hashes/goldens** and fixed-main public fences remain unchanged.
+  Candidate code/schema remains excluded from all normal profiles; **declared:false**,
+  with full-layout/live/mesh adoption and integration still held.
+- Private closure **24 pure modules / 182,743 bytes**, manifest SHA-256
+  `cd8caac25f9bdf321615545c08828e57c0be4eadce6568de08644971fc097b64`.
+  All **41** private files match installed and final source. Archive SHA-256:
+  `5bb4b906e4ba26c817e72363aabcbdd3b23d63ae3c372bcccd51bd61dfe932fd`.
+
+The corrected diagnostic plot shows both rings with four outer neighbors while
+retaining their different component counts and the island hole. PNG SHA-256:
+`1be9f80de07cc6a2b2646274f209df04a8a15726c4f501bbfc13c95ed2f9da66`.
+It remains a diagnostic projection, not a mesh or topology certificate. A shared
+hardware measurement pass over 249 selected cases recorded median **11.02 ms**;
+the 128-segment case recorded **723.65 ms / 2,865,459 modeled units / 206,374 bytes**.
+Other validation could be concurrent; these are not isolated/mobile/per-frame results.
+
+Corrected logs use `correction-*.log` under `artifacts/procedural-tiles-c1/`;
+`void-association-before.log` and `void-association-preservation.json` retain the
+regression/preservation evidence. Reviewed original evidence/archive is preserved
+under `review-55624c1/`. The private stage/consumer was removed and verified in
+finally; preview GDI resources were disposed. All foreground commands exited and
+no retained helper/port remains. This follow-up preserves `55624c1` in history;
+the delivery reply supplies the exact corrected commit for focused recheck.

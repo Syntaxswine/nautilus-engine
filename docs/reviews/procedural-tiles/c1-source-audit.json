@@ -84,8 +84,8 @@
     },
     {
       "file": "packages/tiles-core/planar-topology.js",
-      "bytes": 7962,
-      "sha256": "1061f82eb11848e53f8e4abdfc3e84cdf0fe246f59ad4ec94d2728d21c86e7da"
+      "bytes": 9441,
+      "sha256": "481774668ce414649a8eb019cd8e15682e2460ab8c026ac88236b8ee2554a8ee"
     },
     {
       "file": "packages/tiles-core/projection.js",
@@ -128,10 +128,10 @@
       "sha256": "2813063048b3a15e5aec4f762524ac73a32c17b3f420f15a884493fbd719c7cb"
     }
   ],
-  "runtimeManifestSha256": "7811fc285474aa0bfe4cdc52739f3d8bf926b86eabefe65147889dc0441edb69",
+  "runtimeManifestSha256": "cd8caac25f9bdf321615545c08828e57c0be4eadce6568de08644971fc097b64",
   "privatePackage": {
     "file": "nautilus-engine-tiles-v2-candidate-0.0.0-ab-candidate.tgz",
-    "sha256": "5e44435ec13682c73672c096e627bfb99f57c40e4da84f3a86542a00054c6501",
+    "sha256": "5bb4b906e4ba26c817e72363aabcbdd3b23d63ae3c372bcccd51bd61dfe932fd",
     "declared": false,
     "files": [
       {
@@ -141,8 +141,8 @@
       },
       {
         "file": "docs/procedural-tiles-c1-candidate.md",
-        "sha256": "22ed9b31c83dc2b29fd08208b89ed49a6aa490b0a5dff49b126da2c369aac82c",
-        "bytes": 11438
+        "sha256": "cf224ee2898690f5942b296cba417474d75cbc7dba75afadc27d682c02ea5c9c",
+        "bytes": 12714
       },
       {
         "file": "docs/procedural-tiles-v2-candidate.md",
@@ -201,8 +201,8 @@
       },
       {
         "file": "packages/tiles-core/compiled-tiles-v2.schema.json",
-        "sha256": "9b47ab6cff355ff4a612c5abc85a2fdf69aa573ce38ed4d02a45b79706559092",
-        "bytes": 109220
+        "sha256": "15a940549376cf4bdb381ae88c94a52be1267d2a9c2b330b9230cc8a41e07d45",
+        "bytes": 109453
       },
       {
         "file": "packages/tiles-core/contract.js",
@@ -266,8 +266,8 @@
       },
       {
         "file": "packages/tiles-core/planar-topology.js",
-        "sha256": "1061f82eb11848e53f8e4abdfc3e84cdf0fe246f59ad4ec94d2728d21c86e7da",
-        "bytes": 7962
+        "sha256": "481774668ce414649a8eb019cd8e15682e2460ab8c026ac88236b8ee2554a8ee",
+        "bytes": 9441
       },
       {
         "file": "packages/tiles-core/projection.js",
@@ -448,16 +448,16 @@
   },
   "validation": {
     "focused": {
-      "tests": 47,
-      "pass": 47,
+      "tests": 49,
+      "pass": 49,
       "fail": 0,
       "cancelled": 0,
       "skipped": 0,
       "todo": 0
     },
     "installed": {
-      "count": 45,
-      "pass": 45,
+      "count": 47,
+      "pass": 47,
       "fail": 0,
       "cancelled": 0,
       "skipped": 0,
@@ -465,16 +465,21 @@
     },
     "independentSchemas": {
       "schemas": 8,
-      "cases": 228
+      "cases": 358
     },
     "sourceAndInstalledOracle": {
-      "cases": 124,
-      "exactSlabs": 780,
-      "queries": 474,
-      "allOwnerEdges": 1249,
-      "sourceSha256": "374467f326c9eeb4fe03e398a9f4adff114ef2765330c2ecdc1db671766e2a05",
-      "installedSha256": "374467f326c9eeb4fe03e398a9f4adff114ef2765330c2ecdc1db671766e2a05",
-      "meaning": "Exact Fraction slab/event-line set/area/point/provenance/side-mask/affine checks; open-band positive-overlap components/voids, plus independent hand-defined contour/incidence assertions."
+      "status": "pass",
+      "cases": 249,
+      "exactSlabs": 1514,
+      "queries": 849,
+      "allOwnerEdges": 2964,
+      "voidOuterSpans": 644,
+      "voidOuterAssociations": 353,
+      "sectorOwners": 5928,
+      "rejectedRelationForgeries": 5,
+      "scope": "Independent exact open-band component/void labels, complete outer-boundary adjacency, separate inner hole walks and per-sector ownership, alongside set/area/query/provenance/affine checks.",
+      "sourceSha256": "19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863",
+      "installedSha256": "19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863"
     },
     "gates": {
       "check": {
@@ -482,8 +487,8 @@
         "pinnedFiles": 603
       },
       "tests": {
-        "tests": 720,
-        "pass": 720,
+        "tests": 722,
+        "pass": 722,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,
@@ -505,13 +510,13 @@
     "platform": "win32",
     "architecture": "x64",
     "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
-    "cases": 124,
-    "medianMs": 9.749099999999999,
-    "maximumMs": 555.3874000000001,
+    "cases": 249,
+    "medianMs": 11.016799999999876,
+    "maximumMs": 723.6469000000002,
     "largest": {
       "name": "full 16-leaf 128-segment input ceiling",
-      "elapsedMs": 555.3874000000001,
-      "work": 2864675,
+      "elapsedMs": 723.6469000000002,
+      "work": 2865459,
       "segments": 128,
       "atomicEdges": 128,
       "boundarySegments": 128,
@@ -523,8 +528,8 @@
   },
   "visual": {
     "file": "artifacts/procedural-tiles-c1/footprint-review.png",
-    "sha256": "9295b4702b2f8a3ba281c883a310b1b4fe8df97306ac1592ae270cdea33c6bca",
-    "review": "Viewed: L/H, courtyard, split/nested islands, tangent hole, point touch, empty and unresolved. Diagnostic rational-to-display projection only; no mesh/game adoption claim."
+    "sha256": "1be9f80de07cc6a2b2646274f209df04a8a15726c4f501bbfc13c95ed2f9da66",
+    "review": "Viewed corrected four-component ring and five-component ring-with-island: both have four void outer neighbors; ordinary/tangent/nested voids retain separate hole walks. Diagnostic projection, not a mesh."
   },
   "cleanup": {
     "privateProof": "Verified isolated stage/consumer removed in finally. Foreground children finished; no server/browser/watcher or retained helper.",
@@ -540,6 +545,34 @@
       "R": "DAG references",
       "B": "emitted boundary spans"
     },
-    "qualification": "Code-based estimate. Exact containment/sector grouping adds a quadratic boundary term to the original design estimate; every predicate is work-charged and may exhaust the shared budget before other ceilings."
+    "qualification": "Code-based estimate with charged exact containment/sector grouping and complete outer-span adjacency traversal/sorting. All counts, links, bytes and arithmetic remain bounded by the unchanged captured ceilings."
+  },
+  "correction": {
+    "reviewedCandidate": "55624c1af8d60e99da4f34f12731df4100da7a12",
+    "priorSourceAuditSha256": "107ea84c10437e33ac0caa9fdd3c15c60e0126c2f80f454ff6cc3086fb1b9348",
+    "finding": "One first-edge owner omitted other occupied components adjacent to a void outer walk.",
+    "contract": "surroundingComponents is the complete sorted unique outer-walk adjacency set; inner-island hole walks remain separate.",
+    "changedRuntimeFiles": [
+      "packages/tiles-core/planar-topology.js"
+    ],
+    "manualOrderD4Combinations": 640,
+    "reproducedBefore": "artifacts/procedural-tiles-c1/void-association-before.log: 1 owner versus required 4",
+    "preservedOriginalCases": {
+      "status": "pass",
+      "reviewed": "55624c1af8d60e99da4f34f12731df4100da7a12",
+      "originalCases": 124,
+      "preserved": [
+        "native geometry",
+        "area",
+        "components/void geometry",
+        "contour IDs",
+        "per-sector ownership",
+        "point queries",
+        "source/geometry/world digests",
+        "exact affine projection"
+      ],
+      "changed": "Complete void outer-boundary component relation and charged work only."
+    },
+    "priorEvidence": "artifacts/procedural-tiles-c1/review-55624c1/"
   }
 }

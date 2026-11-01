@@ -7,6 +7,8 @@ export const rectangle=(id,x0,y0,x1,y1,options)=>polygon(id,[[[x0,y0],[x1,y0],[x
 export function recipe(nodes,rootId='root'){const r=native('shape-graph');r.id='c1.recipe';r.shape={kind:'shape-graph',id:'c1.graph',nodes:clone(nodes),rootId};return r;}
 export const union=(id,...inputs)=>({kind:'union',id,inputs}),intersection=(id,...inputs)=>({kind:'intersection',id,inputs}),difference=(id,baseId,subtractId)=>({kind:'difference',id,baseId,subtractId});
 export const options=(T,overrides={})=>({profile:'regularized-planar-lines-c1',limits:{...T.PLANAR_C1_LIMITS,...overrides.limits},queries:[],transform:{quarterTurns:0,mirrorX:false},origin:[0,0,0],...Object.fromEntries(Object.entries(overrides).filter(([k])=>k!=='limits'))});
+export function pointContactRing(island=false){const leaves=[rectangle('west',0,0,1,1),rectangle('north',1,1,2,2),rectangle('east',2,0,3,1),rectangle('south',1,-1,2,0)];if(island)leaves.push(rectangle('island',1.25,.25,1.75,.75));return recipe([...leaves,union('root',...leaves.map(l=>l.id))]);}
+export function reorderSource(source,mask){const r=clone(source);if(mask&1)r.shape.nodes.reverse();for(const node of r.shape.nodes){if(mask&4&&['union','intersection'].includes(node.kind))node.inputs.reverse();if(node.kind==='leaf')for(const ring of node.shape.outlines){if(mask&2)ring.segments.reverse().forEach(s=>[s.a,s.b]=[s.b,s.a]);if(mask&8)ring.segments.push(ring.segments.shift());}}return r;}
 export function fullInputCeiling(){const leaves=Array.from({length:16},(_,i)=>{const x=2*i;return polygon('leaf.'+i,[[[x,0],[x+.5,0],[x+1,0],[x+1,.5],[x+1,1],[x+.5,1],[x,1],[x,.5]]]);});return recipe([...leaves,union('root',...leaves.map(l=>l.id))]);}
 export function matrix(){
   const A=()=>rectangle('a',0,0,4,3),B=()=>rectangle('b',2,1,6,4),cases=[];
@@ -33,15 +35,18 @@ export function matrix(){
   add('edge notch',[rectangle('a',0,0,6,6),rectangle('b',2,4,4,6),difference('root','a','b')],32,1,0);
   add('disjoint union',[rectangle('a',0,0,1,1),rectangle('b',2,0,3,1),union('root','a','b')],2,2,0);
   add('leaf parity hole',[polygon('a',[[[0,0],[6,0],[6,6],[0,6]],[[2,2],[4,2],[4,4],[2,4]]]),union('root','a','a')],32,1,1);
+  cases.push({name:'four-component point-contact ring',recipe:pointContactRing(),area:'4',components:4,voids:1,queries:[[[1.5,.5],'exterior'],[[.5,.5],'interior'],[[1,.5],'boundary']]});
+  cases.push({name:'point-contact ring with inner island',recipe:pointContactRing(true),area:'4.25',components:5,voids:1,queries:[[[1.5,.5],'interior'],[[1.125,.5],'exterior'],[[1,.5],'boundary']]});
   return cases;
 }
 export function oracleCases(){
   const cases=matrix().map(c=>({name:c.name,recipe:c.recipe,queries:c.queries.map(q=>q[0])}));
-  for(const name of ['H footprint','nested island void grouping','tangent diamond hole'])for(let i=0;i<8;i++){
+  for(const name of ['H footprint','nested island void grouping','tangent diamond hole','courtyard','four-component point-contact ring','point-contact ring with inner island'])for(let i=0;i<8;i++){
     const c=matrix().find(c=>c.name===name),t={quarterTurns:i%4,mirrorX:i>=4};cases.push({name:name+' D4 '+i,recipe:c.recipe,queries:c.queries.map(q=>q[0]),transform:t,origin:[100000,.0000003,.0000001]});
     const transformed=clone(c.recipe),rotate=p=>{let [x,y]=p;if(t.mirrorX)x=-x;for(let n=0;n<t.quarterTurns;n++)[x,y]=[-y,x];return [x||0,y||0];};for(const node of transformed.shape.nodes)if(node.kind==='leaf')for(const ring of node.shape.outlines)for(const s of ring.segments){s.a=[...rotate(s.a),s.a[2]];s.b=[...rotate(s.b),s.b[2]];}
     cases.push({name:name+' reauthored exact D4 '+i,recipe:transformed,queries:c.queries.map(q=>rotate(q[0]))});
   }
+  for(const name of ['courtyard','nested island void grouping','tangent diamond hole','four-component point-contact ring','point-contact ring with inner island'])for(let mask=1;mask<16;mask++){const c=matrix().find(c=>c.name===name);cases.push({name:name+' source order '+mask,recipe:reorderSource(c.recipe,mask),queries:c.queries.map(q=>q[0])});}
   let state=0x531c0de;const next=n=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state%n;};
   for(let i=0;i<16;i++){
     const leaves=['a','b','c'].map(id=>{const x=(next(17)-8)/2,y=(next(17)-8)/2;return rectangle(id,x,y,x+(next(8)+1)/2,y+(next(8)+1)/2);});

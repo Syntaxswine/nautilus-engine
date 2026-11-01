@@ -2473,16 +2473,22 @@
                         "minItems": 0,
                         "maxItems": 128
                       },
-                      "surroundingComponent": {
-                        "type": "string",
-                        "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                      "surroundingComponents": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^c1-contour:[a-f0-9]{64}(?![\\s\\S])"
+                        },
+                        "minItems": 1,
+                        "maxItems": 128,
+                        "uniqueItems": true
                       }
                     },
                     "required": [
                       "id",
                       "outerWalk",
                       "holeWalks",
-                      "surroundingComponent"
+                      "surroundingComponents"
                     ]
                   },
                   "minItems": 0,

@@ -76,7 +76,7 @@ Any unproved incidence/traversal/grouping invariant returns unresolved evidence.
 | Original pair tests / event vertices | 8,128 / 2,048 |
 | Atomic undirected edges / halfedges | 4,096 / 8,192 |
 | Total walks, both sides / emitted distinct boundary spans | 128 / 4,096 |
-| Provenance links, including cancelled internal spans | 16,384 |
+| Provenance links, including cancelled spans and void outer adjacency | 16,384 |
 | Native point queries / complete serialized evidence | 256 / 4,000,000 bytes |
 | Reduced input / computed-emitted rational / intermediate bits | 128 / 512 / 4,096 |
 | Shared deterministic work units | 10,000,000 |
@@ -110,10 +110,24 @@ positive-denominator]` decimal strings; BigInts never enter saved source or JSON
 
 `holeWalks` lists negative cycle attachments, not a universal hole count. A tangent
 hole can be folded into an occupied `outerWalk` marked `weak`, with no separate
-negative occupied walk. Its bounded void still has a positive empty-side walk and
-an explicit `surroundingComponent`. Consumers must retain the void/incidence records;
-they cannot infer all holes from `components[].holeWalks.length` or treat a weak
-walk as a simple mesh polygon.
+negative occupied walk. Its bounded void still has a positive empty-side walk.
+`surroundingComponents` is the complete, sorted, unique set of occupied component
+IDs adjacent to **all spans of that void's outer walk**. It is outer-boundary
+adjacency, not a claim that any single component encloses the void. Four squares
+touching at corners can collectively border one void; all four must be listed.
+Adding an island within that void leaves the same four outer neighbors, with the
+island's boundary retained separately in `holeWalks`. The former singular
+`surroundingComponent` field is not supported.
+
+Every occupied boundary span is checked against its walk's component and an exact
+one-sided containment witness. Void outer spans collect the checked opposite-side
+owners; occupied incidence sectors must agree with both bounding span owners.
+Unproved associations return a structured unresolved result. Traversal, map/set
+operations, sorting and output are work-charged; each distinct outer adjacency
+also consumes the unchanged provenance-link ceiling. Consumers must retain all
+void/incidence records; they cannot infer holes from `components[].holeWalks.length`,
+conflate inner-island adjacency with the outer walk, or treat a weak walk as a
+simple mesh polygon.
 
 Each output span retains all original node/shape/outline/primitive IDs, exact source
 parameter ranges/directions and left/right leaf membership masks. `sourceLeafIds`
@@ -163,8 +177,12 @@ the compatibility authority.
 and interval Boolean decisions. Equality at two interior x values proves the affine
 interval boundaries agree throughout each slab; closed event-line limits check
 contacts. Open-band adjacency requires positive-length overlap, independently
-checking occupied components and bounded voids. It also checks exact areas, queries,
-all coincident owners/parameters, side membership decisions and affine placement.
+checking occupied components and bounded voids. Independent open-band labels map
+every component/void walk, all outer-span neighboring components, separate inner
+hole walks and every incidence-sector owner. Missing, extra, duplicated, unordered
+or wrong-sector relations are deliberately corrupted and must be rejected. It also
+checks exact areas, queries, all coincident owners/parameters, side membership
+decisions and affine placement.
 Raster/dense sampling is not a topology certificate. Private schemas check structure;
 runtime/oracle/provenance checks establish the supported mathematical result.
 

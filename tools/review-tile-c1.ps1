@@ -74,8 +74,9 @@ try {
         $area = (Rat $g.area).ToString('0.########', [System.Globalization.CultureInfo]::InvariantCulture)
         $caption = 'Area ' + $area + ' m2   /   interiors ' + $g.components.Count + '   /   voids ' + $g.voids.Count
         $graphics.DrawString($caption, $font, $ink, [single]($x + 14), [single]($y + 367))
+        if ($g.voids.Count -eq 1) { $adjacentCount = $g.voids[0].surroundingComponents.Count; $componentWord = if ($adjacentCount -eq 1) { ' component' } else { ' components' }; $graphics.DrawString(('Void outer adjacency: ' + $adjacentCount + $componentWord), $font, $ink, [single]($x + 14), [single]($y + 386)) }
     }
-    $graphics.DrawString('Orange marks exact touching incidence. Independent Fraction tests establish topology; this plot does not.', $font, $ink, 34, 1390)
+    $graphics.DrawString('Orange = exact touch. Void outer adjacency excludes inner-island hole walks. Diagnostic projection only.', $font, $ink, 34, 1390)
     $bitmap.Save((Join-Path $folder 'footprint-review.png'), [System.Drawing.Imaging.ImageFormat]::Png)
 } finally {
     foreach ($resource in @($graphics, $bitmap, $font, $titleFont, $panelFont, $ink, $fill, $accent, $outline, $border, $grid)) { $resource.Dispose() }
