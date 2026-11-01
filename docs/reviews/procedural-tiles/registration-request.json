@@ -1,0 +1,69 @@
+{
+  "kind": "nautilus-procedural-tile-registration-request",
+  "version": 1,
+  "status": "Unapplied; Architect owns fixed-checkpoint review and root integration",
+  "engineBase": "5f3627cd9fc4d95f15b7f1eefafdfb1d6034475f",
+  "entry": {
+    "./tiles": "./packages/tiles-core/index.js"
+  },
+  "schemas": [
+    {
+      "id": "nautilus-tile-recipe",
+      "version": 1,
+      "uri": "urn:nautilus:schema:tile-recipe:1",
+      "file": "packages/tiles-core/tile-recipe-v1.schema.json"
+    },
+    {
+      "id": "nautilus-tile-layout",
+      "version": 1,
+      "uri": "urn:nautilus:schema:tile-layout:1",
+      "file": "packages/tiles-core/tile-layout-v1.schema.json"
+    },
+    {
+      "id": "nautilus-tile-bundle",
+      "version": 1,
+      "uri": "urn:nautilus:schema:tile-bundle:1",
+      "file": "packages/tiles-core/tile-bundle-v1.schema.json"
+    },
+    {
+      "id": "nautilus-compiled-tiles",
+      "version": 1,
+      "uri": "urn:nautilus:schema:compiled-tiles:1",
+      "file": "packages/tiles-core/compiled-tiles-v1.schema.json"
+    }
+  ],
+  "engineCapability": {
+    "id": "nautilus-procedural-tile-boundaries-v1",
+    "versions": [
+      1
+    ],
+    "description": "Optional authored analytic tile descriptors, canonical boundary inspection/matching and bounded deterministic preparation. Host presentation, query, support, navigation, fire and consumer adoption remain separately unbound."
+  },
+  "hostPromisesMustNotBeInEngineManifest": [
+    "tile-presentation",
+    "tile-query",
+    "tile-support",
+    "tile-navigation",
+    "tile-fire",
+    "tile-consumer-adoption"
+  ],
+  "runtimeClosure": "Use decoded closure from packages/tiles-core/index.js, reported by tools/check-procedural-tiles.mjs. No vendor/Three/renderer/game runtime is imported.",
+  "supportFiles": [
+    "NOTICE.md",
+    "packages/tiles-core/tile-recipe-v1.schema.json",
+    "packages/tiles-core/tile-layout-v1.schema.json",
+    "packages/tiles-core/tile-bundle-v1.schema.json",
+    "packages/tiles-core/compiled-tiles-v1.schema.json",
+    "packages/tiles-core/NOTICE.md",
+    "docs/procedural-tiles.md",
+    "docs/proposals/procedural-tiles-v1.md",
+    "docs/reviews/procedural-tiles/source-audit.json",
+    "docs/reviews/procedural-tiles/registration-request.json"
+  ],
+  "proof": "node tools/test-procedural-tiles-package.mjs: default refuses until actual entry, all four schemas/capability/support whitelist are declared; explicit --candidate is private-overlay partial availability only.",
+  "registrationExpectationTests": [
+    "tests/procedural-tiles.test.mjs: replace the historical absent ./tiles export assertion in the headless/public-availability test with the reviewed actual declared target",
+    "tests/procedural-tiles.test.mjs: replace the default TILE_REGISTRATION_PENDING expectation with actual declared-package success after root registration; retain the candidate-vs-declared distinction and missing gameplay-provider statuses"
+  ],
+  "preserved": "No root package/version/manifest/whitelist/CI edit. No donor import/repin, renderer/editor/UI adoption, game policy, consumer pin, release/tag, other-worktree or audience change. Legacy map/block/corner formats and profiles remain unchanged."
+}
