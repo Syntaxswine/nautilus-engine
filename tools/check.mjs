@@ -17,6 +17,7 @@ import {checkPartsFixtures} from './parts-fixtures.mjs';
 import {partsSchemas} from './parts-schemas.mjs';
 import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
 import {farmyardDoorSchemas} from './farmyard-door-schemas.mjs';
+import {checkProceduralTiles} from './check-procedural-tiles.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -129,3 +130,6 @@ for(const entry of farmyardReview.files.filter(item=>item.copied)){
 }
 for(const profile of ['core','renderer','assets','compatibility'])if(distribution(profile).files.some(file=>file.startsWith('tests/fixtures/consumers/')))throw Error('A distribution includes test-only consumer fixtures.');
 console.log('Verified '+farmyardCopies+' byte-preserved Farmyard conformance modules, kept outside runtime distributions.');
+
+const tiles=checkProceduralTiles();
+console.log('Verified procedural tiles: '+JSON.stringify({modules:tiles.runtime.length,bytes:tiles.runtimeBytes,schemas:tiles.schemas.length,sourceFiles:tiles.sourceFiles,headless:true}));
