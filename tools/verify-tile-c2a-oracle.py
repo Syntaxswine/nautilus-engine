@@ -58,13 +58,14 @@ def verify(case):
     recipes = {r['id']: r for r in bundle['recipes']}
     instances = {i['id']: i for i in layout['instances']}
     order = group['finishOrder']; members = {m['instanceId']: m for m in group['members']}
-    rectangles, source, all_reservations = {}, [], []
+    rectangles, all_rectangles, source, all_reservations = {}, {}, [], []
     winner = lambda ids: next((i for i in order if i in ids), None)
     for key, instance in instances.items():
         recipe = recipes[instance['recipeId']]; outline = recipe['shape']['outlines'][0]
         vertices = [native(s['a'], instance) for s in outline['segments']]
         b = tuple(min(p[k] for p in vertices) for k in range(3)), tuple(max(p[k] for p in vertices) for k in range(3))
         b = b[0], (*b[1][:2], b[0][2]+f(recipe['shape']['thicknessM']))
+        all_rectangles[key] = b
         if key in members:
             rectangles[key] = b
             for segment in outline['segments']:
@@ -73,6 +74,15 @@ def verify(case):
             corners = [native([x,y,z], instance) for x in (reservation['min'][0],reservation['max'][0]) for y in (reservation['min'][1],reservation['max'][1]) for z in (reservation['min'][2],reservation['max'][2])]
             rb = tuple(min(p[k] for p in corners) for k in range(3)), tuple(max(p[k] for p in corners) for k in range(3))
             all_reservations.append((key, reservation['id'], rb))
+    # Every actual rectangle participates, including nonmembers with no/moved
+    # reservations. The supported profile never resolves uncomposed volume
+    # overlap; arbitrary reservation placement cannot remove this obligation.
+    actual_owners=list(all_rectangles)
+    for i,a in enumerate(actual_owners):
+        for b in actual_owners[i+1:]:
+            x,y=all_rectangles[a],all_rectangles[b]
+            positive=all(max(x[0][k],y[0][k])<min(x[1][k],y[1][k]) for k in range(3))
+            assert not positive or a in members and b in members, ('uncomposed actual rectangle overlap',a,b)
     assert result['source'] == layout
     assert result['statuses']['presentation'] == result['statuses']['support'] == result['statuses']['navigation'] == result['statuses']['game'] == 'unbound'
     if not rectangles:
@@ -278,6 +288,37 @@ def forgery_checks(cases):
     return len(changes)
 
 
+def verify_contact_refusal(case):
+    target=case['request']['nextBundle'] if case['kind']=='prepare' else case['bundle']
+    recipes={r['id']:r for r in target['recipes']};members={m['instanceId'] for m in target['layout']['compositions'][0]['members']};rectangles={}
+    for instance in target['layout']['instances']:
+        r=recipes[instance['recipeId']];points=[native(c['a'],instance) for c in r['shape']['outlines'][0]['segments']]
+        lo=tuple(min(p[k] for p in points) for k in range(3));hi=tuple(max(p[k] for p in points) for k in (0,1))+(lo[2]+f(r['shape']['thicknessM']),)
+        rectangles[instance['id']]=(lo,hi)
+    overlaps=[];ids=list(rectangles)
+    for i,a in enumerate(ids):
+        for b in ids[i+1:]:
+            x,y=rectangles[a],rectangles[b];d=tuple(min(x[1][k],y[1][k])-max(x[0][k],y[0][k]) for k in range(3))
+            if all(v>0 for v in d) and not (a in members and b in members):overlaps.append((a,b,d[0]*d[1]))
+    assert overlaps and any(a=='a' and b=='b' and area0==2 for a,b,area0 in overlaps)
+    assert case['sourcePreserved'] is True
+    if case['kind']=='prepare':
+        result=case['result'];assert result['ok'] is False and result['next'] is None and result['changes'] is None and result['diagnostics']
+    else:
+        result=case['inspection'];assert result['ok'] is False and result['compiled'] is None and result['diagnostics'] and case['requireResolvedRejected'] is True
+
+
+def contact_forgery_checks(cases):
+    for kind in ('admission','prepare'):
+        bad=copy.deepcopy(next(c for c in cases if c['kind']==kind))
+        if kind=='admission':bad['inspection']={'ok':True,'compiled':{'contacts':[]},'diagnostics':[]};bad['requireResolvedRejected']=False
+        else:bad['result']={'ok':True,'next':{'compiled':{'contacts':[]}},'changes':{},'diagnostics':[]}
+        try:verify_contact_refusal(bad)
+        except AssertionError:continue
+        raise AssertionError('Accepted forged missing-geometry admission/preparation')
+    return 2
+
+
 if __name__=='__main__':
     root=Path(__file__).resolve().parent.parent
     filename=Path(sys.argv[1]) if len(sys.argv)>1 else root/'artifacts/procedural-tiles-c2a/oracle-cases.json'
@@ -287,4 +328,7 @@ if __name__=='__main__':
         try:result=verify(case)
         except Exception as error:raise AssertionError(case['name']) from error
         for key,value in result.items():counts[key]+=value
-    print(json.dumps(dict(status='pass',cases=len(cases),**counts,rejectedForgeries=forgery_checks(cases),scope='Independent Fraction source ownership, precedence, atomic intervals, port coverage, primary reservation certificates and topology associations. No physical/game binding.')))
+    contacts_path=Path(sys.argv[2]) if len(sys.argv)>2 else root/'artifacts/procedural-tiles-c2a/contact-cases.json'
+    contacts=json.loads(contacts_path.read_text(encoding='utf-8'));assert len(contacts)==16
+    for case in contacts:verify_contact_refusal(case)
+    print(json.dumps(dict(status='pass',cases=len(cases),**counts,rejectedForgeries=forgery_checks(cases),contactRefusals=len(contacts),rejectedContactForgeries=contact_forgery_checks(contacts),scope='Independent Fraction source ownership, precedence, atomic intervals, port coverage, primary reservation certificates and topology associations. No physical/game binding.')))

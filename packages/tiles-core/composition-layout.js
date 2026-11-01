@@ -51,7 +51,26 @@ export function resolveComposition(layout,recipes,catalogueDigest,capturedOption
     const lo=X.max(a.min[p.along],b.min[p.along]),hi=X.min(a.max[p.along],b.max[p.along]),bottom=X.max(a.min[2],b.min[2]),top=X.min(a.max[2],b.max[2]);
     return E.cmp(lo,X.min(p.start[p.along],p.end[p.along]))>=0&&E.cmp(hi,X.max(p.start[p.along],p.end[p.along]))<=0&&E.cmp(bottom,p.start[2])>=0&&E.cmp(top,E.add(p.start[2],E.number(p.source.thicknessM)))<=0;
   }
-  const certificates=[],contacts=[],list=[...owners.values()];
+  const list=[...owners.values()],geometryBounds=list.map(o=>{
+    // Actual source rectangles are authoritative independently of reservations.
+    // Precharge the bounded semantic view before allocating it; the same parent
+    // budget is shared by accepted/candidate compilation and dependency closure.
+    budget.take('source',7);const p=o.ports[0];return {...o.bounds,floorId:p.floorId,channel:p.source.channel,layerId:p.source.layerId};
+  });
+  for(let i=0;i<list.length;i++)for(let j=i+1;j<list.length;j++){
+    budget.take('pairs');const oa=list[i],ob=list[j],a=geometryBounds[i],b=geometryBounds[j],contact=X.intersection(a,b);
+    if(![0,1].every(k=>E.cmp(contact.min[k],contact.max[k])<=0)||![0,1].some(k=>overlap(a,b,k)))continue;
+    // Both exact primary reservations were individually checked against the
+    // source rectangles above. This covers only this composition's geometry;
+    // the independent reservation loop below still checks every other interval.
+    if(oa.groupId===group.id&&ob.groupId===group.id)continue;
+    if(X.positive(contact))refuse('UNCOMPOSED_GEOMETRY_OVERLAP','Actual rectangles overlap in positive volume outside explicit composition. Missing or displaced reservations cannot authorize geometry or cover a locked surface.');
+    budget.take('membership',layout.relations.length+acceptedJoins.length*9+1);
+    if(layout.relations.some(r=>(r.a===oa.id&&r.b===ob.id||r.a===ob.id&&r.b===oa.id)&&relationCovers(r,a,b)))continue;
+    const joined=pairJoins(oa.id,ob.id).some(pair=>{const x=pair.a.instanceId===oa.id?pair.a:pair.b,y=pair.a.instanceId===oa.id?pair.b:pair.a;return joinCovers(oa.ports.find(p=>p.id===x.portId),a,b)&&joinCovers(ob.ports.find(p=>p.id===y.portId),b,a);});
+    if(!joined)refuse('INCOMPLETE_REPAIR','The actual rectangle contact needs its own complete straight join or measured cross/alongside proof, independently of every reservation.');
+  }
+  const certificates=[],contacts=[];
   for(let i=0;i<list.length;i++)for(let j=i+1;j<list.length;j++)for(const a of list[i].reservations)for(const b of list[j].reservations){
     budget.take('pairs');const intersection=X.intersection(a,b),positive=X.positive(intersection),near=[0,1].every(k=>E.cmp(intersection.min[k],intersection.max[k])<=0),relevant=near&&[0,1].some(k=>overlap(a,b,k));
     if(!relevant&&!positive)continue;

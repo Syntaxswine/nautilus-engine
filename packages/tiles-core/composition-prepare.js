@@ -43,9 +43,11 @@ export function prepareComposition(bundleInput,requestInput,contextInput){
     }
     if(!same(source.compositions,target.compositions))for(const l of [source,target])for(const g of l.compositions)g.members.forEach(m=>affected.add(m.instanceId));
     for(const key of ['joins','relations'])for(const entry of [...source[key],...target[key]])if(!same(source[key].find(x=>x.id===entry.id),target[key].find(x=>x.id===entry.id))){if(key==='joins'){affected.add(entry.a.instanceId);affected.add(entry.b.instanceId);}else{affected.add(entry.a);affected.add(entry.b);}}
+    const variants=new Map();
+    for(const key of ids){const bounds=[];for(const owner of [previous.owners.get(key),current.owners.get(key)])if(owner){budget.take('source',1+owner.reservations.length);bounds.push(owner.bounds,...owner.reservations);}variants.set(key,bounds);}
     for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){
-      const variants=key=>[previous.owners.get(key),current.owners.get(key)].filter(Boolean).flatMap(o=>o.reservations);let near=false;
-      for(const a of variants(ids[i]))for(const b of variants(ids[j])){budget.take('pairs');if([0,1].every(k=>E.cmp(X.max(a.min[k],b.min[k]),X.min(a.max[k],b.max[k]))<=0))near=true;}
+      let near=false;
+      for(const a of variants.get(ids[i]))for(const b of variants.get(ids[j])){budget.take('pairs');if([0,1].every(k=>E.cmp(X.max(a.min[k],b.min[k]),X.min(a.max[k],b.max[k]))<=0))near=true;}
       if(near){budget.count('maxProvenanceLinks');const pair=[ids[i],ids[j]];possiblePairs.push(pair);links.push(pair);}
     }
     let expanded=true;while(expanded){expanded=false;for(const [a,b]of links){budget.take('graph');if(affected.has(a)!==affected.has(b)){affected.add(a);affected.add(b);expanded=true;}}budget.peak('maxAffectedOwners',affected.size);}

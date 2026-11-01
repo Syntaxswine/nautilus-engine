@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
-import {setup,refresh,request,finish,clone,oracleCases} from './fixtures/procedural-tiles/c2a.mjs';
+import {setup,refresh,request,finish,clone,oracleCases,externalReservationWitnesses} from './fixtures/procedural-tiles/c2a.mjs';
 import {join} from './fixtures/procedural-tiles/catalogue.mjs';
 const spec=process.env.NAUTILUS_TILE_V2_PACKAGE?process.env.NAUTILUS_TILE_V2_PACKAGE+'/tiles':new URL('../packages/tiles-core/candidate-v2.js',import.meta.url).href,T=await import(spec),context={contextToken:'a'.repeat(64)};
 const resolve=b=>T.openTileBundle(b,{requireResolved:true}).compiled;
@@ -124,4 +124,40 @@ test('C2a unused catalogue samplers share the preparation budget and cannot hide
   const b=setup(T,[{id:'a'}]),small=prepare(b,finish(T,b,'a','skin.next'));assert.equal(small.ok,true);
   const large=clone(b),unused=clone(large.recipes[0]);unused.id='unused.high.sampling';unused.ports.forEach(p=>p.boundary.sampling.segmentsPerPart=128);large.recipes.push(unused);const retained=refresh(T,large),r=finish(T,retained,'a','skin.next'),full=prepare(retained,r);assert.equal(full.ok,true,JSON.stringify(full.diagnostics));assert.ok(full.work.units.source>small.work.units.source);assert.deepEqual(full.next.bundle.recipes.find(v=>v.id===unused.id),unused);
   r.limits.maxWork=Math.floor((small.work.total+full.work.total)/2);failure(retained,r,/WORK_LIMIT/);
+});
+
+test('C2a actual external overlap refuses absent/displaced reservations for unlocked and locked owners',()=>{
+  for(const c of externalReservationWitnesses(T)){
+    const before=JSON.stringify(c);
+    if(c.kind==='admission'){const result=T.openTileBundle(c.bundle);assert.equal(result.ok,false,c.name);assert.equal(result.compiled,null);assert.throws(()=>T.openTileBundle(c.bundle,{requireResolved:true}),c.name);}
+    else{
+      if(c.bundle.layout.instances.find(v=>v.id==='b').origin[0]>2)assert.equal(T.openTileBundle(c.bundle,{requireResolved:true}).ok,true,'valid strictly separated source: '+c.name);
+      const result=T.prepareTileRepair(c.bundle,c.request,c.context);assert.equal(result.ok,false,c.name);assert.equal(result.next,null,c.name);assert.equal(result.changes,null,c.name);
+      let commits=0;const redo=['saved-redo'],history=[],raw={unknown:{retained:true},spent:4};const consumer=T.createRetainedTileConsumer({read:()=>({bundle:c.bundle,token:'c'.repeat(64),contextToken:c.context.contextToken}),compareAndSwap(){commits++;history.push('bad');redo.length=0;return true;}});
+      const prepared=consumer.prepare(c.request);assert.equal(prepared.ok,false,c.name);assert.equal(prepared.next,null);assert.equal(prepared.changes,null);assert.throws(()=>consumer.apply(prepared),/actual handle/);assert.equal(commits,0);assert.deepEqual(history,[]);assert.deepEqual(redo,['saved-redo']);assert.deepEqual(raw,{unknown:{retained:true},spent:4});consumer.dispose();
+    }
+    assert.equal(JSON.stringify(c),before,c.name);
+  }
+});
+test('C2a old and new actual geometry close dependencies without any reservation or semantic link',()=>{
+  for(const [oldX,newX]of [[2,4],[4,2]]){
+    const source=setup(T,[{id:'a',group:false},{id:'b',x:oldX,y:2,group:false}]);source.recipes.forEach(r=>r.reservations=[]);const b=refresh(T,source),n=advance(b);n.layout.instances.find(v=>v.id==='b').origin=[newX,2,0];const result=prepare(b,request(T,b,n));assert.equal(result.ok,true,JSON.stringify(result.diagnostics));assert.deepEqual(result.dependencies.affectedIds,['a','b']);assert.deepEqual(result.dependencies.possiblePairs,[['a','b']]);
+  }
+});
+
+test('C2a an independently proved actual full join remains valid without matching reservation placement',()=>{
+  for(const mode of ['absent','displaced']){
+    const source=setup(T,[{id:'a',locked:true},{id:'b',x:2,group:false}],{joins:[join('actual.full.side','a','east','b','west')]}),r=source.recipes.find(r=>r.id==='b');if(mode==='absent')r.reservations=[];else{r.reservations[0].min=[10,10,0];r.reservations[0].max=[12,12,.1];}
+    const b=refresh(T,source),compiled=resolve(b);assert.equal(compiled.joins[0].pairs.length,1);assert.deepEqual(compiled.contacts,[]);const result=prepare(b,finish(T,b,'b','skin.exterior'));assert.equal(result.ok,true,JSON.stringify(result.diagnostics));assert.deepEqual(result.next.bundle.layout.instances.find(v=>v.id==='a'),b.layout.instances.find(v=>v.id==='a'));
+  }
+});
+test('C2a reservation-free geometry discovery remains inside the shared work bound',()=>{
+  const source=setup(T,[{id:'a',group:false},{id:'b',x:2,y:2,group:false}]);source.recipes.forEach(r=>r.reservations=[]);const b=refresh(T,source),n=advance(b);n.layout.instances[1].origin=[4,2,0];const r=request(T,b,n),full=prepare(b,r);assert.equal(full.ok,true);assert.ok(full.work.units.pairs>=6);assert.equal(full.work.total,Object.values(full.work.units).reduce((n,v)=>n+v,0));r.limits.maxWork=Math.max(1,full.work.total-1000);failure(b,r,/WORK_LIMIT/);
+});
+
+test('C2a generated root IDs stay bounded for valid hostile owner namespaces',()=>{
+  const specs=Array.from({length:18},(_,i)=>({id:'c2a/root'+'.root'.repeat(i),recipeId:'shared',x:i*4,group:i<2})),b=setup(T,specs),snapshot=JSON.stringify(b),compiled=resolve(b);assert.ok(compiled.geometry.nodeStates.every(n=>n.nodeId.length<=96));assert.equal(new Set(compiled.geometry.nodeStates.map(n=>n.nodeId)).size,compiled.geometry.nodeStates.length);assert.equal(JSON.stringify(b),snapshot);
+});
+test('C2a bounded generated-root collisions avoid every owner without truncation and consume shared graph work',()=>{
+  const make=hostile=>setup(T,Array.from({length:32},(_,i)=>({id:hostile?'c2a/root/'+i:'owner.'+i,recipeId:'shared',x:i*4,group:i<2}))),b=make(true),plain=resolve(make(false)),compiled=resolve(b),ids=new Set(b.layout.instances.map(v=>v.id)),root=compiled.geometry.nodeStates.find(n=>!ids.has(n.nodeId));assert.equal(root.nodeId,'c2a/root/32');assert.ok(root.nodeId.length<=96);assert.ok(compiled.work.units.graph>plain.work.units.graph);assert.deepEqual(compiled.geometry.sourceLeafIds,['c2a/root/0','c2a/root/1']);
 });

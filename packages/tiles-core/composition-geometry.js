@@ -68,8 +68,16 @@ export function compositionOverlay(group,owners,E,budget){
     if(!E.eq(owner.plane.baseM,first.plane.baseM)||!E.eq(owner.plane.thicknessM,first.plane.thicknessM)||p.floorId!==port.floorId||p.source.channel!==port.source.channel||p.source.layerId!==port.source.layerId||!same(p.contract,port.contract))refuse('GROUP_PROFILE_MISMATCH','Union members need the same exact plane, thickness, floor, channel/layer and full boundary contract.');
     owner.primaryReservationId=m.primaryReservationId;owner.groupId=group.id;
   }
-  let rootId='c2a/root';while(owners.has(rootId))rootId+='.root';
-  const nodes=members.map(o=>({kind:'leaf',id:o.id,shape:o.source.shape}));if(members.length>1)nodes.push({kind:'union',id:rootId,inputs:members.map(o=>o.id)});else rootId=members[0].id;
+  let rootId=members[0].id;
+  if(members.length>1){
+    // At most 32 checked owners: 33 fixed, <=11-character candidates guarantee
+    // a free identity. Never grow/truncate a source-dependent ID. Precharge
+    // each bounded allocation/lookup to the same whole-operation graph budget.
+    rootId=null;
+    for(let i=0;i<=owners.size;i++){budget.take('graph',12);const candidate='c2a/root/'+i;if(!owners.has(candidate)){rootId=candidate;break;}}
+    if(rootId===null)refuse('INTERNAL_ID_COLLISION','No bounded internal union identity is available.');
+  }
+  const nodes=members.map(o=>({kind:'leaf',id:o.id,shape:o.source.shape}));if(members.length>1)nodes.push({kind:'union',id:rootId,inputs:members.map(o=>o.id)});
   const internal={version:2,shape:{kind:'shape-graph',id:group.id,nodes,rootId}},placements=new Map(members.map(o=>[o.id,{point:o.point,plane:o.plane}])),child=overlayBudget(budget),arrangement=arrangePlanar(internal,E,child,placements),topology=planarTopology(arrangement,E,child,X.hash);
   const maskIds=mask=>arrangement.leaves.filter(l=>mask&(1<<l.index)).map(l=>l.nodeId),winner=ids=>group.finishOrder.find(id=>ids.includes(id))??null;
   const coordinates=axis=>{const values=new Map();for(const o of members)for(const n of [o.bounds.min[axis],o.bounds.max[axis]])values.set(E.key(n),n);return [...values.values()].sort((a,b)=>{budget.take('sort');return E.cmp(a,b);});};
