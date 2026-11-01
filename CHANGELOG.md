@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add reviewed private C1 exact planar line-region union/intersection/difference evidence for joined footprints, courtyards, islands and point contacts; keep complete v2 layout/live/presentation adoption closed.
+- Prove complete void outer-boundary component associations and independent installed Fraction-oracle checks in CI without changing the public tile API or distributions.
+
 - Add optional registered headless window authoring with complete base-map/underlay preservation, native configuration and transactional commands/history.
 - Register its single v1 schema and exact runtime/support closure, and prove the actual declared package in CI while retaining explicit presentation and live-host boundaries.
 
