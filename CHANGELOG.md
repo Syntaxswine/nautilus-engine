@@ -21,7 +21,7 @@
 - Test the private installed candidate explicitly in CI, preserving all eighteen accepted v1 runtime/schema files and public v1 registration.
 
 - Retire the completed desktop review page and wait for visible mobile layout/paint before full-page starter captures; retain capture metrics and all behavioral assertions.
-- Wait for the title dialog's close event before the starter review moves focus, and assert that focus returns to Credits: Enter on Start reopened Credits in 2 % of CI reviews, 0 of 497 with the wait. `docs/reviews/2026-11-01-starter-review-flakes.md` measures this and the capture correction above (10 of 72 reviews failed before it, 0 of 72 and then 0 of 994 after).
+- Measure the starter review's two CI failures in `docs/reviews/2026-11-01-starter-review-flakes.md`: the empty phone capture (10 of 72 reviews failed before the correction above, 0 of 72 and then 0 of 994 after), and Enter on Start reopening Credits in 2 % of CI reviews, caused by the title's queued close handler taking focus back and gone with its repair (11 of 552 local loops without the repair, 0 of 552 with it).
 
 - Add optional headless procedural tile recipes, analytic curves, canonical layered boundaries, deterministic repair and complete authored bundle saves through ./tiles.
 - Register four v1 schemas and the engine-only boundary capability; test the actual installed core in CI while presentation and gameplay bindings remain explicit.
