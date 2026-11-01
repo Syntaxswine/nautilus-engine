@@ -135,7 +135,7 @@ The [artist audit](docs/reviews/window-art/README.md) records the original 39 pr
 
 ## Procedural tile foundation
 
-The optional ./tiles entry supplies editable analytic shapes, canonical layered joins, deterministic neighbour repair and complete authored saves. See the [tile contract and builder checklist](docs/procedural-tiles.md). Run npm run test:tiles for the actual offline installed-package proof. Art-family rendering and the Smart Tile Paint/Rectangle/Path editor remain separate integration work.
+The optional ./tiles entry supplies editable analytic shapes, canonical layered joins, deterministic neighbour repair and complete authored saves. See the [tile contract and builder checklist](docs/procedural-tiles.md). Run npm run test:tiles for the actual offline installed-package proof. The [isolated Smart Tile reference host](docs/smart-tile-editor.md) adds Rectangle, level Path and whole-owner Finish with Review/Apply, atomic checkpoints and Undo/Redo. It is a separate authoring proof alongside the inherited workshop. Broader families, stacked construction and gameplay adapters remain future integrations.
 
 The [experimental tile source](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-v2-candidate.md) adds typed future records and shared-edge inspection. Its [private C1 inspector](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-c1-candidate.md) computes bounded exact line-region Boolean footprints, including L/H unions, courtyards, islands and point contacts. Run npm run test:tiles:v2:candidate from the source checkout. Complete v2 layout resolution, presentation/live adoption and public v2 package registration remain deferred.
 
