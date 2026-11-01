@@ -8,7 +8,7 @@ export function mountTitleScreen(container,options={}){
   const create=(tag,className,text)=>{const node=doc.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
   const element=create('section','nautilus-title'),art=create('div','ng-art'),menu=create('div','ng-menu'),heading=create('h1','ng-title',options.title);
   heading.id='nautilus-game-title-'+(++instance);element.setAttribute('aria-labelledby',heading.id);
-  const previousFocus=doc.activeElement,removers=[];let disposed=false,busy=false,checking=true,save=null,saveError=false,saveTicket=0,actionTicket=0,saveController,actionController,lastDialogButton;
+  const previousFocus=doc.activeElement,removers=[];let disposed=false,busy=false,checking=true,save=null,saveError=false,saveTicket=0,actionTicket=0,saveController,actionController;
   const listen=(node,type,fn)=>{node.addEventListener(type,fn);removers.push(()=>node.removeEventListener(type,fn));};
   if(options.art){
     const url=new URL(options.art.src,doc.baseURI);
@@ -81,13 +81,18 @@ export function mountTitleScreen(container,options={}){
       render();options.onError?.(error,key);buttons[key].focus();
     }
   }
-  listen(buttons.start,'click',()=>{if(save?.available){lastDialogButton=buttons.start;confirm.showModal();cancel.focus();}else void run('start');});
+  listen(buttons.start,'click',()=>{if(save?.available){confirm.showModal();cancel.focus();}else void run('start');});
   listen(buttons.continue,'click',()=>void run('continue'));listen(buttons.settings,'click',()=>void run('settings'));
-  listen(buttons.credits,'click',()=>{lastDialogButton=buttons.credits;credits.showModal();closeCredits.focus();});
+  listen(buttons.credits,'click',()=>{credits.showModal();closeCredits.focus();});
   listen(cancel,'click',()=>confirm.close());listen(confirmStart,'click',()=>{confirm.close();void run('start');});
   listen(closeCredits,'click',()=>credits.close());listen(retry,'click',()=>void refreshSave({focus:true}));
   for(const dialog of [confirm,credits])listen(dialog,'keydown',event=>{if(event.key!=='Tab')return;const targets=[...dialog.querySelectorAll('button:not(:disabled)')],first=targets[0],last=targets.at(-1);if(event.shiftKey&&doc.activeElement===first||!event.shiftKey&&doc.activeElement===last){event.preventDefault();(event.shiftKey?last:first).focus();}});
-  for(const dialog of [confirm,credits])listen(dialog,'close',()=>{if(!disposed&&!element.hidden)lastDialogButton?.focus();});
+  for(const [dialog,opener]of [[confirm,buttons.start],[credits,buttons.credits]])listen(dialog,'close',()=>{
+    // Native close is queued: a later deliberate focus choice owns focus now.
+    if(disposed||element.hidden||dialog.open||opener.disabled||opener.hidden||!opener.isConnected)return;
+    const active=doc.activeElement;
+    if(!active||active===doc.body||active===doc.documentElement||dialog.contains(active))opener.focus();
+  });
   render();notifyVisibility(true);const ready=refreshSave({focus:options.focus!==false});
   return Object.freeze({
     element,ready,refreshSave,hide,
