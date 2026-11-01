@@ -23,4 +23,4 @@ for case in cases:
     errors = list(validators[case["schema"]].iter_errors(case["value"]))
     assert (not errors) == case["valid"], (case["label"], [error.message for error in errors[:2]])
     count += 1
-print(json.dumps({"status": "pass", "schemas": len(schemas), "cases": count, "scope": "Independent structure; native v2 evaluation, public registration and live adoption remain unavailable."}))
+print(json.dumps({"status": "pass", "schemas": len(schemas), "cases": count, "scope": "Independent structure, including private C1 root-only evidence; full v2 layout, public registration and live adoption remain unavailable."}))
