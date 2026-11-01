@@ -9,6 +9,8 @@ import {moduleClosure,distribution} from './distribution.mjs';
 
 const acceptedPresenter='5f027e039ba9307fd25719c6307d9760baf54e20';
 const integrationBase='3f602272a3a2ecbe4ade0d33773a0e4f52da0706';
+const privateC2aSource='87301172d7258223f89aa2e19fe391ac01b52f00';
+const privateC2aSchemaUpdates=new Set(['packages/tiles-core/compiled-tiles-v2.schema.json','packages/tiles-core/tile-layout-v2.schema.json','packages/tiles-core/tile-bundle-v2.schema.json']);
 const entry='./adapters/farmyard/windows/three',entryFile='./packages/native-window-presenter/three.js';
 const support=['packages/native-window-presenter/README.md','packages/native-window-presenter/NOTICE.md','packages/native-window-presenter/source.json',vendorRoot+'/provenance.json',vendorRoot+'/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -67,7 +69,9 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   // public renderer entry and a reference-only pin grant no new authority.
   const headless=moduleClosure(['packages/map-core/index.js','packages/windows-core/index.js','packages/adapters/farmyard/windows.js','packages/windows-authoring/index.js']);
   const frozen=[...new Set([...listed(integrationBase,'packages/map-core','packages/windows-core','packages/windows-authoring','packages/adapters/farmyard/windows','schemas'),'packages/adapters/farmyard/windows.js',...headless,...listed(integrationBase).filter(f=>f.endsWith('.schema.json'))])].sort();
-  for(const file of frozen){const expected=object(integrationBase,file);assert.ok(read(file).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,expected);}
+  // The reviewed private C2a source updates precisely these three unregistered
+  // schemas. Every other headless/window/authoring/schema byte stays at3f602.
+  for(const file of frozen){const expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file);assert.ok(read(file).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,expected);}
   const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=json('upstream.json'),{farmyardWindowArt:pin,...existing}=upstream;
   assert.deepEqual(existing,before,'Pre-existing upstream pins must remain unchanged.');
   assert.ok(pin,'Register the explicit reference-only farmyardWindowArt pin.');

@@ -20,6 +20,8 @@ jobs:
           ca285aa76a49b74df6067caab661d7bed39bd523
           3e583378bee99dc8e275f1b97591af9a0406ca04
           7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -36,8 +38,33 @@ jobs:
       - run: npm run test:windows:renderer
       - run: npm run test:tiles
       - run: npm run test:tiles:art
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate private tile structural and exact-geometry evidence
+        run: |
+          node tools/measure-tile-v2.mjs
+          node tools/measure-tile-c2a.mjs
+      - name: Validate all eight schemas and mandatory C2a cases independently
+        run: |
+          python3 -m pip install --disable-pip-version-check --no-compile --target "$RUNNER_TEMP/tile-schema-validator" jsonschema==4.23.0
+          python3 -B tools/verify-tile-v2-schemas.py --dependencies "$RUNNER_TEMP/tile-schema-validator"
+      - run: python3 -B tools/verify-tile-c1-oracle.py
+      - run: python3 -B tools/verify-tile-c2a-oracle.py
       - run: npm run test:tiles:v2:candidate
       - run: python3 -B tools/verify-tile-c1-oracle.py artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json
+      - run: node tools/verify-tile-c2a-integration.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: private-tile-c2a-evidence
+          path: |
+            artifacts/procedural-tiles-c2a/*.json
+            artifacts/procedural-tiles-c1/oracle-cases.json
+            artifacts/procedural-tiles-v2/schema-cases.json
+            artifacts/procedural-tiles-v2/installed-*.json
+            artifacts/procedural-tiles-v2/installed-tests.log
+          if-no-files-found: ignore
   browser-workflow:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -53,6 +80,8 @@ jobs:
           ca285aa76a49b74df6067caab661d7bed39bd523
           3e583378bee99dc8e275f1b97591af9a0406ca04
           7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

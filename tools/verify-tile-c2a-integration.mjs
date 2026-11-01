@@ -1,0 +1,22 @@
+// Aggregate independently checked source and installed evidence; never register v2.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const root=new URL('../',import.meta.url);
+const read=p=>fs.readFileSync(new URL(p,root)),json=p=>JSON.parse(read(p));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const report=json('artifacts/procedural-tiles-v2/installed-report.json');
+assert.equal(report.status,'pass');assert.equal(report.declared,false);
+assert.deepEqual(report.tests,{count:78,pass:78,fail:0,cancelled:0,skipped:0,todo:0});
+assert.equal(report.source.runtime.length,29);assert.equal(report.source.runtimeBytes,229191);assert.equal(report.installedFiles.length,47);
+const schema=json('artifacts/procedural-tiles-c2a/schema-validation.json');
+assert.equal(schema.status,'pass');assert.equal(schema.schemas,8);assert.equal(schema.cases,532);assert.equal(schema.c2aCases,174);assert.equal(schema.baseCases,358);
+const c1Source=read('artifacts/procedural-tiles-c1/oracle-cases.json'),c1Installed=read('artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json');
+assert.deepEqual(c1Source,c1Installed);assert.equal(sha(c1Installed),'19a8f480f91cafacc7fc23f22659ec456aa7e4cc8ba1c652447adac36f0c8863');
+const c2Source=json('artifacts/procedural-tiles-c2a/oracle-cases.json'),c2Installed=json('artifacts/procedural-tiles-v2/installed-c2a-oracle-cases.json');
+const contacts=json('artifacts/procedural-tiles-c2a/contact-cases.json'),installedContacts=json('artifacts/procedural-tiles-v2/installed-c2a-contact-cases.json');
+assert.equal(c2Source.length,68);assert.equal(contacts.length,16);assert.deepEqual(c2Source,c2Installed);assert.deepEqual(contacts,installedContacts);
+assert.equal(report.c2aOracle.status,'pass');assert.equal(report.c2aOracle.cases,68);assert.equal(report.c2aOracle.rejectedForgeries,11);assert.equal(report.c2aOracle.contactRefusals,16);assert.equal(report.c2aOracle.rejectedContactForgeries,2);
+const result={status:'pass',declared:false,schemas:8,schemaCases:532,c2aSchemaCases:174,installedTests:78,c1Cases:249,c1Sha256:sha(c1Installed),c2aCases:68,contactRefusals:16,rejectedForgeries:11,rejectedContactForgeries:2,sourceInstalledEqual:true,privateArchiveSha256:report.archiveSha256,scope:'Exact source/private installed evidence only. No public v2, presenter, editor or game adoption.'};
+fs.writeFileSync(new URL('artifacts/procedural-tiles-c2a/integration-report.json',root),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add the reviewed private C2a rectangle-composition profile with explicit finish ownership, exact native interval provenance and bounded retained preparation.
+- Refuse unproved actual overlaps independently of reservations, retain schema-valid generated identities, and verify all eight schemas plus independent source/installed geometry in CI.
+
 - Register optional native flat tile surfaces with headless preparation/example entries and a host-Three renderer; preserve canonical controls, borders, materials and whole source bundles.
 - Prove real public-package installs, the executable builder guide, exhaustive owned cleanup and fresh source/built/installed visual parity while keeping Editor, Boolean composition and gameplay readiness separate.
 
