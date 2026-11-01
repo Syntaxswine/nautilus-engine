@@ -85,6 +85,9 @@ export function assertTileVisualSnapshot(value,{retired=false}={}){
   assert.equal(value.statuses.presentation.provider,'nautilus.native-tile-surfaces','Use the Root-registered metadata identity.');
   assert.equal(value.policy,'canonical-surface-v1-cuts16-interior8-16-32');
   assert.ok(Array.isArray(value.interfaces)&&Array.isArray(value.renderedInstances));
+  assert.ok(Array.isArray(value.projectionEntries),'Missing accepted projection detail state.');
+  assert.deepEqual(value.projectionEntries.map(entry=>entry.instanceId).sort(),bundle.layout.instances.map(instance=>instance.id).sort(),'Projection detail state must name every saved instance exactly once.');
+  for(const entry of value.projectionEntries){assert.deepEqual(Object.keys(entry).sort(),['detail','instanceId']);assert.ok(Number.isInteger(entry.detail)&&entry.detail>=0&&entry.detail<=2,'Accepted projection detail must be 0, 1 or 2.');}
   assert.equal(value.resources.hostPool.length,13,'Keep all three host maps and ten borrowed materials in the resource proof.');
   assert.deepEqual(value.resources.hostPool.map(record=>record.index),Array.from({length:13},(_,index)=>index));
   assert.equal(value.resources.hostPool.filter(record=>record.type==='texture').length,3);assert.equal(value.resources.hostPool.filter(record=>record.type==='material').length,10);

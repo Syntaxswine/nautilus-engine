@@ -21,7 +21,7 @@ function diagnostics(){return {scene:current,detail:Number($('detail').value),..
 function proofSnapshot(){
  const copy=value=>JSON.parse(JSON.stringify(value));
  return {version:1,authority:'canonical-bundle-only',bundleJSON:JSON.stringify(bundle),sourcePreserved:JSON.stringify(projection.bundle)===JSON.stringify(bundle),
-  policy:projection.renderingPolicy,statuses:copy(projection.statuses),compiled:copy(projection.compiled),
+  policy:projection.renderingPolicy,statuses:copy(projection.statuses),compiled:copy(projection.compiled),projectionEntries:projection.entries.map(entry=>({instanceId:entry.instanceId,detail:entry.detail})),
   controls:{scene:current,detail:Number($('detail').value),boundaries:wire,yaw,pitch,distance},provider:view.diagnostics(),
   renderedInstances:view.root.children.map(group=>({instanceId:group.userData.instanceId,visible:group.visible})),boundaryLines:view.root.children.reduce((sum,group)=>sum+group.children.filter(mesh=>mesh.userData.role==='canonical-interface'&&mesh.visible).length,0),
   interfaces:view.interfaces.map(edge=>({instanceId:edge.instanceId,record:copy(edge.record),sampleIds:[...edge.sampleIds],attributes:Object.fromEntries(['position','normal','parameterTangent','uv'].map(name=>[name,Array.from(edge.geometry.attributes[name].array)]))})),

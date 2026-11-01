@@ -82,12 +82,16 @@ literal guide now check the exact prototype, own keys and unbound values. Browse
 dimensions now bind the actual hash-verified PNG/IHDR instead of that invented
 divisibility condition. Runtime and bitmap bytes were not changed to satisfy them.
 
-One concurrent local built review reached the default 30-second action limit.
-The identical final inputs passed when run serially, matching CI execution order;
-no action timeout or assertion was changed. That failed run and its cleanup
-receipt remain preserved alongside the successful fresh proofs.
+The initial head's push CI repeated a dropdown action timeout also seen in one
+local concurrent run, despite a passing serial local run and PR workflow. The
+generic UI check redundantly rebuilt the eighteen-mask matrix again. All original
+matrix scenes/detail captures remain; UI scene/detail wiring now uses the mixed
+field/region/path yard and waits for the complete actual projection's instance
+detail state. Selector values alone are insufficient. Timeouts, capture count,
+material checks and resource assertions are unchanged. Both initial CI runs'
+cleanup receipts were verified, including the failed built review.
 
-Tile input SHA-256: `70645bd5e74bbeaae9565c86ccef81c858346bb4dbc18fcf510321c6dc765404`.
+Tile input SHA-256: `732746538cc6f681868a4c4710315d11bb3c8067573d7e9bf14745776b860adb`.
 Native recheck input SHA-256: `1b224651f3c5d0406b7b62902595fa22fcd490efefcf5a864ab068744c88a1eb`.
 Measured actual core archive SHA-256:
 `9efe997cea2d08db76e8a18419585016f0e79ac861f5afd1aea6f13ec37d8c28`.
@@ -101,7 +105,7 @@ Both CI jobs fetch only their seven exact reviewed Git tips, retaining shallow
 checkout and source-byte verification. CI requires installed suites/guide plus
 fresh three-mode tile and native parity. The browser job allows twenty minutes
 for the added coverage; each isolated helper still has a real 180-second expiry.
-The local tile source browser measured 86.67 seconds, an engineering review cost
+The local tile source browser measured 49.13 seconds, an engineering review cost
 measurement rather than game/device performance evidence.
 
 ## Design preference and remaining work
@@ -121,7 +125,7 @@ stairs and building/roof adapters retain their explicit staged status. No new
 schema/capability, version/release tag, consumer pin or Sites audience change occurs.
 
 All current proofs closed through supported APIs. Verification includes all
-**17 historical local browser/server pairs**, **34 original PID/creation/executable
-identities** and **17 released listening ports**, including the first failed source run.
+**20 historical local browser/server pairs**, **40 original PID/creation/executable
+identities** and **20 released listening ports**, including the first failed source run.
 Both temporary installed stages/consumers were removed. No process was killed
 by name and no local service is retained.
