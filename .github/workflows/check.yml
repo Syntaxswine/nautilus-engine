@@ -10,6 +10,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -32,6 +39,13 @@ jobs:
     timeout-minutes: 16
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

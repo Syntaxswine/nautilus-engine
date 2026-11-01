@@ -75,6 +75,13 @@ host; passing positive screenshots alone did not establish that negative contrac
 - Measured actual renderer archive SHA-256:
   `d3e8f9e84ba9fe05f01d43407c98325edea9cd431cf7d91a1b3b0ef3fcebb4bc`.
 
+The initial Linux CI check exposed an unavailable historical Git object in the
+default depth-one checkout. Both jobs now fetch only the four exact reviewed
+commits needed by the source fence and physical authoring-isolation proof. They
+retain shallow checkout and do not fetch moving worker refs or the whole history.
+An isolated depth-one checkout verifies the setup; runtime and browser inputs
+remain unchanged.
+
 Archive hashes are measurements at this integration, not fixed identities for
 future packages. This source-only acceptance record is excluded from packages,
 avoiding a self-referential digest. CI runs declared installed proof plus all
