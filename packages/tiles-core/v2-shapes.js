@@ -14,7 +14,7 @@ function baseShape(s,p){
   }else{
     fields(s,['kind','id','path','widthM','thicknessM','clip'],p,['kind','id','path','widthM','thicknessM']);id(s.id,p+'/id');checkCurve(s.path,p+'/path');dimension(s.widthM,p+'/widthM');dimension(s.thicknessM,p+'/thicknessM');
   }
-  if(s.clip)bounds(s.clip,p+'/clip');return s;
+  if(Object.hasOwn(s,'clip'))bounds(s.clip,p+'/clip');return s;
 }
 export function checkV2Shape(s,p='/shape',graphAllowed=true){
   choice(s?.kind,graphAllowed?['field-cell','region','profile-sweep','shape-graph','ribbon-sweep','section-sweep','stair-run']:['field-cell','region','profile-sweep','ribbon-sweep','section-sweep','stair-run'],p+'/kind');

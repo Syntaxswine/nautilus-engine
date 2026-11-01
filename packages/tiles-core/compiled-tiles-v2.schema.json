@@ -1227,22 +1227,30 @@
                   "required": [
                     "state",
                     "proof",
+                    "analyticState",
                     "collarM",
                     "normalizedCoefficientBounds",
                     "normalFactor",
                     "seedScope",
+                    "nativeProof",
                     "reason"
                   ],
                   "properties": {
                     "state": {
                       "enum": [
                         "inside",
-                        "outside",
                         "unknown"
                       ]
                     },
                     "proof": {
-                      "const": "deflated-native-field-whole-collar-interval-v1"
+                      "const": "analytic-collar-and-frozen-native-evaluator-v1"
+                    },
+                    "analyticState": {
+                      "enum": [
+                        "inside",
+                        "outside",
+                        "unknown"
+                      ]
                     },
                     "collarM": {
                       "type": "number",
@@ -1265,10 +1273,45 @@
                     "seedScope": {
                       "const": "all allowed interior seeds"
                     },
+                    "nativeProof": {
+                      "anyOf": [
+                        {
+                          "const": null
+                        },
+                        {
+                          "const": "nonnegative-native-corners-zero-amplitude-v1"
+                        }
+                      ]
+                    },
                     "reason": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "state": {
+                            "const": "inside"
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "nativeProof": {
+                            "const": "nonnegative-native-corners-zero-amplitude-v1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "nativeProof": {
+                            "const": null
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -1397,22 +1440,30 @@
                       "required": [
                         "state",
                         "proof",
+                        "analyticState",
                         "collarM",
                         "normalizedCoefficientBounds",
                         "normalFactor",
                         "seedScope",
+                        "nativeProof",
                         "reason"
                       ],
                       "properties": {
                         "state": {
                           "enum": [
                             "inside",
-                            "outside",
                             "unknown"
                           ]
                         },
                         "proof": {
-                          "const": "deflated-native-field-whole-collar-interval-v1"
+                          "const": "analytic-collar-and-frozen-native-evaluator-v1"
+                        },
+                        "analyticState": {
+                          "enum": [
+                            "inside",
+                            "outside",
+                            "unknown"
+                          ]
                         },
                         "collarM": {
                           "type": "number",
@@ -1435,10 +1486,45 @@
                         "seedScope": {
                           "const": "all allowed interior seeds"
                         },
+                        "nativeProof": {
+                          "anyOf": [
+                            {
+                              "const": null
+                            },
+                            {
+                              "const": "nonnegative-native-corners-zero-amplitude-v1"
+                            }
+                          ]
+                        },
                         "reason": {
                           "type": "string"
                         }
-                      }
+                      },
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "state": {
+                                "const": "inside"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "nativeProof": {
+                                "const": "nonnegative-native-corners-zero-amplitude-v1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "properties": {
+                              "nativeProof": {
+                                "const": null
+                              }
+                            }
+                          }
+                        }
+                      ]
                     }
                   ]
                 },

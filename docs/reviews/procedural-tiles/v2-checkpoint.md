@@ -1,5 +1,12 @@
 # Tile v2 A/B checkpoint for Architect review
 
+The original sections below record candidate
+`859f5d63d02ad86f4f221dc113de2f3901d59c51`. Formal review found four defects;
+those sections' compound-side, native collar-certainty and validation counts are
+superseded by the correction record at the end. The original commit and evidence
+remain history. The correction is still an unregistered A/B candidate awaiting
+Architect recheck.
+
 Branch: `codex/tile-v2-contracts`. The delivery reply supplies the exact fixed
 commit. The branch began at approved `708ed1c14e69699e4baa4483cbc5a50901d5be4e`
 and incorporated exact reviewed main `69115f6c283c4c60588d8462b943ea944ab17aca`
@@ -121,3 +128,89 @@ its exact task-prefixed temporary stage/consumer in finally after absolute-paren
 validation and verified absence. No server, browser, watcher, port or retained
 helper is created. Implementation stops here for Architect review before C/D or
 public registration.
+
+## Formal-review correction record (2026-10-31)
+
+This is one focused correction on top of `859f5d63d02ad86f4f221dc113de2f3901d59c51`;
+the delivery reply supplies its exact commit. All four requested fixes are included:
+
+1. **Compound interval provenance.** Raw side selection now searches retained
+   primitive boundaries directly, returns original descriptor endpoints at exact
+   knots, and keeps adjacent binary64 parameters on their own side. There is no
+   `floor(t*partCount)`/integer recovery or tolerance-based snapping. The lookup
+   consumes analytic work; derivative bounds use the actual retained interval
+   span. Canonical nodes, attributes and material events remain exact. The reported
+   P22 case previously returned a `5.000006240152374e-7` m bound for approximately
+   `6.99999999298484e-7` m actual deviation; it now reports
+   `7.000006245761e-7` m, including the measured deviation and floating guard.
+   A `6e-7` m budget refuses. Regressions cover P22/23/26, both raw sides,
+   immediately adjacent representable parameters, D4, three translated phases,
+   both omitted-start/end gaps, reversed authorship, returned nodes and material
+   events. Inputs and original mandatory attributes are unchanged.
+2. **Native floating certainty.** The analytic deflated collar enclosure is
+   retained as `side.analyticState`; `side.state` denotes native certainty.
+   Nonzero scalar amplitude and analytic outside remain native **unknown** for
+   the complete collar and all seeds. No sparse probes, width cutoff or v1 rewrite
+   substitute for proof. The exact 1,000 m/seed 1 counterexample still evaluates
+   to `-7.019295376133343e-20` under v1; its positive analytic enclosure now
+   produces `retain-exterior`. A 1 m cancellation case and all D4 transforms also
+   retain. The meaningful positive requires zero scalar amplitude/nonnegative
+   corners; the guide and code establish the binary64 `[0,1]` smooth/weight
+   argument and zero-positive convention. Endpoint, near-one, subnormal and all
+   four bilinear-basis tests exercise the unchanged native evaluator. The separate
+   identically-zero proof and conservative tiny-scale/domain refusals remain.
+   The candidate compiled schema distinguishes analytic evidence/native proof
+   and rejects the former conflated evidence record.
+3. **Optional clip presence.** V2 root and nested graph-leaf region/profile-sweep
+   clips accept omission or actual bounds, and reject `null`, `false`, `0`, `""`.
+   Runtime and independent schema cases agree. The inherited v1 executable's
+   acceptance of falsy clips versus its stricter schema is explicitly documented
+   and tested separately; frozen v1 bytes stay unchanged. Own IDs matching
+   `constructor`/`toString` and valid null-prototype bounds remain accepted;
+   accessor-bearing input refuses without invoking its getter.
+4. **Structured repair dispatch.** Malformed dispatch delegates original inputs
+   to the accepted v1 result path, preserving complete failure records, context-first
+   diagnostic precedence, work counters and successful v1 results. Identified
+   malformed v2 data also returns `ok:false`, `next:null`, `changes:null` and
+   diagnostics rather than escaping as a dispatch exception. Regressions include
+   null, undefined, malformed JSON, primitives/arrays, unsupported versions,
+   inherited-version objects, accessors in bundle/request/context, cancellation,
+   own inherited-name IDs and null-prototype records. No getter is invoked and
+   source/request/context/history remain untouched.
+
+Expected failing-before evidence is preserved in ignored
+`artifacts/procedural-tiles-v2/fractional-compound-before.log` (three failures) and
+`native-contracts-before.log` (four failures). The first corrected run passed all
+seven regressions. Final focused source/distribution evidence passed **35/35**;
+independent Draft 2020-12 validation passed **8 schemas / 89 cases**. The cases
+include actual corrected plans/exposure records, all clip contexts, known v1
+discrepancies and negative native-evidence structure checks.
+
+The offline private installed candidate passed **33/33 runtime tests**, with zero
+failure/cancellation/skip/TODO counts. All **36** packaged runtime/support files
+were compared to installed bytes and rechecked against final source. Its runtime
+closure is **20 pure modules / 151,822 raw bytes**; all **18** pinned v1 file hashes
+and the golden behavior corpus remain fixed. Root entry/registry/capability,
+whitelist and CI remain unchanged; the overlay is still **declared:false**.
+
+Corrected private archive SHA-256:
+`e79d1feab42a7328a604ac7ab4542ca21ab8a6c43d23a9abf69160d3aa99cfc4`.
+This record remains excluded from the archive. Current logs use the same artifact
+directory, with focused output in `corrections-focused.log` and installed output
+in `installed-tests.log`.
+
+All four required repository gates passed after the correction: `npm run check`
+(603 pinned files; registered v1 closure remains fourteen modules / 91,604 bytes),
+`npm test` (**708/708**, zero failures/cancellations/skips/TODO),
+`npm run test:upstream` (**32/32**) and `npm run build` (**465 module paths**,
+eleven recorded deployment patches). This is a headless candidate correction;
+there is no browser/editor change or new visual adoption claim.
+
+Accuracy favors explicit native unknowns over analytic-only suppression. Efficiency
+adds a bounded charged binary search and may retain additional presentation geometry;
+those are code-based costs, not measured device timings. The narrative preference
+is to preserve exterior silhouettes until both occupied collars are proved. This
+correction introduces no mesh/renderer/gameplay adoption or C/D evaluator. The
+private package proof removed and verified its isolated temporary stage/consumer
+in finally; foreground commands create no retained server/browser/watcher/helper.
+Public registration and integration remain held for the Architect's formal recheck.

@@ -20,9 +20,22 @@ function inspect(source,collarM,charge){
   if(scale<1e-100){result.side.reason='Scalar conditioning is too small for this conservative floating-bound proof.';return result;}
   // With border values 0, F(s,t)=s²[(3-2s)O(t)+A*256(1-s)²t²(1-t)²].
   // O is a convex smooth blend of the two opposite corners; |A|<=|amplitude|
-  // for every saved seed. Bound the entire inward collar, not sampled probes.
+  // for every saved seed. This is an analytic enclosure only: the frozen
+  // evaluator can round smooth(u) to 1 while a negative fade term survives.
   const c=collarM/width,lo=Math.min(a,z)/scale,hi=Math.max(a,z)/scale,product=[lo*3,lo*(3-2*c),hi*3,hi*(3-2*c)],variation=16*amplitude/scale,roundoff=256*Number.EPSILON*(1+variation),lower=Math.min(...product)-variation-roundoff,upper=Math.max(...product)+variation+roundoff;charge(32);
-  const state=lower>0?'inside':upper<0?'outside':'unknown';result.side={state,proof:'deflated-native-field-whole-collar-interval-v1',collarM,normalizedCoefficientBounds:[lower,upper],normalFactor:'positive inward squared distance',seedScope:'all allowed interior seeds',reason:state==='unknown'?'The complete interval enclosure crosses zero; no side occupancy is guessed.':'Strict sign proven throughout the open inward collar.'};return result;
+  const analyticState=lower>0?'inside':upper<0?'outside':'unknown';
+  // In native binary64 arithmetic smooth(u) stays in [0,1] on [0,1]. For
+  // u<1/2, RN(u²)<=1/4 and RN(3-2u)<=3, hence the result is <=3/4.
+  // For u>=1/2, 2u and 3-2u are exact, with the latter in [1,2]. Positive
+  // rounding error of u² is <=2^-54 (u=1 is exact). The unrounded final
+  // product is <= exact smooth(u)+2^-53 <=1+2^-53; ties-to-even rounds
+  // that midpoint down to 1. All factors and bilinear weights are thus
+  // nonnegative. With nonnegative corners the topology bias is zero, and
+  // zero amplitude removes the entire perturbation for every seed. Rounded
+  // or underflowed zeros remain inside under the frozen zero-positive rule.
+  // A negative analytic sign alone cannot certify native outside near zero.
+  const nativeProof=s.fieldAmplitude===0&&s.values.every(v=>v>=0)?'nonnegative-native-corners-zero-amplitude-v1':null,state=nativeProof?'inside':'unknown';
+  result.side={state,proof:'analytic-collar-and-frozen-native-evaluator-v1',analyticState,collarM,normalizedCoefficientBounds:[lower,upper],normalFactor:'positive inward squared distance',seedScope:'all allowed interior seeds',nativeProof,reason:nativeProof?'Nonnegative native bilinear weights, nonnegative corners and zero perturbation prove v1 positive classification throughout the collar, including rounded zero.':'The analytic interval does not prove the frozen native evaluator classification throughout this collar; retain geometry.'};return result;
 }
 export function inspectTileZeroExposure(input,options){
   const source=data(input),o=data(options);fields(source,['a','b'],'/source');fields(o,['collarM','residentA','residentB','maxWork'],'/options');number(o.collarM,'/collarM',.000001,1000000);integer(o.maxWork,'/maxWork',1,10000000);for(const k of ['residentA','residentB'])if(typeof o[k]!=='boolean')fail('INVALID_RESIDENCY','/'+k,'Use a captured explicit residency state.');let workUnits=0;const charge=n=>{if(workUnits+n>o.maxWork)fail('ZERO_EVIDENCE_WORK_LIMIT','/maxWork','Exact source recompilation and independent zero/side proofs exceed the declared work bound.');workUnits+=n;};

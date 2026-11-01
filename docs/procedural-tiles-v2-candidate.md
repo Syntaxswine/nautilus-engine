@@ -40,6 +40,12 @@ Limits include 128 graph nodes, depth 12, 16 operands, 128 width stations, 128 t
 section vertices and 128 steps, alongside the existing bounded plain-data input.
 These are authored-object/control limits, not one-metre scene limits.
 
+Optional `clip` is checked by property presence in both v2 root shapes and graph
+leaves: omission or a valid bounds object is supported; `null`, `false`, `0` and
+`""` refuse. The frozen v1 executable historically accepts those four falsy values
+as absent, although the v1 structural schema rejects them. This inherited v1
+discrepancy remains documented and unchanged; it does not carry into v2 syntax.
+
 Every v2 recipe/layout is **saveable but unresolved** in this checkpoint, including
 a v2 layout containing only legacy recipes. `openTileBundle(...,{requireResolved:
 true})`, complete compilation, projection, interface matching, cell derivation and
@@ -48,6 +54,12 @@ host preparation cannot produce a committable v2 handle. Structural schemas neve
 stand in for evaluator availability. The metadata-only private view used to reuse
 accepted common-field validators is never returned, hashed as authored intent or
 compiled as v2 geometry.
+
+Repair dispatch keeps the complete accepted v1 result contract, including malformed
+JSON/plain-data inputs, context-first diagnostics, zero-work failures and successful
+requests. It does not invoke accessors or mutate source/history. Malformed identified
+v2 bundles also return structured failures with `next:null`, rather than escaping
+through dispatch as an exception.
 
 No Boolean/ribbon/section/stair evaluator is implemented. In particular the saved
 `A-A` graph is not falsely evaluated as a zero-width boundary or an empty result.
@@ -98,6 +110,12 @@ deviation, arc direction encoding and conservative floating-position guards.
 Translation can move the quantization phase; omitted compound starts stay in the
 bound. Declared chord and final segment lengths must both pass.
 
+Compound side selection compares retained primitive interval boundaries directly;
+it never recovers an integer index from `t*partCount`. Exact knots retain both
+original endpoint limits, while adjacent representable parameters stay on their
+own side. Endpoints are read directly from original descriptors. Interval search
+is charged to analytic work, and derivative bounds use the retained interval span.
+
 Added public normals/tangents interpolate the retained canonical directions.
 Their angular accuracy is not analytically certified. Original attributes remain
 exact and both sides get the same added attributes. Field cuts use shared
@@ -146,11 +164,39 @@ tangential t, the scalar factors as:
 
 O is a convex smooth blend of the two opposite corners. For every allowed seed,
 `abs(A)<=abs(fieldAmplitude)` and the variation term is bounded by
-`16*abs(fieldAmplitude)`. A strict interval sign proves inside/outside; mixed or
-ill-conditioned intervals remain unknown. An identically zero source uses the
-unchanged zero-positive policy. Tiny scalar scales and collars extending beyond
-the native cell remain unknown. Heights and normals still come from the accepted
-matched interface; this is not physical calibration or a gameplay occupancy query.
+`16*abs(fieldAmplitude)`. These bounds describe the analytic model and appear as
+`side.analyticState`. They do not by themselves prove the frozen native floating
+evaluator's classification. For example, a 1,000 m field with corners `[1,0,0,1]`,
+amplitude `.01` and seed `1` has a positive analytic collar interval, but the frozen
+v1 evaluator at `(u,v)=((1000-.000001)/1000,.5)` returns
+`-7.019295376133343e-20`: `smooth(u)` rounds to 1, removing the positive bilinear
+term while the negative fade term survives.
+
+`side.state` is native certainty. Any nonzero scalar amplitude is **unknown** for
+this correction, over the whole collar and all allowed seeds. Analytic outside
+also remains native unknown because rounded/underflowed zero is positive in v1.
+No sparse probes, width threshold or rewritten evaluator authorize suppression.
+
+The meaningful retained native inside proof requires zero scalar amplitude and
+all four native scalar corners nonnegative. The numerical premise is that
+`S(u)=RN(RN(u*u)*RN(3-2*u))` stays in `[0,1]` for every valid binary64 `u` in
+`[0,1]`, with round-to-nearest/ties-to-even arithmetic. For `u<.5`,
+`RN(u*u)<=.25` and `RN(3-2*u)<=3`, so `S(u)<=.75`. For `.5<=u<=1`, `2*u` and
+`3-2*u` are exact and the latter is in `[1,2]`. Positive rounding error of `u*u`
+is at most `2^-54` (`u=1` is exact), so the unrounded final product is at most
+the exact smooth value plus `2^-53`, hence at most `1+2^-53`. Ties-to-even rounds
+this midpoint to 1. All factors are nonnegative. The four native bilinear weights
+and products with nonnegative corners therefore remain finite and nonnegative;
+there is no saddle bias, and zero amplitude removes the perturbation for every
+seed. Rounded or underflowed zeros stay inside under `zero-positive-v1`.
+`side.nativeProof` names that whole-domain argument; it is null when unproved.
+Tests of endpoints, near-one cancellation, subnormals and each bilinear basis
+exercise the frozen evaluator but do not replace the numerical argument.
+
+An identically zero source retains its separate unchanged zero-positive proof.
+Tiny scalar scales and collars extending beyond the native cell remain unknown.
+Heights and normals still come from the accepted matched interface; this is not
+physical calibration or a gameplay occupancy query.
 
 Skirt suppression is only eligible when both independent zero/inside proofs pass,
 actual ports and floor definitions agree, and both sides are explicitly resident.
