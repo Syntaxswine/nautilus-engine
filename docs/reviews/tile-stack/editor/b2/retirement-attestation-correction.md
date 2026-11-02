@@ -1,0 +1,20 @@
+# Native retirement attestation correction
+
+Follow-on to native runtime `b46fa78297440932a0be82651c0f8397cefa4b74` and preserved evidence commit `1232c5aa1811e09fea53d4277ca9ce9c06a22736`. Root's actual-Three review found that an earlier throwing dispose listener prevents later listeners from running, although public logical geometry/material counters have already reached zero. Those counters are not cleanup-settlement receipts. This correction changes only the private Editor presentation wrapper and its focused tests; public geometry/pool code, shared coordinator, budgets and ownership contracts remain unchanged.
+
+The wrapper now latches appearance, geometry and pool retirement failures as unverified. Both view domains and pool shutdown are exhausted, including reentrant shutdown. A failed view keeps its original root/triangle/cell reservations in the existing coordinator. A failed pool keeps its material reservation and reports its separate logical count. In-progress retirement also cannot report settled merely because logical counters have reached zero. Borrowed atlas/base leases stay held while any view or pool retirement is unverified. Later ordinary/no-op dispose calls cannot clear a failure or create a receipt. No automatic settlement API is introduced: a failed retirement remains charged until a separately verified settlement mechanism is bound. No GPU release or GPU leak is inferred.
+
+Inactive/retiring views are skipped for visibility, picking and framing bounds. Later host material overrides remain untouched, and normal appearance-before-geometry cleanup and borrowed ownership are preserved. The headless fixture now mirrors the real host's rule that borrowed resources are not disposed while their leases remain held.
+
+Validation: `node --test tests/editor-tile-stack-retirement-receipts.test.mjs tests/editor-tile-stack-b2-native.test.mjs` passes **12/12**. Five new cases use actual public native geometry, the actual finish pool and ordinary actual Three dispose events, with earlier throwing listeners and later delivery witnesses. No provider or dispose method is monkeypatched in these five cases; the small synthetic atlas is Node setup, without a renderer/GPU claim.
+
+| Actual event case | Geometry receipts | Material receipts | Result |
+| --- | --- | --- | --- |
+| Both earlier listeners throw | 0/75 | 0/4 | One retiring root, 930 triangles and 480 cells retained; four material reservations retained; borrowed leases held |
+| Geometry listener throws | 0/75 | 4/4 | View reservation retained; material retirement settles; borrowed leases held |
+| Material listener throws | 75/75 | 0/4 | View retirement settles; four material reservations retained; borrowed leases held |
+| Normal completion | 75/75 | 4/4 | Root/material reservations settle; borrowed leases released exactly once |
+
+Every dispose call is attempted exactly once in each case, including reentrant presenter shutdown. Subsequent no-op calls preserve the exact charged state. The fifth new case reparents an old actual mesh after unverified cleanup and proves that retiring geometry is excluded from visibility writes, picking and bounds. The existing native controls still pass literal uniform/nonuniform heights, independent cutaway, 480/960 cell accounting, unknown acknowledgement, borrowed overrides and appearance refusal. The full sixteen-segment fifteen-floor example is **930 triangles per view**; an eight-segment fixture's 450-triangle count is not substituted.
+
+The 57 B2 / 81 legacy browser records under `evidence/` are preserved historical proof for fixed `b46fa78`. They do **not** validate these new runtime bytes. As requested, Root owns the combined current-source matrix regeneration after promotion; this focused correction does not rerun those 138 browser cases. Historical source fences remain untouched, and no failing worker branch is pushed. The exact targeted log is retained in `retirement-receipts.log.gz` so repository LF normalization cannot change its captured bytes.
