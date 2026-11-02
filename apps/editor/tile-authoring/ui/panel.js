@@ -1,4 +1,4 @@
-import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin} from './commands.js';
+import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin,tileAuthoringLabelMessage,TILE_AUTHORING_FORM_LIMITS} from './commands.js';
 
 const serviceMethods = ['describe','snapshot','query','prepare','apply','cancel','recover'];
 const issue = (code, message) => Object.assign(new TypeError(code + ': ' + message), {code});
@@ -112,25 +112,27 @@ export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangl
   const status=make('output','','ta-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.setAttribute('aria-atomic','true');
   const fault=make('p','','ta-fault');fault.setAttribute('role','alert');fault.hidden=true;
   const hint=make('p','Library revisions are immutable. Placed copies change only when you select them for an upgrade.','ta-hint');
-  const field=(parent,name,label,{value='',type='text',min=null}={})=>{const wrap=make('label',label),input=make('input');input.id=id+'-'+name;input.name=name;input.type=type;input.value=value;input.required=true;if(type==='number')input.step='any';if(min!==null)input.min=min;wrap.htmlFor=input.id;wrap.append(input);parent.append(wrap);return input;};
+  const field=(parent,name,label,{value='',type='text',min=null,max=null,validate=null}={})=>{const wrap=make('label',label),input=make('input');input.id=id+'-'+name;input.name=name;input.type=type;input.value=value;input.required=true;if(type==='number')input.step='any';if(min!==null)input.min=min;if(max!==null)input.max=max;if(validate){const update=()=>input.setCustomValidity(validate(input.value));listen(input,'input',update);listen(input,'change',update);update();}wrap.htmlFor=input.id;wrap.append(input);parent.append(wrap);return input;};
   const select=(parent,name,label)=>{const wrap=make('label',label),node=make('select');node.id=id+'-'+name;node.name=name;wrap.htmlFor=node.id;wrap.append(node);parent.append(wrap);return node;};
   const gates=[],button=(parent,label,action,run)=>{const node=make('button',label);node.type='button';node.dataset.action=action;gates.push({node,action});listen(node,'click',()=>{fault.hidden=true;void Promise.resolve(run()).then(showResult).catch(showError);});parent.append(node);return node;};
   const definitions=make('fieldset'),definitionLegend=make('legend','Definition revisions');definitions.append(definitionLegend);
   const definitionSelect=select(definitions,'definition','Definition revision'),definitionPin=make('p','','ta-pin');definitions.append(definitionPin);
   const rectangle=make('fieldset'),rectangleGrid=make('div',undefined,'ta-grid');rectangle.append(make('legend','Rectangle source'),rectangleGrid);
-  const label=field(rectangleGrid,'label','Library label',{value:'Rectangle'}),width=field(rectangleGrid,'width','Width (m)',{value:'8',type:'number',min:'0.001'}),depth=field(rectangleGrid,'depth','Depth (m)',{value:'4',type:'number',min:'0.001'});
+  const label=field(rectangleGrid,'label','Library label',{value:'Rectangle',validate:tileAuthoringLabelMessage}),width=field(rectangleGrid,'width','Width (m)',{value:'8',type:'number',min:String(TILE_AUTHORING_FORM_LIMITS.minimumM),max:String(TILE_AUTHORING_FORM_LIMITS.maximumM)}),depth=field(rectangleGrid,'depth','Depth (m)',{value:'4',type:'number',min:String(TILE_AUTHORING_FORM_LIMITS.minimumM),max:String(TILE_AUTHORING_FORM_LIMITS.maximumM)});
   const rectangleHint=make('p','New and cloned definitions start at revision 1. A revision keeps the selected definition ID and retains the old revision.','ta-hint');rectangle.append(rectangleHint);
   const rectangleActions=make('div',undefined,'ta-row');rectangle.append(rectangleActions);
   for(const [kind,text]of [['recipe.create','Stage new rectangle'],['recipe.clone','Stage clone'],['recipe.revise','Stage revision']])button(rectangleActions,text,kind,()=>controller.stage(kind,(snapshot)=>{
+    label.setCustomValidity(tileAuthoringLabelMessage(label.value));
     if(!(kind==='recipe.clone'?[label]:[label,width,depth]).every(n=>n.reportValidity()))throw issue('UI_FIELDS_REQUIRED','Complete the rectangle fields.');
     const base=kind==='recipe.create'?null:selectedDefinition(),ids=identities(kind);
     const spec=rectangleSpec(kind==='recipe.clone'?{label:label.value}:{label:label.value,widthM:Number(width.value),depthM:Number(depth.value)},{kind,base,ids,snapshot});
     return commands.rectangle({snapshot,requestId:ids.requestId,opId:ids.opId,kind,base,spec});
   }));
   const presets=make('fieldset');presets.append(make('legend','Reusable presets'));
-  const presetLabel=field(presets,'preset-label','Preset label',{value:'Rectangle preset'});
+  const presetLabel=field(presets,'preset-label','Preset label',{value:'Rectangle preset',validate:tileAuthoringLabelMessage});
   presets.append(make('p','Decoration defaults: none. Saving a preset pins the selected definition revision and never updates existing copies.','ta-hint'));
   button(presets,'Stage preset from selected revision','preset.save',()=>controller.stage('preset.save',(snapshot)=>{
+    presetLabel.setCustomValidity(tileAuthoringLabelMessage(presetLabel.value));
     if(!presetLabel.reportValidity())throw issue('UI_FIELDS_REQUIRED','Supply a preset label.');
     const base=selectedDefinition(),ids=identities('preset.save');
     return commands.preset({snapshot,requestId:ids.requestId,opId:ids.opId,input:{kind:'nautilus-tile-preset',version:1,id:ids.presetId,revision:1,body:{label:presetLabel.value,definition:tileAuthoringPin(base),defaultLayers:[],defaultMarks:[],requires:base.body.requires,notices:base.body.notices}}});
