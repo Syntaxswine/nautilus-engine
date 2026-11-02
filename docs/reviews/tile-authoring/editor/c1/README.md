@@ -17,6 +17,11 @@ at `f94b57b2cebce55fc27cc94dea7a9fe39ec20193`), and review helper
 `08540b0ec8acd1be8b9d9929187d82a7300a59c2`. Their exact approved paths are imported
 unchanged and recorded in `core-import.json`, `ui-import.json`, and
 `helper-import.json`. Actual browser/package acceptance is underway.
+The independently accepted owned-successor refinement is pinned separately to
+`1e8d0d702938e7418dc0203383516ab0c26a6e6a` in `successor-import.json`: exactly
+the shared checkpoint module and C1 activation, plus the named test and
+byte-preserved validation document. Shared runtime overrides are now exactly
+`apps/editor/smart-tile/checkpoint.js` and `apps/editor/smart-tile/session.js`.
 The new entry and actual C1 tests deliberately import the production modules;
 there is no C0 fixture, copied worker source, alternate constructor or executor
 fallback. This checkpoint is not a completed integration or a passing full-gate
@@ -217,8 +222,8 @@ in this candidate. The baseline had V8 tick profiling; the candidate has phase
 timing only. This is one-machine observed evidence, not a device or statistical
 benchmark. See `artifacts/editor-tile-authoring-performance-comparison.json`.
 Undo still took 1.8–2.7 seconds and the final Redo 4.35 seconds; growing receipt
-cost remains material. The Architect owns a further scope decision. This role
-has not changed the frozen shared checkpoint module.
+cost remains material in that 191f baseline. The subsequently approved shared
+refinement is described below; the 191f measurements are not attributed to it.
 
 Cold-before/after recovery, stale review/complete save and retained formatted
 source also pass four focused current-runtime controls. The independent
@@ -236,7 +241,7 @@ Actual unknown state must retain both session and authoritative documents when
 an acknowledgement is lost; a settled receipt on cold-after-write reload is
 reported as observed, without an invented pending marker.
 
-The stager reserves no blanket second-shared-file allowance. A future reviewed
+The stager reserves no blanket second-shared-file allowance. Reviewed
 codec adoption requires a full `--successor-codec` commit and matching
 `successor-import.json` audit for exactly the shared checkpoint file and its
 C1-owned activation, with per-path Git hashes/lengths and the fixed 191f base.
@@ -246,6 +251,34 @@ without the audit refuses as intended. These are source/provenance controls,
 not another runtime or browser run. A static API check also confirms every
 collector model reference is declared by the Root contract, without importing
 the draft model.
+
+The corrected 1e8 successor is adopted exactly after independent Root approval.
+The rejected 3c predecessor was never adopted. Its retained 30.230-second
+measurement belongs only to that predecessor; 1e8 has not been profiled.
+Cache limits remain 64 entries, 8 MiB encoded retained payload, 65,536 inspected
+nodes and 4,194,304 UTF-16 text/key code units. The corrected accounting includes
+retained fact keys, scalar/header data, copies and materialized digests. The
+actual C1 padding boundary now refuses retention above the cap. Cold, detached,
+lookalike and changed input still takes the full strict reader; construction
+reuse and token memoization remain private to this explicitly opted-in C1 codec.
+Authority/storage/journal/views/Core/hash/schema/version are unchanged.
+
+All 83 finite affected controls pass locally: 13 successor controls, 19 inherited
+v1/v2 cases, and 51 cache/native-resource/transport/UI controls. No new timing,
+global gate or browser loop was run. The stager's Node-only oracle classification
+is restricted to the exact named test at 1e8, its new body hash, four literal
+local imports and its fixed-191 disabled reference with unchanged hash/contract
+dependencies. The two named evidence paths are authenticated separately from
+the two runtime import rows. Global parser and runtime/package rules remain
+unchanged. Root owns final source authorization and the fresh three-mode proof.
+
+Each installed collection immediately copies each actual `npm pack` result into
+`artifacts/distribution/tile-authoring-c1-<runId>-<profile>.tgz`. It verifies the
+generated size and npm SHA-512 integrity, copies exclusively, verifies identical
+bytes and SHA-256, installs those same copies offline, and reports those unique
+files. Other package proofs may reuse the global pack output without changing
+this run's evidence. The global packer, package bodies and whitelists are
+unchanged. This is collector wiring awaiting the authenticated full run.
 
 ## Builder checklist
 

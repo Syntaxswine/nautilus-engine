@@ -8,23 +8,99 @@
   "exampleStatus": "dependency-gated; browser and installed acceptance pending",
   "editorEntry": "apps/editor/tile-authoring/host-service.js",
   "dependencyEntry": "@nautilus-engine/core/tiles/authoring",
-  "versions": {"document": 3, "editorCheckpoint": 3, "command": 1, "hostProtocol": 1, "immutableRecords": 1},
+  "versions": {
+    "document": 3,
+    "editorCheckpoint": 3,
+    "command": 1,
+    "hostProtocol": 1,
+    "immutableRecords": 1
+  },
   "purpose": "Immutable rectangle definitions and clean pinned presets, explicit independent placement and selected upgrade through one Editor authority",
   "connections": {
-    "required": ["actual public Core producer/sealer/planner/binder", "actual v1 tile core and retained consumer", "bound whole-document codec and synchronous durable writer", "native floor/input owners", "verified live native presentation and resource leases", "authorized HostService connection"],
-    "uiPorts": ["getSnapshot", "subscribe", "collectCommand", "discardDraft", "allocateIds", "history", "borrowedFloorController", "borrowedInputOwner", "borrowedResourcePorts"],
-    "serviceMethods": ["describe", "snapshot", "query", "prepare", "apply", "cancel", "recover"],
+    "required": [
+      "actual public Core producer/sealer/planner/binder",
+      "actual v1 tile core and retained consumer",
+      "bound whole-document codec and synchronous durable writer",
+      "native floor/input owners",
+      "verified live native presentation and resource leases",
+      "authorized HostService connection"
+    ],
+    "uiPorts": [
+      "getSnapshot",
+      "subscribe",
+      "collectCommand",
+      "discardDraft",
+      "allocateIds",
+      "history",
+      "borrowedFloorController",
+      "borrowedInputOwner",
+      "borrowedResourcePorts"
+    ],
+    "serviceMethods": [
+      "describe",
+      "snapshot",
+      "query",
+      "prepare",
+      "apply",
+      "cancel",
+      "recover"
+    ],
     "agentTransport": "createTileAuthoringJSONL(service, {isAuthorized}); same actual service and private retained review"
   },
-  "space": {"units": "metres", "sourceAxes": "[x,y,h]", "renderAxes": "[x,h,y] once", "floors": "all fifteen declared native records retained verbatim", "collisionAndTraversal": "unbound"},
+  "space": {
+    "units": "metres",
+    "sourceAxes": "[x,y,h]",
+    "renderAxes": "[x,h,y] once",
+    "floors": "all fifteen declared native records retained verbatim",
+    "collisionAndTraversal": "unbound"
+  },
   "ownership": "Editor owns one codec/WAL/history/CAS and private review/resource transitions; Core returns pure data; UI and JSONL forward canonical commands",
   "persistence": "Complete explicit v3 checkpoint; private typed mutable-target fields bind the exact fixed source retained once; derived Source is not saved; no v1/v2 migration, receipt reset or implicit latest pins",
   "uncertainty": "Freeze writes and overwriting saves, retain full references and reconcile the original request ID; presentation failure cannot reverse an acknowledged commit",
   "allocationPolicy": "Capture real charged before-state, admit only the actual owned candidate, reject foreign changes and allocation/release ABA; metadata preserves accepted lease provenance and error/debt",
-  "supported": ["rectangle create/clone/revise", "clean preset save", "atomic two-copy placement", "explicit selected upgrade", "requirements inspection", "complete save/history and same-ID recovery"],
-  "unavailable": ["path placement", "overlays", "artwork decoder/allocation adapter", "artwork import/capture", "content-pack export", "game adapters"],
-  "gameDecisions": ["permissions", "support/collision/navigation", "fire/water", "actor costs and scheduling", "consumer export/adoption"],
-  "reviewedInputs": {"coreRuntime": "3df11ce6e62fb94806e30652b87168949f8ef4dd", "coreEvidence": "eedfc0149cbaa5715445ed2dc909c2d694a81d50", "ui": "8053b30e4db325ad16e07a456fcf8ef5030324a7", "timedRuntime": "191f6fe63de6125d3a0f0e96b998541bade01d19", "provenance": ["core-import.json", "ui-import.json", "helper-import.json"]},
-  "proof": {"focusedUnits": "cache, actual native resources and JSONL tests; UI protocol controls remain explicitly labelled", "workflow": "tests/editor-tile-authoring-c1.test.mjs; fixed accepted runtime dependencies required", "timing": "tools/editor-direct-tile-authoring-c1.mjs --history; 191f completed six edits, six undo, six redo, save/reopen in 55.4 seconds within a real 180-second bound; late Redo still 4.35 seconds", "collector": "tools/editor-review-tile-authoring-c1.mjs; twelve-group raw-state/trace/capture contract requires Architect-promoted read-only input model", "limitations": "timed unit atlas is synthetic; final source/built/installed observation matrix and delivery gates pending; no physical-device or frame-rate claim"},
+  "supported": [
+    "rectangle create/clone/revise",
+    "clean preset save",
+    "atomic two-copy placement",
+    "explicit selected upgrade",
+    "requirements inspection",
+    "complete save/history and same-ID recovery"
+  ],
+  "unavailable": [
+    "path placement",
+    "overlays",
+    "artwork decoder/allocation adapter",
+    "artwork import/capture",
+    "content-pack export",
+    "game adapters"
+  ],
+  "gameDecisions": [
+    "permissions",
+    "support/collision/navigation",
+    "fire/water",
+    "actor costs and scheduling",
+    "consumer export/adoption"
+  ],
+  "reviewedInputs": {
+    "coreRuntime": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+    "coreEvidence": "eedfc0149cbaa5715445ed2dc909c2d694a81d50",
+    "ui": "8053b30e4db325ad16e07a456fcf8ef5030324a7",
+    "timedRuntime": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+    "provenance": [
+      "core-import.json",
+      "ui-import.json",
+      "helper-import.json",
+      "successor-import.json"
+    ],
+    "ownedSuccessor": "1e8d0d702938e7418dc0203383516ab0c26a6e6a"
+  },
+  "proof": {
+    "focusedUnits": "cache, actual native resources and JSONL tests; UI protocol controls remain explicitly labelled",
+    "workflow": "tests/editor-tile-authoring-c1.test.mjs; fixed accepted runtime dependencies required",
+    "timing": "tools/editor-direct-tile-authoring-c1.mjs --history; 191f completed six edits, six undo, six redo, save/reopen in 55.4 seconds within a real 180-second bound; late Redo still 4.35 seconds",
+    "collector": "tools/editor-review-tile-authoring-c1.mjs; twelve-group raw-state/trace/capture contract requires Architect-promoted read-only input model",
+    "limitations": "timed unit atlas is synthetic; final source/built/installed observation matrix and delivery gates pending; no physical-device or frame-rate claim",
+    "correctedSuccessor": "Exact approved 1e8 two-runtime-file successor plus named test/doc; 83 finite local component controls pass. Corrected successor unprofiled; retained 30.230s measurement is rejected 3c predecessor only."
+  },
   "cleanup": "No retained helpers; temporary tests exit. Browser proofs must close their task-owned server/browser and verify released ports."
 }

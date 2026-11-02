@@ -105,7 +105,8 @@ export function createTileAuthoringCheckpointCodec(deps,initialDocument){
       }
       return op;
     }};
-  const shared=createSmartTileCheckpointCodec(deps,policy),tokens=new WeakMap(),owned=new WeakSet(),staged=new WeakMap(),reader=input=>readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});
+  const reader=input=>readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});
+  const shared=createSmartTileCheckpointCodec(deps,policy,{ownedV3Successors:{version:1,sourceBindingToken:identity,inspectData:reader}}),tokens=new WeakMap(),owned=new WeakSet(),staged=new WeakMap();
   const remember=checkpoint=>{owned.add(checkpoint);return checkpoint;};
   const open=input=>owned.has(input)?shared.open(input):remember(shared.open(reader(input)));
   const codec=Object.freeze({...shared,open,

@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import {randomUUID} from 'node:crypto';
+import {createHash,randomUUID} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {withArtReview,projectRoot as root} from './art-review-browser.mjs';
 import {packProfile} from './distribution.mjs';
@@ -55,9 +55,13 @@ async function retire(page,context,id){const failures=await page.evaluate(()=>ti
 
 function npm(args,cwd){const cli=[process.env.npm_execpath,path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')].find(f=>f&&path.basename(f)==='npm-cli.js'&&fs.existsSync(f));assert.ok(cli);return execFileSync(process.execPath,[cli,...args],{cwd,windowsHide:true,encoding:'utf8',timeout:120000,maxBuffer:4*1024*1024,env:{...process.env,npm_config_cache:path.join(out,'npm-cache')}});}
 function walk(base,part=''){return fs.readdirSync(path.join(base,part),{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false);const file=part?part+'/'+e.name:e.name;return e.isDirectory()?walk(base,file):[file];});}
+function ownedPack(profile){
+  const packed=packProfile(profile),generated=fs.readFileSync(packed.file);assert.equal(generated.length,packed.compressedBytes);assert.ok(packed.integrity.startsWith('sha512-'));assert.equal(createHash('sha512').update(generated).digest('base64'),packed.integrity.slice(7),'Generated tarball differs from actual npm pack output.');
+  const file=path.join(root,'artifacts/distribution','tile-authoring-c1-'+runId+'-'+profile+'.tgz');fs.writeFileSync(file,generated,{flag:'wx'});const copy=fs.readFileSync(file);assert.equal(copy.length,generated.length);assert.ok(copy.equals(generated));return {...packed,file,ownedSha256:M.reviewSha(copy)};
+}
 function install(){
   stage=fs.mkdtempSync(path.join(root,'artifacts/editor-c1-installed-'));prefix='/artifacts/'+path.basename(stage)+'/';installation={stagePrefix:prefix,stageRemoved:false,status:'installing'};
-  const priorCache=process.env.npm_config_cache;process.env.npm_config_cache=path.join(out,'npm-cache');let packs;try{packs={core:packProfile('core'),renderer:packProfile('renderer')};}finally{if(priorCache===undefined)delete process.env.npm_config_cache;else process.env.npm_config_cache=priorCache;}
+  const priorCache=process.env.npm_config_cache;process.env.npm_config_cache=path.join(out,'npm-cache');let packs;try{packs={core:ownedPack('core'),renderer:ownedPack('renderer')};}finally{if(priorCache===undefined)delete process.env.npm_config_cache;else process.env.npm_config_cache=priorCache;}
   fs.writeFileSync(path.join(stage,'package.json'),JSON.stringify({name:'editor-c1-host-proof',private:true,type:'module'}));npm(['install','--offline','--ignore-scripts','--package-lock=false','--no-audit','--no-fund',packs.core.file,packs.renderer.file],stage);
   assert.equal(model.hostFiles.length,44);for(const file of model.hostFiles){const dest=path.join(stage,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(root,file),dest);}
   const adaptations=[];assert.equal(model.hostPlan.adaptations.length,8);for(const change of model.hostPlan.adaptations){const dest=path.join(stage,change.file),before=fs.readFileSync(dest,'utf8');assert.equal(M.reviewSha(before),change.beforeSha256);assert.equal(before.split(change.from).length,2);const after=before.replace(change.from,change.to);assert.equal(M.reviewSha(after),change.afterSha256);fs.writeFileSync(dest,after);adaptations.push({file:change.file,from:change.from,to:change.to,beforeSha256:M.reviewSha(before),afterSha256:M.reviewSha(after),scope:change.scope});}
@@ -65,7 +69,7 @@ function install(){
     const physicalFiles=walk(dir).map(file=>bytesRow(file,fs.readFileSync(path.join(dir,file)))).sort((a,b)=>a.file.localeCompare(b.file));assert.deepEqual(physicalFiles,want.physicalFiles);
     const metadata=file=>{const bytes=fs.readFileSync(path.join(dir,file));return {...bytesRow(file,bytes),data:JSON.parse(bytes)};},manifest=metadata('package.json'),provenance=metadata('package-provenance.json');assert.deepEqual(manifest,want.manifest);assert.deepEqual(provenance,want.provenance);
     for(const row of model.profileInputs.filter(row=>row.profile===profile)){const bytes=fs.readFileSync(path.join(dir,row.file));assert.ok(bytes.equals(fs.readFileSync(path.join(root,row.file))));installedFiles.push({profile,...bytesRow(row.file,bytes)});}
-    const archive=fs.readFileSync(packs[profile].file);packages[profile]={name:manifest.data.name,version:manifest.data.version,manifest,provenance,physicalFiles,archiveFile:slash(path.relative(root,packs[profile].file)),archiveBytes:archive.length,archiveSha256:M.reviewSha(archive)};
+    const archive=fs.readFileSync(packs[profile].file);assert.equal(archive.length,packs[profile].compressedBytes);assert.equal(M.reviewSha(archive),packs[profile].ownedSha256);packages[profile]={name:manifest.data.name,version:manifest.data.version,manifest,provenance,physicalFiles,archiveFile:slash(path.relative(root,packs[profile].file)),archiveBytes:archive.length,archiveSha256:M.reviewSha(archive)};
   }
   installedFiles.sort((a,b)=>(a.profile+'/'+a.file).localeCompare(b.profile+'/'+b.file));assert.deepEqual(installedFiles,model.profileInputs);
   const hostFiles=model.hostFiles.map(file=>{const bytes=fs.readFileSync(path.join(stage,file));return {file,bytes:bytes.length,sourceSha256:M.reviewSha(fs.readFileSync(path.join(root,file))),stagedSha256:M.reviewSha(bytes)};});assert.deepEqual(hostFiles,model.hostPlan.hostFiles);assert.deepEqual(adaptations,model.hostPlan.adaptations);
