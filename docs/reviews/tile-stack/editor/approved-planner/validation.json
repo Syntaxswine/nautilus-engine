@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "status": "pass",
+  "editorParent": "451dd892f3f318a7fae8ae875575f72ecd076689",
+  "scope": "Reference/evidence update only; candidate and protected runtime unchanged",
+  "plannerReference": {
+    "commit": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
+    "file": "candidates/tile-stack/core/contracts.js",
+    "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+    "functionalPlannerLoaded": false,
+    "approval": "Architect-approved private Gate A Coder component; this proof uses its data validators only. Live Gate B wiring still awaits full component/contract review."
+  },
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "count": null,
+      "log": "artifacts/tile-stack-editor/approved-check.log",
+      "sha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 933,
+      "log": "artifacts/tile-stack-editor/approved-test.log",
+      "sha256": "0ab5b9af27378fe4ba676c838f3bc772896e25f75eb60ae8a0a7dbc14e641a5a"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/tile-stack-editor/approved-upstream.log",
+      "sha256": "83a703f78297b35ea89c8132bd171dfdeedc0960f367b58d1044460bcdac06e1"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 519,
+      "log": "artifacts/tile-stack-editor/approved-build.log",
+      "sha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "focused": 21,
+  "proof": {
+    "file": "docs/reviews/tile-stack/editor/approved-planner/proof.json",
+    "sha256": "3c5cfdb9607297c75df4f3eb95c9db5db2f2683b58372ab6ed99bd792beb6885",
+    "publicBindings": 4,
+    "installedFiles": 118,
+    "hostHelpers": 15,
+    "sourceInstalledParity": true,
+    "functionalPlannerLoaded": false
+  },
+  "protectedChanges": [],
+  "cleanup": {
+    "process": {
+      "pid": 24248,
+      "creationFiletime": "134380692185208737",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "sameLifetimeLive": false,
+    "stageRemoved": true,
+    "remainingStages": 0,
+    "retainedProcesses": [],
+    "ports": [],
+    "browsers": [],
+    "servers": [],
+    "allFiniteCommandsExited": true,
+    "commandSessions": [
+      40443,
+      20366,
+      86589,
+      76856,
+      57399
+    ]
+  },
+  "next": "Full component/contract review and live Gate B wiring remain with Architect. Custom recipes/agent commands/sparse graphic layers follow separate b850e20 addendum; no placeholders added."
+}
