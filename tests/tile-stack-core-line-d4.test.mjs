@@ -1,0 +1,10 @@
+import test,{before,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {copiedPublicContext,exactWitnesses,lineMatrix,canonicalRegressions,authoredNegativeZero} from '../tools/tile-stack-core-line-d4-proof.mjs';
+let ctx;
+before(async()=>{ctx=await copiedPublicContext();});
+after(()=>{const receipt=ctx?.cleanup();if(receipt){assert.equal(receipt.removed,true);assert.equal(receipt.allForegroundChildrenExited,true);}});
+test('exact immutable Artist witnesses still fail in original copied public provider and succeed only with declared patch',()=>{assert.equal(exactWitnesses(ctx).length,2);});
+test('all eight line D4 poses at three details: six repaired and eighteen previous outputs deeply/byte equal',()=>{const cases=lineMatrix(ctx);assert.equal(cases.length,24);assert.equal(cases.filter(c=>!c.original.ok).length,6);assert.equal(cases.filter(c=>c.previouslyGoodDeepAndByteEqual).length,18);});
+test('actual mixed canonical public example remains deeply and byte equal at all three details',()=>{assert.equal(canonicalRegressions(ctx).length,3);});
+test('authored negative zero remains invalid in actual core and provider before/after private patch',()=>{assert.equal(authoredNegativeZero(ctx).length,2);});
