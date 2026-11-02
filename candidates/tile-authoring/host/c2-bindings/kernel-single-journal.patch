@@ -4,7 +4,7 @@
    const historyOptions={initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes};
 -  const history=c2Host?observed.observer.run('session.journal.construct',()=>observed.observer.opaque('journal.construct',historyOptions,()=>createWindowAuthoringJournal(historyOptions))):createWindowAuthoringJournal(historyOptions);
 -  const historyRead=c2Host?createWindowAuthoringJournalReadPort(history,c2Host.historyObserver,observed.observer):null;
-+  const actualJournal=c2Host?c2Host.constructActualJournal(historyOptions):null;
++  const actualJournal=c2Host?c2Host.constructActualJournal({checkpoint,options:historyOptions}):null;
 +  const history=c2Host?actualJournal.journal:createWindowAuthoringJournal(historyOptions);
 +  const historyRead=c2Host?actualJournal.historyRead:null;
    const authorityObservation=c2Host?createPrivateAuthorityObservationPort(authority):null;

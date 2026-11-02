@@ -26,6 +26,12 @@
       "blob": "e73b35955587edcc3ef57b247b1c393456589608"
     },
     {
+      "path": "HOST-CONSTRUCTION.md",
+      "bytes": 3851,
+      "sha256": "fb723865b40bf6a117bb2fb2ff676eb0846d537871076d47e31fd3825c3615ff",
+      "blob": "b2edfd1b80105081d29e9d648172642d425686ae"
+    },
+    {
       "path": "MANAGER-ADOPTION.md",
       "bytes": 5938,
       "sha256": "6c840d296eb1cec4c981887585cc3366fbb63399c06c335d039cc3c59e7cdac6",
@@ -39,9 +45,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 6444,
-      "sha256": "b48ed231127a757c077f18623310977692dce2b961ebf8289513dac39c9035d1",
-      "blob": "0ff69ff497db1421e998976b75fcd0e3dccf1906"
+      "bytes": 7084,
+      "sha256": "e044c442f11a660b8dd0f4af30d0075fa3edf0abf3a83864394350c0e1fda6b9",
+      "blob": "331623b67eb7037ac7a83cab35d5f28c7689d192"
     },
     {
       "path": "ROOT-OPT-IN.md",
@@ -60,6 +66,12 @@
       "bytes": 1235,
       "sha256": "b067da1ac1a710b99626aae7fdb1d511d9def0febc24775f9ea2fa3ef4acb1af",
       "blob": "51ca6f082be868b436cb0ee53df2ed67131807d6"
+    },
+    {
+      "path": "host-composition.js",
+      "bytes": 4868,
+      "sha256": "25deb00f3407f5108132284772b6c91a977d4cd6f90608e6696d3468a4e0d712",
+      "blob": "0504a2096e1144ef6765992f998d8b47a1397395"
     },
     {
       "path": "index.js",
@@ -87,9 +99,9 @@
     },
     {
       "path": "kernel-single-journal.patch",
-      "bytes": 1169,
-      "sha256": "db118bcf4bdd4f0fb2f0f26a8d04a170c090f26667cbad03ac70c29c1cd843eb",
-      "blob": "282a4660a758267604a30c5c2202953b95855ff3"
+      "bytes": 1190,
+      "sha256": "39bdf94e90f5e5b80c200117bb7459fc33ed59e7edc15b526ba586f25add324e",
+      "blob": "c22078ac6e7171c3b6fcc526a71667351419c33c"
     },
     {
       "path": "lifetime-data.js",
@@ -99,9 +111,9 @@
     },
     {
       "path": "method-map.d.ts",
-      "bytes": 7887,
-      "sha256": "c412f4ca83f51e67fa35b454604dfe49cf81f3bbf8385a467b7ba77d37cceda9",
-      "blob": "2fff38694d7f0e4d9fc050b527403f0013ea11cc"
+      "bytes": 9585,
+      "sha256": "9ef2453b41bb6e29ff18d1c4d2cc8818eb5afd3eee969797df50b61c61299655",
+      "blob": "c585d04670be84ce1d29b1b269f83b37f8825e40"
     },
     {
       "path": "operation-data.js",
@@ -134,6 +146,12 @@
       "blob": "74ec0b30d003570d7bd55f8a77810f656041040b"
     },
     {
+      "path": "tests/host-composition.test.mjs",
+      "bytes": 13207,
+      "sha256": "d06665ac9016a70e97c041e3a0857f8b00032ef655b270594011c38c813b5c3f",
+      "blob": "02f716e5389fa4ab4ed4b5be4ee1c3eeb57186fe"
+    },
+    {
       "path": "tests/manager-retirement.test.mjs",
       "bytes": 8585,
       "sha256": "c54bb6e5b9c4b6a1b4c8761774f8c55dbac7e5022846759cd1d83cac893837e8",
@@ -158,6 +176,12 @@
       "blob": "6d253eb159e4a9b3105c052824952f445d8ace66"
     },
     {
+      "path": "tests/stage-core-construction.mjs",
+      "bytes": 3494,
+      "sha256": "47eb9651fcf8f10874d42bd22e910a3aee83d8f5ea13dff8dc310d8167aaccee",
+      "blob": "31e2a57c47e65c636a31ddadf306ed6ee1ab267b"
+    },
+    {
       "path": "tests/stage-core.mjs",
       "bytes": 2275,
       "sha256": "a58a176a9b75527049c8d8c4b1ec576cba4357b9e36d2701404e795c5b87e1c2",
@@ -171,9 +195,9 @@
     },
     {
       "path": "tools/check-source.mjs",
-      "bytes": 5467,
-      "sha256": "e537b8f564a3c0872acc53265c147cc170a8e2e97d9ab14f1d1fe279d0c10438",
-      "blob": "009c90915cec57b7c85128973313be8a3e2fdb5e"
+      "bytes": 7351,
+      "sha256": "ec20e38b831934e33f8f4afc447c19176a1268f35dbca13cdf868d156c330070",
+      "blob": "c9800aee86b270010610ca03819d46b22e301a9f"
     },
     {
       "path": "views-retirement-source.patch",
@@ -434,6 +458,54 @@
           "blob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320"
         }
       ]
+    },
+    {
+      "role": "review-only actual same-owner authority/profile and safe constructor handshake; no live Session adoption",
+      "commit": "2810b3c333187eadb428a88c83d98a8256f0fa56",
+      "files": [
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host-construction.js",
+          "bytes": 140,
+          "sha256": "a1444a14ad504df5926c6aa8ba4f710e9bf820036c9d6afb43ba0e8ce84e83b8",
+          "blob": "ed34e4f51d242f22508a27117433f3b9bbb91560"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host-construction.d.ts",
+          "bytes": 1042,
+          "sha256": "799bd789218d7f2c0c3d460ee6af001e47938852d94b72739359509870963b09",
+          "blob": "4dbc56abb6e312497f12eee90333d1e43a58f837"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/constructor-handoff.md",
+          "bytes": 4374,
+          "sha256": "84936f2ecfc7f41fa09b30822148bbb10e9649f83b8aea5217262355a23774fe",
+          "blob": "a7a50e2ee7da254b779ef1dc52308ec2eb342490"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel.js",
+          "bytes": 13614,
+          "sha256": "9d665b315bcb2fbec504ff9d57f2debdf074d111aece2065d8cd0ff9eecc31b1",
+          "blob": "ad70d7f12e213225885f53da67ad5dc60f1a363e"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.js",
+          "bytes": 418,
+          "sha256": "37fb22e666369a9fe9d78c697d80c26861df487a1caf4f7a869e2818caf49cf3",
+          "blob": "f52e9e0fd5c5d3f6a92019e613f5338b88b330c8"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.d.ts",
+          "bytes": 10439,
+          "sha256": "eadc7da9ddd0696dcde6ab524349a2dd3819dbdd9872f5c2eb7cc76e26571a0d",
+          "blob": "dfad3508d56230602b883261ac380f5e4f2a21f9"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/source.json",
+          "bytes": 56779,
+          "sha256": "d00367c0fe0648ddeaaa31854455e86baefd792ceaa510ec64f3c59f3d60046c",
+          "blob": "04305538091ae90145f691b64558c3d786be2851"
+        }
+      ]
     }
   ],
   "proposedKernelAdaptation": {
@@ -451,13 +523,12 @@
     "compatibility"
   ],
   "missingExecutableFactories": [
-    "Core source registry and same-owner work/continued validator",
-    "Core actual head/ticket/WAL capacity",
-    "Editor nine-hook backend and codecResourceFacts",
-    "Artist phase/restore/currentness/retirement",
-    "counted bootstrap before initial codec/source reads"
+    "actual Core/Host source-read registry pairing",
+    "continued actual C1 prepaint operations in same authoring attempt",
+    "actual Artist/Native phase/restore/currentness/retirement pairing",
+    "actual prepared/final bind/ticket/WAL and original-ID settlement/cleanup"
   ],
-  "proofScope": "actual fixed codec/journal/authority/workbench data and private lifetime controls; protocol observer, no live SourceScope/meter/native admission",
+  "proofScope": "actual fixed codec/journal/authority/workbench data, genuine Core2810 constructor membership/current-source single journal, private lifetime controls; no live SourceReadOwner/Native/final-WAL admission",
   "proposedRootProfileAdaptation": {
     "sourceCommit": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
     "path": "apps/editor/tile-authoring/session.js",
@@ -469,8 +540,9 @@
     "sourceCommit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
     "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js",
     "patch": "kernel-single-journal.patch",
-    "status": "proposed; not applied; bfd actual Core journal exists but current live source/adoption route remains unbound",
-    "construction": "same original journal and readport through authenticated Core wrapper under existing bootstrap; no second history"
+    "status": "proposed; not applied; Core2810 actual current-settled source method paired through Host",
+    "construction": "same original journal and readport through authenticated Core wrapper under existing bootstrap; no second history",
+    "call": "constructActualJournal({checkpoint,options:historyOptions})"
   },
   "pendingNativeAssociation": {
     "document": "CONSTRUCTION-AND-ACQUISITION.md",
@@ -510,5 +582,28 @@
     "handoff": "MANAGER-ADOPTION.md",
     "status": "proposed; not applied; actual formal work/target consumption and Core authentication remain UNBOUND",
     "sameExistingCoordinator": true
+  },
+  "hostConstruction": {
+    "commit": "2810b3c333187eadb428a88c83d98a8256f0fa56",
+    "status": "AUTHENTIC_PRIVATE_CONSTRUCTOR; runtime readiness UNBOUND",
+    "entry": "candidates/tile-authoring/host/c2-bindings/host-composition.js",
+    "verifier": "hostCompositionSourceForKernel",
+    "recordFields": [
+      "kernel",
+      "owner",
+      "authority",
+      "profile",
+      "c2Host",
+      "c2PhasePorts"
+    ],
+    "snapshot": "artifacts/c2-host-bindings/core-2810b3c",
+    "sourceAdaptations": [],
+    "safeHandshakeSha256": "a1444a14ad504df5926c6aa8ba4f710e9bf820036c9d6afb43ba0e8ce84e83b8",
+    "typesSha256": "799bd789218d7f2c0c3d460ee6af001e47938852d94b72739359509870963b09",
+    "sameOriginalJournal": true,
+    "rawCodecOrObserverExposed": false,
+    "publicReady": false,
+    "liveNativeProof": false,
+    "remaining": "Core must import this literal producer and compose/register its internal actual profile before actual Session/inner codec/bootstrap hook positives. Native/final/SourceReadOwner/C1 prepaint routing remain unavailable."
   }
 }

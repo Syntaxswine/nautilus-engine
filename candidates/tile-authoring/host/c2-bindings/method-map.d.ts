@@ -1,5 +1,5 @@
 /** Private design mapping only. A type/callback/boolean never authenticates a
- * producer. Corebfd pre-Native components execute; live Root/Artist pairing is pending. */
+ * producer. Core2810 authentic construction executes; live Root/Artist pairing is pending. */
 import type {Command,WorkbenchDocument,Expected,Bindings} from '../../../../packages/tile-authoring-core/index.js';
 declare const brand:unique symbol;
 type Owned<Name extends string>=object&{readonly [brand]:Name};
@@ -20,6 +20,33 @@ export interface ActualViewsManager extends Owned<'same-native-owner-existing-C1
 }
 export type ActualRetirementHandle=Owned<'same-C1-retiring-record'>;
 export type ActualLogicalReleaseReceipt=Owned<'actual-original-view-release-result'>;
+export type ActualKernelSource=Owned<'Core-owned-kernel-construction'>;
+export type ActualAuthority=Owned<'Core-owned-actual-authority'>;
+export type ActualOriginalProfile=Owned<'Core-owned-original-root-profile'>;
+export type ActualSourceOwner=Owned<'Core-private-source-owner'>;
+export type ActualBootstrap=Owned<'Core-same-owner-counted-bootstrap'>;
+export type PrivateHostComposition=Owned<'Host-module-private-composition'>;
+/** Constructor authenticity grants no runtime readiness or edit work. */
+export interface PrivateHostCompositionInput {
+ readonly owner:ActualSourceOwner;readonly kernel:ActualKernelSource;
+ readonly authority:ActualAuthority;readonly profile:ActualOriginalProfile;
+ readonly bootstrap?:ActualBootstrap;
+}
+export interface PrivatePhasePorts {
+ readonly kind:'nautilus-editor-c2-phase-ports';readonly version:1;
+ prepare(...args:unknown[]):Promise<unknown>|never;
+ restore(...args:unknown[]):Promise<unknown>|never;
+}
+/** Exact six-field private verifier record; no ready/configuration flags. Core
+ * authenticates all identities again before composing the original profile. */
+export interface HostCompositionSource {
+ readonly kernel:ActualKernelSource;readonly owner:ActualSourceOwner;
+ readonly authority:ActualAuthority;readonly profile:ActualOriginalProfile;
+ readonly c2Host:Readonly<HostMethodMap>;
+ readonly c2PhasePorts:Readonly<PrivatePhasePorts>;
+}
+export declare function createPrivateC2HostComposition(input:PrivateHostCompositionInput):PrivateHostComposition;
+export declare function hostCompositionSourceForKernel(handle:PrivateHostComposition):Readonly<HostCompositionSource>;
 export interface BeginControl {
  readonly action:'edit'|'undo'|'redo';
  /** Same already-retained reference, not parsed/cloned by Kernel prologue. */
@@ -44,7 +71,7 @@ export interface HostMethodMap {
  adoptActualManager(input:{checkpoint:ActualCheckpoint;authority:object;codec:object;history:object;historyRead:object;presentation:object;hostContext:()=>object;onDiagnostic:(code:string)=>void}):ActualViewsManager;
  /** Proposed C2-only ORIGINAL construction seam; no second journal. The paired
   * Core factory privately retains ActualJournalOwner under original bootstrap. */
- constructActualJournal(options:Readonly<{initialText:string;contextKey:string;maxEntries:number;maxBytes:number;maxDocumentBytes:number}>):Readonly<{journal:object;historyRead:object}>;
+ constructActualJournal(input:{readonly checkpoint:ActualCheckpoint;readonly options:Readonly<{initialText:string;contextKey:'smart-tile-session-v3';maxEntries:64;maxBytes:16000000;maxDocumentBytes:16000000}>}):Readonly<{journal:object;historyRead:object}>;
  /** Root semantic adaptation of4ade line210. No source read before this call. */
  beginPrepare(checkpoint:ActualCheckpoint,control:BeginControl):PrepareAttempt;
  captureRetainedIngress(attempt:PrepareAttempt,action:BeginControl['action'],sameDraft:unknown,sameLockId:string|null):void;
