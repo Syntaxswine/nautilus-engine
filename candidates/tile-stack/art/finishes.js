@@ -8,7 +8,8 @@ const tones=[.94,.96,.98,1,1.02,1.04,1.01,.97];
 function cleanup(){const errors=[];let total=0;return {attempt(fn){try{fn();}catch(e){total++;if(errors.length<64)errors.push(e);}},finish(primary){if(total){const e=new AggregateError(primary?[primary,...errors].slice(0,64):errors,'Finish cleanup failed in '+total+' observer/action(s).');e.code='FINISH_CLEANUP_FAILED';e.failureCount=total;throw e;}if(primary)throw primary;}};}
 const textureMaps=['alphaMap','aoMap','bumpMap','normalMap','displacementMap','roughnessMap','metalnessMap','emissiveMap','lightMap'];
 function nativeBase(T,base){
- if(!(base instanceof T.MeshStandardMaterial)||base.transparent||base.opacity!==1||base.vertexColors||base.alphaTest!==0||base.onBeforeCompile!==T.Material.prototype.onBeforeCompile||textureMaps.some(k=>base[k]))refuse('FINISH_BASE_MATERIAL','Bind an opaque ordinary MeshStandardMaterial; fields, special maps, alpha and custom shaders need another reviewed adapter.');
+ const ordinary=base instanceof T.MeshStandardMaterial&&Object.getPrototypeOf(base)===T.MeshStandardMaterial.prototype&&base.type==='MeshStandardMaterial'&&base.isMeshStandardMaterial===true&&base.isMeshPhysicalMaterial!==true;
+ if(!ordinary||base.transparent||base.opacity!==1||base.vertexColors||base.alphaTest!==0||base.onBeforeCompile!==T.Material.prototype.onBeforeCompile||textureMaps.some(k=>base[k]))refuse('FINISH_BASE_MATERIAL','Bind an exact opaque MeshStandardMaterial; Physical, subclasses, other profiles, fields, special maps, alpha and custom shaders need another reviewed adapter.');
 }
 function shaderPaint(material,family){
  const tile=family.borrowedResource.tile,rect=[tile%4,3-Math.floor(tile/4)],repeat=family.appearance.repeatUV;

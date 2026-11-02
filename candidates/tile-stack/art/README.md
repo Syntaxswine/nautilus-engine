@@ -74,6 +74,11 @@ variation; all marks are albedo. It creates no textures, bitmap copies or
 geometry. Default pool ceiling is 64 materials; a lower explicit ceiling may
 be supplied. A complete view has at most 32 owners.
 
+Ordinary means the exact shared-Three MeshStandardMaterial prototype/type/brand.
+MeshPhysicalMaterial, Standard subclasses and other/retagged profiles refuse
+before allocation, so clearcoat/IOR or other unsupported semantics cannot be
+silently replaced by a plain Standard shader.
+
 `bindTileFinishView` takes exactly the complete owner-choice map for a live
 actual public view/projection and a `current()` ticket function. Source and
 choice data are descriptor-checked before native allocation. It applies paint

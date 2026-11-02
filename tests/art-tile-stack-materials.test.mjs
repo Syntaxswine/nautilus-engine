@@ -10,6 +10,35 @@ function setup({maxMaterials=64,twoBases=false,kind='rectangle',transform=exampl
  return {atlas,base,boundary,recipe,bundle,projection,view,pool,meshes,counts,borrowed,bind,close};
 }
 const buffers=v=>{const g=[];v.root.traverse(n=>{if(n.geometry)g.push([n.geometry,Object.fromEntries(Object.entries(n.geometry.attributes).map(([k,a])=>[k,Array.from(a.array)]))]);});return g;};
+test('artist unsupported native material profiles refuse before allocation and preserve all borrowed resources',()=>{
+ class UnsupportedStandardSubclass extends THREE.MeshStandardMaterial {}
+ const cases=[
+  ['Physical',atlas=>new THREE.MeshPhysicalMaterial({map:atlas,clearcoatMap:atlas,clearcoat:1,clearcoatRoughness:.25,ior:1.9})],
+  ['Standard subclass',()=>new UnsupportedStandardSubclass()],
+  ['changed native type',()=>Object.assign(new THREE.MeshStandardMaterial(),{type:'UnsupportedStandardProfile'})],
+  ['Physical marker',()=>Object.assign(new THREE.MeshStandardMaterial(),{isMeshPhysicalMaterial:true})],
+  ['Basic',()=>new THREE.MeshBasicMaterial()],['Shader',()=>new THREE.ShaderMaterial()]
+ ];
+ for(const [label,make]of cases){const f=setup({twoBases:true}),base=make(f.atlas),sentinels=[],previous=f.meshes.map(m=>m.material);let appearance,borrowedDisposals=0;
+  try{
+   base.addEventListener('dispose',()=>borrowedDisposals++);assert.ok(f.meshes.length>1);f.meshes[0].material=base;
+   const bindingsBefore=f.meshes.map(m=>m.material),standardBefore=[f.base,f.boundary].map(m=>JSON.stringify(m.toJSON())),materialBefore=JSON.stringify(base.toJSON()),atlasBefore=JSON.stringify(f.atlas.toJSON()),pixelsBefore=Array.from(f.atlas.image.data),geometryBefore=buffers(f.view),interfacesBefore=JSON.stringify(f.view.interfaces.map(v=>v.record)),sourceBefore=JSON.stringify(f.bundle),projectionBefore=JSON.stringify(f.projection),poolBefore=f.pool.diagnostics(),viewBefore=f.view.diagnostics();
+   if(label==='Physical'){assert.equal(base instanceof THREE.MeshStandardMaterial,true);assert.equal(base.isMeshPhysicalMaterial,true);assert.equal(base.clearcoat,1);assert.equal(base.ior,1.9);assert.equal(base.clearcoatMap,f.atlas);}
+   // Actual shared-Three constructor IDs advance even if an allocation is
+   // immediately disposed. Sentinels outside the call prove zero allocation
+   // rather than merely observing final pool counters reset to zero.
+   const before=[new THREE.Material(),new THREE.BufferGeometry(),new THREE.Texture()];sentinels.push(...before);
+   let failure;try{appearance=f.bind();}catch(e){failure=e;}
+   const after=[new THREE.Material(),new THREE.BufferGeometry(),new THREE.Texture()];sentinels.push(...after);
+   assert.equal(failure?.code,'FINISH_BASE_MATERIAL',label);assert.equal(appearance,undefined,label);
+   after.forEach((resource,i)=>assert.equal(resource.id,before[i].id+1,label+' allocated a native resource'));
+   assert.deepEqual(f.pool.diagnostics(),poolBefore,label);assert.deepEqual(f.view.diagnostics(),viewBefore,label);
+   assert.equal(JSON.stringify(base.toJSON()),materialBefore,label);assert.equal(JSON.stringify(f.atlas.toJSON()),atlasBefore,label);assert.deepEqual(Array.from(f.atlas.image.data),pixelsBefore,label);
+   assert.deepEqual(buffers(f.view),geometryBefore,label);assert.equal(JSON.stringify(f.view.interfaces.map(v=>v.record)),interfacesBefore,label);assert.equal(JSON.stringify(f.bundle),sourceBefore,label);assert.equal(JSON.stringify(f.projection),projectionBefore,label);
+   assert.deepEqual(f.meshes.map(m=>m.material),bindingsBefore,label);assert.deepEqual([f.base,f.boundary].map(m=>JSON.stringify(m.toJSON())),standardBefore,label);assert.equal(borrowedDisposals,0,label);assert.ok([...f.borrowed.values()].every(n=>n===0),label);assert.ok([...f.counts.values()].every(n=>n===0),label);
+  }finally{appearance?.dispose();f.meshes.forEach((mesh,i)=>mesh.material=previous[i]);for(const resource of sentinels)resource.dispose();base.dispose();f.close();}
+ }
+});
 test('artist finishes preserve actual public canonical controls, borders and attributes for all four families × D4 × detail × supported shapes',()=>{
  let combinations=0,refusals=0;for(const kind of ['rectangle','line','arc','cubic'])for(const transform of examples.tileArtTransforms){let canonical=null;for(const detail of [0,1,2]){if(kind==='line'&&((transform.quarterTurns===1&&!transform.mirrorX)||(transform.quarterTurns===3&&transform.mirrorX))){const r=pathStudyRecipe(examples,'public-refusal',kind);assert.throws(()=>art.prepareTileArt(tiles,examples.tileArtBundle(tiles,[r],[{id:'owner',recipeId:r.id,transform}]),{detail}),e=>e.code==='INVALID_NUMBER'&&e.path==='/startRad');refusals++;continue;}const f=setup({kind,transform,detail});try{const source=JSON.stringify(f.bundle),projection=JSON.stringify(f.projection),before=buffers(f.view),interfaces=JSON.stringify(f.view.interfaces.map(v=>v.record));if(canonical===null)canonical=interfaces;else assert.equal(interfaces,canonical,'Detail rewrote canonical boundaries.');for(const skinId of familyIds){const a=f.bind({choices:{owner:choice(skinId)}});assert.deepEqual(buffers(f.view),before);assert.equal(JSON.stringify(f.view.interfaces.map(v=>v.record)),interfaces);assert.equal(JSON.stringify(f.projection),projection);assert.equal(JSON.stringify(f.bundle),source);assert.ok(f.meshes.every(m=>m.material.userData.skinId===skinId));assert.ok(f.meshes.every(m=>m.material.side===THREE.DoubleSide));a.dispose();assert.ok(f.meshes.every(m=>m.material===f.base));combinations++;}}finally{f.close();}}}assert.equal(combinations,360);assert.equal(refusals,6);
 });
