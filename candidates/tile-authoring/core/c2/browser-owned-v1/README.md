@@ -131,3 +131,17 @@ Original reference bytes and notices are under `vendor/`, distinct from these
 adapters. Sources are full reviewed commits in `references.json`; donor and
 worker worktrees are never changed. This candidate starts at 0597 and does not
 merge/rebase main. No disposable servers, watchers or retained helpers are needed.
+
+## Returned ed66 data corrections
+
+The immutable ed66 checkpoint was returned for two contradictory-data cases.
+`closure-correction.json` records the exact independent evidence and rejection
+rules. Held views now require held same-owner/context geometry/material rows;
+held ranges and active references cannot hide ended or unavailable targets.
+Decoded observations require full actual artwork-image CPU/API receivers in the
+exact domain/context, so a one-byte upload/scratch row cannot represent a page.
+Positive full stores, shared ranges and completely released tombstones remain
+valid. These are implementation corrections to the existing data equations;
+API, schema, profile, source-backed rates and all numeric caps are unchanged.
+The 31 focused controls include the exact three independent falsifiers. No
+observation or correction makes external Host/Native backends ready.
