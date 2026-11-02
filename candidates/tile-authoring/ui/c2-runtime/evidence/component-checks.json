@@ -1,0 +1,184 @@
+{
+  "kind": "private-c2-ui-component-checks",
+  "status": "pass",
+  "checks": [
+    {
+      "name": "all immutable input/schema/provenance bytes match",
+      "status": "pass"
+    },
+    {
+      "name": "C1 UI/coordinator/default reader/styles and shared browser helper remain byte-identical",
+      "status": "pass"
+    },
+    {
+      "name": "no tracked change outside the authorized new candidate subtree",
+      "status": "pass"
+    },
+    {
+      "name": "focused headless component/scope controls",
+      "status": "pass",
+      "tests": 36,
+      "pass": 36
+    },
+    {
+      "name": "UI structural positive/negative cases",
+      "status": "pass",
+      "cases": 13,
+      "actualCanonicalProof": false
+    },
+    {
+      "name": "independent Draft2020-12 shape parity",
+      "status": "pass",
+      "schemas": 2,
+      "cases": 13,
+      "meaning": "Independent finite shapes only; no actual Host/native/WAL or canonical-source proof."
+    },
+    {
+      "name": "typed borrowing and prohibited UI authority/IDs/URLs",
+      "status": "pass",
+      "version": "5.8.3",
+      "strict": true,
+      "noEmit": true,
+      "negativeControls": 6
+    },
+    {
+      "name": "bounded real DOM/native AX/focus/layout and synthetic protocol controls",
+      "status": "pass",
+      "checks": 26,
+      "captures": 3,
+      "actualHost": false,
+      "nativeResources": false,
+      "WAL": false,
+      "helpersClosed": true,
+      "inputHashesMatched": true
+    }
+  ],
+  "typescript": {
+    "version": "5.8.3",
+    "strict": true,
+    "noEmit": true,
+    "negativeControls": 6
+  },
+  "oracle": {
+    "status": "pass",
+    "schemas": 2,
+    "cases": 13,
+    "meaning": "Independent finite shapes only; no actual Host/native/WAL or canonical-source proof."
+  },
+  "sourceSha256": "d3851f78b928e3668e54cf5a42774298ee47be94a483f72131b5ccc74249b87e",
+  "outputs": [
+    {
+      "path": ".gitattributes",
+      "bytes": 163,
+      "sha256": "bf68cdf0d76a6e9bbf4e095dac2e3dca9588cd276d3c6de216b45f16d2a298d3"
+    },
+    {
+      "path": "checklist.json",
+      "bytes": 3305,
+      "sha256": "4f657c6c8f315d4c34a3db7d4a6a367d3dda775573a77a7437e5ed130dbeb811"
+    },
+    {
+      "path": "component.d.ts",
+      "bytes": 3095,
+      "sha256": "a5d910337625574227c8a5a5f4ff7017f87d5678afc569c895672db0074ff88d"
+    },
+    {
+      "path": "component.js",
+      "bytes": 30745,
+      "sha256": "1b0f2994244b01b7cd0e8d87565730430bbe4e85246075349887d97b7a6cd8e3"
+    },
+    {
+      "path": "contract.js",
+      "bytes": 18947,
+      "sha256": "9227c8bb1a6eaf04bf5c5f1951f2a711afe340e8571581f98a3f93e315d1be9d"
+    },
+    {
+      "path": "forms.js",
+      "bytes": 5940,
+      "sha256": "396bc1e99806ce4de8ffa3695488c112ec115f2761a21968937cc6c09e5a3f13"
+    },
+    {
+      "path": "README.md",
+      "bytes": 12422,
+      "sha256": "6450cb3f90237721be0a1e8f73b75025839906e0b6cfb3c229483561fbaa712c"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 3079,
+      "sha256": "9ad730ddaa7ff548f2bc0bbc412173eb442754ab1a7ace5ef3fc452874c5806c"
+    },
+    {
+      "path": "tests/component.test.mjs",
+      "bytes": 12186,
+      "sha256": "e80fb93aaad8d6870f7690af840b9cf9d61df2c44f22fa4484db281021735aa8"
+    },
+    {
+      "path": "tests/load-fixtures.mjs",
+      "bytes": 1047,
+      "sha256": "9cb4faba9110c9c258070b77d99fd92b75906574b2cdc0534ca3681c378497b8"
+    },
+    {
+      "path": "tests/review.html",
+      "bytes": 765,
+      "sha256": "d1e38594d193cfc5fde67391a640034f618def587949412db633a4629bad7842"
+    },
+    {
+      "path": "tests/synthetic.mjs",
+      "bytes": 11702,
+      "sha256": "b4e25ae2a9859fe7a038ecc19d812a140b0a0892e7e7cb983d3e045601f632c0"
+    },
+    {
+      "path": "tests/type-controls.ts",
+      "bytes": 2032,
+      "sha256": "8c47e28b4bdfceea23de1772ae9cc6f55b342ee7e403b4590d680fb688597447"
+    },
+    {
+      "path": "tools/browser-review.mjs",
+      "bytes": 25456,
+      "sha256": "6e86d449765beb42444dc936d154dff44e8d639c11ef5afbf557944e314f9d74"
+    },
+    {
+      "path": "tools/check.mjs",
+      "bytes": 7561,
+      "sha256": "a71a98f621e607e6420a448e9272562278130648f35e2b5bbb3fb8fb4b461cf3"
+    },
+    {
+      "path": "tools/helper-receipt.mjs",
+      "bytes": 796,
+      "sha256": "e0cae1fa2bed0c5e172957c49856a4035e62937d0b41abf492aed6eb427e3208"
+    },
+    {
+      "path": "tools/schema-oracle.py",
+      "bytes": 1290,
+      "sha256": "fcfc30f1652bce9ab1931dde51b992519a939348bb61cd839dc8d942127683ed"
+    },
+    {
+      "path": "usage-card.json",
+      "bytes": 1819,
+      "sha256": "df021d797c994bc2677123bd870ca8def26c8d00a1d42b7c7e0ca3a067908888"
+    },
+    {
+      "path": "vendor/core/8b4cd72c2d8f424d6811196d9651916bb7e9e2bd/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "vendor/NOTICE.md",
+      "bytes": 746,
+      "sha256": "692af6bfc5fca716f99034bb666821ac98dec07ab29249c0150abe21b3899d68"
+    },
+    {
+      "path": "vendor/ui/05723c3cada36249c6b6777dd40c8a478701bccb/projection.schema.json",
+      "bytes": 58062,
+      "sha256": "e93b79e925fc878ff6e1aff6ec730574347ece3b71a72ed456bd156945215aac"
+    }
+  ],
+  "actualHost": false,
+  "actualCoreProvider": false,
+  "actualNativeResources": false,
+  "WAL": false,
+  "publicRegistration": false,
+  "push": false,
+  "retainedHelpers": 0,
+  "finishedAt": "2026-11-02T19:19:28.455Z"
+}

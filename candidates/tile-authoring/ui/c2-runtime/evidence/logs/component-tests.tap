@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: fixtures explicitly separate fresh source from synthetic retained source
+ok 1 - fixtures explicitly separate fresh source from synthetic retained source
+  ---
+  duration_ms: 20.7403
+  type: 'test'
+  ...
+# Subtest: actual fixed projection fixtures pass the bounded shape reader
+ok 2 - actual fixed projection fixtures pass the bounded shape reader
+  ---
+  duration_ms: 6.3934
+  type: 'test'
+  ...
+# Subtest: all twelve Expected values are tied to original read
+ok 3 - all twelve Expected values are tied to original read
+  ---
+  duration_ms: 115.3733
+  type: 'test'
+  ...
+# Subtest: numeric U refuses ""
+ok 4 - numeric U refuses ""
+  ---
+  duration_ms: 0.2973
+  type: 'test'
+  ...
+# Subtest: numeric U refuses "NaN"
+ok 5 - numeric U refuses "NaN"
+  ---
+  duration_ms: 0.15
+  type: 'test'
+  ...
+# Subtest: numeric U refuses "Infinity"
+ok 6 - numeric U refuses "Infinity"
+  ---
+  duration_ms: 0.1129
+  type: 'test'
+  ...
+# Subtest: numeric U refuses "-0"
+ok 7 - numeric U refuses "-0"
+  ---
+  duration_ms: 0.0993
+  type: 'test'
+  ...
+# Subtest: numeric U refuses "-1000001"
+ok 8 - numeric U refuses "-1000001"
+  ---
+  duration_ms: 0.0827
+  type: 'test'
+  ...
+# Subtest: numeric U refuses "1000001"
+ok 9 - numeric U refuses "1000001"
+  ---
+  duration_ms: 0.095
+  type: 'test'
+  ...
+# Subtest: C0 numeric boundary values are preserved without rounding
+ok 10 - C0 numeric boundary values are preserved without rounding
+  ---
+  duration_ms: 0.6798
+  type: 'test'
+  ...
+# Subtest: C0 field bound width=0
+ok 11 - C0 field bound width=0
+  ---
+  duration_ms: 0.1273
+  type: 'test'
+  ...
+# Subtest: C0 field bound width=100001
+ok 12 - C0 field bound width=100001
+  ---
+  duration_ms: 0.0891
+  type: 'test'
+  ...
+# Subtest: C0 field bound rotation=3.141592653589794
+ok 13 - C0 field bound rotation=3.141592653589794
+  ---
+  duration_ms: 0.0635
+  type: 'test'
+  ...
+# Subtest: C0 field bound pivotV=1.01
+ok 14 - C0 field bound pivotV=1.01
+  ---
+  duration_ms: 0.0567
+  type: 'test'
+  ...
+# Subtest: C0 field bound opacity=-0.1
+ok 15 - C0 field bound opacity=-0.1
+  ---
+  duration_ms: 0.0738
+  type: 'test'
+  ...
+# Subtest: C0 field bound red=2
+ok 16 - C0 field bound red=2
+  ---
+  duration_ms: 0.0584
+  type: 'test'
+  ...
+# Subtest: explicit grid mask keeps cell order for Core; refuses empty, duplicate, fractional and negative-zero cells
+ok 17 - explicit grid mask keeps cell order for Core; refuses empty, duplicate, fractional and negative-zero cells
+  ---
+  duration_ms: 0.4033
+  type: 'test'
+  ...
+# Subtest: unmodified loaded mask and fields are omitted from a mark patch
+ok 18 - unmodified loaded mask and fields are omitted from a mark patch
+  ---
+  duration_ms: 17.9024
+  type: 'test'
+  ...
+# Subtest: all supported numeric pose/pivot/tint/mirror edits are explicit port data
+ok 19 - all supported numeric pose/pivot/tint/mirror edits are explicit port data
+  ---
+  duration_ms: 10.7552
+  type: 'test'
+  ...
+# Subtest: empty patches refuse and masks have no UI hash/target/ID slot
+ok 20 - empty patches refuse and masks have no UI hash/target/ID slot
+  ---
+  duration_ms: 10.0686
+  type: 'test'
+  ...
+# Subtest: retained first mark is exact two-op construction from a synthetic retained library
+ok 21 - retained first mark is exact two-op construction from a synthetic retained library
+  ---
+  duration_ms: 17.855
+  type: 'test'
+  ...
+# Subtest: fresh known builtin remains unavailable and does not seed library or descriptors
+ok 22 - fresh known builtin remains unavailable and does not seed library or descriptors
+  ---
+  duration_ms: 9.3045
+  type: 'test'
+  ...
+# Subtest: false-ready gates do not allow bytes-stale
+ok 23 - false-ready gates do not allow bytes-stale
+  ---
+  duration_ms: 9.8039
+  type: 'test'
+  ...
+# Subtest: false-ready gates do not allow bytes-missing
+ok 24 - false-ready gates do not allow bytes-missing
+  ---
+  duration_ms: 11.8411
+  type: 'test'
+  ...
+# Subtest: false-ready gates do not allow bytes-corrupt
+ok 25 - false-ready gates do not allow bytes-corrupt
+  ---
+  duration_ms: 9.5029
+  type: 'test'
+  ...
+# Subtest: overbroad archived all30 prefix and wrong prefix order are rejected, never used as a producer
+ok 26 - overbroad archived all30 prefix and wrong prefix order are rejected, never used as a producer
+  ---
+  duration_ms: 47.2407
+  type: 'test'
+  ...
+# Subtest: layer removal requires explicit complete mark erasure, reorder preserves stable IDs
+ok 27 - layer removal requires explicit complete mark erasure, reorder preserves stable IDs
+  ---
+  duration_ms: 9.9698
+  type: 'test'
+  ...
+# Subtest: Unicode layer labels preserve empty and 120-code-point values without normalization
+ok 28 - Unicode layer labels preserve empty and 120-code-point values without normalization
+  ---
+  duration_ms: 0.1594
+  type: 'test'
+  ...
+# Subtest: canonical result refuses changed Expected, scope, unedited field and unknown C0 fields
+ok 29 - canonical result refuses changed Expected, scope, unedited field and unknown C0 fields
+  ---
+  duration_ms: 12.2262
+  type: 'test'
+  ...
+# Subtest: unknown/lock/group/unsupported states cannot be made editable by copied flags
+ok 30 - unknown/lock/group/unsupported states cannot be made editable by copied flags
+  ---
+  duration_ms: 43.827
+  type: 'test'
+  ...
+# Subtest: finite structural reader rejects accessors without invocation and does not normalize -0
+ok 31 - finite structural reader rejects accessors without invocation and does not normalize -0
+  ---
+  duration_ms: 0.4507
+  type: 'test'
+  ...
+# Subtest: structural object-key order is semantic; array order and raw sourceJSON bytes remain exact
+ok 32 - structural object-key order is semantic; array order and raw sourceJSON bytes remain exact
+  ---
+  duration_ms: 15.4817
+  type: 'test'
+  ...
+# Subtest: projected source relationships reject foreign frame/pose/membership and descriptor substitutions
+ok 33 - projected source relationships reject foreign frame/pose/membership and descriptor substitutions
+  ---
+  duration_ms: 106.2383
+  type: 'test'
+  ...
+# Subtest: canonical add mask must cover exactly the explicit cells, without UI canonicalization
+ok 34 - canonical add mask must cover exactly the explicit cells, without UI canonicalization
+  ---
+  duration_ms: 12.3293
+  type: 'test'
+  ...
+# Subtest: returned existing mark identity cannot masquerade as a fresh add
+ok 35 - returned existing mark identity cannot masquerade as a fresh add
+  ---
+  duration_ms: 11.6689
+  type: 'test'
+  ...
+# Subtest: helper reuse requires matching process AND creation identity, owner, port and closed receipt
+ok 36 - helper reuse requires matching process AND creation identity, owner, port and closed receipt
+  ---
+  duration_ms: 0.4361
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1006.43

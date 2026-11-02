@@ -1,0 +1,81 @@
+{
+  "kind": "private-c2-ui-repository-checks",
+  "status": "pass",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "meaning": "Verified repository source/module/headless boundaries; protected source remains unchanged."
+    },
+    {
+      "command": "npm test",
+      "exitCode": 1,
+      "tests": 1032,
+      "pass": 1031,
+      "fail": 1,
+      "reason": "The procedural-tiles package child hit its unchanged 120000ms timeout during concurrent checks.",
+      "log": {
+        "path": "evidence/logs/engine-test.log",
+        "bytes": 114379,
+        "sha256": "eeccaa8dc1d796fb82e62b66bbfd1e87032e1065d4b57d218da286402eec9d08"
+      },
+      "resolvedBy": [
+        "isolated-package-recheck",
+        "full-suite-four-concurrent-files"
+      ]
+    },
+    {
+      "id": "isolated-package-recheck",
+      "command": "node --test --test-name-pattern=\"all four structural schema documents reproduce\" tests/procedural-tiles.test.mjs",
+      "exitCode": 0,
+      "tests": 1,
+      "pass": 1,
+      "log": {
+        "path": "evidence/logs/package-recheck.log",
+        "bytes": 245,
+        "sha256": "5b8bc60b510fcd6d89e155bea421cd4779e85d6bd61633c5a3e2f9e0206bd958"
+      }
+    },
+    {
+      "id": "full-suite-four-concurrent-files",
+      "command": "node --test --test-concurrency=4 tests/*.test.mjs",
+      "exitCode": 0,
+      "tests": 1032,
+      "pass": 1032,
+      "fail": 0,
+      "skipped": 0,
+      "log": {
+        "path": "evidence/logs/engine-test-bounded.log",
+        "bytes": 112826,
+        "sha256": "3b3bca5ba3949b8c5be732eb9b3aee177d47aeb600f94373a0022dccd5985595"
+      },
+      "note": "Same complete repository tests; no test/timeout/source was changed."
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "pass": 32,
+      "log": {
+        "path": "evidence/logs/upstream.log",
+        "bytes": 3143,
+        "sha256": "4f8ed7afa3ce3e89c792af0e7a8de990dd18fd1d53a804e43135faabcd75f253"
+      }
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": {
+        "path": "evidence/logs/build.log",
+        "bytes": 378,
+        "sha256": "4e7700bdb40da2b296a27e9a9479a0238390b47c97f505c2015a5f04fd219990"
+      },
+      "privateCandidateInNormalBuild": false
+    }
+  ],
+  "actualC2Host": false,
+  "actualC2NativeResources": false,
+  "C2WAL": false,
+  "push": false,
+  "finishedAt": "2026-11-02T19:13:00.054Z"
+}
