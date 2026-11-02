@@ -1,0 +1,950 @@
+{
+  "kind": "candidate-art-local-decoration-example",
+  "version": 1,
+  "qualification": "Complete actual-public-v1 tile bundle plus proposed typed sidecar; no shared authoring command/runtime is implemented.",
+  "artworkBinding": {
+    "id": "nautilus.local-graphic-art-samples",
+    "version": 1,
+    "digest": "ef2daf8b205bae3ca14baa093be85fa46e46b769f645c95327a6bf72f2152d33"
+  },
+  "canonicalTileBundle": {
+    "kind": "nautilus-tile-bundle",
+    "version": 1,
+    "templates": [],
+    "recipes": [
+      {
+        "kind": "nautilus-tile-recipe",
+        "version": 1,
+        "id": "art-contract-deck",
+        "contentVersion": 1,
+        "features": [
+          "canonical-boundaries-v1"
+        ],
+        "frame": "local",
+        "shape": {
+          "kind": "region",
+          "id": "art-contract-deck.region",
+          "outlines": [
+            {
+              "kind": "compound",
+              "id": "art-contract-deck.outline",
+              "segments": [
+                {
+                  "kind": "line",
+                  "id": "art-contract-deck.side.0",
+                  "a": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "b": [
+                    8,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "id": "art-contract-deck.side.1",
+                  "a": [
+                    8,
+                    0,
+                    0
+                  ],
+                  "b": [
+                    8,
+                    4,
+                    0
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "id": "art-contract-deck.side.2",
+                  "a": [
+                    8,
+                    4,
+                    0
+                  ],
+                  "b": [
+                    0,
+                    4,
+                    0
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "id": "art-contract-deck.side.3",
+                  "a": [
+                    0,
+                    4,
+                    0
+                  ],
+                  "b": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ],
+          "baseM": 0,
+          "thicknessM": 0.12
+        },
+        "reservations": [
+          {
+            "id": "body",
+            "floorSlot": "base",
+            "channel": "surface",
+            "layerId": "ground",
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              8,
+              4,
+              0.12
+            ]
+          }
+        ],
+        "ports": [
+          {
+            "id": "north",
+            "faceId": "north",
+            "floor": {
+              "slot": "base",
+              "offsetM": 0
+            },
+            "endpoint": [
+              4,
+              0,
+              0
+            ],
+            "outward": [
+              0,
+              -1,
+              0
+            ],
+            "tangent": [
+              1,
+              0,
+              0
+            ],
+            "flow": {
+              "policy": "none",
+              "vector": null
+            },
+            "widthM": 8,
+            "thicknessM": 0.12,
+            "channel": "surface",
+            "layerId": "ground",
+            "policy": "open",
+            "profiles": {
+              "surface": {
+                "id": "surface.flat",
+                "version": 1
+              },
+              "edge": {
+                "id": "edge.flat",
+                "version": 1
+              },
+              "material": {
+                "id": "paint.paving",
+                "version": 1
+              },
+              "border": {
+                "id": "border.flat",
+                "version": 1
+              }
+            },
+            "boundary": {
+              "curve": {
+                "kind": "line",
+                "id": "art-contract-deck.port.north",
+                "a": [
+                  0,
+                  0,
+                  0
+                ],
+                "b": [
+                  8,
+                  0,
+                  0
+                ]
+              },
+              "sampling": {
+                "segmentsPerPart": 8,
+                "maxChordErrorM": 0.01,
+                "maxSegmentM": 4,
+                "maxWork": 2048
+              },
+              "normal": {
+                "kind": "constant",
+                "vector": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "materialIntervals": [
+                {
+                  "from": 0,
+                  "to": 1,
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  }
+                }
+              ]
+            },
+            "uv": {
+              "policy": "world-linear-exact-v1",
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "scaleM": [
+                1,
+                1
+              ],
+              "phase": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "id": "east",
+            "faceId": "east",
+            "floor": {
+              "slot": "base",
+              "offsetM": 0
+            },
+            "endpoint": [
+              8,
+              2,
+              0
+            ],
+            "outward": [
+              1,
+              0,
+              0
+            ],
+            "tangent": [
+              0,
+              1,
+              0
+            ],
+            "flow": {
+              "policy": "none",
+              "vector": null
+            },
+            "widthM": 4,
+            "thicknessM": 0.12,
+            "channel": "surface",
+            "layerId": "ground",
+            "policy": "open",
+            "profiles": {
+              "surface": {
+                "id": "surface.flat",
+                "version": 1
+              },
+              "edge": {
+                "id": "edge.flat",
+                "version": 1
+              },
+              "material": {
+                "id": "paint.paving",
+                "version": 1
+              },
+              "border": {
+                "id": "border.flat",
+                "version": 1
+              }
+            },
+            "boundary": {
+              "curve": {
+                "kind": "line",
+                "id": "art-contract-deck.port.east",
+                "a": [
+                  8,
+                  0,
+                  0
+                ],
+                "b": [
+                  8,
+                  4,
+                  0
+                ]
+              },
+              "sampling": {
+                "segmentsPerPart": 8,
+                "maxChordErrorM": 0.01,
+                "maxSegmentM": 4,
+                "maxWork": 2048
+              },
+              "normal": {
+                "kind": "constant",
+                "vector": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "materialIntervals": [
+                {
+                  "from": 0,
+                  "to": 1,
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  }
+                }
+              ]
+            },
+            "uv": {
+              "policy": "world-linear-exact-v1",
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "scaleM": [
+                1,
+                1
+              ],
+              "phase": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "id": "south",
+            "faceId": "south",
+            "floor": {
+              "slot": "base",
+              "offsetM": 0
+            },
+            "endpoint": [
+              4,
+              4,
+              0
+            ],
+            "outward": [
+              0,
+              1,
+              0
+            ],
+            "tangent": [
+              1,
+              0,
+              0
+            ],
+            "flow": {
+              "policy": "none",
+              "vector": null
+            },
+            "widthM": 8,
+            "thicknessM": 0.12,
+            "channel": "surface",
+            "layerId": "ground",
+            "policy": "open",
+            "profiles": {
+              "surface": {
+                "id": "surface.flat",
+                "version": 1
+              },
+              "edge": {
+                "id": "edge.flat",
+                "version": 1
+              },
+              "material": {
+                "id": "paint.paving",
+                "version": 1
+              },
+              "border": {
+                "id": "border.flat",
+                "version": 1
+              }
+            },
+            "boundary": {
+              "curve": {
+                "kind": "line",
+                "id": "art-contract-deck.port.south",
+                "a": [
+                  0,
+                  4,
+                  0
+                ],
+                "b": [
+                  8,
+                  4,
+                  0
+                ]
+              },
+              "sampling": {
+                "segmentsPerPart": 8,
+                "maxChordErrorM": 0.01,
+                "maxSegmentM": 4,
+                "maxWork": 2048
+              },
+              "normal": {
+                "kind": "constant",
+                "vector": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "materialIntervals": [
+                {
+                  "from": 0,
+                  "to": 1,
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  }
+                }
+              ]
+            },
+            "uv": {
+              "policy": "world-linear-exact-v1",
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "scaleM": [
+                1,
+                1
+              ],
+              "phase": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "id": "west",
+            "faceId": "west",
+            "floor": {
+              "slot": "base",
+              "offsetM": 0
+            },
+            "endpoint": [
+              0,
+              2,
+              0
+            ],
+            "outward": [
+              -1,
+              0,
+              0
+            ],
+            "tangent": [
+              0,
+              1,
+              0
+            ],
+            "flow": {
+              "policy": "none",
+              "vector": null
+            },
+            "widthM": 4,
+            "thicknessM": 0.12,
+            "channel": "surface",
+            "layerId": "ground",
+            "policy": "open",
+            "profiles": {
+              "surface": {
+                "id": "surface.flat",
+                "version": 1
+              },
+              "edge": {
+                "id": "edge.flat",
+                "version": 1
+              },
+              "material": {
+                "id": "paint.paving",
+                "version": 1
+              },
+              "border": {
+                "id": "border.flat",
+                "version": 1
+              }
+            },
+            "boundary": {
+              "curve": {
+                "kind": "line",
+                "id": "art-contract-deck.port.west",
+                "a": [
+                  0,
+                  0,
+                  0
+                ],
+                "b": [
+                  0,
+                  4,
+                  0
+                ]
+              },
+              "sampling": {
+                "segmentsPerPart": 8,
+                "maxChordErrorM": 0.01,
+                "maxSegmentM": 4,
+                "maxWork": 2048
+              },
+              "normal": {
+                "kind": "constant",
+                "vector": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "materialIntervals": [
+                {
+                  "from": 0,
+                  "to": 1,
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  }
+                }
+              ]
+            },
+            "uv": {
+              "policy": "world-linear-exact-v1",
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "scaleM": [
+                1,
+                1
+              ],
+              "phase": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "allowedTransforms": [
+          {
+            "quarterTurns": 0,
+            "mirrorX": false
+          },
+          {
+            "quarterTurns": 1,
+            "mirrorX": false
+          },
+          {
+            "quarterTurns": 2,
+            "mirrorX": false
+          },
+          {
+            "quarterTurns": 3,
+            "mirrorX": false
+          },
+          {
+            "quarterTurns": 0,
+            "mirrorX": true
+          },
+          {
+            "quarterTurns": 1,
+            "mirrorX": true
+          },
+          {
+            "quarterTurns": 2,
+            "mirrorX": true
+          },
+          {
+            "quarterTurns": 3,
+            "mirrorX": true
+          }
+        ],
+        "interior": {
+          "variantSeed": 17,
+          "detail": 1,
+          "skinId": "skin.painterly"
+        },
+        "anchors": [
+          {
+            "id": "art-contract-deck.region",
+            "kind": "region",
+            "parentId": null
+          }
+        ],
+        "templates": []
+      }
+    ],
+    "layout": {
+      "kind": "nautilus-tile-layout",
+      "version": 1,
+      "id": "canonical-art-yard",
+      "revision": 0,
+      "floors": [
+        {
+          "id": "F03",
+          "elevationM": 7
+        }
+      ],
+      "catalogueDigest": "cc733bf1fc0c62fc938de3a2c57a517350dace5cff3831e2f79c1aa985038751",
+      "instances": [
+        {
+          "id": "owner-a",
+          "recipeId": "art-contract-deck",
+          "contentDigest": "1ea62bec277c0e45be678bd31fad64b4219ead80b886831c7f7010e17cd968bd",
+          "origin": [
+            0,
+            0,
+            7
+          ],
+          "transform": {
+            "quarterTurns": 0,
+            "mirrorX": false
+          },
+          "floorBindings": {
+            "base": "F03"
+          },
+          "locked": false,
+          "anchorIds": [
+            "art-contract-deck.region"
+          ]
+        },
+        {
+          "id": "owner-b",
+          "recipeId": "art-contract-deck",
+          "contentDigest": "1ea62bec277c0e45be678bd31fad64b4219ead80b886831c7f7010e17cd968bd",
+          "origin": [
+            8,
+            0,
+            7
+          ],
+          "transform": {
+            "quarterTurns": 0,
+            "mirrorX": false
+          },
+          "floorBindings": {
+            "base": "F03"
+          },
+          "locked": true,
+          "anchorIds": [
+            "art-contract-deck.region"
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "id": "deck-seam",
+          "a": {
+            "instanceId": "owner-a",
+            "faceId": "east",
+            "portIds": null
+          },
+          "b": {
+            "instanceId": "owner-b",
+            "faceId": "west",
+            "portIds": null
+          }
+        }
+      ],
+      "relations": [],
+      "selection": {
+        "seed": 17,
+        "policyVersion": 1
+      },
+      "extensions": {
+        "artReview": "Native flat surfaces; source controls retained"
+      }
+    }
+  },
+  "surfaces": [
+    {
+      "ownerId": "owner-a",
+      "surfaceId": "top",
+      "floorId": "F03",
+      "frameId": "top-frame",
+      "sourceAnchorId": "art-contract-deck.region"
+    },
+    {
+      "ownerId": "owner-b",
+      "surfaceId": "top",
+      "floorId": "F03",
+      "frameId": "top-frame",
+      "sourceAnchorId": "art-contract-deck.region"
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer-0",
+      "order": 0
+    },
+    {
+      "id": "layer-1",
+      "order": 1
+    },
+    {
+      "id": "layer-2",
+      "order": 2
+    },
+    {
+      "id": "layer-3",
+      "order": 3
+    }
+  ],
+  "authoredGrids": [
+    {
+      "id": "grid-a",
+      "version": 1,
+      "ownerId": "owner-a",
+      "surfaceId": "top",
+      "floorId": "F03",
+      "originM": [
+        0,
+        0
+      ],
+      "cellSizeM": 1
+    }
+  ],
+  "marks": [
+    {
+      "id": "sample-scorch",
+      "target": {
+        "ownerId": "owner-a",
+        "surfaceId": "top",
+        "floorId": "F03"
+      },
+      "anchor": {
+        "profile": "owner-local-xy-m-v1",
+        "frameId": "top-frame",
+        "positionM": [
+          1,
+          1
+        ],
+        "rotationRad": 0,
+        "sizeM": [
+          2,
+          2
+        ],
+        "pivotUV": [
+          0.5,
+          0.5
+        ],
+        "placementPolicy": "follow-owner-D4"
+      },
+      "artwork": {
+        "id": "graphic.scorch",
+        "version": 1,
+        "digest": "cde2492e8e287c1f906d2fe2e15e5431c55478895a48560b0c6eb3c385ca1293"
+      },
+      "layerId": "layer-0",
+      "order": 0,
+      "opacity": 1,
+      "tintSRGB": [
+        1,
+        1,
+        1
+      ],
+      "mask": {
+        "profile": "surface-only-v1"
+      }
+    },
+    {
+      "id": "sample-blood",
+      "target": {
+        "ownerId": "owner-a",
+        "surfaceId": "top",
+        "floorId": "F03"
+      },
+      "anchor": {
+        "profile": "owner-local-xy-m-v1",
+        "frameId": "top-frame",
+        "positionM": [
+          1,
+          1
+        ],
+        "rotationRad": 0,
+        "sizeM": [
+          1.6,
+          1.6
+        ],
+        "pivotUV": [
+          0.5,
+          0.5
+        ],
+        "placementPolicy": "follow-owner-D4"
+      },
+      "artwork": {
+        "id": "graphic.blood-dried",
+        "version": 1,
+        "digest": "de59e615360716a052ae6311ee277a3165af5a63c85987f8683a8ca24380307f"
+      },
+      "layerId": "layer-1",
+      "order": 0,
+      "opacity": 1,
+      "tintSRGB": [
+        1,
+        1,
+        1
+      ],
+      "mask": {
+        "profile": "surface-only-v1"
+      }
+    },
+    {
+      "id": "sample-arrow",
+      "target": {
+        "ownerId": "owner-a",
+        "surfaceId": "top",
+        "floorId": "F03"
+      },
+      "anchor": {
+        "profile": "owner-local-xy-m-v1",
+        "frameId": "top-frame",
+        "positionM": [
+          4,
+          2
+        ],
+        "rotationRad": 0,
+        "sizeM": [
+          1.5,
+          2
+        ],
+        "pivotUV": [
+          0.5,
+          0.5
+        ],
+        "placementPolicy": "follow-owner-D4"
+      },
+      "artwork": {
+        "id": "graphic.road-arrow-forward",
+        "version": 1,
+        "digest": "e22b134f28af055abd1eaea92683c6371661cc58abc66b025c7a2a45b6c070a4"
+      },
+      "layerId": "layer-2",
+      "order": 0,
+      "opacity": 1,
+      "tintSRGB": [
+        1,
+        1,
+        1
+      ],
+      "mask": {
+        "profile": "surface-only-v1"
+      }
+    },
+    {
+      "id": "sample-detail",
+      "target": {
+        "ownerId": "owner-a",
+        "surfaceId": "top",
+        "floorId": "F03"
+      },
+      "anchor": {
+        "profile": "owner-local-xy-m-v1",
+        "frameId": "top-frame",
+        "positionM": [
+          7.8,
+          3.8
+        ],
+        "rotationRad": 0,
+        "sizeM": [
+          2,
+          2
+        ],
+        "pivotUV": [
+          0.5,
+          0.5
+        ],
+        "placementPolicy": "follow-owner-D4"
+      },
+      "artwork": {
+        "id": "graphic.dust-grime",
+        "version": 1,
+        "digest": "2e32cfadb1f5752dba853f48172ac9db366e23e02f90a398376bc285b6d3de60"
+      },
+      "layerId": "layer-3",
+      "order": 0,
+      "opacity": 1,
+      "tintSRGB": [
+        1,
+        1,
+        1
+      ],
+      "mask": {
+        "profile": "authored-grid-cells-v1",
+        "gridId": "grid-a",
+        "gridVersion": 1,
+        "cells": [
+          [
+            7,
+            3
+          ]
+        ]
+      }
+    }
+  ],
+  "preset": {
+    "id": "art.clean-deck",
+    "version": 1,
+    "decorationDefaults": [],
+    "policy": "Explicit save-as-preset is required to capture defaults; stamp allocates new owner/mark IDs and pins copied references."
+  },
+  "commandProposal": {
+    "kind": "candidate.add-decoration-batch",
+    "requestId": "art-sample-stroke-01",
+    "expected": {
+      "sourceDigest": "53b81d642235be4177a3fbfd427bb2e1b00be37cde22672b276dbf30df9929a6",
+      "artworkBinding": {
+        "id": "nautilus.local-graphic-art-samples",
+        "version": 1,
+        "digest": "ef2daf8b205bae3ca14baa093be85fa46e46b769f645c95327a6bf72f2152d33"
+      }
+    },
+    "targetOwnerIds": [
+      "owner-a"
+    ],
+    "markIds": [
+      "sample-scorch",
+      "sample-blood",
+      "sample-arrow",
+      "sample-detail"
+    ],
+    "state": "Illustration for Coder/Editor reconciliation only; not a live command endpoint"
+  }
+}
