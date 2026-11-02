@@ -10,3 +10,6 @@ export function tileAuthoringDiscovery():Readonly<object>;
 
 export {captureTilePreset,exportTileContentPack,importTileContentPack} from './stage-b.js';
 export type {CaptureInput,ByteEntry,PortablePack} from './stage-b.js';
+
+export {deriveTileSurfaceTarget} from './surface-target.js';
+export type {SurfaceTargetInput,SurfaceTargetResult,SurfaceTargetLimits,SurfaceBindingSeed,SourceGridRef,ExistingSurfaceTarget,ProspectiveSurfaceTarget} from './surface-target.js';

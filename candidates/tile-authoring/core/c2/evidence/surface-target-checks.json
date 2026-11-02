@@ -1,0 +1,108 @@
+{
+  "checkpoint": "Private data-only deriveTileSurfaceTarget implementation",
+  "architectStatus": "Contract frozen at6d30535; implementation submitted for independent private component review",
+  "frozenContractCommit": "6d30535589ebdae0110199a324b324ecbe7d674f",
+  "acceptedPrivateB": "53d7d1f4bc4b5a8205e16cbbf6a29672e6f9db32",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1194,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    }
+  ],
+  "focusedControls": {
+    "passed": 27,
+    "failed": 0,
+    "command": "node --test tests/tile-authoring-core-c2-surface-target.test.mjs",
+    "guard": "Imported producer schema is deeply frozen; consumers cannot widen the closed contract in process."
+  },
+  "independentSchemaCheck": {
+    "command": "python candidates/tile-authoring/core/c2/check-surface-target-schema.py --dependencies artifacts/schema-validator",
+    "validator": "jsonschema==4.23.0",
+    "offlineSchemas": 8,
+    "genuineProducerInputResultCases": 2,
+    "structuralAndIndependentByteCases": 12
+  },
+  "measuredDefaultCases": [
+    {
+      "case": "genuine unpainted current rectangle",
+      "state": "prospective",
+      "seedFields": 8,
+      "unitsCharged": 155018,
+      "inputBytes": 587783,
+      "reportedAndActualOutputBytes": 1671
+    },
+    {
+      "case": "complete existing saved binding",
+      "state": "existing",
+      "seedFields": 8,
+      "unitsCharged": 201643,
+      "inputBytes": 742981,
+      "reportedAndActualOutputBytes": 2307
+    }
+  ],
+  "evidence": {
+    "sourceNeverMutates": true,
+    "existingLayersOrderAndPinPreserved": true,
+    "sourceLocalNondefaultFrameAndGridPreserved": true,
+    "independentNodeShaDomains": true,
+    "staleDocumentRevisionPoseAndPinRefuse": true,
+    "locksAndUnsupportedGeometryFrameGridRefuse": true,
+    "hostileDescriptorsDoNotInvokeGetters": true,
+    "exactAndOneBelow": [
+      "outputBytes",
+      "plannerUnits",
+      "sourceBytes",
+      "inputBytes",
+      "nodes",
+      "depth"
+    ],
+    "producerWorkCarriedIntoActualPureCanonicalPaintPlan": true
+  },
+  "inventory": {
+    "privateRuntimeInputs": 20,
+    "newRuntimeInputs": [
+      "surface-target.js",
+      "surface-target.schema.json"
+    ],
+    "priorRuntimeHelpersUnchanged": true,
+    "acceptedDependenciesUnchanged": 83,
+    "normalDistributionExclusionsUnchanged": 4,
+    "frozenAppearanceAbiManifestSha256": "f819d85c7f2f1f1111754e1f91f1dba40f3026ef6af726f809fc677e6497af70",
+    "frozenProposalManifestSha256": "c58687ab8472618d4236941e6b5e7499cf245d2dac25e9c7f1ad402dd7839026"
+  },
+  "claims": {
+    "headlessDataProducer": true,
+    "committable": false,
+    "hostOrNativeOwnership": false,
+    "decoderRun": false,
+    "newBrowserAccountingProfile": false,
+    "combinedPlacementRuntime": false,
+    "canonicalGrammarOrPersistChanges": false,
+    "publicRegistration": false,
+    "numericCapOrRateIncrease": false,
+    "consumerPinOrSitesChanges": false,
+    "deployment": false
+  },
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "ownedForegroundGateSessionsCompleted": true
+  }
+}

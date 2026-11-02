@@ -33,5 +33,5 @@ test('all added DTO object shapes are closed, declarations parse and packet mani
 });
 test('frozen appearance contract and existing public exports remain unchanged and proposals are not runtime imports',()=>{
  const abi=fs.readFileSync(new URL('../candidates/tile-authoring/core/c2/abi/manifest.json',import.meta.url));assert.equal(hash(abi),'f819d85c7f2f1f1111754e1f91f1dba40f3026ef6af726f809fc677e6497af70');
- for(const p of ['../candidates/tile-authoring/core/c2/index.js','../packages/tile-authoring-core/index.js']){const source=fs.readFileSync(new URL(p,import.meta.url),'utf8');assert.doesNotMatch(source,/planCombinedTile|deriveTileSurfaceTarget|proposals\//);}
+ for(const p of ['../candidates/tile-authoring/core/c2/index.js','../packages/tile-authoring-core/index.js']){const source=fs.readFileSync(new URL(p,import.meta.url),'utf8');assert.doesNotMatch(source,/planCombinedTile|proposals\//);if(p.includes('/packages/'))assert.doesNotMatch(source,/deriveTileSurfaceTarget/);}
 });

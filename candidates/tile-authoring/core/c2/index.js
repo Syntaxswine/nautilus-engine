@@ -23,3 +23,5 @@ export function tileAuthoringDiscovery(){return Object.freeze({kind:'nautilus-ti
 
 export {captureTilePreset} from './capture.js';
 export {exportTileContentPack,importTileContentPack} from './portable.js';
+
+export {deriveTileSurfaceTarget} from './surface-target.js';
