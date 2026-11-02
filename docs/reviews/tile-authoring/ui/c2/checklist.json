@@ -1,0 +1,443 @@
+{
+  "kind": "nautilus-ui-c2-design-checklist",
+  "version": 1,
+  "date": "2026-11-02",
+  "status": "design-only; runtime not authorized by this document",
+  "fixedPins": {
+    "uiC1": "8053b30e4db325ad16e07a456fcf8ef5030324a7",
+    "editorC1": "f9ea6ce0ad5600ce07f4be634a29b699d61790f8",
+    "coreC1": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+    "coreC2StageA": "8b4cd72c2d8f424d6811196d9651916bb7e9e2bd",
+    "persistedC0": "43227894c50ec62b71806978195fff2c650eb388",
+    "artistContentProof": "a66c78332c90fda33c16ffa7518a358b60249169"
+  },
+  "dependencies": [
+    {
+      "id": "DEP-01",
+      "owner": "Core / Architect",
+      "status": "accepted-headless-private",
+      "pin": "8b4cd72c2d8f424d6811196d9651916bb7e9e2bd",
+      "need": "Keep exact private Plan2 ABI and fixed C0 persisted grammar. Headless acceptance does not provide renderer/Host ownership or authorize Apply."
+    },
+    {
+      "id": "DEP-02",
+      "owner": "Editor",
+      "status": "pending-fixed-C2-ownership-checklist",
+      "pin": null,
+      "need": "One coherent retained-service/UI projection, exact current/prospective MarkTarget and source-grid ref, current capture/action gates, existing input/floor/history/recovery, and actual Review/Apply outcome. Consume Editor ownership checklist; do not implement it in UI."
+    },
+    {
+      "id": "DEP-03",
+      "owner": "Artist / presenter",
+      "status": "pending-fixed-native-renderer-and-decoder-proof",
+      "pin": null,
+      "need": "Actual bounded PNG decoder, frame sampler, clip and owned appearance candidate; verified borrowed thumbnails/readiness; real allocation/retirement observations and pixel evidence."
+    },
+    {
+      "id": "DEP-04",
+      "owner": "Editor / Core / Artist",
+      "status": "pending-actual-palette-enrollment",
+      "pin": "a66c78332c90fda33c16ffa7518a358b60249169",
+      "need": "All chosen artwork Pins, typed retained-library refs and verified original bytes are actually adopted/resolved by the retained Host. Canonical30 fixture/descriptors alone do not make a selectable live resource."
+    },
+    {
+      "id": "DEP-05",
+      "owner": "Core / Editor",
+      "status": "separate-Stage-B-acceptance-required",
+      "pin": null,
+      "need": "Non-placement selected-default capture, preset.save construction and verified byte pack workflows need fixed accepted Stage B inputs before controls can be enabled."
+    },
+    {
+      "id": "DEP-06",
+      "owner": "Architect / Core / Editor / Artist",
+      "status": "separate-Plan3-proposal-required",
+      "pin": null,
+      "need": "Combined geometry plus graphic-default placement needs its own reviewed proposal and owned resource/history route. Plan3 is a coordination label, not an assigned wire version/profile."
+    },
+    {
+      "id": "DEP-07",
+      "owner": "Architect",
+      "status": "pending-private-C2-integration-authorization",
+      "pin": null,
+      "need": "Freeze the C2 UI view/capture seam and future UI file scope, complete C1 cross-mode comparison, and authorize runtime work. Build/navigation/public registration/pins/Sites remain Architect-owned."
+    }
+  ],
+  "controls": [
+    {
+      "id": "UI-01",
+      "label": "Surface and membership",
+      "data": "Current owner/copy label, stable surface, native floor, source grid, lock; selected mark layer and group membership.",
+      "wire": "Read-only retained Host projection; MarkTarget/Layer/Mark fields are unchanged.",
+      "limits": "One supported existing rectangle top. Never use transient cell/triangle indices."
+    },
+    {
+      "id": "UI-02",
+      "label": "Chosen artwork revision",
+      "data": "Artwork label plus rN for the active choice and selected mark; full Pin only in value/title/Technical details.",
+      "wire": "graphic.artwork is the exact id/revision/contentDigest Pin.",
+      "limits": "No follow-latest, automatic pin replacement or hash reconstruction. Thumbnails borrow verified Host resources."
+    },
+    {
+      "id": "UI-03",
+      "label": "Ordered layers",
+      "data": "Layer label/order, opacity, derived visibility and mark count; add/up/down/remove.",
+      "wire": "surface.layers carries exact target, complete after-list and removedLayerMarkIds.",
+      "limits": "Up to8 distinct IDs/orders 0..7. Empty label allowed <=120 code points. Preserve unedited fields/order; no normalization on load."
+    },
+    {
+      "id": "UI-04",
+      "label": "Opacity and visibility",
+      "data": "Layer/mark opacity 0..1 with status such as Hidden: layer opacity is 0%. Actual clipping/view visibility is Host-reported.",
+      "wire": "Layer.opacity and Graphic.opacity; persisted Layer has no visible field.",
+      "limits": "Visibility is a derived state in this first plan. Changing opacity is explicit. No hidden previous-opacity store, fabricated eye-toggle field or budget refund."
+    },
+    {
+      "id": "UI-05",
+      "label": "Stamp / Repeat detail",
+      "data": "Two supported forms and their sampling meaning.",
+      "wire": "stamp/clamp or detail/repeat; never independent mismatched form/wrap choices.",
+      "limits": "Stamp outside-frame transparent; repeat stays inside its finite frame. Unsupported sampler/profile refuses."
+    },
+    {
+      "id": "UI-06",
+      "label": "Pose and pivot",
+      "data": "Local U/V metres, positive width/height, edited angle, mirrorU, image-top-left pivot U/V; numeric alternatives for gestures.",
+      "wire": "decoration.update replaces the full same-ID next-revision Mark, preserving target and unedited Graphic values.",
+      "limits": "Exact C0 size 0.000001..100000 m, position +/-1000000 m, rotation -pi..pi and pivot 0..1, subject to tighter captured Host limits. Preserve raw unedited radians; convert displayed degrees only when edited. No automatic readable-text flip."
+    },
+    {
+      "id": "UI-07",
+      "label": "Tint and mask",
+      "data": "Explicit linear RGB components and either whole surface or source-grid selection.",
+      "wire": "Graphic.tintLinearRGB and all-surface or exact grid-spans mask.",
+      "limits": "Host/Core supplies grid id/version/digest and canonical spans, max4096 cells; empty selection is not whole-surface. No implicit sRGB conversion."
+    },
+    {
+      "id": "UI-08",
+      "label": "Mark membership / erase",
+      "data": "Selected layer, stable mark identity/order and ungrouped status; explicit layer reassignment or erase.",
+      "wire": "decoration.add/update/remove; full replacement preserves target; expectedRevision on update only; groupPolicy preserve-whole-group.",
+      "limits": "groupId null. Group membership is readable; grouped source makes this Stage A appearance route unavailable. No detach/reanchor/cross-owner move."
+    },
+    {
+      "id": "UI-09",
+      "label": "Stage / Review / Apply",
+      "data": "Draft, preparing artwork, real review ready, saved, view-needs-attention, unknown-result statuses.",
+      "wire": "Same retained seven-method service, exact canonical packet/Expected and retained Apply request.",
+      "limits": "Construct once; same post-construction/stale/service fences. Plan2 committable:false is not Review readiness. Unknown freezes mutations and overwrite saves; original-ID recovery."
+    },
+    {
+      "id": "UI-10",
+      "label": "Technical details",
+      "data": "Collapsed exact pins/IDs, source/profile/capture observations, action diagnostics/readiness, costs and retained command/checkpoint.",
+      "wire": "Read-only projection plus existing borrowed whole-document save/open hooks.",
+      "limits": "One current/attempted error surface. Contextual disabled-control reasons; no global unavailable-feature catalogue or raw unbound table in normal flow."
+    }
+  ],
+  "items": [
+    {
+      "id": "GATE-01",
+      "area": "gates",
+      "owner": "Architect",
+      "dependency": "DEP-01",
+      "requirement": "Pin accepted private8b4 Stage A and unchanged432 grammar; keep public Core/C1/UI registrations untouched.",
+      "evidenceRequired": "Fixed commit/ABI hashes and explicit runtime authorization",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "GATE-02",
+      "area": "gates",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Supply the fixed C2 Host ownership checklist and one atomic current UI projection.",
+      "evidenceRequired": "Accepted Editor checklist/commit; no UI-owned ledger/history/lease implementation",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "GATE-03",
+      "area": "gates",
+      "owner": "Artist",
+      "dependency": "DEP-03",
+      "requirement": "Supply actual native candidate/decoder/sampler/clip and borrowed thumbnail readiness.",
+      "evidenceRequired": "Fixed native provider commit and genuine decoder/pixel/retirement evidence",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "GATE-04",
+      "area": "gates",
+      "owner": "Editor",
+      "dependency": "DEP-04",
+      "requirement": "Enroll exact chosen palette records, full retained-library refs and verified bytes before marking artwork available. Preserve complete immutable records and source/license notices.",
+      "evidenceRequired": "Actual workspace/resource adoption evidence; no descriptor-only ready claim",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-01",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Display stable copy/surface/floor/layer/group membership and exact artwork revision.",
+      "evidenceRequired": "Actual Host state and short visible labels; exact values retained in advanced data",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-02",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-04",
+      "requirement": "Keep active artwork and selected mark artwork distinct until explicit edit; never silently follow latest.",
+      "evidenceRequired": "Two-revision fixture and unchanged saved selected-mark Pin",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-03",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Stage full layer lists with unique IDs/orders and exact removed mark IDs.",
+      "evidenceRequired": "Add/order/opacity/remove positives and incomplete/duplicate removals preserving refusal",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-04",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-01",
+      "requirement": "Reflect opacity-derived visibility without a new visible field or persistent prior-opacity cache.",
+      "evidenceRequired": "Opacity0/partial/full reload; hidden records remain charged",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-05",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-03",
+      "requirement": "Pair stamp/clamp and detail/repeat, with explicit unsupported sampling cases.",
+      "evidenceRequired": "Finite-frame outside transparency, repeat boundary and alpha-floor pixel checks",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-06",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-01",
+      "requirement": "Edit pose/pivot/mirror and preserve every unedited raw Graphic field.",
+      "evidenceRequired": "Noncentral pivot, all D4, nonzero owner origin/floor; exact untouched radians/tint/mask",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-07",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Use source-local grid masks and stable mark IDs across LOD/rebuild. Keep edited tint explicitly linear RGB; use no implicit sRGB conversion.",
+      "evidenceRequired": "Negative sparse spans, empty-selection refusal, changed frame/grid invalidation Include exact linear tint and frame-boundary pixel checks.",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-08",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-01",
+      "requirement": "Keep membership changes within existing layer/same target and use full mark revisions.",
+      "evidenceRequired": "Same-ID old->next revision; wrong target/layer/revision refuses",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-09",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-01",
+      "requirement": "Expose group membership read-only and preserve the entire unsupported grouped document.",
+      "evidenceRequired": "Any groups block Stage A route; no filtered save, detach or partial allowed edit",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "UI-10",
+      "area": "controls",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Show current/attempted errors once; keep provenance/readiness/cost details collapsed.",
+      "evidenceRequired": "Readable normal flow; duplicate callback/result/outcome case; no blanket unbound warnings",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-01",
+      "area": "workflow",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Borrow the same service, floor/input owner and Editor history as human/agent JSONL.",
+      "evidenceRequired": "Exact canonical command/Expected/retained Apply parity; no alias, second store or authority",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-02",
+      "area": "workflow",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Preserve once-only Stage construction, Review/Apply and post-callback invalidation.",
+      "evidenceRequired": "Accepted service/collector/epoch/source/floor/finish/unknown fences; no producer replay/Expected refresh",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-03",
+      "area": "workflow",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Treat Plan2 as appearance-only on an unchanged bundle/layout/constraints with an actually owned candidate.",
+      "evidenceRequired": "Exact geometry-source parity and real appearance Review, never zero-allocation inference",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-04",
+      "area": "workflow",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Retain visual failure/debt for encoded-only unused imports and metadata cases.",
+      "evidenceRequired": "Actual retain-existing admission; no fabricated native preview or cleared debt",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-05",
+      "area": "workflow",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Recover unknown using the original request; retain source/target/history/redo/pending/export and unverified resource union.",
+      "evidenceRequired": "Actual recovery/resource/history evidence; UI never releases/GCs uncertain resources",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "FLOW-06",
+      "area": "workflow",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Save/reopen/undo/redo the whole unchanged v3 document and resources.",
+      "evidenceRequired": "Exact historical contentRevision and null-command history route; NO_CHANGE redo preserved",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "INPUT-01",
+      "area": "accessibility",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Use native scoped keyboard controls and numeric gesture alternatives with stable exact ARIA labels/focus.",
+      "evidenceRequired": "Keyboard/IME/repeat/editable-focus tests; no canvas/global shortcut takeover or auto-Apply",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "INPUT-02",
+      "area": "accessibility",
+      "owner": "UI",
+      "dependency": "DEP-02",
+      "requirement": "Cancel on Escape, capture loss, second finger/pinch, blur, source/floor/pose/mode/resource/geometry invalidation or disposal.",
+      "evidenceRequired": "Borrowed input cancels/quarantines until fresh all-up; unknown result is preserved",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "INPUT-03",
+      "area": "accessibility",
+      "owner": "UI",
+      "dependency": "DEP-03",
+      "requirement": "Review320/390 one-column forms, bounded palette, wrapped labels,14px+ text and44px+ targets.",
+      "evidenceRequired": "Native browser screenshots, no horizontal overflow/overlap; no physical-phone performance claim",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "RESOURCE-01",
+      "area": "resources",
+      "owner": "Artist",
+      "dependency": "DEP-03",
+      "requirement": "Charge accepted, candidate, hidden, acquiring/cache and unverified-retiring physical allocations/materials.",
+      "evidenceRequired": "Full candidate roots/cells/triangles/buffers and per-copy RGBA bounds; no hash-only sharing assumption",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "RESOURCE-02",
+      "area": "resources",
+      "owner": "Editor",
+      "dependency": "DEP-02",
+      "requirement": "Preserve source residency/material identity and debt through preparation; release only verified retirement.",
+      "evidenceRequired": "Exact8b4 lifetime counterexamples and actual provider receipts/ABA checks",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "RESOURCE-03",
+      "area": "resources",
+      "owner": "UI",
+      "dependency": "DEP-03",
+      "requirement": "Borrow thumbnails/resources and compare Host data; never decode, allocate private previews or compute authority hashes.",
+      "evidenceRequired": "No duplicate image provider/store; truthful loading/missing/error states",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "DEFER-01",
+      "area": "separate-gates",
+      "owner": "Core",
+      "dependency": "DEP-05",
+      "requirement": "Keep selected-default capture, preset.save and verified byte import/export unavailable until fixed Stage B acceptance.",
+      "evidenceRequired": "Separate immutable producer/byte/Host integration evidence; no ready-looking controls",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "DEFER-02",
+      "area": "separate-gates",
+      "owner": "Architect",
+      "dependency": "DEP-06",
+      "requirement": "Require a separate combined geometry+marks placement proposal before any C2 placement UI.",
+      "evidenceRequired": "Accepted Plan3 proposal and combined owned review/history/admission proof; no geometry-then-marks sequence",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "DEFER-03",
+      "area": "separate-gates",
+      "owner": "UI",
+      "dependency": "DEP-01",
+      "requirement": "Preserve explicit refusals for curves/reanchor/owner removal/groups/WebP/physical effects.",
+      "evidenceRequired": "Unsupported-content fixtures survive unchanged and receive contextual remedies",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "ACCEPT-01",
+      "area": "acceptance",
+      "owner": "Architect",
+      "dependency": "DEP-07",
+      "requirement": "Authorize exact UI runtime paths and reconcile the C2 view-reader seam without changing8053 defaults.",
+      "evidenceRequired": "Fixed scope and C1 regression/source-fence evidence",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "ACCEPT-02",
+      "area": "acceptance",
+      "owner": "Architect",
+      "dependency": "DEP-07",
+      "requirement": "Run required implementation gates and fixed source/built/installed actual-provider review when runtime is authorized.",
+      "evidenceRequired": "Relevant full gates, actual UI/JSONL parity, visual review and cleanup receipts",
+      "status": "planned; not executed"
+    },
+    {
+      "id": "ACCEPT-03",
+      "area": "acceptance",
+      "owner": "UI",
+      "dependency": "DEP-07",
+      "requirement": "Provide a plan-to-usage-card handoff with installed entry/example/notices only after component acceptance.",
+      "evidenceRequired": "Honest status, supported services, game decisions and unsupported cases; no public registration in this plan",
+      "status": "planned; not executed"
+    }
+  ],
+  "futureUIOwnedPaths": [
+    "apps/editor/tile-authoring/ui/appearance/panel.js",
+    "apps/editor/tile-authoring/ui/appearance/commands.js",
+    "apps/editor/tile-authoring/ui/appearance/palette.js",
+    "apps/editor/tile-authoring/ui/appearance/layers.js",
+    "apps/editor/tile-authoring/ui/appearance/graphic-fields.js",
+    "apps/editor/tile-authoring/ui/appearance/styles.css",
+    "tests/ui-tile-authoring-c2.test.mjs",
+    "tools/ui-review-tile-authoring-c2.mjs"
+  ],
+  "conditionalExistingPath": {
+    "path": "apps/editor/tile-authoring/ui/panel.js",
+    "condition": "Only an Architect-approved optional C2 view-reader/capture selector in the existing coordinator; accepted C1 defaults/fences remain unchanged. No current edit."
+  },
+  "runtimeGate": "All dependencies and actual ownership/readiness evidence must be accepted before a later implementation. Planned controls are not enabled or installed by this plan.",
+  "plan3": "Coordination name for a future combined geometry+marks proposal, not a new registered Plan version/profile or executable packet."
+}
