@@ -36,6 +36,18 @@ jobs:
           3df11ce6e62fb94806e30652b87168949f8ef4dd
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
+          08540b0ec8acd1be8b9d9929187d82a7300a59c2
+          191f6fe63de6125d3a0f0e96b998541bade01d19
+          1e8d0d702938e7418dc0203383516ab0c26a6e6a
+          8053b30e4db325ad16e07a456fcf8ef5030324a7
+          8184f06aa587542b026352a739f3766d1794c4fe
+          95511cb6f04dcba65656b2d9156c6173a84d6198
+          ad41c12f6bf9fa8a2d9579296114eb880cee0930
+          bbb87191038532f94ca27d91c8aebddc8e5477bf
+          e8161b0d4c667c2811a5ba080175a3965ba3e074
+          f94b57b2cebce55fc27cc94dea7a9fe39ec20193
+          f9ea6ce0ad5600ce07f4be634a29b699d61790f8
+          fd8885aa584f2f13057bb8b5f5c5e0597be6db27
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -114,6 +126,18 @@ jobs:
           3df11ce6e62fb94806e30652b87168949f8ef4dd
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
+          08540b0ec8acd1be8b9d9929187d82a7300a59c2
+          191f6fe63de6125d3a0f0e96b998541bade01d19
+          1e8d0d702938e7418dc0203383516ab0c26a6e6a
+          8053b30e4db325ad16e07a456fcf8ef5030324a7
+          8184f06aa587542b026352a739f3766d1794c4fe
+          95511cb6f04dcba65656b2d9156c6173a84d6198
+          ad41c12f6bf9fa8a2d9579296114eb880cee0930
+          bbb87191038532f94ca27d91c8aebddc8e5477bf
+          e8161b0d4c667c2811a5ba080175a3965ba3e074
+          f94b57b2cebce55fc27cc94dea7a9fe39ec20193
+          f9ea6ce0ad5600ce07f4be634a29b699d61790f8
+          fd8885aa584f2f13057bb8b5f5c5e0597be6db27
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -262,6 +286,18 @@ jobs:
           3df11ce6e62fb94806e30652b87168949f8ef4dd
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
+          08540b0ec8acd1be8b9d9929187d82a7300a59c2
+          191f6fe63de6125d3a0f0e96b998541bade01d19
+          1e8d0d702938e7418dc0203383516ab0c26a6e6a
+          8053b30e4db325ad16e07a456fcf8ef5030324a7
+          8184f06aa587542b026352a739f3766d1794c4fe
+          95511cb6f04dcba65656b2d9156c6173a84d6198
+          ad41c12f6bf9fa8a2d9579296114eb880cee0930
+          bbb87191038532f94ca27d91c8aebddc8e5477bf
+          e8161b0d4c667c2811a5ba080175a3965ba3e074
+          f94b57b2cebce55fc27cc94dea7a9fe39ec20193
+          f9ea6ce0ad5600ce07f4be634a29b699d61790f8
+          fd8885aa584f2f13057bb8b5f5c5e0597be6db27
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -317,6 +353,18 @@ jobs:
           3df11ce6e62fb94806e30652b87168949f8ef4dd
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
+          08540b0ec8acd1be8b9d9929187d82a7300a59c2
+          191f6fe63de6125d3a0f0e96b998541bade01d19
+          1e8d0d702938e7418dc0203383516ab0c26a6e6a
+          8053b30e4db325ad16e07a456fcf8ef5030324a7
+          8184f06aa587542b026352a739f3766d1794c4fe
+          95511cb6f04dcba65656b2d9156c6173a84d6198
+          ad41c12f6bf9fa8a2d9579296114eb880cee0930
+          bbb87191038532f94ca27d91c8aebddc8e5477bf
+          e8161b0d4c667c2811a5ba080175a3965ba3e074
+          f94b57b2cebce55fc27cc94dea7a9fe39ec20193
+          f9ea6ce0ad5600ce07f4be634a29b699d61790f8
+          fd8885aa584f2f13057bb8b5f5c5e0597be6db27
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -338,5 +386,75 @@ jobs:
             artifacts/tile-stack-editor-built/
             artifacts/tile-stack-editor-installed/
             artifacts/tile-stack-editor-matrix.json
+            artifacts/tile-workshop-entry/
+          if-no-files-found: ignore
+
+  tile-authoring-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NAUTILUS_REVIEW_CHANNEL: chromium
+      CODEX_THREAD_ID: github-tile-authoring-workflow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+          d869410625b246cfff2b51089e7878c31951775c
+          43227894c50ec62b71806978195fff2c650eb388
+          3df11ce6e62fb94806e30652b87168949f8ef4dd
+          eedfc0149cbaa5715445ed2dc909c2d694a81d50
+          fac180e2909ba499146bb8e4560c79cf4794ca93
+          08540b0ec8acd1be8b9d9929187d82a7300a59c2
+          191f6fe63de6125d3a0f0e96b998541bade01d19
+          1e8d0d702938e7418dc0203383516ab0c26a6e6a
+          8053b30e4db325ad16e07a456fcf8ef5030324a7
+          8184f06aa587542b026352a739f3766d1794c4fe
+          95511cb6f04dcba65656b2d9156c6173a84d6198
+          ad41c12f6bf9fa8a2d9579296114eb880cee0930
+          bbb87191038532f94ca27d91c8aebddc8e5477bf
+          e8161b0d4c667c2811a5ba080175a3965ba3e074
+          f94b57b2cebce55fc27cc94dea7a9fe39ec20193
+          f9ea6ce0ad5600ce07f4be634a29b699d61790f8
+          fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check -- --tracked
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: node tools/review-tile-workshop-entry.mjs
+      - run: node tools/editor-review-tile-authoring-c1.mjs
+      - run: node tools/editor-review-tile-authoring-c1.mjs --built
+      - run: node tools/editor-review-tile-authoring-c1.mjs --installed
+      - run: node tools/verify-tile-authoring-editor-review.mjs --root . --write
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tile-authoring-editor-evidence
+          path: |
+            artifacts/editor-tile-authoring-c1-source/
+            artifacts/editor-tile-authoring-c1-built/
+            artifacts/editor-tile-authoring-c1-installed/
+            artifacts/tile-authoring-editor-matrix.json
             artifacts/tile-workshop-entry/
           if-no-files-found: ignore

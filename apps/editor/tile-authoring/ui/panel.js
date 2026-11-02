@@ -1,4 +1,4 @@
-import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin} from './commands.js';
+import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin,tileAuthoringLabelMessage,TILE_AUTHORING_FORM_LIMITS} from './commands.js';
 
 const serviceMethods = ['describe','snapshot','query','prepare','apply','cancel','recover'];
 const issue = (code, message) => Object.assign(new TypeError(code + ': ' + message), {code});
@@ -111,31 +111,33 @@ export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangl
   const root=make('section',undefined,'tile-authoring-ui');root.setAttribute('aria-label','Rectangle tile library');
   const status=make('output','','ta-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.setAttribute('aria-atomic','true');
   const fault=make('p','','ta-fault');fault.setAttribute('role','alert');fault.hidden=true;
-  const hint=make('p','Library revisions are immutable. Placed copies change only when you select them for an upgrade.','ta-hint');
-  const field=(parent,name,label,{value='',type='text',min=null}={})=>{const wrap=make('label',label),input=make('input');input.id=id+'-'+name;input.name=name;input.type=type;input.value=value;input.required=true;if(type==='number')input.step='any';if(min!==null)input.min=min;wrap.htmlFor=input.id;wrap.append(input);parent.append(wrap);return input;};
-  const select=(parent,name,label)=>{const wrap=make('label',label),node=make('select');node.id=id+'-'+name;node.name=name;wrap.htmlFor=node.id;wrap.append(node);parent.append(wrap);return node;};
-  const gates=[],button=(parent,label,action,run)=>{const node=make('button',label);node.type='button';node.dataset.action=action;gates.push({node,action});listen(node,'click',()=>{fault.hidden=true;void Promise.resolve(run()).then(showResult).catch(showError);});parent.append(node);return node;};
+  const hint=make('p','Save reusable revisions; upgrade only the copies you select.','ta-hint');
+  const field=(parent,name,label,{value='',type='text',min=null,max=null,validate=null}={})=>{const wrap=make('label',label),input=make('input');input.id=id+'-'+name;input.name=name;input.type=type;input.value=value;input.required=true;if(type==='number')input.step='any';if(min!==null)input.min=min;if(max!==null)input.max=max;if(validate){const update=()=>input.setCustomValidity(validate(input.value));listen(input,'input',update);listen(input,'change',update);update();}wrap.htmlFor=input.id;wrap.append(input);parent.append(wrap);return input;};
+  const select=(parent,name,label)=>{const wrap=make('label',label),node=make('select');node.id=id+'-'+name;node.name=name;node.setAttribute('aria-label',label);wrap.htmlFor=node.id;wrap.append(node);parent.append(wrap);return node;};
+  const gates=[],button=(parent,label,action,run)=>{const node=make('button',label);node.type='button';node.dataset.action=action;gates.push({node,action});listen(node,'click',()=>{attemptedDiagnostics=[];showDiagnostics();void Promise.resolve(run()).then(showResult).catch(showError);});parent.append(node);return node;};
   const definitions=make('fieldset'),definitionLegend=make('legend','Definition revisions');definitions.append(definitionLegend);
-  const definitionSelect=select(definitions,'definition','Definition revision'),definitionPin=make('p','','ta-pin');definitions.append(definitionPin);
+  const definitionSelect=select(definitions,'definition','Definition revision'),definitionPin=make('p','','ta-pin');
   const rectangle=make('fieldset'),rectangleGrid=make('div',undefined,'ta-grid');rectangle.append(make('legend','Rectangle source'),rectangleGrid);
-  const label=field(rectangleGrid,'label','Library label',{value:'Rectangle'}),width=field(rectangleGrid,'width','Width (m)',{value:'8',type:'number',min:'0.001'}),depth=field(rectangleGrid,'depth','Depth (m)',{value:'4',type:'number',min:'0.001'});
-  const rectangleHint=make('p','New and cloned definitions start at revision 1. A revision keeps the selected definition ID and retains the old revision.','ta-hint');rectangle.append(rectangleHint);
+  const label=field(rectangleGrid,'label','Library label',{value:'Rectangle',validate:tileAuthoringLabelMessage}),width=field(rectangleGrid,'width','Width (m)',{value:'8',type:'number',min:String(TILE_AUTHORING_FORM_LIMITS.minimumM),max:String(TILE_AUTHORING_FORM_LIMITS.maximumM)}),depth=field(rectangleGrid,'depth','Depth (m)',{value:'4',type:'number',min:String(TILE_AUTHORING_FORM_LIMITS.minimumM),max:String(TILE_AUTHORING_FORM_LIMITS.maximumM)});
+  const rectangleHint=make('p','New and cloned definitions start at r1. Revisions keep earlier versions.','ta-hint');rectangle.append(rectangleHint);
   const rectangleActions=make('div',undefined,'ta-row');rectangle.append(rectangleActions);
   for(const [kind,text]of [['recipe.create','Stage new rectangle'],['recipe.clone','Stage clone'],['recipe.revise','Stage revision']])button(rectangleActions,text,kind,()=>controller.stage(kind,(snapshot)=>{
+    label.setCustomValidity(tileAuthoringLabelMessage(label.value));
     if(!(kind==='recipe.clone'?[label]:[label,width,depth]).every(n=>n.reportValidity()))throw issue('UI_FIELDS_REQUIRED','Complete the rectangle fields.');
     const base=kind==='recipe.create'?null:selectedDefinition(),ids=identities(kind);
     const spec=rectangleSpec(kind==='recipe.clone'?{label:label.value}:{label:label.value,widthM:Number(width.value),depthM:Number(depth.value)},{kind,base,ids,snapshot});
     return commands.rectangle({snapshot,requestId:ids.requestId,opId:ids.opId,kind,base,spec});
   }));
   const presets=make('fieldset');presets.append(make('legend','Reusable presets'));
-  const presetLabel=field(presets,'preset-label','Preset label',{value:'Rectangle preset'});
-  presets.append(make('p','Decoration defaults: none. Saving a preset pins the selected definition revision and never updates existing copies.','ta-hint'));
+  const presetLabel=field(presets,'preset-label','Preset label',{value:'Rectangle preset',validate:tileAuthoringLabelMessage});
+  presets.append(make('p','Uses the selected definition; existing copies stay unchanged.','ta-hint'));
   button(presets,'Stage preset from selected revision','preset.save',()=>controller.stage('preset.save',(snapshot)=>{
+    presetLabel.setCustomValidity(tileAuthoringLabelMessage(presetLabel.value));
     if(!presetLabel.reportValidity())throw issue('UI_FIELDS_REQUIRED','Supply a preset label.');
     const base=selectedDefinition(),ids=identities('preset.save');
     return commands.preset({snapshot,requestId:ids.requestId,opId:ids.opId,input:{kind:'nautilus-tile-preset',version:1,id:ids.presetId,revision:1,body:{label:presetLabel.value,definition:tileAuthoringPin(base),defaultLayers:[],defaultMarks:[],requires:base.body.requires,notices:base.body.notices}}});
   }));
-  const presetSelect=select(presets,'preset','Preset revision'),presetPin=make('p','','ta-pin');presets.append(presetPin);
+  const presetSelect=select(presets,'preset','Preset revision'),presetPin=make('p','','ta-pin');
   const placements=make('fieldset');placements.append(make('legend','Place independent copies'));
   const placementRows=[0,1].map(i=>{const row=make('div',undefined,'ta-grid');placements.append(make('h3','Copy '+(i+1)),row);return{x:field(row,'copy-'+i+'-x','Copy '+(i+1)+' origin X (m)',{type:'number',value:String(40+i*10)}),y:field(row,'copy-'+i+'-y','Copy '+(i+1)+' origin Y (m)',{type:'number',value:'0'})};});
   const placementFloor=make('p','','ta-hint');placements.append(placementFloor);
@@ -146,50 +148,82 @@ export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangl
     return commands.place({snapshot,requestId:ids.requestId,opId:ids.opId,preset,placements:placementRows.map((row,i)=>({ownerId:ids.ownerIds[i],originM:[Number(row.x.value),Number(row.y.value),floor.elevationM],floorBindings:{base:floor.id},transform:{quarterTurns:0,mirrorX:false},locked:false,anchorIds:definition.body.recipe.anchors.map(a=>a.id),freshMarkIds:[],freshLayerIds:[],chunkId:ids.chunkIds[i]}))});
   }));
   const upgrade=make('fieldset');upgrade.append(make('legend','Upgrade one selected copy'));
-  const ownerSelect=select(upgrade,'owner','Selected upgrade target'),ownerInfo=make('p','','ta-pin');upgrade.append(ownerInfo,make('p','The other copy and the reusable preset retain their exact pins. Locks and anchor requirements are checked by the host.','ta-hint'));
+  const ownerSelect=select(upgrade,'owner','Selected upgrade target'),ownerInfo=make('p','','ta-copy-scope');upgrade.append(ownerInfo,make('p','Other copies and the preset stay unchanged.','ta-hint'));
   button(upgrade,'Stage upgrade of selected copy only','placement.upgrade',()=>controller.stage('placement.upgrade',(snapshot)=>{
     const ownerId=ownerSelect.value,ownerPin=snapshot.document.authoring.ownerPins.find(p=>p.ownerId===ownerId);
     if(!ownerPin)throw issue('UI_OWNER_REQUIRED','Explicitly select one authored owner.');
     const target=selectedDefinition(),ids=identities('placement.upgrade');
     return commands.upgrade({snapshot,requestId:ids.requestId,opId:ids.opId,ownerId,from:ownerPin.definition,to:tileAuthoringPin(target),anchorIds:target.body.recipe.anchors.map(a=>a.id)});
   }));
-  const summary=make('div',undefined,'ta-review'),diagnostics=make('ul',undefined,'ta-diagnostics'),readiness=make('dl',undefined,'ta-readiness');
-  summary.append(make('h3','Review scope'),make('p','Stage collects the command. Review prepares it. Apply accepts the retained review.','ta-hint'));
-  const scope=make('p'),preparation=make('p','','ta-hint');summary.append(scope,preparation,diagnostics);
-  const details=make('details'),detailText=make('pre');details.append(make('summary','Immutable pins and retained command'),detailText);
+  const summary=make('div',undefined,'ta-review'),diagnostics=make('pre'),readiness=make('dl',undefined,'ta-readiness');
+  summary.append(make('h3','Review scope'),make('p','Stage → Review → Apply.','ta-hint'));
+  const scope=make('p'),preparation=make('p','','ta-hint');summary.append(scope,preparation);
+  const details=make('details'),detailText=make('pre'),ownerPinText=make('p','','ta-pin'),technicalScope=make('p','','ta-pin');details.className='ta-technical';details.append(make('summary','Technical details'),make('h3','Exact selected pins'),definitionPin,presetPin,ownerPinText,technicalScope,make('h3','Action availability and diagnostics'),diagnostics,make('h3','Separate readiness'),readiness,make('h3','Retained command'),detailText);
   const checkpoint=make('fieldset');checkpoint.append(make('legend','Complete workspace checkpoint'));
-  const checkpointText=make('textarea');checkpointText.setAttribute('aria-label','Complete v3 workspace checkpoint');checkpointText.spellcheck=false;checkpoint.append(checkpointText);
+  const checkpointText=make('textarea');checkpointText.setAttribute('aria-label','Complete v3 workspace checkpoint');checkpointText.spellcheck=false;details.append(make('h3','Complete workspace checkpoint'),checkpointText,make('p','Paths, overlays, artwork import and decoration capture are unavailable in C1. Rendered rectangles do not establish support, navigation or gameplay.','ta-hint'));
   const historyRow=make('div',undefined,'ta-row');checkpoint.append(historyRow);
   for(const [name,text]of [['undo','Undo'],['redo','Redo'],['save','Save checkpoint'],['open','Reopen checkpoint']])button(historyRow,text,name,async()=>{const result=await controller.history(name,...(name==='open'?[checkpointText.value]:[]));if(name==='save'&&result?.checkpointJSON)checkpointText.value=result.checkpointJSON;return result;});
   const actions=make('div',undefined,'ta-actions');
   for(const [action,text,run]of [['review','Review',()=>controller.review()],['apply','Apply',()=>controller.apply()],['cancel','Cancel draft',()=>controller.cancel()],['recover','Check edit result',()=>controller.recover()],['retryPresentation','Retry accepted view',()=>controller.history('retryPresentation')]])button(actions,text,action,run);
-  root.append(make('h2','Rectangle tile library'),hint,status,fault,definitions,rectangle,presets,placements,upgrade,summary,make('h3','Separate readiness'),readiness,details,checkpoint,make('p','Paths, overlays, artwork import and decoration capture are unavailable in C1. Rendered rectangles do not establish support, navigation or gameplay.','ta-hint'),actions);
+  summary.append(actions);
+  root.append(make('h2','Rectangle tile library'),hint,status,fault,definitions,rectangle,presets,placements,upgrade,summary,checkpoint,details);
   container.append(root);
-  let controller=null,current=null,definitionMap=new Map(),presetMap=new Map(),selectSignatures=new WeakMap();
+  let controller=null,current=null,definitionMap=new Map(),presetMap=new Map(),selectSignatures=new WeakMap(),attemptedDiagnostics=[];
   const pinKey=record=>stringify(tileAuthoringPin(record));
-  function showError(reason){fault.hidden=false;fault.textContent=reason?.message??String(reason);try{onError(reason);}catch{}}
-  function showResult(result){if(result?.diagnostics?.length){fault.hidden=false;fault.textContent=result.diagnostics.map(d=>d.code+': '+d.message+' '+d.action).join('\n');}else if(result?.ok===false&&result.code&&!['UI_ACTION_UNAVAILABLE','UI_DISPLAY_CHANGED'].includes(result.code))showError(issue(result.code,result.message??'The host refused this action.'));}
+  function diagnosticText(d,includeAction=true){const prefix=d.code?d.code+': ':'';let message=String(d.message??d);while(prefix&&message.startsWith(prefix))message=message.slice(prefix.length);return includeAction?[message,d.action].filter(Boolean).join(' '):message;}
+  function showDiagnostics(){const p=current?.presentation,all=[...(Array.isArray(p?.review?.diagnostics)?p.review.diagnostics:[]),...(p?.outcome?.diagnostics??[]),...attemptedDiagnostics],messages=new Map();for(const d of all){const key=diagnosticText(d,false);if(!messages.has(key))messages.set(key,diagnosticText(d));}fault.textContent=[...messages.values()].join('\n');fault.hidden=messages.size===0;}
+  function showError(reason){attemptedDiagnostics=[{code:reason?.code,message:reason?.message??String(reason)}];showDiagnostics();try{onError(reason);}catch{}}
+  function showResult(result){if(result?.diagnostics?.length){attemptedDiagnostics=result.diagnostics;showDiagnostics();}else if(result?.ok===false&&result.code&&!['UI_ACTION_UNAVAILABLE','UI_DISPLAY_CHANGED'].includes(result.code))showError(issue(result.code,result.message??'The host refused this action.'));}
   function identities(kind){return finiteUIData(binding.allocateIds(kind));}
   function selectedDefinition(){const result=definitionMap.get(definitionSelect.value);if(!result)throw issue('UI_DEFINITION_REQUIRED','Select an exact immutable definition revision.');return result;}
   function definitionByPin(pin){const result=definitionMap.get(pinKey(pin));if(!result)throw issue('UI_DEFINITION_REQUIRED','The exact retained definition pin is unavailable.');return result;}
   function selectedPreset(){const result=presetMap.get(presetSelect.value);if(!result)throw issue('UI_PRESET_REQUIRED','Select an exact immutable preset revision.');return result;}
   function actualFloor(snapshot){const id=binding.borrowedFloorController?.state?.selectedId,floor=snapshot.document.floorBinding.floors.find(f=>f.id===id);if(!floor)throw issue('UI_FLOOR_UNBOUND','Borrow the current declared floor controller.');return floor;}
-  function options(node,rows,placeholder){const signature=stringify(rows);if(selectSignatures.get(node)===signature)return;const selected=node.value;node.replaceChildren(new doc.defaultView.Option(placeholder,''),...rows.map(r=>new doc.defaultView.Option(r.label,r.key)));node.value=rows.some(r=>r.key===selected)?selected:'';selectSignatures.set(node,signature);}
-  function selectionText(){definitionPin.textContent=definitionMap.get(definitionSelect.value)?'Definition '+definitionSelect.value:'Choose an exact definition revision.';presetPin.textContent=presetMap.get(presetSelect.value)?'Preset '+presetSelect.value:'Choose an exact preset revision.';const pin=current?.snapshot.document.authoring.ownerPins.find(p=>p.ownerId===ownerSelect.value),owner=current?.snapshot.document.tileBundle.layout.instances.find(o=>o.id===ownerSelect.value);ownerInfo.textContent=pin?'From '+stringify(pin.definition)+(owner?.locked?' · locked':''):'Select one placed owner; no target is selected automatically.';updateGates();}
-  function updateGates(){for(const {node,action}of gates){let allowed=!!current&&!!controller?.view&&enabled(current,action)&&(!controller?.pending||action==='cancel');if(['recipe.clone','recipe.revise','preset.save','placement.upgrade'].includes(action)&&!definitionMap.has(definitionSelect.value))allowed=false;if(action==='preset.place'&&!presetMap.has(presetSelect.value))allowed=false;if(action==='placement.upgrade'&&(!ownerSelect.value||current?.snapshot.document.tileBundle.layout.instances.find(o=>o.id===ownerSelect.value)?.locked))allowed=false;if(current?.presentation.outcome?.outcome==='unknown'&&action!=='recover')allowed=false;node.disabled=!allowed;if(action==='recover')node.hidden=current?.presentation.outcome?.outcome!=='unknown';if(action==='retryPresentation')node.hidden=current?.presentation.outcome?.outcome!=='committed'||current.presentation.outcome.presentation==='ready';}
+  function options(node,rows,placeholder){const signature=stringify(rows);if(selectSignatures.get(node)===signature)return;const selected=node.value;node.replaceChildren(new doc.defaultView.Option(placeholder,''),...rows.map(r=>{const option=new doc.defaultView.Option(r.label,r.key);option.title=r.title??r.key;return option;}));node.value=rows.some(r=>r.key===selected)?selected:'';selectSignatures.set(node,signature);}
+  const revisionName=record=>record.body.label+' r'+record.revision;
+  function definitionName(pin){const record=definitionMap.get(pinKey(pin));return record?revisionName(record):'retained revision r'+pin.revision;}
+  function ownerLabel(ownerId){const document=current?.snapshot.document,index=document?.authoring.ownerPins.findIndex(p=>p.ownerId===ownerId),owner=document?.tileBundle.layout.instances.find(o=>o.id===ownerId);return owner?.label||((index??-1)>=0?'Copy '+(index+1):'Selected copy');}
+  function selectionText(){
+    definitionPin.textContent=definitionMap.has(definitionSelect.value)?'Definition '+definitionSelect.value:'No definition selected.';presetPin.textContent=presetMap.has(presetSelect.value)?'Preset '+presetSelect.value:'No preset selected.';
+    definitionSelect.title=definitionMap.has(definitionSelect.value)?definitionSelect.value:'';presetSelect.title=presetMap.has(presetSelect.value)?presetSelect.value:'';ownerSelect.title=ownerSelect.value;
+    const pin=current?.snapshot.document.authoring.ownerPins.find(p=>p.ownerId===ownerSelect.value),owner=current?.snapshot.document.tileBundle.layout.instances.find(o=>o.id===ownerSelect.value),target=definitionMap.get(definitionSelect.value);
+    ownerPinText.textContent=pin?'Owner '+pin.ownerId+' · From '+stringify(pin.definition):'No upgrade target selected.';
+    ownerInfo.textContent=pin?ownerLabel(pin.ownerId)+' · From '+definitionName(pin.definition)+(target?' → '+revisionName(target):'. Choose a target definition revision.')+(owner?.locked?' · locked':''):'Select a copy to see its upgrade.';
+    updateGates();
+  }
+  function controlReason(action,allowed){
+    if(allowed)return '';
+    if(current?.presentation.outcome?.outcome==='unknown')return 'Check the original edit result before editing.';
+    if(controller?.pending)return 'Wait for the current action.';
+    if(['recipe.clone','recipe.revise','preset.save','placement.upgrade'].includes(action)&&!definitionMap.has(definitionSelect.value))return 'Select a definition revision.';
+    if(action==='preset.place'&&!presetMap.has(presetSelect.value))return 'Select a preset revision.';
+    if(action==='placement.upgrade'&&!ownerSelect.value)return 'Select a copy to upgrade.';
+    if(action==='placement.upgrade'&&current?.snapshot.document.tileBundle.layout.instances.find(o=>o.id===ownerSelect.value)?.locked)return 'This copy is locked.';
+    return current?.presentation.actions[action]?.diagnostics[0]?.message??'';
+  }
+  function scopeText(document,p){
+    const operation=p.command?.operations[0],body=operation?.body;
+    if(operation?.kind==='placement.upgrade')return body.ownerIds.map(ownerLabel).join(', ')+' · From '+definitionName(body.from)+' → '+definitionName(body.to);
+    if(operation?.kind==='preset.place'){const preset=presetMap.get(pinKey(body.preset));return 'Place '+body.placements.length+' independent copies'+(preset?' · '+revisionName(preset):'');}
+    if(operation?.kind==='preset.save')return 'Reusable preset · '+revisionName(body.preset)+'. Existing copies stay unchanged.';
+    if(operation?.kind?.startsWith('recipe.'))return revisionName(body.definition)+'. Placed copies stay unchanged.';
+    return document.authoring.ownerPins.length+' placed '+(document.authoring.ownerPins.length===1?'copy':'copies')+' · content revision '+document.contentRevision;
+  }
+  function updateGates(){for(const {node,action}of gates){let allowed=!!current&&!!controller?.view&&enabled(current,action)&&(!controller?.pending||action==='cancel');if(['recipe.clone','recipe.revise','preset.save','placement.upgrade'].includes(action)&&!definitionMap.has(definitionSelect.value))allowed=false;if(action==='preset.place'&&!presetMap.has(presetSelect.value))allowed=false;if(action==='placement.upgrade'&&(!ownerSelect.value||current?.snapshot.document.tileBundle.layout.instances.find(o=>o.id===ownerSelect.value)?.locked))allowed=false;if(current?.presentation.outcome?.outcome==='unknown'&&action!=='recover')allowed=false;node.disabled=!allowed;node.title=controlReason(action,allowed);if(action==='recover')node.hidden=current?.presentation.outcome?.outcome!=='unknown';if(action==='retryPresentation')node.hidden=current?.presentation.outcome?.outcome!=='committed'||current.presentation.outcome.presentation==='ready';}
     for(const input of root.querySelectorAll('input,select,textarea'))input.disabled=!current||!!controller?.pending||current.presentation.outcome?.outcome==='unknown';
   }
   function render(view){
+    const previous=current?.presentation,next=view?.presentation;
+    if(previous&&next&&(previous.command?.requestId!==next.command?.requestId||previous.review?.reviewToken!==next.review?.reviewToken||previous.outcome?.requestId!==next.outcome?.requestId||previous.outcome?.outcome!==next.outcome?.outcome))attemptedDiagnostics=[];
     current=view;if(!view){status.textContent='Editor connection unavailable';updateGates();return;}
     const {document}=view.snapshot,p=view.presentation;definitionMap=new Map(document.authoring.library.definitions.map(r=>[pinKey(r),r]));presetMap=new Map(document.authoring.library.presets.map(r=>[pinKey(r),r]));
-    options(definitionSelect,[...definitionMap].map(([key,r])=>({key,label:r.body.label+' · '+r.id+' · r'+r.revision})),'Select a definition revision');
-    options(presetSelect,[...presetMap].map(([key,r])=>({key,label:r.body.label+' · '+r.id+' · r'+r.revision})),'Select a preset revision');
-    options(ownerSelect,document.authoring.ownerPins.map(p=>{const owner=document.tileBundle.layout.instances.find(o=>o.id===p.ownerId);return{key:p.ownerId,label:p.ownerId+(owner?.locked?' · locked':'')};}),'Select one upgrade target');
+    options(definitionSelect,[...definitionMap].map(([key,r])=>({key,label:r.body.label+' · r'+r.revision})),'Select a definition revision');
+    options(presetSelect,[...presetMap].map(([key,r])=>({key,label:r.body.label+' · r'+r.revision})),'Select a preset revision');
+    options(ownerSelect,document.authoring.ownerPins.map(p=>{const owner=document.tileBundle.layout.instances.find(o=>o.id===p.ownerId);return{key:p.ownerId,label:ownerLabel(p.ownerId)+(owner?.locked?' · locked':'')};}),'Select one upgrade target');
     status.textContent=p.outcome?.outcome==='unknown'?'Edit result unknown — recover the original request':p.review?'Review ready — inspect before Apply':p.command?'Draft — review required':p.outcome?.outcome==='committed'?'Saved; presentation '+p.outcome.presentation:p.outcome?.outcome==='rejected'?'Edit refused; accepted work retained':'Ready';
-    scope.textContent='Scope: '+p.scope+' · Targets: '+(p.targetOwnerIds.join(', ')||'library only')+' · Content revision: '+document.contentRevision;
-    preparation.textContent=p.review?.tilePreparation==='source-unchanged'?'Placed geometry is unchanged; no geometry preview is required.':p.review?.tilePreparation==='public-v1-prepared'?'The host prepared the native rectangle change.':'Review will report whether placed geometry changes.';
-    const all=[...(p.outcome?.diagnostics??[]),...Object.values(p.actions).flatMap(a=>a.enabled?[]:a.diagnostics)];diagnostics.replaceChildren(...all.map(d=>make('li',d.code+': '+d.message+' '+d.action)));
-    if(!all.length)diagnostics.append(make('li','No host diagnostics reported.'));
+    scope.textContent=scopeText(document,p);technicalScope.textContent='Scope: '+p.scope+' · Targets: '+(p.targetOwnerIds.join(', ')||'library only')+' · Content revision: '+document.contentRevision;
+    preparation.hidden=!p.review;preparation.textContent=p.review?.tilePreparation==='source-unchanged'?'Placed geometry stays unchanged.':p.review?.tilePreparation==='public-v1-prepared'?'Native rectangle preview ready.':'';
+    diagnostics.textContent=JSON.stringify({actions:p.actions,reviewDiagnostics:p.review?.diagnostics??[],outcomeDiagnostics:p.outcome?.diagnostics??[]},null,2);showDiagnostics();
     readiness.replaceChildren(...Object.entries(view.readiness??{authoring:{state:'not-reported'},visual:{state:'not-reported'},game:{state:'unbound'}}).flatMap(([name,value])=>[make('dt',name),make('dd',typeof value==='string'?value:stringify(value))]));
     detailText.textContent=view.commandJSON??'No retained command bytes are reported by Editor.';
     let floor;try{floor=actualFloor(view.snapshot);}catch{}placementFloor.textContent=floor?'Copies use drawing floor '+floor.label+' · '+floor.elevationM+' m.':'Placement floor binding is unavailable.';

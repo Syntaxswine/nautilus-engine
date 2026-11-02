@@ -2,7 +2,7 @@
   "kind": "nautilus-component-usage-card",
   "version": 1,
   "id": "ui.tile-authoring.c1",
-  "status": "component-checkpoint-protocol-doubles-only",
+  "status": "actual-Core-construction-interop-Host-pending",
   "purpose": "Rectangle-first immutable library and selected upgrade through one Editor HostService.",
   "entry": "apps/editor/tile-authoring/ui/panel.js",
   "style": "apps/editor/tile-authoring/ui/styles.css",
@@ -13,7 +13,8 @@
     "atomic full-v3 snapshot and UI678 EditorDraftView",
     "Editor draft collector/retained bytes/explicit IDs",
     "existing whole-document history/save/open/retry hooks",
-    "borrowed native floor/input/resource ownership"
+    "borrowed native floor/input/resource ownership",
+    "explicit initial sourceIds and captured declared finish ID for the real RectangleSpec"
   ],
   "controls": [
     "recipe.create",
@@ -54,15 +55,36 @@
     "Game adoption remains a separate binding."
   ],
   "proof": {
-    "actualCore": false,
+    "actualCoreConstruction": true,
     "actualHost": false,
     "browser": false,
     "installed": false,
-    "protocolDoubles": true
+    "protocolDoubles": true,
+    "constructorPacketsExecuted": false
   },
   "pins": {
     "acceptedMain": "d869410625b246cfff2b51089e7878c31951775c",
     "coreContract": "43227894c50ec62b71806978195fff2c650eb388",
-    "uiContract": "678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2"
+    "uiContract": "678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2",
+    "actualCore": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+    "actualCoreDocs": "eedfc0149cbaa5715445ed2dc909c2d694a81d50"
+  },
+  "formLimits": {
+    "rectangleMetres": {
+      "minimum": 0.1,
+      "maximum": 64
+    },
+    "labelUnicodeCodePoints": 120,
+    "utf16Maxlength": false,
+    "normalization": false,
+    "negativeZero": "refuse"
+  },
+  "presentation": {
+    "ordinaryLabels": "Record label plus revision; Copy 1/Copy 2 or a readable owner label",
+    "selectedCopy": "From source label/revision to target label/revision",
+    "technicalDetails": "Collapsed existing details retain full pin/owner IDs, raw action diagnostics/readiness, command and editable checkpoint JSON",
+    "errors": "One current/attempted-action message surface, with duplicate messages collapsed",
+    "sizing": "14px+ ordinary text; 44px+ controls",
+    "transactionActions": "Existing buttons under review scope in normal flow; same callbacks and packets"
   }
 }

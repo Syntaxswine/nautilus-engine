@@ -1,6 +1,6 @@
 # Custom tile workbench and local overlays
 
-Status: C0 contracts reconciled; C1 custom-tile implementation authorized, 2026-11-02. [Stacked authoring](tile-stack-authoring.md) is accepted on main at `d869410625b246cfff2b51089e7878c31951775c` through PR #32. The [accepted contract decisions](../reviews/tile-authoring/architect/c0-decisions.md) govern the next tranche; C2 overlays follow C1 acceptance. This document does not declare custom-tile runtime implemented or register a public schema, capability or package export.
+Status: C1 rectangle custom-tile authoring is [accepted](../reviews/tile-authoring/architect/c1-editor-integration.md), 2026-11-02. [Stacked authoring](tile-stack-authoring.md) is accepted on main at `d869410625b246cfff2b51089e7878c31951775c` through PR #32. The [accepted contract decisions](../reviews/tile-authoring/architect/c0-decisions.md) govern this work. Users and agents can create, clone and revise rectangle definitions, save immutable presets, place independent copies and explicitly upgrade a selected copy. Curves remain available in the older supported Smart Tile workspace; C1 does not claim a general custom geometry editor. C2 overlays remain a separate review and integration gate; private candidates do not grant editor, package or game adoption. The remaining text records the larger target and its acceptance requirements.
 
 ## Intended authoring experience
 

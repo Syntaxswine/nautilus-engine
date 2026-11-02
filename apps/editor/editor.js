@@ -73,7 +73,7 @@ help.addEventListener('click', event => {if (event.target === help) {const rect 
 const tileWorkshopNavigation=document.getElementById('nautilus-help')?.parentNode;
 if(tileWorkshopNavigation&&typeof tileWorkshopNavigation.insertBefore==='function'){
   const link=document.createElement('a');link.id='nautilus-tiles';
-  link.href=new URL('../../../../../examples/tile-stack-editor.html',document.baseURI).href;
+  link.href=new URL('../../../../../examples/tile-workshop.html',document.baseURI).href;
   link.target='_blank';link.rel='noopener';link.textContent='Tile workshop';
   tileWorkshopNavigation.insertBefore(link,document.getElementById('nautilus-help'));
 }

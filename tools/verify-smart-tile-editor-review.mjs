@@ -11,7 +11,7 @@ const defaultRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'
 const sha=value=>createHash('sha256').update(value).digest('hex'),digest=/^[a-f0-9]{64}$/;
 const atlas='assets/buildings/painted-materials-v2.png';
 const reportDirectory=mode=>'artifacts/smart-tile-editor-'+mode+'/';
-export const SMART_TILE_CONTROLLER_SOURCES={acceptedController:'f754afcc9f46b196f258bf09e8091c962c9b31f8',b1Controller:'4b0499cc776fcd85fdd415fa7344982b75fbf8fb',historicalController:'9e996f96b69ba4867e643b558e9fdfeaf752d19e'};
+export const SMART_TILE_CONTROLLER_SOURCES={acceptedController:'f754afcc9f46b196f258bf09e8091c962c9b31f8',b1Controller:'4b0499cc776fcd85fdd415fa7344982b75fbf8fb',historicalController:'9e996f96b69ba4867e643b558e9fdfeaf752d19e',sharedControllerSource:'f9ea6ce0ad5600ce07f4be634a29b699d61790f8',sharedCheckpointRuntime:'1e8d0d702938e7418dc0203383516ab0c26a6e6a'};
 export const SMART_TILE_REVIEW_BINDINGS=[
   ['@nautilus-engine/core','core','.','packages/map-core/index.js'],
   ['@nautilus-engine/core/floors','core','./floors','packages/floor-navigation/index.js'],
@@ -37,6 +37,7 @@ export const SMART_TILE_REVIEW_CAPTURES=['desktop-finish','native-upper-floor','
 // intentionally rejects Node tooling imports; this list does not claim to
 // discover computed imports or fingerprint external browser/Node installations.
 const verificationFiles=['tools/review-smart-tile-editor.mjs','tools/art-review-browser.mjs','tools/distribution.mjs','tools/check-smart-tile-editor-source.mjs','docs/reviews/smart-tile-editor/sources.json','docs/reviews/smart-tile-editor/integration-sources.json','tools/verify-smart-tile-editor-review.mjs','tools/tile-surface-corrections.mjs','tools/tile-stack-registration.mjs','tools/tile-authoring-registration.mjs','tools/check-tile-authoring-core-source.mjs','tools/check-native-window-presenter.mjs','packages/tile-authoring-core/source.json','tools/tile-stack-editor-source.mjs','docs/reviews/tile-stack/architect/b1-sources.json','tools/tile-stack-editor-b2-source.mjs','docs/reviews/tile-stack/architect/b2-sources.json','tools/module-references.mjs','packages/tile-visuals/source.json','package.json','upstream.json'];
+verificationFiles.push('tools/tile-authoring-editor-source.mjs','docs/reviews/tile-authoring/architect/c1-sources.json','.github/workflows/check.yml');
 export const smartTileVerificationFiles=()=>[...verificationFiles].sort();
 function relative(file){assert.equal(typeof file,'string');assert.ok(file&&!path.posix.isAbsolute(file)&&!file.includes('\\')&&!file.includes('%')&&!/[\x00-\x1f\x7f?#]/.test(file)&&path.posix.normalize(file)===file&&!file.split('/').some(p=>!p||p==='.'||p==='..'),'Unsafe evidence path: '+file);return file;}
 function fileAt(root,file){relative(file);let resolved=root;for(const part of file.split('/')){resolved=path.join(resolved,part);assert.equal(fs.lstatSync(resolved).isSymbolicLink(),false,'Evidence symlink: '+file);}assert.equal(fs.statSync(resolved).isFile(),true,file);return resolved;}
