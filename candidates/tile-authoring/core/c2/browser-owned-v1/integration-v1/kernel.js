@@ -24,7 +24,7 @@ export function kernelConstructionSourceForHost(kernel,input){
  return Object.freeze({
   kind:'nautilus-private-kernel-host-construction-source',version:1,
   readAuthority:()=>kernel.readAuthority(slots.authority),authorityToken:()=>kernel.authorityToken(slots.authority),authorityObservation:()=>kernel.authorityObservation(slots.authority),
-  constructSessionJournal:({checkpoint,options})=>kernel.constructSessionJournal({authority:slots.authority,checkpoint,options}),
+  constructSessionJournal(input){record.access.current();const value=record.ownConfig(input,['checkpoint','options']);return kernel.constructSessionJournal({authority:slots.authority,...value});},
   documentFacts:kernel.documentFacts,encodedDocument:kernel.encodedDocument,requireCheckpoint:kernel.requireCheckpoint,checkpointEncoding:kernel.checkpointEncoding,
   matchesActualAuthority(value){record.access.current();return value===authority.actual;},
   matchesActualCodec(value){record.access.current();return value===record.binding.codec;},
@@ -85,5 +85,5 @@ export function createActualKernelSource(owner,{deps,initialDocument}){
   requireNative(){fail('C2_NATIVE_SOURCE_UNBOUND','/native','Actual paired Artist/Native/decoder source hook identity is unavailable.');},
   state:()=>freeze({kind:'nautilus-private-actual-source-binding',version:1,kernelSourceCommit:'4ade3ea02084472b30d036e8a0561e473aa84f3f',rootSourceCommit:'648cad33c3e0e1f36b4313b1492b1a750492ece4',actualKernelHooks:'BOUND',continuedC2Source:'BOUND',oneOwner:true,authoritySource:authorityCount?'BOUND':'UNBOUND',hostAuthority:'UNBOUND',Artist:'UNBOUND',Native:'UNBOUND',Decoder:'UNBOUND',publicActivation:false}),
  });
- actualKernels.set(api,{owner,access,source,bridge,hooks,binding,utilities,documentFacts,documentEncodings,authorities,rawAuthorities,sessions,profiles,ordinary,authoringPort});return api;
+ actualKernels.set(api,{owner,access,source,bridge,hooks,binding,utilities,documentFacts,documentEncodings,authorities,rawAuthorities,sessions,profiles,ordinary,authoringPort,ownConfig});return api;
 }

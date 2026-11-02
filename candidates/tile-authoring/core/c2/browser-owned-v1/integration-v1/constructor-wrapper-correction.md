@@ -1,0 +1,9 @@
+# Safe constructor wrapper correction
+
+The architect's independent review returned 2810b3c333187eadb428a88c83d98a8256f0fa56: the source-private Host journal method destructured its argument before the descriptor-safe direct constructor ran. An enumerable checkpoint getter could therefore execute and the resulting valid values could construct a journal. The original pin and review evidence remain historical.
+
+Scope ownership is checked first, matching the direct constructor. The safe wrapper then passes its unprojected input through the SAME original ownConfig reader, with the closed checkpoint/options field set, before spreading validated own data into the direct constructor. This preserves the original C2_CONSTRUCTION_DATA error and plain/null-prototype policy. Unknown, inherited-prototype, accessor, hidden and symbol input refuses with zero getter calls, zero authority reads and no consumed journal. A subsequent valid call still constructs the single actual journal; a duplicate refuses before another authority read. No codec, observer, matcher, cap or public/default interface is broadened.
+
+The focused regression reproduces both checkpoint and options getters plus the other forbidden descriptors. It also verifies that a failed wrapper call cannot consume the one journal. The existing actual authority/profile/current-checkpoint, ordinary same-budget and integration controls remain required. Broad repository gates remain queued while the architect's shared gate run is active; this is a focused local review correction, with no push or live Host/Native/WAL acceptance.
+
+Design assessment: prefer validation before projection for this constructor. Accuracy preserves the direct source constructor's exact refusal semantics. Efficiency adds one bounded descriptor check rather than invoking arbitrary accessors; no processor timing claim is made. Narrative and editor behavior are unchanged.
