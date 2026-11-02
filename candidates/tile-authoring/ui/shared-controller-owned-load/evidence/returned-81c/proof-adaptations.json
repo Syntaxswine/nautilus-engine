@@ -1,0 +1,45 @@
+{
+  "sourceCommit": "81c0233d84f024fe7750aacee67f6cdaf1494219",
+  "candidateRuntimeChanges": 0,
+  "originalFixtureSha256": "d30c709217b7f868a2c83256a029ca48b6372d6a7aca42b9252b1651c899433b",
+  "tracedFixtureSha256": "0939678b622cbaba3ce6ad73d2579c141f4a2dc9f75e265fd3e06276b09cc74a",
+  "edits": [
+    {
+      "from": "'../../../../../packages/tiles-core/index.js'",
+      "to": "'/packages/tiles-core/index.js'",
+      "scope": "Proof fixture import relocation"
+    },
+    {
+      "from": "'../../../../../packages/tile-authoring-core/index.js'",
+      "to": "'/packages/tile-authoring-core/index.js'",
+      "scope": "Proof fixture import relocation"
+    },
+    {
+      "from": "'../../shared-controller/vendor/root648/commands.js'",
+      "to": "'/candidates/tile-authoring/ui/shared-controller/vendor/root648/commands.js'",
+      "scope": "Proof fixture import relocation"
+    },
+    {
+      "from": "'../mount.mjs'",
+      "to": "'/candidates/tile-authoring/ui/shared-controller-display-guard/mount.mjs'",
+      "scope": "Proof fixture import relocation"
+    },
+    {
+      "from": "'../../shared-controller/c1-mount.mjs'",
+      "to": "'/candidates/tile-authoring/ui/shared-controller/c1-mount.mjs'",
+      "scope": "Proof fixture import relocation"
+    },
+    {
+      "from": "calls.resourceActualReads.push(read===value);",
+      "to": "calls.resourceActualReads.push(read===value);calls.resourceReadPins??=[];calls.resourceReadPins.push(structuredClone(read.overlay.chosenArtwork));calls.liveAtDispatch??=[];calls.liveAtDispatch.push(hooks.live!==false);",
+      "scope": "Protocol callback argument/currentness trace only"
+    },
+    {
+      "from": "hooks.current?.();return!disposed;",
+      "to": "hooks.current?.();return!disposed&&hooks.live!==false;",
+      "scope": "Protocol connection predicate supports explicit false; default unchanged, no runtime change"
+    }
+  ],
+  "finalSnapshotLine": 130,
+  "stackTriggerScope": "Calls only the existing protocol read hook at the exact final snapshot line; never changes runtime modules or the issued read."
+}

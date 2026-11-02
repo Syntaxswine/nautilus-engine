@@ -1,0 +1,14 @@
+ const producerFinal=own(ports.sourceOwner,'finalReadOwner'),producerCapture=own(producerFinal,'capture'),producerVisit=own(producerFinal,'visit'),finalObservations=new WeakMap();
+ const finalBound=typeof producerCapture==='function'&&typeof producerVisit==='function';
+ const finalConnection=()=>connection()&&own(ports.sourceOwner,'finalReadOwner')===producerFinal&&own(producerFinal,'capture')===producerCapture&&own(producerFinal,'visit')===producerVisit;
+ function finalEntry(read){const e=reads.get(read);if(!finalBound||!finalConnection()||!e||!e.published||e.read!==read||read.overlay.basis!==e.basis||read.snapshot!==e.base.snapshot||!e.capture||version!==e.version||selectionVersion!==e.selectionVersion)throw failure('C2_FINAL_READ_UNAVAILABLE','The actual source-private final-read owner and original read must remain current.');return e;}
+ const resourceReadOwner=finalBound?Object.freeze({
+  capture(read){const e=finalEntry(read),sourceTicket=producerCapture.call(producerFinal,e.capture.scope,e.originalBaseRead),ticket=Object.freeze({});finalEntry(read);finalObservations.set(ticket,{read,e,sourceTicket,version,selectionVersion,used:false});return ticket;},
+  visit(ticket,read,visit){
+   const proof=finalObservations.get(ticket),e=finalEntry(read);if(!proof||proof.used||proof.read!==read||proof.e!==e||proof.version!==version||proof.selectionVersion!==selectionVersion||typeof visit!=='function')throw failure('C2_FINAL_READ_FOREIGN','Use the original same-owner final observation once.');proof.used=true;let calls=0;
+   // The actual producer visitor authenticates its private source/context epoch.
+   // No snapshot, predicate, source capture or other user callback is called here.
+   const value=producerVisit.call(producerFinal,proof.sourceTicket,e.capture.scope,e.originalBaseRead,()=>{if(++calls!==1||!finalConnection()||finalEntry(read)!==e||version!==proof.version||selectionVersion!==proof.selectionVersion)throw failure('C2_FINAL_READ_RETIRED','The original bridge/read lifetime retired.');return visit(read);});
+   if(calls!==1||value&&typeof value.then==='function')throw failure('C2_FINAL_VISITOR_REQUIRED','The actual owner must synchronously visit the authenticated original read exactly once.');return value;
+  }
+ }):null;

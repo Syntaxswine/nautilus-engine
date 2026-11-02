@@ -1,0 +1,237 @@
+{
+  "kind": "fixed-stale-displayed-resource-load",
+  "baseline": "63f3506daced32e2ac135e008e00ac939ca90f87",
+  "classification": "Actual C1/C2 DOM, same Root coordinator continuation, explicitly protocol workbench/resource callbacks",
+  "host": false,
+  "native": false,
+  "meter": false,
+  "wal": false,
+  "checks": [
+    {
+      "name": "original number0 display / hidden blood-dried selection refreshes and REFUSES with zero loads",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden expected drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden source drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden floor drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden surface drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden action drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden completeSnapshot drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "same artwork Pin with hidden completePresentation drift refuses resource dispatch",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback artwork drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback artwork drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback expected drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback expected drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback floor drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback floor drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback surface drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback surface drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback action drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback action drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback completeSnapshot drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback completeSnapshot drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback completePresentation drift without publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "pending callback completePresentation drift with publication cannot re-latch or load",
+      "status": "pass"
+    },
+    {
+      "name": "read callback mutation at visit1 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "read callback mutation at visit2 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "read callback mutation at visit3 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "read callback mutation at visit4 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit1 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit2 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit3 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit4 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit5 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "current callback mutation at visit6 is fenced before the borrowed load",
+      "status": "pass"
+    },
+    {
+      "name": "late-final-snapshot-disconnect refuses before invoking resource action",
+      "status": "pass"
+    },
+    {
+      "name": "last-currentness-unpublished-source refuses before invoking resource action",
+      "status": "pass"
+    },
+    {
+      "name": "actual missing final owner keeps Load disabled even when loadSelected is supplied",
+      "status": "pass"
+    },
+    {
+      "name": "legitimate stable Load passes one genuine issued read, creates zero editing work, and ignores ready flags",
+      "status": "pass"
+    },
+    {
+      "name": "load-control detachment inside pending callback prevents the borrowed invocation",
+      "status": "pass"
+    }
+  ],
+  "witnesses": [
+    {
+      "case": "original-unpublished-artwork",
+      "before": {
+        "pin": {
+          "id": "artist.graphic.road-number-0",
+          "revision": 1,
+          "contentDigest": "d4f5bb8e88a3703b9a81924a2120eaf6cde370bdcafbe27ee51959d097beb948"
+        },
+        "shown": "number 0 · r1 · unavailable"
+      },
+      "actual": {
+        "id": "artist.graphic.blood-dried",
+        "revision": 1,
+        "contentDigest": "cfef0fc30298e15ed1a986281b329a01609b4723fc38c27f7475bfc48dd3babf"
+      },
+      "shown": "number 0 · r1 · unavailable",
+      "observed": {
+        "loads": 0,
+        "ids": 0,
+        "commands": 0,
+        "prepare": 0,
+        "shown": "Blood · r1 · built-in · unavailable",
+        "controllers": 1,
+        "subscriptions": 1
+      }
+    },
+    {
+      "case": "late-final-snapshot-disconnect",
+      "observed": {
+        "mutation": true,
+        "reads": 4,
+        "loads": 0,
+        "liveAtDispatch": [],
+        "ids": 0,
+        "commands": 0,
+        "prepare": 0,
+        "controllers": 1,
+        "subscriptions": 1
+      }
+    },
+    {
+      "case": "last-currentness-unpublished-source",
+      "observed": {
+        "mutation": true,
+        "reads": 5,
+        "loads": 0,
+        "liveAtDispatch": [],
+        "ids": 0,
+        "commands": 0,
+        "prepare": 0,
+        "controllers": 1,
+        "subscriptions": 1
+      }
+    }
+  ],
+  "browser": "156.0.4314.58",
+  "status": "passed",
+  "cleanup": {
+    "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+    "purpose": "Stale-display artwork Load guard focused review",
+    "stoppedAt": "2026-11-02T23:39:33.162Z",
+    "process": {
+      "pid": 22048,
+      "creationFiletime": "134381363558575910",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "browser": {
+      "pid": 69964,
+      "creationFiletime": "134381363652952054",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+    },
+    "port": 58207,
+    "httpClosed": true,
+    "browserClosed": true,
+    "method": "Supported Playwright browser close and HTTP close in finally",
+    "portReleased": true
+  }
+}

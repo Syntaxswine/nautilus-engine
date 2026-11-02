@@ -1,0 +1,14 @@
+        // All callbackful checks finish before the source-private final visitor.
+        // It authenticates facts recorded for this issued read; no caller bool,
+        // parsed copy, fresh DTO stamp or check-after-dispatch grants permission.
+        if(!sameConnection()){broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection retired during the final snapshot.');invalidate(reason);throw reason;}
+        if(!stable())return changed();
+        const finalOwner=Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value,capture=Object.getOwnPropertyDescriptor(finalOwner??{},'capture')?.value,visit=Object.getOwnPropertyDescriptor(finalOwner??{},'visit')?.value;
+        if(typeof capture!=='function'||typeof visit!=='function')throw issue('UI_FINAL_READ_OWNER_UNBOUND','Bind the actual source-private final read owner before loading artwork.');
+        const observation=capture.call(finalOwner,raw);let visits=0;
+        const result=visit.call(finalOwner,observation,raw,actual=>{
+          if(++visits!==1||actual!==raw||!stable()||Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value!==finalOwner||Object.getOwnPropertyDescriptor(finalOwner,'capture')?.value!==capture||Object.getOwnPropertyDescriptor(finalOwner,'visit')?.value!==visit)throw issue('UI_DISPLAY_CHANGED','The original displayed/read lifetime retired before dispatch.');
+          return actual;
+        });
+        if(visits!==1||result!==raw)throw issue('UI_FINAL_READ_OWNER_REQUIRED','The owned visitor must return the same authenticated issued read once.');
+        return result;
