@@ -1,0 +1,17 @@
+# Artist design decision: native finishes with sparse painterly graphics
+
+Status: private implementation and measured desktop diagnostic evidence. Public adoption and actual Core/Host pairing are deferred. The unchanged public finish profile remains compatible.
+
+Alternatives are the unchanged ordinary Standard finish pool, a separately owned combined Standard kernel, and extra decal meshes per mark. The precise finish source/hash and accepted original art are recorded in inputs.json. No donor worktree is changed.
+
+| Criterion | Assessment |
+| --- | --- |
+| Accuracy | The combined kernel preserves the old finish map calculation and the accepted original frame/alpha/transform semantics. Raw alpha floor precedes filtering and composition uses linear premultiplied color. The 245 pixel vectors test contract conformance, not physical material realism. This is a painterly albedo presentation; it does not add physical dirt thickness, relief or fire behavior. |
+| Efficiency | Measured diagnostic scene: 480 source plus 480 candidate marks on 15 floors; two actual public roots, 900 triangles, 960 metric cells, 30 owned materials, four actual sampled allocations and 150 distinct GPU geometry buffers totaling 129600 bytes. Marks add zero triangles. One compiled program reports 45 active uniform vectors upper-bound including Three. Retained known/reserved decoded physical charges total 31735808 bytes, while opaque native-copy bounds are explicitly unproven. These are resource measurements on isolated desktop Edge/SwiftShader, not FPS, phone or CPU-performance claims. Extra decal meshes are expected from code structure to scale scene nodes/triangles with marks; no comparative timing is measured. |
+| Narrative | Subjective preference: reusable stains, wear and road graphics let artists distinguish homes, military sites and industrial spaces without changing structural tiles. A clean original finish remains useful for legibility in Farmyard and AFT. Tinderbox can add richer optional fire appearance through its own accepted semantics later; this checkpoint does not simulate burning. |
+
+Provisional recommendation: retain the old finish-only profile for clean, cheap material application, and favor the combined sparse profile when authored painterly marks are needed. Keep marks attached to original surface coordinates, and keep the fixed resource limits explicit. Extra mesh decals may remain appropriate for genuinely raised geometry; they are unnecessary for these flat painted graphics.
+
+The initial candidate deliberately constructs a complete independent base view for changed/cleared appearance. This costs real geometry while preserving the source's identities and an honest rollback state. Future geometry sharing requires a separately accepted owner and positive retirement evidence; copied BufferGeometry objects and repeated hashes are not sharing evidence. Resource/retirement conservatism can stop subsequent previews at the two-root ceiling until the host supplies verified retirement. That is a current usability limitation, not permission to reduce accounting.
+
+Needed before adoption: accepted final capture manifest, actual Core capture/portable-pack producer, complete native material/preserved-world owners, a real upper-bound native-staging owner, warm-render admission, and editor ticket/WAL/CAS/undo/export/browser review. Measure representative target devices before making a speed or mobile recommendation.
