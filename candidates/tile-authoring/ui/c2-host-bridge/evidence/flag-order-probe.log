@@ -1,0 +1,37 @@
+✔ diagonal geometry retains native panels, physical trim and five story spacing (160.7155ms)
+✔ wall edits, ordinary edits, undo and redo preserve block geometry and extension metadata (740.8989ms)
+✔ grid, 45-degree, 15-degree, free and endpoint snapping are explicit (0.6527ms)
+✔ a drawn run, selection, exact edit, rotation and deletion share transactional history (275.1948ms)
+✔ malformed and overlapping runs fail without changing the document or history (411.7645ms)
+✔ block placement, capture, replacement and four rotations keep oriented endpoints (1852.8074ms)
+✔ capture and replacement reject a wall crossing a block even when both ends are outside (269.892ms)
+✔ world-space collision follows the rotated wall, story height and real floor gaps (128.5919ms)
+✔ validation notices a newly enclosed squad start and can validate disconnected authoring (310.0102ms)
+✔ game handoff explicitly requires oriented geometry capability while old maps remain supported (128.8678ms)
+✔ generation keeps shifted runs and unique IDs, matches legacy output without the feature, and rejects unsupported seams (3288.616ms)
+✔ unsupported wall extensions fail closed at query and capability boundaries, including empty versions (95.5737ms)
+✔ snap settings and anchors are checked even when a nearby endpoint wins (0.3769ms)
+✔ block transforms copy nested extension and run metadata without aliasing the source (1073.7085ms)
+✔ free-angle coordinates and metadata survive four quarter turns (1291.1615ms)
+✔ direct placement rejects a wall through a squad start and keeps its input unchanged (583.5976ms)
+✔ upper stair landings and authored patrol points reject walls before history changes (329.329ms)
+✔ block remapping keeps maximum-length IDs valid and deterministic (723.1706ms)
+✔ in-place assembly rejects wall overflow and bad offsets before mutating terrain or resources (490.0939ms)
+✔ conflicting extension metadata is rejected instead of silently discarded (547.5797ms)
+✔ nonzero radius is conservative slab padding and is not exact rounded actor clearance (0.2359ms)
+✔ legacy placeholder opening retains inherited authored data and character identity policy (139.1468ms)
+✔ seeded no-run generation keeps inherited output bytes across multiblock seeds (1771.377ms)
+✔ wall-aware authoring reachability preserves the inherited locked-door policy (245.1388ms)
+✔ a tower lookout remains a reachability target through its inherited entry (4691.258ms)
+✔ empty extension metadata survives the last deletion, saved reload and block rotation (738.9846ms)
+✔ generation rejects a wall body reaching a seam when its endpoints are inset (243.8478ms)
+✔ aggregate native-panel overflow is rejected before assembly commits (427.1052ms)
+✔ failed wall imports, replacements and boundary placements preserve redo and document flags (482.351ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21739.4875

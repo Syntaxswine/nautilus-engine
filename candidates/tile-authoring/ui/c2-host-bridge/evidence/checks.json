@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-11-02T20:41:45.303Z",
+  "node": "v24.15.0",
+  "compiler": "Version 5.8.3",
+  "strictTypes": true,
+  "negativeTypeControls": 6,
+  "componentControls": 41,
+  "results": [
+    {
+      "command": "node --test --test-reporter=tap candidates/tile-authoring/ui/c2-host-bridge/tests/bridge.test.mjs",
+      "status": "passed",
+      "file": "component.tap",
+      "tests": 38,
+      "pass": 38,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    {
+      "command": "node --test --test-reporter=tap candidates/tile-authoring/ui/c2-host-bridge/tests/selected-bytes.test.mjs",
+      "status": "passed",
+      "file": "selected-bytes.tap",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    {
+      "command": "npm test -- --test-concurrency=4",
+      "status": "passed",
+      "file": "repository-tests.log",
+      "tests": 1162,
+      "pass": 1162,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "status": "passed",
+      "file": "upstream.log",
+      "tests": 32,
+      "pass": 32,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  ],
+  "repositoryCheck": {
+    "command": "npm run check",
+    "status": "passed"
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "passed",
+    "modulePathsChecked": 563,
+    "privateConnectorExcluded": true
+  },
+  "proof": {
+    "syntheticSourceAndSessionFixtures": true,
+    "actualPureCoreAndEncodedByteComponents": true,
+    "actualSelectedPNG": true,
+    "hostApply": false,
+    "native": false,
+    "browserWideEditingMeter": false,
+    "wal": false
+  },
+  "bindings": {
+    "actualSessionCorePreparation": "UNBOUND",
+    "native": "UNBOUND",
+    "browserWideEditingMeter": "UNBOUND",
+    "pendingPreparationCancellation": "UNBOUND until actual same-session helper is paired"
+  },
+  "delivery": {
+    "localBranch": "codex/tile-authoring-ui-c2-host-bridge",
+    "push": false,
+    "rootAttachmentOwnedSeparately": true
+  },
+  "logs": [
+    {
+      "file": "component.tap",
+      "bytes": 9082,
+      "sha256": "3322524a062ab4602dd91fef85c2a045e3aee8971ff4a01c9fb1e7c3ad397379"
+    },
+    {
+      "file": "selected-bytes.tap",
+      "bytes": 889,
+      "sha256": "79eca7835f0379a76f4c1cd7354968dc7f0bbc5540fdf1e64bd17c9f201ed83d"
+    },
+    {
+      "file": "repository-check.log",
+      "bytes": 19140,
+      "sha256": "2f81e3189980ed1776e917ede20c6fc0bf6b95b9fcbe2c19495591c4525d4be2"
+    },
+    {
+      "file": "repository-tests.log",
+      "bytes": 127475,
+      "sha256": "def77e61b9281a4895f0ea5eb9df3b2bf3008cdcdd8e8c7f814deeaacd9e4fc8"
+    },
+    {
+      "file": "upstream.log",
+      "bytes": 3128,
+      "sha256": "c9572380f7e4e0646dc857b3a208710f0a333ad18e4bbdc32914448c30d4b7c8"
+    },
+    {
+      "file": "build.log",
+      "bytes": 378,
+      "sha256": "eb6926b7705827b128f6c465dd189318085832b8de000d5207d4b7248566c7ad"
+    }
+  ]
+}
