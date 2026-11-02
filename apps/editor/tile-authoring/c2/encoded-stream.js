@@ -55,13 +55,13 @@ export function createBuiltinEncodedStream(options){
   need(typeof nativeFetch==='function'&&typeof getReader==='function'&&typeof readByob==='function'&&typeof cancelByob==='function'&&typeof closedGet==='function'&&typeof AbortSignal.any==='function','ENCODED_STREAM_BYOB_UNAVAILABLE');
   occupied=true;const controller=new AbortController(),combined=AbortSignal.any([signal,controller.signal]);
   const state={phase:'unstarted',responses:0,receivers:0,deliveredViews:0,deliveredBytes:0,maxBacking:0,detachedReceivers:0,cancelAcknowledged:false,closedAcknowledged:false,physicalReclamation:'UNMEASURED'};last=state;
-  let response=null,reader=null,fetching=null,pending=null,closing=null,returning=false,finished=false,terminal=null,received=0;
+  let response=null,reader=null,fetching=null,pending=null,closing=null,returning=false,finished=false,terminal=null,received=0,fetchInvoked=false;
   function wrapped(code,cause){return error(abortGet.call(signal)?'ENCODED_STREAM_ABORTED':code,cause);}
   async function start(){
    if(fetching)return fetching;
    fetching=(async()=>{
     if(abortGet.call(signal))throw wrapped('ENCODED_STREAM_ABORTED',reasonGet.call(signal));
-    state.phase='fetching';response=await nativeFetch(url.href,{signal:combined,redirect:'error',credentials:'same-origin',cache:'no-store'});state.responses++;
+    state.phase='fetching';fetchInvoked=true;response=await nativeFetch(url.href,{signal:combined,redirect:'error',credentials:'same-origin',cache:'no-store'});state.responses++;
     need(response.status===200&&!response.redirected&&response.url===url.href,'ENCODED_STREAM_RESPONSE');
     need(response.headers.get('content-type')?.split(';',1)[0].trim().toLowerCase()==='image/png','ENCODED_STREAM_MEDIA_TYPE');
     const encoding=response.headers.get('content-encoding');need(!encoding||encoding.toLowerCase()==='identity','ENCODED_STREAM_CONTENT_ENCODING');
@@ -106,7 +106,9 @@ export function createBuiltinEncodedStream(options){
     if(closing)return closing;if(finished)return Promise.resolve({done:true});returning=true;
     closing=(async()=>{
      try{
-      if(!fetching){release();return {done:true};}
+      // A rejected start promise is not evidence that native Fetch ran. Join
+      // known pre-invocation failure, but never forgive an invoked/uncertain call.
+      if(!fetchInvoked){await pending?.catch(()=>{});need(!fetchInvoked&&!response&&!reader&&state.receivers===0,'ENCODED_STREAM_CLOSE_UNVERIFIED');release();return {done:true};}
       if(!reader){controller.abort(error('ENCODED_STREAM_RETURN'));await fetching.catch(()=>{});}
       if(reader){await cancelByob.call(reader,'encoded resource return');state.cancelAcknowledged=true;await pending?.catch(()=>{});await closedGet.call(reader);state.closedAcknowledged=true;}
       else if(response?.body){await cancelBody.call(response.body,'unavailable encoded resource');state.cancelAcknowledged=true;}

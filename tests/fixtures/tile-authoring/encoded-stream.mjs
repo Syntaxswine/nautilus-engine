@@ -14,6 +14,7 @@ export async function serve(pin,fn,{mode='normal',lifetimeMs=20000}={}){
  const started=Date.now(),stats={requests:0,firstWrite:null,closed:false};let first;const firstWrite=new Promise(r=>{first=r;});
  const server=http.createServer((req,res)=>{stats.requests++;if(req.url!==resource||req.method!=='GET'){res.writeHead(404).end();return;}
   if(mode==='status'){res.writeHead(404,{'content-type':'image/png'}).end();return;}
+  if(mode==='reject'){req.destroy();return;}
   const headers={'content-type':'image/png','cache-control':'no-store'};if(mode!=='truncate')headers['content-length']=String(image.blob.byteLength);res.writeHead(200,headers);
   const input=fs.createReadStream(source,{highWaterMark:mode==='slow'?1024:65536,...(mode==='truncate'?{start:0,end:999}:{})});streams.add(input);input.on('close',()=>streams.delete(input));res.on('close',()=>input.destroy());
   (async()=>{try{let index=0;for await(const chunk of input){const data=mode==='corrupt'&&index++===0?Buffer.from(chunk):chunk;if(mode==='corrupt'&&index===1)data[0]^=1;if(res.destroyed)break;if(!res.write(data))await new Promise(r=>{const done=()=>{res.removeListener('drain',done);res.removeListener('close',done);r();};res.once('drain',done);res.once('close',done);});if(stats.firstWrite===null){stats.firstWrite=Date.now();first();}if(mode==='slow')await new Promise(r=>setTimeout(r,150));}if(!res.destroyed)res.end();}catch{res.destroy();}})();
