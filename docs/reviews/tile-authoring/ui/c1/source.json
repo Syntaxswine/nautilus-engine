@@ -32,8 +32,8 @@
   "files": [
     {
       "file": "apps/editor/tile-authoring/ui/panel.js",
-      "bytes": 27511,
-      "sha256": "b2daee0f91a236b7df63c8dc1d29d348e05d2250730c1990c6237ce5c458a2e7"
+      "bytes": 27549,
+      "sha256": "834b33d8be86f20471cd9625d85ae7fac56062fbbf90d5e29194ec128b7303e5"
     },
     {
       "file": "apps/editor/tile-authoring/ui/commands.js",
@@ -52,13 +52,13 @@
     },
     {
       "file": "tools/ui-review-tile-authoring-c1.mjs",
-      "bytes": 16457,
-      "sha256": "1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79"
+      "bytes": 26471,
+      "sha256": "42da384eb7ea9986e5dddb98126a9cd0e993ab809fb83f12f491f0d640b84f0c"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/README.md",
-      "bytes": 10664,
-      "sha256": "6cedce583f55a450d8232211b81d0f341ac374a0db3769dbdb216b6f3aa472f5"
+      "bytes": 11821,
+      "sha256": "a589abdb48aeb20773ab97a7128d87ec3ef49d4dc63e45877bab4c0ea99bacee"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/usage-card.json",
@@ -67,8 +67,8 @@
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/validation.json",
-      "bytes": 122337,
-      "sha256": "30ab17dbf5e66e18e35055ef0c6dfe901541fa24455788305f25d6676f4b4b43"
+      "bytes": 135079,
+      "sha256": "67bc2c935f16a7eb08e42fa576a7ce3bb801a95bc6df15192a331decce77277b"
     }
   ],
   "status": "focused-form-alignment-with-actual-Core-construction-Host-pending",
@@ -116,6 +116,58 @@
         "file": "docs/tile-authoring.md",
         "bytes": 9202,
         "sha256": "4fff62285ac6fa18b5a6b9f597d2f5348526619e7486e1eecdbda7564bde08e8"
+      }
+    ]
+  },
+  "selectAccessibleNamesFollowup": {
+    "parent": "f94b57b2cebce55fc27cc94dea7a9fe39ec20193",
+    "kind": "explicit-stable-select-accessible-labels",
+    "runtimeDelta": "node.setAttribute('aria-label',label)",
+    "realDOM": true,
+    "actualHost": false,
+    "command": "node tools/ui-review-tile-authoring-c1.mjs --select-labels",
+    "checks": 18,
+    "protocolTests": 40,
+    "existingF94Files": [
+      {
+        "file": "apps/editor/tile-authoring/ui/panel.js",
+        "bytes": 27511,
+        "sha256": "b2daee0f91a236b7df63c8dc1d29d348e05d2250730c1990c6237ce5c458a2e7"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/commands.js",
+        "bytes": 9799,
+        "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/styles.css",
+        "bytes": 3863,
+        "sha256": "612668e48be39b79ceaf6aa49ee7696ce6aa72dd56c70700167656881ab4320d"
+      },
+      {
+        "file": "tests/ui-tile-authoring-c1.test.mjs",
+        "bytes": 31601,
+        "sha256": "4b0d735ae7db4c42f2243a9e476eb9e5684a421f252909be8aca150ef0ca7794"
+      },
+      {
+        "file": "tools/ui-review-tile-authoring-c1.mjs",
+        "bytes": 16457,
+        "sha256": "1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79"
+      },
+      {
+        "file": "docs/reviews/tile-authoring/ui/c1/README.md",
+        "bytes": 10664,
+        "sha256": "6cedce583f55a450d8232211b81d0f341ac374a0db3769dbdb216b6f3aa472f5"
+      },
+      {
+        "file": "docs/reviews/tile-authoring/ui/c1/usage-card.json",
+        "bytes": 2667,
+        "sha256": "0bc2b94a81cc30773a14d40aafd84158e9ccf4a8a81786619f5475a455422107"
+      },
+      {
+        "file": "docs/reviews/tile-authoring/ui/c1/validation.json",
+        "bytes": 122337,
+        "sha256": "30ab17dbf5e66e18e35055ef0c6dfe901541fa24455788305f25d6676f4b4b43"
       }
     ]
   }
