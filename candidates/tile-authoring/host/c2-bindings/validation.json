@@ -43,9 +43,10 @@
     "scope": "private component source isolation; actual Host/Native pairing UNBOUND",
     "base": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
     "kernel": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
-    "localFiles": 21,
-    "immutablePins": 3,
+    "localFiles": 25,
+    "immutablePins": 4,
     "exactSnapshotFiles": 174,
+    "reviewOnlyCoreFiles": 232,
     "profiles": {
       "core": {
         "files": 308,
@@ -65,8 +66,8 @@
       }
     },
     "readOnly": true,
-    "sourceRecordSha256": "f04131b4bf4d33a6c747e8173bf87bb2030589606bb7060f3c4449e6b9161acf",
-    "evidenceSha256": "1a39d3666e5adfc9c2746fa0a39633a6182ee3f75fc97cd80283c31312f50bcb"
+    "sourceRecordSha256": "28b80ac3a6f9361b96a30555eaffda17452321440db435b1102bd67fc032f50c",
+    "evidenceSha256": "1fbea0ff15b61d2460ed484899e0fc948a80d914dc15f53005f94760f4deae3f"
   },
   "adaptationChecks": {
     "beginControl": "git apply --check passes against ignored exact4ade snapshot; not applied",
@@ -82,7 +83,8 @@
     "retainedHelpers": [],
     "receiptSha256": "0aa70f7da559f9093e640ab5108d4133cae978b51909cb5207c52a2311a01d1a",
     "caveat": "CIM access was unavailable in the sandbox; original absentAfterCompletion fields derived from null CIM responses are unsupported and not relied upon. Owned close events and this separate exact-PID absence check supply lifecycle evidence.",
-    "correctionChecks": "Foreground21-case process returned exitCode0; no server/browser/install or retained helper started. Historical exact-PID receipt belongs to77d predecessor."
+    "correctionChecks": "Foreground21-case process returned exitCode0; no server/browser/install or retained helper started. Historical exact-PID receipt belongs to77d predecessor.",
+    "corePairingChecks": "Foreground3-case command returned exitCode0; no server/browser/install/retained helper started. No physical Native/driver release claim."
   },
   "repository": {
     "onlyCandidatePrefixChanged": true,
@@ -93,11 +95,11 @@
     "fullFourGates": "not repeated on old isolated base by explicit Root instruction; required on future Root composite"
   },
   "pending": [
-    "actual reviewed executable Core owner/actualKernelSource/actualJournal/continuedCore pairing",
-    "Editor actual observer/rates/codecResourceFacts",
-    "Artist actual phase/native/restoration/retirement facts",
-    "same-source actual registry read scopes and actual single live journal",
-    "same-manager one-use complete target association"
+    "actual Core-owned observed authority/session/live source-read constructors",
+    "exact current/cold-reconciled source journal construction or authenticated adoption",
+    "continued actual C1 prepaint operations under same original authoring attempt and source-backed work",
+    "Artist target/acquisition/phase/restore/retirement pairing",
+    "actual prepared validation/final bind/ticket/WAL and same-ID recovery outcomes"
   ],
   "evidence": "Ignored artifacts/c2-host-bindings/final. Original reports are preserved; the unsupported null-CIM absentAfterCompletion inference is not used. No browser, install, public adoption or final strict Native admission was tested.",
   "correction": {
@@ -108,5 +110,42 @@
     "evidence": "artifacts/c2-host-bindings/correction-77d187/tests.tap",
     "originalFailure": "Root artifacts/tile-authoring-review/c2-host-bindings-review-77d1876/independent-result.json preserved",
     "productionStillUnbound": true
+  },
+  "actualCorePairing": {
+    "commit": "bfd8185f719ee37a90479aece81aceef31121059",
+    "status": "REVIEW-ONLY;3actual-Core component controls pass; live Host remains UNBOUND",
+    "passed": 3,
+    "failed": 0,
+    "command": [
+      "node",
+      "--test",
+      "candidates/tile-authoring/host/c2-bindings/tests/core-pre-native.test.mjs"
+    ],
+    "durationMs": 6791.8181,
+    "stdoutSha256": "20f4f62966411842cdfc3e903167df0e844ccf631478e569fb1a37199b03a0fc",
+    "realComponents": [
+      "Core-owned source owner and continued source validator",
+      "actual registered observed codec/checkpoint",
+      "one original actual Core journal/head/obligations",
+      "same-owner continued capture/plan/pre-Native capacity"
+    ],
+    "syntheticDataOnly": [
+      "appearance ledger/context fixture; no Native/Host lease permission"
+    ],
+    "normalized": {
+      "bootstrap": 933615,
+      "authoringSourcePlanCapacity": 775957,
+      "authoringReservedPartitions": [
+        380000,
+        220000,
+        370000
+      ],
+      "unchangedLimit": 1000000
+    },
+    "noRawRegistryImports": true,
+    "ordinaryCandidateIndexExported": false,
+    "normalPackageExported": false,
+    "requiredLiveWorkflow": "empty editor -> ordinary C1 create/place -> paint same rectangle in same actual session/history/manager; not yet implemented",
+    "remainingContracts": "CORE-BFD-HANDOFF.md"
   }
 }

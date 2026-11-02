@@ -20,6 +20,12 @@
       "blob": "d18e8dff680a6a2ff1493f01f28b37e74f5dd866"
     },
     {
+      "path": "CORE-BFD-HANDOFF.md",
+      "bytes": 6599,
+      "sha256": "a044c65e3ef594c22707371fd9d8157ed8e7a8c7167091a40ab03551b0e0dd8e",
+      "blob": "e73b35955587edcc3ef57b247b1c393456589608"
+    },
+    {
       "path": "METHOD-MAP.md",
       "bytes": 7052,
       "sha256": "3ec66d81aad8236215b3da5d539beb14bde6bff09ab084f487facc9d069b0ff9",
@@ -27,15 +33,21 @@
     },
     {
       "path": "README.md",
-      "bytes": 5933,
-      "sha256": "9e3d066ffb6ffe5410ec67a277bfe62f9fb987d4dce285128bcb268d2024840d",
-      "blob": "7b7d641f1439325482836f4192db6850a3f9ab40"
+      "bytes": 6219,
+      "sha256": "7d8168ea442e00fb74d95dd896b98b192f5295bb6300920f12a39b2d7fcf2336",
+      "blob": "de6ae52e4e0bbc888f9757bd83e8b507c65535f7"
     },
     {
       "path": "ROOT-OPT-IN.md",
       "bytes": 4062,
       "sha256": "a55362917809e46abcec6307f3cd680a7c915912fc7aa06b026a2a76c8e05406",
       "blob": "9f8f812dc591cf9fb166813667c454fae6b57d26"
+    },
+    {
+      "path": "core-pre-native.js",
+      "bytes": 2578,
+      "sha256": "f6484f157269530db9e458de3b81eff449a9fb09998d66b1fa117a5dcf83961a",
+      "blob": "2b2033ffd74a6be9546ba8aba25f6c19e0eae128"
     },
     {
       "path": "data.js",
@@ -98,6 +110,12 @@
       "blob": "617344eadebe8a2d3bf790a23986b83862f23e62"
     },
     {
+      "path": "tests/core-pre-native.test.mjs",
+      "bytes": 7399,
+      "sha256": "1862c7676d8e5ed0baa74dfa07cc26b0647fbb5bd22a6f95c56132b27c5cec2f",
+      "blob": "ec7e2b27ddbab519232f4a650377976b811d3c11"
+    },
+    {
       "path": "tests/fixture.mjs",
       "bytes": 3448,
       "sha256": "8c0f13ef8f57f45f94f84dfec6ba32a8f16851dcb05f1ed6a6b38b8101e2d304",
@@ -122,6 +140,12 @@
       "blob": "6d253eb159e4a9b3105c052824952f445d8ace66"
     },
     {
+      "path": "tests/stage-core.mjs",
+      "bytes": 2275,
+      "sha256": "a58a176a9b75527049c8d8c4b1ec576cba4357b9e36d2701404e795c5b87e1c2",
+      "blob": "b91aad9b674fa405f0bf88b396bce7199ca3950e"
+    },
+    {
       "path": "tests/stage.mjs",
       "bytes": 1766,
       "sha256": "b5675c94d1a3abdaffeb33f947a07cb55e70ec77ab7fa5c2ee84761c8ef88128",
@@ -129,9 +153,9 @@
     },
     {
       "path": "tools/check-source.mjs",
-      "bytes": 3291,
-      "sha256": "d6c0af78236bff8acc92bf849c7446d5027c9f23f0d170ef7fb6e46879c963f6",
-      "blob": "4ca086b9732bf86f5f33a718f2bcf329890a610f"
+      "bytes": 4532,
+      "sha256": "de11d2d1bfdab763915fc34aee245a3994d7d609c9f88336f7d2073576a113e6",
+      "blob": "b25858ac9ecab52ac43d0253698d0fe5e98ae7e6"
     }
   ],
   "immutableInputs": [
@@ -284,6 +308,72 @@
           "blob": "a4f575d3398fd3ac7d1b1192eb62963fca0d9266"
         }
       ]
+    },
+    {
+      "role": "review-only actual Core construction/continued source; no adoption",
+      "commit": "bfd8185f719ee37a90479aece81aceef31121059",
+      "files": [
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.js",
+          "bytes": 362,
+          "sha256": "f18dc3950a18425719dfdfce362216c64d5c6e7f224850e94b2f5a75ae3a34fb",
+          "blob": "1f0353644ca1dff258214dd25be505f492e8a828"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.d.ts",
+          "bytes": 7641,
+          "sha256": "a4c11869ff8b1966eac0585011038a19dd4ec6356153e344290cde145bbc5429",
+          "blob": "eb9c10442bba39f085ffcf69ac7c28c09ef55b57"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/owner.js",
+          "bytes": 13771,
+          "sha256": "16b0bf9b9528aab98347bcfdd275c845f222d04c16eb94a507c0648c9b0d199c",
+          "blob": "e24cb046ca3c42452b8737ae94a90811a61cd04e"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel.js",
+          "bytes": 4912,
+          "sha256": "cb14b7b10e9de1c9402c471267aa6bf3af3ccbb4974c89a9689a67bc72972176",
+          "blob": "8d3d4353e9c57b3d603ebdce38b92bc66f9e6886"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/journal.js",
+          "bytes": 7121,
+          "sha256": "0ed0f4a20fd4f9eae68d0ff046df78fbadd45f022c04b467202196afd053fb16",
+          "blob": "277fb6fb081968c29d64fd62959425d2c8b698aa"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/core.js",
+          "bytes": 6945,
+          "sha256": "2344f537f7804104eb2af2d9ccc295b8df19f1fe0cb6c236b5aa6b3d44d1c150",
+          "blob": "991d38bc607d56c8dc200d1ddaf51c926bfec4a0"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/capacity.js",
+          "bytes": 7060,
+          "sha256": "eefba49f8a33a36256a487436c12f2b3b23c4fd7767e2017fe82b9bdd96b42d6",
+          "blob": "322a11462d6148c30637378be5f7dedcdedc9039"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/README.md",
+          "bytes": 6124,
+          "sha256": "3dc363599f336d054f958bfbdd27145b811ea78f28caa19ea9aca4f0812967b9",
+          "blob": "a804dfdc77875ca069622e5f307c4ca015541e04"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/source.json",
+          "bytes": 38367,
+          "sha256": "f56b57bd27af934f82a4401bd44b1ca199abf43682c467df7252044d7e79d102",
+          "blob": "ff12d5025765969c6a80b146a220691e0d34c572"
+        },
+        {
+          "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel-inputs.json",
+          "bytes": 19964,
+          "sha256": "d1c223107a647ce60126ecb35d4a1f0b4344fe4d81e970cf837e1f6385045952",
+          "blob": "e347e5e6acad1fc84691e888ef9cab426344cbdd"
+        }
+      ]
     }
   ],
   "proposedKernelAdaptation": {
@@ -319,12 +409,22 @@
     "sourceCommit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
     "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js",
     "patch": "kernel-single-journal.patch",
-    "status": "proposed; not applied; fixed executable Core.actualJournal factory pending",
+    "status": "proposed; not applied; bfd actual Core journal exists but current live source/adoption route remains unbound",
     "construction": "same original journal and readport through authenticated Core wrapper under existing bootstrap; no second history"
   },
   "pendingNativeAssociation": {
     "document": "CONSTRUCTION-AND-ACQUISITION.md",
     "status": "typed handoff only; actual job carrier/preimages must be frozen with Root/Native",
     "sameViewsManager": true
+  },
+  "reviewOnlyCore": {
+    "commit": "bfd8185f719ee37a90479aece81aceef31121059",
+    "status": "REVIEW-ONLY",
+    "entry": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.js",
+    "typesSha256": "a4c11869ff8b1966eac0585011038a19dd4ec6356153e344290cde145bbc5429",
+    "snapshot": "artifacts/c2-host-bindings/core-bfd8185",
+    "handoff": "CORE-BFD-HANDOFF.md",
+    "sourceAdaptations": [],
+    "productionHost": "UNBOUND"
   }
 }
