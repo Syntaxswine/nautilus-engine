@@ -1,0 +1,28 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import * as mapCore from '../packages/map-core/index.js';import * as tiles from '../packages/tiles-core/index.js';import * as examples from '../packages/tile-visuals/example.js';
+import {plannerBindingSourceFixture,preparedPlannerBindingFixture} from '../candidates/tile-stack/editor/fixtures.js';
+import {createTileStackDocumentPolicy,validateTileStackDocument} from '../candidates/tile-stack/editor/policy.js';
+import {capturePlannerSource,validateRequestedClearance,bindPlannerTargetProposal} from '../candidates/tile-stack/editor/planner-seam.js';
+const deps={mapCore,tiles,examples},clone=structuredClone,context={floorId:'F14',mode:'manual',floorEpoch:0,providerToken:'actual-public-provider',cancelled:false};
+function fixture(){const d=plannerBindingSourceFixture(deps),p=createTileStackDocumentPolicy(deps,d),frame=capturePlannerSource(p,tiles,d,context),f=preparedPlannerBindingFixture(deps,d,frame);return {d,p,frame,f};}
+test('fdd proposed ABI captures accepted constraints and exact geometric table without rewriting source',()=>{
+ const d=plannerBindingSourceFixture(deps),before=JSON.stringify(d),p=createTileStackDocumentPolicy(deps,d),frame=capturePlannerSource(p,tiles,d,context);assert.equal(frame.expected.sourceConstraintsDigest,tiles.tileLayoutToken(d.constraints));assert.equal(frame.context.sourceConstraintsDigest,frame.expected.sourceConstraintsDigest);assert.equal(frame.expected.floorProfileDigest,tiles.tileLayoutToken(frame.context.floorProfile));assert.deepEqual(frame.context.floorProfile.floors,d.tileBundle.layout.floors);assert.equal(validateRequestedClearance(d,4),4);assert.throws(()=>validateRequestedClearance(d,1.99));assert.equal(JSON.stringify(d),before);assert.throws(()=>capturePlannerSource(p,tiles,d,{...context,cancelled:true}));
+});
+test('actual public preparation preserves workspace minimum, stronger upper pairs and unrelated lower pair',()=>{
+ const {d,p,frame,f}=fixture(),before=JSON.stringify(d),bound=bindPlannerTargetProposal(p,tiles,d,context,frame,f.plan,f.prepared.next.bundle);assert.equal(bound.committable,false);assert.equal(f.plannerExecuted,false);assert.equal(bound.targetDocument.constraints.minimumClearanceM,2);assert.deepEqual(bound.targetDocument.constraints.managedRelations.map(r=>[r.id,r.clearanceM]),[['lower-pair',2],['upper-a',4],['upper-b',4]]);assert.deepEqual(bound.targetDocument.tileBundle.layout.instances.filter(v=>v.locked),d.tileBundle.layout.instances.filter(v=>v.locked));assert.equal(bound.binding.nextConstraintsDigest,tiles.tileLayoutToken(bound.targetDocument.constraints));assert.equal(JSON.stringify(d),before);
+});
+test('binding rejects stale document/floor/mode/provider/cancellation and altered source/next/profile/request tokens',()=>{
+ const {d,p,frame,f}=fixture();for(const change of [h=>h.floorId='F00',h=>h.mode='character-follow',h=>h.floorEpoch=1,h=>h.providerToken='other',h=>h.cancelled=true]){const h=clone(context);change(h);assert.throws(()=>bindPlannerTargetProposal(p,tiles,d,h,frame,f.plan,f.prepared.next.bundle));}
+ const changed=clone(d);changed.tileBundle.layout.extensions.changed='valid-new-source';assert.throws(()=>bindPlannerTargetProposal(p,tiles,changed,context,frame,f.plan,f.prepared.next.bundle));
+ for(const key of Object.keys(f.plan.binding)){const plan=clone(f.plan);plan.binding[key]='a'.repeat(64);assert.throws(()=>bindPlannerTargetProposal(p,tiles,d,context,frame,plan,f.prepared.next.bundle),key);}
+});
+test('public source identities remain distinct from workspace IDs and the declared minimum quantum is retained',()=>{
+ const d=plannerBindingSourceFixture(deps),r=d.tileBundle.recipes[0];r.reservations.find(r=>r.id==='body').id='body/primary';const catalogue=tiles.createTileCatalogue(d.tileBundle.recipes),l=clone(d.tileBundle.layout);l.catalogueDigest=catalogue.digest;
+ for(const v of l.instances){v.id='owner/'+v.id;v.contentDigest=tiles.compileTileRecipe(r).contentDigest;}for(const relation of l.relations){relation.id='cross/'+relation.id;relation.a='owner/'+relation.a;relation.b='owner/'+relation.b;}
+ d.tileBundle=tiles.tileBundle(l,catalogue);d.constraints.owners=l.instances.map(v=>({instanceId:v.id,primaryReservationId:'body/primary'}));d.constraints.managedRelations=clone(l.relations);const before=JSON.stringify(d);assert.deepEqual(validateTileStackDocument(deps,d),d);assert.equal(JSON.stringify(d),before);
+ d.constraints.minimumClearanceM=.0000001;assert.throws(()=>validateTileStackDocument(deps,d),e=>e.code==='STACK_CONSTRAINTS_LIMIT');
+});
+test('per-intent clearance cannot become a global policy update or weaken a retained managed identity',()=>{
+ const {d,p,frame,f}=fixture(),global=clone(f.plan);global.constraints.minimumClearanceM=4;global.binding.nextConstraintsDigest=tiles.tileLayoutToken(global.constraints);assert.throws(()=>bindPlannerTargetProposal(p,tiles,d,context,frame,global,f.prepared.next.bundle),e=>e.code==='STACK_EDITOR_GLOBAL_POLICY_CHANGE');
+ const weak=preparedPlannerBindingFixture(deps,d,frame,2);weak.plan.constraints.managedRelations.find(r=>r.id==='upper-a').clearanceM=2;weak.plan.request.relations.find(r=>r.id==='upper-a').clearanceM=2;weak.plan.binding.nextConstraintsDigest=tiles.tileLayoutToken(weak.plan.constraints);weak.plan.binding.requestDigest=tiles.tileLayoutToken(weak.plan.request);const prepared=tiles.prepareTileRepair(d.tileBundle,weak.plan.request,{contextToken:frame.context.contextToken});assert.equal(prepared.ok,true);assert.throws(()=>bindPlannerTargetProposal(p,tiles,d,context,frame,weak.plan,prepared.next.bundle),e=>e.code==='STACK_EDITOR_PAIR_WEAKENED');
+});

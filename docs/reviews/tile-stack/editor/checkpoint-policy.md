@@ -1,5 +1,7 @@
 # Gate A checkpoint policy and planner reconciliation
 
+Historical proposal at `a6a472069846be26ceb03bdd905af3497ed749b3`. The [fdd0601 reconciliation](planner-reconciliation.md) supplies the current token names, immutable workspace minimum, requested-clearance mapping and captured-source binding. Its current evidence supersedes the validation counts below; the prior Git checkpoint remains preserved.
+
 This follows the first fixed Editor proposal `cfd5a3226a687b9b166e240666a34c75ef3e7972` and the Architect-relayed Coder contract `a2eaa70a616e7bd17336435422db5602dfb2e38d`. The first [API card](api.md) and [source record](contract-source.json) remain historical and unchanged. This document replaces its incomplete v2 document/operation proposal with the atomic constraint interpretation below. Coder's first checkpoint is types/data validation, not an accepted functional planner. No peer implementation is imported here.
 
 ## Complete source and atomic target

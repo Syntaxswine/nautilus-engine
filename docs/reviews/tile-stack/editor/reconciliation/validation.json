@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "status": "pass",
+  "editorParent": "a6a472069846be26ceb03bdd905af3497ed749b3",
+  "plannerReference": {
+    "commit": "fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+    "file": "candidates/tile-stack/core/contracts.js",
+    "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+    "functionalPlannerLoaded": false,
+    "approval": "API reconciliation only; independent proof correction is pending"
+  },
+  "scope": "API and constraint-semantic reconciliation; functional planner proof correction and full Gate A/Gate B approval remain pending",
+  "focused": 21,
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "count": null,
+      "log": "artifacts/tile-stack-editor/reconcile-check.log",
+      "sha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 933,
+      "log": "artifacts/tile-stack-editor/reconcile-test.log",
+      "sha256": "2c965fa3e2c4373d38c21b11658d772f6437c705ac2f9a0f098c8bd1923c5090"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/tile-stack-editor/reconcile-upstream.log",
+      "sha256": "17dc8d51d1ee6e757e3540dabe2116237953b8852dc8b4d9b88c84ebb59c8824"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 519,
+      "log": "artifacts/tile-stack-editor/reconcile-build.log",
+      "sha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "proof": {
+    "file": "docs/reviews/tile-stack/editor/reconciliation/proof.json",
+    "sha256": "053550894b7b5cf53c9d4d42c1c1b9b578f75e9cfd4ff11a76971110487be4fd",
+    "publicBindings": 4,
+    "installedFiles": 118,
+    "hostHelpers": 15,
+    "sourceInstalledParity": true,
+    "publicCorePreparationWitnesses": 1,
+    "functionalPlannerLoaded": false
+  },
+  "protectedChanges": [],
+  "cleanup": {
+    "file": "docs/reviews/tile-stack/editor/reconciliation/proof-cleanup.json",
+    "process": {
+      "pid": 31000,
+      "creationFiletime": "134380683853358464",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "sameLifetimeLive": false,
+    "stageRemoved": true,
+    "remainingStages": 0,
+    "browsers": [],
+    "servers": [],
+    "ports": [],
+    "retainedProcesses": [],
+    "allFiniteCommandsExited": true,
+    "commandSessions": [
+      12434,
+      13503,
+      84532,
+      76256,
+      45712
+    ]
+  }
+}

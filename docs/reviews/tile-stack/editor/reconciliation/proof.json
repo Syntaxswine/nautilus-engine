@@ -1,0 +1,1617 @@
+{
+  "version": 1,
+  "status": "pass",
+  "base": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "firstContract": "cfd5a3226a687b9b166e240666a34c75ef3e7972",
+  "scope": "Gate A candidate host helpers; not public registration or a v2 live coordinator",
+  "plannerReference": {
+    "commit": "fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+    "file": "candidates/tile-stack/core/contracts.js",
+    "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+    "functionalPlannerLoaded": false,
+    "approval": "API reconciliation only; independent proof correction is pending"
+  },
+  "bindings": [
+    {
+      "key": "mapCore",
+      "entry": ".",
+      "file": "packages/map-core/index.js"
+    },
+    {
+      "key": "tiles",
+      "entry": "./tiles",
+      "file": "packages/tiles-core/index.js"
+    },
+    {
+      "key": "examples",
+      "entry": "./tiles/art/example",
+      "file": "packages/tile-visuals/example.js"
+    },
+    {
+      "key": "floorCore",
+      "entry": "./floors",
+      "file": "packages/floor-navigation/index.js"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "apps/editor/smart-tile/authority.js",
+      "sha256": "68978842e05c0d04d363cdfa603206f43ad45bbaa220eca0d5df826eed19da5d"
+    },
+    {
+      "file": "apps/editor/smart-tile/checkpoint.js",
+      "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4"
+    },
+    {
+      "file": "apps/editor/smart-tile/contract.js",
+      "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04"
+    },
+    {
+      "file": "apps/editor/smart-tile/intents.js",
+      "sha256": "e02380202ed2b59da5f8216306b2371bacfbb3ed96b045144e3a58f7137ce6c1"
+    },
+    {
+      "file": "apps/editor/smart-tile/session.js",
+      "sha256": "fa10f2defcbc615c3d24c071884b6c7790c55a7ecda8bf900a9677a9a3c158b0"
+    },
+    {
+      "file": "apps/editor/smart-tile/views.js",
+      "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf"
+    },
+    {
+      "file": "candidates/tile-stack/editor/contract.js",
+      "sha256": "16f73e84554dac475b93c52fa2df77484433bfe4b6ce8687aaffd80053ef0c56"
+    },
+    {
+      "file": "candidates/tile-stack/editor/finish-menu.js",
+      "sha256": "937e3d264b303f8dcc144d805e0b778a3a4c1e4d1a4c050276f280bd870bb948"
+    },
+    {
+      "file": "candidates/tile-stack/editor/fixtures.js",
+      "sha256": "0f6585f11f018b16605e467d3f295c0eb126e16e1fe545df762f982d63669612"
+    },
+    {
+      "file": "candidates/tile-stack/editor/floors.js",
+      "sha256": "477d02ff3d1b9338107ef1db64db87f2aec62fa88219c8605c9b225cd30e1886"
+    },
+    {
+      "file": "candidates/tile-stack/editor/planner-seam.js",
+      "sha256": "c797268433ceb155ccff487c0ed08ecfbc2840ae41903faae9c082c9cab7088e"
+    },
+    {
+      "file": "candidates/tile-stack/editor/policy.js",
+      "sha256": "4c574772cf55792ef3e3bd959fc66e42def516e90096d1e2e04c9aa92ab4dfab"
+    },
+    {
+      "file": "candidates/tile-stack/editor/recovery-fixtures.js",
+      "sha256": "b79d238c3c657f57bb3fa41fa05814fcda0306475c64fdcc2eb1d2be7426a0fd"
+    },
+    {
+      "file": "packages/parts-core/hash.js",
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "file": "packages/windows-authoring/journal.js",
+      "sha256": "6282a5043254fd34915d3492e04d7bb30d519f8601555fd55a680f201a121785"
+    }
+  ],
+  "verificationInputs": [
+    {
+      "file": "tools/tile-stack-editor-proof.mjs",
+      "sha256": "b0ca974412597e16210920190d1fcba5114201a0111bc6001d4b513a006e4e87"
+    },
+    {
+      "file": "tools/distribution.mjs",
+      "sha256": "6f254d4ffa209848f9d028d788faec36046877208ed9f92cce5e45cfd3f9d262"
+    },
+    {
+      "file": "tools/module-references.mjs",
+      "sha256": "4ce1ca9f91ec3941bc750fc67bbfb6498de82fff20bcbff04f9bc3b874c59002"
+    }
+  ],
+  "installation": {
+    "archiveSha256": "0819c439e4e4aed95d7eb0379f42716da3952644bcfb336904b306ebea132585",
+    "installedFiles": [
+      {
+        "file": "packages/floor-navigation/index.js",
+        "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d"
+      },
+      {
+        "file": "packages/map-core/blocks.js",
+        "sha256": "103bfe375a41738cd989e770f53519805c219a55033dfe4d9e5a4332ff052ebb"
+      },
+      {
+        "file": "packages/map-core/capabilities.js",
+        "sha256": "cb6d527d4a8716c929a1b92ec36d6922330dc9c26e6697fc3b7e5ffe265c4475"
+      },
+      {
+        "file": "packages/map-core/contract-manifest.js",
+        "sha256": "2398f6a9db16cf2efb631ee5d57d396d557fb0f94873e29b784b1bb02c2d1273"
+      },
+      {
+        "file": "packages/map-core/document.js",
+        "sha256": "80416a2d09f2b7a23d5a1241315bd7f32ef97936c23e1832ef1eac8c578554ec"
+      },
+      {
+        "file": "packages/map-core/editing-document.js",
+        "sha256": "77cc0f80981fc06301e28cc35211fae222255ae854863e0e6a0c95f3362a2786"
+      },
+      {
+        "file": "packages/map-core/generator.js",
+        "sha256": "b9b3ec1a00d39606dc1eb6d8943e172ac3b566cdd45ffa2ea4c8e52d27fabf98"
+      },
+      {
+        "file": "packages/map-core/index.js",
+        "sha256": "c1fd8b2e467c48cd94202a7e00e6f4bee531ec156f41d3f2279c21f08349ddd2"
+      },
+      {
+        "file": "packages/map-core/inspection.js",
+        "sha256": "29125e7c4bcf866a4509f70f653be46037946cb595563092b296390cd90fd4e3"
+      },
+      {
+        "file": "packages/map-core/maps.js",
+        "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756"
+      },
+      {
+        "file": "packages/map-core/persistence.js",
+        "sha256": "7f0217444f1d9e438a79a7347cb8b79442c41d20698127320395eafe5e409800"
+      },
+      {
+        "file": "packages/map-core/prefab-blocks.js",
+        "sha256": "6591d82c2c6cd21183e18c1e3011a09860d1a0ac2b6b071ef3cbc876f19a55f5"
+      },
+      {
+        "file": "packages/map-core/prefab-document.js",
+        "sha256": "3ec21d4bab1eeb214d5a7a4d66eb83f44e99022fbd292c8ca6a13838a2cc1fc7"
+      },
+      {
+        "file": "packages/map-core/prefab-generator.js",
+        "sha256": "5131c2b257d251f35017bce74103858624254d86b0516c6a23f093ee304c8dea"
+      },
+      {
+        "file": "packages/map-core/prefab-maps.js",
+        "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9"
+      },
+      {
+        "file": "packages/map-core/prefab-rotation.js",
+        "sha256": "983b0fade849222d1c7910ba362f1bdc33248a6277a90085934e5207e8fb76f8"
+      },
+      {
+        "file": "packages/map-core/requirements.js",
+        "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657"
+      },
+      {
+        "file": "packages/map-core/roof-blocks.js",
+        "sha256": "4ab8a70684b65c29395fcf87401274506ced6ce78074616723779fb7cf1b0cfd"
+      },
+      {
+        "file": "packages/map-core/roof-data.js",
+        "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7"
+      },
+      {
+        "file": "packages/map-core/roof-document.js",
+        "sha256": "a1e6e36468c73a6a3b4d8b42f637d4054dd96122a097976e397b482b0ad92029"
+      },
+      {
+        "file": "packages/map-core/roof-generator.js",
+        "sha256": "62576885f7eb907ed24f6b466c175743cf7e1ca4b532c3e17dedee5faff3dcae"
+      },
+      {
+        "file": "packages/map-core/roof-maps.js",
+        "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848"
+      },
+      {
+        "file": "packages/map-core/roof-rotation.js",
+        "sha256": "d9d15a3f0a27900ec0c996e4ba380e24e95c36d3b36a35b5def9e12caec8ffde"
+      },
+      {
+        "file": "packages/map-core/wall-runs.js",
+        "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+      },
+      {
+        "file": "packages/parts-core/hash.js",
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+      },
+      {
+        "file": "packages/prefab-core/catalogue.js",
+        "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85"
+      },
+      {
+        "file": "packages/prefab-core/index.js",
+        "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c"
+      },
+      {
+        "file": "packages/prefab-core/original-catalogue.js",
+        "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1"
+      },
+      {
+        "file": "packages/prefab-core/registry.js",
+        "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b"
+      },
+      {
+        "file": "packages/roof-core/index.js",
+        "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c"
+      },
+      {
+        "file": "packages/tile-visuals/example.js",
+        "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+      },
+      {
+        "file": "packages/tiles-core/cells.js",
+        "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+      },
+      {
+        "file": "packages/tiles-core/contract.js",
+        "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+      },
+      {
+        "file": "packages/tiles-core/curves.js",
+        "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+      },
+      {
+        "file": "packages/tiles-core/data.js",
+        "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+      },
+      {
+        "file": "packages/tiles-core/dependencies.js",
+        "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+      },
+      {
+        "file": "packages/tiles-core/example.js",
+        "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+      },
+      {
+        "file": "packages/tiles-core/fields.js",
+        "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+      },
+      {
+        "file": "packages/tiles-core/index.js",
+        "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+      },
+      {
+        "file": "packages/tiles-core/interfaces.js",
+        "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+      },
+      {
+        "file": "packages/tiles-core/layout.js",
+        "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+      },
+      {
+        "file": "packages/tiles-core/projection.js",
+        "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+      },
+      {
+        "file": "packages/tiles-core/recipes.js",
+        "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+      },
+      {
+        "file": "packages/tiles-core/repair.js",
+        "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+      },
+      {
+        "file": "packages/world-core/parts-refusal.js",
+        "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+        "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+        "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+        "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+        "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-mass.js",
+        "sha256": "353d5a71ce4bd6e1a875abad5c449c11538a03b2e056a8e75c14bb82c2fc1cda"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+        "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+        "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+        "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+        "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+        "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-support.js",
+        "sha256": "1e374462bab1402533c8a245afb0732aa37a5e359093b742a1a8f0cfd2542b79"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+        "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+        "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+        "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+        "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+        "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/blocks.js",
+        "sha256": "f2ab84d27e184269da59a7eb752d1bddb2e28a109baba541c28aa087c91491d7"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+        "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/editor-model.js",
+        "sha256": "2a07bf44786237b44d6469e36981c4961c000e721a890102175afe0adcf336a0"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+        "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+        "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+        "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+        "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+        "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+        "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-data.js",
+        "sha256": "864408dd2cb957c73020685d7827328ee56f50f703477a7bc90f78455ce0a345"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+        "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+        "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-breaches.js",
+        "sha256": "42327eb257445a8bdea24317646fe5c0c3d6cfdfe5c6b171fc7f2a33da6829b6"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+        "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-foliage-brush.js",
+        "sha256": "191da3be093bf36b8bddfc0aaaf2726863856eeecb1f6ba1320851d882909a10"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-land-brush.js",
+        "sha256": "97ca4310e173b36fe6960f4051cdd525adef930ea38d7cf20e6a6125b745cd6f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-ramp-stroke.js",
+        "sha256": "4e5e5ab9b95f37cfe803557a7092ebd6c848ea9744b65549beea2896fb5f5930"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-structure-presets.js",
+        "sha256": "e924235d20690d06b6d5be5abf1132d78ee73ddfcd3d74f98b5e7d7932dfe53d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+        "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+        "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+        "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+        "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+        "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fall-damage.js",
+        "sha256": "187b4e11af130f0bd0e1846bd261d6eab6819714f8717c24809dba8ffdb42022"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+        "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+        "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+        "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+        "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+        "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+        "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-start.js",
+        "sha256": "0ac8f9eeca0886356fe56e0d5bb4476a3a4c04e63f6203f95112c440cf31657a"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+        "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+        "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+        "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+        "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+        "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+        "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+        "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+        "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-block-rotation.js",
+        "sha256": "9cf6c3c3051aa161b7b92842a947882e6681960daeebe8d862119ba90a714aeb"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+        "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+        "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+        "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+        "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+        "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-catalog.js",
+        "sha256": "2cf050482f2bb00406e927699e7553564fabc1445c37b3b57d089cf73cb89d96"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js",
+        "sha256": "2e7048cb5be18dfe516b671f911cea93147123e511869cce40421519a8941a4b"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+        "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+        "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+        "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+        "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+        "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+        "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-collapse.js",
+        "sha256": "01c23602abc415f3df3e9dabaa66bd5043c5a07b573852eadac3c86e771490aa"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-health.js",
+        "sha256": "97d8f63285c7a21bf5ed10134efdd7b49ddc5f5c21e753e9b46e8fbc482a7a49"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+        "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a"
+      },
+      {
+        "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+        "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68"
+      }
+    ],
+    "hostHelpers": [
+      {
+        "file": "apps/editor/smart-tile/authority.js",
+        "sha256": "68978842e05c0d04d363cdfa603206f43ad45bbaa220eca0d5df826eed19da5d"
+      },
+      {
+        "file": "apps/editor/smart-tile/checkpoint.js",
+        "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4"
+      },
+      {
+        "file": "apps/editor/smart-tile/contract.js",
+        "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04"
+      },
+      {
+        "file": "apps/editor/smart-tile/intents.js",
+        "sha256": "e02380202ed2b59da5f8216306b2371bacfbb3ed96b045144e3a58f7137ce6c1"
+      },
+      {
+        "file": "apps/editor/smart-tile/session.js",
+        "sha256": "fa10f2defcbc615c3d24c071884b6c7790c55a7ecda8bf900a9677a9a3c158b0"
+      },
+      {
+        "file": "apps/editor/smart-tile/views.js",
+        "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf"
+      },
+      {
+        "file": "candidates/tile-stack/editor/contract.js",
+        "sha256": "16f73e84554dac475b93c52fa2df77484433bfe4b6ce8687aaffd80053ef0c56"
+      },
+      {
+        "file": "candidates/tile-stack/editor/finish-menu.js",
+        "sha256": "937e3d264b303f8dcc144d805e0b778a3a4c1e4d1a4c050276f280bd870bb948"
+      },
+      {
+        "file": "candidates/tile-stack/editor/fixtures.js",
+        "sha256": "0f6585f11f018b16605e467d3f295c0eb126e16e1fe545df762f982d63669612"
+      },
+      {
+        "file": "candidates/tile-stack/editor/floors.js",
+        "sha256": "477d02ff3d1b9338107ef1db64db87f2aec62fa88219c8605c9b225cd30e1886"
+      },
+      {
+        "file": "candidates/tile-stack/editor/planner-seam.js",
+        "sha256": "c797268433ceb155ccff487c0ed08ecfbc2840ae41903faae9c082c9cab7088e"
+      },
+      {
+        "file": "candidates/tile-stack/editor/policy.js",
+        "sha256": "4c574772cf55792ef3e3bd959fc66e42def516e90096d1e2e04c9aa92ab4dfab"
+      },
+      {
+        "file": "candidates/tile-stack/editor/recovery-fixtures.js",
+        "sha256": "b79d238c3c657f57bb3fa41fa05814fcda0306475c64fdcc2eb1d2be7426a0fd"
+      },
+      {
+        "file": "packages/parts-core/hash.js",
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+      },
+      {
+        "file": "packages/windows-authoring/journal.js",
+        "sha256": "6282a5043254fd34915d3492e04d7bb30d519f8601555fd55a680f201a121785"
+      }
+    ],
+    "privatePrimaryProvider": false
+  },
+  "source": {
+    "profiles": [
+      {
+        "id": "aft-native-fifteen",
+        "originalSha256": "44a75e987394e785ec72fc89aa4551507f287f92b9aa806dfe54d5de889dec64",
+        "tableToken": "2c589988ee544128e66eacf4646f460b0e00535698b80373904dc691c60ff019",
+        "policyToken": "ec12d41648ef33ec611d50b00d55692e05e31751c8475e5e6d73a6e6b07427ee",
+        "contextToken": "0771ecb992694ae775ca5d1335e4101f968da273984323c0aa11f8ff34a13ec9",
+        "proposalSha256": "4c82fc1eff9163d20e61934f61b47ca87f792a71b9e5207c9ce3647974ae6690",
+        "floors": [
+          {
+            "id": "F00",
+            "elevationM": 0,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 0
+            }
+          },
+          {
+            "id": "F01",
+            "elevationM": 2.12,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 1
+            }
+          },
+          {
+            "id": "F02",
+            "elevationM": 4.24,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 2
+            }
+          },
+          {
+            "id": "F03",
+            "elevationM": 6.36,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F04",
+            "elevationM": 8.48,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F05",
+            "elevationM": 10.6,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F06",
+            "elevationM": 12.72,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F07",
+            "elevationM": 14.84,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F08",
+            "elevationM": 16.96,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F09",
+            "elevationM": 19.08,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F10",
+            "elevationM": 21.2,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F11",
+            "elevationM": 23.32,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F12",
+            "elevationM": 25.44,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F13",
+            "elevationM": 27.56,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F14",
+            "elevationM": 29.68,
+            "source": {
+              "kind": "authored-tile"
+            }
+          }
+        ],
+        "constraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "aft-native-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetConstraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "aft-native-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetBinding": {
+          "sourceDocumentDigest": "4925e8dde572831561b973a093d7837ae8a522b61d51dec46f55d31ba0bc42d0",
+          "sourceConstraintsDigest": "bb60d1cb0b8394a0ea1351c5c0c03af23bf3a8d65f61ab644e6305018aa3b187",
+          "targetDocumentDigest": "e2f24eb0905a56a641c74d50781610ceb5c845c04e2a2db507222b0bdbd2b0b7",
+          "nextConstraintsDigest": "bb60d1cb0b8394a0ea1351c5c0c03af23bf3a8d65f61ab644e6305018aa3b187"
+        }
+      },
+      {
+        "id": "nonuniform-fifteen",
+        "originalSha256": "44a75e987394e785ec72fc89aa4551507f287f92b9aa806dfe54d5de889dec64",
+        "tableToken": "b8b6dcbcb145431c8126b82158a68cc3ac38da65cffb6f5b64bf3c4f4fb36bfd",
+        "policyToken": "c402890f8f7ffdf133c5d04edba1879794256b543e11af10965a65b353871541",
+        "contextToken": "1cd90923f479b40d24d3819239548ebe1163ffb67b63c6f2e4c1fd01c5db03cd",
+        "proposalSha256": "6067e73d06dd4e98abca5779e9536d08ee4aa1cd8668cd2331276c741ed442ec",
+        "floors": [
+          {
+            "id": "F00",
+            "elevationM": 0,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 0
+            }
+          },
+          {
+            "id": "F01",
+            "elevationM": 2.12,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 1
+            }
+          },
+          {
+            "id": "F02",
+            "elevationM": 4.24,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 2
+            }
+          },
+          {
+            "id": "F03",
+            "elevationM": 6.75,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F04",
+            "elevationM": 9.1,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F05",
+            "elevationM": 12.4,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F06",
+            "elevationM": 15,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F07",
+            "elevationM": 18.6,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F08",
+            "elevationM": 21.3,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F09",
+            "elevationM": 24.9,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F10",
+            "elevationM": 28.2,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F11",
+            "elevationM": 31,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F12",
+            "elevationM": 34.8,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F13",
+            "elevationM": 38.1,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F14",
+            "elevationM": 42.7,
+            "source": {
+              "kind": "authored-tile"
+            }
+          }
+        ],
+        "constraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "nonuniform-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetConstraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "nonuniform-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetBinding": {
+          "sourceDocumentDigest": "32b975025c838c7112f6c8eb208bacfe2a1e3869dac14db41cdf556f15dc3a55",
+          "sourceConstraintsDigest": "fc41770bfbc818485e788e6d5a7c8f7c3929606075c2b22418badb08a47b023a",
+          "targetDocumentDigest": "745050022171612e939a177e450954983bbd4ba4da95899861a1e00f054ca016",
+          "nextConstraintsDigest": "fc41770bfbc818485e788e6d5a7c8f7c3929606075c2b22418badb08a47b023a"
+        }
+      }
+    ],
+    "plannerSeam": {
+      "context": {
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "cancelled": false,
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "floorProfile": {
+          "id": "aft-native-fifteen",
+          "version": 1,
+          "floors": [
+            {
+              "id": "F00",
+              "elevationM": 0
+            },
+            {
+              "id": "F01",
+              "elevationM": 2.12
+            },
+            {
+              "id": "F02",
+              "elevationM": 4.24
+            },
+            {
+              "id": "F03",
+              "elevationM": 6.36
+            },
+            {
+              "id": "F04",
+              "elevationM": 8.48
+            },
+            {
+              "id": "F05",
+              "elevationM": 10.6
+            },
+            {
+              "id": "F06",
+              "elevationM": 12.72
+            },
+            {
+              "id": "F07",
+              "elevationM": 14.84
+            },
+            {
+              "id": "F08",
+              "elevationM": 16.96
+            },
+            {
+              "id": "F09",
+              "elevationM": 19.08
+            },
+            {
+              "id": "F10",
+              "elevationM": 21.2
+            },
+            {
+              "id": "F11",
+              "elevationM": 23.32
+            },
+            {
+              "id": "F12",
+              "elevationM": 25.44
+            },
+            {
+              "id": "F13",
+              "elevationM": 27.56
+            },
+            {
+              "id": "F14",
+              "elevationM": 29.68
+            }
+          ]
+        }
+      },
+      "expected": {
+        "revision": 0,
+        "layoutDigest": "976ca9076bd6d7d64a8fa2f5aea952dd8187e8d72d42965c3efaf1c22a104e62",
+        "catalogueDigest": "1ac95202a6cea94a2968df404cd38569fa29d8ac73d23e5b5b1045ddc1865f34",
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "floorProfileDigest": "030a70cce6b06fff6b186ce03bb46b1ab7e9725893b4a8b5799c20ea8b210e9a"
+      },
+      "binding": {
+        "sourceDocumentDigest": "8bf6dcae4714549e40cedb89fd7fd3ceb36dfc062db84cecae73c138c2f7cda9",
+        "targetDocumentDigest": "fc4195f8a48410c4e93e4b412888dbc339f4a296fb842d6b14bd829f3c4d1629",
+        "sourceLayoutDigest": "976ca9076bd6d7d64a8fa2f5aea952dd8187e8d72d42965c3efaf1c22a104e62",
+        "sourceCatalogueDigest": "1ac95202a6cea94a2968df404cd38569fa29d8ac73d23e5b5b1045ddc1865f34",
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "nextConstraintsDigest": "94ea63d9af95c28c30f6577ed53c2728e1f1bb0ff98dcb76863119d6359850cb",
+        "floorProfileDigest": "030a70cce6b06fff6b186ce03bb46b1ab7e9725893b4a8b5799c20ea8b210e9a",
+        "requestDigest": "a5e2dc9fd93fbd2a4f59e9fb02db6230e606033c467cf31a3ff91f3b3c715069"
+      },
+      "workspaceMinimum": 2,
+      "pairRequirements": [
+        {
+          "id": "lower-pair",
+          "kind": "cross",
+          "a": "lower-a",
+          "b": "lower-b",
+          "clearanceM": 2
+        },
+        {
+          "id": "upper-a",
+          "kind": "cross",
+          "a": "lower-a",
+          "b": "upper",
+          "clearanceM": 4
+        },
+        {
+          "id": "upper-b",
+          "kind": "cross",
+          "a": "lower-b",
+          "b": "upper",
+          "clearanceM": 4
+        }
+      ],
+      "plannerExecuted": false,
+      "publicPreparation": true,
+      "committable": false
+    },
+    "recovery": [
+      {
+        "fault": "after",
+        "requestId": "request-fixture-1",
+        "outcome": "committed",
+        "undo": 1,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "fee8b7b38bbc7b9cd96af466f2bfe5a4167b7503fb22580aa81e2fa14971fa6b"
+      },
+      {
+        "fault": "before",
+        "requestId": "request-fixture-1",
+        "outcome": "not-committed",
+        "undo": 0,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "recover",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "7bb8336bf3676dd486f23b6c5d2181d92732bd0b2c90b9161f2106f13bd3cce0"
+      },
+      {
+        "fault": "display",
+        "requestId": "request-fixture-1",
+        "outcome": "committed",
+        "undo": 1,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "fee8b7b38bbc7b9cd96af466f2bfe5a4167b7503fb22580aa81e2fa14971fa6b"
+      }
+    ],
+    "v2LiveRecovery": "requires accepted shared-codec extraction at Gate B",
+    "legacyPresentation": "resource-only stand-in; no mesh/browser claim"
+  },
+  "installed": {
+    "profiles": [
+      {
+        "id": "aft-native-fifteen",
+        "originalSha256": "44a75e987394e785ec72fc89aa4551507f287f92b9aa806dfe54d5de889dec64",
+        "tableToken": "2c589988ee544128e66eacf4646f460b0e00535698b80373904dc691c60ff019",
+        "policyToken": "ec12d41648ef33ec611d50b00d55692e05e31751c8475e5e6d73a6e6b07427ee",
+        "contextToken": "0771ecb992694ae775ca5d1335e4101f968da273984323c0aa11f8ff34a13ec9",
+        "proposalSha256": "4c82fc1eff9163d20e61934f61b47ca87f792a71b9e5207c9ce3647974ae6690",
+        "floors": [
+          {
+            "id": "F00",
+            "elevationM": 0,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 0
+            }
+          },
+          {
+            "id": "F01",
+            "elevationM": 2.12,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 1
+            }
+          },
+          {
+            "id": "F02",
+            "elevationM": 4.24,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 2
+            }
+          },
+          {
+            "id": "F03",
+            "elevationM": 6.36,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F04",
+            "elevationM": 8.48,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F05",
+            "elevationM": 10.6,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F06",
+            "elevationM": 12.72,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F07",
+            "elevationM": 14.84,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F08",
+            "elevationM": 16.96,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F09",
+            "elevationM": 19.08,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F10",
+            "elevationM": 21.2,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F11",
+            "elevationM": 23.32,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F12",
+            "elevationM": 25.44,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F13",
+            "elevationM": 27.56,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F14",
+            "elevationM": 29.68,
+            "source": {
+              "kind": "authored-tile"
+            }
+          }
+        ],
+        "constraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "aft-native-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetConstraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "aft-native-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetBinding": {
+          "sourceDocumentDigest": "4925e8dde572831561b973a093d7837ae8a522b61d51dec46f55d31ba0bc42d0",
+          "sourceConstraintsDigest": "bb60d1cb0b8394a0ea1351c5c0c03af23bf3a8d65f61ab644e6305018aa3b187",
+          "targetDocumentDigest": "e2f24eb0905a56a641c74d50781610ceb5c845c04e2a2db507222b0bdbd2b0b7",
+          "nextConstraintsDigest": "bb60d1cb0b8394a0ea1351c5c0c03af23bf3a8d65f61ab644e6305018aa3b187"
+        }
+      },
+      {
+        "id": "nonuniform-fifteen",
+        "originalSha256": "44a75e987394e785ec72fc89aa4551507f287f92b9aa806dfe54d5de889dec64",
+        "tableToken": "b8b6dcbcb145431c8126b82158a68cc3ac38da65cffb6f5b64bf3c4f4fb36bfd",
+        "policyToken": "c402890f8f7ffdf133c5d04edba1879794256b543e11af10965a65b353871541",
+        "contextToken": "1cd90923f479b40d24d3819239548ebe1163ffb67b63c6f2e4c1fd01c5db03cd",
+        "proposalSha256": "6067e73d06dd4e98abca5779e9536d08ee4aa1cd8668cd2331276c741ed442ec",
+        "floors": [
+          {
+            "id": "F00",
+            "elevationM": 0,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 0
+            }
+          },
+          {
+            "id": "F01",
+            "elevationM": 2.12,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 1
+            }
+          },
+          {
+            "id": "F02",
+            "elevationM": 4.24,
+            "source": {
+              "kind": "legacy-layer",
+              "layerIndex": 2
+            }
+          },
+          {
+            "id": "F03",
+            "elevationM": 6.75,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F04",
+            "elevationM": 9.1,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F05",
+            "elevationM": 12.4,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F06",
+            "elevationM": 15,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F07",
+            "elevationM": 18.6,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F08",
+            "elevationM": 21.3,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F09",
+            "elevationM": 24.9,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F10",
+            "elevationM": 28.2,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F11",
+            "elevationM": 31,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F12",
+            "elevationM": 34.8,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F13",
+            "elevationM": 38.1,
+            "source": {
+              "kind": "authored-tile"
+            }
+          },
+          {
+            "id": "F14",
+            "elevationM": 42.7,
+            "source": {
+              "kind": "authored-tile"
+            }
+          }
+        ],
+        "constraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "nonuniform-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetConstraints": {
+          "kind": "nautilus-stack-constraints",
+          "version": 1,
+          "floorProfileId": "nonuniform-fifteen",
+          "minimumClearanceM": 2,
+          "owners": [],
+          "managedRelations": []
+        },
+        "targetBinding": {
+          "sourceDocumentDigest": "32b975025c838c7112f6c8eb208bacfe2a1e3869dac14db41cdf556f15dc3a55",
+          "sourceConstraintsDigest": "fc41770bfbc818485e788e6d5a7c8f7c3929606075c2b22418badb08a47b023a",
+          "targetDocumentDigest": "745050022171612e939a177e450954983bbd4ba4da95899861a1e00f054ca016",
+          "nextConstraintsDigest": "fc41770bfbc818485e788e6d5a7c8f7c3929606075c2b22418badb08a47b023a"
+        }
+      }
+    ],
+    "plannerSeam": {
+      "context": {
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "cancelled": false,
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "floorProfile": {
+          "id": "aft-native-fifteen",
+          "version": 1,
+          "floors": [
+            {
+              "id": "F00",
+              "elevationM": 0
+            },
+            {
+              "id": "F01",
+              "elevationM": 2.12
+            },
+            {
+              "id": "F02",
+              "elevationM": 4.24
+            },
+            {
+              "id": "F03",
+              "elevationM": 6.36
+            },
+            {
+              "id": "F04",
+              "elevationM": 8.48
+            },
+            {
+              "id": "F05",
+              "elevationM": 10.6
+            },
+            {
+              "id": "F06",
+              "elevationM": 12.72
+            },
+            {
+              "id": "F07",
+              "elevationM": 14.84
+            },
+            {
+              "id": "F08",
+              "elevationM": 16.96
+            },
+            {
+              "id": "F09",
+              "elevationM": 19.08
+            },
+            {
+              "id": "F10",
+              "elevationM": 21.2
+            },
+            {
+              "id": "F11",
+              "elevationM": 23.32
+            },
+            {
+              "id": "F12",
+              "elevationM": 25.44
+            },
+            {
+              "id": "F13",
+              "elevationM": 27.56
+            },
+            {
+              "id": "F14",
+              "elevationM": 29.68
+            }
+          ]
+        }
+      },
+      "expected": {
+        "revision": 0,
+        "layoutDigest": "976ca9076bd6d7d64a8fa2f5aea952dd8187e8d72d42965c3efaf1c22a104e62",
+        "catalogueDigest": "1ac95202a6cea94a2968df404cd38569fa29d8ac73d23e5b5b1045ddc1865f34",
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "floorProfileDigest": "030a70cce6b06fff6b186ce03bb46b1ab7e9725893b4a8b5799c20ea8b210e9a"
+      },
+      "binding": {
+        "sourceDocumentDigest": "8bf6dcae4714549e40cedb89fd7fd3ceb36dfc062db84cecae73c138c2f7cda9",
+        "targetDocumentDigest": "fc4195f8a48410c4e93e4b412888dbc339f4a296fb842d6b14bd829f3c4d1629",
+        "sourceLayoutDigest": "976ca9076bd6d7d64a8fa2f5aea952dd8187e8d72d42965c3efaf1c22a104e62",
+        "sourceCatalogueDigest": "1ac95202a6cea94a2968df404cd38569fa29d8ac73d23e5b5b1045ddc1865f34",
+        "contextToken": "eedcec3b8f9041f6efa96f929ef33e4ddb17287a974c1bfba72f0dd83f6f4167",
+        "sourceConstraintsDigest": "e7fbdbffebd4ef489ec2295f181b1aba233f15c33eef95d45234dd0210faa513",
+        "nextConstraintsDigest": "94ea63d9af95c28c30f6577ed53c2728e1f1bb0ff98dcb76863119d6359850cb",
+        "floorProfileDigest": "030a70cce6b06fff6b186ce03bb46b1ab7e9725893b4a8b5799c20ea8b210e9a",
+        "requestDigest": "a5e2dc9fd93fbd2a4f59e9fb02db6230e606033c467cf31a3ff91f3b3c715069"
+      },
+      "workspaceMinimum": 2,
+      "pairRequirements": [
+        {
+          "id": "lower-pair",
+          "kind": "cross",
+          "a": "lower-a",
+          "b": "lower-b",
+          "clearanceM": 2
+        },
+        {
+          "id": "upper-a",
+          "kind": "cross",
+          "a": "lower-a",
+          "b": "upper",
+          "clearanceM": 4
+        },
+        {
+          "id": "upper-b",
+          "kind": "cross",
+          "a": "lower-b",
+          "b": "upper",
+          "clearanceM": 4
+        }
+      ],
+      "plannerExecuted": false,
+      "publicPreparation": true,
+      "committable": false
+    },
+    "recovery": [
+      {
+        "fault": "after",
+        "requestId": "request-fixture-1",
+        "outcome": "committed",
+        "undo": 1,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "fee8b7b38bbc7b9cd96af466f2bfe5a4167b7503fb22580aa81e2fa14971fa6b"
+      },
+      {
+        "fault": "before",
+        "requestId": "request-fixture-1",
+        "outcome": "not-committed",
+        "undo": 0,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "recover",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "7bb8336bf3676dd486f23b6c5d2181d92732bd0b2c90b9161f2106f13bd3cce0"
+      },
+      {
+        "fault": "display",
+        "requestId": "request-fixture-1",
+        "outcome": "committed",
+        "undo": 1,
+        "writes": [
+          {
+            "phase": "stage",
+            "id": "request-fixture-1"
+          },
+          {
+            "phase": "commit",
+            "id": "request-fixture-1"
+          }
+        ],
+        "checkpointSha256": "fee8b7b38bbc7b9cd96af466f2bfe5a4167b7503fb22580aa81e2fa14971fa6b"
+      }
+    ],
+    "v2LiveRecovery": "requires accepted shared-codec extraction at Gate B",
+    "legacyPresentation": "resource-only stand-in; no mesh/browser claim"
+  },
+  "parity": true,
+  "helper": {
+    "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+    "purpose": "Gate A Editor source/actual-installed policy and unchanged legacy recovery proof",
+    "process": {
+      "pid": 31000,
+      "creationFiletime": "134380683853358464",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "port": null,
+    "backgroundHelpers": [],
+    "stopMethod": "Finite CLI completion; synchronous npm children bounded to 120 seconds; finally removes the isolated install stage",
+    "restart": {
+      "cwd": "C:\\Users\\baals\\.codex\\worktrees\\tile-stack-editor\\Nautilus Engine",
+      "command": "node tools/tile-stack-editor-proof.mjs",
+      "dependencies": "Node >=22, npm offline cache, and complete fixed Git objects 5d69c2130eb64b6f4e31bc672e884bdc33bf47d2 and fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+      "inputs": [
+        "apps/editor/smart-tile/authority.js",
+        "apps/editor/smart-tile/checkpoint.js",
+        "apps/editor/smart-tile/contract.js",
+        "apps/editor/smart-tile/intents.js",
+        "apps/editor/smart-tile/session.js",
+        "apps/editor/smart-tile/views.js",
+        "candidates/tile-stack/editor/contract.js",
+        "candidates/tile-stack/editor/finish-menu.js",
+        "candidates/tile-stack/editor/fixtures.js",
+        "candidates/tile-stack/editor/floors.js",
+        "candidates/tile-stack/editor/planner-seam.js",
+        "candidates/tile-stack/editor/policy.js",
+        "candidates/tile-stack/editor/recovery-fixtures.js",
+        "packages/parts-core/hash.js",
+        "packages/windows-authoring/journal.js",
+        "packages/map-core/index.js",
+        "packages/tiles-core/index.js",
+        "packages/tile-visuals/example.js",
+        "packages/floor-navigation/index.js",
+        "git:fdd06015525a3e1df5c46c05b3efce3e92092b7f:candidates/tile-stack/core/contracts.js"
+      ],
+      "output": "docs/reviews/tile-stack/editor/reconciliation/proof.json"
+    }
+  }
+}

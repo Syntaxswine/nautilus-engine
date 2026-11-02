@@ -1,0 +1,40 @@
+{
+  "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+  "purpose": "Gate A Editor source/actual-installed policy and unchanged legacy recovery proof",
+  "process": {
+    "pid": 31000,
+    "creationFiletime": "134380683853358464",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "port": null,
+  "backgroundHelpers": [],
+  "stopMethod": "Finite CLI completion; synchronous npm children bounded to 120 seconds; finally removes the isolated install stage",
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\tile-stack-editor\\Nautilus Engine",
+    "command": "node tools/tile-stack-editor-proof.mjs",
+    "dependencies": "Node >=22, npm offline cache, and complete fixed Git objects 5d69c2130eb64b6f4e31bc672e884bdc33bf47d2 and fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+    "inputs": [
+      "apps/editor/smart-tile/authority.js",
+      "apps/editor/smart-tile/checkpoint.js",
+      "apps/editor/smart-tile/contract.js",
+      "apps/editor/smart-tile/intents.js",
+      "apps/editor/smart-tile/session.js",
+      "apps/editor/smart-tile/views.js",
+      "candidates/tile-stack/editor/contract.js",
+      "candidates/tile-stack/editor/finish-menu.js",
+      "candidates/tile-stack/editor/fixtures.js",
+      "candidates/tile-stack/editor/floors.js",
+      "candidates/tile-stack/editor/planner-seam.js",
+      "candidates/tile-stack/editor/policy.js",
+      "candidates/tile-stack/editor/recovery-fixtures.js",
+      "packages/parts-core/hash.js",
+      "packages/windows-authoring/journal.js",
+      "packages/map-core/index.js",
+      "packages/tiles-core/index.js",
+      "packages/tile-visuals/example.js",
+      "packages/floor-navigation/index.js",
+      "git:fdd06015525a3e1df5c46c05b3efce3e92092b7f:candidates/tile-stack/core/contracts.js"
+    ],
+    "output": "docs/reviews/tile-stack/editor/reconciliation/proof.json"
+  }
+}

@@ -1,20 +1,36 @@
 {
   "version": 1,
-  "commit": "a2eaa70a616e7bd17336435422db5602dfb2e38d",
-  "scope": "Architect-relayed types/data checkpoint only; no functional planner import or live acceptance",
+  "commit": "fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+  "scope": "Architect-relayed API/constraint-semantic reconciliation only; functional planner is not imported or approved",
   "files": [
     {
       "file": "candidates/tile-stack/core/api.d.ts",
-      "bytes": 2815,
-      "gitBlob": "97bc94cdaed0e015733f132e4c979b94ecd2a097",
-      "sha256": "76a23897e61bc02fcf5a3b0390f99279407f4825799e5f9e43794c2545e0832e"
+      "bytes": 3001,
+      "gitBlob": "340cd82970e66484bd0abd89a8117268bdfc3f2f",
+      "sha256": "26ea3501f6da3fba3bf3666966a2ceaca7bda50804a642d50dc565bd7fb0f495"
     },
     {
-      "file": "docs/reviews/tile-stack/core/contract-v1.md",
-      "bytes": 3924,
-      "gitBlob": "284aef055116112fbf694b9304539528b6aac059",
-      "sha256": "474a9bd4075869d0327faf3ad274a7769790f4d9274b947c7656fe0beb8d3be8"
+      "file": "candidates/tile-stack/core/contracts.js",
+      "bytes": 8440,
+      "gitBlob": "139fe1cb0316e675b6fc707c314eefad35aff068",
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8"
+    },
+    {
+      "file": "docs/reviews/tile-stack/core/usage.md",
+      "bytes": 8892,
+      "gitBlob": "151c8037393be12a50304838b3abb238656c3d75",
+      "sha256": "6ccd0dac5dc2ebce2518bf411e333f5258062b12a8120443105cdad9a4bba1f0"
     }
   ],
-  "pending": "Proposed per-intent clearance and source/target constraints digest naming require final Coder/Architect reconciliation."
+  "semantics": {
+    "acceptedMinimum": "unchanged workspace policy",
+    "requestedMinimum": "explicit intent.minimumClearanceM at least accepted minimum",
+    "pairRequirements": "retain stronger existing and unrelated pair requirements",
+    "tokens": [
+      "sourceConstraintsDigest",
+      "nextConstraintsDigest",
+      "floorProfileDigest"
+    ]
+  },
+  "pending": "Independent planner proof correction and Architect Gate A/Gate B acceptance; protected host wiring remains prohibited."
 }

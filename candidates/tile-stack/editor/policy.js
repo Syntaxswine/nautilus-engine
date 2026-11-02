@@ -18,22 +18,22 @@ export function validateTileStackDocument(deps,input){
   if(smartTileDigest(expected)!==smartTileDigest(d.tileBundle.layout.floors))fail('STACK_LAYOUT_FLOORS','/document/tileBundle/layout/floors','The canonical bundle must retain the exact native floor IDs/elevations/order.');
   validateSavedConstraints(d);return freeze(d);
 }
-// Referential host-source validation only, following the fixed a2eaa70 API.
+// Referential host-source validation only, following the fixed fdd0601 API.
 // Complete old/new geometric obligations remain the public planner/core's job.
 function validateSavedConstraints(d){
   const c=d.constraints,l=d.tileBundle.layout;fields(c,['kind','version','floorProfileId','minimumClearanceM','owners','managedRelations'],'/document/constraints');
   if(c.kind!=='nautilus-stack-constraints'||c.version!==1||c.floorProfileId!==d.floorBinding.profile.id)fail('STACK_CONSTRAINTS_PROFILE','/document/constraints','Retain the typed constraints and exact geometric floor-profile identity.');
-  if(typeof c.minimumClearanceM!=='number'||!Number.isFinite(c.minimumClearanceM)||c.minimumClearanceM<=0||c.minimumClearanceM>100_000||!Array.isArray(c.owners)||c.owners.length>32||!Array.isArray(c.managedRelations)||c.managedRelations.length>256)fail('STACK_CONSTRAINTS_LIMIT','/document/constraints','Retain explicit positive clearance and bounded owner/relation source.');
+  if(typeof c.minimumClearanceM!=='number'||!Number.isFinite(c.minimumClearanceM)||c.minimumClearanceM<.000001||c.minimumClearanceM>100_000||!Array.isArray(c.owners)||c.owners.length>32||!Array.isArray(c.managedRelations)||c.managedRelations.length>256)fail('STACK_CONSTRAINTS_LIMIT','/document/constraints','Retain an explicit clearance of at least one micrometre and bounded owner/relation source.');
   const owners=new Set(),relations=new Set();for(const [i,o]of c.owners.entries()){
-    const path='/document/constraints/owners/'+i;fields(o,['instanceId','primaryReservationId'],path);id(o.instanceId,path+'/instanceId');id(o.primaryReservationId,path+'/primaryReservationId');const v=l.instances.find(v=>v.id===o.instanceId),r=d.tileBundle.recipes.find(r=>r.id===v?.recipeId);
+    const path='/document/constraints/owners/'+i;fields(o,['instanceId','primaryReservationId'],path);const v=l.instances.find(v=>v.id===o.instanceId),r=d.tileBundle.recipes.find(r=>r.id===v?.recipeId);
     if(owners.has(o.instanceId)||!r?.reservations.some(x=>x.id===o.primaryReservationId))fail('STACK_CONSTRAINT_OWNER',path,'Bind a unique actual owner and its named primary source reservation.');owners.add(o.instanceId);
   }
   for(const [i,r]of c.managedRelations.entries()){
-    const path='/document/constraints/managedRelations/'+i;fields(r,['id','kind','a','b','clearanceM'],path);id(r.id,path+'/id');
+    const path='/document/constraints/managedRelations/'+i;fields(r,['id','kind','a','b','clearanceM'],path);
     if(relations.has(r.id)||r.kind!=='cross'||!owners.has(r.a)||!owners.has(r.b)||r.a===r.b||typeof r.clearanceM!=='number'||!Number.isFinite(r.clearanceM)||r.clearanceM<c.minimumClearanceM||smartTileDigest(l.relations.find(x=>x.id===r.id)??null)!==smartTileDigest(r))fail('STACK_MANAGED_RELATION',path,'Keep each managed crossing exactly present in source with at least the saved required clearance.');relations.add(r.id);
   }
 }
-function bindingOf(d){return {id:d.id,layoutId:d.tileBundle.layout.id,sourceSha256:d.floorBinding.sourceSha256,floorBinding:d.floorBinding,finishBinding:d.finishBinding};}
+function bindingOf(d){return {id:d.id,layoutId:d.tileBundle.layout.id,sourceSha256:d.floorBinding.sourceSha256,floorBinding:d.floorBinding,finishBinding:d.finishBinding,minimumClearanceM:d.constraints.minimumClearanceM};}
 export function createTileStackDocumentPolicy(deps,initialDocument){
   const initial=validateTileStackDocument(deps,initialDocument),binding=bindingOf(initial),bindingToken=smartTileDigest(binding);
   function validateDocument(input){const d=validateTileStackDocument(deps,input);if(smartTileDigest(bindingOf(d))!==bindingToken)fail('STACK_WORKSPACE_BINDING','/document','Retain workspace/layout identity, exact original source and the predeclared floor/catalogue bindings.');return d;}
@@ -47,12 +47,12 @@ export function createTileStackDocumentPolicy(deps,initialDocument){
     contextToken(input,acceptedDocument=initial){
       const c=smartTileData(input);fields(c,['floorId','mode','floorEpoch','providerToken'],'/context');
       if(!initial.floorBinding.floors.some(f=>f.id===c.floorId)||!['manual','character-follow','contact-inspection'].includes(c.mode)||!Number.isSafeInteger(c.floorEpoch)||c.floorEpoch<0||typeof c.providerToken!=='string'||!c.providerToken.length||c.providerToken.length>512)fail('STACK_SESSION_CONTEXT','/context','Bind an actual declared floor/mode/epoch and immutable presenter/pool identity.');
-      const accepted=validateDocument(acceptedDocument);return smartTileDigest({policyToken:bindingToken,sourceDocumentDigest:smartTileDigest(accepted),sourceConstraintsDigest:smartTileDigest(accepted.constraints),...c});
+      const accepted=validateDocument(acceptedDocument);return smartTileDigest({policyToken:bindingToken,sourceDocumentDigest:smartTileDigest(accepted),sourceConstraintsDigest:deps.tiles.tileLayoutToken(accepted.constraints),...c});
     },
     targetDocument,
     bindTarget(before,pair){
       const accepted=validateDocument(before),target=targetDocument(accepted,pair);
-      return freeze({sourceDocumentDigest:smartTileDigest(accepted),sourceConstraintsDigest:smartTileDigest(accepted.constraints),targetDocumentDigest:smartTileDigest(target),targetConstraintsDigest:smartTileDigest(target.constraints),targetDocument:target});
+      return freeze({sourceDocumentDigest:smartTileDigest(accepted),sourceConstraintsDigest:deps.tiles.tileLayoutToken(accepted.constraints),targetDocumentDigest:smartTileDigest(target),nextConstraintsDigest:deps.tiles.tileLayoutToken(target.constraints),targetDocument:target});
     }
   });
 }
