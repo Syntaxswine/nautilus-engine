@@ -1,8 +1,16 @@
 // Gate A source component proof only. No planner, real host save, renderer or gameplay claim.
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';import {withArtReview,projectRoot} from './art-review-browser.mjs';
-const checks=[],captures=[],files=['candidates/tile-stack/ui/contract.js','candidates/tile-stack/ui/panel.js','candidates/tile-stack/ui/styles.css','candidates/tile-stack/ui/fixture-adapter.js','candidates/tile-stack/ui/fixture.js','candidates/tile-stack/ui/fixture.html','packages/floor-navigation/index.js','packages/floor-navigation/dom.js','packages/floor-navigation/style.css','apps/editor/smart-tile/contract.js','apps/editor/smart-tile/input.js'];
+const checks=[],captures=[],files=['candidates/tile-stack/ui/contract.js','candidates/tile-stack/ui/panel.js','candidates/tile-stack/ui/styles.css','candidates/tile-stack/ui/fixture-adapter.js','candidates/tile-stack/ui/fixture.js','candidates/tile-stack/ui/fixture.html','packages/floor-navigation/index.js','packages/floor-navigation/dom.js','packages/floor-navigation/style.css','apps/editor/smart-tile/contract.js','apps/editor/smart-tile/input.js','tests/ui-tile-stack.test.mjs','tools/ui-tile-stack-review.mjs'];
 const report={scope:'Gate A UI component fixture only; no stacked geometry/clearance/105-relations/CAS/history/save/installed-host or physical-device proof',base:'5d69c2130eb64b6f4e31bc672e884bdc33bf47d2',sourceHead:execFileSync('git',['rev-parse','HEAD'],{cwd:projectRoot,encoding:'utf8',windowsHide:true}).trim(),hashes:Object.fromEntries(files.map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(projectRoot,file))).digest('hex')])),checks,captures};
 const pass=name=>{checks.push(name);console.log('PASS '+name);};
+// Preserve each disposable review's exact nonsecret inputs before acquisition.
+const restartDir=path.join(projectRoot,'artifacts/tile-stack-ui/restart-inputs');
+fs.mkdirSync(restartDir,{recursive:true});
+for(const [file,hash]of Object.entries(report.hashes)){
+ const bytes=fs.readFileSync(path.join(projectRoot,file));
+ fs.writeFileSync(path.join(restartDir,hash+path.extname(file)),bytes);
+}
+
 await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,baseURL,out})=>{
  page.setDefaultTimeout(10000);const url=baseURL+'/candidates/tile-stack/ui/fixture.html',panel=()=>page.locator('.tile-stack-ui'),action=name=>panel().locator('[data-action="'+name+'"]'),calls=()=>page.evaluate(()=>tileStackUIProof.fixture.calls);
  const ready=()=>page.waitForFunction(()=>document.body.dataset.ready==='true'),reset=async()=>{await page.goto(url);await ready();};
@@ -42,6 +50,70 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
   await page.evaluate(()=>{const f=tileStackUIProof.fixture,s=f.peek();s.finishCatalogue.entries=s.finishCatalogue.entries.map(entry=>entry.id==='fixture.finish.brick'?{...entry,version:2}:entry);f.patch({finishCatalogue:s.finishCatalogue});});
   assert.equal(await action('finish').isDisabled(),true);assert.match(await panel().locator('.ts-fault').innerText(),/identity changed/);
   pass('friendly typed finishes use fixed IDs, respect locks and reject an in-session version mapping change');
+
+  const workspaceCases=['changed profile ID','unsupported profile version','changed floor-table ID','missing profile identity','non-record profile','inherited profile fields','missing source SHA','empty workspace ID'];
+  report.workspaceWitnesses=[];
+  for(const name of workspaceCases){
+    await reset();await patch({phase:'review',reviewId:'must-not-cross-workspace'});
+    const result=await page.evaluate(async name=>{
+      const proof=tileStackUIProof,f=proof.fixture,read=f.adapter.getSnapshot;
+      const before=read();
+      const mutate=s=>{
+        if(name==='changed profile ID')s.workspace.floorProfile.id='another-host-profile';
+        else if(name==='unsupported profile version')s.workspace.floorProfile.version=99;
+        else if(name==='changed floor-table ID')s.workspace.floorTableId='another-floor-table';
+        else if(name==='missing profile identity')s.workspace.floorProfile={};
+        else if(name==='non-record profile')s.workspace.floorProfile=[];
+        else if(name==='inherited profile fields')s.workspace.floorProfile=Object.create({id:'inherited-profile',version:99});
+        else if(name==='missing source SHA')delete s.workspace.sourceSha256;
+        else if(name==='empty workspace ID')s.workspace.id='';
+        return s;
+      };
+      f.adapter.getSnapshot=()=>mutate(read());
+      const accepted=proof.panel.refresh();
+      // Stale programmatic events must not bypass the native disabled state.
+      for(const form of proof.panel.element.querySelectorAll('form'))form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+      proof.panel.element.querySelector('[data-action=apply]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
+      const blocked={stack:proof.panel.element.querySelector('[data-action=stack]').disabled,finish:proof.panel.element.querySelector('[data-action=finish]').disabled,apply:proof.panel.element.querySelector('[data-action=apply]').disabled};
+      const result={name,hostFlags:{stack:before.actions.stack,finish:before.actions.finish,apply:before.actions.apply},refreshAccepted:accepted!==null,blocked,authoringCalls:f.calls.filter(call=>['setDraft','apply'].includes(call.name)).length,reason:proof.panel.element.querySelector('.ts-fault').textContent};
+      if(['changed profile ID','changed floor-table ID'].includes(name)){
+        let reads=0;f.adapter.getSnapshot=()=>{reads++;return read();};
+        proof.panel.refresh();f.notify();
+        result.oldMountRemainsRetired=proof.panel.element.querySelector('[data-action=stack]').disabled&&proof.panel.element.querySelector('[data-action=apply]').disabled;
+        result.retiredMountReads=reads;
+        proof.panel.dispose();
+        const {mountTileStackUI}=await import('/candidates/tile-stack/ui/panel.js');
+        const {createTileStackUIFixture}=await import('/candidates/tile-stack/ui/fixture-adapter.js');
+        const next=createTileStackUIFixture(proof.navigation,'aft-native-fifteen');
+        next.patch({workspace:mutate(next.peek()).workspace});
+        const mounted=mountTileStackUI(document.getElementById('candidate-panel'),next.adapter,{floorController:proof.navigation,keyboardTarget:document.getElementById('workspace')});
+        try{
+          result.explicitNewMount={fault:!mounted.element.querySelector('.ts-fault').hidden,stack:!mounted.element.querySelector('[data-action=stack]').disabled,finish:!mounted.element.querySelector('[data-action=finish]').disabled,oldReviewNotApplied:mounted.element.querySelector('[data-action=apply]').disabled};
+        }finally{mounted.dispose();}
+        result.borrowedServicesSurvive=f.diagnostics().borrowedAdapterDisposals===0&&next.diagnostics().borrowedAdapterDisposals===0&&proof.navigation.state.selectedId==='F00';
+      }
+      return result;
+    },name);
+    assert.deepEqual(result.hostFlags,{stack:true,finish:true,apply:true},name);
+    assert.equal(result.refreshAccepted,false,name);assert.deepEqual(result.blocked,{stack:true,finish:true,apply:true},name);
+    assert.equal(result.authoringCalls,0,name);assert.ok(result.reason.length>0,name);
+    if(result.explicitNewMount){
+      assert.equal(result.oldMountRemainsRetired,true,name);assert.equal(result.retiredMountReads,0,name);
+      assert.deepEqual(result.explicitNewMount,{fault:false,stack:true,finish:true,oldReviewNotApplied:true},name);assert.equal(result.borrowedServicesSurvive,true,name);
+    }
+    report.workspaceWitnesses.push(result);
+  }
+  pass('all eight original workspace witnesses block mounted stack/finish/apply and stale form events; valid identity changes retire until an explicit fresh mount');
+
+  await reset();await action('stack').click();await idle();
+  await page.evaluate(()=>{const f=tileStackUIProof.fixture;f.on('review',()=>{f.patch({phase:'preparing'});window.pendingIdentityReview=new Promise(resolve=>window.resolveIdentityReview=resolve);return window.pendingIdentityReview;});});
+  await action('review').click();await page.waitForFunction(()=>tileStackUIProof.fixture.peek().phase==='preparing');
+  await page.evaluate(()=>{const f=tileStackUIProof.fixture,s=f.peek();s.workspace.floorTableId='changed-table-during-review';f.patch({workspace:s.workspace});});
+  assert.equal(await action('apply').isDisabled(),true);
+  await page.evaluate(async()=>{window.resolveIdentityReview({ok:false,code:'LATE_REPLY_FROM_RETIRED_BINDING'});await window.pendingIdentityReview;await Promise.resolve();const f=tileStackUIProof.fixture;f.patch({phase:'review',reviewId:'late-old-review'});});
+  assert.match(await panel().locator('.ts-fault').innerText(),/identity changed/);assert.equal(await action('stack').isDisabled(),true);assert.equal(await action('apply').isDisabled(),true);assert.equal((await calls()).filter(call=>call.name==='apply').length,0);
+  pass('workspace identity retirement invalidates pending UI replies without cancelling or replacing the borrowed Editor authority');
+
 
   await reset();await action('stack').click();await idle();await action('review').focus();await page.keyboard.down('Enter');for(let i=0;i<4;i++)await page.keyboard.down('Enter');await page.keyboard.up('Enter');await page.waitForFunction(()=>tileStackUIProof.fixture.peek().phase==='review');assert.equal((await calls()).filter(call=>call.name==='review').length,1);
   await action('apply').focus();await page.keyboard.press(' ');await page.waitForFunction(()=>tileStackUIProof.fixture.calls.some(call=>call.name==='apply'));assert.deepEqual((await calls()).find(call=>call.name==='apply'),{name:'apply',args:['fixture.review.original']});

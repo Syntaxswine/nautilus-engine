@@ -1,22 +1,46 @@
-// Gate A presentation proposal. Targets only Editor's fixed provisional v2.
+// Gate A presentation proposal. Targets the fixed Editor v2 presentation shape only.
 export const TILE_STACK_UI_PROPOSAL=Object.freeze({
   kind:'nautilus-tile-stack-ui-proposal',version:1,
   base:'5d69c2130eb64b6f4e31bc672e884bdc33bf47d2',
-  editorContract:'cfd5a3226a687b9b166e240666a34c75ef3e7972',
+  editorContract:'ce3a1afa02f70a478356de45c64364bb460b9c25',
   adapterKind:'nautilus-tile-stack-editor-adapter',adapterVersion:2,
   optionalMethods:Object.freeze(['lockOwner','setInspection'])
 });
 const phases=['idle','draft','preparing','review','applying','recovery-required','presentation-error','disposed'];
 export const phaseLabel=phase=>({idle:'Ready',draft:'Draft — review required',preparing:'Preparing review',review:'Review — ready to apply',applying:'Applying','recovery-required':'Edit result unknown','presentation-error':'Accepted preview needs retry',disposed:'Session closed'})[phase];
+const plain=value=>value!==null&&typeof value==='object'&&[Object.prototype,null].includes(Object.getPrototypeOf(value));
+function ownData(value,key,label){
+  const slot=value!==null&&typeof value==='object'&&Object.getOwnPropertyDescriptor(value,key);
+  if(!slot||!slot.enumerable||!Object.hasOwn(slot,'value'))throw new TypeError(label+' requires own plain data fields.');
+  return slot.value;
+}
+function record(value,keys,label){
+  if(!plain(value)||Reflect.ownKeys(value).some(key=>!keys.includes(key)))throw new TypeError(label+' must be an explicit plain versioned record.');
+  for(const key of keys)ownData(value,key,label);
+  return value;
+}
+const identity=value=>typeof value==='string'&&/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}(?![\s\S])/.test(value);
+const digest=value=>typeof value==='string'&&/^[a-f0-9]{64}(?![\s\S])/.test(value);
+// UI identity/projection validation only. Profile names and native floor geometry
+// remain supplied/validated by Editor; no source, catalogue provenance or policy hash is recomputed.
+function readWorkspaceIdentity(value){
+  const workspace=record(ownData(value,'workspace','Snapshot'),['id','checkpointVersion','policyToken','floorProfile','floorTableId','floorTableToken','sourceSha256','finishBinding'],'Workspace');
+  const profile=record(workspace.floorProfile,['id','version'],'Floor profile');
+  const finish=record(workspace.finishBinding,['id','version','digest'],'Finish binding');
+  if(workspace.checkpointVersion!==2||profile.version!==1||finish.version!==1)throw new TypeError('Use workspace v2, floor profile v1 and finish binding v1; unknown versions refuse.');
+  if(![workspace.id,profile.id,workspace.floorTableId,finish.id].every(identity))throw new TypeError('Workspace/profile/table/finish identities must be stable ASCII IDs of at most 96 characters.');
+  if(![workspace.policyToken,workspace.floorTableToken,workspace.sourceSha256,finish.digest].every(digest))throw new TypeError('Workspace tokens, source SHA and finish digest require exact lowercase SHA-256 values.');
+  const catalogue=record(ownData(value,'finishCatalogue','Snapshot'),['id','version','digest','entries'],'Finish catalogue');
+  if(!identity(catalogue.id)||catalogue.version!==1||!digest(catalogue.digest)||!Array.isArray(catalogue.entries)||!catalogue.entries.length||catalogue.entries.length>64)throw new TypeError('A fixed typed finish catalogue v1 is required.');
+  if(finish.id!==catalogue.id||finish.version!==catalogue.version||finish.digest!==catalogue.digest)throw new TypeError('Finish catalogue disagrees with the captured workspace binding.');
+  return {workspace,catalogue};
+}
 export function readTileStackUISnapshot(value,floorState){
   if(value?.version!==2||value.interface?.kind!==TILE_STACK_UI_PROPOSAL.adapterKind||value.interface.version!==2)throw new TypeError('Bind the explicit tile-stack Editor v2 adapter; v1 drafts are not upgraded.');
   if(!phases.includes(value.phase)||!value.actions||!Array.isArray(value.owners)||!Array.isArray(value.diagnostics))throw new TypeError('Invalid Editor UI snapshot.');
   if(!value.owners.every(owner=>owner&&typeof owner.id==='string'&&typeof owner.locked==='boolean'))throw new TypeError('Invalid whole-owner presentation.');
   for(const action of ['setTool','setDraft','finish','stack','selectOwner','review','apply','cancel','recover','retryPresentation','setInspection'])if(typeof value.actions[action]!=='boolean')throw new TypeError('Missing Editor action flag: '+action);
-  const workspace=value.workspace,catalogue=value.finishCatalogue;
-  if(!workspace||workspace.checkpointVersion!==2||typeof workspace.id!=='string'||typeof workspace.policyToken!=='string'||typeof workspace.floorTableToken!=='string'||!workspace.floorProfile)throw new TypeError('Versioned workspace/floor binding is required.');
-  if(!catalogue||typeof catalogue.id!=='string'||!Number.isSafeInteger(catalogue.version)||catalogue.version<1||typeof catalogue.digest!=='string'||!Array.isArray(catalogue.entries)||catalogue.entries.length>64)throw new TypeError('A fixed typed finish catalogue is required.');
-  if(workspace.finishBinding?.id!==catalogue.id||workspace.finishBinding?.version!==catalogue.version||workspace.finishBinding?.digest!==catalogue.digest)throw new TypeError('Finish catalogue disagrees with the captured workspace binding.');
+  const {workspace,catalogue}=readWorkspaceIdentity(value);
   const ids=new Set();
   for(const entry of catalogue.entries){
     if(!entry||typeof entry.id!=='string'||!Number.isSafeInteger(entry.version)||entry.version<1||typeof entry.label!=='string'||typeof entry.available!=='boolean'||(entry.available?entry.reason!==null:typeof entry.reason!=='string'||!entry.reason))throw new TypeError('Malformed typed finish choice.');
@@ -29,7 +53,14 @@ export function readTileStackUISnapshot(value,floorState){
   return value;
 }
 export function workspaceUIBinding(value){
-  return JSON.stringify([value.workspace.id,value.workspace.policyToken,value.workspace.floorTableToken,value.workspace.sourceSha256,value.finishCatalogue.id,value.finishCatalogue.version,value.finishCatalogue.digest,value.finishCatalogue.entries.map(({id,version,label})=>({id,version,label})).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)]);
+  const {workspace:w,catalogue:c}=readWorkspaceIdentity(value);
+  return JSON.stringify([
+    w.id,w.checkpointVersion,w.policyToken,w.floorProfile.id,w.floorProfile.version,
+    w.floorTableId,w.floorTableToken,w.sourceSha256,
+    w.finishBinding.id,w.finishBinding.version,w.finishBinding.digest,
+    c.id,c.version,c.digest,
+    c.entries.map(({id,version,label})=>({id,version,label})).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
+  ]);
 }
 function finite(value,label){
   if(!['number','string'].includes(typeof value)||typeof value==='string'&&!value.trim())throw new TypeError('Enter '+label+' explicitly.');

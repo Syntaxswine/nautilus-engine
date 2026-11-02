@@ -89,7 +89,12 @@ export function mountTileStackUI(container,adapter,{floorController,keyboardTarg
     try{const value=adapter.getSnapshot();if(retired||updates!==epoch)return null;receive(value);return !retired&&!subscriptionBroken&&failures===failed?snapshot:null;}catch(reason){snapshot=null;disable();error(reason);return null;}finally{reading=false;}
   }
   function render(value){
-    const identity=workspaceUIBinding(value);if(binding!==null&&identity!==binding)throw new TypeError('Workspace/floor/catalogue identity changed. Rebind through a new host session; no local catalogue upgrade.');
+    const identity=workspaceUIBinding(value);if(binding!==null&&identity!==binding){
+      // Retire this presentation binding and every outstanding UI reply. Only an
+      // explicit new mount may borrow a different workspace; no host mutation.
+      subscriptionBroken=true;operation++;busy=false;queued=null;
+      throw new TypeError('Workspace/floor/catalogue identity changed. Rebind through a new host session; no local catalogue upgrade.');
+    }
     const state=floorController.state,floors=state.floors,active=floors.find(item=>item.id===state.selectedId),draft=value.draft;
     status.textContent=phaseLabel(value.phase);root.dataset.phase=value.phase;current.textContent='Current floor '+active.label+' · '+active.elevationM+' m · '+state.mode;
     acceptedClearance.textContent='Accepted saved minimum: '+(value.acceptedMinimumClearanceM===undefined?'Not reported by the host.':value.acceptedMinimumClearanceM===null?'No accepted constraint is bound.':value.acceptedMinimumClearanceM+' m');

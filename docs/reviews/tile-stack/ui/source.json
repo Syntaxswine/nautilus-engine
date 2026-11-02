@@ -7,8 +7,8 @@
   "candidateFiles": [
     {
       "path": "candidates/tile-stack/ui/contract.js",
-      "bytes": 6739,
-      "sha256": "89bc01456a0e946733dfd91c525522be9d2ee9b103bdfea8a70ea39d425061fe"
+      "bytes": 8678,
+      "sha256": "49e2b855da32d60744aea48c3f0df9552f34f3485e979c0acd3c380e5c550952"
     },
     {
       "path": "candidates/tile-stack/ui/fixture-adapter.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "candidates/tile-stack/ui/panel.js",
-      "bytes": 19645,
-      "sha256": "4689d73a711011bd4f3c300356421b09ba5fdbb186b6212971b1061c29db380a"
+      "bytes": 19887,
+      "sha256": "4b3137b5922d7c6a1ca27d09ddfcbca0dc23bd0f5a7bb615fb8e9f9918bfe4ec"
     },
     {
       "path": "candidates/tile-stack/ui/styles.css",
@@ -39,13 +39,13 @@
   "roleCode": [
     {
       "path": "tests/ui-tile-stack.test.mjs",
-      "bytes": 6204,
-      "sha256": "b923a99d1f761154c1c841b09e4eee9da9a699ad4eccee5f7b6a8c87996ae4a6"
+      "bytes": 10923,
+      "sha256": "3f20b4dbf54603c4574be2cdebdea2e51d679ebeec244378714050e73ee3c529"
     },
     {
       "path": "tools/ui-tile-stack-review.mjs",
-      "bytes": 19398,
-      "sha256": "f6ec25a29814c2f01416f1e167ff9590809f3bf89df6feb0e23622064c282fe8"
+      "bytes": 25777,
+      "sha256": "9ee0084c5fd8bc2ad21720d79e26964290596ab8d311745da587057d2532211d"
     }
   ],
   "fixedBorrowedDependencies": [
@@ -127,6 +127,41 @@
       "bytes": 3924,
       "sha256": "474a9bd4075869d0327faf3ad274a7769790f4d9274b947c7656fe0beb8d3be8",
       "use": "Read-only provisional coordination; not a runtime import"
+    },
+    {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "path": "docs/reviews/tile-stack/editor/api.md",
+      "bytes": 10172,
+      "sha256": "a5bb64c6655d2367e420584b32a8f4eb60c64e03fe59cbd659fc01c8c7c8d87f",
+      "use": "Read-only fixed identity/projection contract; no peer implementation import"
+    },
+    {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "path": "candidates/tile-stack/editor/floors.js",
+      "bytes": 5055,
+      "sha256": "477d02ff3d1b9338107ef1db64db87f2aec62fa88219c8605c9b225cd30e1886",
+      "use": "Read-only fixed identity/projection contract; no peer implementation import"
+    },
+    {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "path": "candidates/tile-stack/editor/finish-menu.js",
+      "bytes": 1794,
+      "sha256": "937e3d264b303f8dcc144d805e0b778a3a4c1e4d1a4c050276f280bd870bb948",
+      "use": "Read-only fixed identity/projection contract; no peer implementation import"
+    },
+    {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "path": "candidates/tile-stack/editor/policy.js",
+      "bytes": 8977,
+      "sha256": "4c574772cf55792ef3e3bd959fc66e42def516e90096d1e2e04c9aa92ab4dfab",
+      "use": "Read-only fixed identity/projection contract; no peer implementation import"
+    },
+    {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "path": "apps/editor/smart-tile/checkpoint.js",
+      "bytes": 17839,
+      "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4",
+      "use": "Read-only fixed identity/projection contract; no peer implementation import"
     }
   ],
   "assets": "Original CSS only; no new bitmap/model/material, no duplicate Three or donor gameplay import",
@@ -139,6 +174,24 @@
   "adapterTarget": {
     "kind": "nautilus-tile-stack-editor-adapter",
     "version": 2,
-    "fixedProposal": "cfd5a3226a687b9b166e240666a34c75ef3e7972"
+    "fixedProposal": "ce3a1afa02f70a478356de45c64364bb460b9c25"
+  },
+  "correction": {
+    "preservedCustomContract": "4d1e5da37031b89afbcb7b6fb47e6a03a606de25",
+    "scope": "Own identity/digest shape validation and immutable mounted-binding retirement only; no saved-geometry validation or authority.",
+    "originalWitnesses": 8,
+    "focusedTests": 21,
+    "mountedGroups": 12,
+    "reviewedUI": "5b0d06ce93977addd438d3ad43f887fcd3278817",
+    "gitParent": "f826afb1e73175961777ae1792d9ec7fc786d8f2",
+    "validation": "docs/reviews/tile-stack/ui/identity-correction.json"
+  },
+  "orchestrationFollowup": {
+    "commit": "f826afb1e73175961777ae1792d9ec7fc786d8f2",
+    "file": "tools/test-tile-v2-package.mjs",
+    "baseline": "2502646482218524fd5129641da769bb82462e4d",
+    "baselineSha256": "d755ec2f9336903a967e3ca5cc71e0ff9bcb3edbc69a61e4bc31286db998cacd",
+    "targetSha256": "a6e8d1044bfe136b1b638ec77ec9b6e038133de3606d61178c224cb74fdee3ee",
+    "change": "Only the existing adjacent guard/declaration lines swapped; exact import and error text retained. No timeout, skipped test, private core or source fence changes."
   }
 }

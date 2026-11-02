@@ -2,8 +2,8 @@
 
 Status: proposed source component, not a public entry or completed Editor workflow.
 Base: 5d69c2130eb64b6f4e31bc672e884bdc33bf47d2; runtime equals reviewed
-2502646482218524fd5129641da769bb82462e4d. The provisional adapter target is exact
-Editor cfd5a3226a687b9b166e240666a34c75ef3e7972, read through Git objects.
+2502646482218524fd5129641da769bb82462e4d. The identity/projection target is fixed
+Editor ce3a1afa02f70a478356de45c64364bb460b9c25, read through Git objects.
 Architect must reconcile/freeze the final Editor/Coder/Artist/UI contracts at Gate A.
 No protected Smart Tile/title file, source fence, version, pin or registry changes.
 
@@ -81,7 +81,7 @@ Visibility never alters source, contacts, support or budgets. lockOwner remains 
 optional Editor method; this component labels locks and does not implement locking,
 unlocking or another lock policy.
 
-Snapshot workspace/floors/finishCatalogue/inspection/limits follow Editor cfd5a322.
+Snapshot workspace/floors/finishCatalogue/inspection/limits follow Editor ce3a1afa.
 workspace binds its identity/policy, raw source hash, exact floor-table token and
 finish catalogue id/version/digest. Catalogue entries are {id,version,label,
 available,reason}, with null reason for available entries and nonempty unavailable
@@ -102,6 +102,52 @@ proposal yet and must be reconciled by Architect. Requested minimum and accepted
 saved minimum are shown separately; UI never derives accepted state from draft,
 mesh gaps or cross records. Coder a2eaa70a616e7bd17336435422db5602dfb2e38d was read
 as provisional coordination input only; its constraints/digests are not imported.
+
+## Focused workspace-identity correction
+
+This checkpoint corrects the eight independent witnesses against UI
+5b0d06ce93977addd438d3ad43f887fcd3278817. Custom contract
+4d1e5da37031b89afbcb7b6fb47e6a03a606de25 remains on its separate branch.
+
+The workspace, floor profile, finish binding and catalogue identity records must be
+own, enumerable plain data (ordinary or null prototype), with their explicit fields.
+Inherited/accessor/missing fields, malformed IDs/digests and unknown versions refuse.
+The supported identity projection is:
+
+~~~text
+workspace: {
+  id, checkpointVersion:2, policyToken,
+  floorProfile:{id,version:1},
+  floorTableId, floorTableToken, sourceSha256,
+  finishBinding:{id,version:1,digest}
+}
+~~~
+
+IDs follow the fixed Editor ASCII identity shape (1–96 characters); policy/table
+tokens, raw-source SHA and finish digests are exact lowercase 64-character SHA-256
+strings. This checks the supplied representation, not the source geometry, hash
+provenance, saved document or policy. Names remain supplied by Editor: UI has no
+profile-name whitelist or duplicate native-height/constraint evaluator. Existing
+labelled fixture hashes already meet this shape; they remain explicitly UI-only.
+
+The mounted key includes every immutable workspace/profile/table/finish field,
+including checkpoint/profile versions, profile ID and table ID. A valid identity
+change permanently retires that mount's action reads and outstanding UI replies.
+Restoring an old identity does not revive its draft/review. The host must dispose
+and explicitly remount with the intended session. UI never cancels/replaces the
+borrowed authority, rewrites its state, or reuses an old review across the rebind.
+
+Pure tests cover the original eight witnesses, all valid identity changes, own data,
+getter non-invocation, strict digests and null-prototype compatibility. Mounted checks
+exercise all eight against host flags that still permit stack/finish/apply, and prove
+zero draft/apply calls from stale form/click events. The two valid renamed identities
+require a fresh mount; the new mount has no old review to Apply. Pending replies from
+the retired binding cannot restore actions or overwrite the binding fault.
+
+These are source component/adapter-double tests. Actual v2 input routing and the
+real Artist finish catalogue remain Gate B obligations. No saved geometry, live
+v2 workspace, history/CAS, installed host or production integration is proved here.
+
 
 ## State, focus and authority
 
@@ -206,3 +252,24 @@ Efficiency: reuse the actual widget/input owner, bounded catalogue and UI subscr
 These are code-based observations, not CPU/GPU measurements.
 Narrative: compact stack/finish controls and Farmyard-compatible presentation are
 the preferred first component direction, a subjective usability/style judgment.
+
+## Final verification and separate CLI follow-up
+
+The identity correction passes 21 focused pure tests and 12 mounted browser groups,
+including all eight original witnesses. Final standard gates passed: npm run check,
+**npm test (933/933, zero skips)**, npm run test:upstream (32/32), and npm run build
+(519 module paths). The fifteen frozen host files remain unchanged. The new disposable
+browser/server pair exited and released its port; no helper is retained.
+
+The separate orchestration checkpoint is f826afb1e73175961777ae1792d9ec7fc786d8f2. Architect explicitly
+authorized only the adjacent guard/declaration reorder in tools/test-tile-v2-package.mjs,
+from fixed baseline 2502646482218524fd5129641da769bb82462e4d. The unchanged disabled-path
+refusal now precedes checkTileV2 and registration-request loading. Its imports, exact
+error, --candidate path, tests, 20-second timeout and source fences remain unchanged.
+This is not a UI validator or private-core change.
+
+Before that reorder, two default full-suite runs failed the unchanged CLI assertion;
+the isolated file passed and all 933 tests passed with four workers. All three original
+logs are preserved byte-for-byte as gzip archives. After the reorder, standard npm test
+and the other required gates passed. The full [validation record](identity-correction.json)
+links each exact log/hash and the separate guard checkpoint. No failed run is discarded.

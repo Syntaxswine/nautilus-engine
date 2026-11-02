@@ -36,3 +36,79 @@ test('unknown outcome disables the reused edit flags and retains exact original 
 test('requested draft clearance never overwrites the read-only accepted minimum in the fixture',()=>{
  const nav=createFloorNavigation({floors:compatibilityFloors,selectedId:'F00'}),f=createTileStackUIFixture(nav,'aft-native-fifteen');try{f.patch({acceptedMinimumClearanceM:2});f.adapter.setDraft(tileStackIntent({...base(),minimumClearanceM:3.125},nav.state.floors));assert.equal(f.peek().draft.minimumClearanceM,3.125);assert.equal(f.peek().acceptedMinimumClearanceM,2);}finally{nav.dispose();}
 });
+
+const withWorkspace=run=>{
+ const nav=createFloorNavigation({floors:compatibilityFloors,selectedId:'F00'}),fixture=createTileStackUIFixture(nav,'aft-native-fifteen');
+ try{return run(fixture.peek(),nav);}finally{nav.dispose();}
+};
+const workspaceWitnesses=[
+ ['changed profile ID',s=>{s.workspace.floorProfile.id='another-host-profile';},true],
+ ['unsupported profile version',s=>{s.workspace.floorProfile.version=99;},false],
+ ['changed floor-table ID',s=>{s.workspace.floorTableId='another-floor-table';},true],
+ ['missing profile identity',s=>{s.workspace.floorProfile={};},false],
+ ['non-record profile',s=>{s.workspace.floorProfile=[];},false],
+ ['inherited profile fields',s=>{s.workspace.floorProfile=Object.create({id:'inherited-profile',version:99});},false],
+ ['missing source SHA',s=>{delete s.workspace.sourceSha256;},false],
+ ['empty workspace ID',s=>{s.workspace.id='';},false]
+];
+for(const [name,mutate,validShape]of workspaceWitnesses)test('original workspace witness: '+name,()=>withWorkspace((original,nav)=>{
+ const changed=structuredClone(original);mutate(changed);
+ if(validShape){
+  // Editor owns profile/table names. The same native table does not make two
+  // distinct immutable identities interchangeable inside an existing mount.
+  assert.equal(readTileStackUISnapshot(changed,nav.state),changed);
+  assert.notEqual(workspaceUIBinding(changed),workspaceUIBinding(original));
+ }else{
+  assert.throws(()=>readTileStackUISnapshot(changed,nav.state),TypeError);
+  assert.throws(()=>workspaceUIBinding(changed),TypeError);
+ }
+}));
+test('own workspace/profile/binding fields reject inheritance, accessors and malformed identity digests without invoking getters',()=>withWorkspace((original,nav)=>{
+ let reads=0;
+ const mutations=[
+  s=>{delete s.workspace.floorProfile;},
+  s=>{s.workspace.floorProfile=null;},
+  s=>{s.workspace.floorProfile='profile';},
+  s=>{s.workspace=Object.create(s.workspace);},
+  s=>{Object.setPrototypeOf(s,{workspace:s.workspace});delete s.workspace;},
+  s=>{Object.defineProperty(s.workspace,'floorProfile',{enumerable:true,get(){reads++;return original.workspace.floorProfile;}});},
+  s=>{Object.defineProperty(s.workspace.floorProfile,'id',{enumerable:true,get(){reads++;return 'host-profile';}});},
+  s=>{Object.defineProperty(s.workspace,'policyToken',{enumerable:true,get(){reads++;return original.workspace.policyToken;}});},
+  s=>{s.workspace.checkpointVersion=1;},
+  s=>{s.workspace.floorProfile.version='1';},
+  s=>{s.workspace.floorProfile.id='';},
+  s=>{s.workspace.floorProfile.id='bad\n';},
+  s=>{s.workspace.floorProfile.id='x'.repeat(97);},
+  s=>{s.workspace.floorTableId='';},
+  s=>{s.workspace.policyToken='fixture-token';},
+  s=>{s.workspace.floorTableToken='A'.repeat(64);},
+  s=>{s.workspace.sourceSha256='a'.repeat(64)+'\n';},
+  s=>{s.workspace.finishBinding=Object.create(s.workspace.finishBinding);},
+  s=>{s.workspace.finishBinding.version=99;s.finishCatalogue.version=99;},
+  s=>{s.workspace.finishBinding.digest='';s.finishCatalogue.digest='';}
+ ];
+ for(const mutate of mutations){const changed=structuredClone(original);mutate(changed);assert.throws(()=>readTileStackUISnapshot(changed,nav.state),TypeError);}
+ assert.equal(reads,0);
+}));
+test('every valid immutable workspace identity change invalidates the UI binding without interpreting geometry or policy',()=>withWorkspace((original,nav)=>{
+ const digest='b'.repeat(64);
+ const mutations=[
+  s=>{s.workspace.id='another-workspace';},
+  s=>{s.workspace.policyToken=digest;},
+  s=>{s.workspace.floorProfile.id='editor-supplied-profile';},
+  s=>{s.workspace.floorTableId='editor-supplied-table';},
+  s=>{s.workspace.floorTableToken=digest;},
+  s=>{s.workspace.sourceSha256=digest;},
+  s=>{s.workspace.finishBinding.id=s.finishCatalogue.id='another-finish-catalogue';},
+  s=>{s.workspace.finishBinding.digest=s.finishCatalogue.digest=digest;}
+ ];
+ for(const mutate of mutations){const changed=structuredClone(original);mutate(changed);assert.equal(readTileStackUISnapshot(changed,nav.state),changed);assert.notEqual(workspaceUIBinding(changed),workspaceUIBinding(original));}
+}));
+test('null-prototype plain identity records retain the same explicit Editor data and binding',()=>withWorkspace((original,nav)=>{
+ const changed=structuredClone(original);
+ for(const key of ['floorProfile','finishBinding'])changed.workspace[key]=Object.assign(Object.create(null),changed.workspace[key]);
+ changed.workspace=Object.assign(Object.create(null),changed.workspace);
+ changed.finishCatalogue=Object.assign(Object.create(null),changed.finishCatalogue);
+ assert.equal(readTileStackUISnapshot(changed,nav.state),changed);
+ assert.equal(workspaceUIBinding(changed),workspaceUIBinding(original));
+}));
