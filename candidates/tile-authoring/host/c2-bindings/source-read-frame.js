@@ -6,9 +6,17 @@ import {need,own,field} from './data.js';
 export function createWorkbenchReadFrame(input){
  const {binding,captureCurrent,isCurrent,connected}=own(input,['binding','captureCurrent','isCurrent','connected']);
  for(const fn of [captureCurrent,isCurrent,connected])need(typeof fn==='function','C2_SOURCE_FRAME_PORT');
- const {codec,domain}=binding,issued=new WeakMap(),handles=new WeakMap();let workbench=null,active=null,closed=false,composed=false;
- function poison(code){if(active)active.failed=true;need(false,code);}
- function live(fact){return !closed&&connected()===true&&isCurrent(fact)===true;}
+ const {codec,domain}=binding,issued=new WeakMap(),handles=new WeakMap();let workbench=null,active=null,checking=null,closed=false,composed=false,lifetime=0;
+ function poison(code){if(active)active.failed=true;if(checking)checking.failed=true;need(false,code);}
+ function live(fact){
+  if(closed||checking){if(checking)checking.failed=true;return false;}
+  const check={workbench,lifetime,failed:false},same=()=>!closed&&!check.failed&&workbench===check.workbench&&lifetime===check.lifetime;checking=check;
+  try{
+   if(connected()!==true||!same())return false;
+   if(isCurrent(fact)!==true||!same())return false;
+   return connected()===true&&same();
+  }finally{checking=null;}
+ }
  function valid(handle){const value=handles.get(handle);need(value&&live(value.current),'C2_SOURCE_STALE_READ');return value;}
  const api={
   composeProfile(profile){
@@ -37,10 +45,10 @@ export function createWorkbenchReadFrame(input){
    need(Object.isFrozen(actualWorkbench)&&typeof field(actualWorkbench,'getSnapshot')==='function','C2_SOURCE_FRAME_PORT');workbench=actualWorkbench;
   },
   read(){
-   if(active)poison('C2_SOURCE_READ_REENTRY');need(workbench&&!closed,'C2_SOURCE_FRAME_STATE');
+   if(active||checking)poison('C2_SOURCE_READ_REENTRY');need(workbench&&!closed,'C2_SOURCE_FRAME_STATE');
    const frame={current:null,seen:false,projecting:false,failed:false,witness:null};active=frame;
    try{
-    need(connected()===true,'C2_SOURCE_DISCONNECTED');frame.current=captureCurrent();need(frame.current&&typeof frame.current==='object'&&live(frame.current),'C2_SOURCE_STALE_READ');
+    need(connected()===true&&!closed&&!frame.failed&&active===frame,'C2_SOURCE_DISCONNECTED');frame.current=captureCurrent();need(frame.current&&typeof frame.current==='object'&&live(frame.current),'C2_SOURCE_STALE_READ');
     const read=workbench.getSnapshot(),stillCurrent=live(frame.current);
     need(active===frame&&!frame.failed&&frame.seen&&frame.witness&&read&&typeof read==='object'&&stillCurrent,'C2_SOURCE_STALE_READ');
     const handle=Object.freeze({});handles.set(handle,frame.witness);issued.set(read,handle);return read;
@@ -49,7 +57,7 @@ export function createWorkbenchReadFrame(input){
   capture(exactRead){const handle=issued.get(exactRead);need(handle,'C2_SOURCE_FOREIGN_READ');valid(handle);return handle;},
   witness(handle){return valid(handle);},
   isCurrent(handle){const value=handles.get(handle);try{return !!value&&live(value.current);}catch{return false;}},
-  dispose(){closed=true;if(active)active.failed=true;workbench=null;}
+  dispose(){if(closed)return;closed=true;lifetime++;if(active)active.failed=true;if(checking)checking.failed=true;workbench=null;}
  };
  return Object.freeze(api);
 }
