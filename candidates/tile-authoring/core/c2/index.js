@@ -1,7 +1,7 @@
 // Private pure candidate. No registration or commit authority.
 import * as C1 from '../../../../packages/tile-authoring-core/index.js';
 import {Budget,readData,corePort,fail,refusal} from './data.js';
-import {STAGE_A,PROFILES,CAPS,LIMITS} from './contract.js';
+import {STAGE_A,STAGE_B,PROFILES,CAPS,LIMITS} from './contract.js';
 import {parsePlanInput,deriveAppearancePlan,finishPlan} from './planning.js';
 export {bindTileAuthoringTarget} from './target.js';
 export {createRectangleDefinition} from '../../../../packages/tile-authoring-core/index.js';
@@ -19,4 +19,7 @@ export function planTileAuthoring(actual,input){
   const v=parsePlanInput(raw,b,{alreadyRead:true}),p=deriveAppearancePlan(t,v,b);return finishPlan(t,p,b);
  }catch(e){return refusal(requestId,e);}
 }
-export function tileAuthoringDiscovery(){return Object.freeze({kind:'nautilus-tile-authoring-c2-private-discovery',version:1,checkpoint:'A',publicRegistration:false,committable:false,profiles:PROFILES,operations:STAGE_A,limits:LIMITS,allocationCaps:CAPS,geometryPreparation:false,combinedPlacement:false,decoder:false,renderer:false,hostAuthority:false});}
+export function tileAuthoringDiscovery(){return Object.freeze({kind:'nautilus-tile-authoring-c2-private-discovery',version:1,checkpoint:'B-non-placement',publicRegistration:false,committable:false,profiles:PROFILES,operations:STAGE_B,limits:LIMITS,allocationCaps:CAPS,geometryPreparation:false,combinedPlacement:false,decoder:false,renderer:false,hostAuthority:false});}
+
+export {captureTilePreset} from './capture.js';
+export {exportTileContentPack,importTileContentPack} from './portable.js';

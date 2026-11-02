@@ -1,7 +1,7 @@
 import {fail,hash,equal,clone} from './data.js';
 import {libraryIndex,resourceRefs,pin,recordKey} from './model.js';
 import {rectangleInfo} from './geometry.js';
-import {REQUIRED,PROFILES,STAGE_A} from './contract.js';
+import {REQUIRED,PROFILES,STAGE_B} from './contract.js';
 
 const targetKey=x=>[x.ownerId,x.surfaceId,x.floorId].join('|');
 const unique=(xs,code,path)=>{if(new Set(xs).size!==xs.length)fail(code,path,'Duplicate identities refuse.');};
@@ -14,7 +14,7 @@ export function supportedRecord(t,r,b){
   rectangleInfo(t,r.body.recipe,b);
  }
  if(r.kind==='nautilus-tile-artwork'&&r.body.blob.mediaType!=='image/png')fail('C2_PNG_PROFILE_REQUIRED','/artwork/blob','Only the fixed narrow PNG profile is supported; descriptors do not imply decoder readiness.');
- if(r.kind==='nautilus-tile-preset'&&(r.body.defaultMarks.length||r.body.defaultLayers.length))fail('C2_STAGE_B_DEFAULTS_UNAVAILABLE','/preset','Graphic preset defaults require the separate Stage B checkpoint.');
+
  b.supportedRecords.add(r);
 }
 export function validatePack(t,p,b){
@@ -23,6 +23,7 @@ export function validatePack(t,p,b){
   supportedRecord(t,r,b);
   if(r.kind==='nautilus-tile-artwork'){const old=blobs.get(r.body.blob.sha256);if(old&&!equal(t,old,r.body.blob,b))fail('BLOB_DESCRIPTOR_CONFLICT','/pack','Same bytes cannot have inconsistent immutable descriptors.');blobs.set(r.body.blob.sha256,r.body.blob);}
  }
+ for(const r of p.manifest.presets)validatePresetDefaults(t,r,idx,b);
  const required=[...new Set([...idx.all.values()].flatMap(r=>r.body.requires))].sort();
  if(!equal(t,p.requires.slice().sort(),required,b))fail('PACK_REQUIRED_PROFILES','/pack/requires','Pack requires must cover the complete dependency closure exactly.');
  unique(p.blobEntries.map(x=>x.sha256),'PACK_BLOB_DUPLICATE','/pack/blobEntries');
@@ -67,8 +68,17 @@ export function stageOperations(t,before,command,context,b){
  const deleteMarks=ids=>{unique(ids,'DUPLICATE_MARK','/markIds');for(const id of ids){b.take();const entry=markMap.get(id);if(!entry)fail('MARK_REQUIRED','/markIds','Every explicitly deleted mark must exist.');if(entry.mark.groupId!==null)fail('C2_GROUPING_UNAVAILABLE','/markIds','Grouped changes are deferred.');sourceSurface(t,d,entry.mark.target,b,{editable:true});}const set=new Set(ids);for(const c of deco.chunks)c.marks=c.marks.filter(m=>!set.has(m.id));for(const id of ids)markMap.delete(id);};
  for(const op of command.operations){
   b.take(8);const body=op.body;
-  if(!STAGE_A.includes(op.kind))fail('C2_STAGE_A_OPERATION_UNAVAILABLE','/operations','Stage A does not implement '+op.kind+'. Geometry/appearance composition and Stage C require their explicit routes.');
-  if(op.kind==='content.import'){
+  if(op.kind==='preset.place')fail('C2_COMBINED_ROUTE_REQUIRED','/operations','Placement with geometry and appearance needs the separately accepted combined route; never chain two commits or force Plan2.');
+  if(!STAGE_B.includes(op.kind))fail('C2_STAGE_A_OPERATION_UNAVAILABLE','/operations','The private appearance route does not implement '+op.kind+'. Geometry/appearance composition and Stage C require their explicit routes.');
+  if(op.kind==='preset.save'){
+   const r=body.preset,idx=libraryIndex(t,lib,b),old=idx.all.get(recordKey(r));
+   if(old){if(old.kind!=='nautilus-tile-preset'||!equal(t,old,r,b))fail('IMMUTABLE_CONTENT_CONFLICT','/preset','Saved immutable id/revision cannot replace different bytes.');continue;}
+   if([...idx.all.values()].some(x=>x.id===r.id&&x.kind!=='nautilus-tile-preset'))fail('IDENTITY_KIND_CONFLICT','/preset','Preset identity cannot change kind.');
+   const versions=lib.presets.filter(x=>x.id===r.id),next=versions.length?Math.max(...versions.map(x=>x.revision))+1:1;
+   if(r.revision!==next)fail('PRESET_REVISION','/preset','Append the consecutive immutable preset revision.');
+   lib.presets.push(r);if(lib.presets.length>b.limits.presets)fail('CONTENT_LIMIT','/library/presets','All retained presets count.');
+   const complete=libraryIndex(t,lib,b);validatePresetDefaults(t,r,complete,b);
+  }else if(op.kind==='content.import'){
    const incoming=validatePack(t,body.pack,b),idx=libraryIndex(t,lib,b);
    for(const r of incoming.all.values()){
     const old=idx.all.get(recordKey(r));
@@ -108,8 +118,34 @@ export function stageOperations(t,before,command,context,b){
  return d;
 }
 export function validateAppearanceDocument(t,d,b){
+ const idx=libraryIndex(t,d.authoring.library,b);for(const r of d.authoring.library.presets)validatePresetDefaults(t,r,idx,b);
  if(d.authoring.decorations.groups.length)fail('C2_GROUPING_UNAVAILABLE','/decorations/groups','Stage C group/phase presentation has not been implemented. Preserve the whole saved source and refuse this appearance route.');
  const ids=new Set();
  for(const c of d.authoring.decorations.chunks){b.take();if(ids.has(c.id))fail('DUPLICATE_CHUNK','/chunks','Chunk IDs are unique.');ids.add(c.id);if(c.marks.length>4096)fail('SOURCE_MARK_LIMIT','/chunks','At most4096 marks per chunk.');for(const m of c.marks){if(m.groupId===null)checkGraphic(t,d,m,b);}}
  for(const s of d.authoring.decorations.surfaces)sourceSurface(t,d,s,b);
+}
+
+export function validateGridMask(t,graphic,surface,b){
+ const mask=graphic.mask;if(mask.kind!=='grid-spans')return;
+ if(mask.grid.id!==surface.grid.id||mask.grid.version!==surface.grid.version||mask.grid.digest!==hash(t,surface.grid,b))fail('MASK_GRID','/graphic/mask','Exact definition surface authored-grid identity/version/digest required.');
+ let previous=-Infinity,total=0;
+ for(const row of mask.rows){if(row.j<=previous)fail('MASK_ROWS','/graphic/mask','Strict ordered rows required.');previous=row.j;let end=-Infinity;
+  for(const span of row.spans){if(span.i0<end)fail('MASK_OVERLAP','/graphic/mask','Sorted non-overlapping finite spans required.');end=span.i0+span.count;total+=span.count;}
+ }
+ b.maskCellsEvaluated+=total;b.take(total);if(total>4096)fail('MASK_LIMIT','/graphic/mask','At most4096 authored mask cells.');
+}
+export function validatePresetDefaults(t,p,idx,b){
+ b.checkedPresetObjects??=new WeakSet();if(b.checkedPresetObjects.has(p)){b.take();return;}
+ supportedRecord(t,p,b);const def=idx.resolve(p.body.definition,'nautilus-recipe-definition');supportedRecord(t,def,b);
+ const layers=p.body.defaultLayers,marks=p.body.defaultMarks;
+ unique(layers.map(x=>x.layer.id),'PRESET_TEMPLATE_LAYER_ID','/preset/defaultLayers');unique(marks.map(x=>x.id),'PRESET_TEMPLATE_MARK_ID','/preset/defaultMarks');
+ const perSurface=new Map();
+ for(const x of layers){b.take();if(!def.body.surfaces.some(s=>s.id===x.surfaceId))fail('PRESET_SURFACE','/preset','Layer names an exact definition surface.');const a=perSurface.get(x.surfaceId)??[];a.push(x.layer);perSurface.set(x.surfaceId,a);}
+ for(const a of perSurface.values()){if(a.length>8)fail('LAYER_LIMIT','/preset','Eight layers per source surface.');unique(a.map(x=>x.order),'DUPLICATE_LAYER_ORDER','/preset/defaultLayers');}
+ for(const m of marks){
+  b.take();const surface=def.body.surfaces.find(x=>x.id===m.surfaceId);
+  if(!surface||!layers.some(x=>x.surfaceId===m.surfaceId&&x.layer.id===m.layerId))fail('PRESET_LAYER','/preset','Default mark needs its exact source surface/layer.');
+  supportedRecord(t,idx.resolve(m.graphic.artwork,'nautilus-tile-artwork'),b);validateGridMask(t,m.graphic,surface,b);
+ }
+ b.checkedPresetObjects.add(p);
 }
