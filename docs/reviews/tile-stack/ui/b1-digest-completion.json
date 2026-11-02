@@ -1,0 +1,83 @@
+{
+  "kind": "tile-stack-ui-b1-digest-completion",
+  "version": 1,
+  "verifiedAt": "2026-11-02T06:38:18.638Z",
+  "from": "54a803fc5bb39257bb0c6f1c6d836216be5abbb3",
+  "actualB1": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+  "publicFoundation": "cae053d3afcd2a10d2226e06b387db76ab102dd5",
+  "grammar": "Closed eleven-field own plain workspace; exact lowercase SHA-256 digests; no aliases/metadata bag.",
+  "mutable": [
+    "sourceDocumentDigest",
+    "sourceConstraintsDigest"
+  ],
+  "immutableAdded": "floorProfileDigest",
+  "focusedTests": 23,
+  "browserGroups": 13,
+  "originalWitnessesPreserved": 8,
+  "workspaceWitnesses": 9,
+  "actualProof": {
+    "profiles": 2,
+    "snapshots": 5,
+    "loadedSourceModules": 141,
+    "source": "docs/reviews/tile-stack/ui/evidence/b1-digests/actual-b1.json",
+    "allOwnedHarnessesDisposed": true,
+    "scope": "Actual fixed B1 snapshot/UI-reader conformance, with resource-only B1 view stand-in and compatibility finishes. Not B1 authority acceptance, native presentation, live browser wiring or installed proof."
+  },
+  "gates": [
+    {
+      "id": "check",
+      "command": "npm run check",
+      "exitCode": 0,
+      "unchangedProtectedHostFiles": 15,
+      "log": "docs/reviews/tile-stack/ui/evidence/b1-digests/check.log.gz",
+      "rawSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c",
+      "archiveSha256": "782c4f1af2d36424a763b23dff84be4a04a178b634f971df0841dee89541745b"
+    },
+    {
+      "id": "test",
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 935,
+      "passed": 935,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/reviews/tile-stack/ui/evidence/b1-digests/test.log.gz",
+      "rawSha256": "962d72b293b03cf280f26f932852f71cb7ea204562f9efa01afb1fd9ce6a1302",
+      "archiveSha256": "2dced0455118e8e4a7aad12671c9d323197955201ab885efd72d21a8c83ff6a4"
+    },
+    {
+      "id": "upstream",
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "log": "docs/reviews/tile-stack/ui/evidence/b1-digests/upstream.log.gz",
+      "rawSha256": "92d136e0429ebf4507e4dd67257a144aa28a83b6ba717a63998dbd0d6923ef14",
+      "archiveSha256": "10ec6428929732871c8f28118d4642da543050ae689df8edb15e0fd8c9686a1e"
+    },
+    {
+      "id": "build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 519,
+      "log": "docs/reviews/tile-stack/ui/evidence/b1-digests/build.log.gz",
+      "rawSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7",
+      "archiveSha256": "097be4f82009329fe04e3b4628ac26d228d55b44593eecc14e9dab2ea9823a98"
+    }
+  ],
+  "unchangedProtectedHosts": 15,
+  "preservedCustomContract": "4d1e5da37031b89afbcb7b6fb47e6a03a606de25",
+  "helpers": {
+    "newBrowserServerPairs": 1,
+    "totalRecordedStackPairs": 9,
+    "newPairExited": true,
+    "portReleased": true,
+    "retained": 0
+  },
+  "limitations": [
+    "No B1 authority acceptance",
+    "No live B2 input/native catalogue wiring",
+    "No public export/schema/source-fence changes"
+  ]
+}

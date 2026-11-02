@@ -13,7 +13,7 @@ const rectangle=()=>({tool:'rectangle',ownerId:null,origin:[0,0],widthM:8,depthM
 export function createTileStackUIFixture(floorController,profileId){
   const floors=profileId==='nonuniform-fifteen'?nonuniformFloors:compatibilityFloors;
   let state={version:2,interface:{kind:'nautilus-tile-stack-editor-adapter',version:2},
-    workspace:{id:'ui-fixture-'+profileId,checkpointVersion:2,policyToken:sha256('ui-fixture-policy-v2'),floorProfile:{id:profileId,version:1},floorTableId:profileId+'-table',floorTableToken:sha256(JSON.stringify(floors)),sourceSha256:sha256('UI fixture only; no authoritative source map'),finishBinding:{id:catalogue.id,version:catalogue.version,digest:catalogue.digest}},
+    workspace:{id:'ui-fixture-'+profileId,checkpointVersion:2,policyToken:sha256('ui-fixture-policy-v2'),floorProfile:{id:profileId,version:1},floorTableId:profileId+'-table',floorTableToken:sha256(JSON.stringify(floors)),sourceSha256:sha256('UI fixture only; no authoritative source map'),sourceDocumentDigest:sha256('UI fixture only; no authoritative document'),sourceConstraintsDigest:sha256('UI fixture only; no authoritative constraints'),floorProfileDigest:sha256('UI fixture only; opaque profile '+profileId),finishBinding:{id:catalogue.id,version:catalogue.version,digest:catalogue.digest}},
     floors:clone(floors),finishCatalogue:clone(catalogue),inspection:{mode:'selected-floor',cutawayFloorId:null},limits:clone(SMART_TILE_LIMITS),
     phase:'idle',tool:'rectangle',selectedOwnerId:'fixture.surface.15',draft:rectangle(),reviewId:null,requestId:null,recoveryId:null,revision:0,checkpointSerial:0,acceptedMinimumClearanceM:null,
     history:{undo:0,redo:0,bytes:0,maxEntries:64,maxBytes:16000000},

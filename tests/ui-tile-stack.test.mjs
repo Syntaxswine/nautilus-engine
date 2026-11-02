@@ -98,6 +98,7 @@ test('every valid immutable workspace identity change invalidates the UI binding
   s=>{s.workspace.floorProfile.id='editor-supplied-profile';},
   s=>{s.workspace.floorTableId='editor-supplied-table';},
   s=>{s.workspace.floorTableToken=digest;},
+  s=>{s.workspace.floorProfileDigest=digest;},
   s=>{s.workspace.sourceSha256=digest;},
   s=>{s.workspace.finishBinding.id=s.finishCatalogue.id='another-finish-catalogue';},
   s=>{s.workspace.finishBinding.digest=s.finishCatalogue.digest=digest;}
@@ -111,4 +112,33 @@ test('null-prototype plain identity records retain the same explicit Editor data
  changed.finishCatalogue=Object.assign(Object.create(null),changed.finishCatalogue);
  assert.equal(readTileStackUISnapshot(changed,nav.state),changed);
  assert.equal(workspaceUIBinding(changed),workspaceUIBinding(original));
+}));
+
+test('the three named B1 digest fields are required own exact digests while unknown workspace fields still refuse',()=>withWorkspace((original,nav)=>{
+ assert.equal(Object.keys(original.workspace).length,11);
+ for(const field of ['sourceDocumentDigest','sourceConstraintsDigest','floorProfileDigest']){
+  for(const bad of [undefined,'','a'.repeat(63),'A'.repeat(64),'a'.repeat(64)+'\n',null]){
+   const changed=structuredClone(original);
+   if(bad===undefined)delete changed.workspace[field];else changed.workspace[field]=bad;
+   assert.throws(()=>readTileStackUISnapshot(changed,nav.state),TypeError,field);
+  }
+  let calls=0;const accessor=structuredClone(original);
+  Object.defineProperty(accessor.workspace,field,{enumerable:true,get(){calls++;return original.workspace[field];}});
+  assert.throws(()=>readTileStackUISnapshot(accessor,nav.state),TypeError);assert.equal(calls,0);
+ }
+ const extra=structuredClone(original);extra.workspace.unrecognizedDigest='a'.repeat(64);
+ assert.throws(()=>readTileStackUISnapshot(extra,nav.state),TypeError);
+}));
+test('per-revision source digests update readably without changing mount identity or the immutable profile digest',()=>withWorkspace((original,nav)=>{
+ for(const fields of [['sourceDocumentDigest'],['sourceConstraintsDigest'],['sourceDocumentDigest','sourceConstraintsDigest']]){
+  const changed=structuredClone(original);
+  for(const field of fields)changed.workspace[field]='c'.repeat(64);
+  changed.revision++;changed.diagnostics=[{code:'POST_COMMIT',message:'Accepted source diagnostics updated.',action:'Continue from accepted state.'}];
+  assert.equal(readTileStackUISnapshot(changed,nav.state),changed);
+  assert.equal(workspaceUIBinding(changed),workspaceUIBinding(original));
+  assert.equal(changed.workspace.floorProfileDigest,original.workspace.floorProfileDigest);
+ }
+ const profile=structuredClone(original);profile.workspace.floorProfileDigest='d'.repeat(64);
+ assert.equal(readTileStackUISnapshot(profile,nav.state),profile);
+ assert.notEqual(workspaceUIBinding(profile),workspaceUIBinding(original));
 }));

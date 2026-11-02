@@ -51,7 +51,7 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
   assert.equal(await action('finish').isDisabled(),true);assert.match(await panel().locator('.ts-fault').innerText(),/identity changed/);
   pass('friendly typed finishes use fixed IDs, respect locks and reject an in-session version mapping change');
 
-  const workspaceCases=['changed profile ID','unsupported profile version','changed floor-table ID','missing profile identity','non-record profile','inherited profile fields','missing source SHA','empty workspace ID'];
+  const workspaceCases=['changed profile ID','unsupported profile version','changed floor-table ID','missing profile identity','non-record profile','inherited profile fields','missing source SHA','empty workspace ID','changed floor-profile digest'];
   report.workspaceWitnesses=[];
   for(const name of workspaceCases){
     await reset();await patch({phase:'review',reviewId:'must-not-cross-workspace'});
@@ -67,6 +67,7 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
         else if(name==='inherited profile fields')s.workspace.floorProfile=Object.create({id:'inherited-profile',version:99});
         else if(name==='missing source SHA')delete s.workspace.sourceSha256;
         else if(name==='empty workspace ID')s.workspace.id='';
+        else if(name==='changed floor-profile digest')s.workspace.floorProfileDigest='f'.repeat(64);
         return s;
       };
       f.adapter.getSnapshot=()=>mutate(read());
@@ -76,7 +77,7 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
       proof.panel.element.querySelector('[data-action=apply]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
       const blocked={stack:proof.panel.element.querySelector('[data-action=stack]').disabled,finish:proof.panel.element.querySelector('[data-action=finish]').disabled,apply:proof.panel.element.querySelector('[data-action=apply]').disabled};
       const result={name,hostFlags:{stack:before.actions.stack,finish:before.actions.finish,apply:before.actions.apply},refreshAccepted:accepted!==null,blocked,authoringCalls:f.calls.filter(call=>['setDraft','apply'].includes(call.name)).length,reason:proof.panel.element.querySelector('.ts-fault').textContent};
-      if(['changed profile ID','changed floor-table ID'].includes(name)){
+      if(['changed profile ID','changed floor-table ID','changed floor-profile digest'].includes(name)){
         let reads=0;f.adapter.getSnapshot=()=>{reads++;return read();};
         proof.panel.refresh();f.notify();
         result.oldMountRemainsRetired=proof.panel.element.querySelector('[data-action=stack]').disabled&&proof.panel.element.querySelector('[data-action=apply]').disabled;
@@ -103,7 +104,7 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
     }
     report.workspaceWitnesses.push(result);
   }
-  pass('all eight original workspace witnesses block mounted stack/finish/apply and stale form events; valid identity changes retire until an explicit fresh mount');
+  pass('all eight original witnesses plus immutable floor-profile digest changes block mounted actions and require a fresh mount');
 
   await reset();await action('stack').click();await idle();
   await page.evaluate(()=>{const f=tileStackUIProof.fixture;f.on('review',()=>{f.patch({phase:'preparing'});window.pendingIdentityReview=new Promise(resolve=>window.resolveIdentityReview=resolve);return window.pendingIdentityReview;});});
@@ -113,6 +114,34 @@ await withArtReview('Tile-stack Gate A UI component proof',async({page,browser,b
   await page.evaluate(async()=>{window.resolveIdentityReview({ok:false,code:'LATE_REPLY_FROM_RETIRED_BINDING'});await window.pendingIdentityReview;await Promise.resolve();const f=tileStackUIProof.fixture;f.patch({phase:'review',reviewId:'late-old-review'});});
   assert.match(await panel().locator('.ts-fault').innerText(),/identity changed/);assert.equal(await action('stack').isDisabled(),true);assert.equal(await action('apply').isDisabled(),true);assert.equal((await calls()).filter(call=>call.name==='apply').length,0);
   pass('workspace identity retirement invalidates pending UI replies without cancelling or replacing the borrowed Editor authority');
+
+  await reset();await panel().getByLabel('Requested minimum clearance (m)').fill('3.125');
+  await panel().getByLabel('Cosmetic finish',{exact:true}).selectOption('fixture.finish.brick');
+  const sourceUpdates=await page.evaluate(async()=>{
+    const proof=tileStackUIProof,f=proof.fixture,element=proof.panel.element;
+    const {workspaceUIBinding}=await import('/candidates/tile-stack/ui/contract.js');
+    const binding=workspaceUIBinding(f.peek()),rows=[];
+    for(const [index,fields]of [['sourceDocumentDigest'],['sourceConstraintsDigest'],['sourceDocumentDigest','sourceConstraintsDigest']].entries()){
+      const workspace={...f.peek().workspace};
+      for(const field of fields)workspace[field]=String(index+1).repeat(64);
+      f.patch({workspace,revision:index+1,diagnostics:[{code:'FIXTURE_SOURCE_REVISION_'+(index+1),message:'Post-commit diagnostic revision '+(index+1),action:'Continue from the accepted source.'}]});
+      const read=proof.panel.refresh();
+      rows.push({fields,accepted:read!==null,sameMount:proof.panel.element===element,sameBinding:workspaceUIBinding(f.peek())===binding,
+        fault:!element.querySelector('.ts-fault').hidden,stackDisabled:element.querySelector('[data-action=stack]').disabled,
+        finishDisabled:element.querySelector('[data-action=finish]').disabled,
+        clearance:element.querySelector('[name=minimumClearanceM]').value,finish:element.querySelector('select[aria-label="Cosmetic finish"]').value,
+        diagnostics:element.querySelector('.ts-diagnostics').textContent});
+    }
+    return {rows,cancelCalls:f.calls.filter(call=>call.name==='cancel').length,authoringCalls:f.calls.filter(call=>['setDraft','review','apply'].includes(call.name)).length};
+  });
+  for(const [index,row]of sourceUpdates.rows.entries()){
+    assert.equal(row.accepted,true);assert.equal(row.sameMount,true);assert.equal(row.sameBinding,true);assert.equal(row.fault,false);
+    assert.equal(row.stackDisabled,false);assert.equal(row.finishDisabled,false);assert.equal(row.clearance,'3.125');assert.equal(row.finish,'fixture.finish.brick');
+    assert.ok(row.diagnostics.includes('Post-commit diagnostic revision '+(index+1)));
+  }
+  assert.equal(sourceUpdates.cancelCalls,0);assert.equal(sourceUpdates.authoringCalls,0);report.mutableSourceDigestUpdates=sourceUpdates;
+  pass('both per-revision source digests update diagnostics on the same mount without cancellation, form loss or immutable-binding retirement');
+
 
 
   await reset();await action('stack').click();await idle();await action('review').focus();await page.keyboard.down('Enter');for(let i=0;i<4;i++)await page.keyboard.down('Enter');await page.keyboard.up('Enter');await page.waitForFunction(()=>tileStackUIProof.fixture.peek().phase==='review');assert.equal((await calls()).filter(call=>call.name==='review').length,1);

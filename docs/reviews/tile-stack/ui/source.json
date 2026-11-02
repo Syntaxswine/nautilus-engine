@@ -7,13 +7,13 @@
   "candidateFiles": [
     {
       "path": "candidates/tile-stack/ui/contract.js",
-      "bytes": 8678,
-      "sha256": "49e2b855da32d60744aea48c3f0df9552f34f3485e979c0acd3c380e5c550952"
+      "bytes": 8952,
+      "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4"
     },
     {
       "path": "candidates/tile-stack/ui/fixture-adapter.js",
-      "bytes": 6902,
-      "sha256": "eecaa1f1811a56df2f6351a333e38ef2130b96f2137f6f1cf5adcc0bb353f16f"
+      "bytes": 7128,
+      "sha256": "b8e79994db4ecc34b745a60a5ddebbcb1313f447d6d4b2506d3a7dba1b608dd4"
     },
     {
       "path": "candidates/tile-stack/ui/fixture.html",
@@ -39,13 +39,18 @@
   "roleCode": [
     {
       "path": "tests/ui-tile-stack.test.mjs",
-      "bytes": 10923,
-      "sha256": "3f20b4dbf54603c4574be2cdebdea2e51d679ebeec244378714050e73ee3c529"
+      "bytes": 13048,
+      "sha256": "994389f1717745b7da08bdb0134e3b0994465d64c978bb841847df4f311ef2dd"
     },
     {
       "path": "tools/ui-tile-stack-review.mjs",
-      "bytes": 25777,
-      "sha256": "9ee0084c5fd8bc2ad21720d79e26964290596ab8d311745da587057d2532211d"
+      "bytes": 28369,
+      "sha256": "ebed85ab76a72131095566f61665e6201c9be668d6db2fcb5204717ce5c4bfbd"
+    },
+    {
+      "path": "tools/ui-tile-stack-b1-proof.mjs",
+      "bytes": 5620,
+      "sha256": "c34d14bd84b9b10b9d99c27c4300ac667534075789661fb9df457d74468f1e79"
     }
   ],
   "fixedBorrowedDependencies": [
@@ -162,6 +167,27 @@
       "bytes": 17839,
       "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4",
       "use": "Read-only fixed identity/projection contract; no peer implementation import"
+    },
+    {
+      "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+      "path": "apps/editor/tile-stack/profile.js",
+      "bytes": 8003,
+      "sha256": "b4fc35ead479927f1f1f22037e86fb93daeda694b3c17c23954b6b5fdd0bc198",
+      "use": "Read-only actual B1 snapshot projection/interface evidence; no live host import"
+    },
+    {
+      "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+      "path": "tests/fixtures/tile-stack-editor/b1.mjs",
+      "bytes": 4688,
+      "sha256": "ab8b5b2811e69004c3a5638cbbf9870de5a6f6139c2a4d44f2e46a5535c69bbd",
+      "use": "Read-only actual B1 snapshot projection/interface evidence; no live host import"
+    },
+    {
+      "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+      "path": "tests/editor-tile-stack-b1-projection.test.mjs",
+      "bytes": 2691,
+      "sha256": "b03c5f79cda8b69569bf35fe35c1134c347cb36a3127cb6627b8852533ecd44c",
+      "use": "Read-only actual B1 snapshot projection/interface evidence; no live host import"
     }
   ],
   "assets": "Original CSS only; no new bitmap/model/material, no duplicate Three or donor gameplay import",
@@ -174,7 +200,7 @@
   "adapterTarget": {
     "kind": "nautilus-tile-stack-editor-adapter",
     "version": 2,
-    "fixedProposal": "ce3a1afa02f70a478356de45c64364bb460b9c25"
+    "fixedProposal": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb"
   },
   "correction": {
     "preservedCustomContract": "4d1e5da37031b89afbcb7b6fb47e6a03a606de25",
@@ -193,5 +219,26 @@
     "baselineSha256": "d755ec2f9336903a967e3ca5cc71e0ff9bcb3edbc69a61e4bc31286db998cacd",
     "targetSha256": "a6e8d1044bfe136b1b638ec77ec9b6e038133de3606d61178c224cb74fdee3ee",
     "change": "Only the existing adjacent guard/declaration lines swapped; exact import and error text retained. No timeout, skipped test, private core or source fence changes."
+  },
+  "b1DigestCompletion": {
+    "from": "54a803fc5bb39257bb0c6f1c6d836216be5abbb3",
+    "actualB1": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+    "publicFoundation": "cae053d3afcd2a10d2226e06b387db76ab102dd5",
+    "workspaceFields": 11,
+    "mutableFields": [
+      "sourceDocumentDigest",
+      "sourceConstraintsDigest"
+    ],
+    "immutableField": "floorProfileDigest",
+    "focusedTests": 23,
+    "browserGroups": 13,
+    "actualSnapshots": 5,
+    "actualLoadedModules": 141,
+    "proof": "docs/reviews/tile-stack/ui/evidence/b1-digests/actual-b1.json",
+    "validation": "docs/reviews/tile-stack/ui/b1-digest-completion.json"
+  },
+  "evidenceHashes": {
+    "actualB1": "efcf233ac79d6811d9c992e6ebdcb6dd4530bcd77d17c6dab7ce568cff75716e",
+    "browserProof": "3cf8c87e8a4ad96f88624894bd03baca463742ab1276224a03be0b5390c18b6a"
   }
 }

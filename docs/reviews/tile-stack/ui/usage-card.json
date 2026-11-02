@@ -9,7 +9,7 @@
   "adapter": {
     "kind": "nautilus-tile-stack-editor-adapter",
     "version": 2,
-    "fixedProposal": "ce3a1afa02f70a478356de45c64364bb460b9c25"
+    "fixedProposal": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb"
   },
   "requires": [
     "Actual borrowed floor controller and existing DOM widget/CSS",
@@ -28,5 +28,13 @@
     "Visibility and cosmetic finish do not grant geometry capability"
   ],
   "proof": "Source component fixture only; see evidence/component-proof.json",
-  "builderChecklist": "README.md#builder-checklist"
+  "builderChecklist": "README.md#builder-checklist",
+  "workspaceDigests": {
+    "mutable": [
+      "sourceDocumentDigest",
+      "sourceConstraintsDigest"
+    ],
+    "immutable": "floorProfileDigest",
+    "grammar": "Closed eleven-field own plain workspace record; all digest fields exact lowercase SHA-256."
+  }
 }

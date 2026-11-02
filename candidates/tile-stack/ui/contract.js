@@ -2,7 +2,7 @@
 export const TILE_STACK_UI_PROPOSAL=Object.freeze({
   kind:'nautilus-tile-stack-ui-proposal',version:1,
   base:'5d69c2130eb64b6f4e31bc672e884bdc33bf47d2',
-  editorContract:'ce3a1afa02f70a478356de45c64364bb460b9c25',
+  editorContract:'4b0499cc776fcd85fdd415fa7344982b75fbf8fb',
   adapterKind:'nautilus-tile-stack-editor-adapter',adapterVersion:2,
   optionalMethods:Object.freeze(['lockOwner','setInspection'])
 });
@@ -24,12 +24,12 @@ const digest=value=>typeof value==='string'&&/^[a-f0-9]{64}(?![\s\S])/.test(valu
 // UI identity/projection validation only. Profile names and native floor geometry
 // remain supplied/validated by Editor; no source, catalogue provenance or policy hash is recomputed.
 function readWorkspaceIdentity(value){
-  const workspace=record(ownData(value,'workspace','Snapshot'),['id','checkpointVersion','policyToken','floorProfile','floorTableId','floorTableToken','sourceSha256','finishBinding'],'Workspace');
+  const workspace=record(ownData(value,'workspace','Snapshot'),['id','checkpointVersion','policyToken','floorProfile','floorTableId','floorTableToken','sourceSha256','finishBinding','sourceDocumentDigest','sourceConstraintsDigest','floorProfileDigest'],'Workspace');
   const profile=record(workspace.floorProfile,['id','version'],'Floor profile');
   const finish=record(workspace.finishBinding,['id','version','digest'],'Finish binding');
   if(workspace.checkpointVersion!==2||profile.version!==1||finish.version!==1)throw new TypeError('Use workspace v2, floor profile v1 and finish binding v1; unknown versions refuse.');
   if(![workspace.id,profile.id,workspace.floorTableId,finish.id].every(identity))throw new TypeError('Workspace/profile/table/finish identities must be stable ASCII IDs of at most 96 characters.');
-  if(![workspace.policyToken,workspace.floorTableToken,workspace.sourceSha256,finish.digest].every(digest))throw new TypeError('Workspace tokens, source SHA and finish digest require exact lowercase SHA-256 values.');
+  if(![workspace.policyToken,workspace.floorTableToken,workspace.sourceSha256,finish.digest,workspace.sourceDocumentDigest,workspace.sourceConstraintsDigest,workspace.floorProfileDigest].every(digest))throw new TypeError('Workspace tokens, source SHA and finish digest require exact lowercase SHA-256 values.');
   const catalogue=record(ownData(value,'finishCatalogue','Snapshot'),['id','version','digest','entries'],'Finish catalogue');
   if(!identity(catalogue.id)||catalogue.version!==1||!digest(catalogue.digest)||!Array.isArray(catalogue.entries)||!catalogue.entries.length||catalogue.entries.length>64)throw new TypeError('A fixed typed finish catalogue v1 is required.');
   if(finish.id!==catalogue.id||finish.version!==catalogue.version||finish.digest!==catalogue.digest)throw new TypeError('Finish catalogue disagrees with the captured workspace binding.');
@@ -52,11 +52,12 @@ export function readTileStackUISnapshot(value,floorState){
   if(value.acceptedMinimumClearanceM!==undefined&&value.acceptedMinimumClearanceM!==null&&(typeof value.acceptedMinimumClearanceM!=='number'||!Number.isFinite(value.acceptedMinimumClearanceM)||value.acceptedMinimumClearanceM<=0))throw new TypeError('Accepted minimum must be a positive host value, null, or unreported.');
   return value;
 }
+// Current document/constraint digests are per-revision diagnostics, not mount identity.
 export function workspaceUIBinding(value){
   const {workspace:w,catalogue:c}=readWorkspaceIdentity(value);
   return JSON.stringify([
     w.id,w.checkpointVersion,w.policyToken,w.floorProfile.id,w.floorProfile.version,
-    w.floorTableId,w.floorTableToken,w.sourceSha256,
+    w.floorTableId,w.floorTableToken,w.floorProfileDigest,w.sourceSha256,
     w.finishBinding.id,w.finishBinding.version,w.finishBinding.digest,
     c.id,c.version,c.digest,
     c.entries.map(({id,version,label})=>({id,version,label})).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)

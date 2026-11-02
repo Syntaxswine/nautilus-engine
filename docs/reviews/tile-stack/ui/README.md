@@ -3,7 +3,7 @@
 Status: proposed source component, not a public entry or completed Editor workflow.
 Base: 5d69c2130eb64b6f4e31bc672e884bdc33bf47d2; runtime equals reviewed
 2502646482218524fd5129641da769bb82462e4d. The identity/projection target is fixed
-Editor ce3a1afa02f70a478356de45c64364bb460b9c25, read through Git objects.
+Editor 4b0499cc776fcd85fdd415fa7344982b75fbf8fb, read through Git objects.
 Architect must reconcile/freeze the final Editor/Coder/Artist/UI contracts at Gate A.
 No protected Smart Tile/title file, source fence, version, pin or registry changes.
 
@@ -81,7 +81,7 @@ Visibility never alters source, contacts, support or budgets. lockOwner remains 
 optional Editor method; this component labels locks and does not implement locking,
 unlocking or another lock policy.
 
-Snapshot workspace/floors/finishCatalogue/inspection/limits follow Editor ce3a1afa.
+Snapshot workspace/floors/finishCatalogue/inspection/limits follow the actual fixed B1 projection 4b0499cc.
 workspace binds its identity/policy, raw source hash, exact floor-table token and
 finish catalogue id/version/digest. Catalogue entries are {id,version,label,
 available,reason}, with null reason for available entries and nonempty unavailable
@@ -118,20 +118,23 @@ The supported identity projection is:
 workspace: {
   id, checkpointVersion:2, policyToken,
   floorProfile:{id,version:1},
-  floorTableId, floorTableToken, sourceSha256,
-  finishBinding:{id,version:1,digest}
+  floorTableId, floorTableToken, floorProfileDigest, sourceSha256,
+  finishBinding:{id,version:1,digest},
+  sourceDocumentDigest, sourceConstraintsDigest
 }
 ~~~
 
-IDs follow the fixed Editor ASCII identity shape (1–96 characters); policy/table
-tokens, raw-source SHA and finish digests are exact lowercase 64-character SHA-256
+IDs follow the fixed Editor ASCII identity shape (1–96 characters); policy/table/profile
+tokens, raw-source SHA, current document/constraint digests and finish digests are exact lowercase 64-character SHA-256
 strings. This checks the supplied representation, not the source geometry, hash
 provenance, saved document or policy. Names remain supplied by Editor: UI has no
 profile-name whitelist or duplicate native-height/constraint evaluator. Existing
 labelled fixture hashes already meet this shape; they remain explicitly UI-only.
 
 The mounted key includes every immutable workspace/profile/table/finish field,
-including checkpoint/profile versions, profile ID and table ID. A valid identity
+including checkpoint/profile versions, profile ID, table ID and floorProfileDigest.
+The current sourceDocumentDigest and sourceConstraintsDigest are validated diagnostic
+fields and deliberately excluded from mount identity. A valid identity
 change permanently retires that mount's action reads and outstanding UI replies.
 Restoring an old identity does not revive its draft/review. The host must dispose
 and explicitly remount with the intended session. UI never cancels/replaces the
@@ -273,3 +276,46 @@ the isolated file passed and all 933 tests passed with four workers. All three o
 logs are preserved byte-for-byte as gzip archives. After the reorder, standard npm test
 and the other required gates passed. The full [validation record](identity-correction.json)
 links each exact log/hash and the separate guard checkpoint. No failed run is discarded.
+
+## B1 eleven-field workspace completion
+
+The actual fixed B1 projection adds three explicitly named own SHA-256 fields.
+sourceDocumentDigest and sourceConstraintsDigest describe the current accepted revision;
+Apply/Undo/Redo can change them without retiring the component or cancelling accepted
+state. They remain strictly validated, but are excluded from workspaceUIBinding.
+floorProfileDigest identifies the predeclared geometric floor/profile and remains in
+the immutable binding. A changed valid value retires the mount and requires a fresh
+session mount. No field is an alias and no extra metadata bag is accepted.
+
+The labelled UI-only adapter now provides all eleven fields. The mounted proof keeps
+its forms, selected finish and readable diagnostics across each source-digest update,
+without a cancel/authoring call. It reruns all eight original witnesses plus the new
+immutable profile-digest witness. Unknown fields, inherited/accessor fields and malformed
+versions/digests still refuse. UI computes none of the host geometry/policy digests.
+
+The separate actual-object proof loads fixed B1 4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+through Git objects and borrows public modules from fixed foundation
+cae053d3afcd2a10d2226e06b387db76ab102dd5. Both profile snapshots and the actual ordinary
+Apply/Undo/Redo snapshots pass the UI reader with one stable immutable binding. All
+owned harnesses are disposed. The proof uses B1's explicitly resource-only view and
+compatibility finish fixture; it is interface evidence, not acceptance of B1 authority,
+native rendering, actual B2 browser wiring or installed host behavior.
+
+~~~text
+node --experimental-vm-modules tools/ui-tile-stack-b1-proof.mjs
+~~~
+
+The manual fixed-object proof requires those two immutable commits locally. It is
+kept separate from default tests so ordinary checkouts do not acquire unapproved peer
+code or require moving worker branches. Its complete 141-module source/hash inventory
+and five snapshots are in [actual-b1.json](evidence/b1-digests/actual-b1.json).
+The earlier component proof remains archived beside it; current results are recorded
+in [b1-digest-completion.json](b1-digest-completion.json). Public/host source fences,
+consumer pins and custom contract 4d1e5da remain unchanged.
+
+Current completion verification: 23 focused tests, 13 source browser groups, all eight
+original witnesses plus the immutable profile-digest witness, and actual fixed B1
+snapshots for both floor profiles/Apply/Undo/Redo pass. Standard required gates pass:
+935 tests (zero skips), 32 upstream tests, check and 519-module build. The fifteen
+protected hosts and separate custom checkpoint remain unchanged. The new browser/server
+pair exited and released its port; no disposable helper is retained.
