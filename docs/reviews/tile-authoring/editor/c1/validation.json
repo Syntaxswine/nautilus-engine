@@ -193,6 +193,26 @@
       "successor": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
       "log": "artifacts/editor-tile-authoring-successor-1e8-component-controls.log",
       "scope": "13 successor +19 inherited v1/v2 +51 cache/native-resource/transport/UI controls; no timing mode, global gate or browser run"
+    },
+    {
+      "command": "fixed Git-object stage of Editor fd8885aa584f2f13057bb8b5f5c5e0597be6db27 with approved successor 1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "status": "pass",
+      "files": 200,
+      "entryTests": 6,
+      "log": "artifacts/editor-tile-authoring-stage-1e8-adopted.log",
+      "manifest": "artifacts/editor-tile-authoring-c1-staging-660dfa85-59c6-437d-96f7-5faf2d7a3d46/staged-inputs.json",
+      "scope": "Exact runtime/evidence/test-oracle source provenance and literal import closure; no staged timing or browser execution"
+    },
+    {
+      "command": "stager rejected-3c successor control",
+      "status": "expected-refusal",
+      "log": "artifacts/editor-tile-authoring-stage-rejected-3c-refusal.log",
+      "scope": "Only the approved full 1e8 helper SHA/new test body hash may enable the named Node oracle classification"
+    },
+    {
+      "command": "node --check tools/editor-review-tile-authoring-c1.mjs; git diff --check",
+      "status": "pass",
+      "scope": "Run-owned tarball copy wiring with generated npm size/SHA-512 and exclusive byte-identical copies; actual final package/browser proof remains Root integration work"
     }
   ],
   "helpers": {
@@ -229,6 +249,16 @@
       "timingScope": "30.230 seconds belongs to predecessor only"
     },
     "sourceModelOwner": "Architect",
-    "threeModeProof": "pending-authenticated-composition"
+    "threeModeProof": "pending-authenticated-composition",
+    "localComponentChecks": 83,
+    "sourceStageFiles": 200,
+    "finalRuntimeComponentCommit": "fd8885aa584f2f13057bb8b5f5c5e0597be6db27"
+  },
+  "archiveOwnership": {
+    "paths": "artifacts/distribution/tile-authoring-c1-<runId>-<profile>.tgz",
+    "generatedOutputIntegrity": "actual npm pack compressedBytes and SHA-512",
+    "copiedBody": "exclusive byte-for-byte copy, SHA-256/length rechecked; same copies installed offline",
+    "globalPackerChanged": false,
+    "execution": "pending Root authenticated three-mode proof"
   }
 }
