@@ -1,0 +1,46 @@
+✖ real frozen Root Stage across fresh reads: selected builtin prefix (17448.9052ms)
+✖ real frozen Root Stage across fresh reads: retained two operations (19083.0229ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40711.1625
+
+✖ failing tests:
+
+test at candidates\tile-authoring\ui\c2-read-pairing\tests\pairing.test.mjs:7:36
+✖ real frozen Root Stage across fresh reads: selected builtin prefix (17448.9052ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/baals/.codex/worktrees/nautilus-ui-c2-host-bridge/Nautilus%20Engine/candidates/tile-authoring/ui/c2-read-pairing/tests/pairing.test.mjs:9:184)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at candidates\tile-authoring\ui\c2-read-pairing\tests\pairing.test.mjs:7:36
+✖ real frozen Root Stage across fresh reads: retained two operations (19083.0229ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/baals/.codex/worktrees/nautilus-ui-c2-host-bridge/Nautilus%20Engine/candidates/tile-authoring/ui/c2-read-pairing/tests/pairing.test.mjs:9:184)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

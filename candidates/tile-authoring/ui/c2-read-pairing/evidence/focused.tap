@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: intrinsic actual first/add form producer seeds untouched placeholders from exact original defaults
+ok 1 - intrinsic actual first/add form producer seeds untouched placeholders from exact original defaults
+  ---
+  duration_ms: 3.6309
+  type: 'test'
+  ...
+# Subtest: intrinsic touches are explicit, frozen, private per producer and deny copies/forgeries
+ok 2 - intrinsic touches are explicit, frozen, private per producer and deny copies/forgeries
+  ---
+  duration_ms: 1.0076
+  type: 'test'
+  ...
+# Subtest: explicit update producer preserves untouched radians, pivots and mask rather than reseeding originals
+ok 3 - explicit update producer preserves untouched radians, pivots and mask rather than reseeding originals
+  ---
+  duration_ms: 339.8912
+  type: 'test'
+  ...
+# Subtest: real frozen Root Stage across fresh reads: selected builtin prefix
+ok 4 - real frozen Root Stage across fresh reads: selected builtin prefix
+  ---
+  duration_ms: 39456.1252
+  type: 'test'
+  ...
+# Subtest: real frozen Root Stage across fresh reads: retained two operations
+ok 5 - real frozen Root Stage across fresh reads: retained two operations
+  ---
+  duration_ms: 41586.7197
+  type: 'test'
+  ...
+# Subtest: same real byte adapter keeps live preparation gates unavailable without protocol readiness fixture
+ok 6 - same real byte adapter keeps live preparation gates unavailable without protocol readiness fixture
+  ---
+  duration_ms: 18539.6494
+  type: 'test'
+  ...
+# Subtest: copy/foreign reads and arbitrary capability DTOs cannot register or use acquisition pairing
+ok 7 - copy/foreign reads and arbitrary capability DTOs cannot register or use acquisition pairing
+  ---
+  duration_ms: 38949.2894
+  type: 'test'
+  ...
+# Subtest: selection ABA refuses old held read, then explicit actual cached reacquisition enables one Stage
+ok 8 - selection ABA refuses old held read, then explicit actual cached reacquisition enables one Stage
+  ---
+  duration_ms: 57906.5717
+  type: 'test'
+  ...
+# Subtest: published complete-source ABA cannot borrow old scope merely because original bytes return
+ok 9 - published complete-source ABA cannot borrow old scope merely because original bytes return
+  ---
+  duration_ms: 19478.293
+  type: 'test'
+  ...
+# Subtest: distinct actual source handles with equal generations/DTOs cannot reassign the original capability
+ok 10 - distinct actual source handles with equal generations/DTOs cannot reassign the original capability
+  ---
+  duration_ms: 20759.2606
+  type: 'test'
+  ...
+# Subtest: Root pending callback sees fresh owner-generation invalidation before any builder/ID/collect
+ok 11 - Root pending callback sees fresh owner-generation invalidation before any builder/ID/collect
+  ---
+  duration_ms: 33460.1005
+  type: 'test'
+  ...
+# Subtest: Root final fresh check refuses collection after builder publication, retaining original command Expected
+ok 12 - Root final fresh check refuses collection after builder publication, retaining original command Expected
+  ---
+  duration_ms: 96866.0936
+  type: 'test'
+  ...
+# Subtest: actual asynchronous acquisition rejects source ABA before exposing any new lease or allocating IDs
+ok 13 - actual asynchronous acquisition rejects source ABA before exposing any new lease or allocating IDs
+  ---
+  duration_ms: 15121.3262
+  type: 'test'
+  ...
+# Subtest: Root connection replacement inside pending callback refuses before builder and cannot revive
+ok 14 - Root connection replacement inside pending callback refuses before builder and cannot revive
+  ---
+  duration_ms: 48719.1679
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 435428.8959
