@@ -104,11 +104,13 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
     let nodes=1,text=0;const visit=v=>{nodes++;if(typeof v==='string')text+=v.length;else if(v&&typeof v==='object')for(const key of Object.keys(v)){text+=key.length;visit(v[key]);}};
     visit(value);return {nodes,text};
   }
-  function footprint(checkpoint,strings,ids,shape){
-    // Count every serialized occurrence/physical copy conservatively. The
-    // root/receipt/pending pointers below alias this graph, not additional copies.
-    const extra=shapeCharge([...strings,ids]);
-    return {bytes:bytes(JSON.stringify(checkpoint))+strings.reduce((n,s)=>n+bytes(s),0)+bytes(JSON.stringify(ids))+1024,nodes:shape.nodes+extra.nodes+32,text:shape.text+extra.text+128};
+  function footprint(checkpoint,entry,shape){
+    // Derive all retained fact keys/scalars/copies from the actual entry. These
+    // three references alias the checkpoint graph already charged once below.
+    // Reserve a materialized token and maximum admitted charge-number widths;
+    // replacing either placeholder cannot increase the measured footprint.
+    const shadow={...entry,root:null,receipts:null,pending:null,documentDigest:'0'.repeat(64),token:'0'.repeat(64),charge:{bytes:limits.bytes,nodes:limits.nodes,text:limits.text}},extra=shapeCharge(shadow);
+    return {bytes:bytes(JSON.stringify(checkpoint))+bytes(JSON.stringify(shadow)),nodes:shape.nodes+extra.nodes,text:shape.text+extra.text};
   }
   const fits=cost=>cost.bytes<=limits.bytes&&cost.nodes<=limits.nodes&&cost.text<=limits.text;
   function discard(key){const entry=facts.get(key);facts.delete(key);for(const name of ['bytes','nodes','text'])charges[name]-=entry.charge[name];counts.evictions++;}
@@ -123,14 +125,16 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
     const shape=shapeCharge(c);
     // Reject a provably oversized retained graph before allocating its duplicate
     // JSON strings. Both base/document JSON must contain the entire source text.
-    if(shape.nodes+32>limits.nodes||shape.text+2*c.document.sourceJSON.length+128>limits.text){counts.oversizeMisses++;return;}
+    if(shape.nodes>limits.nodes||shape.text+2*c.document.sourceJSON.length>limits.text){counts.oversizeMisses++;return;}
     const baseJSON=JSON.stringify(base);
     if(verified.baseJSON!==baseJSON&&smartTileDigest(base)!==reuse.sourceBindingToken){counts.baseMisses++;return;}
-    const documentJSON=JSON.stringify(c.document),receiptsJSON=JSON.stringify(c.journal.receipts),pendingJSON=JSON.stringify(c.journal.pending),ids=c.journal.receipts.map(r=>r.id),charge=footprint(c,[baseJSON,documentJSON,receiptsJSON,pendingJSON,'0'.repeat(64),'0'.repeat(64)],ids,shape);
+    const documentJSON=JSON.stringify(c.document),receiptsJSON=JSON.stringify(c.journal.receipts),pendingJSON=JSON.stringify(c.journal.pending),ids=c.journal.receipts.map(r=>r.id);
+    const entry={root:c.document,receipts:c.journal.receipts,pending:c.journal.pending,kind:c.kind,version:c.version,journalKind:c.journal.kind,journalVersion:c.journal.version,serial:c.journal.serial,baseJSON,documentJSON,receiptsJSON,pendingJSON,ids:Object.freeze(ids),documentDigest:verified.documentDigest??null,token:verified.token??null,charge:null};
+    const charge=footprint(c,entry,shape);
     if(!fits(charge)){counts.oversizeMisses++;return;}
     if(facts.has(c))discard(c);
     while(facts.size&&(facts.size>=limits.entries||!fits({bytes:charges.bytes+charge.bytes,nodes:charges.nodes+charge.nodes,text:charges.text+charge.text})))discard(facts.keys().next().value);
-    const entry={root:c.document,receipts:c.journal.receipts,pending:c.journal.pending,kind:c.kind,version:c.version,journalKind:c.journal.kind,journalVersion:c.journal.version,serial:c.journal.serial,baseJSON,documentJSON,receiptsJSON,pendingJSON,ids:Object.freeze(ids),documentDigest:verified.documentDigest??smartTileDigest(c.document),token:verified.token??null,charge};
+    entry.documentDigest??=smartTileDigest(c.document);entry.charge=charge;
     facts.set(c,entry);for(const name of ['bytes','nodes','text'])charges[name]+=charge[name];counts.admissions++;
   }
   function ownedToken(c){

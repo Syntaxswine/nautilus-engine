@@ -13,7 +13,7 @@
   "source": [
     {
       "path": "apps/editor/smart-tile/checkpoint.js",
-      "sha256": "5c4fc0e94dffdc9ff5501cdb74ae70f788d9719844ceb404b55ee7405b2f6f75"
+      "sha256": "a790d2f6966849f6bde7aeecc030fd7f2a7415e126a8c9f484bf25f2aa7b3949"
     },
     {
       "path": "apps/editor/tile-authoring/checkpoint.js",
@@ -21,12 +21,12 @@
     },
     {
       "path": "tests/owned-successors.test.mjs",
-      "sha256": "a7f12a87cfc67f0eb9e3c1a20931d5412557ecab1b2ab98d21f0d67a054d8478"
+      "sha256": "8c64e5ebc0f6e5cd32d370a7aac846571fcebdc185e3add6289d772ca4a971d8"
     }
   ],
   "sourceAuthorization": "Root must explicitly add the reviewed shared checkpoint row after independent review; current191 registration fence is intentionally not rebaselined here.",
   "controls": {
-    "passed": 12,
+    "passed": 13,
     "firstRun": "Preserved in artifacts/owned-successors/controls-first: two harness issues (reference variable shadowing and oldest-diagnostic assertion), fixed before final controls. No timing was run then.",
     "failed": 0,
     "coverage": [
@@ -41,9 +41,10 @@
       "actual native allocation/releaseABA",
       "original-ID live/cold unknown acknowledgement recovery",
       "actual cache eviction/oversize and fallback parity",
-      "settled ID reuse and receipt outcomes"
+      "settled ID reuse and receipt outcomes",
+      "actual public-Core/C1 text cap with complete shadow-fact keys/scalars/copies and independent byte/node/text oracle, including no-header-string lower bound"
     ],
-    "durationMs": 13348.9312
+    "durationMs": 15288.7177
   },
   "existing": {
     "passed": 19,
@@ -53,10 +54,10 @@
       "tests/smart-tile-checkpoint.test.mjs",
       "tests/editor-tile-stack-b1-authority.test.mjs"
     ],
-    "durationMs": 34905.7247
+    "durationMs": 34357.0742
   },
   "cacheLimits": {
-    "accounting": "Conservative encoded retained checkpoints and every extra cached JSON string; aliases in serialized graphs count each occurrence, pure root/prefix/pending pointers are aliases rather than copies. Logical limits do not assert measured RSS.",
+    "accounting": "Checkpoint graph counted once plus actual retained fact shadow with only root/receipts/pending graph aliases nulled. Every metadata key, scalar, ID, JSON string and both 64-code-unit materialized digests are charged; charge-number widths reserve the unchanged maximum admitted limits. Serialized graph aliases count each occurrence. No string interning assumed; logical encoded/text/node charges do not assert measured RSS.",
     "utf16TextCodeUnits": 4194304,
     "entries": 64,
     "encodedPayloadBytes": 8388608,
@@ -69,7 +70,7 @@
   },
   "timing": {
     "runnerDurationMs": 30229.5554,
-    "scope": "Synthetic atlas, actual Core/native geometry/retained consumer/JSONL; no DOM/WebGL/installed/device performance claim. Source input hashes captured once and checked at completion.",
+    "scope": "Retained predecessor-only measurement before the accounting correction. Synthetic atlas, actual Core/native geometry/retained consumer/JSONL; no DOM/WebGL/installed/device claim. Current accounting successor was not timed.",
     "finalCache": {
       "entries": 1,
       "chargedBytes": 3513112,
@@ -155,15 +156,15 @@
         "text": 3227266
       }
     ],
-    "status": "pass",
+    "status": "predecessor-only-component-pass",
     "baseline": "191 one prior fixed-source profile77.945s included18.311s Git-object bootstrap. Compare per-production-call timings; avoid treating total times as identical bootstrap workloads.",
     "outerSeconds": 120,
     "limitation": "Text-accounting budget permits only one tail entry. Required cold proof opens evict the session-owned identity, so Undo1/Redo1 fall through the full reader. This is preserved and measured, not hidden by a cap increase. Other warm tail calls improve.",
     "limitsRaised": false,
     "observedMaxCharges": {
-      "nodes": 41927.0,
-      "textCodeUnits": 4068942.0,
-      "bytes": 4403892.0
+      "nodes": 41927,
+      "textCodeUnits": 4068942,
+      "bytes": 4403892
     },
     "production": [
       {
@@ -263,7 +264,11 @@
         "durationMs": 1184.0217000000011
       }
     ],
-    "exactRuns": 1
+    "exactRuns": 1,
+    "measuredCommit": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+    "appliesToCurrentCommit": false,
+    "successorProfiled": false,
+    "accountingLimitation": "All timing charge values below are historical predecessor diagnostics using the undercharged metadata estimate; they are not current quota evidence. The independent correction oracle and current correctness controls above supersede that accounting."
   },
   "lifecycle": {
     "existingExited": true,
@@ -275,7 +280,65 @@
       false
     ],
     "ports": [],
-    "timingExited": true
+    "timingExited": true,
+    "accountingControls": {
+      "mode": "controls",
+      "completed": true,
+      "expired": false,
+      "stopped": false,
+      "verifiedOriginalExited": true,
+      "exitCode": 0,
+      "beforeStop": null,
+      "startedUtc": "2026-11-02T15:15:12.6277494Z",
+      "deadlineUtc": "2026-11-02T15:17:12.6277494Z",
+      "finishedUtc": "2026-11-02T15:15:28.3235606Z",
+      "ports": [],
+      "files": [
+        {
+          "Name": "identity.json",
+          "Length": 1076
+        },
+        {
+          "Name": "receipt.json",
+          "Length": 550
+        },
+        {
+          "Name": "stderr.log",
+          "Length": 0
+        },
+        {
+          "Name": "stdout.log",
+          "Length": 1519
+        }
+      ]
+    },
+    "accountingExisting": {
+      "mode": "existing",
+      "completed": true,
+      "expired": false,
+      "stopped": false,
+      "verifiedOriginalExited": true,
+      "exitCode": 0,
+      "beforeStop": null,
+      "startedUtc": "2026-11-02T15:09:58.9429249Z",
+      "deadlineUtc": "2026-11-02T15:11:58.9429249Z",
+      "finishedUtc": "2026-11-02T15:10:33.7080472Z",
+      "ports": [],
+      "files": [
+        {
+          "Name": "identity.json",
+          "Length": 1088
+        },
+        {
+          "Name": "stderr.log",
+          "Length": 0
+        },
+        {
+          "Name": "stdout.log",
+          "Length": 2194
+        }
+      ]
+    }
   },
   "integration": {
     "globalGates": "Not run/rebaselined in this helper: known unregistered Root composition layer. Root owns full check/test/upstream/build and fresh source/built/installed browser matrices.",
@@ -286,6 +349,103 @@
     "artifacts/owned-successors/existing/stdout.log",
     "artifacts/owned-successors/timing/summary.json",
     "artifacts/owned-successors/timing/fallbacks.json",
-    "artifacts/owned-successors/{controls,existing,timing}/{identity,receipt}.json"
-  ]
+    "artifacts/owned-successors/{controls,existing,timing}/{identity,receipt}.json",
+    "artifacts/owned-successors/controls-accounting/stdout.log",
+    "artifacts/owned-successors/existing-accounting/stdout.log",
+    "artifacts/owned-successors/text-accounting-correction.json",
+    "artifacts/owned-successors/{controls-accounting,existing-accounting}/{identity,receipt}.json"
+  ],
+  "predecessor": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+  "predecessorControls": {
+    "passed": 12,
+    "durationMs": 13348.9312,
+    "existingPassed": 19,
+    "existingDurationMs": 34905.7247,
+    "evidence": "Original controls/existing/timing folders preserved unchanged."
+  },
+  "accountingCorrection": {
+    "reason": "Predecessor fixed +128 text reserve undercounted actual fact metadata by90 code units at the confirmed C1 edge. Replaced the reserve with a measured shadow of the actual entry before admission; no caps raised.",
+    "oracle": "Independent traversal of the known fact-key inventory and real values, root/receipts/pending nulled, plus the complete checkpoint graph once; independent UTF-8 JSON byte lower bound. Actual public Core/C1 constructors, no renderer/host writes or policy double.",
+    "results": [
+      {
+        "padding": 0,
+        "stats": {
+          "entries": 1,
+          "chargedBytes": 2038203,
+          "chargedNodes": 688,
+          "chargedTextCodeUnits": 1457333,
+          "admissions": 1,
+          "evictions": 0,
+          "oversizeMisses": 0,
+          "baseMisses": 0,
+          "hits": 1,
+          "misses": 0,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 1457333,
+          "bytes": 2038201
+        }
+      },
+      {
+        "padding": 912323,
+        "stats": {
+          "entries": 1,
+          "chargedBytes": 4775172,
+          "chargedNodes": 688,
+          "chargedTextCodeUnits": 4194302,
+          "admissions": 1,
+          "evictions": 0,
+          "oversizeMisses": 0,
+          "baseMisses": 0,
+          "hits": 1,
+          "misses": 0,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 4194302,
+          "bytes": 4775170
+        }
+      },
+      {
+        "padding": 912353,
+        "stats": {
+          "entries": 0,
+          "chargedBytes": 0,
+          "chargedNodes": 0,
+          "chargedTextCodeUnits": 0,
+          "admissions": 0,
+          "evictions": 0,
+          "oversizeMisses": 1,
+          "baseMisses": 0,
+          "hits": 0,
+          "misses": 1,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 4194392,
+          "bytes": 4775246
+        },
+        "minimumWithoutHeaderStrings": 4194313
+      }
+    ],
+    "limitsRaised": false,
+    "additionalTimingRuns": 0,
+    "successorProfiled": false
+  }
 }
