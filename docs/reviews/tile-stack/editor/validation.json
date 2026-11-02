@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "status": "pass",
+  "base": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "firstContract": "cfd5a3226a687b9b166e240666a34c75ef3e7972",
+  "plannerReference": "a2eaa70a616e7bd17336435422db5602dfb2e38d",
+  "scope": "Gate A pure policy/proposal and unchanged legacy coordinator compatibility; no live v2 recovery or stack host",
+  "focused": 16,
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "count": null,
+      "log": "artifacts/tile-stack-editor/policy-check.log",
+      "sha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 928,
+      "log": "artifacts/tile-stack-editor/policy-test.log",
+      "sha256": "d5561d0144696ef1de8cfba46c66a653de43fe27ffb2bfa454752e050623bc79"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/tile-stack-editor/policy-upstream.log",
+      "sha256": "da7ca7ac69b1a8bd87ebc638f683a36d44947436f45356d5fbeb474cb34164c0"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 519,
+      "log": "artifacts/tile-stack-editor/policy-build.log",
+      "sha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "proof": {
+    "file": "docs/reviews/tile-stack/editor/proof.json",
+    "sha256": "2d103cfddaae0311ce99b1d6cde871b794e961451528e60db912ed136b45a054",
+    "publicBindings": 4,
+    "installedFiles": 118,
+    "hostHelpers": 14,
+    "parity": true
+  },
+  "protectedChanges": [],
+  "cleanup": {
+    "file": "docs/reviews/tile-stack/editor/proof-cleanup.json",
+    "process": {
+      "pid": 39664,
+      "creationFiletime": "134380662271301223",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "sameLifetimeLive": false,
+    "stageRemoved": true,
+    "remainingStages": 0,
+    "browsers": [],
+    "servers": [],
+    "ports": [],
+    "retainedProcesses": [],
+    "commandSessions": [
+      17993,
+      52420,
+      74732,
+      1083,
+      56425
+    ],
+    "allFiniteCommandsExited": true
+  },
+  "pendingGateB": [
+    "Architect accepts exact operation/target interpretation and shared codec/session extraction",
+    "Coder clarifies proposed clearance and old/next constraint token ABI; no accepted source is rewritten during preview",
+    "Artist fixed catalogue/resource metadata reconciled before any new finish is available",
+    "Root authorizes source-fence/build/CI adaptation and actual fifteen-floor workflow"
+  ]
+}
