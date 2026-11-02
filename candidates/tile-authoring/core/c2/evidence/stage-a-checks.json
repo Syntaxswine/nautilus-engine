@@ -1,0 +1,56 @@
+{
+  "checkpoint": "private Core C2 Stage A",
+  "base": "8184f06aa587542b026352a739f3766d1794c4fe",
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "accepted source/dependency/registry/distribution checks pass"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 1125,
+      "passed": 1125,
+      "failed": 0,
+      "stageAControls": 26
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "passed": 32
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    },
+    {
+      "command": "node tools/tile-authoring-core-c2-audit.mjs",
+      "exitCode": 0,
+      "ownRuntimeModules": 13,
+      "acceptedDependencies": 83,
+      "normalProfilesShipCandidate": false
+    }
+  ],
+  "abiManifestSha256": "07b20b0c1916551027250a98a66e20a4a159e918ab8e06c2b68c240c959690cb",
+  "claims": {
+    "pureReducerBinder": true,
+    "encodedDescriptorsAndNotices": true,
+    "nativeOwnership": false,
+    "decoderReadiness": false,
+    "actual480NativeIntegration": false,
+    "browserVisualReview": false,
+    "actualHostWALApply": false,
+    "publicRegistration": false,
+    "deployment": false
+  },
+  "fixtureScope": "Source capture, admission/decoder/receipt/physical IDs and provider-phase work in unit fixtures are synthetic DTO observations. Final Core work is actual deterministic metered computation.",
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "foregroundChecksCompleted": true
+  },
+  "changes": "Only new candidates/tile-authoring/core/c2/** and three role-prefixed tools plus Stage A test file; accepted packages/root/pins/upstream/old C0 unchanged."
+}

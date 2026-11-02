@@ -1,0 +1,8 @@
+{
+  "authority": "Architect, Nautilus Engine",
+  "scope": "narrow private ephemeral ABI clarification",
+  "field": "planningCarry.finalBindUpperBound",
+  "replaces": "planningCarry.afterFinalBind",
+  "rule": "afterPreparation and capture cost planning units are actual charged work; finalBindUpperBound is an unspent reservation. Binder begins at actual afterPreparation and charges real validation without reset, refusing before min(reservation, unchanged global cap); target returns actual final work. No estimator/placeholder/ticket.",
+  "limits": "Required Plan2.limits is normalized effective AuthoringLimits; every field tightens only. planDigest binds limits; capacity governingLimitsDigest hashes {authoring:plan.limits,host:capacity.limits}. Existing capacity.limits remain literal absolute host ceilings. Binder preserves effective minima."
+}

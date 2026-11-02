@@ -1,0 +1,754 @@
+{
+  "status": "private-C2-stage-A-candidate",
+  "base": "8184f06aa587542b026352a739f3766d1794c4fe",
+  "fixedCore": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+  "canonicalC0": "43227894c50ec62b71806978195fff2c650eb388",
+  "artistProof": "a66c78332c90fda33c16ffa7518a358b60249169",
+  "acceptedAbiManifestSha256": "7d38e384b45dee6a120b8dd174f10b768f3b8f18591619da78b33a3e7ca16cd0",
+  "originalC1": [
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/budget.js",
+      "bytes": 3422,
+      "sha256": "a03b9aff11efbdb7d59d7301565e3d3367911b036264cebbab22fafebee213bd"
+    },
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/data.js",
+      "bytes": 10529,
+      "sha256": "9679dac492042d857a64421d63c4e9d5737aab49badf9396cbb984eb8a83079d"
+    },
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/model.js",
+      "bytes": 17822,
+      "sha256": "a33cba60484638e84679f3486b50a9f0106b26f8a40bf59a880ed9333c05341e"
+    },
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/geometry.js",
+      "bytes": 8713,
+      "sha256": "aa636cc6c0d1bb0d03e13295ea2613fe4af41d344cb1c89ca13c3e33c6ddc9f6"
+    },
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/contract.js",
+      "bytes": 11190,
+      "sha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38"
+    },
+    {
+      "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+      "path": "packages/tile-authoring-core/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    }
+  ],
+  "originalAbi": [
+    {
+      "path": "types.d.ts",
+      "bytes": 12223,
+      "sha256": "ef959d07fb615086cbc09eee9b1c2b3400e8b24cac431f0347412586c211ed0b"
+    },
+    {
+      "path": "proposal.schema.json",
+      "bytes": 57687,
+      "sha256": "a9a7d2031e20fb54f5ea60a2a1842b0d2fa3395939b7eea359443cbddb9eb493"
+    }
+  ],
+  "adaptations": [
+    "Strict-data, budget and complete-source validation derived privately; no imports of C1 private helpers.",
+    "Public original tile compiler/bundle validator and map parser remain borrowed accepted dependencies.",
+    "No geometry evaluator, decoder, renderer, retained authority or durable write."
+  ],
+  "publicRegistration": false,
+  "artistOriginal": {
+    "commit": "a66c78332c90fda33c16ffa7518a358b60249169",
+    "path": "candidates/tile-authoring/core/examples/content-pack-manifest.json",
+    "bytes": 287107,
+    "sha256": "bb8be3c11cbf4121512668c4b7527d88cecbe318fa903bb63c9bd553d9bbfa2f"
+  },
+  "runtime": [
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/proposal.schema.json",
+      "bytes": 60396,
+      "sha256": "c4e42350552b6493822b6ab8f88c7b904ebff4f26cd0baae1ffbe1045cc5f950"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/budget.js",
+      "bytes": 3561,
+      "sha256": "e6af03ae8fbe32a7ac44712a460cde00f0186850a14cff2f0a59da8bcf593e3f"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/contract.js",
+      "bytes": 1434,
+      "sha256": "0411cb80a4ec8fdc0e6804398b6732f6bb0c12524a1aacc96d7358116c048fa3"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/data.js",
+      "bytes": 11081,
+      "sha256": "c91938a1691cd2b19852e2aa90a876ba24d598e0074fffe3aefcd10114f32001"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/geometry.js",
+      "bytes": 1512,
+      "sha256": "805e3d6c59db4bebcb1da7ad2221befab614a4431d57612bf2775474c48bc2ee"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/index.js",
+      "bytes": 1900,
+      "sha256": "78be40aa18a89869ed2487b4edaab12e97e5de1f4da5a2c68962851e1800a5cb"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/ledger.js",
+      "bytes": 21660,
+      "sha256": "e7f502dfbf9fabcc9dd8be6af8377fc1230062270e5d79b3d5281bd1d374f27a"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/model.js",
+      "bytes": 18058,
+      "sha256": "76bbad2c18804b66e04bb7e2b2d42df1b20ac77f184197122e0085eedbab1d41"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/operations.js",
+      "bytes": 11623,
+      "sha256": "a539890fd80a6f1a7b09f40f9ce5a10ea2fcfe399ac76ff55e38f38cbfffddb1"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/planning.js",
+      "bytes": 6503,
+      "sha256": "a509a8e3eb44e1679253197f193f96181c48694813804222ec8d464a6fa20eb7"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/requirements.js",
+      "bytes": 4524,
+      "sha256": "09045cc1eead3caba157b4edf6ec340b05a03d7aead737cafb75b1a33308ff02"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/target.js",
+      "bytes": 7637,
+      "sha256": "27e6160c7cb8789cd23468a25b544f088de154a1b2a33ea65eec0c6bcb99d813"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "packages/map-core/maps.js",
+      "bytes": 3184,
+      "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756"
+    },
+    {
+      "path": "packages/map-core/prefab-maps.js",
+      "bytes": 1754,
+      "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9"
+    },
+    {
+      "path": "packages/map-core/roof-data.js",
+      "bytes": 4699,
+      "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7"
+    },
+    {
+      "path": "packages/map-core/roof-maps.js",
+      "bytes": 1089,
+      "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848"
+    },
+    {
+      "path": "packages/map-core/wall-runs.js",
+      "bytes": 8795,
+      "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+    },
+    {
+      "path": "packages/parts-core/hash.js",
+      "bytes": 2105,
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "path": "packages/prefab-core/catalogue.js",
+      "bytes": 26848,
+      "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85"
+    },
+    {
+      "path": "packages/prefab-core/index.js",
+      "bytes": 13696,
+      "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c"
+    },
+    {
+      "path": "packages/prefab-core/original-catalogue.js",
+      "bytes": 67995,
+      "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1"
+    },
+    {
+      "path": "packages/prefab-core/registry.js",
+      "bytes": 1847,
+      "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b"
+    },
+    {
+      "path": "packages/roof-core/index.js",
+      "bytes": 13011,
+      "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c"
+    },
+    {
+      "path": "packages/tile-authoring-core/budget.js",
+      "bytes": 3422,
+      "sha256": "a03b9aff11efbdb7d59d7301565e3d3367911b036264cebbab22fafebee213bd"
+    },
+    {
+      "path": "packages/tile-authoring-core/contract.js",
+      "bytes": 11190,
+      "sha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38"
+    },
+    {
+      "path": "packages/tile-authoring-core/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "packages/tile-authoring-core/data.js",
+      "bytes": 10529,
+      "sha256": "9679dac492042d857a64421d63c4e9d5737aab49badf9396cbb984eb8a83079d"
+    },
+    {
+      "path": "packages/tile-authoring-core/geometry.js",
+      "bytes": 8713,
+      "sha256": "aa636cc6c0d1bb0d03e13295ea2613fe4af41d344cb1c89ca13c3e33c6ddc9f6"
+    },
+    {
+      "path": "packages/tile-authoring-core/index.js",
+      "bytes": 3860,
+      "sha256": "d46fae833b20ca228be0ae03220287d1c5f90421a3de23cf00cabbde8a3680a1"
+    },
+    {
+      "path": "packages/tile-authoring-core/model.js",
+      "bytes": 17822,
+      "sha256": "a33cba60484638e84679f3486b50a9f0106b26f8a40bf59a880ed9333c05341e"
+    },
+    {
+      "path": "packages/tile-authoring-core/operations.js",
+      "bytes": 8568,
+      "sha256": "8ce75cd7413959580b01ecddeb8b66248c22d3d7cc1c32bb75dca50276ba0dd8"
+    },
+    {
+      "path": "packages/tile-authoring-core/target.js",
+      "bytes": 9438,
+      "sha256": "928ba0da78f9797b934ecc2e6250e4fcafa56a645822ae7da9cf855a17eeff3c"
+    },
+    {
+      "path": "packages/tile-stack-core/budget.js",
+      "bytes": 1837,
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484"
+    },
+    {
+      "path": "packages/tile-stack-core/contracts.js",
+      "bytes": 8440,
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8"
+    },
+    {
+      "path": "packages/tile-stack-core/geometry.js",
+      "bytes": 6596,
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0"
+    },
+    {
+      "path": "packages/tile-stack-core/ids.js",
+      "bytes": 483,
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d"
+    },
+    {
+      "path": "packages/tile-stack-core/index.js",
+      "bytes": 20494,
+      "sha256": "4e8da94f77006a1b2f39719d1d96c3226f432fc80b8433ceacafc7e0aa33d1a2"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "bytes": 4602,
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/world-core/parts-refusal.js",
+      "bytes": 901,
+      "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+      "bytes": 942,
+      "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+      "bytes": 502,
+      "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+      "bytes": 3809,
+      "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+      "bytes": 1888,
+      "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+      "bytes": 3095,
+      "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+      "bytes": 7740,
+      "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+      "bytes": 4357,
+      "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+      "bytes": 1686,
+      "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+      "bytes": 5856,
+      "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+      "bytes": 3494,
+      "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+      "bytes": 945,
+      "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+      "bytes": 3997,
+      "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+      "bytes": 1944,
+      "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+      "bytes": 16205,
+      "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+      "bytes": 5263,
+      "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+      "bytes": 6342,
+      "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+      "bytes": 2588,
+      "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+      "bytes": 4333,
+      "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+      "bytes": 23284,
+      "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+      "bytes": 1890,
+      "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+      "bytes": 1150,
+      "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+      "bytes": 9636,
+      "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+      "bytes": 855,
+      "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+      "bytes": 2326,
+      "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+      "bytes": 6511,
+      "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+      "bytes": 5648,
+      "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+      "bytes": 1859,
+      "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+      "bytes": 1706403,
+      "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+      "bytes": 722,
+      "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+      "bytes": 6825,
+      "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+      "bytes": 932,
+      "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+      "bytes": 714,
+      "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+      "bytes": 2798,
+      "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+      "bytes": 1743,
+      "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+      "bytes": 601010,
+      "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+      "bytes": 1763,
+      "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+      "bytes": 3151,
+      "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+      "bytes": 5475,
+      "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+      "bytes": 2022,
+      "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+      "bytes": 666,
+      "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+      "bytes": 330,
+      "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+      "bytes": 1569,
+      "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+      "bytes": 3352,
+      "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+      "bytes": 4614,
+      "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+      "bytes": 2344,
+      "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+      "bytes": 1083,
+      "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+      "bytes": 3010,
+      "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+      "bytes": 3032,
+      "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+      "bytes": 2296,
+      "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+      "bytes": 4583,
+      "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+      "bytes": 3175,
+      "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+      "bytes": 2845,
+      "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+      "bytes": 2886480,
+      "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+      "bytes": 7744,
+      "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+      "bytes": 5813,
+      "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+      "bytes": 2680,
+      "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68"
+    }
+  ],
+  "files": [
+    {
+      "path": "candidates/tile-authoring/core/c2/.gitattributes",
+      "bytes": 63,
+      "sha256": "a68e748afbf93ccf7ece06d2c0a8677493185836e884d041916a5027ff1a6054"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/README.md",
+      "bytes": 9352,
+      "sha256": "806390e50004cc1ff6b1f0d6e0d8edb5a3522d7daed279a7b94e8c92c19f3f71"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/decision-work-carry.json",
+      "bytes": 853,
+      "sha256": "ca84a08a3dd9a0f67217d56c6cef00102209d440dbaadd29a8d33e74f0aedcf7"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/frozen/proposal.schema.json",
+      "bytes": 57687,
+      "sha256": "a9a7d2031e20fb54f5ea60a2a1842b0d2fa3395939b7eea359443cbddb9eb493"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/frozen/types.d.ts",
+      "bytes": 12223,
+      "sha256": "ef959d07fb615086cbc09eee9b1c2b3400e8b24cac431f0347412586c211ed0b"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/manifest.json",
+      "bytes": 1149,
+      "sha256": "07b20b0c1916551027250a98a66e20a4a159e918ab8e06c2b68c240c959690cb"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/proposal.schema.json",
+      "bytes": 60396,
+      "sha256": "c4e42350552b6493822b6ab8f88c7b904ebff4f26cd0baae1ffbe1045cc5f950"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/types.d.ts",
+      "bytes": 12267,
+      "sha256": "222bd77e567f2ec6270c70cc54765e2583a0933976aa8ec6c57329500d57873c"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/abi/vectors.json",
+      "bytes": 1553,
+      "sha256": "33a3daf0fdea1beb35a8358e1989282744a2f39ddd9c22d351beaccd9455f98c"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/budget.js",
+      "bytes": 3561,
+      "sha256": "e6af03ae8fbe32a7ac44712a460cde00f0186850a14cff2f0a59da8bcf593e3f"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/contract.js",
+      "bytes": 1434,
+      "sha256": "0411cb80a4ec8fdc0e6804398b6732f6bb0c12524a1aacc96d7358116c048fa3"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/data.js",
+      "bytes": 11081,
+      "sha256": "c91938a1691cd2b19852e2aa90a876ba24d598e0074fffe3aefcd10114f32001"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/evidence/stage-a-checks.json",
+      "bytes": 1724,
+      "sha256": "6534870c5465abe247552dd5c14c1cbe6ecae041cd1a0cde5a67f85ed929898a"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/fixtures/canonical-thirty-pack.json",
+      "bytes": 129666,
+      "sha256": "d1d76aa90c80aa91a17cbf5fdc7dc67105ae0b556bde51170baf19a3868c9eed"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/fixtures/stage-a-golden-save.json",
+      "bytes": 809116,
+      "sha256": "9bc3702cc8c11090b47d17fb40c7e028a6b2920eefba3f33b673865f8bbbec5e"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/geometry.js",
+      "bytes": 1512,
+      "sha256": "805e3d6c59db4bebcb1da7ad2221befab614a4431d57612bf2775474c48bc2ee"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/index.d.ts",
+      "bytes": 1451,
+      "sha256": "29e9748325e4199d0873d7c4f2067507005acf8c815f4dea998467a9ca8cb415"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/index.js",
+      "bytes": 1900,
+      "sha256": "78be40aa18a89869ed2487b4edaab12e97e5de1f4da5a2c68962851e1800a5cb"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/ledger.js",
+      "bytes": 21660,
+      "sha256": "e7f502dfbf9fabcc9dd8be6af8377fc1230062270e5d79b3d5281bd1d374f27a"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/model.js",
+      "bytes": 18058,
+      "sha256": "76bbad2c18804b66e04bb7e2b2d42df1b20ac77f184197122e0085eedbab1d41"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/operations.js",
+      "bytes": 11623,
+      "sha256": "a539890fd80a6f1a7b09f40f9ce5a10ea2fcfe399ac76ff55e38f38cbfffddb1"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/planning.js",
+      "bytes": 6503,
+      "sha256": "a509a8e3eb44e1679253197f193f96181c48694813804222ec8d464a6fa20eb7"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/requirements.js",
+      "bytes": 4524,
+      "sha256": "09045cc1eead3caba157b4edf6ec340b05a03d7aead737cafb75b1a33308ff02"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/target.js",
+      "bytes": 7637,
+      "sha256": "27e6160c7cb8789cd23468a25b544f088de154a1b2a33ea65eec0c6bcb99d813"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/artist/content-pack-manifest.json",
+      "bytes": 287107,
+      "sha256": "bb8be3c11cbf4121512668c4b7527d88cecbe318fa903bb63c9bd553d9bbfa2f"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/budget.js",
+      "bytes": 3422,
+      "sha256": "a03b9aff11efbdb7d59d7301565e3d3367911b036264cebbab22fafebee213bd"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/contract.js",
+      "bytes": 11190,
+      "sha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/data.js",
+      "bytes": 10529,
+      "sha256": "9679dac492042d857a64421d63c4e9d5737aab49badf9396cbb984eb8a83079d"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/geometry.js",
+      "bytes": 8713,
+      "sha256": "aa636cc6c0d1bb0d03e13295ea2613fe4af41d344cb1c89ca13c3e33c6ddc9f6"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/vendor/c1/model.js",
+      "bytes": 17822,
+      "sha256": "a33cba60484638e84679f3486b50a9f0106b26f8a40bf59a880ed9333c05341e"
+    },
+    {
+      "path": "tests/tile-authoring-core-c2-stage-a.test.mjs",
+      "bytes": 21679,
+      "sha256": "14311c02e4b5552d5b9c34a56f79d37310c1c1e4c71821a5444b4a8847943509"
+    },
+    {
+      "path": "tools/tile-authoring-core-c2-audit.mjs",
+      "bytes": 4565,
+      "sha256": "20fd6867548f8d69d7badfacba999a7aed8feb912ca5110d89f47fdeae2a8335"
+    },
+    {
+      "path": "tools/tile-authoring-core-c2-example.mjs",
+      "bytes": 1058,
+      "sha256": "bbffb92d1927e9967a183a3501b5579b9cf8ae35194fb083fb718c97cd0a396e"
+    },
+    {
+      "path": "tools/tile-authoring-core-c2-fixtures.mjs",
+      "bytes": 14045,
+      "sha256": "3c811f131f9862d15657a2686bc8b7fd81c06ff8cfd96e5ae95506b27626a90d"
+    }
+  ],
+  "profiles": [
+    {
+      "profile": "core",
+      "candidateShipped": false
+    },
+    {
+      "profile": "compatibility",
+      "candidateShipped": false
+    },
+    {
+      "profile": "renderer",
+      "candidateShipped": false
+    },
+    {
+      "profile": "assets",
+      "candidateShipped": false
+    }
+  ]
+}

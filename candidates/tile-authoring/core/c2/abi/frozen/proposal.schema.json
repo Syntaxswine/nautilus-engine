@@ -1,0 +1,2127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:proposal:tile-authoring:c2-capture:1",
+  "title": "PROPOSAL ONLY: ephemeral C2 appearance captures; not a saved grammar",
+  "$defs": {
+    "AllocationTotals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "declaredDecodedAllocationBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 33554432
+        },
+        "residentMarksAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "rootsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "trianglesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 50000
+        },
+        "cellsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "ownedAppearanceMaterialsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "contributorsPerBin": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "binReferencesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32768
+        },
+        "derivedBufferBytesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4194304
+        },
+        "atlasPagesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        }
+      },
+      "required": [
+        "declaredDecodedAllocationBytes",
+        "residentMarksAllViews",
+        "rootsAllViews",
+        "trianglesAllViews",
+        "cellsAllViews",
+        "ownedAppearanceMaterialsAllViews",
+        "contributorsPerBin",
+        "binReferencesAllViews",
+        "derivedBufferBytesAllViews",
+        "atlasPagesAllViews"
+      ]
+    },
+    "EditOrigin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "const": "edit"
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "commandDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "expected": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/expected"
+        },
+        "hostRequest": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "nautilus-tile-authoring-source-unchanged"
+            },
+            "version": {
+              "const": 1
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "action",
+        "requestId",
+        "commandDigest",
+        "expected",
+        "hostRequest"
+      ]
+    },
+    "HistoryOrigin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "undo",
+            "redo"
+          ]
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "commandDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "expected": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/expected"
+        },
+        "hostRequest": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "smart-tile-history-restore"
+            },
+            "action": {
+              "enum": [
+                "undo",
+                "redo"
+              ]
+            },
+            "targetDocumentDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "action",
+            "targetDocumentDigest"
+          ]
+        }
+      },
+      "required": [
+        "action",
+        "requestId",
+        "commandDigest",
+        "expected",
+        "hostRequest"
+      ]
+    },
+    "Origin": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/EditOrigin"
+        },
+        {
+          "$ref": "#/$defs/HistoryOrigin"
+        }
+      ]
+    },
+    "AuthorityObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hostAuthorityToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "authorityContextToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "presentationProfileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "floorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "mode": {
+          "enum": [
+            "manual",
+            "character-follow",
+            "contact-inspection"
+          ]
+        },
+        "floorEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "providerTokenDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "resourceContextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "geometryContextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "rendererContextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "rendererContextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "hostAuthorityToken",
+        "authorityContextToken",
+        "presentationProfileDigest",
+        "floorId",
+        "mode",
+        "floorEpoch",
+        "providerTokenDigest",
+        "resourceContextEpoch",
+        "geometryContextEpoch",
+        "rendererContextId",
+        "rendererContextEpoch"
+      ]
+    },
+    "VisualObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acceptedViewIdentityDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "presentationStateDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "retirementDebtDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "acceptedViewIdentityDigest",
+        "presentationStateDigest",
+        "retirementDebtDigest"
+      ]
+    },
+    "PhysicalAllocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "purpose": {
+          "enum": [
+            "base-image",
+            "artwork-image",
+            "encoded-blob",
+            "upload-staging",
+            "decoder-scratch",
+            "derived-uniforms",
+            "geometry-buffer"
+          ]
+        },
+        "storage": {
+          "enum": [
+            "cpu",
+            "native",
+            "gpu",
+            "encoded-store"
+          ]
+        },
+        "charge": {
+          "enum": [
+            "baseline-visible",
+            "encoded",
+            "decoded-additional",
+            "derived",
+            "geometry-governed"
+          ]
+        },
+        "chargedBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "byteBasis": {
+          "enum": [
+            "exact",
+            "reserved-upper-bound"
+          ]
+        },
+        "sampledAtlas": {
+          "type": "boolean"
+        },
+        "blobSha256": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "enum": [
+            "live",
+            "acquiring",
+            "retiring-unverified",
+            "retired-verified"
+          ]
+        },
+        "ownerRequestId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "referenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "retirementReceiptDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "allocationId",
+        "purpose",
+        "storage",
+        "charge",
+        "chargedBytes",
+        "byteBasis",
+        "sampledAtlas",
+        "blobSha256",
+        "state",
+        "ownerRequestId",
+        "referenceIds",
+        "retirementReceiptDigest",
+        "contextId",
+        "contextEpoch"
+      ]
+    },
+    "MaterialObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "materialId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "state": {
+          "enum": [
+            "live",
+            "cache-idle",
+            "acquiring",
+            "retiring-unverified",
+            "retired-verified"
+          ]
+        },
+        "ownerRequestId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "referenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "retirementReceiptDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "materialId",
+        "state",
+        "ownerRequestId",
+        "referenceIds",
+        "retirementReceiptDigest"
+      ]
+    },
+    "GeometryObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "geometryLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "rootsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "trianglesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cellsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GeometryViewObservation"
+          },
+          "maxItems": 1024
+        }
+      },
+      "required": [
+        "geometryLeaseSetDigest",
+        "geometryObjectsDigest",
+        "rootsAllViews",
+        "trianglesAllViews",
+        "cellsAllViews",
+        "views"
+      ]
+    },
+    "LedgerObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "scopeDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "preservedObjectsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometry": {
+          "$ref": "#/$defs/GeometryObservation"
+        },
+        "allocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PhysicalAllocation"
+          },
+          "maxItems": 1024
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MaterialObservation"
+          },
+          "maxItems": 64
+        },
+        "residency": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "viewId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "ownerId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "markIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "maxItems": 1024,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "viewId",
+              "ownerId",
+              "markIds"
+            ]
+          },
+          "maxItems": 1024
+        },
+        "bins": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "contributorsPerBin": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "binReferencesAllViews": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "contributorsPerBin",
+            "binReferencesAllViews"
+          ]
+        },
+        "totals": {
+          "$ref": "#/$defs/AllocationTotals"
+        }
+      },
+      "required": [
+        "sequence",
+        "scopeDigest",
+        "preservedObjectsDigest",
+        "geometry",
+        "allocations",
+        "materials",
+        "residency",
+        "bins",
+        "totals"
+      ]
+    },
+    "C2Profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "const": "nautilus-tile-authoring-c2-host-v1"
+        },
+        "appearance": {
+          "const": "owner-local-rectangle-appearance-v1"
+        },
+        "ledger": {
+          "const": "owned-appearance-transition-v1"
+        },
+        "decoder": {
+          "const": "png-rgba8-srgb-straight-v1"
+        },
+        "sampler": {
+          "const": "linear-premultiplied-bilinear-frame-v1"
+        },
+        "clip": {
+          "const": "candidate.level-rectangle-top-v1"
+        }
+      },
+      "required": [
+        "host",
+        "appearance",
+        "ledger",
+        "decoder",
+        "sampler",
+        "clip"
+      ]
+    },
+    "SourceCapture": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-appearance-source-capture"
+        },
+        "version": {
+          "const": 1
+        },
+        "profiles": {
+          "$ref": "#/$defs/C2Profiles"
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "authority": {
+          "$ref": "#/$defs/AuthorityObservation"
+        },
+        "sourceResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "resourceLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "ledger": {
+          "$ref": "#/$defs/LedgerObservation"
+        },
+        "visual": {
+          "$ref": "#/$defs/VisualObservation"
+        },
+        "history": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "journalDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "generation": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "stateDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "journalDigest",
+            "generation",
+            "stateDigest"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "profiles",
+        "original",
+        "authority",
+        "sourceResourceRefs",
+        "resourceLeaseSetDigest",
+        "ledger",
+        "visual",
+        "history"
+      ]
+    },
+    "EncodedNeed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blob": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/blob"
+        },
+        "consumers": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        }
+      },
+      "required": [
+        "blob",
+        "consumers"
+      ]
+    },
+    "DecodeNeed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blobSha256": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "decoderProfile": {
+          "const": "png-rgba8-srgb-straight-v1"
+        },
+        "consumers": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        }
+      },
+      "required": [
+        "blobSha256",
+        "decoderProfile",
+        "consumers"
+      ]
+    },
+    "ResourceRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "targetResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "introduced": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "retained": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "released": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "encodedNeeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EncodedNeed"
+          },
+          "maxItems": 256
+        },
+        "decodeNeeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DecodeNeed"
+          },
+          "maxItems": 256
+        },
+        "declaredEncodedRequirementBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 67108864
+        }
+      },
+      "required": [
+        "sourceResourceRefs",
+        "targetResourceRefs",
+        "introduced",
+        "retained",
+        "released",
+        "encodedNeeds",
+        "decodeNeeds",
+        "declaredEncodedRequirementBytes"
+      ]
+    },
+    "AuthoringContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hostAuthorityToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "authorityContextToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "presentationProfileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "resourceLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "allocationLedgerDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "availableProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "availableFinishIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "resourceBindings": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "allocations": {
+          "$ref": "#/$defs/AllocationTotals"
+        }
+      },
+      "required": [
+        "hostAuthorityToken",
+        "authorityContextToken",
+        "presentationProfileDigest",
+        "resourceLeaseSetDigest",
+        "allocationLedgerDigest",
+        "availableProfiles",
+        "availableFinishIds",
+        "resourceBindings",
+        "allocations"
+      ]
+    },
+    "Fingerprints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "geometry": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "appearance": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "geometry",
+        "appearance"
+      ]
+    },
+    "AppearancePlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-plan"
+        },
+        "version": {
+          "const": 2
+        },
+        "ok": {
+          "const": true
+        },
+        "committable": {
+          "const": false
+        },
+        "route": {
+          "const": "appearance-only"
+        },
+        "tilePreparation": {
+          "const": "source-unchanged"
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "command": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/command"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "context": {
+          "$ref": "#/$defs/AuthoringContext"
+        },
+        "sourceCaptureDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceHostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetHostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "fingerprints": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "$ref": "#/$defs/Fingerprints"
+            },
+            "target": {
+              "$ref": "#/$defs/Fingerprints"
+            }
+          },
+          "required": [
+            "source",
+            "target"
+          ]
+        },
+        "request": {
+          "type": "null"
+        },
+        "constraints": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/stackConstraints"
+        },
+        "targetDocument": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "resourceRequirements": {
+          "$ref": "#/$defs/ResourceRequirements"
+        },
+        "preparationNeed": {
+          "enum": [
+            "encoded-only-retain-appearance",
+            "prepare-overlay"
+          ]
+        },
+        "costBounds": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/costBounds"
+        },
+        "sourceCapture": {
+          "$ref": "#/$defs/SourceCapture"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "ok",
+        "committable",
+        "route",
+        "tilePreparation",
+        "original",
+        "command",
+        "context",
+        "sourceCaptureDigest",
+        "sourceHostDocumentDigest",
+        "targetHostDocumentDigest",
+        "fingerprints",
+        "request",
+        "constraints",
+        "targetDocument",
+        "resourceRequirements",
+        "preparationNeed",
+        "costBounds",
+        "sourceCapture"
+      ]
+    },
+    "OwnedLedgerStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eventId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "action": {
+          "enum": [
+            "acquire",
+            "admit",
+            "retire-verified",
+            "retire-unverified"
+          ]
+        },
+        "ownerRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "ledger": {
+          "$ref": "#/$defs/LedgerObservation"
+        }
+      },
+      "required": [
+        "eventId",
+        "action",
+        "ownerRequestId",
+        "ledger"
+      ]
+    },
+    "PreparedCapture": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-prepared-appearance-capture"
+        },
+        "version": {
+          "const": 1
+        },
+        "profiles": {
+          "$ref": "#/$defs/C2Profiles"
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "planDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceCaptureDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "authority": {
+          "$ref": "#/$defs/AuthorityObservation"
+        },
+        "sourceResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "targetResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "resourceRequirements": {
+          "$ref": "#/$defs/ResourceRequirements"
+        },
+        "sourceResourceLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "admittedResourceLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "encodedAvailability": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "blobSha256": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              },
+              "verificationDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              },
+              "encodedLeaseId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "blobDescriptorDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              }
+            },
+            "required": [
+              "blobSha256",
+              "verificationDigest",
+              "encodedLeaseId",
+              "blobDescriptorDigest"
+            ]
+          },
+          "maxItems": 256
+        },
+        "decodedObservations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "blobSha256": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              },
+              "decoderProfile": {
+                "const": "png-rgba8-srgb-straight-v1"
+              },
+              "verificationDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              },
+              "resourceContextEpoch": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "allocationIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "maxItems": 1024,
+                "uniqueItems": true
+              },
+              "imageInterpretationDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              },
+              "pixelDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              }
+            },
+            "required": [
+              "blobSha256",
+              "decoderProfile",
+              "verificationDigest",
+              "resourceContextEpoch",
+              "allocationIds",
+              "imageInterpretationDigest",
+              "pixelDigest"
+            ]
+          },
+          "maxItems": 256
+        },
+        "appearance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "retain-existing",
+                "prepared-overlay"
+              ]
+            },
+            "receiptDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "presentedRequirementsDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "sourceVisual": {
+              "$ref": "#/$defs/VisualObservation"
+            },
+            "candidateDigest": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "mode",
+            "receiptDigest",
+            "presentedRequirementsDigest",
+            "sourceVisual",
+            "candidateDigest"
+          ]
+        },
+        "ledgerTrace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OwnedLedgerStep"
+          },
+          "maxItems": 64
+        },
+        "peakTotals": {
+          "$ref": "#/$defs/AllocationTotals"
+        },
+        "unresolvedAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "costBounds": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/costBounds"
+        },
+        "sourceGeometry": {
+          "$ref": "#/$defs/GeometryObservation"
+        },
+        "admittedGeometry": {
+          "$ref": "#/$defs/GeometryObservation"
+        },
+        "candidateBaseView": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/OwnedCandidateBaseView"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacityBound": {
+          "$ref": "#/$defs/CapacityBound"
+        },
+        "planningCarry": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sourceCharged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterCapacity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterPreparation": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterFinalBind": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "sourceCharged",
+            "afterCapacity",
+            "afterPreparation",
+            "afterFinalBind"
+          ]
+        },
+        "sampledSharing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "allocationId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "contextId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "contextEpoch": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "sourceReferenceIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "maxItems": 1024
+              },
+              "admittedReferenceIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "maxItems": 1024
+              },
+              "providerObservationDigest": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+              }
+            },
+            "required": [
+              "allocationId",
+              "contextId",
+              "contextEpoch",
+              "sourceReferenceIds",
+              "admittedReferenceIds",
+              "providerObservationDigest"
+            ]
+          },
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "profiles",
+        "original",
+        "planDigest",
+        "sourceCaptureDigest",
+        "authority",
+        "sourceResourceRefs",
+        "targetResourceRefs",
+        "resourceRequirements",
+        "sourceResourceLeaseSetDigest",
+        "admittedResourceLeaseSetDigest",
+        "encodedAvailability",
+        "decodedObservations",
+        "appearance",
+        "ledgerTrace",
+        "peakTotals",
+        "unresolvedAllocationIds",
+        "costBounds",
+        "sourceGeometry",
+        "admittedGeometry",
+        "candidateBaseView",
+        "capacityBound",
+        "planningCarry",
+        "sampledSharing"
+      ]
+    },
+    "RecoveryRetention": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-c2-recovery-retention"
+        },
+        "version": {
+          "const": 1
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "outcome": {
+          "const": "unknown"
+        },
+        "committed": {
+          "type": "null"
+        },
+        "writesFrozen": {
+          "const": true
+        },
+        "recoveryRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "sourceResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "targetResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "requiredUnion": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "historyRedoPendingRefsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "retainedEncodedLeaseIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "retainedAppearanceLeaseIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "unverifiedAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "historyRedoPendingResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "exportResourceRefs": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/resourceRefs"
+        },
+        "retainedGeometryLeaseIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024
+        },
+        "candidateBaseView": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/OwnedCandidateBaseView"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retainedLedger": {
+          "$ref": "#/$defs/LedgerObservation"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "original",
+        "outcome",
+        "committed",
+        "writesFrozen",
+        "recoveryRequestId",
+        "sourceResourceRefs",
+        "targetResourceRefs",
+        "requiredUnion",
+        "historyRedoPendingRefsDigest",
+        "retainedEncodedLeaseIds",
+        "retainedAppearanceLeaseIds",
+        "unverifiedAllocationIds",
+        "historyRedoPendingResourceRefs",
+        "exportResourceRefs",
+        "retainedGeometryLeaseIds",
+        "candidateBaseView",
+        "retainedLedger"
+      ]
+    },
+    "TightenedLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commandBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "sourceBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000000
+        },
+        "outputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000000
+        },
+        "inputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6000000
+        },
+        "plannerUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "nodes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200000
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "operations": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "owners": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "mapRecipes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "definitions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "presets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "artwork": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "maxClosure": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "maxSpatialTests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "maxGeometryWork": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "neighbourRadiusM": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "required": []
+    },
+    "CoreC2EditInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "command": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/command"
+        },
+        "context": {
+          "$ref": "#/$defs/AuthoringContext"
+        },
+        "appearanceSource": {
+          "$ref": "#/$defs/SourceCapture"
+        },
+        "limits": {
+          "$ref": "#/$defs/TightenedLimits"
+        }
+      },
+      "required": [
+        "document",
+        "command",
+        "context",
+        "appearanceSource"
+      ]
+    },
+    "CoreC2HistoryInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "command": {
+          "type": "null"
+        },
+        "context": {
+          "$ref": "#/$defs/AuthoringContext"
+        },
+        "appearanceSource": {
+          "$ref": "#/$defs/SourceCapture"
+        },
+        "limits": {
+          "$ref": "#/$defs/TightenedLimits"
+        },
+        "history": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "kind": {
+                  "const": "smart-tile-history-restore"
+                },
+                "action": {
+                  "enum": [
+                    "undo",
+                    "redo"
+                  ]
+                },
+                "targetDocumentDigest": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "action",
+                "targetDocumentDigest"
+              ]
+            },
+            "targetDocument": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+            }
+          },
+          "required": [
+            "request",
+            "targetDocument"
+          ]
+        }
+      },
+      "required": [
+        "document",
+        "command",
+        "context",
+        "appearanceSource",
+        "history"
+      ]
+    },
+    "CoreC2BindInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "before": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "plan": {
+          "$ref": "#/$defs/AppearancePlan"
+        },
+        "prepared": {
+          "type": "null"
+        },
+        "appearanceCapture": {
+          "$ref": "#/$defs/PreparedCapture"
+        }
+      },
+      "required": [
+        "before",
+        "plan",
+        "prepared",
+        "appearanceCapture"
+      ]
+    },
+    "GeometryViewObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "viewId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "role": {
+          "enum": [
+            "accepted",
+            "candidate",
+            "retiring"
+          ]
+        },
+        "state": {
+          "enum": [
+            "live",
+            "acquiring",
+            "retiring-unverified",
+            "retired-verified"
+          ]
+        },
+        "identityBasis": {
+          "enum": [
+            "owned-reservation",
+            "actual-native"
+          ]
+        },
+        "ownerRequestId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geometryLeaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "bundleDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometrySourceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "roots": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cells": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "geometryAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024
+        },
+        "materialIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 64
+        },
+        "retirementReceiptDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "viewId",
+        "role",
+        "state",
+        "identityBasis",
+        "ownerRequestId",
+        "geometryLeaseId",
+        "geometryEpoch",
+        "bundleDigest",
+        "geometrySourceDigest",
+        "geometryObjectsDigest",
+        "roots",
+        "triangles",
+        "cells",
+        "visible",
+        "geometryAllocationIds",
+        "materialIds",
+        "retirementReceiptDigest"
+      ]
+    },
+    "OwnedCandidateBaseView": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "viewId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "role": {
+          "const": "candidate"
+        },
+        "state": {
+          "enum": [
+            "live",
+            "acquiring",
+            "retiring-unverified",
+            "retired-verified"
+          ]
+        },
+        "identityBasis": {
+          "const": "actual-native"
+        },
+        "ownerRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryLeaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "bundleDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometrySourceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "roots": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cells": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "geometryAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024
+        },
+        "materialIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 64
+        },
+        "retirementReceiptDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "projectionProfile": {
+          "const": "public-canonical-flat-tile-art-v1"
+        },
+        "projectionDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "retirementOwnerRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "retirementProfile": {
+          "const": "owned-candidate-base-retirement-v1"
+        }
+      },
+      "required": [
+        "viewId",
+        "role",
+        "state",
+        "identityBasis",
+        "ownerRequestId",
+        "geometryLeaseId",
+        "geometryEpoch",
+        "bundleDigest",
+        "geometrySourceDigest",
+        "geometryObjectsDigest",
+        "roots",
+        "triangles",
+        "cells",
+        "visible",
+        "geometryAllocationIds",
+        "materialIds",
+        "retirementReceiptDigest",
+        "projectionProfile",
+        "projectionDigest",
+        "retirementOwnerRequestId",
+        "retirementProfile"
+      ]
+    },
+    "CapacityBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-capacity-bound"
+        },
+        "version": {
+          "const": 1
+        },
+        "committable": {
+          "const": false
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "sourceCheckpointToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetHostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceJournalDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceHistoryGeneration": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sourceHistoryStateDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "governingLimitsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "checkpointBytes": {
+              "const": 16000000
+            },
+            "historyBytes": {
+              "const": 16000000
+            },
+            "checkpointNodes": {
+              "const": 1000000
+            },
+            "checkpointDepth": {
+              "const": 40
+            },
+            "receipts": {
+              "const": 128
+            },
+            "historyEntries": {
+              "const": 64
+            },
+            "coreInputBytes": {
+              "const": 6000000
+            },
+            "coreOutputBytes": {
+              "const": 4000000
+            },
+            "coreNodes": {
+              "const": 200000
+            },
+            "coreDepth": {
+              "const": 32
+            },
+            "plannerUnits": {
+              "const": 1000000
+            }
+          },
+          "required": [
+            "checkpointBytes",
+            "historyBytes",
+            "checkpointNodes",
+            "checkpointDepth",
+            "receipts",
+            "historyEntries",
+            "coreInputBytes",
+            "coreOutputBytes",
+            "coreNodes",
+            "coreDepth",
+            "plannerUnits"
+          ]
+        },
+        "upperBounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "walBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "historyBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "checkpointNodes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "checkpointDepth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "historyEntries": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "receipts": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "walBytes",
+            "historyBytes",
+            "checkpointNodes",
+            "checkpointDepth",
+            "historyEntries",
+            "receipts"
+          ]
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "chargedBefore": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "chargeThisPhase": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "chargedAfter": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "chargedBefore",
+            "chargeThisPhase",
+            "chargedAfter"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "committable",
+        "original",
+        "sourceCheckpointToken",
+        "targetHostDocumentDigest",
+        "sourceJournalDigest",
+        "sourceHistoryGeneration",
+        "sourceHistoryStateDigest",
+        "governingLimitsDigest",
+        "limits",
+        "upperBounds",
+        "work"
+      ]
+    },
+    "CandidateRetirementObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-candidate-retirement"
+        },
+        "version": {
+          "const": 1
+        },
+        "original": {
+          "$ref": "#/$defs/Origin"
+        },
+        "failedAt": {
+          "enum": [
+            "final-pure-bind",
+            "final-wal-validation"
+          ]
+        },
+        "sourceCheckpointUnchanged": {
+          "const": true
+        },
+        "durableWrites": {
+          "const": 0
+        },
+        "historyTicketState": {
+          "enum": [
+            "not-created",
+            "rejected"
+          ]
+        },
+        "sourceGeometry": {
+          "$ref": "#/$defs/GeometryObservation"
+        },
+        "candidateBaseView": {
+          "$ref": "#/$defs/OwnedCandidateBaseView"
+        },
+        "outcome": {
+          "enum": [
+            "verified",
+            "unverified"
+          ]
+        },
+        "retirementReceiptDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "restoredAcceptedViewIdentityDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "retainedSourceDebtDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "finalRetirementDebtDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "finalLedger": {
+          "$ref": "#/$defs/LedgerObservation"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "original",
+        "failedAt",
+        "sourceCheckpointUnchanged",
+        "durableWrites",
+        "historyTicketState",
+        "sourceGeometry",
+        "candidateBaseView",
+        "outcome",
+        "retirementReceiptDigest",
+        "restoredAcceptedViewIdentityDigest",
+        "retainedSourceDebtDigest",
+        "finalRetirementDebtDigest",
+        "finalLedger"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/SourceCapture"
+    },
+    {
+      "$ref": "#/$defs/AppearancePlan"
+    },
+    {
+      "$ref": "#/$defs/PreparedCapture"
+    },
+    {
+      "$ref": "#/$defs/RecoveryRetention"
+    },
+    {
+      "$ref": "#/$defs/CapacityBound"
+    },
+    {
+      "$ref": "#/$defs/CandidateRetirementObservation"
+    }
+  ]
+}

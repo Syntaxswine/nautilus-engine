@@ -1,0 +1,21 @@
+{
+  "scope": "Private ABI amendment controls, executed in Stage A Node tests; provider work/native/decoder observations in fixtures are synthetic data only.",
+  "changedFields": [
+    "PreparedCapture.planningCarry.finalBindUpperBound replaces afterFinalBind as an unspent reservation",
+    "AppearancePlan.limits carries required complete effective AuthoringLimits",
+    "PreparedCapture.costBounds.planning.unitsCharged reports actual work through afterPreparation",
+    "CapacityBound.governingLimitsDigest commits {authoring:plan.limits,host:capacity.limits}"
+  ],
+  "tests": "tests/tile-authoring-core-c2-stage-a.test.mjs",
+  "controls": [
+    {"name": "positive-unused-reservation", "expected": "target actual meter > preparation work and < reservation"},
+    {"name": "negative-understated-reservation", "expected": "AUTHORING_WORK_LIMIT"},
+    {"name": "negative-near-global-cap", "expected": "AUTHORING_WORK_LIMIT"},
+    {"name": "positive-tight-budget-carry", "limits": {"plannerUnits":800000,"artwork":30}, "expected": "exact effective carry; final units below800000"},
+    {"name": "negative-omitted-plan-limits", "expected": "C2_PLAN_LIMITS_REQUIRED"},
+    {"name": "negative-raised-limit", "plannerUnits":1000001, "expected": "INVALID_LIMIT"},
+    {"name": "negative-changed-effective-limit", "expected": "refusal before target"},
+    {"name": "negative-absolute-only-capacity-digest", "expected": "CAPACITY_LIMITS_BINDING"},
+    {"name": "negative-cumulative-exhaustion", "expected": "AUTHORING_WORK_LIMIT; no target/reset/ticket"}
+  ]
+}
