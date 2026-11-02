@@ -146,6 +146,8 @@ The optional [procedural tile module](procedural-tiles.md) preserves authored li
 
 The next authorized [tile tranche](projects/tile-stack-authoring.md) scopes a public-v1 stack-intent adapter, an explicit fifteen-floor authoring profile, the existing five-label floor controls and four reusable finish families. Fixed candidate contracts precede real-host adoption. Extra tile floors do not become legacy map layers, and flat presentation does not grant solid-floor or gameplay support.
 
+The authorized [custom tile and overlay follow-on](projects/custom-tile-authoring-and-overlays.md) adds an editor recipe library, the same headless authoring commands for agents, and sparse source-anchored local decoration layers. Definitions, per-instance marks and optional physical effects have distinct typed contracts and one coherent workspace authority; current v1 schemas and installed capabilities remain unchanged until reviewed implementation.
+
 ## Experimental tile source
 
 The separate [A/B tile candidate](procedural-tiles-v2-candidate.md) lives in source behind candidate-v2.js. It preserves the registered v1 entry and all eighteen accepted runtime/schema files. Typed Boolean/ribbon/section/stair intent remains unresolved for complete layout/live adoption, while bounded render-edge inspection recompiles accepted v1 source and zero-edge inspection separates analytic sign from conservative native certainty. The separate [private C1 inspector](procedural-tiles-c1-candidate.md) resolves exact regularized line-region root footprints and native point classifications, with explicit touching sectors, voids and complete outer-boundary component associations. It does not resolve material/floor/port/reservation bindings, meshes or live adoption.

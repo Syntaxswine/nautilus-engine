@@ -10,6 +10,8 @@ This advances the larger reusable family system: geometry, shared borders, floor
 
 The existing Smart Tile workshop, accepted saves and public v1 core remain compatibility targets. C2a remains private and planar. Existing single-plane rectangle adjacency and isolated level curves must continue to work.
 
+The user additionally authorized [custom tile creation and local overlays](custom-tile-authoring-and-overlays.md), including headless agent authoring. Its contract/design work follows the current fixed Gate A deliveries; it does not enlarge the planner's focused proof correction or silently add fields to the frozen save formats.
+
 ## The two contract gates
 
 **Gate A: fixed candidate contracts and independently useful components.** Coder builds the headless stack-intent planner and actual-public-core proof. Editor proposes the versioned floor/checkpoint boundary and shared-session adaptation, with pure validators/fixtures in new candidate paths. UI builds the floor/stack/finish presentation against the explicit candidate adapter fixture. Artist builds the finish family and measured visual fixtures. All four start now in their own worktrees from the baseline. Each supplies a full committed SHA, source hashes, an API/usage card, supported/refused cases, meaningful checks and a short integration checklist.
