@@ -1,0 +1,11 @@
+--- a/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
++++ b/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
+@@ -101,5 +101,6 @@
+   const historyOptions={initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes};
+-  const history=c2Host?observed.observer.run('session.journal.construct',()=>observed.observer.opaque('journal.construct',historyOptions,()=>createWindowAuthoringJournal(historyOptions))):createWindowAuthoringJournal(historyOptions);
+-  const historyRead=c2Host?createWindowAuthoringJournalReadPort(history,c2Host.historyObserver,observed.observer):null;
++  const actualJournal=c2Host?c2Host.constructActualJournal(historyOptions):null;
++  const history=c2Host?actualJournal.journal:createWindowAuthoringJournal(historyOptions);
++  const historyRead=c2Host?actualJournal.historyRead:null;
+   const authorityObservation=c2Host?createPrivateAuthorityObservationPort(authority):null;
+   let floorState=floorController.state,floorEpoch=0;

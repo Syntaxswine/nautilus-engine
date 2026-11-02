@@ -1,0 +1,13 @@
+--- a/apps/editor/tile-authoring/session.js
++++ b/apps/editor/tile-authoring/session.js
+@@ -4,6 +4,8 @@
+ import {tileAuthoringInspectionPort} from './presentation.js';
++import {composeSameSessionC2Profile} from './c2/host-bindings.js';
+ 
+-export function createTileAuthoringSession(deps,{binding,finishCatalogue,resourcePorts,...host}){
+-  const profile=createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,resourcePorts,inspection:tileAuthoringInspectionPort(host.presentation)});
++export function createTileAuthoringSession(deps,{binding,finishCatalogue,resourcePorts,privateC2Composition,...host}){
++  const original=createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,resourcePorts,inspection:tileAuthoringInspectionPort(host.presentation)});
++  const profile=privateC2Composition===undefined?original:composeSameSessionC2Profile(privateC2Composition,{original,deps,binding,finishCatalogue,resourcePorts,...host});
+   return createSmartTileSession(deps,{...host,codec:binding.codec,profile});
+ }

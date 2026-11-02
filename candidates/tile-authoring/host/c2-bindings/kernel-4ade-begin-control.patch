@@ -1,0 +1,9 @@
+--- a/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
++++ b/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
+@@ -208,5 +208,5 @@
+   function startC2(action,lockId=null){
+     if(activePreparation)fail('C2_PREPARATION_IN_FLIGHT','/prepare','Cancel or finish the same original preparation first.');
+-    const attempt=c2Host.beginPrepare(checkpoint),entry={attempt,requestId:null,cancelled:false,handedOff:false};activePreparation=entry;
++    const attempt=c2Host.beginPrepare(checkpoint,{action,draft,lockId}),entry={attempt,requestId:null,cancelled:false,handedOff:false};activePreparation=entry;
+     return prepareC2(action,lockId,entry);
+   }

@@ -1,0 +1,35 @@
+# Same-session Host mapping, first packet
+
+Fixed inputs: Kernel `4ade3ea02084472b30d036e8a0561e473aa84f3f`, static Core integration proposal `587ab8d55ccfb0222de66cf282df2ae143531ff8`, original actual v3 session/codec/authority/journal and service on Main `1e6a97b67c57917160db89db34cbae9e4e46f90c`. This new private candidate does not import moving/uncommitted Root or worker runtime. Root's staged81-path promotion is untouched. No public readiness follows from this packet or protocol tests.
+
+Root approved the sole semantic Kernel adaptation in `kernel-4ade-begin-control.patch`. It is distinct from Root's eleven literal import relocations and must receive its own source provenance/hash after review. The original4ade pin/body remains immutable. Edit uses the bounded own `draft.requestId` of an actual already-owned retained command control; history obtains its one canonical ID from the existing Root issuer. The new argument passes only `{action,draft,lockId}` references. Begin precedes actual source/history work. Paid `captureRetainedIngress` then proves identical action/draft/lock/ID and inspects/copies with the same attempt. No provisional ID, JSON/source prologue parse, Expected refresh or nested allowance.
+
+| Kernel group | Host behavior | Owning dependency |
+| --- | --- | --- |
+| bootstrap / restore | Borrow already-started readonly bootstrap; source/query validation and restoration only under its original purpose | Core actual owner/continued validator; Editor observer; Artist restore owner |
+| begin / ingress | Exact original ID and opaque checkpoint reference; reserve explicit critical partitions before source/native; one AbortController | Core extended owner; Root existing ID issuer; actual retained ingress |
+| allowed / retire input | Execute the actual supplied checks once; retire only prior input and keep new attempt intact | Kernel actual callbacks; same session generation |
+| source / obligations | Actual authority+codec-owned source, original complete Expected and context; actual journal head, one selected target and paid full resource-fact union | Editor codecResourceFacts; Core source registry and capacity adapter |
+| phase / native | Same work/source/signal; actual manager candidate must be private member minted by this acquisition; no second manager or plan | Artist phase owner; Kernel views manager; Core registry |
+| bound serialization | Same authentic phase and source before/after observed codec serialization | Same Core/phase instance and Editor observer |
+| ticket | Actual journal object at original ordinal+1, exact target text and unchanged source/head/context | Kernel actual journal readport, no history arrays |
+| operation DATA | Build the existing exact v3 operation using binding.domain targetFields/operationBinding, original command/Expected and actual bound19 Core fields; never stage or write here | Actual v3 binding; actual phase; adopted real ticket |
+| WAL | Preclaim existing partitions; record the exact stage and both settle/serialize products executed by Kernel | Kernel actual codec; Core actual-WAL capacity adapter |
+| final CAS guard | Use the active private authority invocation witness, including original before/next/operation/purpose, and same source/head/ticket/resource currentness; no recursive authority.read or allow-pending flag | Actual authority observation WeakMap; same Core registry/phase |
+| outcomes | Known acceptance follows authority then journal exactly once; unknown retains original operation/ticket/work/native obligations; failed cleanup is visual/resource debt | Same authority/journal/manager; Core cleanup escrow |
+| cold recovery | Original pending ID reconciled before native acquisition; unresolved retry handle retains exact original pending/escrow, never authoring replay | Actual authority.recover and same codec; recovery-only Core scope |
+| dispose / presentation retry | Attempt both actual retirement domains, keep unknown resources; known commit presentation retry cannot stage/accept again | Same manager, retained phase/cleanup and readonly purpose |
+
+The Host has no writer, independent planner, service, authority, history or meter. Root's seven service verbs stay unchanged. Editor owns the actual nine-hook backend/rates and codec facts; this role borrows them. Core owns actual source/phase registry membership, continued complete-source validation and real-head capacity; Artist owns actual phase/native facts. No callback/brand/digest/`state:true` can substitute for these constructor-produced identities.
+
+## Actual SourceReadOwner route
+
+The actual service/workbench implementation is `apps/editor/tile-authoring/host-service.js`. Its constructor already checks service/session membership in a private connections WeakMap. Kernel's `getAuthoringSnapshot` passes the real codec-owned checkpoint, token, context and hostContext into `profile.authoringSnapshot` before cloning (4ade session line379). Compose a private witness hook at that fixed source site. An explicit `SourceReadOwner.read()` opens the actual readonly observation scope before calling the real workbench.getSnapshot; the private frame captures the codec-owned source and actual producer facts before output cloning, then tags only that exact returned read in a WeakMap. Do not adopt an arbitrary copied snapshot by digest equality. Ordinary display/subscription snapshots can remain data and receive no SourceScope.
+
+Only actual same-workbench/service reads can mint. Copies, foreign workbenches/services/connections, observer reentry and old source/context/history epochs refuse. Complete original sourceJSON,15floor rows, unknown native map properties and injured/spent resources remain owned by the unchanged codec, never reconstructed. Core's forthcoming actual registry must provide current source/head/context lifetime membership and paid lookup support; observable ABA uses those monotonic producer epochs, not contentRevision/hash equality.
+
+## Executable gaps to pair
+
+The587 packet deliberately defines no executable registry/factories. Required before a production Host/SourceReadOwner can bind: (1) Core actual owner+source-registry constructors and private same-owner membership/verifier ports, (2) Editor actual nine-hook backend and codecResourceFacts factories, (3) Core continued validator/document facts plus actual-head/ticket/WAL capacity factory, (4) Artist actual phase/restore/currentness/retirement factory. Production constructor/isBound must refuse until all reviewed factories are paired. Protocol-labelled tests may exercise actual Kernel/codec/authority/journal DATA and lifetime controls but cannot certify ready native/Host integration.
+
+Useful fixed-dependency work can proceed now: exact operation DATA against real binding/codec, active invocation validation against actual authority observation, same-ID lifetime/outcome obligations, and actual read tagging around the same workbench. Those pieces will not create a ready factory from static587 or replace missing source factories with a second observer/meter.
