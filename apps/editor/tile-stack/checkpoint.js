@@ -42,8 +42,9 @@ export function createTileStackCheckpointCodec(deps,initialDocument){
   return Object.freeze({codec,domain});
 }
 export function createTileStackStorage(deps,{binding,storage,initialCheckpoint,...options}){
-  const {codec}=binding,key=workspaceStorageKey(initialCheckpoint.document.id),existing=storage.getItem(key);
+  const {codec}=binding,ownedInitial=codec.open(initialCheckpoint);
+  const key=workspaceStorageKey(ownedInitial.document.id),existing=storage.getItem(key);
   // Existing records are fully opened, never cleared, restamped or overwritten.
   if(existing!==null)codec.open(existing);
-  return createSmartTileStorage(deps,{...options,storage,key,initialCheckpoint,codec,keyPolicy:value=>value===key});
+  return createSmartTileStorage(deps,{...options,storage,key,initialCheckpoint:ownedInitial,codec,keyPolicy:value=>value===key});
 }

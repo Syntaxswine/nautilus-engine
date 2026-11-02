@@ -15,7 +15,9 @@ export function createTileStackSessionProfile(deps,{binding,initialDocument,fini
     const d=smartTileData(input);
     if(d.tool==='stack'){validateStackDraft(d,initialDocument.floorBinding);validateRequestedClearance(initialDocument,d.minimumClearanceM);choose(d.finishId);return d;}
     if(d.tool==='finish'){fields(d,['tool','ownerId','finishId'],'/draft');id(d.ownerId,'/draft/ownerId');choose(d.finishId);return d;}
-    const {finishId,...source}=d;choose(finishId);validateSmartTileDraft(source);return d;
+    const {finishId,...source}=d;choose(finishId);validateSmartTileDraft(source);
+    if(d.tool==='rectangle'&&d.ownerId!==null)fail('STACK_RECTANGLE_TARGET_UNBOUND','/draft/ownerId','Targeted rectangle editing requires a reviewed edit-owners geometry-edit route, which B1 does not bind. Keep the accepted owner; use Finish for appearance, or ownerId:null only for deliberate new construction.');
+    return d;
   }
   function plan({checkpoint,draft,requestId,newOwnerId,floorId,hostContext,lockId}){
     const document=domain.validateDocument(checkpoint.document),frame=capturePlannerSource(domain,deps.tiles,document,hostContext),layout=document.tileBundle.layout;

@@ -1,0 +1,191 @@
+{
+  "kind": "nautilus-editor-tile-stack-b1-authority-followup",
+  "version": 1,
+  "parent": "08053cf4b6ea8d65edf1c5a0dc4e860f3efa9833",
+  "originalB1": "ac58a0eeb277a5a6abc5998afad164d46665552e",
+  "status": "local-review-checkpoint-during-root-gate-window",
+  "allRequiredGatesPassed": false,
+  "pushAllowed": false,
+  "focused": {
+    "command": "node --test tests/editor-tile-stack-b1-authority.test.mjs tests/editor-tile-stack-b1-projection.test.mjs",
+    "exitCode": 0,
+    "passed": 6,
+    "failed": 0,
+    "log": "artifacts/tile-stack-editor-b1-authority/focused.log",
+    "logSha256": "513e6f356abea65370aba039b5e8aead542138bcabc5a7c2636de4372b2df9f6",
+    "cases": [
+      "✔ B1 targeted rectangles refuse unknown/unlocked/locked owners without construction or lost redo/view; null still constructs",
+      "✔ B1 invalid or foreign complete initial checkpoints cannot read/write either namespace or invoke source getters",
+      "✔ B1 occupied storage owns initial source before getItem mutation and stages/commits only the validated namespace",
+      "✔ B1 empty storage adopts the complete owned initial pending/receipts despite getItem source mutation, then recovers original ID",
+      "✔ B1 snapshot preserves complete workspace identity and typed floor origins: aft-native-fifteen",
+      "✔ B1 snapshot preserves complete workspace identity and typed floor origins: nonuniform-fifteen"
+    ]
+  },
+  "scope": {
+    "parent": "08053cf4b6ea8d65edf1c5a0dc4e860f3efa9833",
+    "b1": "ac58a0eeb277a5a6abc5998afad164d46665552e",
+    "changedRuntime": {
+      "apps/editor/tile-stack/checkpoint.js": {
+        "beforeSha256": "e337529d4248abad2de83cbcd34f1e357326924f35b5b17cdf56cb7a7491d2b9",
+        "afterSha256": "b6cbfe1766857fc2889bcdf55037d85546b08e5efc3157a34acf824418bbdef1"
+      },
+      "apps/editor/tile-stack/profile.js": {
+        "beforeSha256": "c5480d696177432a5462cb0ef52363610a1c6d6daf25bfc724060f5990147b32",
+        "afterSha256": "b4fc35ead479927f1f1f22037e86fb93daeda694b3c17c23954b6b5fdd0bc198"
+      }
+    },
+    "unchangedShared": [
+      "apps/editor/smart-tile/authority.js",
+      "apps/editor/smart-tile/checkpoint.js",
+      "apps/editor/smart-tile/session.js",
+      "apps/editor/smart-tile/storage.js"
+    ],
+    "unchangedB1Inputs": [
+      {
+        "file": "apps/editor/smart-tile/authority.js",
+        "bytes": 3349,
+        "sha256": "28e9fa2250c21919abe6f9b9cf0790886014cf2ef90fd24d77bf9cee6d86db91"
+      },
+      {
+        "file": "apps/editor/smart-tile/checkpoint.js",
+        "bytes": 21438,
+        "sha256": "f8b9f9c92c604a45635d97d2b789e53932a4d006e43ffc2e1f0b92bf1bc42538"
+      },
+      {
+        "file": "apps/editor/smart-tile/session.js",
+        "bytes": 22401,
+        "sha256": "eac73ec6ad84b404d4d84c22b69b56ea3a908e46ab7e7658fc95217546e375a9"
+      },
+      {
+        "file": "apps/editor/smart-tile/storage.js",
+        "bytes": 1598,
+        "sha256": "23b9bbc2bd8a8e857a233fd58f7ff1f3b2cb822ab5674d17efcd66a1c091fdcc"
+      },
+      {
+        "file": "apps/editor/tile-stack/seed.js",
+        "bytes": 1178,
+        "sha256": "f8d9ba2baea50ac8b31539e962400aa9d3e60c650ebabb6fde58e3eae9c41d6f"
+      },
+      {
+        "file": "apps/editor/tile-stack/session.js",
+        "bytes": 534,
+        "sha256": "9dc1d5652a64c0b4ad3dcefd1de0d5b4ae4d4e7d999399db47801b0352b5f3b8"
+      },
+      {
+        "file": "candidates/tile-stack/core/api.d.ts",
+        "bytes": 3001,
+        "sha256": "26ea3501f6da3fba3bf3666966a2ceaca7bda50804a642d50dc565bd7fb0f495"
+      },
+      {
+        "file": "candidates/tile-stack/core/budget.js",
+        "bytes": 1837,
+        "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484"
+      },
+      {
+        "file": "candidates/tile-stack/core/contracts.js",
+        "bytes": 8440,
+        "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8"
+      },
+      {
+        "file": "candidates/tile-stack/core/fixtures.mjs",
+        "bytes": 5586,
+        "sha256": "ba6827ae4f429f690a373e43cb964f4e2ac9d65f3473b285369945a4d9ddad38"
+      },
+      {
+        "file": "candidates/tile-stack/core/geometry.js",
+        "bytes": 6596,
+        "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0"
+      },
+      {
+        "file": "candidates/tile-stack/core/ids.js",
+        "bytes": 483,
+        "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d"
+      },
+      {
+        "file": "candidates/tile-stack/core/index.js",
+        "bytes": 20483,
+        "sha256": "128880d5bcbde8d687a1db5f988debd4985b4017c3715ef0688b62280a6c82c8"
+      },
+      {
+        "file": "candidates/tile-stack/editor/floors.js",
+        "bytes": 5505,
+        "sha256": "33d6d47d1e421757ac79d03b43aaaf43803f255a5a83d408d1b140ab49467b5e"
+      },
+      {
+        "file": "candidates/tile-stack/editor/policy.js",
+        "bytes": 9384,
+        "sha256": "656386083877aae26ba21a0994ed2f22f8fd43ea4444355b88c6723610e016a8"
+      },
+      {
+        "file": "tests/editor-tile-stack-b1.test.mjs",
+        "bytes": 11756,
+        "sha256": "3930c911d6378a976bf5df4f6887a1b8f0e813f278f7c20d38898025ab7e300c"
+      },
+      {
+        "file": "tests/fixtures/tile-stack-editor/b1.mjs",
+        "bytes": 4688,
+        "sha256": "ab8b5b2811e69004c3a5638cbbf9870de5a6f6139c2a4d44f2e46a5535c69bbd"
+      },
+      {
+        "file": "tools/editor-tile-stack-b1-audit.mjs",
+        "bytes": 4894,
+        "sha256": "221e65600fa8bed21c6ebc3c01e777624f6e9edbc2d6503bf5b38fd9f0b6697f"
+      },
+      {
+        "file": "tools/editor-tile-stack-b1-validation.mjs",
+        "bytes": 4673,
+        "sha256": "38337651de71e8e665888e969abc7a577faa293d1d2f2fea13a82ca7c9ae049d"
+      },
+      {
+        "file": "tools/editor-tile-stack-inventory.mjs",
+        "bytes": 6220,
+        "sha256": "895d05a5d4b8a5474996f33ead7940cf5537f7ec8b3534022b6fa124357bc5ff"
+      }
+    ],
+    "preservedProjectionTest": {
+      "file": "tests/editor-tile-stack-b1-projection.test.mjs",
+      "sha256": "b03c5f79cda8b69569bf35fe35c1134c347cb36a3127cb6627b8852533ecd44c"
+    }
+  },
+  "testSource": {
+    "file": "tests/editor-tile-stack-b1-authority.test.mjs",
+    "sha256": "4d1d413858e86345762d8af5cdad5dd340b3618edff76ff881b98538408835ad"
+  },
+  "requiredGates": {
+    "currentRun": "not-started-under-explicit-architect-exclusive-gate-window",
+    "pending": [
+      "npm run check",
+      "npm test",
+      "npm run test:upstream",
+      "npm run build"
+    ],
+    "previousCommit": "08053cf4b6ea8d65edf1c5a0dc4e860f3efa9833",
+    "previousResults": {
+      "focusedProjectionPassed": 2,
+      "existingB1Passed": 11,
+      "tests": 946,
+      "passed": 945,
+      "failedExpected": 1,
+      "upstreamPassed": 32,
+      "builtModulePaths": 519
+    },
+    "previousExpectedFailure": {
+      "test": "editor uses exact relayed UI and reviewed public runtime bytes without a private provider",
+      "message": "Changed fixed source: apps/editor/smart-tile/authority.js",
+      "actualFirstFileBytes": 3349,
+      "recordedFirstFileBytes": 3054,
+      "unchangedFromParent": true
+    }
+  },
+  "helpers": {
+    "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+    "focusedSession": 84572,
+    "focusedExited": true,
+    "retained": [],
+    "background": [],
+    "ports": [],
+    "browserOrPreviewCreated": false
+  },
+  "boundary": "Two private v2 corrections only; shared four B1 files and private planner remain byte-identical. Projection correction retained. Full gates wait for Architect release; expected source fences remain unchanged."
+}
