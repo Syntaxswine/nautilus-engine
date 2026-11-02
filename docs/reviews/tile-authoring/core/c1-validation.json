@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "owner": "Coder, Nautilus Engine",
+  "tranche": "C1 public pure Core",
+  "baseCommit": "d869410625b246cfff2b51089e7878c31951775c",
+  "baseTree": "485cac35ec3060f8962c94e05b8f451907d44a3b",
+  "contractCommit": "43227894c50ec62b71806978195fff2c650eb388",
+  "contractSchemaSha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+  "scope": [
+    ".github/workflows/check.yml",
+    "docs/distribution.md",
+    "docs/reviews/tile-authoring/core/c1-registration.json",
+    "docs/reviews/tile-authoring/core/c1-validation.json",
+    "docs/tile-authoring.md",
+    "package.json",
+    "packages/tile-authoring-core/README.md",
+    "packages/tile-authoring-core/budget.js",
+    "packages/tile-authoring-core/contract.js",
+    "packages/tile-authoring-core/contract.schema.json",
+    "packages/tile-authoring-core/data.js",
+    "packages/tile-authoring-core/geometry.js",
+    "packages/tile-authoring-core/index.d.ts",
+    "packages/tile-authoring-core/index.js",
+    "packages/tile-authoring-core/model.js",
+    "packages/tile-authoring-core/operations.js",
+    "packages/tile-authoring-core/source.json",
+    "packages/tile-authoring-core/target.js",
+    "tests/fixtures/tile-authoring/c1-workflow.mjs",
+    "tests/fixtures/tile-authoring/package-proof.mjs",
+    "tests/tile-authoring-core-registration.test.mjs",
+    "tests/tile-authoring-core-runtime.test.mjs",
+    "tools/check-tile-authoring-core-source.mjs",
+    "tools/check.mjs",
+    "tools/distribution.mjs",
+    "tools/test-tile-authoring-core-package.mjs"
+  ],
+  "status": "early immutable runtime checkpoint; full-suite result to follow",
+  "checks": {
+    "focused": {
+      "command": "node --test tests/tile-authoring-core-runtime.test.mjs tests/tile-authoring-core-registration.test.mjs",
+      "passed": 11,
+      "failed": 0,
+      "evidence": "artifacts/tile-authoring-core-c1/focused.log"
+    },
+    "sourceRegistration": {
+      "command": "node tools/check-tile-authoring-core-source.mjs",
+      "status": "pass",
+      "profiles": 4
+    },
+    "ordinaryInstalledPackage": {
+      "command": "npm run test:tiles:authoring",
+      "status": "pass",
+      "evidence": "artifacts/tile-authoring-core-c1/package-proof/result.json",
+      "actualProof": {
+        "publicEntry": true,
+        "producerPath": "actual-public-factory-and-sealer",
+        "sequentialCommands": 6,
+        "actualPreparationsPerFlow": 2,
+        "objectJSONCompleteTargetsEqual": true,
+        "oneBatchPreparation": true,
+        "oldBundleAndForeignSourceRejected": true,
+        "viewRendererDecoderClaim": false
+      },
+      "packed": {
+        "profile": "core",
+        "name": "@nautilus-engine/core",
+        "version": "0.10.0",
+        "fileCount": 305,
+        "integrity": "sha512-/fNjEEtF2G7rkUrDFt8RquTZDlqzP5PaC9Vcy/73Aq6zi5lwdb9V9p8KX2q/rfErmaBqfoeXSgK8I1Rpab8fMg=="
+      }
+    },
+    "upstream": {
+      "command": "npm run test:upstream",
+      "passed": 32,
+      "failed": 0
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "pass",
+      "modules": 552
+    },
+    "check": {
+      "command": "npm run check",
+      "status": "fails at the deliberately unchanged historical B1 registration fence",
+      "error": "Optional registration may add only the three reviewed entries.",
+      "unexpectedDelta": "./tiles/authoring",
+      "evidence": "artifacts/tile-authoring-core-c1/global-check.log"
+    },
+    "fullSuite": {
+      "command": "npm test",
+      "status": "pending"
+    }
+  },
+  "witnesses": [
+    "actual public producers, six sequential canonical commands, actual retained prepare/apply twice",
+    "four metadata edits preserve complete layout and geometry/appearance fingerprints",
+    "complete object/strict raw JSON command target parity",
+    "one ordered six-operation batch, one request, one actual preparation",
+    "explicit selected owner upgrade; other owner, preset pin, old versions, unused map recipe preserved",
+    "returned old bundle, foreign owner/recipe and coherently rehashed dropped crossing rejected",
+    "clone preserves source anchors/frame/grid and original notice prefix; unique notices append",
+    "strict decoded duplicate keys, aliases, accessors, stale full floor binding and tightened work budget refuse atomically",
+    "exact preset dependency reports unavailable C1 profile"
+  ],
+  "budget": {
+    "sharedPlannerLimit": 1000000,
+    "resetPerOperation": false,
+    "limitRaised": false,
+    "hashSerializationBlockBytes": 64,
+    "textScanCharactersPerUnit": 16,
+    "optimization": "Within-call exact immutable record/source/bundle validation is skipped only after freshly recomputed full canonical hashes match a previously checked record. Remaining reads/hashes/staging/stack derivation/output are charged. Binder rederives canonical request and full constraints under the remaining budget.",
+    "measurementClaim": false
+  },
+  "nonClaims": [
+    "Test host is not production Editor adoption.",
+    "No browser, renderer, decoder, clipping or C2 visual verification is claimed.",
+    "Geometry/appearance fingerprints are data, not authority or view readiness.",
+    "No deployed Sites change or game integration."
+  ],
+  "helperCleanup": {
+    "retainedHelpers": 0,
+    "serverBrowserOrWatcherStarted": false,
+    "packageProofReceipt": "artifacts/tile-authoring-core-c1/package-proof/cleanup.json",
+    "owner": "Coder, Nautilus Engine",
+    "foreground": [
+      {
+        "owner": "Coder, Nautilus Engine",
+        "purpose": "offline ordinary tarball install",
+        "project": "Nautilus Engine C1",
+        "pid": 8468,
+        "executable": "node.exe",
+        "startedAt": "2026-11-02T10:53:25.948Z",
+        "endedAt": "2026-11-02T10:53:29.088Z",
+        "foreground": true,
+        "endCondition": "bounded command exit",
+        "stopMethod": "owning process handle",
+        "exitCode": 0,
+        "signal": null,
+        "ports": []
+      },
+      {
+        "owner": "Coder, Nautilus Engine",
+        "purpose": "actual public installed workflow",
+        "project": "Nautilus Engine C1",
+        "pid": 51080,
+        "executable": "node.exe",
+        "startedAt": "2026-11-02T10:53:29.091Z",
+        "endedAt": "2026-11-02T10:53:39.240Z",
+        "foreground": true,
+        "endCondition": "bounded command exit",
+        "stopMethod": "owning process handle",
+        "exitCode": 0,
+        "signal": null,
+        "ports": []
+      }
+    ],
+    "temporaryInstallRemoved": true,
+    "ports": [],
+    "noBackgroundServerBrowser": true
+  },
+  "designEvaluation": {
+    "useCase": "Nautilus rectangle-first tile authoring for the three games",
+    "accuracy": "Exact original source bytes, full native floor provenance, immutable pins and explicit upgrade decisions preserve authored intent; no claim of physical/rendered slab calibration.",
+    "efficiency": "Code-based estimate: per-call exact immutable validation reuse, one retained geometry preparation and metadata without new geometry/view allocation. Hash/validation limits are refusal ceilings, not performance measurements.",
+    "narrative": "Subjective: independently placed copies and explicit upgrades let authors control local visual changes while preserving old content.",
+    "recommendation": "Prefer shared pure C1 rectangle source/commands with one Editor commit authority for this milestone. Keep richer C2 decoration and game-specific simulation behind later reviewed adapters.",
+    "adoption": "pure Core implemented; production Editor/UI/visual integration remains separately owned"
+  }
+}

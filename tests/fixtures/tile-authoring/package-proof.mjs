@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as T from '@nautilus-engine/core/tiles';
+import * as M from '@nautilus-engine/core';
+import * as F from '@nautilus-engine/core/tiles/finishes';
+import * as A from '@nautilus-engine/core/tiles/authoring';
+import {runWorkflow,fixture} from './c1-workflow.mjs';
+assert.deepEqual(Object.keys(A).sort(),['planTileAuthoring','bindTileAuthoringTarget','tileAuthoringDiscovery','inspectTileAuthoringRequirements','createRectangleDefinition','sealTileContentRecord'].sort());
+assert.equal(typeof globalThis.window,'undefined');assert.equal(typeof globalThis.document,'undefined');
+const before=new Set(process.getActiveResourcesInfo()),r=runWorkflow(T,M,A,F),json=runWorkflow(T,M,A,F,{json:true});assert.deepEqual(r.targets,json.targets);assert.equal(r.preparedCount,2);assert.equal(r.appliedCount,2);
+const discovery=A.tileAuthoringDiscovery();assert.ok(fs.statSync(new URL(discovery.guideURL)).size>0);const schema=JSON.parse(fs.readFileSync(new URL(discovery.schemaURL)));assert.equal(schema.$id,discovery.schema);assert.equal(discovery.executorImplemented,false);assert.equal(discovery.semantics.pathPlacement.startsWith('unavailable'),true);
+const f=fixture(T,M,A,F),all=A.planTileAuthoring(T,{document:f.document,context:f.context,command:f.command(f.document,f.context,f.operations)});assert.equal(all.ok,true,JSON.stringify(all));assert.equal(all.request.slots.length,2);const prepared=T.prepareTileRepair(f.document.tileBundle,all.request,{contextToken:f.context.authorityContextToken});assert.equal(prepared.ok,true);assert.equal(A.bindTileAuthoringTarget(T,{before:f.document,plan:all,prepared}).ok,true);
+const wrong=structuredClone(prepared);wrong.next.bundle=structuredClone(f.document.tileBundle);assert.equal(A.bindTileAuthoringTarget(T,{before:f.document,plan:all,prepared:wrong}).ok,false);
+const foreign=structuredClone(all);foreign.command.expected.hostAuthorityToken='0'.repeat(64);assert.equal(A.bindTileAuthoringTarget(T,{before:f.document,plan:foreign,prepared}).ok,false);
+const unexpected=process.getActiveResourcesInfo().filter(x=>!before.has(x)&&!['PipeWrap','TTYWrap','Immediate'].includes(x));assert.deepEqual(unexpected,[],'No server/timer/worker stays alive.');
+console.log(JSON.stringify({publicEntry:true,producerPath:'actual-public-factory-and-sealer',sequentialCommands:6,actualPreparationsPerFlow:r.preparedCount,objectJSONCompleteTargetsEqual:true,oneBatchPreparation:true,oldBundleAndForeignSourceRejected:true,viewRendererDecoderClaim:false}));

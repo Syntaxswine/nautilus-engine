@@ -47,6 +47,7 @@ export function distribution(profile = 'compatibility') {
   if(profile!=='assets')extras.push('packages/tile-visuals/README.md','packages/tile-visuals/NOTICE.md','packages/tile-visuals/source.json');
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-stack-core/README.md','packages/tile-stack-core/api.d.ts','packages/tile-stack-core/source.json');
   if(profile!=='assets')extras.push('packages/tile-finishes/README.md','packages/tile-finishes/source.json','docs/stacked-tiles.md');
+  if(profile==='core'||profile==='compatibility')extras.push('packages/tile-authoring-core/index.d.ts','packages/tile-authoring-core/contract.schema.json','packages/tile-authoring-core/README.md','packages/tile-authoring-core/source.json','docs/tile-authoring.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
