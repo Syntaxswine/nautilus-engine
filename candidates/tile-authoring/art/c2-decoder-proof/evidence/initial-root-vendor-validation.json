@@ -1,0 +1,551 @@
+{
+  "kind": "private-test-only-candidate-validation",
+  "status": "DELIVERY HELD;local review draft,not committed or pushed",
+  "branch": "codex/tile-png-decoder-proof",
+  "base": "8184f06aa587542b026352a739f3766d1794c4fe",
+  "pakoPin": "3c06216518c259b569a5168dee867e6dabbe5160",
+  "focused": {
+    "status": "pass",
+    "passed": 69,
+    "total": 69,
+    "runtime": {
+      "node": "v24.15.0",
+      "platform": "win32",
+      "architecture": "x64"
+    },
+    "oracle": {
+      "python": "3.12.14",
+      "executable": "C:\\Users\\baals\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "pillow": "12.3.0",
+      "zlibCompile": "1.3.2",
+      "zlibRuntime": "1.3.2",
+      "scope": "Independent raw RGBA decoder; no colour conversion/image editing"
+    },
+    "report": {
+      "path": "artifacts/art-c2-decoder-proof/runs/2026-11-02T135027116Z-52320/spike-report.json",
+      "bytes": 1676416,
+      "sha256": "ded9f860c055752b9ec7f4e06a6681feaec6a5b6443d28978aaa36a323b578da"
+    },
+    "receipt": {
+      "path": "artifacts/art-c2-decoder-proof/runs/2026-11-02T135027116Z-52320/run-receipt.json",
+      "bytes": 2824,
+      "sha256": "d61c4f9e102bc852c85a75b656398053947f922d71fd4e674aca640b5cf10bf8"
+    },
+    "originals": [
+      {
+        "name": "decode/organic-marks-v1",
+        "fullDecodedRGBA": {
+          "bytes": 6291456,
+          "sha256": "bca14efda5c3e2c33f4acf69b717cb82aad99e9583255e9f8c46b818dd5cfc23",
+          "independentOracle": "Pillow 12.3.0",
+          "allBytesEqual": true
+        },
+        "counts": {
+          "scratch": 113396,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 4963932
+        },
+        "peakAdditional": 6404852,
+        "maxProducedPerCall": 13146,
+        "inflateCalls": 1201
+      },
+      {
+        "name": "decode/road-marks-v1",
+        "fullDecodedRGBA": {
+          "bytes": 6291456,
+          "sha256": "f4083fd64ec7c68fafef82959857d5eecea39de02ff628bf55bcee581921a47e",
+          "independentOracle": "Pillow 12.3.0",
+          "allBytesEqual": true
+        },
+        "counts": {
+          "scratch": 77575,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 156468
+        },
+        "peakAdditional": 6369031,
+        "maxProducedPerCall": 16384,
+        "inflateCalls": 406
+      }
+    ],
+    "controls": [
+      {
+        "name": "decode/filter-0",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-1",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-2",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-3",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-4",
+        "status": "pass"
+      },
+      {
+        "name": "decode/all-filters",
+        "status": "pass"
+      },
+      {
+        "name": "decode/tiny-straight",
+        "status": "pass"
+      },
+      {
+        "name": "decode/idat-byte-split",
+        "status": "pass"
+      },
+      {
+        "name": "decode/stored-block",
+        "status": "pass"
+      },
+      {
+        "name": "decode/fixed-huffman",
+        "status": "pass"
+      },
+      {
+        "name": "decode/dynamic",
+        "status": "pass"
+      },
+      {
+        "name": "decode/organic-marks-v1",
+        "status": "pass"
+      },
+      {
+        "name": "decode/road-marks-v1",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/signature",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/crc",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/adler",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-truncated",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-trailing",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-concatenated",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/png-trailing",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/truncated-chunk",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/missing-iend",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/invalid-filter",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/short-output",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/output-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/dimension-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zero-dimension",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/rgb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/depth16",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/interlace",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/apng",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/critical",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/reserved-bit",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/duplicate-ihdr",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/nonconsecutive-idat",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/dictionary",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/gzip",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/bad-deflate",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/empty-block-within-budget-positive-control",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/work-empty-block-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/encoded-backing-store",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/whole-page-decoded-quota",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/inflater-scratch-quota",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/chunk-count",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/ancillary",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/blob-hash-before-decode",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/blob-dimensions",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/webp-unbound",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/caller-window-required",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/window-subview-refused",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/pre-aborted-real-signal",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/during-chunked-validation-before-rgba",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/mid-original-via-progress-abort",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/mid-original-actual-event-loop-timer",
+        "status": "pass"
+      },
+      {
+        "name": "input/private-snapshot-survives-caller-mutation",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/native-worker-process-exit",
+        "status": "pass"
+      },
+      {
+        "name": "copies/actual-physical-copies-32MiB",
+        "status": "pass"
+      },
+      {
+        "name": "copies/unknown-staging-stays-charged",
+        "status": "pass"
+      },
+      {
+        "name": "provenance/raw-and-art-bytes-preserved",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/premult-before-bilinear-no-colour-bleed",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/frame-clamp-vs-repeat-no-neighbour",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/top-left-pixel-y-direct",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/grouped-opacity-.375",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/all30-original-views-linear-tint-finite-gutters",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/alpha-floor-before-filter",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/frozen16-current-D4-source-origin-pivot",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/current-pose-not-historical-stroke",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/current-matrix-source-grid-mask",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/complete-layer-order-and-source-unchanged",
+        "status": "pass"
+      }
+    ],
+    "nativeStop": {
+      "owner": "Nautilus Artist",
+      "purpose": "Actual native-process cancellation at real PNG output while consumer is blocked",
+      "parentPid": 44516,
+      "pid": 52096,
+      "startedAt": "2026-11-02T13:50:29.959Z",
+      "endCondition": "Kill only exact revalidated owned process after progress; child self-expiry8s",
+      "ports": [],
+      "restart": {
+        "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "arguments": [
+          "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\candidates\\tile-authoring\\art\\c2-decoder-proof\\hard-cancel-child.mjs"
+        ]
+      },
+      "status": "closed",
+      "process": {
+        "pid": 52096,
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "creationFiletime": "134381010299522349"
+      },
+      "pause": {
+        "kind": "paused-at-real-output",
+        "pid": 52096,
+        "outputBytes": 71819,
+        "counts": {
+          "scratch": 69975,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 4963932
+        }
+      },
+      "revalidatedBeforeStop": {
+        "pid": 52096,
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "creationFiletime": "134381010299522349"
+      },
+      "stopRequestedAt": "2026-11-02T13:50:30.798Z",
+      "originalLifetimeGone": true,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-11-02T13:50:31.100Z",
+      "stderr": ""
+    }
+  },
+  "requiredGates": [
+    {
+      "finishedAt": "2026-11-02T13:48:03.7938495Z",
+      "command": "npm run check",
+      "exitCode": 1,
+      "startedAt": "2026-11-02T13:47:39.2416794Z",
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/check.json",
+        "bytes": 151,
+        "sha256": "fe7a496e8ea61f237071c7659809401428ab7e7904d4d1a861a57b850780e453"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/check.log",
+        "bytes": 1976,
+        "sha256": "904851555f9d4c2ae65797a0c1ae933b39d0a7e9029c93d4a9ebbf45533db58a"
+      }
+    },
+    {
+      "startedAt": "2026-11-02T13:47:40.1434857Z",
+      "command": "npm test",
+      "exitCode": 1,
+      "finishedAt": "2026-11-02T13:50:41.5316074Z",
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/test.json",
+        "bytes": 146,
+        "sha256": "da4ca35bbe5c0015a1dc3b1a0f5ab6115392bea2c99a89912eb19c516ee1728f"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/test.log",
+        "bytes": 122000,
+        "sha256": "d28f6243e65dcc2ee75913b4e995799d70356d2148076f4a69fd66c5afe57970"
+      },
+      "total": 1099,
+      "passed": 1098,
+      "failed": 1
+    },
+    {
+      "command": "npm run test:upstream",
+      "finishedAt": "2026-11-02T13:47:51.9492440Z",
+      "startedAt": "2026-11-02T13:47:40.0334655Z",
+      "exitCode": 0,
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/upstream.json",
+        "bytes": 159,
+        "sha256": "6d256147085231616332ebed31e4d427253d37149f79b82dfe7368a93118691c"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/upstream.log",
+        "bytes": 3141,
+        "sha256": "3273e1b11a9fbdf4158b776be24f50f72d0661111ac5380296a1a7c90693fb3a"
+      },
+      "total": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "startedAt": "2026-11-02T13:50:55.3985398Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T13:51:26.2168700Z",
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/build.json",
+        "bytes": 151,
+        "sha256": "cbf2f7032462ca4fc6357a6405c9da4a688c22f75c5f86bb47379f8e6750d5a2"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-decoder-proof/build.log",
+        "bytes": 378,
+        "sha256": "af2eb5052ab672582768746647693d8845b68a21f9efe09881c904ea0b34842b"
+      },
+      "checkedModulePaths": 552
+    }
+  ],
+  "delivery": {
+    "status": "fail",
+    "privateCodeOrPNGInNormalProfiles": false,
+    "newLicenseInAllFourProfiles": true,
+    "rule": "tools/distribution.mjs supportFiles() vendor license discovery",
+    "normalProfiles": [
+      {
+        "profile": "core",
+        "expectedHash": "4cb20d4cc8990bb3ec9db497af1bddc8189700d148edd2358c2acf0f62dd5d80",
+        "actualHash": "114690c784ce0cfa6601ab42dfd60584c14d23303abd6878249a074211242f84",
+        "diagnosticWithoutNewLicenseHash": "4cb20d4cc8990bb3ec9db497af1bddc8189700d148edd2358c2acf0f62dd5d80",
+        "diagnosticMatchesBaseline": true,
+        "extra": [
+          "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+        ]
+      },
+      {
+        "profile": "compatibility",
+        "expectedHash": "7d2041f14ff26fd92ff7aa95afa68d91de6a2ea9731002e5a1d48be81538c24f",
+        "actualHash": "3ab2c24e8944f0553ed93dc499789a495a40ebb59dff65ed0ddc84009310a1d5",
+        "diagnosticWithoutNewLicenseHash": "7d2041f14ff26fd92ff7aa95afa68d91de6a2ea9731002e5a1d48be81538c24f",
+        "diagnosticMatchesBaseline": true,
+        "extra": [
+          "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+        ]
+      },
+      {
+        "profile": "renderer",
+        "expectedHash": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+        "actualHash": "195e06206fdf83d5bcfb48175c4cfd68c6251a08d02d064aa5999ad20a1628ce",
+        "diagnosticWithoutNewLicenseHash": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+        "diagnosticMatchesBaseline": true,
+        "extra": [
+          "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+        ]
+      },
+      {
+        "profile": "assets",
+        "expectedHash": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+        "actualHash": "a99cdac959edc1903667cc7bbcd6359957824c4f3742584c004debd37732227d",
+        "diagnosticWithoutNewLicenseHash": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+        "diagnosticMatchesBaseline": true,
+        "extra": [
+          "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+        ]
+      }
+    ],
+    "failures": [
+      {
+        "command": "npm run check",
+        "path": "tools/check.mjs",
+        "line": 113,
+        "message": "Package whitelist is stale; run node tools/distribution.mjs --write."
+      },
+      {
+        "command": "npm test",
+        "path": "tests/tile-authoring-core-registration.test.mjs",
+        "line": 4,
+        "assertionPath": "tools/check-tile-authoring-core-source.mjs",
+        "message": "Unexplained profile file delta: core",
+        "passed": 1098,
+        "total": 1099
+      }
+    ],
+    "protectedFilesChanged": false,
+    "commitCreated": false,
+    "pushed": false
+  },
+  "cleanup": {
+    "receipt": {
+      "path": "artifacts/art-c2-decoder-proof/cleanup.json",
+      "bytes": 2763,
+      "sha256": "436df3d91139aedd81b5aa31f27a04979d54a40a31b8fae7fbee548625108679"
+    },
+    "verifiedOriginalHelperLifetimes": 8,
+    "allOriginalLifetimesGone": true,
+    "retainedHelpers": [],
+    "serversStarted": []
+  },
+  "limits": "Node/Windows CPU preparation only; no native renderer, browser/CSP, compositor, phone performance or C1 Host/capture ABI acceptance"
+}

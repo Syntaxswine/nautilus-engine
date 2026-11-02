@@ -1,0 +1,5 @@
+// Finite disposable hard-cancel probe. Reads originals; never writes raster/source.
+import fs from 'node:fs';import {Ledger} from './ledger.mjs';import {decodePNG} from './png.mjs';
+const timer=setTimeout(()=>process.exit(3),8000);let started=false,paused=false;
+process.on('message',async m=>{if(m!=='start'||started)return;started=true;const inputs=JSON.parse(fs.readFileSync('candidates/tile-authoring/art/c2-decoder-proof/inputs.json')),art=inputs.art[0],ledger=new Ledger(),window=ledger.alloc(Uint8Array,16384,'scratch','caller-owned16KiB');try{await decodePNG(fs.readFileSync(art.path),{ledger,outputWindow:window,onProgress:p=>{if(p.outputBytes>65536&&!paused){paused=true;process.send({kind:'paused-at-real-output',pid:process.pid,outputBytes:p.outputBytes,counts:ledger.snapshot().counts});const hold=new Int32Array(new SharedArrayBuffer(4));Atomics.wait(hold,0,0,5000);}}});process.send({kind:'unexpected-complete'});clearTimeout(timer);process.exit(2);}catch(e){process.send({kind:'unexpected-error',code:e.code,message:e.message});clearTimeout(timer);process.exit(2);}});
+process.send({kind:'ready',pid:process.pid});

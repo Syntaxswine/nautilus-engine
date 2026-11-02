@@ -1,0 +1,322 @@
+{
+  "kind": "private-test-only-candidate-adaptations",
+  "pakoCommit": "3c06216518c259b569a5168dee867e6dabbe5160",
+  "algorithm": "Original control/math retained; inject quota constructors/copy operations and progress checks. No authored DEFLATE.",
+  "records": [
+    {
+      "source": "lib/zlib/inflate.js",
+      "sourceSha256": "2375dd0e1a5eebf91fd75301b4cc8c120712978f513db8fedd2a5f3321f0145f",
+      "adapted": "adapted/pako/lib/zlib/inflate.js",
+      "bytes": 52103,
+      "sha256": "0f686bb07eba36bf140ef2eeac0ae61b855367b6d1b8b87741aa086d9cbc8bdd",
+      "edits": [
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:146",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:147",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:153",
+          "from": "new Int32Array(",
+          "to": "quota.i32"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:194",
+          "from": "new Int32Array(",
+          "to": "quota.i32"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:195",
+          "from": "new Int32Array(",
+          "to": "quota.i32"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:296",
+          "from": "new Int32Array(",
+          "to": "quota.i32"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:297",
+          "from": "new Int32Array(",
+          "to": "quota.i32"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:350",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:402",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:408",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inflate.js:640",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "copy-set",
+          "site": "lib/zlib/inflate.js:set:11",
+          "from": "state.window.set("
+        },
+        {
+          "kind": "copy-set",
+          "site": "lib/zlib/inflate.js:set:12",
+          "from": "state.window.set("
+        },
+        {
+          "kind": "copy-set",
+          "site": "lib/zlib/inflate.js:set:13",
+          "from": "state.window.set("
+        },
+        {
+          "kind": "copy-set",
+          "site": "lib/zlib/inflate.js:set:14",
+          "from": "state.head.extra.set("
+        },
+        {
+          "kind": "copy-set",
+          "site": "lib/zlib/inflate.js:set:15",
+          "from": "output.set("
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:16",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:17",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:18",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:19",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:20",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:loop:21",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:do:22",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:do:23",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:do:24",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inflate.js:do:25",
+          "from": "do {"
+        }
+      ]
+    },
+    {
+      "source": "lib/zlib/zstream.js",
+      "sourceSha256": "5fa10c7a59ca99113cf92d1260e56cbd6282e15afa85dc8a0eb8e8d6d2321298",
+      "adapted": "adapted/pako/lib/zlib/zstream.js",
+      "bytes": 1899,
+      "sha256": "ff4024832d652cb8b7ab7e7914263e3940d1411807b2a0b1ec655120e331b212",
+      "edits": []
+    },
+    {
+      "source": "lib/zlib/adler32.js",
+      "sourceSha256": "1f181b4365677dcad5bd8fcc4594707171b7317875c50e88054b75d4fa285930",
+      "adapted": "adapted/pako/lib/zlib/adler32.js",
+      "bytes": 1790,
+      "sha256": "46801028b49d10c09ce5df5de222df525fabbf877a88eaa5d3138ed83110193a",
+      "edits": [
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/adler32.js:do:0",
+          "from": "do {"
+        }
+      ]
+    },
+    {
+      "source": "lib/zlib/crc32.js",
+      "sourceSha256": "5452655b14329267c4c3fc58c43df53f4e6f5196fde9d2d431b1ad089e5f3742",
+      "adapted": "adapted/pako/lib/zlib/crc32.js",
+      "bytes": 1886,
+      "sha256": "695d792d51e793791242f30c82e5b1d3cfa3613a3a0e69418729e9fa2e79ceb5",
+      "edits": [
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/crc32.js:42",
+          "from": "new Uint32Array(",
+          "to": "quota.u32"
+        }
+      ]
+    },
+    {
+      "source": "lib/zlib/inffast.js",
+      "sourceSha256": "694b23b4d2c00c9d274274ecf092dc7c0c0c64125d54bda5286baf2711822d00",
+      "adapted": "adapted/pako/lib/zlib/inffast.js",
+      "bytes": 13226,
+      "sha256": "c032f7a58f7e82337b29da20f772746e4900f85fddc6ae5c3677eb31236e1815",
+      "edits": [
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:loop:0",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:loop:1",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:2",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:3",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:4",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:5",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:6",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:7",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:8",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:9",
+          "from": "do {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inffast.js:do:10",
+          "from": "do {"
+        }
+      ]
+    },
+    {
+      "source": "lib/zlib/inftrees.js",
+      "sourceSha256": "fa1434611e4cd6bb5bca02c99315bdb639a434c02f44fc1cc64d4b258187908f",
+      "adapted": "adapted/pako/lib/zlib/inftrees.js",
+      "bytes": 12783,
+      "sha256": "342adaf10b87d828990fcd0e74d71aafe375334446490270446063fa4aa77138",
+      "edits": [
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:31",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:36",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:41",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:47",
+          "from": "new Uint8Array(",
+          "to": "quota.u8"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:75",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "typed-allocation",
+          "site": "lib/zlib/inftrees.js:76",
+          "from": "new Uint16Array(",
+          "to": "quota.u16"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inftrees.js:loop:6",
+          "from": "for (;;) {"
+        },
+        {
+          "kind": "work-tick",
+          "site": "lib/zlib/inftrees.js:do:7",
+          "from": "do {"
+        }
+      ]
+    },
+    {
+      "source": "lib/zlib/constants.js",
+      "sourceSha256": "37c65f82b9bacde2bbccc9c980a20dee7e2b7f3658304a30abe1023e02ec407b",
+      "adapted": "adapted/pako/lib/zlib/constants.js",
+      "bytes": 2400,
+      "sha256": "73e0f6946e0268b61c4aed1d55fa0132c232e71312b912f64a1cf850a56b1d7b",
+      "edits": []
+    }
+  ],
+  "rawRoot": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160"
+}

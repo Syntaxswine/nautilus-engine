@@ -1,0 +1,16 @@
+// CPU sampling prototype only. No renderer/material/native readiness.
+const zero=()=>[0,0,0,0],clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v)),mod=(n,m)=>((n%m)+m)%m;
+export const linear=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
+export function sampleFrame(image,view,uv,form='stamp'){
+ const [x,y,w,h]=view.frame.rectPx,[u0,v0]=uv;if(!uv.every(Number.isFinite)||!['stamp','detail'].includes(form))throw Error('SAMPLER_INPUT');if(x<0||y<0||w<1||h<1||x+w>image.width||y+h>image.height||image.pixels.length!==image.width*image.height*4)throw Error('FRAME_BOUNDARY');
+ if(form==='stamp'&&(u0<0||u0>1||v0<0||v0>1))return zero();const u=form==='detail'?u0-Math.floor(u0):u0,v=form==='detail'?v0-Math.floor(v0):v0,px=x+u*w-.5,py=y+v*h-.5,ix=Math.floor(px),iy=Math.floor(py),fx=px-ix,fy=py-iy,out=zero();
+ for(const [dx,dy,weight]of [[0,0,(1-fx)*(1-fy)],[1,0,fx*(1-fy)],[0,1,(1-fx)*fy],[1,1,fx*fy]]){const tx=form==='stamp'?clamp(ix+dx,x,x+w-1):x+mod(ix+dx-x,w),ty=form==='stamp'?clamp(iy+dy,y,y+h-1):y+mod(iy+dy-y,h),p=(ty*image.width+tx)*4,a8=image.pixels[p+3],a=a8<=view.sampler.alphaFloor8?0:a8/255;for(let k=0;k<3;k++)out[k]+=linear(image.pixels[p+k]/255)*a*weight;out[3]+=a*weight;}
+ return out;
+}
+export function graphicUV(point,transform){const dx=point[0]-transform.positionM[0],dy=point[1]-transform.positionM[1],c=Math.cos(transform.rotationRad),s=Math.sin(transform.rotationRad),x=c*dx+s*dy,y=-s*dx+c*dy;return [transform.pivotUV[0]+(transform.mirrorU?-1:1)*x/transform.sizeM[0],transform.pivotUV[1]-y/transform.sizeM[1]];}
+export function worldToSurface(world,matrix){if(matrix.length!==16||!matrix.every(Number.isFinite))throw Error('CURRENT_FRAME');const v=[...world,1],r=[0,0,0,0];for(let row=0;row<4;row++)for(let col=0;col<4;col++)r[row]+=matrix[col*4+row]*v[col];if(r[3]!==1)throw Error('CURRENT_FRAME_AFFINE');return r.slice(0,2);}
+export function surfaceFromCurrentPose(render,surface,owner){const native=[render[0],render[2],render[1]],d=native.map((x,i)=>x-owner.origin[i]),q=(4-owner.transform.quarterTurns)%4;let xy=q===0?d.slice(0,2):q===1?[-d[1],d[0]]:q===2?[-d[0],-d[1]]:[d[1],-d[0]];if(owner.transform.mirrorX)xy[0]*=-1;const local=[xy[0]-surface.originM[0],xy[1]-surface.originM[1],d[2]-surface.originM[2]];return surface.axes.map(axis=>axis.reduce((s,x,i)=>s+x*local[i],0));}
+export function maskContains(mask,surface,point,gridDigest){if(mask.kind==='all-surface')return true;if(mask.grid.id!==surface.grid.id||mask.grid.version!==surface.grid.version||mask.grid.digest!==gridDigest)throw Error('GRID_BINDING');const i=Math.floor((point[0]-surface.grid.originM[0])/surface.grid.cellSizeM[0]),j=Math.floor((point[1]-surface.grid.originM[1])/surface.grid.cellSizeM[1]);return mask.rows.some(row=>row.j===j&&row.spans.some(span=>i>=span.i0&&i<span.i0+span.count));}
+export const over=(src,dst)=>src.map((x,k)=>x+dst[k]*(1-src[3]));
+export function composeLayers(groups,sample){let out=zero();for(const group of groups){let layer=zero();for(const mark of group.marks)layer=over(sample(mark),layer);layer=layer.map(x=>x*group.layer.opacity);out=over(layer,out);}return out;}
+export function sampleGraphic(image,view,graphic,point){const rgba=sampleFrame(image,view,graphicUV(point,graphic.transform),graphic.form);return rgba.map((v,k)=>v*graphic.opacity*(k<3?graphic.tintLinearRGB[k]:1));}

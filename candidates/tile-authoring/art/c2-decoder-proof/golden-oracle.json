@@ -1,0 +1,55 @@
+{
+  "kind": "independent-full-byte-Pillow-goldens",
+  "status": "Original spike all-byte comparisons preserved;candidate must reproduce all69 controls",
+  "pako": {
+    "repository": "https://github.com/nodeca/pako",
+    "version": "2.1.0",
+    "commit": "3c06216518c259b569a5168dee867e6dabbe5160",
+    "license": "MIT AND Zlib"
+  },
+  "artistCommit": "57c651fb0a7ed0b01c1435ba18e87efde290443a",
+  "oracle": {
+    "python": "3.12.14",
+    "executable": "C:\\Users\\baals\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "pillow": "12.3.0",
+    "zlibCompile": "1.3.2",
+    "zlibRuntime": "1.3.2",
+    "scope": "Independent raw RGBA decoder; no colour conversion/image editing"
+  },
+  "node": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "architecture": "x64"
+  },
+  "oracleCode": {
+    "spikeSha256": "d8fa1f9ee292f870264d5d51a978bccabad87e3876f4c2130e96e0bee5762665",
+    "candidateSha256": "9e539fedd2760fbc96e73dafdc557eff8242b49bfd684c3f7e10abe374a070ad"
+  },
+  "originals": [
+    {
+      "name": "organic-marks-v1",
+      "input": "candidates/tile-authoring/art/resources/organic-marks-v1.png",
+      "encodedBytes": 2481966,
+      "encodedSha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6",
+      "width": 1536,
+      "height": 1024,
+      "rgbaBytes": 6291456,
+      "rgbaSha256": "bca14efda5c3e2c33f4acf69b717cb82aad99e9583255e9f8c46b818dd5cfc23",
+      "originalSpikeAllBytesEqual": true
+    },
+    {
+      "name": "road-marks-v1",
+      "input": "candidates/tile-authoring/art/resources/road-marks-v1.png",
+      "encodedBytes": 78234,
+      "encodedSha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633",
+      "width": 1024,
+      "height": 1536,
+      "rgbaBytes": 6291456,
+      "rgbaSha256": "f4083fd64ec7c68fafef82959857d5eecea39de02ff628bf55bcee581921a47e",
+      "originalSpikeAllBytesEqual": true
+    }
+  ],
+  "rawRGBACommitted": false,
+  "rawRGBABytesCompared": 12582912,
+  "privateFixtureRoot": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160"
+}

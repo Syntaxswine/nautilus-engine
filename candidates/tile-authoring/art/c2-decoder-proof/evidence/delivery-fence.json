@@ -1,0 +1,64 @@
+{
+  "status": "delivery-held",
+  "scope": "Read-only diagnosis; no filtered package is generated and no required check is treated as passing",
+  "rule": "tools/distribution.mjs supportFiles() dynamically collects vendor licenses; no authorized change to that rule or package whitelist",
+  "failures": [
+    {
+      "command": "npm run check",
+      "path": "tools/check.mjs",
+      "line": 113,
+      "message": "Package whitelist is stale; run node tools/distribution.mjs --write."
+    },
+    {
+      "command": "npm test",
+      "path": "tests/tile-authoring-core-registration.test.mjs",
+      "line": 4,
+      "assertionPath": "tools/check-tile-authoring-core-source.mjs",
+      "message": "Unexplained profile file delta: core",
+      "passed": 1098,
+      "total": 1099
+    }
+  ],
+  "profiles": [
+    {
+      "profile": "core",
+      "expectedHash": "4cb20d4cc8990bb3ec9db497af1bddc8189700d148edd2358c2acf0f62dd5d80",
+      "actualHash": "114690c784ce0cfa6601ab42dfd60584c14d23303abd6878249a074211242f84",
+      "diagnosticWithoutNewLicenseHash": "4cb20d4cc8990bb3ec9db497af1bddc8189700d148edd2358c2acf0f62dd5d80",
+      "diagnosticMatchesBaseline": true,
+      "extra": [
+        "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+      ]
+    },
+    {
+      "profile": "compatibility",
+      "expectedHash": "7d2041f14ff26fd92ff7aa95afa68d91de6a2ea9731002e5a1d48be81538c24f",
+      "actualHash": "3ab2c24e8944f0553ed93dc499789a495a40ebb59dff65ed0ddc84009310a1d5",
+      "diagnosticWithoutNewLicenseHash": "7d2041f14ff26fd92ff7aa95afa68d91de6a2ea9731002e5a1d48be81538c24f",
+      "diagnosticMatchesBaseline": true,
+      "extra": [
+        "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+      ]
+    },
+    {
+      "profile": "renderer",
+      "expectedHash": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+      "actualHash": "195e06206fdf83d5bcfb48175c4cfd68c6251a08d02d064aa5999ad20a1628ce",
+      "diagnosticWithoutNewLicenseHash": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+      "diagnosticMatchesBaseline": true,
+      "extra": [
+        "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+      ]
+    },
+    {
+      "profile": "assets",
+      "expectedHash": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+      "actualHash": "a99cdac959edc1903667cc7bbcd6359957824c4f3742584c004debd37732227d",
+      "diagnosticWithoutNewLicenseHash": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+      "diagnosticMatchesBaseline": true,
+      "extra": [
+        "vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE"
+      ]
+    }
+  ]
+}

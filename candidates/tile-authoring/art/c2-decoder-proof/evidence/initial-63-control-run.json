@@ -1,0 +1,724 @@
+{
+  "status": "fail",
+  "total": 63,
+  "passed": 62,
+  "failed": [
+    "bounds/work-empty-block-bomb"
+  ],
+  "runtime": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "architecture": "x64"
+  },
+  "scope": "Artifact-only Node decoder/CPU sampler, no native/browser/phone or Core/Editor/public runtime acceptance",
+  "cases": [
+    {
+      "name": "decode/filter-0",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 868,
+        "sha256": "7fac272edfdc6aefee849c671bbf8209e0c5f5ef2f124ddbe3447a210243979b",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 875,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 25052,
+            "decoded": 868,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 5862
+        }
+      }
+    },
+    {
+      "name": "decode/filter-1",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 868,
+        "sha256": "7fac272edfdc6aefee849c671bbf8209e0c5f5ef2f124ddbe3447a210243979b",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 875,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 27164,
+            "decoded": 868,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 4052
+        }
+      }
+    },
+    {
+      "name": "decode/filter-2",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 868,
+        "sha256": "7fac272edfdc6aefee849c671bbf8209e0c5f5ef2f124ddbe3447a210243979b",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 875,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 27164,
+            "decoded": 868,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 4269
+        }
+      }
+    },
+    {
+      "name": "decode/filter-3",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 868,
+        "sha256": "7fac272edfdc6aefee849c671bbf8209e0c5f5ef2f124ddbe3447a210243979b",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 875,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 27164,
+            "decoded": 868,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 4529
+        }
+      }
+    },
+    {
+      "name": "decode/filter-4",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 868,
+        "sha256": "7fac272edfdc6aefee849c671bbf8209e0c5f5ef2f124ddbe3447a210243979b",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 875,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 27164,
+            "decoded": 868,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 4109
+        }
+      }
+    },
+    {
+      "name": "decode/all-filters",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 2320,
+        "sha256": "852ea76fd472f08f93d68c102cfb5d990b15d81017192d10d1929d7230cc8e82",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 2340,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 25036,
+            "decoded": 2320,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 10935
+        }
+      }
+    },
+    {
+      "name": "decode/tiny-straight",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 4,
+        "sha256": "0b677874037e5ddbf8e1c77c5934eca2642e8426be634e12a1da6f0aaf8aac55",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 5,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 26924,
+            "decoded": 4,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 1005
+        }
+      }
+    },
+    {
+      "name": "decode/idat-byte-split",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 180,
+        "sha256": "b56d35a2994596c07e47f51f0b1b4b97ad42242f86c7f7b8f8828e38b1d083e4",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 185,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 61527,
+            "decoded": 180,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 3419
+        }
+      }
+    },
+    {
+      "name": "decode/stored-block",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 17812,
+        "sha256": "129f07d751d5302702c412cdc8a01598a93c6a1fb487520b1a383607fde70e2c",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 17873,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 58148,
+            "decoded": 17812,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 17941
+          },
+          "work": 89430
+        }
+      }
+    },
+    {
+      "name": "decode/fixed-huffman",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 17812,
+        "sha256": "129f07d751d5302702c412cdc8a01598a93c6a1fb487520b1a383607fde70e2c",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 17873,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 60291,
+            "decoded": 17812,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 61876
+        }
+      }
+    },
+    {
+      "name": "decode/dynamic",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 37516,
+        "sha256": "fa05d8aabfb38bc50b34c069db9ff706e47af49af5deea8493a722c6998b04c2",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 37599,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 58522,
+            "decoded": 37516,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 8192
+          },
+          "work": 127922
+        }
+      }
+    },
+    {
+      "name": "decode/organic-marks-v1",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 6291456,
+        "sha256": "bca14efda5c3e2c33f4acf69b717cb82aad99e9583255e9f8c46b818dd5cfc23",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 6292480,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 113396,
+            "decoded": 6291456,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 2481966
+          },
+          "work": 30775903
+        }
+      }
+    },
+    {
+      "name": "decode/road-marks-v1",
+      "status": "pass",
+      "fullDecodedRGBA": {
+        "bytes": 6291456,
+        "sha256": "f4083fd64ec7c68fafef82959857d5eecea39de02ff628bf55bcee581921a47e",
+        "independentOracle": "Pillow 12.3.0",
+        "allBytesEqual": true
+      },
+      "diagnostics": {
+        "outputBytes": 6292992,
+        "callerWindowBytes": 16384,
+        "ledger": {
+          "counts": {
+            "scratch": 77575,
+            "decoded": 6291456,
+            "staging": 0,
+            "unknown": 0,
+            "encoded": 78234
+          },
+          "work": 21241117
+        }
+      }
+    },
+    {
+      "name": "refuse/signature",
+      "status": "pass",
+      "code": "PNG_SIGNATURE",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/crc",
+      "status": "pass",
+      "code": "PNG_CRC",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/adler",
+      "status": "pass",
+      "code": "PNG_ADLER",
+      "diagnostics": {
+        "outputBytes": 5,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/zlib-truncated",
+      "status": "pass",
+      "code": "PNG_ZLIB_TRUNCATED",
+      "diagnostics": {
+        "outputBytes": 5,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/zlib-trailing",
+      "status": "pass",
+      "code": "PNG_ZLIB_TRAILING",
+      "diagnostics": {
+        "outputBytes": 5,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/zlib-concatenated",
+      "status": "pass",
+      "code": "PNG_ZLIB_TRAILING",
+      "diagnostics": {
+        "outputBytes": 5,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/png-trailing",
+      "status": "pass",
+      "code": "PNG_TRAILING_BYTES",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/truncated-chunk",
+      "status": "pass",
+      "code": "PNG_TRUNCATED_CHUNK",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/missing-iend",
+      "status": "pass",
+      "code": "PNG_MISSING_IEND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/invalid-filter",
+      "status": "pass",
+      "code": "PNG_FILTER",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/short-output",
+      "status": "pass",
+      "code": "PNG_OUTPUT_LENGTH",
+      "diagnostics": {
+        "outputBytes": 4,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/output-bomb",
+      "status": "pass",
+      "code": "PNG_OUTPUT_OVERRUN",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/dimension-bomb",
+      "status": "pass",
+      "code": "PNG_DIMENSIONS",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/zero-dimension",
+      "status": "pass",
+      "code": "PNG_DIMENSIONS",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/rgb",
+      "status": "pass",
+      "code": "PNG_PROFILE_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/depth16",
+      "status": "pass",
+      "code": "PNG_PROFILE_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/interlace",
+      "status": "pass",
+      "code": "PNG_PROFILE_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/apng",
+      "status": "pass",
+      "code": "PNG_PROFILE_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/critical",
+      "status": "pass",
+      "code": "PNG_CRITICAL_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/reserved-bit",
+      "status": "pass",
+      "code": "PNG_CHUNK_TYPE",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/duplicate-ihdr",
+      "status": "pass",
+      "code": "PNG_IHDR",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/nonconsecutive-idat",
+      "status": "pass",
+      "code": "PNG_IDAT_ORDER",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/dictionary",
+      "status": "pass",
+      "code": "PNG_DICTIONARY_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/gzip",
+      "status": "pass",
+      "code": "PNG_ZLIB_DATA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "refuse/bad-deflate",
+      "status": "pass",
+      "code": "PNG_ZLIB_DATA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/work-empty-block-bomb",
+      "status": "fail",
+      "error": {
+        "code": "ERR_ASSERTION",
+        "message": "Control unexpectedly decoded"
+      }
+    },
+    {
+      "name": "bounds/encoded-backing-store",
+      "status": "pass",
+      "code": "ENCODED_QUOTA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/whole-page-decoded-quota",
+      "status": "pass",
+      "code": "DECODED_QUOTA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/inflater-scratch-quota",
+      "status": "pass",
+      "code": "SCRATCH_QUOTA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/chunk-count",
+      "status": "pass",
+      "code": "PNG_CHUNK_QUOTA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/ancillary",
+      "status": "pass",
+      "code": "PNG_ANCILLARY_QUOTA",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/blob-hash-before-decode",
+      "status": "pass",
+      "code": "BLOB_HASH",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/blob-dimensions",
+      "status": "pass",
+      "code": "BLOB_DIMENSIONS",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/webp-unbound",
+      "status": "pass",
+      "code": "DECODER_UNBOUND",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/caller-window-required",
+      "status": "pass",
+      "code": "OUTPUT_WINDOW_REQUIRED",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "bounds/window-subview-refused",
+      "status": "pass",
+      "code": "OUTPUT_WINDOW_REQUIRED",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "cancel/pre-aborted-real-signal",
+      "status": "pass",
+      "code": "CANCELLED",
+      "diagnostics": {
+        "outputBytes": 0,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "cancel/mid-original-via-progress-abort",
+      "status": "pass",
+      "code": "CANCELLED",
+      "diagnostics": {
+        "outputBytes": 71819,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "cancel/mid-original-actual-event-loop-timer",
+      "status": "pass",
+      "code": "CANCELLED",
+      "diagnostics": {
+        "outputBytes": 37047,
+        "callerWindowBytes": 16384
+      }
+    },
+    {
+      "name": "copies/actual-physical-copies-32MiB",
+      "status": "pass"
+    },
+    {
+      "name": "copies/unknown-staging-stays-charged",
+      "status": "pass"
+    },
+    {
+      "name": "provenance/raw-and-art-bytes-preserved",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/premult-before-bilinear-no-colour-bleed",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/frame-clamp-vs-repeat-no-neighbour",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/grouped-opacity-.375",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/all30-original-views-linear-tint-finite-gutters",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/alpha-floor-before-filter",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/frozen16-current-D4-source-origin-pivot",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/current-matrix-source-grid-mask",
+      "status": "pass"
+    },
+    {
+      "name": "sampling/complete-layer-order-and-source-unchanged",
+      "status": "pass"
+    }
+  ],
+  "originalReportSha256": "77c7d3969de246134e53dfcb54163fb546c80f486103c584cd1d478cd25ab71b",
+  "explanation": "Well-formed empty-block stream uses140109 units,below150000;initial expected refusal was a test threshold mistake. Same bytes now positive at150000 and refuse in inflate at125000. No decoder expectation flag or hidden failing case."
+}

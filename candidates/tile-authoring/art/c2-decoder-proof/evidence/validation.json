@@ -1,0 +1,606 @@
+{
+  "kind": "private-test-only-candidate-validation",
+  "status": "PASS;PRIVATE TEST-ONLY source checkpoint",
+  "branch": "codex/tile-png-decoder-proof",
+  "base": "8184f06aa587542b026352a739f3766d1794c4fe",
+  "pakoPin": "3c06216518c259b569a5168dee867e6dabbe5160",
+  "privateFixture": {
+    "root": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160",
+    "scope": "TEST-ONLY vendored fixture; exact upstream sources and all notices; no production dependency registration",
+    "decision": "Root-directed nested fixture keeps every candidate byte outside all normal package profiles; future production vendor and license closure deferred to C2 runtime handoff"
+  },
+  "focused": {
+    "status": "pass",
+    "passed": 69,
+    "total": 69,
+    "runtime": {
+      "node": "v24.15.0",
+      "platform": "win32",
+      "architecture": "x64"
+    },
+    "oracle": {
+      "python": "3.12.14",
+      "executable": "C:\\Users\\baals\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "pillow": "12.3.0",
+      "zlibCompile": "1.3.2",
+      "zlibRuntime": "1.3.2",
+      "scope": "Independent raw RGBA decoder; no colour conversion/image editing"
+    },
+    "report": {
+      "path": "artifacts/art-c2-decoder-proof/runs/2026-11-02T140659627Z-37024/spike-report.json",
+      "bytes": 1676425,
+      "sha256": "742eb60b3dbf402e935433b739e6dbe675720584d1132250f4b0728ed1fdf672"
+    },
+    "receipt": {
+      "path": "artifacts/art-c2-decoder-proof/runs/2026-11-02T140659627Z-37024/run-receipt.json",
+      "bytes": 2824,
+      "sha256": "550184946144ffb71df00af20cbc480772312058da0a1819e01134745c7d9d37"
+    },
+    "originals": [
+      {
+        "name": "decode/organic-marks-v1",
+        "fullDecodedRGBA": {
+          "bytes": 6291456,
+          "sha256": "bca14efda5c3e2c33f4acf69b717cb82aad99e9583255e9f8c46b818dd5cfc23",
+          "independentOracle": "Pillow 12.3.0",
+          "allBytesEqual": true
+        },
+        "counts": {
+          "scratch": 113396,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 4963932
+        },
+        "maxProducedPerCall": 13146
+      },
+      {
+        "name": "decode/road-marks-v1",
+        "fullDecodedRGBA": {
+          "bytes": 6291456,
+          "sha256": "f4083fd64ec7c68fafef82959857d5eecea39de02ff628bf55bcee581921a47e",
+          "independentOracle": "Pillow 12.3.0",
+          "allBytesEqual": true
+        },
+        "counts": {
+          "scratch": 77575,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 156468
+        },
+        "maxProducedPerCall": 16384
+      }
+    ],
+    "controls": [
+      {
+        "name": "decode/filter-0",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-1",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-2",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-3",
+        "status": "pass"
+      },
+      {
+        "name": "decode/filter-4",
+        "status": "pass"
+      },
+      {
+        "name": "decode/all-filters",
+        "status": "pass"
+      },
+      {
+        "name": "decode/tiny-straight",
+        "status": "pass"
+      },
+      {
+        "name": "decode/idat-byte-split",
+        "status": "pass"
+      },
+      {
+        "name": "decode/stored-block",
+        "status": "pass"
+      },
+      {
+        "name": "decode/fixed-huffman",
+        "status": "pass"
+      },
+      {
+        "name": "decode/dynamic",
+        "status": "pass"
+      },
+      {
+        "name": "decode/organic-marks-v1",
+        "status": "pass"
+      },
+      {
+        "name": "decode/road-marks-v1",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/signature",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/crc",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/adler",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-truncated",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-trailing",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zlib-concatenated",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/png-trailing",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/truncated-chunk",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/missing-iend",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/invalid-filter",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/short-output",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/output-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/dimension-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/zero-dimension",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/rgb",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/depth16",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/interlace",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/apng",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/critical",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/reserved-bit",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/duplicate-ihdr",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/nonconsecutive-idat",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/dictionary",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/gzip",
+        "status": "pass"
+      },
+      {
+        "name": "refuse/bad-deflate",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/empty-block-within-budget-positive-control",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/work-empty-block-bomb",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/encoded-backing-store",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/whole-page-decoded-quota",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/inflater-scratch-quota",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/chunk-count",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/ancillary",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/blob-hash-before-decode",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/blob-dimensions",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/webp-unbound",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/caller-window-required",
+        "status": "pass"
+      },
+      {
+        "name": "bounds/window-subview-refused",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/pre-aborted-real-signal",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/during-chunked-validation-before-rgba",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/mid-original-via-progress-abort",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/mid-original-actual-event-loop-timer",
+        "status": "pass"
+      },
+      {
+        "name": "input/private-snapshot-survives-caller-mutation",
+        "status": "pass"
+      },
+      {
+        "name": "cancel/native-worker-process-exit",
+        "status": "pass"
+      },
+      {
+        "name": "copies/actual-physical-copies-32MiB",
+        "status": "pass"
+      },
+      {
+        "name": "copies/unknown-staging-stays-charged",
+        "status": "pass"
+      },
+      {
+        "name": "provenance/raw-and-art-bytes-preserved",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/premult-before-bilinear-no-colour-bleed",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/frame-clamp-vs-repeat-no-neighbour",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/top-left-pixel-y-direct",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/grouped-opacity-.375",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/all30-original-views-linear-tint-finite-gutters",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/alpha-floor-before-filter",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/frozen16-current-D4-source-origin-pivot",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/current-pose-not-historical-stroke",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/current-matrix-source-grid-mask",
+        "status": "pass"
+      },
+      {
+        "name": "sampling/complete-layer-order-and-source-unchanged",
+        "status": "pass"
+      }
+    ],
+    "nativeStop": {
+      "owner": "Nautilus Artist",
+      "purpose": "Actual native-process cancellation at real PNG output while consumer is blocked",
+      "parentPid": 30724,
+      "pid": 37636,
+      "startedAt": "2026-11-02T14:07:26.349Z",
+      "endCondition": "Kill only exact revalidated owned process after progress; child self-expiry8s",
+      "ports": [],
+      "restart": {
+        "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "arguments": [
+          "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\candidates\\tile-authoring\\art\\c2-decoder-proof\\hard-cancel-child.mjs"
+        ]
+      },
+      "status": "closed",
+      "process": {
+        "pid": 37636,
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "creationFiletime": "134381020463345586"
+      },
+      "pause": {
+        "kind": "paused-at-real-output",
+        "pid": 37636,
+        "outputBytes": 71819,
+        "counts": {
+          "scratch": 69975,
+          "decoded": 6291456,
+          "staging": 0,
+          "unknown": 0,
+          "encoded": 4963932
+        }
+      },
+      "revalidatedBeforeStop": {
+        "pid": 37636,
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "creationFiletime": "134381020463345586"
+      },
+      "stopRequestedAt": "2026-11-02T14:07:30.313Z",
+      "originalLifetimeGone": true,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-11-02T14:07:31.742Z",
+      "stderr": ""
+    }
+  },
+  "requiredGates": [
+    {
+      "startedAt": "2026-11-02T14:06:44.5796905Z",
+      "command": "npm run check",
+      "finishedAt": "2026-11-02T14:10:35.0859260Z",
+      "exitCode": 0,
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/check.json",
+        "bytes": 151,
+        "sha256": "e93f1c917eaeb756669a3311374998672b700fc35ce3ab77bd597a6a86aba035"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/check.log",
+        "bytes": 11730,
+        "sha256": "c2551e08bd8f52e8333da47c6d6389ea59c57e6d1d60fc29ca2736964edc2e04"
+      }
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "startedAt": "2026-11-02T14:06:44.3957431Z",
+      "finishedAt": "2026-11-02T14:09:53.6313970Z",
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/test.json",
+        "bytes": 146,
+        "sha256": "e01186ea953235087df20ecb0095f95e67f56dd2346778d17be202630c3566bf"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/test.log",
+        "bytes": 120697,
+        "sha256": "02e1c2dc35121cb4455b202af347068cd05f20bc89103fd9416e1836502ba1a4"
+      },
+      "total": 1099,
+      "passed": 1099,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "startedAt": "2026-11-02T14:06:44.1215818Z",
+      "finishedAt": "2026-11-02T14:06:54.6403545Z",
+      "exitCode": 0,
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/upstream.json",
+        "bytes": 159,
+        "sha256": "a1f586ee1ca8b0111740e6a8aab78d442041b01dc6d33b5d536e5a34fa9727b5"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/upstream.log",
+        "bytes": 3137,
+        "sha256": "3e2259a17def5f1fb25f78f3284f6dc1777afa70503f42e038a259814a256ea2"
+      },
+      "total": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run build",
+      "startedAt": "2026-11-02T14:10:35.7530600Z",
+      "finishedAt": "2026-11-02T14:11:06.8856741Z",
+      "receipt": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/build.json",
+        "bytes": 151,
+        "sha256": "20521b130d770d35bf44ebdc6776770c833829ab6a805b2ebdeb07965d3026fa"
+      },
+      "log": {
+        "path": "artifacts/art-c2-decoder-proof/gates/20261102-nested-fixture/build.log",
+        "bytes": 378,
+        "sha256": "af2eb5052ab672582768746647693d8845b68a21f9efe09881c904ea0b34842b"
+      },
+      "checkedModulePaths": 552
+    }
+  ],
+  "delivery": {
+    "status": "pass",
+    "allFourOriginalPlansUnchanged": true,
+    "allCandidateSourceNoticeAndLicenseBytesExcluded": true,
+    "normalProfiles": [
+      {
+        "profile": "core",
+        "fileCount": 303,
+        "privateFiles": [],
+        "filesSha256": "038a30ba47133c858af79dd5402943f3d1d8a08eff6965d85b21bfed2415e378"
+      },
+      {
+        "profile": "renderer",
+        "fileCount": 145,
+        "privateFiles": [],
+        "filesSha256": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04"
+      },
+      {
+        "profile": "assets",
+        "fileCount": 224,
+        "privateFiles": [],
+        "filesSha256": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149"
+      },
+      {
+        "profile": "compatibility",
+        "fileCount": 366,
+        "privateFiles": [],
+        "filesSha256": "6642a6d034f12dfe8a7ba8eb1ec61c644c25de6762aadda189d15f8f9799a0f2"
+      }
+    ],
+    "originalPlanVerification": {
+      "status": "registered-pure-C1",
+      "runtimeModules": 8,
+      "schemaRegisteredGlobally": false,
+      "base": "d869410625b246cfff2b51089e7878c31951775c",
+      "c0": "43227894c50ec62b71806978195fff2c650eb388",
+      "profiles": [
+        {
+          "profile": "core",
+          "entryAdded": true,
+          "filesAdded": [
+            "docs/tile-authoring.md",
+            "packages/tile-authoring-core/README.md",
+            "packages/tile-authoring-core/budget.js",
+            "packages/tile-authoring-core/contract.js",
+            "packages/tile-authoring-core/contract.schema.json",
+            "packages/tile-authoring-core/data.js",
+            "packages/tile-authoring-core/geometry.js",
+            "packages/tile-authoring-core/index.d.ts",
+            "packages/tile-authoring-core/index.js",
+            "packages/tile-authoring-core/model.js",
+            "packages/tile-authoring-core/operations.js",
+            "packages/tile-authoring-core/source.json",
+            "packages/tile-authoring-core/target.js"
+          ],
+          "unrelatedFilesUnchanged": true
+        },
+        {
+          "profile": "compatibility",
+          "entryAdded": true,
+          "filesAdded": [
+            "docs/tile-authoring.md",
+            "packages/tile-authoring-core/README.md",
+            "packages/tile-authoring-core/budget.js",
+            "packages/tile-authoring-core/contract.js",
+            "packages/tile-authoring-core/contract.schema.json",
+            "packages/tile-authoring-core/data.js",
+            "packages/tile-authoring-core/geometry.js",
+            "packages/tile-authoring-core/index.d.ts",
+            "packages/tile-authoring-core/index.js",
+            "packages/tile-authoring-core/model.js",
+            "packages/tile-authoring-core/operations.js",
+            "packages/tile-authoring-core/source.json",
+            "packages/tile-authoring-core/target.js"
+          ],
+          "unrelatedFilesUnchanged": true
+        },
+        {
+          "profile": "renderer",
+          "entryAdded": false,
+          "filesAdded": [],
+          "unrelatedFilesUnchanged": true
+        },
+        {
+          "profile": "assets",
+          "entryAdded": false,
+          "filesAdded": [],
+          "unrelatedFilesUnchanged": true
+        }
+      ]
+    },
+    "profileReport": {
+      "path": "artifacts/art-c2-decoder-proof/profile-check-nested-fixture/profile-exclusion.json",
+      "bytes": 3217,
+      "sha256": "b634949d2644aff136c1700e82b9826e8e2c40f9c3a11c8e2daaf6616be29604"
+    },
+    "globalDistributionWhitelistUpstreamAndRuntimeChanges": false,
+    "productionRootVendorRegistration": "DEFERRED until actual C2 renderer handoff"
+  },
+  "historicalFailures": {
+    "initial63": {
+      "path": "candidates/tile-authoring/art/c2-decoder-proof/evidence/initial-63-control-run.json",
+      "bytes": 17615,
+      "sha256": "c7cd296a1c530fa671601c7e5bfb4343f9f98bdbf701f3bab2817e3d7dfb6c77"
+    },
+    "rootVendorFence": {
+      "path": "candidates/tile-authoring/art/c2-decoder-proof/evidence/delivery-fence.json",
+      "bytes": 2670,
+      "sha256": "4cfc60d24d3253d506d89b934b70b3c29b322fae68736ad4afce6550d6f5ceba"
+    },
+    "initialCandidateValidation": {
+      "path": "candidates/tile-authoring/art/c2-decoder-proof/evidence/initial-root-vendor-validation.json",
+      "bytes": 15997,
+      "sha256": "463c3870e1249a2f9a77d34f06915bb17550b6c3e4ba60b1c7e1125fb68994ed"
+    },
+    "relocation": {
+      "path": "candidates/tile-authoring/art/c2-decoder-proof/evidence/fixture-relocation.json",
+      "bytes": 2188,
+      "sha256": "cf81ba5b6842771cdd0b2a21f70538a20d1e525a8dc790d8a34fc513f635e3db"
+    },
+    "sourceAndNoticesByteIdentical": true
+  },
+  "cleanup": {
+    "receipt": {
+      "path": "artifacts/art-c2-decoder-proof/cleanup-nested-fixture.json",
+      "bytes": 4047,
+      "sha256": "0b6388acba47357cf68cfdb6d502db06268386c2f9ed8ba80eabf046cf2b8c53"
+    },
+    "verifiedOriginalHelperLifetimes": 12,
+    "allOriginalLifetimesGone": true,
+    "retainedHelpers": [],
+    "serversStarted": []
+  },
+  "limits": "Node/Windows CPU preparation only; no native renderer, browser/CSP, compositor, phone performance or C1 Host/capture ABI acceptance"
+}
