@@ -68,3 +68,7 @@ node tools/art-c2-runtime-sampling-browser.mjs
 The pixel-vector generator requires the existing ignored independent Pillow oracle outputs from the accepted decoder proof; it runs before, and exits before, the GPU probe. No oracle image buffer is hidden inside the rendering host. Both browser scripts launch their own headless Edge profile with a bounded eight-minute review lifetime and finally close the browser/server. They save restart records, failure evidence and cleanup receipts under unique ignored artifact directories. They never attach to user browsers or retain a service.
 
 See VALIDATION.md for measured evidence and the remaining boundaries; NOTICE.md and source.json preserve provenance. No new bitmap is generated or promoted.
+
+## Follow-up owner-state correction
+
+See review/corrections/owner-state/README.md for the returned drawRange/index and mutable-ledger findings, corrected currentness/retirement contracts and new evidence. The original f029 mixed/pixel reports remain unchanged; strict capture/upload admission stays UNBOUND.

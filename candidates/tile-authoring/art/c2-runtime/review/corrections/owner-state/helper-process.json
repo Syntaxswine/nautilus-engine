@@ -1,0 +1,37 @@
+{
+  "owner": "Nautilus Artist / bounded owner correction",
+  "purpose": "Private correction: actual tiny texture ownership and retirement controls",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 65612,
+    "creationFiletime": "134381161345914857",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 74292,
+    "creationFiletime": "134381161348942553",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 59674,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\artifacts\\art-c2-retirement-2026-11-02t180214662z\\STOP",
+  "stopMethod": "STOP marker, bounded 120000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "tools/art-c2-runtime-retirement-browser.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-art\\Nautilus Engine\\tools\\art-c2-runtime-retirement-browser.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/art-c2-retirement-2026-11-02t180214662z",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-02T18:02:15.169Z",
+  "expiresAt": "2026-11-02T18:04:15.169Z"
+}
