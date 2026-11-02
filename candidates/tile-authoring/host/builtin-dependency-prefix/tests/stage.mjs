@@ -1,0 +1,12 @@
+// Test tooling only: read exact Git objects; no moving checkout/runtime imports.
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../../../../..'),out=path.join(root,'artifacts/builtin-prefix-proof');
+const git=(...a)=>execFileSync('git',['-c','core.longpaths=true','-C',root,...a],{windowsHide:true,timeout:30000,maxBuffer:32*1024*1024});
+const core='53d7d1f4bc4b5a8205e16cbbf6a29672e6f9db32',metadata='42c1a61d1e8836f22ee59d74d52779aa920a91fa',prefix='candidates/tile-authoring/core/c2/';
+const manifest=JSON.parse(git('show',core+':'+prefix+'source.json')),records=[];
+function stage(commit,folder,initial){const available=new Set(git('ls-tree','-r','--name-only',commit).toString().trim().split(/\r?\n/)),paths=new Set(initial.filter(Boolean)),loaded=new Map();for(const p of paths)assert.ok(available.has(p),'Unknown fixed file '+p);for(let round=0;round<12;round++){for(const p of [...paths])if(!loaded.has(p)){const b=git('show',commit+':'+p);loaded.set(p,b);if(/\.[cm]?js$/.test(p))for(const m of b.toString().matchAll(/(?:from\s*|import\s*\(|import\s*)['"](\.[^'"\r\n]+)['"]/g)){const q=path.posix.normalize(path.posix.join(path.posix.dirname(p),m[1]));if(available.has(q))paths.add(q);}}if(loaded.size===paths.size)break;assert.ok(round<11);}
+ for(const [p,b]of loaded){const f=path.join(out,folder,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,b);records.push({commit,folder,path:p,bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')});}}
+const fixtures=git('ls-tree','-r','--name-only',core,'--',prefix+'fixtures').toString().trim().split(/\r?\n/);
+stage(core,'core',[...manifest.runtime,...manifest.dependencies].map(r=>r.path).concat(['package.json','tools/tile-authoring-core-c2-fixtures.mjs','tests/fixtures/tile-authoring/c1-workflow.mjs',...fixtures]));
+stage(metadata,'metadata',['package.json','packages/assets/index.js','assets/artwork/local-graphics-v1/resources/organic-marks-v1.png','assets/artwork/local-graphics-v1/resources/road-marks-v1.png']);
+fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'inputs.json'),JSON.stringify({core,metadata,sourceMode:'exact Git objects; imports unmodified; no worker execution',files:records},null,2)+'\n');console.log(JSON.stringify({status:'staged',core,metadata,files:records.length}));
