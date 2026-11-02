@@ -1,9 +1,9 @@
 # Starter review flakes: the phone capture and the Start key (2026-11-01)
 
-`npm run review:starter` failed CI on and off, in two separate ways. The empty phone capture was a race in the review's own timing. The Start key failure was a defect in the title's close handler, which the review's timing exposed. Main already carried a correction for the first (`b8dd25d`), which its record called a hypothesis until CI proved it. This record measures that correction, then finds and measures the second failure. Main repaired the handler in `4ed97f2` while this record was in review, so [the fix](#the-fix) is main's, and it is re-measured on the merged tree.
+`npm run review:starter` failed CI on and off, in two separate ways. The empty phone capture followed the review's own flow: it stopped in the samples where that flow changed, and why Chromium answers empty is an inference. The Start key failure was a defect in the title's close handler, which the review's timing exposed. Main already carried a correction for the first (`b8dd25d`), which its record left as a hypothesis pending CI. This record measures that correction, then finds and measures the second failure. Main repaired the handler in `4ed97f2` while this record was in review, so [the fix](#the-fix) is main's, and it is re-measured on the merged tree.
 
-- **Commits:** the probes `b405fcc` and `62869c7`, on a scratch branch cut from main `69115f6`, not merged; a review-only fix, `ef3a293`, on main `3868ff6`; the re-measure on `e6f52e2`, the merge of main `d7ed966`.
-- **Rigs:** GitHub `ubuntu-latest` runners (4 vCPUs, 16 GB; AMD EPYC 7763, AMD EPYC 9V45, Intel Xeon 8573C), Chromium 151.0.7922.34, Playwright 1.62.1, SwiftShader. Locally, headless Edge 156 on Windows 11.
+- **Commits:** the probes `b405fcc` and `62869c7`, on a scratch branch cut from main `69115f6`, not merged; a review-only fix, `ef3a293`, on main `3868ff6`; the re-measure on `e6f52e2`, the merge of main `d7ed966`. Main `2502646`, merged after that, left the title and the starter review unchanged, so nothing was re-measured on it.
+- **Rigs:** GitHub `ubuntu-latest` runners (4 vCPUs, 16 GB), Chromium 151.0.7922.34, Playwright 1.62.1, SwiftShader. Probe 1's six runners: three AMD EPYC 7763, two Intel Xeon 8573C, one AMD EPYC 9V45. Probe 2's six: four AMD EPYC 7763, two AMD EPYC 9V74. Locally, headless Edge 156 on Windows 11.
 - **Labels:** **measured** = run and counted; **inference** = the reading that best fits the counts, not observed directly.
 
 ## What CI showed (measured)
@@ -15,7 +15,7 @@ The 239 runs GitHub lists from 2026-10-28 to 2026-11-01 (`census.tsv`), of which
 | Empty phone capture (`Page.captureScreenshot: Unable to capture screenshot`) | 13 (21 %), always the first phone capture | 0 |
 | Start key: `#game` never visible after Enter | 2 | 0 |
 
-Five passes prove little: a 21 % flake passes five in a row 30 % of the time. So both races were measured with paired arms over the real review on real runners. A probe branch turned each element of the correction into a switch, and `probe-starter-capture.mjs` looped the whole review on six runners, arms shuffled within each cycle.
+Five passes prove little: a 21 % flake passes five in a row 30 % of the time. So both failures were measured with paired arms over the real review on real runners. A probe branch turned each element of the correction into a switch, and `probe-starter-capture.mjs` looped the whole review on six runners, arms shuffled within each cycle.
 
 ## The phone capture (measured)
 
@@ -34,12 +34,14 @@ Run 41264912700, 576 full reviews, 72 per arm:
 
 The arms fall into two groups: 38 of 288 failed in the first four and 0 of 288 in the last four. The old arm's rate shows the probe could fail. The second probe's 994 reviews, all with the correction, had no empty capture (at most 0.37 %).
 
-- **`b8dd25d` holds.** It has two independent safeguards: closing the desktop page and waiting for paint each remove the failure alone.
-- **Not the cause:** full-page capture (the viewport arm fails as often), and focus or visibility (`bringToFront` does nothing, and the page reported itself visible and focused after all 38 failures). The layout read does not remove it either.
-- **Timing:** the empty answer comes early, at a median of 128 ms against 411 ms for a good capture. Every failure was retried, and the first retry succeeded in 38 of 38. The time from load to the capture call is the same in failed and passed captures (medians 38 and 37 ms).
-- **Runners:** five of the six runners failed, on all three CPU models. The rate varied by runner (0 to 16 of 96).
+- **`b8dd25d` held.** No capture failed in its arm (0 of 72) or in the 994 reviews that followed.
+- **Either element alone.** No capture failed with the desktop page closed first, or with the paint wait (0 of 72 each, at most 5.0 %). That fits two separate safeguards, but it is a count in these samples. It does not show that either one eliminates the failure.
+- **Full-page capture is not required.** The failure reproduced with a viewport capture (13 of 72).
+- **Focus and visibility are not ruled out.** `bringToFront` did not stop the failure (9 of 72, against 10 in the old arm), which shows only that activating the page is not enough. The page reported itself visible and focused in all 38 failures, but that state was read after the error. The layout read did not stop the failure either (6 of 72).
+- **Timing:** the empty answer comes early, at a median of 128 ms against 411 ms for a good capture. Every failure was retried, and the first retry succeeded in 38 of 38. The median time from load to the capture call is close in failed and passed captures (38 and 37 ms).
+- **Runners:** five of probe 1's six runners failed, on two of its three CPU models: AMD EPYC 7763 (28 of 288 reviews, three runners) and Intel Xeon 8573C (10 of 192, two runners). The one AMD EPYC 9V45 runner had none (0 of 96, and 0 of 12 in the old arm). One runner cannot separate the model from the machine, and each arm's 72 reviews include that runner's 12. The rate varied by runner (0 to 16 of 96).
 
-**Inference:** with another page open, Chromium answers a capture in a fresh page's first frames before that page has a surface to copy. Neither the browser's internals nor its logs were observed, so this explains the counts without proving the path. `bringToFront` and the layout metrics showed no effect on the failure. They stay in the review: they are harmless, and the metrics are useful diagnostics.
+**Inference:** with another page open, Chromium answers a capture in a fresh page's first frames before that page has a surface to copy. Neither the browser's internals nor its logs were observed, so this explains the counts without proving the path. `bringToFront` and the layout metrics did not stop the failure in their arms. They stay in the review: they are harmless, and the metrics are useful diagnostics.
 
 ## The Start key (measured)
 
@@ -63,7 +65,7 @@ Probe 1 found this in 14 of 576 reviews, spread across six of its eight arms; it
 | no wait | 497 | 487 | 10 (2.0 %) |
 | wait for the event | 497 | 497 | 0 (at most 0.74 %) |
 
-Fisher's exact p = 0.0019. All ten failures left the state the cause predicts: focus on Back, one dialog open, the title idle.
+The arms ran in pairs, one of each per cycle, so the headline is the exact paired test: p = 0.00195, from ten cycles where only the no-wait arm failed and none the other way. Fisher's exact test, which ignores the pairing, gives 0.0019. All ten failures left the state the cause predicts: focus on Back, one dialog open, the title idle.
 
 ## The fix
 
@@ -84,10 +86,10 @@ The figures above were taken on the old handler, so the race was measured again 
 | title | repaired | none | 0 (at most 0.67 %) |
 | both | repaired | the `close` event | 0 (at most 0.67 %) |
 
-Fisher's exact p = 0.00093 between old and title.
+Exact paired test between old and title: p = 0.00098, from eleven cycles where only the old arm failed and none the other way. Fisher's exact test, ignoring the pairing, gives 0.00093.
 
 - **The loop can still fail.** All eleven failures left the predicted state: focus on Back, one dialog open, the game hidden.
-- **The repair holds alone.** The title arm has no wait in the review and did not fail, so the wait is no longer what protects the Start key.
+- **The repair held alone.** The title arm has no wait in the review and did not fail in these cycles, so the wait is no longer what protects the Start key.
 - **Forced order.** Before counting, in both seeds, the same order left focus on Credits in the old arm and on Start with the repair, which also shows the arms really differed.
 
 Mutants of the built title, with a passing control (`mutants-merged.txt`):
@@ -113,6 +115,7 @@ Mutants of the built title, with a passing control (`mutants-merged.txt`):
 | `census.tsv`, `rate.mjs`, `rate.txt` | Every run GitHub listed, and the base rates |
 | `probe-1/`, `probe-2/` | Each runner's results and machine |
 | `probe-1-analysis.txt`, `analyze.mjs`, `timing.mjs` | Outcome by arm, intervals, timing, retries |
+| `recount.mjs`, `recount.txt` | Capture failures by CPU model and the exact paired tests, recounted from the committed results |
 | `starter-probe.yml`, `probe-starter-capture.mjs`, `patch-arms.mjs`, `patch-arms-2.mjs` | The probe workflow, its driver and the arm switches |
 | `probe-title-close-race.mjs`, `close-race.json` | The local three-way loop on the old handler |
 | `mutate-fix.mjs`, `mutants.txt` | The mutants of `ef3a293`, on the old handler |
