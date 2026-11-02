@@ -1,3 +1,4 @@
+import {checkTileAuthoringCoreSource} from './check-tile-authoring-core-source.mjs';
 import {distribution} from './distribution.mjs';
 import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
@@ -156,3 +157,5 @@ console.log('Verified native tile surfaces: '+JSON.stringify({registered:tileArt
 const stackSource=checkTileStackSource(root,{tracked}),finishSource=checkTileFinishesSource(root,{tracked});
 console.log('Verified optional stack planner and finish sources: '+JSON.stringify({stack:stackSource.status,stackModules:stackSource.runtime.length,finishes:finishSource.status,finishModules:finishSource.runtime.length}));
 console.log('Verified isolated Smart Tile Editor source: '+JSON.stringify(checkSmartTileEditorSource(root,{tracked})));
+
+console.log('Verified optional tile authoring Core: '+JSON.stringify(checkTileAuthoringCoreSource(root,{tracked})));

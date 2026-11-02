@@ -5,7 +5,8 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
-import {checkTileStackRegistration,withoutTileStackRegistration} from './tile-stack-registration.mjs';
+import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
+import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
 
 export const TILE_ART_ACCEPTED_SOURCE='ca285aa76a49b74df6067caab661d7bed39bd523';
@@ -71,11 +72,11 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   unchanged('packages/map-core/contract-manifest.js',TILE_ART_ROOT_BASE);
   const currentUpstream=json('upstream.json'),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
   assert.deepEqual(currentUpstream,baseUpstream,'This registration adds no donor/game pin.');
-  const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports=withoutTileStackRegistration(pkg.exports);
+  const optionalRegistration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
+  const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports=withoutTileStackRegistration(optionalRegistration.historicalView.exports);
   for(const [entry,target]of Object.entries(entries)){assert.equal(priorExports[entry],target,'Missing actual tile-art export: '+entry);delete priorExports[entry];}
   assert.deepEqual(priorExports,basePackage.exports,'Existing public exports must remain unchanged.');
   assert.equal(pkg.version,basePackage.version,'Registration does not decide a release version.');
-  const optionalRegistration=checkTileStackRegistration({object,read,indexed,moduleClosure,distribution});
 
   // Original294 studies and their source notices remain immutable research,
   // including the original previews/tools; none becomes a runtime authority.
@@ -118,7 +119,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   }
   assert.deepEqual(pkg.files,distribution().files,'Root whitelist must match the exact computed distribution.');
   const families=Object.values(Object.groupBy(studies.studies,study=>study.family)).map(list=>({id:list[0].family,count:list.length}));
-  return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],runtimeCorrections,coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,optionalRegistration,publicExportsChanged:true,publicWhitelistChanged:true,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES,optionalRegistration.base,...surfaceCorrection.requiredGitCommits])]};
+  return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],runtimeCorrections,coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,optionalRegistration,publicExportsChanged:true,publicWhitelistChanged:true,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES,optionalRegistration.base,...optionalRegistration.requiredGitCommits,...surfaceCorrection.requiredGitCommits])]};
 }
 
 if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){

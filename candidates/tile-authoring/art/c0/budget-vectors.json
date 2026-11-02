@@ -1,0 +1,42 @@
+{
+  "kind": "artist-c0-budget-arithmetic",
+  "version": 1,
+  "status": "Unmeasured proposal math only, not allocation or renderer proof",
+  "totalOwnedAppearanceCap": 64,
+  "materialCases": [
+    {
+      "baseFinish": 40,
+      "combined": 24,
+      "expectedTotal": 64,
+      "within": true
+    },
+    {
+      "baseFinish": 40,
+      "combined": 25,
+      "expectedTotal": 65,
+      "within": false
+    }
+  ],
+  "decodedCopyCases": [
+    {
+      "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6",
+      "baseBytes": 6291456,
+      "physicalCopies": 1,
+      "expectedCharge": 6291456
+    },
+    {
+      "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6",
+      "baseBytes": 6291456,
+      "physicalCopies": 6,
+      "expectedCharge": 37748736
+    }
+  ],
+  "decodedCap": 33554432,
+  "emptySourceChannel": {
+    "additionalOverlayMaterials": 0,
+    "additionalOverlayTextures": 0,
+    "additionalOverlayGeometry": 0,
+    "additionalOverlayBufferBytes": 0
+  },
+  "qualification": "Empty-path zeros are a required future provider contract, not an observed implementation outcome; real shared allocations need host attestations."
+}

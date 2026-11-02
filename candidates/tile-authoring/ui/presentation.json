@@ -1,0 +1,294 @@
+{
+  "kind": "nautilus-tile-authoring-ui-c0-design",
+  "version": 1,
+  "status": "contract-design-only",
+  "coreCommit": "43227894c50ec62b71806978195fff2c650eb388",
+  "schemaId": "urn:nautilus:candidate:tile-authoring:core:1",
+  "canonicalDiscovery": "inputs/core-discovery.json",
+  "canonicalSchema": "inputs/core-c0.schema.json",
+  "runtimeImplemented": false,
+  "service": {
+    "type": "HostService",
+    "source": "inputs/core-api.d.ts",
+    "methods": [
+      "describe",
+      "snapshot",
+      "query",
+      "prepare",
+      "apply",
+      "cancel",
+      "recover"
+    ],
+    "sameHumanAgentConnection": true,
+    "authorityOwner": "Editor",
+    "presentationNeverMintsPermission": true
+  },
+  "flow": {
+    "Stage": "Collect one finite canonical Command in the existing Editor-owned draft. No prepare/write. Draft collector signature is Editor-owned, not a new Core command.",
+    "Review": "Call service.prepare(command) once. The Editor connection retains the actual result and authority.",
+    "Apply": "Forward the same Editor-retained canonical Apply request. No second prepare or target-digest re-creation.",
+    "queries": "Use service.query(Query). Requirements and export-plan queries have no Apply/history.",
+    "unknown": "committed:null freezes writes/overwrite saves; retain potentially adopted resources and recover original requestId.",
+    "noChange": "NO_CHANGE makes no write/history entry and preserves redo.",
+    "metadataOnly": "Exact tileBundle/layout revision/constraints stay unchanged; tilePreparation is source-unchanged.",
+    "history": "Restore exact full historical document/contentRevision. Freshness comes from checkpoint/journal/context tokens, not a monotonic revision."
+  },
+  "defaults": {
+    "paintScope": "placed-instance",
+    "includeSelectedDecorationDefaults": false,
+    "selectedCaptureMarkIds": [],
+    "placedCopiesFollowNewLibraryRevisions": false,
+    "upgradeRequiresExplicitOwnerIds": true
+  },
+  "controls": [
+    {
+      "operation": "recipe.create",
+      "label": "Create tile",
+      "panel": "workbench",
+      "authorScope": "new-immutable-library-record",
+      "schemaPointer": "#/$defs/operation/oneOf/0",
+      "discoveryPointer": "/commands/0"
+    },
+    {
+      "operation": "recipe.clone",
+      "label": "Clone reviewed source",
+      "panel": "workbench",
+      "authorScope": "new-immutable-library-record",
+      "schemaPointer": "#/$defs/operation/oneOf/1",
+      "discoveryPointer": "/commands/1"
+    },
+    {
+      "operation": "recipe.revise",
+      "label": "Revise definition",
+      "panel": "workbench",
+      "authorScope": "new-immutable-library-record",
+      "schemaPointer": "#/$defs/operation/oneOf/2",
+      "discoveryPointer": "/commands/2"
+    },
+    {
+      "operation": "preset.save",
+      "label": "Save as preset…",
+      "panel": "library",
+      "authorScope": "new-immutable-library-record",
+      "schemaPointer": "#/$defs/operation/oneOf/3",
+      "discoveryPointer": "/commands/3"
+    },
+    {
+      "operation": "preset.place",
+      "label": "Place pinned preset",
+      "panel": "library",
+      "authorScope": "explicit-placements",
+      "schemaPointer": "#/$defs/operation/oneOf/4",
+      "discoveryPointer": "/commands/4"
+    },
+    {
+      "operation": "placement.upgrade",
+      "label": "Upgrade selected placements…",
+      "panel": "library",
+      "authorScope": "explicit-selected-placements",
+      "schemaPointer": "#/$defs/operation/oneOf/5",
+      "discoveryPointer": "/commands/5"
+    },
+    {
+      "operation": "owner.remove",
+      "label": "Remove selected placements",
+      "panel": "workbench",
+      "authorScope": "explicit-selected-placements",
+      "schemaPointer": "#/$defs/operation/oneOf/6",
+      "discoveryPointer": "/commands/6"
+    },
+    {
+      "operation": "decoration.add",
+      "label": "Stage local stroke",
+      "panel": "brush",
+      "authorScope": "placed-instance",
+      "schemaPointer": "#/$defs/operation/oneOf/7",
+      "discoveryPointer": "/commands/7"
+    },
+    {
+      "operation": "decoration.update",
+      "label": "Move / rotate / scale selected marks",
+      "panel": "brush",
+      "authorScope": "placed-instance",
+      "schemaPointer": "#/$defs/operation/oneOf/8",
+      "discoveryPointer": "/commands/8"
+    },
+    {
+      "operation": "decoration.remove",
+      "label": "Erase selected marks",
+      "panel": "brush",
+      "authorScope": "placed-instance",
+      "schemaPointer": "#/$defs/operation/oneOf/9",
+      "discoveryPointer": "/commands/9"
+    },
+    {
+      "operation": "surface.layers",
+      "label": "Reorder / set grouped layer opacity",
+      "panel": "layers",
+      "authorScope": "placed-instance",
+      "schemaPointer": "#/$defs/operation/oneOf/10",
+      "discoveryPointer": "/commands/10"
+    },
+    {
+      "operation": "stroke.group",
+      "label": "Explicit multi-owner stroke group",
+      "panel": "brush",
+      "authorScope": "explicit-selected-placements",
+      "schemaPointer": "#/$defs/operation/oneOf/11",
+      "discoveryPointer": "/commands/11"
+    },
+    {
+      "operation": "content.import",
+      "label": "Import complete content pack",
+      "panel": "content-pack",
+      "authorScope": "whole-workspace",
+      "schemaPointer": "#/$defs/operation/oneOf/12",
+      "discoveryPointer": "/commands/12"
+    }
+  ],
+  "queries": [
+    {
+      "kind": "requirements.inspect",
+      "schemaPointer": "#/$defs/query/oneOf/0",
+      "label": "Inspect requirements"
+    },
+    {
+      "kind": "content.export",
+      "schemaPointer": "#/$defs/query/oneOf/1",
+      "label": "Plan portable export"
+    }
+  ],
+  "fieldControls": [
+    {
+      "label": "Original geometry controls",
+      "operation": "recipe.revise",
+      "valuePointer": "/body/definition/body/recipe",
+      "schemaPointer": "#/$defs/recipeRecord/properties/body/properties/recipe"
+    },
+    {
+      "label": "Surface-local position (m)",
+      "operation": "decoration.update",
+      "valuePointer": "/body/replacement/graphic/transform/positionM",
+      "schemaPointer": "#/$defs/graphicTransform/properties/positionM"
+    },
+    {
+      "label": "Rotation (rad)",
+      "operation": "decoration.update",
+      "valuePointer": "/body/replacement/graphic/transform/rotationRad",
+      "schemaPointer": "#/$defs/graphicTransform/properties/rotationRad"
+    },
+    {
+      "label": "Size (m)",
+      "operation": "decoration.update",
+      "valuePointer": "/body/replacement/graphic/transform/sizeM",
+      "schemaPointer": "#/$defs/graphicTransform/properties/sizeM"
+    },
+    {
+      "label": "Pivot (stored image UV, top-left)",
+      "operation": "decoration.update",
+      "valuePointer": "/body/replacement/graphic/transform/pivotUV",
+      "schemaPointer": "#/$defs/graphicTransform/properties/pivotUV"
+    },
+    {
+      "label": "Linear RGB tint",
+      "operation": "decoration.update",
+      "valuePointer": "/body/replacement/graphic/tintLinearRGB",
+      "schemaPointer": "#/$defs/graphic/properties/tintLinearRGB"
+    },
+    {
+      "label": "Grouped layer opacity",
+      "operation": "surface.layers",
+      "valuePointer": "/body/layers/0/opacity",
+      "schemaPointer": "#/$defs/layer/properties/opacity"
+    }
+  ],
+  "dataAuthority": {
+    "savedDocument": "#/$defs/workbenchDocument",
+    "documentVersion": 3,
+    "authoringModuleCount": 1,
+    "resourceRefs": "#/$defs/resourceRefs",
+    "sourceProjection": "#/$defs/source",
+    "sourceProjectionReadOnly": true,
+    "sourceIsDocumentAlias": false,
+    "freshness": "complete checkpoint/journal token plus captured Expected"
+  },
+  "resources": {
+    "bytesInFiniteCommand": false,
+    "bulkStaging": "Verified bytes/decoder leases use host ports outside operations[]",
+    "adoption": "References adopted with the same complete targetDocument/history/recovery",
+    "descriptor": "One immutable library artwork record; resourceRefs only exact artwork pin + imageViewDigest",
+    "requiredDecoder": "image/png",
+    "optionalUnboundDecoder": "image/webp",
+    "imageView": "#/$defs/imageView",
+    "sampler": "#/$defs/imageSampler",
+    "tint": "tintLinearRGB",
+    "layerBlend": "source-over-linear-premultiplied-v1",
+    "layerOpacity": "Composite ordered marks then attenuate the group"
+  },
+  "coordinates": {
+    "status": "fixed-core-coordinate-contract",
+    "sourceCommit": "43227894c50ec62b71806978195fff2c650eb388",
+    "storedImageUV": "top-left",
+    "storedPivotUV": "top-left",
+    "imageToLocal": "position + R * [mirrorSign*(u_i-p_u)*width, (p_v-v_i)*height]",
+    "then": "Surface.originM + Surface.axes basis, current owner D4 + origin once, native [x,y,h] -> render [x,h,y] once",
+    "pixelY": "frame.y + v_i*height - 0.5",
+    "localUpAlternative": "Only with pivotV_up=1-p_v; no implicit pivot conversion.",
+    "proofScope": "Core mathematical vectors only; no decoder/renderer/runtime implementation."
+  },
+  "proposedLimits": {
+    "layersPerSurface": 8,
+    "sourceMarksPerLogicalChunk": 4096,
+    "residentMarksAllViews": 1024,
+    "additionalDecodedAllocationBytes": 33554432,
+    "ownedAppearanceMaterialsAllViews": 64,
+    "contributorsPerBin": 8,
+    "binReferencesAllViews": 32768,
+    "derivedBufferBytesAllViews": 4194304,
+    "atlasPagesAllViews": 4,
+    "rootsAllViews": 2,
+    "trianglesAllViews": 50000,
+    "cellsAllViews": 1024,
+    "operationsPerCommand": 1024,
+    "targetOwnersPerCommand": 32,
+    "activeRecipes": 32,
+    "definitions": 128,
+    "presets": 128,
+    "artworkRecords": 256,
+    "maskCellsPerMark": 4096,
+    "manifestBytes": 4000000,
+    "sourceBytes": 4000000,
+    "commandBytes": 1000000,
+    "plannerUnits": 1000000,
+    "encodedPackBytes": 67108864
+  },
+  "limitsMeasured": false,
+  "unsupported": [
+    "arbitrary-js",
+    "functional-interior/extensions",
+    "world-fixed-paint",
+    "path-parameter-anchors",
+    "physical-crater",
+    "3d-plant",
+    "displacement",
+    "animated-or-expiring-core-marks",
+    "new-clipping-or-solid-grammar",
+    "grades",
+    "unproved-intersections"
+  ],
+  "historicalDraft": "4d1e5da37031b89afbcb7b6fb47e6a03a606de25; old wrappers and runtime projection are historical, not accepted aliases.",
+  "compositeDrafts": [
+    {
+      "id": "selected-placement-cow",
+      "label": "Edit selected placement source",
+      "operations": [
+        "recipe.clone",
+        "placement.upgrade"
+      ],
+      "schemaPointer": "#/$defs/command",
+      "scope": "explicit-selected-placements",
+      "example": "examples/placement-cow-command.json",
+      "authority": "Existing Editor draft collector; one finite command, one retained prepare, one atomic acceptance."
+    }
+  ]
+}

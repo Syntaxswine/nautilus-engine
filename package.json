@@ -55,7 +55,8 @@
     "./tiles/art/three": "./packages/tile-visuals/three.js",
     "./tiles/stack": "./packages/tile-stack-core/index.js",
     "./tiles/finishes": "./packages/tile-finishes/catalogue.js",
-    "./tiles/finishes/three": "./packages/tile-finishes/finishes.js"
+    "./tiles/finishes/three": "./packages/tile-finishes/finishes.js",
+    "./tiles/authoring": "./packages/tile-authoring-core/index.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -96,6 +97,7 @@
     "docs/runtime-modules.md",
     "docs/stacked-tiles.md",
     "docs/standard-interactions.md",
+    "docs/tile-authoring.md",
     "docs/ui/grenade-controls.md",
     "docs/ui/grenade-controls.sources.json",
     "docs/ui/grenade-existing-assets.json",
@@ -226,6 +228,18 @@
     "packages/runtime-core/index.js",
     "packages/runtime-core/lifecycle.js",
     "packages/runtime-core/planner.js",
+    "packages/tile-authoring-core/README.md",
+    "packages/tile-authoring-core/budget.js",
+    "packages/tile-authoring-core/contract.js",
+    "packages/tile-authoring-core/contract.schema.json",
+    "packages/tile-authoring-core/data.js",
+    "packages/tile-authoring-core/geometry.js",
+    "packages/tile-authoring-core/index.d.ts",
+    "packages/tile-authoring-core/index.js",
+    "packages/tile-authoring-core/model.js",
+    "packages/tile-authoring-core/operations.js",
+    "packages/tile-authoring-core/source.json",
+    "packages/tile-authoring-core/target.js",
     "packages/tile-finishes/README.md",
     "packages/tile-finishes/catalogue.js",
     "packages/tile-finishes/data.js",
@@ -459,7 +473,8 @@
     "review:tiles:stack:built": "node tools/review-tile-stack-editor.mjs --built",
     "review:tiles:stack:installed": "node tools/review-tile-stack-editor.mjs --installed",
     "verify:tiles:stack": "node tools/verify-tile-stack-editor-review.mjs",
-    "review:tiles:entry": "node tools/review-tile-workshop-entry.mjs"
+    "review:tiles:entry": "node tools/review-tile-workshop-entry.mjs",
+    "test:tiles:authoring": "node tools/test-tile-authoring-core-package.mjs"
   },
   "engines": {
     "node": ">=22"

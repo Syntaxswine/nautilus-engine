@@ -1,0 +1,370 @@
+{
+  "status": "pass",
+  "base": "b850e20e2fdd85435d33f16327482b80380af728",
+  "runtime": "2502646482218524fd5129641da769bb82462e4d",
+  "availability": "Contract/art samples only; no shared runtime implemented or registered",
+  "binding": {
+    "id": "nautilus.local-graphic-art-samples",
+    "version": 1,
+    "digest": "ef2daf8b205bae3ca14baa093be85fa46e46b769f645c95327a6bf72f2152d33"
+  },
+  "fixture": {
+    "resources": 2,
+    "artworks": 30,
+    "families": 9,
+    "exampleMarks": 4,
+    "twoViewMarks": 960,
+    "decodedArtworkBaseBytes": 12582912,
+    "qualification": "Static contract fixture consistency, not an authoring API, renderer or performance test."
+  },
+  "gates": [
+    {
+      "log": "artifacts/art-tile-authoring-final-check.log",
+      "command": "npm run check",
+      "finishedAt": "2026-11-02T05:17:57.4768394Z",
+      "exitCode": 0,
+      "logSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T05:18:18.8503311Z",
+      "log": "artifacts/art-tile-authoring-final-test.log",
+      "command": "npm test",
+      "logSha256": "06629377159c432ab7e8b8c1b4471bb25cd4939655ebd3c8cf0052c2f5e01ead"
+    },
+    {
+      "command": "npm run test:upstream",
+      "log": "artifacts/art-tile-authoring-final-upstream.log",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T05:16:29.7261071Z",
+      "logSha256": "3c938b50153bff68e77b75684280f5d7c9f3dd4fa169e19538c71271169eba1b"
+    },
+    {
+      "finishedAt": "2026-11-02T05:17:46.7639089Z",
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "artifacts/art-tile-authoring-final-build.log",
+      "logSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "publicDistributionExclusion": [
+    {
+      "profile": "core",
+      "candidateShipped": false
+    },
+    {
+      "profile": "renderer",
+      "candidateShipped": false
+    },
+    {
+      "profile": "compatibility",
+      "candidateShipped": false
+    }
+  ],
+  "preservedStack": {
+    "commit": "a536cfec20e609a6c507f000791d8d7e71ae6d18",
+    "earlyMetadata": "84bcb886a25826ba710b9c285316bee5582fa7ef",
+    "witnessPath": "docs/reviews/tile-stack/art/line-d4-refusal.json",
+    "witnessSha256": "017b703dd5f1973756687cabb010285dc3a5ac583f72c325ac02d384094f3270",
+    "cases": [
+      {
+        "placement": {
+          "id": "line-owner",
+          "recipeId": "valid-level-line-d4",
+          "contentDigest": "70b562535e4711c3b59bbce65f2df8881203a22b6c417a326d3ac4e5a918b8fb",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "transform": {
+            "quarterTurns": 1,
+            "mirrorX": false
+          },
+          "floorBindings": {
+            "base": "ground"
+          },
+          "locked": false,
+          "anchorIds": [
+            "valid-level-line-d4.path"
+          ]
+        },
+        "sourceUnchanged": true,
+        "derivedAngle": "-0",
+        "failure": {
+          "code": "INVALID_NUMBER",
+          "path": "/startRad",
+          "message": "Use finite numbers without negative zero."
+        }
+      },
+      {
+        "placement": {
+          "id": "line-owner",
+          "recipeId": "valid-level-line-d4",
+          "contentDigest": "70b562535e4711c3b59bbce65f2df8881203a22b6c417a326d3ac4e5a918b8fb",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "transform": {
+            "quarterTurns": 3,
+            "mirrorX": true
+          },
+          "floorBindings": {
+            "base": "ground"
+          },
+          "locked": false,
+          "anchorIds": [
+            "valid-level-line-d4.path"
+          ]
+        },
+        "sourceUnchanged": true,
+        "derivedAngle": "-0",
+        "failure": {
+          "code": "INVALID_NUMBER",
+          "path": "/startRad",
+          "message": "Use finite numbers without negative zero."
+        }
+      }
+    ],
+    "importedImplementation": false
+  },
+  "helpers": {
+    "retiredLifetimes": 1,
+    "allOriginalIdentitiesGone": true,
+    "allPortsReleased": true,
+    "retained": 0
+  },
+  "scopeGuard": {
+    "allChangesInArtistPaths": true,
+    "runtimeAndRegistrationsUnchanged": true,
+    "changed": [
+      "candidates/tile-authoring/art/PROVENANCE.md",
+      "candidates/tile-authoring/art/README.md",
+      "candidates/tile-authoring/art/budget-fixture.json",
+      "candidates/tile-authoring/art/contract.d.ts",
+      "candidates/tile-authoring/art/example.json",
+      "candidates/tile-authoring/art/preview.html",
+      "candidates/tile-authoring/art/prompts/organic-marks-v1.txt",
+      "candidates/tile-authoring/art/resources.json",
+      "candidates/tile-authoring/art/resources/organic-marks-v1.png",
+      "candidates/tile-authoring/art/resources/road-marks-v1.png",
+      "candidates/tile-authoring/art/resources/road-marks-v1.svg",
+      "docs/reviews/tile-authoring/art/alpha-audit.json",
+      "docs/reviews/tile-authoring/art/artwork-preview.png",
+      "docs/reviews/tile-authoring/art/contract-handoff.md",
+      "docs/reviews/tile-authoring/art/design-comparison.md",
+      "docs/reviews/tile-authoring/art/export-review.json",
+      "docs/reviews/tile-authoring/art/helper-retirement.json",
+      "docs/reviews/tile-authoring/art/source-manifest.json",
+      "tests/art-tile-authoring-contract.test.mjs",
+      "tools/art-tile-authoring-audit.mjs",
+      "tools/art-tile-authoring-check.mjs",
+      "tools/art-tile-authoring-cleanup.ps1",
+      "tools/art-tile-authoring-export.mjs",
+      "tools/art-tile-authoring-inspect.py",
+      "tools/art-tile-authoring-samples.mjs"
+    ]
+  },
+  "inputs": [
+    {
+      "path": "candidates/tile-authoring/art/PROVENANCE.md",
+      "bytes": 2042,
+      "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6"
+    },
+    {
+      "path": "candidates/tile-authoring/art/README.md",
+      "bytes": 14207,
+      "sha256": "8757253a84907c8f820dd7c26a11418a33e80cabacee7b292fca9aab39e96d9a"
+    },
+    {
+      "path": "candidates/tile-authoring/art/budget-fixture.json",
+      "bytes": 486471,
+      "sha256": "98fa12ce753c781b31567d0ff0ae78eb51466199f207c3a4c03a38abd0ee9729"
+    },
+    {
+      "path": "candidates/tile-authoring/art/contract.d.ts",
+      "bytes": 4925,
+      "sha256": "3aed49f040f52240386064dcd46c7535a8031aacc1bef73d0c3ca943c83e8b8e"
+    },
+    {
+      "path": "candidates/tile-authoring/art/example.json",
+      "bytes": 21912,
+      "sha256": "88afc7e0e883d7866d11d0e32ce29d9cb9459ab7b7c0acb467a53a3e8220b37a"
+    },
+    {
+      "path": "candidates/tile-authoring/art/preview.html",
+      "bytes": 2776,
+      "sha256": "bb02b43007502492c99d013d838a95950837346d9955e4b51e7e6950c8cb6115"
+    },
+    {
+      "path": "candidates/tile-authoring/art/prompts/organic-marks-v1.txt",
+      "bytes": 2068,
+      "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98"
+    },
+    {
+      "path": "candidates/tile-authoring/art/resources.json",
+      "bytes": 39166,
+      "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa"
+    },
+    {
+      "path": "candidates/tile-authoring/art/resources/organic-marks-v1.png",
+      "bytes": 2481966,
+      "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+    },
+    {
+      "path": "candidates/tile-authoring/art/resources/road-marks-v1.png",
+      "bytes": 78234,
+      "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+    },
+    {
+      "path": "candidates/tile-authoring/art/resources/road-marks-v1.svg",
+      "bytes": 4858,
+      "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/alpha-audit.json",
+      "bytes": 5958,
+      "sha256": "fccd9fcffd0a6fadcf3c75d296af1516d0b490f53610bfa9de7e4785c136c8e4"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/artwork-preview.png",
+      "bytes": 441518,
+      "sha256": "315a177311d4888964de67fe7219582b69accd18834163d1e9398b705fc64d00"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/contract-handoff.md",
+      "bytes": 6431,
+      "sha256": "9372aa6d862fc8ea31a967127254ce0ac7a7829183fb8666c3017678420c7531"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/design-comparison.md",
+      "bytes": 3599,
+      "sha256": "24f649946926fca90e3a0d06c1d27de996701ee99789faefea3cb57852335d29"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/export-review.json",
+      "bytes": 1383,
+      "sha256": "0ff70f8b9604cbb5f2e2207ef4be635cab166d8f98f07821b1713c035bbad06d"
+    },
+    {
+      "path": "docs/reviews/tile-authoring/art/helper-retirement.json",
+      "bytes": 3333,
+      "sha256": "0f49d5753fe3b1a13c1602c72d2142a3ec39956240b9f9328a244ce37c4977f8"
+    },
+    {
+      "path": "tests/art-tile-authoring-contract.test.mjs",
+      "bytes": 4291,
+      "sha256": "35e28aa467b82b2c8f2d8852b31b03a395c066f36326fe9f896c8fc187604fc3"
+    },
+    {
+      "path": "tools/art-tile-authoring-audit.mjs",
+      "bytes": 5163,
+      "sha256": "af27da01ff5caa7bc762ebf6cc41e1530ce967ccd7157505d7343f617a9eb423"
+    },
+    {
+      "path": "tools/art-tile-authoring-check.mjs",
+      "bytes": 5374,
+      "sha256": "e3409aa4782a0212ce9864ec1302eb034d326038318ed5d1aecc9ee30a8eff6b"
+    },
+    {
+      "path": "tools/art-tile-authoring-cleanup.ps1",
+      "bytes": 1564,
+      "sha256": "6afbe8f503c039692dcc2db0356242d8ea892b797f176f0201539d8d718f0a2e"
+    },
+    {
+      "path": "tools/art-tile-authoring-export.mjs",
+      "bytes": 2479,
+      "sha256": "a9ad6bd643d50aa73a4c354409dab3c597878e61f2350f438ccf9e2587db042d"
+    },
+    {
+      "path": "tools/art-tile-authoring-inspect.py",
+      "bytes": 2006,
+      "sha256": "07ad70b3e81db66606279b2de6bf3e785e5cc5b4d1e498c54f40bf1faa8ea4d5"
+    },
+    {
+      "path": "tools/art-tile-authoring-samples.mjs",
+      "bytes": 11167,
+      "sha256": "91e601b8d1cf5c2c5f53753952b89480151d6e0bc4ff4cb5373b73e79c6993e8"
+    }
+  ],
+  "actualPublicExampleDependencyClosure": [
+    {
+      "path": "packages/parts-core/hash.js",
+      "bytes": 2105,
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "bytes": 4602,
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/tiles-core/cells.js",
+      "bytes": 8266,
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+    },
+    {
+      "path": "packages/tiles-core/contract.js",
+      "bytes": 1730,
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+    },
+    {
+      "path": "packages/tiles-core/curves.js",
+      "bytes": 9480,
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+    },
+    {
+      "path": "packages/tiles-core/data.js",
+      "bytes": 4579,
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+    },
+    {
+      "path": "packages/tiles-core/dependencies.js",
+      "bytes": 8832,
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+    },
+    {
+      "path": "packages/tiles-core/example.js",
+      "bytes": 2579,
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+    },
+    {
+      "path": "packages/tiles-core/fields.js",
+      "bytes": 5394,
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+    },
+    {
+      "path": "packages/tiles-core/index.js",
+      "bytes": 728,
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+    },
+    {
+      "path": "packages/tiles-core/interfaces.js",
+      "bytes": 11429,
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+    },
+    {
+      "path": "packages/tiles-core/layout.js",
+      "bytes": 12740,
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+    },
+    {
+      "path": "packages/tiles-core/projection.js",
+      "bytes": 1657,
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+    },
+    {
+      "path": "packages/tiles-core/recipes.js",
+      "bytes": 10523,
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+    },
+    {
+      "path": "packages/tiles-core/repair.js",
+      "bytes": 11562,
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+    }
+  ],
+  "qualification": "Static art/metadata/source fixture proof only. Installed overlay renderer, UI/agent adoption, clipping, allocation and device performance await separate implementation review."
+}

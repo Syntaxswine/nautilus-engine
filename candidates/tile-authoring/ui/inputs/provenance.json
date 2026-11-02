@@ -1,0 +1,136 @@
+{
+  "kind": "ui-c0-fixed-core-inputs",
+  "version": 1,
+  "core": "43227894c50ec62b71806978195fff2c650eb388",
+  "status": "Read-only exact metadata/type/schema evidence; no runtime or extra authority.",
+  "files": [
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/contract.schema.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-c0.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/api.d.ts",
+      "copy": "candidates/tile-authoring/ui/inputs/core-api.d.ts",
+      "bytes": 11961,
+      "sha256": "ec486fb6d1341df1ce9b26688a1a93f1ea1fd5cd22fde9eea2d5652c636c75bb"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/discovery.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-discovery.json",
+      "bytes": 4795,
+      "sha256": "509e354980503d343b2a96f47a6f54ec273df1953be63a44b1a88f48ce860aa3"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/document-v3.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-document-v3.json",
+      "bytes": 850896,
+      "sha256": "824b65a539080253e6030bb1cdb6fbd7cb22eb57866d95d0008ee088262c6662"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/workspace-source.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-source.json",
+      "bytes": 838078,
+      "sha256": "15f94eef0f1b4ac1030ba987e4884603a039201eb9208595b266cdbf30e8609c"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/paint-command.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-paint-command.json",
+      "bytes": 3107,
+      "sha256": "3ef87b8e61903efb7aebf9c700f1fe3d1b648b2451f74ca9aa01b466fbbbdde1"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/content-pack-manifest.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-pack.json",
+      "bytes": 287107,
+      "sha256": "bb8be3c11cbf4121512668c4b7527d88cecbe318fa903bb63c9bd553d9bbfa2f"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/unimplemented-response.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-unimplemented-response.json",
+      "bytes": 457,
+      "sha256": "0f02fd765c22364fa3b255c707fd6558c633172e0939dd48b344968c974c319e"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "packages/tiles-core/tile-bundle-v1.schema.json",
+      "copy": "candidates/tile-authoring/ui/inputs/tile-bundle-v1.schema.json",
+      "bytes": 1156,
+      "sha256": "cc610c40a8c700f8dc343872717412a3344c607d308283a42e14e6bec4381441"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "packages/tiles-core/tile-recipe-v1.schema.json",
+      "copy": "candidates/tile-authoring/ui/inputs/tile-recipe-v1.schema.json",
+      "bytes": 61530,
+      "sha256": "cedf8c251d6088927ed60296c949eac954284ccc085f8660b81911f0b1b6c045"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "packages/tiles-core/tile-layout-v1.schema.json",
+      "copy": "candidates/tile-authoring/ui/inputs/tile-layout-v1.schema.json",
+      "bytes": 16602,
+      "sha256": "6598ca7e1a681837e8eadd2ce2cbeaae998ea44e9f51e5d727799a7861c72e20"
+    },
+    {
+      "commit": "43227894c50ec62b71806978195fff2c650eb388",
+      "path": "candidates/tile-authoring/core/examples/sampling-contract-vectors.json",
+      "copy": "candidates/tile-authoring/ui/inputs/core-sampling-vectors.json",
+      "bytes": 9864,
+      "sha256": "0cb85f435631c687f2c4b60bad75cdd40dc83e14bd7d7a0c5b4fbf118d0c9296"
+    }
+  ],
+  "coordinateDecision": {
+    "status": "fixed-core-coordinate-contract",
+    "sourceCommit": "43227894c50ec62b71806978195fff2c650eb388",
+    "storedImageUV": "top-left",
+    "storedPivotUV": "top-left",
+    "imageToLocal": "position + R * [mirrorSign*(u_i-p_u)*width, (p_v-v_i)*height]",
+    "then": "Surface.originM + Surface.axes basis, current owner D4 + origin once, native [x,y,h] -> render [x,h,y] once",
+    "pixelY": "frame.y + v_i*height - 0.5",
+    "localUpAlternative": "Only with pivotV_up=1-p_v; no implicit pivot conversion.",
+    "proofScope": "Core mathematical vectors only; no decoder/renderer/runtime implementation."
+  },
+  "previousCore": "efca5034e4e922a3e8d1dcf3b36d0f17474afe61",
+  "unchangedAuthoredExamples": [
+    {
+      "path": "candidates/tile-authoring/core/examples/document-v3.json",
+      "bytes": 850896,
+      "sha256": "824b65a539080253e6030bb1cdb6fbd7cb22eb57866d95d0008ee088262c6662"
+    },
+    {
+      "path": "candidates/tile-authoring/core/examples/workspace-source.json",
+      "bytes": 838078,
+      "sha256": "15f94eef0f1b4ac1030ba987e4884603a039201eb9208595b266cdbf30e8609c"
+    },
+    {
+      "path": "candidates/tile-authoring/core/examples/paint-command.json",
+      "bytes": 3107,
+      "sha256": "3ef87b8e61903efb7aebf9c700f1fe3d1b648b2451f74ca9aa01b466fbbbdde1"
+    },
+    {
+      "path": "candidates/tile-authoring/core/examples/content-pack-manifest.json",
+      "bytes": 287107,
+      "sha256": "bb8be3c11cbf4121512668c4b7527d88cecbe318fa903bb63c9bd553d9bbfa2f"
+    },
+    {
+      "path": "candidates/tile-authoring/core/examples/artist-import-mapping.json",
+      "bytes": 31939,
+      "sha256": "8aa7b86bf32e4d647c587dea79d0d13a0a71a056c28145d6944bc2d8d900a1eb"
+    },
+    {
+      "path": "candidates/tile-authoring/core/examples/unimplemented-response.json",
+      "bytes": 457,
+      "sha256": "0f02fd765c22364fa3b255c707fd6558c633172e0939dd48b344968c974c319e"
+    }
+  ]
+}

@@ -5,7 +5,8 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
-import {checkTileStackRegistration,TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
+import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
+import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 
 export const TILE_STACK_ACCEPTED_SOURCE='45ecaef16bb39424c8b885d53acb4371654b4fa0';
 export const TILE_STACK_SOURCE_ROOT='candidates/tile-stack/core';
@@ -137,9 +138,12 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
   });
   assert.deepEqual(moduleClosure(['packages/tiles-core/index.js']),golden.files.filter(item=>item.file.endsWith('.js')).map(item=>item.file).sort(),'The actual public v1 core retains its fourteen-module authority.');
   const protectedRoot=['upstream.json','packages/map-core/contract-manifest.js','packages/map-core/capabilities.js'].map(file=>fixed(file));
+  const registration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
+  const authoringSchemaSupport=registration.authoringRegistration.support.filter(file=>file.endsWith('.schema.json'));
+  assert.deepEqual(authoringSchemaSupport,['packages/tile-authoring-core/contract.schema.json'],'Only the separately authenticated authoring contract schema is added.');
   const schemaFiles=listed(TILE_STACK_REGISTRATION_BASE,'packages','schemas').filter(file=>file.endsWith('.schema.json'));
   const currentSchemas=[...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort();
-  assert.deepEqual(currentSchemas,schemaFiles,'This optional planner adds, removes or registers no schema.');
+  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport].sort(),'Keep every historical schema plus the one authenticated packaged authoring contract.');
   // The Root C2a fence separately owns the newer accepted private v2 schema
   // bytes. This registration preserves the public schema inventory/content;
   // it must not roll private schemas back to an older public-package baseline.
@@ -150,7 +154,6 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
 
   const packageBytes=read('package.json'),pkg=JSON.parse(packageBytes);
   assert.equal(pkg.exports[TILE_STACK_ENTRY],TILE_STACK_ENTRY_FILE,'The actual optional ./tiles/stack export is required; no private fallback.');
-  const registration=checkTileStackRegistration({object,read,indexed,moduleClosure,distribution});
   const profiles={};
   for(const name of ['core','renderer','assets','compatibility']){
     const d=distribution(name),included=name==='core'||name==='compatibility';
@@ -170,9 +173,9 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
     status:'pass',registered:true,id:profile,acceptedSource:TILE_STACK_ACCEPTED_SOURCE,integrationBase:TILE_STACK_REGISTRATION_BASE,
     entries:{[TILE_STACK_ENTRY]:TILE_STACK_ENTRY_FILE},runtime,types,closure,packageSupport:[...support],metadataAdaptations:[{...adaptation}],
     sourceRecord:record(sourceFile,sourceBytes),publicCore:{entry:'./tiles',runtimeFiles:14,preservedFiles:publicCore.length},
-    frozenRootFiles:protectedRoot.length,frozenSchemas:schemas.length,profiles,registration,
+    frozenRootFiles:protectedRoot.length,frozenSchemas:schemas.length,packagedAuthoringSchemaSupport:authoringSchemaSupport,profiles,registration,
     headless:true,bundledCoreOrRenderer:false,newSchemaOrCapability:false,pinsChanged:false,versionChanged:false,hostAdopted:false,gameAdopted:false,
-    requiredGitCommits:[TILE_STACK_ACCEPTED_SOURCE,TILE_STACK_REGISTRATION_BASE]
+    requiredGitCommits:[...new Set([TILE_STACK_ACCEPTED_SOURCE,TILE_STACK_REGISTRATION_BASE,...registration.requiredGitCommits])]
   };
 }
 
