@@ -1,6 +1,7 @@
 // The isolated Editor session has one canvas gesture owner. Numeric controls
 // and native buttons remain UI-owned; the real floor widget owns floor keys.
-export function bindSmartTileInput({canvas,session,screenToWorld,hitOwner,readDraft,onGuide=()=>{},onCamera=()=>{},selectionMode=()=>false}){
+export function bindSmartTileInput({canvas,session,screenToWorld,hitOwner,readDraft,onGuide=()=>{},onCamera=()=>{},selectionMode=()=>false,projectRectangleDraft=draft=>draft}){
+  if(typeof projectRectangleDraft!=='function')throw TypeError('Supply a synchronous rectangle draft projector.');
   const doc=canvas.ownerDocument,win=doc.defaultView,events=new AbortController(),pointers=new Map(),blockedClicks=new Set();
   let gesture=null,sequenceOwner=null,consumed=false,disposed=false,enterHeld=false,releasing=false;
   const blockClick=id=>{blockedClicks.delete(id);blockedClicks.add(id);while(blockedClicks.size>32)blockedClicks.delete(blockedClicks.values().next().value);};
@@ -60,7 +61,7 @@ export function bindSmartTileInput({canvas,session,screenToWorld,hitOwner,readDr
     const origin=[Math.min(g.start[0],end[0]),Math.min(g.start[1],end[1])],round=n=>Math.round(n*1000)/1000;
     if(g.tool==='rectangle'){
       const widthM=round(Math.abs(g.start[0]-end[0])),depthM=round(Math.abs(g.start[1]-end[1]));if(widthM<.1||depthM<.1)return;
-      session.setDraft({tool:'rectangle',ownerId:null,origin:origin.map(round),widthM,depthM,seed:g.base.seed});
+      session.setDraft(projectRectangleDraft({tool:'rectangle',ownerId:null,origin:origin.map(round),widthM,depthM,seed:g.base.seed},g.base));
     }else if(g.tool==='path'){
       const d=structuredClone(g.base);d.origin=g.start.map(round);d.ownerId=null;
       if(d.path.kind==='line'){const dx=round(end[0]-g.start[0]),dy=round(end[1]-g.start[1]);if(Math.hypot(dx,dy)<.1)return;d.path.a=[0,0,0];d.path.b=[dx,dy,0];}

@@ -168,6 +168,13 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     lockOwner(ownerId){return Promise.resolve(invoke(()=>{allowed('setDraft');retire();return prepare('edit',ownerId);}));},
     dispose(){if(disposed)return;disposed=true;phase='disposed';generation++;reviewed=null;draft=null;listeners.clear();for(const release of [()=>retireInput('session-disposed'),unsubscribe,()=>consumer.dispose(),()=>{if(!transaction&&!recovery)history.cancel();},()=>views.dispose()])try{release();}catch{diagnostic('SESSION_CLEANUP_CALLBACK');}}
   });
+  // Optional v2 presentation action uses this same retirement/context owner.
+  // Default v1 profiles expose no inspection method or capability.
+  if(typeof profile?.setInspection==='function')adapter.setInspection=value=>invoke(()=>{
+    allowed('setInspection');const next=profile.validateInspection(value);
+    retire();floorEpoch++;setPhase(visualRevision===history.snapshot.revision?'idle':'presentation-error');
+    profile.setInspection(next);notify();return {ok:true};
+  });
   const unsubscribe=floorController.subscribe(next=>{
     const changed=next.selectedId!==floorState.selectedId||next.mode!==floorState.mode;
     // The host's before-floor-change hook calls cancel before moving its plane;
