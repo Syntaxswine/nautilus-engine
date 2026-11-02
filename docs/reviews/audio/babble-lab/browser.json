@@ -1,0 +1,125 @@
+{
+  "mode": "built",
+  "browser": "isolated headless Edge",
+  "checks": [
+    {
+      "name": "Original source workbench: preset, text, playback, reveals and stop",
+      "passed": true
+    },
+    {
+      "name": "Original WAV and game-cue export",
+      "passed": true,
+      "sampleRate": 48000,
+      "samples": 30123,
+      "cueKeys": [
+        "text",
+        "voice",
+        "take",
+        "timing",
+        "sampleRate",
+        "duration",
+        "audioDuration",
+        "words",
+        "mouth",
+        "reveal"
+      ]
+    },
+    {
+      "name": "Original cast save survives reload in isolated browser storage",
+      "passed": true
+    },
+    {
+      "name": "Public browser imports, exact Node/browser PCM, real audio clock/cues and borrowed-context cleanup",
+      "passed": true,
+      "hash": "5df216d9d46a94336c8a64664cac33b80611276bb4e5a2a954e585d26a13e102",
+      "ended": "ended",
+      "stopped": [
+        "stopped",
+        "stopped"
+      ],
+      "speaking": false,
+      "contextStateAfterStop": "running",
+      "reveals": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "mouths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.11218590869411711,
+        0.22203819962826168,
+        0.3751190654597437,
+        0.3751190654597437,
+        0.4891459209449882,
+        0.5261521250020066,
+        0.5261521250020066,
+        0.5837142396179282,
+        0.5996907176779506,
+        0.5996907176779506,
+        0.5936251451239544,
+        0.549621032911041,
+        0.549621032911041,
+        0.4650718535489586,
+        0.4169054356849114,
+        0.4169054356849114,
+        0.277078490336614,
+        0.277078490336614,
+        0.09027886669370976,
+        0.11529579011102585,
+        0.25275500191120825,
+        0.4067112674051185,
+        0.6002922097591512,
+        0.7083008212397456,
+        0.7785519005395541,
+        0.8576713164636024,
+        0.9549096141227951,
+        0.9549096141227951,
+        0.9800667257023475,
+        0.9978796771131726,
+        0.9993555225683942,
+        0.963218609023573,
+        0.9309521529736567,
+        0.9309521529736567,
+        0.817585374581737,
+        0.817585374581737,
+        0.6527629820045073,
+        0.5359789589586225,
+        0.43720718101142036,
+        0.3276585640352458,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sampleRate": 44100,
+      "contextStateAfterHostClose": "closed"
+    },
+    {
+      "name": "Original phone layout reviewed",
+      "passed": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "viewportWidth": 390
+    },
+    {
+      "name": "Original standalone HTML workbench runs at its preserved built URL",
+      "passed": true
+    }
+  ],
+  "perceivedAudioQuality": "Not assessed; human audition required"
+}

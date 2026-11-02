@@ -541,3 +541,17 @@ jobs:
           name: shared-artwork-package-evidence
           path: artifacts/shared-artwork-package/
           if-no-files-found: ignore
+
+  audio-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node tools/check-babble-lab.mjs
+      - run: node --test tests/audio.test.mjs
+      - run: node tools/test-babble-lab.mjs
+      - run: node tools/test-audio-package.mjs
+      - run: node tools/build-audio.mjs
