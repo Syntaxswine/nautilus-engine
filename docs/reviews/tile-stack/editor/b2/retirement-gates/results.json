@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "runtimeCommit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+  "targeted": {
+    "tests": 12,
+    "pass": 12,
+    "fail": 0
+  },
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 1,
+      "reason": "Expected unchanged historical input source fence"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 1,
+      "tests": 992,
+      "pass": 991,
+      "fail": 1,
+      "reason": "Sole failure is the same historical source fence; behavior cases pass"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "pass": 32
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 544
+    }
+  ],
+  "browserMatrix": {
+    "runtimeCommit": "b46fa78297440932a0be82651c0f8397cefa4b74",
+    "historical": true,
+    "newCurrentSourceRerun": "Root owns combined rerun after promotion; no 138-case repeat during this fix"
+  },
+  "runtimeFiles": [
+    {
+      "file": "apps/editor/tile-stack/presentation.js",
+      "sha256": "285414d6aea75149150dd58d1917d19e9026aafa329e4dba02a99e7b48c32f5f"
+    },
+    {
+      "file": "tests/editor-tile-stack-retirement-receipts.test.mjs",
+      "sha256": "b6d0d37c0517ef4b7bf1150353b69136099f43620bc06ad10ee2a6a34fe65275"
+    },
+    {
+      "file": "tests/editor-tile-stack-b2-native.test.mjs",
+      "sha256": "ad0beb05b76bb5bece68b6e701ed68062a385ec4ccad37d46b41396f0bf2e877"
+    },
+    {
+      "file": "tests/fixtures/tile-stack-editor/b2.mjs",
+      "sha256": "5796ac2207e7c189cce72fb403aaf278d211862e7c7b84018340f067a8f765df"
+    }
+  ],
+  "records": [
+    {
+      "file": "docs/reviews/tile-stack/editor/b2/retirement-gates/check.log.gz",
+      "encoding": "gzip",
+      "rawBytes": 2803,
+      "rawSha256": "dd5777b44c2311272e0e16a175f54492e2c4dad05a7a039a27232f6e02399878",
+      "sha256": "d625072141278b09a399ce8684bc235864d279c385acc29907c443b8a01ad7f5"
+    },
+    {
+      "file": "docs/reviews/tile-stack/editor/b2/retirement-gates/test.log.gz",
+      "encoding": "gzip",
+      "rawBytes": 110353,
+      "rawSha256": "e18469f5ea066c91062e5395ae25aad871e98b8632f04a87522867efa7e077ca",
+      "sha256": "00b4f28bd17f19a97f52cad724e8e0d9a5d58b229382cc85e884d09809ee9c95"
+    },
+    {
+      "file": "docs/reviews/tile-stack/editor/b2/retirement-gates/test-upstream.log.gz",
+      "encoding": "gzip",
+      "rawBytes": 3125,
+      "rawSha256": "90039261e98184ef78920453dbc9e55671a12b782699b7a266616119d6800bdd",
+      "sha256": "61d99193d3d92f7725c2adfdb820ef8bc84becf97379f0369dcb198b80fa2f8f"
+    },
+    {
+      "file": "docs/reviews/tile-stack/editor/b2/retirement-gates/build.log.gz",
+      "encoding": "gzip",
+      "rawBytes": 378,
+      "rawSha256": "4e7700bdb40da2b296a27e9a9479a0238390b47c97f505c2015a5f04fd219990",
+      "sha256": "9d4fb4163a014747fe0920e3eb0832e9b86d7cac01532292157f3e321d70390d"
+    }
+  ],
+  "retainedHelpers": [],
+  "ports": []
+}

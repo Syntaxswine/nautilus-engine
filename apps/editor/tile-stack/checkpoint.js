@@ -3,6 +3,7 @@ import {createSmartTileCheckpointCodec,smartTileData,smartTileDigest,fields,id,f
 import {createTileStackDocumentPolicy,workspaceStorageKey} from './policy.js';
 import {validateConstraints} from '../../../packages/tile-stack-core/contracts.js';
 import {createSmartTileStorage} from '../smart-tile/storage.js';
+import {validateEditRequestScope,isSurfaceOperation,validateSurfaceOperation} from './surface-route.js';
 
 const keys=['sourceDocumentDigest','targetDocumentDigest','sourceLayoutDigest','sourceCatalogueDigest','contextToken','sourceConstraintsDigest','nextConstraintsDigest','floorProfileDigest','requestDigest'];
 const digest=(v,p)=>{if(typeof v!=='string'||!/^[a-f0-9]{64}$/.test(v))fail('STACK_OPERATION_DIGEST',p,'Retain a complete captured digest.');};
@@ -30,6 +31,8 @@ export function createTileStackCheckpointCodec(deps,initialDocument){
           if(smartTileDigest(before.tileBundle.layout.extensions)!==smartTileDigest(l.extensions))fail('STACK_EXTENSION_CHANGE','/operation/target','Preserve original layout extensions.');
           for(const r of target.constraints.managedRelations){const old=before.constraints.managedRelations.find(x=>x.id===r.id);if(old&&(smartTileDigest([r.a,r.b].sort())!==smartTileDigest([old.a,old.b].sort())||r.clearanceM<old.clearanceM))fail('STACK_EDITOR_PAIR_WEAKENED','/operation/target/constraints','A retained managed identity cannot change pair or lose a stronger requirement.');}
         }
+        validateEditRequestScope(deps.tiles,op,target,before);
+        if(isSurfaceOperation(op,target,before))validateSurfaceOperation(deps.tiles,op,target,before);
       }else{
         fields(op.request,['id','kind','action','targetDocumentDigest'],'/operation/request');
         if(op.request.kind!=='smart-tile-history-restore'||op.request.action!==op.action||op.request.targetDocumentDigest!==smartTileDigest(target))fail('HISTORY_TARGET_MISMATCH','/operation/request','History restores the exact complete saved document.');

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add optional headless rectangle-stack planning, four reusable engine finishes and a native fifteen-floor tile workspace with five-label navigation and selected-floor/overview/cutaway inspection.
+- Keep full bundle/constraints history and same-ID recovery in the shared editor; retain source controls, locks, clearance and native heights. Isolated level paths use one ordinary public-core preparation.
+- Verify source, built and installed workflows plus native retirement receipts; unverified cleanup stays charged and keeps borrowed leases. Existing tile/map formats and consumer pins remain unchanged.
+
 - Add the isolated Smart Tile Editor reference host: Rectangle, level analytic Path, whole-owner Finish, Review/Apply, atomic complete checkpoints and Undo/Redo.
 - Preserve UI-first touch ownership, cancellation quarantine and selected anchor subsets; verify the actual public source/built/installed workflow in a separate bounded CI job.
 

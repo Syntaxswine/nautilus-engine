@@ -168,6 +168,24 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     lockOwner(ownerId){return Promise.resolve(invoke(()=>{allowed('setDraft');retire();return prepare('edit',ownerId);}));},
     dispose(){if(disposed)return;disposed=true;phase='disposed';generation++;reviewed=null;draft=null;listeners.clear();for(const release of [()=>retireInput('session-disposed'),unsubscribe,()=>consumer.dispose(),()=>{if(!transaction&&!recovery)history.cancel();},()=>views.dispose()])try{release();}catch{diagnostic('SESSION_CLEANUP_CALLBACK');}}
   });
+  // Optional v2 presentation action uses this same retirement/context owner.
+  // Default v1 profiles expose no inspection method or capability.
+  if(typeof profile?.setInspection==='function')adapter.setInspection=value=>invoke(()=>{
+    allowed('setInspection');const g=generation,c=context(),source=smartTileCheckpointToken(checkpoint);
+    const stale=()=>({ok:false,code:disposed?'DISPOSED':'STALE_INSPECTION'});
+    const bound=(expectedGeneration,expectedContext)=>{
+      if(!current(expectedGeneration,expectedContext))return false;
+      const checked=actual();
+      return current(expectedGeneration,expectedContext)&&smartTileCheckpointToken(checked)===source&&snapshot().actions.setInspection&&current(expectedGeneration,expectedContext);
+    };
+    const next=profile.validateInspection(value);if(!bound(g,c))return stale();
+    // Retire advances exactly once. A callback's additional retirement, floor
+    // change or disposal must not become a freshly captured activation lease.
+    retire();if(!bound(g+1,c))return stale();
+    floorEpoch++;setPhase(visualRevision===history.snapshot.revision?'idle':'presentation-error');const activatedContext=context();
+    profile.setInspection(next);if(!bound(g+1,activatedContext))return stale();
+    notify();return bound(g+1,activatedContext)?{ok:true}:stale();
+  });
   const unsubscribe=floorController.subscribe(next=>{
     const changed=next.selectedId!==floorState.selectedId||next.mode!==floorState.mode;
     // The host's before-floor-change hook calls cancel before moving its plane;

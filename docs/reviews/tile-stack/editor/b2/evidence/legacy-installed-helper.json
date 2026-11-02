@@ -1,0 +1,38 @@
+{
+  "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+  "purpose": "Smart Tile Editor installed real host acceptance",
+  "project": "Nautilus Engine",
+  "startedAt": "2026-11-02T07:57:42.801Z",
+  "expiresAt": "2026-11-02T08:05:42.801Z",
+  "process": {
+    "pid": 17032,
+    "creationFiletime": "134380798541603280",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 24972,
+    "creationFiletime": "134380798625218787",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 50467,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\tile-authoring-editor\\Nautilus Engine\\artifacts\\smart-tile-editor-installed\\STOP",
+  "stopMethod": "STOP marker, bounded 480000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "tools/review-smart-tile-editor.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\tile-authoring-editor\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\tile-authoring-editor\\Nautilus Engine\\tools\\review-smart-tile-editor.mjs",
+      "--installed"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/smart-tile-editor-installed",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  }
+}

@@ -68,3 +68,12 @@ help.innerHTML = `<form method="dialog"><button class="close-about" aria-label="
 document.body.append(help);
 document.getElementById('nautilus-help').onclick = () => help.showModal();
 help.addEventListener('click', event => {if (event.target === help) {const rect = help.getBoundingClientRect();if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) help.close();}});
+
+// Open the separate tile workspace while retaining the current map.
+const tileWorkshopNavigation=document.getElementById('nautilus-help')?.parentNode;
+if(tileWorkshopNavigation&&typeof tileWorkshopNavigation.insertBefore==='function'){
+  const link=document.createElement('a');link.id='nautilus-tiles';
+  link.href=new URL('../../../../../examples/tile-stack-editor.html',document.baseURI).href;
+  link.target='_blank';link.rel='noopener';link.textContent='Tile workshop';
+  tileWorkshopNavigation.insertBefore(link,document.getElementById('nautilus-help'));
+}

@@ -454,7 +454,12 @@
     "review:windows:installed": "node tools/review-native-window-presenter.mjs --installed",
     "test:tiles:art": "node tools/test-tile-visuals-package.mjs",
     "review:tiles:art": "node tools/review-tile-visuals.mjs",
-    "review:tiles:art:installed": "node tools/review-tile-visuals.mjs --installed"
+    "review:tiles:art:installed": "node tools/review-tile-visuals.mjs --installed",
+    "review:tiles:stack": "node tools/review-tile-stack-editor.mjs",
+    "review:tiles:stack:built": "node tools/review-tile-stack-editor.mjs --built",
+    "review:tiles:stack:installed": "node tools/review-tile-stack-editor.mjs --installed",
+    "verify:tiles:stack": "node tools/verify-tile-stack-editor-review.mjs",
+    "review:tiles:entry": "node tools/review-tile-workshop-entry.mjs"
   },
   "engines": {
     "node": ">=22"

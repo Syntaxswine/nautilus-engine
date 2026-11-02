@@ -27,6 +27,10 @@ jobs:
           93a94778779b800227f3886b1ca63fae1abc2543
           2502646482218524fd5129641da769bb82462e4d
           4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -95,6 +99,10 @@ jobs:
           93a94778779b800227f3886b1ca63fae1abc2543
           2502646482218524fd5129641da769bb82462e4d
           4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -234,6 +242,10 @@ jobs:
           93a94778779b800227f3886b1ca63fae1abc2543
           2502646482218524fd5129641da769bb82462e4d
           4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -254,4 +266,56 @@ jobs:
             artifacts/smart-tile-editor-built/
             artifacts/smart-tile-editor-installed/
             artifacts/smart-tile-editor-matrix.json
+          if-no-files-found: ignore
+  tile-stack-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NAUTILUS_REVIEW_CHANNEL: chromium
+      CODEX_THREAD_ID: github-tile-stack-workflow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check -- --tracked
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: node tools/review-tile-workshop-entry.mjs
+      - run: node tools/review-tile-stack-editor.mjs
+      - run: node tools/review-tile-stack-editor.mjs --built
+      - run: node tools/review-tile-stack-editor.mjs --installed
+      - run: node tools/verify-tile-stack-editor-review.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tile-stack-editor-evidence
+          path: |
+            artifacts/tile-stack-editor-source/
+            artifacts/tile-stack-editor-built/
+            artifacts/tile-stack-editor-installed/
+            artifacts/tile-stack-editor-matrix.json
+            artifacts/tile-workshop-entry/
           if-no-files-found: ignore

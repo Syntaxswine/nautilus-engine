@@ -1,8 +1,10 @@
 # Stacked tile authoring
 
-Status: integration candidate under Architect review. The public v1 tile core
-remains the geometry and repair authority. This guide describes the bounded
-stacked workspace; promotion requires the live workflow and combined checks.
+Status: bounded stacked authoring workspace. The public v1 tile core remains
+the geometry and repair authority. The [stacked tile workshop](../examples/tile-stack-editor.html)
+provides the live reference workflow; the [earlier workspace](smart-tile-editor.md)
+retains its original three-layer compatibility profile. Acceptance and current
+limits are recorded in [the integration review](reviews/tile-stack/architect/integration.md).
 
 ## Optional components
 
