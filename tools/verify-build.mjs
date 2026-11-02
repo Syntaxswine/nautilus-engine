@@ -10,7 +10,7 @@ export async function verifyBuild(output,patches) {
     if(!/\.m?js$/.test(file))continue;
     const relative=path.relative(output,file).replaceAll('\\','/'),text=fs.readFileSync(file,'utf8');modules++;
     sources.push({filename:file,source:text});
-    if(relative.startsWith('app/')||relative.startsWith('apps/editor/smart-tile/')||relative.startsWith('buildings/')||relative.startsWith('packages/')||relative.startsWith('examples/')||own.has(relative))execFileSync(process.execPath,['--check',file],{windowsHide:true,stdio:'pipe'});
+    if(relative.startsWith('app/')||relative.startsWith('apps/editor/smart-tile/')||relative.startsWith('apps/editor/tile-authoring/')||relative.startsWith('buildings/')||relative.startsWith('packages/')||relative.startsWith('examples/')||own.has(relative))execFileSync(process.execPath,['--check',file],{windowsHide:true,stdio:'pipe'});
   }}visit(output);
   for(const record of moduleReferencesBatch(sources))for(const specifier of record.specifiers){
     const dependency=resolveModuleFile(specifier,record.filename,{root:output});

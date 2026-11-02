@@ -47,13 +47,15 @@ export const TILE_STACK_REVIEW_LINEAGE=Object.freeze({baseline:'d0ecfdfb35110616
 // the browser runtime dependency parser or infer that this discovers Node imports.
 const verificationFiles=[
   'tools/review-tile-stack-editor.mjs','tools/verify-tile-stack-editor-review.mjs',
-  'tools/art-review-browser.mjs','tools/build.mjs','tools/distribution.mjs','tools/module-references.mjs',
+  'tools/art-review-browser.mjs','tools/build.mjs','tools/verify-build.mjs','tools/distribution.mjs','tools/module-references.mjs',
   'tools/check.mjs','tools/check-smart-tile-editor-source.mjs','tools/tile-stack-editor-source.mjs',
   'tools/tile-stack-editor-b2-source.mjs','docs/reviews/smart-tile-editor/sources.json',
   'docs/reviews/smart-tile-editor/integration-sources.json','docs/reviews/tile-stack/architect/b1-sources.json',
   'docs/reviews/tile-stack/architect/b2-sources.json','tools/check-tile-stack-source.mjs',
   'tools/check-tile-finishes-source.mjs','tools/check-tile-visuals-source.mjs',
   'tools/check-tile-visuals-lifecycle.mjs','tools/tile-stack-registration.mjs','tools/tile-surface-corrections.mjs',
+  'tools/tile-authoring-registration.mjs','tools/check-tile-authoring-core-source.mjs',
+  'tools/check-native-window-presenter.mjs','packages/tile-authoring-core/source.json',
   'packages/tile-stack-core/source.json','packages/tile-finishes/source.json','packages/tile-visuals/source.json',
   'packages/map-core/contract-manifest.js','packages/map-core/capabilities.js','package.json','upstream.json','NOTICE.md'
 ];

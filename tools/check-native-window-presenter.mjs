@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {root,sourceCommit,vendorRoot,verifySnapshot} from './snapshot-native-window-presenter.mjs';
 import {moduleClosure,distribution} from './distribution.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
+import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 
 const acceptedPresenter='5f027e039ba9307fd25719c6307d9760baf54e20';
 const integrationBase='3f602272a3a2ecbe4ade0d33773a0e4f52da0706';
@@ -80,7 +81,8 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   assert.match(pin.purpose,/reference/i,'The new pin must identify reference-only use.');
   const pkg=json('package.json'),basePackage=JSON.parse(object(integrationBase,'package.json'));
   assert.equal(pkg.exports[entry],entryFile,'Register the actual optional native renderer entry.');
-  const priorExports=withoutTileStackRegistration(pkg.exports);delete priorExports[entry];
+  const optionalRegistration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
+  const priorExports=withoutTileStackRegistration(optionalRegistration.historicalView.exports);delete priorExports[entry];
   // Later reviewed optional tile-art registration adds only these three entries.
   const tileEntries={'./tiles/art':'./packages/tile-visuals/prepare.js','./tiles/art/example':'./packages/tile-visuals/example.js','./tiles/art/three':'./packages/tile-visuals/three.js'};
   for(const [name,target]of Object.entries(tileEntries))if(Object.hasOwn(priorExports,name)){assert.equal(priorExports[name],target,'Unexpected tile-art registration target: '+name);delete priorExports[name];}
@@ -101,7 +103,7 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
     profiles[profile]={files:d.files.length,registered:rendered};
   }
   assert.deepEqual(pkg.files,distribution().files,'Root package whitelist must match the exact distribution closure.');
-  return {status:'pass',registered:true,sourceCommit,acceptedPresenter,integrationBase,snapshot,runtime,packageSupport:[...support],entry,entryFile,frozenFiles:frozen.length,profiles,coreOrThreeImports:false,newSchemaOrCapability:false,gameAdopted:false};
+  return {status:'pass',registered:true,sourceCommit,acceptedPresenter,integrationBase,snapshot,runtime,packageSupport:[...support],entry,entryFile,frozenFiles:frozen.length,profiles,coreOrThreeImports:false,newSchemaOrCapability:false,gameAdopted:false,optionalRegistration,requiredGitCommits:[...new Set([sourceCommit,acceptedPresenter,integrationBase,privateC2aSource,...optionalRegistration.requiredGitCommits])]};
 }
 
 if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){

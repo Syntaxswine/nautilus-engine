@@ -5,7 +5,8 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
-import {checkTileStackRegistration,TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
+import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
+import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_CORRECTION_SOURCE,TILE_SURFACE_CORRECTION_BASE,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
 
 export const TILE_FINISHES_ACCEPTED_ARTIST='6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03';
@@ -104,7 +105,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
   const publicCore=golden.files.map(r=>{const expected=object(TILE_SURFACE_CORRECTION_BASE,r.file);assert.equal(sha(expected),r.sha256);assert.ok(read(r.file).equals(expected),'Public v1 source/schema contract changed: '+r.file);indexed(r.file,expected);return row(r.file,expected);});
   const protectedRoot=['upstream.json','packages/map-core/contract-manifest.js','packages/map-core/capabilities.js'].map(file=>fixed(file,TILE_STACK_REGISTRATION_BASE));
   for(const file of [guideFile,workspaceGuide]){const bytes=read(file);assert.ok(bytes.length>0,'Required Root builder guide is empty: '+file);indexed(file,bytes);}
-  const registration=checkTileStackRegistration({object,read,indexed,moduleClosure,distribution});
+  const registration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
   const baselineImages=new Set(listed(TILE_STACK_REGISTRATION_BASE).filter(image)),profiles={};
   for(const name of ['core','renderer','assets','compatibility']){
     const d=distribution(name),hasHeadless=name==='core'||name==='compatibility',hasRenderer=name==='renderer'||name==='compatibility';
@@ -125,7 +126,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     originals,runtime,sourceRecord:row(sourceFile,metadataBytes),entries:{...entries},closure,headless,rendered,atlas:{...atlas},providerCorrection:expectedCorrection,
     publicCoreFiles:publicCore.length,frozenRootFiles:protectedRoot.length,packageSupport:[...support],profiles,registration,
     newImages:0,bundledCoreOrThree:false,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,
-    requiredGitCommits:[TILE_FINISHES_ACCEPTED_ARTIST,TILE_STACK_REGISTRATION_BASE,...correction.requiredGitCommits]
+    requiredGitCommits:[...new Set([TILE_FINISHES_ACCEPTED_ARTIST,TILE_STACK_REGISTRATION_BASE,...correction.requiredGitCommits,...registration.requiredGitCommits])]
   };
 }
 
