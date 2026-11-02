@@ -1,0 +1,131 @@
+{
+  "kind": "nautilus-tile-authoring-discovery",
+  "version": 1,
+  "status": "contract-design-only",
+  "executorImplemented": false,
+  "publicRegistration": false,
+  "schema": "urn:nautilus:candidate:tile-authoring:core:1",
+  "commands": [
+    {
+      "name": "recipe.create",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "recipe.clone",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "recipe.revise",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "preset.save",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "preset.place",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "placement.upgrade",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "owner.remove",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    },
+    {
+      "name": "decoration.add",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "appearance"
+    },
+    {
+      "name": "decoration.update",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "appearance"
+    },
+    {
+      "name": "decoration.remove",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "appearance"
+    },
+    {
+      "name": "surface.layers",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "appearance"
+    },
+    {
+      "name": "stroke.group",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "appearance"
+    },
+    {
+      "name": "content.import",
+      "schemaPointer": "#/$defs/operation",
+      "effectDomain": "content-and-explicit-placement"
+    }
+  ],
+  "queries": [
+    "requirements.inspect",
+    "content.export"
+  ],
+  "transport": {
+    "proposedCLI": "nautilus tile-authoring session --stdio --host <authorized-workspace-host>",
+    "framing": "one closed JSON request and response per line; same persistent connection owns review tokens",
+    "entryImplemented": false,
+    "humanAgentParity": "identical command bytes and one host authority"
+  },
+  "proposedLimits": {
+    "layersPerSurface": 8,
+    "sourceMarksPerLogicalChunk": 4096,
+    "residentMarksAllViews": 1024,
+    "uniqueAdditionalDecodedBytes": 33554432,
+    "rootsAllViews": 2,
+    "trianglesAllViews": 50000,
+    "cellsAllViews": 1024,
+    "operationsPerCommand": 1024,
+    "targetOwnersPerCommand": 32,
+    "activeRecipes": 32,
+    "definitions": 128,
+    "presets": 128,
+    "artworkRecords": 256,
+    "maskCellsPerMark": 4096,
+    "manifestBytes": 4000000,
+    "sourceBytes": 4000000,
+    "commandBytes": 1000000,
+    "plannerUnits": 1000000,
+    "encodedPackBytes": 67108864
+  },
+  "limitsMeasured": false,
+  "profiles": {
+    "source": [
+      "local-level-region-v1",
+      "local-flat-field-v1",
+      "local-level-path-v1"
+    ],
+    "surface": "owner-local-level-top-v1",
+    "blend": "source-over-linear-premultiplied-v1",
+    "mask": "owner-local-grid-v1",
+    "status": "proposed-unregistered-needs-real-provider-proof"
+  },
+  "unsupported": [
+    "arbitrary-js",
+    "functional-interior/extensions",
+    "world-fixed-paint",
+    "path-parameter-anchors",
+    "physical-crater",
+    "3d-plant",
+    "displacement",
+    "animated-or-expiring-core-marks",
+    "new-clipping-or-solid-grammar",
+    "grades",
+    "unproved-intersections"
+  ]
+}

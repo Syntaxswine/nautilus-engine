@@ -1,0 +1,2911 @@
+{
+  "kind": "nautilus-tile-content-pack",
+  "version": 1,
+  "manifest": {
+    "kind": "nautilus-tile-content",
+    "version": 1,
+    "id": "library.fixture",
+    "definitions": [
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.paving",
+        "revision": 1,
+        "body": {
+          "label": "custom.paving revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.62d216147e5bf573461ed5341a5dcd9134fa828a0594aa74f3d7b317462bd0e0",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "region",
+              "id": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+              "outlines": [
+                {
+                  "kind": "compound",
+                  "id": "shape.d878fe95a3bf9b2f97a5b7a9.outline",
+                  "segments": [
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.0",
+                      "a": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "b": [
+                        8,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.1",
+                      "a": [
+                        8,
+                        0,
+                        0
+                      ],
+                      "b": [
+                        8,
+                        4,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.2",
+                      "a": [
+                        8,
+                        4,
+                        0
+                      ],
+                      "b": [
+                        0,
+                        4,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.3",
+                      "a": [
+                        0,
+                        4,
+                        0
+                      ],
+                      "b": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "baseM": 0,
+              "thicknessM": 0.12
+            },
+            "reservations": [
+              {
+                "id": "body",
+                "floorSlot": "base",
+                "channel": "surface",
+                "layerId": "ground",
+                "min": [
+                  0,
+                  0,
+                  0
+                ],
+                "max": [
+                  8,
+                  4,
+                  0.12
+                ]
+              }
+            ],
+            "ports": [
+              {
+                "id": "north",
+                "faceId": "north",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  4,
+                  0,
+                  0
+                ],
+                "outward": [
+                  0,
+                  -1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 8,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.north",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      0,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "east",
+                "faceId": "east",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  8,
+                  2,
+                  0
+                ],
+                "outward": [
+                  1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 4,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.east",
+                    "a": [
+                      8,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      4,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "south",
+                "faceId": "south",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  4,
+                  4,
+                  0
+                ],
+                "outward": [
+                  0,
+                  1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 8,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.south",
+                    "a": [
+                      0,
+                      4,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      4,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "west",
+                "faceId": "west",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  0,
+                  2,
+                  0
+                ],
+                "outward": [
+                  -1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 4,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.west",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      0,
+                      4,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            ],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+                "kind": "region",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-region-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "a03ef94a0e790c682cfb852b751110f87dee57e55f8b1692b616743df0f4c20f",
+              "frameDigest": "380d8f02b41bdf9bd9aab4ef9eb4e41ae27f2c8c533d6dee1142564d298f8685"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.paving",
+        "revision": 2,
+        "body": {
+          "label": "custom.paving revision 2",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.cdf3275003bedb852933fb0fb947ef572ab5aa3916447acb5515d8a8fbf849c1",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "region",
+              "id": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+              "outlines": [
+                {
+                  "kind": "compound",
+                  "id": "shape.d878fe95a3bf9b2f97a5b7a9.outline",
+                  "segments": [
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.0",
+                      "a": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "b": [
+                        8,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.1",
+                      "a": [
+                        8,
+                        0,
+                        0
+                      ],
+                      "b": [
+                        8,
+                        5,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.2",
+                      "a": [
+                        8,
+                        5,
+                        0
+                      ],
+                      "b": [
+                        0,
+                        5,
+                        0
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "id": "shape.d878fe95a3bf9b2f97a5b7a9.side.3",
+                      "a": [
+                        0,
+                        5,
+                        0
+                      ],
+                      "b": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "baseM": 0,
+              "thicknessM": 0.12
+            },
+            "reservations": [
+              {
+                "id": "body",
+                "floorSlot": "base",
+                "channel": "surface",
+                "layerId": "ground",
+                "min": [
+                  0,
+                  0,
+                  0
+                ],
+                "max": [
+                  8,
+                  5,
+                  0.12
+                ]
+              }
+            ],
+            "ports": [
+              {
+                "id": "north",
+                "faceId": "north",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  4,
+                  0,
+                  0
+                ],
+                "outward": [
+                  0,
+                  -1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 8,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.north",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      0,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "east",
+                "faceId": "east",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  8,
+                  2.5,
+                  0
+                ],
+                "outward": [
+                  1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 5,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.east",
+                    "a": [
+                      8,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      5,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "south",
+                "faceId": "south",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  4,
+                  5,
+                  0
+                ],
+                "outward": [
+                  0,
+                  1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 8,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.south",
+                    "a": [
+                      0,
+                      5,
+                      0
+                    ],
+                    "b": [
+                      8,
+                      5,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "west",
+                "faceId": "west",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  0,
+                  2.5,
+                  0
+                ],
+                "outward": [
+                  -1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 5,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.paving",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.d878fe95a3bf9b2f97a5b7a9.port.west",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      0,
+                      5,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 8,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "constant",
+                    "vector": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.paving",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            ],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+                "kind": "region",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-region-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "d911e11f27644f524161c5e85a4ee0ebc0ac4d2e2f143c64b9001fbf59e14eaf",
+              "frameDigest": "d01bd8096297c054388b11b35ebcce89d1f77e30d1d3e04d2ce7815762f32d02"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "735e9877b3d3215f2e3237f9f85b7b1740ffad56218761d71cc889e47bfac258"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.field",
+        "revision": 1,
+        "body": {
+          "label": "custom.field revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.c0b58ddb259906c8764a2202a137630eb1f5b65196c6dc22a21108408cf5a7a6",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "field-cell",
+              "id": "shape.ae1f5022649f499f9477ef97.field",
+              "bounds": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "values": [
+                1,
+                1,
+                -1,
+                -1
+              ],
+              "heights": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "paint": [
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "fieldAmplitude": 0.2,
+              "heightAmplitudeM": 0,
+              "variantSeed": 17,
+              "saddle": "connect-positive"
+            },
+            "reservations": [
+              {
+                "id": "body",
+                "floorSlot": "base",
+                "channel": "surface",
+                "layerId": "ground",
+                "min": [
+                  0,
+                  0,
+                  0
+                ],
+                "max": [
+                  1,
+                  1,
+                  0.12
+                ]
+              }
+            ],
+            "ports": [
+              {
+                "id": "north",
+                "faceId": "north",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  0.5,
+                  0,
+                  0
+                ],
+                "outward": [
+                  0,
+                  -1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 1,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.field",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.ae1f5022649f499f9477ef97.port.north",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      1,
+                      0,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 12,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "field-cell",
+                    "field": {
+                      "kind": "field-cell",
+                      "id": "shape.ae1f5022649f499f9477ef97.field",
+                      "bounds": [
+                        0,
+                        0,
+                        1,
+                        1
+                      ],
+                      "values": [
+                        1,
+                        1,
+                        -1,
+                        -1
+                      ],
+                      "heights": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "paint": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                      ],
+                      "fieldAmplitude": 0.2,
+                      "heightAmplitudeM": 0,
+                      "variantSeed": 17,
+                      "saddle": "connect-positive"
+                    }
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.field",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "east",
+                "faceId": "east",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  1,
+                  0.5,
+                  0
+                ],
+                "outward": [
+                  1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 1,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.field",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.ae1f5022649f499f9477ef97.port.east",
+                    "a": [
+                      1,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      1,
+                      1,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 12,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "field-cell",
+                    "field": {
+                      "kind": "field-cell",
+                      "id": "shape.ae1f5022649f499f9477ef97.field",
+                      "bounds": [
+                        0,
+                        0,
+                        1,
+                        1
+                      ],
+                      "values": [
+                        1,
+                        1,
+                        -1,
+                        -1
+                      ],
+                      "heights": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "paint": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                      ],
+                      "fieldAmplitude": 0.2,
+                      "heightAmplitudeM": 0,
+                      "variantSeed": 17,
+                      "saddle": "connect-positive"
+                    }
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.field",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "south",
+                "faceId": "south",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  0.5,
+                  1,
+                  0
+                ],
+                "outward": [
+                  0,
+                  1,
+                  0
+                ],
+                "tangent": [
+                  1,
+                  0,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 1,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.field",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.ae1f5022649f499f9477ef97.port.south",
+                    "a": [
+                      0,
+                      1,
+                      0
+                    ],
+                    "b": [
+                      1,
+                      1,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 12,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "field-cell",
+                    "field": {
+                      "kind": "field-cell",
+                      "id": "shape.ae1f5022649f499f9477ef97.field",
+                      "bounds": [
+                        0,
+                        0,
+                        1,
+                        1
+                      ],
+                      "values": [
+                        1,
+                        1,
+                        -1,
+                        -1
+                      ],
+                      "heights": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "paint": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                      ],
+                      "fieldAmplitude": 0.2,
+                      "heightAmplitudeM": 0,
+                      "variantSeed": 17,
+                      "saddle": "connect-positive"
+                    }
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.field",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "west",
+                "faceId": "west",
+                "floor": {
+                  "slot": "base",
+                  "offsetM": 0
+                },
+                "endpoint": [
+                  0,
+                  0.5,
+                  0
+                ],
+                "outward": [
+                  -1,
+                  0,
+                  0
+                ],
+                "tangent": [
+                  0,
+                  1,
+                  0
+                ],
+                "flow": {
+                  "policy": "none",
+                  "vector": null
+                },
+                "widthM": 1,
+                "thicknessM": 0.12,
+                "channel": "surface",
+                "layerId": "ground",
+                "policy": "open",
+                "profiles": {
+                  "surface": {
+                    "id": "surface.flat",
+                    "version": 1
+                  },
+                  "edge": {
+                    "id": "edge.flat",
+                    "version": 1
+                  },
+                  "material": {
+                    "id": "paint.field",
+                    "version": 1
+                  },
+                  "border": {
+                    "id": "border.flat",
+                    "version": 1
+                  }
+                },
+                "boundary": {
+                  "curve": {
+                    "kind": "line",
+                    "id": "shape.ae1f5022649f499f9477ef97.port.west",
+                    "a": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "b": [
+                      0,
+                      1,
+                      0
+                    ]
+                  },
+                  "sampling": {
+                    "segmentsPerPart": 12,
+                    "maxChordErrorM": 0.01,
+                    "maxSegmentM": 4,
+                    "maxWork": 2048
+                  },
+                  "normal": {
+                    "kind": "field-cell",
+                    "field": {
+                      "kind": "field-cell",
+                      "id": "shape.ae1f5022649f499f9477ef97.field",
+                      "bounds": [
+                        0,
+                        0,
+                        1,
+                        1
+                      ],
+                      "values": [
+                        1,
+                        1,
+                        -1,
+                        -1
+                      ],
+                      "heights": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "paint": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        0.5
+                      ],
+                      "fieldAmplitude": 0.2,
+                      "heightAmplitudeM": 0,
+                      "variantSeed": 17,
+                      "saddle": "connect-positive"
+                    }
+                  },
+                  "materialIntervals": [
+                    {
+                      "from": 0,
+                      "to": 1,
+                      "material": {
+                        "id": "paint.field",
+                        "version": 1
+                      }
+                    }
+                  ]
+                },
+                "uv": {
+                  "policy": "world-linear-exact-v1",
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "scaleM": [
+                    1,
+                    1
+                  ],
+                  "phase": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            ],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.ae1f5022649f499f9477ef97.region",
+                "kind": "region",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-flat-field-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.ae1f5022649f499f9477ef97.region",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "6fd955222a9a41d1a5c7b19a7621862fdd53232efe3240e022a40fbabfa236a8",
+              "frameDigest": "421d4ea94f61f095a13339fcc6cf79e403fb3fdb4e7741aa8aa0146ede1e3cad"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "1015d0ccb16093c3d4c77ab36da2ded21fda050a44c81e65a6bc9fbf23692240"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.line",
+        "revision": 1,
+        "body": {
+          "label": "custom.line revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.83bbec714a46014dc39024eac3b9c3945066290aafaaecfc541382eca4bf3cc6",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "profile-sweep",
+              "id": "shape.c5b13f694455ae2eef6214a6.sweep",
+              "widthM": 0.85,
+              "thicknessM": 0.12,
+              "path": {
+                "kind": "line",
+                "id": "shape.c5b13f694455ae2eef6214a6.line",
+                "a": [
+                  0,
+                  0,
+                  0
+                ],
+                "b": [
+                  6,
+                  0,
+                  0
+                ]
+              }
+            },
+            "reservations": [],
+            "ports": [],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.c5b13f694455ae2eef6214a6.path",
+                "kind": "path",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-path-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.c5b13f694455ae2eef6214a6.path",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "0ebe9fbc3820811365e9165322728ff41c00332dd3c9a450b2a4e57009eb2792",
+              "frameDigest": "b30bc93d9fef22322ccb21217eb2f39f41f4787743532174a8c9a661902e1c0a"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "ab682d6052269e253becc696f352076b825cd72060734dc88cc8bd43104de3b6"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.arc",
+        "revision": 1,
+        "body": {
+          "label": "custom.arc revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.2ddecdcd37e857cd56c949b96068e4c2bbc0005add50b2ad349572f156a79b5b",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "profile-sweep",
+              "id": "shape.9ab0eb326de9ac86c19720a4.sweep",
+              "widthM": 0.85,
+              "thicknessM": 0.12,
+              "path": {
+                "kind": "arc",
+                "id": "shape.9ab0eb326de9ac86c19720a4.arc",
+                "center": [
+                  3,
+                  3
+                ],
+                "radius": 3,
+                "startRad": -1.5707963267948966,
+                "sweepRad": 1.5707963267948966,
+                "h0": 0,
+                "h1": 0
+              }
+            },
+            "reservations": [],
+            "ports": [],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.9ab0eb326de9ac86c19720a4.path",
+                "kind": "path",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-path-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.9ab0eb326de9ac86c19720a4.path",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "e5727074c662a2bdb9d6ca54b48820d03066789f77f447f7cd2c124bf6e22e93",
+              "frameDigest": "da57eaaa6b5c68e968aacc7dc9f73c4da0dd4d79dc5844e3729f26af7b73b3ea"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "766c3616e94a7c7f8a57e14f5902947748fcf8a5429fb9158d9af0b715ee67f6"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.cubic",
+        "revision": 1,
+        "body": {
+          "label": "custom.cubic revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.16e4b6d069e529e8d4126f32aa61a301d74ebed8529878583b2529b906da8813",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "profile-sweep",
+              "id": "shape.6d51f844f404cc53c3d74fe2.sweep",
+              "widthM": 0.85,
+              "thicknessM": 0.12,
+              "path": {
+                "kind": "cubic",
+                "id": "shape.6d51f844f404cc53c3d74fe2.cubic",
+                "points": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    2.123456789,
+                    5.0000000001,
+                    0
+                  ],
+                  [
+                    5,
+                    -1,
+                    0
+                  ],
+                  [
+                    8.0000000001,
+                    3,
+                    0
+                  ]
+                ]
+              }
+            },
+            "reservations": [],
+            "ports": [],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.6d51f844f404cc53c3d74fe2.path",
+                "kind": "path",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-path-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.6d51f844f404cc53c3d74fe2.path",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "2fed29e14ae29954ddecc3d402128ff63374e4d3c4ef7e05d109182ef6d3ab09",
+              "frameDigest": "b8288abdbacd3756f8725b71b2ceb1fee103ee4d9e3d4b7d6592d319e44d1542"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "f6a444d50fd23993775005f1ebeb34ff32eccfbdb67ce7bbb41cfdb51adbe789"
+      },
+      {
+        "kind": "nautilus-recipe-definition",
+        "version": 1,
+        "id": "custom.holes",
+        "revision": 1,
+        "body": {
+          "label": "custom.holes revision 1",
+          "recipe": {
+            "kind": "nautilus-tile-recipe",
+            "version": 1,
+            "id": "tac.recipe.23955bd948f8f272e647285ad6e68c576d5cca360521e40467210c25eb210d96",
+            "contentVersion": 1,
+            "features": [
+              "canonical-boundaries-v1"
+            ],
+            "frame": "local",
+            "shape": {
+              "kind": "region",
+              "id": "shape.08240a4fe6c5daf229e6acd6.region",
+              "outlines": [
+                {
+                  "kind": "arc",
+                  "id": "shape.08240a4fe6c5daf229e6acd6.circle.0",
+                  "center": [
+                    3,
+                    3
+                  ],
+                  "radius": 3,
+                  "startRad": 0,
+                  "sweepRad": 6.283185307179586,
+                  "h0": 0,
+                  "h1": 0
+                },
+                {
+                  "kind": "arc",
+                  "id": "shape.08240a4fe6c5daf229e6acd6.circle.1",
+                  "center": [
+                    3,
+                    3
+                  ],
+                  "radius": 1.4,
+                  "startRad": 0,
+                  "sweepRad": 6.283185307179586,
+                  "h0": 0,
+                  "h1": 0
+                }
+              ],
+              "baseM": 0,
+              "thicknessM": 0.12
+            },
+            "reservations": [
+              {
+                "id": "body",
+                "floorSlot": "base",
+                "channel": "surface",
+                "layerId": "ground",
+                "min": [
+                  0,
+                  0,
+                  0
+                ],
+                "max": [
+                  6,
+                  6,
+                  0.12
+                ]
+              }
+            ],
+            "ports": [],
+            "allowedTransforms": [
+              {
+                "quarterTurns": 0,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": false
+              },
+              {
+                "quarterTurns": 0,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 1,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 2,
+                "mirrorX": true
+              },
+              {
+                "quarterTurns": 3,
+                "mirrorX": true
+              }
+            ],
+            "interior": {
+              "variantSeed": 17,
+              "detail": 1,
+              "skinId": "skin.painterly"
+            },
+            "anchors": [
+              {
+                "id": "shape.08240a4fe6c5daf229e6acd6.region",
+                "kind": "region",
+                "parentId": null
+              }
+            ],
+            "templates": []
+          },
+          "sourceProfile": "local-level-region-v1",
+          "surfaces": [
+            {
+              "id": "top",
+              "sourceAnchorId": "shape.08240a4fe6c5daf229e6acd6.region",
+              "floorSlot": "base",
+              "floorOffsetM": 0,
+              "profile": "owner-local-level-top-v1",
+              "originM": [
+                0,
+                0,
+                0
+              ],
+              "axes": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ],
+              "grid": {
+                "id": "grid.metres",
+                "version": 1,
+                "originM": [
+                  0,
+                  0
+                ],
+                "cellSizeM": [
+                  1,
+                  1
+                ],
+                "profile": "owner-local-grid-v1"
+              },
+              "geometryDigest": "f53946904e9b511c033a4d891970ae04c232b769024b038105a5076ec61d938c",
+              "frameDigest": "fe59a1c5ee14ba4365230ebd7c135195053a3783ae88122d429df2bb821a3105"
+            }
+          ],
+          "requires": [
+            "public-v1-source-validation",
+            "owner-local-level-top-v1",
+            "source-region-holes-clip-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "bd3f227f89d02b44c20a61d12ce649182a03a57118b99fd7944f7e777a3436dd"
+      }
+    ],
+    "presets": [
+      {
+        "kind": "nautilus-tile-preset",
+        "version": 1,
+        "id": "preset.paving",
+        "revision": 1,
+        "body": {
+          "label": "Paving with explicit optional decoration default",
+          "definition": {
+            "id": "custom.paving",
+            "revision": 1,
+            "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+          },
+          "defaultLayers": [
+            {
+              "surfaceId": "top",
+              "layer": {
+                "id": "layer.wear",
+                "order": 0,
+                "label": "Wear graphic",
+                "opacity": 1,
+                "blendProfile": "source-over-linear-premultiplied-v1"
+              }
+            }
+          ],
+          "defaultMarks": [
+            {
+              "id": "default.wear",
+              "surfaceId": "top",
+              "layerId": "layer.wear",
+              "ordinal": 0,
+              "graphic": {
+                "artwork": {
+                  "id": "fixture.borrowed-atlas",
+                  "revision": 1,
+                  "contentDigest": "c3c1660b92bb16f6085ce6878dd9d2f8a57417eb902005037cd5b925e66174dd"
+                },
+                "form": "stamp",
+                "transform": {
+                  "positionM": [
+                    0.5,
+                    0.5
+                  ],
+                  "sizeM": [
+                    1,
+                    1
+                  ],
+                  "rotationRad": 0,
+                  "mirrorU": false,
+                  "pivotUV": [
+                    0.5,
+                    0.5
+                  ]
+                },
+                "opacity": 0.75,
+                "tintLinearRGB": [
+                  1,
+                  1,
+                  1
+                ],
+                "mask": {
+                  "kind": "grid-spans",
+                  "grid": {
+                    "id": "grid.metres",
+                    "version": 1,
+                    "digest": "965c3a02db8e4eec3e59f9036b0f16c513f807cbe1dedf98ce433ca7a10e5dcf"
+                  },
+                  "rows": [
+                    {
+                      "j": 0,
+                      "spans": [
+                        {
+                          "i0": 0,
+                          "count": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "wrap": "clamp"
+              }
+            }
+          ],
+          "requires": [
+            "owner-local-level-top-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "da172ba1608eb336dee8a4ca0ff030d08ae123df3f0bd3c2ea622c44fb8a020a"
+      }
+    ],
+    "artwork": [
+      {
+        "kind": "nautilus-tile-artwork",
+        "version": 1,
+        "id": "fixture.borrowed-atlas",
+        "revision": 1,
+        "body": {
+          "label": "Existing atlas: opaque contract resource fixture, not blood/scorch art",
+          "blob": {
+            "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+            "byteLength": 2558637,
+            "mediaType": "image/png",
+            "widthPx": 1254,
+            "heightPx": 1254,
+            "colorSpace": "srgb",
+            "alphaMode": "straight"
+          },
+          "channels": [
+            "color",
+            "alpha"
+          ],
+          "requires": [
+            "custom-raster-srgb-straight-v1"
+          ],
+          "notices": [
+            {
+              "id": "notice.repo",
+              "licenseRef": "LicenseRef-Repository-NOTICE",
+              "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+              "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+              "source": {
+                "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                "path": "NOTICE.md"
+              }
+            }
+          ]
+        },
+        "contentDigest": "c3c1660b92bb16f6085ce6878dd9d2f8a57417eb902005037cd5b925e66174dd"
+      }
+    ]
+  },
+  "blobEntries": [
+    {
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+      "byteLength": 2558637,
+      "entry": "blobs/bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2.png"
+    }
+  ],
+  "requires": [
+    "public-v1-source-validation",
+    "owner-local-level-top-v1",
+    "custom-raster-srgb-straight-v1"
+  ]
+}

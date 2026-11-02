@@ -1,0 +1,17 @@
+# Contract checkpoint validation
+
+Private design/contract delivery from blueprint b850e20; accepted stack branch45ecaef remains fixed. Four gates pass: check;918/918 tests (912 baseline+6 contract checks);32/32 upstream; build519 module paths. Exact gate log hashes are in validation.json. Final focused contract tests also pass6/6 after the last data/binding clarification.
+
+One private Draft2020-12 schema with47 definitions borrows all4 unchanged public v1 schemas. Independent jsonschema4.23.0 validates47 positive/negative cases: exact command/source/profile versions, closed v1 interior, local frame/no new clipping, type/profile consistency, local masks, unsupported scripts/physical channels/resource paths, ordering/layer limits, alpha transforms and unknown outcome structure. This checks structure, not an implemented authoring service or final transaction semantics.
+
+Nine immutable records have independent canonical hashes/reference checks. Seven complete authored recipe revisions compile through the actual source public-v1 core. Region, flat-field, line/arc/cubic and holed-region source is preserved; holed clipping explicitly remains an unbound required provider. Two placed owners share a pinned definition; only owner.a has local graphic state. The second owner stays clean. The complete original raw public blank-map JSON is stable and retained as source, without using the editor's character-identity-producing export as a normalizer.
+
+A portable ZIP contains the complete manifest/notice data and the existing encoded atlas under its content-addressed path. Independent reopening verifies the exact blob bytes/hash/length and PNG dimensions, and rejects4 actual damaged archives (missing blob, changed blob, traversal entry, duplicate entry). The bitmap is not duplicated in checked-in source. No actual image decoding or art/provider readiness is claimed.
+
+The reference budget ledger is a separate declared model:480 cells/marks per view uses approved tower arithmetic; illustrative triangle counts are not this two-owner fixture or measured render allocations. Accepted+candidate count960 cells/marks and2 roots. Tests include unverified retirement/acquisition and separate decoded allocations. Existing/public caps are unchanged; extra contract ceilings are unmeasured proposals for Architect review.
+
+Audit checks90 protected files against blueprint Git/raw bytes, the unchanged public tiles14-module/91,604-byte closure and exclusion from all4 normal distribution profiles. Candidate runtime module count is0: schemas/types/discovery/examples only. Tooling reference checks are not production validators or executors. Source hashes include all13 candidate/test/tool files; after commit run node tools/tile-authoring-core-audit.mjs --verify-commit for exact Git/raw verification.
+
+Reproduction is in usage.md. The isolated checker dependency already existed and was reused read-only. All commands are foreground-only; no preview/browser/watcher/server, retained helper or port was created. Generated ZIP/blob/schema-case files remain as review outputs under ignored artifacts/tile-authoring-core. Full runtime/source/installed human-agent parity, independent actual target/outcome/resource mutation proof, provider/browser/PC/phone measurements and one complete host history/recovery are future implementation gates, not claimed here.
+
+Architect decisions are concrete in architect-questions.md. Implementation/registration stays held while stack integration has priority.

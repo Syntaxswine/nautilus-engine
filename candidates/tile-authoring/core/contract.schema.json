@@ -1,0 +1,3035 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:candidate:tile-authoring:core:1",
+  "title": "Private tile-authoring contract proposal v1",
+  "description": "Contract/design only. Valid JSON does not create authoring, rendering or commit capability. Public v1 recipe/bundle schemas remain closed and unchanged.",
+  "oneOf": [
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/manifest"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/module"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/source"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/command"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pack"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/prepareView"
+    },
+    {
+      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/refusal"
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "contentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "contentDigest"
+      ]
+    },
+    "pose": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quarterTurns": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "mirrorX": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "quarterTurns",
+        "mirrorX"
+      ]
+    },
+    "notice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "licenseRef": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "attribution": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "noticeText": {
+          "type": "string",
+          "maxLength": 131072
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "repository": {
+              "type": "string",
+              "pattern": "^https://[^\\s]+$",
+              "maxLength": 512
+            },
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "path": {
+              "type": "string",
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "repository",
+            "commit",
+            "path"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "licenseRef",
+        "attribution",
+        "noticeText",
+        "source"
+      ]
+    },
+    "grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "version": {
+          "const": 1
+        },
+        "originM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "cellSizeM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 1e-06,
+            "maximum": 100000
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "profile": {
+          "const": "owner-local-grid-v1"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "originM",
+        "cellSizeM",
+        "profile"
+      ]
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "sourceAnchorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorSlot": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorOffsetM": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "profile": {
+          "const": "owner-local-level-top-v1"
+        },
+        "originM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "axes": {
+          "const": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ]
+        },
+        "normal": {
+          "const": [
+            0,
+            0,
+            1
+          ]
+        },
+        "grid": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/grid"
+        },
+        "geometryDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "frameDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "id",
+        "sourceAnchorId",
+        "floorSlot",
+        "floorOffsetM",
+        "profile",
+        "originM",
+        "axes",
+        "normal",
+        "grid",
+        "geometryDigest",
+        "frameDigest"
+      ]
+    },
+    "recipeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-recipe-definition"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "recipe": {
+              "$ref": "urn:nautilus:schema:tile-recipe:1",
+              "allOf": [
+                {
+                  "properties": {
+                    "frame": {
+                      "const": "local"
+                    },
+                    "shape": {
+                      "not": {
+                        "required": [
+                          "clip"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "sourceProfile": {
+              "enum": [
+                "local-level-region-v1",
+                "local-flat-field-v1",
+                "local-level-path-v1"
+              ]
+            },
+            "surfaces": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/surface"
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "requires": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 16
+            },
+            "notices": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/notice"
+              },
+              "minItems": 1,
+              "maxItems": 32
+            }
+          },
+          "required": [
+            "label",
+            "recipe",
+            "sourceProfile",
+            "surfaces",
+            "requires",
+            "notices"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "sourceProfile": {
+                    "const": "local-level-region-v1"
+                  }
+                },
+                "required": [
+                  "sourceProfile"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "recipe": {
+                    "properties": {
+                      "shape": {
+                        "properties": {
+                          "kind": {
+                            "const": "region"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "sourceProfile": {
+                    "const": "local-flat-field-v1"
+                  }
+                },
+                "required": [
+                  "sourceProfile"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "recipe": {
+                    "properties": {
+                      "shape": {
+                        "properties": {
+                          "kind": {
+                            "const": "field-cell"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "sourceProfile": {
+                    "const": "local-level-path-v1"
+                  }
+                },
+                "required": [
+                  "sourceProfile"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "recipe": {
+                    "properties": {
+                      "shape": {
+                        "properties": {
+                          "kind": {
+                            "const": "profile-sweep"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "contentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "revision",
+        "body",
+        "contentDigest"
+      ]
+    },
+    "blob": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16777216
+        },
+        "mediaType": {
+          "enum": [
+            "image/png",
+            "image/webp"
+          ]
+        },
+        "widthPx": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2048
+        },
+        "heightPx": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2048
+        },
+        "colorSpace": {
+          "const": "srgb"
+        },
+        "alphaMode": {
+          "const": "straight"
+        }
+      },
+      "required": [
+        "sha256",
+        "byteLength",
+        "mediaType",
+        "widthPx",
+        "heightPx",
+        "colorSpace",
+        "alphaMode"
+      ]
+    },
+    "artworkRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-artwork"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "blob": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/blob"
+            },
+            "channels": {
+              "const": [
+                "color",
+                "alpha"
+              ]
+            },
+            "requires": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 16
+            },
+            "notices": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/notice"
+              },
+              "minItems": 1,
+              "maxItems": 32
+            }
+          },
+          "required": [
+            "label",
+            "blob",
+            "channels",
+            "requires",
+            "notices"
+          ]
+        },
+        "contentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "revision",
+        "body",
+        "contentDigest"
+      ]
+    },
+    "gridRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "version": {
+          "const": 1
+        },
+        "digest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "digest"
+      ]
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "i0": {
+          "type": "integer",
+          "minimum": -65536,
+          "maximum": 65535
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      },
+      "required": [
+        "i0",
+        "count"
+      ]
+    },
+    "mask": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "all-surface"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "grid-spans"
+            },
+            "grid": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/gridRef"
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "j": {
+                    "type": "integer",
+                    "minimum": -65536,
+                    "maximum": 65535
+                  },
+                  "spans": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/span"
+                    },
+                    "minItems": 1,
+                    "maxItems": 64
+                  }
+                },
+                "required": [
+                  "j",
+                  "spans"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "kind",
+            "grid",
+            "rows"
+          ]
+        }
+      ]
+    },
+    "graphicTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "positionM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "sizeM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 1e-06,
+            "maximum": 100000
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "rotationRad": {
+          "type": "number",
+          "minimum": -3.141592653589793,
+          "maximum": 3.141592653589793
+        },
+        "mirrorU": {
+          "type": "boolean"
+        },
+        "pivotUV": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "positionM",
+        "sizeM",
+        "rotationRad",
+        "mirrorU",
+        "pivotUV"
+      ]
+    },
+    "graphic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artwork": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+        },
+        "form": {
+          "enum": [
+            "stamp",
+            "detail"
+          ]
+        },
+        "transform": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/graphicTransform"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "tintLinearRGB": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "mask": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/mask"
+        },
+        "wrap": {
+          "enum": [
+            "clamp",
+            "repeat"
+          ]
+        }
+      },
+      "required": [
+        "artwork",
+        "form",
+        "transform",
+        "opacity",
+        "tintLinearRGB",
+        "mask",
+        "wrap"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "form": {
+                "const": "stamp"
+              }
+            },
+            "required": [
+              "form"
+            ]
+          },
+          "then": {
+            "properties": {
+              "wrap": {
+                "const": "clamp"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "wrap": {
+                "const": "repeat"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "defaultMark": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "surfaceId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "layerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "graphic": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/graphic"
+        }
+      },
+      "required": [
+        "id",
+        "surfaceId",
+        "layerId",
+        "ordinal",
+        "graphic"
+      ]
+    },
+    "layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendProfile": {
+          "const": "source-over-linear-premultiplied-v1"
+        }
+      },
+      "required": [
+        "id",
+        "order",
+        "label",
+        "opacity",
+        "blendProfile"
+      ]
+    },
+    "presetRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-preset"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "definition": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+            },
+            "defaultLayers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "surfaceId": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "layer": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/layer"
+                  }
+                },
+                "required": [
+                  "surfaceId",
+                  "layer"
+                ]
+              },
+              "minItems": 0,
+              "maxItems": 64
+            },
+            "defaultMarks": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/defaultMark"
+              },
+              "minItems": 0,
+              "maxItems": 4096
+            },
+            "requires": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 16
+            },
+            "notices": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/notice"
+              },
+              "minItems": 1,
+              "maxItems": 32
+            }
+          },
+          "required": [
+            "label",
+            "definition",
+            "defaultLayers",
+            "defaultMarks",
+            "requires",
+            "notices"
+          ]
+        },
+        "contentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "revision",
+        "body",
+        "contentDigest"
+      ]
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-content"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "definitions": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/recipeRecord"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/presetRecord"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "artwork": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/artworkRecord"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "definitions",
+        "presets",
+        "artwork"
+      ]
+    },
+    "surfaceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "surfaceId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "definition": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+        },
+        "geometryDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "frameDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "gridDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "bindingDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/layer"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        }
+      },
+      "required": [
+        "ownerId",
+        "surfaceId",
+        "floorId",
+        "definition",
+        "geometryDigest",
+        "frameDigest",
+        "gridDigest",
+        "bindingDigest",
+        "layers"
+      ]
+    },
+    "markTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "surfaceId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "bindingDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "ownerId",
+        "surfaceId",
+        "floorId",
+        "bindingDigest"
+      ]
+    },
+    "mark": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "target": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/markTarget"
+        },
+        "layerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "graphic": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/graphic"
+        },
+        "groupId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "target",
+        "layerId",
+        "ordinal",
+        "graphic",
+        "groupId"
+      ]
+    },
+    "strokeGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "memberMarkIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 1024
+        },
+        "capturedPhase": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "profile": {
+              "const": "captured-floor-plan-v1"
+            },
+            "originXYM": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "transform": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/graphicTransform"
+            },
+            "artwork": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+            },
+            "ownerPoseDigests": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ownerId": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "digest": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                  }
+                },
+                "required": [
+                  "ownerId",
+                  "digest"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 32
+            }
+          },
+          "required": [
+            "profile",
+            "originXYM",
+            "transform",
+            "artwork",
+            "ownerPoseDigests"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "floorId",
+        "memberMarkIds",
+        "capturedPhase"
+      ]
+    },
+    "decorations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-local-decorations"
+        },
+        "version": {
+          "const": 1
+        },
+        "surfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/surfaceBinding"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "chunks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "marks": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/mark"
+                },
+                "minItems": 0,
+                "maxItems": 4096
+              }
+            },
+            "required": [
+              "id",
+              "marks"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/strokeGroup"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "surfaces",
+        "chunks",
+        "groups"
+      ]
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-module"
+        },
+        "version": {
+          "const": 1
+        },
+        "library": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/manifest"
+        },
+        "decorations": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/decorations"
+        },
+        "ownerPins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ownerId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "definition": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+              },
+              "preset": {
+                "oneOf": [
+                  {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "ownerId",
+              "definition",
+              "preset"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "library",
+        "decorations",
+        "ownerPins"
+      ]
+    },
+    "floorProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "floors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "elevationM": {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              }
+            },
+            "required": [
+              "id",
+              "elevationM"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 64
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "floors"
+      ]
+    },
+    "stackConstraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-stack-constraints"
+        },
+        "version": {
+          "const": 1
+        },
+        "floorProfileId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "minimumClearanceM": {
+          "type": "number",
+          "minimum": 1e-06,
+          "maximum": 100000
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "instanceId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "primaryReservationId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              }
+            },
+            "required": [
+              "instanceId",
+              "primaryReservationId"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "managedRelations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "kind": {
+                "const": "cross"
+              },
+              "a": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "b": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "clearanceM": {
+                "type": "number",
+                "minimum": 1e-06,
+                "maximum": 100000
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "a",
+              "b",
+              "clearanceM"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 256
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "floorProfileId",
+        "minimumClearanceM",
+        "owners",
+        "managedRelations"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-source"
+        },
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "originalSourceJSON": {
+          "type": "string",
+          "maxLength": 4000000
+        },
+        "floorProfile": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/floorProfile"
+        },
+        "finishCatalogue": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "contentDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "contentDigest"
+          ]
+        },
+        "tileBundle": {
+          "$ref": "urn:nautilus:schema:tile-bundle:1"
+        },
+        "stackConstraints": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/stackConstraints"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authoring": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/module"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "id",
+        "revision",
+        "originalSourceJSON",
+        "floorProfile",
+        "finishCatalogue",
+        "tileBundle",
+        "stackConstraints",
+        "authoring"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workspaceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "hostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "hostAuthorityToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "authorityContextToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "contentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "decorationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "resourceSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "floorProfileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "stackConstraintsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "tileLayoutDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "tileCatalogueDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "workspaceRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "workspaceDigest",
+        "hostDocumentDigest",
+        "hostAuthorityToken",
+        "authorityContextToken",
+        "contentDigest",
+        "decorationDigest",
+        "resourceSetDigest",
+        "floorProfileDigest",
+        "stackConstraintsDigest",
+        "tileLayoutDigest",
+        "tileCatalogueDigest",
+        "workspaceRevision"
+      ]
+    },
+    "anchorDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "markId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "action": {
+          "enum": [
+            "preserve-identical",
+            "reanchor",
+            "delete"
+          ]
+        },
+        "replacement": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/mark"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "markId",
+        "action",
+        "replacement"
+      ]
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "originM": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "floorBindings": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 8,
+          "propertyNames": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "additionalProperties": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          }
+        },
+        "transform": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pose"
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "anchorIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "freshMarkIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "templateId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "markId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              }
+            },
+            "required": [
+              "templateId",
+              "markId"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 4096
+        },
+        "freshLayerIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "templateId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "layerId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              }
+            },
+            "required": [
+              "templateId",
+              "layerId"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 64
+        },
+        "chunkId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        }
+      },
+      "required": [
+        "ownerId",
+        "originM",
+        "floorBindings",
+        "transform",
+        "locked",
+        "anchorIds",
+        "freshMarkIds",
+        "freshLayerIds",
+        "chunkId"
+      ]
+    },
+    "operation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "recipe.create"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "definition": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/recipeRecord"
+                }
+              },
+              "required": [
+                "definition"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "recipe.clone"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "base": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                "definition": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/recipeRecord"
+                }
+              },
+              "required": [
+                "base",
+                "definition"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "recipe.revise"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "base": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                "definition": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/recipeRecord"
+                }
+              },
+              "required": [
+                "base",
+                "definition"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "preset.save"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "preset": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/presetRecord"
+                }
+              },
+              "required": [
+                "preset"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "preset.place"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "preset": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                "placements": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/placement"
+                  },
+                  "minItems": 1,
+                  "maxItems": 32
+                },
+                "defaults": {
+                  "enum": [
+                    "copy-explicit",
+                    "empty"
+                  ]
+                }
+              },
+              "required": [
+                "preset",
+                "placements",
+                "defaults"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "placement.upgrade"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ownerIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "minItems": 1,
+                  "maxItems": 32
+                },
+                "from": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                "to": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                "anchorDecisions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/anchorDecision"
+                  },
+                  "minItems": 0,
+                  "maxItems": 4096
+                },
+                "newRecipeAnchorIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "ownerId": {
+                        "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                      },
+                      "anchorIds": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                        },
+                        "minItems": 0,
+                        "maxItems": 256
+                      }
+                    },
+                    "required": [
+                      "ownerId",
+                      "anchorIds"
+                    ]
+                  },
+                  "minItems": 1,
+                  "maxItems": 32
+                }
+              },
+              "required": [
+                "ownerIds",
+                "from",
+                "to",
+                "anchorDecisions",
+                "newRecipeAnchorIds"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "owner.remove"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ownerIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "minItems": 1,
+                  "maxItems": 32
+                },
+                "deleteDecorationIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "minItems": 0,
+                  "maxItems": 4096
+                }
+              },
+              "required": [
+                "ownerIds",
+                "deleteDecorationIds"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "decoration.add"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "chunkId": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "mark": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/mark"
+                }
+              },
+              "required": [
+                "chunkId",
+                "mark"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "decoration.update"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "markId": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                "expectedRevision": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 65535
+                },
+                "replacement": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/mark"
+                },
+                "groupPolicy": {
+                  "enum": [
+                    "preserve-whole-group",
+                    "detach-explicit"
+                  ]
+                }
+              },
+              "required": [
+                "markId",
+                "expectedRevision",
+                "replacement",
+                "groupPolicy"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "decoration.remove"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "markIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1024
+                },
+                "groupPolicy": {
+                  "enum": [
+                    "preserve-whole-group",
+                    "detach-explicit"
+                  ]
+                }
+              },
+              "required": [
+                "markIds",
+                "groupPolicy"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "surface.layers"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "target": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/markTarget"
+                },
+                "layers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/layer"
+                  },
+                  "minItems": 0,
+                  "maxItems": 8
+                },
+                "removedLayerMarkIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                  },
+                  "minItems": 0,
+                  "maxItems": 4096
+                }
+              },
+              "required": [
+                "target",
+                "layers",
+                "removedLayerMarkIds"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "stroke.group"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "group": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/strokeGroup"
+                }
+              },
+              "required": [
+                "group"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "opId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "kind": {
+              "const": "content.import"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pack": {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pack"
+                },
+                "conflict": {
+                  "const": "refuse-different-content"
+                }
+              },
+              "required": [
+                "pack",
+                "conflict"
+              ]
+            }
+          },
+          "required": [
+            "opId",
+            "kind",
+            "body"
+          ]
+        }
+      ]
+    },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-command"
+        },
+        "version": {
+          "const": 1
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "expected": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/expected"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/operation"
+          },
+          "minItems": 1,
+          "maxItems": 1024
+        },
+        "budgetProfile": {
+          "const": "authoring-reference-proposal-v1"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "requestId",
+        "expected",
+        "operations",
+        "budgetProfile"
+      ]
+    },
+    "blobEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16777216
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^blobs/[a-f0-9]{64}\\.(png|webp)$"
+        }
+      },
+      "required": [
+        "sha256",
+        "byteLength",
+        "entry"
+      ]
+    },
+    "pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-content-pack"
+        },
+        "version": {
+          "const": 1
+        },
+        "manifest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/manifest"
+        },
+        "blobEntries": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/blobEntry"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "manifest",
+        "blobEntries",
+        "requires"
+      ]
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "path": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "action": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "ownerIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "code",
+        "path",
+        "message",
+        "action",
+        "ownerIds"
+      ]
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commandDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceWorkspaceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetWorkspaceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceHostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetHostDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceAuthorityToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "authorityContextToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceContentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetContentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceDecorationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetDecorationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceConstraintsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "nextConstraintsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "floorProfileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceResourceSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "targetResourceSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "resourceLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "presentationProfileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "allocationLedgerDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "commandDigest",
+        "sourceWorkspaceDigest",
+        "targetWorkspaceDigest",
+        "sourceHostDocumentDigest",
+        "targetHostDocumentDigest",
+        "sourceAuthorityToken",
+        "authorityContextToken",
+        "sourceContentDigest",
+        "targetContentDigest",
+        "sourceDecorationDigest",
+        "targetDecorationDigest",
+        "sourceConstraintsDigest",
+        "nextConstraintsDigest",
+        "floorProfileDigest",
+        "sourceResourceSetDigest",
+        "targetResourceSetDigest",
+        "resourceLeaseSetDigest",
+        "presentationProfileDigest",
+        "allocationLedgerDigest"
+      ]
+    },
+    "costBounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceMarks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 524288
+        },
+        "maxLayersOnSurface": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "newBlobBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "declaredUniqueDecodedBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 33554432
+        },
+        "residentMarksAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "rootsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "trianglesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 50000
+        },
+        "cellsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "boundKind": {
+          "const": "proposal-only-not-performance-measurement"
+        },
+        "planning": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unitsCharged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "inputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 6000000
+            },
+            "outputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4000000
+            },
+            "definitionVisits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "maskCellsEvaluated": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "dependencyEdges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "resourceReferences": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          "required": [
+            "unitsCharged",
+            "inputBytes",
+            "outputBytes",
+            "definitionVisits",
+            "maskCellsEvaluated",
+            "dependencyEdges",
+            "resourceReferences"
+          ]
+        }
+      },
+      "required": [
+        "sourceMarks",
+        "maxLayersOnSurface",
+        "newBlobBytes",
+        "declaredUniqueDecodedBytes",
+        "residentMarksAllViews",
+        "rootsAllViews",
+        "trianglesAllViews",
+        "cellsAllViews",
+        "boundKind",
+        "planning"
+      ]
+    },
+    "prepareView": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-review"
+        },
+        "version": {
+          "const": 1
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "reviewToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "bindings": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/bindings"
+        },
+        "targetSource": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/source"
+        },
+        "costBounds": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/costBounds"
+        },
+        "tilePreparation": {
+          "enum": [
+            "public-v1-prepared",
+            "source-unchanged"
+          ]
+        },
+        "resourceReadiness": {
+          "const": "host-bound"
+        },
+        "status": {
+          "const": "reviewable"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "requestId",
+        "reviewToken",
+        "bindings",
+        "targetSource",
+        "costBounds",
+        "tilePreparation",
+        "resourceReadiness",
+        "status"
+      ]
+    },
+    "refusal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-refusal"
+        },
+        "version": {
+          "const": 1
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "ok": {
+          "const": false
+        },
+        "targetSource": {
+          "type": "null"
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/diagnostic"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "requestId",
+        "ok",
+        "targetSource",
+        "diagnostics"
+      ]
+    },
+    "applyRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "reviewToken": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "expectedTargetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "requestId",
+        "reviewToken",
+        "expectedTargetDigest"
+      ]
+    },
+    "applyOutcome": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "outcome": {
+              "const": "committed"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "committed": {
+              "const": true
+            },
+            "workspaceDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "hostDocumentDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "authorityToken": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "receiptId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "presentation": {
+              "enum": [
+                "ready",
+                "pending",
+                "failed"
+              ]
+            }
+          },
+          "required": [
+            "outcome",
+            "requestId",
+            "committed",
+            "workspaceDigest",
+            "hostDocumentDigest",
+            "authorityToken",
+            "receiptId",
+            "presentation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "outcome": {
+              "const": "rejected"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "committed": {
+              "const": false
+            },
+            "diagnostics": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/diagnostic"
+              },
+              "minItems": 1,
+              "maxItems": 128
+            }
+          },
+          "required": [
+            "outcome",
+            "requestId",
+            "committed",
+            "diagnostics"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "outcome": {
+              "const": "unknown"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "committed": {
+              "type": "null"
+            },
+            "recoveryRequestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "writesFrozen": {
+              "const": true
+            },
+            "potentiallyCommittedResources": {
+              "const": "retain-until-same-id-recovery"
+            }
+          },
+          "required": [
+            "outcome",
+            "requestId",
+            "committed",
+            "recoveryRequestId",
+            "writesFrozen",
+            "potentiallyCommittedResources"
+          ]
+        }
+      ]
+    },
+    "query": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "requirements.inspect"
+            },
+            "subject": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+                },
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/source"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "content.export"
+            },
+            "presetRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+              },
+              "minItems": 1,
+              "maxItems": 128
+            },
+            "includeAllDependencies": {
+              "const": true
+            }
+          },
+          "required": [
+            "kind",
+            "presetRefs",
+            "includeAllDependencies"
+          ]
+        }
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/source"
+        },
+        "expected": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/expected"
+        },
+        "hostProtocolVersion": {
+          "const": 1
+        },
+        "missingBindings": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "source",
+        "expected",
+        "hostProtocolVersion",
+        "missingBindings"
+      ]
+    },
+    "requirementsResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-requirements"
+        },
+        "version": {
+          "const": 1
+        },
+        "subjectDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "requiredProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        },
+        "requiredResources": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "unavailable": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/diagnostic"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "subjectDigest",
+        "requiredProfiles",
+        "requiredResources",
+        "unavailable"
+      ]
+    },
+    "exportPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-content-export-plan"
+        },
+        "version": {
+          "const": 1
+        },
+        "pack": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pack"
+        },
+        "manifestDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "blobSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "status": {
+          "const": "host-byte-export-required"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "pack",
+        "manifestDigest",
+        "blobSetDigest",
+        "status"
+      ]
+    },
+    "transport": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "describe"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "snapshot"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "query"
+            },
+            "query": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/query"
+            }
+          },
+          "required": [
+            "action",
+            "query"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "prepare"
+            },
+            "command": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/command"
+            }
+          },
+          "required": [
+            "action",
+            "command"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "apply"
+            },
+            "request": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/applyRequest"
+            }
+          },
+          "required": [
+            "action",
+            "request"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "cancel"
+            },
+            "reviewToken": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "action",
+            "reviewToken"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "recover"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            }
+          },
+          "required": [
+            "action",
+            "requestId"
+          ]
+        }
+      ]
+    }
+  }
+}
