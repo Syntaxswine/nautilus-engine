@@ -205,3 +205,32 @@ unfixed failure. Forty protocol tests also pass. This DOM evidence does not repl
 the separately gated actual Host/native/source-built-installed proof above. All three
 short-lived browser/server runs closed and their ports were verified released.
 The f94 validation fields remain unchanged; the follow-up is additive.
+
+## C1 panel presentation
+
+The main panel uses label/revision selectors and readable copy names. Exact Pin
+JSON and owner IDs remain in values, titles and the existing collapsed Technical
+details. That section also retains full action availability, readiness, the
+retained command and the editable complete-checkpoint JSON. Save/Reopen/Undo/Redo
+remain visible; their existing hooks and checkpoint bytes are unchanged.
+
+Current review/outcome and attempted-action messages share one alert, deduplicated
+by message. Unattempted unavailable-action reasons stay in Technical details;
+disabled controls use short contextual titles. The selected-copy scope reads,
+for example, Copy 2 · From B1 r1 → B2 r2. Ordinary text is at least 14 px and
+controls retain 44 px minimum targets. Review/Apply/Cancel sit under the review
+scope in normal flow so they cannot cover a phone heading.
+
+~~~text
+node tools/ui-review-tile-authoring-c1.mjs --usability <fixed Root review directory>
+~~~
+
+This focused mode keeps the 18 real-DOM/native-AX label observations and adds
+seven presentation/error checks using explicitly labelled render doubles. Its
+separate actual-source capture loads Root's accepted checkpoint with fixed
+ad41 Host/Core inputs and overrides only this panel and CSS. It captures desktop,
+390 px and 320 px, checks selected-copy labels and zero prepare/apply calls,
+preserves the full document, and verifies native-resource/helper retirement. It
+does not repeat the six-step authoring/history campaign or claim installed-package
+or physical-phone performance proof. The earlier 955 evidence and first captures
+remain preserved. No Host/Core/helper/package/profile or authority code changes.
