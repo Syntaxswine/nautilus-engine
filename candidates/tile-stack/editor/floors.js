@@ -8,14 +8,18 @@ export const TILE_STACK_FLOOR_PROFILES=freeze({
   'nonuniform-fifteen':{version:1,tableId:'nonuniform-fifteen-table',elevationsM:[0,2.12,4.24,6.75,9.1,12.4,15,18.6,21.3,24.9,28.2,31,34.8,38.1,42.7]}
 });
 const identities=[['F00','1',0],['F01','2',1],['F02','3',2],['F03','4',null],['F04','5',null],['F05','6',null],['F06','7',null],['F07','8',null],['F08','9',null],['F09','10',null],['F10','11',null],['F11','12',null],['F12','13',null],['F13','14',null],['F14','15',null]];
+// The same immutable raw source is inspected repeatedly by live receipt and
+// context validation. Match the v1 bounded per-core source-validation cache.
+const sourceChecks=new WeakMap();
 export function validateStackSource(mapCore,sourceJSON){
   if(typeof sourceJSON!=='string'||bytes(sourceJSON)>C.limits.sourceBytes)fail('STACK_SOURCE_LIMIT','/sourceJSON','Retain complete original JSON within the existing bound.');
+  let known=sourceChecks.get(mapCore);if(!known){known=new Map();sourceChecks.set(mapCore,known);}if(known.has(sourceJSON))return known.get(sourceJSON);
   const source=smartTileData(sourceJSON);
   if(!source||source.version!==2||source.kind==='red-shift-block'||source.levels!==3)fail('STACK_SOURCE_PROFILE','/sourceJSON','Retain an original three-layer portable map.');
   const forbidden=new Set(['nautilus-tile-bundle','nautilus-tile-layout','nautilus-tile-recipe','nautilus-functional-parts','nautilus-extended-world','nautilus-window-authoring','nautilus-window-pane-state','nautilus-farmyard-window-host-save']);
   function visit(v){if(!v||typeof v!=='object')return;if(forbidden.has(v.kind)||Object.hasOwn(v,'farmyardWindows'))fail('STACK_SOURCE_AUTHORITY','/sourceJSON','Do not nest another authority or migrate a window file.');Object.values(v).forEach(visit);}visit(source);
   mapCore.loadBlueprint(source); // Inspect only; discard normalized output.
-  return Object.freeze({levels:source.levels,sha256:sha256(sourceJSON)});
+  const result=Object.freeze({levels:source.levels,sha256:sha256(sourceJSON)});known.set(sourceJSON,result);while(known.size>2)known.delete(known.keys().next().value);return result;
 }
 export function createFloorBinding({mapCore},sourceJSON,profileId='aft-native-fifteen'){
   const source=validateStackSource(mapCore,sourceJSON),p=Object.hasOwn(TILE_STACK_FLOOR_PROFILES,profileId)&&TILE_STACK_FLOOR_PROFILES[profileId];

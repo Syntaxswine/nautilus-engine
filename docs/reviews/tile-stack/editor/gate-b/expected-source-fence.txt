@@ -1,0 +1,37 @@
+AssertionError [ERR_ASSERTION]: Changed fixed source: apps/editor/smart-tile/authority.js
+
+3349 !== 3054
+
+    at checkSmartTileEditorSource (file:///C:/Users/baals/.codex/worktrees/tile-authoring-editor/Nautilus%20Engine/tools/check-smart-tile-editor-source.mjs:16:46)
+    at file:///C:/Users/baals/.codex/worktrees/tile-authoring-editor/Nautilus%20Engine/tools/check.mjs:154:75 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 3349,
+  expected: 3054,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+
+✖ failing tests:
+
+test at tests\smart-tile-source.test.mjs:8:1
+✖ editor uses exact relayed UI and reviewed public runtime bytes without a private provider (342.4943ms)
+  AssertionError [ERR_ASSERTION]: Changed fixed source: apps/editor/smart-tile/authority.js
+
+  3349 !== 3054
+
+      at checkSmartTileEditorSource (file:///C:/Users/baals/.codex/worktrees/tile-authoring-editor/Nautilus%20Engine/tools/check-smart-tile-editor-source.mjs:16:46)
+      at TestContext.<anonymous> (file:///C:/Users/baals/.codex/worktrees/tile-authoring-editor/Nautilus%20Engine/tests/smart-tile-source.test.mjs:8:116)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3349,
+    expected: 3054,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

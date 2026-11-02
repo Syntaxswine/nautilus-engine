@@ -1,0 +1,1190 @@
+{
+  "kind": "nautilus-editor-tile-stack-refactor-inventory",
+  "version": 1,
+  "status": "proposal-only",
+  "authorization": "Historical inventory of the fixed Gate A inputs. Subsequent B1 implementation authorization is documented separately; this report does not grant it.",
+  "refs": {
+    "editor": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+    "ui": "5b0d06ce93977addd438d3ad43f887fcd3278817",
+    "artist": "a536cfec20e609a6c507f000791d8d7e71ae6d18",
+    "planner": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
+    "acceptedHost": "9e996f96b69ba4867e643b558e9fdfeaf752d19e",
+    "adoptedMain": "2502646482218524fd5129641da769bb82462e4d",
+    "customDraft": "845f72389743ebc37e02b21183c49d523faf3180"
+  },
+  "components": {
+    "editor": {
+      "commit": "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "files": [
+        {
+          "path": "candidates/tile-stack/editor/contract.js",
+          "bytes": 3648,
+          "sha256": "16f73e84554dac475b93c52fa2df77484433bfe4b6ce8687aaffd80053ef0c56",
+          "gitBlob": "64ff38c6c035c0d790a71880645dfd6b33d0dd76",
+          "exports": [
+            {
+              "line": 4,
+              "text": "export const TILE_STACK_EDITOR=Object.freeze({"
+            },
+            {
+              "line": 15,
+              "text": "export function assertTileStackAdapter(adapter){"
+            },
+            {
+              "line": 20,
+              "text": "export function tileStackActions(state,{inspectionBound=false}={}){"
+            },
+            {
+              "line": 23,
+              "text": "export function validateStackDraft(input,floorBinding){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/finish-menu.js",
+          "bytes": 1794,
+          "sha256": "937e3d264b303f8dcc144d805e0b778a3a4c1e4d1a4c050276f280bd870bb948",
+          "gitBlob": "b960da24117b52de687b2586fc29d12820a4516c",
+          "exports": [
+            {
+              "line": 4,
+              "text": "export function validateFinishMenuProjection(input,binding){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/fixtures.js",
+          "bytes": 5616,
+          "sha256": "0f6585f11f018b16605e467d3f295c0eb126e16e1fe545df762f982d63669612",
+          "gitBlob": "75edb32065d7355ba135bf5f8f643774b9369b47",
+          "exports": [
+            {
+              "line": 4,
+              "text": "export function editorWorkspaceFixture({mapCore,tiles,examples},profileId='aft-native-fifteen'){"
+            },
+            {
+              "line": 14,
+              "text": "export function legacyRecoveryFixture(deps){"
+            },
+            {
+              "line": 23,
+              "text": "export function plannerBindingSourceFixture(deps){"
+            },
+            {
+              "line": 29,
+              "text": "export function preparedPlannerBindingFixture(deps,source,frame,minimumClearanceM=4){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/floors.js",
+          "bytes": 5055,
+          "sha256": "477d02ff3d1b9338107ef1db64db87f2aec62fa88219c8605c9b225cd30e1886",
+          "gitBlob": "40e7d6dd4ac2ffda5628fcba2eecbffeda7de9b3",
+          "exports": [
+            {
+              "line": 6,
+              "text": "export const TILE_STACK_FLOOR_PROFILES=freeze({"
+            },
+            {
+              "line": 11,
+              "text": "export function validateStackSource(mapCore,sourceJSON){"
+            },
+            {
+              "line": 20,
+              "text": "export function createFloorBinding({mapCore},sourceJSON,profileId='aft-native-fifteen'){"
+            },
+            {
+              "line": 25,
+              "text": "export function openFloorBinding(deps,sourceJSON,input){"
+            },
+            {
+              "line": 40,
+              "text": "export const floorControllerRecords=binding=>binding.floors.map(({id,label,elevationM})=>({id,label,elevationM}));"
+            },
+            {
+              "line": 41,
+              "text": "export const floorTableToken=binding=>smartTileDigest(binding);"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/planner-seam.js",
+          "bytes": 5057,
+          "sha256": "c797268433ceb155ccff487c0ed08ecfbc2840ae41903faae9c082c9cab7088e",
+          "gitBlob": "901c2d9f818e2dc92ca868559084206404c2c28c",
+          "exports": [
+            {
+              "line": 6,
+              "text": "export function validateRequestedClearance(document,value){"
+            },
+            {
+              "line": 10,
+              "text": "export function capturePlannerSource(policy,tiles,document,hostContext){"
+            },
+            {
+              "line": 20,
+              "text": "export function bindPlannerTargetProposal(policy,tiles,document,hostContext,frame,inputPlan,preparedBundle){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/policy.js",
+          "bytes": 8977,
+          "sha256": "4c574772cf55792ef3e3bd959fc66e42def516e90096d1e2e04c9aa92ab4dfab",
+          "gitBlob": "6e63b6d8bbc40b50f2e38849ab329b0937854024",
+          "exports": [
+            {
+              "line": 8,
+              "text": "export function validateTileStackDocument(deps,input){"
+            },
+            {
+              "line": 37,
+              "text": "export function createTileStackDocumentPolicy(deps,initialDocument){"
+            },
+            {
+              "line": 62,
+              "text": "export function openInitialCheckpointProposal(deps,input){"
+            },
+            {
+              "line": 70,
+              "text": "export function createInitialCheckpointProposal(deps,document){"
+            },
+            {
+              "line": 73,
+              "text": "export function workspaceStorageKey(workspaceId){id(workspaceId,'/workspaceId');return C.storagePrefix+workspaceId;}"
+            },
+            {
+              "line": 74,
+              "text": "export function planNewWorkspaceStorage(deps,checkpoint,existingRaw){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/editor/recovery-fixtures.js",
+          "bytes": 1740,
+          "sha256": "b79d238c3c657f57bb3fa41fa05814fcda0306475c64fdcc2eb1d2be7426a0fd",
+          "gitBlob": "5baf93df0280c9946e21c62ceee9c0061ae68262",
+          "exports": [
+            {
+              "line": 5,
+              "text": "export async function createLegacyRecoveryFixtureHost(deps,{createSession,createAuthority,createFloors}){"
+            }
+          ]
+        }
+      ]
+    },
+    "ui": {
+      "commit": "5b0d06ce93977addd438d3ad43f887fcd3278817",
+      "files": [
+        {
+          "path": "candidates/tile-stack/ui/contract.js",
+          "bytes": 6739,
+          "sha256": "89bc01456a0e946733dfd91c525522be9d2ee9b103bdfea8a70ea39d425061fe",
+          "gitBlob": "585dce9ce72e9ebc1b8dd510aa10e94e4abd892a",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export const TILE_STACK_UI_PROPOSAL=Object.freeze({"
+            },
+            {
+              "line": 10,
+              "text": "export const phaseLabel=phase=>({idle:'Ready',draft:'Draft — review required',preparing:'Preparing review',review:'Review — ready to apply',applying:'Applying','recovery-required':'Edit result unknown','presentation-error':'Accepted preview"
+            },
+            {
+              "line": 11,
+              "text": "export function readTileStackUISnapshot(value,floorState){"
+            },
+            {
+              "line": 31,
+              "text": "export function workspaceUIBinding(value){"
+            },
+            {
+              "line": 38,
+              "text": "export function tileStackIntent({rectangle,floorIds,minimumClearanceM},floors){"
+            },
+            {
+              "line": 49,
+              "text": "export function tileFinishIntent({ownerId,finishId},catalogue){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/ui/fixture-adapter.js",
+          "bytes": 6902,
+          "sha256": "eecaa1f1811a56df2f6351a333e38ef2130b96f2137f6f1cf5adcc0bb353f16f",
+          "gitBlob": "670695397caa75f2f52019c0a435e83642248e67",
+          "exports": [
+            {
+              "line": 7,
+              "text": "export const compatibilityFloors=table([0,2.12,4.24,6.36,8.48,10.6,12.72,14.84,16.96,19.08,21.2,23.32,25.44,27.56,29.68]);"
+            },
+            {
+              "line": 8,
+              "text": "export const nonuniformFloors=table([0,2.12,4.24,6.75,9.1,12.4,15,18.6,21.3,24.9,28.2,31,34.8,38.1,42.7]);"
+            },
+            {
+              "line": 13,
+              "text": "export function createTileStackUIFixture(floorController,profileId){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/ui/fixture.html",
+          "bytes": 3043,
+          "sha256": "8f165a739c22edb31b898f202f542046e09de59bf2f9204031a45dfd366ae644",
+          "gitBlob": "b77fd4fec2204bebec7ae34b53b9095dfa564810",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/ui/fixture.js",
+          "bytes": 3235,
+          "sha256": "f8fd83f6b029ef262ff81d66b3f1fcc436ca7d7d38b3dce2c528dcc875a5024a",
+          "gitBlob": "bb1ad442ba255627a9380c18dbd0b59f8611646e",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/ui/panel.js",
+          "bytes": 19645,
+          "sha256": "4689d73a711011bd4f3c300356421b09ba5fdbb186b6212971b1061c29db380a",
+          "gitBlob": "9e041fac54e7d9353530c9743ab22be9a3b68050",
+          "exports": [
+            {
+              "line": 11,
+              "text": "export function mountTileStackUI(container,adapter,{floorController,keyboardTarget=container,floorElement=null,onError=()=>{}}={}){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/ui/styles.css",
+          "bytes": 3422,
+          "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+          "gitBlob": "e3a0908cb702645b88b7f0e4d021f8cbc2f3827b",
+          "exports": []
+        }
+      ]
+    },
+    "artist": {
+      "commit": "a536cfec20e609a6c507f000791d8d7e71ae6d18",
+      "files": [
+        {
+          "path": "candidates/tile-stack/art/README.md",
+          "bytes": 10213,
+          "sha256": "1d698f462d1c29b28f2352764d0179a8ada5865c24c3cffcd608489a0dbbc482",
+          "gitBlob": "b7a4b21aa1cceeac198d3e7cc284b072dc6f6ba6",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/art/catalogue.js",
+          "bytes": 5953,
+          "sha256": "fe1db713bdc3a8adc1a4b3479cd9809bd7d66ea28beab6c5c737962ddede2cdc",
+          "gitBlob": "df7fdd3ea866ba973603853bb224682a6d70d271",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export const TILE_FINISH_BASE='5d69c2130eb64b6f4e31bc672e884bdc33bf47d2';"
+            },
+            {
+              "line": 3,
+              "text": "export const TILE_FINISH_RUNTIME='2502646482218524fd5129641da769bb82462e4d';"
+            },
+            {
+              "line": 4,
+              "text": "export const TILE_FINISH_CONTENT_DIGEST='4da6c7e85b9819aa6c6d847b0447d5baa80db77a824a04e24579209ccc0c381b';"
+            },
+            {
+              "line": 6,
+              "text": "export const TILE_FINISH_ATLAS=freeze({id:'nautilus.building-paint.v2',path:'assets/buildings/painted-materials-v2.png',sha256:'bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2',bytes:2558637,columns:4,rows:4,colourSpace:'sR"
+            },
+            {
+              "line": 13,
+              "text": "export function tileFinishCatalogue(){return catalogue;}"
+            },
+            {
+              "line": 14,
+              "text": "export function tileFinishBinding(){return Object.freeze({id:catalogue.id,version:catalogue.version,digest:catalogue.digest});}"
+            },
+            {
+              "line": 15,
+              "text": "export function tileFinishFamily(id){return families.find(f=>f.id===id)??null;}"
+            },
+            {
+              "line": 16,
+              "text": "export function tileFinishChoice(input){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/art/data.js",
+          "bytes": 2176,
+          "sha256": "7c898395c4fcc885cfc2d4c3ae0b94f41a2ba9a0b50c92b6cb7e1546c90fa2a7",
+          "gitBlob": "081251777543a6d2dab72d40dba2fc6f1d0564f7",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export function refuse(code,message){const e=new Error(message);e.code=code;throw e;}"
+            },
+            {
+              "line": 3,
+              "text": "export function slots(value,code,allowed,required=allowed){"
+            },
+            {
+              "line": 9,
+              "text": "export function plainCopy(value,{maxNodes=1000000,maxDepth=48}={}){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/art/finishes.js",
+          "bytes": 10779,
+          "sha256": "4fce2a7c24ec7c8060db4b033c30cd8a1818613c7b27459a3cb0e4a3666dc4a4",
+          "gitBlob": "e2a575d7562fe3f27c68947844b6a8fa49790301",
+          "exports": [
+            {
+              "line": 38,
+              "text": "export function createTileFinishPool(options){"
+            },
+            {
+              "line": 63,
+              "text": "export function bindTileFinishView(options){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/art/fixtures.js",
+          "bytes": 4607,
+          "sha256": "3536c8c8964acf40b3637cf51e55163d3787ea9394be613a3522d0e0a616976e",
+          "gitBlob": "2c36b8a44cca524b082f322f5269194ef381bf33",
+          "exports": [
+            {
+              "line": 4,
+              "text": "export const COMPATIBILITY_FLOORS=freeze(["
+            },
+            {
+              "line": 9,
+              "text": "export const NONUNIFORM_FLOORS=freeze(["
+            },
+            {
+              "line": 15,
+              "text": "export function stackStudy(core,examples,{nonuniform=false}={}){"
+            },
+            {
+              "line": 25,
+              "text": "export function pathStudyRecipe(examples,id,kind){"
+            },
+            {
+              "line": 30,
+              "text": "export function finishGallery(core,examples){"
+            },
+            {
+              "line": 35,
+              "text": "export function choicesForProjection(projection){return Object.fromEntries(projection.entries.map(e=>[e.instanceId,{skinId:e.source.interior.skinId,version:1,variantSeed:e.source.interior.variantSeed}]));}"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/art/study.css",
+          "bytes": 2982,
+          "sha256": "b021a078e88d12830defbfc1fada87589fe69235bdb9c7d29ca58d7317c2d215",
+          "gitBlob": "2e9d149e79549b043609ed2e739349ed3fef9494",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/art/study.html",
+          "bytes": 3221,
+          "sha256": "e7c408e23fc690a0041f6106174cb98a5de6451ddb54c2f635997083815f5584",
+          "gitBlob": "41966ec8d3fe3bc00f122a9b7c637849cdc4e15a",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/art/study.js",
+          "bytes": 10264,
+          "sha256": "e991f3dd8a13da58e373c156e9818d3663faf260a682267d6167f03743b349dc",
+          "gitBlob": "43ab64204c661071eb70726aa20caad9f2e7dc93",
+          "exports": []
+        },
+        {
+          "path": "candidates/tile-stack/art/view.js",
+          "bytes": 3647,
+          "sha256": "245c1b8df8371bac08178bc0de3c9cd77849f5133a2ce68659b6d55bae9329f6",
+          "gitBlob": "7260d74b3dc0830a769ba8f729d1f80b26bfc62f",
+          "exports": [
+            {
+              "line": 5,
+              "text": "export function createArtStudyView({tiles,art,presenter,THREE,bundle,pool,base,boundary=base,detail=0,current=()=>true,maxTriangles=50000,maxCells=1024,finishChoices=null}){"
+            },
+            {
+              "line": 18,
+              "text": "export function setStudyVisibility(view,{floors,selectedId,mode}){"
+            }
+          ]
+        }
+      ]
+    },
+    "planner": {
+      "commit": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
+      "files": [
+        {
+          "path": "candidates/tile-stack/core/api.d.ts",
+          "bytes": 3001,
+          "sha256": "26ea3501f6da3fba3bf3666966a2ceaca7bda50804a642d50dc565bd7fb0f495",
+          "gitBlob": "340cd82970e66484bd0abd89a8117268bdfc3f2f",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export type Id=string;"
+            },
+            {
+              "line": 3,
+              "text": "export interface Floor {id:Id;elevationM:number}"
+            },
+            {
+              "line": 4,
+              "text": "export interface Context {contextToken:string;cancelled:boolean;sourceConstraintsDigest:string;floorProfile:{id:Id;version:1;floors:Floor[]}}"
+            },
+            {
+              "line": 5,
+              "text": "export interface Constraints {kind:'nautilus-stack-constraints';version:1;floorProfileId:Id;minimumClearanceM:number;owners:{instanceId:Id;primaryReservationId:Id}[];managedRelations:Cross[]}"
+            },
+            {
+              "line": 6,
+              "text": "export interface Cross {id:Id;kind:'cross';a:Id;b:Id;clearanceM:number}"
+            },
+            {
+              "line": 7,
+              "text": "export interface Expected {revision:number;layoutDigest:string;catalogueDigest:string;contextToken:string;sourceConstraintsDigest:string;floorProfileDigest:string}"
+            },
+            {
+              "line": 8,
+              "text": "export interface Limits {maxPlannerWork:number;maxPlannerBytes:number;maxSteps:number;maxClosure:number;maxSpatialTests:number;maxGeometryWork:number;neighbourRadiusM:number}"
+            },
+            {
+              "line": 9,
+              "text": "export interface Placement {id:Id;recipeId:Id;origin:[number,number,number];floorBindings:Record<Id,Id>;transform:{quarterTurns:0|1|2|3;mirrorX:boolean};locked:boolean;anchorIds:Id[];primaryReservationId:Id}"
+            },
+            {
+              "line": 10,
+              "text": "export interface StackIntent {kind:'place-stack';version:1;id:Id;minimumClearanceM:number;recipe:unknown;primaryReservationId:Id;originXY:[number,number];transform:{quarterTurns:0|1|2|3;mirrorX:boolean};members:{id:Id;floorId:Id;locked:bool"
+            },
+            {
+              "line": 11,
+              "text": "export interface EditIntent {kind:'edit-owners';version:1;id:Id;minimumClearanceM:number;upserts:Placement[];removeIds:Id[];recipeUpdates:unknown[];joins:{removeIds:Id[];upserts:unknown[]};relations:{removeIds:Id[];upserts:unknown[]}}"
+            },
+            {
+              "line": 12,
+              "text": "export interface Input {bundle:unknown;context:Context;constraints:Constraints;expected:Expected;intent:StackIntent|EditIntent;limits:Limits}"
+            },
+            {
+              "line": 13,
+              "text": "export interface Diagnostic {code:string;path:string;message:string;action:string;ownerIds?:Id[];reservationIds?:Id[];requiredCapability?:string}"
+            },
+            {
+              "line": 14,
+              "text": "export interface Plan {kind:'nautilus-tile-stack-plan';version:1;ok:true;request:unknown;constraints:Constraints;binding:{sourceLayoutDigest:string;sourceCatalogueDigest:string;contextToken:string;sourceConstraintsDigest:string;nextConstrai"
+            },
+            {
+              "line": 15,
+              "text": "export interface Refusal {ok:false;request:null;constraints:null;diagnostics:Diagnostic[];work:{plannerUnits:number;serializedBytes:number}}"
+            },
+            {
+              "line": 17,
+              "text": "export declare function planTileStack(core:object,input:Input):Plan|Refusal;"
+            },
+            {
+              "line": 21,
+              "text": "export declare function prepareTileStack(core:object,input:Input):{ok:boolean;plan:Plan|Refusal;preparation:unknown|null};"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/budget.js",
+          "bytes": 1837,
+          "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484",
+          "gitBlob": "0940c8987df83a6a589b255fe365e94093f8661c",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export class PlannerBudget{"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/contracts.js",
+          "bytes": 8440,
+          "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+          "gitBlob": "139fe1cb0316e675b6fc707c314eefad35aff068",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export const STACK_PROFILE='nautilus-rectangle-stack-intent-v1';"
+            },
+            {
+              "line": 3,
+              "text": "export const STACK_PLANNER_LIMITS=Object.freeze({maxPlannerWork:1000000,maxPlannerBytes:4000000,maxSteps:256,maxClosure:32,maxSpatialTests:100000,maxGeometryWork:100000,neighbourRadiusM:1000});"
+            },
+            {
+              "line": 4,
+              "text": "export class StackPlanError extends TypeError{"
+            },
+            {
+              "line": 7,
+              "text": "export const fail=(...args)=>{throw new StackPlanError(...args);};"
+            },
+            {
+              "line": 8,
+              "text": "export const plain=v=>v!==null&&typeof v==='object'&&[Object.prototype,null].includes(Object.getPrototypeOf(v));"
+            },
+            {
+              "line": 9,
+              "text": "export const clone=v=>structuredClone(v);"
+            },
+            {
+              "line": 10,
+              "text": "export const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};"
+            },
+            {
+              "line": 11,
+              "text": "export function copyData(value){"
+            },
+            {
+              "line": 29,
+              "text": "export function fields(v,keys,path,required=keys){if(!plain(v))fail('STACK_INVALID_RECORD',path,'Supply a plain record.');for(const key of Object.keys(v))if(!keys.includes(key))fail('STACK_UNKNOWN_FIELD',path+'/'+key,'Unsupported field.');f"
+            },
+            {
+              "line": 30,
+              "text": "export function id(v,path){if(typeof v!=='string'||v.length>96||!/^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])/.test(v))fail('STACK_INVALID_ID',path,'Use a stable ASCII identity of at most 96 characters.');return v;}"
+            },
+            {
+              "line": 31,
+              "text": "export function number(v,path,min=-1000000,max=1000000){if(typeof v!=='number'||!Number.isFinite(v)||Object.is(v,-0)||v<min||v>max)fail('STACK_INVALID_NUMBER',path,'Number exceeds its finite bound.');return v;}"
+            },
+            {
+              "line": 32,
+              "text": "export function integer(v,path,min,max){number(v,path,min,max);if(!Number.isSafeInteger(v))fail('STACK_INVALID_INTEGER',path,'Use a safe integer.');return v;}"
+            },
+            {
+              "line": 33,
+              "text": "export function array(v,path,max=128,min=0){if(!Array.isArray(v)||v.length<min||v.length>max)fail('STACK_INVALID_LIST',path,'List exceeds its declared bounds.');return v;}"
+            },
+            {
+              "line": 34,
+              "text": "export function unique(values,path,key=v=>v){const seen=new Set();for(const v of values){const k=key(v);if(seen.has(k))fail('STACK_DUPLICATE_ID',path,'Duplicate identity.');seen.add(k);}}"
+            },
+            {
+              "line": 35,
+              "text": "export function digest(v,path){if(typeof v!=='string'||!/^[a-f0-9]{64}(?![\\s\\S])/.test(v))fail('STACK_INVALID_DIGEST',path,'Supply a complete SHA-256 token.');return v;}"
+            },
+            {
+              "line": 36,
+              "text": "export function bindCore(core){"
+            },
+            {
+              "line": 41,
+              "text": "export function validateConstraints(input){"
+            },
+            {
+              "line": 47,
+              "text": "export function validateContext(input){"
+            },
+            {
+              "line": 50,
+              "text": "export function validateLimits(input){const l=copyData(input);fields(l,Object.keys(STACK_PLANNER_LIMITS),'/limits');for(const [key,max]of Object.entries(STACK_PLANNER_LIMITS))if(key==='neighbourRadiusM')number(l[key],'/limits/'+key,0,max);e"
+            },
+            {
+              "line": 51,
+              "text": "export function validateExpected(input){const e=copyData(input);fields(e,['revision','layoutDigest','catalogueDigest','contextToken','sourceConstraintsDigest','floorProfileDigest'],'/expected');integer(e.revision,'/expected/revision',0,Numb"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/fixtures.mjs",
+          "bytes": 5586,
+          "sha256": "ba6827ae4f429f690a373e43cb964f4e2ac9d65f3473b285369945a4d9ddad38",
+          "gitBlob": "e27a547803cf9fe2674ba510f540a36e35864a3b",
+          "exports": [
+            {
+              "line": 3,
+              "text": "export const clone=structuredClone;"
+            },
+            {
+              "line": 4,
+              "text": "export const floors=nonuniform=>(nonuniform?[0,2.12,4.24,6.75,9.1,12.4,15,18.6,21.3,24.9,28.2,31,34.8,38.1,42.7]:[0,2.12,4.24,6.36,8.48,10.6,12.72,14.84,16.96,19.08,21.2,23.32,25.44,27.56,29.68]).map((elevationM,i)=>({id:'F'+String(i).padSt"
+            },
+            {
+              "line": 5,
+              "text": "export function rectangle(id='deck.shared',w=8,d=4,thickness=.12){"
+            },
+            {
+              "line": 10,
+              "text": "export function initial(core,{nonuniform=false,recipes=[rectangle()],instances=[],relations=[],joins=[],ownerRefs=[]}={}){"
+            },
+            {
+              "line": 14,
+              "text": "export function input(core,state,intent,overrides={}){return {bundle:clone(state.bundle),constraints:clone(state.constraints),context:clone(state.context),expected:{revision:state.bundle.layout.revision,layoutDigest:core.tileLayoutToken(sta"
+            },
+            {
+              "line": 15,
+              "text": "export function stackIntent({nonuniform=false,requestId='create.stack',recipe=rectangle(),count=15}={}){return {kind:'place-stack',version:1,id:requestId,minimumClearanceM:2,recipe,primaryReservationId:'body',originXY:[0,0],transform:{quart"
+            },
+            {
+              "line": 16,
+              "text": "export function nextState(core,result,previous){const bundle=clone(result.preparation.next.bundle),constraints=clone(result.plan.constraints),context={...clone(previous.context),sourceConstraintsDigest:core.tileLayoutToken(constraints)};ret"
+            },
+            {
+              "line": 17,
+              "text": "export const edit=(id,overrides={})=>({kind:'edit-owners',version:1,id,minimumClearanceM:2,upserts:[],removeIds:[],recipeUpdates:[],joins:{removeIds:[],upserts:[]},relations:{removeIds:[],upserts:[]},...overrides});"
+            },
+            {
+              "line": 18,
+              "text": "export function placement(core,r,id,origin,floorId='F00',locked=false,anchorIds=[]){return {id,recipeId:r.id,contentDigest:core.compileTileRecipe(r).contentDigest,origin,floorBindings:{base:floorId},transform:{quarterTurns:0,mirrorX:false},"
+            },
+            {
+              "line": 19,
+              "text": "export function finishIntent(core,state,ownerId,skinId='skin.slate'){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/geometry.js",
+          "bytes": 6596,
+          "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+          "gitBlob": "0ae2fa4a1f7bcf70ab8dc9876f49614a70d6086c",
+          "exports": [
+            {
+              "line": 2,
+              "text": "export const Q=1000000;"
+            },
+            {
+              "line": 5,
+              "text": "export const same=(a,b)=>{if(a===b)return true;if(!a||!b||typeof a!=='object'||typeof b!=='object'||Array.isArray(a)!==Array.isArray(b))return false;const ak=Object.keys(a).sort(),bk=Object.keys(b).sort();return ak.length===bk.length&&ak.ev"
+            },
+            {
+              "line": 6,
+              "text": "export function placementPoint(r,v,p){if(r.frame==='world')return p.slice();let [x,y,h]=p;if(v.transform.mirrorX)x=-x;for(let i=0;i<v.transform.quarterTurns;i++)[x,y]=[-y,x];return [clean(x+v.origin[0]),clean(y+v.origin[1]),clean(h+v.origin"
+            },
+            {
+              "line": 8,
+              "text": "export function discoverBounds(r,v,budget){"
+            },
+            {
+              "line": 17,
+              "text": "export const near=(a,b,radius)=>[0,1].every(k=>Math.max(a.min[k],b.min[k])-Math.min(a.max[k],b.max[k])<=radius);"
+            },
+            {
+              "line": 18,
+              "text": "export function rectangleFacts(core,r,v,floors,primaryId,budget){"
+            },
+            {
+              "line": 37,
+              "text": "export function contact(a,b,radius){const overlap=[0,1,2].map(k=>Math.min(a.max[k],b.max[k])-Math.max(a.min[k],b.min[k]));if(![0,1].every(k=>overlap[k]>=-radius)||![0,1].some(k=>overlap[k]>0))return null;return {positiveXY:overlap[0]>0&&ove"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/ids.js",
+          "bytes": 483,
+          "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+          "gitBlob": "4bfa8d9caf0e04c921d0247ac0cb3ede18863373",
+          "exports": [
+            {
+              "line": 3,
+              "text": "export function allocateCrossingId(token,seed,occupied,budget){"
+            }
+          ]
+        },
+        {
+          "path": "candidates/tile-stack/core/index.js",
+          "bytes": 20483,
+          "sha256": "128880d5bcbde8d687a1db5f988debd4985b4017c3715ef0688b62280a6c82c8",
+          "gitBlob": "319a1435132858df95eb30d29aa454f5c8c487c7",
+          "exports": [
+            {
+              "line": 6,
+              "text": "export {STACK_PROFILE,STACK_PLANNER_LIMITS,StackPlanError};"
+            },
+            {
+              "line": 25,
+              "text": "export function planTileStack(actualCore,input){"
+            },
+            {
+              "line": 94,
+              "text": "export function prepareTileStack(core,input){const plan=planTileStack(core,input);if(!plan.ok)return {ok:false,plan,preparation:null};const preparation=core.prepareTileRepair(input.bundle,plan.request,{contextToken:input.context.contextToke"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "protectedHost": {
+    "sameBytesAt": [
+      "ce3a1afa02f70a478356de45c64364bb460b9c25",
+      "9e996f96b69ba4867e643b558e9fdfeaf752d19e",
+      "2502646482218524fd5129641da769bb82462e4d"
+    ],
+    "files": [
+      {
+        "path": "apps/editor/smart-tile/authority.js",
+        "bytes": 3054,
+        "sha256": "68978842e05c0d04d363cdfa603206f43ad45bbaa220eca0d5df826eed19da5d",
+        "gitBlob": "6b55e43b4f7df75dc3aaa3e48fbe72c5b3a0a05f",
+        "exports": [
+          {
+            "line": 5,
+            "text": "export function createSmartTileAuthority(deps,services){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/checkpoint.js",
+        "bytes": 17839,
+        "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4",
+        "gitBlob": "7d53a1448741947f967677b579e78c39248f8111",
+        "exports": [
+          {
+            "line": 4,
+            "text": "export class SmartTileError extends TypeError {"
+          },
+          {
+            "line": 7,
+            "text": "export const fail=(code,path,message)=>{throw new SmartTileError(code,path,message);};"
+          },
+          {
+            "line": 9,
+            "text": "export const bytes=text=>new TextEncoder().encode(text).length;"
+          },
+          {
+            "line": 12,
+            "text": "export const smartTileDigest=value=>sha256(canonical(smartTileData(value)));"
+          },
+          {
+            "line": 14,
+            "text": "export function smartTileData(input){"
+          },
+          {
+            "line": 30,
+            "text": "export function fields(value,keys,path,required=keys){if(!plain(value))fail('INVALID_CHECKPOINT_RECORD',path,'Expected a plain record.');for(const key of Object.keys(value))if(!keys.includes(key))fail('UNKNOWN_CHECKPOINT_FIELD',path+'/'+ptr"
+          },
+          {
+            "line": 31,
+            "text": "export function id(v,path){if(typeof v!=='string'||v.length>96||!/^[A-Za-z0-9][A-Za-z0-9_.:-]*(?![\\s\\S])/.test(v))fail('INVALID_ID',path,'Supply a stable ASCII identity of at most 96 characters.');}"
+          },
+          {
+            "line": 70,
+            "text": "export function openSmartTileCheckpoint(dependencies,input){"
+          },
+          {
+            "line": 93,
+            "text": "export function createSmartTileCheckpoint(deps,input){return openSmartTileCheckpoint(deps,{kind:C.checkpoint,version:1,document:input,journal:{kind:C.journal,version:1,serial:0,receipts:[],pending:null}});}"
+          },
+          {
+            "line": 94,
+            "text": "export function serializeSmartTileCheckpoint(deps,input){return JSON.stringify(openSmartTileCheckpoint(deps,input));}"
+          },
+          {
+            "line": 95,
+            "text": "export function smartTileCheckpointToken(c){return smartTileDigest({...c,journal:{...c.journal,pending:null}});}"
+          },
+          {
+            "line": 96,
+            "text": "export function stageSmartTileOperation(deps,input,rawOperation){"
+          },
+          {
+            "line": 101,
+            "text": "export function settleSmartTileOperation(deps,input,requestId,outcome){"
+          },
+          {
+            "line": 107,
+            "text": "export function inspectSmartTileRecovery(deps,pendingInput,authoritativeInput,requestId){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/contract.js",
+        "bytes": 2912,
+        "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04",
+        "gitBlob": "ddf6c23a21559b9b4008374c56a333b1e9b4fde6",
+        "exports": [
+          {
+            "line": 2,
+            "text": "export const SMART_TILE_INTERFACE=Object.freeze({version:1,base:'0fbc5c3630e257dfcd7a6ea82027634dfe6989b6',checkpoint:'nautilus-smart-tile-editor-checkpoint',journal:'nautilus-smart-tile-editor-journal',operation:'nautilus-smart-tile-editor"
+          },
+          {
+            "line": 3,
+            "text": "export const SMART_TILE_LIMITS=Object.freeze({sourceBytes:4_000_000,bundleBytes:4_000_000,checkpointBytes:16_000_000,nodes:1_000_000,depth:40,receipts:128,historyEntries:64,historyBytes:16_000_000,owners:32,recipes:32,derivedCells:1024,tria"
+          },
+          {
+            "line": 5,
+            "text": "export const SMART_TILE_OPTIONAL_METHODS=Object.freeze(['lockOwner']);"
+          },
+          {
+            "line": 6,
+            "text": "export const SMART_TILE_READINESS_KEYS=Object.freeze(['authoring','shape','visual','query','support','navigation','fire','water','game']);"
+          },
+          {
+            "line": 7,
+            "text": "export const SMART_TILE_RESOURCE_FIELDS=Object.freeze(['accepted','candidate','acquiring','retiring','roots','triangles','cells','maxRoots','maxTriangles','maxCells']);"
+          },
+          {
+            "line": 8,
+            "text": "export const SMART_TILE_VISUAL_STATES=Object.freeze(['accepted','candidate','pending','failed','unconfirmed']);"
+          },
+          {
+            "line": 12,
+            "text": "export function smartTileActions({phase,manual=true,selected=false,hasDraft=false,undo=0,redo=0}={}) {"
+          },
+          {
+            "line": 18,
+            "text": "export function assertSmartTileAdapter(adapter) {"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/input.js",
+        "bytes": 7729,
+        "sha256": "a77abe7dfc2ef3e742c88d804e122fa0d9e72311c9fa3ba60a511e7f7de3eaff",
+        "gitBlob": "38171adea1dc52e2fea34737933b077df80a4e2e",
+        "exports": [
+          {
+            "line": 3,
+            "text": "export function bindSmartTileInput({canvas,session,screenToWorld,hitOwner,readDraft,onGuide=()=>{},onCamera=()=>{},selectionMode=()=>false}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/intents.js",
+        "bytes": 8394,
+        "sha256": "e02380202ed2b59da5f8216306b2371bacfbb3ed96b045144e3a58f7137ce6c1",
+        "gitBlob": "4b6510eefcc3f8dc2bca72615110f13adf7c4780",
+        "exports": [
+          {
+            "line": 5,
+            "text": "export function validateSmartTileDraft(input){"
+          },
+          {
+            "line": 14,
+            "text": "export function planSmartTileIntent({tiles,examples},checkpoint,input,{requestId,newOwnerId,floorId,contextToken}){"
+          },
+          {
+            "line": 43,
+            "text": "export function planSmartTileLock(tiles,checkpoint,ownerId,{requestId,contextToken}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/panel-fields.js",
+        "bytes": 3839,
+        "sha256": "887c1c56171e2685e1e8a4ffb8c069d700824afe94121b1a0b19647f20a3f6e8",
+        "gitBlob": "3223817204d1a63165d2ba1400df50c58e0b3898",
+        "exports": [
+          {
+            "line": 2,
+            "text": "export function smartTileFormValues(draft) {"
+          },
+          {
+            "line": 18,
+            "text": "export function smartTileDraftFromFields(tool,values,previous,selectedOwnerId) {"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/panel.css",
+        "bytes": 4176,
+        "sha256": "190aab3b05ba739c1ece90fd77ce938a426d203a4451549f9785cc50b66deca3",
+        "gitBlob": "3f294403c682e0c5fdc2eb3572b925ec5e656896",
+        "exports": []
+      },
+      {
+        "path": "apps/editor/smart-tile/panel.js",
+        "bytes": 20936,
+        "sha256": "e08bdeb09d79def733967a816def4adaa328e5a26c9c80b9f9a34680277b38e1",
+        "gitBlob": "d8e062592f80fec0b6fca1597c1347a1a4275e46",
+        "exports": [
+          {
+            "line": 26,
+            "text": "export function mountSmartTilePanel(container,adapter,{floorElement=null,onError=()=>{}}={}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/presentation.js",
+        "bytes": 3578,
+        "sha256": "d08dc36db9d5a4b14fcf579f5ecb5805489db977953d00e1f1657835738d117b",
+        "gitBlob": "a14a4f2e7740a1bf3bef3409af46588dbaf72b50",
+        "exports": [
+          {
+            "line": 6,
+            "text": "export function createSmartTilePresentation({tiles,art,presenter,THREE,scene,materials,sectorSizeM}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/seed.js",
+        "bytes": 1183,
+        "sha256": "64dba5df64396edbf0e2aace48222143cd505f518eab5bb512b40158ec0b25ea",
+        "gitBlob": "b528af54bf83c9dcca641d23d411d7f786bd4bbc",
+        "exports": [
+          {
+            "line": 4,
+            "text": "export function smartTileProofCheckpoint(mapCore,tiles,examples){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/session.js",
+        "bytes": 20350,
+        "sha256": "fa10f2defcbc615c3d24c071884b6c7790c55a7ecda8bf900a9677a9a3c158b0",
+        "gitBlob": "d30feb2433a6df289e2d8ae8f5a210cae9ff9e60",
+        "exports": [
+          {
+            "line": 10,
+            "text": "export async function createSmartTileSession(deps,{authority,floorController,presentation,newId=()=>crypto.randomUUID(),providerToken='public-canonical-tile-art-v1',retireInput=()=>{}}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/storage.js",
+        "bytes": 1311,
+        "sha256": "2820a3e37a82a53878ba3b86c6208d822e640afa10ea466ad6f635a478b6869c",
+        "gitBlob": "461e0afdb1eb1cf772d0b0f87287e3b73d2e3fe9",
+        "exports": [
+          {
+            "line": 6,
+            "text": "export function createSmartTileStorage(deps,{storage,key,initialCheckpoint,beforeWrite=()=>{},afterWrite=()=>{}}){"
+          }
+        ]
+      },
+      {
+        "path": "apps/editor/smart-tile/views.js",
+        "bytes": 5514,
+        "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+        "gitBlob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320",
+        "exports": [
+          {
+            "line": 6,
+            "text": "export function createSmartTileViews({acquire,attach,onDiagnostic=()=>{}}){"
+          }
+        ]
+      },
+      {
+        "path": "examples/smart-tile-editor.html",
+        "bytes": 4144,
+        "sha256": "c9b5fc9f614020a339486daa4d2711f4214bbb8ef93d8e1e0c577a9adee55c72",
+        "gitBlob": "9dddfb8ecc22210a002acf191150c5a1fe979d43",
+        "exports": []
+      },
+      {
+        "path": "examples/smart-tile-editor.js",
+        "bytes": 11885,
+        "sha256": "47faf8bfdf1716bfd1585b1424ba1be82b5e703ad1eefeae40ad146ff0e6fbe8",
+        "gitBlob": "a3ed0a0b1e91a94d0024ebf6dbed03920e79b832",
+        "exports": []
+      }
+    ]
+  },
+  "unchangedFencesAndOrchestration": [
+    {
+      "path": "docs/reviews/smart-tile-editor/sources.json",
+      "bytes": 38252,
+      "sha256": "d1a1dba97e906e987e1315f9aad4bfa234895770468171b1da7d4e4747e6551f",
+      "gitBlob": "3004511d681f88643dda476f2f5aafdfa4b18ae1",
+      "exports": []
+    },
+    {
+      "path": "docs/reviews/smart-tile-editor/integration-sources.json",
+      "bytes": 3703,
+      "sha256": "66fd89ec315e766994885e08c0bd260a9668be98182abc765157cfc61afa2d62",
+      "gitBlob": "f4d65e754387e4a68e37ad8646845f530dd144e9",
+      "exports": []
+    },
+    {
+      "path": "tools/check-smart-tile-editor-source.mjs",
+      "bytes": 2265,
+      "sha256": "4a2a31e5647c9732f6e329cdf939184d1909e7e7d8327d5b038c8615ec566d26",
+      "gitBlob": "f2351c981ef598374d2428d5b7c0bb5ebf61bef4",
+      "exports": [
+        {
+          "line": 7,
+          "text": "export function checkSmartTileEditorSource(project=root,{tracked=null}={}){"
+        }
+      ]
+    },
+    {
+      "path": "tools/check-tile-c2a-source.mjs",
+      "bytes": 8768,
+      "sha256": "cb9100a0000e8d0e8d5a16a9f36659c84190f69d3c601a6e16b521231efc2397",
+      "gitBlob": "6ad706eaf88089a4b55734c84d352b6e9109ec18",
+      "exports": [
+        {
+          "line": 10,
+          "text": "export const TILE_C2A_ACCEPTED_SOURCE='87301172d7258223f89aa2e19fe391ac01b52f00';"
+        },
+        {
+          "line": 11,
+          "text": "export const TILE_C2A_ROOT_BASE='32101fa97a8706296dcba4d9614d9d663d53a6dd';"
+        },
+        {
+          "line": 36,
+          "text": "export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){"
+        }
+      ]
+    },
+    {
+      "path": "tools/check-tile-visuals-source.mjs",
+      "bytes": 12109,
+      "sha256": "5ff003b53ee16369813bae28e63b61063908c538b5e2a5083214099529a36dfb",
+      "gitBlob": "4ca5f688b448086418a82aecf1b1f639b1d1097f",
+      "exports": [
+        {
+          "line": 9,
+          "text": "export const TILE_ART_ACCEPTED_SOURCE='ca285aa76a49b74df6067caab661d7bed39bd523';"
+        },
+        {
+          "line": 10,
+          "text": "export const TILE_ART_ROOT_BASE='3e583378bee99dc8e275f1b97591af9a0406ca04';"
+        },
+        {
+          "line": 11,
+          "text": "export const TILE_ART_PRESERVED_STUDIES='7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab';"
+        },
+        {
+          "line": 25,
+          "text": "export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){"
+        }
+      ]
+    },
+    {
+      "path": "tools/distribution.mjs",
+      "bytes": 17208,
+      "sha256": "6f254d4ffa209848f9d028d788faec36046877208ed9f92cce5e45cfd3f9d262",
+      "gitBlob": "5bbac97a0412cf63104ea02d6544f9b707396245",
+      "exports": [
+        {
+          "line": 10,
+          "text": "export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');"
+        },
+        {
+          "line": 16,
+          "text": "export function moduleClosure(entries) {"
+        },
+        {
+          "line": 38,
+          "text": "export function distribution(profile = 'compatibility') {"
+        },
+        {
+          "line": 62,
+          "text": "export function packProfile(profile) {"
+        },
+        {
+          "line": 75,
+          "text": "export function testExternalPackage(profile='core') {"
+        }
+      ]
+    },
+    {
+      "path": "tools/build.mjs",
+      "bytes": 16484,
+      "sha256": "4859b7f35f1b86812482fdf4fa3246f01fd831d5f8ef804a5daf7eb9fae1cd82",
+      "gitBlob": "0824193a2ccc2a5dd3e10a328490a52e76bf8b32",
+      "exports": []
+    },
+    {
+      "path": "tools/verify-smart-tile-editor-review.mjs",
+      "bytes": 20331,
+      "sha256": "66e2b427417ea5d453e1138dedc43d4730c87782c8633142d51ec71efe35e7ad",
+      "gitBlob": "d29960678b76b9122a6af989fc26f05d40b760c4",
+      "exports": [
+        {
+          "line": 14,
+          "text": "export const SMART_TILE_REVIEW_BINDINGS=["
+        },
+        {
+          "line": 23,
+          "text": "export const SMART_TILE_REVIEW_CHECKS=["
+        },
+        {
+          "line": 34,
+          "text": "export const SMART_TILE_REVIEW_CAPTURES=['desktop-finish','native-upper-floor','phone-390-viewport','phone-390','phone-320-viewport','phone-320'];"
+        },
+        {
+          "line": 51,
+          "text": "export const smartTileSemanticState=s=>({phase:s.phase,revision:s.revision,serial:s.serial,history:{undo:s.history.undo,redo:s.history.redo},floor:s.floor,sourceDigest:s.sourceDigest,owners:s.owners.map(o=>({locked:o.locked,shapeKind:o.shap"
+        },
+        {
+          "line": 52,
+          "text": "export function assertSmartTileReviewSnapshot(s,{retired=false}={}){"
+        },
+        {
+          "line": 66,
+          "text": "export function assertSmartTileReviewChecks(checks){"
+        },
+        {
+          "line": 86,
+          "text": "export async function verifySmartTileEditorReview({projectRoot=defaultRoot,write=true,now=Date.now(),maxAgeMs=24*60*60*1000}={}){"
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/check.yml",
+      "bytes": 9805,
+      "sha256": "8046600663e46d1641e96087666abb659533588340421b49d672c3ab8c93bd88",
+      "gitBlob": "e9fe2946cc7475b357ae1587d9b2827a699fe149",
+      "exports": []
+    }
+  ],
+  "unchangedRuntimePaths": [
+    "packages/tiles-core",
+    "packages/tile-visuals",
+    "packages/windows-authoring/journal.js",
+    "packages/floor-navigation"
+  ],
+  "proposedProtectedChanges": [
+    {
+      "file": "apps/editor/smart-tile/checkpoint.js",
+      "reason": "One shared codec factory; unchanged v1 wrappers plus explicit v2 policy and complete-target interpretation.",
+      "currentSha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4"
+    },
+    {
+      "file": "apps/editor/smart-tile/authority.js",
+      "reason": "Inject that codec; preserve one final synchronous writer fence, whole-record CAS and same-ID recovery.",
+      "currentSha256": "68978842e05c0d04d363cdfa603206f43ad45bbaa220eca0d5df826eed19da5d"
+    },
+    {
+      "file": "apps/editor/smart-tile/storage.js",
+      "reason": "Inject matching codec and explicit v2 key policy; preserve v1 namespace and last-write fence.",
+      "currentSha256": "2820a3e37a82a53878ba3b86c6208d822e640afa10ea466ad6f635a478b6869c"
+    },
+    {
+      "file": "apps/editor/smart-tile/session.js",
+      "reason": "Explicit profile hooks around the one existing consumer, journal, preparation, context, target and snapshot.",
+      "currentSha256": "fa10f2defcbc615c3d24c071884b6c7790c55a7ecda8bf900a9677a9a3c158b0"
+    },
+    {
+      "file": "apps/editor/smart-tile/input.js",
+      "reason": "Profile-specific draft construction inside the existing pointer owner; retain all quarantine rules.",
+      "currentSha256": "a77abe7dfc2ef3e742c88d804e122fa0d9e72311c9fa3ba60a511e7f7de3eaff"
+    },
+    {
+      "file": "apps/editor/smart-tile/presentation.js",
+      "reason": "One actual public geometry acquisition with optional Artist appearance and native-height visibility bindings.",
+      "currentSha256": "d08dc36db9d5a4b14fcf579f5ecb5805489db977953d00e1f1657835738d117b"
+    }
+  ],
+  "proposedUnchangedHost": [
+    "apps/editor/smart-tile/contract.js",
+    "apps/editor/smart-tile/intents.js",
+    "apps/editor/smart-tile/panel-fields.js",
+    "apps/editor/smart-tile/panel.css",
+    "apps/editor/smart-tile/panel.js",
+    "apps/editor/smart-tile/seed.js",
+    "apps/editor/smart-tile/views.js",
+    "examples/smart-tile-editor.html",
+    "examples/smart-tile-editor.js"
+  ],
+  "caveats": [
+    "Fixed UI and Artist inputs are review references, pending focused builder corrections relayed by Architect.",
+    "This reads source and records exact bytes; it does not execute or accept the functional planner or components.",
+    "One complete tileBundle plus constraints target must govern validation, adoption, receipts, history and recovery.",
+    "Current v1 compatibility and initial v2 policy proofs do not establish live fifteen-floor workflow acceptance.",
+    "No browser, server, install, port, background process or retained helper is created."
+  ]
+}

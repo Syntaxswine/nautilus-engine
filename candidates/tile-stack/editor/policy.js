@@ -5,7 +5,11 @@ import {openFloorBinding,floorControllerRecords,floorTableToken} from './floors.
 import {TILE_STACK_EDITOR as C} from './contract.js';
 const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
 const digest=(v,path)=>{if(typeof v!=='string'||v.length!==64||!/^[a-f0-9]+$/.test(v))fail('STACK_DIGEST',path,'Supply the exact fixed content digest.');};
+// Only detached deeply frozen outputs enter this cache. A caller's mutable
+// input, shallow freeze or changed core binding never inherits validation.
+const checkedDocuments=new WeakMap();
 export function validateTileStackDocument(deps,input){
+  const known=input&&typeof input==='object'?checkedDocuments.get(input):null;if(known?.tiles===deps.tiles&&known.mapCore===deps.mapCore)return input;
   const d=smartTileData(input);fields(d,['id','sourceJSON','floorBinding','finishBinding','tileBundle','constraints'],'/document');id(d.id,'/document/id');
   openFloorBinding(deps,d.sourceJSON,d.floorBinding);
   fields(d.finishBinding,['id','version','digest'],'/document/finishBinding');id(d.finishBinding.id,'/document/finishBinding/id');
@@ -16,7 +20,7 @@ export function validateTileStackDocument(deps,input){
   if(smartTileDigest(d.tileBundle)!==smartTileDigest(opened.bundle))fail('STACK_BUNDLE_NORMALIZATION','/document/tileBundle','Validation must not replace or drop source.');
   const expected=d.floorBinding.floors.map(({id,elevationM})=>({id,elevationM}));
   if(smartTileDigest(expected)!==smartTileDigest(d.tileBundle.layout.floors))fail('STACK_LAYOUT_FLOORS','/document/tileBundle/layout/floors','The canonical bundle must retain the exact native floor IDs/elevations/order.');
-  validateSavedConstraints(d);return freeze(d);
+  validateSavedConstraints(d);freeze(d);checkedDocuments.set(d,{tiles:deps.tiles,mapCore:deps.mapCore});return d;
 }
 // Referential host-source validation only, following the fixed fdd0601 API.
 // Complete old/new geometric obligations remain the public planner/core's job.

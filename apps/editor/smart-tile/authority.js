@@ -1,8 +1,9 @@
-import {openSmartTileCheckpoint,serializeSmartTileCheckpoint,smartTileDigest,smartTileCheckpointToken,stageSmartTileOperation,settleSmartTileOperation,inspectSmartTileRecovery,fail} from './checkpoint.js';
+import {createSmartTileCheckpointCodec,smartTileDigest,fail} from './checkpoint.js';
 
 // One trusted synchronous authority, shared by edits/history/recovery. A writer
 // must compare expectedRecordDigest and check canCommit last before its write.
-export function createSmartTileAuthority(deps,services){
+export function createSmartTileAuthority(deps,services,{codec=createSmartTileCheckpointCodec(deps)}={}){
+  const openSmartTileCheckpoint=(_,v)=>codec.open(v),serializeSmartTileCheckpoint=(_,v)=>codec.serialize(v),smartTileCheckpointToken=codec.token,stageSmartTileOperation=(_,v,op)=>codec.stage(v,op),settleSmartTileOperation=(_,v,id,outcome)=>codec.settle(v,id,outcome),inspectSmartTileRecovery=(_,pending,actual,id)=>codec.inspectRecovery(pending,actual,id);
   const bound={};for(const key of ['read','write']){const d=Object.getOwnPropertyDescriptor(services,key);if(!d||!Object.hasOwn(d,'value')||typeof d.value!=='function')fail('MISSING_AUTHORITY','/authority/'+key,'Bind an own synchronous authority function.');bound[key]=d.value;}
   let busy=false;const cache=new Map();
   const remember=(raw,c)=>{cache.set(raw,c);while(cache.size>2)cache.delete(cache.keys().next().value);};
@@ -15,6 +16,7 @@ export function createSmartTileAuthority(deps,services){
     if(ack!==true&&ack!==false)fail('COMMIT_OUTCOME_UNKNOWN','/authority/write','A nonboolean acknowledgement requires authoritative same-ID recovery.');if(ack)remember(nextJSON,next);return {ack,checkpoint:ack?next:before};
   }
   return Object.freeze({
+    codec,
     read(){return run(read);},
     stage(operation,canCommit){return run(()=>{const before=read(),next=stageSmartTileOperation(deps,before,operation);return write(before,next,'stage',operation.id,canCommit);});},
     commit(pending,canCommit){return run(()=>{const before=read();if(smartTileDigest(before)!==smartTileDigest(pending))return {ack:false,checkpoint:before};const next=settleSmartTileOperation(deps,pending,pending.journal.pending.id,'committed');return write(before,next,'commit',pending.journal.pending.id,canCommit);});},
