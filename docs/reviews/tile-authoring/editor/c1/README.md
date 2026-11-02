@@ -236,6 +236,17 @@ Actual unknown state must retain both session and authoritative documents when
 an acknowledgement is lost; a settled receipt on cold-after-write reload is
 reported as observed, without an invented pending marker.
 
+The stager reserves no blanket second-shared-file allowance. A future reviewed
+codec adoption requires a full `--successor-codec` commit and matching
+`successor-import.json` audit for exactly the shared checkpoint file and its
+C1-owned activation, with per-path Git hashes/lengths and the fixed 191f base.
+Absent either, the extra override refuses. The existing 760/UI805/Core3df plus
+eedfc-evidence source stage passes with 196 files; an explicit successor flag
+without the audit refuses as intended. These are source/provenance controls,
+not another runtime or browser run. A static API check also confirms every
+collector model reference is declared by the Root contract, without importing
+the draft model.
+
 ## Builder checklist
 
 - Supply the reviewed public Core namespace, actual v1 tiles, producer/sealer,

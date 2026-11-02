@@ -11,8 +11,9 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const option=name=>{const value=process.argv.find(a=>a.startsWith('--'+name+'='))?.slice(name.length+3);if(!/^[a-f0-9]{40}$/.test(value??''))throw Error('Supply a fixed full --'+name+' commit.');return value;};
 const core=option('core'),coreDocs=process.argv.some(a=>a.startsWith('--core-docs='))?option('core-docs'):core,ui=option('ui'),editor=option('editor'),base='d869410625b246cfff2b51089e7878c31951775c',helper=process.argv.some(a=>a.startsWith('--helper='))?option('helper'):base;
 const coreEvidencePath='docs/reviews/tile-authoring/core/c1-validation.json',coreImportPath='docs/reviews/tile-authoring/editor/c1/core-import.json';
+const successor=process.argv.some(a=>a.startsWith('--successor-codec='))?option('successor-codec'):null,successorImportPath='docs/reviews/tile-authoring/editor/c1/successor-import.json',successorPaths=['apps/editor/smart-tile/checkpoint.js','apps/editor/tile-authoring/checkpoint.js'];
 const git=args=>execFileSync('git',args,{cwd:root,windowsHide:true,maxBuffer:32*1024*1024});
-for(const commit of [core,coreDocs,ui,editor,helper]){if(git(['rev-parse','--verify',commit+'^{commit}']).toString().trim()!==commit)throw Error('Commit mismatch.');git(['merge-base','--is-ancestor',base,commit]);}
+for(const commit of [core,coreDocs,ui,editor,helper,...(successor?[successor]:[])]){if(git(['rev-parse','--verify',commit+'^{commit}']).toString().trim()!==commit)throw Error('Commit mismatch.');git(['merge-base','--is-ancestor',base,commit]);}
 if(coreDocs!==core){git(['merge-base','--is-ancestor',core,coreDocs]);const changes=git(['diff','--name-only',core,coreDocs]).toString().trim().split(/\r?\n/);if(changes.length!==1||changes[0]!==coreEvidencePath)throw Error('--core-docs must change only the explicitly reviewed Core validation evidence.');}
 const stage=path.join(root,'artifacts','editor-tile-authoring-c1-staging-'+randomUUID());fs.mkdirSync(stage,{recursive:true});
 const overrides=new Map(),rows=new Map(),queue=[],parsed=new Set(),entries=['tests/editor-tile-authoring-c1.test.mjs','tests/editor-tile-authoring-cache.test.mjs','tests/editor-tile-authoring-jsonl.test.mjs','tests/editor-tile-authoring-resources.test.mjs','tests/ui-tile-authoring-c1.test.mjs'];
@@ -30,8 +31,17 @@ if(git(['ls-tree','--name-only',editor,'--',coreImportPath]).toString().trim()){
   coreImport={file:coreImportPath,sha256:createHash('sha256').update(bytes).digest('hex'),...audit};
 }
 const helperPaths=['tools/art-review-browser.mjs','tests/art-review-lifetime.test.mjs','docs/reviews/tile-stack/architect/helper-deadline.md'];
+let successorImport=null;const hasSuccessorImport=git(['ls-tree','--name-only',editor,'--',successorImportPath]).toString().trim();
+if(hasSuccessorImport||successor){
+  if(!hasSuccessorImport||!successor)throw Error('Supply both the exact successor import audit and full --successor-codec pin.');
+  const bytes=git(['show',editor+':'+successorImportPath]),audit=JSON.parse(bytes);
+  if(audit.kind!=='nautilus-editor-c1-reviewed-successor-codec-import'||audit.version!==1||audit.sourceCommit!==successor||audit.baseRuntime!=='191f6fe63de6125d3a0f0e96b998541bade01d19'||audit.files.length!==2||new Set(audit.files.map(r=>r.file)).size!==2)throw Error('Successor import must authenticate exactly the authorized two-file refinement.');
+  git(['merge-base','--is-ancestor',audit.baseRuntime,successor]);
+  for(const row of audit.files){if(!successorPaths.includes(row.file)||row.sourceCommit!==successor)throw Error('Unexpected successor import path/origin.');const actual=git(['show',successor+':'+row.file]);if(row.bytes!==actual.length||row.sha256!==createHash('sha256').update(actual).digest('hex'))throw Error('Changed successor import bytes: '+row.file);}
+  successorImport={file:successorImportPath,sha256:createHash('sha256').update(bytes).digest('hex'),...audit};
+}
 const ownPaths=git(['diff','--name-only',base,editor]).toString().trim().split(/\r?\n/).filter(Boolean);
-for(const file of ownPaths){const dependency=uiPaths.includes(file)?ui:corePaths.has(file)?(file===coreEvidencePath?coreDocs:core):helperPaths.includes(file)?helper:null;if(dependency){if(!git(['show',editor+':'+file]).equals(git(['show',dependency+':'+file])))throw Error('Dependency bytes differ from explicit immutable pin: '+file);if(dependency===helper||file===coreEvidencePath)overrides.set(file,dependency);continue;}if(!/^(apps\/editor\/tile-authoring\/|apps\/editor\/smart-tile\/session\.js$|examples\/tile-authoring-editor\.(html|js)$|tests\/editor-tile-authoring-|tests\/fixtures\/tile-authoring-editor\/|docs\/reviews\/tile-authoring\/editor\/|tools\/build\.mjs$|tools\/editor-(stage|review|verify|direct)-tile-authoring-c1\.mjs$)/.test(file))throw Error('Unexpected Editor checkpoint path: '+file);overrides.set(file,editor);}
+for(const file of ownPaths){const dependency=uiPaths.includes(file)?ui:corePaths.has(file)?(file===coreEvidencePath?coreDocs:core):successor&&successorPaths.includes(file)?successor:helperPaths.includes(file)?helper:null;if(dependency){if(!git(['show',editor+':'+file]).equals(git(['show',dependency+':'+file])))throw Error('Dependency bytes differ from explicit immutable pin: '+file);if(dependency===helper||dependency===successor||file===coreEvidencePath)overrides.set(file,dependency);continue;}if(!/^(apps\/editor\/tile-authoring\/|apps\/editor\/smart-tile\/session\.js$|examples\/tile-authoring-editor\.(html|js)$|tests\/editor-tile-authoring-|tests\/fixtures\/tile-authoring-editor\/|docs\/reviews\/tile-authoring\/editor\/|tools\/build\.mjs$|tools\/editor-(stage|review|verify|direct)-tile-authoring-c1\.mjs$)/.test(file))throw Error('Unexpected Editor checkpoint path: '+file);overrides.set(file,editor);}
 for(const file of uiPaths)overrides.set(file,ui);
 function copy(file){
   if(file.startsWith('/')||file.split('/').some(p=>p==='..'||p==='')||file.includes('\\'))throw Error('Unsafe repository path: '+file);
@@ -71,6 +81,6 @@ while(queue.length){
     const file=path.posix.normalize(path.posix.join(path.posix.dirname(record.filename),specifier));copy(file);if(!parsed.has(file))queue.push(file);
   }
 }
-const report={kind:'nautilus-editor-c1-git-object-source-probe',version:1,scope:'Candidate investigation only; no runtime adoption, installed package or browser claim',base,core,coreDocs,coreImport,explicitProofTools,ui,editor,helper,stage,entries,inputs:[...rows.values()].sort((a,b)=>a.file.localeCompare(b.file)),verificationInputs:['tools/editor-stage-tile-authoring-c1.mjs','tools/module-references.mjs'].map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')})),node:process.version};
+const report={kind:'nautilus-editor-c1-git-object-source-probe',version:1,scope:'Candidate investigation only; no runtime adoption, installed package or browser claim',base,core,coreDocs,coreImport,successor,successorImport,explicitProofTools,ui,editor,helper,stage,entries,inputs:[...rows.values()].sort((a,b)=>a.file.localeCompare(b.file)),verificationInputs:['tools/editor-stage-tile-authoring-c1.mjs','tools/module-references.mjs'].map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')})),node:process.version};
 fs.writeFileSync(path.join(stage,'staged-inputs.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({stage,files:report.inputs.length,entries}));
