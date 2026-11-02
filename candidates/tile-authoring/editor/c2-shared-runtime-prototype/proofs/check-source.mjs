@@ -1,0 +1,20 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';import assert from 'node:assert/strict';
+import {distribution} from '../../../../../tools/distribution.mjs';
+const prefix='candidates/tile-authoring/editor/c2-shared-runtime-prototype',root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../../../..'),candidate=path.join(root,prefix),hash=b=>createHash('sha256').update(b).digest('hex');
+const git=(...args)=>execFileSync('git',['-c','core.longpaths=true','-C',root,...args],{windowsHide:true,timeout:30000,maxBuffer:8*1024*1024});
+const walk=folder=>fs.readdirSync(folder,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(folder,e.name)):[path.relative(candidate,path.join(folder,e.name)).replaceAll('\\','/')]).sort();
+export function checkPrivateC2SharedSource(){
+ const source=JSON.parse(fs.readFileSync(path.join(candidate,'source.json')));assert.equal(source.base,'0e7d0f40de790631c6421de2236b9df1c11c0b86');assert.equal(source.declared,false);assert.equal(source.publicActivation,false);
+ assert.equal(source.files.length,8);assert.equal(source.files.filter(r=>r.original).length,7);assert.equal(source.files.find(r=>!r.original).path,'runtime/observation.js');
+ const verify=(base,row,key='path')=>{const b=fs.readFileSync(path.join(base,row[key]));assert.equal(b.length,row.bytes,row[key]);assert.equal(hash(b),row.sha256,row[key]);return b;};
+ assert.deepEqual(walk(candidate).filter(p=>p!=='source.json'),source.inventory.map(r=>r.path).sort());for(const row of source.inventory)verify(candidate,row);
+ for(const row of source.originals){const b=verify(candidate,{...row,bytes:row.bytes},'preserved'),original=git('show',source.base+':'+row.path);assert.deepEqual(b,original,row.path);assert.equal(git('rev-parse',source.base+':'+row.path).toString().trim(),row.gitBlob);}
+ for(const row of source.dependencies){const b=verify(root,row);assert.deepEqual(b,git('show',source.base+':'+row.path),row.path);}
+ for(const row of source.files)verify(candidate,row);for(const row of source.tests)verify(root,row);
+ const fixture=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/private-c2-shared/source.json'))),original=git('show',fixture.base+':'+fixture.source);assert.equal(hash(original),fixture.originalSha256);let adapted=original.toString();for(const row of fixture.edits){assert.equal(adapted.split(row[0]).length,2);adapted=adapted.replace(...row);}adapted='// Pinned Root0e7 C1 fixture; ONLY recorded setup import/optional-constructor adaptations.\n// Actual PRIVATE source components; no C2 admission/Root adoption/GPU proof.\n'+adapted;assert.equal(fs.readFileSync(path.join(root,fixture.target),'utf8'),adapted);assert.equal(hash(Buffer.from(adapted)),fixture.sha256);
+ const changed=git('diff','--name-only',source.base).toString().trim().split('\n').filter(Boolean);assert.ok(changed.every(p=>p.startsWith(prefix+'/')||p==='tests/private-c2-shared-runtime.test.mjs'||p.startsWith('tests/fixtures/private-c2-shared/')),'Only new private paths may differ from the reviewed base.');
+ for(const profile of ['core','renderer','assets','compatibility']){const actual=distribution(profile);assert.deepEqual(actual,source.profileInventories[profile]);assert.ok(actual.files.every(p=>!p.startsWith('candidates/')&&!p.startsWith('tests/fixtures/private-c2-shared/')));}
+ assert.equal(source.bindingStatus.actualMeter,'UNBOUND');assert.equal(source.bindingStatus.browserCoreExecution,'UNBOUND');assert.equal(source.bindingStatus.artistDecoderExecution,'UNBOUND');
+ return {status:'pass',base:source.base,privateRuntimeFiles:8,mirroredSources:7,rawOriginals:source.originals.length,unchangedDirectClosure:source.dependencies.length,normalProfilesExcluded:4,publicActivation:false};
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))console.log(JSON.stringify(checkPrivateC2SharedSource()));

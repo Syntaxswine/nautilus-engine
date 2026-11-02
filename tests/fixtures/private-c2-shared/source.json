@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "base": "0e7d0f40de790631c6421de2236b9df1c11c0b86",
+  "source": "tests/fixtures/tile-authoring-editor/c1.mjs",
+  "originalBytes": 8430,
+  "originalSha256": "4c99e2c73e3b799c88ba185c5ef15bb7f89f43a585f1570c8b461dae10579582",
+  "target": "tests/fixtures/private-c2-shared/c1.mjs",
+  "bytes": 8693,
+  "sha256": "1c4e82d86098c538bbbc69cdb7242dc5d3eb5bcfe8b12edfead732084d58cdf7",
+  "edits": [
+    [
+      "from '../../../apps/editor/tile-authoring/checkpoint.js'",
+      "from '../../../candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/checkpoint.js'"
+    ],
+    [
+      "from '../../../apps/editor/tile-authoring/session.js'",
+      "from './private-session.mjs'"
+    ],
+    [
+      "nativeFactory=presenter.createTileArtProvider,sourceIndent}={}",
+      "nativeFactory=presenter.createTileArtProvider,sourceIndent,privateWork,privateHooks}={}"
+    ],
+    [
+      "createTileAuthoringCheckpointCodec(deps,document)",
+      "createTileAuthoringCheckpointCodec(deps,document,privateWork)"
+    ],
+    [
+      "session=await createTileAuthoringSession(deps,{binding,finishCatalogue,resourcePorts,authority",
+      "session=await createTileAuthoringSession(deps,{binding,finishCatalogue,resourcePorts,privateHooks,authority"
+    ]
+  ]
+}
