@@ -1,246 +1,183 @@
-# Custom tile workbench: UI contract and design
+# Tile workbench C0: UI contract realignment
 
-Status: **proposed contract/design, no live binding**. This checkpoint starts at requirements
-`b850e20e2fdd85435d33f16327482b80380af728`. It preserves stacked UI
-`5b0d06ce93977addd438d3ad43f887fcd3278817` on its separate branch. It changes
-only this role's candidate, test, tool and review paths. There is no shared runtime,
-host, export, schema registration, workspace migration, consumer pin or publication change.
+Status: **design/types/metadata/examples only**. This separate branch starts at
+historical UI draft `4d1e5da37031b89afbcb7b6fb47e6a03a606de25`. Accepted stack UI
+`8622c77234036d786474689f7e70671ecf01136b` remains untouched; actual B2 review has priority.
+Runtime C1 waits for stacked main acceptance.
 
-[Usage card](usage-card.json) · [source record](source.json) ·
-[proposed interfaces](../../../../candidates/tile-authoring/ui/contract.d.ts) ·
-[design specimen](../../../../candidates/tile-authoring/ui/specimen.html) ·
-[complete discovery example](../../../../candidates/tile-authoring/ui/examples/discovery.json).
+The fixed Core input is recorded in [input provenance](../../../../candidates/tile-authoring/ui/inputs/provenance.json).
+Its schema is the sole command/query/pack grammar. UI types import the exact Core
+declarations; UI metadata maps labels to precise schema/discovery pointers. There is
+no second command registry, alias parser, executor, authority, gesture owner or runtime
+projection. Historical wrappers and their browser proof belong to the original draft.
 
-## Reviewable result
+[Usage card](usage-card.json) · [UI metadata](../../../../candidates/tile-authoring/ui/presentation.json) ·
+[types](../../../../candidates/tile-authoring/ui/contract.d.ts) ·
+[canonical examples](../../../../candidates/tile-authoring/ui/example-index.json) ·
+[static design](../../../../candidates/tile-authoring/ui/specimen.html).
 
-The specimen shows Create/Edit, a versioned preset library, local brush/layers, complete
-Review/Apply and readiness/content-pack controls. It renders only shared discovery
-metadata through a small headless projection. The same descriptors, command versions,
-schema hashes, scope declarations and diagnostics remain visible to agents. It does
-not contain an alternate UI command registry, authoring validator, planner, prepare,
-permission table, persistence, renderer or input router.
+## One service and exact grammar
 
-Every specimen editing control is disabled: no authoring service is bound. Example
-availability values illustrate the contract, not installed capabilities. The illustrative
-layer list and empty preview do not prove overlay rendering or real source geometry.
-The example payload-schema reference hashes an explicitly **unimplemented specimen
-document**, not a Coder schema. Stroke/preset JSON files are annotated design drafts;
-the null artwork hash must refuse before a real prepare. They are not importable
-tile packs. No raster artwork is generated or supplied here.
+Both authors and agents use the same Editor-owned Core HostService:
+describe, snapshot, query, prepare, apply, cancel, recover. Core discovery currently
+declares executorImplemented:false/publicRegistration:false. Static controls are
+disabled. A schema-valid packet or artwork descriptor is not a working tool/provider.
 
-Run the headless metadata example from the repository root:
+Commands have exactly kind/version/requestId/expected/operations[]/budgetProfile.
+Each operation is opId/kind/body. Pins are exactly **id/revision/contentDigest**;
+record version describes the grammar while revision names immutable content.
+Queries are requirements.inspect and content.export. Packs use the canonical
+kind/version/manifest/blobEntries/requires shape. The original draft's nested command,
+payload, binding and id/version/sha256 wrappers are historical, not accepted aliases.
 
-```sh
-node --input-type=module -e "import fs from 'node:fs'; import {projectAuthoringDiscovery} from './candidates/tile-authoring/ui/discovery.js'; const x=projectAuthoringDiscovery(JSON.parse(fs.readFileSync('candidates/tile-authoring/ui/examples/discovery.json'))); console.log(JSON.stringify(x));"
-node --test tests/ui-tile-authoring-contract.test.mjs
-node tools/ui-tile-authoring-review.mjs
-```
+The full Expected capture includes revision, derived workspace digest, full host-document
+digest, authority/context tokens, content/decorations/resources, complete floor binding,
+constraints and tile layout/catalogue digests. Clients never recompute authority tokens
+to make a modified proposal look accepted. Core C0 Expected.floorProfileDigest binds the
+**full floorBinding**, unlike the narrower historical B1 geometric snapshot digest.
+The existing Editor draft collector/history/save hooks remain Editor-owned; UI C0 does
+not assign new service methods or a second permissive state machine.
 
-This portable, local-JSON metadata example needs no DOM, donor checkout, absolute asset
-path, remote URL or storage. A real content-pack consumer remains Coder/Editor work.
+## Stage, Review and Apply
 
-## Proposed shared seam
+Stage collects one finite canonical command in the existing Editor draft. It does not
+prepare, write, spend or acquire commit authority. Pointer release cannot Apply.
 
-`contract.d.ts` proposes one Editor service with `discover/getSnapshot/subscribe`,
-`stage/review/apply/cancel/recover` and borrowed history/save/open/presentation retry.
-Both humans and agents call that same service directly. Exact method/command names
-are review questions, not a promised public API.
+Review calls service.prepare(command) once. Editor retains the actual prepared result,
+resource/geometry bindings and review authority on the authorized connection. Display
+the complete targetDocument/source diff, targets/locks, pin changes, anchor decisions,
+required capabilities, resource staging/adoption and aggregate proposed costs.
 
-Discovery provides each command's identity/version, strict payload-schema reference,
-effect/history boundary, allowed/default scopes, confirmation wording, availability,
-diagnostics and ordered UI field hints. The projection only groups hints; it neither
-rewrites descriptors nor guesses availability. Missing or malformed metadata refuses
-the complete read. Labels and diagnostics are rendered as text. Unknown discovery
-versions require a reviewed binding; names alone never imply support.
+Apply forwards the canonical request retained by that same Editor connection:
+requestId, reviewToken and expectedTargetDigest. The UI does not reconstruct it from
+serialized review JSON or prepare again. An exported token/command is not a portable
+capability. Reopening a process requires inspection/reconciliation, not token replay.
 
-Editor captures the workspace/context/policy/floor/content/resource bindings and
-discovery token. UI passes the captured finite command identity and explicit targets.
-Core validates the strict payload; `unknown` at the UI type boundary means opaque
-validated source, not a saved extension bag. Stage owns the draft; Review performs
-the real preparation once. Apply uses that exact current review/request token;
-Editor obtains its final lease and commits. UI cannot mint a lease, prepare a second
-time or reconstruct authority from a phase name.
+Outcomes are distinct: committed:true remains committed after presentation failure;
+retry only presentation. committed:false rejects without changing accepted state/history/
+redo. committed:null is unknown: freeze mutation and overwriting saves, retain potentially
+adopted references/leases and recover the SAME original requestId. No fresh-ID retry.
 
-Action flags and reasons come from the current **successfully rendered stable**
-snapshot. A malformed, failed, superseded or reentrant read authorizes nothing.
-An error callback cannot repair a snapshot and retroactively authorize the same click.
-A discovery or binding change retires the prior draft/review before another command.
-Request IDs originate once with the shared request builder and survive retries.
-Unknown acceptance freezes edits, Undo/Redo and save/open until reconciliation of
-the original ID; a new ID is not a recovery strategy.
+NO_CHANGE writes nothing and preserves redo. Metadata/library/decoration-only work
+preserves exact tileBundle/layout revision and constraints, skips geometry preparation
+and reports source-unchanged. Ordinary nonempty acceptance increments contentRevision
+once. Exact Undo/Redo restores the historical full document and its contentRevision;
+freshness belongs to the checkpoint/journal/context tokens.
 
-## Panels, scope and workflows
+## Author scope and library workflow
 
-| Panel | Visible source and controls | Scope/commit rule |
+| Author intent | Canonical operation | Required distinction |
 | --- | --- | --- |
-| Workbench | Create supported primitive; clone reviewed recipe; original dimensions/curve controls, seed/detail, floor/profile, finish and canonical connections from the schema; source/version/hash and live diagnostics | Create/clone/revise makes immutable source. Editing placement source is explicit copy-on-write plus rebinding only named editable owners in one operation. |
-| Library | Search personal/project entries; inspect exact recipe/preset versions, dependencies, notices and required features; place pinned preset | Library membership and references use the same workspace authority. New stamps get fresh instance IDs and deterministic reference remapping. |
-| Save as preset | Name/new version; source pin; explicit include-decoration-defaults checkbox, initially off; chosen mark list and new-stamp preview | Reusable scope is named prominently. Creates a new immutable preset; never updates existing copies. |
-| Upgrade selected placements | Old/new pins, all target IDs/locks, local marks and reanchor/refusal diagnostics | Separate explicit operation. Never follows a moving preset, changes unselected copies or discards local marks. |
-| Surface tools | Source-owner/surface/floor selection; artwork pin, local position, rotation/size, authored grid/mask; preview/select/move/rotate/scale/erase | Default is **this placed instance**. Multi-owner painting requires explicit targets on one floor, visible shared phase/group identity and all lock results. |
-| Layers | Base finish separately; ordered local layers/marks, reorder, opacity/tint, blend and artwork identity | Stable order is source data. UI order is labelled; changing base finish preserves marks. Selected marks only; no implicit recipe mutation. |
-| Review | Complete source diff, new definitions/rebindings, targets/locks, anchor impact, required capabilities/resources and aggregate cost bounds | One bounded command, one Review, one Apply, one Undo entry. Any invalid/stale/locked target refuses the entire batch and preserves accepted state and redo. |
-| Requirements / pack | Missing capabilities and actionable remedies; full manifest/resource dependencies, notices, export/import | Whole-pack validation/adoption, with explicit required-feature refusals. Thumbnails are derived; moving URLs and sibling paths are not portable resources. |
+| New or cloned tile | recipe.create / recipe.clone | Fresh immutable definition/pin; original controls and anchors remain explicit. |
+| Revise library source | recipe.revise | Append an immutable revision against an exact base pin. Existing placements stay pinned. |
+| Save reusable defaults | preset.save | Selected decoration capture starts **off**. Explicit selection creates new default layers/marks; it does not update placed copies. |
+| Stamp twice | preset.place | Exact preset pin, explicit fresh owners and mark/layer remaps; empty versus copy-explicit defaults is deliberate. |
+| Edit selected placement source | clone/revise plus placement.upgrade | One atomic ordered batch, explicit owners/from/to pins, locks, anchor decisions and original anchor subsets. Another copy stays unchanged. |
+| Paint / move / erase | decoration.add/update/remove | Default scope is this placed instance, owner/surface/floor/binding identity. Explicit whole-group or detach policy; no accidental preset edit. |
+| Layer order / opacity | surface.layers | Stable order and grouped opacity are source. Mark removals are explicit; base finish remains separate. |
+| Multi-owner stroke | stroke.group and finite mark operations | Explicit same-floor membership/phase/pose bindings; every lock and target participates. Current controls remain unbound. |
 
-Keep the current selection scope beside the tool AND beside Review. Use owner IDs and
-versions, not only names or colour. Definition and preset changes require explicit
-scope wording. Do not switch to preset editing because a surface happens to be shared.
-Do not infer that a field applies to every grammar: an original arc/cubic/compound
-control is not a fitted rectangle or a refit from samples. Optional snapping changes
-a proposed control only, never normalizes loaded source.
+The examples show clean preset capture, explicit selected capture, two fresh owners and
+one selected upgrade with a review-visible deletion decision. A separate atomic
+clone + selected-owner upgrade example preserves an identical local mark binding. They are independent
+unbound packets against the fixed source fixture, not a sequential executed session.
+Clones/revisions retain complete closed public-v1 recipe controls. Different recipe bytes
+cannot silently reuse a retained recipe ID. Old versions, dependencies and notices remain.
 
-The library's new-version workflow preserves referenced old definitions, locks,
-dependencies and exact original source. “Edit this placement” needs the atomic
-copy-on-write command; it is unavailable until bound. A preset upgrade that would
-orphan a decoration must preserve/refuse or include explicit reanchor/delete choices
-in the same transaction. No silent transfer, stretch or drop is allowed.
+## Full v3 save authority
 
-## Brush, floor and input contract
+Saved authority is nautilus-tile-workbench-document@3 with all six B1 fields:
+id, sourceJSON, full floorBinding, finishBinding, tileBundle and constraints; plus
+contentRevision, exactly one AuthoringModule and typed resourceRefs.
+The module owns library/decorations/ownerPins once. resourceRefs names exact artwork pins
+and imageViewDigest; no second mutable artwork catalogue, URI, decoder status or lease.
 
-The existing Editor input owner converts ray/derived hits to stable source targets
-before staging. Persisted targets are owner ID + semantic surface ID + floor ID,
-owner-local metres and the declared source surface/grid frame. Authored cell origin,
-size/version and integer cells or bounded masks are independent of sampling, meshes,
-LOD and chunk residency. UI never saves triangle/GPU/chunk/derived-cell identities.
+Source is a read-only derived view for planning/queries. Snapshot returns both the full
+document and consistent Source, but only the full document is saved. The reduced floor/
+finish views cannot replace full native bindings. Old v1/v2 journals are not silently
+migrated, reset or restamped. Complete definitions/map/constraints/decorations/resource
+references share one transaction, history and same-ID recovery.
 
-A stroke captures one explicit floor and bounded target set, then previews a finite
-group of local records. Pointer release **ends collection only**. Review and Apply
-remain separate explicit actions. An eventual continuous-paint mode requires another
-reviewed input contract. Multi-owner seams use one declared shared graphic phase and
-one atomic group; locked neighbours are shown and refuse, rather than being omitted.
-The provider must clip to actual surfaces/holes/masks. UI cannot claim clipping from
-a rectangle hover outline.
+Bulk encoded bytes and decoder/resource leases stage through host ports **outside**
+finite command JSON. Adoption belongs to the same complete targetDocument operation.
+Unknown acceptance retains possibly committed resources, including history/redo/pending
+obligations. Cleanup requires confirmed unreferenced state, not age alone. A pack query
+returns an export plan; portable completion still needs verified bytes, paths, lengths,
+hashes, complete dependencies and notices.
 
-Selection, camera routing and pointer capture remain with the existing owner. Cancel
-on Escape, blur/visibility loss, capture loss, floor/mode changes, owner/source changes,
-tool replacement and disposal. Retire the owned gesture/review before changing the
-drawing plane. Quarantine held input until all-up and require a fresh primary action;
-late pointer events cannot revive the stroke. No broad document/window keyboard hook
-or second capture owner is introduced.
+## Appearance, coordinates and unavailable capabilities
 
-Borrow the existing floor controller/widget: fifteen declared floors, five visible
-labels, native explicit elevations and existing key/wheel/form/dialog/IME/repeat
-guards. Canvas wheel stays zoom. Never derive height from ordinal or 2.12 m.
-Follow/contact controls require real bindings and reasons when absent. Overview/
-cutaway remains inspection only and does not establish support/navigation.
+Show the exact immutable blob/frame/sampler descriptors. PNG is the first required actual
+bounded decoder; none is implemented here. Optional WebP remains unbound without its own
+decoder proof. Metadata, a signature or a thumbnail cannot establish decoding/clipping.
 
-At implementation, preserve native button Enter/Space and repeat suppression,
-owned focus restoration only, cancellation/disposal, and the actual UI/agent parity
-browser regressions. Re-rendering must not steal external focus from a same-named
-field. Phone design targets are at least 44 CSS px, with scope and diagnostic text
-in normal reading order. The specimen reviews layout only; it does not retest these
-live controls, which remain a Gate B requirement.
+Tint is linear RGB. Composite ordered marks with source-over linear premultiplied alpha,
+then attenuate the layer group; multiplying layer opacity into each mark is different.
+Stamps have finite transparent support; detail repeats within its own frame/mask, not
+the atlas page. Local marks follow current source frame, owner D4 and declared floor;
+derived triangles/cells/streaming addresses are not saved anchors.
 
-## Fixed stacked compatibility and open interface questions
+Root clarified that stored image UV and pivot UV both use **top-left** coordinates.
+Image-to-local uses position + rotation * [mirrorSign*(u_i-p_u)*width,
+(p_v-v_i)*height], then the named surface origin/basis, current owner D4+origin once,
+and native-to-render axis conversion once. Pixel Y is frame.y + v_i*height - .5.
+A derived local-up UV also requires pivotV_up=1-p_v. Do not assume a zero surface origin,
+hide a noncentral-pivot flip or add floor height twice. Original centre-pivot artwork
+bytes/pins need no recreation. Efca's superseded sampling vectors are not copied here;
+the corrected Core coordinate input is pinned at 43227894c50ec62b71806978195fff2c650eb388.
 
-Approved Coder `45ecaef16bb39424c8b885d53acb4371654b4fa0` is a separate
-public-v1 planner, not UI authority. Its ordinary repair request, next typed
-constraints and complete target must enter Editor's one retained prepare/transaction.
-Accepted workspace minimum, proposed request minimum and stronger saved pair
-requirements remain separate. A larger request does not change the saved global
-minimum or unrelated accepted pair requirements. Preserve all extra reservations.
-Unsupported projected edge/near separation retains the named
-`STACK_FLOOR_SEPARATION_UNSUPPORTED` diagnostic and required capability.
+All ceilings are unmeasured refusal proposals, copied from Core discovery. The shared
+64 owned appearance-material ceiling includes existing finishes **plus** compositor
+across accepted/candidate/acquiring/unverified-retiring views. Hidden targets, real
+decode/upload copies, atlas pages, bins, marks, geometry and resource allocations all
+remain charged. No processor/frame-rate/phone claim is made.
 
-The historical Editor snapshot `cfd5a3226a687b9b166e240666a34c75ef3e7972`
-was provisional; it is **not** a newly approved dependency. No fixed replacement policy
-was relayed with this addendum. The preserved UI checkpoint is reference evidence,
-not imported runtime. Reconcile each fixed input separately before implementation.
+Unknown/unsupported source, missing decoder/clip/provider, stale bindings, locks and
+budget failures need actionable host diagnostics and preserving refusal. Apparent
+craters/flat plants remain graphics. Physical terrain/props, gameplay effects,
+world-fixed paint, grades, arbitrary JS and unproved clipping are not acquired by
+drawing a mark or appearing in a menu.
 
-Architect questions and provisional recommendations:
+## Builder checklist and checks
 
-1. **Fixed Editor authority and discovery.** Which reviewed Editor commit/policy is
-   authoritative now? Freeze the shared service method names and ownership of discovery/
-   schema refs/UI hints. Recommend Editor publishes one immutable discovery read,
-   Core owns strict payloads, and UI/CLI consume it unchanged; no button-click agent API.
-   Also freeze the read-only inspect/export invocation and result path: these commands
-   produce no Undo entry and must not be sent through a mutating Apply. The declared
-   Review/Apply seam describes edits; a read-execution signature remains an open interface.
-2. **Workspace/content version.** Choose a new typed workspace/module envelope and
-   exact before/target, receipts, resource adoption and same-ID recovery fields.
-   Recommend one complete checkpoint operation covering source/bundle/constraints/
-   definitions/presets/decorations/resource refs; preserve old workshop/receipts.
-   No v1/v2 metadata bag, silent migration or separate overlay journal.
-3. **Stable surfaces and transform grammar.** Freeze first surface IDs/frames, authored
-   mask/grid grammar, D4 rules, seam group/phase, holes/clipping and orphan policy.
-   Recommend local flat source surfaces only initially; world-fixed/path/wall/roof
-   anchors unavailable until explicitly profiled. Need a real ray-hit-to-source adapter.
-4. **Preset defaults and instance editing.** Freeze atomic copy-on-write + selected-owner
-   upgrade operations and the explicit default-capture fields. Recommend include-defaults
-   off initially, fresh IDs/remapping on stamps, preserve old pins/local marks and locks.
-5. **Appearance/resource discovery.** Freeze artwork manifest/resource readiness,
-   layer order, alpha/colour-space, allowed blend/tint, local scale/pivot and provider
-   diagnostics. Recommend display supplied units/order verbatim; never infer alpha or
-   eligibility from PNG/WebP filenames or an artwork family label.
-6. **Budgets and gesture limits.** Which reviewed command/brush limits and resource
-   accounting fields should UI expose? Recommend finite source batches with all targets
-   and aggregate accepted/candidate/acquiring/unverified-retiring counts. Keep 8 layers,
-   4,096 stored marks/chunk, 1,024 resident marks and 32 MiB as proposed/unmeasured
-   reference ceilings until independent PC/phone evidence accepts a profile.
+- [x] Pin corrected Core 43227894c50ec62b71806978195fff2c650eb388 schema/types/discovery and mathematical vectors.
+- [ ] After stack main acceptance, bind one actual Editor HostService and its existing
+      draft/history/save/input/floor owners; no synthetic button-click agent adapter.
+- [ ] Capture full v3 document/Expected and exact immutable pins; exercise both local
+      and reusable scope with selected-default capture initially off.
+- [ ] Stage actual verified bytes/decoders outside commands; bind explicit frame/pivot/
+      sampler/source origin/current D4/floor/clipping and one aggregate allocation ledger.
+- [ ] Prove real create/clone/revise → preset → place twice → upgrade one, with explicit
+      remaps/anchor decisions and unchanged other copies.
+- [ ] Prove source-unchanged metadata, NO_CHANGE/redo, exact whole-document Undo/Redo,
+      save/reopen/export/import, failed/unknown writes and same-ID resource recovery.
+- [ ] Verify actual returned outcomes/targets, source/build/installed human/agent parity,
+      cancellation/focus/input, clipping, budgets and desktop/phone evidence at C1/C2.
+- [ ] Stop disposable helpers; keep public registration, pins, Sites and promotion
+      Architect-owned.
 
-These questions block live integration, not this authorized contract/design delivery.
+~~~text
+node --test tests/ui-tile-authoring-contract.test.mjs
+python -B tools/ui-tile-authoring-c0-validate.py --dependencies artifacts/ui-tile-authoring-c0/schema-validator
+~~~
 
-## Ownership, persistence and adoption
+The checks validate canonical schema examples, negative old aliases/versions, pin/resource
+hash closure, metadata pointers and scope/outcome semantics. They establish no executor,
+decoder, shader, history implementation or device performance. Validation/source receipts
+will accompany the fixed C0 checkpoint. No preview or background helper is retained.
 
-UI owns only candidate metadata projection/specimen and, eventually, its DOM and
-subscriptions. Editor owns selection/draft, authoritative workspace, history, storage,
-resource reference adoption and recovery. Core owns source grammar/validation/planning.
-Artist owns immutable artwork metadata and the optional borrowed-Three clipped
-provider. The retained host owns decode/storage/render pools and its floor/input/
-selection services. Dispose only owned DOM/listeners; never dispose borrowed services.
+For the shared workbench, prefer canonical finite operations plus explicit local/reusable
+scope. Accuracy: exact pins/full bindings preserve authored meaning; graphics supply no
+physical proof. Efficiency: one service/authority and sparse shared resources avoid
+duplicated work by code inspection, with no timing claim. Narrative: local wear gives
+reused parts individual histories while immutable presets support reuse; this is a
+subjective product preference.
 
-Resource preparation can acquire blobs before commit. Failed preparation releases only
-verified unadopted resources; unknown acceptance retains potentially adopted resources
-until same-ID recovery. Positive acknowledgement followed by display failure is still
-committed: retry presentation only. No library import, preview success, cancelled UI or
-cleanup routine may independently adopt or delete potentially committed references.
-
-Graphics are appearance only: blood/scorch does not reaward damage, spend AP, ignite or
-advance time; apparent craters do not alter height, flat plants do not create obstacles.
-A game may borrow data/provider under its own authority without the Editor/history.
-Its adapter supplies stable owner/floor mapping, confirmed-event IDs, permissions,
-runtime save/expiry policy, clocks and capability validation. Static marks have no hidden
-clock/RNG. Physical/gameplay effects need their own provider and proof.
-
-For Farmyard's tactical editor and shared content workbench, prefer per-instance sparse
-layers plus explicit reusable presets. **Accuracy:** source-local frames, floors and
-original controls preserve authored meaning; graphics convey no physical proof.
-**Efficiency:** sparse records and shared artwork avoid mandatory per-cell blank images;
-this is a design/code assessment, not a measured CPU/GPU saving. Material compositing,
-atlas batching and clipped geometry require Artist/Architect comparison. **Narrative:**
-local wear lets repeated parts tell distinct stories while explicit presets support reuse;
-this is a subjective UI preference. Each game retains its style/blood/fire/vegetation policy.
-
-## Builder checklist and evidence
-
-- [x] Isolated candidate and fixed-reference provenance, adjacent usage card/notice,
-  portable headless metadata example and explicit missing bindings.
-- [x] Node contract checks cover unchanged human/agent descriptors, new command IDs,
-  frozen captured reads, local-vs-preset scope, named unavailable reasons, finite atomic
-  history hints, malformed discovery and honest specimen limits.
-- [ ] Architect fixes the six interface questions and exact peer source commits.
-- [ ] Coder/Editor implement reviewed strict payloads and one complete workspace authority;
-  replace specimen refs, including every null/missing artwork hash.
-- [ ] Bind actual existing floor/input/selection owners and approved native preview.
-- [ ] Prove real Create → preset → two stamps; edit one copy; explicit selected upgrade;
-  overlays/masks/D4/nonuniform floors/holes/LOD; local copies remain independent.
-- [ ] Prove whole-workspace Undo/Redo, save/reopen, portable pack bytes/hashes, malformed/
-  unsupported content, budget boundaries, locks/cancellation and same-ID recovery.
-- [ ] Review real source AND installed UI/agent workflows and PC/phone rendering/costs;
-  retain accessibility/focus/input regressions and exact helper cleanup evidence.
-- [ ] Architect owns any Gate B host edits, public registration/distribution, versions,
-  pins and publication. No candidate inclusion in ordinary installed distributions.
-
-Current design-layout evidence and actual repository gates are in
-[validation.json](validation.json). No live authority, installed workflow or physical
-device proof is implied. Browser helpers are disposable and their receipts are
-retained beside the report; none are intended to remain running.
-
-Design review: all six metadata/layout checks passed at four emulated widths (1440,
-768, 390 and 320); all 17 discovered controls retain their command identity and reasons.
-Desktop and 320 px full/top captures were visually inspected. All four repository gates
-passed: 920 engine tests, 32 upstream tests and 519 build module paths. All fifteen
-protected host files match the base. Three browser/server pairs exited; exact lifetime
-and released-port checks are in [cleanup verification](evidence/cleanup-verification.json).
-Earlier disposable-review source revisions are archived as nonruntime text in the
-restart-input bundle; no helper remains running.
+Current contract verification: all nine focused checks, 21 canonical schema examples
+and 22 negative alias/version cases pass. Declaration syntax passes. Repository gates
+passed: check, all 921 tests with four workers (zero skips/timeouts changed), all 32
+upstream tests, and the 519-module build. [Validation](validation.json) records exact
+commands/log hashes. This branch retains its original draft baseline; the bounded
+worker count avoids duplicate high-load runs while leaving source and assertions intact.
+No preview, server or background helper was started. The historical draft is preserved
+separately and the accepted stack UI ref remains exact.

@@ -1,111 +1,73 @@
 {
-  "kind": "nautilus-tile-authoring-ui-contract-validation",
+  "kind": "tile-authoring-ui-c0-validation",
   "version": 1,
-  "verifiedAt": "2026-11-02T05:14:01.854Z",
-  "scope": "Contract/design and metadata/layout evidence only; no live authoring/provider, installed parity, save/history or physical-device acceptance.",
+  "verifiedAt": "2026-11-02T08:09:56.520Z",
+  "core": "43227894c50ec62b71806978195fff2c650eb388",
+  "scope": "Contract/types/metadata/examples only. No executor, UI runtime, decoder, renderer, authority, gesture, public registration or performance claim.",
+  "focusedTests": 9,
+  "schema": {
+    "positiveExamples": 21,
+    "negativeCases": 22,
+    "validator": "jsonschema 4.23.0",
+    "definitionSyntax": "Node 24 TypeScript strip parser; syntax only",
+    "source": "docs/reviews/tile-authoring/ui/evidence/c0/schema-proof.json"
+  },
+  "controls": 13,
+  "queries": 2,
+  "canonicalExamples": 21,
+  "originalAuthoredExamplesUnchanged": 6,
+  "coordinateVectors": 16,
   "gates": [
     {
       "id": "check",
       "command": "npm run check",
       "exitCode": 0,
-      "log": "artifacts/tile-authoring-ui-design/check.log",
-      "logSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c",
-      "unchangedHostFiles": 15
+      "unchangedProtectedHostFiles": 15,
+      "log": "docs/reviews/tile-authoring/ui/evidence/c0/check.log.gz",
+      "rawSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c",
+      "archiveSha256": "782c4f1af2d36424a763b23dff84be4a04a178b634f971df0841dee89541745b"
     },
     {
       "id": "test",
-      "command": "npm test",
+      "command": "npm test -- --test-concurrency=4",
       "exitCode": 0,
-      "log": "artifacts/tile-authoring-ui-design/test-final.log",
-      "logSha256": "1b1838536ef46d54faa93a8d2706d68fbe59e2031bbcc94f12124319613f966d",
-      "tests": 920,
-      "passed": 920,
-      "failed": 0
+      "tests": 921,
+      "passed": 921,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/reviews/tile-authoring/ui/evidence/c0/test.log.gz",
+      "rawSha256": "47336478bb6be62e9deac0e9140a47e541d399f04d154ae52d49a017257a4845",
+      "archiveSha256": "d098cb65e912ff2efbf88b85106db6898c7ed2485e25d817530d75c1b571961c"
     },
     {
       "id": "upstream",
       "command": "npm run test:upstream",
       "exitCode": 0,
-      "log": "artifacts/tile-authoring-ui-design/upstream.log",
-      "logSha256": "5c33f45f261dceddd0562c0584b6a0934d521335ae5a4f3e522ec7cf6d68e364",
       "tests": 32,
       "passed": 32,
-      "failed": 0
+      "failed": 0,
+      "log": "docs/reviews/tile-authoring/ui/evidence/c0/upstream.log.gz",
+      "rawSha256": "b1f814a4b2a1af045dc01b9f34eed796477ccf5759b6da09c90afd23f5e6f2e6",
+      "archiveSha256": "25a69c2ca126e34889a447f87f22e8aede6542aa4262c9cec75be650239345e4"
     },
     {
       "id": "build",
       "command": "npm run build",
       "exitCode": 0,
-      "log": "artifacts/tile-authoring-ui-design/build.log",
-      "logSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7",
-      "modulePaths": 519
+      "modulePaths": 519,
+      "log": "docs/reviews/tile-authoring/ui/evidence/c0/build.log.gz",
+      "rawSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7",
+      "archiveSha256": "097be4f82009329fe04e3b4628ac26d228d55b44593eecc14e9dab2ea9823a98"
     }
   ],
-  "focusedContractTests": 8,
-  "browser": {
-    "checks": 6,
-    "viewports": [
-      {
-        "width": 1440,
-        "height": 1100,
-        "topScreenshot": "design-1440-top.png",
-        "emulated": true,
-        "horizontalOverflow": false,
-        "minimumControlHeightCSSPx": 44,
-        "screenshot": "design-1440.png",
-        "controlCount": 17
-      },
-      {
-        "width": 768,
-        "height": 1024,
-        "topScreenshot": "design-768-top.png",
-        "emulated": true,
-        "horizontalOverflow": false,
-        "minimumControlHeightCSSPx": 44,
-        "screenshot": "design-768.png",
-        "controlCount": 17
-      },
-      {
-        "width": 390,
-        "height": 844,
-        "topScreenshot": "design-390-top.png",
-        "emulated": true,
-        "horizontalOverflow": false,
-        "minimumControlHeightCSSPx": 44,
-        "screenshot": "design-390.png",
-        "controlCount": 17
-      },
-      {
-        "width": 320,
-        "height": 740,
-        "topScreenshot": "design-320-top.png",
-        "emulated": true,
-        "horizontalOverflow": false,
-        "minimumControlHeightCSSPx": 44,
-        "screenshot": "design-320.png",
-        "controlCount": 17
-      }
-    ],
-    "controls": 17,
-    "emulated": true,
-    "sourceHashesVerified": true,
-    "visualInspection": [
-      "1440 full and top",
-      "320 full and top"
-    ]
-  },
+  "preservedStackUI": "8622c77234036d786474689f7e70671ecf01136b",
+  "preservedCustomDraft": "4d1e5da37031b89afbcb7b6fb47e6a03a606de25",
+  "unchangedProtectedHostFiles": 15,
   "helpers": {
-    "pairs": 3,
-    "allExactLifetimesStopped": true,
-    "allPortsReleased": true,
+    "startedBrowsers": 0,
+    "startedServers": 0,
     "retained": 0,
-    "restartInputs": "evidence/restart-inputs.json"
+    "dependencyInstall": "Pinned validator installed only under ignored task artifacts; foreground process completed."
   },
-  "preservedStackUI": "5b0d06ce93977addd438d3ad43f887fcd3278817",
-  "approvedStackCore": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
-  "publicExportsChanged": false,
-  "workspaceFormatsRegistered": [],
-  "consumerPinsChanged": false,
-  "publication": false,
-  "remaining": "Architect fixes interface questions and reviewed Editor policy before shared runtime implementation."
+  "next": "C1 waits stacked main acceptance. Actual B2 workflow review remains priority."
 }

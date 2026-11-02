@@ -1,9 +1,7 @@
-# Candidate notice
+# C0 UI contract notice
 
-Original Nautilus UI contract/design, 2026. No donor artwork, raster assets, fonts,
-runtime provider or peer implementation is copied into this candidate.
-Project license applies. Fixed reference inputs and their hashes are recorded in
-docs/reviews/tile-authoring/ui/source.json.
-
-All proposal identifiers and example command/schema hashes are specimen data.
-They are neither registered engine schemas nor portable content-pack resources.
+Original UI presentation metadata/types/examples. Project licence applies.
+Exact Core schema/type/source examples and public-schema dependency bytes are
+preserved with their fixed Git provenance in inputs/provenance.json. Embedded
+notices remain intact. No new bitmap, decoder, renderer or licence grant is supplied.
+The original 4d1e5da UI runtime/specimen wrappers are historical, not accepted aliases.
