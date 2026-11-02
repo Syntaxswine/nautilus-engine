@@ -1,0 +1,384 @@
+{
+  "status": "PRIVATE source-preserving static import adapters; no public adoption. Original bodies preserved except listed relative imports; actual backend still must bind.",
+  "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+  "runtimeEntries": [
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/packages/windows-authoring/journal.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/authority.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/storage.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/checkpoint.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/jsonl.js",
+    "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js"
+  ],
+  "closure": [
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/smart-tile/checkpoint.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/8083b13589f7.checkpoint.js.original",
+      "bytes": 33009,
+      "sha256": "a790d2f6966849f6bde7aeecc030fd7f2a7415e126a8c9f484bf25f2aa7b3949",
+      "gitBlob": "8083b13589f70f44ffaab3f57f4242c954460695",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/checkpoint.js",
+      "adapterSha256": "a790d2f6966849f6bde7aeecc030fd7f2a7415e126a8c9f484bf25f2aa7b3949",
+      "importRewrites": [
+        {
+          "from": "../../../packages/parts-core/hash.js",
+          "to": "../../../packages/parts-core/hash.js",
+          "sourceTarget": "packages/parts-core/hash.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/smart-tile/contract.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/ddf6c23a2155.contract.js.original",
+      "bytes": 2912,
+      "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04",
+      "gitBlob": "ddf6c23a21559b9b4008374c56a333b1e9b4fde6",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/contract.js",
+      "adapterSha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04",
+      "importRewrites": []
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/smart-tile/intents.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/4b6510eefcc3.intents.js.original",
+      "bytes": 8394,
+      "sha256": "e02380202ed2b59da5f8216306b2371bacfbb3ed96b045144e3a58f7137ce6c1",
+      "gitBlob": "4b6510eefcc3f8dc2bca72615110f13adf7c4780",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/intents.js",
+      "adapterSha256": "e02380202ed2b59da5f8216306b2371bacfbb3ed96b045144e3a58f7137ce6c1",
+      "importRewrites": [
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        },
+        {
+          "from": "./checkpoint.js",
+          "to": "./checkpoint.js",
+          "sourceTarget": "apps/editor/smart-tile/checkpoint.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/smart-tile/views.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/a0b2fdebc9b9.views.js.original",
+      "bytes": 5514,
+      "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+      "gitBlob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/views.js",
+      "adapterSha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+      "importRewrites": [
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        },
+        {
+          "from": "./checkpoint.js",
+          "to": "./checkpoint.js",
+          "sourceTarget": "apps/editor/smart-tile/checkpoint.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/tile-stack/contract.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/d529600b0a10.contract.js.original",
+      "bytes": 3612,
+      "sha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+      "gitBlob": "d529600b0a10f45cee996d922adc4a8ab4e3abab",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/tile-stack/contract.js",
+      "adapterSha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+      "importRewrites": [
+        {
+          "from": "../smart-tile/contract.js",
+          "to": "../smart-tile/contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        },
+        {
+          "from": "../smart-tile/checkpoint.js",
+          "to": "../smart-tile/checkpoint.js",
+          "sourceTarget": "apps/editor/smart-tile/checkpoint.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/tile-stack/floors.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/511434b6b4d0.floors.js.original",
+      "bytes": 5487,
+      "sha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+      "gitBlob": "511434b6b4d0e98804df2abc44d91e163a68bc64",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/tile-stack/floors.js",
+      "adapterSha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+      "importRewrites": [
+        {
+          "from": "../../../packages/parts-core/hash.js",
+          "to": "../../../packages/parts-core/hash.js",
+          "sourceTarget": "packages/parts-core/hash.js"
+        },
+        {
+          "from": "../smart-tile/checkpoint.js",
+          "to": "../smart-tile/checkpoint.js",
+          "sourceTarget": "apps/editor/smart-tile/checkpoint.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "apps/editor/tile-stack/contract.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "apps/editor/tile-stack/policy.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/ad5dfeb1affb.policy.js.original",
+      "bytes": 9366,
+      "sha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+      "gitBlob": "ad5dfeb1affb7d36612b97210b9afa691869d843",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/tile-stack/policy.js",
+      "adapterSha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+      "importRewrites": [
+        {
+          "from": "../smart-tile/checkpoint.js",
+          "to": "../smart-tile/checkpoint.js",
+          "sourceTarget": "apps/editor/smart-tile/checkpoint.js"
+        },
+        {
+          "from": "./floors.js",
+          "to": "./floors.js",
+          "sourceTarget": "apps/editor/tile-stack/floors.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "apps/editor/tile-stack/contract.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/authority.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/cff87a030bf5.authority.js.original",
+      "bytes": 5665,
+      "sha256": "0339664ac41533728b6078242fdd9ea405ed31a69d2615ba960ee7c75c9fa46a",
+      "gitBlob": "cff87a030bf544f1cc0c04847be0d7f1121e51ca",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/authority.js",
+      "adapterSha256": "0339664ac41533728b6078242fdd9ea405ed31a69d2615ba960ee7c75c9fa46a",
+      "importRewrites": [
+        {
+          "from": "./checkpoint.js",
+          "to": "./checkpoint.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/68ecd7ed4c28.checkpoint.js.original",
+      "bytes": 37052,
+      "sha256": "a9ce135bbc9b956be350fc170522a692af8a95991b938cb4f65c7f0cadacd006",
+      "gitBlob": "68ecd7ed4c28d65dcdc30a09829f80844a9e0476",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/checkpoint.js",
+      "adapterSha256": "0651fa8338b44ec76e56fa5555ca7bde5b21cd4a1b19c7a96066fe854436fd25",
+      "importRewrites": [
+        {
+          "from": "../../../observation.js",
+          "to": "../../../observation.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js"
+        },
+        {
+          "from": "../../../../../../../../packages/parts-core/hash.js",
+          "to": "../../../../deps/packages/parts-core/hash.js",
+          "sourceTarget": "packages/parts-core/hash.js"
+        },
+        {
+          "from": "../../../../../../../../apps/editor/smart-tile/contract.js",
+          "to": "../../../../deps/apps/editor/smart-tile/contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/0044d321e07d.session.js.original",
+      "bytes": 47577,
+      "sha256": "007d66fa8047e043a0544a7ce02ef8f4a49538616d305b4d273e5fe8a7db0a83",
+      "gitBlob": "0044d321e07d6c05740812976691b7fb550184b8",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/session.js",
+      "adapterSha256": "aaf84491edb1594cdf7c64621b95521835e57c179f2bbf55b5e442257eccade4",
+      "importRewrites": [
+        {
+          "from": "../../../../../../../../apps/editor/smart-tile/contract.js",
+          "to": "../../../../deps/apps/editor/smart-tile/contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        },
+        {
+          "from": "./checkpoint.js",
+          "to": "./checkpoint.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js"
+        },
+        {
+          "from": "./authority.js",
+          "to": "./authority.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/authority.js"
+        },
+        {
+          "from": "../../../packages/windows-authoring/journal.js",
+          "to": "../../../packages/windows-authoring/journal.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/packages/windows-authoring/journal.js"
+        },
+        {
+          "from": "../../../../../../../../apps/editor/smart-tile/intents.js",
+          "to": "../../../../deps/apps/editor/smart-tile/intents.js",
+          "sourceTarget": "apps/editor/smart-tile/intents.js"
+        },
+        {
+          "from": "../../../../../../../../apps/editor/smart-tile/views.js",
+          "to": "../../../../deps/apps/editor/smart-tile/views.js",
+          "sourceTarget": "apps/editor/smart-tile/views.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/storage.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/765753d68e60.storage.js.original",
+      "bytes": 2252,
+      "sha256": "592623209f0024bcc51b71b1a43c2e1c3dc1529de3a632bfb6ac02f77d87f036",
+      "gitBlob": "765753d68e600067490a7d527e91f92ecdf0f175",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/storage.js",
+      "adapterSha256": "592623209f0024bcc51b71b1a43c2e1c3dc1529de3a632bfb6ac02f77d87f036",
+      "importRewrites": [
+        {
+          "from": "./checkpoint.js",
+          "to": "./checkpoint.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js"
+        },
+        {
+          "from": "./authority.js",
+          "to": "./authority.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/authority.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/checkpoint.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/5e4555b32065.checkpoint.js.original",
+      "bytes": 24652,
+      "sha256": "e738e0d37c04016d90584023ff223badbb18679c3b6be25bef4cf1868b6da9ec",
+      "gitBlob": "5e4555b32065668f28e690a5f1e42cf9ed9833ae",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/checkpoint.js",
+      "adapterSha256": "e3a404d6585889af84416ad513246e4888cfe4d02751d1a0bb8f33a9945d7f23",
+      "importRewrites": [
+        {
+          "from": "../../../observation.js",
+          "to": "../../../observation.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js"
+        },
+        {
+          "from": "../smart-tile/checkpoint.js",
+          "to": "../smart-tile/checkpoint.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js"
+        },
+        {
+          "from": "../smart-tile/storage.js",
+          "to": "../smart-tile/storage.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/storage.js"
+        },
+        {
+          "from": "../../../../../../../../apps/editor/smart-tile/contract.js",
+          "to": "../../../../deps/apps/editor/smart-tile/contract.js",
+          "sourceTarget": "apps/editor/smart-tile/contract.js"
+        },
+        {
+          "from": "../../../../../../../../apps/editor/tile-stack/policy.js",
+          "to": "../../../../deps/apps/editor/tile-stack/policy.js",
+          "sourceTarget": "apps/editor/tile-stack/policy.js"
+        },
+        {
+          "from": "./jsonl.js",
+          "to": "./jsonl.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/jsonl.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/jsonl.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/5531ddeabee2.jsonl.js.original",
+      "bytes": 6225,
+      "sha256": "2fbd10f7c1e0143dfbc2bbb0c0398a10d4a2ceb3f289edcfc128cd6575d6c5dc",
+      "gitBlob": "5531ddeabee234bcc78e01cfc3b342a0dc67a4a6",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/jsonl.js",
+      "adapterSha256": "2fbd10f7c1e0143dfbc2bbb0c0398a10d4a2ceb3f289edcfc128cd6575d6c5dc",
+      "importRewrites": [
+        {
+          "from": "../../../observation.js",
+          "to": "../../../observation.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js"
+        },
+        {
+          "from": "../smart-tile/checkpoint.js",
+          "to": "../smart-tile/checkpoint.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/826d527a2353.observation.js.original",
+      "bytes": 4056,
+      "sha256": "97f9aa0d8b419dab41f6af116c5aeccd1f99d922474c38cd6ab9a55eabb39b3a",
+      "gitBlob": "826d527a23535211c7ce157192f39fcbc38b428b",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/observation.js",
+      "adapterSha256": "97f9aa0d8b419dab41f6af116c5aeccd1f99d922474c38cd6ab9a55eabb39b3a",
+      "importRewrites": []
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/packages/windows-authoring/journal.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/0ab1f27e5691.journal.js.original",
+      "bytes": 11763,
+      "sha256": "d8ced15680dea792d44c5d8a7309d64acc253e174479bee0cb491b0801426901",
+      "gitBlob": "0ab1f27e569147fdd96e2b99339e3d1e75e3c6aa",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/packages/windows-authoring/journal.js",
+      "adapterSha256": "d8ced15680dea792d44c5d8a7309d64acc253e174479bee0cb491b0801426901",
+      "importRewrites": [
+        {
+          "from": "../../observation.js",
+          "to": "../../observation.js",
+          "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js"
+        }
+      ]
+    },
+    {
+      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "path": "packages/parts-core/hash.js",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/5d0575cdb037.hash.js.original",
+      "bytes": 2105,
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+      "gitBlob": "5d0575cdb03732cab1a6cb099e09e236e92d35d8",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/packages/parts-core/hash.js",
+      "adapterSha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+      "importRewrites": []
+    }
+  ],
+  "notice": {
+    "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/NOTICE.kernel-4ade.md",
+    "sha256": "04579b40906420c34979a34771e6361adce4738b30bcca11703ff1951ef5590c"
+  }
+}
