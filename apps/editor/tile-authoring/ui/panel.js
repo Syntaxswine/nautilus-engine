@@ -29,17 +29,33 @@ export function readTileAuthoringUIView(input) {
 
 // Protocol/presentation coordinator only. No journal, private prepared handle or
 // authority is owned here; every action is forwarded to borrowed Editor ports.
-export function createTileAuthoringUIController(binding,{onView=()=>{},onPending=()=>{},onError=()=>{}}={}) {
+export function createTileAuthoringUIController(binding,{onView=()=>{},onPending=()=>{},onError=()=>{},readAdditionalData=null,isAdditionalConnectionCurrent=null,strictCallbackReads=false}={}) {
+  const additional=readAdditionalData!==null||isAdditionalConnectionCurrent!==null||strictCallbackReads;
+  if(additional&&(typeof readAdditionalData!=='function'||typeof isAdditionalConnectionCurrent!=='function'||strictCallbackReads!==true))throw issue('UI_ADDITIONAL_BINDING_REQUIRED','Bind both additional-source checks and strict callback reads together.');
   const service=Object.getOwnPropertyDescriptor(binding??{},'service')?.value;
   if (!binding || !serviceMethods.every(name=>ownFunction(service,name)) ||
       !['getSnapshot','subscribe','collectCommand','discardDraft'].every(name=>ownFunction(binding,name))) throw issue('UI_BINDING_REQUIRED','Supply one actual HostService and the Editor draft/view ports.');
   const collectCommand=Object.getOwnPropertyDescriptor(binding,'collectCommand').value;
   const originalMethods=serviceMethods.map(name=>Object.getOwnPropertyDescriptor(service,name).value);
-  const sameConnection=()=>Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value===collectCommand&&Object.getOwnPropertyDescriptor(binding,'service')?.value===service&&serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i]);
+  const borrowed=additional?['getSnapshot','subscribe','discardDraft'].map(name=>[name,Object.getOwnPropertyDescriptor(binding,name).value]):[];
+  const additionalValues=new WeakMap();
+  const capture=view=>{if(additional)additionalValues.set(view,finiteUIData(readAdditionalData(view)));return view;};
+  const sameView=(a,b)=>sameData(actionKey(a),actionKey(b))&&sameData(bindingKey(a),bindingKey(b))&&(!additional||sameData(additionalValues.get(a),additionalValues.get(b)));
+  const sameConnection=()=>{
+    if(additional)try{if(isAdditionalConnectionCurrent()!==true)return false;}catch{return false;}
+    if(Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value!==collectCommand||Object.getOwnPropertyDescriptor(binding,'service')?.value!==service||!serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i]))return false;
+    if(!additional)return true;
+    return borrowed.every(([name,value])=>Object.getOwnPropertyDescriptor(binding,name)?.value===value);
+  };
   let disposed=false,broken=false,lastView=null,identity=null,epoch=0,ticket=0,pending=false,rendering=false,queued=null,stop=null;
   const notify = reason => {try{onError(reason);}catch{}};
   const invalidate = reason => {lastView=null;try{onView(null);}catch{}notify(reason);};
-  const read = () => {if(!sameConnection()){broken=true;ticket++;pending=false;throw issue('UI_REBIND_REQUIRED','The borrowed HostService connection changed.');}const raw=binding.getSnapshot();return {raw,view:readTileAuthoringUIView(raw)};};
+  const read = () => {
+    if(!sameConnection()){broken=true;ticket++;pending=false;throw issue('UI_REBIND_REQUIRED','The borrowed HostService connection changed.');}
+    const raw=binding.getSnapshot(),view=capture(readTileAuthoringUIView(raw));
+    if(additional&&!sameConnection()){broken=true;ticket++;pending=false;throw issue('UI_REBIND_REQUIRED','The borrowed connection changed during its snapshot callback.');}
+    return {raw,view};
+  };
   function receive(raw) {
     if(disposed||broken)return;if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed HostService connection changed.'));return;}queued={raw};if(rendering)return;rendering=true;let visits=0;
     try {
@@ -47,7 +63,8 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
         if(++visits>8){queued=null;invalidate(issue('UI_OBSERVER_BOUND','Editor observer reentry exceeded the UI bound.'));break;}
         const {raw}=queued;queued=null;lastView=null;epoch++;
         try {
-          const view=readTileAuthoringUIView(raw),next=bindingKey(view);
+          const view=capture(readTileAuthoringUIView(raw)),next=bindingKey(view);
+          if(additional&&!sameConnection()){broken=true;ticket++;pending=false;throw issue('UI_REBIND_REQUIRED','The borrowed connection changed during its source callback.');}
           if(identity!==null&&!sameData(next,identity)){broken=true;ticket++;pending=false;onPending(false);throw issue('UI_REBIND_REQUIRED','Workspace/floor/finish identity changed. Mount a new explicit Editor connection.');}
           onView(view);
           if(!queued&&!disposed&&!broken){identity=next;lastView=view;onPending(pending);}
@@ -61,7 +78,7 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
     if(disposed||broken||rendering||!displayed||!enabled(displayed,name)||(pending&&name!=='cancel'))return {ok:false,code:'UI_ACTION_UNAVAILABLE'};
     let current;
     try{current=read();}catch(reason){invalidate(reason);return {ok:false,code:reason.code??'UI_VIEW_UNAVAILABLE'};}
-    if(disposed||broken||epoch!==stamp||!sameData(actionKey(current.view),actionKey(displayed))||!sameData(bindingKey(current.view),identity)){
+    if(disposed||broken||epoch!==stamp||!sameView(current.view,displayed)||!sameData(bindingKey(current.view),identity)){
       receive(current.raw);return {ok:false,code:'UI_DISPLAY_CHANGED'};
     }
     if(!enabled(current.view,name)||(current.view.presentation.outcome?.outcome==='unknown'&&name!=='recover'))return {ok:false,code:'UI_ACTION_UNAVAILABLE'};
@@ -70,11 +87,23 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
       onPending(true);
       if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed HostService connection changed.'));onPending(false);return {ok:false,code:'UI_REBIND_REQUIRED'};}
       if(disposed||broken||operation!==ticket||epoch!==stamp||!lastView)return {ok:false,code:'UI_DISPLAY_CHANGED'};
+      if(additional){
+        const checked=read();
+        if(disposed||broken||operation!==ticket||epoch!==stamp||lastView!==displayed||!sameView(checked.view,current.view)){receive(checked.raw);return {ok:false,code:'UI_DISPLAY_CHANGED'};}
+      }
       const canCollect=()=>{
         if(disposed||broken||rendering||operation!==ticket||epoch!==stamp||lastView!==displayed)return false;
         if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed Editor connection changed during construction.'));onPending(false);return false;}
+        if(additional){
+          const checked=read();
+          if(disposed||broken||rendering||operation!==ticket||epoch!==stamp||lastView!==displayed||!sameConnection()||!sameView(checked.view,displayed))return false;
+        }
         return enabled(lastView,name)&&lastView.presentation.outcome?.outcome!=='unknown';
       };
+      if(additional){
+        if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed connection changed before invocation.'));return {ok:false,code:'UI_REBIND_REQUIRED'};}
+        if(disposed||broken||operation!==ticket||epoch!==stamp||lastView!==displayed)return {ok:false,code:'UI_DISPLAY_CHANGED'};
+      }
       const result=await invoke(current.raw,current.view,canCollect);
       if(!disposed&&!broken&&operation===ticket&&result?.code!=='UI_STAGE_INVALIDATED')refresh();
       return result;
@@ -99,6 +128,13 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
   };
   try{const unsubscribe=binding.subscribe(receive);if(typeof unsubscribe!=='function')throw issue('UI_SUBSCRIPTION_REQUIRED','Editor subscription must return its disposer.');if(disposed)unsubscribe();else stop=unsubscribe;refresh();}catch(reason){api.dispose();throw reason;}
   return Object.freeze(api);
+}
+
+// One explicit attachment to the existing coordinator, service and history.
+// Detaching this controller removes only its own observer and pending callbacks.
+export function attachTileAuthoringOverlayCoordinator(binding,options){
+  if(options?.strictCallbackReads!==true||typeof options.readAdditionalData!=='function'||typeof options.isAdditionalConnectionCurrent!=='function')throw issue('UI_ADDITIONAL_BINDING_REQUIRED','The overlay attachment requires its complete source/currentness comparison.');
+  return createTileAuthoringUIController(binding,options);
 }
 
 let mountedCount = 0;
