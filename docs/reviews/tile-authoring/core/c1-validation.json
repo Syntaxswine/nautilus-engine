@@ -34,13 +34,13 @@
     "tools/distribution.mjs",
     "tools/test-tile-authoring-core-package.mjs"
   ],
-  "status": "early immutable runtime checkpoint; full-suite result to follow",
+  "status": "pure Core follow-up complete; final full-suite and integration gate composition pending",
   "checks": {
     "focused": {
       "command": "node --test tests/tile-authoring-core-runtime.test.mjs tests/tile-authoring-core-registration.test.mjs",
-      "passed": 11,
+      "passed": 14,
       "failed": 0,
-      "evidence": "artifacts/tile-authoring-core-c1/focused.log"
+      "evidence": "artifacts/tile-authoring-core-c1/focused-budget-followup.log"
     },
     "sourceRegistration": {
       "command": "node tools/check-tile-authoring-core-source.mjs",
@@ -49,7 +49,7 @@
     },
     "ordinaryInstalledPackage": {
       "command": "npm run test:tiles:authoring",
-      "status": "pass",
+      "status": "pass on final follow-up bytes",
       "evidence": "artifacts/tile-authoring-core-c1/package-proof/result.json",
       "actualProof": {
         "publicEntry": true,
@@ -66,7 +66,7 @@
         "name": "@nautilus-engine/core",
         "version": "0.10.0",
         "fileCount": 305,
-        "integrity": "sha512-/fNjEEtF2G7rkUrDFt8RquTZDlqzP5PaC9Vcy/73Aq6zi5lwdb9V9p8KX2q/rfErmaBqfoeXSgK8I1Rpab8fMg=="
+        "integrity": "sha512-Gn/+Oq9drWjBfW8SPF75x28jrSxBSwbcMj7CriI2/Xvg8OjfzPSJpsOOFZ8EpsR7tFqEfmu8+exeZiBcULusMg=="
       }
     },
     "upstream": {
@@ -88,7 +88,10 @@
     },
     "fullSuite": {
       "command": "npm test",
-      "status": "pending"
+      "status": "pass on early immutable checkpoint; budget follow-up rerun pending",
+      "passed": 1003,
+      "failed": 0,
+      "evidence": "artifacts/tile-authoring-core-c1/full-suite.log"
     }
   },
   "witnesses": [
@@ -100,7 +103,10 @@
     "returned old bundle, foreign owner/recipe and coherently rehashed dropped crossing rejected",
     "clone preserves source anchors/frame/grid and original notice prefix; unique notices append",
     "strict decoded duplicate keys, aliases, accessors, stale full floor binding and tightened work budget refuse atomically",
-    "exact preset dependency reports unavailable C1 profile"
+    "exact preset dependency reports unavailable C1 profile",
+    "Instrumented actual public compiler called once per distinct metadata recipe in one call and again on a separate call; no cross-call cache.",
+    "Supplied revisions cannot replace original source attribution; notices append uniquely.",
+    "An actual public path recipe can be sealed as immutable compatibility data but C1 creation refuses its unsupported source profile."
   ],
   "budget": {
     "sharedPlannerLimit": 1000000,
@@ -108,7 +114,7 @@
     "limitRaised": false,
     "hashSerializationBlockBytes": 64,
     "textScanCharactersPerUnit": 16,
-    "optimization": "Within-call exact immutable record/source/bundle validation is skipped only after freshly recomputed full canonical hashes match a previously checked record. Remaining reads/hashes/staging/stack derivation/output are charged. Binder rederives canonical request and full constraints under the remaining budget.",
+    "optimization": "Within-call actual public compiler results, checked bundles and immutable-record validation are reused only after freshly recomputed full canonical source hashes match. This avoids actual duplicate work. Every remaining read/hash, compile and sample, detached structuredClone, staged operation, stack derivation and output remains charged under the shared limit. Binder rederives canonical request and full constraints under the remaining budget.",
     "measurementClaim": false
   },
   "nonClaims": [
@@ -127,10 +133,10 @@
         "owner": "Coder, Nautilus Engine",
         "purpose": "offline ordinary tarball install",
         "project": "Nautilus Engine C1",
-        "pid": 8468,
+        "pid": 73932,
         "executable": "node.exe",
-        "startedAt": "2026-11-02T10:53:25.948Z",
-        "endedAt": "2026-11-02T10:53:29.088Z",
+        "startedAt": "2026-11-02T11:06:03.847Z",
+        "endedAt": "2026-11-02T11:06:06.443Z",
         "foreground": true,
         "endCondition": "bounded command exit",
         "stopMethod": "owning process handle",
@@ -142,10 +148,10 @@
         "owner": "Coder, Nautilus Engine",
         "purpose": "actual public installed workflow",
         "project": "Nautilus Engine C1",
-        "pid": 51080,
+        "pid": 36420,
         "executable": "node.exe",
-        "startedAt": "2026-11-02T10:53:29.091Z",
-        "endedAt": "2026-11-02T10:53:39.240Z",
+        "startedAt": "2026-11-02T11:06:06.445Z",
+        "endedAt": "2026-11-02T11:06:16.809Z",
         "foreground": true,
         "endCondition": "bounded command exit",
         "stopMethod": "owning process handle",
@@ -165,5 +171,6 @@
     "narrative": "Subjective: independently placed copies and explicit upgrades let authors control local visual changes while preserving old content.",
     "recommendation": "Prefer shared pure C1 rectangle source/commands with one Editor commit authority for this milestone. Keep richer C2 decoration and game-specific simulation behind later reviewed adapters.",
     "adoption": "pure Core implemented; production Editor/UI/visual integration remains separately owned"
-  }
+  },
+  "earlyCheckpoint": "981a496a8fda395dd70838f5f1361b44e3fc7b70"
 }
