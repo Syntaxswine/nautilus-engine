@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "baseline": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "status": "functional Gate A candidate; Architect acceptance/Gate B integration pending",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "logSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c",
+      "logBytes": 2270
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "logSha256": "22dedf23677566d3d298d37e2bbc1f7a11bf75b4eb019bdcce4e773db2febfcb",
+      "logBytes": 103004
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "logSha256": "cbfd83bec92af336528542eee4246993ea20d3ba78589026433894e34742381c",
+      "logBytes": 3124
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7",
+      "logBytes": 378
+    }
+  ],
+  "sourceAndActualInstalledEqual": true,
+  "installedFocusedTests": {
+    "tests": 28,
+    "pass": 28,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "headlessProbe": {
+    "ok": true,
+    "forbiddenDependencyAccesses": 0,
+    "crossings": 105
+  },
+  "caseCount": 16,
+  "cases": [
+    {
+      "name": "uniform-fifteen",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78008
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "spatialTests": 435,
+        "geometryEvaluations": 1950
+      },
+      "codes": []
+    },
+    {
+      "name": "finish-unlocked",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 251186,
+        "serializedBytes": 114988
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 2,
+        "spatialTests": 555,
+        "geometryEvaluations": 1950
+      },
+      "codes": []
+    },
+    {
+      "name": "missing-one-crossing",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78008
+      },
+      "requestRelations": 104,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 1949,
+        "spatialTests": 412
+      },
+      "codes": [
+        "UNSATISFIABLE",
+        "INCOMPLETE_REPAIR"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxSteps",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78007
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 0,
+        "spatialTests": 225
+      },
+      "codes": [
+        "SEARCH_LIMIT"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxClosure",
+      "ok": false,
+      "planOK": false,
+      "plannerWork": {
+        "plannerUnits": 23582,
+        "serializedBytes": 0
+      },
+      "requestRelations": null,
+      "coreWork": null,
+      "codes": [
+        "STACK_CLOSURE_LIMIT"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxSpatialTests",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78005
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 1950,
+        "spatialTests": 435
+      },
+      "codes": [
+        "SPATIAL_WORK_LIMIT"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxGeometryWork",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78006
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 1949,
+        "spatialTests": 225
+      },
+      "codes": [
+        "GEOMETRY_WORK_LIMIT"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxPlannerWork",
+      "ok": false,
+      "planOK": false,
+      "plannerWork": {
+        "plannerUnits": 154674,
+        "serializedBytes": 0
+      },
+      "requestRelations": null,
+      "coreWork": null,
+      "codes": [
+        "STACK_PLANNER_WORK_LIMIT"
+      ]
+    },
+    {
+      "name": "limit-minus-one-maxPlannerBytes",
+      "ok": false,
+      "planOK": false,
+      "plannerWork": {
+        "plannerUnits": 22091,
+        "serializedBytes": 0
+      },
+      "requestRelations": null,
+      "coreWork": null,
+      "codes": [
+        "STACK_PLANNER_BYTES_LIMIT"
+      ]
+    },
+    {
+      "name": "move-top",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 224584,
+        "serializedBytes": 101284
+      },
+      "requestRelations": 91,
+      "coreWork": {
+        "steps": 2,
+        "spatialTests": 555,
+        "geometryEvaluations": 1936
+      },
+      "codes": []
+    },
+    {
+      "name": "remove-top",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 222110,
+        "serializedBytes": 101000
+      },
+      "requestRelations": 91,
+      "coreWork": {
+        "steps": 1,
+        "spatialTests": 533,
+        "geometryEvaluations": 1806
+      },
+      "codes": []
+    },
+    {
+      "name": "nonuniform-fifteen",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78017
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "spatialTests": 435,
+        "geometryEvaluations": 1950
+      },
+      "codes": []
+    },
+    {
+      "name": "tall-extra-reservation",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 201623,
+        "serializedBytes": 134520
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 1863,
+        "spatialTests": 345
+      },
+      "codes": [
+        "UNSATISFIABLE",
+        "RESERVATION_CONFLICT"
+      ]
+    },
+    {
+      "name": "insufficient-clearance",
+      "ok": false,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 154675,
+        "serializedBytes": 78012
+      },
+      "requestRelations": 105,
+      "coreWork": {
+        "steps": 16,
+        "geometryEvaluations": 1939,
+        "spatialTests": 225
+      },
+      "codes": [
+        "UNSATISFIABLE",
+        "INVALID_CROSSING"
+      ]
+    },
+    {
+      "name": "projected-edge",
+      "ok": false,
+      "planOK": false,
+      "plannerWork": {
+        "plannerUnits": 22689,
+        "serializedBytes": 0
+      },
+      "requestRelations": null,
+      "coreWork": null,
+      "codes": [
+        "STACK_FLOOR_SEPARATION_UNSUPPORTED"
+      ]
+    },
+    {
+      "name": "projected-near",
+      "ok": false,
+      "planOK": false,
+      "plannerWork": {
+        "plannerUnits": 22689,
+        "serializedBytes": 0
+      },
+      "requestRelations": null,
+      "coreWork": null,
+      "codes": [
+        "STACK_FLOOR_SEPARATION_UNSUPPORTED"
+      ]
+    }
+  ],
+  "oracleCases": 10,
+  "oracleMutationControls": 2,
+  "artifactHashes": {
+    "source.json": "9e71b00ba190dbf990c14d410af062b00c9baa28a49457ef725a877b1e10a26e",
+    "installed.json": "9e71b00ba190dbf990c14d410af062b00c9baa28a49457ef725a877b1e10a26e",
+    "source-oracle.json": "19df9e2b22044503644a0876983c5fd176456e168720796ef131ae9341bb41b7",
+    "installed-oracle.json": "19df9e2b22044503644a0876983c5fd176456e168720796ef131ae9341bb41b7",
+    "installed-tests.tap": "a6cf19fd3de575c71fdde716ea11161ce9914158a21188f42922442691494a51"
+  },
+  "cleanup": {
+    "scratchPath": "C:\\Users\\baals\\AppData\\Local\\Temp\\nautilus-tile-stack-core-proof-aGKkt2",
+    "removed": true,
+    "stageRemoved": true,
+    "consumerRemoved": true,
+    "allForegroundChildrenExited": true,
+    "backgroundHelpers": 0,
+    "servers": 0,
+    "ports": [],
+    "retainedHelpers": 0
+  },
+  "limitations": [
+    "No new public registration or C2a stack support",
+    "No Gate B stacked document/session/history/browser implementation",
+    "Actual public retained consumer one-use/unknown-ack boundary tested; existing v1 history/recovery suite passes",
+    "No structural support, navigation, extrusion, game adoption or phone/GPU timing claim"
+  ]
+}

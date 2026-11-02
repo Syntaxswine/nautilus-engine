@@ -1,0 +1,1721 @@
+{
+  "schemaVersion": 1,
+  "identity": "actual offline-installed normal @nautilus-engine/core/tiles plus explicitly separate copied private candidate host helper; no overlay public entry",
+  "package": {
+    "name": "@nautilus-engine/core",
+    "version": "0.10.0",
+    "integrity": "sha512-f5f9sRWZoa4V39pTrVsr7j7dunx1TfDvvft8tbw9Vlradruir0aHPU3Qu1JvV3cqnu+HC/xQpTNIUwXCUGk4xQ==",
+    "normalFileCount": 278,
+    "exports": {
+      ".": "./packages/map-core/index.js",
+      "./prefabs": "./packages/prefab-core/index.js",
+      "./rules": "./packages/rules-core/index.js",
+      "./rules/dialogue": "./packages/rules-core/dialogue.js",
+      "./rules/aft": "./packages/rules-core/aft-compat.js",
+      "./buildings": "./packages/building-catalog/index.js",
+      "./contracts": "./packages/map-core/contract-manifest.js",
+      "./capabilities": "./packages/map-core/capabilities.js",
+      "./persistence": "./packages/map-core/persistence.js",
+      "./assets": "./packages/assets/index.js",
+      "./adapters/tinderbox": "./packages/adapters/tinderbox/index.js",
+      "./roofs": "./packages/roof-core/index.js",
+      "./items": "./packages/items-core/index.js",
+      "./rules/progression": "./packages/rules-core/progression.js",
+      "./runtime": "./packages/runtime-core/index.js",
+      "./world": "./packages/world-core/index.js",
+      "./adapters/farmyard/rules": "./packages/adapters/farmyard/rules.js",
+      "./floors": "./packages/floor-navigation/index.js",
+      "./grenades": "./packages/grenades-core/index.js",
+      "./grenades/aim": "./packages/grenades-core/aim.js",
+      "./parts": "./packages/parts-core/index.js",
+      "./parts/fixtures": "./packages/parts-core/fixtures.js",
+      "./interactions": "./packages/interactions/index.js",
+      "./game-ui": "./packages/game-ui/index.js",
+      "./adapters/farmyard/doors": "./packages/adapters/farmyard/doors.js",
+      "./windows": "./packages/windows-core/index.js",
+      "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js",
+      "./tiles": "./packages/tiles-core/index.js",
+      "./windows/authoring": "./packages/windows-authoring/index.js",
+      "./tiles/art": "./packages/tile-visuals/prepare.js",
+      "./tiles/art/example": "./packages/tile-visuals/example.js"
+    },
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "94905c0382768c8ad65c305fd11b077106e5d8bf128f3948bc7191457730ce81",
+        "bytes": 10527
+      },
+      {
+        "path": "NOTICE.md",
+        "sha256": "04579b40906420c34979a34771e6361adce4738b30bcca11703ff1951ef5590c",
+        "bytes": 8106
+      },
+      {
+        "path": "README.md",
+        "sha256": "348af36e724e495ba56b2dfc70bfdb9db65ef2ce50148bf92a6143b936d800ed",
+        "bytes": 17620
+      },
+      {
+        "path": "docs/adapters/farmyard-doors.md",
+        "sha256": "476106b907aa00dde6365bb914c13c42de258bf11ffa9cfe2e207c6c8f96268c",
+        "bytes": 24265
+      },
+      {
+        "path": "docs/adapters/farmyard-rules.md",
+        "sha256": "ac01fd86765e861b07cde38534eafbc29736624b275cbd0df690699fe36f9b2c",
+        "bytes": 8017
+      },
+      {
+        "path": "docs/adapters/farmyard-window-impacts.md",
+        "sha256": "99932ff990afcf805ec935c67dba09f347dbdd311125c070f61017407ca8ba2b",
+        "bytes": 14738
+      },
+      {
+        "path": "docs/asset-handoffs.md",
+        "sha256": "130bcef79a0fdafc1d703999dc2291f40d1e28e2e0107222532368782b28d48f",
+        "bytes": 3375
+      },
+      {
+        "path": "docs/compatibility.md",
+        "sha256": "b1b13cdb256ce8f176407c2769199bc985aeaa41ba7d75321e8b143e7d33ff07",
+        "bytes": 11369
+      },
+      {
+        "path": "docs/distribution.md",
+        "sha256": "ae9b5d5cdb35afd97664120ca98245674cbab150107454aad3eeb33e8318c527",
+        "bytes": 15030
+      },
+      {
+        "path": "docs/extended-world-core.md",
+        "sha256": "a511c3b6eedf73ee03982b2a900850ef5f1149b12c6d4524c05ce65e631d9194",
+        "bytes": 17926
+      },
+      {
+        "path": "docs/floor-navigation.md",
+        "sha256": "f1a8b133fa6abb0d29e901abffc08c4d61b0311608c58be98b48f9995260b54f",
+        "bytes": 7960
+      },
+      {
+        "path": "docs/functional-parts.md",
+        "sha256": "7c106b80b45f80c56fe4f95f88b11fa82e7c910af161a4a7c6d3686d90cc6925",
+        "bytes": 22854
+      },
+      {
+        "path": "docs/game-title.md",
+        "sha256": "7ea7207a5b8a840d0d880df2bee30505985ca788c72ffd20ef2ed87bfcfa8fce",
+        "bytes": 10429
+      },
+      {
+        "path": "docs/grenades.md",
+        "sha256": "493ea2de0f411431a82372fe64630f2774e2b070785078eb457709988315b9ca",
+        "bytes": 13717
+      },
+      {
+        "path": "docs/modular-foundation.md",
+        "sha256": "21d4b560a1da093740bcb3ad88e32bc5ff90af47ba69b592a25f420fb634bb64",
+        "bytes": 6167
+      },
+      {
+        "path": "docs/procedural-tiles.md",
+        "sha256": "a539c85a4a28d7ce67a649061d14073e9e4fe8acddaab2440d059a2912ea117e",
+        "bytes": 18799
+      },
+      {
+        "path": "docs/progression.md",
+        "sha256": "99d8311a84ceaea054c2a3030746d9542e65b15ecd25152cbc7ae26cb829f52c",
+        "bytes": 7435
+      },
+      {
+        "path": "docs/proposals/procedural-tiles-v1.md",
+        "sha256": "956687a23e631d483259c3d2158e2ea12b27bcd0ef717042857fc338887a2e0f",
+        "bytes": 4556
+      },
+      {
+        "path": "docs/reviews/2026-10-29-basic-progression.md",
+        "sha256": "26b2e6289698e8eb5fcf508dd610a7ff047f13b204e9f3fbf10509727a3868d4",
+        "bytes": 5481
+      },
+      {
+        "path": "docs/reviews/2026-10-29-basic-progression.sources.json",
+        "sha256": "0e023cdd224c654a13dda5ced32916a5be27eec5baf54ba3c318f52f8db47de6",
+        "bytes": 1380
+      },
+      {
+        "path": "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
+        "sha256": "876f261e70a319e2097bf36bf14978d6301b136bc007ad7bed4ec4e11c474149",
+        "bytes": 149703
+      },
+      {
+        "path": "docs/reviews/2026-10-29-farmyard-rules.sources.json",
+        "sha256": "e49ec98dfd2d970ad2d45029934432202ef9f715ce5efd77fab425c5f864624c",
+        "bytes": 3233
+      },
+      {
+        "path": "docs/reviews/2026-10-29-rock-distraction.sources.json",
+        "sha256": "8f631629794777372f4abee3f9cfa7dd669b528c7093dee43125f8edfcd18631",
+        "bytes": 4404
+      },
+      {
+        "path": "docs/reviews/2026-10-30-farmyard-window-integration.md",
+        "sha256": "f657341ddb30f0a8d673bbbb4bd7ef19f6aa6ed0d5cc07a670905275ba4ad37d",
+        "bytes": 6039
+      },
+      {
+        "path": "docs/reviews/farmyard-doors.sources.json",
+        "sha256": "4bb10d1ae185ccf1d1280cc0f0aea06909a8fdf66cc6b860f8c9b49cde98111b",
+        "bytes": 8357
+      },
+      {
+        "path": "docs/reviews/farmyard-doors/integration-request.json",
+        "sha256": "bbd32e94cfb4907b8d2a3855447ad186539562755ff69d7d34048faabc0748a6",
+        "bytes": 3133
+      },
+      {
+        "path": "docs/reviews/farmyard-windows/impact-registration-request.json",
+        "sha256": "f177e0ed98a20f731ccf2708f396b2a657e79854c5e142368be8c28a4c54cdb3",
+        "bytes": 5499
+      },
+      {
+        "path": "docs/reviews/farmyard-windows/source-audit.json",
+        "sha256": "65f109234cfe6629e2b9f8f771df4ab57409ed9571602c29d825eab585c396f3",
+        "bytes": 14618
+      },
+      {
+        "path": "docs/reviews/procedural-tiles/registration-request.json",
+        "sha256": "6c1df50bfbc23f0bc21e9b63e7775054bf8cc62401da6213322529df0e0ceea2",
+        "bytes": 3298
+      },
+      {
+        "path": "docs/reviews/procedural-tiles/source-audit.json",
+        "sha256": "e28c485de6cd0d6c4696e3611ed079427ea2ceb79d20a582617262291cd2d7ff",
+        "bytes": 4240
+      },
+      {
+        "path": "docs/reviews/window-authoring/dependencies.json",
+        "sha256": "56296e6d21c2888ecda742019ae946d9e241a24cb8dc887b6c3734d726b330cb",
+        "bytes": 1439
+      },
+      {
+        "path": "docs/reviews/window-authoring/registration-request.json",
+        "sha256": "56875298772b5bb257cdaebe8b1758ff140ff49fc53950ee104a4abd281f1d66",
+        "bytes": 3418
+      },
+      {
+        "path": "docs/rock-distraction.md",
+        "sha256": "e83c1eb4193ad5d7598d7cb87723a38559be278b0247c25de5b80cbb44680087",
+        "bytes": 18057
+      },
+      {
+        "path": "docs/runtime-modules.md",
+        "sha256": "b1c3deddcd73d19c97c2417f6d29216bef1503a817a9623d796eebc224ce8a03",
+        "bytes": 9687
+      },
+      {
+        "path": "docs/standard-interactions.md",
+        "sha256": "3f185da42fec0d92437a68da71f5998b7669fd89e114b5b6d988ab151829e46f",
+        "bytes": 17187
+      },
+      {
+        "path": "docs/ui/grenade-controls.md",
+        "sha256": "23bab1c6328980db70f726f25fb8766f06cc6cf56759f8536e828997b89ab3f3",
+        "bytes": 16217
+      },
+      {
+        "path": "docs/ui/grenade-controls.sources.json",
+        "sha256": "39f95348428e1a8243c2786e6befcd4a5c8b81dbcd8373795feb771ab62bb4f2",
+        "bytes": 3375
+      },
+      {
+        "path": "docs/ui/grenade-existing-assets.json",
+        "sha256": "254307b17b04e0fcdef7aee269cbb77fc08c01526c2024b5b64a091b7c413506",
+        "bytes": 2383
+      },
+      {
+        "path": "docs/window-authoring.md",
+        "sha256": "b4a6d000257eaab9a092bb77a071ce23c82c5a476895c2954ce085de985e94b3",
+        "bytes": 15458
+      },
+      {
+        "path": "packages/adapters/farmyard/doors.js",
+        "sha256": "281865d49cdb1b52efdc44e08a77741c39ec4c0905b8c3e195348b16fdf98540",
+        "bytes": 946
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/data.js",
+        "sha256": "99347d5fe6daced8305d15d09718af52d6782ea5fd0c34c9f591a48879862b28",
+        "bytes": 5565
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/door-host-save-v1.schema.json",
+        "sha256": "c1ca9fb5dfc567c90f617b5bc854c823bd764e64633e37270356b9727a7ad61d",
+        "bytes": 1508
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/door-state-v1.schema.json",
+        "sha256": "f426e829f56cbf555f27999c7116094cbf9dcc95b295ec493cf0d3953f2edaa7",
+        "bytes": 57340
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/host.js",
+        "sha256": "813ad8235608d9da9eccd2d3daa6c01a1b6ecd3bf72b2178991dc610a66eeddb",
+        "bytes": 15702
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/mechanics.js",
+        "sha256": "c97451eb3737b51d333474d52c897f962b99f20684f4d04a452e3a14afca7da0",
+        "bytes": 3344
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/model.js",
+        "sha256": "3a7f3a10ab362fbc6658959263ac18ff8a5a5252b93e92eb63e8244a9abe2907",
+        "bytes": 8474
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/profile.js",
+        "sha256": "8d9f939c98281f0ba92c89d8060e22b7ce2ddec2e3d41533a22a11526b0fd652",
+        "bytes": 2828
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/projection.js",
+        "sha256": "56f5e9de8008c864d35857e7cebd4f596578caf3f9d8e92eac23a024bd6fbaf7",
+        "bytes": 10337
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/state.js",
+        "sha256": "ff13a6f380ef1d4932b3185a01bc8a187c147851fde4a5194cffe98e9bc8e0fc",
+        "bytes": 7253
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/world.js",
+        "sha256": "56e2d96128d43b2f69b60535683e76e8cbff33d2c5688217b2f2b85d722213e1",
+        "bytes": 5632
+      },
+      {
+        "path": "packages/adapters/farmyard/rules.js",
+        "sha256": "71ccd2b31a2a5de806967ba729a06443da2a4fff102abc8d4c0e5ef5a5545405",
+        "bytes": 6855
+      },
+      {
+        "path": "packages/adapters/farmyard/windows.js",
+        "sha256": "3efcb20364ec83474ebf6c3aa0118bb50107d579cb5531a2da02c824a9fe4c4d",
+        "bytes": 5511
+      },
+      {
+        "path": "packages/adapters/farmyard/windows/NOTICE.md",
+        "sha256": "e8cafaf27165ab89b4eb8b210c8c6ac27d80c13bcb8138b60489e25bef0bf090",
+        "bytes": 1359
+      },
+      {
+        "path": "packages/adapters/farmyard/windows/host.js",
+        "sha256": "a5110a5f93671e5251f6374b39ce8b529733bf417b8cc5df3a5343cd240e43ae",
+        "bytes": 23823
+      },
+      {
+        "path": "packages/adapters/farmyard/windows/window-host-save-v1.schema.json",
+        "sha256": "262792e58369df57d66c56cd57cc88cd056731d6c585669417f4d70c834de577",
+        "bytes": 9253
+      },
+      {
+        "path": "packages/adapters/tinderbox/index.js",
+        "sha256": "ab4ab79ccbc3ffb6c2315b005d7257b4f763c044b850cad358779e2d76de0928",
+        "bytes": 15511
+      },
+      {
+        "path": "packages/assets/catalogue.js",
+        "sha256": "ccc52c40670f9f4b149cf6e5a8d0eb66cc83f9660a37618b03f1d703e16c4d25",
+        "bytes": 180321
+      },
+      {
+        "path": "packages/assets/index.js",
+        "sha256": "248eec4e8362ad85f772041440e2a6fec4e6f2d671626fb492d1a92d08bd14c9",
+        "bytes": 490
+      },
+      {
+        "path": "packages/building-catalog/designs.js",
+        "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6",
+        "bytes": 12266
+      },
+      {
+        "path": "packages/building-catalog/index.js",
+        "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108",
+        "bytes": 11005
+      },
+      {
+        "path": "packages/floor-navigation/index.js",
+        "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d",
+        "bytes": 6336
+      },
+      {
+        "path": "packages/game-ui/index.js",
+        "sha256": "cabc745318a761f82c9447bbbf33a96fa09decfb1d627f28240db90d664f2e9a",
+        "bytes": 1580
+      },
+      {
+        "path": "packages/grenades-core/aim.js",
+        "sha256": "9261d57bcd9838eff21e3359ea20cd561fa3459a9af7e11015a3d04f3de2709d",
+        "bytes": 3299
+      },
+      {
+        "path": "packages/grenades-core/example.js",
+        "sha256": "3de77a10e4e24d7dc999d90e309a53e9ae4ff01e7311c5901ec79b5709ec9620",
+        "bytes": 1194
+      },
+      {
+        "path": "packages/grenades-core/farmyard.js",
+        "sha256": "c46f3f62ecfbe44307ac9dc7fd447ca3cba6ec31bbe943b1e3f688faaf61f2c6",
+        "bytes": 10011
+      },
+      {
+        "path": "packages/grenades-core/geometry.js",
+        "sha256": "7dd1f2a04625034648653d3d0e32eab3adbc17904ba34f69784281b721ae3526",
+        "bytes": 3318
+      },
+      {
+        "path": "packages/grenades-core/index.js",
+        "sha256": "d5868b208c40ff01061c8f35724b5892798f96d47d81183de132b650848c7883",
+        "bytes": 622
+      },
+      {
+        "path": "packages/grenades-core/mechanics.js",
+        "sha256": "e030033935054e988c9e10d275ad3c6d743508c759750144da273a024bdd6615",
+        "bytes": 6918
+      },
+      {
+        "path": "packages/grenades-core/model.js",
+        "sha256": "c4b9e9445dcb48e0ba0f8fc3242259c75459544f6dec40ca9d8d7b8064374569",
+        "bytes": 7924
+      },
+      {
+        "path": "packages/grenades-core/profile.js",
+        "sha256": "df51312a207d896623de1b1f8848b6b8962889acc411262043f14b5bccad52bf",
+        "bytes": 2472
+      },
+      {
+        "path": "packages/grenades-core/state.js",
+        "sha256": "f89e9fde410b6a1824695432def3943d750faf8930c6fe3921a21f5acc8b2aa2",
+        "bytes": 10091
+      },
+      {
+        "path": "packages/grenades-core/validation.js",
+        "sha256": "1e0935ac2a9592a328ef8a254ad02a1efdcea1b5e7c2b63a412525296686794f",
+        "bytes": 5298
+      },
+      {
+        "path": "packages/interactions/actions.js",
+        "sha256": "eb6fe5be66b21abbc86fe6a6a477ce265e2d3e470b2a3398121f31db27594e63",
+        "bytes": 9901
+      },
+      {
+        "path": "packages/interactions/index.js",
+        "sha256": "56a886bb528aa6b6cb4449f3e3c8ac9d0c42b1541907f988a777504694cb5604",
+        "bytes": 360
+      },
+      {
+        "path": "packages/interactions/queries.js",
+        "sha256": "749e82ecd94807ab90f6ac42f2e6b5e2d2b96326760367b99f874bb861b2f626",
+        "bytes": 7267
+      },
+      {
+        "path": "packages/interactions/state.js",
+        "sha256": "8097a5721c8f18373121b781664ff3a04468a5b7dcefcfdfe80623b7bd5a3f9e",
+        "bytes": 9204
+      },
+      {
+        "path": "packages/items-core/actions.js",
+        "sha256": "ffdbbb27ff9d407194e555e9b21f3a6e17dad9c9c20a25690254e0e84861974b",
+        "bytes": 3420
+      },
+      {
+        "path": "packages/items-core/flight.js",
+        "sha256": "6c60e5d16134c08a504bb5ce890b25b65913c8d8d797362107d4367939c182c4",
+        "bytes": 5214
+      },
+      {
+        "path": "packages/items-core/index.js",
+        "sha256": "0d571cb37622d731393032fda29687008951a7c0d673001e4655b5966fbbc29f",
+        "bytes": 364
+      },
+      {
+        "path": "packages/items-core/lob.js",
+        "sha256": "095aa05a4c9c9162f6ba2b2b29df56c265c5d3a8f8735ed951ae29b186bb50ff",
+        "bytes": 1261
+      },
+      {
+        "path": "packages/items-core/noise.js",
+        "sha256": "33bfcadf18a4ad086dc88377b0aa7b240f5bd34884f560a0fe03a64ae5bc887f",
+        "bytes": 2058
+      },
+      {
+        "path": "packages/items-core/profile.js",
+        "sha256": "ab0587943de648c10cf92f48f6d500223f08e48670a3b1d613f8cfc477b7e0ea",
+        "bytes": 1580
+      },
+      {
+        "path": "packages/items-core/state.js",
+        "sha256": "ff50d256f03c8a71a60f0683423f5d90fcfa9d74bb56d080b59a9e45a03ef1a2",
+        "bytes": 7268
+      },
+      {
+        "path": "packages/items-core/transactions.js",
+        "sha256": "55e6413ee20d45900aeca6bdd905f88670aa08154e1e2a854c0e1b97ec0c8079",
+        "bytes": 1275
+      },
+      {
+        "path": "packages/items-core/validation.js",
+        "sha256": "1a32d4bfd0ce07fbcd5c53b027550ecc07c560c6ebeebf8d5c6038086ee279c7",
+        "bytes": 2402
+      },
+      {
+        "path": "packages/map-core/blocks.js",
+        "sha256": "103bfe375a41738cd989e770f53519805c219a55033dfe4d9e5a4332ff052ebb",
+        "bytes": 5257
+      },
+      {
+        "path": "packages/map-core/capabilities.js",
+        "sha256": "cb6d527d4a8716c929a1b92ec36d6922330dc9c26e6697fc3b7e5ffe265c4475",
+        "bytes": 1279
+      },
+      {
+        "path": "packages/map-core/contract-manifest.js",
+        "sha256": "2398f6a9db16cf2efb631ee5d57d396d557fb0f94873e29b784b1bb02c2d1273",
+        "bytes": 10938
+      },
+      {
+        "path": "packages/map-core/document.js",
+        "sha256": "80416a2d09f2b7a23d5a1241315bd7f32ef97936c23e1832ef1eac8c578554ec",
+        "bytes": 6854
+      },
+      {
+        "path": "packages/map-core/editing-document.js",
+        "sha256": "77cc0f80981fc06301e28cc35211fae222255ae854863e0e6a0c95f3362a2786",
+        "bytes": 26714
+      },
+      {
+        "path": "packages/map-core/generator.js",
+        "sha256": "b9b3ec1a00d39606dc1eb6d8943e172ac3b566cdd45ffa2ea4c8e52d27fabf98",
+        "bytes": 4346
+      },
+      {
+        "path": "packages/map-core/index.js",
+        "sha256": "c1fd8b2e467c48cd94202a7e00e6f4bee531ec156f41d3f2279c21f08349ddd2",
+        "bytes": 2990
+      },
+      {
+        "path": "packages/map-core/inspection.js",
+        "sha256": "29125e7c4bcf866a4509f70f653be46037946cb595563092b296390cd90fd4e3",
+        "bytes": 5159
+      },
+      {
+        "path": "packages/map-core/maps.js",
+        "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756",
+        "bytes": 3184
+      },
+      {
+        "path": "packages/map-core/persistence.js",
+        "sha256": "7f0217444f1d9e438a79a7347cb8b79442c41d20698127320395eafe5e409800",
+        "bytes": 8113
+      },
+      {
+        "path": "packages/map-core/prefab-blocks.js",
+        "sha256": "6591d82c2c6cd21183e18c1e3011a09860d1a0ac2b6b071ef3cbc876f19a55f5",
+        "bytes": 705
+      },
+      {
+        "path": "packages/map-core/prefab-document.js",
+        "sha256": "3ec21d4bab1eeb214d5a7a4d66eb83f44e99022fbd292c8ca6a13838a2cc1fc7",
+        "bytes": 3442
+      },
+      {
+        "path": "packages/map-core/prefab-generator.js",
+        "sha256": "5131c2b257d251f35017bce74103858624254d86b0516c6a23f093ee304c8dea",
+        "bytes": 266
+      },
+      {
+        "path": "packages/map-core/prefab-maps.js",
+        "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9",
+        "bytes": 1754
+      },
+      {
+        "path": "packages/map-core/prefab-rotation.js",
+        "sha256": "983b0fade849222d1c7910ba362f1bdc33248a6277a90085934e5207e8fb76f8",
+        "bytes": 220
+      },
+      {
+        "path": "packages/map-core/requirements.js",
+        "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657",
+        "bytes": 5642
+      },
+      {
+        "path": "packages/map-core/roof-blocks.js",
+        "sha256": "4ab8a70684b65c29395fcf87401274506ced6ce78074616723779fb7cf1b0cfd",
+        "bytes": 2131
+      },
+      {
+        "path": "packages/map-core/roof-data.js",
+        "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7",
+        "bytes": 4699
+      },
+      {
+        "path": "packages/map-core/roof-document.js",
+        "sha256": "a1e6e36468c73a6a3b4d8b42f637d4054dd96122a097976e397b482b0ad92029",
+        "bytes": 4808
+      },
+      {
+        "path": "packages/map-core/roof-generator.js",
+        "sha256": "62576885f7eb907ed24f6b466c175743cf7e1ca4b532c3e17dedee5faff3dcae",
+        "bytes": 4879
+      },
+      {
+        "path": "packages/map-core/roof-maps.js",
+        "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848",
+        "bytes": 1089
+      },
+      {
+        "path": "packages/map-core/roof-rotation.js",
+        "sha256": "d9d15a3f0a27900ec0c996e4ba380e24e95c36d3b36a35b5def9e12caec8ffde",
+        "bytes": 760
+      },
+      {
+        "path": "packages/map-core/wall-runs.js",
+        "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d",
+        "bytes": 8795
+      },
+      {
+        "path": "packages/parts-core/clearance.js",
+        "sha256": "750b445ae131a2052e24f61f3521c1d2dc72fc542e8404716e43bce43db4e42a",
+        "bytes": 1272
+      },
+      {
+        "path": "packages/parts-core/compiler.js",
+        "sha256": "256742ecc07ba672d8a6d5e09f020744d72ca438c57e256ec3c66e57d0ea5a96",
+        "bytes": 26064
+      },
+      {
+        "path": "packages/parts-core/data.js",
+        "sha256": "51ad8cbc6a73d2e58cac9cae360298ed29b62dcd0479146645d5d21854ae67e3",
+        "bytes": 16686
+      },
+      {
+        "path": "packages/parts-core/fixtures.js",
+        "sha256": "aad83cfefd721f76459d28bd9bc9213d16846bc5023db8b34a3bb53fff0e35fe",
+        "bytes": 5289
+      },
+      {
+        "path": "packages/parts-core/geometry.js",
+        "sha256": "6ff50e6f6be5406912dd77ad79b511f8b24043349a8173798e9a16cea41ca22e",
+        "bytes": 5001
+      },
+      {
+        "path": "packages/parts-core/hash.js",
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+        "bytes": 2105
+      },
+      {
+        "path": "packages/parts-core/identity.js",
+        "sha256": "99b6a2605d64cbaf6ace50ea90459cff9cc708d051c95f3241291030e6f4158f",
+        "bytes": 2435
+      },
+      {
+        "path": "packages/parts-core/index.js",
+        "sha256": "dbd2d8fa227303d644d5c5459bdd54a3974c33d71a5041e1e6c07dc46c240335",
+        "bytes": 1789
+      },
+      {
+        "path": "packages/parts-core/runtime.js",
+        "sha256": "9a1c241126efa7584fa50a7b86101433b3316298b57c7a77f91e328444f6b9be",
+        "bytes": 19571
+      },
+      {
+        "path": "packages/prefab-core/catalogue.js",
+        "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85",
+        "bytes": 26848
+      },
+      {
+        "path": "packages/prefab-core/index.js",
+        "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c",
+        "bytes": 13696
+      },
+      {
+        "path": "packages/prefab-core/original-catalogue.js",
+        "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1",
+        "bytes": 67995
+      },
+      {
+        "path": "packages/prefab-core/registry.js",
+        "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b",
+        "bytes": 1847
+      },
+      {
+        "path": "packages/roof-core/index.js",
+        "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c",
+        "bytes": 13011
+      },
+      {
+        "path": "packages/rules-core/aft-compat.js",
+        "sha256": "952adfa2725bc399992b596d14686103877f697896e139da2552741ab49b4bea",
+        "bytes": 498
+      },
+      {
+        "path": "packages/rules-core/characters.js",
+        "sha256": "c2559097d664f3769a70f2f122044864dad87648037f9eb03890a697ebe66811",
+        "bytes": 4498
+      },
+      {
+        "path": "packages/rules-core/checks.js",
+        "sha256": "4ae251555289d1871b9321640c263cc6a051ac5b605edf9c381fb5011794f379",
+        "bytes": 3238
+      },
+      {
+        "path": "packages/rules-core/combat.js",
+        "sha256": "81679c73eb6f35969fcd3317f1c02d7e37ec9a4c6da58bb01e1eb50c480937d2",
+        "bytes": 4286
+      },
+      {
+        "path": "packages/rules-core/dialogue.js",
+        "sha256": "4fa0e4976adf35f07fef5dee4618c68fad4eb25f826fc4aff953a701784fb832",
+        "bytes": 552
+      },
+      {
+        "path": "packages/rules-core/index.js",
+        "sha256": "efc31deb72c50d33108b455112c453472650525ea79e6bb37ed103a6b279de3d",
+        "bytes": 706
+      },
+      {
+        "path": "packages/rules-core/progression.js",
+        "sha256": "be4a5c6847adc54b66823dbd1037f14149849a531f4bdc4e71c020cada9cea07",
+        "bytes": 19311
+      },
+      {
+        "path": "packages/rules-core/upstream.js",
+        "sha256": "c68f9dceac4fb47a6c9b6349ec4cfead5f777d3bd3ce614e994a03371ad76943",
+        "bytes": 608
+      },
+      {
+        "path": "packages/rules-core/validation.js",
+        "sha256": "99dc281b138551fdc141653597fcba15b3bb6105e4fac9e9d4b931e57f00b1f2",
+        "bytes": 1347
+      },
+      {
+        "path": "packages/runtime-core/index.js",
+        "sha256": "94846e754caf777bbff8b8316a4a6057ebf80df76fe5a56debe85969d7db31d9",
+        "bytes": 669
+      },
+      {
+        "path": "packages/runtime-core/lifecycle.js",
+        "sha256": "2e841fbbc4c53263bbae77bc8394521450efaac7646ef7adad4b0132629e0653",
+        "bytes": 7014
+      },
+      {
+        "path": "packages/runtime-core/planner.js",
+        "sha256": "b1637d0841d62a0cccbb01702a0a08f371ee8f13d5477394f26aa072c8b6a117",
+        "bytes": 14382
+      },
+      {
+        "path": "packages/tile-visuals/NOTICE.md",
+        "sha256": "9cfef539411d9ac8f16eccf7060b3bd1e0c25e7dbe789e465146fe4fae286e97",
+        "bytes": 975
+      },
+      {
+        "path": "packages/tile-visuals/README.md",
+        "sha256": "30993355f0ee0876d4c8a1b6c9eebe249f8b3ab9e1eb1b35b98c52faf73eeb2e",
+        "bytes": 12799
+      },
+      {
+        "path": "packages/tile-visuals/data.js",
+        "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313",
+        "bytes": 3780
+      },
+      {
+        "path": "packages/tile-visuals/example.js",
+        "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69",
+        "bytes": 4602
+      },
+      {
+        "path": "packages/tile-visuals/prepare.js",
+        "sha256": "eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e",
+        "bytes": 12539
+      },
+      {
+        "path": "packages/tile-visuals/source.json",
+        "sha256": "a8bf1320dc270a9021bfcf495cfb6370ec1484b738cf00d4c1c4154ce6f78831",
+        "bytes": 3584
+      },
+      {
+        "path": "packages/tiles-core/NOTICE.md",
+        "sha256": "88e4bb85dbcb102784441e5e0aab6d8c0bd35cf37a6059b0e173f15f23d16989",
+        "bytes": 1041
+      },
+      {
+        "path": "packages/tiles-core/cells.js",
+        "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811",
+        "bytes": 8266
+      },
+      {
+        "path": "packages/tiles-core/compiled-tiles-v1.schema.json",
+        "sha256": "e8e677205d213d632c15d54558a5d271652e81b9b0427ddcd7bb9fb9259a85f2",
+        "bytes": 53575
+      },
+      {
+        "path": "packages/tiles-core/contract.js",
+        "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7",
+        "bytes": 1730
+      },
+      {
+        "path": "packages/tiles-core/curves.js",
+        "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402",
+        "bytes": 9480
+      },
+      {
+        "path": "packages/tiles-core/data.js",
+        "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed",
+        "bytes": 4579
+      },
+      {
+        "path": "packages/tiles-core/dependencies.js",
+        "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d",
+        "bytes": 8832
+      },
+      {
+        "path": "packages/tiles-core/example.js",
+        "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0",
+        "bytes": 2579
+      },
+      {
+        "path": "packages/tiles-core/fields.js",
+        "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667",
+        "bytes": 5394
+      },
+      {
+        "path": "packages/tiles-core/index.js",
+        "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2",
+        "bytes": 728
+      },
+      {
+        "path": "packages/tiles-core/interfaces.js",
+        "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136",
+        "bytes": 11429
+      },
+      {
+        "path": "packages/tiles-core/layout.js",
+        "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7",
+        "bytes": 12740
+      },
+      {
+        "path": "packages/tiles-core/projection.js",
+        "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9",
+        "bytes": 1657
+      },
+      {
+        "path": "packages/tiles-core/recipes.js",
+        "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19",
+        "bytes": 10523
+      },
+      {
+        "path": "packages/tiles-core/repair.js",
+        "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f",
+        "bytes": 11562
+      },
+      {
+        "path": "packages/tiles-core/tile-bundle-v1.schema.json",
+        "sha256": "cc610c40a8c700f8dc343872717412a3344c607d308283a42e14e6bec4381441",
+        "bytes": 1156
+      },
+      {
+        "path": "packages/tiles-core/tile-layout-v1.schema.json",
+        "sha256": "6598ca7e1a681837e8eadd2ce2cbeaae998ea44e9f51e5d727799a7861c72e20",
+        "bytes": 16602
+      },
+      {
+        "path": "packages/tiles-core/tile-recipe-v1.schema.json",
+        "sha256": "cedf8c251d6088927ed60296c949eac954284ccc085f8660b81911f0b1b6c045",
+        "bytes": 61530
+      },
+      {
+        "path": "packages/windows-authoring/commands.js",
+        "sha256": "360f746e4efb8f24cf64d2b84436e078753df761b789129ce1a84845cbc881a9",
+        "bytes": 5607
+      },
+      {
+        "path": "packages/windows-authoring/data.js",
+        "sha256": "329ae757ad2a4059ba8764f50e83a641db38f5b09f58d533f7ceb303680402d8",
+        "bytes": 5341
+      },
+      {
+        "path": "packages/windows-authoring/document.js",
+        "sha256": "c7cb2478f93fd66011e63d899b388e12644b88d814578eca2290bbc0a3359d13",
+        "bytes": 4839
+      },
+      {
+        "path": "packages/windows-authoring/index.js",
+        "sha256": "70f58adf70f6cefc05db20a3e2254fef73609674789642b337988d741fbabf0f",
+        "bytes": 1571
+      },
+      {
+        "path": "packages/windows-authoring/journal.js",
+        "sha256": "6282a5043254fd34915d3492e04d7bb30d519f8601555fd55a680f201a121785",
+        "bytes": 3681
+      },
+      {
+        "path": "packages/windows-authoring/prepare.js",
+        "sha256": "6155181785945a43884bca249fd26f530fc86f063f6c3f0fcd07c9a4c3e32eb0",
+        "bytes": 13850
+      },
+      {
+        "path": "packages/windows-authoring/window-authoring-v1.schema.json",
+        "sha256": "17294199e8457a0a53f8cbf4158196fa205318f36c4db84b5289d99730fb68f5",
+        "bytes": 5236
+      },
+      {
+        "path": "packages/windows-core/compatibility.js",
+        "sha256": "0f7a715468878ffaed41f78fbeb3176a35e9880e769a41fbf182a549b365d232",
+        "bytes": 807
+      },
+      {
+        "path": "packages/windows-core/compiler.js",
+        "sha256": "5c141f121150f3c9e086bfdaa893755d850c7ae987c72051727814ccb3657ad0",
+        "bytes": 17549
+      },
+      {
+        "path": "packages/windows-core/contract.js",
+        "sha256": "fa73ba87b5337c8f6725c4a5cf19b2b51f6953dd418d5a7d01cf04bc314e18f4",
+        "bytes": 1542
+      },
+      {
+        "path": "packages/windows-core/data.js",
+        "sha256": "596f98625d2bbee23cab637b629c073b04bd6845b7de3d5190867fcd61321335",
+        "bytes": 4784
+      },
+      {
+        "path": "packages/windows-core/impact.js",
+        "sha256": "f69586bc0bcbb6295c861ffcade823e86ff581ce7b90f400dbe83e937de68ed2",
+        "bytes": 7694
+      },
+      {
+        "path": "packages/windows-core/index.js",
+        "sha256": "0158b73d0dde4857b7ff140491a01c2c340407363d951b7c81f54137e73b4801",
+        "bytes": 784
+      },
+      {
+        "path": "packages/windows-core/query.js",
+        "sha256": "dc83614158564bc07670242a447fd19ae962316273db3a046a29be7707f5a861",
+        "bytes": 4540
+      },
+      {
+        "path": "packages/windows-core/state.js",
+        "sha256": "45a2e66d4e4130652d8c2c9151e1ac791065026ec37a992efeb72d4dc6922e29",
+        "bytes": 7253
+      },
+      {
+        "path": "packages/windows-core/window-geometry-v1.schema.json",
+        "sha256": "bc3bee6f7c9763d1150225b40295055b3189038cf62f9c0f8bc02f1e5e499693",
+        "bytes": 12444
+      },
+      {
+        "path": "packages/windows-core/window-pane-state-v1.schema.json",
+        "sha256": "13cbde060b78170c3f6b0d347fcf37d72063b312c0b32e4ce7bf45cb05f1f162",
+        "bytes": 10779
+      },
+      {
+        "path": "packages/world-core/extended-world-v1.schema.json",
+        "sha256": "5dd5db04270b4ad1ce35791a22b8723bfeebc10c1dda46c411e26fd63f6628c9",
+        "bytes": 4925
+      },
+      {
+        "path": "packages/world-core/index.js",
+        "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df",
+        "bytes": 488
+      },
+      {
+        "path": "packages/world-core/legacy.js",
+        "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce",
+        "bytes": 4186
+      },
+      {
+        "path": "packages/world-core/parts-refusal.js",
+        "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+        "bytes": 901
+      },
+      {
+        "path": "packages/world-core/queries.js",
+        "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457",
+        "bytes": 5880
+      },
+      {
+        "path": "packages/world-core/state.js",
+        "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc",
+        "bytes": 11145
+      },
+      {
+        "path": "packages/world-core/validation.js",
+        "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53",
+        "bytes": 5846
+      },
+      {
+        "path": "schemas/aft-block-v1.schema.json",
+        "sha256": "41acddc11526c55fd624ade6595653a49a6bbd6f7def9c79f0ba32e63f517b0a",
+        "bytes": 1367
+      },
+      {
+        "path": "schemas/aft-map-v2.schema.json",
+        "sha256": "b1fde839474acbf4e6556f389319d8e7a167aa9761dbfec5a8a0e283e0ed68f0",
+        "bytes": 2575
+      },
+      {
+        "path": "schemas/capability-requirements-v1.schema.json",
+        "sha256": "829853b59e86709c653202fdf8888ddb7be2fd663c28b93b7ccf28303a5d62e4",
+        "bytes": 1019
+      },
+      {
+        "path": "schemas/compiled-parts-v1.schema.json",
+        "sha256": "680bbe3c21e797db365dd76bb8f274c509dcc3dee973e1922890253e0d6d401b",
+        "bytes": 21921
+      },
+      {
+        "path": "schemas/functional-parts-v1.schema.json",
+        "sha256": "98bb9d2db7e71236faef5bcfa59a1f9f44efc5e6d50e282b7549e31ccfbf61a4",
+        "bytes": 5980
+      },
+      {
+        "path": "schemas/grenade-state-v1.schema.json",
+        "sha256": "d6302d5c7c65619ed8eab39ae9b28cf6a5817c346417010e5dcace9ac09b6dec",
+        "bytes": 20582
+      },
+      {
+        "path": "schemas/module-configuration-v1.schema.json",
+        "sha256": "7b21905fbf63d9d052b79f94e20b95969a3466f61b29a5509833ad2443ad5e60",
+        "bytes": 2456
+      },
+      {
+        "path": "schemas/nautilus-save-v1.schema.json",
+        "sha256": "d949ef45713d93e742ad6021b2c85d4990e5f25a04ad97b934bb773540b32a9b",
+        "bytes": 1499
+      },
+      {
+        "path": "schemas/part-definition-v1.schema.json",
+        "sha256": "70d5069c4bc6b8e6e2f0f0ff3030a003fd766d635281b33053e0b07f48e526bb",
+        "bytes": 19502
+      },
+      {
+        "path": "schemas/parts-runtime-save-v1.schema.json",
+        "sha256": "7373bb547f52d5a2d3d2f30c8e32b8b7301a61aa6982504d269d2935107dcdc2",
+        "bytes": 11419
+      },
+      {
+        "path": "schemas/progression-v1.schema.json",
+        "sha256": "aaaefc6de87a29be4e84a6d002e62a9f14fa562d7eb9ae640971783c537cb4b2",
+        "bytes": 15340
+      },
+      {
+        "path": "schemas/rock-impact-noise-v1.schema.json",
+        "sha256": "4432b7fd7b81ec481b9b97b8f15fcfda756ad2bdf5a365b0a35ea58a5ad8711f",
+        "bytes": 2326
+      },
+      {
+        "path": "schemas/rock-v1.schema.json",
+        "sha256": "a288f89fec80e28ebdb191b62b0f0d9b2799d77c13ecdf078ca82ea84d493039",
+        "bytes": 6537
+      },
+      {
+        "path": "schemas/sloped-roofs-v1.schema.json",
+        "sha256": "8aadf03c6d31cfa712b20d5ad9764b7e25a831e7b792fd53e80db5efafeea75d",
+        "bytes": 2570
+      },
+      {
+        "path": "schemas/standard-interactions-v1.schema.json",
+        "sha256": "cc8c2ae47cbd6776aef442c1c9a4b04423377c4c860f221fc7b365503ba6186f",
+        "bytes": 6924
+      },
+      {
+        "path": "upstream.json",
+        "sha256": "80207a1324e5c9a33a0d47f0065b4cef58709fa022c92e401d14ed9b09ff843c",
+        "bytes": 5791
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+        "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001",
+        "bytes": 942
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+        "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab",
+        "bytes": 502
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+        "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c",
+        "bytes": 3809
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+        "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd",
+        "bytes": 1888
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-mass.js",
+        "sha256": "353d5a71ce4bd6e1a875abad5c449c11538a03b2e056a8e75c14bb82c2fc1cda",
+        "bytes": 278
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+        "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924",
+        "bytes": 3095
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+        "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329",
+        "bytes": 7740
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+        "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d",
+        "bytes": 4357
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+        "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb",
+        "bytes": 1686
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+        "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf",
+        "bytes": 5856
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-support.js",
+        "sha256": "1e374462bab1402533c8a245afb0732aa37a5e359093b742a1a8f0cfd2542b79",
+        "bytes": 747
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+        "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361",
+        "bytes": 3494
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+        "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47",
+        "bytes": 945
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+        "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c",
+        "bytes": 3997
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+        "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e",
+        "bytes": 1944
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+        "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d",
+        "bytes": 16205
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/blocks.js",
+        "sha256": "f2ab84d27e184269da59a7eb752d1bddb2e28a109baba541c28aa087c91491d7",
+        "bytes": 9174
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+        "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29",
+        "bytes": 5263
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/editor-model.js",
+        "sha256": "2a07bf44786237b44d6469e36981c4961c000e721a890102175afe0adcf336a0",
+        "bytes": 9135
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+        "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c",
+        "bytes": 6342
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+        "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3",
+        "bytes": 2588
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+        "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6",
+        "bytes": 4333
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+        "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4",
+        "bytes": 23284
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+        "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a",
+        "bytes": 1890
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+        "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb",
+        "bytes": 1150
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-data.js",
+        "sha256": "864408dd2cb957c73020685d7827328ee56f50f703477a7bc90f78455ce0a345",
+        "bytes": 1882
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+        "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523",
+        "bytes": 9636
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-state.js",
+        "sha256": "188d9580fa07c25ae459c1d6d4bac78084dda8bb667941d2aaf8d177c8b0f125",
+        "bytes": 8873
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+        "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39",
+        "bytes": 855
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-breaches.js",
+        "sha256": "42327eb257445a8bdea24317646fe5c0c3d6cfdfe5c6b171fc7f2a33da6829b6",
+        "bytes": 1856
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+        "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563",
+        "bytes": 2326
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-foliage-brush.js",
+        "sha256": "191da3be093bf36b8bddfc0aaaf2726863856eeecb1f6ba1320851d882909a10",
+        "bytes": 4094
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-land-brush.js",
+        "sha256": "97ca4310e173b36fe6960f4051cdd525adef930ea38d7cf20e6a6125b745cd6f",
+        "bytes": 4648
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-ramp-stroke.js",
+        "sha256": "4e5e5ab9b95f37cfe803557a7092ebd6c848ea9744b65549beea2896fb5f5930",
+        "bytes": 1821
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-structure-presets.js",
+        "sha256": "e924235d20690d06b6d5be5abf1132d78ee73ddfcd3d74f98b5e7d7932dfe53d",
+        "bytes": 425
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+        "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba",
+        "bytes": 6511
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+        "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022",
+        "bytes": 5648
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+        "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45",
+        "bytes": 1859
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+        "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40",
+        "bytes": 1706403
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+        "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c",
+        "bytes": 722
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fall-damage.js",
+        "sha256": "187b4e11af130f0bd0e1846bd261d6eab6819714f8717c24809dba8ffdb42022",
+        "bytes": 2796
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+        "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9",
+        "bytes": 6825
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+        "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f",
+        "bytes": 932
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+        "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74",
+        "bytes": 714
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+        "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493",
+        "bytes": 2798
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+        "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884",
+        "bytes": 1743
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicoid-shot.js",
+        "sha256": "f754c42376b2e6836f7ac2d8ad40318ea0f6d173d798d25601ebfbd1be9dc564",
+        "bytes": 6636
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+        "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e",
+        "bytes": 601010
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-start.js",
+        "sha256": "0ac8f9eeca0886356fe56e0d5bb4476a3a4c04e63f6203f95112c440cf31657a",
+        "bytes": 1594
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+        "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f",
+        "bytes": 1763
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+        "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95",
+        "bytes": 3151
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+        "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14",
+        "bytes": 5475
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+        "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb",
+        "bytes": 2022
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+        "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d",
+        "bytes": 666
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+        "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799",
+        "bytes": 330
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+        "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884",
+        "bytes": 1569
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+        "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d",
+        "bytes": 3352
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-block-rotation.js",
+        "sha256": "9cf6c3c3051aa161b7b92842a947882e6681960daeebe8d862119ba90a714aeb",
+        "bytes": 2490
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+        "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f",
+        "bytes": 4614
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+        "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec",
+        "bytes": 2344
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+        "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e",
+        "bytes": 1083
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+        "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31",
+        "bytes": 3010
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+        "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941",
+        "bytes": 3032
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-catalog.js",
+        "sha256": "2cf050482f2bb00406e927699e7553564fabc1445c37b3b57d089cf73cb89d96",
+        "bytes": 5449
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js",
+        "sha256": "2e7048cb5be18dfe516b671f911cea93147123e511869cce40421519a8941a4b",
+        "bytes": 3889
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+        "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0",
+        "bytes": 2296
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+        "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5",
+        "bytes": 4583
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+        "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f",
+        "bytes": 3175
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+        "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f",
+        "bytes": 2845
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+        "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb",
+        "bytes": 2886480
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+        "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17",
+        "bytes": 7744
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-collapse.js",
+        "sha256": "01c23602abc415f3df3e9dabaa66bd5043c5a07b573852eadac3c86e771490aa",
+        "bytes": 3426
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-health.js",
+        "sha256": "97d8f63285c7a21bf5ed10134efdd7b49ddc5f5c21e753e9b46e8fbc482a7a49",
+        "bytes": 4746
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+        "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a",
+        "bytes": 5813
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+        "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68",
+        "bytes": 2680
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/THREE-LICENSE.txt",
+        "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+        "bytes": 1081
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/babble/LICENSE",
+        "sha256": "1300b87db887b22c60e46e86fc3be6a428cd4eb2ea0cf57dca4417c3868be167",
+        "bytes": 1080
+      },
+      {
+        "path": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/NOTICE.md",
+        "sha256": "de72f961b89773afc485c505af00fed4c405517edd844360800cdc72c9f646d8",
+        "bytes": 830
+      },
+      {
+        "path": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+        "sha256": "f16f431e4bf5280cc0482d92f5753f358ad2675482eb5bc45c8f7c790abe12c7",
+        "bytes": 2859
+      },
+      {
+        "path": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original",
+        "sha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05",
+        "bytes": 1102
+      }
+    ]
+  },
+  "publicTilesClosure": [
+    {
+      "path": "packages/parts-core/hash.js",
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+      "bytes": 2105
+    },
+    {
+      "path": "packages/tiles-core/cells.js",
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811",
+      "bytes": 8266
+    },
+    {
+      "path": "packages/tiles-core/contract.js",
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7",
+      "bytes": 1730
+    },
+    {
+      "path": "packages/tiles-core/curves.js",
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402",
+      "bytes": 9480
+    },
+    {
+      "path": "packages/tiles-core/data.js",
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed",
+      "bytes": 4579
+    },
+    {
+      "path": "packages/tiles-core/dependencies.js",
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d",
+      "bytes": 8832
+    },
+    {
+      "path": "packages/tiles-core/example.js",
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0",
+      "bytes": 2579
+    },
+    {
+      "path": "packages/tiles-core/fields.js",
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667",
+      "bytes": 5394
+    },
+    {
+      "path": "packages/tiles-core/index.js",
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2",
+      "bytes": 728
+    },
+    {
+      "path": "packages/tiles-core/interfaces.js",
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136",
+      "bytes": 11429
+    },
+    {
+      "path": "packages/tiles-core/layout.js",
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7",
+      "bytes": 12740
+    },
+    {
+      "path": "packages/tiles-core/projection.js",
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9",
+      "bytes": 1657
+    },
+    {
+      "path": "packages/tiles-core/recipes.js",
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19",
+      "bytes": 10523
+    },
+    {
+      "path": "packages/tiles-core/repair.js",
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f",
+      "bytes": 11562
+    }
+  ],
+  "copiedProofFiles": [
+    {
+      "path": "candidates/tile-stack/core/budget.js",
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "candidates/tile-stack/core/contracts.js",
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "candidates/tile-stack/core/fixtures.mjs",
+      "sha256": "ba6827ae4f429f690a373e43cb964f4e2ac9d65f3473b285369945a4d9ddad38",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "candidates/tile-stack/core/geometry.js",
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "candidates/tile-stack/core/ids.js",
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "candidates/tile-stack/core/index.js",
+      "sha256": "128880d5bcbde8d687a1db5f988debd4985b4017c3715ef0688b62280a6c82c8",
+      "identity": "copied private candidate host helper/fixture"
+    },
+    {
+      "path": "tests/tile-stack-core-contracts.test.mjs",
+      "sha256": "bd57775cd88b2c6e9c8b97aeeac6fcee09c0fe8611b6c0035ac2587ff0d5cc77",
+      "identity": "copied proof tooling"
+    },
+    {
+      "path": "tests/tile-stack-core-planner.test.mjs",
+      "sha256": "51a657bd31ae44464d7742c5cb370c07e7648e64b3cc09c6228e668ee59ddbf0",
+      "identity": "copied proof tooling"
+    },
+    {
+      "path": "tools/tile-stack-core-measure.mjs",
+      "sha256": "4bb3d9f0a358b54075454c28756ecc579fc43b1c475209a4c1a7afcb7922a5b1",
+      "identity": "copied proof tooling"
+    },
+    {
+      "path": "tools/tile-stack-core-scenarios.mjs",
+      "sha256": "3dc05ddd69a50cd4c3e70b1102f14090ad36bb2981db21e382c00f341b18e518",
+      "identity": "copied proof tooling"
+    },
+    {
+      "path": "tools/tile-stack-core-node-probe.mjs",
+      "sha256": "ad37eaa9aa0f3d98a51a456a9c5811bbeef3c61c112e1cfa3bd624d0142e1e74",
+      "identity": "copied proof tooling"
+    }
+  ],
+  "tests": {
+    "tests": 28,
+    "pass": 28,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "nodeProbe": {
+    "ok": true,
+    "forbiddenDependencyAccesses": 0,
+    "crossings": 105
+  },
+  "semanticCases": 16,
+  "sourceInstalledEqual": true,
+  "independentOracleEqual": true,
+  "processes": [
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "offline package operation",
+      "startedAt": "2026-11-02T04:21:21.731Z",
+      "endedAt": "2026-11-02T04:21:22.972Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 6724,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "offline package operation",
+      "startedAt": "2026-11-02T04:21:22.972Z",
+      "endedAt": "2026-11-02T04:21:24.789Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 32416,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "installed-tests.tap",
+      "startedAt": "2026-11-02T04:21:24.981Z",
+      "endedAt": "2026-11-02T04:21:28.359Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 58048,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "installed-node-probe.log",
+      "startedAt": "2026-11-02T04:21:28.360Z",
+      "endedAt": "2026-11-02T04:21:28.580Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 53044,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "installed-measure.log",
+      "startedAt": "2026-11-02T04:21:28.581Z",
+      "endedAt": "2026-11-02T04:21:29.868Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 49472,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "source-measure.log",
+      "startedAt": "2026-11-02T04:21:29.868Z",
+      "endedAt": "2026-11-02T04:21:31.146Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "node.exe",
+      "pid": 24012,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "source-oracle.log",
+      "startedAt": "2026-11-02T04:21:31.172Z",
+      "endedAt": "2026-11-02T04:21:31.361Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "python",
+      "pid": 74336,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    },
+    {
+      "ownerChat": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "project": "Nautilus Engine",
+      "purpose": "installed-oracle.log",
+      "startedAt": "2026-11-02T04:21:31.362Z",
+      "endedAt": "2026-11-02T04:21:31.547Z",
+      "endCondition": "synchronous foreground exit",
+      "stopMethod": "owning process handle waited to exit",
+      "executable": "python",
+      "pid": 57148,
+      "foreground": true,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "exited": true
+    }
+  ],
+  "cleanup": {
+    "scratchPath": "C:\\Users\\baals\\AppData\\Local\\Temp\\nautilus-tile-stack-core-proof-aGKkt2",
+    "removed": true,
+    "stageRemoved": true,
+    "consumerRemoved": true,
+    "allForegroundChildrenExited": true,
+    "backgroundHelpers": 0,
+    "servers": 0,
+    "ports": [],
+    "retainedHelpers": 0
+  }
+}

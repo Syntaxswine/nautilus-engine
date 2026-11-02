@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "method": "independent Decimal source controls and integer reservation intervals; no engine/planner imports",
+  "results": [
+    {
+      "name": "uniform-fifteen",
+      "ok": true,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "minimumGapQ": 2000000,
+      "violations": []
+    },
+    {
+      "name": "finish-unlocked",
+      "ok": true,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "minimumGapQ": 2000000,
+      "violations": []
+    },
+    {
+      "name": "missing-one-crossing",
+      "ok": false,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "minimumGapQ": 2000000,
+      "violations": [
+        "missing-crossing"
+      ]
+    },
+    {
+      "name": "move-top",
+      "ok": true,
+      "ownerPairs": 91,
+      "contactObligations": 182,
+      "minimumGapQ": 2000000,
+      "violations": []
+    },
+    {
+      "name": "remove-top",
+      "ok": true,
+      "ownerPairs": 91,
+      "contactObligations": 182,
+      "minimumGapQ": 2000000,
+      "violations": []
+    },
+    {
+      "name": "nonuniform-fifteen",
+      "ok": true,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "minimumGapQ": 2000000,
+      "violations": []
+    },
+    {
+      "name": "tall-extra-reservation",
+      "ok": false,
+      "ownerPairs": 105,
+      "contactObligations": 525,
+      "minimumGapQ": -880000,
+      "violations": [
+        "insufficient-clearance"
+      ]
+    },
+    {
+      "name": "insufficient-clearance",
+      "ok": false,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "minimumGapQ": 1999999,
+      "violations": [
+        "insufficient-clearance"
+      ]
+    },
+    {
+      "name": "projected-edge",
+      "ok": false,
+      "ownerPairs": 1,
+      "contactObligations": 2,
+      "minimumGapQ": 2000000,
+      "violations": [
+        "deferred-edge-near"
+      ]
+    },
+    {
+      "name": "projected-near",
+      "ok": false,
+      "ownerPairs": 1,
+      "contactObligations": 2,
+      "minimumGapQ": 2000000,
+      "violations": [
+        "deferred-edge-near"
+      ]
+    }
+  ],
+  "mutationControls": 2
+}
