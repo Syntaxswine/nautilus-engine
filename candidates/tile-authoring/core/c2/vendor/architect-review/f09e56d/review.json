@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "status": "must-fix",
+  "fixed": "f09e56dfcb5d72f0721b9a283883410361b26916",
+  "baseAcceptedA": "8b4cd72c2d8f424d6811196d9651916bb7e9e2bd",
+  "scope": "Private non-placement StageB capture/preset save and real encoded file-set APIs; no combined-route, Host/native/decoder/public adoption approval.",
+  "findings": [
+    {
+      "id": "B1",
+      "priority": 2,
+      "file": "candidates/tile-authoring/core/c2/portable.js",
+      "line": 46,
+      "endLine": 51,
+      "title": "Measure the final returned work metadata in the output budget",
+      "witness": "Default import of the golden pack reports2703230 output bytes. Import with outputBytes2703230 still succeeds, but the same metadata shape result() counts with its ACTUAL returned work snapshot plus2560200 original PNG bytes totals2703236.",
+      "cause": "The metadata is measured with work.outputBytes0. result() later updates that field to a7-digit value, returning6 uncharged bytes. The exact configured limit is exceeded.",
+      "direction": "Settle the full final carrier metadata and payload within the same meter, or reserve conservative widths for all returned scalar fields before admission. Keep caps unchanged. Regress exact inside/outside output boundaries for import/export, including numeric digit-width changes."
+    },
+    {
+      "id": "B2",
+      "priority": 2,
+      "file": "candidates/tile-authoring/core/c2/portable.js",
+      "line": 13,
+      "endLine": 35,
+      "title": "Use a realm-independent intrinsic buffer brand check",
+      "witness": "For each real PNG, create a foreign Uint8Array(new SharedArrayBuffer(length)) in vm.runInNewContext and copy the original bytes. Keep ordinary local outer arrays/records. Both shared inputs are accepted; the actual SharedArrayBuffer.prototype.byteLength intrinsic confirms their shared storage.",
+      "cause": "buffer instanceof SharedArrayBuffer is false across realms, bypassing the declared non-shared-only profile.",
+      "direction": "Authenticate the buffer with intrinsic ArrayBuffer/SharedArrayBuffer getters rather than realm-dependent instanceof or caller properties. Regress foreign shared refusal and ordinary/foreign non-shared success while preserving getter avoidance and owned-copy behavior."
+    }
+  ],
+  "validation": {
+    "committedBFocused": 16,
+    "committedBPass": 16,
+    "acceptedA38NotRepeated": true,
+    "independentPositiveRealByteImport": true,
+    "originalPngPayloadBytes": 2560200,
+    "all30CanonicalArtworkRecordsPinsFramesNoticesExact": true,
+    "originalPngHashesExactArtistA66": true,
+    "originalByteHashSourceExactCore3df": true,
+    "runtimeInputs": 18,
+    "acceptedDependencies": 83,
+    "all590SnapshotBytesExact": true,
+    "profiles": [
+      {
+        "profile": "core",
+        "files": 303,
+        "filesSha256": "038a30ba47133c858af79dd5402943f3d1d8a08eff6965d85b21bfed2415e378",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "renderer",
+        "files": 145,
+        "filesSha256": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "assets",
+        "files": 224,
+        "filesSha256": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "compatibility",
+        "files": 366,
+        "filesSha256": "6642a6d034f12dfe8a7ba8eb1ec61c644c25de6762aadda189d15f8f9799a0f2",
+        "exportsExact": true,
+        "candidateExcluded": true
+      }
+    ],
+    "combinedProposal": "Not reviewed or approved; manifest exact972bbf735eab63f6cda7a56e1d7e21df751711594f52ec6b345bd982467d804e and actual placement refusal checked by committed B control."
+  },
+  "limits": [
+    "Pure capture/binder tests use explicitly synthetic geometry/native/sharing/decoder DTOs; they do not establish actual renderer/Host admission.",
+    "No additional probes after the two reproduced blockers, no browser/profile/pack/global gates, and no Root tracked/worker/ref edits or publication."
+  ],
+  "cleanup": {
+    "owner": "Architect / window_kernel_review",
+    "checkedAt": "2026-11-02T17:08:55.496Z",
+    "lifetimes": [
+      {
+        "recorded": {
+          "pid": 33452,
+          "executable": "C:\\Program Files\\nodejs\\node.exe",
+          "creationFiletime": "134381127926502659"
+        },
+        "observed": {
+          "exists": false,
+          "pid": 33452
+        },
+        "sameLifetimePresent": false
+      },
+      {
+        "recorded": {
+          "pid": 53404,
+          "executable": "C:\\Program Files\\nodejs\\node.exe",
+          "creationFiletime": "134381128510056863"
+        },
+        "observed": {
+          "exists": false,
+          "pid": 53404
+        },
+        "sameLifetimePresent": false
+      }
+    ],
+    "focusedChild": {
+      "pid": 33200,
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "scope": "Owned synchronous child completed all16 focused cases and exited0."
+    },
+    "ports": [],
+    "retainedHelpers": [],
+    "portScope": "No listener/browser/server was started; no termination was needed or attempted."
+  },
+  "proofFiles": [
+    {
+      "file": "inputs.json",
+      "bytes": 207756,
+      "sha256": "9206ab946993e1d4bfc0828cddd965b642ff7352425c49b4616af066c8de3ad9"
+    },
+    {
+      "file": "probe-portable.mjs",
+      "bytes": 6344,
+      "sha256": "aff0fcf3ca39880478b2913419bcea3caa62de7a34abb4a758b29eed86ff7e5c"
+    },
+    {
+      "file": "portable-results.json",
+      "bytes": 3578,
+      "sha256": "32e35139244026aa2b168f551cbe52c7a444b02385ed7d6ef17965253a056363"
+    },
+    {
+      "file": "portable-helper.json",
+      "bytes": 515,
+      "sha256": "ff378accd27adb52ad51db1392e17f51ec66c8a542607523a03e88d4c11053c9"
+    },
+    {
+      "file": "portable-cleanup.json",
+      "bytes": 381,
+      "sha256": "9d6ae97f788ab2ed07c56faa23ed85c84f2686b24fcdbe70a09afbdf1190d33b"
+    },
+    {
+      "file": "focused-run.json",
+      "bytes": 561,
+      "sha256": "5d0d16011eb38de8ec7a652add897948fbb3910e7092ae8ce5eefbaba194f1df"
+    },
+    {
+      "file": "focused-helper.json",
+      "bytes": 756,
+      "sha256": "e913b15d38bf505e2de27e23ebf6393b0265cf13175e447ba9ccb42d7a137743"
+    },
+    {
+      "file": "focused-output.txt",
+      "bytes": 1978,
+      "sha256": "26b79b41ad6feb95a3b967a9224a39933cf4651f82e2a867f7aa049d858ac2a8"
+    },
+    {
+      "file": "focused-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "stage.mjs",
+      "bytes": 3392,
+      "sha256": "c26cd62c366c0bdff537b06fb5472a3552a57246204a563aab60c64ac987a9d5"
+    },
+    {
+      "file": "run-focused.mjs",
+      "bytes": 1812,
+      "sha256": "15b291b8cc8b5b63d29432c4688b2397f15dca287e8766f69f67bba28b8b4dcf"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "status": "must-fix",
+  "fixed": "f09e56dfcb5d72f0721b9a283883410361b26916",
+  "startedAt": "2026-11-02T17:07:31.293Z",
+  "scope": "Actual fixed private portable API with real original PNG bytes; no fake core, patched runtime, renderer, decoder or Host.",
+  "process": {
+    "pid": 53404,
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "creationFiletime": "134381128510056863"
+  },
+  "pages": [
+    {
+      "entry": "blobs/9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6.png",
+      "bytes": 2481966,
+      "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+    },
+    {
+      "entry": "blobs/aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633.png",
+      "bytes": 78234,
+      "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+    }
+  ],
+  "rows": [
+    {
+      "name": "positive original real-byte import",
+      "accepted": true,
+      "work": {
+        "unitsCharged": 154686,
+        "inputBytes": 2703019,
+        "outputBytes": 2703230,
+        "definitionVisits": 32,
+        "maskCellsEvaluated": 0,
+        "dependencyEdges": 62,
+        "resourceReferences": 0
+      },
+      "bytes": 2560200
+    },
+    {
+      "name": "complete returned carrier metadata and payload at reported exact output limit",
+      "accepted": true,
+      "limit": 2703230,
+      "reported": 2703230,
+      "actualLogicalOutputBytes": 2703236,
+      "excess": 6,
+      "metadataBytes": 143036,
+      "payloadBytes": 2560200,
+      "definition": "Same metadata shape result() counts, but with the actual work snapshot it returns instead of its prior zero-output snapshot.",
+      "work": {
+        "unitsCharged": 154690,
+        "inputBytes": 2703052,
+        "outputBytes": 2703230,
+        "definitionVisits": 32,
+        "maskCellsEvaluated": 0,
+        "dependencyEdges": 62,
+        "resourceReferences": 0
+      }
+    },
+    {
+      "name": "cross-realm genuine SharedArrayBuffer-backed original bytes",
+      "accepted": true,
+      "error": null,
+      "genuineSharedLengths": [
+        2481966,
+        78234
+      ],
+      "currentRealmInstanceof": [
+        false,
+        false
+      ],
+      "returnedPages": [
+        {
+          "entry": "blobs/9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6.png",
+          "bytes": 2481966,
+          "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+        },
+        {
+          "entry": "blobs/aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633.png",
+          "bytes": 78234,
+          "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "B-output-final-metadata",
+      "file": "candidates/tile-authoring/core/c2/portable.js",
+      "lines": "47–54",
+      "reproduction": "Import golden pack and original entries; set limits.outputBytes to the default call reported work.outputBytes. It succeeds but its actual returned work metadata plus binary payload is larger.",
+      "observedExcess": 6
+    },
+    {
+      "id": "B-cross-realm-shared-storage",
+      "file": "candidates/tile-authoring/core/c2/portable.js",
+      "lines": "12,35",
+      "reproduction": "Use vm.runInNewContext to create Uint8Array(new SharedArrayBuffer(length)), copy each original PNG into it, keep ordinary outer entry records. Both actual shared buffers pass because instanceof is realm-dependent."
+    }
+  ],
+  "finishedAt": "2026-11-02T17:07:32.067Z",
+  "originalPngBytesUnchanged": true
+}

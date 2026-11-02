@@ -10,7 +10,10 @@ const typedProto=Object.getPrototypeOf(Uint8Array.prototype);
 const typedLength=Object.getOwnPropertyDescriptor(typedProto,'byteLength').get;
 const typedBuffer=Object.getOwnPropertyDescriptor(typedProto,'buffer').get;
 const typedName=Object.getOwnPropertyDescriptor(typedProto,Symbol.toStringTag).get;
-const isShared=buffer=>typeof SharedArrayBuffer!=='undefined'&&buffer instanceof SharedArrayBuffer;
+// The ArrayBuffer intrinsic checks the backing-store brand across realms and
+// ignores caller prototypes, toStringTag and byteLength/buffer accessors.
+const arrayBufferLength=Object.getOwnPropertyDescriptor(ArrayBuffer.prototype,'byteLength').get;
+const isUnsharedBuffer=buffer=>{try{arrayBufferLength.call(buffer);return true;}catch{return false;}};
 function dataRecord(v,allowed,required=allowed){
  fields(v,allowed,'/portable',required);const out={};
  for(const k of Reflect.ownKeys(v)){const q=Object.getOwnPropertyDescriptor(v,k);if(typeof k!=='string'||!q.enumerable||!Object.hasOwn(q,'value')||k==='__proto__')fail('INVALID_DATA','/portable','Only own enumerable data fields; no getters/symbols/hidden values.');out[k]=q.value;}
@@ -32,7 +35,7 @@ function copyEntries(entries,pack,b){
   const row=dataRecord(q.value,['entry','bytes']),name=readData({entry:row.entry},b,b.limits.commandBytes).entry,need=wanted.get(name);
   if(!need||seen.has(name))fail('PACK_ENTRY_CLOSURE','/entries','Exact canonical unique file names are required; no aliases or extra files.');seen.add(name);
   let length,buffer,tag;try{length=typedLength.call(row.bytes);buffer=typedBuffer.call(row.bytes);tag=typedName.call(row.bytes);}catch{fail('PACK_BYTES_REQUIRED','/entries/bytes','Actual Uint8Array bytes are required, never a path, digest string or decoder flag.');}
-  if(tag!=='Uint8Array'||isShared(buffer))fail('PACK_BYTES_REQUIRED','/entries/bytes','Use stable non-shared Uint8Array bytes.');
+  if(tag!=='Uint8Array'||!isUnsharedBuffer(buffer))fail('PACK_BYTES_REQUIRED','/entries/bytes','Use stable non-shared Uint8Array bytes.');
   if(length!==need.byteLength)fail('PACK_BYTE_LENGTH','/entries','Actual byte length must equal the complete blob descriptor.');
   bytes+=length;if(bytes>67108864)fail('PACK_ENCODED_LIMIT','/entries','Unique portable encoded payload exceeds64MiB.');
   b.input(length);b.take(Math.ceil(length/64));const copy=new Uint8Array(length);Uint8Array.prototype.set.call(copy,row.bytes);
@@ -43,13 +46,32 @@ function copyEntries(entries,pack,b){
  out.sort((a,z)=>a.entry<z.entry?-1:1);return {entries:out,bytes};
 }
 function result(pack,copies,b){
- const metadata={pack,entries:copies.entries.map(x=>({entry:x.entry,byteLength:x.bytes.byteLength})),work:b.snapshot()};
- b.output(metadata);b.take(Math.ceil(copies.bytes/64));b.outputBytes+=copies.bytes;
- if(b.outputBytes>b.limits.outputBytes)fail('AUTHORING_OUTPUT_LIMIT','/portable','Complete metadata plus actual copied binary output exceeds effective output bytes.');
- // Byte arrays are owned mutable copies; they are never blessed as immutable
- // readiness. Every import rehashes them against the frozen descriptor.
- return Object.freeze({pack:freeze(pack),entries:Object.freeze(copies.entries.map(Object.freeze)),work:freeze(b.snapshot())});
+ const tooLarge=()=>fail('AUTHORING_OUTPUT_LIMIT','/portable','The actual final returned metadata plus copied binary payload exceeds effective output bytes.');
+ if(copies.bytes>b.limits.outputBytes)tooLarge();
+ const headers=copies.entries.map(x=>({entry:x.entry,byteLength:x.bytes.byteLength}));
+ const measure=v=>{try{return jsonBytes(v,b.limits.outputBytes);}catch(e){if(e.code==='AUTHORING_BYTES_LIMIT')tooLarge();throw e;}};
+ // Measure the large immutable part once. Reconcile only the seven-field work
+ // summary; both its final outputBytes and output serialization charge occur
+ // in the returned representation. Each bounded reconciliation step is charged.
+ const fixedHeaderBytes=measure({pack,entries:headers,work:null})-4;
+ b.take(Math.ceil(copies.bytes/64));
+ let output=0,headerCharge=0;
+ for(let attempt=0;attempt<16;attempt++){
+  b.take();
+  const work={...b.snapshot(),unitsCharged:b.units+headerCharge,outputBytes:output};
+  const headerBytes=fixedHeaderBytes+measure(work),nextOutput=headerBytes+copies.bytes,nextCharge=Math.ceil(headerBytes/64);
+  if(nextOutput>b.limits.outputBytes)tooLarge();
+  if(nextOutput===output&&nextCharge===headerCharge){
+   b.take(headerCharge);b.outputBytes=output;
+   // Only owned byte copies are mutable; their frozen metadata and actual final
+   // work snapshot exactly match the representation counted above.
+   return Object.freeze({pack:freeze(pack),entries:Object.freeze(copies.entries.map(Object.freeze)),work:freeze(b.snapshot())});
+  }
+  output=nextOutput;headerCharge=nextCharge;
+ }
+ fail('PACK_OUTPUT_ACCOUNTING','/portable','The bounded final-header accounting did not stabilize; no carrier is returned.');
 }
+
 export function exportTileContentPack(actual,input){
  const {v,b,entries}=begin(input,['document','query','manifestId','entries','limits'],['document','query','manifestId','entries']),t=corePort(actual);
  b.take(Math.ceil(jsonBytes(v.document,b.limits.sourceBytes)/64));shape(t,'query',v.query,b);shape(t,'id',v.manifestId,b);

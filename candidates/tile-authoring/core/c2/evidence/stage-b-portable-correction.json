@@ -1,0 +1,87 @@
+{
+  "checkpoint": "Private C2 B portable accounting and backing-store correction; separate from returned f09",
+  "returnedCheckpoint": "f09e56dfcb5d72f0721b9a283883410361b26916",
+  "architectStatus": "f09 returned; this correction is submitted for independent recheck, not acceptance or integration",
+  "preservedEvidence": "vendor/architect-review/f09e56d/inventory.json",
+  "corrections": [
+    "Finite actual final-header fixed point includes returned outputBytes and final actual work charge; fail closed without increasing a cap.",
+    "Intrinsic ArrayBuffer brand rejects actual shared backing across realms, prototype changes and caller getters; ordinary foreign unshared buffers still yield fresh owned copies."
+  ],
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1161,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    }
+  ],
+  "focusedControls": {
+    "passed": 24,
+    "existingStageB": 16,
+    "newPortableRegressions": 8
+  },
+  "actualOutput": {
+    "representation": "UTF-8 JSON of pack, entry name/byteLength metadata and FINAL work snapshot plus actual copied binary byte lengths",
+    "export": {
+      "reported": 2703238,
+      "independentlyCalculated": 2703238,
+      "unitsCharged": 315261
+    },
+    "import": {
+      "reported": 2703236,
+      "independentlyCalculated": 2703236,
+      "unitsCharged": 154689
+    },
+    "exactLimitPasses": true,
+    "oneByteBelowRefuses": true,
+    "tinyNoPayloadFixedPointCovered": true
+  },
+  "actualBytes": {
+    "originalArtistCommit": "a66c78332c90fda33c16ffa7518a358b60249169",
+    "artworkRecords": 30,
+    "pages": 2,
+    "encodedBytes": 2560200,
+    "freshCopiesAndOriginalHashesNotices": true
+  },
+  "unchanged": {
+    "f09Evidence": true,
+    "acceptedPrivateA": true,
+    "frozenPlan1Plan2AndC0Persist": true,
+    "capsRatesAndLimits": true,
+    "normalDistributions": true,
+    "publicRegistration": false,
+    "consumerPins": true
+  },
+  "claims": {
+    "nativeOwnership": false,
+    "decoderRun": false,
+    "storageOrWALApply": false,
+    "placementRuntime": false,
+    "combinedRoute": "separate proposal only"
+  },
+  "inventory": {
+    "privateRuntimeModules": 18,
+    "unchangedAcceptedDependencies": 83,
+    "frozenAppearanceAbiManifestSha256": "f819d85c7f2f1f1111754e1f91f1dba40f3026ef6af726f809fc677e6497af70"
+  },
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "foregroundChecksCompleted": true
+  }
+}
