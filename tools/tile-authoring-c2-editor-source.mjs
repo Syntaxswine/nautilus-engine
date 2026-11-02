@@ -4,10 +4,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {kernelPromotionSources,serializablePlan,HELPER as KERNEL_HELPER} from './tile-authoring-c2-kernel-source.mjs';
+import {tileAuthoringC2ArtSources} from './tile-authoring-c2-art-source.mjs';
+import {tileAuthoringC2ViewsSource} from './tile-authoring-c2-views-source.mjs';
+import {tileAuthoringC2UISources} from './tile-authoring-c2-ui-source.mjs';
 
 const prefixCommit='d8ff73ce63282e897cac146bc3077ea443c38e05';
 const uiCommit='5a7cb4ce728d158f42d997e076c296459cb259aa';
 const coreCommit='30bfa968cf778750fbad6a7aec8ff7052e05ba0c';
+const encodedCommit='274e2d0a321934084f918e7a2e2678298132132f';
 const base='1e6a97b67c57917160db89db34cbae9e4e46f90c';
 const namespace='apps/editor/tile-authoring/c2/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -16,8 +20,9 @@ const json=value=>Buffer.from(JSON.stringify(value,null,2)+'\n');
 
 export function tileAuthoringC2EditorSources({object,projectRoot}){
  const directory=path.join(projectRoot,namespace);
- if(!fs.existsSync(directory))return {enabled:false,files:[],namespaceFiles:[],overrides:{},requiredGitCommits:[]};
+ assert.ok(fs.existsSync(directory),'The registered C2 source profile requires its complete directory');
  const files=[];
+ const borrowedFiles=[];
  const add=(file,bytes,provenance)=>{assert.ok(Buffer.isBuffer(bytes));assert.ok(!files.some(row=>row.path===file));files.push({path:file,expectedBuffer:bytes,bytes:bytes.length,sha256:sha(bytes),...provenance});};
  const component=(commit,source,target,names,transform=(_name,bytes)=>({bytes,rewrites:[]}))=>names.map(name=>{
   const original=object(commit,source+name),{bytes,rewrites}=transform(name,original);
@@ -52,6 +57,31 @@ export function tileAuthoringC2EditorSources({object,projectRoot}){
  }
  for(const row of coreManifest.borrowed){const bytes=object(coreCommit,row.path);assert.equal(bytes.length,row.bytes);assert.equal(sha(bytes),row.sha256);assert.equal(blob(bytes),row.gitBlob);assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(bytes),'Changed borrowed Core dependency: '+row.path);}
  add(coreTarget+'source.json',coreManifestBytes,{role:'Exact reviewed pure Core relocation manifest'});
+ borrowedFiles.push(...coreManifest.borrowed);
+ const encodedPaths=[
+  'apps/editor/tile-authoring/c2/.gitattributes',
+  'apps/editor/tile-authoring/c2/encoded-stream.js',
+  'apps/editor/tile-authoring/c2/encoded-stream.d.ts',
+  ...['NOTICE.md','README.md','source.json','validation.json'].map(name=>'docs/reviews/tile-authoring/encoded-stream/'+name),
+  ...['encoded-stream-types.ts','encoded-stream.html','encoded-stream.mjs'].map(name=>'tests/fixtures/tile-authoring/'+name),
+  'tests/tile-authoring-encoded-stream.test.mjs',
+  'tools/review-tile-authoring-encoded-stream.mjs'
+ ];
+ const encodedSource=JSON.parse(object(encodedCommit,'docs/reviews/tile-authoring/encoded-stream/source.json'));
+ const correctionPath='docs/reviews/tile-authoring/encoded-stream/root-fixture-correction.json',correctionBytes=fs.readFileSync(path.join(projectRoot,correctionPath));
+ assert.equal(sha(correctionBytes),'c283a09b2144ad42371f2fc2786185098970eae63cc863dd4365d07c57174cec','Unreviewed encoded transport fixture correction');
+ const correction=JSON.parse(correctionBytes);assert.equal(correction.sourceCommit,encodedCommit);assert.equal(correction.files.length,2);
+ for(const file of encodedPaths){
+  let bytes=object(encodedCommit,file);const changed=correction.files.find(row=>row.path===file);
+  if(changed){assert.equal(sha(bytes),changed.beforeSha256);let text=bytes.toString('utf8');for(const edit of changed.edits){assert.equal(text.split(edit.from).length-1,edit.occurrences);text=text.replace(edit.from,edit.to);}bytes=Buffer.from(text);assert.equal(sha(bytes),changed.sha256);}
+  add(file,bytes,{sourceCommit:encodedCommit,sourcePath:file,role:changed?'Explicit Root test-lifetime adaptation; original source retained in fixed Git object':'Exact reviewed private encoded transport and original component evidence'});
+ }
+ add(correctionPath,correctionBytes,{role:'Exact separate Root fixture correction record; original274 records preserved'});
+ for(const row of encodedSource.inputs){
+  const expected=object(row.commit,row.path);assert.equal(expected.length,row.bytes);assert.equal(sha(expected),row.sha256);assert.equal(blob(expected),row.gitBlob);
+  assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(expected),'Changed borrowed encoded transport dependency: '+row.path);
+  if(!borrowedFiles.some(item=>item.path===row.path))borrowedFiles.push({...row});
+ }
  const overrides={};
  const kernelMetadata='docs/reviews/tile-authoring/architect/c2-kernel-source.json',kernelTool='tools/tile-authoring-c2-kernel-source.mjs';
  const hasHelper=fs.existsSync(path.join(projectRoot,KERNEL_HELPER)),hasKernelMetadata=fs.existsSync(path.join(projectRoot,kernelMetadata));let kernel=null;
@@ -67,11 +97,19 @@ export function tileAuthoringC2EditorSources({object,projectRoot}){
   }
   add(kernelMetadata,metadataBytes,{role:'Exact reviewed Kernel adaptation record'});add(kernelTool,toolBytes,{role:'Exact read-only Kernel source planner'});add('package.json',kernel.packageWhitelist.expectedBuffer,{role:'Exact one-file internal helper whitelist addition'});
  }
+ const views=tileAuthoringC2ViewsSource({object,projectRoot});
+ overrides[views.file]=views.override;add(views.metadata.path,views.metadata.expectedBuffer,views.metadata);
+ const renderer=tileAuthoringC2ArtSources({object,projectRoot});
+ for(const row of renderer.files)add(row.path,row.expectedBuffer,row);
+ for(const row of renderer.borrowedFiles)if(!borrowedFiles.some(item=>item.path===row.path))borrowedFiles.push(row);
+ const readPairing=tileAuthoringC2UISources({object,projectRoot});
+ for(const row of readPairing.files)add(row.path,row.expectedBuffer,row);
+ for(const row of readPairing.borrowedFiles)if(!borrowedFiles.some(item=>item.path===row.path))borrowedFiles.push(row);
  const paths=folder=>fs.readdirSync(path.join(projectRoot,folder),{withFileTypes:true}).flatMap(entry=>{const file=folder+'/'+entry.name;assert.equal(entry.isSymbolicLink(),false,'C2 source symlink: '+file);return entry.isDirectory()?paths(file):[file];});
  assert.deepEqual(paths(namespace.slice(0,-1)).sort(),files.filter(row=>row.path.startsWith(namespace)).map(row=>row.path).sort(),'Only the exact reviewed C2 files are authorized.');
  for(const row of files)assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(row.expectedBuffer),'Changed exact C2 contribution: '+row.path);
  const panel='apps/editor/tile-authoring/ui/panel.js',before=object(base,panel),after=fs.readFileSync(path.join(projectRoot,panel));
  assert.equal(sha(after),'81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4','Unreviewed shared UI coordinator body');
  overrides[panel]={path:panel,before,expectedBuffer:after,sha256:sha(after),baseCommit:base,baseSha256:sha(before),role:'Root opt-in coordinator attachment; separate independent review required'};
- return {enabled:true,files,borrowedFiles:coreManifest.borrowed,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,requiredGitCommits:[base,prefixCommit,uiCommit,coreCommit,...(kernel?.requiredGitCommits??[])],status:'exact-source-authentication-only; actual overlay workflow remains separately gated'};
+ return {enabled:true,files,borrowedFiles,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,requiredGitCommits:[base,prefixCommit,uiCommit,coreCommit,encodedCommit,...(kernel?.requiredGitCommits??[]),...renderer.requiredGitCommits,...readPairing.requiredGitCommits],status:'exact-source-authentication-only; actual overlay workflow remains separately gated'};
 }
