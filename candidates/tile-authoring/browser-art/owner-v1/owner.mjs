@@ -1,0 +1,105 @@
+import {createLogicalLedger} from './ledger.mjs';
+import {createBrowserBackend} from './webgl.mjs';
+import {createDataRanges} from './data-ranges.mjs';
+import {createPaletteDecoder} from './decoder.mjs';
+import {createLocalWork,createPaletteWork} from './work.mjs';
+import {CAPS,SCOPE,fail,current,frozen,newLifetime} from './policy.mjs';
+import {geometryState} from '../../art/c2-runtime/geometry-state.mjs';
+import {typedArrayStorage,attributeArray} from '../../art/c2-runtime/typed-array-storage.mjs';
+import {createHash} from '../../art/c2-runtime/sha256.mjs';
+import {createCombinedMaterial} from '../../art/c2-runtime/shader.mjs';
+import {nativeBase} from '../../art/c2-runtime/finish-kernel.mjs';
+import {createSparseCompiler} from './sparse.mjs';
+import {createDataTools,utf8Length} from './data.mjs';
+import {ORIGINAL_ARTWORK} from '../../art/c2-runtime/artwork.mjs';
+import {createTileArtProvider} from '../../../../packages/tile-visuals/three.js';
+import {tileSurfaceMesh} from '../../../../packages/tile-visuals/mesh.js';
+
+
+// The manager wrapper closes over only the mutable, explicitly cleared record
+// and its owner cleanup port; it never closes over preparation input/payloads.
+function managedView(r,retire){return Object.freeze({get root(){return r.root;},get cellCount(){return r.state==='released'?0:r.cells;},diagnostics(){return {disposed:r.state==='released',ownedGeometry:r.state==='released'?0:Math.max(1,r.geometries.length),triangles:r.state==='released'?0:r.triangles,logicalState:r.state,viewId:r.id};},dispose(){return retire(r);}});}
+
+/** NEW private component; no Host/ticket/capture authority and no strict fallback.
+ * The two ports plug into createSmartTileViews({acquire,attach}) unchanged.
+ */
+export function createBrowserAppearanceOwner({THREE:T,mount,width=960,height=640,baselineAtlas,baselineMaterial,scene,limits={}}){
+ nativeBase(T,baselineMaterial);if(baselineMaterial.envMap||baselineMaterial.map&&baselineMaterial.map!==baselineAtlas||!(baselineAtlas instanceof T.Texture)||!(scene instanceof T.Scene)||scene.children.length)fail('BORROWED_BASELINE_PROFILE');
+ const image=baselineAtlas.image,IP=globalThis.HTMLImageElement?.prototype;if(!IP||!(image instanceof globalThis.HTMLImageElement)||Object.getOwnPropertyDescriptor(IP,'currentSrc').get.call(image)!==new URL('/assets/buildings/painted-materials-v2.png',import.meta.url).href)fail('EXACT_BORROWED_FINISH_ATLAS_REQUIRED');
+ let activeWork=null;const ledger=createLogicalLedger({limits}),backend=createBrowserBackend({width,height},ledger,{getWork:()=>activeWork}),canvas=backend.canvas;if(mount)mount.append(canvas);let renderer=null,data=null,decoder=null,hashSlab=null,pixel=null,tools=null,compiler=null,closed=false,busy=false;
+ const views=new Map(),pages=new Map(),receipts=[],paletteReports=[],borrowed=[];let serial=0;
+ const digest=v=>tools.digest(v),plainData=(v,opts)=>tools.plainData(v,opts);
+ const identity=new WeakMap();let identitySerial=0;const id=v=>{if(!identity.has(v))identity.set(v,'native.'+newLifetime()+'.'+(++identitySerial));return identity.get(v);};
+ const note=receipt=>{receipts.push(receipt);if(receipts.length>CAPS.recentDiagnosticEvents)receipts.shift();};
+ const logical=(purpose,quota)=>{const t=ledger.reserve({domain:'logical',charge:'derived',purpose,quota});ledger.fulfill(t,{},0);return t;};
+ const detach=root=>{const parents=new Set([root.parent,scene].filter(Boolean));try{root.parent?.remove(root);}catch{}for(const parent of parents)for(let i=parent.children.length-1;i>=0;i--)if(parent.children[i]===root)parent.children.splice(i,1);root.parent=null;};
+ function hash(bytes,work){work.bytes(bytes.byteLength);let cursor=0;const h=createHash('sha256',{alloc(Type,arg){const n=typeof arg==='number'?arg:arg.length,start=Math.ceil(cursor/Type.BYTES_PER_ELEMENT)*Type.BYTES_PER_ELEMENT;if(start+n*Type.BYTES_PER_ELEMENT>hashSlab.byteLength)fail('HASH_SCRATCH_LIMIT');const a=new Type(hashSlab.buffer,start,n);cursor=start+n*Type.BYTES_PER_ELEMENT;if(typeof arg!=='number')a.set(arg);return a;}});h.update(bytes);return h.digest('hex');}
+ function geometryFingerprint(r,work){return digest(r.geometries.map(g=>geometryState(T,g,{id,hashBytes:bytes=>hash(bytes,work)})));}
+ function nodeFingerprint(r){const out=[];r.root.traverse(n=>{out.push({id:id(n),parent:n===r.root?'attachment':id(n.parent),children:n.children.map(id),geometry:n.geometry?id(n.geometry):null,material:n.material?id(n.material):null,matrix:n.matrix.elements.slice(),position:n.position.toArray(),quaternion:n.quaternion.toArray(),scale:n.scale.toArray(),visible:n===r.root?true:n.visible});});return digest(out);}
+ function apiFingerprint(r){const ids=new Set(r.cpu.map(t=>t.id));return digest(backend.snapshot().apiStores.filter(s=>s.kind==='buffer'&&ids.has(s.sourceId)));}
+ function atlasFingerprint(){const t=baselineAtlas,i=t.image,P=globalThis.HTMLImageElement.prototype;return {id:id(t),version:t.version,sourceVersion:t.source.version,url:Object.getOwnPropertyDescriptor(P,'currentSrc').get.call(i),width:Object.getOwnPropertyDescriptor(P,'naturalWidth').get.call(i),height:Object.getOwnPropertyDescriptor(P,'naturalHeight').get.call(i),colorSpace:t.colorSpace,flipY:t.flipY,mipmaps:t.generateMipmaps,wrap:[t.wrapS,t.wrapT],filter:[t.minFilter,t.magFilter],offset:t.offset.toArray(),repeat:t.repeat.toArray(),rotation:t.rotation,matrix:t.matrix.elements.map(n=>Object.is(n,-0)?0:n)};}
+ function auditMaterials(r){for(const m of r.materials){const snap=m.combined.bindingSnapshot();if(!snap.compiled)fail('SHADER_NOT_COMPILED');if(m.combined.material.map!==baselineAtlas||m.combined.material.onBeforeCompile!==m.compileHook)fail('MATERIAL_BINDING_CHANGED');if(snap.textures&&!snap.textures.every((t,i)=>t===[data.texture,...r.pageTextures][i]))fail('SAMPLER_BINDING_CHANGED');}return digest({atlas:atlasFingerprint(),materials:r.materials.map(m=>({id:id(m.combined.material),version:m.combined.material.version,color:m.combined.material.color.toArray(),roughness:m.combined.material.roughness,metalness:m.combined.material.metalness,opacity:m.combined.material.opacity,side:m.combined.material.side,depthTest:m.combined.material.depthTest,depthWrite:m.combined.material.depthWrite,transparent:m.combined.material.transparent,alphaTest:m.combined.material.alphaTest,vertexColors:m.combined.material.vertexColors,wireframe:m.combined.material.wireframe,blending:m.combined.material.blending,programKey:id(m.combined.material.customProgramCacheKey),binding:((s)=>({...s,...(s.textures?{textures:s.textures.map(id)}:{})}))(m.combined.bindingSnapshot())}))});}
+ try{
+  renderer=new T.WebGLRenderer({canvas,context:backend.context,alpha:false,antialias:false});backend.finishBootstrap();renderer.setSize(canvas.width||256,canvas.height||256,false);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping;
+  const baselineRow=logical('borrowed-baseline-material',{appearanceMaterialsAllOwners:1});borrowed.push(baselineRow);
+  // Only the actual constructor-bound finish atlas gets baseline classification.
+  if(baselineAtlas.generateMipmaps)fail('BASELINE_EXPLICIT_MIPS_REQUIRED');baselineAtlas.needsUpdate=true;backend.texture({charge:'baseline',purpose:'borrowed-finish-atlas',sampled:true},()=>renderer.initTexture(baselineAtlas));backend.finish();
+  if(baselineAtlas.image?.data){const row=ledger.adopt(baselineAtlas.image.data,{domain:'cpu',charge:'baseline',purpose:'borrowed-finish-cpu',ref:'borrowed-baseline'});borrowed.push(row);}
+  const h=ledger.reserve({bytes:512,domain:'cpu',charge:'derived',purpose:'geometry-hash-scratch'});hashSlab=new Uint8Array(512);ledger.cpu(h,hashSlab);borrowed.push(h);tools=createDataTools(hashSlab,()=>activeWork);compiler=createSparseCompiler(tools);
+  const px=ledger.reserve({bytes:4,domain:'cpu',charge:'derived',purpose:'control-pixel-readback'});pixel=new Uint8Array(4);ledger.cpu(px,pixel);borrowed.push(px);data=createDataRanges(T,ledger,backend,renderer);decoder=createPaletteDecoder(ledger);
+ }catch(e){try{renderer?.dispose();backend.close();}catch{}throw e;}
+ function check(){if(closed)fail('BROWSER_OWNER_CLOSED');backend.assertCurrent();}
+ async function acquireArtwork(blobSha256,readEncoded,options={}){
+  check();if(busy)fail('OWNER_REENTRY');if(pages.has(blobSha256))return frozen({resident:true,blobSha256});const blob=ORIGINAL_ARTWORK.find(a=>a.body.blob.sha256===blobSha256)?.body.blob;if(!blob)fail('ORIGINAL_ARTWORK_REQUIRED');busy=true;let decoded=null,texture=null;const work=createPaletteWork(options);
+  try{decoded=await decoder.decode(blob,readEncoded,{...options,work});work.nativeUpload(decoded.pixels.byteLength);texture=new T.DataTexture(decoded.pixels,decoded.width,decoded.height,T.RGBAFormat,T.UnsignedByteType);texture.internalFormat='RGBA8';texture.colorSpace=T.NoColorSpace;texture.flipY=false;texture.generateMipmaps=false;texture.minFilter=texture.magFilter=T.NearestFilter;texture.wrapS=texture.wrapT=T.ClampToEdgeWrapping;texture.needsUpdate=true;
+   backend.texture({charge:'decoded',purpose:'original-artwork-image',sampled:true},()=>renderer.initTexture(texture));backend.finish();
+   // Native upload is synchronous with this serial CPU receiver. Drop THIS
+   // texture/source's view of it; the decoder owns and reuses its charged store.
+   texture.image={data:null,width:decoded.width,height:decoded.height};texture.source.data=texture.image;
+   current(options.isCurrent??(()=>true),options.signal);const nativeHandle=renderer.properties.get(texture).__webglTexture;backend.textureInventory(nativeHandle);const row={texture,nativeHandle,width:decoded.width,height:decoded.height,blob,pixelDigest:decoded.pixelDigest};pages.set(blobSha256,row);paletteReports.push(work.finish());return frozen({resident:true,blobSha256,pixelDigest:row.pixelDigest});
+  }catch(e){try{texture?.dispose();}catch{}throw e;}finally{decoded=null;texture=null;busy=false;}
+ }
+ function releaseView(r){
+  if(r.state==='released')return r.receipt;if(r.borrowers.size){r.state='unverified';return frozen({complete:false,code:'VIEW_BORROWED',viewId:r.id});}if(r.releasing)fail('RELEASE_REENTRY');r.releasing=true;r.state='retiring';const wasBusy=busy,priorWork=activeWork,cleanupWork=createLocalWork({purpose:'component-retirement-control'});busy=true;activeWork=cleanupWork;let cleanupError=null;
+  try{
+   const apiIds=[...new Set([...(r.apiIds??[]),...backend.buffersForCPU(r.cpu.map(t=>t.id))])];
+   try{cleanupWork.take(r.geometries.length);r.provider?.dispose();}catch(e){cleanupError=e;}
+   // A partial throw cannot skip the other owned materials or root detachment.
+   for(const m of r.materials)try{cleanupWork.take();m.combined.dispose();}catch(e){cleanupError??=e;}
+   if(r.root)detach(r.root);renderer.renderLists.dispose();
+   const d=r.provider?.diagnostics();if(d&&(!d.disposed||d.ownedGeometry!==0))fail('NATIVE_VIEW_NOT_DRAINED');if(r.root&&(r.root.parent||scene.children.includes(r.root)))fail('VIEW_STILL_ATTACHED');
+   if(backend.buffersForCPU(r.cpu.map(t=>t.id)).length)fail('BUFFER_DELETE_UNVERIFIED');
+   const apiReceipts=apiIds.map(id=>backend.releaseReceipt(id));if(apiReceipts.some(r=>!r?.complete||r.domain!=='api'))fail('COMPLETE_API_RELEASE_RECEIPTS_REQUIRED');
+   // Clear ALL owner payload edges before returning any CPU/range/material
+   // release. Neither the wrapper nor a retained manager record owns raw state.
+   const cpu=r.cpu.splice(0),materials=r.materials.splice(0),residency=r.residency,range=r.range;r.provider=null;r.root=null;r.geometries.length=0;r.range=null;r.compiled=null;for(const p of r.pages)backend.unreferenceTexture(p.nativeHandle,r.id);r.pages.length=0;r.pageTextures.length=0;r.projection=null;r.source=null;r.residency=null;r.seal=null;
+   const rangeReceipt=range?data.release(range,{work:cleanupWork}):null,cpuReceipts=cpu.map(t=>{cleanupWork.take();return ledger.release(t,{domain:'cpu',reason:'engine-owner-cleared'});}),materialReceipts=materials.map(m=>{m.combined=null;return ledger.release(m.token,{domain:'logical',reason:'logical-owner-cleared'});}),rootReceipt=ledger.release(residency,{domain:'logical',reason:'logical-owner-cleared'});
+   r.state='released';views.delete(r.wrapper);r.receipt=frozen({kind:'complete-view-logical-release',scope:SCOPE,complete:true,viewId:r.id,cpu:cpuReceipts,api:apiReceipts,apiBuffersRemaining:0,materials:materialReceipts,range:rangeReceipt,root:rootReceipt,cleanupCallbackThrew:!!cleanupError,localRetirementWork:cleanupWork.finish(),wholeAttemptMeter:'UNBOUND',physicalReclamation:'UNMEASURED'});note(r.receipt);return r.receipt;
+  }catch(e){r.state='unverified';note(frozen({complete:false,viewId:r.id,code:e.code??'CLEANUP_UNKNOWN'}));return frozen({complete:false,viewId:r.id,code:e.code??'CLEANUP_UNKNOWN'});}finally{activeWork=priorWork;busy=wasBusy;r.releasing=false;}
+ }
+ async function acquire(input,{maxTriangles=CAPS.trianglesAllOwners,maxCells=CAPS.cellsAllOwners,current:isCurrent=()=>true,signal=null}={}){
+  check();if(busy)fail('OWNER_REENTRY');busy=true;const work=createLocalWork({isCurrent,signal});activeWork=work;let r=null;
+  try{
+   // No operation/request/ticket can enter this component through input.
+   work.take();const sourceSlot=Object.getOwnPropertyDescriptor(input,'document');if(!sourceSlot||!Object.hasOwn(sourceSlot,'value'))fail('DATA_DESCRIPTOR');const safe=plainData(input,{take:work.take});if(Object.keys(safe).some(k=>!['document','projection','choice'].includes(k)))fail('COMPONENT_INPUT_FIELDS');const {document,projection,choice}=safe;if(projection.entries.length!==1)fail('SINGLE_LEVEL_RECTANGLE_PROFILE');work.boundary('inputBytes',utf8Length(JSON.stringify(safe)));const compiled=compiler.compileSparseAppearance(document,projection,{take:work.take});
+   if(compiled.costs.cells>maxCells)fail('CELL_ROOM');let triangles=0;for(const entry of projection.entries){work.take();const model=tileSurfaceMesh(T,entry,{maxTriangles});triangles+=model.triangles.length;work.take(model.triangles.length*3);}
+   if(triangles>maxTriangles)fail('TRIANGLE_ROOM');current(isCurrent,signal);
+   const residency=logical('native-view-residency',{rootsAllOwners:1,trianglesAllOwners:triangles,cellsAllOwners:compiled.costs.cells,layersPerSurface:Math.max(0,...compiled.surfaces.map(s=>s.layers.length)),storedMarksPerChunk:Math.max(0,...document.authoring.decorations.chunks.map(c=>c.marks.length)),contributorsPerBin:compiled.costs.contributorsPerBin});
+   r={id:'view.'+newLifetime()+'.'+(++serial),provider:null,root:null,geometries:[],cpu:[],materials:[],residency,range:null,triangles,cells:compiled.costs.cells,compiled,projection,source:sourceSlot.value,pages:[],pageTextures:[],seal:null,state:'acquiring',releasing:false,borrowers:new Set(),wrapper:null};
+   const wrapper=managedView(r,releaseView);r.wrapper=wrapper;views.set(wrapper,r);
+   const required=[...new Set(compiled.resources.map(x=>x.blob.sha256))];if(required.some(h=>!pages.has(h)))fail('PALETTE_NOT_RESIDENT');const organic=required.map(h=>pages.get(h)).find(p=>p.width===1536)??pages.get(required[0]),road=required.map(h=>pages.get(h)).find(p=>p.width===1024)??organic;
+   const selected=required.length?[organic,road]:[];r.pages=[...new Set(selected)];for(const p of r.pages)backend.referenceTexture(p.nativeHandle,r.id);r.pageTextures=selected.map(p=>p.texture);const pageIndex=new Map(required.map(h=>[h,pages.get(h).width===1536?0:1]));r.range=data.acquire(compiled,pageIndex,{work,isCurrent,signal});data.upload(work);
+   const combined=new Map();for(const entry of projection.entries){work.take();const token=logical('owned-combined-material',{appearanceMaterialsAllOwners:1});let c;try{c=createCombinedMaterial({THREE:T,base:baselineMaterial,atlas:baselineAtlas,choice:choice??entry.appearance,surfaceBinding:data.binding(r.range,entry.instanceId),dataAtlas:data,pages:selected});}catch(e){ledger.release(token,{domain:'logical',reason:'logical-owner-cleared'});throw e;}const row={token,combined:c,compileHook:c.material.onBeforeCompile};r.materials.push(row);combined.set(entry.instanceId,c.material);}
+   const trackedT=Object.assign(Object.create(null),T,{Float32BufferAttribute:function(values,size,normalized){const token=ledger.reserve({bytes:values.length*4,domain:'cpu',charge:'derived',purpose:'native-geometry-cpu'});let a;try{a=new T.Float32BufferAttribute(values,size,normalized);ledger.cpu(token,attributeArray(a));r.cpu.push(token);work.bytes(typedArrayStorage(attributeArray(a)).byteLength);return a;}catch(e){ledger.debt(token);throw e;}}});
+   const first=projection.entries[0];r.provider=createTileArtProvider(trackedT,projection,{materialForInstance:({instanceId})=>combined.get(instanceId),profileBindings:first?first.inspected.ports.map(p=>({profiles:p.profiles,boundaryMaterial:p.geometry.materialIntervals[0].material,material:combined.get(first.instanceId)})):[],maxTriangles});r.root=r.provider.root;r.root.userData.browserArtOwner=r.id;
+   const geoms=new Set();r.root.traverse(n=>{if(n.geometry)geoms.add(n.geometry);});for(const edge of r.provider.interfaces)geoms.add(edge.geometry);r.geometries=[...geoms];if(r.provider.diagnostics().triangles!==triangles)fail('NATIVE_TRIANGLE_CURRENTNESS');
+   current(isCurrent,signal);renderer.compile(r.root,new T.PerspectiveCamera());
+   // Render the private root while detached to exercise real attribute uploads.
+   const camera=new T.PerspectiveCamera(55,1,.01,10000);camera.position.set(5,7,7);camera.lookAt(0,0,0);renderer.render(r.root,camera);backend.finish();current(isCurrent,signal);
+   r.apiIds=backend.buffersForCPU(r.cpu.map(t=>t.id));r.seal={geometry:geometryFingerprint(r,work),nodes:nodeFingerprint(r),api:apiFingerprint(r),materials:auditMaterials(r),range:data.fingerprint(r.range),source:digest(document),projection:digest(projection)};r.state='live';r.work=work.finish();return wrapper;
+  }catch(e){if(r)releaseView(r);throw e;}finally{activeWork=null;busy=false;}
+ }
+ function isViewCurrent(wrapper,{isCurrent=()=>true,signal=null}={}){const r=views.get(wrapper);if(!r||r.state!=='live')return false;const prior=activeWork;try{check();const work=createLocalWork({isCurrent,signal});activeWork=work;const now={geometry:geometryFingerprint(r,work),nodes:nodeFingerprint(r),api:apiFingerprint(r),materials:auditMaterials(r),range:data.fingerprint(r.range),source:digest(plainData(r.source,{take:work.take})),projection:digest(r.projection)};const matches=digest(now)===digest(r.seal);work.finish();return matches;}catch{return false;}finally{activeWork=prior;}}
+ function attach(root,role){check();const r=[...views.values()].find(v=>v.root===root);if(!r||r.state!=='live'||role!=='candidate'||!isViewCurrent(r.wrapper))fail('STALE_SOURCE');scene.add(root);if(!isViewCurrent(r.wrapper))fail('STALE_SOURCE');}
+ return Object.freeze({acquire,attach,acquireArtwork,isViewCurrent,borrowView(wrapper){const r=views.get(wrapper);if(!r||r.state!=='live')fail('LIVE_VIEW_REQUIRED');const token={};r.borrowers.add(token);let active=true;return Object.freeze({get root(){if(!active)fail('VIEW_BORROW_ENDED');return r.root;},release(){if(active){active=false;r.borrowers.delete(token);}}});},retryRelease(wrapper){const r=views.get(wrapper);return r?releaseView(r):null;},snapshot(){return frozen({kind:'private-browser-art-owner',scope:SCOPE,formalCaptureBinding:'UNBOUND',formalMeterPairing:'UNBOUND',hostAuthority:'UNBOUND',publicEditorAdoption:false,ledger:ledger.snapshot(),backend:backend.snapshot(),data:data.snapshot(),views:[...views.values()].map(r=>({id:r.id,state:r.state,work:r.work??null,borrowers:r.borrowers.size})),palette:paletteReports.slice(),resourceInventory:{catalogueBinding:'original-catalogue-78769938-v1',formalSourceScope:'UNBOUND',cachedArtwork:[...pages.entries()].map(([sha,p])=>({blob:p.blob,pixelDigest:p.pixelDigest,...decoder.inventory(sha),native:backend.textureInventory(p.nativeHandle),viewReferenceIds:[...views.values()].filter(r=>r.pages.includes(p)).map(r=>r.id),classification:'decoded-additional/cache; never baseline'}))},releaseReceipts:receipts.slice()});},render(camera){check();renderer.render(scene,camera);backend.finish();},readPixel(x,y){check();const gl=backend.context;gl.readPixels(x,y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);return [...pixel];},dispose(){if(closed)return;if(busy)fail('OWNER_BUSY');for(const r of [...views.values()])releaseView(r);if(views.size)fail('UNRELEASED_VIEWS');data.dispose();decoder.dispose();for(const p of pages.values()){p.texture.dispose();p.texture.image=null;p.texture.source.data=null;}pages.clear();renderer.renderLists.dispose();renderer.dispose();backend.close();hashSlab=null;pixel=null;tools=null;compiler=null;for(const t of borrowed){const s=ledger.inspect(t);if(s.domain==='cpu'&&s.references.includes('borrowed-baseline')){ledger.unreference(t,'borrowed-baseline');ledger.release(t,{domain:'cpu',reason:'engine-owner-cleared'});}else ledger.release(t,{domain:s.domain,reason:s.domain==='cpu'?'engine-owner-cleared':'logical-owner-cleared'});}borrowed.length=0;pages.clear();renderer=null;canvas.remove();closed=true;return ledger.snapshot();}});
+}

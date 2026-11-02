@@ -1,0 +1,9 @@
+# Provenance and boundaries
+
+New ownership, ledger, context observer, ranges, local counters, source copying/streaming hash adapter and controls are Nautilus code authored on the artist worktree. `inputs.json` preserves full dependency paths, raw byte lengths and SHA-256 values at exact parent `78769938f0d18e52d057b75867e1e544c5c0b69e`.
+
+The unchanged intrinsic geometry/storage observation, incremental SHA implementation, original artwork records, coordinate sampler, finish guard/kernel, combined shader and portable PNG decoder are imported from the artist's exact `candidates/tile-authoring/art/c2-runtime/` files. No strict owner, physical ledger or strict release proof is instantiated or relabeled. The Pako adaptations remain at their original paths and retain their original MIT AND Zlib notices and pinned source `3c06216518c259b569a5168dee867e6dabbe5160`.
+
+`sparse.mjs` is a private adaptation of that exact parent's sparse.mjs. Source-grid, mark/mask/frame checks, bins and sampling are preserved. Differences: it receives owner-held descriptor/canonical-hash tools instead of allocating whole-string TextEncoder/hash stores; it computes exact one-metre occupancy for its explicitly supported axis-aligned rectangle from the actual public projection, rather than invoking a new public repair/derive call without actual counters. The factory keeps owner/meter bindings separate. This is not an import from a moving worker or donor.
+
+Actual geometry construction and its cleanup use the unchanged `packages/tile-visuals` provider and shared borrowed Three revision 180. Shared Three/vendor licenses remain in their original paths. Original painted artwork and finish atlas are used through unchanged local paths with their original notices; no new image generation, public distribution, Sites promotion or consumer adoption occurs here.
