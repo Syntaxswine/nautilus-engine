@@ -582,6 +582,15 @@
               "type": "null"
             }
           ]
+        },
+        "origin": {
+          "enum": [
+            "workspace",
+            "builtin-offer"
+          ]
+        },
+        "dependency": {
+          "$ref": "#/$defs/ArtworkDependency"
         }
       },
       "required": [
@@ -591,7 +600,9 @@
         "frameId",
         "availability",
         "thumbnail",
-        "reason"
+        "reason",
+        "origin",
+        "dependency"
       ]
     },
     "Projection": {
@@ -765,6 +776,9 @@
             },
             "recover": {
               "$ref": "#/$defs/Gate"
+            },
+            "content.import": {
+              "$ref": "#/$defs/Gate"
             }
           },
           "required": [
@@ -777,7 +791,8 @@
             "review",
             "apply",
             "cancel",
-            "recover"
+            "recover",
+            "content.import"
           ]
         },
         "deferred": {
@@ -1160,13 +1175,61 @@
             },
             "graphic": {
               "$ref": "#/$defs/GraphicDraft"
+            },
+            "dependency": {
+              "const": "retained"
             }
           },
           "required": [
             "kind",
             "artwork",
             "layer",
-            "graphic"
+            "graphic",
+            "dependency"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "first-mark"
+            },
+            "artwork": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+            },
+            "layer": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 120
+                },
+                "opacity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "label",
+                "opacity"
+              ]
+            },
+            "graphic": {
+              "$ref": "#/$defs/GraphicDraft"
+            },
+            "dependency": {
+              "const": "builtin-import"
+            }
+          },
+          "required": [
+            "kind",
+            "artwork",
+            "layer",
+            "graphic",
+            "dependency"
           ]
         },
         {
@@ -1342,6 +1405,30 @@
                       {
                         "properties": {
                           "kind": {
+                            "const": "content.import"
+                          },
+                          "body": {
+                            "properties": {
+                              "pack": {
+                                "$ref": "#/$defs/BuiltinArtworkPack"
+                              },
+                              "conflict": {
+                                "const": "refuse-different-content"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/operation"
+                      },
+                      {
+                        "properties": {
+                          "kind": {
                             "const": "surface.layers"
                           }
                         }
@@ -1446,6 +1533,57 @@
             "basis": {
               "$ref": "#/$defs/Basis"
             },
+            "route": {
+              "const": "retained-first-mark"
+            },
+            "command": {
+              "$ref": "#/$defs/RetainedFirstMarkCommand"
+            }
+          },
+          "required": [
+            "status",
+            "basis",
+            "route",
+            "command"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "constructed"
+            },
+            "basis": {
+              "$ref": "#/$defs/Basis"
+            },
+            "route": {
+              "const": "builtin-prefix-first-mark"
+            },
+            "command": {
+              "$ref": "#/$defs/BuiltinFirstMarkCommand"
+            }
+          },
+          "required": [
+            "status",
+            "basis",
+            "route",
+            "command"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "constructed"
+            },
+            "basis": {
+              "$ref": "#/$defs/Basis"
+            },
+            "route": {
+              "const": "appearance-edit"
+            },
             "command": {
               "$ref": "#/$defs/OverlayCommand"
             }
@@ -1453,6 +1591,7 @@
           "required": [
             "status",
             "basis",
+            "route",
             "command"
           ]
         },
@@ -1741,7 +1880,102 @@
         }
       ]
     },
-    "FirstMarkCommand": {
+    "ArtworkDependency": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "route": {
+              "const": "retained-two-ops"
+            },
+            "state": {
+              "enum": [
+                "source-exact",
+                "descriptor-missing",
+                "bytes-stale",
+                "bytes-missing",
+                "bytes-corrupt"
+              ]
+            },
+            "missingPort": {
+              "oneOf": [
+                {
+                  "const": "verifiedBuiltinByteOwner"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "route",
+            "state",
+            "missingPort"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "route": {
+              "const": "builtin-prefix"
+            },
+            "state": {
+              "enum": [
+                "producer-missing",
+                "bytes-unverified",
+                "bytes-stale",
+                "bytes-missing",
+                "bytes-corrupt",
+                "prefix-validated"
+              ]
+            },
+            "missingPort": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "constructBuiltinDependencyPrefix",
+                    "verifiedBuiltinByteOwner"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "route",
+            "state",
+            "missingPort"
+          ]
+        }
+      ]
+    },
+    "BuiltinArtworkPack": {
+      "allOf": [
+        {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pack"
+        },
+        {
+          "properties": {
+            "manifest": {
+              "properties": {
+                "definitions": {
+                  "maxItems": 0
+                },
+                "presets": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RetainedFirstMarkCommand": {
       "allOf": [
         {
           "$ref": "#/$defs/OverlayCommand"
@@ -1810,6 +2044,147 @@
               "maxItems": 2
             }
           }
+        }
+      ]
+    },
+    "BuiltinFirstMarkCommand": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/OverlayCommand"
+        },
+        {
+          "properties": {
+            "operations": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 1024,
+              "items": {
+                "oneOf": [
+                  {
+                    "allOf": [
+                      {
+                        "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/operation"
+                      },
+                      {
+                        "properties": {
+                          "kind": {
+                            "const": "content.import"
+                          },
+                          "body": {
+                            "properties": {
+                              "pack": {
+                                "$ref": "#/$defs/BuiltinArtworkPack"
+                              },
+                              "conflict": {
+                                "const": "refuse-different-content"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/operation"
+                      },
+                      {
+                        "properties": {
+                          "kind": {
+                            "const": "surface.layers"
+                          },
+                          "body": {
+                            "properties": {
+                              "layers": {
+                                "minItems": 1,
+                                "maxItems": 1
+                              },
+                              "removedLayerMarkIds": {
+                                "maxItems": 0
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/operation"
+                      },
+                      {
+                        "properties": {
+                          "kind": {
+                            "const": "decoration.add"
+                          },
+                          "body": {
+                            "properties": {
+                              "mark": {
+                                "properties": {
+                                  "revision": {
+                                    "const": 1
+                                  },
+                                  "groupId": {
+                                    "type": "null"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "properties": {
+                      "kind": {
+                        "const": "content.import"
+                      }
+                    }
+                  },
+                  "minContains": 1
+                },
+                {
+                  "contains": {
+                    "properties": {
+                      "kind": {
+                        "const": "surface.layers"
+                      }
+                    }
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "properties": {
+                      "kind": {
+                        "const": "decoration.add"
+                      }
+                    }
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "FirstMarkCommand": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RetainedFirstMarkCommand"
+        },
+        {
+          "$ref": "#/$defs/BuiltinFirstMarkCommand"
         }
       ]
     }

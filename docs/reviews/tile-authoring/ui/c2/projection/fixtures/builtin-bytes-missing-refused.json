@@ -1,0 +1,98 @@
+{
+  "classification": "headless-data-control-not-live-authority",
+  "source": "pristine",
+  "kind": "construction-refusal",
+  "payload": {
+    "basis": {
+      "documentId": "workspace.c1",
+      "contentRevision": 6,
+      "expected": {
+        "workspaceRevision": 6,
+        "workspaceDigest": "c70d10512548b6ad6b55be6a3afea98391547757691a82c261bd4a82c086f1c5",
+        "hostDocumentDigest": "76668f9dde646e11aa2052d1949002a659cdc0198a2e33a8c7428088cd82535f",
+        "hostAuthorityToken": "5d3804f083b168b21f64e150f6b4e244d33141dba754d227fc3bfdb65a27014d",
+        "authorityContextToken": "e71d6c31f0bb91002ed16461a9a807b7e090f1f7fe4574902c7e63d43bb3323b",
+        "contentDigest": "6badf3ec07dc71fe3c8f7fa214c0049aca96509ddcb37566fdc9a8d4da82a6f9",
+        "decorationDigest": "823807e818692f735ce1246271591c6f618c23a73fd05bca8309ecc30f1d97e7",
+        "resourceSetDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "floorProfileDigest": "27ac799f0613f31e1145201a6bb7f82e5db6ad6bae741035307105227beaca72",
+        "stackConstraintsDigest": "b1f2f0b8fc1de65071cacb56ba559a72b9530fb77c6e6b74466f11b97dc06b34",
+        "tileLayoutDigest": "9790a8c42b52503b3836061a809adc931840814c76aa144caf6fe4f8b028a767",
+        "tileCatalogueDigest": "892e521266d77a7b06446cc73bc5f4b67cc303528a0e64cca6620d1bd5282063"
+      },
+      "floorId": "F00"
+    },
+    "form": {
+      "kind": "first-mark",
+      "artwork": {
+        "id": "artist.graphic.blood-dried",
+        "revision": 1,
+        "contentDigest": "cfef0fc30298e15ed1a986281b329a01609b4723fc38c27f7475bfc48dd3babf"
+      },
+      "layer": {
+        "label": "Sparse paint",
+        "opacity": 1
+      },
+      "graphic": {
+        "form": "stamp",
+        "transform": {
+          "positionM": [
+            1,
+            1
+          ],
+          "sizeM": [
+            1.6,
+            1.6
+          ],
+          "rotationRad": 0.2,
+          "mirrorU": false,
+          "pivotUV": [
+            0.2,
+            0.8
+          ]
+        },
+        "opacity": 1,
+        "tintLinearRGB": [
+          1,
+          0.8,
+          0.5
+        ],
+        "mask": {
+          "kind": "all-surface"
+        }
+      },
+      "dependency": "builtin-import"
+    },
+    "result": {
+      "status": "refused",
+      "basis": {
+        "documentId": "workspace.c1",
+        "contentRevision": 6,
+        "expected": {
+          "workspaceRevision": 6,
+          "workspaceDigest": "c70d10512548b6ad6b55be6a3afea98391547757691a82c261bd4a82c086f1c5",
+          "hostDocumentDigest": "76668f9dde646e11aa2052d1949002a659cdc0198a2e33a8c7428088cd82535f",
+          "hostAuthorityToken": "5d3804f083b168b21f64e150f6b4e244d33141dba754d227fc3bfdb65a27014d",
+          "authorityContextToken": "e71d6c31f0bb91002ed16461a9a807b7e090f1f7fe4574902c7e63d43bb3323b",
+          "contentDigest": "6badf3ec07dc71fe3c8f7fa214c0049aca96509ddcb37566fdc9a8d4da82a6f9",
+          "decorationDigest": "823807e818692f735ce1246271591c6f618c23a73fd05bca8309ecc30f1d97e7",
+          "resourceSetDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "floorProfileDigest": "27ac799f0613f31e1145201a6bb7f82e5db6ad6bae741035307105227beaca72",
+          "stackConstraintsDigest": "b1f2f0b8fc1de65071cacb56ba559a72b9530fb77c6e6b74466f11b97dc06b34",
+          "tileLayoutDigest": "9790a8c42b52503b3836061a809adc931840814c76aa144caf6fe4f8b028a767",
+          "tileCatalogueDigest": "892e521266d77a7b06446cc73bc5f4b67cc303528a0e64cca6620d1bd5282063"
+        },
+        "floorId": "F00"
+      },
+      "diagnostics": [
+        {
+          "code": "BUILTIN_BYTES_MISSING",
+          "path": "/overlay/artwork",
+          "message": "Builtin bytes are missing; no command, layer, mark, ref or history is adopted.",
+          "action": "Preserve the complete source; require the source-bound Core/Host builtin prefix producer and verified byte owner.",
+          "ownerIds": []
+        }
+      ]
+    }
+  }
+}

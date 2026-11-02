@@ -1,12 +1,12 @@
 /** Static type consumers only; these declarations do not make live capabilities. */
-import type {ExistingC1Read,C2Read,OverlayPorts,ThumbnailPresentation,Pin,Expected,Layer,MaskDraft,FirstMarkForm,FirstMarkCommand,OverlayOperation} from './projection.js';
+import type {ExistingC1Read,C2Read,OverlayPorts,ThumbnailPresentation,Pin,Expected,Layer,MaskDraft,RetainedFirstMarkForm,RetainedFirstMarkCommand,BuiltinFirstMarkForm,BuiltinFirstMarkCommand,BuiltinDependencyPrefixOwner,OverlayOperation} from './projection.js';
 type HitFromOwner = {readonly owner: 'existing-input-owner'};
 type HandleFromOwner = {readonly owner: 'existing-thumbnail-owner'};
 declare const read:C2Read<ExistingC1Read>;
 declare const ports:OverlayPorts<ExistingC1Read,HitFromOwner,HandleFromOwner>;
 declare const presenter:ThumbnailPresentation<HandleFromOwner>;
 declare const element:HTMLElement;
-declare const first:FirstMarkForm;
+declare const first:RetainedFirstMarkForm;
 declare const art:Pin;
 declare const hit:HitFromOwner;
 const selected=ports.selectExisting(read,{kind:'surface',ownerId:'owner.one',surfaceId:'top'});
@@ -21,9 +21,9 @@ if(made.status==='constructed'){
   const ungrouped:null=made.command.operations[1].body.mark.groupId;
   void [exactTwo,firstKind,secondKind,fresh,ungrouped];
   // @ts-expect-error first batch cannot reverse operation order
-  const reversed:FirstMarkCommand['operations']=[made.command.operations[1],made.command.operations[0]];
+  const reversed:RetainedFirstMarkCommand['operations']=[made.command.operations[1],made.command.operations[0]];
   // @ts-expect-error first batch is not a one-operation tuple
-  const partial:FirstMarkCommand['operations']=[made.command.operations[0]];
+  const partial:RetainedFirstMarkCommand['operations']=[made.command.operations[0]];
   void [reversed,partial];
 }
 ports.constructOverlayCommand(read,{kind:'decoration.update',markId:'mark.one',expectedRevision:1,changes:[{field:'opacity',value:0.5},{field:'pivotUV',value:[0.2,0.8]}]});
@@ -55,3 +55,37 @@ const add:Extract<OverlayOperation,{kind:'decoration.add'}>={opId:'op.one',kind:
 // @ts-expect-error source-grid hash cannot be supplied in a cell selection draft
 const mask:MaskDraft={kind:'grid-cells',cells:[{i:0,j:0}],digest:'fake'};
 void [expected,layer,base,add,mask];
+
+declare const builtin:BuiltinFirstMarkForm;
+declare const retainedCommand:RetainedFirstMarkCommand;
+declare const builtinCommand:BuiltinFirstMarkCommand;
+const imported=ports.constructOverlayCommand(read,builtin);
+if(imported.status==='constructed'){
+  const route:'builtin-prefix-first-mark'=imported.route;
+  const prefixKind:'content.import'=imported.command.operations[0].kind;
+  const conflict:'refuse-different-content'=imported.command.operations[0].body.conflict;
+  void [route,prefixKind,conflict];
+}
+// @ts-expect-error missing content.import prefix cannot be a builtin first command
+const missingPrefix:BuiltinFirstMarkCommand=retainedCommand;
+// @ts-expect-error builtin command cannot be a two-operation retained tuple
+const missingSuffix:BuiltinFirstMarkCommand['operations']=[builtinCommand.operations[0],retainedCommand.operations[0]];
+// @ts-expect-error builtin prefix must precede the unchanged layers/add suffix
+const reversedBuiltin:BuiltinFirstMarkCommand['operations']=[retainedCommand.operations[0],builtinCommand.operations[0],retainedCommand.operations[1]];
+// @ts-expect-error UI form cannot supply canonical packs or a dependency prefix
+ports.constructOverlayCommand(read,{...builtin,packs:[builtinCommand.operations[0].body.pack]});
+// @ts-expect-error exact selected revision is numeric; no implicit latest route
+ports.constructOverlayCommand(read,{...builtin,artwork:{...art,revision:'latest'}});
+// @ts-expect-error first-mark form must explicitly identify its dependency route
+ports.constructOverlayCommand(read,{kind:'first-mark',artwork:art,layer:first.layer,graphic:first.graphic});
+type BytesFromOwner={readonly actualOwner:'existing-verified-byte-owner'};
+declare const dependencyOwner:BuiltinDependencyPrefixOwner<ExistingC1Read,BytesFromOwner>;
+const dependency=dependencyOwner.constructBuiltinDependencyPrefix(read,art);
+if(dependency.status==='validated'){
+  const bytes:BytesFromOwner=dependency.bytes;
+  const png:'image/png'=dependency.packs[0].manifest.artwork[0].body.blob.mediaType;
+  // @ts-expect-error consumer cannot mutate the validated prefix pack list
+  dependency.packs.push(builtinCommand.operations[0].body.pack);
+  void [bytes,png];
+}
+void [missingPrefix,missingSuffix,reversedBuiltin];

@@ -24,6 +24,11 @@ const shape=(name,value)=>V.shape(tiles,name,V.readData(value),new V.Budget(),sc
 const sources=Object.fromEntries(Object.entries(source.fixtureSources).map(([key,row])=>[key,readGit(row)]));
 function readGit(row){return JSON.parse(git(row.commit,row.path));}
 const pin=r=>({id:r.id,revision:r.revision,contentDigest:r.contentDigest}),same=(a,b)=>assert.deepEqual(a,b);
+const exactPin=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+// Metadata comparisons use immutable Core witnesses only. No pack construction,
+// hashing, decoder, byte verification or live producer is implemented here.
+const offeredPack=sources.pristine.input.command.operations.find(o=>o.kind==='content.import').body.pack;
+const sourceBeforeControls=JSON.stringify(Object.fromEntries(Object.entries(sources).map(([k,w])=>[k,w.input.document])));
 const controls=[];
 function pass(name,run){const detail=run();controls.push({name,status:'pass',...(detail??{})});}
 function reject(name,run){pass(name,()=>{assert.throws(run);return{expected:'refusal'};});}
@@ -38,7 +43,17 @@ function projectionCheck(p,w){
     const saved=d.authoring.decorations.surfaces.find(b=>b.ownerId===s.ownerId&&b.surfaceId===s.surfaceId),derived=saved??w.plan.targetDocument.authoring.decorations.surfaces.find(b=>b.ownerId===s.ownerId&&b.surfaceId===s.surfaceId);assert.ok(derived);same(s.target,{ownerId:derived.ownerId,surfaceId:derived.surfaceId,floorId:derived.floorId,bindingDigest:derived.bindingDigest});same(s.grid,{id:frame.grid.id,version:frame.grid.version,digest:derived.gridDigest});same(s.bindingState,saved?'bound':'prospective');
     const marks=d.authoring.decorations.chunks.flatMap(c=>c.marks).filter(m=>m.target.ownerId===s.ownerId&&m.target.surfaceId===s.surfaceId);same(s.layers,(saved?.layers??[]).map(l=>({value:l,markIds:marks.filter(m=>m.layerId===l.id).map(m=>m.id),opacityStatus:l.opacity===0?'hidden-by-opacity':'opacity-enabled'})));same(s.marks,marks.map(m=>({id:m.id,revision:m.revision,layerId:m.layerId,ordinal:m.ordinal,artwork:m.graphic.artwork,groupId:m.groupId})));same(s.selectedMark,s.selectedMarkId?marks.find(m=>m.id===s.selectedMarkId):null);assert.ok(s.selectedLayerId===null||s.layers.some(l=>l.value.id===s.selectedLayerId));same(s.groups,d.authoring.decorations.groups.map(g=>({id:g.id,floorId:g.floorId,memberMarkIds:g.memberMarkIds})));
   }
-  same(p.palette.map(r=>({artwork:r.artwork,label:r.label,resourceRef:r.resourceRef,frameId:r.frameId})),d.authoring.library.artwork.map(r=>({artwork:pin(r),label:r.body.label,resourceRef:d.resourceRefs.find(x=>JSON.stringify(x.artwork)===JSON.stringify(pin(r))),frameId:r.body.imageView.frame.id})));
+  const workspace=p.palette.filter(r=>r.origin==='workspace'),offered=p.palette.filter(r=>r.origin==='builtin-offer');
+  same(workspace.map(r=>({artwork:r.artwork,label:r.label,resourceRef:r.resourceRef,frameId:r.frameId})),d.authoring.library.artwork.map(r=>({artwork:pin(r),label:r.body.label,resourceRef:d.resourceRefs.find(x=>exactPin(x.artwork,pin(r))),frameId:r.body.imageView.frame.id})));
+  for(const row of workspace)assert.equal(row.dependency.route,'retained-two-ops');
+  const seen=new Set(workspace.map(r=>JSON.stringify(r.artwork)));
+  for(const row of offered){
+    const key=JSON.stringify(row.artwork);assert.ok(!seen.has(key),'No duplicate or already-retained offer');seen.add(key);
+    const record=offeredPack.manifest.artwork.find(a=>exactPin(pin(a),row.artwork));assert.ok(record,'Offer must name an exact pinned Core record, never latest');
+    same({artwork:row.artwork,label:row.label,resourceRef:row.resourceRef,frameId:row.frameId},{artwork:pin(record),label:record.body.label,resourceRef:sources.pristine.plan.targetDocument.resourceRefs.find(ref=>exactPin(ref.artwork,pin(record))),frameId:record.body.imageView.frame.id});
+    assert.equal(row.dependency.route,'builtin-prefix');assert.equal(row.availability,'unavailable');assert.equal(row.thumbnail,'unavailable');
+    assert.equal(row.dependency.state,'producer-missing');assert.equal(row.dependency.missingPort,'constructBuiltinDependencyPrefix');
+  }
   if(p.chosenArtwork)assert.ok(p.palette.some(r=>JSON.stringify(r.artwork)===JSON.stringify(p.chosenArtwork)));
   if(p.observation){const c=x.appearanceSource;same(p.observation,{profiles:c.profiles,authority:c.authority,visual:c.visual,history:c.history,resourceLeaseSetDigest:c.resourceLeaseSetDigest,ledger:{sequence:c.ledger.sequence,scopeDigest:c.ledger.scopeDigest,preservedObjectsDigest:c.ledger.preservedObjectsDigest,geometryLeaseSetDigest:c.ledger.geometry.geometryLeaseSetDigest,geometryObjectsDigest:c.ledger.geometry.geometryObjectsDigest}});}
   // These are explicitly non-live controls. No DTO can turn them into readiness.
@@ -46,12 +61,54 @@ function projectionCheck(p,w){
   assert.ok(Object.values(p.deferred).every(v=>v==='unavailable'));
   if(p.current.state==='unknown'){same(p.current.requestId,p.current.recoveryRequestId);same(p.current.requestId,x.command.requestId);}
 }
-function firstCommandCheck(command,w){
-  const d=w.input.document;same(command.expected,w.input.command.expected);assert.equal(command.operations.length,2);const [layers,add]=command.operations;assert.equal(layers.kind,'surface.layers');assert.equal(add.kind,'decoration.add');assert.equal(layers.body.layers.length,1);same(layers.body.removedLayerMarkIds,[]);same(layers.body.target,add.body.mark.target);same(layers.body.layers[0].id,add.body.mark.layerId);assert.equal(add.body.mark.groupId,null);assert.equal(add.body.mark.revision,1);assert.ok(d.authoring.library.artwork.some(r=>JSON.stringify(pin(r))===JSON.stringify(add.body.mark.graphic.artwork)),'Artwork must already belong to the actual source, not an omitted import');
+function firstSuffixCheck(operations,w){
+  assert.equal(operations.length,2);const [layers,add]=operations;
+  assert.equal(layers.kind,'surface.layers');assert.equal(add.kind,'decoration.add');
+  assert.equal(layers.body.layers.length,1);same(layers.body.removedLayerMarkIds,[]);
+  same(layers.body.target,add.body.mark.target);same(layers.body.layers[0].id,add.body.mark.layerId);
+  assert.equal(add.body.mark.groupId,null);assert.equal(add.body.mark.revision,1);
+  const binding=w.plan.targetDocument.authoring.decorations.surfaces.find(s=>s.ownerId===layers.body.target.ownerId&&s.surfaceId===layers.body.target.surfaceId);assert.ok(binding);
+  same(layers.body.target,{ownerId:binding.ownerId,surfaceId:binding.surfaceId,floorId:binding.floorId,bindingDigest:binding.bindingDigest});
 }
+function retainedMetadataCheck(artwork,w){
+  const d=w.input.document,record=d.authoring.library.artwork.find(r=>exactPin(pin(r),artwork));
+  assert.ok(record,'Exact chosen artwork must already belong to actual source');
+  assert.ok(d.resourceRefs.some(ref=>exactPin(ref.artwork,artwork)),'Exact required source resource descriptor is missing');
+  const canonical=offeredPack.manifest.artwork.find(r=>exactPin(pin(r),artwork));assert.ok(canonical);same(record,canonical);
+  const ref=sources.pristine.plan.targetDocument.resourceRefs.find(r=>exactPin(r.artwork,artwork));
+  same(d.resourceRefs.find(r=>exactPin(r.artwork,artwork)),ref);
+  // This still proves no bytes, owner, native pairing or first-mark permission.
+}
+function firstCommandCheck(command,w){
+  same(command.expected,w.input.command.expected);firstSuffixCheck(command.operations,w);
+  retainedMetadataCheck(command.operations[1].body.mark.graphic.artwork,w);
+}
+function builtinPrefixSequenceCheck(command,w){
+  same(command.expected,w.input.command.expected);assert.ok(command.operations.length>=3);
+  const prefix=command.operations.slice(0,-2),suffix=command.operations.slice(-2);
+  assert.ok(prefix.every(o=>o.kind==='content.import'),'Only explicit dependency imports precede layers/add');
+  firstSuffixCheck(suffix,w);const artwork=suffix[1].body.mark.graphic.artwork;
+  assert.ok(!w.input.document.authoring.library.artwork.some(r=>exactPin(pin(r),artwork)),'An already retained Pin must not be imported again');
+  const records=[];
+  for(const op of prefix){assert.equal(op.body.conflict,'refuse-different-content');same(op.body.pack.manifest.definitions,[]);same(op.body.pack.manifest.presets,[]);records.push(...op.body.pack.manifest.artwork);}
+  // Current built-in record has profile requirements, no other artwork dependency.
+  // The archived all30 pack is deliberately rejected; never trim/reseal it here.
+  assert.equal(records.length,1,'Reject overbroad all30 discovery/import for one selected built-in');
+  same(pin(records[0]),artwork);same(records[0],offeredPack.manifest.artwork.find(r=>exactPin(pin(r),artwork)));
+  throw Error('No accepted constructBuiltinDependencyPrefix/verifiedBuiltinByteOwner producer is bound; static metadata cannot authorize this route');
+}
+
 const fixtures=source.fixtures.map(file=>({file,value:read(path.join(here,'fixtures',file))}));
 for(const {file,value}of fixtures)pass('closed finite '+file,()=>{shape('Fixture',value);if(value.kind==='projection')projectionCheck(value.payload,sources[value.source]);else{same(value.payload.basis,{documentId:sources[value.source].input.document.id,contentRevision:sources[value.source].input.document.contentRevision,expected:sources[value.source].input.command.expected,floorId:sources[value.source].input.appearanceSource.authority.floorId});same(value.payload.result.basis,value.payload.basis);assert.equal(value.payload.result.status,'refused');}return{source:value.source,classification:value.classification};});
 const pristine=fixtures.find(x=>x.file==='prospective-unavailable.json').value,painted=fixtures.find(x=>x.file==='bound-mark-readonly.json').value;
+const fresh=fixtures.find(x=>x.file==='fresh-c1-builtin-prefix-unavailable.json').value;
+pass('genuine fresh C1 source is empty before any C2 import',()=>{const d=sources.pristine.input.document;same(d.authoring.library.artwork,[]);same(d.resourceRefs,[]);same(d.authoring.decorations.surfaces,[]);same(d.authoring.decorations.chunks.flatMap(c=>c.marks),[]);same(fresh.payload.selection.layers,[]);same(fresh.payload.selection.marks,[]);});
+pass('one exact builtin offer does not adopt all30 records or notices',()=>{assert.equal(fresh.source,'pristine');assert.equal(fresh.payload.palette.length,1);same(fresh.payload.chosenArtwork,fresh.payload.palette[0].artwork);same(fresh.payload.palette[0].dependency,{route:'builtin-prefix',state:'producer-missing',missingPort:'constructBuiltinDependencyPrefix'});assert.equal(fresh.payload.gates['content.import'].enabled,false);assert.equal(fresh.payload.gates.firstMark.enabled,false);same(sources.pristine.input.document.authoring.library.artwork,[]);return{producerBound:false,byteOwnerBound:false,adoption:false};});
+pass('already-retained exact record and descriptor do not prove actual bytes',()=>{const art=painted.payload.chosenArtwork;retainedMetadataCheck(art,sources.painted);assert.ok(Object.values(painted.payload.gates).every(g=>!g.enabled));return{metadataOnly:true,bytesVerified:false};});
+reject('retained route refuses missing source descriptor',()=>{const w=structuredClone(sources.painted);w.input.document.resourceRefs=w.input.document.resourceRefs.filter(r=>!exactPin(r.artwork,painted.payload.chosenArtwork));retainedMetadataCheck(painted.payload.chosenArtwork,w);});
+reject('retained route refuses stale source artwork metadata',()=>{const w=structuredClone(sources.painted);w.input.document.authoring.library.artwork.find(r=>exactPin(pin(r),painted.payload.chosenArtwork)).body.blob.byteLength++;retainedMetadataCheck(painted.payload.chosenArtwork,w);});
+for(const state of ['stale','missing','corrupt'])pass('builtin '+state+' bytes preserve refused finite result',()=>{const f=fixtures.find(r=>r.file==='builtin-bytes-'+state+'-refused.json').value;same(f.source,'pristine');same(f.payload.form.dependency,'builtin-import');same(f.payload.form.artwork,fresh.payload.chosenArtwork);same(f.payload.result.status,'refused');same(f.payload.result.diagnostics[0].code,'BUILTIN_BYTES_'+state.toUpperCase());assert.ok(!('command'in f.payload.result));return{actualByteTest:false,sourceWrite:false};});
+pass('missing builtin producer is named and emits no command',()=>{const f=fixtures.find(r=>r.file==='fresh-c1-builtin-first-mark-refused.json').value;same(f.payload.form.dependency,'builtin-import');same(f.payload.result.diagnostics[0].code,'BUILTIN_DEPENDENCY_PREFIX_UNBOUND');assert.ok(!('command'in f.payload.result));});
 pass('all 30 palette Pins/refs come from the recorded source library',()=>{assert.equal(painted.payload.palette.length,30);assert.ok(painted.payload.palette.every(r=>r.thumbnail==='unavailable'));});
 pass('prospective target/grid digest values are copied from Core output',()=>{const p=pristine.payload;assert.equal(p.selection.bindingState,'prospective');assert.equal(p.selection.layers.length,0);same(p.selection.target.bindingDigest,sources.pristine.plan.targetDocument.authoring.decorations.surfaces[0].bindingDigest);});
 pass('declaration syntax only (not full tsc)',()=>{stripTypeScriptTypes(fs.readFileSync(path.join(here,'projection.d.ts'),'utf8'),{mode:'strip'});});
@@ -73,6 +130,7 @@ for(const [name,mutate]of [
   ['lost layer membership',p=>p.selection.layers[0].markIds=[]],
   ['changed artwork revision',p=>p.palette[0].artwork.revision++],
   ['changed resource ref',p=>p.palette[0].resourceRef.imageViewDigest='0'.repeat(64)],
+  ['workspace record mislabeled as builtin',p=>p.palette[0].origin='builtin-offer'],
   ['profile DTOs alone enable Stage',p=>p.gates.firstMark.enabled=true]
 ])reject(name,()=>{const p=structuredClone(painted.payload);mutate(p);projectionCheck(p,sources.painted);});
 for(const value of [NaN,Infinity,-0])reject('noncanonical finite number '+String(value),()=>{const p=structuredClone(painted);p.payload.selection.pose.originM[0]=value;V.readData(p);});
@@ -82,6 +140,12 @@ reject('first form cannot supply target hashes/IDs',()=>{const f=structuredClone
 reject('empty grid selection is not all-surface',()=>shape('MaskDraft',{kind:'grid-cells',cells:[]}));
 pass('first batch closed shape only; missing retained artwork still refuses',()=>{const input=sources.pristine.input,command=structuredClone(input.command);command.operations=command.operations.filter(o=>o.kind!=='content.import');shape('FirstMarkCommand',command);assert.throws(()=>firstCommandCheck(command,sources.pristine));return{structuralOnly:true,executable:false};});
 reject('first batch operation order is fixed',()=>{const c=structuredClone(sources.pristine.input.command);c.operations=c.operations.filter(o=>o.kind!=='content.import').reverse();shape('FirstMarkCommand',c);});
+pass('builtin command shape allows explicit prefix, not authority or overbroad closure',()=>{const command=structuredClone(sources.pristine.input.command);shape('BuiltinFirstMarkCommand',command);shape('FirstMarkCommand',command);assert.throws(()=>builtinPrefixSequenceCheck(command,sources.pristine));return{structuralOnly:true,all30Rejected:true,producerBound:false};});
+reject('missing builtin prefix cannot use the builtin first-command shape',()=>{const c=structuredClone(sources.pristine.input.command);c.operations=c.operations.filter(o=>o.kind!=='content.import');shape('BuiltinFirstMarkCommand',c);});
+reject('builtin semantic sequence refuses imports after the layers/add suffix',()=>{const c=structuredClone(sources.pristine.input.command);c.operations=[...c.operations.slice(1),c.operations[0]];builtinPrefixSequenceCheck(c,sources.pristine);});
+reject('builtin discovery cannot silently follow a newer revision',()=>{const p=structuredClone(fresh.payload);p.palette[0].artwork.revision++;projectionCheck(p,sources.pristine);});
+reject('UI form cannot supply a canonical dependency pack',()=>{const f=structuredClone(fixtures.find(r=>r.file==='fresh-c1-builtin-first-mark-refused.json').value.payload.form);f.pack=offeredPack;shape('Form',f);});
+pass('all finite controls leave original source documents byte-identical',()=>same(JSON.stringify(Object.fromEntries(Object.entries(sources).map(([k,w])=>[k,w.input.document]))),sourceBeforeControls));
 pass('C1 reader accepts the additional finite field without changed defaults',()=>{const p=painted.payload,x=sources.painted.input,actions=Object.fromEntries(Object.keys(p.gates).filter(k=>!['selection','firstMark'].includes(k)).map(k=>[k,{enabled:false,diagnostics:[]}])) ,base={snapshot:{document:x.document,expected:x.command.expected},presentation:{command:null,scope:'whole-workspace',targetOwnerIds:[],includeSelectedDecorationDefaults:false,selectedCaptureMarkIds:[],review:null,retainedApplyRequest:null,outcome:null,actions},commandJSON:null};const old=readTileAuthoringUIView(base),next=readTileAuthoringUIView({...base,overlay:p});const without={...next};delete without.overlay;same(without,old);assert.ok(Object.isFrozen(next.overlay.selection));assert.throws(()=>readTileAuthoringUIView({...base,presentation:{...base.presentation,includeSelectedDecorationDefaults:true},overlay:p}));return{baseView:'explicit minimal render double over committed Core source; not a Host'};});
 pass('required additional-key fence detects changes absent from C1 legacy key',()=>{const p=painted.payload,q=structuredClone(p);q.palette[0].availability='failed';same(p.basis,q.basis);same(p.current,q.current);assert.notDeepEqual(p,q);const ordered=structuredClone(p);ordered.palette.reverse();assert.notDeepEqual(p,ordered);const keys=structuredClone(p);keys.basis.expected=Object.fromEntries(Object.entries(keys.basis.expected).reverse());same(p,keys);return{runtimeHookImplemented:false};});
 pass('all committed input provenance remains exact',()=>{for(const r of source.inputs){const b=git(r.commit,r.path);same(b.length,r.bytes);same(sha(b),r.rawSha256);}for(const r of source.outputs){const b=fs.readFileSync(path.join(here,r.path));same(b.length,r.bytes);same(sha(b),r.sha256);}});
@@ -93,6 +157,7 @@ if(options['typescript-root']){
  typecheck={version:metadata.version,strict:true,noEmit:true,negativeControls:[...fs.readFileSync(path.join(here,'type-controls.ts'),'utf8').matchAll(/@ts-expect-error/g)].length,packageSha256:sha(fs.readFileSync(packageFile))};controls.push({name:'strict positive/negative TypeScript consumers',status:'pass',...typecheck});
 }
 if(options['python-deps']){
- const text=execFileSync('python',['-B',path.join(here,'verify_schema.py'),'--dependencies='+options['python-deps'],'--core-schema='+path.join(stage,'contract.schema.json')],{cwd:root,windowsHide:true,timeout:60000,encoding:'utf8',maxBuffer:1024*1024});independentSchema=JSON.parse(text);assert.equal(independentSchema.status,'pass');controls.push({name:'independent Draft2020-12 schema controls',status:'pass',...independentSchema});
+ const commandControls=path.join(out,'command-shape-only.json');fs.writeFileSync(commandControls,JSON.stringify(sources.pristine.input.command));
+ const text=execFileSync('python',['-B',path.join(here,'verify_schema.py'),'--dependencies='+options['python-deps'],'--core-schema='+path.join(stage,'contract.schema.json'),'--command-controls='+commandControls],{cwd:root,windowsHide:true,timeout:60000,encoding:'utf8',maxBuffer:1024*1024});independentSchema=JSON.parse(text);assert.equal(independentSchema.status,'pass');controls.push({name:'independent Draft2020-12 schema controls',status:'pass',...independentSchema});
 }
 const report={kind:'nautilus-c2-ui-projection-static-controls',version:1,status:'pass',scope:'Closed finite shapes, copied Core witness relationships, declaration syntax and refusal/fence controls only. No live Host, pointer/native ownership, successful Stage/Review/Apply, decoder or recovery proof.',checks:controls,inputs:source.outputs,validatorInputs,typescript:typecheck??{syntaxOnly:true,fullTypeCheck:false},independentSchema,runtimeChanges:0,publicRegistration:false,browserStarted:false,retainedHelpers:0,push:false,finishedAt:new Date().toISOString()};fs.writeFileSync(path.join(here,'validation.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks:controls.length,fixtures:fixtures.length,exactPalettePins:30,Host:false,native:false,runtimeChanges:0,push:false}));

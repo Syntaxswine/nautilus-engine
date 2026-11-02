@@ -25,5 +25,37 @@ for name in source['fixtures']:
     changed['extra'] = True
     assert list(validator.iter_errors(changed)), name + ': closed fixture'
     cases += 1
+# The committed all30 pack is a SHAPE control only; the finite JS semantic
+# controls reject it as overbroad. No valid selected-prefix producer is invented.
+command = json.loads(Path(args['--command-controls']).read_text(encoding='utf-8'))
+from copy import deepcopy
+def check_shape(definition, value, valid):
+    global cases
+    selected = dict(proposal)
+    selected['$ref'] = '#/$defs/' + definition
+    selected.pop('oneOf', None)
+    errors = list(Draft202012Validator(selected, registry=registry).iter_errors(value))
+    assert bool(errors) != valid, definition
+    cases += 1
+retained = deepcopy(command)
+retained['operations'] = [op for op in retained['operations'] if op['kind'] != 'content.import']
+check_shape('BuiltinFirstMarkCommand', command, True)
+check_shape('RetainedFirstMarkCommand', command, False)
+check_shape('RetainedFirstMarkCommand', retained, True)
+check_shape('BuiltinFirstMarkCommand', retained, False)
+incomplete = deepcopy(command)
+incomplete['operations'].pop()
+check_shape('BuiltinFirstMarkCommand', incomplete, False)
+duplicate_layers = deepcopy(command)
+duplicate_layers['operations'][-1] = deepcopy(duplicate_layers['operations'][-2])
+check_shape('BuiltinFirstMarkCommand', duplicate_layers, False)
+extra_field = deepcopy(command)
+extra_field['operations'][0]['body']['extra'] = True
+check_shape('BuiltinFirstMarkCommand', extra_field, False)
+wrong_order = deepcopy(command)
+wrong_order['operations'] = wrong_order['operations'][1:] + wrong_order['operations'][:1]
+# Count constraints alone cannot enforce a variable-length import prefix.
+# The semantic sequence control must reject this despite structural acceptance.
+check_shape('BuiltinFirstMarkCommand', wrong_order, True)
 print(json.dumps({'status': 'pass', 'schemas': 2, 'cases': cases,
     'scope': 'Independent Draft2020-12 shapes only; no ownership or runtime proof'}))

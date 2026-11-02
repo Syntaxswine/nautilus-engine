@@ -69,8 +69,13 @@ export interface SurfaceSelection {
   readonly groups: readonly { readonly id: Id; readonly floorId: Id; readonly memberMarkIds: readonly Id[] }[];
   readonly message: string;
 }
+export type ArtworkDependency =
+  | { readonly route: 'retained-two-ops'; readonly state: 'source-exact'|'descriptor-missing'|'bytes-stale'|'bytes-missing'|'bytes-corrupt'; readonly missingPort: 'verifiedBuiltinByteOwner'|null }
+  | { readonly route: 'builtin-prefix'; readonly state: 'producer-missing'|'bytes-unverified'|'bytes-stale'|'bytes-missing'|'bytes-corrupt'|'prefix-validated'; readonly missingPort: 'constructBuiltinDependencyPrefix'|'verifiedBuiltinByteOwner'|null };
+/** Built-in resourceRef is an expected Core descriptor, not source adoption or byte proof. */
 export interface PaletteEntry {
   readonly artwork: Pin; readonly label: string; readonly resourceRef: ResourceRef; readonly frameId: Id;
+  readonly origin: 'workspace'|'builtin-offer'; readonly dependency: ArtworkDependency;
   readonly availability: 'retained'|'preparable'|'loading'|'unavailable'|'failed';
   readonly thumbnail: 'unavailable'|'loading'|'verified'|'failed';
   readonly reason: Diagnostic|null;
@@ -89,7 +94,7 @@ export interface Projection {
     readonly diagnostics: readonly Diagnostic[];
   };
   readonly gates: {
-    readonly selection: Gate; readonly firstMark: Gate; readonly 'surface.layers': Gate;
+    readonly selection: Gate; readonly firstMark: Gate; readonly 'content.import': Gate; readonly 'surface.layers': Gate;
     readonly 'decoration.add': Gate; readonly 'decoration.update': Gate; readonly 'decoration.remove': Gate;
     readonly review: Gate; readonly apply: Gate; readonly cancel: Gate; readonly recover: Gate;
   };
@@ -118,25 +123,59 @@ export type Change =
   | { readonly field: 'mask'; readonly value: MaskDraft };
 /** Form intents below are local port arguments, not JSONL/command aliases. */
 export type Form =
-  | { readonly kind: 'first-mark'; readonly artwork: Pin; readonly layer: { readonly label: string; readonly opacity: number }; readonly graphic: GraphicDraft }
+  | { readonly kind: 'first-mark'; readonly artwork: Pin; readonly layer: { readonly label: string; readonly opacity: number }; readonly graphic: GraphicDraft; readonly dependency: 'retained' }
+  | { readonly kind: 'first-mark'; readonly artwork: Pin; readonly layer: { readonly label: string; readonly opacity: number }; readonly graphic: GraphicDraft; readonly dependency: 'builtin-import' }
   | { readonly kind: 'decoration.add'; readonly artwork: Pin; readonly layerId: Id; readonly graphic: GraphicDraft }
   | { readonly kind: 'decoration.update'; readonly markId: Id; readonly expectedRevision: number; readonly changes: readonly Change[] }
   | { readonly kind: 'decoration.remove'; readonly markIds: readonly Id[] }
   | { readonly kind: 'surface.layers'; readonly layers: readonly ({ readonly kind: 'existing'; readonly value: Layer } | { readonly kind: 'new'; readonly label: string; readonly order: number; readonly opacity: number })[]; readonly removedLayerMarkIds: readonly Id[] };
+/** Core/Host-produced canonical PNG artwork pack, never assembled by UI.
+ * Current built-in closure contains only the chosen artwork and its actual
+ * dependencies/page/notices. No discovery-time all30 adoption is permitted.
+ */
+export interface BuiltinArtwork {
+ readonly kind: 'nautilus-tile-artwork'; readonly version: 1; readonly id: Id; readonly revision: number; readonly contentDigest: Digest;
+ readonly body: {
+  readonly label: string;
+  readonly blob: { readonly sha256: Digest; readonly byteLength: number; readonly mediaType: 'image/png'; readonly widthPx: number; readonly heightPx: number; readonly colorSpace: 'srgb'; readonly alphaMode: 'straight' };
+  readonly imageView: { readonly profile: 'finite-raster-frame-v1'; readonly pageDigest: Digest;
+   readonly frame: { readonly id: Id; readonly rectPx: readonly[number,number,number,number]; readonly origin: 'top-left'; readonly imageTop: 'local-positive-v' };
+   readonly sampler: { readonly profile: 'linear-premultiplied-bilinear-frame-v1'; readonly alphaFloor8: number; readonly mipmaps: false; readonly stampOutside: 'transparent'; readonly detailWrap: 'repeat-frame' } };
+  readonly channels: readonly ('color'|'alpha')[]; readonly requires: readonly string[];
+  readonly notices: readonly { readonly id: Id; readonly licenseRef: string; readonly attribution: string; readonly noticeText: string; readonly source: { readonly repository: string; readonly commit: string; readonly path: string } }[];
+ };
+}
+export interface BuiltinArtworkPack {
+ readonly kind: 'nautilus-tile-content-pack'; readonly version: 1;
+ readonly manifest: { readonly kind: 'nautilus-tile-content'; readonly version: 1; readonly id: Id; readonly definitions: readonly []; readonly presets: readonly []; readonly artwork: readonly BuiltinArtwork[] };
+ readonly blobEntries: readonly { readonly sha256: Digest; readonly byteLength: number; readonly entry: string }[]; readonly requires: readonly string[];
+}
+export interface ContentImportOperation { readonly opId: Id; readonly kind: 'content.import'; readonly body: { readonly pack: BuiltinArtworkPack; readonly conflict: 'refuse-different-content' } }
 export type OverlayOperation =
+  | ContentImportOperation
   | { readonly opId: Id; readonly kind: 'surface.layers'; readonly body: { readonly target: Target; readonly layers: readonly Layer[]; readonly removedLayerMarkIds: readonly Id[] } }
   | { readonly opId: Id; readonly kind: 'decoration.add'; readonly body: { readonly chunkId: Id; readonly mark: Mark & { readonly revision: 1; readonly groupId: null } } }
   | { readonly opId: Id; readonly kind: 'decoration.update'; readonly body: { readonly markId: Id; readonly expectedRevision: number; readonly replacement: Mark & { readonly groupId: null }; readonly groupPolicy: 'preserve-whole-group' } }
   | { readonly opId: Id; readonly kind: 'decoration.remove'; readonly body: { readonly markIds: readonly Id[]; readonly groupPolicy: 'preserve-whole-group' } };
 export interface OverlayCommand { readonly kind: 'nautilus-tile-authoring-command'; readonly version: 1; readonly requestId: Id; readonly expected: Expected; readonly operations: readonly OverlayOperation[]; readonly budgetProfile: 'authoring-reference-proposal-v1' }
 export type FirstMarkForm = Extract<Form, { readonly kind: 'first-mark' }>;
-export interface FirstMarkCommand extends Omit<OverlayCommand, 'operations'> {
+export interface RetainedFirstMarkCommand extends Omit<OverlayCommand, 'operations'> {
   readonly operations: readonly [
     { readonly opId: Id; readonly kind: 'surface.layers'; readonly body: { readonly target: Target; readonly layers: readonly [Layer]; readonly removedLayerMarkIds: readonly [] } },
     { readonly opId: Id; readonly kind: 'decoration.add'; readonly body: { readonly chunkId: Id; readonly mark: Mark & { readonly revision: 1; readonly groupId: null } } }
   ];
 }
-export type Construction = { readonly status: 'constructed'; readonly basis: Basis; readonly command: OverlayCommand } | { readonly status: 'refused'; readonly basis: Basis; readonly diagnostics: readonly Diagnostic[] };
+export type RetainedFirstMarkForm = Extract<FirstMarkForm, { readonly dependency: 'retained' }>;
+export type BuiltinFirstMarkForm = Extract<FirstMarkForm, { readonly dependency: 'builtin-import' }>;
+export interface BuiltinFirstMarkCommand extends Omit<OverlayCommand, 'operations'> {
+ readonly operations: readonly [ContentImportOperation, ...ContentImportOperation[], RetainedFirstMarkCommand['operations'][0], RetainedFirstMarkCommand['operations'][1]];
+}
+export type FirstMarkCommand = RetainedFirstMarkCommand | BuiltinFirstMarkCommand;
+export type Construction =
+ | { readonly status: 'constructed'; readonly basis: Basis; readonly route: 'retained-first-mark'; readonly command: RetainedFirstMarkCommand }
+ | { readonly status: 'constructed'; readonly basis: Basis; readonly route: 'builtin-prefix-first-mark'; readonly command: BuiltinFirstMarkCommand }
+ | { readonly status: 'constructed'; readonly basis: Basis; readonly route: 'appearance-edit'; readonly command: OverlayCommand }
+ | { readonly status: 'refused'; readonly basis: Basis; readonly diagnostics: readonly Diagnostic[] };
 export type SelectionChoice =
   | { readonly kind: 'surface'; readonly ownerId: Id; readonly surfaceId: Id }
   | { readonly kind: 'layer'; readonly layerId: Id }
@@ -152,8 +191,11 @@ export type Selection = { readonly status: 'selected'; readonly basis: Basis; re
 export interface OverlayPorts<C1View extends ExistingC1Read, OwnedInputHit, ThumbnailHandle> {
   selectExisting(read: C2Read<C1View>, choice: SelectionChoice): Selection;
   acceptCanvasSelection(read: C2Read<C1View>, hit: OwnedInputHit): Selection;
-  constructOverlayCommand(read: C2Read<C1View>, form: FirstMarkForm):
-    | { readonly status: 'constructed'; readonly basis: Basis; readonly command: FirstMarkCommand }
+  constructOverlayCommand(read: C2Read<C1View>, form: RetainedFirstMarkForm):
+    | { readonly status: 'constructed'; readonly basis: Basis; readonly route: 'retained-first-mark'; readonly command: RetainedFirstMarkCommand }
+    | { readonly status: 'refused'; readonly basis: Basis; readonly diagnostics: readonly Diagnostic[] };
+  constructOverlayCommand(read: C2Read<C1View>, form: BuiltinFirstMarkForm):
+    | { readonly status: 'constructed'; readonly basis: Basis; readonly route: 'builtin-prefix-first-mark'; readonly command: BuiltinFirstMarkCommand }
     | { readonly status: 'refused'; readonly basis: Basis; readonly diagnostics: readonly Diagnostic[] };
   constructOverlayCommand(read: C2Read<C1View>, form: Form): Construction;
   resolveVerifiedThumbnail(read: C2Read<C1View>, artwork: Pin):
@@ -163,3 +205,14 @@ export interface OverlayPorts<C1View extends ExistingC1Read, OwnedInputHit, Thum
 /** Owner adapter attaches the borrowed thumbnail; cleanup removes this UI
  * attachment only. It must not retire the Host-owned image/texture/lease. */
 export interface ThumbnailPresentation<ThumbnailHandle> { attach(handle: ThumbnailHandle, element: HTMLElement): () => void }
+
+/** Missing Core/Host dependency, INTERNAL to constructOverlayCommand, not a UI
+ * transport method. A validated DTO is not a verified byte capability. The owner
+ * must recheck actual selected canonical closure and its existing byte scope.
+ * No resource adoption, operation/history ticket, second commit or upload occurs.
+ */
+export interface BuiltinDependencyPrefixOwner<C1View extends ExistingC1Read, VerifiedByteScope> {
+ constructBuiltinDependencyPrefix(read: C2Read<C1View>, selected: Pin):
+  | { readonly status: 'validated'; readonly basis: Basis; readonly artwork: Pin; readonly packs: readonly [BuiltinArtworkPack, ...BuiltinArtworkPack[]]; readonly bytes: VerifiedByteScope }
+  | { readonly status: 'refused'; readonly basis: Basis; readonly missingPort: 'constructBuiltinDependencyPrefix'|'verifiedBuiltinByteOwner'|null; readonly diagnostics: readonly Diagnostic[] };
+}

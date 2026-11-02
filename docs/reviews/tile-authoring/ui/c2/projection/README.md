@@ -31,8 +31,16 @@ opacity-derived status, selected values, current review/result summary, contextu
 disabled reasons and unavailable Stage B/Plan3 slots. Exact IDs/provenance and raw
 observations stay in the existing collapsed Technical details. There are no image
 URLs, raw bytes, matrices, promises, callbacks, live handles or lease capabilities
-inside the DTO. Every projected list is bounded. An unprojectable surface becomes unavailable rather than truncating membership or dropping saved data. The palette is a projection of retained library records/refs;
-an unadopted catalogue item cannot silently become a selectable workspace item.
+inside the DTO. Every projected list is bounded. An unprojectable surface becomes
+unavailable rather than truncating membership or dropping saved data. The palette
+distinguishes retained workspace records from exact built-in offers projected by
+the existing Core/Host content owner. Inspecting/selecting an offer adopts no
+artwork, resourceRef, notice, layer or mark. UI owns no parallel catalogue.
+ArtworkDependency identifies the retained two-operation route, a missing built-in
+prefix producer, unverified/stale/missing/corrupt bytes, or a validated prefix.
+Those copied statuses are explanatory data, never proof of byte ownership. A
+built-in offer resourceRef is the expected Core descriptor; it does not assert
+that the descriptor already belongs to the source.
 
 observation copies existing private SourceCapture observation fields only: the
 fixed profile tuple, authority/floor/provider/resource/geometry/renderer contexts,
@@ -62,21 +70,52 @@ populated DTO/profile tuple is not proof of ownership or Review readiness.
    Core/Host constructs canonical masks from source-grid cells; form/wrap pairing
    and C0 bounds are checked independently of disabled HTML validity behavior.
 5. constructOverlayCommand rechecks the ORIGINAL read against the actual current
-   Host snapshot and private currentness predicate. It reserves IDs ONCE through
-   the existing allocation owner: one request, two operation IDs, a fresh layer,
-   mark and chunk/ordinal as needed. C1's current allocator lacks this exact C2
-   return set; its scoped extension must be frozen, not guessed by UI.
-6. The first-mark success shape is exactly two ordered operations: surface.layers
-   with one fresh Layer and no removed marks, then decoration.add with revision 1,
-   groupId:null and the SAME target/layer. Expected is the unmodified original
-   twelve-field snapshot.expected. This route requires no saved layer/binding
-   already present and no import/geometry operation hidden in the batch.
-7. The port returns a canonical command or a refusal; it NEVER collects/prepares/
-   applies it. The existing coordinator stages under decoration.add only when
-   firstMark AND both canonical operation gates are current. Its build callback
-   runs once, then the post-construction fence permits one collectCommand call.
-   A source/callback change discards the result without producer/ID replay or a
-   fresh Expected. Actual Review/Apply stays on the existing seven-method service.
+   Host snapshot and private currentness predicate. First it resolves the exact
+   selected artwork Pin and source-bound dependency route. No implicit latest
+   lookup, UI-built pack, digest assembly or discovery-time import is allowed.
+6. When the exact chosen artwork record AND every required resource descriptor
+   already belong to the actual source, and their actual bytes are verified by
+   the existing owner, RetainedFirstMarkCommand has exactly two operations:
+   surface.layers with one fresh Layer/no removed marks, then decoration.add with
+   revision 1, groupId:null and the SAME target/layer. Source artwork metadata
+   alone does not establish byte readiness. Stale/missing/corrupt bytes refuse.
+7. On a genuine fresh C1 workspace the artwork library/resourceRefs are empty.
+   If a known built-in is selected but absent, the missing Core/Host internal
+   port constructBuiltinDependencyPrefix must return the complete, canonical,
+   source-bound dependency packs for that exact Pin plus the actual existing
+   verifiedBuiltinByteOwner scope. It validates full PNG page descriptors,
+   sampler/frames, dependency closure and notices. UI neither filters/reseals
+   packs nor treats a branded DTO, thumbnail, URL or metadata hash as bytes.
+   Current single-artwork built-ins need the chosen record, its full PNG page
+   and complete notices, not all 30 records merely because they share a page.
+8. BuiltinFirstMarkCommand contains one or more explicit content.import
+   operations FIRST, then the same layers/add suffix: at least three operations
+   in ONE finite command and ONE retained service transaction. Each import uses
+   conflict:refuse-different-content. No hidden import, second commit or seed of
+   all 30 records/notices on discovery occurs. The actual validated closure may
+   determine the number of prefix operations. General user upload/export/default
+   capture remains behind Stage B; this bounded built-in route is distinct.
+9. Only after that validated dependency plan is known, the existing allocation
+   owner reserves ONCE: one request, all prefix-plus-two operation IDs, a fresh
+   layer, mark and chunk/ordinal as needed. C1's allocator lacks this exact C2
+   set; its scoped extension must be frozen. Expected is the original unmodified
+   twelve-field snapshot.expected for BOTH routes. Neither route requires a
+   saved layer/binding, and neither adds geometry operations. Source/connection/
+   epoch fences apply before and after prefix/byte-owner/allocator callbacks.
+10. The port returns the complete canonical command or refusal; it NEVER
+    collects/prepares/applies it. The existing coordinator stages under
+    decoration.add only when firstMark, layers/add and EVERY dependency operation
+    gate are current. Its build callback runs once, then the post-construction
+    fence permits one collectCommand call. Invalidation discards the result
+    without producer/ID replay or fresh Expected. Human controls and JSONL carry
+    the SAME canonical operation sequence through the SAME seven-method service.
+
+No accepted source-bound prefix producer/verified byte-owner pairing exists in
+this proposal. The exact missing ports are constructBuiltinDependencyPrefix and
+verifiedBuiltinByteOwner; the fresh-workspace fixture therefore stays unavailable.
+If either is unavailable or bytes are stale/missing/corrupt, refuse the entire
+construction, preserve all source, and adopt no partial layer, artwork, ref,
+mark, ticket or history. Root separately reviews browser logical ownership.
 
 Existing-layer add, full layer-list edits, same-target mark patches and explicit
 erase use the same construction port. Patch fields are explicit; Core/Host reads
@@ -95,8 +134,8 @@ freeze before implementation. They do not replace Editor's phase-port proposal.
 | --- | --- |
 | selectExisting | Closed surface/layer/mark/artwork choice, validated against this actual read. Updates ephemeral selection through the same subscription, never history/document. |
 | acceptCanvasSelection | Generic existing-owner live hit, not JSON coordinates/triangle IDs. Core/Host resolves stable target and a canonical localPointM or refusal. No UI pointer listener, raycaster or matrix. |
-| constructOverlayCommand | Finite form to exact canonical command/refusal. No collect, preparation, resource acquisition, ticket or write. Full snapshot/currentness checked before and after callbacks. |
-| resolveVerifiedThumbnail | Exact retained Pin/ref plus Host-owned already verified thumbnail handle, or unavailable. Handles stay live/nonserializable. Owner validates actual context/currentness; DTO brands/flags grant nothing. |
+| constructOverlayCommand | Finite form to exact canonical command/refusal. Resolves the internal source-bound built-in dependency prefix when needed, then emits one command. No collect, native preparation, resource adoption, ticket or write. Full snapshot/currentness checked before and after callbacks. |
+| resolveVerifiedThumbnail | Exact selected source/built-in Pin/ref plus Host-owned already verified thumbnail handle, or unavailable. Handles stay live/nonserializable. Owner validates actual context/currentness; DTO brands/flags grant nothing. |
 | ThumbnailPresentation.attach | Borrowed owner adapter attaches presentation to a UI element. Check currentness after callback-producing attachment. Cleanup detaches this UI attachment only; it does not retire a Host image/texture/lease. |
 
 Numeric controls completely cover selection, U/V, size, edited radians, pivot,
@@ -148,7 +187,9 @@ Plan2 retains the exact authored bundle/layout/constraints while actual candidat
 base roots/cells/triangles/materials/buffers and image copies remain charged.
 Unused encoded-only metadata retains actual accepted view/error/debt through the
 Host; it never becomes a fake preview. Stage B bytes/default capture, Plan3 combined
-placement and group mutation remain visibly unavailable. Cosmetics assert no
+placement and group mutation remain visibly unavailable. The bounded built-in
+dependency route above does not open general Stage B byte transport. Existing C1
+clean presets retain their accepted behavior. Cosmetics assert no
 collision, fire, damage, support or game effect.
 
 The UI-to-phase alignment at that fixed proposal is:
@@ -164,15 +205,22 @@ The UI-to-phase alignment at that fixed proposal is:
 | Outcome/cancel | OwnedPreparedPhase.validateCommit/onOutcome/retireUnadopted and coordinator outcome capabilities stay private. UI only invokes existing cancel/recover/retry actions; it never settles or retires those handles. |
 
 Before Root freeze: reconcile read/projection naming and comparison hook; provide
-the Core/Host resolver and C2 allocation contract; supply a genuine owned-resource
+the Core/Host resolver, source-bound built-in prefix/verified byte-owner pairing
+and C2 allocation contract; supply a genuine owned-resource
 thumbnail adapter and actual currentness/publishing guarantees; pin Editor's phase
 proposal; provide live Host-generated first-binding/construction/review fixtures.
 No C1 or runtime edit is authorized by these declarations.
 
 ## Fixtures and evidence limits
 
-Five closed fixtures cover prospective source data, a bound mark and 30 exact
-retained artwork Pins, unknown/frozen display, and refused construction/selection.
+Ten closed fixtures cover prospective source data, a bound mark and 30 exact
+retained artwork Pins, unknown/frozen display, refused construction/selection,
+a genuinely fresh C1 source with ONE explicit built-in offer/missing prefix port,
+and stale/missing/corrupt byte refusals. The fresh input contains zero artwork,
+resourceRefs, surface bindings, layers or marks. The decorated input is used only
+for already-retained cases; it is never described as a fresh workspace. The old
+Core witness imports all 30 records; it is used as an OVERBROAD prefix negative
+control, never as a valid bounded built-in producer or discovery-time seed.
 They copy before/Expected/binding data from committed Core witnesses carried in
 accepted 8b4. The original f32 admission/response was returned; those invalid owned
 ledger/response sections are NOT imported or accepted here. All fixture mutation
@@ -193,12 +241,15 @@ It starts no browser/server or retained helper. The base command parses declarat
 type consumers and independent Draft2020-12 checks, without installation or emit.
 Static controls are not runtime acceptance.
 
-The recorded full static run also compiles strict positive consumers and 14
+The recorded full static run also compiles strict positive consumers and 21
 expected negative TypeScript controls with the existing isolated TypeScript 5.8.3,
-and validates both schemas/five fixtures plus closed-field mutations independently
-(10 Draft2020-12 cases). Reuse those read-only tooling roots via:
+and validates both schemas/ten fixtures plus closed-field mutations independently
+(28 Draft2020-12 cases). Reuse those read-only tooling roots via:
 
     node docs/reviews/tile-authoring/ui/c2/projection/verify.mjs --typescript-root=<isolated-typescript-root> --python-deps=<isolated-jsonschema-root>
 
 These tools are not installed by this proposal and are absent from engine/runtime
-dependencies. The run reports 49 static checks, including the optional checkers.
+dependencies. The run reports 70 static checks, including the optional checkers.
+The Draft schema enforces closed fields and operation counts; ordered prefix/suffix,
+exact selected closure, source binding and actual bytes also require Core/Host
+semantic validation. Static tuple/schema acceptance cannot grant readiness.
