@@ -1,0 +1,146 @@
+{
+  "status": "pass",
+  "head": "47c7fe160473ae72e1d6af50f65433088d9c6a87",
+  "publicV1": true,
+  "privateC2aUsed": false,
+  "floors": [
+    {
+      "id": "F00",
+      "elevationM": 0
+    },
+    {
+      "id": "F01",
+      "elevationM": 2.12
+    },
+    {
+      "id": "F02",
+      "elevationM": 4.24
+    },
+    {
+      "id": "F03",
+      "elevationM": 6.36
+    },
+    {
+      "id": "F04",
+      "elevationM": 8.48
+    },
+    {
+      "id": "F05",
+      "elevationM": 10.6
+    },
+    {
+      "id": "F06",
+      "elevationM": 12.72
+    },
+    {
+      "id": "F07",
+      "elevationM": 14.84
+    },
+    {
+      "id": "F08",
+      "elevationM": 16.96
+    },
+    {
+      "id": "F09",
+      "elevationM": 19.08
+    },
+    {
+      "id": "F10",
+      "elevationM": 21.2
+    },
+    {
+      "id": "F11",
+      "elevationM": 23.32
+    },
+    {
+      "id": "F12",
+      "elevationM": 25.44
+    },
+    {
+      "id": "F13",
+      "elevationM": 27.56
+    },
+    {
+      "id": "F14",
+      "elevationM": 29.68
+    }
+  ],
+  "owners": 15,
+  "lockedLowerOwners": 14,
+  "pairwiseCrossings": 105,
+  "minimumDeclaredClearanceM": 2,
+  "thicknessM": 0.12,
+  "work": {
+    "steps": 16,
+    "spatialTests": 435,
+    "geometryEvaluations": 1950
+  },
+  "deterministicRepeat": true,
+  "sourceUnchanged": true,
+  "saveReloadEquivalent": true,
+  "refusals": [
+    {
+      "label": "one missing pairwise crossing",
+      "codes": [
+        "UNSATISFIABLE",
+        "INCOMPLETE_REPAIR"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "incorrect explicit floor binding",
+      "codes": [
+        "UNSATISFIABLE",
+        "FLOOR_HEIGHT_MISMATCH"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "zero requested crossing clearance",
+      "codes": [
+        "UNSATISFIABLE",
+        "INVALID_CLEARANCE"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "insufficient actual clearance",
+      "codes": [
+        "UNSATISFIABLE",
+        "INVALID_CROSSING"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "projected edge contact is not a supported crossing",
+      "codes": [
+        "UNSATISFIABLE",
+        "INCOMPLETE_REPAIR"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "finite search cap-minus-one",
+      "codes": [
+        "SEARCH_LIMIT"
+      ],
+      "next": null,
+      "changes": null
+    },
+    {
+      "label": "stale context",
+      "codes": [
+        "STALE_CONTEXT"
+      ],
+      "next": null,
+      "changes": null
+    }
+  ],
+  "scope": "Headless public-v1 feasibility only. No authoring adapter, current Editor floor-range expansion, installed/browser/physical/support/navigation/gameplay or device-performance proof.",
+  "helpers": "Single foreground Node process; no server/browser/watcher/listener or retained helper."
+}

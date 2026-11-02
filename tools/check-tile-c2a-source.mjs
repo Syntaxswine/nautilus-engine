@@ -6,6 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
+import {checkTileStackRegistration} from './tile-stack-registration.mjs';
 
 export const TILE_C2A_ACCEPTED_SOURCE='87301172d7258223f89aa2e19fe391ac01b52f00';
 export const TILE_C2A_ROOT_BASE='32101fa97a8706296dcba4d9614d9d663d53a6dd';
@@ -27,7 +28,7 @@ const evidenceFiles=[
   'docs/reviews/procedural-tiles/c2a-checkpoint.md','docs/reviews/procedural-tiles/c2a-source-audit.json',
   'docs/reviews/procedural-tiles/c2a-correction-checkpoint.md',auditFile
 ];
-const rootFiles=['NOTICE.md','upstream.json','packages/map-core/contract-manifest.js','packages/map-core/capabilities.js','tools/distribution.mjs'];
+const rootFiles=['NOTICE.md','upstream.json','packages/map-core/contract-manifest.js','packages/map-core/capabilities.js'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 
 // Callable/CLI integrity inspection only: no report writes, candidate evaluation,
@@ -79,8 +80,9 @@ export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){
     return freezeFile(item.file,TILE_C2A_ROOT_BASE);
   });
   const basePackage=JSON.parse(object(TILE_C2A_ROOT_BASE,'package.json')),packageBytes=read('package.json'),pkg=JSON.parse(packageBytes);
-  for(const key of ['name','version','private','type','exports','files'])assert.deepEqual(pkg[key],basePackage[key],'Private source integration must preserve public package '+key);
+  for(const key of ['name','version','private','type'])assert.deepEqual(pkg[key],basePackage[key],'Private source integration must preserve public package '+key);
   indexed('package.json',packageBytes);
+  const optionalRegistration=checkTileStackRegistration({object,read,indexed,moduleClosure,distribution});
   const shared=new Set(golden.files.map(file=>file.file));
   const privateOnly=new Set([...runtimePaths.filter(file=>!shared.has(file)),...schemaFiles,...request.supportFiles.filter(file=>!basePackage.files.includes(file))]);
   for(const file of pkg.files)assert.equal(privateOnly.has(file),false,'Private C2a entered the root whitelist: '+file);
@@ -91,8 +93,8 @@ export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){
     for(const file of plan.files)assert.equal(privateOnly.has(file),false,'Private C2a runtime/schema/support entered '+profile+': '+file);
     profiles[profile]={files:plan.files.length,privateFiles:0};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Public whitelist must still equal the unchanged normal distribution.');
-  return {status:'pass',declared:false,acceptedSource:TILE_C2A_ACCEPTED_SOURCE,integrationBase:TILE_C2A_ROOT_BASE,runtime,runtimeBytes:audit.runtimeBytes,privateSchemas,proofInputs,historicalEvidence,support,preservedRoot,unchangedV1,profiles,publicExportsChanged:false,publicRegistryChanged:false,pinsChanged:false,versionChanged:false,publicWhitelistChanged:false,presenterAdopted:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[TILE_C2A_ACCEPTED_SOURCE,TILE_C2A_ROOT_BASE]};
+  assert.deepEqual(pkg.files,distribution().files,'Public whitelist must equal the exact registered distribution.');
+  return {status:'pass',declared:false,acceptedSource:TILE_C2A_ACCEPTED_SOURCE,integrationBase:TILE_C2A_ROOT_BASE,runtime,runtimeBytes:audit.runtimeBytes,privateSchemas,proofInputs,historicalEvidence,support,preservedRoot,unchangedV1,profiles,optionalRegistration,publicExportsChanged:true,publicRegistryChanged:false,pinsChanged:false,versionChanged:false,publicWhitelistChanged:true,c2aPublicExportsChanged:false,c2aPublicWhitelistChanged:false,presenterAdopted:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[TILE_C2A_ACCEPTED_SOURCE,TILE_C2A_ROOT_BASE]};
 }
 
 if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){

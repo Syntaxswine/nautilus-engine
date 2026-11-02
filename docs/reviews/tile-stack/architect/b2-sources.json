@@ -1,0 +1,916 @@
+{
+  "kind": "nautilus-tile-stack-editor-b2-source-record",
+  "version": 1,
+  "status": "reviewed-integration-candidate",
+  "sourceCommit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+  "reviewedRuntimeCheckpoint": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+  "integrationBase": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+  "b1SourceCommit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+  "historicalSourceCommit": "9e996f96b69ba4867e643b558e9fdfeaf752d19e",
+  "uiOrigin": "8622c77234036d786474689f7e70671ecf01136b",
+  "historicalUICopyCheckpoint": "faf4454bc2760f91743039b0ea42bff15055c57c",
+  "uiCorrections": [
+    {
+      "kind": "reviewed-fixed-source-ui-correction",
+      "sourceCommit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+      "before": {
+        "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+        "path": "apps/editor/tile-stack/ui/panel.js",
+        "bytes": 19875,
+        "sha256": "c0425813775c566425e7be5936f021a1128c48a7699ef36accc3c6af1193706f",
+        "gitBlob": "2e672758f1ffff384ed1999bbd4d2a2c9eeed67d"
+      },
+      "after": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/ui/panel.js",
+        "bytes": 20799,
+        "sha256": "2d3df312e2d8c6b6c4ab5807d1557944fe4efc2993784bd8c721f6451471a8a5",
+        "gitBlob": "f6a3b4ca438635535c5f80cb93a7631c6440fe9a"
+      }
+    },
+    {
+      "kind": "reviewed-fixed-source-ui-correction",
+      "sourceCommit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+      "before": {
+        "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+        "path": "apps/editor/tile-stack/ui/styles.css",
+        "bytes": 3422,
+        "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+        "gitBlob": "e3a0908cb702645b88b7f0e4d021f8cbc2f3827b"
+      },
+      "after": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/ui/styles.css",
+        "bytes": 3706,
+        "sha256": "7b3d5d520be6b4a2578d1f7e79696c54adf2074cbf34eab24dc606ed600f5553",
+        "gitBlob": "af7d6a9e4115d555e0872fefb8654f38cae5d294"
+      }
+    }
+  ],
+  "scope": "Reviewed fixed-source authentication for the native B2 isolated host, including separately attributed UI corrections; not final browser or installed-proof acceptance, game adoption, or a public export/schema change.",
+  "historical": [
+    {
+      "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+      "path": "docs/reviews/smart-tile-editor/sources.json",
+      "bytes": 38252,
+      "sha256": "d1a1dba97e906e987e1315f9aad4bfa234895770468171b1da7d4e4747e6551f",
+      "gitBlob": "3004511d681f88643dda476f2f5aafdfa4b18ae1"
+    },
+    {
+      "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+      "path": "docs/reviews/smart-tile-editor/integration-sources.json",
+      "bytes": 3703,
+      "sha256": "66fd89ec315e766994885e08c0bd260a9668be98182abc765157cfc61afa2d62",
+      "gitBlob": "f4d65e754387e4a68e37ad8646845f530dd144e9"
+    },
+    {
+      "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+      "path": "docs/reviews/tile-stack/architect/b1-sources.json",
+      "bytes": 14036,
+      "sha256": "7d7bc978958a735bb6e565d385e3c2142e29916fe6c32b72cb949a2bc631e7d0",
+      "gitBlob": "c8ef09f94859ec60e703071d20940990bc105ae7"
+    }
+  ],
+  "sharedOverrides": 2,
+  "b1StackFiles": 9,
+  "changedB1StackFiles": [
+    "apps/editor/tile-stack/checkpoint.js",
+    "apps/editor/tile-stack/profile.js",
+    "apps/editor/tile-stack/session.js"
+  ],
+  "newStackFiles": 8,
+  "stackNamespaceFiles": 17,
+  "exampleFiles": 2,
+  "buildAdaptations": 1,
+  "privatePlannerRuntimeCopied": false,
+  "UIFixtureAdapterCopied": false,
+  "files": [
+    {
+      "path": "apps/editor/smart-tile/input.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/smart-tile/input.js",
+        "bytes": 7909,
+        "sha256": "8daa46685e70de5914e151e1c8cecf9b457bbbc8ddb6c88a03cf7bda64d60e8a",
+        "gitBlob": "dfafbc196845205aa995082f1d9e9c34c8e6c910"
+      },
+      "expectedRow": {
+        "path": "apps/editor/smart-tile/input.js",
+        "bytes": 7909,
+        "sha256": "8daa46685e70de5914e151e1c8cecf9b457bbbc8ddb6c88a03cf7bda64d60e8a",
+        "gitBlob": "dfafbc196845205aa995082f1d9e9c34c8e6c910"
+      },
+      "adaptations": [],
+      "role": "B2-shared-host-override",
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/smart-tile/input.js",
+        "bytes": 7729,
+        "sha256": "a77abe7dfc2ef3e742c88d804e122fa0d9e72311c9fa3ba60a511e7f7de3eaff",
+        "gitBlob": "38171adea1dc52e2fea34737933b077df80a4e2e"
+      }
+    },
+    {
+      "path": "apps/editor/smart-tile/session.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/smart-tile/session.js",
+        "bytes": 23731,
+        "sha256": "8df2df36088315d86c8546de5a341896ee141c69f7c45a3b7c3fd21f622e8e03",
+        "gitBlob": "e117998b6848406606f6e1066694184e534db47d"
+      },
+      "expectedRow": {
+        "path": "apps/editor/smart-tile/session.js",
+        "bytes": 23731,
+        "sha256": "8df2df36088315d86c8546de5a341896ee141c69f7c45a3b7c3fd21f622e8e03",
+        "gitBlob": "e117998b6848406606f6e1066694184e534db47d"
+      },
+      "adaptations": [],
+      "role": "B2-shared-host-override",
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/smart-tile/session.js",
+        "bytes": 22401,
+        "sha256": "eac73ec6ad84b404d4d84c22b69b56ea3a908e46ab7e7658fc95217546e375a9",
+        "gitBlob": "00d216531377a2389497e30896f7c9c9b608a83d"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/checkpoint.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/checkpoint.js",
+        "bytes": 6107,
+        "sha256": "e69f2b3bca27c09aae4619577255f52767e6f02caa2bda980c133918bee78987",
+        "gitBlob": "bd38c26a4522bf0acb4b733fd4e8fcda3504adc6"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/checkpoint.js",
+        "bytes": 6107,
+        "sha256": "e69f2b3bca27c09aae4619577255f52767e6f02caa2bda980c133918bee78987",
+        "gitBlob": "bd38c26a4522bf0acb4b733fd4e8fcda3504adc6"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "apps/editor/tile-stack/checkpoint.js",
+          "bytes": 5874,
+          "sha256": "b6cbfe1766857fc2889bcdf55037d85546b08e5efc3157a34acf824418bbdef1",
+          "gitBlob": "916e253eef48af838cffe00d45de2f8ea13f1989"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/editor/policy.js",
+            "to": "./policy.js",
+            "occurrences": 1
+          },
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/core/contracts.js",
+            "to": "../../../packages/tile-stack-core/contracts.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/checkpoint.js",
+          "bytes": 5836,
+          "sha256": "4137b3f3466244a6d0d29ec9ff1979270182826569db9dbacb5d1d388bd8637d",
+          "gitBlob": "f1c3f4e07ea89cbf11083fce6e99c336e3fee7a8"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/checkpoint.js",
+        "bytes": 5836,
+        "sha256": "4137b3f3466244a6d0d29ec9ff1979270182826569db9dbacb5d1d388bd8637d",
+        "gitBlob": "f1c3f4e07ea89cbf11083fce6e99c336e3fee7a8"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/contract.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/contract.js",
+        "bytes": 3612,
+        "sha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+        "gitBlob": "d529600b0a10f45cee996d922adc4a8ab4e3abab"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/contract.js",
+        "bytes": 3612,
+        "sha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+        "gitBlob": "d529600b0a10f45cee996d922adc4a8ab4e3abab"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "candidates/tile-stack/editor/contract.js",
+          "bytes": 3648,
+          "sha256": "16f73e84554dac475b93c52fa2df77484433bfe4b6ce8687aaffd80053ef0c56",
+          "gitBlob": "64ff38c6c035c0d790a71880645dfd6b33d0dd76"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/contract.js",
+            "to": "../smart-tile/contract.js",
+            "occurrences": 1
+          },
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/checkpoint.js",
+            "to": "../smart-tile/checkpoint.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/contract.js",
+          "bytes": 3612,
+          "sha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+          "gitBlob": "d529600b0a10f45cee996d922adc4a8ab4e3abab"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/contract.js",
+        "bytes": 3612,
+        "sha256": "073fdd63e219a36a180d787c67c9964f515c65e562adcc4987111988bf1ab732",
+        "gitBlob": "d529600b0a10f45cee996d922adc4a8ab4e3abab"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/finish-menu.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/finish-menu.js",
+        "bytes": 1776,
+        "sha256": "d02278728f9354950987ebda793549447cc36498c77922eb8d7e4537498c31ee",
+        "gitBlob": "806f8ddb8b16d06cb775a41af37e4a08434e8074"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/finish-menu.js",
+        "bytes": 1776,
+        "sha256": "d02278728f9354950987ebda793549447cc36498c77922eb8d7e4537498c31ee",
+        "gitBlob": "806f8ddb8b16d06cb775a41af37e4a08434e8074"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "candidates/tile-stack/editor/finish-menu.js",
+          "bytes": 1794,
+          "sha256": "937e3d264b303f8dcc144d805e0b778a3a4c1e4d1a4c050276f280bd870bb948",
+          "gitBlob": "b960da24117b52de687b2586fc29d12820a4516c"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/checkpoint.js",
+            "to": "../smart-tile/checkpoint.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/finish-menu.js",
+          "bytes": 1776,
+          "sha256": "d02278728f9354950987ebda793549447cc36498c77922eb8d7e4537498c31ee",
+          "gitBlob": "806f8ddb8b16d06cb775a41af37e4a08434e8074"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/finish-menu.js",
+        "bytes": 1776,
+        "sha256": "d02278728f9354950987ebda793549447cc36498c77922eb8d7e4537498c31ee",
+        "gitBlob": "806f8ddb8b16d06cb775a41af37e4a08434e8074"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/floors.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/floors.js",
+        "bytes": 5487,
+        "sha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+        "gitBlob": "511434b6b4d0e98804df2abc44d91e163a68bc64"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/floors.js",
+        "bytes": 5487,
+        "sha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+        "gitBlob": "511434b6b4d0e98804df2abc44d91e163a68bc64"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "candidates/tile-stack/editor/floors.js",
+          "bytes": 5505,
+          "sha256": "33d6d47d1e421757ac79d03b43aaaf43803f255a5a83d408d1b140ab49467b5e",
+          "gitBlob": "112f90424e1e19d6879a9ba12fb254a84186f2f9"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/checkpoint.js",
+            "to": "../smart-tile/checkpoint.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/floors.js",
+          "bytes": 5487,
+          "sha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+          "gitBlob": "511434b6b4d0e98804df2abc44d91e163a68bc64"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/floors.js",
+        "bytes": 5487,
+        "sha256": "57e5f76f31a6c722a0effe8268bb2c4b96d115d8009fa4e9e6a3481b112e8527",
+        "gitBlob": "511434b6b4d0e98804df2abc44d91e163a68bc64"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/planner-seam.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/planner-seam.js",
+        "bytes": 5039,
+        "sha256": "f487abe4793b21b41afe32830f33eaa2272f4e15aa2fcf3e5d0bd35b611226a7",
+        "gitBlob": "a70d68aada48276b9c26a2e3aed2be3c3df8d663"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/planner-seam.js",
+        "bytes": 5039,
+        "sha256": "f487abe4793b21b41afe32830f33eaa2272f4e15aa2fcf3e5d0bd35b611226a7",
+        "gitBlob": "a70d68aada48276b9c26a2e3aed2be3c3df8d663"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "candidates/tile-stack/editor/planner-seam.js",
+          "bytes": 5057,
+          "sha256": "c797268433ceb155ccff487c0ed08ecfbc2840ae41903faae9c082c9cab7088e",
+          "gitBlob": "901c2d9f818e2dc92ca868559084206404c2c28c"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/checkpoint.js",
+            "to": "../smart-tile/checkpoint.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/planner-seam.js",
+          "bytes": 5039,
+          "sha256": "f487abe4793b21b41afe32830f33eaa2272f4e15aa2fcf3e5d0bd35b611226a7",
+          "gitBlob": "a70d68aada48276b9c26a2e3aed2be3c3df8d663"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/planner-seam.js",
+        "bytes": 5039,
+        "sha256": "f487abe4793b21b41afe32830f33eaa2272f4e15aa2fcf3e5d0bd35b611226a7",
+        "gitBlob": "a70d68aada48276b9c26a2e3aed2be3c3df8d663"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/policy.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/policy.js",
+        "bytes": 9366,
+        "sha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+        "gitBlob": "ad5dfeb1affb7d36612b97210b9afa691869d843"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/policy.js",
+        "bytes": 9366,
+        "sha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+        "gitBlob": "ad5dfeb1affb7d36612b97210b9afa691869d843"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "candidates/tile-stack/editor/policy.js",
+          "bytes": 9384,
+          "sha256": "656386083877aae26ba21a0994ed2f22f8fd43ea4444355b88c6723610e016a8",
+          "gitBlob": "b6f5e8230722778a94fce19e2edcbc078fd58617"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../apps/editor/smart-tile/checkpoint.js",
+            "to": "../smart-tile/checkpoint.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/policy.js",
+          "bytes": 9366,
+          "sha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+          "gitBlob": "ad5dfeb1affb7d36612b97210b9afa691869d843"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/policy.js",
+        "bytes": 9366,
+        "sha256": "f3b6f46c671a13797082c40cf5b9ab5bf1dc02944c074f74689f38125500aefe",
+        "gitBlob": "ad5dfeb1affb7d36612b97210b9afa691869d843"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/presentation.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/presentation.js",
+        "bytes": 11513,
+        "sha256": "285414d6aea75149150dd58d1917d19e9026aafa329e4dba02a99e7b48c32f5f",
+        "gitBlob": "f7f308c337da17345213adbe08e36f97d18b634f"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/presentation.js",
+        "bytes": 11513,
+        "sha256": "285414d6aea75149150dd58d1917d19e9026aafa329e4dba02a99e7b48c32f5f",
+        "gitBlob": "f7f308c337da17345213adbe08e36f97d18b634f"
+      },
+      "adaptations": [],
+      "role": "new-stack-host"
+    },
+    {
+      "path": "apps/editor/tile-stack/profile.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/profile.js",
+        "bytes": 9133,
+        "sha256": "97fe87cad9c55546e28abd6141b3d1c944f1afc8225b5b365309b10166ceab7e",
+        "gitBlob": "4df0b9b75ed49ef3297d885a0024656305ae1d04"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/profile.js",
+        "bytes": 9133,
+        "sha256": "97fe87cad9c55546e28abd6141b3d1c944f1afc8225b5b365309b10166ceab7e",
+        "gitBlob": "4df0b9b75ed49ef3297d885a0024656305ae1d04"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "apps/editor/tile-stack/profile.js",
+          "bytes": 8003,
+          "sha256": "b4fc35ead479927f1f1f22037e86fb93daeda694b3c17c23954b6b5fdd0bc198",
+          "gitBlob": "d420bec092f7aa97303f712b0ec705739b63d8d2"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/editor/contract.js",
+            "to": "./contract.js",
+            "occurrences": 1
+          },
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/editor/planner-seam.js",
+            "to": "./planner-seam.js",
+            "occurrences": 1
+          },
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/editor/finish-menu.js",
+            "to": "./finish-menu.js",
+            "occurrences": 1
+          },
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/core/index.js",
+            "to": "../../../packages/tile-stack-core/index.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/profile.js",
+          "bytes": 7893,
+          "sha256": "e034bdae07c2ae51c34816004eb492189c466842f343999d0d8003891239c539",
+          "gitBlob": "a1bc88951744aa0a98cdf7210c767acbad5aed3d"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/profile.js",
+        "bytes": 7893,
+        "sha256": "e034bdae07c2ae51c34816004eb492189c466842f343999d0d8003891239c539",
+        "gitBlob": "a1bc88951744aa0a98cdf7210c767acbad5aed3d"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/seed.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/seed.js",
+        "bytes": 1142,
+        "sha256": "7c2ebb6039464959cae336bf3dc9534649e4da9e781e85dca201a74bfea9583a",
+        "gitBlob": "42c5cd7679d0e8c2ab51fc674f460dd9290c71a4"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/seed.js",
+        "bytes": 1142,
+        "sha256": "7c2ebb6039464959cae336bf3dc9534649e4da9e781e85dca201a74bfea9583a",
+        "gitBlob": "42c5cd7679d0e8c2ab51fc674f460dd9290c71a4"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "apps/editor/tile-stack/seed.js",
+          "bytes": 1178,
+          "sha256": "f8d9ba2baea50ac8b31539e962400aa9d3e60c650ebabb6fde58e3eae9c41d6f",
+          "gitBlob": "0c5a2c75d3ef5c9212574fdc5e33156f1d1b6c9b"
+        },
+        "adaptations": [
+          {
+            "kind": "literal-import-specifier",
+            "from": "../../../candidates/tile-stack/editor/floors.js",
+            "to": "./floors.js",
+            "occurrences": 1
+          }
+        ],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/seed.js",
+          "bytes": 1142,
+          "sha256": "7c2ebb6039464959cae336bf3dc9534649e4da9e781e85dca201a74bfea9583a",
+          "gitBlob": "42c5cd7679d0e8c2ab51fc674f460dd9290c71a4"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/seed.js",
+        "bytes": 1142,
+        "sha256": "7c2ebb6039464959cae336bf3dc9534649e4da9e781e85dca201a74bfea9583a",
+        "gitBlob": "42c5cd7679d0e8c2ab51fc674f460dd9290c71a4"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/session.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/session.js",
+        "bytes": 641,
+        "sha256": "cd1f134ad2e805ac95a3d96dd2a891c71a1816256302f6f21150f14249c73920",
+        "gitBlob": "2ec69c92418e4b5c34a6c4a50174d95e1293b2e2"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/session.js",
+        "bytes": 641,
+        "sha256": "cd1f134ad2e805ac95a3d96dd2a891c71a1816256302f6f21150f14249c73920",
+        "gitBlob": "2ec69c92418e4b5c34a6c4a50174d95e1293b2e2"
+      },
+      "adaptations": [],
+      "role": "B1-stack-host-current",
+      "b1Provenance": {
+        "sourceRow": {
+          "commit": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
+          "path": "apps/editor/tile-stack/session.js",
+          "bytes": 534,
+          "sha256": "9dc1d5652a64c0b4ad3dcefd1de0d5b4ae4d4e7d999399db47801b0352b5f3b8",
+          "gitBlob": "80d59afe3764d219dd8b40657e11cde194562ab3"
+        },
+        "adaptations": [],
+        "currentRow": {
+          "path": "apps/editor/tile-stack/session.js",
+          "bytes": 534,
+          "sha256": "9dc1d5652a64c0b4ad3dcefd1de0d5b4ae4d4e7d999399db47801b0352b5f3b8",
+          "gitBlob": "80d59afe3764d219dd8b40657e11cde194562ab3"
+        }
+      },
+      "preB2Row": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "apps/editor/tile-stack/session.js",
+        "bytes": 534,
+        "sha256": "9dc1d5652a64c0b4ad3dcefd1de0d5b4ae4d4e7d999399db47801b0352b5f3b8",
+        "gitBlob": "80d59afe3764d219dd8b40657e11cde194562ab3"
+      }
+    },
+    {
+      "path": "apps/editor/tile-stack/source-panel.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/source-panel.js",
+        "bytes": 4537,
+        "sha256": "21ea438c8239fcf4c91cebfc0b334ce7b830a74558b7612e2613d7373eb12d02",
+        "gitBlob": "631bac332f4dda7d94e2a9ff9bf15ad2b085cbff"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/source-panel.js",
+        "bytes": 4537,
+        "sha256": "21ea438c8239fcf4c91cebfc0b334ce7b830a74558b7612e2613d7373eb12d02",
+        "gitBlob": "631bac332f4dda7d94e2a9ff9bf15ad2b085cbff"
+      },
+      "adaptations": [],
+      "role": "new-stack-host"
+    },
+    {
+      "path": "apps/editor/tile-stack/surface-binding.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/surface-binding.js",
+        "bytes": 1928,
+        "sha256": "58fa8ec2bc73f8664d0b109c852a4b5a145a08a4b34151e36c78bb20b0a3d6f1",
+        "gitBlob": "d51210e66a4d69f35f00fcf4e71b9894dd7a187b"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/surface-binding.js",
+        "bytes": 1928,
+        "sha256": "58fa8ec2bc73f8664d0b109c852a4b5a145a08a4b34151e36c78bb20b0a3d6f1",
+        "gitBlob": "d51210e66a4d69f35f00fcf4e71b9894dd7a187b"
+      },
+      "adaptations": [],
+      "role": "new-stack-host"
+    },
+    {
+      "path": "apps/editor/tile-stack/surface-guard.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/surface-guard.js",
+        "bytes": 4390,
+        "sha256": "3be2dd09a3ff6d128880c7a6bac5ae481e09cb15d68d13bf86894a18738145bc",
+        "gitBlob": "d167e1dfae90f90021e2db9e67efc1f2172db0ee"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/surface-guard.js",
+        "bytes": 4390,
+        "sha256": "3be2dd09a3ff6d128880c7a6bac5ae481e09cb15d68d13bf86894a18738145bc",
+        "gitBlob": "d167e1dfae90f90021e2db9e67efc1f2172db0ee"
+      },
+      "adaptations": [],
+      "role": "new-stack-host"
+    },
+    {
+      "path": "apps/editor/tile-stack/surface-route.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/surface-route.js",
+        "bytes": 15480,
+        "sha256": "76197e7760ab7dcf5f7ab9e86665cf54e612eba89ae1dd03e63d8484d24aac8e",
+        "gitBlob": "7003c33565fadb77c233b92401361a89f80cb632"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/surface-route.js",
+        "bytes": 15480,
+        "sha256": "76197e7760ab7dcf5f7ab9e86665cf54e612eba89ae1dd03e63d8484d24aac8e",
+        "gitBlob": "7003c33565fadb77c233b92401361a89f80cb632"
+      },
+      "adaptations": [],
+      "role": "new-stack-host"
+    },
+    {
+      "path": "apps/editor/tile-stack/ui/contract.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/ui/contract.js",
+        "bytes": 8952,
+        "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+        "gitBlob": "00f56137ab34aac0a14fb49265e56cb2eab5774b"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/ui/contract.js",
+        "bytes": 8952,
+        "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+        "gitBlob": "00f56137ab34aac0a14fb49265e56cb2eab5774b"
+      },
+      "adaptations": [],
+      "originRow": {
+        "commit": "8622c77234036d786474689f7e70671ecf01136b",
+        "path": "candidates/tile-stack/ui/contract.js",
+        "bytes": 8952,
+        "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+        "gitBlob": "00f56137ab34aac0a14fb49265e56cb2eab5774b"
+      },
+      "historicalUICopyRow": {
+        "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+        "path": "apps/editor/tile-stack/ui/contract.js",
+        "bytes": 8952,
+        "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+        "gitBlob": "00f56137ab34aac0a14fb49265e56cb2eab5774b"
+      },
+      "role": "borrowed-stack-ui"
+    },
+    {
+      "path": "apps/editor/tile-stack/ui/panel.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/ui/panel.js",
+        "bytes": 20799,
+        "sha256": "2d3df312e2d8c6b6c4ab5807d1557944fe4efc2993784bd8c721f6451471a8a5",
+        "gitBlob": "f6a3b4ca438635535c5f80cb93a7631c6440fe9a"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/ui/panel.js",
+        "bytes": 20799,
+        "sha256": "2d3df312e2d8c6b6c4ab5807d1557944fe4efc2993784bd8c721f6451471a8a5",
+        "gitBlob": "f6a3b4ca438635535c5f80cb93a7631c6440fe9a"
+      },
+      "adaptations": [
+        {
+          "kind": "literal-import-specifier",
+          "before": "../../../packages/floor-navigation/dom.js",
+          "after": "../../../../packages/floor-navigation/dom.js",
+          "occurrences": 1
+        },
+        {
+          "kind": "literal-import-specifier",
+          "before": "../../../apps/editor/smart-tile/contract.js",
+          "after": "../../smart-tile/contract.js",
+          "occurrences": 1
+        },
+        {
+          "kind": "reviewed-fixed-source-ui-correction",
+          "sourceCommit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+          "before": {
+            "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+            "path": "apps/editor/tile-stack/ui/panel.js",
+            "bytes": 19875,
+            "sha256": "c0425813775c566425e7be5936f021a1128c48a7699ef36accc3c6af1193706f",
+            "gitBlob": "2e672758f1ffff384ed1999bbd4d2a2c9eeed67d"
+          },
+          "after": {
+            "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+            "path": "apps/editor/tile-stack/ui/panel.js",
+            "bytes": 20799,
+            "sha256": "2d3df312e2d8c6b6c4ab5807d1557944fe4efc2993784bd8c721f6451471a8a5",
+            "gitBlob": "f6a3b4ca438635535c5f80cb93a7631c6440fe9a"
+          }
+        }
+      ],
+      "originRow": {
+        "commit": "8622c77234036d786474689f7e70671ecf01136b",
+        "path": "candidates/tile-stack/ui/panel.js",
+        "bytes": 19887,
+        "sha256": "4b3137b5922d7c6a1ca27d09ddfcbca0dc23bd0f5a7bb615fb8e9f9918bfe4ec",
+        "gitBlob": "b4fae63cecbf5b9f28d5eaacdd4c7bdf6fdac1a3"
+      },
+      "historicalUICopyRow": {
+        "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+        "path": "apps/editor/tile-stack/ui/panel.js",
+        "bytes": 19875,
+        "sha256": "c0425813775c566425e7be5936f021a1128c48a7699ef36accc3c6af1193706f",
+        "gitBlob": "2e672758f1ffff384ed1999bbd4d2a2c9eeed67d"
+      },
+      "role": "borrowed-stack-ui"
+    },
+    {
+      "path": "apps/editor/tile-stack/ui/styles.css",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "apps/editor/tile-stack/ui/styles.css",
+        "bytes": 3706,
+        "sha256": "7b3d5d520be6b4a2578d1f7e79696c54adf2074cbf34eab24dc606ed600f5553",
+        "gitBlob": "af7d6a9e4115d555e0872fefb8654f38cae5d294"
+      },
+      "expectedRow": {
+        "path": "apps/editor/tile-stack/ui/styles.css",
+        "bytes": 3706,
+        "sha256": "7b3d5d520be6b4a2578d1f7e79696c54adf2074cbf34eab24dc606ed600f5553",
+        "gitBlob": "af7d6a9e4115d555e0872fefb8654f38cae5d294"
+      },
+      "adaptations": [
+        {
+          "kind": "reviewed-fixed-source-ui-correction",
+          "sourceCommit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+          "before": {
+            "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+            "path": "apps/editor/tile-stack/ui/styles.css",
+            "bytes": 3422,
+            "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+            "gitBlob": "e3a0908cb702645b88b7f0e4d021f8cbc2f3827b"
+          },
+          "after": {
+            "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+            "path": "apps/editor/tile-stack/ui/styles.css",
+            "bytes": 3706,
+            "sha256": "7b3d5d520be6b4a2578d1f7e79696c54adf2074cbf34eab24dc606ed600f5553",
+            "gitBlob": "af7d6a9e4115d555e0872fefb8654f38cae5d294"
+          }
+        }
+      ],
+      "originRow": {
+        "commit": "8622c77234036d786474689f7e70671ecf01136b",
+        "path": "candidates/tile-stack/ui/styles.css",
+        "bytes": 3422,
+        "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+        "gitBlob": "e3a0908cb702645b88b7f0e4d021f8cbc2f3827b"
+      },
+      "historicalUICopyRow": {
+        "commit": "faf4454bc2760f91743039b0ea42bff15055c57c",
+        "path": "apps/editor/tile-stack/ui/styles.css",
+        "bytes": 3422,
+        "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+        "gitBlob": "e3a0908cb702645b88b7f0e4d021f8cbc2f3827b"
+      },
+      "role": "borrowed-stack-ui"
+    },
+    {
+      "path": "examples/tile-stack-editor.html",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "examples/tile-stack-editor.html",
+        "bytes": 4879,
+        "sha256": "7efc9bd8da15cda676a773e9925ab610951f8e06721b2540ab91cc05930fca0c",
+        "gitBlob": "7830529387daf243a280165b05e70319b65a4060"
+      },
+      "expectedRow": {
+        "path": "examples/tile-stack-editor.html",
+        "bytes": 4879,
+        "sha256": "7efc9bd8da15cda676a773e9925ab610951f8e06721b2540ab91cc05930fca0c",
+        "gitBlob": "7830529387daf243a280165b05e70319b65a4060"
+      },
+      "adaptations": [],
+      "role": "isolated-B2-example"
+    },
+    {
+      "path": "examples/tile-stack-editor.js",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "examples/tile-stack-editor.js",
+        "bytes": 12378,
+        "sha256": "82f50522ad4c513b47f7bb20abf3b09d62597eb90930e60e9e2b6c7493addcda",
+        "gitBlob": "d45798426b279f111710bba23945bb9c45ae6a5b"
+      },
+      "expectedRow": {
+        "path": "examples/tile-stack-editor.js",
+        "bytes": 12378,
+        "sha256": "82f50522ad4c513b47f7bb20abf3b09d62597eb90930e60e9e2b6c7493addcda",
+        "gitBlob": "d45798426b279f111710bba23945bb9c45ae6a5b"
+      },
+      "adaptations": [],
+      "role": "isolated-B2-example"
+    },
+    {
+      "path": "docs/reviews/tile-stack/editor/b2/ui-source.json",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "docs/reviews/tile-stack/editor/b2/ui-source.json",
+        "bytes": 1563,
+        "sha256": "96799027b970e92d5afdbfcdc70f3096b752284d9577433cf29c46d51a8d0d01",
+        "gitBlob": "872d8b847a58da4c328f09814bbf9a5941fc6316"
+      },
+      "expectedRow": {
+        "path": "docs/reviews/tile-stack/editor/b2/ui-source.json",
+        "bytes": 1563,
+        "sha256": "96799027b970e92d5afdbfcdc70f3096b752284d9577433cf29c46d51a8d0d01",
+        "gitBlob": "872d8b847a58da4c328f09814bbf9a5941fc6316"
+      },
+      "adaptations": [],
+      "role": "UI-source-provenance"
+    },
+    {
+      "path": "tools/build.mjs",
+      "sourceRow": {
+        "commit": "f754afcc9f46b196f258bf09e8091c962c9b31f8",
+        "path": "tools/build.mjs",
+        "bytes": 16597,
+        "sha256": "fe945dd58456b28f86ffb727c7ac2c3c7342d9579d3af137f8536082e5f9ccec",
+        "gitBlob": "bd6084160f44df27d9206ade5fb5b3ffe346666d"
+      },
+      "expectedRow": {
+        "path": "tools/build.mjs",
+        "bytes": 16597,
+        "sha256": "fe945dd58456b28f86ffb727c7ac2c3c7342d9579d3af137f8536082e5f9ccec",
+        "gitBlob": "bd6084160f44df27d9206ade5fb5b3ffe346666d"
+      },
+      "adaptations": [
+        {
+          "kind": "literal-build-line-insertion",
+          "after": "fs.cpSync(path.join(root,'apps/editor/smart-tile'),path.join(output,'apps/editor/smart-tile'),{recursive:true});",
+          "line": "fs.cpSync(path.join(root,'apps/editor/tile-stack'),path.join(output,'apps/editor/tile-stack'),{recursive:true});",
+          "occurrences": 1
+        }
+      ],
+      "originRow": {
+        "commit": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+        "path": "tools/build.mjs",
+        "bytes": 16484,
+        "sha256": "4859b7f35f1b86812482fdf4fa3246f01fd831d5f8ef804a5daf7eb9fae1cd82",
+        "gitBlob": "0824193a2ccc2a5dd3e10a328490a52e76bf8b32"
+      },
+      "role": "one-line-build-authorization"
+    }
+  ]
+}

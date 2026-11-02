@@ -23,6 +23,8 @@ import {checkNativeWindowPresenter} from './check-native-window-presenter.mjs';
 import {checkTileVisualsSource} from './check-tile-visuals-source.mjs';
 import {checkTileC2aSource} from './check-tile-c2a-source.mjs';
 import {checkSmartTileEditorSource} from './check-smart-tile-editor-source.mjs';
+import {checkTileStackSource} from './check-tile-stack-source.mjs';
+import {checkTileFinishesSource} from './check-tile-finishes-source.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -151,4 +153,6 @@ console.log('Verified native window presentation: '+JSON.stringify({sourceCommit
 const tileArt=checkTileVisualsSource(root,{tracked});
 console.log('Verified native tile surfaces: '+JSON.stringify({registered:tileArt.registered,modules:tileArt.runtime.length,unchangedV1:tileArt.coreFiles.length,studies:tileArt.studies,preservedArtFiles:tileArt.preservedArtFiles}));
 
+const stackSource=checkTileStackSource(root,{tracked}),finishSource=checkTileFinishesSource(root,{tracked});
+console.log('Verified optional stack planner and finish sources: '+JSON.stringify({stack:stackSource.status,stackModules:stackSource.runtime.length,finishes:finishSource.status,finishModules:finishSource.runtime.length}));
 console.log('Verified isolated Smart Tile Editor source: '+JSON.stringify(checkSmartTileEditorSource(root,{tracked})));

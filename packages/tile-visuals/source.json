@@ -68,8 +68,8 @@
     },
     {
       "path": "packages/tile-visuals/prepare.js",
-      "bytes": 12539,
-      "sha256": "eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e"
+      "bytes": 12561,
+      "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
     },
     {
       "path": "packages/tile-visuals/three.js",
@@ -83,6 +83,27 @@
       "from": "candidate; optional registration pending",
       "to": "nautilus.native-tile-surfaces",
       "occurrences": 1
+    }
+  ],
+  "runtimeCorrections": [
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "sourceCommit": "93a94778779b800227f3886b1ca63fae1abc2543",
+      "integrationBase": "2502646482218524fd5129641da769bb82462e4d",
+      "manifest": {
+        "path": "candidates/tile-stack/core/line-d4-provider-patch/manifest.json",
+        "sha256": "99345464175cd8955add7b2e727f31657e8b72c9dcb9389dbc23b38ca2f5af9d"
+      },
+      "patch": {
+        "path": "candidates/tile-stack/core/line-d4-provider-patch/derived-start-zero.patch",
+        "sha256": "c7eac2b728479132a4badd9ab2fc819fead29530e6fe2dee07f862289cbe6173"
+      },
+      "originalSha256": "eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e",
+      "patchedSha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3",
+      "from": "radius:r,startRad:start,sweepRad:sweep",
+      "to": "radius:r,startRad:Object.is(start,-0)?0:start,sweepRad:sweep",
+      "occurrences": 1,
+      "scope": "Canonicalize only a generated offset-arc startRad; authored data, validators, meshes and schemas remain unchanged."
     }
   ],
   "atlas": {

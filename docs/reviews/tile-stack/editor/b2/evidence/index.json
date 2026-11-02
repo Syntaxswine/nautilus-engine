@@ -1,0 +1,852 @@
+{
+  "version": 1,
+  "status": "local-review-candidate",
+  "runtimeCommit": "b46fa78297440932a0be82651c0f8397cefa4b74",
+  "baseline": "d0ecfdfb35110616fbd4c03ad41775acf6a2d163",
+  "uiSource": "8622c77234036d786474689f7e70671ecf01136b",
+  "native": {
+    "source": {
+      "checks": 19,
+      "captures": 11,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/source.json",
+      "sha256": "2e05e55466743f305727d070530befbb8ef90f7a7b3f839eace576e50ef7f45e",
+      "runId": "f8162e11-254b-42f1-a77f-f9ae3d94d0be"
+    },
+    "built": {
+      "checks": 19,
+      "captures": 11,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/built.json",
+      "sha256": "5ff278e41d55a36292cadd41e4f6f81b2d9d2b67ff3c646cb238f899a06c4ba5",
+      "runId": "708dddb4-0bea-4dd3-8260-20ae18e90bb3"
+    },
+    "installed": {
+      "checks": 19,
+      "captures": 11,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/installed.json",
+      "sha256": "c398373456065d40622ef73583615376d4cbce597f1011d366b9b3200692ecee",
+      "runId": "50e55998-c44b-40c2-b1d8-662667e87e6d"
+    }
+  },
+  "legacy": {
+    "source": {
+      "checks": 27,
+      "captures": 6,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source.json",
+      "sha256": "0b331f1a7a935b99dfa1db91af9058ef31efd882df3139a2a82d4411f543b954",
+      "runId": "066b8197-5c3d-4039-9e43-0f50e8f1b436"
+    },
+    "built": {
+      "checks": 27,
+      "captures": 6,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built.json",
+      "sha256": "19c855ab130c670f3050061b3ccd54e4382443dca6b65bc1c30a4f22041c5cff",
+      "runId": "62cc9bd8-d0d9-4829-9b3a-7a2dacb88119"
+    },
+    "installed": {
+      "checks": 27,
+      "captures": 6,
+      "report": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed.json",
+      "sha256": "3bf72473b1f1c46c8be17f98e2a23377cc1f638388203003030d828a10e07d38",
+      "runId": "61fdafaf-b8f9-4b1e-a890-10ea1cedac3c"
+    }
+  },
+  "totals": {
+    "nativeChecks": 57,
+    "legacyChecks": 81
+  },
+  "gates": {
+    "check": {
+      "exitCode": 1,
+      "reason": "Expected unchanged historical source fence for explicitly approved input hook; Root owns authentication."
+    },
+    "test": {
+      "exitCode": 1,
+      "tests": 987,
+      "pass": 986,
+      "fail": 1,
+      "reason": "Same expected source fence; all behavior cases pass."
+    },
+    "upstream": {
+      "exitCode": 0,
+      "tests": 32,
+      "pass": 32
+    },
+    "build": {
+      "exitCode": 0,
+      "modulePaths": 544
+    }
+  },
+  "sourceChanges": [
+    "apps/editor/smart-tile/input.js",
+    "apps/editor/smart-tile/session.js",
+    "apps/editor/tile-stack/checkpoint.js",
+    "apps/editor/tile-stack/presentation.js",
+    "apps/editor/tile-stack/profile.js",
+    "apps/editor/tile-stack/session.js",
+    "apps/editor/tile-stack/source-panel.js",
+    "apps/editor/tile-stack/surface-binding.js",
+    "apps/editor/tile-stack/surface-guard.js",
+    "apps/editor/tile-stack/surface-route.js",
+    "apps/editor/tile-stack/ui/contract.js",
+    "apps/editor/tile-stack/ui/panel.js",
+    "apps/editor/tile-stack/ui/styles.css",
+    "examples/tile-stack-editor.html",
+    "examples/tile-stack-editor.js",
+    "tools/build.mjs"
+  ],
+  "unchangedSharedModulesVerified": true,
+  "buildChange": "one application cpSync only",
+  "sourceFencesChanged": false,
+  "workerPushed": false,
+  "releaseOrConsumerPinChanged": false,
+  "retainedHelpers": [],
+  "portChecks": [
+    {
+      "port": 54101,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 60417,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 49648,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 61254,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 62219,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 50467,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    },
+    {
+      "port": 51245,
+      "released": true,
+      "reason": "ECONNREFUSED"
+    }
+  ],
+  "receipts": [
+    {
+      "scope": "native-source",
+      "process": {
+        "pid": 67952,
+        "creationFiletime": "134380790454965335",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 39092,
+        "creationFiletime": "134380790469273384",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 54101,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:47:36.874Z"
+    },
+    {
+      "scope": "legacy-source",
+      "process": {
+        "pid": 74376,
+        "creationFiletime": "134380790883953881",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 57132,
+        "creationFiletime": "134380790895636079",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 60417,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:46:35.209Z"
+    },
+    {
+      "scope": "native-built",
+      "process": {
+        "pid": 15716,
+        "creationFiletime": "134380794495293846",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 34760,
+        "creationFiletime": "134380794508806340",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 49648,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:54:28.181Z"
+    },
+    {
+      "scope": "legacy-built",
+      "process": {
+        "pid": 36468,
+        "creationFiletime": "134380792337009796",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 22056,
+        "creationFiletime": "134380792348885705",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 61254,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:48:45.930Z"
+    },
+    {
+      "scope": "native-installed",
+      "process": {
+        "pid": 68132,
+        "creationFiletime": "134380794520465473",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 27528,
+        "creationFiletime": "134380794618508409",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 62219,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:54:39.119Z"
+    },
+    {
+      "scope": "legacy-installed",
+      "process": {
+        "pid": 17032,
+        "creationFiletime": "134380798541603280",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 24972,
+        "creationFiletime": "134380798625218787",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 50467,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:59:11.044Z"
+    },
+    {
+      "scope": "narrow-layout",
+      "process": {
+        "pid": 72104,
+        "creationFiletime": "134380789756295665",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 69804,
+        "creationFiletime": "134380789764504945",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 51245,
+      "httpClosed": true,
+      "browserClosed": true,
+      "stoppedAt": "2026-11-02T07:43:02.801Z"
+    }
+  ],
+  "preserved": [
+    {
+      "source": "artifacts/tile-stack-editor-source/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source.json",
+      "bytes": 3590602,
+      "sha256": "2e05e55466743f305727d070530befbb8ef90f7a7b3f839eace576e50ef7f45e"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-cleanup.json",
+      "bytes": 615,
+      "sha256": "0ae2c61be229f910c5744a6dd012faf31d89c3a53d6746668471afaa90d648ee"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-helper.json",
+      "bytes": 1562,
+      "sha256": "57dd7968b0466d80bbe5fa0d3248a3e1a7a1354038289a3a43f8541db778c8ae"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/uniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-uniform-overview.png",
+      "bytes": 168783,
+      "sha256": "3abab74e9f9f5e6b298b8b817134f7611015aad1d54bf99311d1d243b3a33ca5"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/uniform-cutaway.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-uniform-cutaway.png",
+      "bytes": 229661,
+      "sha256": "d0dcab902a4aa690fee9ad19c25959156fce8ac1db4a64a4fbd628b52eaaaf64"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/stone-flags.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-stone-flags.png",
+      "bytes": 237412,
+      "sha256": "3d724a12014ed6df24db1199611d7e4eb11e9921ba11c03d0b3a71d705c7682b"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/timber-boards.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-timber-boards.png",
+      "bytes": 358236,
+      "sha256": "b19512212629528c11e83ddfdfd30f4b983c37e41600855e51b05eed27ee6b5f"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/poured-concrete.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-poured-concrete.png",
+      "bytes": 322648,
+      "sha256": "8b20ff3126fbef8a2af75d60491bb1a1957c55338e98c1359a418ee50b251a34"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/nonuniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-nonuniform-overview.png",
+      "bytes": 144408,
+      "sha256": "6c9feb663417cf46c3dc7fd84df02c3922a3b3d1b7dcb0c638d1778ceec9c12b"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/original-line-arc-cubic.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-original-line-arc-cubic.png",
+      "bytes": 156649,
+      "sha256": "e22107b9db63090b153272867ac1f13b88fce1cb8426afb019be4be6e81b76ce"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-phone-390.png",
+      "bytes": 45323,
+      "sha256": "93a5eb0034afdcd13ea87090a25ae300b69b76a0e20f1796e6e51271172dd115"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/phone-390-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-phone-390-full.png",
+      "bytes": 194584,
+      "sha256": "b86ebcf528c9b19129637926225c5037219c04acaae51265d3181138aaf349cd"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-phone-320.png",
+      "bytes": 40606,
+      "sha256": "d947324a58d73f559a26c7ea6854a219dc3ae210692f2e33217761b157d1d843"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-source/phone-320-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-phone-320-full.png",
+      "bytes": 190154,
+      "sha256": "4a911c9a3ce7c276b934de711eaf4c8c9d6086322dda6922308c65f3076fcea5"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source.json",
+      "bytes": 211552,
+      "sha256": "0b331f1a7a935b99dfa1db91af9058ef31efd882df3139a2a82d4411f543b954"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-cleanup.json",
+      "bytes": 608,
+      "sha256": "76960212cbbc137b23145ca19636b53bbe0c45e4c90250ea547dd50d906e40e6"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-helper.json",
+      "bytes": 1555,
+      "sha256": "15526da2ff99e1edbe58ba812731f5e587070aefd4d6e7191509fe6cd4b14344"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/desktop-finish.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-desktop-finish.png",
+      "bytes": 1036676,
+      "sha256": "1b709775b4d24b71a0182e10a3cd028e9f8e2ccb63ab78a83c0d9f5c01a77937"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/native-upper-floor.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-native-upper-floor.png",
+      "bytes": 1045926,
+      "sha256": "07cce9d75aae13a9e20485b64a5961a2d8b96e974f3b755299119912ea469649"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/phone-390-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-phone-390-viewport.png",
+      "bytes": 231105,
+      "sha256": "2e02e4404a28a3e872f8aeb5e07f3dcd0d2da165e09777342da2a251cde8810b"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-phone-390.png",
+      "bytes": 330256,
+      "sha256": "92df670a174066d60639b2039e9e0d4e42c82910664adf8e1bdc25c5a1c55b0f"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/phone-320-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-phone-320-viewport.png",
+      "bytes": 190254,
+      "sha256": "214abce8ec036495601276312e58c9f75962f5a998de5864abbf616ec643f884"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-source/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source-phone-320.png",
+      "bytes": 294083,
+      "sha256": "6e4f75def7ae57b44450183b7252ebf8ab163095d08329ab2961f5d98411aa68"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built.json",
+      "bytes": 3590590,
+      "sha256": "5ff278e41d55a36292cadd41e4f6f81b2d9d2b67ff3c646cb238f899a06c4ba5"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-cleanup.json",
+      "bytes": 614,
+      "sha256": "5931ad6935c385665b571203efa8e41c7d5f21363a464318951ce5024d8a7898"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-helper.json",
+      "bytes": 1568,
+      "sha256": "88da285ede2748d155e853e8012be7589062577956cf2193a4fa497525574511"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/uniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-uniform-overview.png",
+      "bytes": 168783,
+      "sha256": "3abab74e9f9f5e6b298b8b817134f7611015aad1d54bf99311d1d243b3a33ca5"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/uniform-cutaway.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-uniform-cutaway.png",
+      "bytes": 229661,
+      "sha256": "d0dcab902a4aa690fee9ad19c25959156fce8ac1db4a64a4fbd628b52eaaaf64"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/stone-flags.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-stone-flags.png",
+      "bytes": 237368,
+      "sha256": "0d104dfcda7ba5f76805568441eb9ee3a614ea3a54b89701cf988604c5f90ae4"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/timber-boards.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-timber-boards.png",
+      "bytes": 358206,
+      "sha256": "81e476cc0a98a183ea253d5116cd4c2ce35d8f647d3f83a8c5435d77e8a27e91"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/poured-concrete.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-poured-concrete.png",
+      "bytes": 322555,
+      "sha256": "2dec7173688382020560322b1efce9342dc003b42b7c28c6cd172699f5f469f3"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/nonuniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-nonuniform-overview.png",
+      "bytes": 144408,
+      "sha256": "6c9feb663417cf46c3dc7fd84df02c3922a3b3d1b7dcb0c638d1778ceec9c12b"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/original-line-arc-cubic.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-original-line-arc-cubic.png",
+      "bytes": 156649,
+      "sha256": "e22107b9db63090b153272867ac1f13b88fce1cb8426afb019be4be6e81b76ce"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-phone-390.png",
+      "bytes": 45323,
+      "sha256": "93a5eb0034afdcd13ea87090a25ae300b69b76a0e20f1796e6e51271172dd115"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/phone-390-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-phone-390-full.png",
+      "bytes": 194492,
+      "sha256": "714cf2614e5d21697258dc1ecbb77394ad987aa7768f38d00f43b54127ffd7ed"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-phone-320.png",
+      "bytes": 40606,
+      "sha256": "d947324a58d73f559a26c7ea6854a219dc3ae210692f2e33217761b157d1d843"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-built/phone-320-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-phone-320-full.png",
+      "bytes": 190007,
+      "sha256": "86b4b14563c0c809da32bcaba076bed9acb11bd50cc2f5894a5086b7b6a2c7c8"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built.json",
+      "bytes": 211545,
+      "sha256": "19c855ab130c670f3050061b3ccd54e4382443dca6b65bc1c30a4f22041c5cff"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-cleanup.json",
+      "bytes": 607,
+      "sha256": "e79a1bf493b38fb490beaa1370c3f5da0c1ca79977d0b3beace433e726ae56e6"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-helper.json",
+      "bytes": 1561,
+      "sha256": "4fbdd56e70066cffc0048f72a93948a37d4c8a2951e2616e234a1f4d579764ba"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/desktop-finish.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-desktop-finish.png",
+      "bytes": 1037580,
+      "sha256": "9bff30ef6016d9b7993a4a3ad43ded5f5d9779771209dacbdc01fb74a29bfb02"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/native-upper-floor.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-native-upper-floor.png",
+      "bytes": 1046415,
+      "sha256": "42f259c6adb372e9227bd71b0b5831d30eeea34ad20832f0b57729e1213ebe9e"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/phone-390-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-phone-390-viewport.png",
+      "bytes": 231105,
+      "sha256": "2e02e4404a28a3e872f8aeb5e07f3dcd0d2da165e09777342da2a251cde8810b"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-phone-390.png",
+      "bytes": 330055,
+      "sha256": "29d8226132c459d6658afd26ca2cf83ccf1581d67b1c415939120fb1a4db69d2"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/phone-320-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-phone-320-viewport.png",
+      "bytes": 190254,
+      "sha256": "214abce8ec036495601276312e58c9f75962f5a998de5864abbf616ec643f884"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-built/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built-phone-320.png",
+      "bytes": 294179,
+      "sha256": "227f1e3633c4cde7ec12752a4b1005dae1c5e2f7ebf5b4752c2002eef91db2e4"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed.json",
+      "bytes": 3656566,
+      "sha256": "c398373456065d40622ef73583615376d4cbce597f1011d366b9b3200692ecee"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-cleanup.json",
+      "bytes": 618,
+      "sha256": "0a0345e059bfafbb8022eca3a8e190252e359bf0d7544fd3bb9dd66578659f78"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-helper.json",
+      "bytes": 1592,
+      "sha256": "3b091a2ff435130febab779cc12f4b15ea6c321d709d086676131830e28e3f46"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/uniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-uniform-overview.png",
+      "bytes": 168783,
+      "sha256": "3abab74e9f9f5e6b298b8b817134f7611015aad1d54bf99311d1d243b3a33ca5"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/uniform-cutaway.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-uniform-cutaway.png",
+      "bytes": 229661,
+      "sha256": "d0dcab902a4aa690fee9ad19c25959156fce8ac1db4a64a4fbd628b52eaaaf64"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/stone-flags.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-stone-flags.png",
+      "bytes": 237632,
+      "sha256": "b102910eb9f305bfcaf6f9e446d6cbe8358faa4be751052592c22472fadb6cb4"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/timber-boards.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-timber-boards.png",
+      "bytes": 358442,
+      "sha256": "f226c497f35de09e9c569c61d7a51a3135f22db1938a44cd5bdb849ac94e9085"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/poured-concrete.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-poured-concrete.png",
+      "bytes": 322931,
+      "sha256": "b7eff4430597bf326a8412c1d77c826be1b713c9fd787564df774cfccff640a9"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/nonuniform-overview.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-nonuniform-overview.png",
+      "bytes": 144408,
+      "sha256": "6c9feb663417cf46c3dc7fd84df02c3922a3b3d1b7dcb0c638d1778ceec9c12b"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/original-line-arc-cubic.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-original-line-arc-cubic.png",
+      "bytes": 156649,
+      "sha256": "e22107b9db63090b153272867ac1f13b88fce1cb8426afb019be4be6e81b76ce"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-phone-390.png",
+      "bytes": 45323,
+      "sha256": "93a5eb0034afdcd13ea87090a25ae300b69b76a0e20f1796e6e51271172dd115"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/phone-390-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-phone-390-full.png",
+      "bytes": 194462,
+      "sha256": "1aafdd83152413bda9d448f4b9e940e70057f1ffdb440b34bf7d8e2d987eafcc"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-phone-320.png",
+      "bytes": 40606,
+      "sha256": "d947324a58d73f559a26c7ea6854a219dc3ae210692f2e33217761b157d1d843"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-installed/phone-320-full.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-phone-320-full.png",
+      "bytes": 189982,
+      "sha256": "7e34c4cc6d4c16af215be69fa121c228f72a9bed3019ee31c78111255e55414a"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/review.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed.json",
+      "bytes": 264911,
+      "sha256": "3bf72473b1f1c46c8be17f98e2a23377cc1f638388203003030d828a10e07d38"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-cleanup.json",
+      "bytes": 611,
+      "sha256": "2efc871c9a9e86eb5c00d6ad91768c3b4bf0ea6160991976dbab47388360f410"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-helper.json",
+      "bytes": 1585,
+      "sha256": "087f35a666b34bb98ed55b5ed11855edc0ba52bef8c952b38e4491307caf95c2"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/desktop-finish.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-desktop-finish.png",
+      "bytes": 1037237,
+      "sha256": "181a9571350e4967cb7d66983a041ef952a1b1c4a80da6c37685f503079cca57"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/native-upper-floor.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-native-upper-floor.png",
+      "bytes": 1045931,
+      "sha256": "faf4dbbbb610cb2ae1b55e2673390918758b01d0eebab5d7e30754bc46b79395"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/phone-390-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-phone-390-viewport.png",
+      "bytes": 231105,
+      "sha256": "2e02e4404a28a3e872f8aeb5e07f3dcd0d2da165e09777342da2a251cde8810b"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/phone-390.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-phone-390.png",
+      "bytes": 330681,
+      "sha256": "7cb5add4c4f616f2bad3a89fb33a7530c2a87b5e23a3ab42e88f90796b398221"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/phone-320-viewport.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-phone-320-viewport.png",
+      "bytes": 190254,
+      "sha256": "214abce8ec036495601276312e58c9f75962f5a998de5864abbf616ec643f884"
+    },
+    {
+      "source": "artifacts/smart-tile-editor-installed/phone-320.png",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed-phone-320.png",
+      "bytes": 294169,
+      "sha256": "38f570e688cd4fc7ddc8a88aed3826f1842fae8c38c9f9381b979ab33e2316fd"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/check.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/check.log.gz",
+      "bytes": 1207,
+      "sha256": "d625072141278b09a399ce8684bc235864d279c385acc29907c443b8a01ad7f5",
+      "encoding": "gzip",
+      "sourceBytes": 2803,
+      "sourceSha256": "dd5777b44c2311272e0e16a175f54492e2c4dad05a7a039a27232f6e02399878"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/test.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/test.log.gz",
+      "bytes": 38813,
+      "sha256": "2b5f103e668400f3a511a64716b35ff0f5563f96e33fcd138f60d89fa161dc23",
+      "encoding": "gzip",
+      "sourceBytes": 110016,
+      "sourceSha256": "bc3d621170567f0782adf05f30c0466401436b314c4b191482b118bd9b302323"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/upstream.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/upstream.log.gz",
+      "bytes": 1512,
+      "sha256": "26047d7efb0697f816f24bb55f17478280a26dbae91b4944b161ce6d5b08d1b6",
+      "encoding": "gzip",
+      "sourceBytes": 3144,
+      "sourceSha256": "dcd7e573800cb654a2be6b0b41a9abc800691a1fd96037d8b535bf4f41bc9442"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/build.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/build.log.gz",
+      "bytes": 290,
+      "sha256": "9d4fb4163a014747fe0920e3eb0832e9b86d7cac01532292157f3e321d70390d",
+      "encoding": "gzip",
+      "sourceBytes": 378,
+      "sourceSha256": "4e7700bdb40da2b296a27e9a9479a0238390b47c97f505c2015a5f04fd219990"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/inspection-fence.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/inspection-fence.log.gz",
+      "bytes": 734,
+      "sha256": "d1d42bae9f4ba99e069535c4667025814009026d78139f152b46b47435310491",
+      "encoding": "gzip",
+      "sourceBytes": 2071,
+      "sourceSha256": "7cd217a2b13dc05b1d7baca352106e2a1f6237388d807e3779e321c1bb29ba86"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/route-scope.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/route-scope.log.gz",
+      "bytes": 574,
+      "sha256": "39d86fa4a519804352e3ace0ec8ee0f22097ea3758e64a01230e0e9e86c4dc85",
+      "encoding": "gzip",
+      "sourceBytes": 1212,
+      "sourceSha256": "61c9541c37aa049e1b55b36bf783f754dc7f6b4e93c5993e650fecd4d17557e9"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/surfaces.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/surfaces.log.gz",
+      "bytes": 641,
+      "sha256": "077adc2d1606d97ace0fcff9ace16ef2bf74726697b5e060089e64c28ebbe86b",
+      "encoding": "gzip",
+      "sourceBytes": 1827,
+      "sourceSha256": "fc697f6234b7881333ca685a84792b90f30f0c86bb4b92fb1082d52b3ff882ec"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/guard.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/guard.log.gz",
+      "bytes": 288,
+      "sha256": "92da8671c4fd0cd7d09e6c27258872150c5abd77091b317bbaa892dab874ce26",
+      "encoding": "gzip",
+      "sourceBytes": 441,
+      "sourceSha256": "66a1c82f4ad8875c00f3fc7af755b4de1ef33e26df8b5e8bdf60e25a556d9de2"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/native.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/native.log.gz",
+      "bytes": 493,
+      "sha256": "b03c78d49ff3dd74d393d1e797d066a8afd01d59fef4c0a1e72a678177b4662d",
+      "encoding": "gzip",
+      "sourceBytes": 973,
+      "sourceSha256": "f1a64b1072388fee1755efd4b3fca968cfbe276190580fe140e5c4e549e70453"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/layout.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/layout.log.gz",
+      "bytes": 72,
+      "sha256": "f1ac4dbab8a2cb32628c208e79a7904d520abf74eea99b1c58ad19af6483552d",
+      "encoding": "gzip",
+      "sourceBytes": 67,
+      "sourceSha256": "840bea6a11a8810c192ba660792f1400b044fe88532f3cd9966db88a7524519b"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/source-review.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/source-review.log.gz",
+      "bytes": 88,
+      "sha256": "ef01d9cf60ab07a2542a14b60e9dff33c2c37e6c79ea68377eb8c1516803d46d",
+      "encoding": "gzip",
+      "sourceBytes": 75,
+      "sourceSha256": "d09ebe1c8f7883a217c06e753560bc71707cb6304b17656ba7e75b09dfd6b33e"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/built-review.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/built-review.log.gz",
+      "bytes": 88,
+      "sha256": "f36511e18ef2ff5e76412f73f100b3f30b09769241b65844f235f99cec8119e7",
+      "encoding": "gzip",
+      "sourceBytes": 74,
+      "sourceSha256": "08d1d52bfc7fb5f635b53c4facce2b41aedeae9fb3f874b7ee3172f3193e236f"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/installed-review.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/installed-review.log.gz",
+      "bytes": 90,
+      "sha256": "20805620b3978795d741c135e21e3a019afd40217cc747b9d7141abc8fd60075",
+      "encoding": "gzip",
+      "sourceBytes": 78,
+      "sourceSha256": "159eacc147d4587269ef5df477cbc96cce4a215d28f49f498af92d05434a6ec9"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/legacy-source.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-source.log.gz",
+      "bytes": 402,
+      "sha256": "ce4b3bfe190019a1e95c9264c3c7354f96eafd2b1dde944eb3e5af665fee93c4",
+      "encoding": "gzip",
+      "sourceBytes": 797,
+      "sourceSha256": "0c49c461d70164ac0bade6909dc262599671ebfc12b4f70dbec9d214793e1894"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/legacy-built.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-built.log.gz",
+      "bytes": 403,
+      "sha256": "0e0ef421d54a174f392e3b21e9d9d43de5b015d5de25c71a40c52a5ebf76a974",
+      "encoding": "gzip",
+      "sourceBytes": 796,
+      "sourceSha256": "c1d916742d2fecaec3a8c332f41f2d41e0a8f4568c7ee0e4ba17cde6b9cc2973"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/legacy-installed.log",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/legacy-installed.log.gz",
+      "bytes": 404,
+      "sha256": "6698de807a82abb6c5a7d3cc32ab8389a34ccd5bdc3b06e4fce5f0d12ceab6b5",
+      "encoding": "gzip",
+      "sourceBytes": 800,
+      "sourceSha256": "ba1fbb72cca1c5080a05f1e63d6bdea13c63b093775a3d8086a92147b4fb2111"
+    },
+    {
+      "source": "artifacts/tile-stack-layout/layout.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/narrow-layout.json",
+      "bytes": 82,
+      "sha256": "d367d12ab46a5b0b77cb668767029cd0becd547598043a18e40e16f3dc3f9dd9"
+    },
+    {
+      "source": "artifacts/tile-stack-layout/cleanup-receipt.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/narrow-layout-cleanup.json",
+      "bytes": 591,
+      "sha256": "0b6726ef6ad5a72136ffb7b15c77396e30c9fdd09cc6b921e4d80d32fae4201b"
+    },
+    {
+      "source": "artifacts/tile-stack-layout/helper-process.json",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/narrow-layout-helper.json",
+      "bytes": 1539,
+      "sha256": "c89345e95f0258e8c8da4a543cf26389adba4d4d523a200a860625a56af16af7"
+    },
+    {
+      "source": "artifacts/tile-stack-editor-b2/layout.mjs",
+      "file": "docs/reviews/tile-stack/editor/b2/evidence/narrow-layout-restart.mjs.gz",
+      "bytes": 713,
+      "sha256": "0d72f9d7ecb9cf95f9650d2092a6e614120ad0f6f579bfddee1c3735a4e170b4",
+      "encoding": "gzip",
+      "sourceBytes": 1294,
+      "sourceSha256": "c253bb996da4283b6cf766d98fa07340bd7c9f249a53b3fec71876c58652cfad"
+    }
+  ],
+  "collector": {
+    "file": "tools/collect-tile-stack-editor-review.mjs",
+    "sha256": "0fb7fa0c228248d922965354c116dc26dd1c29dd850059cd65a0c0f9697618fa"
+  }
+}

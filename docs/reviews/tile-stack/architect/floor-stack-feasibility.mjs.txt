@@ -1,0 +1,44 @@
+// Read-only feasibility probe, not an implementation of the proposed adapter.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import * as T from '../../packages/tiles-core/index.js';
+import {surfaceRecipe,tileArtBundle} from '../../packages/tile-visuals/example.js';
+const head=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim();
+assert.equal(head,'47c7fe160473ae72e1d6af50f65433088d9c6a87');
+const recipe=surfaceRecipe('stack-deck',8,4),catalogue=T.createTileCatalogue([recipe]);
+const floors=Array.from({length:15},(_,i)=>({id:'F'+String(i).padStart(2,'0'),elevationM:Number((2.12*i).toFixed(2))}));
+const blank=tileArtBundle(T,[recipe],[]);blank.layout.floors=structuredClone(floors);
+const source=T.tileBundle(blank.layout,catalogue),sourceJSON=JSON.stringify(source);
+assert.equal(T.openTileBundle(source,{requireResolved:true}).ok,true);
+const token=createHash('sha256').update('native-floor-stack-fixture-v1').digest('hex');
+const slots=floors.map((floor,i)=>({id:'deck-'+String(i).padStart(2,'0'),origin:[0,0,floor.elevationM],floorBindings:{base:floor.id},alternatives:[{recipeId:recipe.id,transform:{quarterTurns:0,mirrorX:false}}],locked:i<14,anchorIds:recipe.anchors.map(a=>a.id)}));
+const relations=[];
+for(let i=0;i<15;i++)for(let j=i+1;j<15;j++){
+  // Independent integer-envelope calculation under the declared q1e6 policy.
+  const gap=Math.round(floors[j].elevationM*1e6)-Math.round((floors[i].elevationM+.12)*1e6);
+  assert.ok(gap>=2_000_000);
+  relations.push({id:'stack-cross-'+String(i).padStart(2,'0')+'-'+String(j).padStart(2,'0'),kind:'cross',a:slots[i].id,b:slots[j].id,clearanceM:2});
+}
+assert.equal(relations.length,105);
+const request={version:1,id:'stack-proof-00',expected:{revision:0,layoutDigest:T.tileLayoutToken(source.layout),catalogueDigest:catalogue.digest,contextToken:token},selection:{seed:17,policyVersion:1},replaceIds:[],removeIds:[],slots,joins:[],relations,recipeUpdates:[],maxSteps:16,maxClosure:15,maxSpatialTests:100000,maxGeometryWork:100000,neighbourRadiusM:0};
+const run=r=>T.prepareTileRepair(source,r,{contextToken:token}),result=run(request);
+assert.equal(result.ok,true,JSON.stringify(result.diagnostics));assert.equal(result.next.bundle.layout.instances.length,15);
+assert.deepEqual(result.next.bundle.layout.floors,floors);assert.equal(result.next.bundle.layout.relations.length,105);
+assert.deepEqual(result.next.bundle.recipes,[recipe]);assert.equal(result.next.bundle.layout.instances.filter(i=>i.locked).length,14);
+const reopened=T.openTileBundle(JSON.parse(JSON.stringify(result.next.bundle)),{requireResolved:true});
+assert.deepEqual(reopened.bundle,result.next.bundle);assert.deepEqual(run(request),result);
+const refusals=[];
+function refuse(label,change,expectedCode){const r=structuredClone(request);change(r);const actual=run(r);assert.equal(actual.ok,false,label);assert.equal(actual.next,null,label);assert.equal(actual.changes,null,label);assert.ok(actual.diagnostics.some(d=>d.code===expectedCode),label+JSON.stringify(actual.diagnostics));assert.equal(JSON.stringify(source),sourceJSON);refusals.push({label,codes:actual.diagnostics.map(d=>d.code),next:null,changes:null});}
+refuse('one missing pairwise crossing',r=>r.relations.pop(),'INCOMPLETE_REPAIR');
+refuse('incorrect explicit floor binding',r=>r.slots.at(-1).floorBindings.base='F13','FLOOR_HEIGHT_MISMATCH');
+refuse('zero requested crossing clearance',r=>r.relations[0].clearanceM=0,'INVALID_CLEARANCE');
+refuse('insufficient actual clearance',r=>r.relations[0].clearanceM=2.01,'INVALID_CROSSING');
+refuse('projected edge contact is not a supported crossing',r=>{r.slots.at(-1).origin[0]=8;r.relations=r.relations.filter(x=>x.a!=='deck-14'&&x.b!=='deck-14');},'INCOMPLETE_REPAIR');
+refuse('finite search cap-minus-one',r=>r.maxSteps=15,'SEARCH_LIMIT');
+refuse('stale context',r=>r.expected.contextToken='0'.repeat(64),'STALE_CONTEXT');
+assert.equal(JSON.stringify(source),sourceJSON);
+const report={status:'pass',head,publicV1:true,privateC2aUsed:false,floors,owners:15,lockedLowerOwners:14,pairwiseCrossings:105,minimumDeclaredClearanceM:2,thicknessM:.12,work:result.work,deterministicRepeat:true,sourceUnchanged:true,saveReloadEquivalent:true,refusals,scope:'Headless public-v1 feasibility only. No authoring adapter, current Editor floor-range expansion, installed/browser/physical/support/navigation/gameplay or device-performance proof.',helpers:'Single foreground Node process; no server/browser/watcher/listener or retained helper.'};
+fs.writeFileSync(new URL('floor-stack-feasibility.json',import.meta.url),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({status:report.status,owners:15,crossings:105,refusals:refusals.length,work:report.work,saveReloadEquivalent:true}));

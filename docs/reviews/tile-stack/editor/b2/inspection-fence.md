@@ -1,0 +1,7 @@
+# Inspection activation correction
+
+Follow-on to early checkpoint `a2b0a5eee0f2c17980633b893ef393fb284654be` for the concrete Root review finding. The v2-only shared-session action now captures its original generation, context and complete authority token before validation/retirement. It requires exactly the one intended retirement increment before activating native visibility. Validation, retirement, setter and publication callbacks cannot establish a new lease after cancelling, changing floors or disposing the session. Checks after the setter and after notification prevent a retired action from reporting success. Closed phases are preserved. The default v1 path is unchanged.
+
+`node --test tests/editor-tile-stack-inspection-fence.test.mjs tests/smart-tile-input.test.mjs` passes 20/20. Ten focused inspection regressions use the production codec, production v2 profile, shared session and actual retained public core. They exercise disposal, floor-context changes and explicit cancellation from retirement, setter and notification callbacks, plus descriptor-safe owned input and normal activation. The empty resource view/callback port is an explicitly labelled control-flow fixture, not a native-inspection readiness claim. The other ten tests preserve the existing input/quarantine/allocation cases.
+
+This is another fixed local review checkpoint. Native host and complete browser/package/gate work remain uncommitted and continue separately. No source fence is changed or failing worker branch pushed.

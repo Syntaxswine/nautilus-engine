@@ -10,7 +10,7 @@ export const bytes=text=>new TextEncoder().encode(text).length;
 const ptr=k=>k.replaceAll('~','~0').replaceAll('/','~1');
 const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
 export const smartTileDigest=value=>sha256(canonical(smartTileData(value)));
-const validated=new WeakMap(),sourceChecks=new WeakMap();
+const sourceChecks=new WeakMap();
 export function smartTileData(input){
   if(typeof input==='string'){if(bytes(input)>L.checkpointBytes)fail('CHECKPOINT_LIMIT','/','Checkpoint exceeds 16 MB.');try{input=JSON.parse(input);}catch{fail('INVALID_CHECKPOINT_JSON','/','Supply complete JSON.');}}
   const active=new Set();let nodes=0,text=0;
@@ -51,10 +51,10 @@ function document(input,deps){
   const expected=floors.map(({id,elevationM})=>({id,elevationM}));if(canonical(expected)!==canonical(opened.bundle.layout.floors))fail('FLOOR_BINDING_MISMATCH','/document/tileBundle/layout/floors','Tile floors must exactly retain the supplied floor table, without inferred elevations.');
   return input;
 }
-function operation(input,doc,deps,before=null){
+function validateV1Operation(input,doc,deps,before,target){
   fields(input,['kind','version','id','documentId','action','expected','request','targetBundle'],'/operation');if(input.kind!==C.operation||input.version!==1)fail('UNSUPPORTED_OPERATION','/operation','Use the editor operation v1.');id(input.id,'/operation/id');if(input.documentId!==doc.id||!['edit','undo','redo'].includes(input.action))fail('INVALID_OPERATION','/operation','Operations retain one document and an explicit history action.');
   fields(input.expected,['token','contextToken'],'/operation/expected');digest(input.expected.token,'/operation/expected/token');digest(input.expected.contextToken,'/operation/expected/contextToken');if(!plain(input.request)||input.request.id!==input.id)fail('RECOVERY_ID_MISMATCH','/operation/request','Keep the exact original request identity.');
-  const target={...doc,tileBundle:input.targetBundle};document(target,deps);deps.tiles.openTileBundle(input.targetBundle,{requireResolved:true});
+  document(target,deps);deps.tiles.openTileBundle(input.targetBundle,{requireResolved:true});
   if(input.targetBundle.layout.id!==doc.tileBundle.layout.id)fail('OPERATION_LAYOUT_MISMATCH','/operation/targetBundle/layout/id','An operation retains the accepted layout identity.');
   if(input.action==='edit'){
     if(input.request.version!==1)fail('INVALID_EDIT_REQUEST','/operation/request/version','Retain the actual v1 repair request.');
@@ -67,10 +67,30 @@ function operation(input,doc,deps,before=null){
   }
   return input;
 }
-export function openSmartTileCheckpoint(dependencies,input){
+const v1Policy=Object.freeze({
+  formats:Object.freeze({checkpoint:C.checkpoint,checkpointVersion:1,journal:C.journal,journalVersion:1,operation:C.operation,operationVersion:1}),
+  validateDocument:(input,deps)=>document(input,deps),
+  targetDocument:(before,op)=>({...before,tileBundle:op.targetBundle}),
+  validateOperation:validateV1Operation
+});
+
+// One algorithm for both formats. Policies supply closed domain grammars and
+// complete-target interpretation; they own no storage, history or recovery.
+export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy){
+  const bound=services(dependencies),validated=new WeakMap();
+  const hooks={};for(const name of ['validateDocument','targetDocument','validateOperation']){const d=Object.getOwnPropertyDescriptor(policy,name);if(!d||!Object.hasOwn(d,'value')||typeof d.value!=='function')fail('CHECKPOINT_POLICY','/policy/'+name,'Bind an own explicit synchronous checkpoint policy function.');hooks[name]=d.value;}
+  const f=Object.getOwnPropertyDescriptor(policy,'formats');if(!f||!Object.hasOwn(f,'value'))fail('CHECKPOINT_POLICY','/policy/formats','Bind own plain format data.');const formats=smartTileData(f.value);fields(formats,['checkpoint','checkpointVersion','journal','journalVersion','operation','operationVersion'],'/policy/formats');
+  for(const key of ['checkpoint','journal','operation']){id(formats[key],'/policy/formats/'+key);if(!Number.isSafeInteger(formats[key+'Version'])||formats[key+'Version']<1)fail('CHECKPOINT_POLICY','/policy/formats/'+key+'Version','Bind an explicit positive format version.');}Object.freeze(formats);
+  const document=input=>hooks.validateDocument(input,bound);
+  function targetDocument(before,op){const next=hooks.targetDocument(before,op);return document(next);}
+  function operation(input,doc,deps,before=null){
+    if(input?.kind!==formats.operation||input.version!==formats.operationVersion)fail('UNSUPPORTED_OPERATION','/operation','Use the explicitly bound operation format.');
+    const target=targetDocument(doc,input);return hooks.validateOperation(input,doc,deps,before,target);
+  }
+function openSmartTileCheckpoint(dependencies,input){
   const deps=services(dependencies),known=validated.get(input);if(known&&known.mapCore===deps.mapCore&&known.tiles===deps.tiles)return input;
-  const c=smartTileData(input);fields(c,['kind','version','document','journal'],'');if(c.kind!==C.checkpoint||c.version!==1)fail('UNSUPPORTED_CHECKPOINT','/version','Use the Nautilus editor-local checkpoint v1.');document(c.document,deps);
-  fields(c.journal,['kind','version','serial','receipts','pending'],'/journal');if(c.journal.kind!==C.journal||c.journal.version!==1)fail('UNSUPPORTED_JOURNAL','/journal','Use editor transaction journal v1.');integer(c.journal.serial,'/journal/serial');if(!Array.isArray(c.journal.receipts)||c.journal.receipts.length>L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Retain at most 128 durable receipts; no silent eviction.');
+  const c=smartTileData(input);fields(c,['kind','version','document','journal'],'');if(c.kind!==formats.checkpoint||c.version!==formats.checkpointVersion)fail('UNSUPPORTED_CHECKPOINT','/version','Use the explicitly bound Editor-local checkpoint format.');c.document=document(c.document,deps);
+  fields(c.journal,['kind','version','serial','receipts','pending'],'/journal');if(c.journal.kind!==formats.journal||c.journal.version!==formats.journalVersion)fail('UNSUPPORTED_JOURNAL','/journal','Use the explicitly bound transaction journal format.');integer(c.journal.serial,'/journal/serial');if(!Array.isArray(c.journal.receipts)||c.journal.receipts.length>L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Retain at most 128 durable receipts; no silent eviction.');
   const ids=new Set(),receipts=c.journal.receipts;
   // Before the first committed target, the original initial bundle is not
   // duplicated in this format. Refused prefixes retain one document digest.
@@ -81,7 +101,7 @@ export function openSmartTileCheckpoint(dependencies,input){
     if(ids.has(r.id)||!['committed','not-committed'].includes(r.outcome))fail('INVALID_RECEIPT',p,'Retain unique receipt identities and explicit outcomes.');ids.add(r.id);operation(r.operation,c.document,deps,accepted);
     if(r.id!==r.operation.id||r.operationDigest!==smartTileDigest(r.operation)||r.beforeToken!==r.operation.expected.token)fail('RECEIPT_MISMATCH',p,'Retain the complete original operation and its exact identity.');
     if(accepted){const before={...c,document:accepted,journal:{...c.journal,serial:i,receipts:receipts.slice(0,i),pending:null}};if(r.beforeToken!==smartTileCheckpointToken(before))fail('RECEIPT_BEFORE_MISMATCH',p+'/beforeToken','The receipt must bind its exact preceding accepted document and journal.');}
-    if(r.outcome==='committed')accepted={...c.document,tileBundle:r.operation.targetBundle};
+    if(r.outcome==='committed')accepted=targetDocument(accepted??c.document,r.operation);
     if(accepted&&r.afterDocumentDigest!==smartTileDigest(accepted)||r.outcome==='not-committed'&&afterDigest!==null&&r.afterDocumentDigest!==afterDigest)fail('RECEIPT_OUTCOME_MISMATCH',p,'The receipt outcome and document digest must describe the retained accepted state.');
     afterDigest=r.afterDocumentDigest;
   }
@@ -90,23 +110,43 @@ export function openSmartTileCheckpoint(dependencies,input){
   if(c.journal.pending!==null){operation(c.journal.pending,c.document,deps,c.document);if(ids.has(c.journal.pending.id))fail('RECOVERY_ID_REUSED','/journal/pending','A settled request cannot also be pending.');if(c.journal.pending.expected.token!==smartTileCheckpointToken(c))fail('STALE_CHECKPOINT','/journal/pending','Pending recovery must bind the complete accepted source.');}
   freeze(c);validated.set(c,deps);return c;
 }
-export function createSmartTileCheckpoint(deps,input){return openSmartTileCheckpoint(deps,{kind:C.checkpoint,version:1,document:input,journal:{kind:C.journal,version:1,serial:0,receipts:[],pending:null}});}
-export function serializeSmartTileCheckpoint(deps,input){return JSON.stringify(openSmartTileCheckpoint(deps,input));}
-export function smartTileCheckpointToken(c){return smartTileDigest({...c,journal:{...c.journal,pending:null}});}
-export function stageSmartTileOperation(deps,input,rawOperation){
+function createSmartTileCheckpoint(deps,input){return openSmartTileCheckpoint(deps,{kind:formats.checkpoint,version:formats.checkpointVersion,document:input,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}});}
+function serializeSmartTileCheckpoint(deps,input){return JSON.stringify(openSmartTileCheckpoint(deps,input));}
+function stageSmartTileOperation(deps,input,rawOperation){
   const c=openSmartTileCheckpoint(deps,input),op=smartTileData(rawOperation);if(c.journal.pending)fail('RECOVERY_REQUIRED','/journal/pending','Recover the original request before another operation.');if(c.journal.receipts.length>=L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Journal capacity is full; preserve source and receipts.');
   if(c.journal.receipts.some(r=>r.id===op.id))fail('REQUEST_ID_REUSED','/operation/id','Use each request identity once.');operation(op,c.document,services(deps),c.document);if(op.expected.token!==smartTileCheckpointToken(c))fail('STALE_CHECKPOINT','/operation/expected/token','The complete retained checkpoint changed.');
   return openSmartTileCheckpoint(deps,{...structuredClone(c),journal:{...structuredClone(c.journal),pending:op}});
 }
-export function settleSmartTileOperation(deps,input,requestId,outcome){
+function settleSmartTileOperation(deps,input,requestId,outcome){
   const c=openSmartTileCheckpoint(deps,input),op=c.journal.pending;if(!op||op.id!==requestId)fail('RECOVERY_ID_MISMATCH','/journal/pending','Settle only the exact original request.');if(!['committed','not-committed'].includes(outcome))fail('INVALID_OUTCOME','/outcome','Use an authoritative settled outcome.');
   if(smartTileCheckpointToken(c)!==op.expected.token)fail('STALE_CHECKPOINT','/journal/pending','Pending recovery does not bind the complete accepted source.');
-  const nextDocument={...structuredClone(c.document),tileBundle:outcome==='committed'?structuredClone(op.targetBundle):structuredClone(c.document.tileBundle)},receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:structuredClone(op)};
+  const nextDocument=structuredClone(outcome==='committed'?targetDocument(c.document,op):c.document),receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:structuredClone(op)};
   return openSmartTileCheckpoint(deps,{...structuredClone(c),document:nextDocument,journal:{...structuredClone(c.journal),serial:c.journal.serial+1,receipts:[...structuredClone(c.journal.receipts),receipt],pending:null}});
 }
-export function inspectSmartTileRecovery(deps,pendingInput,authoritativeInput,requestId){
+function inspectSmartTileRecovery(deps,pendingInput,authoritativeInput,requestId){
   const pending=openSmartTileCheckpoint(deps,pendingInput),actual=openSmartTileCheckpoint(deps,authoritativeInput),op=pending.journal.pending;if(!op||op.id!==requestId)fail('RECOVERY_ID_MISMATCH','/requestId','Recover with the original request ID, never a new edit.');
   const receipt=actual.journal.receipts.find(r=>r.id===requestId);if(receipt){const expected=settleSmartTileOperation(deps,pending,requestId,receipt.outcome);if(receipt.operationDigest===smartTileDigest(op)&&smartTileDigest(expected)===smartTileDigest(actual))return {state:'settled',outcome:receipt.outcome,requestId,checkpoint:actual};}
   if(actual.journal.pending?.id===requestId&&smartTileDigest(actual)===smartTileDigest(pending)||actual.journal.pending===null&&smartTileCheckpointToken(actual)===op.expected.token)return {state:'not-written',requestId,checkpoint:actual};
   return {state:'unresolved',code:'RECOVERY_DIVERGED',requestId,checkpoint:null};
 }
+  return Object.freeze({formats,
+    open:input=>openSmartTileCheckpoint(bound,input),
+    create:input=>createSmartTileCheckpoint(bound,input),
+    serialize:input=>serializeSmartTileCheckpoint(bound,input),
+    token:smartTileCheckpointToken,
+    stage:(input,op)=>stageSmartTileOperation(bound,input,op),
+    settle:(input,requestId,outcome)=>settleSmartTileOperation(bound,input,requestId,outcome),
+    inspectRecovery:(pending,actual,requestId)=>inspectSmartTileRecovery(bound,pending,actual,requestId),
+    targetDocument
+  });
+}
+const legacyCodecs=new WeakMap();
+function legacyCodec(deps){const bound=services(deps);let known=legacyCodecs.get(deps);if(!known||known.mapCore!==bound.mapCore||known.tiles!==bound.tiles){known={...bound,codec:createSmartTileCheckpointCodec(deps)};legacyCodecs.set(deps,known);}return known.codec;}
+// Existing public-to-the-host v1 facade and serialized grammar are retained.
+export const openSmartTileCheckpoint=(deps,input)=>legacyCodec(deps).open(input);
+export const createSmartTileCheckpoint=(deps,input)=>legacyCodec(deps).create(input);
+export const serializeSmartTileCheckpoint=(deps,input)=>legacyCodec(deps).serialize(input);
+export const stageSmartTileOperation=(deps,input,operation)=>legacyCodec(deps).stage(input,operation);
+export const settleSmartTileOperation=(deps,input,id,outcome)=>legacyCodec(deps).settle(input,id,outcome);
+export const inspectSmartTileRecovery=(deps,pending,actual,id)=>legacyCodec(deps).inspectRecovery(pending,actual,id);
+export function smartTileCheckpointToken(c){return smartTileDigest({...c,journal:{...c.journal,pending:null}});}

@@ -1,5 +1,5 @@
 import {SMART_TILE_INTERFACE as C,SMART_TILE_LIMITS as L,smartTileActions,assertSmartTileAdapter} from './contract.js';
-import {openSmartTileCheckpoint,serializeSmartTileCheckpoint,smartTileData,smartTileDigest,smartTileCheckpointToken,stageSmartTileOperation,id,fail} from './checkpoint.js';
+import {createSmartTileCheckpointCodec,smartTileData,smartTileDigest,id,fail} from './checkpoint.js';
 import {createWindowAuthoringJournal} from '../../../packages/windows-authoring/journal.js';
 import {validateSmartTileDraft,planSmartTileIntent,planSmartTileLock} from './intents.js';
 import {createSmartTileViews} from './views.js';
@@ -7,7 +7,12 @@ import {createSmartTileViews} from './views.js';
 const clone=structuredClone,documentText=c=>JSON.stringify(c.document);
 const errorCode=e=>{const d=e&&typeof e==='object'&&Object.getOwnPropertyDescriptor(e,'code');return d&&Object.hasOwn(d,'value')&&typeof d.value==='string'&&/^[A-Z0-9_]{1,80}$/.test(d.value)?d.value:'SMART_TILE_REFUSED';};
 
-export async function createSmartTileSession(deps,{authority,floorController,presentation,newId=()=>crypto.randomUUID(),providerToken='public-canonical-tile-art-v1',retireInput=()=>{}}){
+export async function createSmartTileSession(deps,{authority,floorController,presentation,newId=()=>crypto.randomUUID(),providerToken='public-canonical-tile-art-v1',retireInput=()=>{},codec=authority.codec??createSmartTileCheckpointCodec(deps),profile=null}){
+  const I=profile?.interface??C;
+  if(authority.codec&&authority.codec!==codec)fail('SESSION_CODEC_MISMATCH','/host/codec','The authority and session must borrow the same bound codec.');
+  if(I.version!==codec.formats.checkpointVersion||I.checkpoint!==codec.formats.checkpoint)fail('SESSION_CODEC_PROFILE','/host/profile','Bind the explicit matching session profile; do not reinterpret v2 source as v1.');
+  if(profile&&!Object.isFrozen(profile))fail('SESSION_PROFILE','/host/profile','Capture an immutable private session profile.');
+  const openSmartTileCheckpoint=(_,v)=>codec.open(v),serializeSmartTileCheckpoint=(_,v)=>codec.serialize(v),smartTileCheckpointToken=codec.token,stageSmartTileOperation=(_,v,op)=>codec.stage(v,op);
   if(typeof retireInput!=='function'||typeof newId!=='function'||typeof providerToken!=='string'||!providerToken.length||providerToken.length>512)fail('SESSION_BINDING','/host','Supply explicit synchronous input retirement, stable IDs and an immutable provider/pool context.');
   let checkpoint=openSmartTileCheckpoint(deps,authority.read());
   deps.tiles.openTileBundle(checkpoint.document.tileBundle,{requireResolved:true});
@@ -17,9 +22,10 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
   if(floorController.state.mode!=='manual')floorController.select(floorController.state.selectedId);
   let phase='preparing',tool='rectangle',selectedOwnerId=null,draft=null,reviewed=null,transaction=null,recovery=null,generation=0,disposed=false,notifying=false,invoking=false,visualRevision=null;
   const listeners=new Set(),diagnostics=[];
-  const history=createWindowAuthoringJournal({initialText:documentText(checkpoint),contextKey:'smart-tile-session-v1',maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes});
+  const history=createWindowAuthoringJournal({initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes});
   let floorState=floorController.state,floorEpoch=0;
-  const context=()=>smartTileDigest({floorId:floorState.selectedId,mode:floorState.mode,floorEpoch,providerToken});
+  const hostContext=()=>({floorId:floorState.selectedId,mode:floorState.mode,floorEpoch,providerToken,cancelled:disposed});
+  const context=()=>profile?profile.context(checkpoint.document,hostContext()):smartTileDigest({floorId:floorState.selectedId,mode:floorState.mode,floorEpoch,providerToken});
   const diagnostic=(code,message='The operation was refused; the accepted source and history remain available.')=>{diagnostics.push({code,path:'/editor',message,action:'Correct the draft, retry presentation, or recover the retained request as indicated.'});if(diagnostics.length>32)diagnostics.shift();};
   function kernelDiagnostics(input){
     const copied=smartTileData(input);if(!Array.isArray(copied))return false;
@@ -29,7 +35,8 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
   const floor=()=>({...supplied.find(f=>f.id===floorState.selectedId),mode:floorState.mode});
   function snapshot(){
     const h=history.snapshot,b=checkpoint.document.tileBundle,ready=phase==='recovery-required'?'unconfirmed':phase==='presentation-error'?'failed':phase==='review'?'candidate':visualRevision===h.revision?'accepted':'pending';
-    return clone({version:C.version,phase,tool,selectedOwnerId,draft,reviewId:reviewed?.id??null,requestId:reviewed?.requestId??transaction?.operation.id??null,recoveryId:recovery?.operation.id??null,revision:h.revision,checkpointSerial:checkpoint.journal.serial,history:h.history,floor:floor(),owners:b.layout.instances.map(v=>{const r=b.recipes.find(r=>r.id===v.recipeId);return {id:v.id,recipeId:v.recipeId,locked:v.locked,shapeKind:r.shape.kind,skinId:r.interior.skinId,floorId:v.floorBindings.base};}),readiness:{authoring:{state:phase==='recovery-required'?'recovery-required':'saveable'},shape:{state:'resolved'},visual:{state:ready,revision:visualRevision},query:{state:'unbound'},support:{state:'unbound'},navigation:{state:'unbound'},fire:{state:'unbound'},water:{state:'unbound'},game:{state:'unbound'}},actions:smartTileActions({phase,manual:floorState.mode==='manual',selected:!!selectedOwnerId,hasDraft:!!draft,undo:h.history.undo,redo:h.history.redo}),diagnostics,resources:views.snapshot()});
+    const base={version:I.version,phase,tool,selectedOwnerId,draft,reviewId:reviewed?.id??null,requestId:reviewed?.requestId??transaction?.operation.id??null,recoveryId:recovery?.operation.id??null,revision:h.revision,checkpointSerial:checkpoint.journal.serial,history:h.history,floor:floor(),owners:b.layout.instances.map(v=>{const r=b.recipes.find(r=>r.id===v.recipeId);return {id:v.id,recipeId:v.recipeId,locked:v.locked,shapeKind:r.shape.kind,skinId:r.interior.skinId,floorId:v.floorBindings.base};}),readiness:{authoring:{state:phase==='recovery-required'?'recovery-required':'saveable'},shape:{state:'resolved'},visual:{state:ready,revision:visualRevision},query:{state:'unbound'},support:{state:'unbound'},navigation:{state:'unbound'},fire:{state:'unbound'},water:{state:'unbound'},game:{state:'unbound'}},actions:(profile?.actions??smartTileActions)({phase,manual:floorState.mode==='manual',selected:!!selectedOwnerId,hasDraft:!!draft,undo:h.history.undo,redo:h.history.redo}),diagnostics,resources:views.snapshot()};
+    return clone(profile?profile.snapshot(base,checkpoint.document):base);
   }
   function notify(){
     if(disposed||notifying)return;notifying=true;
@@ -51,8 +58,8 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     compareAndSwap(packet){
       const t=transaction;if(!t||t.action!=='edit')return false;
       const b=checkpoint.document.tileBundle,expected={revision:b.layout.revision,layoutDigest:deps.tiles.tileLayoutToken(b.layout),catalogueDigest:b.layout.catalogueDigest,contextToken:t.context,hostToken:t.operation.expected.token};
-      if(packet.requestId!==t.operation.id||smartTileDigest(packet.expected)!==smartTileDigest(expected)||smartTileDigest(packet.nextBundle)!==smartTileDigest(t.operation.targetBundle))return false;
-      const result=authority.commit(t.pending,()=>packet.canCommit()&&current(t.generation,t.context)&&phase==='applying');
+      if(packet.requestId!==t.operation.id||smartTileDigest(packet.expected)!==smartTileDigest(expected)||smartTileDigest(packet.nextBundle)!==smartTileDigest(codec.targetDocument(checkpoint.document,t.operation).tileBundle))return false;
+      const result=authority.commit(t.pending,()=>packet.canCommit()&&current(t.generation,t.context)&&phase==='applying'&&(!profile||profile.validateCommit({document:checkpoint.document,hostContext:hostContext(),transaction:t,packet})));
       if(result.ack)t.accepted=result.checkpoint;return result.ack;
     }
   });
@@ -71,7 +78,7 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
   function refuse(t,next){checkpoint=next;history.reject(t.ticket);transaction=null;recovery=null;reviewed=null;views.cancel();setPhase(draft?'draft':'idle');}
   function freezeRecovery(t){transaction=null;recovery=t;reviewed=null;views.cancel();setPhase('recovery-required');diagnostic('COMMIT_OUTCOME_UNKNOWN','Acceptance is unknown. Edits, Undo/Redo and overwriting saves are frozen until same-request recovery.');}
   async function commitPrepared(r,action){
-    const operation={kind:C.operation,version:1,id:r.requestId,documentId:checkpoint.document.id,action,expected:{token:smartTileCheckpointToken(checkpoint),contextToken:r.context},request:r.request,targetBundle:r.bundle};
+    const operation=r.operation??{kind:C.operation,version:1,id:r.requestId,documentId:checkpoint.document.id,action,expected:{token:smartTileCheckpointToken(checkpoint),contextToken:r.context},request:r.request,targetBundle:r.bundle};
     const t={...r,action,operation,pending:stageSmartTileOperation(deps,checkpoint,operation),accepted:null};
     // Retire public review/input ownership before publication or storage hooks.
     reviewed=null;transaction=t;try{retireInput('operation-start');}catch{diagnostic('INPUT_RETIRE_FAILED');}setPhase('applying');notify();
@@ -98,23 +105,27 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
   async function prepare(action,lockId=null){
     const g=generation,c=context();let ticket=null;
     try{
-      actual();const requestId='request-'+newId();id(requestId,'/requestId');let request,prepared,bundle,ownerId=selectedOwnerId;
+      actual();const requestId='request-'+newId();id(requestId,'/requestId');let request,prepared,bundle,operation,plan,ownerId=selectedOwnerId;
       if(action==='edit'){
-        const plan=lockId?{request:planSmartTileLock(deps.tiles,checkpoint,lockId,{requestId,contextToken:c}),ownerId:lockId}:planSmartTileIntent(deps,checkpoint,draft,{requestId,newOwnerId:'owner-'+newId(),floorId:floorState.selectedId,contextToken:c});
+        plan=profile?profile.plan({checkpoint,draft,requestId,newOwnerId:'owner-'+newId(),floorId:floorState.selectedId,contextToken:c,hostContext:hostContext(),lockId}):lockId?{request:planSmartTileLock(deps.tiles,checkpoint,lockId,{requestId,contextToken:c}),ownerId:lockId}:planSmartTileIntent(deps,checkpoint,draft,{requestId,newOwnerId:'owner-'+newId(),floorId:floorState.selectedId,contextToken:c});
         request=plan.request;ownerId=plan.ownerId;prepared=consumer.prepare(request);if(!prepared.ok){const code=prepared.diagnostics?.[0]?.code||'TILE_REPAIR_REFUSED';if(!kernelDiagnostics(prepared.diagnostics||[]))diagnostic(code);setPhase(draft?'draft':'idle');notify();return {ok:false,code,diagnostics:smartTileData(prepared.diagnostics||[])};}bundle=prepared.next.bundle;
-        ticket=history.beginEdit(JSON.stringify({...checkpoint.document,tileBundle:bundle}));
+        operation=profile?profile.editOperation({checkpoint,plan,prepared,requestId,contextToken:c,token:smartTileCheckpointToken(checkpoint),hostContext:hostContext()}):{kind:C.operation,version:1,id:requestId,documentId:checkpoint.document.id,action,expected:{token:smartTileCheckpointToken(checkpoint),contextToken:c},request,targetBundle:bundle};
+        ticket=history.beginEdit(JSON.stringify(codec.targetDocument(checkpoint.document,operation)));
       }else {
         ticket=action==='undo'?history.beginUndo():history.beginRedo();if(!ticket)fail('HISTORY_EMPTY','/history','No saved target is available.');const target=smartTileData(ticket.targetText);
-        if(target.id!==checkpoint.document.id||target.sourceJSON!==checkpoint.document.sourceJSON||smartTileDigest(target.floorBinding)!==smartTileDigest(checkpoint.document.floorBinding))fail('HISTORY_SOURCE_MISMATCH','/history','History cannot replace the retained source or floor authority.');
+        if(profile)profile.validateHistoryTarget(checkpoint.document,target);
+        else if(target.id!==checkpoint.document.id||target.sourceJSON!==checkpoint.document.sourceJSON||smartTileDigest(target.floorBinding)!==smartTileDigest(checkpoint.document.floorBinding))fail('HISTORY_SOURCE_MISMATCH','/history','History cannot replace the retained source or floor authority.');
         bundle=deps.tiles.openTileBundle(target.tileBundle,{requireResolved:true}).bundle;request={id:requestId,kind:'smart-tile-history-restore',action,targetDocumentDigest:smartTileDigest(target)};
+        if(profile)operation=profile.historyOperation({checkpoint,target,requestId,action,request,contextToken:c,token:smartTileCheckpointToken(checkpoint)});
       }
       // Check the complete prospective WAL before any allocation or write.
-      stageSmartTileOperation(deps,checkpoint,{kind:C.operation,version:1,id:requestId,documentId:checkpoint.document.id,action,expected:{token:smartTileCheckpointToken(checkpoint),contextToken:c},request,targetBundle:bundle});
+      operation??={kind:C.operation,version:1,id:requestId,documentId:checkpoint.document.id,action,expected:{token:smartTileCheckpointToken(checkpoint),contextToken:c},request,targetBundle:bundle};
+      stageSmartTileOperation(deps,checkpoint,operation);
       setPhase('preparing');notify();if(!current(g,c)){history.reject(ticket);return {ok:false,code:'STALE_PREPARATION'};}
       const view=await views.acquire(bundle,()=>current(g,c));
       if(!current(g,c)){history.reject(ticket);return {ok:false,code:'STALE_PREPARATION'};}
       if(!view.ok){history.reject(ticket);setPhase(draft?'draft':'idle');diagnostic(view.code);notify();return {ok:false,code:view.code};}
-      const r={id:'review-'+requestId,requestId,context:c,generation:g,request,prepared,bundle,ownerId,ticket,record:view.record};
+      const r={id:'review-'+requestId,requestId,context:c,generation:g,request,prepared,bundle,ownerId,ticket,record:view.record,operation,plan};
       if(action!=='edit')return commitPrepared(r,action);
       reviewed=r;setPhase('review');notify();return current(g,c)&&reviewed===r?{ok:true,reviewId:r.id,requestId}:{ok:false,code:'STALE_PREPARATION'};
     }catch(e){if(ticket)history.reject(ticket);if(current(g,c)){setPhase(draft?'draft':'idle');diagnostic(errorCode(e));notify();}return {ok:false,code:errorCode(e),diagnostics:clone(diagnostics)};}
@@ -129,12 +140,12 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     }
     setPhase('presentation-error');diagnostic(r.code||'PRESENTATION_REFUSED');notify();return {ok:false,code:r.code||'PRESENTATION_REFUSED'};
   }
-  const adapter=assertSmartTileAdapter({
+  const adapter=(profile?.assertAdapter??assertSmartTileAdapter)({
     getSnapshot:snapshot,
     subscribe(listener){if(disposed)fail('DISPOSED','/subscribe','This session is retired.');if(notifying)fail('EDITOR_OBSERVER_REENTRY','/subscribe','Subscribe outside an active notification.');if(listeners.size>=32)fail('OBSERVER_LIMIT','/subscribe','Use at most 32 retained view observers.');if(typeof listener!=='function')throw TypeError('Supply a listener.');listeners.add(listener);try{notifying=true;try{listener(snapshot());}finally{notifying=false;}}catch{diagnostic('OBSERVER_FAILED');}return()=>listeners.delete(listener);},
-    setTool(value){return invoke(()=>{allowed('setTool');if(!C.tools.includes(value))fail('UNSUPPORTED_SMART_TILE_TOOL','/tool','Use an available tool.');retire();tool=value;setPhase('idle');notify();return {ok:true};});},
+    setTool(value){return invoke(()=>{allowed('setTool');if(!I.tools.includes(value))fail('UNSUPPORTED_SMART_TILE_TOOL','/tool','Use an available tool.');retire();tool=value;setPhase('idle');notify();return {ok:true};});},
     selectOwner(value){return invoke(()=>{allowed('selectOwner');if(value!==null&&!checkpoint.document.tileBundle.layout.instances.some(v=>v.id===value))fail('UNKNOWN_OWNER','/ownerId','Select an accepted whole owner.');retire();selectedOwnerId=value;setPhase('idle');notify();return {ok:true};});},
-    setDraft(value){return invoke(()=>{allowed('setDraft');const next=validateSmartTileDraft(value);retire();draft=next;tool=next.tool;setPhase('draft');notify();return {ok:true};});},
+    setDraft(value){return invoke(()=>{allowed('setDraft');const next=(profile?.validateDraft??validateSmartTileDraft)(value);retire();draft=next;tool=next.tool;setPhase('draft');notify();return {ok:true};});},
     review(){return Promise.resolve(invoke(()=>{allowed('review');retire({keepDraft:true});return prepare('edit');}));},
     apply(reviewId){return Promise.resolve(invoke(()=>{allowed('apply');const r=reviewed;if(!r||r.id!==reviewId||!current(r.generation,r.context))fail('STALE_REVIEW','/reviewId','Apply the current acquired review once.');return commitPrepared(r,'edit');}));},
     cancel(reason='cancelled'){
@@ -156,6 +167,24 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     // Additive bounded hook. Unlocking is not a public v1 repair operation.
     lockOwner(ownerId){return Promise.resolve(invoke(()=>{allowed('setDraft');retire();return prepare('edit',ownerId);}));},
     dispose(){if(disposed)return;disposed=true;phase='disposed';generation++;reviewed=null;draft=null;listeners.clear();for(const release of [()=>retireInput('session-disposed'),unsubscribe,()=>consumer.dispose(),()=>{if(!transaction&&!recovery)history.cancel();},()=>views.dispose()])try{release();}catch{diagnostic('SESSION_CLEANUP_CALLBACK');}}
+  });
+  // Optional v2 presentation action uses this same retirement/context owner.
+  // Default v1 profiles expose no inspection method or capability.
+  if(typeof profile?.setInspection==='function')adapter.setInspection=value=>invoke(()=>{
+    allowed('setInspection');const g=generation,c=context(),source=smartTileCheckpointToken(checkpoint);
+    const stale=()=>({ok:false,code:disposed?'DISPOSED':'STALE_INSPECTION'});
+    const bound=(expectedGeneration,expectedContext)=>{
+      if(!current(expectedGeneration,expectedContext))return false;
+      const checked=actual();
+      return current(expectedGeneration,expectedContext)&&smartTileCheckpointToken(checked)===source&&snapshot().actions.setInspection&&current(expectedGeneration,expectedContext);
+    };
+    const next=profile.validateInspection(value);if(!bound(g,c))return stale();
+    // Retire advances exactly once. A callback's additional retirement, floor
+    // change or disposal must not become a freshly captured activation lease.
+    retire();if(!bound(g+1,c))return stale();
+    floorEpoch++;setPhase(visualRevision===history.snapshot.revision?'idle':'presentation-error');const activatedContext=context();
+    profile.setInspection(next);if(!bound(g+1,activatedContext))return stale();
+    notify();return bound(g+1,activatedContext)?{ok:true}:stale();
   });
   const unsubscribe=floorController.subscribe(next=>{
     const changed=next.selectedId!==floorState.selectedId||next.mode!==floorState.mode;

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "id": "nautilus-rectangle-stack-intent-v1",
+  "availability": "registered-optional",
+  "acceptedSource": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
+  "sourceRoot": "candidates/tile-stack/core",
+  "runtimeRoot": "packages/tile-stack-core",
+  "integrationBase": "32101fa97a8706296dcba4d9614d9d663d53a6dd",
+  "entries": {
+    "./tiles/stack": "./packages/tile-stack-core/index.js"
+  },
+  "acceptedRuntime": [
+    {
+      "path": "candidates/tile-stack/core/budget.js",
+      "bytes": 1837,
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484",
+      "gitBlob": "0940c8987df83a6a589b255fe365e94093f8661c"
+    },
+    {
+      "path": "candidates/tile-stack/core/contracts.js",
+      "bytes": 8440,
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+      "gitBlob": "139fe1cb0316e675b6fc707c314eefad35aff068"
+    },
+    {
+      "path": "candidates/tile-stack/core/geometry.js",
+      "bytes": 6596,
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+      "gitBlob": "0ae2fa4a1f7bcf70ab8dc9876f49614a70d6086c"
+    },
+    {
+      "path": "candidates/tile-stack/core/ids.js",
+      "bytes": 483,
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+      "gitBlob": "4bfa8d9caf0e04c921d0247ac0cb3ede18863373"
+    },
+    {
+      "path": "candidates/tile-stack/core/index.js",
+      "bytes": 20483,
+      "sha256": "128880d5bcbde8d687a1db5f988debd4985b4017c3715ef0688b62280a6c82c8",
+      "gitBlob": "319a1435132858df95eb30d29aa454f5c8c487c7"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/tile-stack-core/budget.js",
+      "bytes": 1837,
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484",
+      "sourcePath": "candidates/tile-stack/core/budget.js",
+      "sourceGitBlob": "0940c8987df83a6a589b255fe365e94093f8661c"
+    },
+    {
+      "path": "packages/tile-stack-core/contracts.js",
+      "bytes": 8440,
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+      "sourcePath": "candidates/tile-stack/core/contracts.js",
+      "sourceGitBlob": "139fe1cb0316e675b6fc707c314eefad35aff068"
+    },
+    {
+      "path": "packages/tile-stack-core/geometry.js",
+      "bytes": 6596,
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+      "sourcePath": "candidates/tile-stack/core/geometry.js",
+      "sourceGitBlob": "0ae2fa4a1f7bcf70ab8dc9876f49614a70d6086c"
+    },
+    {
+      "path": "packages/tile-stack-core/ids.js",
+      "bytes": 483,
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+      "sourcePath": "candidates/tile-stack/core/ids.js",
+      "sourceGitBlob": "4bfa8d9caf0e04c921d0247ac0cb3ede18863373"
+    },
+    {
+      "path": "packages/tile-stack-core/index.js",
+      "bytes": 20494,
+      "sha256": "4e8da94f77006a1b2f39719d1d96c3226f432fc80b8433ceacafc7e0aa33d1a2",
+      "sourcePath": "candidates/tile-stack/core/index.js",
+      "sourceGitBlob": "319a1435132858df95eb30d29aa454f5c8c487c7"
+    }
+  ],
+  "types": {
+    "path": "packages/tile-stack-core/api.d.ts",
+    "bytes": 3001,
+    "sha256": "26ea3501f6da3fba3bf3666966a2ceaca7bda50804a642d50dc565bd7fb0f495",
+    "sourcePath": "candidates/tile-stack/core/api.d.ts",
+    "sourceGitBlob": "340cd82970e66484bd0abd89a8117268bdfc3f2f"
+  },
+  "metadataAdaptations": [
+    {
+      "path": "packages/tile-stack-core/index.js",
+      "sourcePath": "candidates/tile-stack/core/index.js",
+      "kind": "comment-only",
+      "from": "// Private Gate A host planner. No public registration, matching, CAS or history.",
+      "to": "// Optional headless stack planner. Public core owns matching and repair; host owns commits.",
+      "occurrences": 1
+    }
+  ],
+  "publicCore": {
+    "entry": "./tiles",
+    "file": "./packages/tiles-core/index.js",
+    "authority": "matching-and-repair"
+  },
+  "guide": "packages/tile-stack-core/README.md",
+  "scope": "Optional headless rectangle-stack intent planning over public v1 source. The public tile core owns matching and repair; the host owns atomic bundle-plus-constraints commits, history and recovery. Presentation, support, navigation and game adoption remain unbound.",
+  "statuses": {
+    "planning": "bounded-public-v1-request",
+    "preparation": "actual-public-core-required",
+    "commits": "host-owned",
+    "history": "host-owned",
+    "recovery": "host-owned",
+    "presentation": "unbound",
+    "support": "unbound",
+    "navigation": "unbound",
+    "game": "unbound"
+  },
+  "newSchemaOrCapability": false,
+  "hostAdopted": false,
+  "gameAdopted": false
+}

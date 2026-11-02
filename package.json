@@ -52,7 +52,10 @@
     "./adapters/farmyard/windows/three": "./packages/native-window-presenter/three.js",
     "./tiles/art": "./packages/tile-visuals/prepare.js",
     "./tiles/art/example": "./packages/tile-visuals/example.js",
-    "./tiles/art/three": "./packages/tile-visuals/three.js"
+    "./tiles/art/three": "./packages/tile-visuals/three.js",
+    "./tiles/stack": "./packages/tile-stack-core/index.js",
+    "./tiles/finishes": "./packages/tile-finishes/catalogue.js",
+    "./tiles/finishes/three": "./packages/tile-finishes/finishes.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -91,6 +94,7 @@
     "docs/reviews/window-authoring/registration-request.json",
     "docs/rock-distraction.md",
     "docs/runtime-modules.md",
+    "docs/stacked-tiles.md",
     "docs/standard-interactions.md",
     "docs/ui/grenade-controls.md",
     "docs/ui/grenade-controls.sources.json",
@@ -222,6 +226,19 @@
     "packages/runtime-core/index.js",
     "packages/runtime-core/lifecycle.js",
     "packages/runtime-core/planner.js",
+    "packages/tile-finishes/README.md",
+    "packages/tile-finishes/catalogue.js",
+    "packages/tile-finishes/data.js",
+    "packages/tile-finishes/finishes.js",
+    "packages/tile-finishes/source.json",
+    "packages/tile-stack-core/README.md",
+    "packages/tile-stack-core/api.d.ts",
+    "packages/tile-stack-core/budget.js",
+    "packages/tile-stack-core/contracts.js",
+    "packages/tile-stack-core/geometry.js",
+    "packages/tile-stack-core/ids.js",
+    "packages/tile-stack-core/index.js",
+    "packages/tile-stack-core/source.json",
     "packages/tile-visuals/NOTICE.md",
     "packages/tile-visuals/README.md",
     "packages/tile-visuals/cleanup.js",
@@ -429,6 +446,7 @@
     "review:doors:installed": "node tools/review-farmyard-door-installed.mjs",
     "test:windows": "node tools/test-farmyard-window-impacts-package.mjs",
     "test:tiles": "node tools/test-procedural-tiles-package.mjs",
+    "test:tiles:stack": "node tools/test-tile-stack-package.mjs",
     "test:tiles:v2:candidate": "node tools/test-tile-v2-package.mjs --candidate",
     "test:windows:authoring": "node tools/test-window-authoring-package.mjs",
     "test:windows:renderer": "node tools/test-native-window-presenter-package.mjs",
@@ -436,7 +454,12 @@
     "review:windows:installed": "node tools/review-native-window-presenter.mjs --installed",
     "test:tiles:art": "node tools/test-tile-visuals-package.mjs",
     "review:tiles:art": "node tools/review-tile-visuals.mjs",
-    "review:tiles:art:installed": "node tools/review-tile-visuals.mjs --installed"
+    "review:tiles:art:installed": "node tools/review-tile-visuals.mjs --installed",
+    "review:tiles:stack": "node tools/review-tile-stack-editor.mjs",
+    "review:tiles:stack:built": "node tools/review-tile-stack-editor.mjs --built",
+    "review:tiles:stack:installed": "node tools/review-tile-stack-editor.mjs --installed",
+    "verify:tiles:stack": "node tools/verify-tile-stack-editor-review.mjs",
+    "review:tiles:entry": "node tools/review-tile-workshop-entry.mjs"
   },
   "engines": {
     "node": ">=22"
