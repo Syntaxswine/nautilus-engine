@@ -202,16 +202,17 @@
     "entry": "candidates/tile-authoring/host/c2-bindings/host-composition.js",
     "passed": 8,
     "failed": 0,
-    "durationMs": 6607.4294,
+    "durationMs": 7356.1034,
     "command": [
       "node",
       "--test",
+      "--test-reporter=tap",
       "--test-timeout=120000",
       "candidates/tile-authoring/host/c2-bindings/tests/host-composition.test.mjs"
     ],
-    "stdoutSha256": "03c55fa07fb4b058e6b41ceaab0cdd9fbc333a4e304edcc3e55076b07e78fb50",
-    "log": "artifacts/c2-host-bindings/construction-2810b3c/tests.log",
-    "format": "Node spec reporter; not TAP",
+    "stdoutSha256": "21ce57e49c59498431992c52a440a7ff690086b4b11b3763604de0c9474b7be0",
+    "log": "artifacts/c2-host-bindings/correction-f7fcc89/tests.tap",
+    "format": "TAP",
     "fixedObjects": 261,
     "taskOwnedOverlays": 2,
     "coreSourceAdaptations": 0,
@@ -284,7 +285,7 @@
         }
       },
       "readOnly": true,
-      "sourceRecordSha256": "7f7e3a735ce936e5e36896142c7230d9973239e8e47855499e4123fe31a9c8b4",
+      "sourceRecordSha256": "0a40bb90aa68b8ace43a06ee1f02c0e81f301042f2502e74dfabfeb6c85efc1a",
       "evidenceSha256": "c338bf96ac6e21c7a4ae97f2b68843dbb889b5719b66ce6ac21203ac6aa29b42"
     },
     "types": {
@@ -301,6 +302,17 @@
       "sharedRuntimeChanged": false,
       "publicPackageExportsPinsSchemasChanged": false,
       "pushed": false
+    },
+    "predecessorResults": {
+      "commit": "f7fcc89b9cab0d258a2b04239545dca7beb3ae54",
+      "tests": "artifacts/c2-host-bindings/construction-2810b3c/tests.log",
+      "finding": "genuine Session entry would fail because assertPaired used captured opaque authority with raw matcher"
+    },
+    "authorityGuardCorrection": {
+      "fix": "remove captured opaque authority comparison only; actual codec/profile/phase and use-site actual bootstrap authority checks retained",
+      "coreRawMatcherChanged": false,
+      "actualInnerPositive": "pending fixed Core literal producer import; no raw internals exposed",
+      "exactOriginalPreserved": "f7 commit +correction-f7fcc89/original-host-composition.js +original-inputs.json"
     }
   }
 }

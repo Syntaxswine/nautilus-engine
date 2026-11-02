@@ -69,9 +69,9 @@
     },
     {
       "path": "host-composition.js",
-      "bytes": 4868,
-      "sha256": "25deb00f3407f5108132284772b6c91a977d4cd6f90608e6696d3468a4e0d712",
-      "blob": "0504a2096e1144ef6765992f998d8b47a1397395"
+      "bytes": 5050,
+      "sha256": "93d7c4b95ffec1212ed8c22f771950654eff16db840e846d8ecc1c61a496cfbd",
+      "blob": "b1fe0967e21578f4af26a0f5fab9965b057bc998"
     },
     {
       "path": "index.js",
@@ -604,6 +604,12 @@
     "rawCodecOrObserverExposed": false,
     "publicReady": false,
     "liveNativeProof": false,
-    "remaining": "Core must import this literal producer and compose/register its internal actual profile before actual Session/inner codec/bootstrap hook positives. Native/final/SourceReadOwner/C1 prepaint routing remain unavailable."
+    "remaining": "Core must import this literal producer and compose/register its internal actual profile before actual Session/inner codec/bootstrap hook positives. Native/final/SourceReadOwner/C1 prepaint routing remain unavailable.",
+    "authorityGuardCorrection": {
+      "predecessor": "f7fcc89b9cab0d258a2b04239545dca7beb3ae54",
+      "finding": "assertPaired compared captured opaque authority with a raw-authority matcher and could never pass genuine Session entry",
+      "fix": "constructor/verifier authenticate opaque authority; assertPaired checks actual codec/profile/phase; requireCountedBootstrap retains actual raw authority check",
+      "innerIdentityPositive": "requires literal Core Session producer import; no raw internals exposed"
+    }
   }
 }

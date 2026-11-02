@@ -42,7 +42,10 @@ export function createPrivateC2HostComposition(input){
   /Source|Ingress|Obligations|Connection|Request|Prepare|Input/.test(name)?'SOURCE':'PHASE')+'_UNBOUND',name)]));
  hooks.assertPaired=function(input){
   const value=own(input,['codec','phasePorts','profile']);
-  need(source.matchesActualAuthority(authority)&&source.matchesActualCodec(value.codec)&&
+  // The constructor already authenticates the captured opaque authority.
+  // This prologue receives actual internal codec/profile values; bootstrap
+  // separately validates its actual raw authority at the use site below.
+  need(source.matchesActualCodec(value.codec)&&
    source.matchesActualProfile(value.profile)&&value.phasePorts===c2PhasePorts,
   'C2_HOST_PAIRING');
   return true;
