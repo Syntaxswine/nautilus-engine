@@ -248,7 +248,8 @@
         "grid",
         "geometryDigest",
         "frameDigest"
-      ]
+      ],
+      "description": "Explicit owner-local source frame. Lift surface-local metres via originM+axes[0]*u+axes[1]*v BEFORE current owner mirrorX, quarterTurns and origin. Closed axes remain native XY."
     },
     "recipeRecord": {
       "type": "object",
@@ -576,7 +577,7 @@
         "frame",
         "sampler"
       ],
-      "description": "pageDigest is token(the full Artwork.body.blob), binding its whole-page hash/type/dimensions/encoded bytes/colour/alpha. Frame bounds require semantic validation against that exact page."
+      "description": "pageDigest is token(the full Artwork.body.blob), binding its whole-page hash/type/dimensions/encoded bytes/colour/alpha. Stored image UV and pivotUV use top-left (u right,v down); pixel centres=[x+u_i*w-.5,y+v_i*h-.5]. imageTop:local-positive-v means the image top points toward positive surface-local v, not that image v points up. Frame bounds require semantic validation against that exact page."
     },
     "artworkRecord": {
       "type": "object",
@@ -805,7 +806,8 @@
         "rotationRad",
         "mirrorU",
         "pivotUV"
-      ]
+      ],
+      "description": "positionM is in the named Surface frame (u right,v up). pivotUV is stored image-top-left (u right,v down). Surface-local point=positionM+R*[mirrorSign*(u_i-p_u)*width,(p_v-v_i)*height]; then Surface.originM+axes, current owner D4/origin, native-to-render exactly once. Any derived localUpUV must convert pivotV to 1-p_v too."
     },
     "graphic": {
       "type": "object",

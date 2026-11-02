@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "parent": "7772910059d86c00c84475af489be812ff225c5d",
+  "parent": "efca5034e4e922a3e8d1dcf3b36d0f17474afe61",
   "artistInput": "f5bfda9ec0f639018ccfee2415b1f70502e77cae",
   "fullB1BindingInput": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
   "approvedStackPreserved": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
   "acceptedD4PatchPreserved": "93a94778779b800227f3886b1ca63fae1abc2543",
-  "status": "C0 private contract realignment; no executor/runtime/public registration/version/pin/deployment change",
+  "status": "C0 coordinate contract correction; no executor/runtime/public registration/package version/pin/deployment change",
   "gates": [
     {
       "command": "npm run check",
@@ -16,14 +16,14 @@
     {
       "command": "npm test",
       "exitCode": 0,
-      "sha256": "ee14c1fdc03f4f8d4036403a172f5a3dbf281cb0bb4839151cd82ffa7f3eba7b",
-      "bytes": 101974
+      "sha256": "d016bb9826fc7c2b00ec52d0140af4bfa2336218a108239573fd8b19101e294e",
+      "bytes": 102280
     },
     {
       "command": "npm run test:upstream",
       "exitCode": 0,
-      "sha256": "ccde9c529b42292f07656633e81fbe065837ea363af482d87526c82df9cfe41b",
-      "bytes": 3126
+      "sha256": "d0c6de9a67f2273fe55736e615cb81881cfbb6595cd6fdbaae507540287dd365",
+      "bytes": 3131
     },
     {
       "command": "npm run build",
@@ -33,11 +33,11 @@
     }
   ],
   "engineTests": {
-    "pass": 929,
+    "pass": 931,
     "fail": 0
   },
   "focusedTests": {
-    "pass": 17,
+    "pass": 19,
     "fail": 0,
     "includesNoGitShallowCIFixture": true
   },
@@ -64,7 +64,7 @@
   "actualArchiveMutationsRejected": 4,
   "decodePerformed": false,
   "sourceAudit": {
-    "sourceFiles": 22,
+    "sourceFiles": 23,
     "protectedFiles": 90,
     "candidateRuntimeModules": 0,
     "publicTileModules": 14,
@@ -85,5 +85,29 @@
     "No live human/JSONL history/recovery proof",
     "No performance measurement or phone claim",
     "C1 waits stacked main acceptance and Root contract review; C2 follows"
-  ]
+  ],
+  "contractBase": "7772910059d86c00c84475af489be812ff225c5d",
+  "coordinateConformance": {
+    "rootWitnesses": 2,
+    "allD4Poses": 16,
+    "topLeftFrameSamples": 3,
+    "formerMixedPivotRejected": true,
+    "formerOmittedSourceFrameRejected": true,
+    "formerBottomUpFetchRejected": true,
+    "proof": "independent mathematical coordinate conformance only"
+  },
+  "definitionEqualityScope": "Direct command/query/pack/Pin/Expected/operation/outcome/transport/applyRequest definitions match777. Transitive Artwork intentionally gains mandatory imageView.",
+  "preservedFromPriorC0": {
+    "commit": "efca5034e4e922a3e8d1dcf3b36d0f17474afe61",
+    "exactAuthoredExamples": [
+      "candidates/tile-authoring/core/examples/artist-import-mapping.json",
+      "candidates/tile-authoring/core/examples/content-pack-manifest.json",
+      "candidates/tile-authoring/core/examples/document-v3.json",
+      "candidates/tile-authoring/core/examples/workspace-source.json",
+      "candidates/tile-authoring/core/examples/paint-command.json",
+      "candidates/tile-authoring/core/examples/unimplemented-response.json"
+    ],
+    "originalArtworkAndResourcePinsUnchanged": true,
+    "portablePackSHA256": "7181aac207a3493944140c4f877b47d947fddf0d555188605e3c20b3cf832552"
+  }
 }

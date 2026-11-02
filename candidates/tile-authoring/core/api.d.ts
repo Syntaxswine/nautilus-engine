@@ -6,18 +6,30 @@ export type Id=string;
 export type Digest=string;
 export type V2=[number,number];
 export type V3=[number,number,number];
+/** Image-normalized coordinates: u right, v down from the frame top-left.
+ * Stored pivots use this SAME convention, including noncentral pivots. */
+export type ImageTopLeftUV=V2;
+/** Metres along the named source Surface.axes: u right, v up. */
+export type SurfaceLocalM=V2;
 export type Pin=Readonly<{id:Id;revision:number;contentDigest:Digest}>;
 export interface ImmutableRecord<B> {kind:string;version:1;id:Id;revision:number;body:B;contentDigest:Digest}
 export interface Notice {id:Id;licenseRef:string;attribution:string;noticeText:string;source:{repository:string;commit:string;path:string}}
 export interface Grid {id:Id;version:1;originM:V2;cellSizeM:V2;profile:'owner-local-grid-v1'}
+/** ownerLocal=originM+axes[0]*surfaceLocalU+axes[1]*surfaceLocalV.
+ * Then owner mirrorX/quarterTurns/origin, then native [x,y,h]->render[x,h,y], once. */
 export interface Surface {id:Id;sourceAnchorId:Id;floorSlot:Id;floorOffsetM:number;profile:'owner-local-level-top-v1';originM:V3;axes:[[1,0,0],[0,1,0]];normal:[0,0,1];grid:Grid;geometryDigest:Digest;frameDigest:Digest}
 export type Definition<R=unknown>=ImmutableRecord<{label:string;recipe:R;sourceProfile:'local-level-region-v1'|'local-flat-field-v1'|'local-level-path-v1';surfaces:Surface[];requires:Id[];notices:Notice[]}>;
 export interface ImageBlob {sha256:Digest;byteLength:number;mediaType:'image/png'|'image/webp';widthPx:number;heightPx:number;colorSpace:'srgb';alphaMode:'straight'}
-/** pageDigest=token(the entire ImageBlob), including bytes/hash/type/dimensions. */
+/** pageDigest=token(the entire ImageBlob), including bytes/hash/type/dimensions.
+ * Pixel centres=[frame.x+u_i*width-.5,frame.y+v_i*height-.5].
+ * imageTop means the image top faces positive SURFACE v; image v still points down. */
 export interface ImageView {profile:'finite-raster-frame-v1';pageDigest:Digest;frame:{id:Id;rectPx:[number,number,number,number];origin:'top-left';imageTop:'local-positive-v'};sampler:{profile:'linear-premultiplied-bilinear-frame-v1';alphaFloor8:number;mipmaps:false;stampOutside:'transparent';detailWrap:'repeat-frame'}}
 export type Artwork=ImmutableRecord<{label:string;blob:ImageBlob;imageView:ImageView;channels:['color','alpha'];requires:Id[];notices:Notice[]}>;
 export type Mask={kind:'all-surface'}|{kind:'grid-spans';grid:{id:Id;version:1;digest:Digest};rows:{j:number;spans:{i0:number;count:number}[]}[]};
-export interface GraphicTransform {positionM:V2;sizeM:V2;rotationRad:number;mirrorU:boolean;pivotUV:V2}
+/** Surface-local point=positionM+R*[mirrorSign*(u_i-p_u)*width,(p_v-v_i)*height].
+ * A derived localUpUV=[u_i,1-v_i] also needs pivotUp=[p_u,1-p_v].
+ * Lift through the explicit Surface origin/basis before applying current owner pose. */
+export interface GraphicTransform {positionM:SurfaceLocalM;sizeM:V2;rotationRad:number;mirrorU:boolean;pivotUV:ImageTopLeftUV}
 export interface Graphic {artwork:Pin;form:'stamp'|'detail';transform:GraphicTransform;opacity:number;tintLinearRGB:V3;mask:Mask;wrap:'clamp'|'repeat'}
 export interface Layer {id:Id;order:number;label:string;opacity:number;blendProfile:'source-over-linear-premultiplied-v1'}
 export type Preset=ImmutableRecord<{label:string;definition:Pin;defaultLayers:{surfaceId:Id;layer:Layer}[];defaultMarks:{id:Id;surfaceId:Id;layerId:Id;ordinal:number;graphic:Graphic}[];requires:Id[];notices:Notice[]}>;

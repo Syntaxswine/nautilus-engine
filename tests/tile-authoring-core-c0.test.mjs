@@ -7,11 +7,12 @@ import * as T from '../packages/tiles-core/index.js';
 import * as M from '../packages/map-core/index.js';
 import {buildFixture,checkDocument,checkReferences,sourceProjection,checkLedger,clone,recordDigest,hashBytes} from '../tools/tile-authoring-core-fixtures.mjs';
 import {artistInput,resourceRefs} from '../tools/tile-authoring-core-artist.mjs';
+import {referenceGraphicPoint,referenceImageTopLeftUV,referenceTexelCenter,checkCoordinateVectors} from '../tools/tile-authoring-core-coordinate-reference.mjs';
 const f=buildFixture(T,M),read=p=>JSON.parse(fs.readFileSync(new URL('../'+p,import.meta.url))),schema=read('candidates/tile-authoring/core/contract.schema.json');
 const vectors=read('candidates/tile-authoring/core/examples/sampling-contract-vectors.json');
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-12,`${a} != ${b}`);
 
-test('C0 keeps the exact777 command/query/pack/Expected/Pin/outcome/transport grammar',()=>{
+test('C0 preserves direct777 command/query/pack/Expected/Pin/outcome/transport definitions; transitive Artwork adds imageView',()=>{
  const bytes=fs.readFileSync(new URL('../candidates/tile-authoring/core/inputs/core777.schema.json',import.meta.url));assert.equal(hashBytes(bytes),'5c90b291c03c02aa2f29232ad9474415715223cfe7d1cceb654b3c553ec06ced');const prior=JSON.parse(bytes);
  for(const name of ['command','operation','query','pack','expected','pin','applyOutcome','transport','applyRequest'])assert.deepEqual(schema.$defs[name],prior.$defs[name],name);
 });
@@ -62,8 +63,7 @@ test('sampler vectors require cutoff then linear premultiplication, linear tint 
  for(const s of vectors.alphaFloor.samples)near(s.alpha8<=vectors.alphaFloor.threshold8?0:s.alpha8/255,s.expectedAlpha);
  const b=vectors.bilinearPremultiplication,out=[0,0,0,0];b.straightSRGBTaps.forEach((t,i)=>{for(let c=0;c<3;c++)out[c]+=linear(t[c])*t[3]*b.weights[i];out[3]+=t[3]*b.weights[i];});assert.deepEqual(out,b.expectedLinearPremultipliedRGBA);
  near(linear(vectors.linearTint.sourceSRGB)*vectors.linearTint.tintLinear,vectors.linearTint.expectedLinear);
- const [x,y,w,h]=vectors.frameSampling.rectPx;
- for(const s of vectors.frameSampling.samples){let [u,v]=s.uv;if(s.form==='stamp'&&(u<0||u>1||v<0||v>1)){assert.equal(s.expectedTransparent,true);continue;}if(s.form==='detail'){u-=Math.floor(u);v-=Math.floor(v);}assert.deepEqual([x+u*w-.5,y+(1-v)*h-.5],s.expectedTexelCenter);}
+ for(const s of vectors.frameSampling.samples)assert.deepEqual(referenceTexelCenter(s.imageTopLeftUV,vectors.frameSampling.rectPx,s.form),s.expectedTransparent?null:s.expectedTexelCenter);
 });
 
 test('all aggregate appearance ceilings include existing finishes, pending views and retiring copies',()=>{
@@ -82,4 +82,18 @@ test('standard fixture construction works without Git in PATH or worker commits 
  const fixture=new URL('../tools/tile-authoring-core-fixtures.mjs',import.meta.url).href,tiles=new URL('../packages/tiles-core/index.js',import.meta.url).href,map=new URL('../packages/map-core/index.js',import.meta.url).href;
  const code=`import * as T from ${JSON.stringify(tiles)};import * as M from ${JSON.stringify(map)};import {buildFixture} from ${JSON.stringify(fixture)};console.log(buildFixture(T,M).artist.mapping.rows.length);`;
  const run=spawnSync(process.execPath,['--input-type=module','-e',code],{env:{...process.env,PATH:''},encoding:'utf8',windowsHide:true,timeout:15000});assert.equal(run.status,0,run.stderr);assert.equal(run.stdout.trim(),'30');
+});
+
+test('stored noncentral image pivot remains fixed and top-left pixels use the same stored V convention',()=>{
+ const w=vectors.noncentralPivotWitness,actual=referenceGraphicPoint(w.imageTopLeftUV,w.transform,w.surface,w.owner);assert.deepEqual(actual.surfaceLocalM,[3,5]);assert.deepEqual(actual.nativeM,w.expectedNativeM);
+ const [ui,vi]=w.imageTopLeftUV,[pu,pv]=w.transform.pivotUV,mixed=[w.transform.positionM[0]+(ui-pu)*w.transform.sizeM[0],w.transform.positionM[1]+(1-vi-pv)*w.transform.sizeM[1]];near(mixed[1],2.6);assert.notDeepEqual(mixed,actual.surfaceLocalM);
+ const up=[ui,1-vi],pivotUp=[pu,1-pv];near(up[1]-pivotUp[1],0);assert.deepEqual(referenceTexelCenter([.25,.75],[512,512,256,256],'stamp'),[575.5,703.5]);
+});
+
+test('nonzero source frame and noncentral off-pivot graphic transform agree with every explicit D4 witness and inverse',()=>{
+ const result=checkCoordinateVectors(vectors);assert.deepEqual(result.problems,[]);assert.equal(result.allD4Poses,16);
+ const w=vectors.sourceFrameWitness,actual=referenceGraphicPoint(w.imageTopLeftUV,w.transform,w.surface,w.owner);assert.deepEqual(actual.nativeM,[8,51,7]);assert.deepEqual(actual.renderM,[8,7,51]);
+ const omitted=referenceGraphicPoint(w.imageTopLeftUV,w.transform,{...w.surface,originM:[0,0,0]},w.owner);assert.deepEqual(omitted.nativeM,[28,41,7]);assert.notDeepEqual(omitted.nativeM,actual.nativeM);
+ const changed=clone(vectors);changed.allD4Witnesses[1].poses[7].expectedNativeM[0]++;assert.equal(checkCoordinateVectors(changed).ok,false);
+ assert.throws(()=>referenceImageTopLeftUV([8,51,8],w.transform,w.surface,w.owner),/source-frame plane/);
 });

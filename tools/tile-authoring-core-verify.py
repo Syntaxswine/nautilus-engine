@@ -1,5 +1,5 @@
 """Independent structural/portable-resource contract check, not an executor."""
-import copy,hashlib,io,json,sys,zipfile,subprocess
+import copy,hashlib,io,json,sys,zipfile,subprocess,math
 from decimal import Decimal
 from pathlib import Path
 from importlib.metadata import version
@@ -120,6 +120,38 @@ for name,items in mutations:
  except (AssertionError,KeyError):controls.append({'name':name,'actualArchiveRejected':True})
  else:raise AssertionError('Invalid actual archive accepted: '+name)
 (ART/'portable-pack.zip').write_bytes(packed)
-report={'schemaVersion':1,'status':'contract-shape/reference/portable-bytes-proof; no authoring runtime','validator':{'name':'jsonschema','version':version('jsonschema'),'draft':'2020-12'},'candidateSchemas':1,'publicV1SchemasBorrowed':len(public),'cases':len(cases),'recordDigestsChecked':len(records),'placedMarksChecked':len(marks),'pack':{'sha256':hashlib.sha256(packed).hexdigest(),'bytes':len(packed),'completeBlobs':len(pack['blobEntries']),'rawAssetBytesPreserved':True,'artistFramesExplicitlyMapped':len(mapping['rows']),'artistManifestSha256':mapping['sourceManifest']['sha256'],'originalNoticeBytesPreserved':True,'decodePerformed':False,'archiveMutations':controls},'backgroundHelpers':0}
+# Independent coordinate arithmetic, not a decoder/renderer/executor.
+coordinates=load(ROOT/'candidates/tile-authoring/core/examples/sampling-contract-vectors.json')
+def near_vec(a,b):assert len(a)==len(b) and all(math.isfinite(x) and abs(x-y)<1e-9 for x,y in zip(a,b)),(a,b)
+def project(w,owner=None):
+ t=w['transform'];surface=w['surface'];owner=owner or w['owner'];ui,vi=w['imageTopLeftUV'];pu,pv=t['pivotUV'];width,height=t['sizeM']
+ assert surface['axes']==[[1,0,0],[0,1,0]]
+ dx=(-1 if t['mirrorU'] else 1)*(ui-pu)*width;dy=(pv-vi)*height;c=math.cos(t['rotationRad']);s=math.sin(t['rotationRad'])
+ local=[t['positionM'][0]+c*dx-s*dy,t['positionM'][1]+s*dx+c*dy]
+ point=[surface['originM'][i]+surface['axes'][0][i]*local[0]+surface['axes'][1][i]*local[1] for i in range(3)]
+ x=(-1 if owner['transform']['mirrorX'] else 1)*point[0];y=point[1]
+ for _ in range(owner['transform']['quarterTurns']):x,y=-y,x
+ native=[x+owner['origin'][0],y+owner['origin'][1],point[2]+owner['origin'][2]]
+ return {'SurfaceLocalM':local,'OwnerLocalM':point,'NativeM':native,'RenderM':[native[0],native[2],native[1]]}
+def check_point(w,owner=None):
+ actual=project(w,owner)
+ for key,value in actual.items():near_vec(value,w['expected'+key])
+for name in ['noncentralPivotWitness','sourceFrameWitness']:check_point(coordinates[name])
+pose_count=0
+for w in coordinates['allD4Witnesses']:
+ assert {(p['quarterTurns'],p['mirrorX']) for p in w['poses']}=={(q,m) for q in range(4) for m in [False,True]}
+ for p in w['poses']:check_point({**w,**p},{'origin':w['ownerOrigin'],'transform':{'quarterTurns':p['quarterTurns'],'mirrorX':p['mirrorX']}});pose_count+=1
+x,y,width,height=coordinates['frameSampling']['rectPx']
+for sample in coordinates['frameSampling']['samples']:
+ ui,vi=sample['imageTopLeftUV']
+ if sample['form']=='stamp' and (ui<0 or ui>1 or vi<0 or vi>1):assert sample['expectedTransparent'];continue
+ if sample['form']=='detail':ui-=math.floor(ui);vi-=math.floor(vi)
+ near_vec([x+ui*width-.5,y+vi*height-.5],sample['expectedTexelCenter'])
+w=coordinates['noncentralPivotWitness'];bad_mixed=[w['transform']['positionM'][0],w['transform']['positionM'][1]+(1-w['imageTopLeftUV'][1]-w['transform']['pivotUV'][1])*w['transform']['sizeM'][1]]
+near_vec(bad_mixed,[3,2.6]);assert math.dist(bad_mixed,w['expectedSurfaceLocalM'])>2.39
+w=copy.deepcopy(coordinates['sourceFrameWitness']);w['surface']['originM']=[0,0,0];near_vec(project(w)['NativeM'],[28,41,7]);assert project(w)['NativeM']!=w['expectedNativeM']
+sample=coordinates['frameSampling']['samples'][0];ui,vi=sample['imageTopLeftUV'];assert [x+ui*width-.5,y+(1-vi)*height-.5]!=sample['expectedTexelCenter']
+coordinate_report={'rootWitnesses':2,'allD4Poses':pose_count,'topLeftFrameSamples':len(coordinates['frameSampling']['samples']),'formerMixedPivotRejected':True,'formerOmittedSourceFrameRejected':True,'formerBottomUpFetchRejected':True,'proof':'independent mathematical coordinate conformance only'}
+report={'coordinates':coordinate_report,'schemaVersion':1,'status':'contract-shape/reference/portable-bytes-proof; no authoring runtime','validator':{'name':'jsonschema','version':version('jsonschema'),'draft':'2020-12'},'candidateSchemas':1,'publicV1SchemasBorrowed':len(public),'cases':len(cases),'recordDigestsChecked':len(records),'placedMarksChecked':len(marks),'pack':{'sha256':hashlib.sha256(packed).hexdigest(),'bytes':len(packed),'completeBlobs':len(pack['blobEntries']),'rawAssetBytesPreserved':True,'artistFramesExplicitlyMapped':len(mapping['rows']),'artistManifestSha256':mapping['sourceManifest']['sha256'],'originalNoticeBytesPreserved':True,'decodePerformed':False,'archiveMutations':controls},'backgroundHelpers':0}
 (ART/'independent-report.json').write_bytes((json.dumps(report,indent=2)+'\n').encode())
-print(json.dumps({'schemas':1,'borrowedV1Schemas':len(public),'cases':len(cases),'immutableRecords':len(records),'portableBlobs':len(blobs),'archiveMutationRejections':len(controls),'runtimeImplemented':False}))
+print(json.dumps({'schemas':1,'borrowedV1Schemas':len(public),'cases':len(cases),'immutableRecords':len(records),'portableBlobs':len(blobs),'archiveMutationRejections':len(controls),'coordinateD4Poses':pose_count,'runtimeImplemented':False}))

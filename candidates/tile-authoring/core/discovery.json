@@ -117,6 +117,13 @@
     "freshness": "full-checkpoint-journal-token",
     "history": "restore-exact-full-document-including-contentRevision"
   },
+  "coordinateConvention": {
+    "storedImageUV": "top-left-u-right-v-down",
+    "storedPivotUV": "top-left-u-right-v-down",
+    "surfaceLocalM": "named-source-frame-u-right-v-up",
+    "lift": "Surface.originM+axes-before-owner-D4-origin",
+    "nativeToRender": "[x,y,h] -> [x,h,y] once"
+  },
   "imageDecoders": {
     "firstRequired": "image/png",
     "implementedHere": false,
