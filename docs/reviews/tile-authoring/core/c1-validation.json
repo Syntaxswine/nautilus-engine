@@ -34,13 +34,13 @@
     "tools/distribution.mjs",
     "tools/test-tile-authoring-core-package.mjs"
   ],
-  "status": "pure Core follow-up complete; final full-suite and integration gate composition pending",
+  "status": "six architect corrections complete; focused controls pass; integration gate composition pending",
   "checks": {
     "focused": {
       "command": "node --test tests/tile-authoring-core-runtime.test.mjs tests/tile-authoring-core-registration.test.mjs",
-      "passed": 14,
+      "passed": 21,
       "failed": 0,
-      "evidence": "artifacts/tile-authoring-core-c1/focused-budget-followup.log"
+      "evidence": "artifacts/tile-authoring-core-c1/focused-six-fixes.log"
     },
     "sourceRegistration": {
       "command": "node tools/check-tile-authoring-core-source.mjs",
@@ -49,8 +49,8 @@
     },
     "ordinaryInstalledPackage": {
       "command": "npm run test:tiles:authoring",
-      "status": "pass on final follow-up bytes",
-      "evidence": "artifacts/tile-authoring-core-c1/package-proof/result.json",
+      "status": "pass on six-correction bytes",
+      "evidence": "artifacts/tile-authoring-core-c1/installed-six-fixes.log",
       "actualProof": {
         "publicEntry": true,
         "producerPath": "actual-public-factory-and-sealer",
@@ -66,7 +66,7 @@
         "name": "@nautilus-engine/core",
         "version": "0.10.0",
         "fileCount": 305,
-        "integrity": "sha512-Gn/+Oq9drWjBfW8SPF75x28jrSxBSwbcMj7CriI2/Xvg8OjfzPSJpsOOFZ8EpsR7tFqEfmu8+exeZiBcULusMg=="
+        "integrity": "sha512-e9Qp65gUay4GxLKYKdDBMIpIjjGcLvpbvDKvF6UZfjSo8RvaFhHGDAXyHkh/ohqn5QhRnPNTiv66Bym8Fe/3XQ=="
       }
     },
     "upstream": {
@@ -88,10 +88,10 @@
     },
     "fullSuite": {
       "command": "npm test",
-      "status": "pass on early immutable checkpoint; budget follow-up rerun pending",
-      "passed": 1003,
+      "status": "pass on fixed178; six-correction rerun pending",
+      "passed": 1006,
       "failed": 0,
-      "evidence": "artifacts/tile-authoring-core-c1/full-suite.log"
+      "evidence": "artifacts/tile-authoring-core-c1/full-suite-budget-followup.log"
     }
   },
   "witnesses": [
@@ -115,7 +115,9 @@
     "hashSerializationBlockBytes": 64,
     "textScanCharactersPerUnit": 16,
     "optimization": "Within-call actual public compiler results, checked bundles and immutable-record validation are reused only after freshly recomputed full canonical source hashes match. This avoids actual duplicate work. Every remaining read/hash, compile and sample, detached structuredClone, staged operation, stack derivation and output remains charged under the shared limit. Binder rederives canonical request and full constraints under the remaining budget.",
-    "measurementClaim": false
+    "measurementClaim": false,
+    "capOrMeterRateChangedByCorrections": false,
+    "grammarChangedByCorrections": false
   },
   "nonClaims": [
     "Test host is not production Editor adoption.",
@@ -133,10 +135,10 @@
         "owner": "Coder, Nautilus Engine",
         "purpose": "offline ordinary tarball install",
         "project": "Nautilus Engine C1",
-        "pid": 73932,
+        "pid": 40192,
         "executable": "node.exe",
-        "startedAt": "2026-11-02T11:06:03.847Z",
-        "endedAt": "2026-11-02T11:06:06.443Z",
+        "startedAt": "2026-11-02T11:20:16.985Z",
+        "endedAt": "2026-11-02T11:20:19.333Z",
         "foreground": true,
         "endCondition": "bounded command exit",
         "stopMethod": "owning process handle",
@@ -148,10 +150,10 @@
         "owner": "Coder, Nautilus Engine",
         "purpose": "actual public installed workflow",
         "project": "Nautilus Engine C1",
-        "pid": 36420,
+        "pid": 56692,
         "executable": "node.exe",
-        "startedAt": "2026-11-02T11:06:06.445Z",
-        "endedAt": "2026-11-02T11:06:16.809Z",
+        "startedAt": "2026-11-02T11:20:19.335Z",
+        "endedAt": "2026-11-02T11:20:28.423Z",
         "foreground": true,
         "endCondition": "bounded command exit",
         "stopMethod": "owning process handle",
@@ -172,5 +174,49 @@
     "recommendation": "Prefer shared pure C1 rectangle source/commands with one Editor commit authority for this milestone. Keep richer C2 decoration and game-specific simulation behind later reviewed adapters.",
     "adoption": "pure Core implemented; production Editor/UI/visual integration remains separately owned"
   },
-  "earlyCheckpoint": "981a496a8fda395dd70838f5f1361b44e3fc7b70"
+  "earlyCheckpoint": "981a496a8fda395dd70838f5f1361b44e3fc7b70",
+  "priorCheckpoint": "178289fbff6ffc5d3e1fa3db2b3b3252b6b31d89",
+  "architectReviewCorrections": [
+    {
+      "finding": "UTF16 units incorrectly rejected valid Unicode code point lengths",
+      "correction": "Use proven UTF16 lower/upper length bounds first; only ambiguous schema cases run a precharged scalar counter loop with no code point array allocation. UTF8 byte/work bounds remain independent.",
+      "positive": "ASCII120, emoji60/61/120 accepted",
+      "negative": "ASCII/emoji121 and unpaired surrogate refuse"
+    },
+    {
+      "finding": "Old preset association accepted after current owner definition upgrade",
+      "correction": "Resolve exact preset and require preset.definition equal the complete current owner Definition Pin.",
+      "positive": "B1 owner retains P1; upgraded B2 owner has null preset",
+      "negative": "Restoring P1(B1) onto current B2 refuses OWNER_PRESET_PIN"
+    },
+    {
+      "finding": "Surface binding could use alternate Definition/frame behind equal recipe bytes",
+      "correction": "Require SurfaceBinding.definition equal current owner Definition Pin and validate current geometry/frame/grid.",
+      "positive": "Exact current Pin/frame accepts",
+      "negative": "Separately sealed origin[10,20,0] Definition with fresh hashes refuses SURFACE_DEFINITION_PIN; same Pin with wrong frame refuses SURFACE_BINDING"
+    },
+    {
+      "finding": "Active preset requirements were ignored",
+      "correction": "Stage operations check active preset and definition requirements before any preparation; binder replays the same semantics.",
+      "positive": "Supported preset places through actual public prepare/bind; unsupported metadata remains inspectable immutable content",
+      "negative": "Unavailable active preset profile refuses UNSUPPORTED_REQUIRED_PROFILE before preparation"
+    },
+    {
+      "finding": "Binder omitted exact source resource/context closure",
+      "correction": "Planner and binder share validateResourceContext; binder checks source and returned target descriptor closure on both routes.",
+      "positive": "Exact typed descriptor binds on metadata and geometry routes",
+      "negative": "Dropping context descriptor refuses UNBOUND_RESOURCE_SET in both planner and binder"
+    },
+    {
+      "finding": "Binder echoed modified proposal cost fields",
+      "correction": "Shared authoringCosts derives source counts/layers and captured aggregate allocations; binder validates cost schema and compares all nonplanning fields with fresh derivation, then returns those derived values.",
+      "positive": "Captured owned material total64 is returned64 on both routes",
+      "negative": "Altered total0, sourceMarks or layer observation refuses PLAN_COST_BINDING"
+    }
+  ],
+  "cosmeticUpgradeControl": {
+    "behavior": "For existing unchanged exact geometry/frame/grid, update only the current SurfaceBinding.definition Pin during selected explicit upgrade. Preserve mark/chunk bytes, stable mark binding digest, other owners and pins.",
+    "negative": "Dimensions/frame/grid changes still refuse C2_ANCHOR_EDIT_UNAVAILABLE.",
+    "C2CreationOrRenderingAdded": false
+  }
 }
