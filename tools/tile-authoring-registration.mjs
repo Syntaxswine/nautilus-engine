@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {checkTileStackRegistration,TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
+import {checkSharedArtworkRegistration} from './shared-artwork-registration.mjs';
 
 export const TILE_AUTHORING_REGISTRATION_SOURCE='3df11ce6e62fb94806e30652b87168949f8ef4dd';
 export const TILE_AUTHORING_REGISTRATION_BASE='d869410625b246cfff2b51089e7878c31951775c';
@@ -78,7 +79,12 @@ const relative=file=>typeof file==='string'&&file&&!path.posix.isAbsolute(file)&
 const included=profile=>profile==='core'||profile==='compatibility';
 const priorExports=(pkg,profile)=>profile==='core'?Object.fromEntries(Object.entries(pkg.exports).filter(([id])=>!id.endsWith('/three')&&!id.startsWith('./render-effects')&&!id.startsWith('./floors/')&&!id.startsWith('./game-ui/')&&!['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id))):profile==='renderer'?{...Object.fromEntries(Object.entries(pkg.exports).filter(([id])=>id.endsWith('/three')||id==='./render-effects'||id==='./grenades/view')),'.':'./packages/assets/three.js'}:profile==='assets'?{'.':'./packages/assets/files.js','./catalogue':'./packages/assets/index.js'}:{...pkg.exports};
 
-export function checkTileAuthoringRegistration({object,read,indexed=()=>{},moduleClosure,distribution}){
+export function checkTileAuthoringRegistration(ports){
+  const artwork=checkSharedArtworkRegistration(ports);
+  const legacy=checkHistoricalTileAuthoringRegistration(artwork.historicalPorts);
+  return {...legacy,sharedArtworkRegistration:artwork.report,registrationView:'Authenticated pre-artwork C1 profile view; actual artwork additions and indexed bytes are checked separately first.',requiredGitCommits:[...new Set([...legacy.requiredGitCommits,...artwork.report.requiredGitCommits])]};
+}
+function checkHistoricalTileAuthoringRegistration({object,read,indexed=()=>{},moduleClosure,distribution}){
   const authenticate=(commit,file)=>{
     const row=approvedCritical.find(row=>row.commit===commit&&row.path===file);assert.ok(row,'No approved critical source row '+commit+':'+file);
     const bytes=object(commit,file);assert.ok(Buffer.isBuffer(bytes));assert.equal(bytes.length,row.bytes);assert.equal(sha(bytes),row.sha256);assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),row.gitBlob);return bytes;

@@ -5,11 +5,20 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {distribution,moduleClosure,root} from './distribution.mjs';
+import {checkSharedArtworkRegistration} from './shared-artwork-registration.mjs';
 const directory='packages/tile-authoring-core/',entry='./'+directory+'index.js',base='d869410625b246cfff2b51089e7878c31951775c',c0='43227894c50ec62b71806978195fff2c650eb388';
 const runtime=['index.js','contract.js','data.js','budget.js','model.js','operations.js','geometry.js','target.js'].map(x=>directory+x).sort(),metadata=['index.d.ts','contract.schema.json','README.md','source.json'].map(x=>directory+x),guide='docs/tile-authoring.md';
 const sha=x=>createHash('sha256').update(x).digest('hex'),canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v),token=v=>sha(canonical(v)),record=(cwd,file)=>{const data=fs.readFileSync(path.join(cwd,file));return {path:file,bytes:data.length,sha256:sha(data)};};
 const own=f=>f.startsWith(directory)||f===guide;
 export function checkTileAuthoringCoreSource(cwd=root,{tracked=null}={}){
+ assert.equal(path.resolve(cwd),root,'Use this checkout with its owning distribution module.');
+ const cache=new Map(),object=(commit,file)=>{const key=commit+':'+file;if(!cache.has(key))cache.set(key,execFileSync('git',['-c','core.longpaths=true','-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',key],{windowsHide:true,timeout:30000,maxBuffer:24*1024*1024}));return cache.get(key);};
+ const read=file=>fs.readFileSync(path.join(cwd,file)),indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Required shared artwork source is not tracked: '+file);assert.ok(object('',file).equals(expected),'Index changes authenticated artwork bytes: '+file);};
+ const artwork=checkSharedArtworkRegistration({object,read,indexed,moduleClosure,distribution});
+ const legacy=checkHistoricalTileAuthoringCoreSource(cwd,{tracked},artwork.historicalPorts.distribution);
+ return {...legacy,sharedArtworkRegistration:artwork.report,historicalProfileScope:'Only the exact authenticated pre-artwork profile view; current artwork bytes/index/profile additions checked first. Actual C1 module closure and immutable records remain unchanged.'};
+}
+function checkHistoricalTileAuthoringCoreSource(cwd,{tracked},distribution){
  const manifest=JSON.parse(fs.readFileSync(path.join(cwd,directory+'source.json'))),pkg=JSON.parse(fs.readFileSync(path.join(cwd,'package.json')));assert.equal(manifest.base,base);assert.equal(manifest.c0,c0);assert.equal(pkg.exports['./tiles/authoring'],entry);const prior={...pkg.exports};delete prior['./tiles/authoring'];assert.deepEqual(prior,manifest.baseline.exports,'Unexpected export outside explicit C1 delta.');
  const paths=[...runtime,...metadata.filter(f=>!f.endsWith('/source.json')),guide];for(const f of paths)if(tracked)assert.ok(tracked.has(f),'Required C1 file not tracked: '+f);
  for(const row of [...manifest.runtime,...manifest.dependencies,...manifest.metadata])assert.deepEqual(record(cwd,row.path),row,'C1 source byte change: '+row.path);
