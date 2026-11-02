@@ -1,0 +1,48 @@
+{
+  "id": "nautilus.tile-authoring.ui-contract",
+  "status": "proposed-contract-design",
+  "contractVersion": 1,
+  "publicEntry": null,
+  "registeredCapabilities": [],
+  "packageVersion": null,
+  "workspaceSchemaVersion": null,
+  "purpose": "Review Create/Edit/preset-library and local overlay controls using one shared human/agent discovery seam.",
+  "guide": "docs/reviews/tile-authoring/ui/README.md",
+  "interfaces": "candidates/tile-authoring/ui/contract.d.ts",
+  "example": "candidates/tile-authoring/ui/examples/discovery.json",
+  "designSpecimen": "candidates/tile-authoring/ui/specimen.html",
+  "notice": "candidates/tile-authoring/ui/NOTICE.md",
+  "sourceRecord": "docs/reviews/tile-authoring/ui/source.json",
+  "owners": {
+    "ui": "UI, Nautilus Engine",
+    "authority": "Editor, Nautilus Engine",
+    "validation": "Coder, Nautilus Engine",
+    "artwork": "Artist, Nautilus Engine",
+    "integration": "Architect, Nautilus Engine"
+  },
+  "requiredBindings": [
+    "reviewed shared Editor authoring/discovery and complete workspace policy",
+    "strict Coder payload schemas and stable surface/anchor profiles",
+    "existing retained floor, input and selection owners",
+    "immutable artwork/resource preparation and portable content codecs"
+  ],
+  "optionalBindings": [
+    "reviewed clipped flat-surface overlay presenter",
+    "game-owned confirmed-event/expiry adapter"
+  ],
+  "space": {
+    "ui": "CSS pixels; 44px proposed touch controls",
+    "source": "explicit semantic owner/surface/floor; owner-local metres; declared surface/grid frame",
+    "physics": "unbound; graphics grant no physical capabilities"
+  },
+  "ownership": "UI owns presentation metadata/DOM only; Editor owns transactions/history/recovery; all host services borrowed.",
+  "persistence": "No owned save or journal. Proposed whole-workspace policy needs fixed review.",
+  "gameDecisions": [
+    "art/style and blood/vegetation policy",
+    "confirmed events, permissions, runtime clocks/expiry and complete-game save",
+    "physical crater/plant providers and capability support"
+  ],
+  "examplesAreExecutableAuthoringCommands": false,
+  "acceptanceChecklist": "docs/reviews/tile-authoring/ui/README.md#builder-checklist-and-evidence",
+  "proofScope": "Headless metadata and read-only design layout only; no real or installed authoring/provider support."
+}
