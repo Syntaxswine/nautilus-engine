@@ -4,7 +4,7 @@ import {execFileSync} from 'node:child_process';
 import {audioDistribution, audioProjectRoot as root} from './audio-distribution.mjs';
 const output = path.join(root, 'artifacts/audio-package');
 fs.mkdirSync(output, {recursive: true});
-const npmCli = [process.env.npm_execpath, path.join(path.dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js')].find(file => file && path.basename(file) === 'npm-cli.js' && fs.existsSync(file));
+const npmCli = [process.env.npm_execpath, path.join(path.dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js'), path.resolve(path.dirname(process.execPath), '../lib/node_modules/npm/bin/npm-cli.js')].find(file => file && path.basename(file) === 'npm-cli.js' && fs.existsSync(file));
 if (!npmCli) throw Error('Run using a Node installation containing npm.');
 const scratch = fs.mkdtempSync(path.join(output, 'proof-')), stage = path.join(scratch, 'stage'), consumer = path.join(scratch, 'consumer');
 fs.mkdirSync(stage); fs.mkdirSync(consumer);
