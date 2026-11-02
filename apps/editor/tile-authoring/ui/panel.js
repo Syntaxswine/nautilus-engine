@@ -6,8 +6,8 @@ const enabled = (view, name) => view?.presentation.actions[name]?.enabled === tr
 const ownFunction = (object, key) => !!object && typeof Object.getOwnPropertyDescriptor(object, key)?.value === 'function';
 const stringify = value => JSON.stringify(value);
 const sameData = (a,b) => a===b || !!a && !!b && typeof a==='object' && typeof b==='object' && Array.isArray(a)===Array.isArray(b) && Object.keys(a).length===Object.keys(b).length && Object.keys(a).every(k=>Object.hasOwn(b,k)&&sameData(a[k],b[k]));
-const bindingKey = view => stringify([view.snapshot.document.id,view.snapshot.document.sourceJSON,view.snapshot.document.floorBinding,view.snapshot.document.finishBinding]);
-const actionKey = view => stringify([view.snapshot.expected,view.presentation.command,view.presentation.review?.reviewToken??null,view.presentation.retainedApplyRequest,view.presentation.outcome,view.presentation.actions]);
+const bindingKey = view => [view.snapshot.document.id,view.snapshot.document.sourceJSON,view.snapshot.document.floorBinding,view.snapshot.document.finishBinding];
+const actionKey = view => [view.snapshot.expected,view.presentation.command,view.presentation.review?.reviewToken??null,view.presentation.retainedApplyRequest,view.presentation.outcome,view.presentation.actions];
 export function readTileAuthoringUIView(input) {
   const value = finiteUIData(input);
   tileAuthoringExpected(value.snapshot);
@@ -47,7 +47,7 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
         const {raw}=queued;queued=null;lastView=null;epoch++;
         try {
           const view=readTileAuthoringUIView(raw),next=bindingKey(view);
-          if(identity!==null&&next!==identity){broken=true;ticket++;pending=false;onPending(false);throw issue('UI_REBIND_REQUIRED','Workspace/floor/finish identity changed. Mount a new explicit Editor connection.');}
+          if(identity!==null&&!sameData(next,identity)){broken=true;ticket++;pending=false;onPending(false);throw issue('UI_REBIND_REQUIRED','Workspace/floor/finish identity changed. Mount a new explicit Editor connection.');}
           onView(view);
           if(!queued&&!disposed&&!broken){identity=next;lastView=view;onPending(pending);}
         }catch(reason){invalidate(reason);}
@@ -60,7 +60,7 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
     if(disposed||broken||rendering||!displayed||!enabled(displayed,name)||(pending&&name!=='cancel'))return {ok:false,code:'UI_ACTION_UNAVAILABLE'};
     let current;
     try{current=read();}catch(reason){invalidate(reason);return {ok:false,code:reason.code??'UI_VIEW_UNAVAILABLE'};}
-    if(disposed||broken||epoch!==stamp||actionKey(current.view)!==actionKey(displayed)||bindingKey(current.view)!==identity){
+    if(disposed||broken||epoch!==stamp||!sameData(actionKey(current.view),actionKey(displayed))||!sameData(bindingKey(current.view),identity)){
       receive(current.raw);return {ok:false,code:'UI_DISPLAY_CHANGED'};
     }
     if(!enabled(current.view,name)||(current.view.presentation.outcome?.outcome==='unknown'&&name!=='recover'))return {ok:false,code:'UI_ACTION_UNAVAILABLE'};

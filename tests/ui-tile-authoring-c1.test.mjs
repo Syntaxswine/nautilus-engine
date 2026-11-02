@@ -175,3 +175,36 @@ test('a replaced HostService permanently retires the presentation without forwar
 test('tri-state outcomes cannot be coerced or presented under the wrong state',()=>{
   for(const [outcome,committed]of [['committed',false],['rejected',null],['unknown',false]]){const view=uiView();view.presentation.outcome={outcome,committed,requestId:'r'};assert.throws(()=>readTileAuthoringUIView(view),/UI_OUTCOME_REQUIRED/);}
 });
+
+test('equal object-key reorder preserves the mount and allows the current staged command',async()=>{
+  const reorder=value=>Array.isArray(value)?value.map(reorder):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).reverse().map(([key,value])=>[key,reorder(value)])):value;
+  const h=host(),controller=await staged(h),before=h.view,changed=reorder(before);
+  assert.equal(changed.snapshot.document.sourceJSON,before.snapshot.document.sourceJSON);
+  assert.deepEqual(changed.snapshot.document.floorBinding.floors,before.snapshot.document.floorBinding.floors);
+  assert.notDeepEqual(Object.keys(changed.snapshot.document.floorBinding),Object.keys(before.snapshot.document.floorBinding));
+  h.set(changed,false);
+  await controller.review();
+  assert.equal(h.calls.prepare.length,1);
+  assert.strictEqual(h.calls.prepare[0],changed.presentation.command);
+  assert.notEqual(controller.view,null);
+  h.publish(reorder(h.view));
+  assert.notEqual(controller.view,null);
+  controller.dispose();
+});
+test('real floor values, floor array order and raw sourceJSON byte changes still retire permanently',async()=>{
+  const changes=[
+    value=>value.snapshot.document.floorBinding.floors[1].elevationM=3.25,
+    value=>value.snapshot.document.floorBinding.floors.reverse(),
+    value=>value.snapshot.document.sourceJSON=' '+value.snapshot.document.sourceJSON
+  ];
+  for(const change of changes){
+    const h=host(),initial=copy(h.view);
+    initial.snapshot.document.floorBinding.floors.push({id:'F01',label:'2',elevationM:2.12,source:{kind:'legacy-layer',layerIndex:1}});
+    h.set(initial,false);
+    const controller=await staged(h),before=copy(h.view),changed=copy(before);
+    change(changed);h.publish(changed);assert.equal(controller.view,null);
+    h.publish(before);assert.equal(controller.view,null);
+    await controller.review();assert.equal(h.calls.prepare.length,0);
+    controller.dispose();
+  }
+});
