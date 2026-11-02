@@ -1,97 +1,489 @@
 {
-  "schemaVersion": 1,
-  "method": "independent Decimal source controls and integer reservation intervals; no engine/planner imports",
+  "schemaVersion": 2,
+  "method": "independent intended source + Decimal/q1e6 intervals + actual outcomes/targets/constraints/bindings/inspection; no engine/planner imports",
   "results": [
     {
       "name": "uniform-fifteen",
       "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
       "ownerPairs": 105,
       "contactObligations": 210,
+      "inspectedOldAndNextObligations": 210,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": 2000000,
-      "violations": []
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "finish-unlocked",
       "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
       "ownerPairs": 105,
       "contactObligations": 210,
+      "inspectedOldAndNextObligations": 420,
+      "directOwnerIds": [
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": 2000000,
-      "violations": []
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "missing-one-crossing",
       "ok": false,
+      "actualOverallOK": false,
+      "planOK": true,
+      "actualPreparationOK": false,
       "ownerPairs": 105,
       "contactObligations": 210,
+      "inspectedOldAndNextObligations": 210,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": 2000000,
       "violations": [
         "missing-crossing"
-      ]
+      ],
+      "actualTargetChecked": false,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "move-top",
       "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
       "ownerPairs": 91,
       "contactObligations": 182,
+      "inspectedOldAndNextObligations": 392,
+      "directOwnerIds": [
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 91
+      },
       "minimumGapQ": 2000000,
-      "violations": []
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "remove-top",
       "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
       "ownerPairs": 91,
       "contactObligations": 182,
+      "inspectedOldAndNextObligations": 392,
+      "directOwnerIds": [
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 91
+      },
       "minimumGapQ": 2000000,
-      "violations": []
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "nonuniform-fifteen",
       "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
       "ownerPairs": 105,
       "contactObligations": 210,
+      "inspectedOldAndNextObligations": 210,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": 2000000,
-      "violations": []
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "tall-extra-reservation",
       "ok": false,
+      "actualOverallOK": false,
+      "planOK": true,
+      "actualPreparationOK": false,
       "ownerPairs": 105,
       "contactObligations": 525,
+      "inspectedOldAndNextObligations": 525,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": -880000,
       "violations": [
         "insufficient-clearance"
-      ]
+      ],
+      "actualTargetChecked": false,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "insufficient-clearance",
       "ok": false,
+      "actualOverallOK": false,
+      "planOK": true,
+      "actualPreparationOK": false,
       "ownerPairs": 105,
       "contactObligations": 210,
+      "inspectedOldAndNextObligations": 210,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
       "minimumGapQ": 1999999,
       "violations": [
         "insufficient-clearance"
-      ]
+      ],
+      "actualTargetChecked": false,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "projected-edge",
       "ok": false,
+      "actualOverallOK": false,
+      "planOK": false,
+      "actualPreparationOK": null,
       "ownerPairs": 1,
       "contactObligations": 2,
+      "inspectedOldAndNextObligations": 0,
+      "directOwnerIds": [
+        "upper"
+      ],
+      "managedClearanceCounts": {},
       "minimumGapQ": 2000000,
       "violations": [
         "deferred-edge-near"
-      ]
+      ],
+      "actualTargetChecked": false,
+      "constraintsAndDigestsChecked": false,
+      "intendedSourceDerivedIndependently": true
     },
     {
       "name": "projected-near",
       "ok": false,
+      "actualOverallOK": false,
+      "planOK": false,
+      "actualPreparationOK": null,
       "ownerPairs": 1,
       "contactObligations": 2,
+      "inspectedOldAndNextObligations": 0,
+      "directOwnerIds": [
+        "upper"
+      ],
+      "managedClearanceCounts": {},
       "minimumGapQ": 2000000,
       "violations": [
         "deferred-edge-near"
-      ]
+      ],
+      "actualTargetChecked": false,
+      "constraintsAndDigestsChecked": false,
+      "intendedSourceDerivedIndependently": true
+    },
+    {
+      "name": "stronger-top-initial",
+      "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "inspectedOldAndNextObligations": 210,
+      "directOwnerIds": [
+        "deck.00",
+        "deck.01",
+        "deck.02",
+        "deck.03",
+        "deck.04",
+        "deck.05",
+        "deck.06",
+        "deck.07",
+        "deck.08",
+        "deck.09",
+        "deck.10",
+        "deck.11",
+        "deck.12",
+        "deck.13",
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "2": 105
+      },
+      "minimumGapQ": 2000000,
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
+    },
+    {
+      "name": "stronger-top-only",
+      "ok": true,
+      "actualOverallOK": true,
+      "planOK": true,
+      "actualPreparationOK": true,
+      "ownerPairs": 105,
+      "contactObligations": 210,
+      "inspectedOldAndNextObligations": 420,
+      "directOwnerIds": [
+        "deck.14"
+      ],
+      "managedClearanceCounts": {
+        "3": 14,
+        "2": 91
+      },
+      "minimumGapQ": 2000000,
+      "violations": [],
+      "actualTargetChecked": true,
+      "constraintsAndDigestsChecked": true,
+      "intendedSourceDerivedIndependently": true
     }
   ],
-  "mutationControls": 2
+  "envelopeCases": 18,
+  "budgetCasesOutsideIntervalPrediction": [
+    "limit-minus-one-maxSteps",
+    "limit-minus-one-maxClosure",
+    "limit-minus-one-maxSpatialTests",
+    "limit-minus-one-maxGeometryWork",
+    "limit-minus-one-maxPlannerWork",
+    "limit-minus-one-maxPlannerBytes"
+  ],
+  "mutationControls": 16,
+  "mutations": [
+    {
+      "name": "tall-extra-reservation-forged-success-flags",
+      "case": "tall-extra-reservation",
+      "rejected": true,
+      "code": "PUBLIC_SUCCESS_TARGET",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "missing-one-crossing-forged-success-flags",
+      "case": "missing-one-crossing",
+      "rejected": true,
+      "code": "PUBLIC_SUCCESS_TARGET",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "positive-returned-old-empty-bundle",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PUBLIC_TARGET_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "next-managed-105-to-104-with-recomputed-digest",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "NEXT_CONSTRAINTS_VS_REQUIREMENTS",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "finish-returned-no-obligations",
+      "case": "finish-unlocked",
+      "rejected": true,
+      "code": "OBLIGATION_INSPECTION",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "tall-extra-reservation-complete-coherent-forged-success",
+      "case": "tall-extra-reservation",
+      "rejected": true,
+      "code": "PUBLIC_GEOMETRIC_OUTCOME",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "missing-one-crossing-complete-coherent-forged-success",
+      "case": "missing-one-crossing",
+      "rejected": true,
+      "code": "PUBLIC_GEOMETRIC_OUTCOME",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "positive-empty-target-with-coherent-digests",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PUBLIC_TARGET_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "positive-moved-target-with-coherent-digests",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PUBLIC_TARGET_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "positive-changed-seed-with-coherent-digests",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PUBLIC_TARGET_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "plan-and-target-coherently-disagree-with-intended-origin",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PLANNED_REQUEST_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "stronger-top-requirement-lowered-with-coherent-source-and-digests",
+      "case": "stronger-top-only",
+      "rejected": true,
+      "code": "PLANNED_REQUEST_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "stronger-top-inspection-invented-lower-pair-minimum",
+      "case": "stronger-top-only",
+      "rejected": true,
+      "code": "OBLIGATION_INSPECTION",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "positive-forged-public-refusal",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PUBLIC_GEOMETRIC_OUTCOME",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    },
+    {
+      "name": "public-refusal-retains-a-complete-candidate",
+      "case": "tall-extra-reservation",
+      "rejected": true,
+      "code": "PUBLIC_REFUSAL_TARGET",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": true
+    },
+    {
+      "name": "original-bound-request-omission",
+      "case": "uniform-fifteen",
+      "rejected": true,
+      "code": "PLANNED_REQUEST_VS_INTENT",
+      "inputAndExpectationUnchanged": true,
+      "completeCoherentTarget": false
+    }
+  ]
 }

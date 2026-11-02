@@ -1,7 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "baseline": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
-  "status": "functional Gate A candidate; Architect acceptance/Gate B integration pending",
+  "reviewedPlannerCommit": "fdd06015525a3e1df5c46c05b3efce3e92092b7f",
+  "reviewedPlannerUnchanged": true,
+  "status": "proof-only correction; Gate A re-review/Gate B integration pending",
   "gates": [
     {
       "command": "npm run check",
@@ -12,14 +14,14 @@
     {
       "command": "npm test",
       "exitCode": 0,
-      "logSha256": "22dedf23677566d3d298d37e2bbc1f7a11bf75b4eb019bdcce4e773db2febfcb",
-      "logBytes": 103004
+      "logSha256": "cf66d2070576f0a72236f42953f4cefe57ef649e4ef5c2e5ba882e90f89c6909",
+      "logBytes": 103052
     },
     {
       "command": "npm run test:upstream",
       "exitCode": 0,
-      "logSha256": "cbfd83bec92af336528542eee4246993ea20d3ba78589026433894e34742381c",
-      "logBytes": 3124
+      "logSha256": "9f95082b472d720b8d9e8ef00819d2f054f700f854cf6b0c74c8360b8c65251a",
+      "logBytes": 3140
     },
     {
       "command": "npm run build",
@@ -42,7 +44,7 @@
     "forbiddenDependencyAccesses": 0,
     "crossings": 105
   },
-  "caseCount": 16,
+  "caseCount": 18,
   "cases": [
     {
       "name": "uniform-fifteen",
@@ -53,6 +55,8 @@
         "serializedBytes": 78008
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "spatialTests": 435,
@@ -69,6 +73,8 @@
         "serializedBytes": 114988
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 2,
         "spatialTests": 555,
@@ -84,7 +90,12 @@
         "plannerUnits": 154675,
         "serializedBytes": 78008
       },
-      "requestRelations": 104,
+      "requestRelations": 105,
+      "submittedRelations": 104,
+      "injectedFault": {
+        "kind": "omit-one-crossing",
+        "relationId": "stk.cross.fbd1ebbc11ec5a45de022fd66785a881bae4f8db4937ce383790b8f3ea654c7a"
+      },
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 1949,
@@ -104,6 +115,8 @@
         "serializedBytes": 78007
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 0,
@@ -122,6 +135,8 @@
         "serializedBytes": 0
       },
       "requestRelations": null,
+      "submittedRelations": null,
+      "injectedFault": null,
       "coreWork": null,
       "codes": [
         "STACK_CLOSURE_LIMIT"
@@ -136,6 +151,8 @@
         "serializedBytes": 78005
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 1950,
@@ -154,6 +171,8 @@
         "serializedBytes": 78006
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 1949,
@@ -172,6 +191,8 @@
         "serializedBytes": 0
       },
       "requestRelations": null,
+      "submittedRelations": null,
+      "injectedFault": null,
       "coreWork": null,
       "codes": [
         "STACK_PLANNER_WORK_LIMIT"
@@ -186,6 +207,8 @@
         "serializedBytes": 0
       },
       "requestRelations": null,
+      "submittedRelations": null,
+      "injectedFault": null,
       "coreWork": null,
       "codes": [
         "STACK_PLANNER_BYTES_LIMIT"
@@ -200,6 +223,8 @@
         "serializedBytes": 101284
       },
       "requestRelations": 91,
+      "submittedRelations": 91,
+      "injectedFault": null,
       "coreWork": {
         "steps": 2,
         "spatialTests": 555,
@@ -216,6 +241,8 @@
         "serializedBytes": 101000
       },
       "requestRelations": 91,
+      "submittedRelations": 91,
+      "injectedFault": null,
       "coreWork": {
         "steps": 1,
         "spatialTests": 533,
@@ -232,6 +259,8 @@
         "serializedBytes": 78017
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "spatialTests": 435,
@@ -248,6 +277,8 @@
         "serializedBytes": 134520
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 1863,
@@ -267,6 +298,8 @@
         "serializedBytes": 78012
       },
       "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
       "coreWork": {
         "steps": 16,
         "geometryEvaluations": 1939,
@@ -286,6 +319,8 @@
         "serializedBytes": 0
       },
       "requestRelations": null,
+      "submittedRelations": null,
+      "injectedFault": null,
       "coreWork": null,
       "codes": [
         "STACK_FLOOR_SEPARATION_UNSUPPORTED"
@@ -300,23 +335,101 @@
         "serializedBytes": 0
       },
       "requestRelations": null,
+      "submittedRelations": null,
+      "injectedFault": null,
       "coreWork": null,
       "codes": [
         "STACK_FLOOR_SEPARATION_UNSUPPORTED"
       ]
+    },
+    {
+      "name": "stronger-top-initial",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 155107,
+        "serializedBytes": 78013
+      },
+      "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
+      "coreWork": {
+        "steps": 16,
+        "spatialTests": 435,
+        "geometryEvaluations": 1950
+      },
+      "codes": []
+    },
+    {
+      "name": "stronger-top-only",
+      "ok": true,
+      "planOK": true,
+      "plannerWork": {
+        "plannerUnits": 251186,
+        "serializedBytes": 114991
+      },
+      "requestRelations": 105,
+      "submittedRelations": 105,
+      "injectedFault": null,
+      "coreWork": {
+        "steps": 2,
+        "spatialTests": 555,
+        "geometryEvaluations": 1950
+      },
+      "codes": []
     }
   ],
-  "oracleCases": 10,
-  "oracleMutationControls": 2,
+  "independentOracle": {
+    "schemaVersion": 2,
+    "cases": 12,
+    "envelopeCases": 18,
+    "mutationControls": 16,
+    "completeCoherentTargetControls": 8,
+    "inputsAndExpectationsFixed": true,
+    "strongerTopMinima": {
+      "2": 91,
+      "3": 14
+    }
+  },
+  "oracleCases": 12,
+  "oracleMutationControls": 16,
   "artifactHashes": {
-    "source.json": "9e71b00ba190dbf990c14d410af062b00c9baa28a49457ef725a877b1e10a26e",
-    "installed.json": "9e71b00ba190dbf990c14d410af062b00c9baa28a49457ef725a877b1e10a26e",
-    "source-oracle.json": "19df9e2b22044503644a0876983c5fd176456e168720796ef131ae9341bb41b7",
-    "installed-oracle.json": "19df9e2b22044503644a0876983c5fd176456e168720796ef131ae9341bb41b7",
-    "installed-tests.tap": "a6cf19fd3de575c71fdde716ea11161ce9914158a21188f42922442691494a51"
+    "source.json": "09dea65eda9019df4a7b49c4322fb83f8473332a436692e005cfbf6bcb41ccb6",
+    "installed.json": "09dea65eda9019df4a7b49c4322fb83f8473332a436692e005cfbf6bcb41ccb6",
+    "source-oracle.json": "4b871b1dca3c5c8c8bca6082fdd1a1d5091760b15d8eed4ad2ba93826430d480",
+    "installed-oracle.json": "4b871b1dca3c5c8c8bca6082fdd1a1d5091760b15d8eed4ad2ba93826430d480",
+    "installed-tests.tap": "066f6f07886aac6447a2c6fdb7d2f4b88364b6946b87a2b7a532f07313543edc"
+  },
+  "testRetry": {
+    "initialFullSuite": {
+      "pass": 939,
+      "fail": 1,
+      "test": "candidate package tool refuses undeclared availability by default before offline staging",
+      "observedDurationMs": 20477.7794,
+      "childTimeoutMs": 20000,
+      "stderrObserved": "empty",
+      "inference": "consistent with the unchanged subprocess timeout under concurrent gate load",
+      "logSha256": "d6a5af8960b203b786a8a9e8e310e41a7bf148f1a819bd3b376c044c1e1c3a4b"
+    },
+    "isolatedExistingTests": {
+      "pass": 2,
+      "fail": 0
+    },
+    "directPackageProbe": {
+      "status": 1,
+      "signal": null,
+      "error": null,
+      "expectedRefusal": true
+    },
+    "finalFullSuite": {
+      "command": "npm test",
+      "pass": 940,
+      "fail": 0,
+      "changedCodeOrTimeouts": false
+    }
   },
   "cleanup": {
-    "scratchPath": "C:\\Users\\baals\\AppData\\Local\\Temp\\nautilus-tile-stack-core-proof-aGKkt2",
+    "scratchPath": "C:\\Users\\baals\\AppData\\Local\\Temp\\nautilus-tile-stack-core-proof-fIDzev",
     "removed": true,
     "stageRemoved": true,
     "consumerRemoved": true,
@@ -324,12 +437,12 @@
     "backgroundHelpers": 0,
     "servers": 0,
     "ports": [],
-    "retainedHelpers": 0
+    "retainedHelpers": 0,
+    "taskTaggedProofParserProcessesObservedAfterGates": 0
   },
   "limitations": [
-    "No new public registration or C2a stack support",
-    "No Gate B stacked document/session/history/browser implementation",
-    "Actual public retained consumer one-use/unknown-ack boundary tested; existing v1 history/recovery suite passes",
-    "No structural support, navigation, extrusion, game adoption or phone/GPU timing claim"
+    "No runtime/planner/core/API change from reviewed fdd0601",
+    "Interval/output oracle predicts 12 cases; six budget cases get envelope checks and actual source/installed tests",
+    "No new public registration, Gate B session/history/browser implementation or game capability"
   ]
 }
