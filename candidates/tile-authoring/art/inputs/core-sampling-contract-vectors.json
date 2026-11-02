@@ -1,0 +1,611 @@
+{
+  "schemaVersion": 1,
+  "status": "contract mathematical oracles; no renderer/decoder implementation",
+  "groupOpacity": {
+    "markAlphas": [
+      0.5,
+      0.5
+    ],
+    "markOpacities": [
+      1,
+      1
+    ],
+    "layerOpacity": 0.5,
+    "compositedLayerAlpha": 0.75,
+    "resultAlpha": 0.375,
+    "incorrectPerMarkLayerAlpha": 0.4375
+  },
+  "alphaFloor": {
+    "threshold8": 2,
+    "samples": [
+      {
+        "alpha8": 2,
+        "expectedAlpha": 0
+      },
+      {
+        "alpha8": 3,
+        "expectedAlpha": 0.011764705882352941
+      }
+    ]
+  },
+  "frameSampling": {
+    "pageSizePx": [
+      1024,
+      1536
+    ],
+    "rectPx": [
+      512,
+      512,
+      256,
+      256
+    ],
+    "samples": [
+      {
+        "form": "stamp",
+        "expectedTexelCenter": [
+          575.5,
+          703.5
+        ],
+        "imageTopLeftUV": [
+          0.25,
+          0.75
+        ]
+      },
+      {
+        "form": "stamp",
+        "expectedTransparent": true,
+        "imageTopLeftUV": [
+          -0.01,
+          0.5
+        ]
+      },
+      {
+        "form": "detail",
+        "expectedTexelCenter": [
+          575.5,
+          703.5
+        ],
+        "imageTopLeftUV": [
+          1.25,
+          -0.25
+        ]
+      }
+    ]
+  },
+  "bilinearPremultiplication": {
+    "straightSRGBTaps": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1
+      ]
+    ],
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "expectedLinearPremultipliedRGBA": [
+      0,
+      0,
+      0.5,
+      0.5
+    ]
+  },
+  "linearTint": {
+    "sourceSRGB": 0.5,
+    "tintLinear": 0.5,
+    "expectedLinear": 0.10702057024111628
+  },
+  "coordinates": {
+    "storedImageUV": "image-top-left",
+    "storedPivotUV": "image-top-left",
+    "surfaceLocalAxes": "u-right-v-up-metres",
+    "derivedLocalUpUV": "[u_i,1-v_i]",
+    "derivedPivotLocalUpUV": "[p_u,1-p_v]",
+    "nativeToRenderAxes": [
+      0,
+      2,
+      1
+    ]
+  },
+  "noncentralPivotWitness": {
+    "imageTopLeftUV": [
+      0.2,
+      0.8
+    ],
+    "transform": {
+      "positionM": [
+        3,
+        5
+      ],
+      "sizeM": [
+        2,
+        4
+      ],
+      "rotationRad": 0,
+      "mirrorU": false,
+      "pivotUV": [
+        0.2,
+        0.8
+      ]
+    },
+    "surface": {
+      "originM": [
+        0,
+        0,
+        0
+      ],
+      "axes": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    },
+    "owner": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "transform": {
+        "quarterTurns": 0,
+        "mirrorX": false
+      }
+    },
+    "expectedSurfaceLocalM": [
+      3,
+      5
+    ],
+    "expectedOwnerLocalM": [
+      3,
+      5,
+      0
+    ],
+    "expectedNativeM": [
+      3,
+      5,
+      0
+    ],
+    "expectedRenderM": [
+      3,
+      0,
+      5
+    ],
+    "previousMixedPivotSurfaceLocalM": [
+      3,
+      2.6
+    ]
+  },
+  "sourceFrameWitness": {
+    "imageTopLeftUV": [
+      0.5,
+      0.5
+    ],
+    "transform": {
+      "positionM": [
+        1,
+        2
+      ],
+      "sizeM": [
+        2,
+        4
+      ],
+      "rotationRad": 0,
+      "mirrorU": false,
+      "pivotUV": [
+        0.5,
+        0.5
+      ]
+    },
+    "surface": {
+      "originM": [
+        10,
+        20,
+        0
+      ],
+      "axes": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    },
+    "owner": {
+      "origin": [
+        30,
+        40,
+        7
+      ],
+      "transform": {
+        "quarterTurns": 1,
+        "mirrorX": false
+      }
+    },
+    "expectedSurfaceLocalM": [
+      1,
+      2
+    ],
+    "expectedOwnerLocalM": [
+      11,
+      22,
+      0
+    ],
+    "expectedNativeM": [
+      8,
+      51,
+      7
+    ],
+    "expectedRenderM": [
+      8,
+      7,
+      51
+    ],
+    "previousOmittedFrameNativeM": [
+      28,
+      41,
+      7
+    ]
+  },
+  "allD4Witnesses": [
+    {
+      "name": "nonzero-source-frame",
+      "imageTopLeftUV": [
+        0.5,
+        0.5
+      ],
+      "transform": {
+        "positionM": [
+          1,
+          2
+        ],
+        "sizeM": [
+          2,
+          4
+        ],
+        "rotationRad": 0,
+        "mirrorU": false,
+        "pivotUV": [
+          0.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "originM": [
+          10,
+          20,
+          0
+        ],
+        "axes": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "ownerOrigin": [
+        30,
+        40,
+        7
+      ],
+      "expectedSurfaceLocalM": [
+        1,
+        2
+      ],
+      "expectedOwnerLocalM": [
+        11,
+        22,
+        0
+      ],
+      "poses": [
+        {
+          "quarterTurns": 0,
+          "mirrorX": false,
+          "expectedNativeM": [
+            41,
+            62,
+            7
+          ],
+          "expectedRenderM": [
+            41,
+            7,
+            62
+          ]
+        },
+        {
+          "quarterTurns": 1,
+          "mirrorX": false,
+          "expectedNativeM": [
+            8,
+            51,
+            7
+          ],
+          "expectedRenderM": [
+            8,
+            7,
+            51
+          ]
+        },
+        {
+          "quarterTurns": 2,
+          "mirrorX": false,
+          "expectedNativeM": [
+            19,
+            18,
+            7
+          ],
+          "expectedRenderM": [
+            19,
+            7,
+            18
+          ]
+        },
+        {
+          "quarterTurns": 3,
+          "mirrorX": false,
+          "expectedNativeM": [
+            52,
+            29,
+            7
+          ],
+          "expectedRenderM": [
+            52,
+            7,
+            29
+          ]
+        },
+        {
+          "quarterTurns": 0,
+          "mirrorX": true,
+          "expectedNativeM": [
+            19,
+            62,
+            7
+          ],
+          "expectedRenderM": [
+            19,
+            7,
+            62
+          ]
+        },
+        {
+          "quarterTurns": 1,
+          "mirrorX": true,
+          "expectedNativeM": [
+            8,
+            29,
+            7
+          ],
+          "expectedRenderM": [
+            8,
+            7,
+            29
+          ]
+        },
+        {
+          "quarterTurns": 2,
+          "mirrorX": true,
+          "expectedNativeM": [
+            41,
+            18,
+            7
+          ],
+          "expectedRenderM": [
+            41,
+            7,
+            18
+          ]
+        },
+        {
+          "quarterTurns": 3,
+          "mirrorX": true,
+          "expectedNativeM": [
+            52,
+            51,
+            7
+          ],
+          "expectedRenderM": [
+            52,
+            7,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "noncentral-off-pivot-graphic-mirror-rotation",
+      "imageTopLeftUV": [
+        0.7,
+        0.3
+      ],
+      "transform": {
+        "positionM": [
+          3,
+          5
+        ],
+        "sizeM": [
+          2,
+          4
+        ],
+        "rotationRad": 1.5707963267948966,
+        "mirrorU": true,
+        "pivotUV": [
+          0.2,
+          0.8
+        ]
+      },
+      "surface": {
+        "originM": [
+          10,
+          20,
+          0
+        ],
+        "axes": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "ownerOrigin": [
+        30,
+        40,
+        7
+      ],
+      "expectedSurfaceLocalM": [
+        1,
+        4
+      ],
+      "expectedOwnerLocalM": [
+        11,
+        24,
+        0
+      ],
+      "poses": [
+        {
+          "quarterTurns": 0,
+          "mirrorX": false,
+          "expectedNativeM": [
+            41,
+            64,
+            7
+          ],
+          "expectedRenderM": [
+            41,
+            7,
+            64
+          ]
+        },
+        {
+          "quarterTurns": 1,
+          "mirrorX": false,
+          "expectedNativeM": [
+            6,
+            51,
+            7
+          ],
+          "expectedRenderM": [
+            6,
+            7,
+            51
+          ]
+        },
+        {
+          "quarterTurns": 2,
+          "mirrorX": false,
+          "expectedNativeM": [
+            19,
+            16,
+            7
+          ],
+          "expectedRenderM": [
+            19,
+            7,
+            16
+          ]
+        },
+        {
+          "quarterTurns": 3,
+          "mirrorX": false,
+          "expectedNativeM": [
+            54,
+            29,
+            7
+          ],
+          "expectedRenderM": [
+            54,
+            7,
+            29
+          ]
+        },
+        {
+          "quarterTurns": 0,
+          "mirrorX": true,
+          "expectedNativeM": [
+            19,
+            64,
+            7
+          ],
+          "expectedRenderM": [
+            19,
+            7,
+            64
+          ]
+        },
+        {
+          "quarterTurns": 1,
+          "mirrorX": true,
+          "expectedNativeM": [
+            6,
+            29,
+            7
+          ],
+          "expectedRenderM": [
+            6,
+            7,
+            29
+          ]
+        },
+        {
+          "quarterTurns": 2,
+          "mirrorX": true,
+          "expectedNativeM": [
+            41,
+            16,
+            7
+          ],
+          "expectedRenderM": [
+            41,
+            7,
+            16
+          ]
+        },
+        {
+          "quarterTurns": 3,
+          "mirrorX": true,
+          "expectedNativeM": [
+            54,
+            51,
+            7
+          ],
+          "expectedRenderM": [
+            54,
+            7,
+            51
+          ]
+        }
+      ]
+    }
+  ]
+}

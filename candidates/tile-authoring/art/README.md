@@ -1,229 +1,158 @@
-# Local surface graphics — Artist contract proposal
+# Artist C0 appearance contract alignment
 
-Base: immutable brief `b850e20e2fdd85435d33f16327482b80380af728`. This pack
-proposes artwork data and a clipped borrowed-Three interface. It implements no
-shared overlay renderer, editor workbench, authoring service, command schema,
-journal, capability, public export or migration. Those decisions stay with
-Architect/Coder/Editor. All images and data are private contract samples.
+**CONTRACT PROPOSAL ONLY.** No renderer, decoder, shader, command executor,
+public registration, editor authority or new material implementation is supplied.
+The fixed coordinate-corrected Core contract is
+`43227894c50ec62b71806978195fff2c650eb388`. It supersedes efca's mixed UV/pivot
+wording; the original thirty frame mappings/pins and document bytes are unchanged.
+B2 native-host visual review takes priority when its fixed source arrives.
 
-## Sample families and immutable resources
+The original Artist checkpoint is `f5bfda9ec0f639018ccfee2415b1f70502e77cae`.
+Its two PNGs, SVG master, thirty atlas frames, prompts, notices, `resources.json`
+and manifest identity remain exact. No bitmap is regenerated, edited or copied.
+The historical `example.json`, `budget-fixture.json` and original review files
+remain f5 art/proposal evidence; they are not a Core command/document parser.
+The new derived rendering contract is `contract.d.ts` → `c0/packet.d.ts`.
 
-`resources.json` binds 30 artwork IDs in nine families to two original atlases.
-Each artwork has ID/version/content digest, fixed resource ID/version/SHA-256,
-frame ID, metre frame size, pivot, rotation convention, mask/blend profiles,
-opacity/tint and availability state. One active version exists per stable ID
-in a bound immutable manifest; duplicate IDs across versions are ambiguous and
-refuse. The workspace pins the whole manifest ID/version/digest.
+## One grammar, two distinct identities
 
-| Family | Sample | Default graphic frame, metres |
-| --- | --- | --- |
-| `organic.blood` | dried blood | 1.6 × 1.6 |
-| `organic.scorch` | charcoal soot | 2 × 2 |
-| `organic.apparent-crater` | painted depression/rubble | 3 × 3 |
-| `organic.leaves` | fallen leaves | 1.8 × 1.8 |
-| `organic.flat-plants` | flat clover/grass | 1.2 × 1.2 |
-| `surface.detail-textures` | dust/grime/scratches | 2 × 2 |
-| `road.numbers` | digits 0–9 | 0.8 × 1.2 |
-| `road.arrows` | forward/left/right/U-turn/merge | 1.5 × 2 |
-| `road.lines` | stop/solid/dashed/double/crosswalk/symbols | 1.5 × 2 |
+Core's canonical types/schema are copied byte-for-byte as metadata-only fixed
+inputs under `inputs/`, with source commit/path/byte hashes. They are the sole
+command/query/pack/document grammar, not a second implementation. The packet
+imports Core Pin, ImageView, ImageBlob, Graphic, Mark, Layer, Surface,
+ResourceRef and WorkbenchDocument types rather than redefining aliases.
 
-Frame size includes transparent margins; it is not a calibrated paint width.
-Pivot is `[0.5,0.5]`. Marks may override size/pose explicitly. Atlas rects are
-top-left pixel coordinates; image top maps to source-local +Y. Rotation is
-counterclockwise radians in source XY. For pixel-normalized `(u,v)`, the
-unrotated local offset is `[(u-pivotU)*width,(pivotV-v)*height]`. Apply mark
-rotation/translation, then the owner's supported placement/D4 transform once.
-Reflection follows the owner, including mirrored glyphs. A world-fixed or
-automatically upright-text profile is excluded until explicitly defined.
+- Core content pins are exactly `{id,revision,contentDigest}`. A record's grammar
+  version is not its immutable content revision. No implicit latest lookup.
+- Original Artist `{id,version,digest}` references remain a separate imported
+  manifest binding: `nautilus.local-graphic-art-samples@1`, digest
+  `ef2daf8b205bae3ca14baa093be85fa46e46b769f645c95327a6bf72f2152d33`.
+  They cannot be parsed as Core pins or silently restamped.
+- The exact thirty-row Core import mapping resolves every original artwork,
+  resource hash and frame ID to one immutable Core Artwork pin and ImageView
+  digest. Core records retain complete original provenance. Two pages are shared;
+  selecting a different frame does not crop/rewrite the page or mutate the f5
+  manifest. See `c0/artwork-views.json` and `c0/frame-selection-cases.json`.
+- Durable Core ResourceRef contains only its closed kind/version, artwork pin and
+  ImageView digest. The full blob/view descriptor lives once in library.artwork.
+  No URI, decode status, epoch or runtime lease is added to durable ResourceRef.
 
-The organic PNG is exact built-in imagegen output; the road PNG is an original
-vector-master Canvas export with no external font. See `PROVENANCE.md` and the
-saved full prompt. Both are RGBA8, with declared sRGB RGB and linear alpha.
-The 1536×1024 and 1024×1536 atlases total **12 MiB decoded base artwork**. This
-is dimension arithmetic, not measured RAM/GPU overhead or performance.
+The public finish library remains `nautilus-tile-finish-library@1`, digest
+`5b4c25105568a1f99569dbb6bd2d6308c067bbb41763c4bd6bfddfa3552bc0e1`.
+No finish ID, appearance, source, digest or cached material body is changed.
+The copied Core document uses its explicitly labelled compatibility finish
+fixture; that fixture is not relabelled as the registered public library.
+A live C1/C2 host must supply its actual exact finish binding and supported base.
 
-Raw organic gutters have alpha 1–2/255. The immutable resource profile declares
-`zeroAtOrBelow8:2`; the proposed sampler removes only those declared low-alpha
-samples before premultiplication. Road gutters use cutoff zero. Stored bytes
-are never rewritten. `alpha-audit.json` independently reads all 30 frame gutters
-and binds the measurements to exact hashes. Consumers lacking that profile
-must refuse complete presentation, preserve source and report the reason.
+## Saved authority versus derived packet
 
-The initial custom image profile is bounded PNG/WebP RGBA; these samples prove
-only PNG data/export. WebP decoding still needs host validation. Proposed input
-bounds are 2048 px per edge and 8 MiB encoded bytes per image, subject to Root
-review. SVG is an authoring companion, not an extra runtime image format.
-Portable packs include referenced PNG bytes, manifests and notices; a sibling
-checkout, absolute machine path, moving URL or thumbnail alone is insufficient.
+WorkbenchDocument@3 is the saved authority: all six full B1 fields, original
+sourceJSON bytes, canonical tile bundle, typed constraints, contentRevision,
+authoring module and typed resourceRefs. Core.Source is a read-only planning
+view and must never be parsed/saved as a reduced document alias. A revision
+alone is not freshness; exact checkpoint/authority/context bindings are required.
 
-## Persistent source and command boundary
+AppearancePacketProposal@2 is derived, read-only and unregistered. It captures
+whole-document/checkpoint/context digests, current resource/geometry epochs,
+lease-set digests, presentation profile and the one allocation-ledger digest.
+It contains current owner/surface/floor/definition bindings, the complete named
+source frame including origin, current owner pose, world-to-surface matrix,
+geometry lease identity and complete ordered layer groups. Each layer retains
+its full Core header and complete ordinal-ordered Core marks. Every Graphic
+keeps artwork pin, form/wrap, position/size/rotation, mirrorU, pivotUV, mark
+opacity, LINEAR tint and authored-grid or all-surface mask. No flattened list
+may erase a layer boundary or its opacity.
 
-`example.json` includes a complete actual-public-v1 canonical tile bundle with
-two adjacent 8×4 m owners at declared F03 = 7 m. The recipe/connection controls
-and shared recipe reference remain original. Its **proposed typed sidecar**
-puts scorch, blood, a road arrow and a grid-clipped grime mark on `owner-a`;
-locked `owner-b` stays clean. Nothing is smuggled into strict recipe `interior`
-or functional `extensions`. Surface ID `top`/frame `top-frame` are explicit
-proposal IDs, not inferred public capabilities. Coder must freeze this mapping.
+The static packet example is explicitly UNBOUND. Its tokens/epochs are fixture
+values, not live geometry, decoder, resource or budget capabilities. Its source
+is the complete copied Core document; no new authoring operation was executed.
+Thirty independent Graphic selection examples show the imported Core pins and
+full stamp/detail fields. They are not accepted marks or a runtime importer.
 
-Persist `{ownerId,surfaceId,floorId}`, source frame ID/profile, owner-local metre
-position, rotation/size/pivot, immutable artwork reference, layer/order, tint/
-opacity and mask. Do not persist transient triangle/GPU/chunk/derived-cell IDs.
-The grid mask stores authored origin/cell size/version and integer cells,
-independent of derived sampling. The first masks are whole-target-surface and
-authored-grid-cells. Actual surface edges/holes also clip every mark.
+## Coordinates and sampling
 
-LOD/re-tessellation/streaming and base-finish changes cannot move source marks.
-A geometry revision that orphans an anchor must refuse preserving source or
-include an explicit reanchor/delete decision in the same transaction. No
-automatic stretching, dropping, source normalisation or sample refitting.
+Stored imageUV and pivotUV are TOP-LEFT. For image coordinates (u_i,v_i), pivot
+(p_u,p_v), width/height and mirrorSign=(-1 when mirrorU, otherwise +1):
 
-Editing one placement changes only its sidecar. Preset defaults are empty unless
-explicitly captured by Save as preset; placed instances remain pinned copies.
-Copy/stamp allocates fresh owner/mark IDs with deterministic reference remapping.
-A multi-owner seam stroke lists all targets on one floor, one shared phase/group
-identity and one batch operation. Compile phase into each local frame; never
-discover neighbours by projection or silently omit locked targets. Independent
-owner movement follows each local mark; world-fixed phase needs another profile.
+`surfacePoint = position + R(rotationRad) * [mirrorSign*(u_i-p_u)*width, (p_v-v_i)*height]`
 
-The illustrative `candidate.add-decoration-batch` in the example is not a live
-endpoint. Coder/Editor own the same human/agent JSON/CLI prepare/apply service,
-source/context tokens, Review/Apply lease and one coherent workspace history.
-Its operation adopts definitions/map/constraints/decorations/resource refs
-together. Unknown commit outcome retains potentially adopted resources until
-same-ID recovery. The appearance provider has no blob deletion, writer,
-journal, damage, fire, cost, clock, expiry or RNG service.
+Add the named Surface.originM and its basis, then apply CURRENT owner mirrorX,
+quarterTurns and origin once. Convert native [x,y,h] to render [x,h,y] once.
+Owner origin.h already includes floor height; validate floor identity/offsets
+without adding floor elevation again. A derived local-up UV is valid only with
+v_up=1-v_i AND pivotV_up=1-p_v. Captured stroke phase is historical construction
+data, not a substitute for current owner pose/context. Noncentral pivots and
+nonzero surface origins require explicit mathematical and later native proofs.
 
-## Proposed clipped provider
+For ImageView frame (x,y,w,h), pixel-centre coordinates are
+`[x + u_i*w - .5, y + v_i*h - .5]`. Stamp coverage is transparent outside finite
+inclusive [0,1]^2, even when edge taps clamp inside. Detail repeats UV and every
+bilinear tap inside this exact frame, clipped by its mask and actual source
+surface; it never repeats across the atlas page. No second V flip, guessed
+frame, implicit pivot correction or neighbour/floor projection is allowed.
 
-`contract.d.ts` describes the interface; it exports no implementation.
-The host supplies actual public-provider surface mesh handles, exact source/
-context/frame/footprint tokens, owner/surface/floor identity and a core-derived
-world-to-owner transform. No ray projection onto a scene or neighbouring floor.
-The proposed 16-value column-major matrix maps the current public provider's
-render world `[x,height,y]` to native owner `[u,v,height]`; it includes one axis
-swap and inverse D4. Bind that exact frame profile instead of guessing from UVs.
-The provider refuses missing/mismatched bindings and unsupported base kernels,
-grades, wrapped 3D decals, physical displacement or arbitrary blends.
+Blob bytes are straight-alpha sRGB PNG; saved tint is already linear RGB.
+Apply alphaFloor8 per texel BEFORE premultiplying/filtering: original organic=2,
+road=0. Convert image RGB to linear, premultiply each texel, then bilinearly mix
+four constrained taps with no mipmaps. Apply saved linear tint directly; do not
+convert it again. WebP metadata remains unbound without an actual proven bounded
+optional decoder. PNG header/hash checks are not decoder or GPU evidence.
 
-The preferred first renderer evaluates source graphics in the **owning opaque
-surface's albedo pass**, after base-map/vertex paint and before lighting. It
-borrows the existing surface triangles; their coverage clips edges and holes
-without changing canonical positions/normals/tangents/UV/physical intervals.
-There is no second coplanar quad, invented Z offset, slab or underside. Masks
-intersect that coverage in source space. Binary fields/regions/level paths are
-eligible only when the actual public geometry and an accepted base compositor
-support their exact source; no blanket geometry promise comes from this pack.
-The proposed semantic top surface uses `front-facing-only-v1`: the overlay is
-evaluated on its declared front face only. A double-sided thin base may remain
-visible from below without copying top graphics to a second semantic surface.
-Validate source orientation through the frame/footprint binding; do not flip
-normals or change winding to make a mark appear. Other face policies need an
-explicit reviewed profile.
+Within each layer, source-over marks in ordinal order into transparent colour.
+Multiply the resulting layer's premultiplied RGB/alpha by layer opacity ONCE,
+then source-over ordered layers. Two alpha-.5 marks give .75; layer opacity .5
+then gives .375. Multiplying each mark by the layer opacity would give .4375
+and is invalid. All ordering, boundaries, masks and opacities remain source.
 
-The accepted finish candidate at `a536cfec20e609a6c507f000791d8d7e71ae6d18`
-refuses arbitrary custom shaders. Root must accept a shared, explicit **albedo
-composition port** before finishes and overlays can be combined. Do not
-overwrite or implicitly chain a borrowed `onBeforeCompile`. Standard/custom
-base kernels need deliberate exact-profile bindings. Frozen hosts/providers
-and the finish checkpoint remain untouched in this tranche.
+## Controlled owned kernel and one budget
 
-For correct soft alpha, fetch each source texel as sRGB-decoded linear RGB plus
-linear alpha; apply its declared alpha floor, premultiply, then perform four-tap
-bilinear interpolation. Tint is explicitly converted from sRGB to linear;
-opacity and mask multiply both premultiplied RGB and alpha. Compose in ascending
-layer order, then explicit mark order (unique within a layer/target), using
-`Cnext=Cmark+(1-Amark)*Cprevious`. Intersect with the opaque base; preserve base
-lighting/normal/roughness/physical semantics. No implicit loader premultiply,
-gamma-space blending, arbitrary blend mode or alpha-test substitution.
-Core supplies complete per-target `paintOrder` mark IDs compiled from persisted
-layer/mark order. Every projected mark occurs exactly once; the provider never
-sorts by textual layer IDs or atlas. This draft stores opacity on marks. A
-layer-wide opacity field needs explicit Core/Editor agreement rather than an
-implicit global render control.
+Only an opt-in host-owned appearance/kernel seam is proposed. A nonempty channel
+acquires an OWNED COMBINED lease directly. Do not first acquire a shared cached
+finish and then patch/clone/chain its onBeforeCompile or sampler hooks. Existing
+finish hooks/materials remain untouched. The controlled owner creates and owns
+its own accepted base-plus-overlay kernel/profile and retires view leases.
 
-First sampling proposal uses frame-clamped texel fetch, transparent gutters and
-no mipmaps. This avoids neighbour-frame bleed and straight-alpha dark fringes,
-but minification quality/performance is unmeasured. Prefiltered premultiplied
-mips need an explicit derived-resource profile and charged allocations.
+An empty channel means no source marks on that target. It uses the existing
+base-finish path with ZERO additional overlay material/texture/geometry/buffer
+allocations. Hidden targets, zero opacity or off-mask marks are not grounds to
+silently drop source, skip locks or subtract charged allocations.
 
-Use shared immutable atlas pages and finite source-local spatial bins. The bin
-grid is a disposable acceleration structure, never an authored target. Each
-bin retains complete layer/mark order. Proposed first shader bound: eight
-candidate contributors per bin, hence at most 32 colour texel fetches per
-fragment before masks/indexing. Overflow refuses rather than dropping marks.
-This is a code/design bound, not measured frame time. The 480-mark fixture has
-one authored cell mark per cell; it does not establish shader efficiency.
+There is ONE aggregate cap of 64 owned appearance materials TOTAL across
+existing finish caches and combined/staged/acquiring/unverified-retiring
+materials in all views. It is not 64 extra compositor materials. Other
+unmeasured reference refusal caps remain 2 roots, 50,000 triangles, 1,024 cells,
+1,024 resident marks, 32 MiB additional decoded allocations, 32,768 bin references,
+4 MiB derived buffers, 4 page bindings and 8 contributors/bin. Stored-source
+limits remain 8 layers/surface and 4,096 marks/logical chunk. All are proposals,
+not measured GPU/phone performance or registered support.
 
-Batch atlas/page/material state where order permits. The design adds no draw or
-texture **per cell/mark** and reuses base surface buckets. Two sample atlases
-are shared across views; per-owner state may use borrowed composition leases
-and charged derived buffers. Actual native Three uniform/upload behaviour,
-custom kernels, draw counts and PC/phone costs still require implementation
-proof. Do not advertise zero extra draws as a measured result.
+Count actual decoded copies even when their encoded hash is equal; share a
+charge only with an attested identical physical allocation/epoch. Padding,
+upload/transient copies and retiring lifetimes stay charged. The original two
+atlas dimensions imply 12 MiB for one base RGBA copy each, not an upper bound on
+actual decoding/provider allocations. GPU bytes are separately reported.
 
-## Proposed budgets and lifecycle
+The one host budget reserves before acquisition. Real verified geometry,
+resource and budget handles are supplied separately from serialized packets.
+Recheck current frame/pose/context/epochs before binding. Exhaust rollback and
+retirement despite native throwing/reentrant observers, preserve later host
+material overrides and borrowed resources, retire appearance before geometry,
+and retain unverified charges until a positive receipt. View disposal cannot
+prune durable blobs referenced by accepted/history/redo/pending or unknown
+commits; the one Editor authority reconciles the same original request ID.
 
-The brief's ceilings remain proposals: 8 layers/surface, 4096 stored marks/chunk,
-1024 aggregate resident marks and 32 MiB unique additional decoded artwork.
-`budget-fixture.json` lists 480 source-local marks across fifteen explicit
-floors; accepted plus candidate = 960. Every hidden, acquiring and unverified
-retiring allocation stays charged. It is arithmetic/source data, not a renderer
-or a second stack planner. Existing two-root/50,000-triangle/1024-cell limits
-remain shared, including any future decal geometry.
+## Initial scope and next gates
 
-Additional proposals requiring Root approval: 8 contributors/bin, 32,768 total
-bin references, 4 MiB derived buffers, at most four bound atlas pages. Reject
-overflow with an actionable bound. Decoded bytes and padded/mipped GPU bytes
-are reported separately; transient decode/upload duplication and retiring
-lifetimes count. Shared identity can count once only when one actual allocation
-is leased; calling a texture borrowed does not make its cost disappear.
+The first proposed compositor scope is supported level rectangles and isolated
+level line/arc/cubic paths, with actual accepted base/clip bindings. Holed
+regions and fields remain unavailable without an actual clipping/base proof.
+A public geometry load or a family label does not grant overlay support. No
+wrapped decals, walls/roofs, grades, extra channels/blends, displacement or
+physical crater/plant/gameplay effect is implemented or implied.
 
-The one host budget grants a current ticket **before acquisition**. Offscene
-preflight checks exact data/resource/service bindings. Stage complete material/
-artwork/buffer leases, recheck currentness, then bind atomically. Failure or
-cancellation rolls back all owned bindings and new allocations. An empty channel
-acquires no decoration texture/material/draw allocation.
-
-Borrow Three, base geometry/material pools, verified textures and host services.
-Own only explicitly newly created buffers/variants/hooks or their leases.
-Restore a borrowed binding only while it is still this provider's binding;
-preserve later host overrides and unrelated neighbours. Exhaust retirement
-despite native throwing/reentrant listeners; transfer counters before callbacks,
-latch disposal, refuse nested mutation and keep unverified retirement charged.
-`retired()` supplies the final receipt. View release never prunes durable image
-blobs or resources that an uncertain commit may reference. Visibility has no
-effect on source, reference adoption or allocation accounting.
-
-## Usage card and builder checklist
-
-Inspect data without a renderer:
-
-```sh
-node tools/art-tile-authoring-check.mjs
-node --test tests/art-tile-authoring-contract.test.mjs
-```
-
-The sample builder uses actual public core/example source for its canonical
-bundle, not a fake core. `--masters` verifies/reproduces original vector source;
-`--manifests` creates contract metadata. The export tool uses an isolated,
-short-lived browser only for SVG→PNG and a static alpha preview. It does not
-exercise an overlay provider. Pixel inspection is read-only Pillow. No normal
-distribution includes this candidate or preview HTML.
-
-1. Architect freezes Coder/Editor surface/frame/mask/command contracts and this
-   immutable artwork binding; resolve ART-Q1…Q4 in the handoff.
-2. Implement an explicit shared finish/albedo composition port and public
-   geometry bindings only after review. Keep exact known D4 refusals until a
-   separately reviewed provider correction; do not normalise loaded controls.
-3. Bind verified resource leases and one aggregate budget; keep source marks,
-   preview allocations and durable resource adoption distinct.
-4. Prove exact clipping/holes/floors/D4/LOD/seam phase, empty channels, colour/
-   alpha parity, locks, counts and throw/cancel/retirement using actual Three.
-5. Prove source/installed public-package parity and one real UI/agent operation
-   path, brush-batch history, save/portable import and same-ID uncertain recovery.
-6. Benchmark representative PC/phone scenes before approving ceilings or
-   quality/speed claims. Physical crater/plant/gameplay capabilities stay separate.
-
-Contract evidence, comparison and interface questions are under
-`docs/reviews/tile-authoring/art/`. No helper is retained after static review.
+C0 checks cover exact fixed metadata, all thirty pin/frame/sampler mappings,
+full graphic/layer/frame fields, grouped-opacity/coordinate contract vectors,
+source/asset preservation and honest aggregate-cap arithmetic. They are not
+native sampling, decoding, installed renderer or human/agent workflow proof.
+Those follow stacked-main acceptance and explicit Root C1/C2 handoff. B2 live
+native-height/finish/resource review remains the active integration priority.
