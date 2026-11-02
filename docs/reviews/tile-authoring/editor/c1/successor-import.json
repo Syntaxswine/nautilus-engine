@@ -1,0 +1,96 @@
+{
+  "kind": "nautilus-editor-c1-reviewed-successor-codec-import",
+  "version": 1,
+  "status": "adopted-after-Architect-independent-review",
+  "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+  "baseRuntime": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+  "scope": "Exactly two authorized runtime files, plus separately named control-test and validation-report bytes; default v1/v2, global hash/token, authority/storage/journal/views/Core/schema/version remain unchanged.",
+  "files": [
+    {
+      "file": "apps/editor/smart-tile/checkpoint.js",
+      "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "role": "shared-codec",
+      "bytes": 33009,
+      "sha256": "a790d2f6966849f6bde7aeecc030fd7f2a7415e126a8c9f484bf25f2aa7b3949"
+    },
+    {
+      "file": "apps/editor/tile-authoring/checkpoint.js",
+      "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "role": "c1-activation",
+      "bytes": 20308,
+      "sha256": "d55f0b681b4d82d98fb818b90751e616b7ac324c386c4f152525822d295fcd08"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "file": "tests/owned-successors.test.mjs",
+      "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "role": "control-test",
+      "bytes": 25271,
+      "sha256": "8c64e5ebc0f6e5cd32d370a7aac846571fcebdc185e3add6289d772ca4a971d8"
+    },
+    {
+      "file": "docs/reviews/tile-authoring/editor/c1/owned-successors-validation.json",
+      "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "role": "validation-report",
+      "bytes": 14592,
+      "sha256": "0d170e51d743d1c9fcef937d54078a132cf55c59cbbda35a60e316e2791bb006"
+    }
+  ],
+  "lineage": [
+    {
+      "sourceCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+      "status": "accepted-prior-runtime"
+    },
+    {
+      "sourceCommit": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+      "status": "rejected-accounting-predecessor-not-adopted",
+      "timing": "30.230-second measurement belongs only to this predecessor"
+    },
+    {
+      "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "status": "Root-approved-corrected-accounting-unprofiled"
+    }
+  ],
+  "keptPins": {
+    "coreRuntime": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+    "coreEvidence": "eedfc0149cbaa5715445ed2dc909c2d694a81d50",
+    "ui": "8053b30e4db325ad16e07a456fcf8ef5030324a7",
+    "browserHelper": "08540b0ec8acd1be8b9d9929187d82a7300a59c2"
+  },
+  "testTooling": {
+    "file": "tests/owned-successors.test.mjs",
+    "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+    "sha256": "8c64e5ebc0f6e5cd32d370a7aac846571fcebdc185e3add6289d772ca4a971d8",
+    "classification": "Exact reviewed Node-only fixed-Git data-URL reference loader.",
+    "literalLocalImports": [
+      "../apps/editor/smart-tile/checkpoint.js",
+      "../apps/editor/tile-authoring/jsonl.js",
+      "./fixtures/smart-tile-editor/source.mjs",
+      "./fixtures/tile-authoring-editor/c1.mjs"
+    ],
+    "reference": {
+      "file": "apps/editor/smart-tile/checkpoint.js",
+      "sourceCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+      "bytes": 21438,
+      "sha256": "f8b9f9c92c604a45635d97d2b789e53932a4d006e43ffc2e1f0b92bf1bc42538",
+      "dependencies": [
+        {
+          "specifier": "../../../packages/parts-core/hash.js",
+          "file": "packages/parts-core/hash.js",
+          "sourceCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+          "bytes": 2105,
+          "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+        },
+        {
+          "specifier": "./contract.js",
+          "file": "apps/editor/smart-tile/contract.js",
+          "sourceCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+          "bytes": 2912,
+          "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04"
+        }
+      ]
+    },
+    "restriction": "Exact named file/full helper SHA/body hash only; no general Node/test/parser/package/runtime allowance."
+  }
+}

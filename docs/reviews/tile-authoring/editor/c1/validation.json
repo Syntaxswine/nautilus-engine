@@ -1,0 +1,264 @@
+{
+  "kind": "nautilus-editor-tile-authoring-c1-validation",
+  "version": 1,
+  "status": "early-review-checkpoint-not-integration-delivery",
+  "checks": [
+    {
+      "command": "node tools/editor-direct-tile-authoring-c1.mjs",
+      "status": "pass",
+      "scope": "actual Core/retained host/native CPU six-command flow, including JSONL placement; synthetic atlas, no browser claim",
+      "log": "artifacts/editor-tile-authoring-current-direct.jsonl",
+      "geometryPrepares": 2,
+      "geometryApplies": 2
+    },
+    {
+      "command": "node --test tests/editor-tile-authoring-cache.test.mjs tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs tests/ui-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 48,
+      "log": "artifacts/editor-tile-authoring-current-controls.log",
+      "scope": "cache mutation, actual native resource/lease owner, transport, accepted UI protocol component; not full rendered integration"
+    },
+    {
+      "command": "node --test tests/editor-tile-authoring-jsonl.test.mjs",
+      "status": "pass",
+      "passed": 2,
+      "scope": "transport syntax and forwarding; service double, no Core/native integration claim"
+    },
+    {
+      "command": "node --test tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs",
+      "status": "pass",
+      "passed": 6,
+      "log": "artifacts/editor-tile-authoring-resource-and-transport.log",
+      "scope": "actual native allocation/manager/pool/lease unit checks and transport; no authoring Core integration or rendered claim"
+    },
+    {
+      "command": "node --test tests/ui-tile-authoring-c1.test.mjs tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs",
+      "status": "pass",
+      "passed": 40,
+      "log": "artifacts/editor-tile-authoring-component-resource-transport.log",
+      "scope": "accepted UI protocol component plus native resource and transport units; Core/Host/native integration remains unbound in UI protocol tests"
+    },
+    {
+      "command": "isolated fixed-Git-object source probe of Editor52/Core981/UI2e4730",
+      "status": "partial",
+      "passed": 5,
+      "failed": 4,
+      "failure": "AUTHORING_WORK_LIMIT during full-map library revision; pending Core cache/copy-charge follow-up",
+      "log": "artifacts/editor-tile-authoring-c1-staging-8e09f144-c390-4ba4-8480-2bcc7ae56dd0/focused-test.log",
+      "runtimeAdoption": false
+    },
+    {
+      "command": "node --test tests/smart-tile-session.test.mjs tests/editor-tile-stack-inspection-fence.test.mjs",
+      "status": "pass-before-subsequent-v3-only-hooks",
+      "passed": 22,
+      "scope": "initial shared session extension; current-tree regression rerun remains required"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass"
+    },
+    {
+      "command": "node --test --test-timeout=300000 tests/editor-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 8,
+      "runtimeCommit": "ad41c12f6bf9fa8a2d9579296114eb880cee0930",
+      "log": "artifacts/editor-tile-authoring-current-history-recovery.log",
+      "durationMs": 521051.2751,
+      "sixEditsSixUndoSixRedoAndReopenMs": 242441.6796,
+      "scope": "actual Core/retained host/native CPU, synthetic atlas; elapsed test duration includes assertions and checkpoint reads, not rendered performance evidence"
+    },
+    {
+      "command": "node tools/editor-stage-tile-authoring-c1.mjs --core=3df11ce6e62fb94806e30652b87168949f8ef4dd --core-docs=eedfc0149cbaa5715445ed2dc909c2d694a81d50 --ui=f94b57b2cebce55fc27cc94dea7a9fe39ec20193 --editor=ad41c12f6bf9fa8a2d9579296114eb880cee0930 --helper=08540b0ec8acd1be8b9d9929187d82a7300a59c2",
+      "status": "pass",
+      "files": 196,
+      "log": "artifacts/editor-tile-authoring-stager-provenance.log",
+      "manifest": "artifacts/editor-tile-authoring-c1-staging-ca8e05ad-a1f4-4b04-adfe-f5b838ac9fb8/staged-inputs.json",
+      "scope": "exact Git objects and authenticated per-path Core audit; one docs-only tip path; explicit hash-pinned UI proof-tool local closure, no runtime parser relaxation; no staged test execution or package/browser claim"
+    },
+    {
+      "command": "node tools/editor-review-tile-authoring-c1.mjs",
+      "status": "partial-architect-requested-history-pause",
+      "runtimeCommit": "ad41c12f6bf9fa8a2d9579296114eb880cee0930",
+      "passedScope": "actual source human six-edit workflow and unchanged metadata view/resources",
+      "report": "artifacts/editor-tile-authoring-c1-source/review.architect-history-pause.json",
+      "log": "artifacts/editor-tile-authoring-source-browser-architect-history-pause.log",
+      "scope": "Full history/recovery matrix deliberately stopped through reviewed helper STOP port to isolate Architect profiling. Prior sandbox launch and selector failures preserved separately. Not a complete browser pass."
+    },
+    {
+      "command": "actual source/built/installed full human-UI and JSONL proof",
+      "status": "pending-corrected-collector-and-architect-performance-attribution"
+    },
+    {
+      "command": "npm run check",
+      "status": "failed-root-owned-registration-composition",
+      "log": "artifacts/editor-tile-authoring-check.log",
+      "failure": "Optional registration may add only the three reviewed entries.",
+      "scope": "Existing old B1 registration comparison; Architect owns the combined registration/source fence. No weakening applied in Editor."
+    },
+    {
+      "command": "npm test",
+      "status": "pending-architect-profile-no-concurrent-broad-run"
+    },
+    {
+      "command": "npm run test:upstream",
+      "status": "pass",
+      "passed": 32,
+      "log": "artifacts/editor-tile-authoring-upstream.log"
+    },
+    {
+      "command": "npm run build",
+      "status": "pass",
+      "modulePaths": 562,
+      "log": "artifacts/editor-tile-authoring-build.log"
+    },
+    {
+      "command": "node --check tools/editor-review-tile-authoring-c1.mjs; node --check tools/editor-stage-tile-authoring-c1.mjs; git diff --check",
+      "status": "pass",
+      "scope": "7568c25 collector/provenance-only follow-up; runtime and accepted UI unchanged at that checkpoint"
+    },
+    {
+      "command": "node --test --test-timeout=60000 tests/editor-tile-authoring-cache.test.mjs",
+      "status": "pass",
+      "passed": 5,
+      "log": "artifacts/editor-tile-authoring-performance-cache-controls.log",
+      "scope": "performance candidate: old/new full canonical token parity, static fixed-source proof, fresh dynamic authority/context fields, operation inspection and final live floor write guard"
+    },
+    {
+      "command": "node --test --test-timeout=60000 tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs tests/ui-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 46,
+      "log": "artifacts/editor-tile-authoring-performance-resource-ui-controls.log",
+      "scope": "performance candidate actual native lease/allocation controls, transport and accepted UI protocol controls; no full browser claim"
+    },
+    {
+      "command": "180-second outer-bound node tools/editor-direct-tile-authoring-c1.mjs --history",
+      "status": "pass",
+      "runtimeCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+      "elapsedMs": 55383.6055,
+      "scope": "six edits plus exact six undo/six redo/save/reopen; production calls separate from proof reads/assertions; synthetic CPU/native atlas only",
+      "summary": "artifacts/editor-tile-authoring-performance-summary.json",
+      "comparison": "artifacts/editor-tile-authoring-performance-comparison.json",
+      "receipt": "artifacts/editor-c1-performance-process/receipt.json",
+      "geometryPrepares": 2,
+      "geometryApplies": 2,
+      "acquisitionsIncludingReopen": 8,
+      "directRepair": 0,
+      "preservedSetupFailure": "bbb8719 attempt stopped before host loading because a runtime-only import scanner correctly refused Node tooling; archived process receipt verifies exit, no production phases ran"
+    },
+    {
+      "command": "node --test --test-timeout=60000 --test-name-pattern='unknown|same-connection|formatted' tests/editor-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 4,
+      "runtimeCommit": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+      "log": "artifacts/editor-tile-authoring-performance-recovery-controls.log",
+      "scope": "actual cold before/after original-ID recovery, stale one-use review/complete save, formatted original source bytes"
+    },
+    {
+      "command": "node --check tools/editor-review-tile-authoring-c1.mjs; git diff --check",
+      "status": "pass",
+      "scope": "new raw-observation collector wiring only; Root-owned input model/runtime source composition remains a prerequisite for execution; no draft helper imported"
+    },
+    {
+      "command": "node --test --test-timeout=60000 tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs tests/ui-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 46,
+      "uiTip": "8053b30e4db325ad16e07a456fcf8ef5030324a7",
+      "log": "artifacts/editor-tile-authoring-ui805-component-controls.log",
+      "scope": "approved exact presentation successor plus native resource and transport controls; all nine UI files also matched their per-path Git source and final approved tip"
+    },
+    {
+      "command": "fixed Git-object source stage of Editor760/UI805/Core3df/Core-docseedfc/helper0854",
+      "status": "pass",
+      "files": 196,
+      "log": "artifacts/editor-tile-authoring-stage-760-ui805.log",
+      "manifest": "artifacts/editor-tile-authoring-c1-staging-84899eaa-cc34-44ab-907d-69157b7e52d1/staged-inputs.json",
+      "scope": "provenance/closed import graph only; staged runtime tests not rerun"
+    },
+    {
+      "command": "stager successor flag without matching two-file import audit",
+      "status": "expected-refusal",
+      "log": "artifacts/editor-tile-authoring-stage-successor-without-audit.log",
+      "scope": "a full commit flag cannot grant an unaudited shared-file override"
+    },
+    {
+      "command": "static collector API references versus Root model declarations",
+      "status": "pass",
+      "scope": "nine declared exports, text/AST-level contract only; no draft model import, execution or alternate fixture"
+    },
+    {
+      "command": "OWNED_SUCCESSOR_TIMING=0 node --test --test-timeout=60000 tests/owned-successors.test.mjs tests/smart-tile-checkpoint.test.mjs tests/editor-tile-stack-b1-authority.test.mjs tests/editor-tile-authoring-cache.test.mjs tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs tests/ui-tile-authoring-c1.test.mjs",
+      "status": "pass",
+      "passed": 83,
+      "failed": 0,
+      "successor": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "log": "artifacts/editor-tile-authoring-successor-1e8-component-controls.log",
+      "scope": "13 successor +19 inherited v1/v2 +51 cache/native-resource/transport/UI controls; no timing mode, global gate or browser run"
+    },
+    {
+      "command": "fixed Git-object stage of Editor fd8885aa584f2f13057bb8b5f5c5e0597be6db27 with approved successor 1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+      "status": "pass",
+      "files": 200,
+      "entryTests": 6,
+      "log": "artifacts/editor-tile-authoring-stage-1e8-adopted.log",
+      "manifest": "artifacts/editor-tile-authoring-c1-staging-660dfa85-59c6-437d-96f7-5faf2d7a3d46/staged-inputs.json",
+      "scope": "Exact runtime/evidence/test-oracle source provenance and literal import closure; no staged timing or browser execution"
+    },
+    {
+      "command": "stager rejected-3c successor control",
+      "status": "expected-refusal",
+      "log": "artifacts/editor-tile-authoring-stage-rejected-3c-refusal.log",
+      "scope": "Only the approved full 1e8 helper SHA/new test body hash may enable the named Node oracle classification"
+    },
+    {
+      "command": "node --check tools/editor-review-tile-authoring-c1.mjs; git diff --check",
+      "status": "pass",
+      "scope": "Run-owned tarball copy wiring with generated npm size/SHA-512 and exclusive byte-identical copies; actual final package/browser proof remains Root integration work"
+    }
+  ],
+  "helpers": {
+    "retained": [],
+    "temporaryTestSessions": "completed",
+    "browserReview": "Reviewed helper closed its owned browser and HTTP server; matching cleanup receipt and released port verified. STOP marker deliberately removed only after that verification."
+  },
+  "performanceCandidate": {
+    "hashAlgorithmChanged": false,
+    "sourceBytesNormalized": false,
+    "coreCostLimitChanged": false,
+    "timeoutRaised": false,
+    "liveAuthorityContextResourceClaimsCached": false,
+    "timedUiTip": "95511cb6f04dcba65656b2d9156c6173a84d6198",
+    "currentUiTip": "8053b30e4db325ad16e07a456fcf8ef5030324a7",
+    "fullMatrixPending": true,
+    "sharedCheckpointChanged": true,
+    "sharedAuthorityStorageJournalViewsChanged": false,
+    "currentOwnedSuccessor": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+    "correctedSuccessorTimed": false
+  },
+  "pushStatus": "not-pushed; Root integration owns final source model, full gates and fresh three-mode proof",
+  "ownedSuccessor": {
+    "sourceCommit": "1e8d0d702938e7418dc0203383516ab0c26a6e6a",
+    "baseRuntime": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+    "import": "successor-import.json",
+    "validation": "owned-successors-validation.json",
+    "correctedAccounting": true,
+    "profiled": false,
+    "predecessor": {
+      "sourceCommit": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+      "adopted": false,
+      "rejected": "cache text undercharge",
+      "timingScope": "30.230 seconds belongs to predecessor only"
+    },
+    "sourceModelOwner": "Architect",
+    "threeModeProof": "pending-authenticated-composition",
+    "localComponentChecks": 83,
+    "sourceStageFiles": 200,
+    "finalRuntimeComponentCommit": "fd8885aa584f2f13057bb8b5f5c5e0597be6db27"
+  },
+  "archiveOwnership": {
+    "paths": "artifacts/distribution/tile-authoring-c1-<runId>-<profile>.tgz",
+    "generatedOutputIntegrity": "actual npm pack compressedBytes and SHA-512",
+    "copiedBody": "exclusive byte-for-byte copy, SHA-256/length rechecked; same copies installed offline",
+    "globalPackerChanged": false,
+    "execution": "pending Root authenticated three-mode proof"
+  }
+}

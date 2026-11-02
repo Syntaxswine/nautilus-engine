@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nautilus · Tile workshop</title>
+  <link rel="icon" href="data:,">
+  <style>
+    *{box-sizing:border-box}
+    html{color-scheme:dark}
+    body{margin:0;min-height:100vh;background:#1b2c29;color:#eee9d9;font:16px/1.6 system-ui,sans-serif}
+    .page{width:min(100%,1040px);margin:0 auto;padding:48px 24px}
+    header{margin-bottom:30px}
+    .kicker{margin:0 0 10px;color:#d9c28b;font-size:11px;letter-spacing:.14em}
+    h1{margin:0 0 16px;font:clamp(32px,5vw,46px)/1.15 Georgia,serif}
+    .intro{max-width:640px;margin:0;color:#c6d1c4}
+    .workshops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .workshop-card{display:flex;flex-direction:column;min-width:0;min-height:240px;padding:28px;border:1px solid #82927a;border-radius:8px;background:#20392f;color:inherit;text-decoration:none;overflow-wrap:anywhere}
+    .workshop-card:hover{border-color:#e4c98c;background:#294438}
+    .workshop-card:focus-visible{outline:3px solid #f7dba1;outline-offset:4px;border-color:#f7dba1}
+    .workshop-card h2{margin:0 0 12px;font:27px/1.2 Georgia,serif;color:#f3efdd}
+    .workshop-card p{margin:0 0 24px;color:#c6d1c4}
+    .card-action{margin-top:auto;color:#e4c98c;font-weight:650}
+    footer{margin-top:26px;color:#c6d1c4;font-size:14px}
+    @media(max-width:700px){.page{padding:28px 16px}.workshops{grid-template-columns:minmax(0,1fr);gap:16px}.workshop-card{min-height:200px;padding:22px}.workshop-card h2{font-size:25px}}
+    @media(forced-colors:active){.workshop-card{border-color:LinkText}.workshop-card:focus-visible{outline-color:Highlight}.card-action{color:LinkText}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="kicker">NAUTILUS ENGINE</p>
+      <h1>Tile workshop</h1>
+      <p class="intro">Choose a workspace. Your map stays open in its original tab.</p>
+    </header>
+    <main>
+      <nav class="workshops" aria-label="Choose a tile workspace">
+        <a id="stacked-tiles" class="workshop-card" href="tile-stack-editor.html" aria-labelledby="stacked-title" aria-describedby="stacked-description">
+          <h2 id="stacked-title">Stacked tiles</h2>
+          <p id="stacked-description">Build across native floors and choose surface finishes.</p>
+          <span class="card-action">Open stacked tiles <span aria-hidden="true">→</span></span>
+        </a>
+        <a id="custom-tile-library" class="workshop-card" href="tile-authoring-editor.html" aria-labelledby="custom-title" aria-describedby="custom-description">
+          <h2 id="custom-title">Custom tile library</h2>
+          <p id="custom-description">Create reusable rectangle tiles, save versions and place independent copies.</p>
+          <span class="card-action">Open custom tile library <span aria-hidden="true">→</span></span>
+        </a>
+      </nav>
+    </main>
+    <footer>Each workspace opens here. Return to your map in the original tab whenever you need it.</footer>
+  </div>
+</body>
+</html>
