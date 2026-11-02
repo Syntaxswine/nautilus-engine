@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:tile-bundle:2",
+  "title": "Candidate Nautilus tile-bundle v2",
+  "description": "Unregistered A/B candidate. Structural records are not evaluator, exact-root, mesh, contact, support or live-adoption certificates. Group-free/general native v2 stays unresolved; only explicit C2a rectangle groups have private complete-layout preparation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "templates",
+    "recipes",
+    "layout"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-tile-bundle"
+    },
+    "version": {
+      "const": 2
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:nautilus:schema:tile-recipe:1#/$defs/template"
+      },
+      "minItems": 0,
+      "maxItems": 2048
+    },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "urn:nautilus:schema:tile-recipe:1"
+          },
+          {
+            "$ref": "urn:nautilus:schema:tile-recipe:2"
+          }
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "layout": {
+      "$ref": "urn:nautilus:schema:tile-layout:2"
+    }
+  },
+  "$defs": {}
+}

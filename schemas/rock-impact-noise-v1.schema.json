@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:rock-impact-noise:1",
+  "title": "Nautilus first rock impact noise version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "type",
+    "id",
+    "itemId",
+    "rockId",
+    "throwId",
+    "commandId",
+    "sourceActorId",
+    "position",
+    "radius",
+    "surfaceId",
+    "kind",
+    "flightTime"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "type": {
+      "const": "rock-impact-noise"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^noise:[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}:impact$"
+    },
+    "itemId": {
+      "const": "item:rock"
+    },
+    "rockId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "throwId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "commandId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "sourceActorId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "h": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        }
+      }
+    },
+    "radius": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 50
+    },
+    "surfaceId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "kind": {
+      "enum": [
+        "ground",
+        "wall",
+        "ceiling",
+        "object"
+      ]
+    },
+    "flightTime": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10
+    }
+  },
+  "$comment": "evaluateRockNoise/openRock also enforce id = noise:<throwId>:impact and finite plain JSON data. Position is the host-confirmed surface contact in metres; flightTime is seconds since release. Host owns event deduplication, audibility and guard movement."
+}

@@ -1,0 +1,201 @@
+{
+  "kind": "nautilus-basic-progression",
+  "version": 1,
+  "profileId": "basic-progression-v1",
+  "character": {
+    "version": 1,
+    "id": "fixture-character",
+    "name": "Basic progression fixture",
+    "stats": {
+      "strength": 27,
+      "endurance": 31,
+      "dexterity": 35,
+      "agility": 35,
+      "intelligence": 40,
+      "perception": 40,
+      "mechanical": 15,
+      "medical": 18,
+      "firearms": 35,
+      "heavyWeapons": 15,
+      "explosives": 15,
+      "leadership": 20,
+      "sneak": 25,
+      "climbing": 50
+    },
+    "resources": {
+      "hp": 37,
+      "ap": 0,
+      "stamina": 6.5
+    },
+    "skillPoints": 11
+  },
+  "baseline": {
+    "stats": {
+      "strength": 25,
+      "endurance": 30,
+      "dexterity": 35,
+      "agility": 35,
+      "intelligence": 40,
+      "perception": 40,
+      "mechanical": 15,
+      "medical": 15,
+      "firearms": 35,
+      "heavyWeapons": 15,
+      "explosives": 15,
+      "leadership": 20,
+      "sneak": 25,
+      "climbing": 50
+    },
+    "skillPoints": 2
+  },
+  "level": 2,
+  "xp": 100,
+  "practice": {
+    "strength": 0,
+    "endurance": 1000,
+    "dexterity": 0,
+    "agility": 0,
+    "intelligence": 0,
+    "perception": 0,
+    "mechanical": 0,
+    "medical": 400,
+    "firearms": 1000,
+    "heavyWeapons": 0,
+    "explosives": 0,
+    "leadership": 0,
+    "sneak": 0,
+    "climbing": 0
+  },
+  "revision": 5,
+  "receipts": [
+    {
+      "version": 1,
+      "id": "fixture-xp",
+      "characterId": "fixture-character",
+      "revision": 1,
+      "command": {
+        "id": "fixture-xp",
+        "expectedRevision": 0,
+        "type": "xp",
+        "source": "objective",
+        "sourceId": "fixture-objective",
+        "amount": 100
+      },
+      "outcome": {
+        "xpGained": 100,
+        "levelsGained": 1,
+        "pointsGained": 15,
+        "pointsSpent": 0,
+        "practiceGained": 0,
+        "practiceSpent": 0,
+        "practiceDiscarded": 0,
+        "statGains": {}
+      }
+    },
+    {
+      "version": 1,
+      "id": "fixture-run",
+      "characterId": "fixture-character",
+      "revision": 2,
+      "command": {
+        "id": "fixture-run",
+        "expectedRevision": 1,
+        "type": "practice",
+        "source": "running",
+        "sourceId": "fixture-running-segment",
+        "stat": "endurance",
+        "amount": 1000
+      },
+      "outcome": {
+        "xpGained": 0,
+        "levelsGained": 0,
+        "pointsGained": 0,
+        "pointsSpent": 0,
+        "practiceGained": 1000,
+        "practiceSpent": 0,
+        "practiceDiscarded": 0,
+        "statGains": {}
+      }
+    },
+    {
+      "version": 1,
+      "id": "fixture-shot",
+      "characterId": "fixture-character",
+      "revision": 3,
+      "command": {
+        "id": "fixture-shot",
+        "expectedRevision": 2,
+        "type": "practice",
+        "source": "shot",
+        "sourceId": "fixture-shot",
+        "stat": "firearms",
+        "amount": 1000
+      },
+      "outcome": {
+        "xpGained": 0,
+        "levelsGained": 0,
+        "pointsGained": 0,
+        "pointsSpent": 0,
+        "practiceGained": 1000,
+        "practiceSpent": 0,
+        "practiceDiscarded": 0,
+        "statGains": {}
+      }
+    },
+    {
+      "version": 1,
+      "id": "fixture-treatment",
+      "characterId": "fixture-character",
+      "revision": 4,
+      "command": {
+        "id": "fixture-treatment",
+        "expectedRevision": 3,
+        "type": "practice",
+        "source": "bandaging",
+        "sourceId": "fixture-treatment",
+        "stat": "medical",
+        "amount": 400
+      },
+      "outcome": {
+        "xpGained": 0,
+        "levelsGained": 0,
+        "pointsGained": 0,
+        "pointsSpent": 0,
+        "practiceGained": 400,
+        "practiceSpent": 0,
+        "practiceDiscarded": 0,
+        "statGains": {}
+      }
+    },
+    {
+      "version": 1,
+      "id": "fixture-allocation",
+      "characterId": "fixture-character",
+      "revision": 5,
+      "command": {
+        "id": "fixture-allocation",
+        "expectedRevision": 4,
+        "type": "allocate",
+        "allocation": {
+          "strength": 2,
+          "endurance": 1,
+          "medical": 3
+        }
+      },
+      "outcome": {
+        "xpGained": 0,
+        "levelsGained": 0,
+        "pointsGained": 0,
+        "pointsSpent": 6,
+        "practiceGained": 0,
+        "practiceSpent": 0,
+        "practiceDiscarded": 0,
+        "statGains": {
+          "strength": 2,
+          "endurance": 1,
+          "medical": 3
+        }
+      }
+    }
+  ]
+}

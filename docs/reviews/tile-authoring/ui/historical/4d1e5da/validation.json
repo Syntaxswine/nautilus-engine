@@ -1,0 +1,111 @@
+{
+  "kind": "nautilus-tile-authoring-ui-contract-validation",
+  "version": 1,
+  "verifiedAt": "2026-11-02T05:14:01.854Z",
+  "scope": "Contract/design and metadata/layout evidence only; no live authoring/provider, installed parity, save/history or physical-device acceptance.",
+  "gates": [
+    {
+      "id": "check",
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": "artifacts/tile-authoring-ui-design/check.log",
+      "logSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c",
+      "unchangedHostFiles": 15
+    },
+    {
+      "id": "test",
+      "command": "npm test",
+      "exitCode": 0,
+      "log": "artifacts/tile-authoring-ui-design/test-final.log",
+      "logSha256": "1b1838536ef46d54faa93a8d2706d68fbe59e2031bbcc94f12124319613f966d",
+      "tests": 920,
+      "passed": 920,
+      "failed": 0
+    },
+    {
+      "id": "upstream",
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "log": "artifacts/tile-authoring-ui-design/upstream.log",
+      "logSha256": "5c33f45f261dceddd0562c0584b6a0934d521335ae5a4f3e522ec7cf6d68e364",
+      "tests": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "id": "build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "artifacts/tile-authoring-ui-design/build.log",
+      "logSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7",
+      "modulePaths": 519
+    }
+  ],
+  "focusedContractTests": 8,
+  "browser": {
+    "checks": 6,
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1100,
+        "topScreenshot": "design-1440-top.png",
+        "emulated": true,
+        "horizontalOverflow": false,
+        "minimumControlHeightCSSPx": 44,
+        "screenshot": "design-1440.png",
+        "controlCount": 17
+      },
+      {
+        "width": 768,
+        "height": 1024,
+        "topScreenshot": "design-768-top.png",
+        "emulated": true,
+        "horizontalOverflow": false,
+        "minimumControlHeightCSSPx": 44,
+        "screenshot": "design-768.png",
+        "controlCount": 17
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "topScreenshot": "design-390-top.png",
+        "emulated": true,
+        "horizontalOverflow": false,
+        "minimumControlHeightCSSPx": 44,
+        "screenshot": "design-390.png",
+        "controlCount": 17
+      },
+      {
+        "width": 320,
+        "height": 740,
+        "topScreenshot": "design-320-top.png",
+        "emulated": true,
+        "horizontalOverflow": false,
+        "minimumControlHeightCSSPx": 44,
+        "screenshot": "design-320.png",
+        "controlCount": 17
+      }
+    ],
+    "controls": 17,
+    "emulated": true,
+    "sourceHashesVerified": true,
+    "visualInspection": [
+      "1440 full and top",
+      "320 full and top"
+    ]
+  },
+  "helpers": {
+    "pairs": 3,
+    "allExactLifetimesStopped": true,
+    "allPortsReleased": true,
+    "retained": 0,
+    "restartInputs": "evidence/restart-inputs.json"
+  },
+  "preservedStackUI": "5b0d06ce93977addd438d3ad43f887fcd3278817",
+  "approvedStackCore": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
+  "publicExportsChanged": false,
+  "workspaceFormatsRegistered": [],
+  "consumerPinsChanged": false,
+  "publication": false,
+  "remaining": "Architect fixes interface questions and reviewed Editor policy before shared runtime implementation."
+}

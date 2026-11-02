@@ -1,0 +1,31 @@
+{
+  "owner": "01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3",
+  "purpose": "Original Farmyard pane art workbench review",
+  "checkedAt": "2026-10-30T05:39:16.5081148Z",
+  "startedAt": "2026-10-30T05:31:53.649Z",
+  "expiresAt": "2026-10-30T05:33:53.649Z",
+  "identities": [
+    {
+      "pid": 54168,
+      "creationFiletime": "134378119112474187",
+      "executable": "node.exe",
+      "exactLifetimeEnded": true
+    },
+    {
+      "pid": 65644,
+      "creationFiletime": "134378119129562079",
+      "executable": "msedge.exe",
+      "exactLifetimeEnded": true
+    }
+  ],
+  "port": 54089,
+  "portReleased": true,
+  "retainedHelpers": 0,
+  "method": "Original source pagehide, supported Playwright/server close in finally, then exact identity and port verification",
+  "restartSources": [
+    "docs/reviews/window-art/source-audit.mjs",
+    "docs/reviews/window-art/review-source.mjs",
+    "tools/art-review-browser.mjs"
+  ],
+  "restart": "Recreate the pinned original source cache, then invoke review-source.mjs with Node/Playwright/Edge."
+}

@@ -1,0 +1,361 @@
+{
+ "head": "576c4c2f7c3d0693087baecc82a5087ca595130b",
+ "statusBefore": "",
+ "runs": [
+  {
+   "id": "E01",
+   "label": "E01 page wires a bypass (the author's mutant, verbatim)",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Versioned host missing roof support was called.",
+    "secondsAfterLastCapture": 1.1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E05",
+   "label": "E05 exportMap closure drops its call",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "The host without roofs was not refused for roofs: {\"click\":\"acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.\",\"sendToGame\":{\"error\":\"Pass a map/block object or JSON string.\"}}",
+    "secondsAfterLastCapture": 1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E06",
+   "label": "E06 onChange not wired (connect does not refresh the page)",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Send is disabled with a host connected: {\"connected\":true,\"disabled\":true,\"status\":\"Select a build tool to edit. Right-drag or WASD pans.\",\"feedback\":\"Select a build tool to edit. Right-drag or WASD pans.\"}",
+    "secondsAfterLastCapture": 0.8,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E07",
+   "label": "E07 page hasGameAdapter getter always true",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 43,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "The page reports a host before any connected: {\"connected\":true,\"disabled\":true,\"status\":\"Select a build tool to edit. Right-drag or WASD pans.\",\"feedback\":\"Select a build tool to edit. Right-drag or WASD pans.\"}",
+    "secondsAfterLastCapture": 0.1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E09",
+   "label": "E09 bypass only on the no-argument sendToGame()",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Versioned host missing roof support was called.",
+    "secondsAfterLastCapture": 1,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E10",
+   "label": "E10 page sendToGame ignores its argument",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 46,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Declared asynchronous local host handoff failed: {\"calls\":3,\"received\":[{\"name\":\"Expanded library acceptance\",\"buildings\":6,\"current\":true},{\"name\":\"Expanded library acceptance\",\"buildings\":6,\"current\":true},{\"name\":\"Expanded library acceptance\",\"buildings\":6,\"current\":true}],\"buildings\":6,\"contract\":[\"nautilus-wall-runs-v1\",\"nautilus-building-prefabs-v1\",\"nautilus-original-buildings-v1\",\"nautilus-sloped-roofs-v1\"]}",
+    "secondsAfterLastCapture": 2.2,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E11",
+   "label": "E11 sendToGame assigned connectGame (swapped member)",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 43,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "The host without roofs was not refused for roofs: {\"click\":\"A game adapter needs openMap({json, contract}).\",\"sendToGame\":{\"error\":\"A game adapter needs openMap({json, contract}).\"}}",
+    "secondsAfterLastCapture": 0.9,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E12",
+   "label": "E12 page bypass for feature-list hosts only (reaches the second hardened wait)",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Unsupported host was called.",
+    "secondsAfterLastCapture": 1.6,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G08",
+   "label": "G08 a refused connect drops the current host",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G09",
+   "label": "G09 connect refreshes before the host is set",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 45,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Send is disabled with a host connected: {\"connected\":true,\"disabled\":true,\"status\":\"Select a build tool to edit. Right-drag or WASD pans.\",\"feedback\":\"Select a build tool to edit. Right-drag or WASD pans.\"}",
+    "secondsAfterLastCapture": 0.8,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G10",
+   "label": "G10 disconnect refreshes before the host is cleared",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 46,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Send is still enabled after the host disconnected: {\"connected\":false,\"disabled\":false,\"status\":\"Map sent to the connected game. Your blueprint and undo history stay here.\",\"feedback\":\"Map sent to the connected game. Your blueprint and undo history stay here.\"}",
+    "secondsAfterLastCapture": 2.2,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G11",
+   "label": "G11 connect checks only that openMap is truthy",
+   "build": {
+    "exit": 0,
+    "seconds": 15
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 3,
+     "received": [
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Expanded library acceptance",
+       "buildings": 6,
+       "current": true
+      },
+      {
+       "name": "Explicit acceptance map",
+       "buildings": 6,
+       "current": false
+      }
+     ],
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "handoff": {
+     "idle": {
+      "connected": false,
+      "disabled": true,
+      "status": "Select a build tool to edit. Right-drag or WASD pans.",
+      "feedback": "Select a build tool to edit. Right-drag or WASD pans."
+     },
+     "versioned": {
+      "click": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+      "sendToGame": {
+       "error": "acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1."
+      }
+     },
+     "listed": {
+      "click": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1).",
+      "sendToGame": {
+       "error": "This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+      }
+     },
+     "sent": {
+      "click": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "sendToGame": {
+       "sent": true
+      },
+      "explicit": {
+       "sent": true
+      }
+     },
+     "closed": {
+      "connected": false,
+      "disabled": true,
+      "status": "Map sent to the connected game. Your blueprint and undo history stay here.",
+      "feedback": "Map sent to the connected game. Your blueprint and undo history stay here."
+     }
+    },
+    "errors": []
+   },
+   "restored": true
+  }
+ ],
+ "rebuild": {
+  "exit": 0,
+  "seconds": 15
+ },
+ "distMatchesCommitted": {
+  "editor": true,
+  "handoff": true
+ },
+ "status": ""
+}

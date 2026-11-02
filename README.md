@@ -1,8 +1,10 @@
 # Nautilus Engine
 
-A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. **Version 0.2 provides a standalone 3D map workshop, a headless map-authoring package and shared character/skill/combat rules.**
+A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderbox. Optional modules cover map authoring, assets, rules, native-height worlds, interactions and game UI.
 
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
+
+The [modular engine blueprint](docs/engine-blueprint.md) defines the remaining work for selecting systems individually or composing a new game, with Farmyard Commando as the first production adoption target and separate PC/phone profiles.
 
 ## Run
 
@@ -48,10 +50,93 @@ See [the rules contract and examples](docs/rules.md) and [the comparison of all 
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
 
+## Basic character development
+
+`./rules/progression` exposes headless progression on the existing 14 stats. Levels award 15 assignable points; XP requirements increase with level. Separate practice records useful exertion, weapon use and treatment. Games supply eligible committed outcomes and atomically persist accepted rewards.
+
+Open `/examples/character-development.html` in the built preview for the reference sheet, staged point allocation, derived-resource previews and save import/export. Its clearly labelled sample outcomes demonstrate the contract; they are not a production game integration. See [the progression contract](docs/progression.md). Species/class perks and new cast content remain deferred.
+
+## Angled wall authoring
+
+The existing square-wall tool is joined by measured native-scale wall runs: exact or snapped endpoints, one-to-five stories, transactional edits and portable map/block transforms. [The wall-run contract](docs/wall-runs.md) explains the optional `nautilus-wall-runs-v1` host capability and unsupported generated seam continuations. Consumer movement, LOS, projectiles and fire remain adapter responsibilities.
+
+## Procedural sloped roofs
+
+Choose **Roofs**, select **Sloped roof**, then drag a footprint or open **Measured footprint** for exact dimensions. Preview before placing; gable, hip and shed styles support pitch, overhang, slate/clay/metal paint and a deterministic seed. Roof edits participate in undo/redo, saves, import/export, block capture/rotation and generation.
+
+The headless `./roofs` and optional `./roofs/three` entries let any of the three games borrow the same data and mesh. They are architectural shells; games bind fire, collision and navigation deliberately. See [the roof contract and visual review](docs/sloped-roofs.md) and [combined acceptance](docs/intake/2026-10-28-reusability-roofs.md).
+
+## Throwable rock
+
+Open `/examples/rock-distraction.html` after building and serving to try pickup, aimed throws, impact sounds, guard investigation and recovery. The example is a small reference consumer; each game adopts the feature with its own inventory, world and AI adapter.
+
+`./items` exports headless, copied rock state and staged actions. `./items/three` supplies an original 11 cm, texture-free rock model using the host's Three namespace. Discovery includes `item:rock`. Saves retain explicit flight time; previews stay silent and hearing uses the actual impact point. Combat and confirmed threats take priority over distraction. See [the item contract](docs/rock-distraction.md).
+
+## Farmyard grenade profile
+
+`./grenades` and optional `./grenades/aim` reuse Farmyard Commando's grenade costs, finite stock, same-plane trajectory/cover/damage and aiming controls. Transactions and retained-host checkpoints preserve command identity and spent/injured state; flight playback is transient. The supported first profile is static and non-reactive: windows, fueled targets, active fire and other floors refuse before costs. The frozen full game source is test evidence rather than a runtime dependency. See the [component guide and builder checklist](docs/grenades.md) and [source intake](docs/intake/2026-10-29-farmyard-grenades.md). Game adoption remains a separate change.
+
+`./grenades/ui` and `./grenades/style.css` supply optional desktop/touch controls; `./grenades/view` supplies the borrowed-scene preview. `./grenades/three` reuses the original painted grenade and native horse throw, with prop-only loading and explicit ownership. Discovery includes `item:grenade` and its logic/renderer guides. Headless core excludes browser and renderer entries.
+
+## Optional contour effect
+
+`./render-effects` exports the reviewed golden `SearchHalo` effect and standard/wide presets. `./render-effects/three` supplies the same pinned Three r180 instance. Games choose eligible roots; loot, discovery and marker rules stay in their adapters. The initial pipeline is full-frame WebGL2 with standard depth and NoToneMapping. See [the contract and example](docs/render-effects.md); the built example is `/examples/search-halo.html`. No donor game or editor behavior switches automatically.
+## Original building library
+
+The art collection adds **48 original buildings**, 77 floors, 409 described rooms and 16 painterly materials. It spans homes, schools, chapels, shops, factories, a depot, barns and utility buildings. Public developer plans and historic measured drawings informed newly authored designs. Detailed source recipes are preserved alongside simplified glTF meshes, room/opening data and a searchable 3D review gallery.
+
+Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.
 
-The standalone workshop does not bundle any game's combat application. **Send to game** becomes available when a host connects an adapter. The three games have not yet switched their editors or toolkit dependencies to Nautilus. Farmyard supports a flat-map subset; Tinderbox's content representation needs an explicit adapter. The inherited strategic overmap generator and a complete procedural campaign are outside this milestone.
+The standalone workshop does not bundle any game's combat application. **Send to game** becomes available when a host connects an adapter. The three games contribute source, assets and design feedback to Nautilus. Production runtime adoption is still a separate deliberate pin: the first Tinderbox adapter is conformance-tested against its actual compiler and simulation. Farmyard supports a flat-map subset; Tinderbox's content representation needs an explicit adapter. The inherited strategic overmap generator and a complete procedural campaign are outside this milestone.
 
 Original upstream bytes remain in `vendor/`. `upstream.json` pins full source commits and each snapshot's `provenance.json` records SHA-256 hashes. Build-only adaptations have separate hashes in `dist/build-provenance.json`. See [source notices](NOTICE.md). The GitHub source is public; the Sites review build uses owner sign-in.
+
+## Public contracts and packages
+
+See [compatibility and persistence](docs/compatibility.md), [distributable profiles and asset reuse](docs/distribution.md), and the [bounded Tinderbox adapter](docs/adapters/tinderbox.md). Public engine-owned interfaces keep donor/editor internals private. Versioned manifests distinguish required from optional features; stamped saves retain portable blueprint data and reject unsupported schemas.
+
+The source checkout contains the full authoring/review material. The default package has an explicit runtime whitelist; separate core, renderer and optional building-assets profiles keep large art payloads out of headless consumers. npm run test:package tests a real offline installation; npm run test:assets verifies all 48 model/binary/blueprint/atlas URLs from the installed asset package. The browser authoring workflow runs in its own isolated browser and in GitHub CI.
+
+## Modular foundation and extended heights
+
+Use individual public imports directly, or opt into `./runtime` to validate a selected provider graph and manage its explicit lifecycle. Existing host services can satisfy dependencies. Importing a statistic does not select rendering, movement or a clock. The `./adapters/farmyard/rules` candidate matches pinned Farmyard stat-v2 calculations while preserving its host-shaped actors and resources; adopting it in the game is a separate change.
+
+`./world` stores up to 32 stable floor positions with explicit metre heights, static surfaces, spawn anchors and traversal endpoints. Native kit stories remain 2.12 m. It supplies bounded AABB/contact/support queries; it does not execute movement or silently convert legacy maps. `./floors` is the headless controller; optional `./floors/ui` and `./floors/style.css` provide the browser view in the compatibility package. The legacy editor uses five visible labels while preserving its six-layer format.
+
+Open `/examples/extended-world.html` after building and serving, or use **About & shortcuts → Open the native-height workshop** in the main editor. It has a fifteen-story native fixture, roof deck and low neighbour, measured/dragged box edits, previews, undo/redo, JSON import/export and browser saves. Its structural SVG views and static contacts do not execute character movement.
+
+See the [implementation checkpoint](docs/modular-foundation.md), [module contract](docs/runtime-modules.md), [world contract](docs/extended-world-core.md), [floor controls](docs/floor-navigation.md) and [Farmyard seam](docs/adapters/farmyard-rules.md). Whole-game snapshots, general movement/physics, production game adoption and the reusable actor loader remain later tranches.
+
+
+The [grenade reference player](https://github.com/Syntaxswine/nautilus-engine/blob/cc49e030eca70f2708268d028ad5f7474f84e450/examples/grenade-reference.html) combines those public entries with the native assets. After `npm run build`, run `npm run review:grenades` and `npm run review:grenades:installed` for deterministic desktop/touch, save/recovery and source-versus-installed browser proof.
+## Standard game interactions and title screen
+
+Open /examples/game-starter.html after building for a reusable title flow and a playable gate/stair yard. The interactions entry supplies headless door transactions, live obstruction checks and saved continuous stair travel. The optional game-ui/title entry plus game-ui/style.css supplies start/continue/settings/credits, save checking, confirmation and retry. The headless game-ui entry exposes usage cards linking the shipped guides.
+
+See [asset handoffs](docs/asset-handoffs.md), [door/stair bindings](docs/standard-interactions.md) and [title-screen setup](docs/game-title.md). The reference AABB provider has explicit geometry limits; games adopt their own reviewed providers/pins.
+
+The candidate `./parts` facade adds strict native part definitions/instances, a deterministic geometry/interaction/render compiler, source diagnostics and complete bounded runtime saves. `./parts/fixtures` supplies an executable conformance-only two-story recipe with transformed and wider layouts. Read the [functional-parts builder guide](docs/functional-parts.md) for public imports, installed examples, host bindings and limits. Artist kit, editor authoring, presentation and integrated game adoption require their separate fixed-commit acceptance.
+
+The optional `./adapters/farmyard/doors` entry supplies Farmyard's source-sized single-leaf doors, clear reach, combat AP and post-door sight/fog transitions while retaining an existing game's movement. Its [builder card](docs/adapters/farmyard-doors.md) carries required services, schema URLs, connection example, save/retry rules and adoption checklist. Native conservative clearance remains a separate profile.
+
+## Native Farmyard windows (Unreleased)
+
+The optional `./windows` and `./adapters/farmyard/windows` entries provide native quarter-turn pane geometry, purpose-specific queries, trusted confirmed impacts, durable retries and complete retained saves. Games bind all six required host services before activation. The [builder card](docs/adapters/farmyard-window-impacts.md) includes schemas, an installed example and adoption checklist; `npm run test:windows` proves the actual shipped entries offline.
+
+The optional `./windows/authoring` entry preserves a complete portable base map and window underlay, native placements, transactional commands and bounded undo/redo. The [authoring builder guide](docs/window-authoring.md) includes the installed example, schema, readiness and host checklist. Run `npm run test:windows:authoring` for the actual declared-package proof. Editor chrome, native presentation and complete game adoption remain separate.
+
+The optional renderer `./adapters/farmyard/windows/three` entry supplies native frames/glass, accepted pane masks, explicit legacy-wall clipping and quiet restores. Its [builder usage card](packages/native-window-presenter/README.md) has a runnable installed preview and ownership checklist. Run `npm run test:windows:renderer` for actual public renderer/authoring proof. Host core, Three and materials are borrowed; editor chrome and complete-game adoption remain separate.
+
+The [artist audit](docs/reviews/window-art/README.md) records the original 39 presets and tall-sheet reference. The [integration record](docs/reviews/2026-10-30-farmyard-window-integration.md) identifies accepted scope and later renderer/editor work. Existing grenade and door profiles keep their explicit window refusals.
+
+## Procedural tile foundation
+
+The optional ./tiles entry supplies editable analytic shapes, canonical layered joins, deterministic neighbour repair and complete authored saves. See the [tile contract and builder checklist](docs/procedural-tiles.md). Run npm run test:tiles for the actual offline installed-package proof. The [isolated Smart Tile reference host](docs/smart-tile-editor.md) adds Rectangle, level Path and whole-owner Finish with Review/Apply, atomic checkpoints and Undo/Redo. It is a separate authoring proof alongside the inherited workshop. The [stacked tile workspace](docs/stacked-tiles.md) adds fifteen explicit native floors, a five-label floor selector, selected-floor/overview/cutaway inspection and four reusable finish families. Its optional headless stack planner and host-Three finish library can be borrowed separately. The map workshop opens it through **Tile workshop**, keeping the current map open. Broader families and gameplay adapters remain separate work.
+
+The [experimental tile source](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-v2-candidate.md) adds typed future records and shared-edge inspection. Its [private C1 inspector](https://github.com/Syntaxswine/nautilus-engine/blob/main/docs/procedural-tiles-c1-candidate.md) computes bounded exact line-region Boolean footprints, including L/H unions, courtyards, islands and point contacts. Run npm run test:tiles:v2:candidate from the source checkout. Complete v2 layout resolution, presentation/live adoption and public v2 package registration remain deferred.
+
+Optional [native tile surfaces](packages/tile-visuals/README.md) turn complete canonical bundles into flat binary-field, region and constant-width curve presentation with preserved boundaries. Public preparation stays headless; meshes borrow the host Three/material pool. The [standalone surface review](examples/canonical-tile-art.html) and executable installed guide keep preview availability separate from Editor and game adoption.

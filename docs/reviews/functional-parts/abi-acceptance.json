@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-30T00:59:21.243Z",
+  "status": "candidate-headless-ABI; integrated native-art/editor/UI acceptance pending",
+  "branch": "codex/functional-parts-core",
+  "foundation": "673a656bff1e6e928052f2bb18c378d25048fb47",
+  "baselineUI": "25224b9f7994db29d2e05ebdce279c73f4434c1e",
+  "documentationBaseline": "78d37b6cd3ba5de5c25d4922b4ba301b13491caa",
+  "scopeCommit": "04f915dd8b16c242d47b1e054b2406aedcbdefc8",
+  "sourceHashes": {
+    "README.md": "01e81b641ecb94c33300732b006283053975e38cf34bfa78a9ab2d07e5091dd0",
+    "docs/architecture.md": "f35b89f15ac7ba522318a6795394e39289187d1ccc23066f0f3cbafd27fa13c4",
+    "docs/distribution.md": "35e8dc6a19e2e050703984352fc90e6feac18f95373c00294f408f707504fbe7",
+    "docs/functional-parts.md": "7c106b80b45f80c56fe4f95f88b11fa82e7c910af161a4a7c6d3686d90cc6925",
+    "docs/standard-interactions.md": "8a19825dc2192756bcb7cd7f5b8c0fac303ad6218431530438baec7cc3f851cf",
+    "package.json": "6db8e4cf3d27bb180f119a62ea4f1f40c0beaa48a5183ff420325232474bf8ed",
+    "packages/adapters/tinderbox/index.js": "ab4ab79ccbc3ffb6c2315b005d7257b4f763c044b850cad358779e2d76de0928",
+    "packages/interactions/actions.js": "bf409d5ef7b66fff2f0caa204bc81f36240466407ab818a520c5658f496319d3",
+    "packages/interactions/queries.js": "749e82ecd94807ab90f6ac42f2e6b5e2d2b96326760367b99f874bb861b2f626",
+    "packages/interactions/state.js": "8097a5721c8f18373121b781664ff3a04468a5b7dcefcfdfe80623b7bd5a3f9e",
+    "packages/map-core/capabilities.js": "cb6d527d4a8716c929a1b92ec36d6922330dc9c26e6697fc3b7e5ffe265c4475",
+    "packages/map-core/contract-manifest.js": "d7c8b78f8d4aa137373698622d125a94a06959d2290d8e690ca26e6237fe2d8f",
+    "packages/map-core/persistence.js": "7f0217444f1d9e438a79a7347cb8b79442c41d20698127320395eafe5e409800",
+    "packages/map-core/requirements.js": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657",
+    "packages/map-core/roof-data.js": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7",
+    "packages/map-core/roof-generator.js": "62576885f7eb907ed24f6b466c175743cf7e1ca4b532c3e17dedee5faff3dcae",
+    "packages/map-core/roof-maps.js": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848",
+    "packages/parts-core/compiler.js": "256742ecc07ba672d8a6d5e09f020744d72ca438c57e256ec3c66e57d0ea5a96",
+    "packages/parts-core/data.js": "51ad8cbc6a73d2e58cac9cae360298ed29b62dcd0479146645d5d21854ae67e3",
+    "packages/parts-core/fixtures.js": "aad83cfefd721f76459d28bd9bc9213d16846bc5023db8b34a3bb53fff0e35fe",
+    "packages/parts-core/geometry.js": "6ff50e6f6be5406912dd77ad79b511f8b24043349a8173798e9a16cea41ca22e",
+    "packages/parts-core/hash.js": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+    "packages/parts-core/index.js": "dbd2d8fa227303d644d5c5459bdd54a3974c33d71a5041e1e6c07dc46c240335",
+    "packages/parts-core/runtime.js": "9a1c241126efa7584fa50a7b86101433b3316298b57c7a77f91e328444f6b9be",
+    "packages/world-core/parts-refusal.js": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+    "packages/world-core/state.js": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc",
+    "schemas/compiled-parts-v1.schema.json": "680bbe3c21e797db365dd76bb8f274c509dcc3dee973e1922890253e0d6d401b",
+    "schemas/functional-parts-v1.schema.json": "98bb9d2db7e71236faef5bcfa59a1f9f44efc5e6d50e282b7549e31ccfbf61a4",
+    "schemas/part-definition-v1.schema.json": "70d5069c4bc6b8e6e2f0f0ff3030a003fd766d635281b33053e0b07f48e526bb",
+    "schemas/parts-runtime-save-v1.schema.json": "7373bb547f52d5a2d3d2f30c8e32b8b7301a61aa6982504d269d2935107dcdc2",
+    "tests/contracts.test.mjs": "dd0ffdf00ca167d73841ff4db6319ea65bc70a8712eb08d7e1b27342aa57c9a2",
+    "tests/fixtures/parts/acceptance.json": "b2c317a98ff4469303f3bad6536ace296664a019e71828a158ab03d360ac60ac",
+    "tests/fixtures/parts/compiled-single.json": "8f926caa8258b5e670effb0796a54032225da2ca3526e776bceb3f6515d87b3e",
+    "tests/fixtures/parts/definitions.json": "1c9a01121f4e0c798a75e739c0bfc11604fd5d9b8f547c6866d0b23f9ab5564a",
+    "tests/fixtures/parts/mid-stair-save.json": "8dcc96ec9fcaf9f30939fde4e5381b69dbe69b370d8d087cf18cc5041035ec74",
+    "tests/fixtures/parts/package-proof.mjs": "26e3f1ea1be31a0fb19d873ce0fbcdfba0ff9558a8e044782caea416e153e33f",
+    "tests/fixtures/parts/second-layout.json": "df7480b69be35a0b57895e8215e3cc8eed6d3695a85d63f2dd1babb9a8190c5c",
+    "tests/fixtures/parts/single.json": "7823ac3b66b017235dcac42b87b8a9502c5c687265b4fceeaeb38df99e643297",
+    "tests/fixtures/parts/transformed.json": "8faa109763d2b9cbe5c3ca32066a8dfd085059063588d43d95102401b4ef7edc",
+    "tests/parts-boundaries.test.mjs": "0f55bb4ee41a6aeb36d929e2944bdfc8967faa6bba4414d832a42a36bb00c302",
+    "tests/parts-compiler.test.mjs": "252d0000493fa6e523ee80f99b0c224a2b55a6426aed16936b297dfb6bf96208",
+    "tests/parts-runtime.test.mjs": "bce428a1f142d98ec97d81925eec4fae4b2c95e260bfd1246d4aeff6c65f546a",
+    "tools/check.mjs": "a624e9d7cd6efe59944d999c8b5b3291e64bb3ee965f8f6b11210170d4102e91",
+    "tools/distribution.mjs": "ee6b90b2bf6a2afc465c8e9840a084ea8fcdbfacfcf4dddac1f7ba972ae0ed8f",
+    "tools/measure-parts.mjs": "90f3b93d40e48606d661bca16a6ec5c1b894eaf7d53effa143f271f1ad18586c",
+    "tools/parts-fixtures.mjs": "a32a1bf0aeccac278367f659c7a817c9120824827b25da8eea116620e8a6f99f",
+    "tools/parts-schemas.mjs": "7e7735a3a74e211e61e05761be71fbfad3e417f7f74d557ca097f3148be3bebb",
+    "tools/validate-parts-schemas.py": "d7a24bfffa6a7bb2ebdc7facd18018630440a67b5f68b1cc653256c0066e210d"
+  },
+  "gates": {
+    "integrity": {
+      "command": "npm run check -- --tracked",
+      "passed": true
+    },
+    "engineTests": {
+      "command": "npm test",
+      "passed": 404,
+      "failed": 0
+    },
+    "upstream": {
+      "command": "npm run test:upstream",
+      "passed": 32,
+      "failed": 0
+    },
+    "build": {
+      "command": "npm run build",
+      "passed": true
+    },
+    "corePackage": {
+      "command": "npm run test:package",
+      "passed": true,
+      "profile": "core",
+      "name": "@nautilus-engine/core",
+      "version": "0.8.0",
+      "compressedBytes": 1288033,
+      "unpackedBytes": 6492291,
+      "fileCount": 191,
+      "integrity": "sha512-s2qiaAINt4tdhEg+AMP20oQ3t6hbZh0Zs+xk8UsM5jsyYuukYmJ9O4UmZdRwfD9/Iyp1JXtxrU+QNub03jyg+w==",
+      "file": "nautilus-engine-core-0.8.0.tgz"
+    },
+    "compatibilityPackage": {
+      "command": "npm run test:game-ui-package",
+      "passed": true,
+      "profile": "compatibility",
+      "name": "@nautilus-engine/map-core",
+      "version": "0.8.0",
+      "compressedBytes": 18786479,
+      "unpackedBytes": 26340415,
+      "fileCount": 217,
+      "integrity": "sha512-sbo0DO8yHzXhmzaBMVWoy6T2YSufnC2OAjMX9MOmQLox9lreOjpgDw7y7GA9qXg0XUjSsBFFm+DGhRVzyn8Z0g==",
+      "file": "nautilus-engine-map-core-0.8.0.tgz"
+    },
+    "structuralSchemas": {
+      "command": "tools/validate-parts-schemas.py",
+      "validator": "jsonschema==4.23.0",
+      "draft": "2020-12",
+      "schemas": 4,
+      "positiveAndNegativeCases": 21,
+      "passed": true
+    }
+  },
+  "entryModuleClosure": {
+    "entry": "./parts",
+    "files": [
+      "packages/interactions/actions.js",
+      "packages/interactions/index.js",
+      "packages/interactions/queries.js",
+      "packages/interactions/state.js",
+      "packages/map-core/contract-manifest.js",
+      "packages/map-core/requirements.js",
+      "packages/parts-core/clearance.js",
+      "packages/parts-core/compiler.js",
+      "packages/parts-core/data.js",
+      "packages/parts-core/geometry.js",
+      "packages/parts-core/hash.js",
+      "packages/parts-core/identity.js",
+      "packages/parts-core/index.js",
+      "packages/parts-core/runtime.js",
+      "packages/world-core/index.js",
+      "packages/world-core/legacy.js",
+      "packages/world-core/parts-refusal.js",
+      "packages/world-core/queries.js",
+      "packages/world-core/state.js",
+      "packages/world-core/validation.js"
+    ],
+    "sourceBytes": 142137,
+    "donorEditorImports": false,
+    "rendererDOMClockNetworkRandomRequired": false
+  },
+  "fixtures": {
+    "acceptance": "tests/fixtures/parts/acceptance.json",
+    "source": "packages/parts-core/fixtures.js",
+    "status": "conformance-only"
+  },
+  "helperCleanup": {
+    "verifiedAt": "2026-10-30T00:50:33.6927972Z",
+    "exactOriginalHelpersPresent": [],
+    "listenerCount": 0,
+    "receipt": {
+      "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+      "purpose": "Standard title and door/stair acceptance",
+      "stoppedAt": "2026-10-30T00:48:59.904Z",
+      "process": {
+        "pid": 22268,
+        "creationFiletime": "134377949148235313",
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "browser": {
+        "pid": 50712,
+        "creationFiletime": "134377949151677710",
+        "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      },
+      "port": 64987,
+      "httpClosed": true,
+      "browserClosed": true,
+      "method": "Supported Playwright browser close and HTTP close in finally"
+    }
+  },
+  "retainedHelpers": [],
+  "missingAcceptance": [
+    "reviewed native kit/actor/material and presentation parity",
+    "editor placement/history/copy/import/export workflows",
+    "generic UI player/readiness/title integration with native art",
+    "architect independent integration/release and separate game adoption"
+  ],
+  "deployment": "Branch workflow runs CI only; no deployment or Sites audience update.",
+  "sourceHashScope": "All task source/schema/fixture/guide inputs; this review report and copied evidence are excluded to avoid recursive hashes."
+}

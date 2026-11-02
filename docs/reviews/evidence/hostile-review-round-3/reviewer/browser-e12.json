@@ -1,0 +1,32 @@
+{
+ "runs": [
+  {
+   "id": "E12",
+   "label": "E12 page bypass for feature-list hosts only (reaches the second hardened wait)",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 47,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Unsupported host was called.",
+    "secondsAfterLastCapture": 1.2,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  }
+ ],
+ "rebuild": {
+  "exit": 0,
+  "seconds": 14
+ },
+ "distMatchesCommitted": {
+  "editor": true,
+  "handoff": true
+ },
+ "status": ""
+}

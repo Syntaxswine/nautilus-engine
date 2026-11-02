@@ -1,0 +1,189 @@
+{
+ "eps": {
+  "X": 20.639999999998,
+  "d": 0.5599999999980004
+ },
+ "pristine": {
+  "W1 vertical run drawn upwards (b above a), off its centre, face 0.52 m east": {
+   "adapter": "refused",
+   "pinned": "refused"
+  },
+  "W2 vertical run drawn upwards, centred, face 0.52 m east": {
+   "adapter": "refused",
+   "pinned": "refused"
+  },
+  "W3 vertical run 0.72 m west of the spawn": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  },
+  "W4 vertical run 0.52 m west of the spawn": {
+   "adapter": "refused",
+   "pinned": "refused"
+  },
+  "W5 start two tiles in from the right edge (x 17.5 of 20)": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  },
+  "W6 start one tile in from the right edge (x 18.5 of 20)": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  },
+  "W7 start one tile in from the bottom edge (y 14.5 of 16)": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  },
+  "W8 horizontal run 0.72 m south of the spawn": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  },
+  "W9 face 0.5599999999980004 m away (within 1e-10 below 0.56)": {
+   "adapter": "accepted",
+   "pinned": "accepted"
+  }
+ },
+ "mutants": [
+  {
+   "id": "C00 neutral: hypot written as sqrt of squares",
+   "tableFlips": [],
+   "witnessFlips": []
+  },
+  {
+   "id": "C18 epsilon dropped (< radius)",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W9 face 0.5599999999980004 m away (within 1e-10 below 0.56)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C19 swap only for heading pi/2 (=== 1)",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W1 vertical run drawn upwards (b above a), off its centre, face 0.52 m east",
+     "pinned": "refused",
+     "mutant": "accepted"
+    }
+   ]
+  },
+  {
+   "id": "C20 x term signed (m.x - player.x)",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W3 vertical run 0.72 m west of the spawn",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W5 start two tiles in from the right edge (x 17.5 of 20)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W6 start one tile in from the right edge (x 18.5 of 20)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C21 y term signed (m.y - player.y)",
+   "tableFlips": [
+    "beside, 0.62 m",
+    "face 5 mm outside the radius",
+    "corner 0.25 m past the end, 0.577 m",
+    "open yard"
+   ],
+   "witnessFlips": [
+    {
+     "name": "W3 vertical run 0.72 m west of the spawn",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W7 start one tile in from the bottom edge (y 14.5 of 16)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W8 horizontal run 0.72 m south of the spawn",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W9 face 0.5599999999980004 m away (within 1e-10 below 0.56)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C22 x term signed (player.x - m.x)",
+   "tableFlips": [
+    "beside, 0.62 m",
+    "face 5 mm outside the radius",
+    "corner 0.25 m past the end, 0.577 m",
+    "open yard"
+   ],
+   "witnessFlips": [
+    {
+     "name": "W3 vertical run 0.72 m west of the spawn",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W8 horizontal run 0.72 m south of the spawn",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W9 face 0.5599999999980004 m away (within 1e-10 below 0.56)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C23 right bound padded by a tile",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W6 start one tile in from the right edge (x 18.5 of 20)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C24 bottom bound padded by a tile",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W7 start one tile in from the bottom edge (y 14.5 of 16)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  },
+  {
+   "id": "C27 right bound compared with the height",
+   "tableFlips": [],
+   "witnessFlips": [
+    {
+     "name": "W5 start two tiles in from the right edge (x 17.5 of 20)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    },
+    {
+     "name": "W6 start one tile in from the right edge (x 18.5 of 20)",
+     "pinned": "accepted",
+     "mutant": "refused"
+    }
+   ]
+  }
+ ]
+}

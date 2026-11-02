@@ -1,0 +1,869 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:compiled-parts:1",
+  "title": "Compiler-produced part bindings; not an installable cache",
+  "description": "Structural v1 schema. Runtime validation additionally checks finite plain data, byte/count/depth budgets, exact references, native geometry/clearance, capability/provider readiness, scene/content identity and journal replay. Unsupported input is never normalized or installed as code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "profileId",
+    "renderProfileId",
+    "world",
+    "interactions",
+    "renderBindings",
+    "portals",
+    "floorBindings",
+    "definitionLocks",
+    "bodyProfile",
+    "requirements",
+    "source",
+    "sourceMap",
+    "status"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-compiled-parts"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^scene:[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "profileId": {
+      "const": "native-quarter-turn-parts-v1"
+    },
+    "renderProfileId": {
+      "const": "native-part-bindings-v1"
+    },
+    "world": {
+      "$ref": "urn:nautilus:schema:extended-world:1"
+    },
+    "interactions": {
+      "$ref": "urn:nautilus:schema:standard-interactions:1"
+    },
+    "renderBindings": {
+      "type": "array",
+      "maxItems": 49152,
+      "items": {
+        "$ref": "#/$defs/render"
+      }
+    },
+    "portals": {
+      "type": "array",
+      "maxItems": 8192,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "instanceId",
+          "partId",
+          "wallPartId",
+          "origin",
+          "direction",
+          "widthM",
+          "heightM",
+          "bounds",
+          "floorId",
+          "mode",
+          "doorId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "instanceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 24,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "partId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "wallPartId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "origin": {
+            "$ref": "#/$defs/realPoint"
+          },
+          "direction": {
+            "$ref": "#/$defs/realPoint"
+          },
+          "widthM": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 4096
+          },
+          "heightM": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 4096
+          },
+          "bounds": {
+            "$ref": "#/$defs/realBounds"
+          },
+          "floorId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mode": {
+            "enum": [
+              "functional",
+              "decorative"
+            ]
+          },
+          "doorId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "floorBindings": {
+      "type": "array",
+      "maxItems": 8192,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "instanceId",
+          "partId",
+          "floorId",
+          "elevationM",
+          "mode"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "instanceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 24,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "partId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "floorId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "elevationM": {
+            "type": "number",
+            "minimum": -65536,
+            "maximum": 65536
+          },
+          "mode": {
+            "enum": [
+              "functional",
+              "decorative"
+            ]
+          }
+        }
+      }
+    },
+    "definitionLocks": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*(?![\\s\\S])"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+          }
+        }
+      }
+    },
+    "bodyProfile": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "radiusM",
+            "heightM"
+          ],
+          "properties": {
+            "radiusM": {
+              "type": "number",
+              "minimum": 0.05,
+              "maximum": 5
+            },
+            "heightM": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "required",
+        "optional"
+      ],
+      "properties": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "version"
+          ],
+          "properties": {
+            "id": {
+              "const": "nautilus-functional-parts"
+            },
+            "version": {
+              "const": 1
+            }
+          }
+        },
+        "required": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "minVersion",
+              "maxVersion"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "minVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000
+              },
+              "maxVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000
+              }
+            }
+          }
+        },
+        "optional": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "minVersion",
+              "maxVersion"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              "minVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000
+              },
+              "maxVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000
+              }
+            }
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "worldId",
+        "revision"
+      ],
+      "properties": {
+        "worldId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        }
+      }
+    },
+    "sourceMap": {
+      "type": "array",
+      "maxItems": 131072,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "instanceId",
+          "partId",
+          "path",
+          "definitionId",
+          "definitionVersion",
+          "definitionPath",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "instanceId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 24,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "partId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "definitionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "definitionVersion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*(?![\\s\\S])"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "definitionPath": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "functional",
+        "decorative"
+      ]
+    }
+  },
+  "$defs": {
+    "realPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        },
+        "y": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        },
+        "h": {
+          "type": "number",
+          "minimum": -65536,
+          "maximum": 65536
+        }
+      }
+    },
+    "realBounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/realPoint"
+        },
+        "max": {
+          "$ref": "#/$defs/realPoint"
+        }
+      }
+    },
+    "realLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "widthM",
+        "heightM",
+        "thicknessM",
+        "offsetM",
+        "bottomM"
+      ],
+      "properties": {
+        "widthM": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 4096
+        },
+        "heightM": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 4096
+        },
+        "thicknessM": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 4096
+        },
+        "offsetM": {
+          "type": "number",
+          "minimum": -64,
+          "maximum": 64
+        },
+        "bottomM": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 64
+        }
+      }
+    },
+    "render": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "instanceId",
+            "partId",
+            "floorId",
+            "material",
+            "mode",
+            "bounds",
+            "surfaceId"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "type": {
+              "const": "box"
+            },
+            "instanceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 24,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "partId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "floorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "material": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "mode": {
+              "enum": [
+                "functional",
+                "decorative"
+              ]
+            },
+            "bounds": {
+              "$ref": "#/$defs/realBounds"
+            },
+            "surfaceId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "instanceId",
+            "partId",
+            "floorId",
+            "material",
+            "mode",
+            "hinge",
+            "leaf",
+            "closedYawRadians",
+            "openYawRadians",
+            "doorId",
+            "portalId",
+            "initial"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "type": {
+              "const": "door-leaf"
+            },
+            "instanceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 24,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "partId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "floorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "material": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "mode": {
+              "enum": [
+                "functional",
+                "decorative"
+              ]
+            },
+            "hinge": {
+              "$ref": "#/$defs/realPoint"
+            },
+            "leaf": {
+              "$ref": "#/$defs/realLeaf"
+            },
+            "closedYawRadians": {
+              "type": "number",
+              "minimum": -32,
+              "maximum": 32
+            },
+            "openYawRadians": {
+              "type": "number",
+              "minimum": -32,
+              "maximum": 32
+            },
+            "doorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "portalId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "initial": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "open",
+                "locked"
+              ],
+              "properties": {
+                "open": {
+                  "type": "boolean"
+                },
+                "locked": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "instanceId",
+            "partId",
+            "floorId",
+            "material",
+            "mode",
+            "path",
+            "widthM",
+            "clearanceM",
+            "stairId"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "type": {
+              "const": "stairs"
+            },
+            "instanceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 24,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "partId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+            },
+            "floorId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "material": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+            },
+            "mode": {
+              "enum": [
+                "functional",
+                "decorative"
+              ]
+            },
+            "path": {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "$ref": "#/$defs/realPoint"
+              }
+            },
+            "widthM": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 20
+            },
+            "clearanceM": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 20
+            },
+            "stairId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

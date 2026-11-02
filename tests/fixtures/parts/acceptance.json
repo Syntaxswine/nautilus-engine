@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "status": "conformance-only",
+  "bodyProfile": {
+    "radiusM": 0.25,
+    "heightM": 1.7
+  },
+  "variants": [
+    {
+      "variant": "single",
+      "sceneId": "scene:01ee46dde57641bdd295abe06cce10cf4c1b63c569354b4775561fb9f52bb77c",
+      "surfaces": 23,
+      "doors": 1,
+      "stairs": 1,
+      "renderBindings": 24,
+      "worldSha256": "67e7b0f496c5068f7e7775e66b7614293efb55fa0c57cf0c66b54e43686d2272",
+      "renderSha256": "4229ec632ec311e0d24676e99adb8f69dbe0293193e47ee3767761607382ba9e"
+    },
+    {
+      "variant": "transformed",
+      "sceneId": "scene:1e73d8bec555824b8b589aac32512578a932aaf0b7f67c31c9563c5f549a7f43",
+      "surfaces": 45,
+      "doors": 2,
+      "stairs": 2,
+      "renderBindings": 48,
+      "worldSha256": "a489a46558bb9df1da17f08f39b7e73a9ed2c2f643ebc15cf3496dea3dcadb06",
+      "renderSha256": "fbbeb83b3221f3f8c1de134cc9b0c891585bd875d8bd55483a5ae022c0eb3815"
+    },
+    {
+      "variant": "second-layout",
+      "sceneId": "scene:41de4797b5f6cac80297759bd8546e045f9032159fa96dea17e5b4df7bb31a47",
+      "surfaces": 67,
+      "doors": 3,
+      "stairs": 3,
+      "renderBindings": 72,
+      "worldSha256": "d98b4d6b827da209083beee98d82358689f7c05f4c3c2311f9011f49ad1511ce",
+      "renderSha256": "a45319d05fb6e4809b0820b2e771f8c491bd5fcac4b4f62db3b742b87dfb8cb1"
+    }
+  ],
+  "diagnostics": [
+    {
+      "name": "unsupported-scale",
+      "status": "unsupported",
+      "diagnostics": [
+        {
+          "code": "UNSUPPORTED_PART_TRANSFORM",
+          "path": "/instances/0/transform/scale",
+          "reason": "This profile preserves native scale and explicit quarter turns.",
+          "action": "Remove unsupported scaling/mirroring/arbitrary rotation or select a separately implemented profile.",
+          "instanceId": "a",
+          "partId": null,
+          "definitionPath": null
+        }
+      ]
+    },
+    {
+      "name": "missing-aperture",
+      "status": "incomplete",
+      "diagnostics": [
+        {
+          "code": "MISSING_PART_CONNECTION",
+          "path": "/connections/0",
+          "reason": "A required semantic port is unresolved.",
+          "action": "Connect the named door aperture or stair landing before play/export.",
+          "instanceId": "a-door",
+          "partId": "leaf",
+          "definitionPath": "/definitions/3/parts/0"
+        }
+      ]
+    },
+    {
+      "name": "misaligned-door",
+      "status": "incomplete",
+      "diagnostics": [
+        {
+          "code": "PART_CONNECTION_MISALIGNED",
+          "path": "/instances/0/children/11/transform",
+          "reason": "The door portal frame does not match the connected wall opening.",
+          "action": "Align the native origin/quarter turn or correct the typed connection.",
+          "instanceId": "a-door",
+          "partId": "leaf",
+          "definitionPath": "/definitions/3/parts/0"
+        }
+      ]
+    },
+    {
+      "name": "blocked-slab-hole",
+      "status": "incomplete",
+      "diagnostics": [
+        {
+          "code": "BLOCKED",
+          "path": "/instances/0/children/12",
+          "reason": "The way is blocked by fp:surface:YS11cHBlcg:ZGVjaw:0.",
+          "action": "Correct the actual body, route, slab hole or obstruction before play.",
+          "instanceId": "a-stairs",
+          "partId": "flight",
+          "definitionPath": "/definitions/4/parts/0"
+        }
+      ]
+    },
+    {
+      "name": "oversized-body",
+      "status": "incomplete",
+      "diagnostics": [
+        {
+          "code": "APERTURE_BODY_TOO_TALL",
+          "path": "/instances/0/children/11",
+          "reason": "The measured body is taller than the native opening.",
+          "action": "Choose a genuinely fitting actor/opening or a separately supported stance; preserve the native model and collider scale.",
+          "instanceId": "a-door",
+          "partId": "leaf",
+          "definitionPath": "/definitions/3/parts/0"
+        }
+      ]
+    }
+  ],
+  "midStair": {
+    "sceneId": "scene:01ee46dde57641bdd295abe06cce10cf4c1b63c569354b4775561fb9f52bb77c",
+    "revision": 8,
+    "position": {
+      "x": 5.873288664241933,
+      "y": 6,
+      "h": 0.48720314952444677
+    },
+    "traversal": {
+      "stairId": "fp:stairs:YS1zdGFpcnM:ZmxpZ2h0",
+      "direction": 1,
+      "distanceM": 1,
+      "path": [
+        {
+          "x": 5,
+          "y": 6,
+          "h": 0
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "h": 0
+        },
+        {
+          "x": 8.8,
+          "y": 6,
+          "h": 2.12
+        },
+        {
+          "x": 10.1,
+          "y": 6,
+          "h": 2.12
+        }
+      ]
+    },
+    "wireBytes": 11074,
+    "wireSha256": "3ac076d5fcf2d4072c923c0c70ef8a8fe9462da94004f3cc99cd8ed8d5447e47",
+    "claimedEvents": [
+      "parts-conformance-yard/interactions/1",
+      "parts-conformance-yard/interactions/2"
+    ],
+    "restoreEvents": []
+  }
+}

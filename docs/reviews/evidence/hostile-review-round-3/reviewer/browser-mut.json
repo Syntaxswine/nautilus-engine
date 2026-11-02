@@ -1,0 +1,219 @@
+{
+ "runs": [
+  {
+   "id": "E01",
+   "label": "E01 page wires a bypass (the author's mutant, verbatim)",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 42,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "Versioned host missing roof support was called.",
+    "secondsAfterLastCapture": 0.9,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E05",
+   "label": "E05 exportMap closure drops its call",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 44,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 1,
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "errors": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E06",
+   "label": "E06 onChange not wired (connect does not refresh the page)",
+   "build": {
+    "exit": 0,
+    "seconds": 29
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 105,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "locator.click: Timeout 30000ms exceeded. / Call log: / \u001b[2m  - waiting for locator('#playtest')\u001b[22m / \u001b[2m    - locator resolved to <button disabled id=\"playtest\" title=\"Export JSON for a game, or connect a game adapter.\">Send to game</button>\u001b[22m / \u001b[2m  - attempting click action\u001b[22m / \u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m",
+    "secondsAfterLastCapture": 30.8,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E07",
+   "label": "E07 page hasGameAdapter getter always true",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 42,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 1,
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "errors": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E09",
+   "label": "E09 bypass only on the no-argument sendToGame()",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 43,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 1,
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "errors": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E10",
+   "label": "E10 page sendToGame ignores its argument",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 47,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 1,
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "errors": []
+   },
+   "restored": true
+  },
+  {
+   "id": "E11",
+   "label": "E11 sendToGame assigned connectGame (swapped member)",
+   "build": {
+    "exit": 0,
+    "seconds": 14
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 86,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "page.waitForFunction: Timeout 30000ms exceeded.",
+    "secondsAfterLastCapture": 31.8,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G09",
+   "label": "G09 connect refreshes before the host is set",
+   "build": {
+    "exit": 0,
+    "seconds": 22
+   },
+   "acceptance": {
+    "exit": 1,
+    "signal": null,
+    "seconds": 75,
+    "lastCapture": "editor-mobile-library.png",
+    "failure": "locator.click: Timeout 30000ms exceeded. / Call log: / \u001b[2m  - waiting for locator('#playtest')\u001b[22m / \u001b[2m    - locator resolved to <button disabled id=\"playtest\" title=\"Export JSON for a game, or connect a game adapter.\">Send to game</button>\u001b[22m / \u001b[2m  - attempting click action\u001b[22m / \u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m",
+    "secondsAfterLastCapture": 30.8,
+    "pageErrors": [],
+    "failedRequests": []
+   },
+   "restored": true
+  },
+  {
+   "id": "G10",
+   "label": "G10 disconnect refreshes before the host is cleared",
+   "build": {
+    "exit": 0,
+    "seconds": 18
+   },
+   "acceptance": {
+    "exit": 0,
+    "signal": null,
+    "seconds": 45,
+    "lastCapture": "editor-mobile-library.png",
+    "host": {
+     "calls": 1,
+     "buildings": 6,
+     "contract": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+     ]
+    },
+    "errors": []
+   },
+   "restored": true
+  }
+ ],
+ "rebuild": {
+  "exit": 0,
+  "seconds": 14
+ },
+ "distMatchesCommitted": {
+  "editor": true,
+  "handoff": true
+ },
+ "status": ""
+}

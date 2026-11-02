@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:parts-runtime-save:1",
+  "title": "Bounded content-bound part runtime save",
+  "description": "Structural v1 schema. Runtime validation additionally checks finite plain data, byte/count/depth budgets, exact references, native geometry/clearance, capability/provider readiness, scene/content identity and journal replay. Unsupported input is never normalized or installed as code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "profileId",
+    "sceneId",
+    "definitionLocks",
+    "world",
+    "runtime",
+    "hostData"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-parts-runtime-save"
+    },
+    "version": {
+      "const": 1
+    },
+    "profileId": {
+      "const": "bounded-parts-runtime-v1"
+    },
+    "sceneId": {
+      "type": "string",
+      "pattern": "^scene:[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "definitionLocks": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*(?![\\s\\S])"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+          }
+        }
+      }
+    },
+    "world": {
+      "$ref": "urn:nautilus:schema:extended-world:1"
+    },
+    "runtime": {
+      "$ref": "#/$defs/session"
+    },
+    "hostData": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "version",
+        "sceneId",
+        "revision",
+        "initialActors",
+        "actors",
+        "interactions",
+        "journal",
+        "claimedEvents"
+      ],
+      "properties": {
+        "kind": {
+          "const": "nautilus-parts-runtime"
+        },
+        "version": {
+          "const": 1
+        },
+        "sceneId": {
+          "type": "string",
+          "pattern": "^scene:[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "initialActors": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "urn:nautilus:schema:standard-interactions:1#/$defs/actor"
+          },
+          "minItems": 1
+        },
+        "actors": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "urn:nautilus:schema:standard-interactions:1#/$defs/actor"
+          },
+          "minItems": 1
+        },
+        "interactions": {
+          "$ref": "urn:nautilus:schema:standard-interactions:1"
+        },
+        "journal": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "command",
+                  "commandHash",
+                  "events"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "action"
+                  },
+                  "command": {
+                    "$ref": "#/$defs/action"
+                  },
+                  "commandHash": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "events": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "items": {
+                      "$ref": "#/$defs/event"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "command",
+                  "commandHash",
+                  "events"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "claim"
+                  },
+                  "command": {
+                    "$ref": "#/$defs/claim"
+                  },
+                  "commandHash": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "events": {
+                    "type": "array",
+                    "maxItems": 0
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "claimedEvents": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sceneId",
+        "expectedRevision",
+        "actorId",
+        "operation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "sceneId": {
+          "type": "string",
+          "pattern": "^scene:[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "actorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "operation": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "intent"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "interact"
+                },
+                "intent": {
+                  "$ref": "#/$defs/intent"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "direction",
+                "seconds"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "walk"
+                },
+                "direction": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number",
+                      "minimum": -1,
+                      "maximum": 1
+                    },
+                    "y": {
+                      "type": "number",
+                      "minimum": -1,
+                      "maximum": 1
+                    }
+                  }
+                },
+                "seconds": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "seconds"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "advance"
+                },
+                "seconds": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sceneId",
+        "expectedRevision",
+        "eventIds"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "sceneId": {
+          "type": "string",
+          "pattern": "^scene:[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "eventIds": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "targetId",
+        "actorId",
+        "worldId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "type": {
+          "enum": [
+            "door-opened",
+            "door-closed",
+            "door-unlocked",
+            "door-locked",
+            "stairs-started",
+            "stairs-arrived"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "actorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "worldId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "targetId",
+        "worldId",
+        "worldRevision",
+        "actorId",
+        "actorRevision"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "open-door",
+            "close-door",
+            "unlock-door",
+            "lock-door",
+            "traverse-stairs"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "worldId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "worldRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        },
+        "actorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "actorRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        }
+      }
+    }
+  }
+}

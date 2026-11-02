@@ -1,0 +1,362 @@
+{
+  "kind": "nautilus-functional-parts",
+  "version": 1,
+  "profileId": "native-quarter-turn-parts-v1",
+  "revision": 0,
+  "world": {
+    "kind": "nautilus-extended-world",
+    "version": 1,
+    "id": "parts-conformance-yard",
+    "name": "Two-story ABI conformance",
+    "profileId": "native-metres-v1",
+    "bounds": {
+      "widthM": 32,
+      "depthM": 32,
+      "minHeightM": -0.12,
+      "heightM": 8
+    },
+    "floors": [
+      {
+        "id": "floor-0",
+        "index": 0,
+        "label": "1",
+        "elevationM": 0
+      },
+      {
+        "id": "floor-1",
+        "index": 1,
+        "label": "2",
+        "elevationM": 2.12
+      }
+    ],
+    "surfaces": [
+      {
+        "id": "yard",
+        "floorId": "floor-0",
+        "role": "floor",
+        "bounds": {
+          "min": {
+            "x": 0,
+            "y": 0,
+            "h": 0
+          },
+          "max": {
+            "x": 32,
+            "y": 32,
+            "h": 0
+          }
+        },
+        "supports": true,
+        "supportFloorId": "floor-0"
+      }
+    ],
+    "entities": [],
+    "links": []
+  },
+  "instances": [
+    {
+      "id": "a",
+      "definition": {
+        "id": "conformance:assembly",
+        "version": "1"
+      },
+      "transform": {
+        "x": 3,
+        "y": 3,
+        "h": 0,
+        "quarterTurns": 0
+      },
+      "parameters": {},
+      "initial": [],
+      "mode": "functional",
+      "children": [
+        {
+          "id": "a-ground",
+          "definition": {
+            "id": "conformance:slab",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "widthM": 8
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-upper",
+          "definition": {
+            "id": "conformance:slab",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 2.12,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "widthM": 8,
+            "stairHole": true
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-roof",
+          "definition": {
+            "id": "conformance:roof",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 2.12,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "widthM": 8
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-g-front",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "lengthM": 8,
+            "hasDoor": true,
+            "doorOffsetM": 1
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-g-back",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 6,
+            "h": 0,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "lengthM": 8
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-g-left",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 1
+          },
+          "parameters": {
+            "lengthM": 6
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-g-right",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 8,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 1
+          },
+          "parameters": {
+            "lengthM": 6
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-u-front",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 2.12,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "lengthM": 8,
+            "hasDoor": false,
+            "doorOffsetM": 1
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-u-back",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 6,
+            "h": 2.12,
+            "quarterTurns": 0
+          },
+          "parameters": {
+            "lengthM": 8
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-u-left",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 2.12,
+            "quarterTurns": 1
+          },
+          "parameters": {
+            "lengthM": 6
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-u-right",
+          "definition": {
+            "id": "conformance:wall",
+            "version": "1"
+          },
+          "transform": {
+            "x": 8,
+            "y": 0,
+            "h": 2.12,
+            "quarterTurns": 1
+          },
+          "parameters": {
+            "lengthM": 6
+          },
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-door",
+          "definition": {
+            "id": "conformance:door",
+            "version": "1"
+          },
+          "transform": {
+            "x": 1,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 0
+          },
+          "parameters": {},
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        },
+        {
+          "id": "a-stairs",
+          "definition": {
+            "id": "conformance:stairs",
+            "version": "1"
+          },
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "h": 0,
+            "quarterTurns": 0
+          },
+          "parameters": {},
+          "initial": [],
+          "mode": "functional",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "a-entry",
+      "kind": "door-aperture",
+      "from": {
+        "instanceId": "a-door",
+        "partId": "leaf"
+      },
+      "to": {
+        "instanceId": "a-g-front",
+        "partId": "entry"
+      }
+    },
+    {
+      "id": "a-stair-from",
+      "kind": "stair-from",
+      "from": {
+        "instanceId": "a-stairs",
+        "partId": "flight"
+      },
+      "to": {
+        "instanceId": "a-ground",
+        "partId": "deck"
+      }
+    },
+    {
+      "id": "a-stair-to",
+      "kind": "stair-to",
+      "from": {
+        "instanceId": "a-stairs",
+        "partId": "flight"
+      },
+      "to": {
+        "instanceId": "a-upper",
+        "partId": "deck"
+      }
+    }
+  ]
+}

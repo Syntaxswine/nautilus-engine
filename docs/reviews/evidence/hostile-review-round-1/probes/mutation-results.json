@@ -1,0 +1,389 @@
+{
+  "baseline": {
+    "check": {
+      "name": "check",
+      "status": 0,
+      "verdict": "PASS",
+      "failing": [],
+      "error": "",
+      "seconds": 3
+    },
+    "test": {
+      "name": "test",
+      "status": 0,
+      "verdict": "PASS",
+      "pass": "203",
+      "fail": "0",
+      "failing": [],
+      "error": "",
+      "seconds": 39
+    },
+    "build": {
+      "name": "build",
+      "status": 0,
+      "verdict": "PASS",
+      "failing": [],
+      "error": "",
+      "seconds": 31
+    }
+  },
+  "mutants": [
+    {
+      "id": "M01-vendor-byte",
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+      "runs": [
+        {
+          "name": "check",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "failing": [],
+          "error": "Error: Upstream bytes changed: dist/tactics/core/connections.js\r",
+          "seconds": 1
+        }
+      ]
+    },
+    {
+      "id": "M02-adapter-map-key-whitelist",
+      "file": "packages/adapters/tinderbox/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "unsupported terrain, actors, traversal, prefabs, roofs and future functional fields fail explicitly",
+            "unsupported terrain, actors, traversal, prefabs, roofs and future functional fields fail explicitly"
+          ],
+          "error": "",
+          "seconds": 48
+        }
+      ]
+    },
+    {
+      "id": "M03-adapter-cropped-terrain",
+      "file": "packages/adapters/tinderbox/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "crop rejects terrain, each unselected start, exits and complete wall extents outside its scope",
+            "crop rejects terrain, each unselected start, exits and complete wall extents outside its scope"
+          ],
+          "error": "",
+          "seconds": 48
+        }
+      ]
+    },
+    {
+      "id": "M04-adapter-scenario-mismatch",
+      "file": "packages/adapters/tinderbox/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "versioned golden adapter save reloads equivalent map and game scenario",
+            "versioned golden adapter save reloads equivalent map and game scenario"
+          ],
+          "error": "",
+          "seconds": 45
+        }
+      ]
+    },
+    {
+      "id": "M05-adapter-player-clearance",
+      "file": "packages/adapters/tinderbox/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 0,
+          "verdict": "PASS",
+          "pass": "203",
+          "fail": "0",
+          "failing": [],
+          "error": "",
+          "seconds": 42
+        }
+      ]
+    },
+    {
+      "id": "M06-prefab-catalogue-identity",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "201",
+          "fail": "2",
+          "failing": [
+            "Gross saves remain Gross and copied original placement uses only the accepted combined identity",
+            "explicit original layouts replay with copied transitions while implicit Gross seed profiles stay stable",
+            "Gross saves remain Gross and copied original placement uses only the accepted combined identity",
+            "explicit original layouts replay with copied transitions while implicit Gross seed profiles stay stable"
+          ],
+          "error": "",
+          "seconds": 42
+        }
+      ]
+    },
+    {
+      "id": "M07-prefab-roof-lot-overlap",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "199",
+          "fail": "4",
+          "failing": [
+            "public prefab placement rejects existing roofs before changing the input",
+            "all orientations reserve fractional roof overhangs against access clearance on every layer",
+            "seeded generation skips a roof-covered first lot and returns a valid deterministic alternative",
+            "insufficient roof-free seeded slots reject atomically after finding partial candidates"
+          ],
+          "error": "",
+          "seconds": 39
+        }
+      ]
+    },
+    {
+      "id": "M08-prefab-wall-intersects-lot",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "201",
+          "fail": "2",
+          "failing": [
+            "full wall thickness, endpoint contact, clearance and upper stories reject overlapping lots",
+            "ordinary wall edits respect existing building lots and rejected edits preserve complete history",
+            "full wall thickness, endpoint contact, clearance and upper stories reject overlapping lots",
+            "ordinary wall edits respect existing building lots and rejected edits preserve complete history"
+          ],
+          "error": "",
+          "seconds": 40
+        }
+      ]
+    },
+    {
+      "id": "M09-prefab-lots-overlap",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "rejected overlaps, unsafe edits, unsupported blocks and asset revisions leave history and maps intact",
+            "rejected overlaps, unsafe edits, unsupported blocks and asset revisions leave history and maps intact"
+          ],
+          "error": "",
+          "seconds": 39
+        }
+      ]
+    },
+    {
+      "id": "M10-prefab-flat-clear-ground",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "200",
+          "fail": "3",
+          "failing": [
+            "rejected overlaps, unsafe edits, unsupported blocks and asset revisions leave history and maps intact",
+            "clearance checks reserve real object footprints, foliage, upper floors, boundaries and markers",
+            "seeded building generation is repeatable, avoids existing work, is atomic and reports insufficient space",
+            "rejected overlaps, unsafe edits, unsupported blocks and asset revisions leave history and maps intact"
+          ],
+          "error": "",
+          "seconds": 41
+        }
+      ]
+    },
+    {
+      "id": "M11-roof-capability-handoff",
+      "file": "packages/map-core/roof-maps.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "roof capability rejection is explicit and existing maps retain their no-feature contract",
+            "roof capability rejection is explicit and existing maps retain their no-feature contract"
+          ],
+          "error": "",
+          "seconds": 39
+        }
+      ]
+    },
+    {
+      "id": "M12-roof-same-layer-overlap",
+      "file": "packages/map-core/roof-data.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "202",
+          "fail": "1",
+          "failing": [
+            "invalid roofs, malformed envelopes and failed replacements retain history, redo and document flags",
+            "invalid roofs, malformed envelopes and failed replacements retain history, redo and document flags"
+          ],
+          "error": "",
+          "seconds": 40
+        }
+      ]
+    },
+    {
+      "id": "M13-negotiate-version-range",
+      "file": "packages/map-core/capabilities.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "201",
+          "fail": "2",
+          "failing": [
+            "negotiation distinguishes required features, optional features, schemas and version intervals",
+            "save ranges cannot substitute a different feature encoding version and invalid blueprints reject",
+            "negotiation distinguishes required features, optional features, schemas and version intervals",
+            "save ranges cannot substitute a different feature encoding version and invalid blueprints reject"
+          ],
+          "error": "",
+          "seconds": 39
+        }
+      ]
+    },
+    {
+      "id": "M14-persistence-keeps-raw",
+      "file": "packages/map-core/persistence.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 0,
+          "verdict": "PASS",
+          "pass": "203",
+          "fail": "0",
+          "failing": [],
+          "error": "",
+          "seconds": 40
+        }
+      ]
+    },
+    {
+      "id": "M15-headless-renderer-import",
+      "file": "packages/map-core/inspection.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "pass": "201",
+          "fail": "2",
+          "failing": [
+            "every public map/rules transitive import stays renderer, DOM and storage independent",
+            "public core imports and document inspection work with browser globals sealed off",
+            "every public map/rules transitive import stays renderer, DOM and storage independent",
+            "public core imports and document inspection work with browser globals sealed off"
+          ],
+          "error": "",
+          "seconds": 39
+        },
+        {
+          "name": "check",
+          "status": 0,
+          "verdict": "PASS",
+          "failing": [],
+          "error": "",
+          "seconds": 3
+        }
+      ]
+    },
+    {
+      "id": "M16-editor-sendToGame-capabilities",
+      "file": "apps/editor/editor.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 0,
+          "verdict": "PASS",
+          "pass": "203",
+          "fail": "0",
+          "failing": [],
+          "error": "",
+          "seconds": 39
+        },
+        {
+          "name": "check",
+          "status": 0,
+          "verdict": "PASS",
+          "failing": [],
+          "error": "",
+          "seconds": 3
+        },
+        {
+          "name": "build",
+          "status": 0,
+          "verdict": "PASS",
+          "failing": [],
+          "error": "",
+          "seconds": 14
+        }
+      ]
+    },
+    {
+      "id": "M17-building-design-dimension",
+      "file": "packages/building-catalog/designs.js",
+      "runs": [
+        {
+          "name": "check",
+          "status": 1,
+          "verdict": "CAUGHT",
+          "failing": [],
+          "error": "Error: Original prefab input differs from reviewed commit ee7c18ecdc2669168247b94a82156634b2c4ffe5: packages/building-catalog/designs.js\r",
+          "seconds": 0
+        }
+      ]
+    },
+    {
+      "id": "M18-prefab-max-buildings",
+      "file": "packages/prefab-core/index.js",
+      "runs": [
+        {
+          "name": "test",
+          "status": 0,
+          "verdict": "PASS",
+          "pass": "203",
+          "fail": "0",
+          "failing": [],
+          "error": "",
+          "seconds": 43
+        }
+      ]
+    }
+  ],
+  "statusAfter": ""
+}

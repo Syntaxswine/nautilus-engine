@@ -10,7 +10,7 @@ Weekly integrations are a scouting and recommendation role. The scout finds usef
 | Architect, Nautilus Engine | Prioritize/defer candidates, define shared interfaces, divide accepted work, review contributions and integrate the combined result |
 | Coder, Nautilus Engine | Rules, runtime wiring, schemas, import tooling, adapters, correctness and performance work |
 | Artist, Nautilus Engine | 3D models, skins/2D art, animation/movement assets, rig/material compatibility and visual sources |
-| Set up Nautilus UI worktree | Menus, buttons, editor interactions, controls, accessibility and interface presentation |
+| UI, Nautilus Engine | Menus, buttons, editor interactions, controls, accessibility and interface presentation |
 
 Use the existing worker chats and their assigned worktrees. The architect should split work only where useful; a small code-only change does not need an art or UI assignment. Cross-cutting assignments need agreed interfaces, dimensions and simulation/presentation boundaries before parallel work.
 

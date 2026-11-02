@@ -1,0 +1,112 @@
+# Changelog
+
+## Unreleased
+
+- Add optional headless rectangle-stack planning, four reusable engine finishes and a native fifteen-floor tile workspace with five-label navigation and selected-floor/overview/cutaway inspection.
+- Keep full bundle/constraints history and same-ID recovery in the shared editor; retain source controls, locks, clearance and native heights. Isolated level paths use one ordinary public-core preparation.
+- Verify source, built and installed workflows plus native retirement receipts; unverified cleanup stays charged and keeps borrowed leases. Existing tile/map formats and consumer pins remain unchanged.
+
+- Add the isolated Smart Tile Editor reference host: Rectangle, level analytic Path, whole-owner Finish, Review/Apply, atomic complete checkpoints and Undo/Redo.
+- Preserve UI-first touch ownership, cancellation quarantine and selected anchor subsets; verify the actual public source/built/installed workflow in a separate bounded CI job.
+
+- Add the reviewed private C2a rectangle-composition profile with explicit finish ownership, exact native interval provenance and bounded retained preparation.
+- Refuse unproved actual overlaps independently of reservations, retain schema-valid generated identities, and verify all eight schemas plus independent source/installed geometry in CI.
+
+- Register optional native flat tile surfaces with headless preparation/example entries and a host-Three renderer; preserve canonical controls, borders, materials and whole source bundles.
+- Prove real public-package installs, the executable builder guide, exhaustive owned cleanup and fresh source/built/installed visual parity while keeping Editor, Boolean composition and gameplay readiness separate.
+
+- Add optional native window renderer with frames/glass, acknowledged masks, explicit legacy-wall clipping and quiet restores; borrow host core/Three/materials and keep game authority separate.
+- Make attachment/retirement exception-safe across Three observers, with bounded reentrant cancellation and exhaustive owned cleanup. Prove actual public authoring/renderer installs, notices, guide and desktop/phone reference parity.
+
+- Add reviewed private C1 exact planar line-region union/intersection/difference evidence for joined footprints, courtyards, islands and point contacts; keep complete v2 layout/live/presentation adoption closed.
+- Prove complete void outer-boundary component associations and independent installed Fraction-oracle checks in CI without changing the public tile API or distributions.
+
+- Add optional registered headless window authoring with complete base-map/underlay preservation, native configuration and transactional commands/history.
+- Register its single v1 schema and exact runtime/support closure, and prove the actual declared package in CI while retaining explicit presentation and live-host boundaries.
+
+- Add reviewed A/B tile candidate source with typed future authoring records, bounded shared render-edge plans and conservative native zero-edge evidence; keep v2 unresolved and outside the distributed API.
+- Test the private installed candidate explicitly in CI, preserving all eighteen accepted v1 runtime/schema files and public v1 registration.
+
+- Retire the completed desktop review page and wait for visible mobile layout/paint before full-page starter captures; retain capture metrics and all behavioral assertions.
+
+- Add optional headless procedural tile recipes, analytic curves, canonical layered boundaries, deterministic repair and complete authored bundle saves through ./tiles.
+- Register four v1 schemas and the engine-only boundary capability; test the actual installed core in CI while presentation and gameplay bindings remain explicit.
+- Refuse unsupported checkerboard conditioning, account for omitted compound endpoints in error/work bounds, and validate changed contacts individually during repair.
+
+- Add optional native Farmyard window geometry/query and confirmed-impact entries with three registered v1 schemas, durable receipts and complete retained saves.
+- Reject lossy encoded fog Sets before save reconstruction or live restore; preserve ordinary retained arrays and typed actor IDs.
+- Keep all six live host services explicit, and exercise the actual installed window package in CI. Record the source-native artist audit separately from renderer/editor/game adoption.
+
+- Strengthen editor/game-host handoff, actual-page bridge, clearance, persistence and import-limit coverage while retaining current floor controls.
+- Share the deployed Send patch with headless tests and build guards; diagnose browser loading and host-await failures.
+- Assert Settings feedback placement and bound the module CI job to 15 minutes, retaining the reviewed test timing margins.
+
+## 0.10.0 — 2026-10-30
+
+- Add optional Farmyard single-leaf door interactions with source reach, endpoint occupancy, AP/control/fog transitions and one current collider shared by dependent systems.
+- Add the real public-import retained-host door reference with latched desktop/touch actions, complete save recovery and source/build/installed browser gates.
+- Add the optional source-native painted timber leaf with one shared Three, packaged original paint and explicit owned/borrowed resource retirement.
+- Keep retained game movement/resources, strict complete saves, fresh-context adoption, full host/state/context comparisons and durable quiet retries. Publish schema/capability identifiers and an installed builder card/checklist.
+- Integrate the separate native door/stair/title foundation and native-quarter-turn functional part compiler/runtime with strict geometry/content identities; retain native art/editor/production adoption boundaries.
+- Repair starter result ownership, save validation, New game persistence ordering and retirement; preserve all grenade entries and existing profiles.
+
+## 0.9.0 — 2026-10-29
+
+- Extract Farmyard Commando's ordinary same-floor grenade rules into optional headless grenade and aiming entries, pinned to reviewed source with original conformance tests and hashes.
+- Preserve source AP discounts, finite stock, held equipment, authored trajectory, wall/fog protection, damage, casualties and contact transitions; refuse reactive and multilevel scenes before spending.
+- Add strict versioned grenade state, transactional host-context updates and durable retries that preserve injuries and spent resources through reload.
+- Add optional desktop/touch controls, a borrowed-scene preview overlay, shared item discovery and original painted grenade/horse choreography with explicit resource ownership.
+- Provide a real public-import reference player with quiet save/load, interrupted-write recovery and exact-input offline installed browser parity.
+- Preserve the source gameplay arc while bridging the measured native hand-release gap cosmetically; native playback never reapplies authority.
+- Keep complete game inventory, body registries, scheduling and persistence behind explicit host bindings. No production game pin changes.
+
+## 0.8.0 — 2026-10-29
+
+- Add optional headless module planning and explicit prepare/start/stop/dispose ownership, host-provider bindings, version diagnostics and rollback.
+- Add a Farmyard stat-v2 calculation adapter and pinned real-game parity tests; retain host actors, resources and all production pins.
+- Add extended-world v1: sparse native metre heights, stable floor/support identities, static AABB queries, authored traversal endpoints and preserving legacy refusal reports. Support up to 32 declared positions without changing legacy map/block formats.
+- Add a separate fifteen-story native-height authoring workshop with measured/dragged edits, revision-bound previews, bounded history, JSON import/export, browser saves and explicit legacy refusal.
+- Add five-label floor controls with arrows, scoped wheel/Page keys, explicit follow/contact/manual modes and legacy editor preview cancellation.
+- Record existing actor, throw-marker and tall-building binding evidence without adding a new runtime asset closure or claiming a complete actor loader.
+- Register separate configuration/world schemas, keep browser floor views outside headless core, and extend installed-package and browser checks. The modular blueprint remains an active programme; see docs/modular-foundation.md for boundaries.
+
+## 0.7.0 — 2026-10-29
+
+- Add basic character progression with increasing XP requirements, 15 assignable stat points per level and slower, separate practice gains using the existing 14 stats.
+- Add a strict versioned progression bundle, atomic reward/allocation receipts, pure previews and save/reload preservation of injured or exhausted characters.
+- Add a character-development reference UI with staged allocation, derived-effect previews, banked points and import/export.
+- Keep species/class perks deferred, character-v1 and portable maps unchanged, and all consumer adoption pins unchanged.
+
+## 0.6.0 — 2026-10-29
+
+- Add a versioned recoverable rock item with staged pickup/throw deltas, deterministic aimed lobs, saved fixed-step flight and one sound cue at the first confirmed impact.
+- Add explicit hearing eligibility and investigation requests while preserving combat/confirmed threats; consumers own inventory transactions, collision, audibility and guard movement.
+- Add an original native-scale shared rock model, public item exports and discovery, plus a playable reference yard and automated browser workflow.
+- Keep portable map/block formats and all three games’ adoption pins unchanged.
+
+## 0.5.0 — 2026-10-28
+
+- Remove the renderer dependency from public headless map document/inspection imports; preserve the reviewed portable editing profile.
+- Add engine-owned schema/capability manifests, actionable negotiation, explicit legacy migration and stamped saves with golden compatibility fixtures.
+- Add a bounded Tinderbox flat-yard adapter with lossless map sidecars, deterministic replay and tests against its pinned compiler/simulation; production adoption remains a separate game change.
+- Add procedural sloped roof data, geometry and editor authoring with explicit consumer capabilities.
+- Separate headless, renderer and optional building-asset distributions; whitelist default package files and test an installed external consumer.
+- Expose shared asset discovery and a public building renderer facade for independent use by all three games.
+
+## 0.4.0 — 2026-10-28
+
+- Unified editor library: 61 whole buildings, native AFT structure stamps, mixed seeded settlements and source-aware previews.
+- Transactional walls/prefabs, original catalogue capability enforcement, save/history preservation and responsive asset/building libraries.
+- Automated isolated real-browser authoring, import/export and persistence acceptance.
+
+## 0.3.0 — 2026-10-28
+
+- Measured native-scale angled wall runs and optional contour rendering effect.
+
+## 0.2.0 — 2026-10-28
+
+- Portable headless character, skill, combat and saved-roll contracts.
+
+## 0.1.0 — 2026-10-28
+
+- Standalone map workshop, inherited portable map/block formats and deliberate donor source pins.

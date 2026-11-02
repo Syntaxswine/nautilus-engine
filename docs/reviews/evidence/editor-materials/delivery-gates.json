@@ -1,0 +1,61 @@
+{
+  "sourceCommit": "49bf6d0196baf7da6b795083c35636966847d4f0",
+  "parentCommit": "e0977e785857277a1c59acc1134ada5156a3fa4b",
+  "runtimeChange": "tools/editor-roof-adapter.mjs: read roofTools.options() only for the active sloped-roof brush",
+  "reproduction": {
+    "runtimeCommit": "e0977e785857277a1c59acc1134ada5156a3fa4b",
+    "newRegressionsFailedBeforeFix": 3,
+    "error": "Unknown wall-run material.",
+    "inactiveRoofReadsForNonRoofTools": 9
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "pinnedSourceFiles": 603,
+      "editorAssets": 344
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 269,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "checkedModulePaths": 369
+    },
+    {
+      "command": "node tools/review-editor-materials.mjs",
+      "exitCode": 0
+    }
+  ],
+  "coverage": {
+    "unitMaterialCombinations": 9,
+    "wallMaterials": [
+      "wood",
+      "brick",
+      "concrete"
+    ],
+    "roofMaterials": [
+      "slate",
+      "clay",
+      "metal"
+    ],
+    "previewNonmutating": true,
+    "brushPlacement": true,
+    "exactEdit": true,
+    "undoRedo": true,
+    "jsonReload": true
+  },
+  "rawVendorBytesChanged": false,
+  "packageVersionBuildWiringChanged": false,
+  "retainedHelpers": []
+}

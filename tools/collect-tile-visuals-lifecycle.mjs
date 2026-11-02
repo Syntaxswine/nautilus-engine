@@ -1,0 +1,16 @@
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),out=path.join(root,'docs/reviews/tile-visuals'),base='e9846df52c67c790fc1792f380a0370463aa8650',helper='5f027e039ba9307fd25719c6307d9760baf54e20';
+const git=(...args)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:8000000}),read=f=>JSON.parse(fs.readFileSync(path.join(root,f))),sha=b=>createHash('sha256').update(b).digest('hex');
+const before=read('artifacts/tile-visuals-lifecycle/before.json'),fixed=read('artifacts/tile-visuals-lifecycle/fixed.json');assert.equal(before.source,base);assert.equal(before.status,'fail');assert.ok(before.results.every(r=>r.status==='fail'));assert.equal(fixed.status,'pass');assert.equal(fixed.cases,10);
+for(const f of fixed.runtime)assert.equal(sha(fs.readFileSync(path.join(root,f.path))),f.sha256,'Runtime changed after lifecycle proof.');
+const unchanged=['data.js','mesh.js','prepare.js'].map(name=>{const file='packages/tile-visuals/'+name,b=fs.readFileSync(path.join(root,file));assert.ok(b.equals(git('show',base+':'+file)),'An accepted input/tessellation module changed.');return {path:file,sha256:sha(b),unchangedFrom:base};});
+const original=JSON.parse(git('show',base+':docs/reviews/tile-visuals/acceptance.json'));
+await import('./collect-tile-visuals-review.mjs');
+const accepted=read('docs/reviews/tile-visuals/acceptance.json');assert.equal(accepted.installed.proof.lifecycle.status,'pass');assert.equal(accepted.installed.proof.lifecycle.cases,10);
+for(const image of accepted.browser.captures)assert.equal(image.sha256,original.browser.captures.find(i=>i.path===image.path).sha256,'Lifecycle fix changed accepted pixels.');
+assert.deepEqual(accepted.measurements,original.measurements,'Geometry measurements changed in a lifecycle-only correction.');
+for(const [name,proof]of [['before',before],['fixed',fixed]])fs.writeFileSync(path.join(out,'lifecycle-'+name+'.json'),JSON.stringify(proof,null,2)+'\n');
+const audit={status:'pass',base,cleanupOrigin:{commit:helper,path:'packages/native-window-presenter/cleanup.js',sha256:sha(git('show',helper+':packages/native-window-presenter/cleanup.js')),adaptations:'Tile error code; unused restoration/query helpers removed. No runtime window dependency.'},unchangedAcceptedModules:unchanged,currentRuntime:fixed.runtime,publicRegistrationChanged:false};
+fs.writeFileSync(path.join(out,'lifecycle-source-audit.json'),JSON.stringify(audit,null,2)+'\n');
+accepted.branch='codex/tile-visual-lifecycle';accepted.combinedProof.focusedTests=30;accepted.lifecycleCorrection={base,before:'lifecycle-before.json',fixed:'lifecycle-fixed.json',audit:'lifecycle-source-audit.json',cases:10,actualThree:true,unchangedAcceptedModules:unchanged,matchesAcceptedImages:true,matchesAcceptedMeasurements:true};
+fs.writeFileSync(path.join(out,'acceptance.json'),JSON.stringify(accepted,null,2)+'\n');console.log(JSON.stringify({status:'pass',lifecycleCases:10,focusedTests:30,sourceBuildImagesUnchanged:10,acceptedGeometryMeasurementsUnchanged:true,retainedHelpers:accepted.cleanup.retainedHelpers.length}));

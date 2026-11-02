@@ -1,0 +1,1121 @@
+{
+ "node": "v24.15.0",
+ "head": "87805dfadd229ee55dcccd95ef0696c68a03e568",
+ "statusBefore": "",
+ "baseline": {
+  "verdict": "SURVIVED",
+  "tests": 218,
+  "pass": 218,
+  "fail": 0,
+  "failed": [],
+  "seconds": 41
+ },
+ "mutants": [
+  {
+   "id": "A-M05 clearance disabled (< -1)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "A-M05b clearance tightened (< r+0.1)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "A-M14 load returns editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "A-M18 limit x100",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 18,
+   "restored": true
+  },
+  {
+   "id": "A-M18b limit >=",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "A-M16 both capability checks removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the game handoff never calls a host that lacks an authored feature",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "A-M16a manifest check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the game handoff never calls a host that lacks an authored feature",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 22,
+   "restored": true
+  },
+  {
+   "id": "A-M16b feature-list check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 26,
+   "restored": true
+  },
+  {
+   "id": "A-M16c silent host gets all features",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 23,
+   "restored": true
+  },
+  {
+   "id": "A-M16d raw input handed over",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the deployed Send click waits for the connected game and reports its answer",
+    "a host that declares every authored feature receives exactly one validated copy"
+   ],
+   "seconds": 19,
+   "restored": true
+  },
+  {
+   "id": "C01 hypot -> max (Chebyshev corners)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "C02 hypot -> sum (Manhattan corners)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C03 vertical wall length -> thickness (y extent)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "C04 horizontal wall length -> thickness (x extent)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "C05 y extent copies x extent (axis paste)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 39,
+   "fail": 6,
+   "failed": [
+    "Nautilus flat-yard projection compiles with the actual pinned Tinderbox compiler",
+    "explicit crop and marker policy preserves all four starts, exit and coordinate meaning",
+    "versioned golden adapter save reloads equivalent map and game scenario",
+    "real Tinderbox simulation accepts adapter scenario, walls block its bear and replay matches after reload",
+    "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics",
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C06 swap = quarter % 4 (reversed walls)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 21,
+   "restored": true
+  },
+  {
+   "id": "C07 x-term clamp dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 19,
+   "restored": true
+  },
+  {
+   "id": "C08 y-term clamp dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 13,
+   "restored": true
+  },
+  {
+   "id": "C09 playerRadius 0.56 -> 0.60",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 32,
+   "restored": true
+  },
+  {
+   "id": "C10 playerRadius 0.56 -> 0.53",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 33,
+   "restored": true
+  },
+  {
+   "id": "C11 centre distance, no box",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 23,
+   "restored": true
+  },
+  {
+   "id": "C12 full thickness, not half",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C13 first wall module skipped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "C14 bounds: top edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "C15 bounds: right edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "C16 bounds: bottom edge dropped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 25,
+   "restored": true
+  },
+  {
+   "id": "C17 bounds: bottom edge uses width",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 22,
+   "restored": true
+  },
+  {
+   "id": "P00 neutral: deep copy of raw",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 218,
+   "pass": 218,
+   "fail": 0,
+   "failed": [],
+   "seconds": 51,
+   "restored": true
+  },
+  {
+   "id": "P01 parseSave returns editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 18,
+   "restored": true
+  },
+  {
+   "id": "P02 createSave stores editor export",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy"
+   ],
+   "seconds": 20,
+   "restored": true
+  },
+  {
+   "id": "P03 load drops opaque metadata",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "save/reload preserves unknown JSON, versions and source blueprint bytes semantically",
+    "legacy migration is explicit, one-way, nonmutating and refuses fields it cannot preserve",
+    "golden legacy block and stamped save keep their canonical serialized representation"
+   ],
+   "seconds": 36,
+   "restored": true
+  },
+  {
+   "id": "P04 load returns the document map",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "loading and saving return the authored JSON, not the editor-normalized copy",
+    "golden legacy block and stamped save keep their canonical serialized representation"
+   ],
+   "seconds": 20,
+   "restored": true
+  },
+  {
+   "id": "B01 limit > 33 (off by one up)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 19,
+   "restored": true
+  },
+  {
+   "id": "B02 MAX_BUILDINGS = 33",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "B03 limit counts distinct assets",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 30,
+   "restored": true
+  },
+  {
+   "id": "B04 limit only for the Gross catalogue",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 25,
+   "restored": true
+  },
+  {
+   "id": "B05 limit only at document open",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "imported maps keep the 32-building limit through every entry point and catalogue"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "H00 neutral: check the parsed input",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 218,
+   "pass": 218,
+   "fail": 0,
+   "failed": [],
+   "seconds": 45,
+   "restored": true
+  },
+  {
+   "id": "H01 validation errors ignored",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "a map that fails validation reaches no host, however capable"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "H02 openMap called without its host",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "a host that declares every authored feature receives exactly one validated copy"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "H03 silent host defaults to wall runs",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "H04 silent host defaults to prefabs",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the game handoff never calls a host that lacks an authored feature"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "H05 null adapter not checked",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the handoff refuses a missing host, a block and a malformed adapter before any call"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "H06 block check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the handoff refuses a missing host, a block and a malformed adapter before any call"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "H07 missing-host check removed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the handoff refuses a missing host, a block and a malformed adapter before any call",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "G01 default export dropped (E04)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "G02 argument ignored (E03)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "G03 connect skips checkGameAdapter (E02)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "G04 stale disconnect clears the newer host",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "G05 connect does not refresh",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 32,
+   "restored": true
+  },
+  {
+   "id": "G06 hasGameAdapter always true",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 41,
+   "fail": 4,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "the Send buttons follow the connected host, and each refresh sees the new state",
+    "the deployed Send click waits for the connected game and reports its answer",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 21,
+   "restored": true
+  },
+  {
+   "id": "G07 send bypasses the checks",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E01 page wires a bypass (browser-only)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "C00 neutral: hypot as sqrt of squares",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 218,
+   "pass": 218,
+   "fail": 0,
+   "failed": [],
+   "seconds": 43,
+   "restored": true
+  },
+  {
+   "id": "C21 control: y term signed (m.y - player.y)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 39,
+   "fail": 6,
+   "failed": [
+    "Nautilus flat-yard projection compiles with the actual pinned Tinderbox compiler",
+    "explicit crop and marker policy preserves all four starts, exit and coordinate meaning",
+    "versioned golden adapter save reloads equivalent map and game scenario",
+    "real Tinderbox simulation accepts adapter scenario, walls block its bear and replay matches after reload",
+    "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics",
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "C22 control: x term signed (player.x - m.x)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 39,
+   "fail": 6,
+   "failed": [
+    "Nautilus flat-yard projection compiles with the actual pinned Tinderbox compiler",
+    "explicit crop and marker policy preserves all four starts, exit and coordinate meaning",
+    "versioned golden adapter save reloads equivalent map and game scenario",
+    "real Tinderbox simulation accepts adapter scenario, walls block its bear and replay matches after reload",
+    "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics",
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "C18 epsilon dropped (< radius)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 12,
+   "restored": true
+  },
+  {
+   "id": "C19 swap only for heading pi/2 (walls drawn upwards misread)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "C20 x term signed (m.x - player.x)",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "C23 right bound padded by a tile",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 23,
+   "restored": true
+  },
+  {
+   "id": "C24 bottom bound padded by a tile",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 26,
+   "restored": true
+  },
+  {
+   "id": "C27 right bound compared with the height",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "G08 a refused connect drops the current host",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "G09 connect refreshes before the host is set",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "G10 disconnect refreshes before the host is cleared",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state",
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "G11 connect checks only that openMap is truthy",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the editor handoff state sends the current export by default, and only its own disconnect clears it"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E05 exportMap closure drops its call",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E06 onChange not wired",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E07 page hasGameAdapter getter always true",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "the Send buttons follow the connected host, and each refresh sees the new state",
+    "the deployed Send click waits for the connected game and reports its answer"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E09 bypass only on the no-argument sendToGame()",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "E10 page sendToGame ignores its argument",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E11 sendToGame assigned connectGame",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+    "the deployed Send click waits for the connected game and reports its answer"
+   ],
+   "seconds": 14,
+   "restored": true
+  },
+  {
+   "id": "E13 quick Send no longer mirrors Send",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "the Send buttons follow the connected host, and each refresh sees the new state"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E14 refresh ignores a block",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state"
+   ],
+   "seconds": 15,
+   "restored": true
+  },
+  {
+   "id": "E15 export() skips the loading check",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E16 open() describes the raw input",
+   "scope": "full",
+   "verdict": "SURVIVED",
+   "tests": 218,
+   "pass": 218,
+   "fail": 0,
+   "failed": [],
+   "seconds": 64,
+   "restored": true
+  },
+  {
+   "id": "E17 the editor sync is not observed",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the Send buttons follow the connected host, and each refresh sees the new state"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "E18 the body observer never disconnects",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E20 Send titles swapped",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "the Send buttons follow the connected host, and each refresh sees the new state"
+   ],
+   "seconds": 17,
+   "restored": true
+  },
+  {
+   "id": "E21 open() skips the editor",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 43,
+   "fail": 2,
+   "failed": [
+    "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+    "the Example yard button announces the yard only after the editor has loaded it"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E22 a namespace import the doubles would hide",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 44,
+   "fail": 1,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects"
+   ],
+   "seconds": 16,
+   "restored": true
+  },
+  {
+   "id": "E23 settings feedback stops mirroring the status",
+   "scope": "touched",
+   "verdict": "KILLED",
+   "tests": 45,
+   "pass": 42,
+   "fail": 3,
+   "failed": [
+    "the page bridge installs both libraries and exposes the engine before any host connects",
+    "the Example yard button announces the yard only after the editor has loaded it",
+    "the deployed Send click waits for the connected game and reports its answer"
+   ],
+   "seconds": 15,
+   "restored": true
+  }
+ ],
+ "statusAfter": ""
+}

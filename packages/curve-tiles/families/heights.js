@@ -1,0 +1,13 @@
+// Independently loadable art profile studies. No alternate map/save/matcher API.
+// End cross-sections carry canonical samples; binding them to RecipePort is pending.
+const q=v=>Math.round(v*1e6)/1e6;
+export function createHeightProfileStudy(T,{kind='ramp',width=2,length=4,rise=2.12,steps=14,material}={}){
+ if(!T?.BufferGeometry||!material||!['ramp','stairs'].includes(kind)||![width,length,rise].every(v=>Number.isFinite(v)&&v>=.01&&v<=16)||!Number.isInteger(steps)||steps<1||steps>128||kind==='stairs'&&(length/steps<.001||rise/steps<.001))throw Error('Supply host Three/material and bounded native profile dimensions.');
+ const positions=[],normals=[],uvs=[],tri=(a,b,c,n)=>{const ab=b.map((v,i)=>v-a[i]),ac=c.map((v,i)=>v-a[i]),cross=[ab[1]*ac[2]-ab[2]*ac[1],ab[2]*ac[0]-ab[0]*ac[2],ab[0]*ac[1]-ab[1]*ac[0]];if(cross.reduce((s,v,i)=>s+v*n[i],0)<0)[b,c]=[c,b];for(const p of [a,b,c]){positions.push(...p.map(q));normals.push(...n);uvs.push(q(p[0]),q(Math.abs(n[1])<1e-9?p[1]:p[2]));}},quad=(a,b,c,d,n)=>{tri(a,b,c,n);tri(a,c,d,n);};
+ const schedule=Array.from({length:Math.ceil(width*32)+1},(_,i)=>q(i*width/Math.ceil(width*32))),ports=[];
+ for(const [z,y,faceId,outward]of [[0,kind==='stairs'?rise/steps:0,'start',[0,-1,0]],[length,rise,'end',[0,1,0]]])ports.push({faceId,outward,rawWidth:width,samplingProfile:'metre-32-v1',samples:schedule.map(x=>({enginePosition:[x,z,q(y)],threePosition:[x,q(y),z],uvMetres:[x,z]}))});
+ if(kind==='ramp'){const n=[0,length/Math.hypot(length,rise),-rise/Math.hypot(length,rise)];for(let i=1;i<schedule.length;i++){const a=schedule[i-1],b=schedule[i];quad([a,0,0],[b,0,0],[b,rise,length],[a,rise,length],n);}}
+ else for(let i=0;i<steps;i++){const z=i*length/steps,next=(i+1)*length/steps,y=(i+1)*rise/steps,below=i*rise/steps;for(let j=1;j<schedule.length;j++){const a=schedule[j-1],b=schedule[j];quad([a,y,z],[b,y,z],[b,y,next],[a,y,next],[0,1,0]);quad([a,below,z],[b,below,z],[b,y,z],[a,y,z],[0,0,-1]);}}
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('normal',new T.Float32BufferAttribute(normals,3));g.setAttribute('uv',new T.Float32BufferAttribute(uvs,2));g.setAttribute('color',new T.Float32BufferAttribute(Array(positions.length).fill(1),3));g.computeBoundingSphere();const root=new T.Group();root.add(new T.Mesh(g,material));root.userData={appearanceOnly:true,kind,rawDimensions:{width,length,rise,steps},ports,qualification:'Open art surface; not a collision/support/manifold provider. Canonical RecipePort adapter pending.'};let disposed=false;
+ return {root,ports,dispose(){if(disposed)return;disposed=true;g.dispose();root.removeFromParent();root.clear();}};
+}

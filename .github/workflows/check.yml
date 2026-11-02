@@ -7,8 +7,35 @@ permissions:
 jobs:
   map-workshop:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+          d869410625b246cfff2b51089e7878c31951775c
+          43227894c50ec62b71806978195fff2c650eb388
+          3df11ce6e62fb94806e30652b87168949f8ef4dd
+          eedfc0149cbaa5715445ed2dc909c2d694a81d50
+          fac180e2909ba499146bb8e4560c79cf4794ca93
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -16,3 +43,300 @@ jobs:
       - run: npm test
       - run: npm run test:upstream
       - run: npm run build
+      - run: npm run test:package
+      - run: npm run test:grenade-renderer
+      - run: npm run test:game-ui-package
+      - run: npm run test:doors
+      - run: npm run test:windows
+      - run: npm run test:windows:authoring
+      - run: npm run test:windows:renderer
+      - run: npm run test:tiles
+      - run: npm run test:tiles:art
+      - run: npm run test:tiles:stack
+      - run: npm run test:tiles:authoring
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate private tile structural and exact-geometry evidence
+        run: |
+          node tools/measure-tile-v2.mjs
+          node tools/measure-tile-c2a.mjs
+      - name: Validate all eight schemas and mandatory C2a cases independently
+        run: |
+          python3 -m pip install --disable-pip-version-check --no-compile --target "$RUNNER_TEMP/tile-schema-validator" jsonschema==4.23.0
+          python3 -B tools/verify-tile-v2-schemas.py --dependencies "$RUNNER_TEMP/tile-schema-validator"
+      - run: python3 -B tools/verify-tile-c1-oracle.py
+      - run: python3 -B tools/verify-tile-c2a-oracle.py
+      - run: npm run test:tiles:v2:candidate
+      - run: python3 -B tools/verify-tile-c1-oracle.py artifacts/procedural-tiles-v2/installed-c1-oracle-cases.json
+      - run: node tools/verify-tile-c2a-integration.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: private-tile-c2a-evidence
+          path: |
+            artifacts/procedural-tiles-c2a/*.json
+            artifacts/procedural-tiles-c1/oracle-cases.json
+            artifacts/procedural-tiles-v2/schema-cases.json
+            artifacts/procedural-tiles-v2/installed-*.json
+            artifacts/procedural-tiles-v2/installed-tests.log
+            artifacts/tile-stack-integration/package-proof/
+            artifacts/tile-stack-core-line-d4/
+          if-no-files-found: ignore
+  browser-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+          d869410625b246cfff2b51089e7878c31951775c
+          43227894c50ec62b71806978195fff2c650eb388
+          3df11ce6e62fb94806e30652b87168949f8ef4dd
+          eedfc0149cbaa5715445ed2dc909c2d694a81d50
+          fac180e2909ba499146bb8e4560c79cf4794ca93
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run review:integration
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-browser-workflow
+      - run: npm run review:materials
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-editor-materials
+      - run: npm run review:floors
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-floor-navigation
+      - run: npm run review:world
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-extended-world
+      - run: npm run review:rocks
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-rock-distraction
+      - run: npm run review:progression
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-character-development
+      - run: npm run review:grenade-controls
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-controls
+      - run: npm run review:grenades
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-reference
+      - run: npm run review:grenades:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-grenade-installed
+      - run: npm run review:starter
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-standard-game-starter
+      - run: npm run review:doors
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-reference
+      - run: npm run review:doors:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-farmyard-door-installed
+      - run: node tools/review-native-window-presenter.mjs --source
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-source
+      - run: npm run review:windows
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-built
+      - run: npm run test:windows:renderer
+      - run: npm run review:windows:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-windows-installed
+      - run: node tools/verify-native-window-browser-parity.mjs
+      - run: node tools/review-tile-visuals.mjs --source
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-tiles-source
+      - run: npm run review:tiles:art
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-tiles-built
+      - run: npm run test:tiles:art
+      - run: npm run review:tiles:art:installed
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-native-tiles-installed
+      - run: node tools/verify-tile-visual-browser-parity.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: authoring-browser-evidence
+          path: |
+            artifacts/tile-visuals-source/
+            artifacts/tile-visuals-built/
+            artifacts/tile-visuals-installed/
+            artifacts/tile-visuals/installed-package-report.json
+            artifacts/tile-visuals/*.tap
+            artifacts/tile-visuals-browser-parity.json
+            artifacts/native-window-presenter-source/
+            artifacts/native-window-presenter-built/
+            artifacts/native-window-presenter-installed/
+            artifacts/native-window-presenter-package/report.json
+            artifacts/native-window-presenter-browser-parity.json
+            artifacts/engine-integration/
+            artifacts/rock-distraction/
+            artifacts/character-development/
+            artifacts/grenade-controls-preparation/
+            artifacts/grenade-reference-built/
+            artifacts/grenade-reference-installed/
+            artifacts/grenade-installed-reference/installation.json
+            artifacts/floor-navigation/
+            artifacts/extended-world-editor/
+            artifacts/editor-materials/
+            artifacts/game-starter/
+            artifacts/farmyard-door-reference-source/
+            artifacts/farmyard-door-reference-built/
+            artifacts/farmyard-door-reference-installed/
+            artifacts/farmyard-door-installed-reference/installation.json
+          if-no-files-found: ignore
+  smart-tile-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NAUTILUS_REVIEW_CHANNEL: chromium
+      CODEX_THREAD_ID: github-smart-tile-workflow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+          d869410625b246cfff2b51089e7878c31951775c
+          43227894c50ec62b71806978195fff2c650eb388
+          3df11ce6e62fb94806e30652b87168949f8ef4dd
+          eedfc0149cbaa5715445ed2dc909c2d694a81d50
+          fac180e2909ba499146bb8e4560c79cf4794ca93
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check -- --tracked
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: node tools/review-smart-tile-editor.mjs
+      - run: node tools/review-smart-tile-editor.mjs --built
+      - run: node tools/review-smart-tile-editor.mjs --installed
+      - run: node tools/verify-smart-tile-editor-review.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smart-tile-editor-evidence
+          path: |
+            artifacts/smart-tile-editor-source/
+            artifacts/smart-tile-editor-built/
+            artifacts/smart-tile-editor-installed/
+            artifacts/smart-tile-editor-matrix.json
+          if-no-files-found: ignore
+  tile-stack-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NAUTILUS_REVIEW_CHANNEL: chromium
+      CODEX_THREAD_ID: github-tile-stack-workflow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable source-review commits
+        run: >-
+          git fetch --no-tags --depth=1 origin
+          3f602272a3a2ecbe4ade0d33773a0e4f52da0706
+          5f027e039ba9307fd25719c6307d9760baf54e20
+          e5ff08c2401bb6f33a236a63efc0eb0b24bbbc7a
+          e4b5106f6967614ddc60661a6cdddde5d37b5c2b
+          ca285aa76a49b74df6067caab661d7bed39bd523
+          3e583378bee99dc8e275f1b97591af9a0406ca04
+          7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
+          87301172d7258223f89aa2e19fe391ac01b52f00
+          32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
+          4b0499cc776fcd85fdd415fa7344982b75fbf8fb
+          faf4454bc2760f91743039b0ea42bff15055c57c
+          f754afcc9f46b196f258bf09e8091c962c9b31f8
+          d0ecfdfb35110616fbd4c03ad41775acf6a2d163
+          8622c77234036d786474689f7e70671ecf01136b
+          d869410625b246cfff2b51089e7878c31951775c
+          43227894c50ec62b71806978195fff2c650eb388
+          3df11ce6e62fb94806e30652b87168949f8ef4dd
+          eedfc0149cbaa5715445ed2dc909c2d694a81d50
+          fac180e2909ba499146bb8e4560c79cf4794ca93
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check -- --tracked
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: node tools/review-tile-workshop-entry.mjs
+      - run: node tools/review-tile-stack-editor.mjs
+      - run: node tools/review-tile-stack-editor.mjs --built
+      - run: node tools/review-tile-stack-editor.mjs --installed
+      - run: node tools/verify-tile-stack-editor-review.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tile-stack-editor-evidence
+          path: |
+            artifacts/tile-stack-editor-source/
+            artifacts/tile-stack-editor-built/
+            artifacts/tile-stack-editor-installed/
+            artifacts/tile-stack-editor-matrix.json
+            artifacts/tile-workshop-entry/
+          if-no-files-found: ignore

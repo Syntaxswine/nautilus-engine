@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/Syntaxswine/nautilus-engine",
+  "auditedMain": "d3c577fbf78974dc0a20660d46748a83758fd51f",
+  "baseline": "d9a948fa80328be8dccb560efbb70efcda8ed5b4",
+  "reviewedImplementation": "0b03fb429c895bf7b1f1635caa5532fe78f781c5",
+  "policy": "Read reviewed immutable Git objects only. Contribution hashes describe original worker bytes; integrated adapters and later architect repairs remain distinct.",
+  "contributions": [
+    {
+      "id": "headless-data-extraction",
+      "commit": "fd1c93e8da0062abd964e366c35478766cbb316d",
+      "importedAs": "d40ef00cdb410c16b2f06e5ab56f616d309b817c",
+      "files": [
+        {
+          "path": "apps/editor/inspection-visuals.js",
+          "blob": "a52633f7242ed5e55553aabec3b8186e68b1d481",
+          "bytes": 427,
+          "sha256": "f25a741812a77d72622b961e263b11962f7b1b28a2afce2349d495c80dc704b3"
+        },
+        {
+          "path": "docs/headless-boundary.md",
+          "blob": "cf41fad1b32b68bfaadb45cd8bcc986d81782d2b",
+          "bytes": 8792,
+          "sha256": "d8019841702dcf9d5203d3f53650e81b9f0135497f6c016f0e79649c9f5d6db6"
+        },
+        {
+          "path": "packages/map-core/document.js",
+          "blob": "71e6b98df9dd3519869cffc98cd916360d99d45d",
+          "bytes": 6854,
+          "sha256": "80416a2d09f2b7a23d5a1241315bd7f32ef97936c23e1832ef1eac8c578554ec"
+        },
+        {
+          "path": "packages/map-core/editing-document.js",
+          "blob": "6d1060cb0aeecf57f475e269615eaf3a5b1a0445",
+          "bytes": 26714,
+          "sha256": "77cc0f80981fc06301e28cc35211fae222255ae854863e0e6a0c95f3362a2786"
+        },
+        {
+          "path": "packages/map-core/inspection.js",
+          "blob": "18c527ae4b4bb779de9ce18c1865e3d13b25097f",
+          "bytes": 5159,
+          "sha256": "29125e7c4bcf866a4509f70f653be46037946cb595563092b296390cd90fd4e3"
+        },
+        {
+          "path": "tests/headless-boundary.test.mjs",
+          "blob": "c53a4825de959c5de64dbb19c7c50218ea9be13d",
+          "bytes": 3224,
+          "sha256": "adb49a2b810976ed0990053a21e9474401f7359fc6897b3fa630ed6a4456bd97"
+        },
+        {
+          "path": "tests/headless-document.test.mjs",
+          "blob": "f97abe5c082f696de03b48c4438e3884681148ad",
+          "bytes": 8427,
+          "sha256": "acfe6500f730678c74c299b1b181b11f0ce2931069ebfbdc4c33b69bf55644b8"
+        },
+        {
+          "path": "tests/helpers/headless-closure.mjs",
+          "blob": "009af3cadfcfd3195af4377c7a09cff24bc219d2",
+          "bytes": 4313,
+          "sha256": "1ff5ef365c328c2ac35f5cfb8431a746a27adf888898877948efa7a3b24b573f"
+        },
+        {
+          "path": "tools/editor-wall-adapter.mjs",
+          "blob": "1c18025c42451387337c66b07d9bb99e9e05bf60",
+          "bytes": 4937,
+          "sha256": "e3fd3fcc20f23901be5b63acf3da11ba7307c96dadb015456acea3147d5fc57d"
+        }
+      ]
+    },
+    {
+      "id": "procedural-roof-geometry",
+      "commit": "41128c4acfb5ffe697d788205c6d863cbc4e49c2",
+      "importedAs": "33523776cc3bbbe75ec0c8d71026582000c9ae22",
+      "files": [
+        {
+          "path": "docs/reviews/sloped-roofs/browser-checks.json",
+          "blob": "b58de55a4e894d05899f1f59ca3cedd352307b21",
+          "bytes": 2456,
+          "sha256": "d286ae65c6fc0f1e4cd9d11fde4298ef97aeea419e3c092c26462d19a1118089"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/comparison.png",
+          "blob": "cc745512109ff3a31ea109c24abcd7e658f49a53",
+          "bytes": 96994,
+          "sha256": "83c8f1fc529ec6aa8322e1abd87fb875b148b4d9ef79702ea2b6febea26831b2"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/detail.png",
+          "blob": "282c4a78b1fadbbe0fa93c50bb6f978a1f9710c3",
+          "bytes": 954149,
+          "sha256": "8f7a44b8ca118ea97eed1e0f45aea96fd7ecfa3e8d5564af2f402593bdf5d972"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/grey.png",
+          "blob": "42cbf5ff2be0a7de9a647fbc316b013e9addefe1",
+          "bytes": 141609,
+          "sha256": "8615731673b70e7db0420161c5e2440fb3700646afe5ece8ec5cb46c42d48f57"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/painted.png",
+          "blob": "9e5e9be5182538a2dab3b830f0217fb718fd4b82",
+          "bytes": 851685,
+          "sha256": "8e888c1c1206c6a05493138acfd4fd302c3c0bad6370042015ab07f0abebc0fc"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/review.mjs",
+          "blob": "2361a9e600b1cb8ecd38be3cba10168b3078d4f6",
+          "bytes": 2460,
+          "sha256": "9da39553ed421ec4a8e1e8ca9fa0e4f8253f09c92ac798d3f0de47cc22f3fa93"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/scene.html",
+          "blob": "4614f1fded73deb64954caea669b8d0791d12d1e",
+          "bytes": 8900,
+          "sha256": "7e3587dc28f8dc22213e1a56c0474b09a911c1e4339b227fa89f049651ebe3bd"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/underside.png",
+          "blob": "a1211c799aa7d6907c315b90290a15c707295044",
+          "bytes": 460514,
+          "sha256": "ae9131fdec72c43b0732f3d57879e719f1a3b0f5c6bccd6d8d501fdb1ad07b1d"
+        },
+        {
+          "path": "docs/reviews/sloped-roofs/wire.png",
+          "blob": "273b8e076c826fec1ed11cb4550d4aefa69a09cb",
+          "bytes": 238303,
+          "sha256": "e861b657157a230a44d6676dc1f5b24ba607feedf9eef1c7dd118f1cfe2ee139"
+        },
+        {
+          "path": "docs/sloped-roofs.md",
+          "blob": "2cedee2610d4a101fc8496b021b44f183841a6e0",
+          "bytes": 13762,
+          "sha256": "b5987d25c5f0576cac4c23c9eb44a506909c97b1206693c4a7c06a995266e1d2"
+        },
+        {
+          "path": "packages/roof-core/index.js",
+          "blob": "df068a79ffd5bf255be4519e041ff35cfc55fad9",
+          "bytes": 9907,
+          "sha256": "be1b065453e86e05860b77f019e56f5eda7943b6af37c029055e4f88eb20a400"
+        },
+        {
+          "path": "packages/roof-core/three.js",
+          "blob": "7a7a9a6b3eea7482b073cf898b2a12dd7bb16a19",
+          "bytes": 5435,
+          "sha256": "96fe9556e429d86169db25005d939c58c2e5f72f595b15c34f4fb51b16187539"
+        },
+        {
+          "path": "tests/roof-core.test.mjs",
+          "blob": "1e74aa27fbfabf566c10d06ffd543804f9d70396",
+          "bytes": 15111,
+          "sha256": "ac5f1288720658e3dcc934bc62959bbf34f5d4ef04b9f42e62137b449dc8c203"
+        }
+      ]
+    },
+    {
+      "id": "roof-authoring-metadata",
+      "commit": "93727e61b271dc4634a7a206af84a7038b26dc10",
+      "importedAs": "2ccb5862f2b360362178c247317686d240156378",
+      "files": [
+        {
+          "path": "docs/sloped-roofs.md",
+          "blob": "51c4173e6d888a5af7df78343995e474d3b046ae",
+          "bytes": 15123,
+          "sha256": "f0c092d4dc7df66a7afa4eedfe1fa02505e78a997e3fae6151f975a8f6eb3018"
+        },
+        {
+          "path": "packages/roof-core/index.js",
+          "blob": "c3531180906b28cb5b288b0b827ee18563c991d8",
+          "bytes": 13011,
+          "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c"
+        },
+        {
+          "path": "tests/roof-core.test.mjs",
+          "blob": "f3cdeaf7a496db42cfcda0a8b511b0b09ed3ad10",
+          "bytes": 19799,
+          "sha256": "0065c5ab833bd94d6b3f4f0545f810d10f464719ba5ece3d2e92af9eccbc8892"
+        }
+      ]
+    },
+    {
+      "id": "editor-roof-integration",
+      "commit": "a44d99f3572681f5722f5539f029602d3eee12a5",
+      "importedAs": "fad304108b0e0367410f6c8d3799f2388a888aac",
+      "files": [
+        {
+          "path": "apps/editor/roof-scene.js",
+          "blob": "57f9eb7d7c7ef99deac372489932cd13890bcab2",
+          "bytes": 5678,
+          "sha256": "6fdf4432e22b38061ba308df2488095c57791160de15369da7f6c4548963b3b2"
+        },
+        {
+          "path": "apps/editor/roof-tools.css",
+          "blob": "a22ee6af67d8b94bff55218022b0bd60d00a046c",
+          "bytes": 917,
+          "sha256": "1129ab8179b18bcd245139536996a20b6f29f2fad3a552f706b9c451d7a42704"
+        },
+        {
+          "path": "apps/editor/roof-tools.js",
+          "blob": "cde6a5b8c01217df81bc7d9e8f57a69ca1824ea1",
+          "bytes": 8395,
+          "sha256": "fab9969532c940cdcc56f69ab6191791b06d857256569853fb8f5061b240b1ec"
+        },
+        {
+          "path": "docs/editor-roofs.md",
+          "blob": "d9cf01c964816c82be73df9093eac7f20855056a",
+          "bytes": 7579,
+          "sha256": "a97932462a6e19697e164de57f5e1d3ddb68a03484db5de6c08741b947853f65"
+        },
+        {
+          "path": "docs/reviews/editor-roofs/acceptance.json",
+          "blob": "24d25e2edb7d5697edcb77abfc9362bbe6b85c93",
+          "bytes": 2678,
+          "sha256": "b9b68f5faff44626ed77427199eb08dcba6ea622aae16d52c4ca3339efb08819"
+        },
+        {
+          "path": "docs/reviews/editor-roofs/roofs-mobile.png",
+          "blob": "455a7b74a413b880007190ac0db904dfd046df77",
+          "bytes": 172059,
+          "sha256": "ff4b7cf126abc24bbff4f9cca3f041318e3c76c6e7073d143702c56905959411"
+        },
+        {
+          "path": "docs/reviews/editor-roofs/shed-preview.png",
+          "blob": "eabd157ff65572528b02badccdbdcc1092798a4b",
+          "bytes": 977154,
+          "sha256": "5c0a327339c7d2608a2404f25e8a7982367e46483daf5b7c5168f8e905c42ac2"
+        },
+        {
+          "path": "packages/map-core/roof-blocks.js",
+          "blob": "1802ab0bcac63f8ba3411589d8f7bc5c1afd72c7",
+          "bytes": 2131,
+          "sha256": "4ab8a70684b65c29395fcf87401274506ced6ce78074616723779fb7cf1b0cfd"
+        },
+        {
+          "path": "packages/map-core/roof-data.js",
+          "blob": "05014881eb902104753dc6bf0945541d1639d5f4",
+          "bytes": 4603,
+          "sha256": "1c6be0a31329bb11f27ca9d56e38a261ad050755343f009f5edebc96144062f1"
+        },
+        {
+          "path": "packages/map-core/roof-document.js",
+          "blob": "da8efdf256b2afd29726c10245f1cf48a8d1d8d9",
+          "bytes": 4808,
+          "sha256": "a1e6e36468c73a6a3b4d8b42f637d4054dd96122a097976e397b482b0ad92029"
+        },
+        {
+          "path": "packages/map-core/roof-generator.js",
+          "blob": "cee590eed71e925a5e38b24e6f92e72acee3b4a8",
+          "bytes": 4754,
+          "sha256": "7cc15a7742e99c9ff196beaff2dc17d9f5ece26e00646c3a3fe84dc7642bb349"
+        },
+        {
+          "path": "packages/map-core/roof-maps.js",
+          "blob": "530080c7e4c35f45447a23532f521b336ebec5bf",
+          "bytes": 952,
+          "sha256": "850aa532435671b40d4fcc3cd9094be0b75524053272f7c347cc8326d20d1830"
+        },
+        {
+          "path": "packages/map-core/roof-rotation.js",
+          "blob": "66ade712040a0599e8b26a688d9fd3ba381e7971",
+          "bytes": 760,
+          "sha256": "d9d15a3f0a27900ec0c996e4ba380e24e95c36d3b36a35b5def9e12caec8ffde"
+        },
+        {
+          "path": "tests/editor-roofs.test.mjs",
+          "blob": "a40da1dcf76ef5651164c5d78970d82a7b31377e",
+          "bytes": 15796,
+          "sha256": "167f8a152aa70c871394965734350daeb97d7b0c4e25be1f4e8472fa6b4454c6"
+        },
+        {
+          "path": "tools/build.mjs",
+          "blob": "808f5a551f7a36306a22151f4ff134cad29faef4",
+          "bytes": 10564,
+          "sha256": "3529b47818fdae0c10082b2529d50a31dc9e158bb562d516150925d9f1d96ae6"
+        },
+        {
+          "path": "tools/editor-roof-adapter.mjs",
+          "blob": "a3e31a5dda03e797c3ad9f4a2c04f963cbbd6d0f",
+          "bytes": 4022,
+          "sha256": "aaacfac62bd3c83eefb4fd766273b3ef69a5566fbe4f47a4657933cb750e0201"
+        },
+        {
+          "path": "tools/review-editor-roofs.mjs",
+          "blob": "5a70aadfc69ff21626a3408270c257333ec5a78d",
+          "bytes": 7739,
+          "sha256": "f55d2a3f492729820f2b6edf574eab879aed9d0b4b37046e0087c01d0ea21a0a"
+        }
+      ]
+    },
+    {
+      "id": "prefab-roof-reservations",
+      "commit": "a22da50c8ccd1dd643d0b4bbc1df953cad2d2882",
+      "importedAs": "dc72f19d342284be9c52281851652f46fb18d82b",
+      "files": [
+        {
+          "path": "docs/building-prefabs.md",
+          "blob": "e6324bc2f8b21c6296328575d05222fb2f319ba7",
+          "bytes": 11549,
+          "sha256": "25850d862a1e5e1378f6c7b177d062201bb460b45a66ebfe5739e49f59d45342"
+        },
+        {
+          "path": "packages/prefab-core/index.js",
+          "blob": "3520f3f10b4fdfc5af34a0f7e0958d7510aa9c00",
+          "bytes": 13696,
+          "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c"
+        },
+        {
+          "path": "tests/prefab-roofs.test.mjs",
+          "blob": "f6d98b952bcbe673d78939c5c3605c4e4221d7bc",
+          "bytes": 5885,
+          "sha256": "c98acfa2de0fe05816200ec85712b6e6d46942eb998dff598c01f035d9c096b8"
+        }
+      ]
+    },
+    {
+      "id": "roof-atlas-recovery",
+      "commit": "21a76d3d57b134d857cbbaabe177c27de46b26d8",
+      "importedAs": "2a5784eb1d948066082cb92d10db08840db6febc",
+      "files": [
+        {
+          "path": "apps/editor/roof-scene.js",
+          "blob": "2b1170c0c4a07afbbb0273c6ee1c98fede3ca7b1",
+          "bytes": 7306,
+          "sha256": "1db3412303f2633080bf3e2f19181971ba00e89f23feb0cfdcb5aa8c19be9605"
+        },
+        {
+          "path": "tests/editor-roof-paint.test.mjs",
+          "blob": "3eeec3c014869189bbd0b5aa8c29e22a8716148b",
+          "bytes": 5165,
+          "sha256": "718f24762b79e9550bec78307801b0d0b0fbf9ac66224025ef73cf971156cdbd"
+        }
+      ]
+    }
+  ],
+  "integrationCommits": [
+    "0c33a54405e302a0bf586e911cd3d9e7474d5b82",
+    "33523776cc3bbbe75ec0c8d71026582000c9ae22",
+    "d4f59cef71f074bbf499afff983bc3dc0db37883",
+    "d40ef00cdb410c16b2f06e5ab56f616d309b817c",
+    "7db747838209e68aa65943389ff0d85d32d643a8",
+    "2ccb5862f2b360362178c247317686d240156378",
+    "dd2a164a960fae1126f58c1b342fad11167e698a",
+    "fad304108b0e0367410f6c8d3799f2388a888aac",
+    "ea32e1d43d1691f6b684964e15c842cc8faa119d",
+    "47346c34948c4b2d0cd67de7c41dfcaa384a0b15",
+    "dc72f19d342284be9c52281851652f46fb18d82b",
+    "2a5784eb1d948066082cb92d10db08840db6febc",
+    "0b03fb429c895bf7b1f1635caa5532fe78f781c5"
+  ],
+  "verification": "docs/reviews/evidence/reusability-roofs/verification.json",
+  "evidenceFiles": [
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/acceptance.json",
+      "bytes": 3249,
+      "sha256": "a9c018a5e2460b75e0a8272a4f43406b317d411cd5de2fcfbcf2a7cb024c2066"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/audited-main-closure.json",
+      "bytes": 11531,
+      "sha256": "707ed96bae2d648063f25902837bcd497071fb60587d3393a061f9e91e6e929b"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/cleanup-receipt.json",
+      "bytes": 600,
+      "sha256": "c3703e5ba2a81f4d957d1056fcccd8dbf882a7be75a2f72bd32eba99092d1087"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/editor-desktop.png",
+      "bytes": 896997,
+      "sha256": "bce46134822fe98e6810ca307f21165bc328e43b5cd0de67c4a3689da43b51a6"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/editor-mobile-library.png",
+      "bytes": 83404,
+      "sha256": "fe63c2d6662686fa3155a705e512919167ab96910f9af940a0444a3f9878c4be"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/gross-preview.png",
+      "bytes": 148587,
+      "sha256": "da0bb81e6a1f346047832eb4512c92ec6b43050811a2c4c32df6b0c22f905630"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/integrated-closure.json",
+      "bytes": 9197,
+      "sha256": "473509368676bc0e5f88149657b7f2690891f638b1f84129a6ab4efc25c9b2c5"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/layout-preview.png",
+      "bytes": 230350,
+      "sha256": "d9aa9a4235f61028c19b53d02904b14c53739fcbbdbc28f70f365831198ec868"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/lifecycle-verification.json",
+      "bytes": 652,
+      "sha256": "d069a824c3546a223411141c6d7916ad08546cef44ad24ed1a3d32962b39eabd"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/original-interior.png",
+      "bytes": 135853,
+      "sha256": "37ffe547563cd566c7efc58a35ba27ee73be26eea444c80f7b506d201b10e14d"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/procedural-roofs.png",
+      "bytes": 842920,
+      "sha256": "5ebb7ec02d140922b5b24fee0cce056c3520e2d6bf6c68abeded4e29a467dbac"
+    },
+    {
+      "path": "docs/reviews/evidence/reusability-roofs/verification.json",
+      "bytes": 26906,
+      "sha256": "b35026c3d8c77ef2dba62e66b48b952a7aecf59c4210f2bf4cca9f2e63953847"
+    }
+  ]
+}

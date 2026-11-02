@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "nautilus.native-tile-surfaces",
+  "availability": "registered-optional",
+  "acceptedProvider": "ca285aa76a49b74df6067caab661d7bed39bd523",
+  "integrationBase": "3e583378bee99dc8e275f1b97591af9a0406ca04",
+  "preservedArtCheckpoint": "7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab",
+  "canonicalCoreCheckpoint": "708ed1c14e69699e4baa4483cbc5a50901d5be4e",
+  "cleanupOrigin": "5f027e039ba9307fd25719c6307d9760baf54e20",
+  "policy": "canonical-surface-v1-cuts16-interior8-16-32",
+  "entries": {
+    "./tiles/art": "./packages/tile-visuals/prepare.js",
+    "./tiles/art/example": "./packages/tile-visuals/example.js",
+    "./tiles/art/three": "./packages/tile-visuals/three.js"
+  },
+  "acceptedRuntime": [
+    {
+      "path": "packages/tile-visuals/cleanup.js",
+      "bytes": 2059,
+      "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+    },
+    {
+      "path": "packages/tile-visuals/data.js",
+      "bytes": 3780,
+      "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "bytes": 4602,
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/tile-visuals/mesh.js",
+      "bytes": 13034,
+      "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "bytes": 12550,
+      "sha256": "0924cba982e65b508c6b37c7d2b134439602727358898885185542079c58bef5"
+    },
+    {
+      "path": "packages/tile-visuals/three.js",
+      "bytes": 9772,
+      "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/tile-visuals/cleanup.js",
+      "bytes": 2059,
+      "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+    },
+    {
+      "path": "packages/tile-visuals/data.js",
+      "bytes": 3780,
+      "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "bytes": 4602,
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/tile-visuals/mesh.js",
+      "bytes": 13034,
+      "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "bytes": 12561,
+      "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
+    },
+    {
+      "path": "packages/tile-visuals/three.js",
+      "bytes": 9772,
+      "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+    }
+  ],
+  "metadataAdaptations": [
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "from": "candidate; optional registration pending",
+      "to": "nautilus.native-tile-surfaces",
+      "occurrences": 1
+    }
+  ],
+  "runtimeCorrections": [
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "sourceCommit": "93a94778779b800227f3886b1ca63fae1abc2543",
+      "integrationBase": "2502646482218524fd5129641da769bb82462e4d",
+      "manifest": {
+        "path": "candidates/tile-stack/core/line-d4-provider-patch/manifest.json",
+        "sha256": "99345464175cd8955add7b2e727f31657e8b72c9dcb9389dbc23b38ca2f5af9d"
+      },
+      "patch": {
+        "path": "candidates/tile-stack/core/line-d4-provider-patch/derived-start-zero.patch",
+        "sha256": "c7eac2b728479132a4badd9ab2fc819fead29530e6fe2dee07f862289cbe6173"
+      },
+      "originalSha256": "eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e",
+      "patchedSha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3",
+      "from": "radius:r,startRad:start,sweepRad:sweep",
+      "to": "radius:r,startRad:Object.is(start,-0)?0:start,sweepRad:sweep",
+      "occurrences": 1,
+      "scope": "Canonicalize only a generated offset-arc startRad; authored data, validators, meshes and schemas remain unchanged."
+    }
+  ],
+  "atlas": {
+    "path": "assets/buildings/painted-materials-v2.png",
+    "bytes": 2558637,
+    "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+  },
+  "guide": "packages/tile-visuals/README.md",
+  "notice": "packages/tile-visuals/NOTICE.md",
+  "scope": "Native flat surfaces only; editor, body, query, support, navigation, fire, water and game adoption remain unbound. The detached presentation cache is not a save or a gameplay authority.",
+  "rights": "Preserve existing source and Three notices and inherited art-rights qualifications. This registration adds no blanket license grant."
+}

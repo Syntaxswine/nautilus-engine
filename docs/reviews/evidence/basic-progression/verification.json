@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "version": "0.7.0",
+  "reviewedRuntimeCommit": "ae3153e233bb9666778fe20d2e5bd1b803db87fb",
+  "baseline": "3cba6838a1926e7cc1611ffddf13d70aeceea5c7",
+  "sources": {
+    "core": [
+      "d8bf16e3de7da1ffaabfaccca255687b16931fcb",
+      "5d9ba60d80bde11c704d0e7d6f0496899661c5df",
+      "27f0a763a55db1be31704bc4ecf289dbb5e74fa7"
+    ],
+    "ui": [
+      "1a906da9058983e97867d696535dc8db92072d81",
+      "719d4c47b0f78ec6ca257e8989cfc09ff17e38b4",
+      "7e4bb99585eafce8f433d1a62532938d958fa0c1",
+      "af5eb9e9c2f967e6a9fdca8251e891e6930ff886"
+    ]
+  },
+  "tests": {
+    "engine": {
+      "passed": 254,
+      "failed": 0
+    },
+    "upstream": {
+      "passed": 32,
+      "failed": 0
+    },
+    "integrity": "passed",
+    "build": {
+      "passed": true,
+      "modulePaths": 365
+    },
+    "characterBrowser": "passed",
+    "editorBrowser": "passed",
+    "installedPackage": {
+      "passed": true,
+      "profile": "core",
+      "version": "0.7.0",
+      "file": "nautilus-engine-core-0.7.0.tgz",
+      "compressedBytes": 1182000,
+      "unpackedBytes": 6118323,
+      "fileCount": 148,
+      "integrity": "sha512-d5jD7lf/svUNq8y0y3fJAIHRPfXbBg3ELyBeMq+e2YkSNOP5pdkKvZ/kdNzJrqQrTGdSUTgYE8Hkq1uuyGg4Ug==",
+      "publicProgressionProof": true
+    }
+  },
+  "buildProvenanceSha256": "5a9ef3f2223a754a413626b8c75b2f66c952f399736a1e4faf2288727660dc57",
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "b45500acb9a9b0bebd4c6488fab9e8cb64c9c9a58a744fef632512302d145d3a"
+    },
+    {
+      "path": "packages/rules-core/progression.js",
+      "sha256": "be4a5c6847adc54b66823dbd1037f14149849a531f4bdc4e71c020cada9cea07"
+    },
+    {
+      "path": "packages/map-core/contract-manifest.js",
+      "sha256": "5f348829b4e8b92fc1793767d491f1c2bdc879565123be912a378585669512d0"
+    },
+    {
+      "path": "schemas/progression-v1.schema.json",
+      "sha256": "aaaefc6de87a29be4e84a6d002e62a9f14fa562d7eb9ae640971783c537cb4b2"
+    },
+    {
+      "path": "examples/character-development-host.js",
+      "sha256": "bc36bcfa7840782f1c7da4c1d196dda5bfd8ec9de1ce90e66a580fd7a649ee4d"
+    },
+    {
+      "path": "examples/character-development.js",
+      "sha256": "8b0ef4e27e0a23879bfe67d15815ffa48f1485eab13cbc3ea854aadfbb3a0d9f"
+    },
+    {
+      "path": "tools/review-character-development.mjs",
+      "sha256": "a3c3a876f5ac6ed046f77b3760e963560d42740f26bec9a2f30925afd63703a2"
+    }
+  ],
+  "reviews": {
+    "rules": "No remaining correctness blockers; full-journal preview mismatch fixed at27f0a763.",
+    "integration": "Schema, package, manifests, unchanged character/map boundaries and source hashes reviewed.",
+    "visual": "Desktop,320/390px and 200%-equivalent layouts inspected; accuracy baseline and preserved current resources visible."
+  },
+  "helpers": {
+    "retained": [],
+    "verification": "cleanup-verification.json"
+  },
+  "consumerPinsChanged": false,
+  "hostingChanged": false,
+  "limitations": [
+    "Trusted games supply eligible committed outcomes and atomic source comparisons.",
+    "The initial immutable profile has a4096-transaction durable journal and no archival operation.",
+    "XP/practice rates require real-game balance testing.",
+    "Species/class perks remain deferred; no production game adopts automatically."
+  ]
+}

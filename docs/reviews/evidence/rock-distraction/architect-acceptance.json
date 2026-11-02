@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "engineVersion": "0.6.0",
+  "reviewDateEastern": "2026-10-29",
+  "base": "8e962a233189129b8063001b2ee96a28403d2290",
+  "contributions": {
+    "originalModel": "9029dc11f4611ca46ea886ec9c03cbb6c0cfe3c5",
+    "core": [
+      "aff83ed8acb97daa7f512fb5529754377f0d48b1",
+      "2ba340fffdd723e28c66b5a5f5089f3c420a1053",
+      "577e9d1cc548863b59c9b43b539993eef56c4f72"
+    ],
+    "ui": [
+      "0c9ac73aad7b662edef7fcd83f9165b24cfa047b",
+      "a0b96b65fbc73eb8e7a7805120b9d9c6af569946",
+      "8d0724ac0ca9f02d8bb557de831bb6142be7be92",
+      "2ff8014691c6ec61f44f1ee58cdabfbb38ce2487",
+      "c5a844a68ca074506937724e220c9b3c59012d56"
+    ]
+  },
+  "checks": {
+    "integrity": true,
+    "engineTests": {
+      "passed": 238,
+      "failed": 0
+    },
+    "upstreamTests": {
+      "passed": 32,
+      "failed": 0
+    },
+    "build": {
+      "modules": 362,
+      "sha256": "6594453e959944c422fc9d7daf60d566a77ded75c25865d9a82a9254b651c4b6"
+    },
+    "externalOfflineCore": true
+  },
+  "editor": {
+    "sourceCheckpoint": "518b424b213181a850ff1a5b5d3c5f434e0b4839",
+    "buildProvenanceSha256": "7b6672c802eff6d52305625e7532fd7e947dabb60d0ff6c990cecfa75005578d",
+    "schemaFiles": [
+      {
+        "id": "aft-map",
+        "ok": true
+      },
+      {
+        "id": "aft-block",
+        "ok": true
+      },
+      {
+        "id": "nautilus-save",
+        "ok": true
+      },
+      {
+        "id": "nautilus-capability-requirements",
+        "ok": true
+      },
+      {
+        "id": "nautilus-sloped-roofs",
+        "ok": true
+      },
+      {
+        "id": "nautilus-rock",
+        "ok": true
+      },
+      {
+        "id": "nautilus-rock-impact-noise",
+        "ok": true
+      }
+    ],
+    "saveReload": true,
+    "jsonRoundtrip": true,
+    "undoRedo": true,
+    "roofUndoRedo": true,
+    "errors": [],
+    "failedRequests": []
+  },
+  "rock": {
+    "sourceCheckpoint": "d17344ec3385bd1b3195166549c096e0c876744a",
+    "buildProvenanceSha256": "6594453e959944c422fc9d7daf60d566a77ded75c25865d9a82a9254b651c4b6",
+    "checks": {
+      "sharedModel": true,
+      "pickupReleaseLobImpact": {
+        "event": {
+          "sequence": 1,
+          "kind": "impact",
+          "time": 1.2301568532348823,
+          "position": {
+            "x": 5.999956201039981,
+            "y": 6,
+            "h": 0
+          },
+          "receipt": {
+            "version": 1,
+            "type": "rock-impact-noise",
+            "id": "noise:yard-throw-2:impact",
+            "itemId": "item:rock",
+            "rockId": "yard-rock-1",
+            "throwId": "yard-throw-2",
+            "commandId": "yard-command-2",
+            "sourceActorId": "yard-player",
+            "position": {
+              "x": 5.999956201039981,
+              "y": 6,
+              "h": 0
+            },
+            "radius": 8,
+            "surfaceId": "ground",
+            "kind": "ground",
+            "flightTime": 1.2301568532348823
+          }
+        },
+        "thuds": 1
+      },
+      "hearingAndInvestigation": {
+        "walked": true,
+        "searched": true,
+        "returned": true,
+        "farUnchanged": true,
+        "engagedUnchanged": true,
+        "noPlayerLocation": true
+      },
+      "repickup": true,
+      "quietSettlingReplay": true,
+      "wallInterception": {
+        "impact": {
+          "sequence": 1,
+          "kind": "impact",
+          "time": 1.0778666523920961,
+          "position": {
+            "x": 9,
+            "y": 6,
+            "h": 1.7622121961422093
+          },
+          "receipt": {
+            "version": 1,
+            "type": "rock-impact-noise",
+            "id": "noise:yard-throw-2:impact",
+            "itemId": "item:rock",
+            "rockId": "yard-rock-1",
+            "throwId": "yard-throw-2",
+            "commandId": "yard-command-2",
+            "sourceActorId": "yard-player",
+            "position": {
+              "x": 9,
+              "y": 6,
+              "h": 1.7622121961422093
+            },
+            "radius": 8,
+            "surfaceId": "yard-wall",
+            "kind": "wall",
+            "flightTime": 1.0778666523920961
+          }
+        },
+        "walkedAround": true,
+        "settledCentreHeight": 0.055,
+        "recovered": true,
+        "firstElevatedCuePreserved": true
+      },
+      "snapshots": {
+        "midflight": true,
+        "repickup": true,
+        "count": 1
+      },
+      "invalidSnapshots": [
+        {
+          "name": "missing-flight-clock",
+          "rejected": true
+        },
+        {
+          "name": "guard-target",
+          "rejected": true
+        },
+        {
+          "name": "guard-home",
+          "rejected": true
+        },
+        {
+          "name": "guard-heard-clock",
+          "rejected": true
+        },
+        {
+          "name": "guard-search-clock",
+          "rejected": true
+        },
+        {
+          "name": "guard-heading",
+          "rejected": true
+        },
+        {
+          "name": "impact-clock",
+          "rejected": true
+        },
+        {
+          "name": "note-clock",
+          "rejected": true
+        }
+      ],
+      "invalidActions": {
+        "emptyRejected": true,
+        "emptyUnchanged": true,
+        "farRejected": true,
+        "farUnchanged": true,
+        "rangeRejected": true,
+        "rangeUnchanged": true,
+        "impacts": 0
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "tapPickupThrow": true,
+        "reducedMotion": true
+      },
+      "narrow320": true,
+      "keyboardWalking": true,
+      "realtimeFlight": true,
+      "lifecycle": {
+        "pauseNoFrames": true,
+        "offscreenNoFrames": true,
+        "disposed": true,
+        "audioClosed": true
+      }
+    },
+    "browser": "156.0.4314.50",
+    "renderer": "WebKit WebGL"
+  },
+  "runtimeArtifacts": {
+    "editor": "artifacts/engine-integration/",
+    "rock": "artifacts/rock-distraction/"
+  },
+  "review": "Architect inspected final desktop, phone, first elevated wall impact and quietly settled rock captures. Software WebGL proves correctness only; no hardware performance claim.",
+  "helpersRetained": [],
+  "consumerPinsChanged": false,
+  "portableMapFormatsChanged": false,
+  "sitesAudienceChanged": false,
+  "package": {
+    "profile": "core",
+    "name": "@nautilus-engine/core",
+    "version": "0.6.0",
+    "file": "nautilus-engine-core-0.6.0.tgz",
+    "compressedBytes": 1168801,
+    "unpackedBytes": 6065492,
+    "fileCount": 143,
+    "integrity": "sha512-kWMUqCbNIH74oXXOsN9iwKKJzQ+m1kZAqNl/R3FCEi7nDQ2H9xIn5T8Fltsuxlc6bUaSc049fobEk3QHTqIJmQ==",
+    "proof": "Fresh offline public-only install passes map/Tinderbox conformance and rock pickup, preview, throw, impact, protected hearing, recovery, quiet wall settling and save/replay."
+  },
+  "cleanupVerification": "architect-cleanup-verification.json"
+}

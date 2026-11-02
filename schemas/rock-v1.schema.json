@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:rock:1",
+  "title": "Nautilus recoverable rock sidecar version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "itemId",
+    "revision",
+    "profile",
+    "phase",
+    "position",
+    "ownerId",
+    "flight",
+    "lastImpact"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-rock"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+    },
+    "itemId": {
+      "const": "item:rock"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "phase": {
+      "enum": [
+        "world",
+        "carried",
+        "flying"
+      ]
+    },
+    "position": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/point"
+        }
+      ]
+    },
+    "ownerId": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+        }
+      ]
+    },
+    "flight": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/flight"
+        }
+      ]
+    },
+    "lastImpact": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "urn:nautilus:schema:rock-impact-noise:1"
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "phase": {
+          "const": "world"
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        },
+        "ownerId": {
+          "type": "null"
+        },
+        "flight": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "properties": {
+        "phase": {
+          "const": "carried"
+        },
+        "position": {
+          "type": "null"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+        },
+        "flight": {
+          "type": "null"
+        },
+        "revision": {
+          "minimum": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "phase": {
+          "const": "flying"
+        },
+        "position": {
+          "$ref": "#/$defs/point"
+        },
+        "ownerId": {
+          "type": "null"
+        },
+        "flight": {
+          "$ref": "#/$defs/flight"
+        },
+        "revision": {
+          "minimum": 2
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        },
+        "h": {
+          "type": "number",
+          "minimum": -1000000,
+          "maximum": 1000000
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "pickupReach",
+        "maxThrowRange",
+        "noiseRadius",
+        "gravity",
+        "radius",
+        "stepHz",
+        "timeUnitsPerSecond",
+        "maxAdvanceSeconds",
+        "maxFlightSeconds"
+      ],
+      "properties": {
+        "id": {
+          "const": "rock-distraction-v1"
+        },
+        "pickupReach": {
+          "type": "number",
+          "minimum": 0.25,
+          "maximum": 3
+        },
+        "maxThrowRange": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 30
+        },
+        "noiseRadius": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "gravity": {
+          "const": 9.81
+        },
+        "radius": {
+          "const": 0.055
+        },
+        "stepHz": {
+          "const": 90
+        },
+        "timeUnitsPerSecond": {
+          "const": 90000
+        },
+        "maxAdvanceSeconds": {
+          "const": 1
+        },
+        "maxFlightSeconds": {
+          "const": 10
+        }
+      }
+    },
+    "flight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "commandId",
+        "sourceActorId",
+        "origin",
+        "target",
+        "velocity",
+        "aimTime",
+        "ticks",
+        "pendingUnits",
+        "settling"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+        },
+        "commandId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+        },
+        "sourceActorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$"
+        },
+        "origin": {
+          "$ref": "#/$defs/point"
+        },
+        "target": {
+          "$ref": "#/$defs/point"
+        },
+        "velocity": {
+          "$ref": "#/$defs/point"
+        },
+        "aimTime": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 10
+        },
+        "ticks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 899
+        },
+        "pendingUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        "settling": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/settling"
+            }
+          ]
+        }
+      }
+    },
+    "settling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "center",
+        "time"
+      ],
+      "properties": {
+        "center": {
+          "$ref": "#/$defs/point"
+        },
+        "time": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    }
+  },
+  "$comment": "Structural schema only. openRock additionally checks saved lob/profile/time/position/receipt consistency, throw range, and finite plain data without accessors. settling is the original first-contact sphere centre and flight-relative time; later vertical falling retains that first noise receipt. Consumers atomically persist item, authoritative inventory and command/event ledgers. Unknown fields and future versions reject; no guessed migration or refill."
+}

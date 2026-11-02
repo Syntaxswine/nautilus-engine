@@ -1,0 +1,148 @@
+{
+ "count": 400,
+ "usable": 295,
+ "pinned": {
+  "accepted": 178,
+  "refused": 117
+ },
+ "pristineDisagreements": [],
+ "mutants": {
+  "C18": {
+   "label": "C18 epsilon dropped (< radius)",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C19": {
+   "label": "C19 swap only for heading pi/2 (walls drawn upwards misread)",
+   "wrong": 25,
+   "falseAccepts": 10,
+   "falseRefusals": 15,
+   "example": {
+    "start": [
+     27,
+     21
+    ],
+    "a": [
+     28.34,
+     22.815
+    ],
+    "b": [
+     28.34,
+     20.065
+    ]
+   }
+  },
+  "C20": {
+   "label": "C20 x term signed (m.x - player.x)",
+   "wrong": 27,
+   "falseAccepts": 0,
+   "falseRefusals": 27,
+   "example": {
+    "start": [
+     27,
+     33
+    ],
+    "a": [
+     26.19,
+     32.050000000000004
+    ],
+    "b": [
+     26.19,
+     33.65
+    ]
+   }
+  },
+  "C23": {
+   "label": "C23 right bound padded by a tile",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C24": {
+   "label": "C24 bottom bound padded by a tile",
+   "wrong": 7,
+   "falseAccepts": 0,
+   "falseRefusals": 7,
+   "example": {
+    "start": [
+     17,
+     34
+    ],
+    "a": [
+     18.17,
+     32.835
+    ],
+    "b": [
+     18.17,
+     34.085
+    ]
+   }
+  },
+  "C27": {
+   "label": "C27 right bound compared with the height",
+   "wrong": 22,
+   "falseAccepts": 0,
+   "falseRefusals": 22,
+   "example": {
+    "start": [
+     27,
+     21
+    ],
+    "a": [
+     28.34,
+     22.815
+    ],
+    "b": [
+     28.34,
+     20.065
+    ]
+   }
+  },
+  "C28": {
+   "label": "C28 clearance checks start 0, not the selected start",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C29": {
+   "label": "C29 left bound padded by half a tile",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C30": {
+   "label": "C30 epsilon widened to 1 mm",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C33": {
+   "label": "C33 bounds use radius + 0.4 everywhere (sub-tile pad)",
+   "wrong": 0,
+   "falseAccepts": 0,
+   "falseRefusals": 0
+  },
+  "C34": {
+   "label": "C34 y term signed (player.y - m.y), the side C21 does not cover",
+   "wrong": 84,
+   "falseAccepts": 0,
+   "falseRefusals": 84,
+   "example": {
+    "start": [
+     20,
+     21
+    ],
+    "a": [
+     17.689999999999998,
+     22.89
+    ],
+    "b": [
+     22.79,
+     22.89
+    ]
+   }
+  }
+ },
+ "adapterUnchanged": true
+}

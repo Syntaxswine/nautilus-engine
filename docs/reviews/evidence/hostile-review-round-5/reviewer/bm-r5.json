@@ -1,0 +1,184 @@
+{
+ "node": "v24.15.0",
+ "head": "d91e23ae1ec7ab7a8697444915eb35e85dce834c",
+ "statusBefore": "",
+ "started": "2026-10-29T17:14:33.452Z",
+ "runs": [
+  {
+   "id": "pristine",
+   "status": 0,
+   "seconds": 45.223,
+   "captures": 6,
+   "afterLastCapture": 3.2,
+   "failure": null,
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   }
+  },
+  {
+   "id": "R01",
+   "file": "apps/editor/editor.js",
+   "build": 0,
+   "buildMessage": null,
+   "status": 1,
+   "seconds": 45.882,
+   "captures": 6,
+   "afterLastCapture": 3.3,
+   "failure": "Browser/resource errors: {\"errors\":[\"Failed to execute 'observe' on 'MutationObserver': Failed to read the 'attributeFilter' property from 'MutationObserverInit': The provided value cannot be converted to a sequence.\"],\"failedRequests\":[]}",
+   "pageErrors": [
+    "2.342s PAGE ERROR: Failed to execute 'observe' on 'MutationObserver': Failed to read the 'attributeFilter' property from 'MutationObserverInit': The provided value cannot be converted to a sequence.",
+    "45.866s browser=await playwright.chromium.connect(browserServer.wsEndpoint());const context=await browser.newContext({viewport:{width:1600,height:1100},deviceScaleFactor:1}),page=await context.newPage();page.on('pageerror',e=>{errors.push(e.message);console.error('PAGE ERROR: '+e.message);});page.on('console',m=>{if(m.type()==='error'){errors.push(m.text());console.error('CONSOLE ERROR: '+m.text());}});pa"
+   ],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "029e83e6554bf1da"
+   },
+   "capturesIdenticalToPristine": false
+  },
+  {
+   "id": "R02",
+   "file": "apps/editor/editor.js",
+   "build": 0,
+   "buildMessage": null,
+   "status": 0,
+   "seconds": 44.963,
+   "captures": 6,
+   "afterLastCapture": 3.4,
+   "failure": null,
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "2067bd35c12e5ab5",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "ac8af9d06a54b1d3",
+    "layout-preview.png": "b87b2cbe6902a444",
+    "original-interior.png": "8f5e69e84bfa10f9",
+    "procedural-roofs.png": "2ada1cb609c5a715"
+   },
+   "capturesIdenticalToPristine": false
+  },
+  {
+   "id": "S01",
+   "file": "apps/editor/editor.js",
+   "build": 0,
+   "buildMessage": null,
+   "status": 0,
+   "seconds": 58.097,
+   "captures": 6,
+   "afterLastCapture": 3.3,
+   "failure": null,
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   },
+   "capturesIdenticalToPristine": true
+  },
+  {
+   "id": "S03",
+   "file": "apps/editor/editor.js",
+   "build": 0,
+   "buildMessage": null,
+   "status": 0,
+   "seconds": 45.916,
+   "captures": 6,
+   "afterLastCapture": 3.1,
+   "failure": null,
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   },
+   "capturesIdenticalToPristine": true
+  },
+  {
+   "id": "D01",
+   "file": "tools/editor-wall-adapter.mjs",
+   "build": 0,
+   "buildMessage": null,
+   "status": 1,
+   "seconds": 49.308,
+   "captures": 6,
+   "afterLastCapture": 5.3,
+   "failure": "Send did not wait for the host: {\"connected\":true,\"disabled\":false,\"status\":\"Map sent to the connected game. Your blueprint and undo history stay here.\",\"feedback\":\"Map sent to the connected game. Your blueprint and undo history stay here.\"}",
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   },
+   "capturesIdenticalToPristine": true
+  },
+  {
+   "id": "D02",
+   "file": "tools/editor-wall-adapter.mjs",
+   "build": 0,
+   "buildMessage": null,
+   "status": 1,
+   "seconds": 54.798,
+   "captures": 6,
+   "afterLastCapture": 12.5,
+   "failure": "Send left the status unchanged: {\"connected\":true,\"disabled\":false,\"status\":\"Editor error: Uncaught Error: This game adapter does not support original building prefabs (nautilus-original-buildings-v1).\",\"feedback\":\"Editor error: Uncaught Error: This game adapter does not support original building prefabs (nautilus-original-buildings-v1).\"}",
+   "pageErrors": [
+    "43.81s PAGE ERROR: acceptance-versioned-host does not support nautilus-sloped-roofs-v1 versions 1–1.",
+    "44.17s PAGE ERROR: This game adapter does not support original building prefabs (nautilus-original-buildings-v1)."
+   ],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   },
+   "capturesIdenticalToPristine": true
+  },
+  {
+   "id": "W01",
+   "file": "tools/editor-game-handoff.mjs",
+   "build": 0,
+   "buildMessage": null,
+   "status": 0,
+   "seconds": 45.505,
+   "captures": 6,
+   "afterLastCapture": 3.2,
+   "failure": null,
+   "pageErrors": [],
+   "digests": {
+    "editor-desktop.png": "bce46134822fe98e",
+    "editor-mobile-library.png": "fe63c2d6662686fa",
+    "gross-preview.png": "da0bb81e6a1f3460",
+    "layout-preview.png": "d9aa9a4235f61028",
+    "original-interior.png": "37ffe547563cd566",
+    "procedural-roofs.png": "5ebb7ec02d140922"
+   },
+   "capturesIdenticalToPristine": true
+  }
+ ],
+ "distBefore": "603b0e9a508bc4e2b6a30c7fcf29f51174130570ee7eb9b54bfabbe8e54f2f5a",
+ "rebuild": 0,
+ "distAfter": "603b0e9a508bc4e2b6a30c7fcf29f51174130570ee7eb9b54bfabbe8e54f2f5a",
+ "distRestored": true,
+ "statusAfter": "",
+ "finished": "2026-10-29T17:23:57.123Z"
+}

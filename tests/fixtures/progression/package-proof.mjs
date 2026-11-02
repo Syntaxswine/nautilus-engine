@@ -1,0 +1,25 @@
+// Runs from an isolated installed tarball using public exports only.
+import {createCharacter as makeProgressionCharacter, openCharacter as openPlainCharacter} from '@nautilus-engine/core/rules';
+import {createProgression, openProgression, serializeProgression, progressionSheet, previewAllocation, stageProgression} from '@nautilus-engine/core/rules/progression';
+import {engineManifest as progressionManifest, schemaDocuments as progressionSchemas} from '@nautilus-engine/core/contracts';
+import {negotiateCapabilities as negotiateProgression} from '@nautilus-engine/core/capabilities';
+const progressionActor=makeProgressionCharacter({id:'installed-operative',name:'Operative',resources:{hp:12,ap:0,stamina:0}});
+let development=createProgression(progressionActor);
+const progressionAward={id:'installed-objective-award',expectedRevision:development.revision,type:'xp',source:'objective',sourceId:'installed-mission:exit',amount:100};
+const developed=stageProgression(development,progressionAward);strict.ok(developed.ok,developed.reason);development=developed.next;
+strict.equal(development.level,2);strict.equal(development.character.skillPoints,15);strict.deepEqual(development.character.resources,progressionActor.resources);
+const allocationPreview=previewAllocation(development,{strength:5,endurance:5,medical:5});strict.ok(allocationPreview.ok,allocationPreview.reason);strict.equal(development.character.skillPoints,15);
+const allocated=stageProgression(development,{id:'installed-allocation',expectedRevision:development.revision,type:'allocate',allocation:{strength:5,endurance:5,medical:5}});strict.ok(allocated.ok,allocated.reason);development=allocated.next;
+strict.equal(development.character.skillPoints,0);strict.equal(development.character.stats.medical,progressionActor.stats.medical+5);strict.deepEqual(development.character.resources,progressionActor.resources);
+const practiced=stageProgression(development,{id:'installed-treatment-practice',expectedRevision:development.revision,type:'practice',source:'bandaging',sourceId:'installed-wound:episode-1',stat:'medical',amount:1});strict.ok(practiced.ok,practiced.reason);development=practiced.next;
+const savedDevelopment=serializeProgression(development),restoredDevelopment=openProgression(savedDevelopment);strict.equal(serializeProgression(restoredDevelopment),savedDevelopment);strict.deepEqual(restoredDevelopment.character.resources,progressionActor.resources);
+const repeatedAward=stageProgression(restoredDevelopment,progressionAward);strict.ok(repeatedAward.ok,repeatedAward.reason);strict.equal(serializeProgression(repeatedAward.next),savedDevelopment);
+const renamedAward=stageProgression(restoredDevelopment,{...progressionAward,id:'installed-renamed-award',expectedRevision:restoredDevelopment.revision});strict.equal(renamedAward.ok,false);strict.equal(renamedAward.code,'source-conflict');strict.equal(serializeProgression(renamedAward.next),savedDevelopment);
+strict.equal(stageProgression(restoredDevelopment,{...progressionAward,id:'installed-conflicting-award',expectedRevision:restoredDevelopment.revision,amount:101}).ok,false);
+strict.equal(stageProgression(restoredDevelopment,{id:'installed-stale-allocation',expectedRevision:0,type:'allocate',allocation:{medical:1}}).ok,false);
+strict.equal(stageProgression(restoredDevelopment,{id:'installed-overspend',expectedRevision:restoredDevelopment.revision,type:'allocate',allocation:{medical:1}}).ok,false);
+strict.throws(()=>openProgression({...restoredDevelopment,version:2}));strict.throws(()=>openPlainCharacter({...progressionActor,xp:100}));strict.ok(progressionSheet(restoredDevelopment));
+const developmentRequirements={schema:{id:'nautilus-progression',version:1},required:[{id:'nautilus-basic-progression-v1',minVersion:1,maxVersion:1}],optional:[]};strict.ok(negotiateProgression(developmentRequirements).ok);
+const unsupportedDevelopment=progressionManifest();unsupportedDevelopment.capabilities=unsupportedDevelopment.capabilities.filter(entry=>entry.id!=='nautilus-basic-progression-v1');strict.equal(negotiateProgression(developmentRequirements,unsupportedDevelopment).ok,false);
+const developmentSchema=progressionSchemas().find(entry=>entry.id==='nautilus-progression');strict.ok(developmentSchema);strict.equal(JSON.parse(fs.readFileSync(new URL(developmentSchema.url),'utf8')).$id,developmentSchema.uri);
+console.log('Installed basic progression: 15-point reward, atomic allocation, separate practice, strict saves, preserved resources, durable replay and schema/capability negotiation pass.');

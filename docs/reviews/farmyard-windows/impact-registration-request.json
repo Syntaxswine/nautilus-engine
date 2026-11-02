@@ -1,0 +1,63 @@
+{
+  "kind": "nautilus-window-impact-registration-request",
+  "version": 1,
+  "status": "Applied and locally verified on the coder branch; pending Architect integration review, with no merge or release approval",
+  "implementationBase": "38db463ac44acb5d9a93d3d94a7532123d0c121c",
+  "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "reason": "Automatic approval review initially rejected integration-owned root edits. On 2026-10-30 Architect, Nautilus Engine reviewed this exact request at cc23bea012abaca8bd552b0cece59fee45e8c5ef and explicitly approved only scoped registration, declared proof, four gates and branch commit/push for subsequent integration review. That decision does not authorize merge or release and does not independently accept the entire implementation.",
+  "entries": {
+    "./windows": "./packages/windows-core/index.js",
+    "./adapters/farmyard/windows": "./packages/adapters/farmyard/windows.js"
+  },
+  "schemas": [
+    {"id":"nautilus-window-geometry","version":1,"uri":"urn:nautilus:schema:window-geometry:1","file":"packages/windows-core/window-geometry-v1.schema.json"},
+    {"id":"nautilus-window-pane-state","version":1,"uri":"urn:nautilus:schema:window-pane-state:1","file":"packages/windows-core/window-pane-state-v1.schema.json"},
+    {"id":"nautilus-farmyard-window-host-save","version":1,"uri":"urn:nautilus:schema:farmyard-window-host-save:1","file":"packages/adapters/farmyard/windows/window-host-save-v1.schema.json"}
+  ],
+  "engineCapability": {
+    "id": "nautilus-window-panes-v1",
+    "versions": [1],
+    "description": "Bounded first-hit confirmed pane state/query/receipt/save implementation candidate; requires six separately bound v1 host services. Architect integration and game adoption remain separate."
+  },
+  "hostPromisesMustNotAppearInEngineManifest": [
+    "fixed-window-definitions-v1",
+    "complete-window-query-composition-v1",
+    "confirmed-impact-authority-v1",
+    "atomic-window-context-commit-v1",
+    "window-geometry-invalidation-v1",
+    "complete-window-save-staging-v1"
+  ],
+  "packageSupport": [
+    "packages/windows-core/window-geometry-v1.schema.json",
+    "packages/windows-core/window-pane-state-v1.schema.json",
+    "packages/adapters/farmyard/windows/window-host-save-v1.schema.json",
+    "packages/adapters/farmyard/windows/NOTICE.md",
+    "docs/adapters/farmyard-window-impacts.md",
+    "docs/reviews/farmyard-windows/source-audit.json",
+    "docs/reviews/farmyard-windows/impact-registration-request.json"
+  ],
+  "runtimeFiles": "Use the actual decoded module closure of the two entries; tools/check-farmyard-window-queries.mjs reports each file, size and SHA-256. Keep raw donor conformance sources outside all runtime packages.",
+  "testEntry": "node tools/test-farmyard-window-impacts-package.mjs",
+  "registrationExpectationTests": [
+    "tests/farmyard-windows-contract.test.mjs: replace the historical absent-export assertion with the actual declared entry and verify the engine still advertises none of the six host promises",
+    "tests/farmyard-windows-queries.test.mjs: replace absent root-entry expectations with the actual declared targets after approval"
+  ],
+  "testBehavior": "Requires actual declared core exports, all three registered schemas and support-file whitelist. Without those it refuses FULL_PROFILE_REGISTRATION_PENDING. Only explicit --candidate enables the clearly labelled private overlay.",
+  "afterApproval": "Only these entry/schema/capability/support/test changes were applied and the exact package whitelist regenerated. The declared installed proof and four gates passed; branch delivery is for Architect review only.",
+  "validation": {
+    "date": "2026-10-30",
+    "implementationCommit": "cc23bea012abaca8bd552b0cece59fee45e8c5ef",
+    "registrationCommit": "c46d03f859b69ad5ba5307887551dd4328fab102",
+    "persistenceCorrection": "Architect-requested follow-up rejects lossy or invalid native seen/visible/detected Set encodings in standalone open/serialize and live restore before CAS/publication. Native Sets, typed actor IDs and deliberately unmarked arrays retain exact values/order/type. Five focused regressions include zero-CAS refusal with a permissive outer validator; three duplicate-set regressions failed before the correction.",
+    "declaredPackageCommand": "node tools/test-farmyard-window-impacts-package.mjs",
+    "declared": true,
+    "installedAssertions": "Both exports, all three installed schema URLs/URIs and manifest versions, all seven support files, engine-only pane capability and six missing host promises; retained save/retry conformance with 43 hash-verified original files outside the runtime package.",
+    "requiredGates": {"npm run check":"pass","npm test":"611 passed","npm run test:upstream":"32 passed","npm run build":"pass; 445 module paths"},
+    "independentSchemaValidation": "Draft 2020-12: all three schemas / 27 cases passed, including marked-set duplicates/types and unmarked retained arrays",
+    "runtimeModules": 14,
+    "runtimeBytes": 93811,
+    "whitelistFilesAdded": 17,
+    "actualArchiveEvidence": "artifacts/farmyard-windows/installed-impact-report.json; archive SHA-256 is recorded outside the shipped request to avoid a self-referential package hash"
+  },
+  "preserved": "No version bump, CI workflow edit, release/tag, upstream/consumer pin, renderer, Editor/UI, other-game adoption or private audience change is requested. Released door/grenade capabilities continue refusing windows before costs."
+}

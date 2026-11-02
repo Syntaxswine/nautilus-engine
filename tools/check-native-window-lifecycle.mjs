@@ -1,0 +1,10 @@
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';import {moduleClosure} from './distribution.mjs';
+import * as W from '../packages/windows-core/index.js';import * as F from '../packages/adapters/farmyard/windows.js';import * as T from '../packages/render-effects/three.js';
+import {root} from './snapshot-native-window-presenter.mjs';import {runLifecycleProof} from '../tests/fixtures/native-window-presenter/lifecycle-proof.mjs';
+const baseline=process.argv.includes('--baseline'),commit='9fe6fc989a147a2a2c578727ebebfec5ef1e8b58',output=path.join(root,'artifacts/native-window-presenter-lifecycle');fs.mkdirSync(output,{recursive:true});
+let entry=path.join(root,'packages/native-window-presenter/three.js');
+if(baseline){const stage=path.join(output,'baseline-9fe');for(const name of ['data.js','geometry.js','paint.js','prepare.js','three.js']){const file=path.join(stage,name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',commit+':packages/native-window-presenter/'+name],{windowsHide:true,maxBuffer:1000000}));}entry=path.join(stage,'three.js');}
+const paths=baseline?['data.js','geometry.js','paint.js','prepare.js','three.js'].map(n=>'packages/native-window-presenter/'+n):moduleClosure(['packages/native-window-presenter/three.js']);
+const runtime=paths.map(file=>{const bytes=fs.readFileSync(baseline?path.join(path.dirname(entry),path.basename(file)):path.join(root,file));return {path:file,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')};});
+const V=await import(pathToFileURL(entry)),report={source:baseline?commit:'current source',runtime,...runLifecycleProof({W,F,T,V},{baseline})};fs.writeFileSync(path.join(output,baseline?'before.json':'fixed.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));if(report.status!=='pass')process.exitCode=1;

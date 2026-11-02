@@ -1,0 +1,241 @@
+{
+ "browser": "156.0.4314.50",
+ "testFileSha": "f5c885d726d34d7bc73842ae226b9e8e745517c6fd87c120a668ebb5462b91bc",
+ "rows": [
+  {
+   "probe": "P01 disabled=true twice, then false twice",
+   "browser": [
+    "disabled",
+    "disabled",
+    "|",
+    "disabled"
+   ],
+   "double": [
+    "disabled",
+    "disabled",
+    "|",
+    "disabled"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P02 title set to the same value twice",
+   "browser": [
+    "title",
+    "title"
+   ],
+   "double": [
+    "title",
+    "title"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P03 textContent vs characterData, then a text node data write",
+   "browser": [
+    "|",
+    "characterData",
+    "Send now"
+   ],
+   "double": [
+    "|",
+    "characterData",
+    "Send now"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P04 textContent empty on empty, then the same text twice",
+   "browser": [
+    "|",
+    "childList",
+    "childList",
+    "|",
+    "childList"
+   ],
+   "double": [
+    "|",
+    "childList",
+    "childList",
+    "|",
+    "childList"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P05 attributeOldValue implies attributes",
+   "browser": [
+    "title"
+   ],
+   "double": [
+    "title"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P06 characterDataOldValue implies characterData",
+   "browser": [
+    "characterData"
+   ],
+   "double": [
+    "characterData"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P07 subtree alone throws",
+   "browser": "TypeError",
+   "double": "TypeError",
+   "agree": true
+  },
+  {
+   "probe": "P08 attributeFilter as a string",
+   "browser": "throws TypeError",
+   "double": [
+    "accepted",
+    "disabled"
+   ],
+   "agree": false
+  },
+  {
+   "probe": "P09 observe(null)",
+   "browser": "throws TypeError",
+   "double": "accepted",
+   "agree": false
+  },
+  {
+   "probe": "P10 attributes false with a filter throws",
+   "browser": "throws TypeError",
+   "double": "throws TypeError",
+   "agree": true
+  },
+  {
+   "probe": "P11 delivery order: creation order, whatever the write order",
+   "browser": [
+    "A",
+    "B"
+   ],
+   "double": [
+    "A",
+    "B"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P12 a record for an observer that was not pending: same pass, or a later microtask",
+   "browser": [
+    "A",
+    "promise",
+    "B"
+   ],
+   "double": [
+    "A",
+    "B",
+    "promise"
+   ],
+   "agree": false
+  },
+  {
+   "probe": "P13 a finite cascade of 12 self-writes",
+   "browser": "settled after 12 deliveries",
+   "double": "fails: A page observer re-triggers itself: one write was delivered 10 times, last as #b (9 deliveries)",
+   "agree": false
+  },
+  {
+   "probe": "P14 hidden reflects; setting it twice records twice",
+   "browser": [
+    "hidden:",
+    "hidden:",
+    "|",
+    "hidden:null"
+   ],
+   "double": [
+    "hidden:",
+    "hidden:",
+    "|",
+    "hidden:null"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P15 classList.toggle with and without a change",
+   "browser": [
+    "|",
+    "class",
+    "|"
+   ],
+   "double": [
+    "|",
+    "class",
+    "|"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P16 append moves a node: records on the old and new parent",
+   "browser": [
+    "old",
+    "new"
+   ],
+   "double": [
+    "old",
+    "new"
+   ],
+   "agree": true
+  },
+  {
+   "probe": "P17 a node removed from an observed subtree keeps reporting until delivery (transient observer)",
+   "browser": [
+    "childList",
+    "attributes"
+   ],
+   "double": [
+    "childList"
+   ],
+   "agree": false
+  },
+  {
+   "probe": "P18 observing the document sees the body subtree",
+   "browser": [
+    "childList"
+   ],
+   "double": [],
+   "agree": false
+  },
+  {
+   "probe": "P19 takeRecords exists",
+   "browser": "function",
+   "double": "undefined",
+   "agree": false
+  },
+  {
+   "probe": "P20 setAttribute upper case on an HTML element",
+   "browser": [
+    "disabled",
+    "disabled=true"
+   ],
+   "double": [
+    "disabled=false"
+   ],
+   "agree": false
+  },
+  {
+   "probe": "P21 disabled on a p element",
+   "browser": [
+    true,
+    null
+   ],
+   "double": [
+    true,
+    ""
+   ],
+   "agree": false
+  },
+  {
+   "probe": "P22 className reflects class",
+   "browser": "k",
+   "double": null,
+   "agree": false
+  }
+ ]
+}

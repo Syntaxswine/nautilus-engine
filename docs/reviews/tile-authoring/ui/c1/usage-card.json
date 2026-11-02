@@ -1,0 +1,68 @@
+{
+  "kind": "nautilus-component-usage-card",
+  "version": 1,
+  "id": "ui.tile-authoring.c1",
+  "status": "component-checkpoint-protocol-doubles-only",
+  "purpose": "Rectangle-first immutable library and selected upgrade through one Editor HostService.",
+  "entry": "apps/editor/tile-authoring/ui/panel.js",
+  "style": "apps/editor/tile-authoring/ui/styles.css",
+  "guide": "docs/reviews/tile-authoring/ui/c1/README.md",
+  "requires": [
+    "reviewed actual tiles and tiles/authoring exports",
+    "same production Editor HostService for UI and JSONL",
+    "atomic full-v3 snapshot and UI678 EditorDraftView",
+    "Editor draft collector/retained bytes/explicit IDs",
+    "existing whole-document history/save/open/retry hooks",
+    "borrowed native floor/input/resource ownership"
+  ],
+  "controls": [
+    "recipe.create",
+    "recipe.clone",
+    "recipe.revise",
+    "preset.save",
+    "preset.place",
+    "placement.upgrade",
+    "Stage",
+    "Review",
+    "Apply",
+    "same-id recovery",
+    "whole-document history"
+  ],
+  "unavailable": [
+    "paths",
+    "overlays",
+    "artwork import",
+    "decoration capture",
+    "decoder",
+    "physical support",
+    "navigation",
+    "game adoption"
+  ],
+  "defaults": {
+    "captureSelectedDecorations": false,
+    "defaultLayers": [],
+    "defaultMarks": [],
+    "placeDefaults": "empty",
+    "automaticRevisionFollowing": false,
+    "automaticUpgradeTarget": false
+  },
+  "decisions": [
+    "Choose supported rectangle dimensions, floors and finish profile using actual Core/Editor.",
+    "Reserve explicit bounded IDs; preserve immutable pins and notices.",
+    "Select exactly which owner upgrades; preserve other copies/presets.",
+    "Supply/prove full-v3 persistence, recovery, resources and separate readiness.",
+    "Game adoption remains a separate binding."
+  ],
+  "proof": {
+    "actualCore": false,
+    "actualHost": false,
+    "browser": false,
+    "installed": false,
+    "protocolDoubles": true
+  },
+  "pins": {
+    "acceptedMain": "d869410625b246cfff2b51089e7878c31951775c",
+    "coreContract": "43227894c50ec62b71806978195fff2c650eb388",
+    "uiContract": "678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2"
+  }
+}

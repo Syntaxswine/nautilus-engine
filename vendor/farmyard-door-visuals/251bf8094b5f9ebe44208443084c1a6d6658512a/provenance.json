@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/Syntaxswine/farmyard-commando",
+  "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "snapshotRoot": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+  "files": [
+    {
+      "path": "sites/tactical-animal/dist/interaction-view.js",
+      "gitBlob": "bda65930d6d751786718f8f01dc992bc22a0ec08",
+      "bytes": 5075,
+      "sha256": "2a936d435fbff9a04872092905de44390a4226b773121f7355e7b5534d15a9ef",
+      "role": "mixed-view-reference-only"
+    },
+    {
+      "path": "sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "gitBlob": "e7a889d7389318f9235710bd3b09de4aeaf907b1",
+      "bytes": 2757790,
+      "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021",
+      "role": "native-runtime-timber-texture"
+    }
+  ],
+  "copiedPayload": {
+    "originalFiles": 2,
+    "originalBytes": 2762865,
+    "generatedFiles": [
+      "NOTICE.md",
+      "provenance.json"
+    ]
+  },
+  "runtime": {
+    "adaptedEntry": "packages/door-visuals/three.js",
+    "resources": [
+      "sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png"
+    ],
+    "sharedThree": "packages/render-effects/three.js",
+    "donorRuntimeImported": false,
+    "duplicateThreeModules": 0,
+    "profile": "farmyard-single-ground-leaf-endpoint-v1"
+  },
+  "referenceClosure": {
+    "entry": "sites/tactical-animal/dist/interaction-view.js",
+    "staticModules": [
+      {
+        "path": "sites/tactical-animal/dist/aft-checkpoint-data.js",
+        "gitBlob": "933f10bce178887d01c79b5bc6952655021ac949",
+        "bytes": 4604,
+        "sha256": "ac6614949fec4b4eeda265da688cd811069ec37f67fd5d6354c6933be049478e",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft-sector.js",
+        "gitBlob": "2ead1576d7064db7c39ee8a3653cfb03613d66eb",
+        "bytes": 4358,
+        "sha256": "f617d73a5c75d478b0ff25f17d3c3218935d1c233094f99b3577f67660c54888",
+        "imports": [
+          {
+            "specifier": "./aft-checkpoint-data.js",
+            "target": "sites/tactical-animal/dist/aft-checkpoint-data.js"
+          },
+          {
+            "specifier": "./window-catalogue.js",
+            "target": "sites/tactical-animal/dist/window-catalogue.js"
+          },
+          {
+            "specifier": "./world-grid.js",
+            "target": "sites/tactical-animal/dist/world-grid.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/prop-art.js",
+        "gitBlob": "111e29d8af7c1dfd1d31aec0f6a8cf23a34e62b7",
+        "bytes": 6212,
+        "sha256": "62c41ba8e634fcab8a942985469533d5a3947b967e3fd1f8a68a2a08d7638dd6",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.core.js",
+        "gitBlob": "f84d2c39355cc1b8c7024f37d3f39548cf74e736",
+        "bytes": 1462227,
+        "sha256": "496aa42d1d47b9a40d16eab2864177cb94368a165a7c3e79345c43ad0109e093",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.module.js",
+        "gitBlob": "9c0af06a40fe4e91c3be42458b0276f87c0a4541",
+        "bytes": 621667,
+        "sha256": "96cc39e18fde90e5a3896252775a71e8f3d3e946da0035ee27f3ecce09c60e8c",
+        "imports": [
+          {
+            "specifier": "./three.core.js",
+            "target": "sites/tactical-animal/dist/aft/tactics/vendor/three.core.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/art/windows/catalog.js",
+        "gitBlob": "915e0298369703134a353154f7db0d53489a5558",
+        "bytes": 6121,
+        "sha256": "3b542522d18f27ec98f069a546c5f13b5e5b3fe499cead4465b44b965672dd70",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/checkpoint-approaches.js",
+        "gitBlob": "c69665407232ecc3c385d8e6aab803f3e5b9a5b4",
+        "bytes": 1708,
+        "sha256": "8ce73e701da66449050b7f6f0a38525f97934f6bca95a479ba4f7f89b1a1ad40",
+        "imports": [
+          {
+            "specifier": "./aft-sector.js",
+            "target": "sites/tactical-animal/dist/aft-sector.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/interaction-view.js",
+        "gitBlob": "bda65930d6d751786718f8f01dc992bc22a0ec08",
+        "bytes": 5075,
+        "sha256": "2a936d435fbff9a04872092905de44390a4226b773121f7355e7b5534d15a9ef",
+        "imports": [
+          {
+            "specifier": "./aft/tactics/prop-art.js",
+            "target": "sites/tactical-animal/dist/aft/tactics/prop-art.js"
+          },
+          {
+            "specifier": "./aft/tactics/vendor/three.module.js",
+            "target": "sites/tactical-animal/dist/aft/tactics/vendor/three.module.js"
+          },
+          {
+            "specifier": "./interactions.js",
+            "target": "sites/tactical-animal/dist/interactions.js"
+          },
+          {
+            "specifier": "./mission-scenery.js",
+            "target": "sites/tactical-animal/dist/mission-scenery.js"
+          },
+          {
+            "specifier": "./missions.js",
+            "target": "sites/tactical-animal/dist/missions.js"
+          },
+          {
+            "specifier": "./world-grid.js",
+            "target": "sites/tactical-animal/dist/world-grid.js"
+          }
+        ],
+        "copied": true
+      },
+      {
+        "path": "sites/tactical-animal/dist/interactions.js",
+        "gitBlob": "52b80b907482f52d6cd227bb76c0f87ca5e1599c",
+        "bytes": 11971,
+        "sha256": "2690684dcd568e7731c3121a62a0665370c21fe21eefb608efad210199e00c2a",
+        "imports": [
+          {
+            "specifier": "./missions.js",
+            "target": "sites/tactical-animal/dist/missions.js"
+          },
+          {
+            "specifier": "./world-dimensions.js",
+            "target": "sites/tactical-animal/dist/world-dimensions.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/mission-art/short-measure/solids.js",
+        "gitBlob": "2111b713e03fe0b7613f2d664bf75f374cbc391a",
+        "bytes": 5365,
+        "sha256": "d8f21081f82a33ca1e1756b865b6e27c0cbddf73925c7513ff6316ba36250a7a",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/mission-scenery.js",
+        "gitBlob": "badb32cb2274dc9884d5a6a35ec8301338dd0392",
+        "bytes": 4158,
+        "sha256": "99e594a9b3ff58f74d59805cd84e1af8b3ae6620e9709f6bff9496887a7b52f9",
+        "imports": [
+          {
+            "specifier": "./mission-art/short-measure/solids.js",
+            "target": "sites/tactical-animal/dist/mission-art/short-measure/solids.js"
+          },
+          {
+            "specifier": "./world-dimensions.js",
+            "target": "sites/tactical-animal/dist/world-dimensions.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/missions.js",
+        "gitBlob": "b71afa4b7f49c3dfeb2f8d333a95dc82dd2b0d39",
+        "bytes": 16085,
+        "sha256": "466bdda1adc83cb3ac612de97b7981596ac8442712c18ace66bb24d8d1333aaa",
+        "imports": [
+          {
+            "specifier": "./aft-sector.js",
+            "target": "sites/tactical-animal/dist/aft-sector.js"
+          },
+          {
+            "specifier": "./checkpoint-approaches.js",
+            "target": "sites/tactical-animal/dist/checkpoint-approaches.js"
+          },
+          {
+            "specifier": "./window-review-map.js",
+            "target": "sites/tactical-animal/dist/window-review-map.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/window-catalogue.js",
+        "gitBlob": "e60e47daaee4df0904c7ec35f7e2478ba74e4d53",
+        "bytes": 805,
+        "sha256": "2addc8ccfc246de62d03b13ef1e01ce84ea37a9433b37a6fcef975e3abeb2592",
+        "imports": [
+          {
+            "specifier": "./art/windows/catalog.js",
+            "target": "sites/tactical-animal/dist/art/windows/catalog.js"
+          },
+          {
+            "specifier": "./window-system.js",
+            "target": "sites/tactical-animal/dist/window-system.js"
+          }
+        ],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/window-review-map.js",
+        "gitBlob": "3979a7d51604ae353edba7820a8cc5f567863bd5",
+        "bytes": 3243,
+        "sha256": "0bdd481a69d22f510b9412ba69d316e60c71efada3b7069701594305fe61490f",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/window-system.js",
+        "gitBlob": "5cf3da5f4e33e1c836ceede5f143feb6091693a0",
+        "bytes": 9589,
+        "sha256": "27d8d5d6db9932900a6c068afb0eb9b34fdcb0ecb0f845a80b0252942fc28869",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/world-dimensions.js",
+        "gitBlob": "a1831c1f0195f48b554cc0da59dc12f593acd9d4",
+        "bytes": 396,
+        "sha256": "fbdc1edefc1f720d20d7af51651ddb2ce40c19030cfca16b99559b39c4a0176a",
+        "imports": [],
+        "copied": false
+      },
+      {
+        "path": "sites/tactical-animal/dist/world-grid.js",
+        "gitBlob": "024fb33c8484fd226e1054dee3c2a966bd424386",
+        "bytes": 2266,
+        "sha256": "6f31e4fd4e41f8ccd48d2eb0113640edfd699442530291ceca18facb81c05128",
+        "imports": [],
+        "copied": false
+      }
+    ],
+    "scope": "Complete literal static JavaScript import closure of the mixed InteractionScenery reference. Only the entry is copied. Dynamic/runtime resources are separately bounded below; this is not a complete game asset inventory."
+  },
+  "deferred": {
+    "chestPaints": [
+      {
+        "id": "supply-chest-closed",
+        "path": "sites/tactical-animal/dist/aft/assets/environment/containers/supply-chest-closed.png",
+        "gitBlob": "028706c26979be526aea6da23bbc39461e8e9d83",
+        "bytes": 1436521,
+        "sha256": "474c057528573b57338be5aff6204588f79b6a894b6f77a2c33938423d55ac23",
+        "crop": [
+          63,
+          181,
+          1207,
+          1125
+        ],
+        "copied": false
+      },
+      {
+        "id": "supply-chest-open",
+        "path": "sites/tactical-animal/dist/aft/assets/environment/containers/supply-chest-open.png",
+        "gitBlob": "90f01c519d1681846c3ec646312aba2dcad5591d",
+        "bytes": 1523647,
+        "sha256": "905f0e52adc9135f631e60e7fd33de5a8e8212eee8d739f2ed01adb37e265bf9",
+        "crop": [
+          61,
+          59,
+          1206,
+          1173
+        ],
+        "copied": false
+      }
+    ],
+    "clue": {
+      "geometry": "OctahedronGeometry(.18)",
+      "material": {
+        "color": "0xe0c17b",
+        "roughness": 0.85
+      },
+      "owners": [
+        "sites/tactical-animal/dist/mission-scenery.js",
+        "sites/tactical-animal/dist/missions.js"
+      ],
+      "copied": false,
+      "disposition": "Clue anchor placement, mission state and inspected/fog tint remain host-specific; no external clue texture is loaded by this reference."
+    },
+    "mixedView": "Do not instantiate or import InteractionScenery: it eagerly loads both chest paints and imports mission, grid, interaction and separate Three source dependencies.",
+    "staticGameData": "All transitive mission/map source modules are hashed in referenceClosure.staticModules and remain uncopied; unrelated PROP_ART catalogue entries are not loaded by InteractionScenery and are outside the two-chest resource list."
+  },
+  "dependencyResolutions": {
+    "three": [
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.module.js",
+        "gitBlob": "9c0af06a40fe4e91c3be42458b0276f87c0a4541",
+        "bytes": 621667,
+        "sha256": "96cc39e18fde90e5a3896252775a71e8f3d3e946da0035ee27f3ecce09c60e8c",
+        "copied": false,
+        "reusedPath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+        "reusedBytes": 603412,
+        "reusedSha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+        "comparison": "Equal after CRLF-to-LF conversion only; existing original engine bytes and MIT notice remain unchanged."
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/vendor/three.core.js",
+        "gitBlob": "f84d2c39355cc1b8c7024f37d3f39548cf74e736",
+        "bytes": 1462227,
+        "sha256": "496aa42d1d47b9a40d16eab2864177cb94368a165a7c3e79345c43ad0109e093",
+        "copied": false,
+        "reusedPath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+        "reusedBytes": 1403454,
+        "reusedSha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+        "comparison": "Equal after CRLF-to-LF conversion only; existing original engine bytes and MIT notice remain unchanged."
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt",
+        "gitBlob": "18e86e61008cd974dd55e19f27185a66c64455ab",
+        "bytes": 1102,
+        "sha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05",
+        "copied": false,
+        "reusedPath": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/THREE-LICENSE.txt",
+        "reusedBytes": 1081,
+        "reusedSha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+        "comparison": "Equal after CRLF-to-LF conversion only; existing original engine bytes and MIT notice remain unchanged."
+      }
+    ]
+  },
+  "noticeReferences": [
+    {
+      "path": "sites/tactical-animal/aft-provenance.json",
+      "gitBlob": "4f3a234a75ba1c1e152edb6faea02e22030e7394",
+      "bytes": 221712,
+      "sha256": "10f4bb40ba69e326e04b0f2b6f23c81e34d8fd2155daf7005469becdb5887a3a"
+    },
+    {
+      "path": "sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt",
+      "gitBlob": "18e86e61008cd974dd55e19f27185a66c64455ab",
+      "bytes": 1102,
+      "sha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05"
+    }
+  ],
+  "notices": "Original embedded notices are byte-preserved. No blanket project licence is present at this pin and no new licence is asserted. Shared Three/MIT bytes are retained in the existing engine snapshot.",
+  "transformations": [
+    "Replace mixed view with one presentation-only unit box scaled/centred from the host public collider.",
+    "Reuse the original PNG bytes, source sRGB, material color/roughness and shadow flags.",
+    "Preserve source known-only door visibility and instant endpoint updates; no hinge animation or behavior authority."
+  ]
+}

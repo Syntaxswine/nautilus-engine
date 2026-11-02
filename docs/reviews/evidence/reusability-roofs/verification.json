@@ -1,0 +1,873 @@
+{
+  "schemaVersion": 1,
+  "implementation": "0b03fb429c895bf7b1f1635caa5532fe78f781c5",
+  "checks": [
+    {
+      "command": "npm run check -- --tracked",
+      "result": "pass",
+      "summary": "603 pinned files, 344 editor assets, 48 original buildings and all export hashes"
+    },
+    {
+      "command": "npm test",
+      "result": "pass",
+      "tests": 203,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "result": "pass",
+      "tests": 32,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run build",
+      "result": "pass",
+      "resolvedModulePaths": 350,
+      "recordedAdaptations": 11
+    },
+    {
+      "command": "npm run test:package",
+      "result": "pass",
+      "summary": "Installed core: public editing/history, roofs, schemas, saves, capability rejection, actual pinned Tinderbox collision and deterministic replay"
+    },
+    {
+      "command": "npm run test:assets",
+      "result": "pass",
+      "summary": "Installed optional asset package resolves all 48 model/buffer/blueprint/atlas URL sets"
+    },
+    {
+      "command": "npm run review:integration",
+      "result": "pass",
+      "summary": "Real isolated WebGL desktop/mobile authoring, history, save/reload, JSON roundtrip, roofs and capability host rejection"
+    }
+  ],
+  "packages": [
+    {
+      "profile": "core",
+      "name": "@nautilus-engine/core",
+      "version": "0.5.0",
+      "compressedBytes": 1146604,
+      "unpackedBytes": 6002589,
+      "fileCount": 130,
+      "integrity": "sha512-MFNt8nILKDt90ct81B4D4In4Uetz/14TYR8DMLN4BwIYDHV+w2rJR8R/E6a2Ak2Ah8zxDTlCb5v6o9bQrcEMjQ==",
+      "tarball": "nautilus-engine-core-0.5.0.tgz"
+    },
+    {
+      "profile": "renderer",
+      "name": "@nautilus-engine/renderer",
+      "version": "0.5.0",
+      "compressedBytes": 17526016,
+      "unpackedBytes": 19994301,
+      "fileCount": 42,
+      "integrity": "sha512-FGzuaSWFXrFhu6sZRNUThu9Y1yvikBLz7qmYqbmAFqmOaqF3+kifxpVd4Wr6gjZxzdFNQgyTkVOZj9WTg9cb4g==",
+      "tarball": "nautilus-engine-renderer-0.5.0.tgz"
+    },
+    {
+      "profile": "assets",
+      "name": "@nautilus-engine/building-assets",
+      "version": "0.5.0",
+      "compressedBytes": 10913035,
+      "unpackedBytes": 83157743,
+      "fileCount": 166,
+      "integrity": "sha512-vXnf2JvirzWlW8yDPUUhWjatwzQdPPM13Jh4ToSDKUqhwyfYGN0VwO96C7eySRc/C88O+WgLUixv1q9ZjGxB+Q==",
+      "tarball": "nautilus-engine-building-assets-0.5.0.tgz"
+    },
+    {
+      "profile": "compatibility",
+      "name": "@nautilus-engine/map-core",
+      "version": "0.5.0",
+      "compressedBytes": 18629690,
+      "unpackedBytes": 25795557,
+      "fileCount": 150,
+      "integrity": "sha512-CehxKdDuxS/zPaaDrNaPbN49GScdAkWjW6BLspq4x9BIWVhfGwulXQI0JjruR7GDKUoJ8EmJRdffLYE+4jZCrg==",
+      "files": [
+        {
+          "path": "CHANGELOG.md",
+          "size": 1586,
+          "mode": 420
+        },
+        {
+          "path": "NOTICE.md",
+          "size": 3204,
+          "mode": 420
+        },
+        {
+          "path": "README.md",
+          "size": 7652,
+          "mode": 420
+        },
+        {
+          "path": "assets/buildings/painted-materials-v2.png",
+          "size": 2558637,
+          "mode": 420
+        },
+        {
+          "path": "docs/compatibility.md",
+          "size": 4474,
+          "mode": 420
+        },
+        {
+          "path": "docs/distribution.md",
+          "size": 4143,
+          "mode": 420
+        },
+        {
+          "path": "package.json",
+          "size": 12954,
+          "mode": 420
+        },
+        {
+          "path": "packages/adapters/tinderbox/index.js",
+          "size": 15165,
+          "mode": 420
+        },
+        {
+          "path": "packages/assets/catalogue.js",
+          "size": 178538,
+          "mode": 420
+        },
+        {
+          "path": "packages/assets/index.js",
+          "size": 490,
+          "mode": 420
+        },
+        {
+          "path": "packages/assets/three.js",
+          "size": 1934,
+          "mode": 420
+        },
+        {
+          "path": "packages/building-catalog/designs.js",
+          "size": 12266,
+          "mode": 420
+        },
+        {
+          "path": "packages/building-catalog/index.js",
+          "size": 11005,
+          "mode": 420
+        },
+        {
+          "path": "packages/building-catalog/three.js",
+          "size": 21570,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/blocks.js",
+          "size": 5257,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/capabilities.js",
+          "size": 6476,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/contract-manifest.js",
+          "size": 2453,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/document.js",
+          "size": 6854,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/editing-document.js",
+          "size": 26714,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/generator.js",
+          "size": 4346,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/index.js",
+          "size": 2990,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/inspection.js",
+          "size": 5159,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/maps.js",
+          "size": 3184,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/persistence.js",
+          "size": 7958,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/prefab-blocks.js",
+          "size": 705,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/prefab-document.js",
+          "size": 3442,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/prefab-generator.js",
+          "size": 266,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/prefab-maps.js",
+          "size": 1754,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/prefab-rotation.js",
+          "size": 220,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-blocks.js",
+          "size": 2131,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-data.js",
+          "size": 4603,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-document.js",
+          "size": 4808,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-generator.js",
+          "size": 4754,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-maps.js",
+          "size": 952,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/roof-rotation.js",
+          "size": 760,
+          "mode": 420
+        },
+        {
+          "path": "packages/map-core/wall-runs.js",
+          "size": 8795,
+          "mode": 420
+        },
+        {
+          "path": "packages/prefab-core/catalogue.js",
+          "size": 26848,
+          "mode": 420
+        },
+        {
+          "path": "packages/prefab-core/index.js",
+          "size": 13696,
+          "mode": 420
+        },
+        {
+          "path": "packages/prefab-core/original-catalogue.js",
+          "size": 67995,
+          "mode": 420
+        },
+        {
+          "path": "packages/prefab-core/provider-original.js",
+          "size": 2025,
+          "mode": 420
+        },
+        {
+          "path": "packages/prefab-core/registry.js",
+          "size": 1847,
+          "mode": 420
+        },
+        {
+          "path": "packages/render-effects/index.js",
+          "size": 58,
+          "mode": 420
+        },
+        {
+          "path": "packages/render-effects/search-halo.js",
+          "size": 15564,
+          "mode": 420
+        },
+        {
+          "path": "packages/render-effects/three.js",
+          "size": 202,
+          "mode": 420
+        },
+        {
+          "path": "packages/roof-core/index.js",
+          "size": 13011,
+          "mode": 420
+        },
+        {
+          "path": "packages/roof-core/three.js",
+          "size": 5435,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/aft-compat.js",
+          "size": 498,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/characters.js",
+          "size": 4498,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/checks.js",
+          "size": 3238,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/combat.js",
+          "size": 4286,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/dialogue.js",
+          "size": 552,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/index.js",
+          "size": 706,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/upstream.js",
+          "size": 608,
+          "mode": 420
+        },
+        {
+          "path": "packages/rules-core/validation.js",
+          "size": 1347,
+          "mode": 420
+        },
+        {
+          "path": "schemas/aft-block-v1.schema.json",
+          "size": 1367,
+          "mode": 420
+        },
+        {
+          "path": "schemas/aft-map-v2.schema.json",
+          "size": 2575,
+          "mode": 420
+        },
+        {
+          "path": "schemas/capability-requirements-v1.schema.json",
+          "size": 1019,
+          "mode": 420
+        },
+        {
+          "path": "schemas/nautilus-save-v1.schema.json",
+          "size": 1499,
+          "mode": 420
+        },
+        {
+          "path": "schemas/sloped-roofs-v1.schema.json",
+          "size": 2570,
+          "mode": 420
+        },
+        {
+          "path": "upstream.json",
+          "size": 2655,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+          "size": 942,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+          "size": 502,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+          "size": 3809,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+          "size": 1888,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-mass.js",
+          "size": 278,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+          "size": 3095,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+          "size": 7740,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+          "size": 4357,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+          "size": 1686,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+          "size": 5856,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-support.js",
+          "size": 747,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+          "size": 3494,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+          "size": 945,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+          "size": 3997,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+          "size": 1944,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+          "size": 16205,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/blocks.js",
+          "size": 9174,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+          "size": 5263,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/editor-model.js",
+          "size": 9135,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+          "size": 6342,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+          "size": 2588,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+          "size": 4333,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+          "size": 23284,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+          "size": 1890,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+          "size": 1150,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-data.js",
+          "size": 1882,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+          "size": 9636,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-state.js",
+          "size": 8873,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+          "size": 855,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-breaches.js",
+          "size": 1856,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+          "size": 2326,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-foliage-brush.js",
+          "size": 4094,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-land-brush.js",
+          "size": 4648,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-ramp-stroke.js",
+          "size": 1821,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-structure-presets.js",
+          "size": 425,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+          "size": 6511,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+          "size": 5648,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+          "size": 1859,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+          "size": 1706403,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+          "size": 722,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fall-damage.js",
+          "size": 2796,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+          "size": 6825,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+          "size": 932,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+          "size": 714,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+          "size": 2798,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+          "size": 1743,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicoid-shot.js",
+          "size": 6636,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+          "size": 601010,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-start.js",
+          "size": 1594,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+          "size": 1763,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+          "size": 3151,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+          "size": 5475,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+          "size": 2022,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+          "size": 666,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+          "size": 330,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+          "size": 1569,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+          "size": 3352,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-block-rotation.js",
+          "size": 2490,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+          "size": 4614,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+          "size": 2344,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+          "size": 1083,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+          "size": 3010,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+          "size": 3032,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-catalog.js",
+          "size": 5449,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js",
+          "size": 3889,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+          "size": 2296,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+          "size": 4583,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+          "size": 3175,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+          "size": 2845,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+          "size": 2886480,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+          "size": 7744,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-collapse.js",
+          "size": 3426,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-health.js",
+          "size": 4746,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+          "size": 5813,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+          "size": 2680,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/babble/LICENSE",
+          "size": 1080,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/THREE-LICENSE.txt",
+          "size": 1081,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+          "size": 1403454,
+          "mode": 420
+        },
+        {
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+          "size": 603412,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/brick-sienna-v1.png",
+          "size": 2388078,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/roof-slate-v1.png",
+          "size": 2333888,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/cedar-shingles-v1.png",
+          "size": 2250650,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/clapboard-ivory-v1.png",
+          "size": 2144158,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/floorboards-oak-v1.png",
+          "size": 2663881,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json",
+          "size": 124421,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/wallpaper-botanical-v1.png",
+          "size": 3267103,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js",
+          "size": 26774,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/resources.js",
+          "size": 1291,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/content/asset-scale.js",
+          "size": 1066,
+          "mode": 420
+        },
+        {
+          "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/tactics/hybrid-geometry.js",
+          "size": 1644,
+          "mode": 420
+        }
+      ]
+    }
+  ],
+  "logHashes": [
+    {
+      "file": "integrity.log",
+      "sha256": "5003cefc187d558c8d8b6eeb54b6b8633b2449eef987bdd6b52423a5e63e10bb"
+    },
+    {
+      "file": "nautilus-tests.log",
+      "sha256": "ef611d3f9bff0dc19f1deed82da799cc5000fea700902ef72b0fd31ca621af2e"
+    },
+    {
+      "file": "upstream-tests.log",
+      "sha256": "f9c8d467705502abecbf7ec3d082fac1b284fd48e11e47f31e9f960829c4bde3"
+    },
+    {
+      "file": "build.log",
+      "sha256": "8c5b0cc79f723ea55f4c537bacbdb6465be5d15a9feaabc8af7e6820f69fc11a"
+    },
+    {
+      "file": "core-package.log",
+      "sha256": "2c863e8e3a57968b3c5710f12ecd6cc914010c1acaaa85f15aaf431f63ece359"
+    },
+    {
+      "file": "renderer-package.log",
+      "sha256": "a4c24051952758474ec9c32af397ea9f68225dc984bbcf708cf98760ee287bc0"
+    },
+    {
+      "file": "assets-package.log",
+      "sha256": "90c727691b480588c069a222817d4b6c5845b429b8247d7fb6d1c93ece480362"
+    },
+    {
+      "file": "browser.log",
+      "sha256": "4f76e126bf4a5cd704d055c3bdf30ffb4325352caf88331f7c485e8b21f586bb"
+    }
+  ]
+}

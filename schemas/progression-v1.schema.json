@@ -1,0 +1,687 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:progression:1",
+  "title": "Nautilus basic character progression bundle version 1",
+  "description": "Structural validation only. openProgression additionally validates the complete command/receipt journal, profile arithmetic, character resource limits and duplicate identities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "profileId",
+    "character",
+    "baseline",
+    "level",
+    "xp",
+    "practice",
+    "revision",
+    "receipts"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-basic-progression"
+    },
+    "version": {
+      "const": 1
+    },
+    "profileId": {
+      "const": "basic-progression-v1"
+    },
+    "character": {
+      "$ref": "#/$defs/character"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stats",
+        "skillPoints"
+      ],
+      "properties": {
+        "stats": {
+          "$ref": "#/$defs/stats"
+        },
+        "skillPoints": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        }
+      }
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "xp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "practice": {
+      "$ref": "#/$defs/practice"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4096
+    },
+    "receipts": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/receipt"
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strength",
+        "endurance",
+        "dexterity",
+        "agility",
+        "intelligence",
+        "perception",
+        "mechanical",
+        "medical",
+        "firearms",
+        "heavyWeapons",
+        "explosives",
+        "leadership",
+        "sneak",
+        "climbing"
+      ],
+      "properties": {
+        "strength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "endurance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "dexterity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "agility": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "intelligence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "perception": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "mechanical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "medical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "firearms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "heavyWeapons": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "explosives": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "leadership": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sneak": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "climbing": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "strength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "endurance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "dexterity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "agility": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "intelligence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "perception": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "mechanical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "medical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "firearms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "heavyWeapons": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "explosives": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "leadership": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "sneak": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "climbing": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        }
+      },
+      "minProperties": 1
+    },
+    "statGains": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "strength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "endurance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "dexterity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "agility": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "intelligence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "perception": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "mechanical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "medical": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "firearms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "heavyWeapons": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "explosives": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "leadership": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "sneak": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "climbing": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        }
+      }
+    },
+    "practice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strength",
+        "endurance",
+        "dexterity",
+        "agility",
+        "intelligence",
+        "perception",
+        "mechanical",
+        "medical",
+        "firearms",
+        "heavyWeapons",
+        "explosives",
+        "leadership",
+        "sneak",
+        "climbing"
+      ],
+      "properties": {
+        "strength": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "endurance": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "dexterity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "agility": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "intelligence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "perception": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "mechanical": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "medical": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "firearms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "heavyWeapons": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "explosives": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "leadership": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "sneak": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        },
+        "climbing": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10899
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "id",
+        "name",
+        "stats",
+        "resources",
+        "skillPoints"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "stats": {
+          "$ref": "#/$defs/stats"
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hp",
+            "ap",
+            "stamina"
+          ],
+          "properties": {
+            "hp": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 150
+            },
+            "ap": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 18
+            },
+            "stamina": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 150
+            }
+          }
+        },
+        "skillPoints": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        }
+      }
+    },
+    "command": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "expectedRevision",
+            "type",
+            "source",
+            "sourceId",
+            "amount"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "type": {
+              "const": "xp"
+            },
+            "source": {
+              "enum": [
+                "kill",
+                "objective"
+              ]
+            },
+            "sourceId": {
+              "$ref": "#/$defs/identifier"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "expectedRevision",
+            "type",
+            "source",
+            "sourceId",
+            "amount",
+            "stat"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "type": {
+              "const": "practice"
+            },
+            "source": {
+              "enum": [
+                "running",
+                "shot",
+                "bandaging"
+              ]
+            },
+            "sourceId": {
+              "$ref": "#/$defs/identifier"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "stat": {
+              "enum": [
+                "endurance",
+                "firearms",
+                "heavyWeapons",
+                "medical"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "expectedRevision",
+            "type",
+            "allocation"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "type": {
+              "const": "allocate"
+            },
+            "allocation": {
+              "$ref": "#/$defs/allocation"
+            }
+          }
+        }
+      ]
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "xpGained",
+        "levelsGained",
+        "pointsGained",
+        "pointsSpent",
+        "practiceGained",
+        "practiceSpent",
+        "practiceDiscarded",
+        "statGains"
+      ],
+      "properties": {
+        "xpGained": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "levelsGained": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pointsGained": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pointsSpent": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "practiceGained": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "practiceSpent": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "practiceDiscarded": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "statGains": {
+          "$ref": "#/$defs/statGains"
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "id",
+        "characterId",
+        "revision",
+        "command",
+        "outcome"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "characterId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "command": {
+          "$ref": "#/$defs/command"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
+        }
+      }
+    }
+  }
+}

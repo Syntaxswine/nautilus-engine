@@ -1,0 +1,63 @@
+{
+  "sourceCommit": "116d3c3eb3ad7a6fc1cc5c00542e2bedc43d34d3",
+  "baseCommit": "5a5fb93c91f45948f075bc981e34397983babd02",
+  "diagnosis": {
+    "kind": "Harness timing assumption",
+    "historicalCiEventGap": "Not recorded; the exact failed-run gap remains an inference",
+    "runtimeFilesChanged": false,
+    "idleMsUnchanged": 180,
+    "nativeObservedGapMs": 201.5,
+    "nativeSelectedFloors": [
+      "floor-11",
+      "floor-12"
+    ],
+    "selectorZoom": 100,
+    "pageScrollBeforeAndAfter": 0,
+    "sceneZoom": 105,
+    "controlledBurstEvents": 121,
+    "controlledBurstDurationMs": 600,
+    "controlledTotalEvents": 128,
+    "controlledChanges": [
+      "floor-11",
+      "floor-12",
+      "floor-11"
+    ],
+    "timestampDomains": "Native input and the separate disposable controlled fixture never share a wheel gate"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/floor-navigation.test.mjs",
+      "exitCode": 0,
+      "tests": 14
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "pinnedSourceFiles": 603,
+      "editorAssets": 344
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 357,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "tests": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "checkedModulePaths": 382
+    },
+    {
+      "command": "npm run review:floors",
+      "exitCode": 0,
+      "sourceMode": false
+    }
+  ],
+  "retainedHelpers": []
+}

@@ -1,0 +1,42 @@
+baseline SURVIVED 215/215 44s
+E01 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E05 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E06 | KILLED touched | the Send buttons follow the connected host, and each refresh sees the new state | 15s  
+E07 | KILLED touched | the page bridge installs both libraries and exposes the engine before any host connects || the Send buttons follow the connected host, and each refresh sees the | 16s  
+E09 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E10 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E11 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E12 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+E17 | KILLED touched | the Send buttons follow the connected host, and each refresh sees the new state | 15s  
+G08 | KILLED touched | the editor handoff state sends the current export by default, and only its own disconnect clears it | 15s  
+G12 | KILLED touched | the Send buttons follow the connected host, and each refresh sees the new state || the editor handoff state sends the current export by default, and only its ow | 15s  
+G13 | KILLED touched | the editor handoff state sends the current export by default, and only its own disconnect clears it | 15s  
+N01 | SURVIVED full |  | 44s check exit 0 
+N02 | SURVIVED full |  | 43s check exit 0 
+N03 | SURVIVED full |  | 44s check exit 0 
+N04 | SURVIVED full |  | 43s check exit 0 
+N05 | SURVIVED full |  | 43s check exit 0 
+N06 | SURVIVED full |  | 44s check exit 0 
+N07 | SURVIVED full |  | 44s check exit 0 
+N08 | SURVIVED full |  | 44s check exit 0 
+N09 | SURVIVED full |  | 44s check exit 0 
+N10 | SURVIVED full |  | 43s check exit 0 
+N11 | SURVIVED full |  | 44s check exit 0 
+N12 | SURVIVED full |  | 44s check exit 0 
+N13 | SURVIVED full |  | 44s check exit 0 
+N14 | SURVIVED full |  | 44s check exit 0 
+N15 | KILLED touched | window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host | 15s  
+N16 | SURVIVED full |  | 44s check exit 0 
+F01 | SURVIVED full |  | 43s check exit 0 
+F02 | SURVIVED full |  | 43s check exit 0 
+file:///<sandbox>/artifacts/r4/hm.mjs:39
+  const [label, edits] = MUTANTS[id];
+                         ^
+
+TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+    at file:///<sandbox>/artifacts/r4/hm.mjs:39:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0

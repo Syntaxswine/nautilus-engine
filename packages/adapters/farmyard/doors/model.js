@@ -1,0 +1,42 @@
+import {FARMYARD_DOOR_CONTRACT as C,FARMYARD_DOOR_PROFILE as P,WEAPON_RANGES} from './profile.js';
+import {fields,finite,integer,text,id,stringId,bool,list,xy,fail} from './data.js';
+export const CONTEXT_FIELDS=['world','doors','actors','control','queue','support'];
+export const extract=value=>Object.fromEntries(CONTEXT_FIELDS.map(key=>[key,value[key]]));
+export const ACTOR_FIELDS=['id','name','team','species','stance','sneaking','cone','x','y','z','hp','ap','maxAp','weapon','heading','isMoving','burningTurns','alert','lastKnown','alertAge'];
+export const DOOR_FIELDS=['id','name','x','y','edge','swing','range','open'];
+const reservedSpecies=new Set(['constructor','__defineGetter__','__defineSetter__','hasOwnProperty','__lookupGetter__','__lookupSetter__','isPrototypeOf','propertyIsEnumerable','toString','valueOf','__proto__','toLocaleString']);
+export function checkSupport(value,path='/support'){
+  const flags=['pairs','locks','difficulty','damage','vertical','windows','reactive'];fields(value,[...flags,'refresh'],path);
+  for(const key of flags)if(value[key]!==false)fail('UNSUPPORTED_FEATURE',path+'/'+key,'This profile requires explicit absence of '+key+'.');
+  if(value.refresh!==P.refresh)fail('UNSUPPORTED_POLICY',path+'/refresh','Use the source post-door forced-visibility refresh policy.');return value;
+}
+export function checkBox(box,path){
+  fields(box,['id','interactionId','kind','x0','x1','y0','y1','z0','height'],path);stringId(box.id,path+'/id');if(box.interactionId!==null)stringId(box.interactionId,path+'/interactionId');
+  if(!['wall','crate','prop','part'].includes(box.kind))fail('UNSUPPORTED_GEOMETRY',path+'/kind','Only ordinary source wall/crate/prop/part geometry is supported.');
+  for(const key of ['x0','x1','y0','y1'])finite(box[key],-10000,10000,path+'/'+key);finite(box.z0,0,100,path+'/z0');finite(box.height,box.z0,100,path+'/height');
+  if(box.x1<box.x0||box.y1<box.y0)fail('INVALID_BOUNDS',path,'Geometry extents must be ordered.');return box;
+}
+export function checkContext(value,path=''){
+  fields(value,CONTEXT_FIELDS,path);checkSupport(value.support,path+'/support');const world=value.world;
+  fields(world,['bounds','grid','staticBoxes','seen','visible','fogAt'],path+'/world');fields(world.bounds,['x','y','w','h'],path+'/world/bounds');fields(world.grid,['width','height'],path+'/world/grid');
+  for(const axis of ['x','y'])finite(world.bounds[axis],-1000,1000,path+'/world/bounds/'+axis);for(const key of ['w','h'])finite(world.bounds[key],1,240,path+'/world/bounds/'+key);for(const key of ['width','height'])integer(world.grid[key],1,240,path+'/world/grid/'+key);
+  if(world.fogAt!==null)xy(world.fogAt,path+'/world/fogAt');
+  for(const group of ['seen','visible']){const cells=new Set();for(const [i,cell]of list(world[group],65536,path+'/world/'+group).entries()){if(typeof cell!=='string'||! /^(0|[1-9]\d*),(0|[1-9]\d*)(?![\s\S])/.test(cell)||cells.has(cell))fail('INVALID_FOG',path+'/world/'+group+'/'+i,'Use distinct integer cell keys.');const [x,y]=cell.split(',').map(Number);if(x>=world.grid.width||y>=world.grid.height)fail('INVALID_FOG',path+'/world/'+group+'/'+i,'Fog cell is outside the source grid.');cells.add(cell);}}
+  const doorIds=new Set(),edges=new Set();for(const [i,door]of list(value.doors,C.doors,path+'/doors').entries()){
+    const at=path+'/doors/'+i;fields(door,DOOR_FIELDS,at);stringId(door.id,at+'/id');if(doorIds.has(door.id))fail('DUPLICATE_ID',at+'/id','Door IDs must be unique.');doorIds.add(door.id);text(door.name,160,at+'/name');finite(door.x,-10000,10000,at+'/x');finite(door.y,-10000,10000,at+'/y');
+    const match=typeof door.edge==='string'&&/^([es]):(\d+):(\d+)(?![\s\S])/.exec(door.edge);if(!match||edges.has(door.edge))fail('UNSUPPORTED_DOOR',at+'/edge','Use one single leaf per distinct source edge; pairs are unsupported.');edges.add(door.edge);const x=Number(match[2])+(match[1]==='e'?.5:0),y=Number(match[3])+(match[1]==='s'?.5:0);
+    if(Math.abs(door.x-x)>P.epsilon||Math.abs(door.y-y)>P.epsilon)fail('MISALIGNED_DOOR',at,'The source door centre and edge frame disagree; no alignment is guessed.');
+    if(![-1,1].includes(door.swing)||door.range!==P.reachM)fail('UNSUPPORTED_DOOR',at,'Use a source-sized single leaf, signed swing and exact source reach.');bool(door.open,at+'/open');
+  }
+  const boxes=new Set();for(const [i,box]of list(world.staticBoxes,C.boxes,path+'/world/staticBoxes').entries()){checkBox(box,path+'/world/staticBoxes/'+i);if(boxes.has(box.id)||doorIds.has(box.id))fail('DUPLICATE_ID',path+'/world/staticBoxes/'+i+'/id','Current collider IDs must be globally distinct.');boxes.add(box.id);if(doorIds.has(box.interactionId))fail('DUPLICATE_DOOR_COLLIDER',path+'/world/staticBoxes/'+i,'A moving door cannot also be a permanent static box.');}
+  const actorIds=new Set();for(const [i,actor]of list(value.actors,C.actors,path+'/actors').entries()){
+    const at=path+'/actors/'+i;fields(actor,ACTOR_FIELDS,at);id(actor.id,at+'/id');if(actorIds.has(actor.id))fail('DUPLICATE_ID',at+'/id','Actor IDs must be unique with their original types.');actorIds.add(actor.id);text(actor.name,96,at+'/name');
+    if(!['squad','guard'].includes(actor.team)||!['standing','kneeling','prone'].includes(actor.stance))fail('UNSUPPORTED_ACTOR',at,'Use the reviewed squad/guard roles and stances.');text(actor.species,96,at+'/species');if(!actor.species.trim()||reservedSpecies.has(actor.species))fail('UNSUPPORTED_SPECIES',at+'/species','Reserved prototype names have no valid source sight semantics; ordinary unlisted species retain the default.');
+    bool(actor.sneaking,at+'/sneaking');if(actor.cone!==null)finite(actor.cone,-1000000,1000000,at+'/cone');finite(actor.x,-10000,10000,at+'/x');finite(actor.y,-10000,10000,at+'/y');if(actor.z!==0)fail('UNSUPPORTED_FLOOR',at+'/z','Source actor z is an explicit layer; this profile only supports layer zero.');
+    finite(actor.hp,0,1000000,at+'/hp');finite(actor.ap,-P.epsilon,1000000,at+'/ap');finite(actor.maxAp,0,1000000,at+'/maxAp');if(!Object.hasOwn(WEAPON_RANGES,actor.weapon))fail('UNSUPPORTED_WEAPON',at+'/weapon','Unknown source weapon range needed for control refresh.');finite(actor.heading,-1000000,1000000,at+'/heading');bool(actor.isMoving,at+'/isMoving');if(actor.burningTurns!==0)fail('UNSUPPORTED_FEATURE',at+'/burningTurns','Active burning requires its complete fire/control profile.');bool(actor.alert,at+'/alert');if(actor.lastKnown!==null)xy(actor.lastKnown,at+'/lastKnown');finite(actor.alertAge,0,1000000,at+'/alertAge');
+  }
+  const c=value.control;fields(c,['actorId','phase','status','engaged','round','detected'],path+'/control');id(c.actorId,path+'/control/actorId');if(value.actors.find(actor=>actor.team==='squad')?.id!==c.actorId)fail('UNSUPPORTED_ACTOR',path+'/control/actorId','Control must identify the first retained squad actor.');if(!['explore','player','enemy','won','lost'].includes(c.phase)||!['active','extracted','lost'].includes(c.status))fail('UNSUPPORTED_CONTROL',path+'/control','Unknown source phase or operation status.');bool(c.engaged,path+'/control/engaged');integer(c.round,0,1000000000,path+'/control/round');const detected=new Set();for(const [i,key]of list(c.detected,C.actors,path+'/control/detected').entries()){id(key,path+'/control/detected/'+i);if(detected.has(key)||!value.actors.some(actor=>actor.id===key&&actor.team==='guard'))fail('INVALID_DETECTION',path+'/control/detected/'+i,'Detection must name distinct retained guards.');detected.add(key);}
+  list(value.queue,C.queue,path+'/queue');return value;
+}
+export function checkCommand(value){fields(value,['version','id','expectedRevision','actorId','doorId','action'],'/command');if(value.version!==1)fail('UNSUPPORTED_COMMAND','/command/version','Use door command version 1.');id(value.id,'/command/id');integer(value.expectedRevision,0,C.maximumReceipts,'/command/expectedRevision');id(value.actorId,'/command/actorId');stringId(value.doorId,'/command/doorId');if(!['open','close'].includes(value.action))fail('UNSUPPORTED_ACTION','/command/action','This profile supports explicit Open/Close only.');return value;}
+export function checkCheckpoint(value){fields(value,['version','id','expectedRevision',...CONTEXT_FIELDS],'/command');if(value.version!==1)fail('UNSUPPORTED_COMMAND','/command/version','Use context command version 1.');id(value.id,'/command/id');integer(value.expectedRevision,0,C.maximumReceipts,'/command/expectedRevision');checkContext(extract(value),'/command');return value;}

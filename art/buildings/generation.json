@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "createdFor": "Nautilus Engine original building catalogue v1",
+  "observedDate": "2026-10-28",
+  "method": "Built-in image_gen tool; original atlas generation followed by a referenced-image refinement",
+  "selected": "assets/buildings/painted-materials-v2.png",
+  "prompts": [
+    "art/buildings/material-atlas-prompt.txt",
+    "art/buildings/material-atlas-refinement-prompt.txt"
+  ],
+  "atlasLayout": {
+    "columns": 4,
+    "rows": 4,
+    "rowMajorMaterials": [
+      "cream plaster",
+      "russet brick",
+      "grey stone",
+      "cream horizontal clapboard",
+      "sage horizontal siding",
+      "honey wood",
+      "barn-red vertical timber",
+      "blue-grey corrugated metal",
+      "charcoal slate",
+      "terracotta tiles",
+      "brown cedar shingles",
+      "light concrete",
+      "green standing-seam metal",
+      "ochre horizontal siding",
+      "dark oak",
+      "patinated copper"
+    ]
+  },
+  "outputs": [
+    {
+      "file": "assets/buildings/painted-materials-v1.png",
+      "toolOutputId": "exec-cbb20c96-5306-4ed8-b44a-6cf2ec37d2b0",
+      "selected": false,
+      "bytes": 3200181,
+      "sha256": "b2fdd8b3351bce18a66d909c53669c5b5464156126af7a53a47445b7cf8d970b",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "file": "assets/buildings/painted-materials-v2.png",
+      "toolOutputId": "exec-d14ca292-51c9-42db-9811-3915bd94b401",
+      "selected": true,
+      "bytes": 2558637,
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+      "width": 1254,
+      "height": 1254
+    }
+  ],
+  "architecturalSource": "packages/building-catalog/designs.js",
+  "sourceWorkflow": "Preserved detailed procedural architectural source; game derivation drops secondary bevels, roof relief and fitting density while preserving footprint, room and opening descriptors.",
+  "referenceEvidence": {
+    "queries": 24,
+    "opened": 22,
+    "successfulMedia": 159,
+    "explicitPlanExteriorPairs": 11,
+    "reviewedSourceCards": 20
+  },
+  "referenceUse": "Original authored arrangements and dimensions inspired by public sources; reference imagery is excluded from the runtime pack.",
+  "revisionNotes": [
+    "Version one establishes the 16 material swatches.",
+    "Version two preserves the layout and colors with broader brush shapes, quieter midtones and restrained wear; selected after review on the actual model UVs."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "mutant": "E03 sendToGame ignores its argument",
+  "runs": [
+    {
+      "label": "build",
+      "exit": 0,
+      "seconds": 14,
+      "lastLines": [
+        "> node tools/build.mjs",
+        "",
+        "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+        "Built Nautilus Engine 0.5.0: independent editor, headless map and rules cores, 11 recorded deployment patches; 351 module paths checked and own/adapted scripts syntax-checked."
+      ]
+    },
+    {
+      "label": "review:integration",
+      "exit": 0,
+      "seconds": 44,
+      "lastLines": [
+        "Capturing original-interior.png",
+        "Capturing gross-preview.png",
+        "Capturing editor-mobile-library.png",
+        "{\"sourceCommit\":\"fb8b26abc2faa62cf6e8fc1ea9e6fc9a63ca88fe\",\"buildProvenanceSha256\":\"74256b4053d13b7b71ecb4b5c7bed8beac35c1b1af9a60ba0737517192b45762\",\"host\":{\"calls\":1,\"buildings\":6,\"contract\":[\"nautilus-wall-runs-v1\",\"nautilus-building-prefabs-v1\",\"nautilus-original-buildings-v1\",\"nautilus-sloped-r"
+      ]
+    }
+  ],
+  "restored": true,
+  "rebuild": {
+    "label": "build (pristine)",
+    "exit": 0,
+    "seconds": 14,
+    "lastLines": [
+      "> node tools/build.mjs",
+      "",
+      "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+      "Built Nautilus Engine 0.5.0: independent editor, headless map and rules cores, 11 recorded deployment patches; 351 module paths checked and own/adapted scripts syntax-checked."
+    ]
+  },
+  "distEditorMatchesCommitted": true,
+  "status": ""
+}

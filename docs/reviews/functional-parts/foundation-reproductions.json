@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "25224b9f7994db29d2e05ebdce279c73f4434c1e",
+  "sourcePath": "packages/interactions/state.js",
+  "sourceSha256": "3fe85bc6db44b50f5d0fc3bad059b0cee3a607ada9a40fbff9d215a339e97576",
+  "harness": "Fixed Git source loaded in the same JS realm through a data module. Only import.meta.url was replaced with its original file URL for the documentation URL metadata; validation and cloning code are unchanged.",
+  "cases": [
+    {
+      "name": "state",
+      "attack": "accessor",
+      "before": {
+        "accepted": true,
+        "calls": 1
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "state",
+      "attack": "hidden",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "state",
+      "attack": "toJSON",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "state",
+      "attack": "class",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "state",
+      "attack": "symbol",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "state",
+      "attack": "undefined",
+      "before": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "accessor",
+      "before": {
+        "accepted": true,
+        "calls": 1
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "hidden",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "toJSON",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "class",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "symbol",
+      "before": {
+        "accepted": true,
+        "calls": 0
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    },
+    {
+      "name": "actor",
+      "attack": "undefined",
+      "before": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      },
+      "after": {
+        "accepted": false,
+        "calls": 0,
+        "code": "INVALID_DATA"
+      }
+    }
+  ],
+  "baselineDoorTests": {
+    "command": "node --test tests/interaction-foundation.test.mjs",
+    "failedBeforeFix": 4,
+    "passedBeforeFix": 1,
+    "failures": [
+      "getter invoked by state clone",
+      "getter invoked by constructor destructuring",
+      "static solid did not block door readiness",
+      "other leaf did not block door commit"
+    ],
+    "nativeLintelPreservationPassed": true
+  }
+}

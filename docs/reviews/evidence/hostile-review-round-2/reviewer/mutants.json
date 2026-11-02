@@ -1,0 +1,754 @@
+{
+  "root": "<sandbox at fb8b26a>",
+  "node": "v24.15.0",
+  "baseline": {
+    "verdict": "SURVIVED",
+    "exit": 0,
+    "tests": 208,
+    "pass": 208,
+    "fail": 0,
+    "failed": [],
+    "seconds": 37
+  },
+  "mutants": [
+    {
+      "id": "A-M05 clearance disabled (< -1)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 34,
+      "restored": true
+    },
+    {
+      "id": "A-M05b clearance tightened (< r+0.1)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 36,
+      "restored": true
+    },
+    {
+      "id": "A-M14 load returns editor export",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "loading and saving return the authored JSON, not the editor-normalized copy"
+      ],
+      "seconds": 35,
+      "restored": true
+    },
+    {
+      "id": "A-M18 limit x100",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "imported maps keep the 32-building limit that the authoring tools apply"
+      ],
+      "seconds": 42,
+      "restored": true
+    },
+    {
+      "id": "A-M18b limit >=",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "imported maps keep the 32-building limit that the authoring tools apply"
+      ],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "A-M16 both capability checks removed",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the game handoff never calls a host that lacks an authored feature"
+      ],
+      "seconds": 46,
+      "restored": true
+    },
+    {
+      "id": "A-M16a manifest check removed",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the game handoff never calls a host that lacks an authored feature"
+      ],
+      "seconds": 42,
+      "restored": true
+    },
+    {
+      "id": "A-M16b feature-list check removed",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the game handoff never calls a host that lacks an authored feature"
+      ],
+      "seconds": 43,
+      "restored": true
+    },
+    {
+      "id": "A-M16c silent host gets all features",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the game handoff never calls a host that lacks an authored feature"
+      ],
+      "seconds": 63,
+      "restored": true
+    },
+    {
+      "id": "A-M16d raw input handed over",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "a host that declares every authored feature receives exactly one validated copy"
+      ],
+      "seconds": 51,
+      "restored": true
+    },
+    {
+      "id": "C01 hypot -> max (Chebyshev corners)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 42,
+      "restored": true
+    },
+    {
+      "id": "C02 hypot -> sum (Manhattan corners)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "C03 vertical wall length -> thickness (y extent)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 63,
+      "restored": true
+    },
+    {
+      "id": "C04 horizontal wall length -> thickness (x extent)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 44,
+      "restored": true
+    },
+    {
+      "id": "C05 y extent copies x extent (axis paste)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 203,
+      "fail": 5,
+      "failed": [
+        "Nautilus flat-yard projection compiles with the actual pinned Tinderbox compiler",
+        "explicit crop and marker policy preserves all four starts, exit and coordinate meaning",
+        "versioned golden adapter save reloads equivalent map and game scenario",
+        "real Tinderbox simulation accepts adapter scenario, walls block its bear and replay matches after reload",
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "C06 swap = quarter % 4 (reversed walls)",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 37,
+      "restored": true
+    },
+    {
+      "id": "C07 x-term clamp dropped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 78,
+      "restored": true
+    },
+    {
+      "id": "C08 y-term clamp dropped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 56,
+      "restored": true
+    },
+    {
+      "id": "C09 playerRadius 0.56 -> 0.60",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 44,
+      "restored": true
+    },
+    {
+      "id": "C10 playerRadius 0.56 -> 0.53",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "C11 centre distance, no box",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 42,
+      "restored": true
+    },
+    {
+      "id": "C12 full thickness, not half",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "wall and save versions, unsafe JSON, options and bear clearance have actionable diagnostics"
+      ],
+      "seconds": 43,
+      "restored": true
+    },
+    {
+      "id": "C13 first wall module skipped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 64,
+      "restored": true
+    },
+    {
+      "id": "C14 bounds: top edge dropped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 46,
+      "restored": true
+    },
+    {
+      "id": "C15 bounds: right edge dropped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 42,
+      "restored": true
+    },
+    {
+      "id": "C16 bounds: bottom edge dropped",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 43,
+      "restored": true
+    },
+    {
+      "id": "C17 bounds: bottom edge uses width",
+      "files": [
+        "packages/adapters/tinderbox/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "P00 neutral: deep copy of raw",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "P01 parseSave returns editor export",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "P02 createSave stores editor export",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "loading and saving return the authored JSON, not the editor-normalized copy"
+      ],
+      "seconds": 41,
+      "restored": true
+    },
+    {
+      "id": "P03 load drops opaque metadata",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 205,
+      "fail": 3,
+      "failed": [
+        "save/reload preserves unknown JSON, versions and source blueprint bytes semantically",
+        "legacy migration is explicit, one-way, nonmutating and refuses fields it cannot preserve",
+        "golden legacy block and stamped save keep their canonical serialized representation"
+      ],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "P04 load returns the document map",
+      "files": [
+        "packages/map-core/persistence.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 206,
+      "fail": 2,
+      "failed": [
+        "loading and saving return the authored JSON, not the editor-normalized copy",
+        "golden legacy block and stamped save keep their canonical serialized representation"
+      ],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "B01 limit > 33 (off by one up)",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "imported maps keep the 32-building limit that the authoring tools apply"
+      ],
+      "seconds": 43,
+      "restored": true
+    },
+    {
+      "id": "B02 MAX_BUILDINGS = 33",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "imported maps keep the 32-building limit that the authoring tools apply"
+      ],
+      "seconds": 43,
+      "restored": true
+    },
+    {
+      "id": "B03 limit counts distinct assets",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "imported maps keep the 32-building limit that the authoring tools apply"
+      ],
+      "seconds": 73,
+      "restored": true
+    },
+    {
+      "id": "B04 limit only for the Gross catalogue",
+      "files": [
+        "packages/prefab-core/index.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 52,
+      "restored": true
+    },
+    {
+      "id": "B05 limit only at document open",
+      "files": [
+        "packages/prefab-core/index.js",
+        "packages/map-core/prefab-document.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 47,
+      "restored": true
+    },
+    {
+      "id": "H00 neutral: check the parsed input",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 41,
+      "restored": true
+    },
+    {
+      "id": "H01 validation errors ignored",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "H02 openMap called without its host",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 45,
+      "restored": true
+    },
+    {
+      "id": "H03 silent host defaults to wall runs",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 45,
+      "restored": true
+    },
+    {
+      "id": "H04 silent host defaults to prefabs",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 45,
+      "restored": true
+    },
+    {
+      "id": "H05 null adapter not checked",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 45,
+      "restored": true
+    },
+    {
+      "id": "H06 block check removed",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the handoff refuses a missing host, a block and a malformed adapter before any call"
+      ],
+      "seconds": 38,
+      "restored": true
+    },
+    {
+      "id": "H07 missing-host check removed",
+      "files": [
+        "apps/editor/game-handoff.js"
+      ],
+      "verdict": "KILLED",
+      "exit": 1,
+      "tests": 208,
+      "pass": 207,
+      "fail": 1,
+      "failed": [
+        "the handoff refuses a missing host, a block and a malformed adapter before any call"
+      ],
+      "seconds": 39,
+      "restored": true
+    },
+    {
+      "id": "E01 sendToGame bypasses the checks",
+      "files": [
+        "apps/editor/editor.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 41,
+      "restored": true
+    },
+    {
+      "id": "E02 connectGame skips checkGameAdapter",
+      "files": [
+        "apps/editor/editor.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 41,
+      "restored": true
+    },
+    {
+      "id": "E03 sendToGame ignores its argument",
+      "files": [
+        "apps/editor/editor.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 40,
+      "restored": true
+    },
+    {
+      "id": "E04 sendToGame default dropped",
+      "files": [
+        "apps/editor/editor.js"
+      ],
+      "verdict": "SURVIVED",
+      "exit": 0,
+      "tests": 208,
+      "pass": 208,
+      "fail": 0,
+      "failed": [],
+      "seconds": 40,
+      "restored": true
+    }
+  ],
+  "statusAfter": ""
+}

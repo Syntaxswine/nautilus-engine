@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "sourceCommit": "8622c77234036d786474689f7e70671ecf01136b",
+  "productionOnly": true,
+  "fixtureAdapterCopied": false,
+  "files": [
+    {
+      "source": "candidates/tile-stack/ui/contract.js",
+      "target": "apps/editor/tile-stack/ui/contract.js",
+      "sourceBytes": 8952,
+      "sourceSha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+      "bytes": 8952,
+      "sha256": "a70c51bf524a7efe1483d0397e22b55103c04a40a624c1bef95ab605f5da08e4",
+      "adaptations": []
+    },
+    {
+      "source": "candidates/tile-stack/ui/panel.js",
+      "target": "apps/editor/tile-stack/ui/panel.js",
+      "sourceBytes": 19887,
+      "sourceSha256": "4b3137b5922d7c6a1ca27d09ddfcbca0dc23bd0f5a7bb615fb8e9f9918bfe4ec",
+      "bytes": 19875,
+      "sha256": "c0425813775c566425e7be5936f021a1128c48a7699ef36accc3c6af1193706f",
+      "adaptations": [
+        {
+          "before": "../../../packages/floor-navigation/dom.js",
+          "after": "../../../../packages/floor-navigation/dom.js"
+        },
+        {
+          "before": "../../../apps/editor/smart-tile/contract.js",
+          "after": "../../smart-tile/contract.js"
+        }
+      ]
+    },
+    {
+      "source": "candidates/tile-stack/ui/styles.css",
+      "target": "apps/editor/tile-stack/ui/styles.css",
+      "sourceBytes": 3422,
+      "sourceSha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+      "bytes": 3422,
+      "sha256": "216f103c89547b8d986bd51cedceec3946a458b7e7401d410eeb0ee367bc4316",
+      "adaptations": []
+    }
+  ]
+}

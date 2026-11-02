@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:window-pane-state:1",
+  "title": "Bounded confirmed window impact state v1",
+  "description": "Structural contract. The executable loader verifies fixed content/geometry, exact typed/epoch-scoped identities, complete deterministic native-member journal replay and aggregate budgets. Opening is offline validation, not permission to apply fresh gameplay damage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "profileId",
+    "sceneId",
+    "contentEpoch",
+    "contentDigest",
+    "initial",
+    "revision",
+    "geometryRevision",
+    "geometryDigest",
+    "broken",
+    "receipts"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-window-pane-state"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "profileId": {
+      "const": "farmyard-quarter-turn-first-hit-pane-v1"
+    },
+    "sceneId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "contentEpoch": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+    },
+    "contentDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "initial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "broken",
+        "geometryRevision",
+        "geometryDigest"
+      ],
+      "properties": {
+        "broken": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^r[01]c[012](?![\\s\\S])"
+            },
+            "maxItems": 6,
+            "uniqueItems": true
+          }
+        },
+        "geometryRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "geometryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        }
+      }
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "geometryRevision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "geometryDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+    },
+    "broken": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 96,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^r[01]c[012](?![\\s\\S])"
+        },
+        "maxItems": 6,
+        "uniqueItems": true
+      }
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "command",
+          "revision",
+          "outcome",
+          "geometryBefore",
+          "geometryAfter",
+          "effects"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 768
+          },
+          "type": {
+            "const": "confirmed-window-impact"
+          },
+          "command": {
+            "$ref": "#/$defs/command"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 128
+          },
+          "outcome": {
+            "enum": [
+              "pane-broken",
+              "solid-hit"
+            ]
+          },
+          "geometryBefore": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "geometryAfter": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "effects": {
+            "type": "array",
+            "maxItems": 0
+          }
+        }
+      },
+      "maxItems": 128
+    }
+  },
+  "$defs": {
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "id",
+        "profileId",
+        "sceneId",
+        "stateId",
+        "contentEpoch",
+        "contentDigest",
+        "expectedRevision",
+        "placementId",
+        "partId",
+        "paneId",
+        "definitionDigest",
+        "confirmation"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 192
+        },
+        "profileId": {
+          "const": "farmyard-quarter-turn-first-hit-pane-v1"
+        },
+        "sceneId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "stateId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "contentEpoch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "contentDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "placementId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "partId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+        },
+        "paneId": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^r[01]c[012](?![\\s\\S])"
+            }
+          ]
+        },
+        "definitionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+        },
+        "confirmation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hostCommandId",
+            "round",
+            "impactIndex",
+            "geometryRevision",
+            "geometryDigest",
+            "hostToken",
+            "queryToken",
+            "cause",
+            "point",
+            "direction",
+            "ray"
+          ],
+          "properties": {
+            "hostCommandId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*(?![\\s\\S])"
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "impactIndex": {
+              "const": 0
+            },
+            "geometryRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "geometryDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "hostToken": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "queryToken": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+            },
+            "cause": {
+              "enum": [
+                "bullet",
+                "flame"
+              ]
+            },
+            "point": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "h"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "h": {
+                  "type": "number"
+                }
+              }
+            },
+            "direction": {
+              "enum": [
+                1,
+                -1
+              ]
+            },
+            "ray": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "purpose",
+                "floorId",
+                "from",
+                "to"
+              ],
+              "properties": {
+                "purpose": {
+                  "enum": [
+                    "projectile",
+                    "flame"
+                  ]
+                },
+                "floorId": {
+                  "const": "ground"
+                },
+                "from": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "x",
+                    "y",
+                    "h"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "h": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "to": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "x",
+                    "y",
+                    "h"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "h": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

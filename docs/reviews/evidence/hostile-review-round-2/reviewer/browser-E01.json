@@ -1,0 +1,71 @@
+{
+  "mutant": "E01 sendToGame bypasses the checks",
+  "runs": [
+    {
+      "label": "check --tracked",
+      "exit": 0,
+      "seconds": 5,
+      "lastLines": [
+        "> node tools/check.mjs --tracked",
+        "",
+        "Verified 603 pinned source files (146 MiB), module closure, 344 editor assets, headless map/rules APIs, examples, rules-source evidence and 3 halo reference files / 5 shared rendering modules.",
+        "Verified 48 original buildings, 409 rooms, 763,402 game triangles, source/game reductions, reference IDs, atlas, glTF graphs/buffers and all export hashes."
+      ]
+    },
+    {
+      "label": "test",
+      "exit": 0,
+      "seconds": 40,
+      "pass": "208",
+      "fail": "0",
+      "lastLines": [
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 39228.4211"
+      ]
+    },
+    {
+      "label": "build",
+      "exit": 0,
+      "seconds": 14,
+      "lastLines": [
+        "> node tools/build.mjs",
+        "",
+        "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+        "Built Nautilus Engine 0.5.0: independent editor, headless map and rules cores, 11 recorded deployment patches; 351 module paths checked and own/adapted scripts syntax-checked."
+      ]
+    },
+    {
+      "label": "review:integration",
+      "exit": 1,
+      "seconds": 73,
+      "lastLines": [
+        "  name: 'TimeoutError'\r",
+        "}\r",
+        "\r",
+        "Node.js v24.15.0"
+      ]
+    }
+  ],
+  "browserFailure": {
+    "purpose": "Combined Engine 0.5 editor acceptance",
+    "message": "page.waitForFunction: Timeout 30000ms exceeded.",
+    "errors": [],
+    "failedRequests": []
+  },
+  "restored": true,
+  "rebuild": {
+    "label": "build (pristine)",
+    "exit": 0,
+    "seconds": 15,
+    "lastLines": [
+      "> node tools/build.mjs",
+      "",
+      "{\"buildings\":48,\"floors\":77,\"rooms\":409,\"gameTriangles\":763402,\"authoringTriangles\":1358208,\"binaryMiB\":69.89}",
+      "Built Nautilus Engine 0.5.0: independent editor, headless map and rules cores, 11 recorded deployment patches; 351 module paths checked and own/adapted scripts syntax-checked."
+    ]
+  },
+  "distEditorMatchesCommitted": true,
+  "status": ""
+}

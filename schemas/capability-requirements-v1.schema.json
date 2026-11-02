@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:capability-requirements:1",
+  "title": "Nautilus schema and feature requirements",
+  "type": "object", "required": ["schema", "required", "optional"],
+  "properties": {
+    "schema": {"type": "object", "required": ["id", "version"], "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "integer", "minimum": 1}}},
+    "required": {"type": "array", "items": {"$ref": "#/$defs/feature"}},
+    "optional": {"type": "array", "items": {"$ref": "#/$defs/feature"}}
+  },
+  "$defs": {"feature": {"type": "object", "required": ["id", "minVersion", "maxVersion"], "properties": {"id": {"type": "string", "minLength": 1}, "minVersion": {"type": "integer", "minimum": 1}, "maxVersion": {"type": "integer", "minimum": 1}}}},
+  "$comment": "Runtime negotiation additionally rejects duplicate IDs and maxVersion below minVersion. Optional means behavior may be unavailable; it never licenses dropping stored data."
+}

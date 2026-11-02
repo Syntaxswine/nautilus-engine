@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {partsConformanceFixture} from '../packages/parts-core/fixtures.js';
+import {compileParts,openPartsRuntime,pendingPartsEvents,partsRequirements,assertPartsCompatible,PARTS_CONTRACT,exportPartsLegacy} from '../packages/parts-core/index.js';
+import {createMapDocument,loadBlueprint,migrateBlueprint,parseMap,validateMap,validateBlock,requiredMapFeatures,assertMapCapabilities,generateConnectedMap,engineManifest,schemaDocuments,FEATURE_IDS,SCHEMA_IDS} from '../packages/map-core/index.js';
+import {openWorld} from '../packages/world-core/index.js';
+import {createTinderboxScene} from '../packages/adapters/tinderbox/index.js';
+import {checkPartsFixtures} from '../tools/parts-fixtures.mjs';
+import {partsSchemas} from '../tools/parts-schemas.mjs';
+const read=name=>JSON.parse(fs.readFileSync(new URL('./fixtures/parts/'+name,import.meta.url))),compile=f=>{const result=compileParts(f.document,{definitions:f.definitions,bodyProfile:f.bodyProfile});assert.ok(result.ok,JSON.stringify(result));return result.scene;};
+
+test('fixed authored JSON, generated schemas and mid-stair bytes match the executable public recipes',()=>{
+  checkPartsFixtures();for(const {file,schema}of partsSchemas())assert.deepEqual(JSON.parse(fs.readFileSync(new URL('../schemas/'+file,import.meta.url))),schema);
+  const acceptance=read('acceptance.json'),definitions=read('definitions.json');for(const expected of acceptance.variants){const scene=compile({document:read(expected.variant+'.json'),definitions,bodyProfile:acceptance.bodyProfile});assert.equal(scene.id,expected.sceneId);assert.equal(scene.interactions.doors.length,expected.doors);}
+  const scene=compile({document:read('single.json'),definitions,bodyProfile:acceptance.bodyProfile}),restored=openPartsRuntime(scene,read('mid-stair-save.json'));assert.equal(restored.runtime.actors[0].floorId,'floor-0');assert.ok(restored.runtime.actors[0].traversal.distanceM>0);assert.equal(restored.hostData.character.hp,37);assert.equal(restored.hostData.character.ap,0);assert.deepEqual(restored.events,[]);assert.deepEqual(pendingPartsEvents(scene,restored.runtime),[]);
+});
+test('every public legacy reader refuses the new envelope without replacing a document or its undo history',()=>{
+  const fixture=partsConformanceFixture(),raw=fixture.document,before=structuredClone(raw),wire=JSON.stringify(raw),document=createMapDocument('Retained legacy document');assert.ok(document.apply({tool:'floor',start:{x:10,y:10,z:0},end:{x:11,y:11,z:0}}).ok);const accepted=document.export(),refused=error=>error.code==='UNSUPPORTED_PARTS_ENVELOPE'&&error.diagnostics[0].path==='/kind'&&error.diagnostics[0].action.includes('complete');
+  for(const run of [()=>loadBlueprint(raw),()=>migrateBlueprint(raw),()=>parseMap(wire),()=>validateBlock(raw),()=>requiredMapFeatures(raw),()=>assertMapCapabilities(raw,[]),()=>document.open(wire),()=>document.replace(raw),()=>generateConnectedMap([raw],7),()=>openWorld(raw)])assert.throws(run,refused);
+  assert.equal(validateMap(raw)[0].code,'UNSUPPORTED_PARTS_ENVELOPE');assert.equal(document.export(),accepted);assert.equal(document.undo(),true);assert.equal(document.redo(),true);assert.equal(document.export(),accepted);assert.deepEqual(raw,before);assert.throws(()=>exportPartsLegacy(raw),error=>error.code==='PARTS_LEGACY_EXPORT_REFUSED');assert.throws(()=>createTinderboxScene(raw,{}),error=>error.code==='UNSUPPORTED_CAPABILITY'&&error.path==='map.kind');
+});
+test('public registrations derive mandatory parts/interactions/world requirements from contents',()=>{
+  const scene=compile(partsConformanceFixture()),manifest=engineManifest();assert.equal(FEATURE_IDS.parts,PARTS_CONTRACT.capability);assert.equal(SCHEMA_IDS.parts,PARTS_CONTRACT.schemaId);assert.equal(assertPartsCompatible(scene,manifest),scene);assert.ok(partsRequirements(scene).required.some(feature=>feature.id===FEATURE_IDS.parts));const empty={...manifest,capabilities:[]};assert.throws(()=>assertPartsCompatible(scene,empty),error=>error.diagnostics.some(item=>item.code==='UNSUPPORTED_REQUIRED_FEATURE'));for(const kind of ['parts','partDefinition','compiledParts','partsRuntime'])assert.ok(schemaDocuments().some(schema=>schema.id===SCHEMA_IDS[kind]));
+  let calls=0;const getter={...manifest};Object.defineProperty(getter,'schemas',{enumerable:true,get(){calls++;return manifest.schemas;}});assert.throws(()=>assertPartsCompatible(scene,getter),error=>error.code==='INVALID_PARTS_DATA');assert.equal(calls,0);
+});
+test('part diagnostics retain native property and authored transform paths without shortening labels',()=>{
+  const malformed=partsConformanceFixture(),door=malformed.definitions.find(value=>value.id==='conformance:door');door.parts[0].leaf.widthM=-1;let rejected=compileParts(malformed.document,{definitions:malformed.definitions,bodyProfile:malformed.bodyProfile});assert.equal(rejected.ok,false);assert.ok(rejected.diagnostics[0].definitionPath.endsWith('/leaf/widthM'));assert.equal(rejected.diagnostics[0].instanceId,'a-door');
+  door.parts[0].leaf.widthM=.94;door.label='x'.repeat(160);rejected=compileParts(malformed.document,{definitions:malformed.definitions,bodyProfile:malformed.bodyProfile});assert.equal(rejected.diagnostics[0].code,'PART_LABEL_LIMIT');assert.ok(rejected.diagnostics[0].definitionPath.endsWith('/label'));assert.equal(door.label.length,160);
+  const misaligned=partsConformanceFixture();misaligned.document.instances[0].children.find(instance=>instance.id==='a-door').transform.x++;rejected=compileParts(misaligned.document,{definitions:misaligned.definitions,bodyProfile:misaligned.bodyProfile});assert.ok(rejected.diagnostics[0].path.endsWith('/transform'));
+  const slash=partsConformanceFixture();slash.document.instances[0].parameters['width/alt']=1;rejected=compileParts(slash.document,{definitions:slash.definitions,bodyProfile:slash.bodyProfile});assert.ok(rejected.diagnostics[0].path.endsWith('/parameters/width~1alt'));
+});
+test('small authored recipes cannot expand past the bounded output budget',()=>{
+  const fixture=partsConformanceFixture(),slab=fixture.definitions.find(value=>value.id==='conformance:slab');slab.parts[0].bounds={min:{x:0,y:0,h:-.12},max:{x:20,y:20,h:0}};slab.parts[0].holes=Array.from({length:32},(_,index)=>({id:'hole-'+index,enabled:true,rect:{min:{x:.2+index*.5,y:.2+index*.5},max:{x:.3+index*.5,y:.3+index*.5}}}));const template=fixture.document.instances[0].children.find(instance=>instance.id==='a-upper');fixture.document.instances=Array.from({length:8},(_,index)=>({...structuredClone(template),id:'budget-'+index,transform:{x:1,y:1,h:2.12,quarterTurns:0}}));fixture.document.connections=[];const before=structuredClone(fixture.document),rejected=compileParts(fixture.document,{definitions:fixture.definitions});assert.equal(rejected.ok,false);assert.equal(rejected.diagnostics[0].code,'PARTS_OUTPUT_LIMIT');assert.equal(rejected.diagnostics[0].instanceId,'budget-7');assert.deepEqual(fixture.document,before);
+});

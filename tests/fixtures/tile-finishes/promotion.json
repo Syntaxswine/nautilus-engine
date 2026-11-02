@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "sourcePin": "6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03",
+  "sourceTest": {
+    "path": "tests/art-tile-stack-materials.test.mjs",
+    "sha256": "bffea8eb5d5f1169d060e80769a5a79b8e73f9e19a7c9c3c8767bbcf4d0fc9cd"
+  },
+  "promotedTest": {
+    "path": "tests/tile-finishes-native.test.mjs",
+    "sha256": "1fb89ea33f445cc678fbe1d3de08bddbfe8778f090a674532a0a7c1bfd8aeefd",
+    "addedHeader": "// Public native finish regressions promoted from fixed Artist 6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03.\n// All non-matrix assertions are retained; fixtures are explicit test setup only.\n",
+    "literalEdits": [
+      {
+        "from": "'../candidates/tile-stack/art/finishes.js'",
+        "to": "'../packages/tile-finishes/finishes.js'",
+        "count": 1
+      },
+      {
+        "from": "'../candidates/tile-stack/art/catalogue.js'",
+        "to": "'../packages/tile-finishes/catalogue.js'",
+        "count": 1
+      },
+      {
+        "from": "'../candidates/tile-stack/art/fixtures.js'",
+        "to": "'./fixtures/tile-finishes/setup.mjs'",
+        "count": 1
+      },
+      {
+        "from": "'../candidates/tile-stack/art/view.js'",
+        "to": "'./fixtures/tile-finishes/setup.mjs'",
+        "count": 1
+      },
+      {
+        "from": "let combinations=0,refusals=0;",
+        "to": "let combinations=0;",
+        "count": 1
+      },
+      {
+        "from": "if(kind==='line'&&((transform.quarterTurns===1&&!transform.mirrorX)||(transform.quarterTurns===3&&transform.mirrorX))){const r=pathStudyRecipe(examples,'public-refusal',kind);assert.throws(()=>art.prepareTileArt(tiles,examples.tileArtBundle(tiles,[r],[{id:'owner',recipeId:r.id,transform}]),{detail}),e=>e.code==='INVALID_NUMBER'&&e.path==='/startRad');refusals++;continue;}",
+        "to": "",
+        "count": 1
+      },
+      {
+        "from": "assert.equal(combinations,360);assert.equal(refusals,6);",
+        "to": "assert.equal(combinations,384);",
+        "count": 1
+      }
+    ]
+  },
+  "fixture": {
+    "path": "tests/fixtures/tile-finishes/setup.mjs",
+    "sha256": "2d98b2e484353d6310c50cfb2c674364134ba9b72c947401861225d2bcd082eb",
+    "headerAndPublicImports": "// Pinned test setup from Artist 6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03.\n// No private planner/provider/renderer implementation is copied here. The path\n// helper adds conservative fixture reservations; the composition helper invokes\n// the supplied actual public core/art/provider and Root finish APIs. Its combined\n// disposal is fixture composition, not a newly registered host coordinator.\nimport {bindTileFinishView} from '../../../packages/tile-finishes/finishes.js';\nimport {plainCopy} from '../../../packages/tile-finishes/data.js';\n",
+    "sources": [
+      {
+        "path": "candidates/tile-stack/art/fixtures.js",
+        "sha256": "3536c8c8964acf40b3637cf51e55163d3787ea9394be613a3522d0e0a616976e"
+      },
+      {
+        "path": "candidates/tile-stack/art/view.js",
+        "sha256": "245c1b8df8371bac08178bc0de3c9cd77849f5133a2ce68659b6d55bae9329f6"
+      }
+    ],
+    "verbatimChunks": [
+      {
+        "path": "candidates/tile-stack/art/fixtures.js",
+        "start": "export function pathStudyRecipe(",
+        "end": "\nexport function finishGallery(",
+        "sha256": "fac87cd4e3ac310c9c58b6235ea306a28f191efb792f7d49fd79a99b71f73785",
+        "bytes": 575,
+        "adaptation": "function body copied verbatim as labelled test setup"
+      },
+      {
+        "path": "candidates/tile-stack/art/fixtures.js",
+        "start": "export function choicesForProjection(",
+        "end": null,
+        "sha256": "a5561be1193d1198b98023366a05ee1d2b24498b74d04dc303aa11706759f84d",
+        "bytes": 206,
+        "adaptation": "function body copied verbatim as labelled test setup"
+      },
+      {
+        "path": "candidates/tile-stack/art/view.js",
+        "start": "export function createArtStudyView(",
+        "end": "\nexport function setStudyVisibility(",
+        "sha256": "157d47c73acfb87b0434ff26dd44bfa1427e91b879a9d1cac653ca32b91e62ec",
+        "bytes": 2406,
+        "adaptation": "function body copied verbatim as labelled test setup"
+      }
+    ],
+    "qualification": "Only pinned deterministic fixture setup and composition. Matching, sampling, geometry, material binding, validation and native resource lifecycle use real Root public modules; data copying uses actual Root internal data.js."
+  },
+  "matrix": {
+    "families": 4,
+    "shapes": 4,
+    "D4": 8,
+    "details": 3,
+    "requiredAcceptedCombinations": 384,
+    "obsoleteRefusalBranchRemoved": true
+  },
+  "unchangedAssertions": "Every assertion outside the old matrix refusal/counters remains byte-identical to fixed6df; no skips, fallback, fake provider or copied private runtime.",
+  "publicCatalogue": {
+    "id": "nautilus-tile-finish-library",
+    "version": 1,
+    "digest": "5b4c25105568a1f99569dbb6bd2d6308c067bbb41763c4bd6bfddfa3552bc0e1"
+  },
+  "runtimeAtPromotion": [
+    {
+      "path": "packages/tiles-core/index.js",
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
+    },
+    {
+      "path": "packages/tile-visuals/three.js",
+      "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/render-effects/three.js",
+      "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264"
+    },
+    {
+      "path": "packages/tile-finishes/catalogue.js",
+      "sha256": "f5ab5f15757537309a68d5d68c869004a044ad5bfff37089e928d35f09a4e73c"
+    },
+    {
+      "path": "packages/tile-finishes/data.js",
+      "sha256": "3eab4dbc81ff0ce2b36c713aa4d4087ce8d4e5bfbbcff3ecdb4eff0ef7cde0a3"
+    },
+    {
+      "path": "packages/tile-finishes/finishes.js",
+      "sha256": "fe2a2d16c09ed4598c8d724ee682d850a5077069803b4bdefc8978e258000dab"
+    }
+  ]
+}

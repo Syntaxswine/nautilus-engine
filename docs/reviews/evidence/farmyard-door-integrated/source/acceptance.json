@@ -1,0 +1,683 @@
+{
+  "mode": "source",
+  "inputSha256": "43e9da0c4b817ffc1acd30148478cd973877db4b8ae4e1229bf581b54cd204df",
+  "sourceCommit": "5e7cc67abefc063acc2cad53806ca85d8d450401",
+  "nativeCheckpoint": "3371859cac750b38e0161d6da43b208ae061fab6",
+  "connectionCorrection": "a1981b3ec38071fda93a5e384b503fb5a618e9bc",
+  "reviewed": [
+    {
+      "path": "examples/farmyard-door-reference-controls.js",
+      "sourceSha256": "d4d1526460094880f382ba86107326c3ad34a70478cc7a18ddd87e4a94d4af44",
+      "servedSha256": "d4d1526460094880f382ba86107326c3ad34a70478cc7a18ddd87e4a94d4af44"
+    },
+    {
+      "path": "examples/farmyard-door-reference-host.js",
+      "sourceSha256": "e89f4f2d87fb410277ff40c70a5b6117a6c331c7ea14483a15ee5b1c946526a0",
+      "servedSha256": "e89f4f2d87fb410277ff40c70a5b6117a6c331c7ea14483a15ee5b1c946526a0"
+    },
+    {
+      "path": "examples/farmyard-door-reference-view.js",
+      "sourceSha256": "691d51b44ff69ff649d84da6c61b429b42677982254b07aae3d25aa4939395f3",
+      "servedSha256": "691d51b44ff69ff649d84da6c61b429b42677982254b07aae3d25aa4939395f3"
+    },
+    {
+      "path": "examples/farmyard-door-reference.css",
+      "sourceSha256": "0ccfcc7d2c7bc0723bca93a08e803fd96417f2c9ed831e486dddd0d5a084d8de",
+      "servedSha256": "0ccfcc7d2c7bc0723bca93a08e803fd96417f2c9ed831e486dddd0d5a084d8de"
+    },
+    {
+      "path": "examples/farmyard-door-reference.fixture.json",
+      "sourceSha256": "ea063223f5c3178104799d4c32486cad904808c15582ce0974e5e1329996112f",
+      "servedSha256": "ea063223f5c3178104799d4c32486cad904808c15582ce0974e5e1329996112f"
+    },
+    {
+      "path": "examples/farmyard-door-reference.html",
+      "sourceSha256": "2d359acc587b67667b0b2f7ef5b815dcddd4d1ded68b40b933fe8b9bfec54c78",
+      "servedSha256": "2d359acc587b67667b0b2f7ef5b815dcddd4d1ded68b40b933fe8b9bfec54c78"
+    },
+    {
+      "path": "examples/farmyard-door-reference.js",
+      "sourceSha256": "50ae39c94940e058d57373c262b19be66f98df8d69522e83260a0ec4df2647bd",
+      "servedSha256": "50ae39c94940e058d57373c262b19be66f98df8d69522e83260a0ec4df2647bd"
+    }
+  ],
+  "nativeResources": [
+    {
+      "url": "http://127.0.0.1:60200/vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "bytes": 2757790,
+      "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+    }
+  ],
+  "resourceCount": 1,
+  "captures": [
+    {
+      "name": "closed-desktop",
+      "file": "door-closed-desktop.png",
+      "sha256": "f0ebcb14cb2915c3228a3329f695981e8cb0e970012cf263f4507d1b1bafeeb5"
+    },
+    {
+      "name": "open-desktop",
+      "file": "door-open-desktop.png",
+      "sha256": "7536bc0a72709d72d2e6f1dc8fc50e631cb0b2d56a1161fe2a08424d23a9675a"
+    },
+    {
+      "name": "phone-390",
+      "file": "door-phone-390.png",
+      "sha256": "df45c502d3d49694651dfee18516bca8661a0f30c5ffd19be8b71b3128e72df2"
+    },
+    {
+      "name": "phone-320",
+      "file": "door-phone-320.png",
+      "sha256": "c99bc22881c27a5a131bdcd85b4e37a9d9664433605c4d78848d6b4d8285decc"
+    }
+  ],
+  "results": [
+    {
+      "name": "native leaf/current collider, actual movement blocking, sight/projectile rays, public grenade/blast queries, combat/contact and quiet save/load/original-ID retry",
+      "status": "pass"
+    },
+    {
+      "name": "held native Enter produces one command until keyup; native Space and assistive click preserve separate activation",
+      "status": "pass"
+    },
+    {
+      "name": "actual browser-side reach/occupied command refusals and unsupported locks preserve complete authority and AP",
+      "status": "pass",
+      "method": "Explicit negative commands through the same real connection; ordinary UI shows the refusal and disables activation."
+    },
+    {
+      "name": "before/after-write and unreadable-outcome reconciliation retains the original ID and never repeats effects",
+      "status": "pass"
+    },
+    {
+      "name": "known commit remains successful after postcommit presentation failure",
+      "status": "pass"
+    },
+    {
+      "name": "actual setItem fence blocks pre-write disposal and preserves/quietly reconciles post-write disposal",
+      "status": "pass"
+    },
+    {
+      "name": "press-latched target/action, deleted target without fallback and post-preview retained-context revalidation",
+      "status": "pass"
+    },
+    {
+      "name": "Open remains the press-latched action after independent Open; load and readiness changes retire the pending action",
+      "status": "pass"
+    },
+    {
+      "name": "actual camera/UI-root projection with offsets, borders, scroll, CSS zoom and behind-camera/hidden targets",
+      "status": "pass",
+      "projection": {
+        "anchor": {
+          "x": 301.1719881088416,
+          "y": 135.75587859583655,
+          "clientX": 588.83098311228,
+          "clientY": 361.23588179791636,
+          "visible": true
+        },
+        "actual": {
+          "x": 588.34375,
+          "y": 360.75
+        }
+      }
+    },
+    {
+      "name": "held-input pause/resume, scene replacement retires pressed target and late inputs cannot mutate a disposed host",
+      "status": "pass"
+    },
+    {
+      "name": "native mobile touch, 390/320 layouts, 44px controls and disposal",
+      "status": "pass"
+    }
+  ],
+  "resultsSha256": "0ade0205843810a514a09f7daf5d8f112db9e32699040f257bbfd943cd9fc23a",
+  "projection": {
+    "doors": [
+      {
+        "id": "reference-gate",
+        "name": "Timber gate",
+        "x": 4.5,
+        "y": 4,
+        "edge": "e:4:4",
+        "swing": 1,
+        "range": 1.65,
+        "open": false
+      },
+      {
+        "id": "reference-store",
+        "name": "Store door",
+        "x": 4.5,
+        "y": 5,
+        "edge": "e:4:5",
+        "swing": 1,
+        "range": 1.65,
+        "open": false
+      }
+    ],
+    "host": {
+      "map": [
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ],
+        [
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard",
+          "yard"
+        ]
+      ],
+      "edges": {
+        "e:4:1": "wall",
+        "e:4:2": "wall",
+        "e:4:3": "wall",
+        "e:4:4": "closed-door",
+        "e:4:5": "closed-door",
+        "e:4:6": "wall",
+        "e:4:7": "wall",
+        "e:4:8": "wall"
+      },
+      "units": [
+        {
+          "id": 0,
+          "team": "squad",
+          "name": "Vera",
+          "species": "sheep",
+          "weapon": "assault",
+          "x": 3.5,
+          "y": 4,
+          "z": 0,
+          "heading": 0,
+          "stance": "standing",
+          "running": false,
+          "sneaking": false,
+          "travelled": 0,
+          "isMoving": false,
+          "alert": false,
+          "lastKnown": null,
+          "alertAge": 0,
+          "slots": [
+            "assault",
+            "pistol"
+          ],
+          "pack": [
+            {
+              "type": "weapon",
+              "kind": "assault",
+              "rounds": 30,
+              "condition": 100
+            },
+            {
+              "type": "weapon",
+              "kind": "pistol",
+              "rounds": 8,
+              "condition": 100
+            },
+            {
+              "type": "weapon",
+              "kind": "grenade",
+              "rounds": 3,
+              "condition": 100
+            }
+          ],
+          "ammo": {
+            "assault": 30,
+            "pistol": 3,
+            "grenade": 3
+          },
+          "ammoPouch": {
+            "assault": 90,
+            "pistol": 24
+          },
+          "stats": {
+            "strength": 60,
+            "endurance": 65,
+            "dexterity": 75,
+            "agility": 70,
+            "intelligence": 40,
+            "perception": 75,
+            "mechanical": 15,
+            "medical": 15,
+            "firearms": 85,
+            "heavyWeapons": 35,
+            "explosives": 35,
+            "leadership": 70,
+            "sneak": 55,
+            "climbing": 50
+          },
+          "statVersion": 2,
+          "maxHp": 110,
+          "maxStamina": 115,
+          "maxAp": 14,
+          "damageResistance": 7,
+          "accuracy": 82.5,
+          "medical": 19,
+          "stealth": 55,
+          "perception": 75,
+          "hp": 37,
+          "ap": 12,
+          "stamina": 0.125
+        },
+        {
+          "id": 1,
+          "team": "guard",
+          "name": "Boris",
+          "species": "pig-foreman",
+          "weapon": "pistol",
+          "x": 5.75,
+          "y": 4,
+          "z": 0,
+          "heading": 180,
+          "stance": "standing",
+          "running": false,
+          "sneaking": false,
+          "travelled": 0,
+          "isMoving": false,
+          "alert": false,
+          "lastKnown": null,
+          "alertAge": 0,
+          "slots": [
+            "pistol"
+          ],
+          "pack": [],
+          "ammo": {
+            "pistol": 8
+          },
+          "ammoPouch": {
+            "pistol": 24
+          },
+          "stats": {
+            "strength": 10,
+            "endurance": 20,
+            "dexterity": 35,
+            "agility": 22,
+            "intelligence": 40,
+            "perception": 35,
+            "mechanical": 15,
+            "medical": 15,
+            "firearms": 35,
+            "heavyWeapons": 35,
+            "explosives": 15,
+            "leadership": 20,
+            "sneak": 25,
+            "climbing": 50
+          },
+          "statVersion": 2,
+          "maxHp": 60,
+          "maxStamina": 70,
+          "maxAp": 7,
+          "damageResistance": 2,
+          "accuracy": 35,
+          "medical": 19,
+          "stealth": 25,
+          "perception": 35,
+          "hp": 60,
+          "ap": 7,
+          "stamina": 70
+        }
+      ],
+      "interactables": [
+        {
+          "id": "reference-gate",
+          "kind": "door",
+          "name": "Timber gate",
+          "x": 4.5,
+          "y": 4,
+          "edge": "e:4:4",
+          "swing": 1,
+          "range": 1.65,
+          "open": false,
+          "inventory": []
+        },
+        {
+          "id": "reference-store",
+          "kind": "door",
+          "name": "Store door",
+          "x": 4.5,
+          "y": 5,
+          "edge": "e:4:5",
+          "swing": 1,
+          "range": 1.65,
+          "open": false,
+          "inventory": []
+        }
+      ],
+      "phase": "explore",
+      "round": 0,
+      "selected": 0,
+      "visible": [
+        "1,1",
+        "2,1",
+        "3,1",
+        "4,1",
+        "1,2",
+        "2,2",
+        "3,2",
+        "4,2",
+        "1,3",
+        "2,3",
+        "3,3",
+        "4,3",
+        "1,4",
+        "2,4",
+        "3,4",
+        "4,4",
+        "1,5",
+        "2,5",
+        "3,5",
+        "4,5",
+        "1,6",
+        "2,6",
+        "3,6",
+        "4,6",
+        "1,7",
+        "2,7",
+        "3,7",
+        "4,7",
+        "1,8",
+        "2,8",
+        "3,8",
+        "4,8"
+      ],
+      "seen": [
+        "1,1",
+        "2,1",
+        "3,1",
+        "4,1",
+        "5,1",
+        "6,1",
+        "7,1",
+        "8,1",
+        "1,2",
+        "2,2",
+        "3,2",
+        "4,2",
+        "5,2",
+        "6,2",
+        "7,2",
+        "8,2",
+        "1,3",
+        "2,3",
+        "3,3",
+        "4,3",
+        "5,3",
+        "6,3",
+        "7,3",
+        "8,3",
+        "1,4",
+        "2,4",
+        "3,4",
+        "4,4",
+        "5,4",
+        "6,4",
+        "7,4",
+        "8,4",
+        "1,5",
+        "2,5",
+        "3,5",
+        "4,5",
+        "5,5",
+        "6,5",
+        "7,5",
+        "8,5",
+        "1,6",
+        "2,6",
+        "3,6",
+        "4,6",
+        "5,6",
+        "6,6",
+        "7,6",
+        "8,6",
+        "1,7",
+        "2,7",
+        "3,7",
+        "4,7",
+        "5,7",
+        "6,7",
+        "7,7",
+        "8,7",
+        "1,8",
+        "2,8",
+        "3,8",
+        "4,8",
+        "5,8",
+        "6,8",
+        "7,8",
+        "8,8"
+      ],
+      "detected": [],
+      "log": [
+        "The pay window has been closed for three weeks. The books are still inside Mill 04. Bring back the ledger."
+      ],
+      "seed": 1947,
+      "revision": 4,
+      "queue": [],
+      "enemyIndex": 1,
+      "enemyDelay": 0,
+      "elapsed": 0,
+      "solo": {
+        "version": 2,
+        "missionId": "night-ledger",
+        "layoutVersion": 1,
+        "build": {
+          "animal": "rifleman",
+          "primary": "assault",
+          "secondary": "pistol",
+          "utility": "grenade"
+        },
+        "objectives": {},
+        "inspected": [],
+        "ledger": false,
+        "status": "active",
+        "dressings": 0,
+        "distance": 0,
+        "apDistance": 0
+      },
+      "fogAt": {
+        "x": 3.75,
+        "y": 4
+      },
+      "worldBounds": {
+        "x": 1,
+        "y": 1,
+        "w": 8,
+        "h": 8
+      },
+      "props": [],
+      "obstacles": [],
+      "windows": [],
+      "engaged": false
+    },
+    "sidecarRevision": 1,
+    "receipts": 1,
+    "geometry": [
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 0.43999999999999995,
+        "y1": 1.56,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 1.44,
+        "y1": 2.56,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 2.44,
+        "y1": 3.56,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 5.4399999999999995,
+        "y1": 6.5600000000000005,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 6.4399999999999995,
+        "y1": 7.5600000000000005,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 7.4399999999999995,
+        "y1": 8.56,
+        "height": 2,
+        "kind": "wall"
+      },
+      {
+        "id": "reference-gate",
+        "interactionId": "reference-gate",
+        "kind": "wall",
+        "z0": 0,
+        "height": 2,
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 3.44,
+        "y1": 4.5600000000000005
+      },
+      {
+        "id": "reference-store",
+        "interactionId": "reference-store",
+        "kind": "wall",
+        "z0": 0,
+        "height": 2,
+        "x0": 4.42,
+        "x1": 4.58,
+        "y0": 4.4399999999999995,
+        "y1": 5.5600000000000005
+      }
+    ]
+  },
+  "projectionSha256": "7de49e54fc5ece5199413e9eaecd791386c29eee079a304186eabf8ddfbddc6a",
+  "errors": [],
+  "failedRequests": [],
+  "sourceFallback": false,
+  "installedRequestAllowlist": false,
+  "scope": "Fixed source-shaped retained fixture; native public leaf and real public query bindings. Reference AABB steps are not original Farmyard movement, production/editor adoption or physical-device certification."
+}

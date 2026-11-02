@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-29T23:55:34.930Z",
+  "baselineUI": "25224b9f7994db29d2e05ebdce279c73f4434c1e",
+  "documentationBaseline": "78d37b6cd3ba5de5c25d4922b4ba301b13491caa",
+  "scopeCommit": "04f915dd8b16c242d47b1e054b2406aedcbdefc8",
+  "branch": "codex/functional-parts-core",
+  "mergeBaseline": "89f7acd9fc5dd596c6682f783538b84bd7f7f440",
+  "sourceHashes": {
+    "packages/interactions/state.js": "cb713eac10e8a2f204705ca1d546d25446368bcec0ffa3063ccefd4b3b0ed589",
+    "packages/interactions/actions.js": "a2e29e6fd1c49d1eb3a13db4bf3c76c158f7f813c3d57d3c20d6dec5e3b9600c",
+    "packages/interactions/queries.js": "4bb070189ac62d9ea720f828f4b5cc0f513cd160236b936a167b2bdd2aed363b",
+    "packages/parts-core/identity.js": "99b6a2605d64cbaf6ace50ea90459cff9cc708d051c95f3241291030e6f4158f",
+    "packages/parts-core/clearance.js": "750b445ae131a2052e24f61f3521c1d2dc72fc542e8404716e43bce43db4e42a",
+    "examples/game-starter-host.js": "a07f4e5905ca83c06d6101f9fa7dfa07c0c559bf21073184f4567ed1423f1c42"
+  },
+  "titleFilesUnchanged": [
+    "packages/game-ui/title.js",
+    "packages/game-ui/style.css"
+  ],
+  "gates": {
+    "integrity": "npm run check -- --tracked passed",
+    "engineTests": {
+      "passed": 382,
+      "failed": 0
+    },
+    "upstreamTests": {
+      "passed": 32,
+      "failed": 0
+    },
+    "build": "npm run build passed",
+    "installedCore": "npm run test:package passed with raw getter/static obstruction checks and shipped guide",
+    "focusedTests": {
+      "passed": 23,
+      "failed": 0
+    }
+  },
+  "browser": {
+    "sourceCommit": "89f7acd9fc5dd596c6682f783538b84bd7f7f440",
+    "sourceMode": false,
+    "buildProvenanceSha256": "5a159d5c89463c28f86958186edef916ab55a0600f64766d6645e9126c05b50d",
+    "checks": [
+      {
+        "name": "keyboard start and swept closed-door blocking",
+        "passed": true
+      },
+      {
+        "name": "locked/key feedback and occupied door operation",
+        "passed": true
+      },
+      {
+        "name": "mid-stair save, reload, export/import and atomic invalid-import rejection",
+        "passed": true,
+        "heightM": 0.2702499259765206
+      },
+      {
+        "name": "menu input isolation, confirmation focus trap and cancellation",
+        "passed": true
+      },
+      {
+        "name": "continuous automatic stair travel in both directions",
+        "passed": true
+      },
+      {
+        "name": "confirmed new game creates a fresh yard",
+        "passed": true
+      },
+      {
+        "name": "loading, failed-save retry, latest-check wins, single start, stale completion and disposal",
+        "passed": true
+      },
+      {
+        "name": "failed continue preserves menu and succeeds on retry",
+        "passed": true
+      },
+      {
+        "name": "native touch start/door, 44px menu controls, 320px phone and 640px reflow",
+        "passed": true,
+        "titleTargets": [
+          {
+            "label": "Continue",
+            "width": 316,
+            "height": 48
+          },
+          {
+            "label": "New game",
+            "width": 316,
+            "height": 48
+          },
+          {
+            "label": "Settings",
+            "width": 316,
+            "height": 48
+          },
+          {
+            "label": "Credits",
+            "width": 316,
+            "height": 48
+          }
+        ],
+        "reflowNote": "640 CSS pixels represents the width available after 200% browser zoom on a 1280px display; it is a reflow equivalent, not a native zoom measurement."
+      }
+    ],
+    "errors": [],
+    "failedRequests": [],
+    "environment": "Windows Edge 156 / isolated SwiftShader; desktop and touch/narrow viewport regression of the SVG reference yard, not physical-phone performance or real-art acceptance"
+  },
+  "captures": [
+    {
+      "path": "captures/yard-mid-stair-desktop.png",
+      "bytes": 145313,
+      "sha256": "07aeb5f7513d124adc01ade167495ec1785ade84a4c340b4f1b616a422ec1d93"
+    },
+    {
+      "path": "captures/yard-phone.png",
+      "bytes": 78766,
+      "sha256": "c71e8e6bd14f5b3563ccc2ea6c4e262749316935ba5cf788a3f535a4aa6af7ed"
+    }
+  ],
+  "cleanup": {
+    "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+    "purpose": "Standard title and door/stair acceptance",
+    "stoppedAt": "2026-10-29T23:53:32.136Z",
+    "process": {
+      "pid": 52444,
+      "creationFiletime": "134377915974418182",
+      "executable": "node.exe"
+    },
+    "browser": {
+      "pid": 52612,
+      "creationFiletime": "134377915978550119",
+      "executable": "msedge.exe"
+    },
+    "port": 50374,
+    "httpClosed": true,
+    "browserClosed": true,
+    "method": "Supported Playwright browser close and HTTP close in finally",
+    "originalProcessesExited": true,
+    "portReleased": true
+  },
+  "limits": {
+    "identityHelpersPublic": false,
+    "partsCompilerImplemented": false,
+    "nativeActorRescaled": false,
+    "productionAdoption": false,
+    "mainMerged": false,
+    "retainedHelpers": 0
+  }
+}

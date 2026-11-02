@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:tile-bundle:1",
+  "title": "Self-contained authored tile bundle v1",
+  "description": "Closed structural v1 contract. Executable loading additionally checks finite numeric budgets, units, canonicalization, exact content, analytic identities, joins, locks, dependency closure and geometry. This schema is not a compiled proof or gameplay capability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "templates",
+    "recipes",
+    "layout"
+  ],
+  "properties": {
+    "kind": {
+      "const": "nautilus-tile-bundle"
+    },
+    "version": {
+      "const": 1
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:nautilus:schema:tile-recipe:1#/$defs/template"
+      },
+      "minItems": 0,
+      "maxItems": 2048
+    },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:nautilus:schema:tile-recipe:1"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "layout": {
+      "$ref": "urn:nautilus:schema:tile-layout:1"
+    }
+  },
+  "$defs": {}
+}

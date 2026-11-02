@@ -1,0 +1,30 @@
+{
+ "pristine": [
+  "connect A: refresh saw connected, hasGameAdapter true",
+  "malformed connect refused: A game adapter needs openMap({json, contract}).",
+  "after refused connect: hasGameAdapter true, refreshes 1",
+  "send after refused connect: A",
+  "disconnect A: refresh saw none, hasGameAdapter false"
+ ],
+ "G08 a refused connect drops the current host": [
+  "connect A: refresh saw connected, hasGameAdapter true",
+  "malformed connect refused: A game adapter needs openMap({json, contract}).",
+  "after refused connect: hasGameAdapter false, refreshes 1",
+  "send after refused connect THROWS Connect a game adapter first.",
+  "disconnect A: refresh saw connected, hasGameAdapter false"
+ ],
+ "G09 connect refreshes before the host is set": [
+  "connect A: refresh saw none, hasGameAdapter true",
+  "malformed connect refused: A game adapter needs openMap({json, contract}).",
+  "after refused connect: hasGameAdapter true, refreshes 1",
+  "send after refused connect: A",
+  "disconnect A: refresh saw none, hasGameAdapter false"
+ ],
+ "G10 disconnect refreshes before the host is cleared": [
+  "connect A: refresh saw connected, hasGameAdapter true",
+  "malformed connect refused: A game adapter needs openMap({json, contract}).",
+  "after refused connect: hasGameAdapter true, refreshes 1",
+  "send after refused connect: A",
+  "disconnect A: refresh saw connected, hasGameAdapter false"
+ ]
+}

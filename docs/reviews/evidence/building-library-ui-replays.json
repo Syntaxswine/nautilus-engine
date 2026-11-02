@@ -1,0 +1,85 @@
+{
+  "frozenBaseline": "1ae6ea751854c1b1b046a98546d08b5de015b8ec",
+  "baselineMerge": "112ea48172a2a74e6f7a83880e22706269066d92",
+  "reviewedCandidates": [
+    "fb098afebe74afcaa3d7814858f7583129bb4b0e",
+    "ee7c18ecdc2669168247b94a82156634b2c4ffe5"
+  ],
+  "controllerValidation": {
+    "method": "Real controller function with explicit DOM, asset and renderer doubles; no WebGL context",
+    "baselineFailures": 4,
+    "repairPasses": 4,
+    "cases": [
+      "successful retry after a load failure",
+      "draw failure becomes visible and retires owned resources",
+      "close/reopen with late selection completion",
+      "selection change during a pending preview"
+    ]
+  },
+  "requiredChecks": {
+    "check": "passed: 603 pinned files, 344 editor assets, 48 original buildings",
+    "test": {
+      "passed": 95,
+      "failed": 0
+    },
+    "testUpstream": {
+      "passed": 32,
+      "failed": 0
+    },
+    "build": "passed: 11 recorded deployment patches; 322 module paths and own/adapted script syntax verified"
+  },
+  "headerConstraints": {
+    "method": "Source-derived constraints, not measured browser pixels",
+    "targetViewport": [
+      390,
+      844
+    ],
+    "headerHeight": 132,
+    "brandRow": 34,
+    "navigationRows": 2,
+    "navigationColumns": 3,
+    "navigationRowHeight": 35,
+    "minimumActionHeight": 32,
+    "workspaceHeight": 628,
+    "drawerTop": 142,
+    "drawerBottomInset": 94,
+    "drawerHeight": 608,
+    "modalOuterWidth": 374,
+    "modalListMaxHeight": 160,
+    "previewCanvasHeight": 220
+  },
+  "editorOwnedReplays": {
+    "prefabLoaderFailure": {
+      "firstLoadAttempts": 1,
+      "firstErrors": [
+        "simulated catalogue failure"
+      ],
+      "secondTotalLoadAttempts": 1,
+      "secondErrors": [],
+      "secondModels": 0,
+      "libraryAvailable": false
+    },
+    "layoutRevisionTiming": {
+      "previewedMapVersion": 0,
+      "revisionStoredAfterLoading": 1,
+      "appliedMapVersion": 1,
+      "guardAcceptedStalePreview": true
+    }
+  },
+  "browserLimitations": [
+    "Architect confirmed in-app GL_RENDERER Disabled",
+    "Local-file fixture navigation was rejected by browser protocol policy before rendering",
+    "No browser resets, app-setting changes or policy workarounds attempted",
+    "Architect owns isolated headless Edge review of the combined final desktop/mobile UI"
+  ],
+  "files": {
+    "apps/editor/editor.css": {
+      "beforeSha256": "f65fc0d5871a97b3a87807a44306fb5e51652ea9511ce266f231ee95759efef6",
+      "afterSha256": "8da478871c7f9893dfcb653a250326b933feb88788ac05704f1358fccc920402"
+    },
+    "apps/editor/assets.js": {
+      "beforeSha256": "99708a415c30635a7d2a6f596025582ed273e783a1b83b60e64ee9ce9a64a2c6",
+      "afterSha256": "e23c5351c07ad9b4db6a1d23b4c15be5880241f74bda54ff7e1dc0b7b31626af"
+    }
+  }
+}

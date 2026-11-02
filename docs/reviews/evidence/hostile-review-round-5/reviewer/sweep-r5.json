@@ -1,0 +1,810 @@
+{
+ "node": "v24.15.0",
+ "head": "d91e23ae1ec7ab7a8697444915eb35e85dce834c",
+ "statusBefore": "",
+ "started": "2026-10-29T16:53:55.463Z",
+ "rows": [
+  {
+   "id": "R01",
+   "file": "apps/editor/editor.js",
+   "what": "Send observer filter written as a string, not a list",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.491
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 51.593
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R02",
+   "file": "apps/editor/editor.js",
+   "what": "settings feedback installed outside the settings heading",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 5.03
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 55.363
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R03",
+   "file": "apps/editor/editor.js",
+   "what": "feedback loses role=status (NIT 7)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 4.874
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 45.907
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R04",
+   "file": "apps/editor/editor.js",
+   "what": "the bridge status writer parses markup",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.652
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 41.476
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R05",
+   "file": "apps/editor/editor.js",
+   "what": "status mirror: childList only (equivalent while the editor writes textContent)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.595
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 42.977
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R06",
+   "file": "apps/editor/editor.js",
+   "what": "body observer never refreshes (equivalent while Send exists at load)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.615
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 43.007
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R07",
+   "file": "apps/editor/editor.js",
+   "what": "no refresh at install; the first refresh waits for a body record",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.717
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 42.226
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R08",
+   "file": "apps/editor/editor.js",
+   "what": "refresh rewrites the title twice (no loop: title is filtered out)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.945
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 41.971
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R09",
+   "file": "apps/editor/editor.js",
+   "what": "feedback hidden from the source (equivalent)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.482
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 41.179
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R10",
+   "file": "apps/editor/editor.js",
+   "what": "status mirror observes the whole body: it re-triggers itself",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 4,
+    "fail": 3,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "firstError": "A page observer re-triggers itself: one write was delivered 10 times, last as #nautilus-settings-feedback childList. In the browser the editor freezes.",
+    "seconds": 2.926
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "R11",
+   "file": "apps/editor/editor.js",
+   "what": "quick mirror without its Send guard (equivalent)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.618
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 42.931
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "R12",
+   "file": "apps/editor/editor.js",
+   "what": "confirm read from window (equivalent in a page)",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "firstError": "window.confirm is not a function",
+    "seconds": 3.353
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "S01",
+   "file": "apps/editor/editor.js",
+   "what": "an equivalent selector (one .settings-heading in the page)",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 0,
+    "fail": 7,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state",
+     "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer",
+     "the page double records writes as the DOM does, and fails an observer that re-triggers itself"
+    ],
+    "firstError": "The page double has no .settings-heading",
+    "seconds": 0.311
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "S02",
+   "file": "apps/editor/editor.js",
+   "what": "an equivalent selector",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 0,
+    "fail": 7,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state",
+     "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer",
+     "the page double records writes as the DOM does, and fails an observer that re-triggers itself"
+    ],
+    "firstError": "The page double has no aside.properties",
+    "seconds": 0.319
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "S03",
+   "file": "apps/editor/editor.js",
+   "what": "an equivalent toggleAttribute",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 0,
+    "fail": 7,
+    "cancelled": 0,
+    "failed": [
+     "the page bridge installs both libraries and exposes the engine before any host connects",
+     "the Send buttons follow the connected host, and each refresh sees the new state",
+     "window.nautilus.sendToGame sends the current validated export, or the map it is given, and never reaches an incapable host",
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it",
+     "the deployed Send click waits for the connected game and reports its answer",
+     "the page double records writes as the DOM does, and fails an observer that re-triggers itself"
+    ],
+    "firstError": "feedback.toggleAttribute is not a function",
+    "seconds": 0.318
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "S04",
+   "file": "apps/editor/editor.js",
+   "what": "an added class (harmless)",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.602
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 42.481
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "D01",
+   "file": "tools/editor-wall-adapter.mjs",
+   "what": "the deployed click calls another launchPlaytest; both checked texts are unchanged",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.454
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 45.192
+   },
+   "check": 0,
+   "build": 0,
+   "buildMessage": null,
+   "package": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "D02",
+   "file": "tools/editor-wall-adapter.mjs",
+   "what": "a later assignment replaces the deployed click; SEND_CLICK still occurs once",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 3.491
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 78.082
+   },
+   "check": 0,
+   "build": 0,
+   "buildMessage": null,
+   "package": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "N07",
+   "file": "apps/editor/editor.js",
+   "what": "author N07, re-timed",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "firstError": "Edited work is replaced only if the user confirms",
+    "seconds": 3.393
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "N14",
+   "file": "apps/editor/editor.js",
+   "what": "author N14, re-timed",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "firstError": "A click while a map loads waits",
+    "seconds": 3.397
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "F04",
+   "file": "tools/editor-game-handoff.mjs",
+   "what": "author F04, re-timed",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "firstError": "A second click waits for the first",
+    "seconds": 3.363
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "W01",
+   "file": "tools/editor-game-handoff.mjs",
+   "what": "the deployed click ignores a block: the test awaits the host",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 1,
+    "failed": [
+     "the deployed Send click waits for the connected game and reports its answer"
+    ],
+    "firstError": "test timed out after 20000ms",
+    "seconds": 22.814
+   },
+   "verdict": "killed: ran out of time"
+  },
+  {
+   "id": "W02",
+   "file": "apps/editor/editor.js",
+   "what": "open() loads the document twice",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 5,
+    "fail": 0,
+    "cancelled": 2,
+    "failed": [
+     "window.nautilus.open loads a validated document, waits for the editor to load it, and passes on a failure",
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "firstError": "test timed out after 20000ms",
+    "seconds": 42.606
+   },
+   "verdict": "killed: ran out of time"
+  },
+  {
+   "id": "W03",
+   "file": "apps/editor/editor.js",
+   "what": "the Example yard is opened twice",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 7,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 1,
+    "failed": [
+     "the Example yard button announces the yard only after the editor has loaded it"
+    ],
+    "firstError": "test timed out after 20000ms",
+    "seconds": 23.156
+   },
+   "verdict": "killed: ran out of time"
+  },
+  {
+   "id": "T01",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "strict comparison relaxed",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 10.062
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 41.599
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "T02",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "tolerance 0.06 nm",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 10.511
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 44.451
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "T03",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "tolerance 0.149 nm",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 10.205
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 52.558
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "T04",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "tolerance 0.05 nm (the accepted probe sits on it)",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 11,
+    "pass": 10,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "firstError": "The selected bear spawn needs Tinderbox’s 0.56 metre disc clearance from world bounds and walls.",
+    "seconds": 7.094
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "T05",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "tolerance 0.15 nm (the refused probe sits on it)",
+   "target": {
+    "status": 1,
+    "signal": null,
+    "tests": 11,
+    "pass": 10,
+    "fail": 1,
+    "cancelled": 0,
+    "failed": [
+     "bear clearance agrees with the pinned Tinderbox spawn check beside walls, at corners and on every bound"
+    ],
+    "firstError": "Missing expected exception: face 0.15 nm inside the radius, past the shared epsilon: adapter refuses",
+    "seconds": 6.944
+   },
+   "verdict": "killed"
+  },
+  {
+   "id": "T06",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "relative tolerance, 0.056 nm here",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 9.928
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 41.486
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  },
+  {
+   "id": "T07",
+   "file": "packages/adapters/tinderbox/index.js",
+   "what": "tolerance + 1e-14",
+   "target": {
+    "status": 0,
+    "signal": null,
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 10.186
+   },
+   "suite": {
+    "status": 0,
+    "tests": 218,
+    "pass": 218,
+    "fail": 0,
+    "cancelled": 0,
+    "failed": [],
+    "firstError": null,
+    "seconds": 43.154
+   },
+   "check": 0,
+   "verdict": "survives every headless gate"
+  }
+ ],
+ "baseline": {
+  "tests/editor-host-bridge.test.mjs": {
+   "status": 0,
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "cancelled": 0,
+   "failed": [],
+   "firstError": null,
+   "seconds": 3.516
+  },
+  "tests/tinderbox-adapter.test.mjs": {
+   "status": 0,
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "cancelled": 0,
+   "failed": [],
+   "firstError": null,
+   "seconds": 9.86
+  }
+ },
+ "statusAfter": "",
+ "finished": "2026-10-29T17:14:11.879Z"
+}
