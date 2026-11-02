@@ -5,6 +5,8 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {checkTileStackRegistration,withoutTileStackRegistration} from './tile-stack-registration.mjs';
+import {tileSurfaceCorrection,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
 
 export const TILE_ART_ACCEPTED_SOURCE='ca285aa76a49b74df6067caab661d7bed39bd523';
 export const TILE_ART_ROOT_BASE='3e583378bee99dc8e275f1b97591af9a0406ca04';
@@ -39,6 +41,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   };
   const approvedRuntime=git('ls-tree','-r','--name-only',TILE_ART_ACCEPTED_SOURCE,'packages/tile-visuals').toString().trim().split('\n').filter(file=>file.endsWith('.js')).sort();
   assert.equal(approvedRuntime.length,6);
+  const surfaceCorrection=tileSurfaceCorrection({object}),runtimeCorrections=[surfaceCorrection.correction];
   const acceptedRuntime=[],runtime=[];
   for(const file of approvedRuntime){
     const original=object(TILE_ART_ACCEPTED_SOURCE,file);acceptedRuntime.push(record(file,original));
@@ -47,7 +50,10 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
       const text=original.toString('utf8');assert.equal(text.split(adaptation.from).length-1,1,'The sole registered-identity adaptation must be unambiguous.');
       expected=Buffer.from(text.replace(adaptation.from,adaptation.to),'utf8');
     }
-    assert.ok(read(file).equals(expected),'Only the exact one-string registration adaptation is permitted: '+file);indexed(file,expected);runtime.push(record(file,expected));
+    if(file===TILE_SURFACE_PREPARE_PATH){
+      const correction=surfaceCorrection.overrides[file];assert.ok(expected.equals(correction.original),'Registered provider correction preimage differs.');expected=correction.expected;
+    }
+    assert.ok(read(file).equals(expected),'Only the exact registered identity and reviewed generated-angle correction are permitted: '+file);indexed(file,expected);runtime.push(record(file,expected));
   }
   const closure=moduleClosure(Object.values(entries));
   assert.deepEqual(closure,approvedRuntime,'Provider closure must be the six local modules, without bundled core, Three, donor or lab modules.');
@@ -65,10 +71,11 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   unchanged('packages/map-core/contract-manifest.js',TILE_ART_ROOT_BASE);
   const currentUpstream=json('upstream.json'),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
   assert.deepEqual(currentUpstream,baseUpstream,'This registration adds no donor/game pin.');
-  const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports={...pkg.exports};
+  const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports=withoutTileStackRegistration(pkg.exports);
   for(const [entry,target]of Object.entries(entries)){assert.equal(priorExports[entry],target,'Missing actual tile-art export: '+entry);delete priorExports[entry];}
   assert.deepEqual(priorExports,basePackage.exports,'Existing public exports must remain unchanged.');
   assert.equal(pkg.version,basePackage.version,'Registration does not decide a release version.');
+  const optionalRegistration=checkTileStackRegistration({object,read,indexed,moduleClosure,distribution});
 
   // Original294 studies and their source notices remain immutable research,
   // including the original previews/tools; none becomes a runtime authority.
@@ -84,9 +91,11 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   const threeNotice=unchanged(baseUpstream.aft.root+'/dist/tactics/vendor/THREE-LICENSE.txt',TILE_ART_ROOT_BASE);
   const immutableProofs=proofInputs.map(file=>unchanged(file,TILE_ART_ACCEPTED_SOURCE));
 
-  const source=json('packages/tile-visuals/source.json');
+  const expectedMetadata=surfaceCorrection.overrides[TILE_SURFACE_METADATA_PATH].expected;
+  assert.ok(read(TILE_SURFACE_METADATA_PATH).equals(expectedMetadata),'Provider metadata must preserve the fixed base with only the reviewed runtime correction.');indexed(TILE_SURFACE_METADATA_PATH,expectedMetadata);
+  const source=json(TILE_SURFACE_METADATA_PATH);
   for(const [key,value]of Object.entries({schemaVersion:1,id,availability:'registered-optional',acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,policy,guide:support[0],notice:support[1]}))assert.equal(source[key],value,'Source metadata '+key);
-  assert.deepEqual(source.entries,entries);assert.deepEqual(source.acceptedRuntime,acceptedRuntime);assert.deepEqual(source.runtime,runtime);assert.deepEqual(source.atlas,atlas);assert.deepEqual(source.metadataAdaptations,[adaptation]);
+  assert.deepEqual(source.entries,entries);assert.deepEqual(source.acceptedRuntime,acceptedRuntime);assert.deepEqual(source.runtime,runtime);assert.deepEqual(source.atlas,atlas);assert.deepEqual(source.metadataAdaptations,[adaptation]);assert.deepEqual(source.runtimeCorrections,runtimeCorrections);
   assert.match(source.scope,/surface/i);assert.match(source.scope,/unbound/i);
   if(source.canonicalCoreCheckpoint!==undefined)assert.equal(source.canonicalCoreCheckpoint,historicalCore);
   const headless=moduleClosure([entries['./tiles/art'],entries['./tiles/art/example']]),rendered=moduleClosure([entries['./tiles/art/three']]);
@@ -109,7 +118,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   }
   assert.deepEqual(pkg.files,distribution().files,'Root whitelist must match the exact computed distribution.');
   const families=Object.values(Object.groupBy(studies.studies,study=>study.family)).map(list=>({id:list[0].family,count:list.length}));
-  return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES]};
+  return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],runtimeCorrections,coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,optionalRegistration,publicExportsChanged:true,publicWhitelistChanged:true,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES,optionalRegistration.base,...surfaceCorrection.requiredGitCommits])]};
 }
 
 if(process.argv[1]&&pathToFileURL(path.resolve(process.argv[1])).href===import.meta.url){

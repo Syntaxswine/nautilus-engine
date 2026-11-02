@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "id": "nautilus.optional-tile-finishes",
+  "availability": "registered-optional",
+  "acceptedArtist": "6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03",
+  "artistSourceRoot": "candidates/tile-stack/art",
+  "entries": {
+    "./tiles/finishes": "./packages/tile-finishes/catalogue.js",
+    "./tiles/finishes/three": "./packages/tile-finishes/finishes.js"
+  },
+  "privateCatalogue": {
+    "id": "nautilus-tile-finish-catalogue",
+    "version": 1,
+    "digest": "4da6c7e85b9819aa6c6d847b0447d5baa80db77a824a04e24579209ccc0c381b",
+    "preserved": true
+  },
+  "catalogue": {
+    "id": "nautilus-tile-finish-library",
+    "version": 1,
+    "digest": "5b4c25105568a1f99569dbb6bd2d6308c067bbb41763c4bd6bfddfa3552bc0e1"
+  },
+  "runtime": [
+    {
+      "sourceCommit": "6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03",
+      "sourcePath": "candidates/tile-stack/art/catalogue.js",
+      "path": "packages/tile-finishes/catalogue.js",
+      "sourceBytes": 5953,
+      "sourceSha256": "fe1db713bdc3a8adc1a4b3479cd9809bd7d66ea28beab6c5c737962ddede2cdc",
+      "bytes": 5869,
+      "sha256": "f5ab5f15757537309a68d5d68c869004a044ad5bfff37089e928d35f09a4e73c"
+    },
+    {
+      "sourceCommit": "6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03",
+      "sourcePath": "candidates/tile-stack/art/data.js",
+      "path": "packages/tile-finishes/data.js",
+      "sourceBytes": 2176,
+      "sourceSha256": "7c898395c4fcc885cfc2d4c3ae0b94f41a2ba9a0b50c92b6cb7e1546c90fa2a7",
+      "bytes": 2172,
+      "sha256": "3eab4dbc81ff0ce2b36c713aa4d4087ce8d4e5bfbbcff3ecdb4eff0ef7cde0a3"
+    },
+    {
+      "sourceCommit": "6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03",
+      "sourcePath": "candidates/tile-stack/art/finishes.js",
+      "path": "packages/tile-finishes/finishes.js",
+      "sourceBytes": 11010,
+      "sourceSha256": "fcb120612723ab043028ba9e414cb9b07d29ef02a78b11e894b8d37915ff6b1f",
+      "bytes": 10988,
+      "sha256": "fe2a2d16c09ed4598c8d724ee682d850a5077069803b4bdefc8978e258000dab"
+    }
+  ],
+  "adaptations": [
+    {
+      "path": "packages/tile-finishes/catalogue.js",
+      "steps": [
+        {
+          "from": "// Gate A candidate metadata. No DOM, renderer, storage, clock or game imports.",
+          "to": "// Optional immutable finish metadata. No DOM, renderer, storage, clock or game imports.",
+          "occurrences": 1
+        },
+        {
+          "from": "availability:'gate-a-candidate'",
+          "to": "availability:'registered-optional'",
+          "occurrences": 1
+        },
+        {
+          "from": "example:'candidates/tile-stack/art/study.html'",
+          "to": "example:'examples/tile-stack-editor.html'",
+          "occurrences": 1
+        },
+        {
+          "from": "builderChecklist:'candidates/tile-stack/art/README.md'",
+          "to": "builderChecklist:'packages/tile-finishes/README.md'",
+          "occurrences": 1
+        },
+        {
+          "from": "id:'nautilus-tile-finish-catalogue',version:1,digest:",
+          "to": "id:'nautilus-tile-finish-library',version:1,digest:",
+          "occurrences": 1
+        },
+        {
+          "from": "catalogueId:'nautilus-tile-finish-catalogue'",
+          "to": "catalogueId:'nautilus-tile-finish-library'",
+          "occurrences": 1
+        },
+        {
+          "from": "status:'Gate A candidate; public registration and real host integration remain Architect-owned'",
+          "to": "status:'Registered optional finish library; host owns geometry and gameplay eligibility'",
+          "occurrences": 1
+        },
+        {
+          "from": "const providerRefusals=[{shapeKind:'profile-sweep',pathKind:'line',transform:{quarterTurns:1,mirrorX:false},code:'INVALID_NUMBER',path:'/startRad',reason:'Valid level line source produces a derived negative-zero cap angle in the current public provider.'},{shapeKind:'profile-sweep',pathKind:'line',transform:{quarterTurns:3,mirrorX:true},code:'INVALID_NUMBER',path:'/startRad',reason:'Valid level line source produces a derived negative-zero cap angle in the current public provider.'}];",
+          "to": "const providerRefusals=[];",
+          "occurrences": 1
+        },
+        {
+          "from": "families,providerRefusals,availabilityPolicy:",
+          "to": "families,providerRefusals,providerCorrections:[{\"sourceCommit\":\"93a94778779b800227f3886b1ca63fae1abc2543\",\"target\":\"packages/tile-visuals/prepare.js\",\"patchSha256\":\"c7eac2b728479132a4badd9ab2fc819fead29530e6fe2dee07f862289cbe6173\",\"baseSha256\":\"eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e\",\"sha256\":\"fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3\",\"scope\":\"Generated arc startRad only; authored numeric validation unchanged\"}],availabilityPolicy:",
+          "occurrences": 1
+        },
+        {
+          "from": " Known derived-value failures above remain unavailable.",
+          "to": "",
+          "occurrences": 1
+        },
+        {
+          "from": "export const TILE_FINISH_CONTENT_DIGEST='4da6c7e85b9819aa6c6d847b0447d5baa80db77a824a04e24579209ccc0c381b';",
+          "to": "export const TILE_FINISH_CONTENT_DIGEST='5b4c25105568a1f99569dbb6bd2d6308c067bbb41763c4bd6bfddfa3552bc0e1';",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "path": "packages/tile-finishes/data.js",
+      "steps": [
+        {
+          "from": "// Private candidate data boundary; borrowed native objects never pass through it.",
+          "to": "// Finite source-data boundary; borrowed native objects never pass through it.",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "path": "packages/tile-finishes/finishes.js",
+      "steps": [
+        {
+          "from": "// Private Gate A appearance adapter, not a public engine entry. Geometry is",
+          "to": "// Optional borrowed-Three finish adapter. Geometry is",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "atlas": {
+    "id": "nautilus.building-paint.v2",
+    "path": "assets/buildings/painted-materials-v2.png",
+    "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+    "bytes": 2558637,
+    "columns": 4,
+    "rows": 4,
+    "colourSpace": "sRGB",
+    "ownership": "borrowed texture; no bitmap copy or texture mutation",
+    "source": "packages/building-catalog/designs.js MATERIALS at fixed base"
+  },
+  "providerCorrection": {
+    "status": "pass",
+    "sourceCommit": "93a94778779b800227f3886b1ca63fae1abc2543",
+    "patchPath": "candidates/tile-stack/core/line-d4-provider-patch/derived-start-zero.patch",
+    "patchSha256": "c7eac2b728479132a4badd9ab2fc819fead29530e6fe2dee07f862289cbe6173",
+    "file": "packages/tile-visuals/prepare.js",
+    "beforeSha256": "eaaee23e079ed9e0d0f91454b1ffcbe732f053f6f44cc63ef612db15dd7e287e",
+    "afterSha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3",
+    "proofFilesImported": 11,
+    "dependencyFiles": 20,
+    "scope": "One derived offset-arc startRad normalization; authored controls and public numeric validators unchanged"
+  },
+  "guide": "packages/tile-finishes/README.md",
+  "scope": "Cosmetic surface appearance only; original geometry/source/physical boundary contracts and borrowed resources retained. Structural support, navigation, collision, fire and game adoption remain unbound."
+}

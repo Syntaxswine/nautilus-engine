@@ -22,6 +22,10 @@ jobs:
           7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
           87301172d7258223f89aa2e19fe391ac01b52f00
           32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -38,6 +42,7 @@ jobs:
       - run: npm run test:windows:renderer
       - run: npm run test:tiles
       - run: npm run test:tiles:art
+      - run: npm run test:tiles:stack
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -64,6 +69,8 @@ jobs:
             artifacts/procedural-tiles-v2/schema-cases.json
             artifacts/procedural-tiles-v2/installed-*.json
             artifacts/procedural-tiles-v2/installed-tests.log
+            artifacts/tile-stack-integration/package-proof/
+            artifacts/tile-stack-core-line-d4/
           if-no-files-found: ignore
   browser-workflow:
     runs-on: ubuntu-latest
@@ -82,6 +89,10 @@ jobs:
           7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
           87301172d7258223f89aa2e19fe391ac01b52f00
           32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -216,6 +227,10 @@ jobs:
           7d7b1ccee54b1eba05b2f60563d4ab5ab4d002ab
           87301172d7258223f89aa2e19fe391ac01b52f00
           32101fa97a8706296dcba4d9614d9d663d53a6dd
+          45ecaef16bb39424c8b885d53acb4371654b4fa0
+          6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03
+          93a94778779b800227f3886b1ca63fae1abc2543
+          2502646482218524fd5129641da769bb82462e4d
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
