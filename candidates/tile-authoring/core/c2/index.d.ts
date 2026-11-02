@@ -7,3 +7,6 @@ export function bindTileAuthoringTarget(tiles:TilesV1,input:ProposedCoreC2BindAr
 export function sealTileContentRecord(tiles:TilesV1,input:Definition|Preset|Artwork|Omit<Definition,'contentDigest'>|Omit<Preset,'contentDigest'>|Omit<Artwork,'contentDigest'>):Readonly<{record:Definition|Preset|Artwork;pin:Pin}>;
 export function inspectTileAuthoringRequirements(tiles:TilesV1,input:{document:WorkbenchDocument;subject:Pin|Source}):Readonly<{kind:'nautilus-tile-authoring-requirements';version:1;subjectDigest:string;requiredProfiles:string[];requiredResources:Pin[];unavailable:Diagnostic[]}>;
 export function tileAuthoringDiscovery():Readonly<object>;
+
+export {captureTilePreset,exportTileContentPack,importTileContentPack} from './stage-b.js';
+export type {CaptureInput,ByteEntry,PortablePack} from './stage-b.js';

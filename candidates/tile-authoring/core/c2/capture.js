@@ -1,5 +1,6 @@
 import {Budget,readData,corePort,fields,shape,fail,hash,equal,freeze} from './data.js';
 import {jsonBytes} from './budget.js';
+import {documentLimits} from './stage-b-limits.js';
 import {validateDocument,pin,recordDigest,validateRecord} from './model.js';
 import {validateAppearanceDocument,validatePresetDefaults,supportedRecord} from './operations.js';
 const unique=(a,path)=>{if(new Set(a).size!==a.length)fail('CAPTURE_REMAP_DUPLICATE',path,'Every source/template identity must occur once.');};
@@ -9,7 +10,7 @@ export function captureTilePreset(actual,input){
  const effective=new Budget(v.limits??{});Object.assign(b.limits,effective.limits);b.take(0);
  if(b.inputBytes>b.limits.inputBytes||b.nodes>b.limits.nodes||(b.maxDepthObserved??0)>b.limits.depth)fail('AUTHORING_INPUT_LIMIT','/capture','Captured effective metadata limits exceeded.');b.take(Math.ceil(jsonBytes(v.document,b.limits.sourceBytes)/64));
  fields(v.identity,['id','revision','label'],'/capture/identity');shape(t,'id',v.ownerId,b);shape(t,'id',v.identity.id,b);
- const d=v.document,idx=validateDocument(t,d,b);validateAppearanceDocument(t,d,b);
+ const d=v.document,idx=validateDocument(t,d,b);documentLimits(d,b);validateAppearanceDocument(t,d,b);
  const owner=d.authoring.ownerPins.find(x=>x.ownerId===v.ownerId);if(!owner)fail('CAPTURE_OWNER_REQUIRED','/capture/ownerId','Capture an exact current placed definition.');
  const def=idx.resolve(owner.definition,'nautilus-recipe-definition');supportedRecord(t,def,b);
  const current=d.authoring.library.presets.filter(x=>x.id===v.identity.id),next=current.length?Math.max(...current.map(x=>x.revision))+1:1;

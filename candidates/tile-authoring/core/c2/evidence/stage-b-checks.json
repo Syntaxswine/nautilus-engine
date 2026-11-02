@@ -1,0 +1,71 @@
+{
+  "checkpoint": "private C2 B non-placement capture/save and real-byte portable file set",
+  "basePrivateA": "8b4cd72c2d8f424d6811196d9651916bb7e9e2bd",
+  "architectStatus": "candidate submitted after required checks; not integration acceptance",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1153,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    }
+  ],
+  "focusedControls": {
+    "passed": 54,
+    "originalA": 26,
+    "ledgerRegressions": 12,
+    "stageB": 16
+  },
+  "actualBytes": {
+    "originalArtworkRecords": 30,
+    "originalPages": 2,
+    "encodedBytes": 2560200,
+    "originalArtistCommit": "a66c78332c90fda33c16ffa7518a358b60249169",
+    "rawSha256AgainstIndependentNodeCrypto": true,
+    "encodedBytesAndNoticesExact": true
+  },
+  "deterministicMeasuredWork": {
+    "capture": 177972,
+    "saveFinalBind": 815036,
+    "capturePlusTightenedSave": 993008,
+    "export": 315258,
+    "import": 154686
+  },
+  "claims": {
+    "captureProducer": true,
+    "canonicalPresetSave": true,
+    "actualBytePackRoundtrip": true,
+    "nativeOwnership": false,
+    "decoderRun": false,
+    "storageOrWALApply": false,
+    "placementWithMarks": false,
+    "combinedRoute": "proposal only",
+    "publicRegistration": false,
+    "normalDistributionShipsCandidate": false
+  },
+  "inventory": {
+    "privateRuntimeModules": 18,
+    "unchangedAcceptedDependencies": 83
+  },
+  "schemas": "C0 persist and frozen appearance Plan2 unchanged; supplemental B private producer/file-set schemas only. Combined Plan3 packet is not imported or implemented.",
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "foregroundChecksCompleted": true
+  }
+}

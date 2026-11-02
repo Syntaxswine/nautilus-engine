@@ -4,6 +4,7 @@ import {Budget,readData,corePort,fields,shape,fail,hash,freeze,plain} from './da
 import {jsonBytes} from './budget.js';
 import {validateDocument,recordKey,libraryIndex} from './model.js';
 import {validatePack,validateAppearanceDocument} from './operations.js';
+import {documentLimits} from './stage-b-limits.js';
 import {sha256Bytes} from './byte-hash.js';
 const typedProto=Object.getPrototypeOf(Uint8Array.prototype);
 const typedLength=Object.getOwnPropertyDescriptor(typedProto,'byteLength').get;
@@ -42,7 +43,8 @@ function copyEntries(entries,pack,b){
  out.sort((a,z)=>a.entry<z.entry?-1:1);return {entries:out,bytes};
 }
 function result(pack,copies,b){
- b.output(pack);b.take(Math.ceil(copies.bytes/64));b.outputBytes+=copies.bytes;
+ const metadata={pack,entries:copies.entries.map(x=>({entry:x.entry,byteLength:x.bytes.byteLength})),work:b.snapshot()};
+ b.output(metadata);b.take(Math.ceil(copies.bytes/64));b.outputBytes+=copies.bytes;
  if(b.outputBytes>b.limits.outputBytes)fail('AUTHORING_OUTPUT_LIMIT','/portable','Complete metadata plus actual copied binary output exceeds effective output bytes.');
  // Byte arrays are owned mutable copies; they are never blessed as immutable
  // readiness. Every import rehashes them against the frozen descriptor.
@@ -52,7 +54,7 @@ export function exportTileContentPack(actual,input){
  const {v,b,entries}=begin(input,['document','query','manifestId','entries','limits'],['document','query','manifestId','entries']),t=corePort(actual);
  b.take(Math.ceil(jsonBytes(v.document,b.limits.sourceBytes)/64));shape(t,'query',v.query,b);shape(t,'id',v.manifestId,b);
  if(v.query.kind!=='content.export')fail('CONTENT_EXPORT_QUERY_REQUIRED','/query','Use the frozen content.export query with includeAllDependencies:true.');
- const idx=validateDocument(t,v.document,b);validateAppearanceDocument(t,v.document,b);
+ const idx=validateDocument(t,v.document,b);documentLimits(v.document,b);validateAppearanceDocument(t,v.document,b);
  const queue=v.query.presetRefs.map(x=>idx.resolve(x,'nautilus-tile-preset')),seen=new Set(),all=[];
  for(let i=0;i<queue.length;i++){
   const r=queue[i],key=recordKey(r);b.take();if(seen.has(key))continue;seen.add(key);all.push(r);
