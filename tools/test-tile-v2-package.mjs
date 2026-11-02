@@ -5,8 +5,8 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {checkTileV2} from './check-tile-v2.mjs';
-const root=path.resolve(fileURLToPath(new URL('../',import.meta.url))),source=checkTileV2(),request=JSON.parse(fs.readFileSync(path.join(root,'docs/reviews/procedural-tiles/v2-registration-request.json')));
 if(!process.argv.includes('--candidate'))throw Error('TILE_V2_REGISTRATION_PENDING: use the explicit private offline overlay only. C1 root inspection does not grant public v2 registration/capability, full layout resolution or live adoption.');
+const root=path.resolve(fileURLToPath(new URL('../',import.meta.url))),source=checkTileV2(),request=JSON.parse(fs.readFileSync(path.join(root,'docs/reviews/procedural-tiles/v2-registration-request.json')));
 const output=path.join(root,'artifacts/procedural-tiles-v2');fs.mkdirSync(output,{recursive:true});const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'nautilus-tile-v2-proof-')),stage=path.join(scratch,'stage'),consumer=path.join(scratch,'consumer'),name='@nautilus-engine/tiles-v2-candidate';
 function npm(args,cwd){const cli=[process.env.npm_execpath,path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')].find(f=>f&&path.basename(f)==='npm-cli.js'&&fs.existsSync(f));if(!cli)throw Error('Node with npm is required.');return execFileSync(process.execPath,[cli,...args],{cwd,encoding:'utf8',windowsHide:true,timeout:120000,maxBuffer:4000000});}
 const sha=b=>createHash('sha256').update(b).digest('hex');let report;
