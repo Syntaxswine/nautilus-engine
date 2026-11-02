@@ -208,3 +208,56 @@ test('real floor values, floor array order and raw sourceJSON byte changes still
     controller.dispose();
   }
 });
+
+test('Stage refuses a builder-published valid unknown without collecting or replaying the producer',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding),reads=h.calls.reads;
+  let builds=0,packet;
+  const result=await controller.stage('recipe.create',s=>{
+    builds++;packet=c.commands.rectangle({...request(),snapshot:s});
+    const unknown=copy(h.view);unknown.presentation.outcome={outcome:'unknown',requestId:'other-original',committed:null,recoveryRequestId:'other-original',writesFrozen:true,potentiallyCommittedResources:'retain-until-same-id-recovery'};
+    h.publish(unknown);return packet;
+  });
+  assert.equal(result.ok,false);assert.equal(result.code,'UI_STAGE_INVALIDATED');
+  assert.equal(builds,1);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length,0);
+  assert.equal(h.calls.prepare.length+h.calls.apply.length,0);assert.equal(h.calls.reads,reads+1);
+  assert.deepEqual(packet.expected,snapshot().expected);assert.equal(controller.view.presentation.outcome.outcome,'unknown');
+  controller.dispose();
+});
+test('Stage refuses builder-time disposal before the collector with exactly one construction',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding),reads=h.calls.reads;let builds=0;
+  const result=await controller.stage('recipe.create',s=>{builds++;const packet=c.commands.rectangle({...request(),snapshot:s});controller.dispose();return packet;});
+  assert.equal(result.ok,false);assert.equal(result.code,'UI_STAGE_INVALIDATED');assert.equal(builds,1);assert.equal(c.calls.produce.length,1);
+  assert.equal(h.calls.collect.length+h.calls.prepare.length+h.calls.apply.length,0);assert.equal(h.calls.reads,reads+1);
+  assert.equal(controller.pending,false);assert.equal(controller.view,null);
+});
+test('Stage refuses a builder-retired raw source binding without collecting or refreshing Expected',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding),reads=h.calls.reads;let builds=0,packet;
+  const result=await controller.stage('recipe.create',s=>{builds++;packet=c.commands.rectangle({...request(),snapshot:s});const next=copy(h.view);next.snapshot.document.sourceJSON+=' ';h.publish(next);return packet;});
+  assert.equal(result.ok,false);assert.equal(result.code,'UI_STAGE_INVALIDATED');assert.equal(builds,1);assert.equal(c.calls.produce.length,1);
+  assert.equal(h.calls.collect.length+h.calls.prepare.length+h.calls.apply.length,0);assert.equal(h.calls.reads,reads+1);
+  assert.deepEqual(packet.expected,snapshot().expected);assert.equal(controller.view,null);controller.dispose();
+});
+test('ordinary Stage collects the one constructed packet and preserves its captured Expected',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding);let builds=0,packet;
+  const captured=copy(h.view.snapshot.expected),result=await controller.stage('recipe.create',s=>{builds++;packet=c.commands.rectangle({...request(),snapshot:s});return packet;});
+  assert.equal(result.ok,true);assert.equal(builds,1);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length,1);
+  assert.strictEqual(h.calls.collect[0],packet);assert.deepEqual(packet.expected,captured);assert.equal(h.calls.prepare.length+h.calls.apply.length,0);controller.dispose();
+});
+test('Stage rechecks its captured service connection after construction without publication',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding);let builds=0;
+  const result=await controller.stage('recipe.create',s=>{builds++;const packet=c.commands.rectangle({...request(),snapshot:s});h.binding.service={...h.binding.service};return packet;});
+  assert.equal(result.ok,false);assert.equal(builds,1);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length,0);assert.equal(controller.view,null);controller.dispose();
+});
+test('Stage cancellation ticket invalidation blocks collection without rebuilding',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding);let builds=0,cancellation;
+  const result=await controller.stage('recipe.create',s=>{builds++;const packet=c.commands.rectangle({...request(),snapshot:s});cancellation=controller.cancel();return packet;});
+  await cancellation;
+  assert.equal(result.ok,false);assert.equal(result.code,'UI_STAGE_INVALIDATED');assert.equal(h.calls.discard,1);
+  assert.equal(builds,1);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length,0);controller.dispose();
+});
+test('Stage refuses a builder-time collector replacement on the borrowed connection',async()=>{
+  const h=host(),c=constructors(),controller=createTileAuthoringUIController(h.binding);let replacementCalls=0;
+  const result=await controller.stage('recipe.create',s=>{const packet=c.commands.rectangle({...request(),snapshot:s});h.binding.collectCommand=()=>{replacementCalls++;return {ok:true};};return packet;});
+  assert.equal(result.ok,false);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length+replacementCalls,0);
+  assert.equal(controller.view,null);controller.dispose();
+});

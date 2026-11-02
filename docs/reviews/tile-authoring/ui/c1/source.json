@@ -32,8 +32,8 @@
   "files": [
     {
       "file": "apps/editor/tile-authoring/ui/panel.js",
-      "bytes": 25957,
-      "sha256": "108d30bb1b6d6552127151c02634f6c6171dde84e111749291fa32a3b5f11f5d"
+      "bytes": 26873,
+      "sha256": "3d598570bfe3d66c299f1611cb93158aa19df4d7985a9cab2d99bdc923e8e6ef"
     },
     {
       "file": "apps/editor/tile-authoring/ui/commands.js",
@@ -47,8 +47,8 @@
     },
     {
       "file": "tests/ui-tile-authoring-c1.test.mjs",
-      "bytes": 22719,
-      "sha256": "ac6657186da96a6f9069167080036a56cd5322082642328f7c2d248d7e9f9984"
+      "bytes": 27943,
+      "sha256": "171ddc4d8f13449af10c9095c7fc71d345a7cccc350b74eeb7e9b73eacecdec9"
     },
     {
       "file": "tools/ui-review-tile-authoring-c1.mjs",
@@ -57,8 +57,8 @@
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/README.md",
-      "bytes": 8115,
-      "sha256": "dfc0f2be1ec252a40c0813ce8cb4b2411630d4082bb198ff4cedf693d2612b63"
+      "bytes": 8509,
+      "sha256": "fa82b0c56261575d460bf7a175814f2dca714f9cbfc9f95ce872f506592b55d0"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/usage-card.json",
@@ -67,16 +67,27 @@
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/validation.json",
-      "bytes": 66650,
-      "sha256": "81bb65fcb105b7111d01ee1b4ca4501969830c790cd36bce33060ad1ad51135f"
+      "bytes": 72185,
+      "sha256": "8ceb82638baabe220e38d87bdde006625a8cfa6412d9e7e4592a09f027f2ab79"
     }
   ],
-  "status": "early-component-with-focused-property-order-correction",
-  "correctionOf": "744a2333abc4f36642c0f3edf33021b022626b18",
+  "status": "component-with-focused-protocol-corrections-awaiting-Root-review",
+  "correctionOf": "2e4730e56db86d9336455ba1671d8ded788ff9da",
   "comparison": {
     "objectKeyOrder": "ignored for finite data comparison only",
     "arrayOrder": "preserved",
     "rawSourceJSON": "exact original string; never canonicalized",
     "coreHashes": "not manufactured by UI"
-  }
+  },
+  "corrections": [
+    {
+      "checkpoint": "2e4730e56db86d9336455ba1671d8ded788ff9da",
+      "parent": "744a2333abc4f36642c0f3edf33021b022626b18",
+      "kind": "semantic-object-key-order-comparison"
+    },
+    {
+      "parent": "2e4730e56db86d9336455ba1671d8ded788ff9da",
+      "kind": "post-construction-Stage-live-frame-fence"
+    }
+  ]
 }

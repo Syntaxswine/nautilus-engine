@@ -1,31 +1,42 @@
 {
   "kind": "nautilus-ui-c1-validation",
   "version": 1,
-  "status": "focused-correction-passed-native-integration-gated",
+  "status": "focused-stage-frame-correction-passed-native-integration-gated",
   "scope": "Protocol doubles only. No actual Core authoring, Editor v3 host, browser or installed-package proof.",
   "earlyCheckpoint": "744a2333abc4f36642c0f3edf33021b022626b18",
   "correction": {
-    "description": "Compare immutable binding/action data by semantic finite values instead of JSON object insertion order. Preserve array order and exact raw sourceJSON strings.",
+    "parentCheckpoint": "2e4730e56db86d9336455ba1671d8ded788ff9da",
+    "reportedAgainst": "744a2333abc4f36642c0f3edf33021b022626b18",
+    "description": "Construct the canonical packet once; before the collector recheck captured connection, epoch, ticket, displayed live view, action flag and non-unknown state. Invalidation returns without collector, snapshot reread, Expected refresh or producer replay.",
     "runtimeFiles": [
       "apps/editor/tile-authoring/ui/panel.js"
     ],
-    "testsAdded": 2,
-    "checks": 27,
-    "pass": 27,
+    "testsAdded": 7,
+    "checks": 34,
+    "pass": 34,
     "fail": 0,
+    "witnesses": [
+      "builder publishes valid unknown/writesFrozen",
+      "builder disposes controller",
+      "builder changes raw sourceJSON and retires binding",
+      "ordinary positive collects the identical packet once",
+      "producer-time service replacement",
+      "cancellation-ticket invalidation",
+      "producer-time collector replacement"
+    ],
     "fullRepositoryGatesRepeated": false,
-    "reason": "Architect requested focused follow-up while Core/Host runtime providers are not yet coherent."
+    "reason": "Architect requested focused follow-up while actual Core/Host acceptance remains pending."
   },
   "protocol": {
     "command": "node tools/ui-review-tile-authoring-c1.mjs --protocol",
-    "tests": 27,
-    "pass": 27,
+    "tests": 34,
+    "pass": 34,
     "fail": 0,
     "inputs": [
       {
         "file": "apps/editor/tile-authoring/ui/panel.js",
-        "bytes": 25957,
-        "sha256": "108d30bb1b6d6552127151c02634f6c6171dde84e111749291fa32a3b5f11f5d"
+        "bytes": 26873,
+        "sha256": "3d598570bfe3d66c299f1611cb93158aa19df4d7985a9cab2d99bdc923e8e6ef"
       },
       {
         "file": "apps/editor/tile-authoring/ui/commands.js",
@@ -39,8 +50,8 @@
       },
       {
         "file": "tests/ui-tile-authoring-c1.test.mjs",
-        "bytes": 22719,
-        "sha256": "ac6657186da96a6f9069167080036a56cd5322082642328f7c2d248d7e9f9984"
+        "bytes": 27943,
+        "sha256": "171ddc4d8f13449af10c9095c7fc71d345a7cccc350b74eeb7e9b73eacecdec9"
       },
       {
         "file": "tools/ui-review-tile-authoring-c1.mjs",
@@ -76,14 +87,14 @@
     "protocol": {
       "command": "node tools/ui-review-tile-authoring-c1.mjs --protocol",
       "exitCode": 0,
-      "tests": 27,
-      "pass": 27,
-      "sourceCheckpoint": "focused-property-order-correction",
-      "rawBytes": 6305,
-      "rawSha256": "a46d181742e031a87dbda227b10bc229a75d2ad410b223806c854192a9888517",
+      "tests": 34,
+      "pass": 34,
+      "sourceCheckpoint": "focused-post-construction-Stage-correction",
+      "rawBytes": 7976,
+      "rawSha256": "ee4ccaf81254e3d3372ae3ffda0cc758a851cd4b5177a60cf1d2ee885dcd0287",
       "encoding": "gzip+base64",
-      "archiveSha256": "2577f6ba694e8c3943a85ab9b5ebe28b3a6dc72b3050e39f864eccd98eff5f1a",
-      "archiveBase64": "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"
+      "archiveSha256": "ce3a6c94b2a349ba598f2ad7c156e63529df59e45bda5e8d0dd22af2b7b801d1",
+      "archiveBase64": "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"
     },
     "check": {
       "command": "npm run check",
@@ -137,5 +148,67 @@
   "browserProof": "gated until reviewed fixed Core/Host commits",
   "sourceBuiltInstalledProof": "pending",
   "helpersStarted": 0,
-  "retainedHelpers": 0
+  "retainedHelpers": 0,
+  "historicalFocusedCorrections": [
+    {
+      "checkpoint": "2e4730e56db86d9336455ba1671d8ded788ff9da",
+      "correction": {
+        "description": "Compare immutable binding/action data by semantic finite values instead of JSON object insertion order. Preserve array order and exact raw sourceJSON strings.",
+        "runtimeFiles": [
+          "apps/editor/tile-authoring/ui/panel.js"
+        ],
+        "testsAdded": 2,
+        "checks": 27,
+        "pass": 27,
+        "fail": 0,
+        "fullRepositoryGatesRepeated": false,
+        "reason": "Architect requested focused follow-up while Core/Host runtime providers are not yet coherent."
+      },
+      "protocol": {
+        "command": "node tools/ui-review-tile-authoring-c1.mjs --protocol",
+        "tests": 27,
+        "pass": 27,
+        "fail": 0,
+        "inputs": [
+          {
+            "file": "apps/editor/tile-authoring/ui/panel.js",
+            "bytes": 25957,
+            "sha256": "108d30bb1b6d6552127151c02634f6c6171dde84e111749291fa32a3b5f11f5d"
+          },
+          {
+            "file": "apps/editor/tile-authoring/ui/commands.js",
+            "bytes": 7364,
+            "sha256": "063eb1876fe6138cda3fa3813c6370bec8a8f6a31a7fde564da280da595e8b79"
+          },
+          {
+            "file": "apps/editor/tile-authoring/ui/styles.css",
+            "bytes": 3863,
+            "sha256": "612668e48be39b79ceaf6aa49ee7696ce6aa72dd56c70700167656881ab4320d"
+          },
+          {
+            "file": "tests/ui-tile-authoring-c1.test.mjs",
+            "bytes": 22719,
+            "sha256": "ac6657186da96a6f9069167080036a56cd5322082642328f7c2d248d7e9f9984"
+          },
+          {
+            "file": "tools/ui-review-tile-authoring-c1.mjs",
+            "bytes": 2593,
+            "sha256": "d138af80ccc7dfe2463d991116890665f27cd62b608cb8d12219e5061c60d807"
+          }
+        ]
+      },
+      "evidence": {
+        "command": "node tools/ui-review-tile-authoring-c1.mjs --protocol",
+        "exitCode": 0,
+        "tests": 27,
+        "pass": 27,
+        "sourceCheckpoint": "focused-property-order-correction",
+        "rawBytes": 6305,
+        "rawSha256": "a46d181742e031a87dbda227b10bc229a75d2ad410b223806c854192a9888517",
+        "encoding": "gzip+base64",
+        "archiveSha256": "2577f6ba694e8c3943a85ab9b5ebe28b3a6dc72b3050e39f864eccd98eff5f1a",
+        "archiveBase64": "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"
+      }
+    }
+  ]
 }

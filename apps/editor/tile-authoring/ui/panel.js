@@ -33,8 +33,9 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
   const service=Object.getOwnPropertyDescriptor(binding??{},'service')?.value;
   if (!binding || !serviceMethods.every(name=>ownFunction(service,name)) ||
       !['getSnapshot','subscribe','collectCommand','discardDraft'].every(name=>ownFunction(binding,name))) throw issue('UI_BINDING_REQUIRED','Supply one actual HostService and the Editor draft/view ports.');
+  const collectCommand=Object.getOwnPropertyDescriptor(binding,'collectCommand').value;
   const originalMethods=serviceMethods.map(name=>Object.getOwnPropertyDescriptor(service,name).value);
-  const sameConnection=()=>Object.getOwnPropertyDescriptor(binding,'service')?.value===service&&serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i]);
+  const sameConnection=()=>Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value===collectCommand&&Object.getOwnPropertyDescriptor(binding,'service')?.value===service&&serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i]);
   let disposed=false,broken=false,lastView=null,identity=null,epoch=0,ticket=0,pending=false,rendering=false,queued=null,stop=null;
   const notify = reason => {try{onError(reason);}catch{}};
   const invalidate = reason => {lastView=null;try{onView(null);}catch{}notify(reason);};
@@ -68,9 +69,14 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
     try {
       onPending(true);
       if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed HostService connection changed.'));onPending(false);return {ok:false,code:'UI_REBIND_REQUIRED'};}
-      if(disposed||broken||epoch!==stamp||!lastView)return {ok:false,code:'UI_DISPLAY_CHANGED'};
-      const result=await invoke(current.raw,current.view);
-      if(!disposed&&!broken&&operation===ticket)refresh();
+      if(disposed||broken||operation!==ticket||epoch!==stamp||!lastView)return {ok:false,code:'UI_DISPLAY_CHANGED'};
+      const canCollect=()=>{
+        if(disposed||broken||rendering||operation!==ticket||epoch!==stamp||lastView!==displayed)return false;
+        if(!sameConnection()){broken=true;ticket++;pending=false;invalidate(issue('UI_REBIND_REQUIRED','The borrowed Editor connection changed during construction.'));onPending(false);return false;}
+        return enabled(lastView,name)&&lastView.presentation.outcome?.outcome!=='unknown';
+      };
+      const result=await invoke(current.raw,current.view,canCollect);
+      if(!disposed&&!broken&&operation===ticket&&result?.code!=='UI_STAGE_INVALIDATED')refresh();
       return result;
     }catch(reason){if(!disposed&&!broken&&operation===ticket)notify(reason);return {ok:false,code:reason.code??'UI_ACTION_FAILED',message:reason.message};}
     finally{if(!disposed&&!broken&&operation===ticket){pending=false;onPending(false);}}
@@ -79,13 +85,17 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
     get pending(){return pending;},
     get view(){return lastView;},
     refresh,
-    stage(kind,build){return perform(kind,(raw,view)=>binding.collectCommand(build(view.snapshot,view,raw)));},
+    stage(kind,build){return perform(kind,(raw,view,canCollect)=>{
+      const command=build(view.snapshot,view,raw);
+      if(!canCollect())return {ok:false,code:'UI_STAGE_INVALIDATED',message:'Editor state changed during draft creation. Check the current editor state.'};
+      return collectCommand.call(binding,command);
+    });},
     review(){return perform('review',raw=>{if(!raw.presentation.command)throw issue('UI_COMMAND_REQUIRED','Stage a finite canonical command first.');return service.prepare(raw.presentation.command);});},
     apply(){return perform('apply',raw=>{if(!raw.presentation.retainedApplyRequest)throw issue('UI_RETAINED_REQUEST_REQUIRED','Review through this connection first.');return service.apply(raw.presentation.retainedApplyRequest);});},
     cancel(){return perform('cancel',raw=>raw.presentation.review?service.cancel(raw.presentation.review.reviewToken):binding.discardDraft());},
     recover(){return perform('recover',raw=>{const result=raw.presentation.outcome;if(result?.outcome!=='unknown')throw issue('UI_RECOVERY_ID_REQUIRED','Use the original unknown request.');return service.recover(result.recoveryRequestId);});},
     history(name,...args){return perform(name,()=>{if(!['undo','redo','save','open','retryPresentation'].includes(name)||!ownFunction(binding.history,name))throw issue('UI_HISTORY_UNBOUND','Use existing Editor history/save/presentation ports.');return binding.history[name](...args);});},
-    dispose(){if(disposed)return;disposed=true;ticket++;lastView=null;queued=null;const unsubscribe=stop;stop=null;unsubscribe?.();}
+    dispose(){if(disposed)return;disposed=true;ticket++;pending=false;lastView=null;queued=null;const unsubscribe=stop;stop=null;unsubscribe?.();}
   };
   try{const unsubscribe=binding.subscribe(receive);if(typeof unsubscribe!=='function')throw issue('UI_SUBSCRIPTION_REQUIRED','Editor subscription must return its disposer.');if(disposed)unsubscribe();else stop=unsubscribe;refresh();}catch(reason){api.dispose();throw reason;}
   return Object.freeze(api);

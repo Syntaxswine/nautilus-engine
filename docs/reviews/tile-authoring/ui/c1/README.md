@@ -81,6 +81,12 @@ full C0 floor-binding digest. It emits canonical kind/version/requestId/expected
 operations/budgetProfile and opId/kind/body, without historical aliases.
 A shape-valid packet is not runtime acceptance.
 
+Stage constructs a packet once, then rechecks its captured connection, epoch,
+ticket, live displayed view and unknown outcome before the collector. Invalidated
+construction returns without collection, snapshot reread, Expected refresh or
+producer replay. Dispose clears UI pending state without cancelling the borrowed
+host. The collector function belongs to the same fixed Editor connection.
+
 Stage calls only the draft collector. Review forwards the existing command to the
 same service.prepare once. Apply forwards the exact Editor-retained request,
 without reconstructing authority from displayed JSON or preparing again.
