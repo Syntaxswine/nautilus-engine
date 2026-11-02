@@ -1,0 +1,15 @@
+{
+  "kind": "nautilus-editor-tile-authoring-c1-validation",
+  "version": 1,
+  "status": "early-review-checkpoint-not-integration-delivery",
+  "checks": [
+    {"command": "node --test tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 2, "scope": "transport syntax and forwarding; service double, no Core/native integration claim"},
+    {"command": "node --test tests/smart-tile-session.test.mjs tests/editor-tile-stack-inspection-fence.test.mjs", "status": "pass-before-subsequent-v3-only-hooks", "passed": 22, "scope": "initial shared session extension; current-tree regression rerun remains required"},
+    {"command": "git diff --check", "status": "pass"},
+    {"command": "node --test tests/editor-tile-authoring-c1.test.mjs", "status": "pending-fixed-reviewed-Core-runtime"},
+    {"command": "actual source/built/installed human-UI and JSONL proof", "status": "pending-fixed-reviewed-Core-and-UI-runtime"},
+    {"command": "npm run check; npm test; npm run test:upstream; npm run build", "status": "pending-runtime-dependencies"}
+  ],
+  "helpers": {"retained": [], "temporaryTestSessions": "completed; no preview server started"},
+  "pushStatus": "not-pushed; full delivery gates pending"
+}
