@@ -6,6 +6,8 @@ An asset should tell the next game team how to use it. Geometry, a button image 
 
 Start with the implemented [door/stair behavior](standard-interactions.md) and [title-screen recipe](game-title.md). Open `examples/game-starter.html` in the built preview to try both. `gameAssetGuides()` from the headless `./game-ui` export returns these guides as machine-readable usage cards. The guide files travel in installed engine packages; browser examples belong to the source checkout/static workshop build.
 
+The [shared artwork palette](shared-artwork.md) exposes the same30 exact canonical records and original defaults to humans and authorized agents. Its four metadata APIs and explicit installed-package image locators preserve the separate decoder, resource and Host adoption boundaries.
+
 ## Minimum handoff card
 
 | Field | What the next person needs |

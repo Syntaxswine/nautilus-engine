@@ -1,0 +1,17 @@
+import {listSharedAssets,listSharedArtwork,sharedArtwork,sharedArtworkDefaults,sharedArtworkImage,type SharedArtworkImageDelivery,type SharedArtworkLocation} from 'NAUTILUS_ARTWORK_METADATA';
+const rows=listSharedAssets({category:'Artwork'});
+const record=sharedArtwork(rows[0].artworkPin);
+const defaultGraphic=sharedArtworkDefaults(rows[0].artworkPin);
+const image:SharedArtworkImageDelivery=sharedArtworkImage(rows[0].artworkPin);
+const location:SharedArtworkLocation=image.locations[0];
+const id:string=record.id;
+const revision:number=record.revision;
+const wrap:'clamp'|'repeat'=defaultGraphic.wrap;
+const profile:'renderer'|'assets'|'compatibility'=location.profile;
+const sourceImageView=image.imageView;
+const all=listSharedArtwork();
+// @ts-expect-error Exact Pin uses revision/contentDigest; historical identity is separate.
+sharedArtwork({id:'historical',version:1,digest:'historical'});
+// @ts-expect-error An ID alone is never an implicit latest lookup.
+sharedArtwork('id-only');
+void [id,revision,wrap,profile,sourceImageView,all];

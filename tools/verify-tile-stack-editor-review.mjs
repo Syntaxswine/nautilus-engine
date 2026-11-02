@@ -56,7 +56,7 @@ const verificationFiles=[
   'docs/reviews/tile-stack/architect/b2-sources.json','tools/check-tile-stack-source.mjs',
   'tools/check-tile-finishes-source.mjs','tools/check-tile-visuals-source.mjs',
   'tools/check-tile-visuals-lifecycle.mjs','tools/tile-stack-registration.mjs','tools/tile-surface-corrections.mjs',
-  'tools/tile-authoring-registration.mjs','tools/check-tile-authoring-core-source.mjs',
+  'tools/tile-authoring-registration.mjs','tools/shared-artwork-registration.mjs','tools/check-tile-authoring-core-source.mjs',
   'tools/check-native-window-presenter.mjs','packages/tile-authoring-core/source.json',
   'packages/tile-stack-core/source.json','packages/tile-finishes/source.json','packages/tile-visuals/source.json',
   'packages/map-core/contract-manifest.js','packages/map-core/capabilities.js','package.json','upstream.json','NOTICE.md'
