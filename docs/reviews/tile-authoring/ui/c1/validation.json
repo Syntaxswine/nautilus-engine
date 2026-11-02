@@ -1,0 +1,56 @@
+{
+  "kind": "nautilus-ui-c1-validation",
+  "version": 1,
+  "status": "early-immutable-component-full-gates-in-progress",
+  "scope": "Protocol doubles only. No actual Core authoring, Editor v3 host, browser or installed-package proof.",
+  "protocol": {
+    "command": "node tools/ui-review-tile-authoring-c1.mjs --protocol",
+    "tests": 25,
+    "pass": 25,
+    "fail": 0,
+    "inputs": [
+      {
+        "file": "apps/editor/tile-authoring/ui/panel.js",
+        "bytes": 25952,
+        "sha256": "7da3db1ae4f431660ce345ce780adb72a9a0ba05a85ac836a484cdc03ce556ab"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/commands.js",
+        "bytes": 7364,
+        "sha256": "063eb1876fe6138cda3fa3813c6370bec8a8f6a31a7fde564da280da595e8b79"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/styles.css",
+        "bytes": 3863,
+        "sha256": "612668e48be39b79ceaf6aa49ee7696ce6aa72dd56c70700167656881ab4320d"
+      },
+      {
+        "file": "tests/ui-tile-authoring-c1.test.mjs",
+        "bytes": 20793,
+        "sha256": "5214206f9a35cd47b8724a85b1e55165cc5aa9a4eccd0f9c7096dcb87caa5a5e"
+      },
+      {
+        "file": "tools/ui-review-tile-authoring-c1.mjs",
+        "bytes": 2593,
+        "sha256": "d138af80ccc7dfe2463d991116890665f27cd62b608cb8d12219e5061c60d807"
+      }
+    ],
+    "log": {
+      "file": "artifacts/ui-tile-authoring-c1/protocol.log",
+      "sha256": "42902e764e12016eeafe7cc4b28355495067eba34b4cefad1477dabeb17fa3f7"
+    }
+  },
+  "repositoryGates": {
+    "check": "running",
+    "test": "not-started",
+    "upstream": "not-started",
+    "build": "not-started"
+  },
+  "actualIntegration": false,
+  "actualCoreCommit": null,
+  "actualHostCommit": null,
+  "browserProof": "gated until reviewed fixed Core/Host commits",
+  "sourceBuiltInstalledProof": "pending",
+  "helpersStarted": 0,
+  "retainedHelpers": 0
+}
