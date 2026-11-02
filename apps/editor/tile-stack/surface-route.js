@@ -37,7 +37,45 @@ export function planIsolatedLevelSurface(deps,{document,frame,draft,requestId,ne
   const e=frame.expected,request={version:1,id:requestId,expected:{revision:e.revision,layoutDigest:e.layoutDigest,catalogueDigest:e.catalogueDigest,contextToken:e.contextToken},selection:clone(before.layout.selection),replaceIds:old?[old.id]:[],removeIds:[],slots:[{id:owner.id,origin:clone(owner.origin),floorBindings:clone(owner.floorBindings),alternatives:[{recipeId:recipe.id,transform:clone(owner.transform)}],locked:owner.locked,anchorIds:clone(owner.anchorIds)}],joins:clone(before.layout.joins),relations:clone(before.layout.relations),recipeUpdates:[recipe],maxSteps:limits.maxSteps,maxClosure:limits.maxClosure,maxSpatialTests:limits.maxSpatialTests,maxGeometryWork:limits.maxGeometryWork,neighbourRadiusM:0};
   return freeze({route:'public-v1-isolated-surface',ownerId:owner.id,request,frame,recipe,owner,finish:!!old,work:work.snapshot()});
 }
-export function isSurfaceOperation(op,target){return op.action==='edit'&&((Array.isArray(op.request.recipeUpdates)&&op.request.recipeUpdates.some(r=>r.shape?.kind==='profile-sweep'))||(Array.isArray(op.request.slots)&&op.request.slots.some(s=>Array.isArray(s.alternatives)&&s.alternatives.some(a=>target.tileBundle.recipes.find(r=>r.id===a.recipeId)?.shape.kind==='profile-sweep'))));}
+// Durable ordinary-request/target consistency precedes route classification.
+// Current Editor routes use explicit one-choice slots and fresh COW recipes;
+// no solver is replayed, and unrelated unchanged paths remain legal source.
+export function validateEditRequestScope(tiles,op,target,before=null){
+  const r=op.request,next=target.tileBundle,at='/operation/request',scope=message=>fail('B2_EDIT_REQUEST_SCOPE',at,message);
+  fields(r,['version','id','expected','selection','replaceIds','removeIds','slots','joins','relations','recipeUpdates','maxSteps','maxClosure','maxSpatialTests','maxGeometryWork','neighbourRadiusM'],at);
+  for(const key of ['replaceIds','removeIds','slots','recipeUpdates'])if(!Array.isArray(r[key])||r[key].length>32)scope('Retain the bounded complete ordinary repair scope.');
+  if(!r.slots.length&&!r.removeIds.length)scope('An edit must declare the actual changed owner scope.');
+  const slotIds=new Set(r.slots.map(v=>v.id)),removed=new Set(r.removeIds),replaced=new Set(r.replaceIds),updates=new Set(r.recipeUpdates.map(v=>v.id));
+  if(slotIds.size!==r.slots.length||removed.size!==r.removeIds.length||replaced.size!==r.replaceIds.length||updates.size!==r.recipeUpdates.length||[...replaced].some(id=>!slotIds.has(id))||[...removed].some(id=>slotIds.has(id)))scope('Retain distinct unambiguous declared owner and recipe identities.');
+  for(const slot of r.slots){
+    const owner=next.layout.instances.find(v=>v.id===slot.id);if(!owner||slot.alternatives?.length!==1)scope('Every declared slot must describe its actual complete target owner.');
+    const choice=slot.alternatives[0],recipe=next.recipes.find(v=>v.id===choice.recipeId);if(!recipe)scope('Bind the actual target recipe.');
+    const wanted={id:slot.id,recipeId:choice.recipeId,contentDigest:tiles.compileTileRecipe(recipe).contentDigest,origin:slot.origin,floorBindings:slot.floorBindings,transform:choice.transform,locked:slot.locked,anchorIds:slot.anchorIds};if(smartTileDigest(wanted)!==smartTileDigest(owner))scope('The target owner must match the complete ordinary repair slot.');
+  }
+  if([...removed].some(id=>next.layout.instances.some(v=>v.id===id))||!same(r.selection,next.layout.selection))scope('The complete target must retain declared removals and selection.');
+  for(const recipe of r.recipeUpdates)if(!same(recipe,next.recipes.find(v=>v.id===recipe.id)))scope('Every fresh recipe update must match the actual target source.');
+  // Original recipes, including unused entries, are retained by all currently
+  // bound routes. This also checks a first receipt without duplicating its old
+  // document: removing request markers cannot conceal a new/changed recipe.
+  const priorRecipes=next.recipes.filter(v=>!updates.has(v.id));if(!priorRecipes.length||tiles.createTileCatalogue(priorRecipes).digest!==r.expected.catalogueDigest)scope('The complete source catalogue must equal the target minus its declared fresh recipe updates.');
+  const pathOwner=id=>{const o=next.layout.instances.find(v=>v.id===id);return next.recipes.find(v=>v.id===o?.recipeId)?.shape.kind==='profile-sweep';};
+  if(target.constraints.owners.some(v=>pathOwner(v.instanceId))||target.constraints.managedRelations.some(v=>pathOwner(v.a)||pathOwner(v.b)))scope('An isolated path cannot be adopted as a managed stack owner or endpoint.');
+  if(before){
+    const old=before.tileBundle;
+    for(const owner of old.layout.instances){const after=next.layout.instances.find(v=>v.id===owner.id);if(!slotIds.has(owner.id)&&!removed.has(owner.id)&&!same(owner,after))scope('Actual source/target owner changes must be declared before route selection.');if(removed.has(owner.id)&&after)scope('A removed owner cannot survive.');}
+    for(const owner of next.layout.instances){const prior=old.layout.instances.find(v=>v.id===owner.id);if(!prior&&!slotIds.has(owner.id)||slotIds.has(owner.id)&&!!prior!==replaced.has(owner.id))scope('New/replaced owners must match the actual original source.');}
+    if([...removed].some(id=>!old.layout.instances.some(v=>v.id===id)))scope('Only an accepted owner can be removed.');
+    for(const recipe of old.recipes)if(!same(recipe,next.recipes.find(v=>v.id===recipe.id)))scope('Keep every previous/unused recipe exactly; current routes are copy-on-write.');
+    for(const recipe of next.recipes)if(!old.recipes.some(v=>v.id===recipe.id)&&!updates.has(recipe.id))scope('Every actual fresh recipe must be declared.');
+    if(!same(old.templates,next.templates))scope('Retain original template references.');
+  }
+}
+export function isSurfaceOperation(op,target,before=null){
+  if(op.action!=='edit')return false;
+  const path=(bundle,id)=>{const owner=bundle.layout.instances.find(v=>v.id===id);return bundle.recipes.find(v=>v.id===owner?.recipeId)?.shape.kind==='profile-sweep';};
+  if(before){const old=before.tileBundle,next=target.tileBundle,ids=new Set([...old.layout.instances,...next.layout.instances].map(v=>v.id));for(const id of ids)if(!same(old.layout.instances.find(v=>v.id===id),next.layout.instances.find(v=>v.id===id))&&(path(old,id)||path(next,id)))return true;}
+  return (Array.isArray(op.request.recipeUpdates)&&op.request.recipeUpdates.some(r=>r.shape?.kind==='profile-sweep'))||(Array.isArray(op.request.slots)&&op.request.slots.some(s=>Array.isArray(s.alternatives)&&s.alternatives.some(a=>target.tileBundle.recipes.find(r=>r.id===a.recipeId)?.shape.kind==='profile-sweep')));
+}
 export function validateSurfaceOperation(tiles,op,target,before=null){
   const r=op.request,slots=r.slots;
   if(!Array.isArray(slots)||slots.length!==1||!Array.isArray(r.removeIds)||r.removeIds.length||!Array.isArray(r.recipeUpdates)||r.recipeUpdates.length!==1||!Array.isArray(r.replaceIds)||r.replaceIds.length>1||slots[0].alternatives?.length!==1||r.replaceIds.length&&r.replaceIds[0]!==slots[0].id)fail('B2_SURFACE_REQUEST_SCOPE','/operation/request','An isolated surface request has exactly one owner and one fresh recipe.');
