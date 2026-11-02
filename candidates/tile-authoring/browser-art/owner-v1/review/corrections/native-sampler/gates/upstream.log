@@ -1,0 +1,44 @@
+
+> @nautilus-engine/map-core@0.10.0 test:upstream
+> node tools/test-upstream.mjs
+
+✔ editable blocks preserve their portable format and reject cross-boundary edits atomically (3872.5032ms)
+✔ connections and connected generation match the existing generator and retain undo (5474.6406ms)
+✔ 3D edit commands match existing editor operations; previews and rejection never mutate (1406.9602ms)
+✔ rectangle and wall gestures are single undo operations, rejected strokes are atomic (495.2868ms)
+✔ playtest accepts only the matching opener, origin and token; invalid snapshots fail (203.8323ms)
+✔ factory inspection retains every saved field and all authored guards (955.491ms)
+✔ river and reusable block inspection preserve portable documents without fake squad starts (1118.8117ms)
+✔ logical selection handles multi-tile props, empty upper cells, edges and hidden objects (101.7872ms)
+✔ active plane picking round-trips across all floors, camera presets and empty space (6.239ms)
+✔ invalid imports fail without replacing an existing document; cargo sizes follow decisions (376.5991ms)
+✔ scenery map catalog agrees with the pinned editing and encounter rules (1.358ms)
+✔ block JSON roundtrip preserves all three levels and terrain geometry without squad markers (712.399ms)
+✔ place block into sector10,10 transforms edges and climbs and is undoable (3293.4516ms)
+✔ block placement rejects obstructed squad starts atomically (295.0583ms)
+✔ sector capture rejects crossing props and roof links (2.3852ms)
+✔ block import rejects malformed bounds and unknown content (480.3347ms)
+✔ replacing a sector removes old content on all levels but keeps neighboring designs (1402.6302ms)
+✔ block import rejects falsy floor values and aliased edges (2.6231ms)
+✔ all five connection types preserve metadata through block and map JSON (3597.9924ms)
+✔ one element per direction rejects multiple roads and compound features (282.2941ms)
+✔ adjacent roads match exact widths and reject atomically; later painting invalidates rules (1043.7194ms)
+✔ cliffs match height and side and fences match materials (1079.366ms)
+✔ seeded generation produces 100 matched road blocks with valid starts and deterministic output (1616.3669ms)
+✔ unsatisfiable and overpopulated libraries fail without touching source blocks (423.6334ms)
+✔ user checkpoint matches the four intended directions (79.0843ms)
+✔ road and river openings reject barriers at the seam (4.311ms)
+✔ flat elevation and explicit seam conflicts cannot silently match (1615.2056ms)
+✔ feature lines run the whole grid and crossings require exact ports (2.8785ms)
+✔ planned map fills the road/fence crossing, keeps all offsets and roundtrips (4470.5049ms)
+✔ missing crossing reports exact sector and cannot mutate the plan or library (1028.1153ms)
+✔ seeded lines deterministic and malformed plans rejected (1019.3338ms)
+✔ a straight fence cannot drift between its north and south edges (632.7081ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14472.2638

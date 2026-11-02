@@ -1,5 +1,7 @@
 # Private browser-owned tile appearance component
 
+Independent Native review returned the original d437 checkpoint for sampler deletion/currentness and an omitted proof input. See `NATIVE-SAMPLER-CORRECTION.md` and `PROOF-INPUT-AMENDMENT.md`. The original review below stays historical; corrected evidence is separate under `review/corrections/native-sampler/`.
+
 This is an actual source-only component on new candidate paths, based on `78769938f0d18e52d057b75867e1e544c5c0b69e`. It does not replace the strict f029/db64/787 owners, register a package, alter C1, or enable a public editor route. Formal Core/profile/capture, Editor whole-attempt meter, Host/history/codec/WAL and write authority are **UNBOUND**. A native component control does not create those authorities.
 
 `owner.mjs` creates its own new canvas/context, instruments supported WebGL storage calls before creating its renderer, and exposes `acquire` and `attach` for the **existing** `createSmartTileViews({acquire,attach})` seam. There is no second accepted/candidate manager. The actual public tile provider builds the geometry with the shared borrowed Three classes. Its Float32 attribute constructor port reserves before constructing each real store. Geometry currentness uses unchanged 787 intrinsic typed storage and static geometry observations, plus actual native buffer revisions, nodes, uniforms/material state, source data and leased data ranges.

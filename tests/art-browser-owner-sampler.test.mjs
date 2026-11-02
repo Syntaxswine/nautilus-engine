@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as T from '../packages/render-effects/three.js';
+import {createLogicalLedger} from '../candidates/tile-authoring/browser-art/owner-v1/ledger.mjs';
+import {protectOwnedTexture,samplerState} from '../candidates/tile-authoring/browser-art/owner-v1/sampler-state.mjs';
+// Pure guard/ledger tests only. Real native deletion/currentness is exercised by
+// the preserved browser control, never attested by these synthetic API handles.
+test('release preflight refuses actual private references without changing state or charge',()=>{const l=createLogicalLedger(),t=l.reserve({domain:'api',bytes:4,purpose:'guard'});l.fulfill(t,{},4);l.reference(t,'held');assert.throws(()=>l.assertRelease(t,{domain:'api',reason:'api-delete-observed'}),e=>e.code==='LIVE_RESOURCE_REFERENCES');assert.equal(l.inspect(t).state,'live');assert.equal(l.snapshot().totals.derivedOwnedLogicalBytes,4);l.unreference(t,'held');assert.doesNotThrow(()=>l.assertRelease(t,{domain:'api',reason:'api-delete-observed'}));assert.equal(l.snapshot().rows.length,1);});
+test('owned texture guard runs before native disposal event and leaves borrowed prototype unchanged',()=>{const texture=new T.Texture(),original=T.Texture.prototype.dispose;let allowed=false,events=0;texture.addEventListener('dispose',()=>events++);protectOwnedTexture(texture,()=>{if(!allowed)throw Error('held');});assert.throws(()=>texture.dispose(),/held/);assert.equal(events,0);assert.equal(T.Texture.prototype.dispose,original);allowed=true;texture.dispose();assert.equal(events,1);});
+test('owned disposal guard cannot be replaced by an instance caller',()=>{const texture=new T.Texture();protectOwnedTexture(texture,()=>{});assert.throws(()=>texture.dispose=()=>{},TypeError);assert.equal(Object.getOwnPropertyDescriptor(texture,'dispose').configurable,false);});
+test('sampler observation rejects source accessors without invoking them or a nominal native observer',()=>{let getters=0,nativeCalls=0;const texture={};Object.defineProperty(texture,'source',{get(){getters++;return {};}});assert.throws(()=>samplerState(texture,{id:()=>'',nativeInventory:()=>{nativeCalls++;return {};}}),e=>e.code==='SAMPLER_DATA_SLOT');assert.equal(getters,0);assert.equal(nativeCalls,0);});
+
+test('sampler method observation refuses an accessor before getter or native callback',()=>{const texture=new T.DataTexture(new Uint8Array(4),1,1);let getters=0,nativeCalls=0;Object.defineProperty(texture,'dispose',{get(){getters++;return T.Texture.prototype.dispose;}});assert.throws(()=>samplerState(texture,{id:()=> 'private-test-id',nativeInventory:()=>{nativeCalls++;return {};}}),e=>e.code==='SAMPLER_DATA_SLOT');assert.equal(getters,0);assert.equal(nativeCalls,0);});

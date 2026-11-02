@@ -1,0 +1,7 @@
+# Supplemental proof input inventory
+
+Independent Native review of exact `d4376bfa012683fe1848295e7a9a1a70b2eefc90` stopped after three controls because `tests/browser.mjs` fetches `candidates/tile-authoring/art/c2-decoder-proof/inputs.json`, which was absent from that checkpoint's declared 108 dependencies. The working-tree run could read it, but the inventory was incomplete. This is an input-inventory defect, not a demonstrated renderer failure.
+
+The follow-up includes that file's unchanged full Git object from `78769938f0d18e52d057b75867e1e544c5c0b69e`, with bytes/SHA-256 and original blob ID. The inventory now has 109 dependencies. The tool-only proof-input audit also enumerates literal fetch/loadAsync resources and all original image paths resolved through the decoder descriptor. Removing the descriptor or any indirect original image fails a focused control.
+
+This inventory amendment preserves the original 101-control report, first-stamp image, raw gate logs, helper records, all strict proofs and public paths byte-for-byte. The same follow-up also includes the separately documented returned native sampler fix in NATIVE-SAMPLER-CORRECTION.md. The earlier result remains evidence from that working tree; it is not relabeled as a successful exact-snapshot replay. Native's independent replay is separate. This follow-up does not bind Core/Native/Host/Decoder/codec authority. Local only; no push.
