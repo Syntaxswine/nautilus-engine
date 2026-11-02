@@ -1,0 +1,252 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-11-02T22:58:47.748Z",
+  "baseline": "63f3506daced32e2ac135e008e00ac939ca90f87",
+  "node": {
+    "newGroups": 26,
+    "unchangedBaselineGroups": 22,
+    "tests": 48,
+    "pass": 48,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "compiler": "Version 5.8.3",
+  "strictTypes": true,
+  "negativeTypeControls": 11,
+  "DOM": {
+    "focusedGroups": 34,
+    "unchangedBaselineGroups": 16,
+    "viewports": 3
+  },
+  "original63fFailurePreserved": true,
+  "returned": [
+    {
+      "origin": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\tile-authoring-review\\c2-ui-shared-controller-review\\browser-evidence\\independent-stale-load.json",
+      "file": "returned-63f/independent-stale-load.json",
+      "bytes": 1233,
+      "sha256": "08aad3cedd200ffdb7341d4a4a2e9c1c39a50f65e699d339919ff11a824290d4"
+    },
+    {
+      "origin": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\tile-authoring-review\\c2-ui-shared-controller-review\\run-browser\\stderr.log",
+      "file": "returned-63f/failed-assertion.log",
+      "bytes": 928,
+      "sha256": "d2c21230697b534f7b0e923277d29bdbab41b5c7ebe2f7085f4383ff8d9e7cf2"
+    },
+    {
+      "origin": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\tile-authoring-review\\c2-ui-shared-controller-review\\REVIEW.md",
+      "file": "returned-63f/REVIEW.md",
+      "bytes": 3266,
+      "sha256": "d2849c53baed5baf0a37b767e4ed1e139f50d66997232eed79a739dade8c86a3"
+    },
+    {
+      "origin": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\tile-authoring-review\\c2-ui-shared-controller-review\\review.json",
+      "file": "returned-63f/review.json",
+      "bytes": 6281,
+      "sha256": "47e95c8c45fd9a6272c1d8fc60be02ed9d3b732e5f75361e6a1a1ba2d0aeee35"
+    },
+    {
+      "origin": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\tile-authoring-review\\c2-ui-shared-controller-review\\cleanup.json",
+      "file": "returned-63f/cleanup.json",
+      "bytes": 1296,
+      "sha256": "328ff5a519eb4ecf9f513f1fdf036a10d14fa62e923cbb131934ee6011a99bda"
+    }
+  ],
+  "originalWitnessFixed": {
+    "case": "original-unpublished-artwork",
+    "before": {
+      "pin": {
+        "id": "artist.graphic.road-number-0",
+        "revision": 1,
+        "contentDigest": "d4f5bb8e88a3703b9a81924a2120eaf6cde370bdcafbe27ee51959d097beb948"
+      },
+      "shown": "number 0 · r1 · unavailable"
+    },
+    "actual": {
+      "id": "artist.graphic.blood-dried",
+      "revision": 1,
+      "contentDigest": "cfef0fc30298e15ed1a986281b329a01609b4723fc38c27f7475bfc48dd3babf"
+    },
+    "shown": "number 0 · r1 · unavailable",
+    "observed": {
+      "loads": 0,
+      "ids": 0,
+      "commands": 0,
+      "prepare": 0,
+      "shown": "Blood · r1 · built-in · unavailable",
+      "controllers": 1,
+      "subscriptions": 1
+    }
+  },
+  "RootChange": "One guard API member inside actual Root coordinator; old parser/actions byte-identical",
+  "oneControllerAndSubscription": true,
+  "actualIssuedReadPassed": true,
+  "clonesOrRetagsUsedAsAuthority": false,
+  "loadSideEffects": {
+    "IDs": 0,
+    "commands": 0,
+    "prepare": 0,
+    "WAL": "UNBOUND"
+  },
+  "captures": [
+    {
+      "file": "baseline-dom/desktop.png",
+      "sha256": "91018cc38ee6f59c48f835b047627e9cdb070c5aded6fe402ffb366eac22adba",
+      "samePixelsAs63f": true
+    },
+    {
+      "file": "baseline-dom/tablet.png",
+      "sha256": "8a1c9917b1af2defaf90c84cd054915be45319038d17645bca114a94c5f01d45",
+      "samePixelsAs63f": true
+    },
+    {
+      "file": "baseline-dom/phone.png",
+      "sha256": "323bb307958905eb2ed8367ff4eefc6d2cca487d84ead7485dd203415fa71052",
+      "samePixelsAs63f": true
+    }
+  ],
+  "helpers": {
+    "lifetimes": 4,
+    "allExactLifetimesExited": true,
+    "allRecordedPortsReleased": true,
+    "retained": []
+  },
+  "proof": {
+    "actualPanelsAndRootCoordinator": true,
+    "workbenchResources": "Explicit protocol fixtures",
+    "host": false,
+    "native": false,
+    "meter": false,
+    "wal": false
+  },
+  "broadGates": {
+    "status": "PENDING",
+    "commands": [
+      "npm run check",
+      "npm test",
+      "npm run test:upstream",
+      "npm run build"
+    ],
+    "reason": "Architect requested a focused immutable review pin before another broad run; Root retry owns current broad execution",
+    "requiredBefore": [
+      "approval",
+      "adoption",
+      "final delivery"
+    ]
+  },
+  "noRootWrites": true,
+  "noPush": true,
+  "files": [
+    {
+      "file": "baseline-browser-review.log",
+      "bytes": 118,
+      "sha256": "e6d6219f95e98c78d06899e8065c16fc92c7a7e205851328d0d7941e91a6bb42"
+    },
+    {
+      "file": "baseline-dom/browser.json",
+      "bytes": 3579,
+      "sha256": "f217ab9bfbc463216967435626261b7865b2df9bf054779660c2585e7030fd89"
+    },
+    {
+      "file": "baseline-dom/cleanup-receipt.json",
+      "bytes": 614,
+      "sha256": "4085f0fea522ebc17b0201c022609be3aaec01a75b494af3c2cfbb156deff211"
+    },
+    {
+      "file": "baseline-dom/desktop.png",
+      "bytes": 227467,
+      "sha256": "91018cc38ee6f59c48f835b047627e9cdb070c5aded6fe402ffb366eac22adba"
+    },
+    {
+      "file": "baseline-dom/helper-cleanup-history.jsonl",
+      "bytes": 1072,
+      "sha256": "e7e4c04edce565a7c9d2bc4311ffa3712f83b7eb5cfc7995896f7fdb3ae85590"
+    },
+    {
+      "file": "baseline-dom/helper-history.jsonl",
+      "bytes": 3098,
+      "sha256": "a580417918a9b0f9c8576a4e5b58184b37556914f3605b40fcdf71186de9515c"
+    },
+    {
+      "file": "baseline-dom/helper-process.json",
+      "bytes": 2650,
+      "sha256": "128416af0899a021c583f60b4978c728404c348038bee7e092320289f1d8f142"
+    },
+    {
+      "file": "baseline-dom/phone.png",
+      "bytes": 223366,
+      "sha256": "323bb307958905eb2ed8367ff4eefc6d2cca487d84ead7485dd203415fa71052"
+    },
+    {
+      "file": "baseline-dom/tablet.png",
+      "bytes": 231507,
+      "sha256": "8a1c9917b1af2defaf90c84cd054915be45319038d17645bca114a94c5f01d45"
+    },
+    {
+      "file": "browser-review.log",
+      "bytes": 101,
+      "sha256": "4d788bcf7ed9ed499b3ce01f00ecd2601ec57381f98b35959d982b91fa1ce71c"
+    },
+    {
+      "file": "focused-dom/browser.json",
+      "bytes": 6223,
+      "sha256": "b94861a8add11c62641abc324138e525f9c7597956c8f09c3aad64d0269b44ae"
+    },
+    {
+      "file": "focused-dom/cleanup-receipt.json",
+      "bytes": 610,
+      "sha256": "db34c8900c17c23a367b4986fd935d2119e93e440076038ecd904a1cfec37700"
+    },
+    {
+      "file": "focused-dom/helper-cleanup-history.jsonl",
+      "bytes": 1063,
+      "sha256": "0bb12dc9e9ccd8daa53743cba62c7010944dab9dc472bc39b8cdbeb145af0952"
+    },
+    {
+      "file": "focused-dom/helper-history.jsonl",
+      "bytes": 3049,
+      "sha256": "ca53243d7ee0680b77efafc28be11f107869e23c85fbcb430297411cc3ad0ddb"
+    },
+    {
+      "file": "focused-dom/helper-process.json",
+      "bytes": 2494,
+      "sha256": "c47a16016c35168aaf9e44901264972cf0aeeb76789f27fc073fcbb65557e716"
+    },
+    {
+      "file": "focused-dom/stale-refusal.png",
+      "bytes": 233565,
+      "sha256": "0e77861fd37fd9ebbc8db302c5c65a02db43d72768fff55c6152cb5db20d271a"
+    },
+    {
+      "file": "node.tap",
+      "bytes": 11186,
+      "sha256": "1f088d8e33b15f9914d4a6645da32a0b08515f94b73e1b7ada8afc6302b399d4"
+    },
+    {
+      "file": "returned-63f/cleanup.json",
+      "bytes": 1296,
+      "sha256": "328ff5a519eb4ecf9f513f1fdf036a10d14fa62e923cbb131934ee6011a99bda"
+    },
+    {
+      "file": "returned-63f/failed-assertion.log",
+      "bytes": 928,
+      "sha256": "d2c21230697b534f7b0e923277d29bdbab41b5c7ebe2f7085f4383ff8d9e7cf2"
+    },
+    {
+      "file": "returned-63f/independent-stale-load.json",
+      "bytes": 1233,
+      "sha256": "08aad3cedd200ffdb7341d4a4a2e9c1c39a50f65e699d339919ff11a824290d4"
+    },
+    {
+      "file": "returned-63f/review.json",
+      "bytes": 6281,
+      "sha256": "47e95c8c45fd9a6272c1d8fc60be02ed9d3b732e5f75361e6a1a1ba2d0aeee35"
+    },
+    {
+      "file": "returned-63f/REVIEW.md",
+      "bytes": 3266,
+      "sha256": "d2849c53baed5baf0a37b767e4ed1e139f50d66997232eed79a739dade8c86a3"
+    }
+  ]
+}

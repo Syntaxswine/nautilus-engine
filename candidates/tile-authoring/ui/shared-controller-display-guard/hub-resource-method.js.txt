@@ -1,0 +1,16 @@
+  captureResourceDisplay(displayed){
+   if(dispatchDepth||invokingDepth||creating)throw error('UI_ATTACHMENT_REENTRY','Capture a resource action outside callbacks.');
+   if(!controller||!current()){clearBroken();throw error('UI_REBIND_REQUIRED','The actual UI connection is unavailable.');}
+   const active=controller,session=lifetime,version=revision;let guard;
+   invokingDepth++;try{guard=active.captureResourceDisplay(displayed);}catch(e){invokingDepth--;flush();throw e;}invokingDepth--;
+   const sameLifetime=()=>controller===active&&lifetime===session&&revision===version&&checkBase()&&[...records].every(r=>!r.active||callbacks(r));
+   return Object.freeze({read(){
+    if(dispatchDepth||invokingDepth||creating)throw error('UI_ATTACHMENT_REENTRY','Read the resource action outside callbacks.');
+    if(!sameLifetime())throw error('UI_DISPLAY_CHANGED','The displayed UI attachment lifetime changed.');
+    let raw;invokingDepth++;try{raw=guard.read();}catch(e){invokingDepth--;flush();throw e;}invokingDepth--;
+    // Pure identity/lifetime checks only: no currentness callback after the
+    // coordinator's final actual data read and before resource dispatch.
+    if(!sameLifetime()){clearBroken();flush();throw error('UI_DISPLAY_CHANGED','The displayed UI attachment lifetime changed.');}
+    return raw;
+   }});
+  },

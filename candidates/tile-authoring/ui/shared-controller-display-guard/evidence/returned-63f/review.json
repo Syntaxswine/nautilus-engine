@@ -1,0 +1,137 @@
+{
+  "status": "focused-correction-required",
+  "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+  "baseline": "938ea1f78d305d86c163f9e4e84033236916e897",
+  "Root": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+  "mustFix": [
+    {
+      "priority": 2,
+      "file": "candidates/tile-authoring/ui/shared-controller/resource-control.mjs",
+      "lines": [
+        23,
+        33,
+        36
+      ],
+      "title": "Fence Load against the displayed complete source/selection before dispatch",
+      "reproduction": [
+        "Mount actual shared C1/C2 panels with protocol resourceActions.pending; current actual display is road-number-0.",
+        "Change only actual complete read.overlay.chosenArtwork to another canonical palette Pin (blood-dried) without publishing. readC2UI accepts the changed complete read; DOM still displays number0.",
+        "Click actual button[data-action=\"load-selected-artwork\"].",
+        "loadSelected is called once with the actual binding-issued read for blood-dried, while the visible selection remains number0."
+      ],
+      "observed": {
+        "loads": 1,
+        "readPins": [
+          {
+            "id": "artist.graphic.blood-dried",
+            "revision": 1,
+            "contentDigest": "cfef0fc30298e15ed1a986281b329a01609b4723fc38c27f7475bfc48dd3babf"
+          }
+        ],
+        "actualIssuedReads": [
+          true
+        ],
+        "shown": "number 0 · r1 · unavailable",
+        "allocations": 0,
+        "commands": 0,
+        "prepare": 0
+      },
+      "impact": "Wrong artwork RESOURCE work can be requested by a stale visible action. This is pre-command resource intent/currentness; it is not an edit/Host authority or native-admission claim.",
+      "cause": "load() obtains a fresh actual issued read after pending callbacks but checks only connection and non-null chosenArtwork. It never compares that complete source/selection with the display that the user activated. Hub currentness checks method/attachment predicates; it does not replace the Root displayed-read guard for this action.",
+      "fixDirection": "Latch displayed complete source/selection, verify after pending callbacks and fresh read using the existing ownership/currentness model; refuse/refresh on drift before invoking the borrowed loader. Continue to pass the actual issued read after the check; do not fabricate permission from a clone or silently load another current Pin.",
+      "witness": "browser-evidence/independent-stale-load.json"
+    }
+  ],
+  "sourceProof": {
+    "files": 376,
+    "newOwnFiles": 49,
+    "RootC1SemanticEdits": 3,
+    "allAfterExecutionByteExact": true,
+    "sourceInputSha256": "926237a6be605b5a5c31364b5586482c9a0b82c50280548d45ed677a8e0f8936",
+    "prior938PromotionPlanUntouched": true
+  },
+  "proof": {
+    "Node22": {
+      "status": "pass",
+      "tests": 22,
+      "passed": 22,
+      "durationMs": 236.2884,
+      "receipt": "run-node/receipt.json",
+      "stdoutSha256": "06c719cce824f2118e85d06615c235cdc77e3a0e847bcbd54b2ce16f9e7d7d85"
+    },
+    "actualDOM": {
+      "browser": "156.0.4314.58",
+      "baseline16": "pass; all original16 checks completed before independent failure",
+      "overall": "failed on the one independent source/selection control",
+      "receipt": "run-browser/receipt.json",
+      "stderrSha256": "d2c21230697b534f7b0e923277d29bdbab41b5c7ebe2f7085f4383ff8d9e7cf2",
+      "report": "browser-evidence/browser.json",
+      "captures": [
+        {
+          "name": "desktop",
+          "width": 1440,
+          "height": 1000,
+          "file": "desktop.png",
+          "bytes": 227467,
+          "sha256": "91018cc38ee6f59c48f835b047627e9cdb070c5aded6fe402ffb366eac22adba",
+          "PNGWidth": 1440,
+          "PNGHeight": 3230
+        },
+        {
+          "name": "tablet",
+          "width": 900,
+          "height": 1000,
+          "file": "tablet.png",
+          "bytes": 231507,
+          "sha256": "8a1c9917b1af2defaf90c84cd054915be45319038d17645bca114a94c5f01d45",
+          "PNGWidth": 900,
+          "PNGHeight": 5323
+        },
+        {
+          "name": "phone",
+          "width": 390,
+          "height": 844,
+          "file": "phone.png",
+          "bytes": 223366,
+          "sha256": "323bb307958905eb2ed8367ff4eefc6d2cca487d84ead7485dd203415fa71052",
+          "PNGWidth": 390,
+          "PNGHeight": 7207
+        }
+      ]
+    },
+    "fixtureClass": "Actual fixed panels/controller/public C1 constructor DOM. Workbench/session/readiness/history/resource callback are explicitly protocol fixtures; no Host/Core/native/meter/WAL adoption.",
+    "proofAdaptations": {
+      "file": "proof-adaptations.json",
+      "sha256": "aefe4f57b91ddbf470870d1893a3b0fa00e6f7f89db1fe34b3497373b22b7787",
+      "runtimeEdits": 0,
+      "scope": "Relocated proof outputs/imports; protocol-only observation of exact callback argument Pin; one independent control"
+    }
+  },
+  "reviewScopePasses": [
+    "One actual Root controller/subscription and common draft/history across both actual panels in covered paths",
+    "Default C1 mount algorithm remains original when optional attachCoordinator omitted; exact3-edit opt-in continuation proved",
+    "Cross-panel pending/action flags, detach/last-close cleanup, caught observed rebind retirement and borrowed resource gate retention passed22Node/16DOM controls",
+    "Returned ready flags do not grant Stage, IDs or WAL; callback rejection/debt/detached-load paths preserve actual flags in covered DOM controls"
+  ],
+  "remainingLimits": [
+    "Sharedhub/load63f must return for this focused correction; do not adopt it as accepted source yet",
+    "Actual Source/Core/Host/native/authoring meter/Apply/WAL and owned cancellation remain unbound",
+    "Type-negative and full-repository worker reports were inspected/source-authenticated, not rerun",
+    "No new broad probes after the reproduced failure"
+  ],
+  "cleanup": {
+    "file": "cleanup.json",
+    "nativeLifetimeRecords": 5,
+    "allAbsent": true,
+    "HTTPPort": 58051,
+    "released": true,
+    "retainedHelpers": [],
+    "browserDescendants": "Closed through actual supported browser/browserServer API; not separately censused"
+  },
+  "writes": {
+    "RootTracked": 0,
+    "RootIndex": 0,
+    "workers": 0,
+    "ignoredArtifactsOnly": true
+  }
+}

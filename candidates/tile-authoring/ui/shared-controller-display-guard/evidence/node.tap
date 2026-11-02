@@ -1,0 +1,298 @@
+TAP version 13
+# Subtest: two attachments share one actual Root controller/subscription and one draft/history
+ok 1 - two attachments share one actual Root controller/subscription and one draft/history
+  ---
+  duration_ms: 8.6462
+  type: 'test'
+  ...
+# Subtest: pending on one attachment gates actions on both through the SAME Root controller
+ok 2 - pending on one attachment gates actions on both through the SAME Root controller
+  ---
+  duration_ms: 2.3081
+  type: 'test'
+  ...
+# Subtest: detach only one consumer; stale facade refuses and remaining attachment stays usable
+ok 3 - detach only one consumer; stale facade refuses and remaining attachment stays usable
+  ---
+  duration_ms: 2.3973
+  type: 'test'
+  ...
+# Subtest: detachment inside pending callback invalidates the outer operation before build
+ok 4 - detachment inside pending callback invalidates the outer operation before build
+  ---
+  duration_ms: 2.0986
+  type: 'test'
+  ...
+# Subtest: detaching another attachment during construction refuses collection with no replay
+ok 5 - detaching another attachment during construction refuses collection with no replay
+  ---
+  duration_ms: 0.8363
+  type: 'test'
+  ...
+# Subtest: reentrant actions/attachments inside callbacks cannot invoke or create another controller
+ok 6 - reentrant actions/attachments inside callbacks cannot invoke or create another controller
+  ---
+  duration_ms: 1.8044
+  type: 'test'
+  ...
+# Subtest: caught connection replacement in callback permanently refuses despite restoring method
+ok 7 - caught connection replacement in callback permanently refuses despite restoring method
+  ---
+  duration_ms: 0.6018
+  type: 'test'
+  ...
+# Subtest: the whole overlay is compared even when C1 supplies no additional callback
+ok 8 - the whole overlay is compared even when C1 supplies no additional callback
+  ---
+  duration_ms: 1.0701
+  type: 'test'
+  ...
+# Subtest: last close retires and unsubscribes, a later explicit lifetime owns one new subscription
+ok 9 - last close retires and unsubscribes, a later explicit lifetime owns one new subscription
+  ---
+  duration_ms: 0.577
+  type: 'test'
+  ...
+# Subtest: new attachment during pending shares pending and does not create a second controller
+ok 10 - new attachment during pending shares pending and does not create a second controller
+  ---
+  duration_ms: 2.0112
+  type: 'test'
+  ...
+# Subtest: late actual result survives last UI detach; hub does not cancel the borrowed operation
+ok 11 - late actual result survives last UI detach; hub does not cancel the borrowed operation
+  ---
+  duration_ms: 1.017
+  type: 'test'
+  ...
+# Subtest: factory rejects foreign bindings and incomplete overlay comparison attachment
+ok 12 - factory rejects foreign bindings and incomplete overlay comparison attachment
+  ---
+  duration_ms: 0.4768
+  type: 'test'
+  ...
+# Subtest: fanout skips consumer detached by an earlier callback
+ok 13 - fanout skips consumer detached by an earlier callback
+  ---
+  duration_ms: 0.772
+  type: 'test'
+  ...
+# Subtest: reentry during initial binding subscription cannot create another controller
+ok 14 - reentry during initial binding subscription cannot create another controller
+  ---
+  duration_ms: 0.3702
+  type: 'test'
+  ...
+# Subtest: post-callback consumer predicate failure sends invalidation to both surfaces
+ok 15 - post-callback consumer predicate failure sends invalidation to both surfaces
+  ---
+  duration_ms: 0.8052
+  type: 'test'
+  ...
+# Subtest: observed rebind from view callback clears both views even after caught restoration
+ok 16 - observed rebind from view callback clears both views even after caught restoration
+  ---
+  duration_ms: 0.6781
+  type: 'test'
+  ...
+# Subtest: pending prepare with unavailable owned cancellation never aliases to discard or review-token cancel
+ok 17 - pending prepare with unavailable owned cancellation never aliases to discard or review-token cancel
+  ---
+  duration_ms: 3.367
+  type: 'test'
+  ...
+# Subtest: error callback reentry cannot stage and default Root recovery refresh still works
+ok 18 - error callback reentry cannot stage and default Root recovery refresh still works
+  ---
+  duration_ms: 1.9429
+  type: 'test'
+  ...
+# Subtest: a detached consumer no longer observes callbacks or poisons the remaining lifetime
+ok 19 - a detached consumer no longer observes callbacks or poisons the remaining lifetime
+  ---
+  duration_ms: 1.3924
+  type: 'test'
+  ...
+# Subtest: a rebind first observed by an action invalidates every panel immediately and stays retired
+ok 20 - a rebind first observed by an action invalidates every panel immediately and stays retired
+  ---
+  duration_ms: 0.4078
+  type: 'test'
+  ...
+# Subtest: resource invocation gates both attachments without a new controller or command
+ok 21 - resource invocation gates both attachments without a new controller or command
+  ---
+  duration_ms: 0.7801
+  type: 'test'
+  ...
+# Subtest: ending resource UI cannot reset actual action debt or the underlying pending operation
+ok 22 - ending resource UI cannot reset actual action debt or the underlying pending operation
+  ---
+  duration_ms: 2.4955
+  type: 'test'
+  ...
+# Subtest: resource display guard returns the actual issued read through the SAME coordinator
+ok 23 - resource display guard returns the actual issued read through the SAME coordinator
+  ---
+  duration_ms: 7.0518
+  type: 'test'
+  ...
+# Subtest: unpublished artwork drift refuses the latched display before resource pending
+ok 24 - unpublished artwork drift refuses the latched display before resource pending
+  ---
+  duration_ms: 1.6576
+  type: 'test'
+  ...
+# Subtest: pending callback artwork drift cannot become the resource action target
+ok 25 - pending callback artwork drift cannot become the resource action target
+  ---
+  duration_ms: 1.4481
+  type: 'test'
+  ...
+# Subtest: unpublished expected drift refuses the latched display before resource pending
+ok 26 - unpublished expected drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.7316
+  type: 'test'
+  ...
+# Subtest: pending callback expected drift cannot become the resource action target
+ok 27 - pending callback expected drift cannot become the resource action target
+  ---
+  duration_ms: 1.2362
+  type: 'test'
+  ...
+# Subtest: unpublished source drift refuses the latched display before resource pending
+ok 28 - unpublished source drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.966
+  type: 'test'
+  ...
+# Subtest: pending callback source drift cannot become the resource action target
+ok 29 - pending callback source drift cannot become the resource action target
+  ---
+  duration_ms: 0.7954
+  type: 'test'
+  ...
+# Subtest: unpublished floor drift refuses the latched display before resource pending
+ok 30 - unpublished floor drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.945
+  type: 'test'
+  ...
+# Subtest: pending callback floor drift cannot become the resource action target
+ok 31 - pending callback floor drift cannot become the resource action target
+  ---
+  duration_ms: 1.1557
+  type: 'test'
+  ...
+# Subtest: unpublished surface drift refuses the latched display before resource pending
+ok 32 - unpublished surface drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.8012
+  type: 'test'
+  ...
+# Subtest: pending callback surface drift cannot become the resource action target
+ok 33 - pending callback surface drift cannot become the resource action target
+  ---
+  duration_ms: 0.79
+  type: 'test'
+  ...
+# Subtest: unpublished action drift refuses the latched display before resource pending
+ok 34 - unpublished action drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.9805
+  type: 'test'
+  ...
+# Subtest: pending callback action drift cannot become the resource action target
+ok 35 - pending callback action drift cannot become the resource action target
+  ---
+  duration_ms: 2.1331
+  type: 'test'
+  ...
+# Subtest: unpublished completeSnapshot drift refuses the latched display before resource pending
+ok 36 - unpublished completeSnapshot drift refuses the latched display before resource pending
+  ---
+  duration_ms: 1.233
+  type: 'test'
+  ...
+# Subtest: pending callback completeSnapshot drift cannot become the resource action target
+ok 37 - pending callback completeSnapshot drift cannot become the resource action target
+  ---
+  duration_ms: 1.125
+  type: 'test'
+  ...
+# Subtest: unpublished completePresentation drift refuses the latched display before resource pending
+ok 38 - unpublished completePresentation drift refuses the latched display before resource pending
+  ---
+  duration_ms: 0.6693
+  type: 'test'
+  ...
+# Subtest: pending callback completePresentation drift cannot become the resource action target
+ok 39 - pending callback completePresentation drift cannot become the resource action target
+  ---
+  duration_ms: 0.9
+  type: 'test'
+  ...
+# Subtest: unpublished hiddenOverlay drift refuses the latched display before resource pending
+ok 40 - unpublished hiddenOverlay drift refuses the latched display before resource pending
+  ---
+  duration_ms: 1.0457
+  type: 'test'
+  ...
+# Subtest: pending callback hiddenOverlay drift cannot become the resource action target
+ok 41 - pending callback hiddenOverlay drift cannot become the resource action target
+  ---
+  duration_ms: 0.9579
+  type: 'test'
+  ...
+# Subtest: a currentness callback changing source after the strict read is caught by the final data read
+ok 42 - a currentness callback changing source after the strict read is caught by the final data read
+  ---
+  duration_ms: 1.1489
+  type: 'test'
+  ...
+# Subtest: additional-source callback mutation is checked after callbacks with the real final read
+ok 43 - additional-source callback mutation is checked after callbacks with the real final read
+  ---
+  duration_ms: 1.2865
+  type: 'test'
+  ...
+# Subtest: mutation in a snapshot callback refuses without replacing the actual issued read
+ok 44 - mutation in a snapshot callback refuses without replacing the actual issued read
+  ---
+  duration_ms: 0.8024
+  type: 'test'
+  ...
+# Subtest: published refresh during pending cannot silently re-latch the clicked display
+ok 45 - published refresh during pending cannot silently re-latch the clicked display
+  ---
+  duration_ms: 0.9317
+  type: 'test'
+  ...
+# Subtest: copies and retired or changed attachment lifetimes are not displayed-resource authority
+ok 46 - copies and retired or changed attachment lifetimes are not displayed-resource authority
+  ---
+  duration_ms: 1.0052
+  type: 'test'
+  ...
+# Subtest: late snapshot connection replacement refuses through the existing Root binding fence
+ok 47 - late snapshot connection replacement refuses through the existing Root binding fence
+  ---
+  duration_ms: 0.6844
+  type: 'test'
+  ...
+# Subtest: snapshot callback cannot stage or attach reentrantly while the resource guard is captured or read
+ok 48 - snapshot callback cannot stage or attach reentrantly while the resource guard is captured or read
+  ---
+  duration_ms: 1.1017
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 48
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 158.1518

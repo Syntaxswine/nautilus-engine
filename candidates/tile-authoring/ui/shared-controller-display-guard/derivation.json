@@ -1,0 +1,304 @@
+{
+  "kind": "private-resource-display-guard-derivation",
+  "baseline": "63f3506daced32e2ac135e008e00ac939ca90f87",
+  "reviewedRoot": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+  "inputs": [
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "apps/editor/tile-authoring/ui/panel.js",
+      "bytes": 34183,
+      "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/hub.mjs",
+      "bytes": 10093,
+      "sha256": "f0e31deeb2e0497ace32eff8b5a04f7a2ecddc87a08aebcc949f675a72f1d09b"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/mount.mjs",
+      "bytes": 2149,
+      "sha256": "1bcd13b5a5ec48e0c5a7ee7fd8eb182f696511afa212320543580d77cfa29363"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/resource-control.mjs",
+      "bytes": 4415,
+      "sha256": "377077830ef646e4299dacd39ce1c4f28947adbb5c984e1a86c8bda662c9b5b5"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/hub.d.mts",
+      "bytes": 1703,
+      "sha256": "28062f121efe2501a99e1255e509036d7cd923d6b29e605f3ac12c4694b41bb3"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/mount.d.mts",
+      "bytes": 1118,
+      "sha256": "4747d826f323705fae32f57d9301472688fbe672107bb72bc593489b461bdc19"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/resource-control.d.mts",
+      "bytes": 774,
+      "sha256": "22e3eb02a9bfbc1a6cb2d45c85a88e7c5805260e0120a4a7d92d8c01310847d2"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tests/fixture.mjs",
+      "bytes": 2593,
+      "sha256": "08c54f63300ba0695af8515ac37db7c6ee1610cca749649f5672f370812c0433"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tests/hub.test.mjs",
+      "bytes": 15038,
+      "sha256": "3f8abdfa9e4e71166b0fb5e5df0f6e900e262125fb8b0ca8b8f9bfee90756127"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tests/browser-fixture.mjs",
+      "bytes": 6009,
+      "sha256": "97d96c83b59642d040f5cb986d513b6bd1edcafaa3e8eec3a9b74a1345ad0c9b"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tests/review.html",
+      "bytes": 933,
+      "sha256": "b222624defb0c873eae2ab555b0f422c71c98aa11a15b682f8563d95ff9e8b45"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tests/types.mts",
+      "bytes": 2204,
+      "sha256": "845fdf90da0b6d1f87072e29985bca490e8e6e2d0ca50c5f89a0502b053c3aef"
+    },
+    {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/tools/browser-review.mjs",
+      "bytes": 13806,
+      "sha256": "2ca32669be01ffe4d222001f13702fa9e5cf55fe66d96d7f8ec52a45838323a6"
+    }
+  ],
+  "derivations": [
+    {
+      "output": "proposal/root-panel.resource-guard.js.txt",
+      "sourceSha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4",
+      "changes": [
+        {
+          "from": "    get pending(){return pending;},",
+          "to": "    // UI intent guard only. Reuse this coordinator's displayed identity, epoch,\n    // strict callback read and complete additional-data comparison. Never execute\n    // a command or turn a displayed/parsed copy into an actual issued read.\n    captureResourceDisplay(displayed){\n      const stamp=epoch;\n      const stable=()=>!disposed&&!broken&&!rendering&&lastView===displayed&&epoch===stamp;\n      const changed=raw=>{if(!disposed&&!broken){if(raw===undefined)refresh();else receive(raw);}throw issue('UI_DISPLAY_CHANGED','The displayed source, selection or action state changed. Inspect the refreshed editor before loading artwork.');};\n      if(!displayed||!stable())return changed();\n      const guard=Object.freeze({read(){\n        if(!stable())return changed();\n        let checked;try{checked=read();}catch(reason){invalidate(reason);throw reason;}\n        if(!stable()||!sameView(checked.view,displayed)||!sameData(bindingKey(checked.view),identity)||!sameData(checked.view.snapshot,displayed.snapshot)||!sameData(checked.view.presentation,displayed.presentation))return changed(checked.raw);\n        // read() has completed all additional-source/currentness callbacks. Take\n        // the final actual read now, compare its data, and call no user callback\n        // between this comparison and returning it to the resource dispatcher.\n        const raw=binding.getSnapshot(),view=readTileAuthoringUIView(raw);\n        if(Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value!==collectCommand||Object.getOwnPropertyDescriptor(binding,'service')?.value!==service||!serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i])||!borrowed.every(([name,value])=>Object.getOwnPropertyDescriptor(binding,name)?.value===value)){\n          broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection changed during the final resource read.');invalidate(reason);throw reason;\n        }\n        if(!stable()||!sameData(actionKey(view),actionKey(displayed))||!sameData(bindingKey(view),bindingKey(displayed))||!sameData(view.snapshot,displayed.snapshot)||!sameData(view.presentation,displayed.presentation)||!sameData(view.overlay,displayed.overlay))return changed(raw);\n        return raw;\n      }});\n      guard.read();return guard;\n    },\n    get pending(){return pending;},"
+        }
+      ],
+      "prefix": "",
+      "bytes": 36523,
+      "sha256": "a2e05d5ea232e37daada68e1d6b7f6c4e8b80b0462f5503e64e39575ff42fb69"
+    },
+    {
+      "output": "root-resource-guard.mjs",
+      "sourceSha256": "a2e05d5ea232e37daada68e1d6b7f6c4e8b80b0462f5503e64e39575ff42fb69",
+      "changes": [
+        {
+          "from": "from './commands.js'",
+          "to": "from '../shared-controller/vendor/root648/commands.js'"
+        }
+      ],
+      "prefix": "// Private Root648 continuation: only an added displayed-resource guard; existing actions unchanged.\n",
+      "bytes": 36658,
+      "sha256": "ca9ea16424717e6aa7e2bcec61409277f5a7a00efcf927f2c2f55a8ea635d9b4"
+    },
+    {
+      "output": "hub.mjs",
+      "sourceSha256": "f0e31deeb2e0497ace32eff8b5a04f7a2ecddc87a08aebcc949f675a72f1d09b",
+      "changes": [
+        {
+          "from": "from './vendor/root648/panel.js'",
+          "to": "from './root-resource-guard.mjs'"
+        },
+        {
+          "from": "  beginResourceUI(){",
+          "to": "  captureResourceDisplay(displayed){\n   if(dispatchDepth||invokingDepth||creating)throw error('UI_ATTACHMENT_REENTRY','Capture a resource action outside callbacks.');\n   if(!controller||!current()){clearBroken();throw error('UI_REBIND_REQUIRED','The actual UI connection is unavailable.');}\n   const active=controller,session=lifetime,version=revision;let guard;\n   invokingDepth++;try{guard=active.captureResourceDisplay(displayed);}catch(e){invokingDepth--;flush();throw e;}invokingDepth--;\n   const sameLifetime=()=>controller===active&&lifetime===session&&revision===version&&checkBase()&&[...records].every(r=>!r.active||callbacks(r));\n   return Object.freeze({read(){\n    if(dispatchDepth||invokingDepth||creating)throw error('UI_ATTACHMENT_REENTRY','Read the resource action outside callbacks.');\n    if(!sameLifetime())throw error('UI_DISPLAY_CHANGED','The displayed UI attachment lifetime changed.');\n    let raw;invokingDepth++;try{raw=guard.read();}catch(e){invokingDepth--;flush();throw e;}invokingDepth--;\n    // Pure identity/lifetime checks only: no currentness callback after the\n    // coordinator's final actual data read and before resource dispatch.\n    if(!sameLifetime()){clearBroken();flush();throw error('UI_DISPLAY_CHANGED','The displayed UI attachment lifetime changed.');}\n    return raw;\n   }});\n  },\n  beginResourceUI(){"
+        }
+      ],
+      "prefix": "",
+      "bytes": 11422,
+      "sha256": "f89a61fcd0cc84a26bd023c363611e43deffdb752e0963176f1ae3b26b330e45"
+    },
+    {
+      "output": "mount.mjs",
+      "sourceSha256": "1bcd13b5a5ec48e0c5a7ee7fd8eb182f696511afa212320543580d77cfa29363",
+      "changes": [
+        {
+          "from": "from './c1-mount.mjs'",
+          "to": "from '../shared-controller/c1-mount.mjs'"
+        }
+      ],
+      "prefix": "",
+      "bytes": 2168,
+      "sha256": "1b10e7624832ca26861054b79ba349a36f09cee86a6d5233ecae40076dcad9d0"
+    },
+    {
+      "output": "resource-control.mjs",
+      "sourceSha256": "377077830ef646e4299dacd39ce1c4f28947adbb5c984e1a86c8bda662c9b5b5",
+      "changes": [
+        {
+          "from": " async function load(){",
+          "to": " async function load(){\n  const latched=displayed;"
+        },
+        {
+          "from": "   end=hub.beginResourceUI();",
+          "to": "   const guard=hub.captureResourceDisplay(latched);\n   end=hub.beginResourceUI();"
+        },
+        {
+          "from": "   // Use the actual issued read, after pending callbacks. Never pass a Root\n   // display clone or mint source/selection authority in this control.\n   const read=getSnapshot.call(binding);\n   if(!current())throw issue('UI_RESOURCE_RETIRED','The artwork loading connection changed.');\n   if(!read?.overlay.chosenArtwork)throw issue('UI_RESOURCE_SELECTION_REQUIRED','Select an artwork revision first.');\n   render();await loadSelected.call(resourceActions,read);",
+          "to": "   render();\n   if(!current())throw issue('UI_RESOURCE_RETIRED','The artwork loading connection changed.');\n   // Last source comparison occurs after pending/render/currentness callbacks.\n   // The guard returns the actual issued read, never its parsed display copy.\n   const read=guard.read();\n   if(own(resourceActions,'loadSelected')!==loadSelected){retired=true;throw issue('UI_RESOURCE_RETIRED','The artwork loading port changed.');}\n   if(!read?.overlay.chosenArtwork)throw issue('UI_RESOURCE_SELECTION_REQUIRED','Select an artwork revision first.');\n   await loadSelected.call(resourceActions,read);"
+        }
+      ],
+      "prefix": "",
+      "bytes": 4639,
+      "sha256": "347c489f32f2623f2f6a82e49876fed72888ed20d6328ea124c127fe4f021536"
+    },
+    {
+      "output": "hub.d.mts",
+      "sourceSha256": "28062f121efe2501a99e1255e509036d7cd923d6b29e605f3ac12c4694b41bb3",
+      "changes": [
+        {
+          "from": " readonly pending:boolean;\n attach(",
+          "to": " readonly pending:boolean;\n captureResourceDisplay(displayed:PairingRead):Readonly<{read():PairingRead}>;\n attach("
+        }
+      ],
+      "prefix": "",
+      "bytes": 1782,
+      "sha256": "aee08cee5609f95722428339d232aab7862df05295a4b7d1ccd4b8830877e689"
+    },
+    {
+      "output": "mount.d.mts",
+      "sourceSha256": "4747d826f323705fae32f57d9301472688fbe672107bb72bc593489b461bdc19",
+      "changes": [],
+      "prefix": "",
+      "bytes": 1118,
+      "sha256": "4747d826f323705fae32f57d9301472688fbe672107bb72bc593489b461bdc19"
+    },
+    {
+      "output": "resource-control.d.mts",
+      "sourceSha256": "22e3eb02a9bfbc1a6cb2d45c85a88e7c5805260e0120a4a7d92d8c01310847d2",
+      "changes": [],
+      "prefix": "",
+      "bytes": 774,
+      "sha256": "22e3eb02a9bfbc1a6cb2d45c85a88e7c5805260e0120a4a7d92d8c01310847d2"
+    },
+    {
+      "output": "tests/fixture.mjs",
+      "sourceSha256": "08c54f63300ba0695af8515ac37db7c6ee1610cca749649f5672f370812c0433",
+      "changes": [
+        {
+          "from": "from '../vendor/root648/commands.js'",
+          "to": "from '../../shared-controller/vendor/root648/commands.js'"
+        }
+      ],
+      "prefix": "",
+      "bytes": 2614,
+      "sha256": "7a80777e97e13097202064f2281af7bfe2d3950fad9f5ae002d51b9af3a066a8"
+    },
+    {
+      "output": "tests/baseline.test.mjs",
+      "sourceSha256": "3f8abdfa9e4e71166b0fb5e5df0f6e900e262125fb8b0ca8b8f9bfee90756127",
+      "changes": [],
+      "prefix": "",
+      "bytes": 15038,
+      "sha256": "3f8abdfa9e4e71166b0fb5e5df0f6e900e262125fb8b0ca8b8f9bfee90756127"
+    },
+    {
+      "output": "tests/browser-fixture.mjs",
+      "sourceSha256": "97d96c83b59642d040f5cb986d513b6bd1edcafaa3e8eec3a9b74a1345ad0c9b",
+      "changes": [
+        {
+          "from": "from '../vendor/root648/commands.js'",
+          "to": "from '../../shared-controller/vendor/root648/commands.js'"
+        },
+        {
+          "from": "from '../c1-mount.mjs'",
+          "to": "from '../../shared-controller/c1-mount.mjs'"
+        },
+        {
+          "from": "const observers=new Set(),errors=[]",
+          "to": "const hooks={read:null,current:null},observers=new Set(),errors=[]"
+        },
+        {
+          "from": "getSnapshot(){return value;}",
+          "to": "getSnapshot(){hooks.read?.();return value;}"
+        },
+        {
+          "from": "isAdditionalConnectionCurrent:()=>!disposed",
+          "to": "isAdditionalConnectionCurrent:()=>{hooks.current?.();return!disposed;}"
+        },
+        {
+          "from": "return{binding,shared,resourceActions,calls,errors,emit,",
+          "to": "return{binding,shared,resourceActions,calls,errors,emit,hooks,"
+        }
+      ],
+      "prefix": "",
+      "bytes": 6130,
+      "sha256": "d30c709217b7f868a2c83256a029ca48b6372d6a7aca42b9252b1651c899433b"
+    },
+    {
+      "output": "tests/review.html",
+      "sourceSha256": "b222624defb0c873eae2ab555b0f422c71c98aa11a15b682f8563d95ff9e8b45",
+      "changes": [
+        {
+          "from": "href=\"../vendor/root648/styles.css\"",
+          "to": "href=\"../../shared-controller/vendor/root648/styles.css\""
+        }
+      ],
+      "prefix": "",
+      "bytes": 954,
+      "sha256": "8beb600d6380632dea9d4804290deca575fe78865673edfb9add18075623ab12"
+    },
+    {
+      "output": "tests/types.mts",
+      "sourceSha256": "845fdf90da0b6d1f87072e29985bca490e8e6e2d0ca50c5f89a0502b053c3aef",
+      "changes": [],
+      "prefix": "",
+      "bytes": 2204,
+      "sha256": "845fdf90da0b6d1f87072e29985bca490e8e6e2d0ca50c5f89a0502b053c3aef"
+    },
+    {
+      "output": "tools/baseline-browser-review.mjs",
+      "sourceSha256": "2ca32669be01ffe4d222001f13702fa9e5cf55fe66d96d7f8ec52a45838323a6",
+      "changes": [
+        {
+          "from": "base='candidates/tile-authoring/ui/shared-controller'",
+          "to": "base='candidates/tile-authoring/ui/shared-controller-display-guard'"
+        },
+        {
+          "from": "output='ui-shared-controller-dom'",
+          "to": "output='ui-resource-display-guard-baseline'"
+        },
+        {
+          "from": "path.join(here,'evidence')",
+          "to": "path.join(here,'evidence/baseline-dom')"
+        },
+        {
+          "from": "'resource-control.mjs','c1-mount.mjs'",
+          "to": "'resource-control.mjs','root-resource-guard.mjs'"
+        },
+        {
+          "from": "'vendor/source.json','vendor/root648/panel.js','vendor/root648/commands.js','vendor/root648/styles.css'",
+          "to": "'source.json','coordinator-resource-method.js.txt','hub-resource-method.js.txt'"
+        },
+        {
+          "from": "import('/candidates/tile-authoring/ui/shared-controller/tests/browser-fixture.mjs')",
+          "to": "import('/candidates/tile-authoring/ui/shared-controller-display-guard/tests/browser-fixture.mjs')"
+        }
+      ],
+      "prefix": "",
+      "bytes": 13844,
+      "sha256": "8606830a322d39a46c47a1823d99a4303d1167abc4b6c7917c6055020cfed654"
+    }
+  ],
+  "defaultC1": "Original63f opt-in continuation unchanged; standalone default C1 remains original Root algorithm",
+  "coordinator": "One original Root factory continuation; only captureResourceDisplay added; old action implementations unchanged",
+  "noPush": true
+}

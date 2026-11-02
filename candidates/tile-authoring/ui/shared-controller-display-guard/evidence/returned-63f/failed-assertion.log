@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Unpublished selected artwork changed between displayed UI and click; borrowed loader must not load the different Pin
+
+1 !== 0
+
+    at withArtReview.source (file:///C:/Users/baals/Documents/ChatGPT/Nautilus%20Engine/artifacts/tile-authoring-review/c2-ui-shared-controller-review/browser-adapter.mjs:43:9)
+    at async withArtReview (file:///C:/Users/baals/Documents/ChatGPT/Nautilus%20Engine/artifacts/tile-authoring-review/c2-ui-shared-controller-review/source/tools/art-review-browser.mjs:27:512)
+    at async file:///C:/Users/baals/Documents/ChatGPT/Nautilus%20Engine/artifacts/tile-authoring-review/c2-ui-shared-controller-review/browser-adapter.mjs:10:5 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

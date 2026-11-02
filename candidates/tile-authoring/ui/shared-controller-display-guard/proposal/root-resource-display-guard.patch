@@ -1,0 +1,35 @@
+diff --git a/apps/editor/tile-authoring/ui/panel.js b/apps/editor/tile-authoring/ui/panel.js
+index 5e061e9..905cb0e 100644
+--- a/apps/editor/tile-authoring/ui/panel.js
++++ b/apps/editor/tile-authoring/ui/panel.js
+@@ -111,6 +111,30 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
+     finally{if(!disposed&&!broken&&operation===ticket){pending=false;onPending(false);}}
+   }
+   const api = {
++    // UI intent guard only. Reuse this coordinator's displayed identity, epoch,
++    // strict callback read and complete additional-data comparison. Never execute
++    // a command or turn a displayed/parsed copy into an actual issued read.
++    captureResourceDisplay(displayed){
++      const stamp=epoch;
++      const stable=()=>!disposed&&!broken&&!rendering&&lastView===displayed&&epoch===stamp;
++      const changed=raw=>{if(!disposed&&!broken){if(raw===undefined)refresh();else receive(raw);}throw issue('UI_DISPLAY_CHANGED','The displayed source, selection or action state changed. Inspect the refreshed editor before loading artwork.');};
++      if(!displayed||!stable())return changed();
++      const guard=Object.freeze({read(){
++        if(!stable())return changed();
++        let checked;try{checked=read();}catch(reason){invalidate(reason);throw reason;}
++        if(!stable()||!sameView(checked.view,displayed)||!sameData(bindingKey(checked.view),identity)||!sameData(checked.view.snapshot,displayed.snapshot)||!sameData(checked.view.presentation,displayed.presentation))return changed(checked.raw);
++        // read() has completed all additional-source/currentness callbacks. Take
++        // the final actual read now, compare its data, and call no user callback
++        // between this comparison and returning it to the resource dispatcher.
++        const raw=binding.getSnapshot(),view=readTileAuthoringUIView(raw);
++        if(Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value!==collectCommand||Object.getOwnPropertyDescriptor(binding,'service')?.value!==service||!serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i])||!borrowed.every(([name,value])=>Object.getOwnPropertyDescriptor(binding,name)?.value===value)){
++          broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection changed during the final resource read.');invalidate(reason);throw reason;
++        }
++        if(!stable()||!sameData(actionKey(view),actionKey(displayed))||!sameData(bindingKey(view),bindingKey(displayed))||!sameData(view.snapshot,displayed.snapshot)||!sameData(view.presentation,displayed.presentation)||!sameData(view.overlay,displayed.overlay))return changed(raw);
++        return raw;
++      }});
++      guard.read();return guard;
++    },
+     get pending(){return pending;},
+     get view(){return lastView;},
+     refresh,
