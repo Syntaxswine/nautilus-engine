@@ -48,7 +48,8 @@ function copy(file){
 const explicitProofTools=[];
 const proofToolPins=new Map([
   ['f94b57b2cebce55fc27cc94dea7a9fe39ec20193',{sha256:'1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs']}],
-  ['95511cb6f04dcba65656b2d9156c6173a84d6198',{sha256:'42da384eb7ea9986e5dddb98126a9cd0e993ab809fb83f12f491f0d640b84f0c',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs','./art-review-browser.mjs']}]
+  ['95511cb6f04dcba65656b2d9156c6173a84d6198',{sha256:'42da384eb7ea9986e5dddb98126a9cd0e993ab809fb83f12f491f0d640b84f0c',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs','./art-review-browser.mjs']}],
+  ['8053b30e4db325ad16e07a456fcf8ef5030324a7',{sha256:'7968bc851f6b2bc51acc6e33339fe13b3e8c98ce3237d2e8cd5ac81e11e901c4',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs','./art-review-browser.mjs']}]
 ]);
 function explicitProofReferences(file){
   if(file==='tools/ui-review-tile-authoring-c1.mjs'&&proofToolPins.has(ui)){
