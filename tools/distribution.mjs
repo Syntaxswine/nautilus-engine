@@ -6,6 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {moduleReferenceGraph} from './module-references.mjs';
+import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
@@ -38,7 +39,7 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
   if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id)));
-  else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects' || id === './grenades/view')); exports['.'] = './packages/assets/three.js'; extras = resources(); }
+  else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects' || id === './grenades/view')); exports['.'] = './packages/assets/three.js'; exports['./assets'] = source.exports['./assets']; extras = resources(); }
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
   else throw Error('Unknown package profile: ' + profile);
@@ -48,6 +49,9 @@ export function distribution(profile = 'compatibility') {
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-stack-core/README.md','packages/tile-stack-core/api.d.ts','packages/tile-stack-core/source.json');
   if(profile!=='assets')extras.push('packages/tile-finishes/README.md','packages/tile-finishes/source.json','docs/stacked-tiles.md');
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-authoring-core/index.d.ts','packages/tile-authoring-core/contract.schema.json','packages/tile-authoring-core/README.md','packages/tile-authoring-core/source.json','docs/tile-authoring.md');
+  extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md');
+  if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
+  if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

@@ -109,6 +109,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
   const baselineImages=new Set(listed(TILE_STACK_REGISTRATION_BASE).filter(image)),profiles={};
   for(const name of ['core','renderer','assets','compatibility']){
     const d=distribution(name),hasHeadless=name==='core'||name==='compatibility',hasRenderer=name==='renderer'||name==='compatibility';
+    const authenticatedArtworkImages=registration.sharedArtworkRegistration.profiles[name].addedFiles.filter(image);
     assert.equal(d.exports['./tiles/finishes'],hasHeadless?entries['./tiles/finishes']:undefined,name+' headless finish entry');
     assert.equal(d.exports['./tiles/finishes/three'],hasRenderer?entries['./tiles/finishes/three']:undefined,name+' native finish entry');
     const wantedRuntime=name==='core'?headless:name==='renderer'||name==='compatibility'?runtimeFiles:[],wantedSupport=name==='assets'?[]:[guideFile,sourceFile];
@@ -117,9 +118,9 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     if(hasRenderer||name==='assets')assert.ok(d.files.includes(atlas.path),name+' old atlas');
     for(const file of d.files){
       assert.equal(file.startsWith('candidates/')||file.startsWith('tests/')||file.startsWith('docs/reviews/tile-stack/')||file.startsWith('tools/tile-stack-'),false,'Private candidate/proof source leaked into '+name+': '+file);
-      if(image(file))assert.ok(baselineImages.has(file),'A new image entered '+name+': '+file);
+      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
     }
-    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport]};
+    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages};
   }
   return {
     status:'pass',registered:true,id:source.id,acceptedArtist:TILE_FINISHES_ACCEPTED_ARTIST,catalogue:{...TILE_FINISHES_CATALOGUE},privateCatalogue:{...TILE_FINISHES_PRIVATE_CATALOGUE},
