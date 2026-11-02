@@ -15,15 +15,21 @@
     },
     {
       "path": "CONSTRUCTION-AND-ACQUISITION.md",
-      "bytes": 4898,
-      "sha256": "164c804acb1d2015298e6e664466c287ca6d0a9b8c5af637ffa7443662da130c",
-      "blob": "d18e8dff680a6a2ff1493f01f28b37e74f5dd866"
+      "bytes": 4894,
+      "sha256": "01db2ad8dafb3124efb57b2e2cb875555ba99842ce3b1d4703d52f9b083cd22f",
+      "blob": "be8365fe1b8a29d182cdf4f904dc663bcfb1f351"
     },
     {
       "path": "CORE-BFD-HANDOFF.md",
       "bytes": 6599,
       "sha256": "a044c65e3ef594c22707371fd9d8157ed8e7a8c7167091a40ab03551b0e0dd8e",
       "blob": "e73b35955587edcc3ef57b247b1c393456589608"
+    },
+    {
+      "path": "MANAGER-ADOPTION.md",
+      "bytes": 5938,
+      "sha256": "6c840d296eb1cec4c981887585cc3366fbb63399c06c335d039cc3c59e7cdac6",
+      "blob": "a8030f348df3cfe2b79fd8e0641404f570ba121d"
     },
     {
       "path": "METHOD-MAP.md",
@@ -33,9 +39,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 6219,
-      "sha256": "7d8168ea442e00fb74d95dd896b98b192f5295bb6300920f12a39b2d7fcf2336",
-      "blob": "de6ae52e4e0bbc888f9757bd83e8b507c65535f7"
+      "bytes": 6444,
+      "sha256": "b48ed231127a757c077f18623310977692dce2b961ebf8289513dac39c9035d1",
+      "blob": "0ff69ff497db1421e998976b75fcd0e3dccf1906"
     },
     {
       "path": "ROOT-OPT-IN.md",
@@ -74,6 +80,12 @@
       "blob": "bb64b82c75675f37f198f9e9b3aedd7ad99e6822"
     },
     {
+      "path": "kernel-manager-adoption.patch",
+      "bytes": 2984,
+      "sha256": "ca7b299cd293009f6747b284037735cfcf2ef4875d6c438750fea48d2f2d7c00",
+      "blob": "b80890f1ed04ec4458eac2355c55c1558c6873f8"
+    },
+    {
       "path": "kernel-single-journal.patch",
       "bytes": 1169,
       "sha256": "db118bcf4bdd4f0fb2f0f26a8d04a170c090f26667cbad03ac70c29c1cd843eb",
@@ -87,9 +99,9 @@
     },
     {
       "path": "method-map.d.ts",
-      "bytes": 6251,
-      "sha256": "6318928e72f70288991d9a1e4a2953d6571b57c652544d1ed2816ebdcd56bd4a",
-      "blob": "2a94c1687edb57a967c8ecfec3391da830465056"
+      "bytes": 7887,
+      "sha256": "c412f4ca83f51e67fa35b454604dfe49cf81f3bbf8385a467b7ba77d37cceda9",
+      "blob": "2fff38694d7f0e4d9fc050b527403f0013ea11cc"
     },
     {
       "path": "operation-data.js",
@@ -120,6 +132,12 @@
       "bytes": 3448,
       "sha256": "8c0f13ef8f57f45f94f84dfec6ba32a8f16851dcb05f1ed6a6b38b8101e2d304",
       "blob": "74ec0b30d003570d7bd55f8a77810f656041040b"
+    },
+    {
+      "path": "tests/manager-retirement.test.mjs",
+      "bytes": 8585,
+      "sha256": "c54bb6e5b9c4b6a1b4c8761774f8c55dbac7e5022846759cd1d83cac893837e8",
+      "blob": "120e6c76b396b97e9ef676cd8ba36f552365d29c"
     },
     {
       "path": "tests/operation-lifetime.test.mjs",
@@ -153,9 +171,15 @@
     },
     {
       "path": "tools/check-source.mjs",
-      "bytes": 4532,
-      "sha256": "de11d2d1bfdab763915fc34aee245a3994d7d609c9f88336f7d2073576a113e6",
-      "blob": "b25858ac9ecab52ac43d0253698d0fe5e98ae7e6"
+      "bytes": 5467,
+      "sha256": "e537b8f564a3c0872acc53265c147cc170a8e2e97d9ab14f1d1fe279d0c10438",
+      "blob": "009c90915cec57b7c85128973313be8a3e2fdb5e"
+    },
+    {
+      "path": "views-retirement-source.patch",
+      "bytes": 6174,
+      "sha256": "a53010c2afbc3aabe5b0b3e1b61069760fff2550422c32ab6d03416e57562795",
+      "blob": "c7e51df084c82192d02159ff484a88adef3c9adf"
     }
   ],
   "immutableInputs": [
@@ -374,6 +398,42 @@
           "blob": "e347e5e6acad1fc84691e888ef9cab426344cbdd"
         }
       ]
+    },
+    {
+      "role": "fixed Artist pairing reference only; no runtime import/adoption",
+      "commit": "a3505278b4e67c1b57d0ebb1469cdc8bbbfa82f6",
+      "files": [
+        {
+          "path": "candidates/tile-authoring/browser-art/paired-owner-v1/PAIRING-REQUEST.md",
+          "bytes": 7014,
+          "sha256": "036264631ac4fd533ab4b9869d31a2e9ffa7e1ab2f5b8f992128a85b1dc41f35",
+          "blob": "de5d6acd16f56aea42793b906b651badb062266d"
+        },
+        {
+          "path": "candidates/tile-authoring/browser-art/paired-owner-v1/owner.mjs",
+          "bytes": 42221,
+          "sha256": "31dbe9285775f124095494e19ea92d0d12a25d518f22b200b5d6cbcf0b24fcee",
+          "blob": "d22351600e8e7aa60b962c7631a02e5aa5533bd8"
+        },
+        {
+          "path": "candidates/tile-authoring/browser-art/paired-owner-v1/source.json",
+          "bytes": 7860,
+          "sha256": "c1736abf7f08ff8f4a016a286b9774fa2eb49ab994f3bf22eb9e5b3520746960",
+          "blob": "6010b0539cf86e0d5632f7084a39f8b438dc74b7"
+        },
+        {
+          "path": "candidates/tile-authoring/browser-art/paired-owner-v1/NOTICE.md",
+          "bytes": 834,
+          "sha256": "52d3b8d9cec820d75710fb212256450a207ec89c0040af901524b37dd4935cae",
+          "blob": "338b2f883c80cd696b2c48659522efa475a58d11"
+        },
+        {
+          "path": "apps/editor/smart-tile/views.js",
+          "bytes": 5514,
+          "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+          "blob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320"
+        }
+      ]
     }
   ],
   "proposedKernelAdaptation": {
@@ -426,5 +486,29 @@
     "handoff": "CORE-BFD-HANDOFF.md",
     "sourceAdaptations": [],
     "productionHost": "UNBOUND"
+  },
+  "sharedSourceProposals": [
+    {
+      "path": "apps/editor/smart-tile/views.js",
+      "baseCommit": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
+      "baseBytes": 5514,
+      "baseSha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+      "currentBytes": 8434,
+      "currentSha256": "61fcc88d8dc1a12f50430ce7855610ae4563eaf9649dd29231b87188a653ee61",
+      "patch": "views-retirement-source.patch",
+      "patchSha256": "a53010c2afbc3aabe5b0b3e1b61069760fff2550422c32ab6d03416e57562795",
+      "status": "PROPOSED; Root integration approval pending",
+      "defaultApiKeys": 6,
+      "artistSource": "a3505278b4e67c1b57d0ebb1469cdc8bbbfa82f6",
+      "artistOriginalByteIdentical": true
+    }
+  ],
+  "proposedManagerAdaptation": {
+    "sourceCommit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+    "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js",
+    "patch": "kernel-manager-adoption.patch",
+    "handoff": "MANAGER-ADOPTION.md",
+    "status": "proposed; not applied; actual formal work/target consumption and Core authentication remain UNBOUND",
+    "sameExistingCoordinator": true
   }
 }

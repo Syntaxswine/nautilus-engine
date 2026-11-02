@@ -1,0 +1,27 @@
+--- a/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
++++ b/candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/session.js
+@@ -36,2 +36,3 @@
++    for(const key of ['constructActualJournal','adoptActualManager','bindActualTargetAcquisition'])if(typeof Object.getOwnPropertyDescriptor(c2Host,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2Host/'+key,'Pair the actual single journal, manager and target association.');
+     c2Host.assertPaired({codec,phasePorts:c2Ports,profile});
+     bootstrap=c2Host.requireCountedBootstrap(authority,codec);
+@@ -105,3 +106,3 @@
+   }
+-  const views=createSmartTileViews({...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')});
++  const views=c2Host?c2Host.adoptActualManager({checkpoint,authority,codec,history,historyRead,presentation,hostContext,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')}):createSmartTileViews({...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')});
+   const floor=()=>({...supplied.find(f=>f.id===floorState.selectedId),mode:floorState.mode});
+@@ -226,4 +227,5 @@
+         if(candidateWork!==work)fail('C2_ATTEMPT_MISMATCH','/work','Use the same original attempt.');
+-        const result=await views.acquire(input.bundle,sourceCurrent);if(!sourceCurrent()||!result.ok)fail(result.code||'STALE_VIEW','/native','Actual candidate acquisition was refused.');
+-        return c2Host.bindActualManagerCandidate(attempt,result.record);
++        const acquisition=c2Host.bindActualTargetAcquisition(attempt,input,{purpose:'prepare'});
++        const result=await views.acquire(acquisition,sourceCurrent);if(!sourceCurrent()||!result.ok)fail(result.code||'STALE_VIEW','/native','Actual candidate acquisition was refused.');
++        return c2Host.bindActualManagerCandidate(attempt,result.record,acquisition);
+       }}};
+@@ -324,4 +326,5 @@
+         if(work!==attempt.work)fail('C2_ATTEMPT_MISMATCH','/work','Restore uses the same existing owner.');
+-        const acquired=await views.acquire(input.bundle,isCurrent);if(!isCurrent()||!acquired.ok)fail(acquired.code||'STALE_PRESENTATION','/native','Restore did not acquire a current actual manager candidate.');
+-        return c2Host.bindActualManagerCandidate(attempt,acquired.record);
++        const acquisition=c2Host.bindActualTargetAcquisition(attempt,input,{purpose:'restore'});
++        const acquired=await views.acquire(acquisition,isCurrent);if(!isCurrent()||!acquired.ok)fail(acquired.code||'STALE_PRESENTATION','/native','Restore did not acquire a current actual manager candidate.');
++        return c2Host.bindActualManagerCandidate(attempt,acquired.record,acquisition);
+       }}};

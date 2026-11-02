@@ -40,13 +40,29 @@
   },
   "source": {
     "status": "pass",
-    "scope": "private component source isolation; actual Host/Native pairing UNBOUND",
+    "scope": "private component source + exact proposed shared views transformation; actual Host/Native pairing UNBOUND",
     "base": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
     "kernel": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
-    "localFiles": 25,
-    "immutablePins": 4,
+    "localFiles": 29,
+    "immutablePins": 5,
     "exactSnapshotFiles": 174,
     "reviewOnlyCoreFiles": 232,
+    "sharedSourceProposals": [
+      {
+        "path": "apps/editor/smart-tile/views.js",
+        "baseCommit": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
+        "baseBytes": 5514,
+        "baseSha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+        "currentBytes": 8434,
+        "currentSha256": "61fcc88d8dc1a12f50430ce7855610ae4563eaf9649dd29231b87188a653ee61",
+        "patch": "views-retirement-source.patch",
+        "patchSha256": "a53010c2afbc3aabe5b0b3e1b61069760fff2550422c32ab6d03416e57562795",
+        "status": "PROPOSED; Root integration approval pending",
+        "defaultApiKeys": 6,
+        "artistSource": "a3505278b4e67c1b57d0ebb1469cdc8bbbfa82f6",
+        "artistOriginalByteIdentical": true
+      }
+    ],
     "profiles": {
       "core": {
         "files": 308,
@@ -66,8 +82,8 @@
       }
     },
     "readOnly": true,
-    "sourceRecordSha256": "28b80ac3a6f9361b96a30555eaffda17452321440db435b1102bd67fc032f50c",
-    "evidenceSha256": "1fbea0ff15b61d2460ed484899e0fc948a80d914dc15f53005f94760f4deae3f"
+    "sourceRecordSha256": "4da96106c31a58f4eb38bbee05cf51384dfa9933ad380ddef48e3d214e8f353e",
+    "evidenceSha256": "d4b6d204694c1ee294a7df439e2669350c392d552c29f11006df9e1af674b260"
   },
   "adaptationChecks": {
     "beginControl": "git apply --check passes against ignored exact4ade snapshot; not applied",
@@ -84,15 +100,19 @@
     "receiptSha256": "0aa70f7da559f9093e640ab5108d4133cae978b51909cb5207c52a2311a01d1a",
     "caveat": "CIM access was unavailable in the sandbox; original absentAfterCompletion fields derived from null CIM responses are unsupported and not relied upon. Owned close events and this separate exact-PID absence check supply lifecycle evidence.",
     "correctionChecks": "Foreground21-case process returned exitCode0; no server/browser/install or retained helper started. Historical exact-PID receipt belongs to77d predecessor.",
-    "corePairingChecks": "Foreground3-case command returned exitCode0; no server/browser/install/retained helper started. No physical Native/driver release claim."
+    "corePairingChecks": "Foreground3-case command returned exitCode0; no server/browser/install/retained helper started. No physical Native/driver release claim.",
+    "managerChecks": "Foreground12-case command returned exitCode0; Node-owned geometry/scopes close in finally; no server/browser/install or retained background helper started"
   },
   "repository": {
-    "onlyCandidatePrefixChanged": true,
-    "sharedPublicRuntimeChanged": false,
+    "onlyCandidatePrefixChanged": false,
+    "sharedPublicRuntimeChanged": true,
     "packageExportsPinsSchemasChanged": false,
     "pushed": false,
     "rootAndPeersMutated": false,
-    "fullFourGates": "not repeated on old isolated base by explicit Root instruction; required on future Root composite"
+    "fullFourGates": "Not repeated on old isolated base by Root instruction; Root must register reviewed shared change and run combined gates",
+    "sharedAppRuntimeChanged": true,
+    "sharedSourceApproval": "One exact views.js proposal; Root review/integration pending, historical models untouched",
+    "publicEnginePackageRuntimeChanged": false
   },
   "pending": [
     "actual Core-owned observed authority/session/live source-read constructors",
@@ -147,5 +167,30 @@
     "normalPackageExported": false,
     "requiredLiveWorkflow": "empty editor -> ordinary C1 create/place -> paint same rectangle in same actual session/history/manager; not yet implemented",
     "remainingContracts": "CORE-BFD-HANDOFF.md"
+  },
+  "managerRetirement": {
+    "status": "actual C1 component pass; full Host/Artist/Native remains UNBOUND",
+    "artistReference": "a3505278b4e67c1b57d0ebb1469cdc8bbbfa82f6",
+    "sharedSource": "apps/editor/smart-tile/views.js",
+    "sharedSha256": "61fcc88d8dc1a12f50430ce7855610ae4563eaf9649dd29231b87188a653ee61",
+    "passed": 12,
+    "failed": 0,
+    "newResourceControlCases": 6,
+    "inheritedActualPresentationCases": 6,
+    "durationMs": 16903.5779,
+    "stdoutSha256": "9bd11501472e5758f6ed654d1351621928c7d9dfcf5f948abc7c566c0292ae95",
+    "command": [
+      "node",
+      "--test",
+      "candidates/tile-authoring/host/c2-bindings/tests/manager-retirement.test.mjs",
+      "tests/smart-tile-presentation.test.mjs"
+    ],
+    "defaultManagerKeys": 6,
+    "receiptSemantics": "exact actual original view.dispose return identity +positive clean diagnostics; historical complete may re-ack after context end; unknown/new-generation resources stay charged",
+    "types": "strict TypeScript5.8.3 pass",
+    "proposedKernelPatch": "kernel-manager-adoption.patch; --check passes exact4ade; not applied",
+    "sharedImplementationPatch": "views-retirement-source.patch; --check passes exact4ade original; isolated implementation only",
+    "browserOrNativeProof": false,
+    "noOutsideRecordSetMutation": true
   }
 }
