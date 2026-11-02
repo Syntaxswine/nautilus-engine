@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "status": "pass",
+  "scope": "First Gate A floor/adapter proposal only",
+  "base": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "count": null,
+      "log": "artifacts/tile-stack-editor/contract-check.log",
+      "sha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "count": 917,
+      "log": "artifacts/tile-stack-editor/contract-test.log",
+      "sha256": "a252a26905da340d419562e133d6abd8ddbc524ee52af64376bdbf118c6f033a"
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "count": 32,
+      "log": "artifacts/tile-stack-editor/contract-upstream.log",
+      "sha256": "b0f16f60a671084375485bc49ebc914c803fcff402d2d3039b20dc244845d447"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "count": 519,
+      "log": "artifacts/tile-stack-editor/contract-build.log",
+      "sha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "focused": 5,
+  "protectedHostChanges": 0,
+  "helperCleanup": {
+    "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+    "browsers": [],
+    "servers": [],
+    "ports": [],
+    "retainedProcesses": [],
+    "allFiniteCommandSessionsExited": true,
+    "commandSessions": [
+      85643,
+      31212,
+      24268,
+      92077,
+      93908
+    ],
+    "restart": "Repo sources and exact four commands above; no in-memory state or retained helper."
+  },
+  "remaining": "Candidate document policy/recovery fixtures and actual-installed Node host-helper evidence; real shared v2 codec/host wiring requires Gate B."
+}

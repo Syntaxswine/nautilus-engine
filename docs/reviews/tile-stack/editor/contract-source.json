@@ -1,0 +1,666 @@
+{
+  "version": 1,
+  "base": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "runtime": "2502646482218524fd5129641da769bb82462e4d",
+  "brief": {
+    "file": "docs/projects/tile-stack-authoring.md",
+    "sha256": "0561b9afa8d82059a401670ca40110249bf9c21489b715c363e85910ec25d4fe"
+  },
+  "scope": "Gate A proposal and pure floor/draft checks; no registered host or stack recovery codec",
+  "candidate": [
+    {
+      "file": "candidates/tile-stack/editor/contract.js",
+      "sha256": "16f73e84554dac475b93c52fa2df77484433bfe4b6ce8687aaffd80053ef0c56"
+    },
+    {
+      "file": "candidates/tile-stack/editor/floors.js",
+      "sha256": "477d02ff3d1b9338107ef1db64db87f2aec62fa88219c8605c9b225cd30e1886"
+    },
+    {
+      "file": "docs/reviews/tile-stack/editor/api.md",
+      "sha256": "a5bb64c6655d2367e420584b32a8f4eb60c64e03fe59cbd659fc01c8c7c8d87f"
+    },
+    {
+      "file": "tests/tile-stack-editor-contract.test.mjs",
+      "sha256": "51c140259c6e72c6d1104615d46f1c0ee26d41743a4a09ae2aa3b299107ad4ce"
+    }
+  ],
+  "fixedDependencyClosure": [
+    {
+      "file": "apps/editor/smart-tile/checkpoint.js",
+      "gitBlob": "7d53a1448741947f967677b579e78c39248f8111",
+      "sha256": "9b176d2e739a9817fe0894130a4b1aa17224070e2b99cb00504597220e113de4",
+      "bytes": 17839
+    },
+    {
+      "file": "apps/editor/smart-tile/contract.js",
+      "gitBlob": "ddf6c23a21559b9b4008374c56a333b1e9b4fde6",
+      "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04",
+      "bytes": 2912
+    },
+    {
+      "file": "packages/floor-navigation/index.js",
+      "gitBlob": "a0a991f5dc14b933c2cf5eb6c228f75c2562e851",
+      "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d",
+      "bytes": 6336
+    },
+    {
+      "file": "packages/map-core/blocks.js",
+      "gitBlob": "61522faf00a008cb02c61021d8304bdd556815ae",
+      "sha256": "103bfe375a41738cd989e770f53519805c219a55033dfe4d9e5a4332ff052ebb",
+      "bytes": 5257
+    },
+    {
+      "file": "packages/map-core/capabilities.js",
+      "gitBlob": "7c4755bb756771d202f50e1b51e295e9032289a8",
+      "sha256": "cb6d527d4a8716c929a1b92ec36d6922330dc9c26e6697fc3b7e5ffe265c4475",
+      "bytes": 1279
+    },
+    {
+      "file": "packages/map-core/contract-manifest.js",
+      "gitBlob": "73e27de2997e0dc764f4e2110826464b5fb37e2a",
+      "sha256": "2398f6a9db16cf2efb631ee5d57d396d557fb0f94873e29b784b1bb02c2d1273",
+      "bytes": 10938
+    },
+    {
+      "file": "packages/map-core/document.js",
+      "gitBlob": "71e6b98df9dd3519869cffc98cd916360d99d45d",
+      "sha256": "80416a2d09f2b7a23d5a1241315bd7f32ef97936c23e1832ef1eac8c578554ec",
+      "bytes": 6854
+    },
+    {
+      "file": "packages/map-core/editing-document.js",
+      "gitBlob": "6d1060cb0aeecf57f475e269615eaf3a5b1a0445",
+      "sha256": "77cc0f80981fc06301e28cc35211fae222255ae854863e0e6a0c95f3362a2786",
+      "bytes": 26714
+    },
+    {
+      "file": "packages/map-core/generator.js",
+      "gitBlob": "e709dfa3d1be4f1515237ef36291d0ae936433b0",
+      "sha256": "b9b3ec1a00d39606dc1eb6d8943e172ac3b566cdd45ffa2ea4c8e52d27fabf98",
+      "bytes": 4346
+    },
+    {
+      "file": "packages/map-core/index.js",
+      "gitBlob": "cf306724d1d45dad1b78556c0cb6d5886a4a4d5e",
+      "sha256": "c1fd8b2e467c48cd94202a7e00e6f4bee531ec156f41d3f2279c21f08349ddd2",
+      "bytes": 2990
+    },
+    {
+      "file": "packages/map-core/inspection.js",
+      "gitBlob": "18c527ae4b4bb779de9ce18c1865e3d13b25097f",
+      "sha256": "29125e7c4bcf866a4509f70f653be46037946cb595563092b296390cd90fd4e3",
+      "bytes": 5159
+    },
+    {
+      "file": "packages/map-core/maps.js",
+      "gitBlob": "4fcffdb8629b00fda0fde0f1afb79c1be05da88d",
+      "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756",
+      "bytes": 3184
+    },
+    {
+      "file": "packages/map-core/persistence.js",
+      "gitBlob": "c297c4322321a0fc51040748ece1104cbdd6fe87",
+      "sha256": "7f0217444f1d9e438a79a7347cb8b79442c41d20698127320395eafe5e409800",
+      "bytes": 8113
+    },
+    {
+      "file": "packages/map-core/prefab-blocks.js",
+      "gitBlob": "46e2c28a4fb209d0e63fa62a24d2f45337cf4d39",
+      "sha256": "6591d82c2c6cd21183e18c1e3011a09860d1a0ac2b6b071ef3cbc876f19a55f5",
+      "bytes": 705
+    },
+    {
+      "file": "packages/map-core/prefab-document.js",
+      "gitBlob": "0e8ed67fcd393b6ca80c8ca34e8ccf0e37f04c82",
+      "sha256": "3ec21d4bab1eeb214d5a7a4d66eb83f44e99022fbd292c8ca6a13838a2cc1fc7",
+      "bytes": 3442
+    },
+    {
+      "file": "packages/map-core/prefab-generator.js",
+      "gitBlob": "5d01612bca312f1d4cb35027c9968f219b137571",
+      "sha256": "5131c2b257d251f35017bce74103858624254d86b0516c6a23f093ee304c8dea",
+      "bytes": 266
+    },
+    {
+      "file": "packages/map-core/prefab-maps.js",
+      "gitBlob": "6f995aabc8e906d52693dbab8e4f9966d22a287b",
+      "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9",
+      "bytes": 1754
+    },
+    {
+      "file": "packages/map-core/prefab-rotation.js",
+      "gitBlob": "cca6b607466fe282e4c871f765bad00154b9a9ae",
+      "sha256": "983b0fade849222d1c7910ba362f1bdc33248a6277a90085934e5207e8fb76f8",
+      "bytes": 220
+    },
+    {
+      "file": "packages/map-core/requirements.js",
+      "gitBlob": "854bc6aa6156a932e67ce6e222b37ad68b63f8cc",
+      "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657",
+      "bytes": 5642
+    },
+    {
+      "file": "packages/map-core/roof-blocks.js",
+      "gitBlob": "1802ab0bcac63f8ba3411589d8f7bc5c1afd72c7",
+      "sha256": "4ab8a70684b65c29395fcf87401274506ced6ce78074616723779fb7cf1b0cfd",
+      "bytes": 2131
+    },
+    {
+      "file": "packages/map-core/roof-data.js",
+      "gitBlob": "d774ad00f81906c4ef9470ff8fd8626ab2a0f07e",
+      "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7",
+      "bytes": 4699
+    },
+    {
+      "file": "packages/map-core/roof-document.js",
+      "gitBlob": "da8efdf256b2afd29726c10245f1cf48a8d1d8d9",
+      "sha256": "a1e6e36468c73a6a3b4d8b42f637d4054dd96122a097976e397b482b0ad92029",
+      "bytes": 4808
+    },
+    {
+      "file": "packages/map-core/roof-generator.js",
+      "gitBlob": "8c8882bcfb567231f46c1e8b8d9c0d8a0e9f1db5",
+      "sha256": "62576885f7eb907ed24f6b466c175743cf7e1ca4b532c3e17dedee5faff3dcae",
+      "bytes": 4879
+    },
+    {
+      "file": "packages/map-core/roof-maps.js",
+      "gitBlob": "b45acc7cefddf706f61d4e0d6edaaeed43e811d7",
+      "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848",
+      "bytes": 1089
+    },
+    {
+      "file": "packages/map-core/roof-rotation.js",
+      "gitBlob": "66ade712040a0599e8b26a688d9fd3ba381e7971",
+      "sha256": "d9d15a3f0a27900ec0c996e4ba380e24e95c36d3b36a35b5def9e12caec8ffde",
+      "bytes": 760
+    },
+    {
+      "file": "packages/map-core/wall-runs.js",
+      "gitBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a",
+      "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d",
+      "bytes": 8795
+    },
+    {
+      "file": "packages/parts-core/hash.js",
+      "gitBlob": "5d0575cdb03732cab1a6cb099e09e236e92d35d8",
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+      "bytes": 2105
+    },
+    {
+      "file": "packages/prefab-core/catalogue.js",
+      "gitBlob": "4c8eb6085dac77d8785af3fe3bb696884b523a2e",
+      "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85",
+      "bytes": 26848
+    },
+    {
+      "file": "packages/prefab-core/index.js",
+      "gitBlob": "3520f3f10b4fdfc5af34a0f7e0958d7510aa9c00",
+      "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c",
+      "bytes": 13696
+    },
+    {
+      "file": "packages/prefab-core/original-catalogue.js",
+      "gitBlob": "94013e2ee2daaefbc7f2b677a9f8b947bd061460",
+      "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1",
+      "bytes": 67995
+    },
+    {
+      "file": "packages/prefab-core/registry.js",
+      "gitBlob": "0f6763ce543bc62c0e4d54b32fd0ee1e80414535",
+      "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b",
+      "bytes": 1847
+    },
+    {
+      "file": "packages/roof-core/index.js",
+      "gitBlob": "c3531180906b28cb5b288b0b827ee18563c991d8",
+      "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c",
+      "bytes": 13011
+    },
+    {
+      "file": "packages/world-core/parts-refusal.js",
+      "gitBlob": "ea00767af9204704eb139b4bde53dbca44a850b4",
+      "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+      "bytes": 901
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+      "gitBlob": "651137de69d01408968a8d085db59ee6a8b468ce",
+      "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001",
+      "bytes": 942
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+      "gitBlob": "29b5bb7e2d343faa0ab116cabd74440bfe9abcb3",
+      "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab",
+      "bytes": 502
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+      "gitBlob": "f066aa495f66a20bbeaa298da98837933f92c9e6",
+      "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c",
+      "bytes": 3809
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+      "gitBlob": "4799f0223ca08ab2501744a23a453e4dc6858b49",
+      "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd",
+      "bytes": 1888
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-mass.js",
+      "gitBlob": "b71bea99cb59efa411a90804ac23212d3225270f",
+      "sha256": "353d5a71ce4bd6e1a875abad5c449c11538a03b2e056a8e75c14bb82c2fc1cda",
+      "bytes": 278
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+      "gitBlob": "d35056e45a32f0828ab21d913de8d950e6345054",
+      "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924",
+      "bytes": 3095
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+      "gitBlob": "02c17928e0592e97a80ab9f615ec3d201b56c68d",
+      "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329",
+      "bytes": 7740
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+      "gitBlob": "5876e9d05149052cbed1cde3a85c8c97f82c79f9",
+      "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d",
+      "bytes": 4357
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+      "gitBlob": "ee1bd72fcf899e13f4a04c990b9685184a5a74ff",
+      "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb",
+      "bytes": 1686
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+      "gitBlob": "074f47fecdd8f2ec0feb96cd4e8593a136493f99",
+      "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf",
+      "bytes": 5856
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-support.js",
+      "gitBlob": "45fc57e59ae60ab62ecb0b5174d2a314a98f5bc7",
+      "sha256": "1e374462bab1402533c8a245afb0732aa37a5e359093b742a1a8f0cfd2542b79",
+      "bytes": 747
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+      "gitBlob": "08d33e249170407ab71041f1f73b9c59ae9c7b38",
+      "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361",
+      "bytes": 3494
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+      "gitBlob": "c3b156d8d91d4d8067377b1cc949af954f0e2d14",
+      "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47",
+      "bytes": 945
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+      "gitBlob": "ecaac2f49ba5b1cce8ee99e77b8f01a530c0891c",
+      "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c",
+      "bytes": 3997
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+      "gitBlob": "8d2449800ae4b015b6f06ad085b1784de215b3c1",
+      "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e",
+      "bytes": 1944
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+      "gitBlob": "1539641aef21adde50f83131d5ec0b371a5f7fe9",
+      "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d",
+      "bytes": 16205
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/blocks.js",
+      "gitBlob": "c2621abbb111bdb88a0b45470ddb816540d8c859",
+      "sha256": "f2ab84d27e184269da59a7eb752d1bddb2e28a109baba541c28aa087c91491d7",
+      "bytes": 9174
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+      "gitBlob": "afdab7e13ef65efe3379845e46f2a183842abf75",
+      "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29",
+      "bytes": 5263
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/editor-model.js",
+      "gitBlob": "c656663f51d363e87225ead6d44ae3cb64d9f487",
+      "sha256": "2a07bf44786237b44d6469e36981c4961c000e721a890102175afe0adcf336a0",
+      "bytes": 9135
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+      "gitBlob": "30a6f6fcda259063197cfdb006b6ab4a443a8054",
+      "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c",
+      "bytes": 6342
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+      "gitBlob": "cd59a1046c264e337dbe980ad898dc71104bec7f",
+      "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3",
+      "bytes": 2588
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+      "gitBlob": "a98b25740ae1d8a673b84abf458bd831621deee3",
+      "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6",
+      "bytes": 4333
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+      "gitBlob": "af76700ee6e3761d9dd2075277793716eaa43230",
+      "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4",
+      "bytes": 23284
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+      "gitBlob": "a2a290a72cce7c49bf6c70abf187be4318f39692",
+      "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a",
+      "bytes": 1890
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+      "gitBlob": "f6ff6f372d260106ca757c91928404075ad39080",
+      "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb",
+      "bytes": 1150
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-data.js",
+      "gitBlob": "a32f86646002ba3313a2e44b971d29dc327456be",
+      "sha256": "864408dd2cb957c73020685d7827328ee56f50f703477a7bc90f78455ce0a345",
+      "bytes": 1882
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+      "gitBlob": "37ec15945bf79aac370e904b659234fec08c9994",
+      "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523",
+      "bytes": 9636
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+      "gitBlob": "06d158511782242535564f4a018d0896bba4b43e",
+      "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39",
+      "bytes": 855
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-breaches.js",
+      "gitBlob": "18842293338246d08a83242d6e305ed147729e6c",
+      "sha256": "42327eb257445a8bdea24317646fe5c0c3d6cfdfe5c6b171fc7f2a33da6829b6",
+      "bytes": 1856
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+      "gitBlob": "2f3cfcb4687384e967021348f02c30522aa6a3ef",
+      "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563",
+      "bytes": 2326
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-foliage-brush.js",
+      "gitBlob": "49e12403ba22371405efcff9052d5fcd4da5d7fc",
+      "sha256": "191da3be093bf36b8bddfc0aaaf2726863856eeecb1f6ba1320851d882909a10",
+      "bytes": 4094
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-land-brush.js",
+      "gitBlob": "3cf9ea31e4cdd52644527f6895e48d416a80a19c",
+      "sha256": "97ca4310e173b36fe6960f4051cdd525adef930ea38d7cf20e6a6125b745cd6f",
+      "bytes": 4648
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-ramp-stroke.js",
+      "gitBlob": "e5bc1ee9dab30fd4b458cc2011115518d255f044",
+      "sha256": "4e5e5ab9b95f37cfe803557a7092ebd6c848ea9744b65549beea2896fb5f5930",
+      "bytes": 1821
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-structure-presets.js",
+      "gitBlob": "e50b13fdf354cb6ce8601788b6534f629d07eb85",
+      "sha256": "e924235d20690d06b6d5be5abf1132d78ee73ddfcd3d74f98b5e7d7932dfe53d",
+      "bytes": 425
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+      "gitBlob": "d1d5a585a36bade0fd0e1397db39721b7e80b13e",
+      "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba",
+      "bytes": 6511
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+      "gitBlob": "4b87516456e79841dac6b2724d5bf47e9c573af3",
+      "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022",
+      "bytes": 5648
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+      "gitBlob": "aa127bb4ca2fbea6e92d205b128bb7afa16b9e0d",
+      "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45",
+      "bytes": 1859
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+      "gitBlob": "b3303f26dcb4be084d4231447333df97e4ff7b21",
+      "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40",
+      "bytes": 1706403
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+      "gitBlob": "a0ef75c4a267336d74dee58f2c0604ecd262bea5",
+      "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c",
+      "bytes": 722
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fall-damage.js",
+      "gitBlob": "300be40582173adcb6a41cf0909d70f5cc9196c6",
+      "sha256": "187b4e11af130f0bd0e1846bd261d6eab6819714f8717c24809dba8ffdb42022",
+      "bytes": 2796
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+      "gitBlob": "a8b13ca3890185a7812a0406f44989ae97290a50",
+      "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9",
+      "bytes": 6825
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+      "gitBlob": "f3dc25eef7aa6c50e493c1bdf515788c9d87a3fb",
+      "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f",
+      "bytes": 932
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+      "gitBlob": "ffb10d0dd2d2fb415cf6b99c244798c4013be639",
+      "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74",
+      "bytes": 714
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+      "gitBlob": "9e5f873c3338434d248c2625ba57cd58ca2f2522",
+      "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493",
+      "bytes": 2798
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+      "gitBlob": "9f5d1a53030ffb53b7b408668f86c166a618e85f",
+      "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884",
+      "bytes": 1743
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+      "gitBlob": "09abee349052a17188b3f3245d9d74fb5b550c52",
+      "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e",
+      "bytes": 601010
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-start.js",
+      "gitBlob": "d931581034a020b86cdc436efc11330475afbed0",
+      "sha256": "0ac8f9eeca0886356fe56e0d5bb4476a3a4c04e63f6203f95112c440cf31657a",
+      "bytes": 1594
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+      "gitBlob": "ff07c25a094d09eab7277bd2f00b504db5d37cac",
+      "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f",
+      "bytes": 1763
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+      "gitBlob": "5ac4425a0143937128e72dff4ff0261eec445938",
+      "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95",
+      "bytes": 3151
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+      "gitBlob": "2181f8a832d9be046039b560dd6f1369db6489dc",
+      "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14",
+      "bytes": 5475
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+      "gitBlob": "b532973d6222e19c1aaf0d795f6cf348d963ba47",
+      "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb",
+      "bytes": 2022
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+      "gitBlob": "2ffe4bcf19de4708e5fdb1f148b6c1f4ff0e91c5",
+      "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d",
+      "bytes": 666
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+      "gitBlob": "9ab6f2a1ec1c1a3a4cac84679bc09272d038e165",
+      "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799",
+      "bytes": 330
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+      "gitBlob": "ddddbd62c7cccf817621bf05ed78e08b00b7ac30",
+      "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884",
+      "bytes": 1569
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+      "gitBlob": "4514067b9642eed30931628157c81efa4437bcba",
+      "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d",
+      "bytes": 3352
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-block-rotation.js",
+      "gitBlob": "cce35bfd19ae672fa4f5e8942bafe76fbda1c8e9",
+      "sha256": "9cf6c3c3051aa161b7b92842a947882e6681960daeebe8d862119ba90a714aeb",
+      "bytes": 2490
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+      "gitBlob": "de927e94226d50f2c7d84b44af24c87e3b69d941",
+      "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f",
+      "bytes": 4614
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+      "gitBlob": "48a5dae77a5d0731564c67b776181c6499787010",
+      "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec",
+      "bytes": 2344
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+      "gitBlob": "5f8ebb8d0c827d85e3c9505075d1036d21e61f8d",
+      "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e",
+      "bytes": 1083
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+      "gitBlob": "d7f2d620e9a665a62fd7fd08f3378d8094b1065a",
+      "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31",
+      "bytes": 3010
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+      "gitBlob": "8bb435d11ae6612138741373f00d1bc7030725f3",
+      "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941",
+      "bytes": 3032
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-catalog.js",
+      "gitBlob": "b9714996b42207a28f948dde9430d06ebce4c3a3",
+      "sha256": "2cf050482f2bb00406e927699e7553564fabc1445c37b3b57d089cf73cb89d96",
+      "bytes": 5449
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js",
+      "gitBlob": "7cf0926959b8038626b8bdb912738fadf8ed4ba3",
+      "sha256": "2e7048cb5be18dfe516b671f911cea93147123e511869cce40421519a8941a4b",
+      "bytes": 3889
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+      "gitBlob": "eabb4a2bf8d64acdd88b6014b4665682ea6eeee8",
+      "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0",
+      "bytes": 2296
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+      "gitBlob": "827aef3628bd0f8269452a53a48bdb758540229d",
+      "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5",
+      "bytes": 4583
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+      "gitBlob": "456c38ed42264a7059c426015bd6326d8e6fb1b1",
+      "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f",
+      "bytes": 3175
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+      "gitBlob": "60429f4a80ff96f831ff51e83b08048f194fdbbe",
+      "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f",
+      "bytes": 2845
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+      "gitBlob": "3f9f46121e9d0903393cbfb96cea4687420be2ee",
+      "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb",
+      "bytes": 2886480
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+      "gitBlob": "93de05beba772a8927754d3436f0c6093879258a",
+      "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17",
+      "bytes": 7744
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-collapse.js",
+      "gitBlob": "dabd1378663cd9c28aa44b617c7a7051c915e1d6",
+      "sha256": "01c23602abc415f3df3e9dabaa66bd5043c5a07b573852eadac3c86e771490aa",
+      "bytes": 3426
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-health.js",
+      "gitBlob": "ded2b875d83353b41d2f90632c410c021d5902a3",
+      "sha256": "97d8f63285c7a21bf5ed10134efdd7b49ddc5f5c21e753e9b46e8fbc482a7a49",
+      "bytes": 4746
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+      "gitBlob": "d3035afc9b0729c54e63501c34816ce203868508",
+      "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a",
+      "bytes": 5813
+    },
+    {
+      "file": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+      "gitBlob": "0e77739aa4ee91c41eebe052bbeb115e7573b5f5",
+      "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68",
+      "bytes": 2680
+    }
+  ]
+}
