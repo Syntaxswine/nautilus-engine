@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "status": "contract mathematical oracles; no renderer/decoder implementation",
+  "groupOpacity": {
+    "markAlphas": [
+      0.5,
+      0.5
+    ],
+    "markOpacities": [
+      1,
+      1
+    ],
+    "layerOpacity": 0.5,
+    "compositedLayerAlpha": 0.75,
+    "resultAlpha": 0.375,
+    "incorrectPerMarkLayerAlpha": 0.4375
+  },
+  "alphaFloor": {
+    "threshold8": 2,
+    "samples": [
+      {
+        "alpha8": 2,
+        "expectedAlpha": 0
+      },
+      {
+        "alpha8": 3,
+        "expectedAlpha": 0.011764705882352941
+      }
+    ]
+  },
+  "frameSampling": {
+    "pageSizePx": [
+      1024,
+      1536
+    ],
+    "rectPx": [
+      512,
+      512,
+      256,
+      256
+    ],
+    "samples": [
+      {
+        "form": "stamp",
+        "uv": [
+          0.25,
+          0.75
+        ],
+        "expectedTexelCenter": [
+          575.5,
+          575.5
+        ]
+      },
+      {
+        "form": "stamp",
+        "uv": [
+          -0.01,
+          0.5
+        ],
+        "expectedTransparent": true
+      },
+      {
+        "form": "detail",
+        "uv": [
+          1.25,
+          -0.25
+        ],
+        "expectedTexelCenter": [
+          575.5,
+          575.5
+        ]
+      }
+    ]
+  },
+  "bilinearPremultiplication": {
+    "straightSRGBTaps": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1
+      ]
+    ],
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "expectedLinearPremultipliedRGBA": [
+      0,
+      0,
+      0.5,
+      0.5
+    ]
+  },
+  "linearTint": {
+    "sourceSRGB": 0.5,
+    "tintLinear": 0.5,
+    "expectedLinear": 0.10702057024111628
+  }
+}

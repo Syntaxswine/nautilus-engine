@@ -1,8 +1,11 @@
 {
   "schemaVersion": 1,
-  "blueprint": "b850e20e2fdd85435d33f16327482b80380af728",
+  "parent": "7772910059d86c00c84475af489be812ff225c5d",
+  "artistInput": "f5bfda9ec0f639018ccfee2415b1f70502e77cae",
+  "fullB1BindingInput": "4b0499cc776fcd85fdd415fa7344982b75fbf8fb",
   "approvedStackPreserved": "45ecaef16bb39424c8b885d53acb4371654b4fa0",
-  "status": "private contract/design checkpoint; no authoring executor/provider/CLI or public registration",
+  "acceptedD4PatchPreserved": "93a94778779b800227f3886b1ca63fae1abc2543",
+  "status": "C0 private contract realignment; no executor/runtime/public registration/version/pin/deployment change",
   "gates": [
     {
       "command": "npm run check",
@@ -13,14 +16,14 @@
     {
       "command": "npm test",
       "exitCode": 0,
-      "sha256": "c11c307a0a750a6c29df270d0ee7fef299434b52290f768adec8cbf675b3ad59",
-      "bytes": 100793
+      "sha256": "ee14c1fdc03f4f8d4036403a172f5a3dbf281cb0bb4839151cd82ffa7f3eba7b",
+      "bytes": 101974
     },
     {
       "command": "npm run test:upstream",
       "exitCode": 0,
-      "sha256": "0bf3e762514a0da892dba4d470dad20e5c82b9edbe6294227aaf297718f1243c",
-      "bytes": 3145
+      "sha256": "ccde9c529b42292f07656633e81fbe065837ea363af482d87526c82df9cfe41b",
+      "bytes": 3126
     },
     {
       "command": "npm run build",
@@ -29,21 +32,43 @@
       "bytes": 378
     }
   ],
-  "focusedTests": {
-    "pass": 6,
+  "engineTests": {
+    "pass": 929,
     "fail": 0
   },
-  "independentSchemaCases": 47,
+  "focusedTests": {
+    "pass": 17,
+    "fail": 0,
+    "includesNoGitShallowCIFixture": true
+  },
+  "independentSchemaCases": 65,
+  "schemaDefinitions": 54,
   "proposedEditOperations": 13,
   "queries": 2,
-  "immutableRecordsHashed": 9,
+  "frozenGrammarDefinitions": [
+    "command",
+    "operation",
+    "query",
+    "pack",
+    "expected",
+    "pin",
+    "applyOutcome",
+    "transport",
+    "applyRequest"
+  ],
+  "immutableRecordsHashed": 39,
   "actualPublicV1RecipesValidated": 7,
-  "portableBlobFiles": 1,
+  "explicitArtistFrameMappings": 30,
+  "durableResourceReferences": 31,
+  "portableBlobFiles": 3,
   "actualArchiveMutationsRejected": 4,
+  "decodePerformed": false,
   "sourceAudit": {
-    "sourceFiles": 13,
+    "sourceFiles": 22,
     "protectedFiles": 90,
     "candidateRuntimeModules": 0,
+    "publicTileModules": 14,
+    "publicTileBytes": 91604,
     "normalDistributionProfilesExcludeCandidate": true
   },
   "cleanup": {
@@ -52,14 +77,13 @@
     "previewServers": 0,
     "browserSessions": 0,
     "retainedHelpers": 0,
-    "ports": [],
-    "existingSchemaChecker": "reused read-only; not installed or task-owned; not deleted",
-    "proofOutputsRetained": "artifacts/tile-authoring-core (ZIP/blob/schema cases; files, not processes)"
+    "ports": []
   },
-  "implementationAndMeasurementLimits": [
-    "No command execution, source reducer, successful host review/apply or UI/agent runtime parity claimed",
-    "No actual image decode, clipping renderer, grouped seam, browser/PC/phone/GPU performance proof",
-    "Runtime/public registration, exact Editor codec integration and actual installed authoring paths await Architect freeze",
-    "Proposed budget arithmetic is not measured capacity or allocation cost"
+  "limitations": [
+    "No authoring executor, runtime importer or decoder",
+    "No shader or actual provider/compositor proof",
+    "No live human/JSONL history/recovery proof",
+    "No performance measurement or phone claim",
+    "C1 waits stacked main acceptance and Root contract review; C2 follows"
   ]
 }

@@ -86,7 +86,12 @@
     "layersPerSurface": 8,
     "sourceMarksPerLogicalChunk": 4096,
     "residentMarksAllViews": 1024,
-    "uniqueAdditionalDecodedBytes": 33554432,
+    "additionalDecodedAllocationBytes": 33554432,
+    "ownedAppearanceMaterialsAllViews": 64,
+    "contributorsPerBin": 8,
+    "binReferencesAllViews": 32768,
+    "derivedBufferBytesAllViews": 4194304,
+    "atlasPagesAllViews": 4,
     "rootsAllViews": 2,
     "trianglesAllViews": 50000,
     "cellsAllViews": 1024,
@@ -104,6 +109,22 @@
     "encodedPackBytes": 67108864
   },
   "limitsMeasured": false,
+  "savedDocument": {
+    "kind": "nautilus-tile-workbench-document",
+    "version": 3,
+    "projectionReadOnly": true,
+    "resourceRefs": "#/$defs/resourceRefs",
+    "freshness": "full-checkpoint-journal-token",
+    "history": "restore-exact-full-document-including-contentRevision"
+  },
+  "imageDecoders": {
+    "firstRequired": "image/png",
+    "implementedHere": false,
+    "optionalUnbound": [
+      "image/webp"
+    ],
+    "metadataIsDecodeProof": false
+  },
   "profiles": {
     "source": [
       "local-level-region-v1",
@@ -113,6 +134,9 @@
     "surface": "owner-local-level-top-v1",
     "blend": "source-over-linear-premultiplied-v1",
     "mask": "owner-local-grid-v1",
+    "imageView": "finite-raster-frame-v1",
+    "sampler": "linear-premultiplied-bilinear-frame-v1",
+    "layerOpacity": "composite-ordered-marks-then-attenuate-group",
     "status": "proposed-unregistered-needs-real-provider-proof"
   },
   "unsupported": [
