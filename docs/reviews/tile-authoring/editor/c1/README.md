@@ -148,9 +148,38 @@ retained consumer, shared host and JSONL with zero metadata prepares and exactly
 two geometry prepares/applies. Current UI/cache/resource/transport controls pass
 48 checks. `tools/editor-direct-tile-authoring-c1.mjs` preserves that finite
 review entry. Its synthetic atlas has no rendered/installed/device claim.
-Complete history, browser/package matrices and the final four gates remain
-pending. Superseded profiling runs stopped through their owning exec sessions
-are not reported as successful current-tree evidence.
+The complete current history/recovery suite passes eight cases. The six-edit,
+six-undo, six-redo/reopen case took 242 seconds; all eight cases took 521 seconds.
+These are elapsed CPU/native test durations including assertions and checkpoint
+reads, not renderer or physical-device performance measurements. The Architect
+is attributing that repeated work before another broad run.
+
+The actual source browser completed the human six-edit workflow and unchanged
+metadata-view/resource checks. The Architect then requested an isolated profile;
+the reviewed STOP mechanism closed that browser/server during history, and its
+partial report, earlier failures and cleanup receipts remain preserved. This is
+not a complete browser pass. Source/built/installed matrices and `npm test`
+remain pending. The build (562 module paths) and 32 inherited upstream checks
+pass. `npm run check` stops at the old registration comparison owned by the
+Architect; this role does not weaken that fence. Superseded profiling runs
+stopped through their owning exec sessions are not successful current evidence.
+
+The collector supports `--workflow-only` for the six human edits plus desktop
+and 320/390 px presentation; its report explicitly excludes history, save,
+JSONL and recovery in that mode. Default mode retains the full matrix and the
+unchanged 600-second helper lifetime. Per-command/history progress timestamps
+are appended with a run ID. Installed proof stages the floor DOM/CSS as hashed
+host files, with its single floor-model import bound to the actual public Core
+export; it does not expand either package's exports or use a source fallback.
+
+The immutable stager accepts a separate full `--core-docs` pin for exactly
+`docs/reviews/tile-authoring/core/c1-validation.json`, verifies that it is the
+only runtime-to-docs-tip difference, and authenticates every Core import-audit
+row against Git bytes and its chosen per-path pin. The current 196-file source
+stage passes that check. One exact hash-pinned UI proof tool has an explicit
+two-local-import tooling closure: its selected test exercises the early
+unapproved-pin refusal, without invoking its computed fixed-Git constructor
+loader. All runtime and test modules retain the strict ordinary import parser.
 
 ## Builder checklist
 
