@@ -1,0 +1,111 @@
+{
+  "status": "Unbound contract examples only; no executor or portable review authority.",
+  "schemaFile": "inputs/core-c0.schema.json",
+  "examples": [
+    {
+      "file": "candidates/tile-authoring/ui/examples/paint-command.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Exact canonical Core command; only owner.a is targeted."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/clone-command.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Fresh immutable identity; original controls/anchors retained."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/revise-command.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Metadata-only immutable revision; exact existing recipe bytes retained."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/preset-save-clean.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Selected capture OFF: both default arrays explicitly empty."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/preset-save-selected.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Explicit selected-mark capture into new preset; no placed owner update."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/place-two-empty.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Two fresh owners, explicit empty defaults; one finite batch."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/upgrade-selected.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Only owner.a upgrades; mark deletion is explicit. Owner.b stays pinned."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/update-local-mark.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Source-local graphic. Stored image UV/pivot both top-left; no geometry mutation."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/layer-opacity.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "Grouped layer opacity follows ordered mark compositing."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/query-requirements.json",
+      "schemaPointer": "#/$defs/query",
+      "description": "Read query; no Apply/history."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/query-export.json",
+      "schemaPointer": "#/$defs/query",
+      "description": "Export plan still needs actual verified blob bytes."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/apply-request.json",
+      "schemaPointer": "#/$defs/applyRequest",
+      "description": "Unbound shape example. The same Editor connection must supply its retained request."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/outcome-committed.json",
+      "schemaPointer": "#/$defs/applyOutcome",
+      "description": "Acknowledged commit survives display failure; retry presentation only."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/outcome-rejected.json",
+      "schemaPointer": "#/$defs/applyOutcome",
+      "description": "Rejection preserves accepted state/history/redo."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/outcome-unknown.json",
+      "schemaPointer": "#/$defs/applyOutcome",
+      "description": "Null is unknown, not false. Freeze writes, retain resources, reconcile original ID."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/prepare-no-change.json",
+      "schemaPointer": "#/$defs/refusal",
+      "description": "No fake content or geometry revision."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/transport-prepare.json",
+      "schemaPointer": "#/$defs/transport",
+      "description": "Identical finite command bytes for UI Review and authorized JSONL."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/transport-recover.json",
+      "schemaPointer": "#/$defs/transport",
+      "description": "Same-ID recovery."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/snapshot.json",
+      "schemaPointer": "#/$defs/snapshot",
+      "description": "Full v3 document plus read-only source projection; example authority tokens are synthetic."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/inputs/core-pack.json",
+      "schemaPointer": "#/$defs/pack",
+      "description": "Exact canonical pack manifest/blobEntries metadata; actual bytes remain a host obligation."
+    },
+    {
+      "file": "candidates/tile-authoring/ui/examples/placement-cow-command.json",
+      "schemaPointer": "#/$defs/command",
+      "description": "One atomic clone + selected-owner upgrade batch. Source frame/geometry and mark binding remain identical; owner.b stays pinned."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "kind": "nautilus-tile-authoring-command",
+  "version": 1,
+  "requestId": "ui.command.upgrade.a",
+  "expected": {
+    "workspaceRevision": 0,
+    "workspaceDigest": "928bf187c58f89a715e7955303154aa23c26c02f294842edc3007ff92743799a",
+    "hostDocumentDigest": "40b1eeb290156af30f492be72f3f2d31b03eac8aeadc3b4adb39e5e9021ab403",
+    "hostAuthorityToken": "2b6f788f72dcca1335d935198f5fe5e274bd4cc030482ef6e7d30ec9fcc6e7a6",
+    "authorityContextToken": "5dfaa34035bbf51b0dd052099db1914c7a3256cbc8bdb9071a861cea0e44c5f0",
+    "contentDigest": "718b146ca4ab18fefcc2f039f58931a9a602f7fd8423308e3abe9fe8cf7d1938",
+    "decorationDigest": "c2b7c7e9addad0b82b10c3e7fcf829a54e8f080e0fe491a76494362498b16845",
+    "resourceSetDigest": "78dc73569b01981781415d5fb0850a6d5182836922cc9b72566728a449c4a5fc",
+    "floorProfileDigest": "f798a28ac5a81f4d7d79168202e6e064cea25a61bc8bc8f5be5e62dd1fda89e1",
+    "stackConstraintsDigest": "e576a85f0d044593901c0c8180e6d4393f2e9c7551bf22f5f544256509626c2d",
+    "tileLayoutDigest": "4828a4cd6853f083c7a831113537638d413f09ce2b1dc7520551f7497a5f06ed",
+    "tileCatalogueDigest": "5bb1d5629b37ca69978f015226d85228c8a38acba3160eba476d30e8515433c4"
+  },
+  "operations": [
+    {
+      "opId": "ui.op.upgrade.a",
+      "kind": "placement.upgrade",
+      "body": {
+        "ownerIds": [
+          "owner.a"
+        ],
+        "from": {
+          "id": "custom.paving",
+          "revision": 1,
+          "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+        },
+        "to": {
+          "id": "custom.paving",
+          "revision": 2,
+          "contentDigest": "735e9877b3d3215f2e3237f9f85b7b1740ffad56218761d71cc889e47bfac258"
+        },
+        "anchorDecisions": [
+          {
+            "markId": "mark.a",
+            "action": "delete",
+            "replacement": null
+          }
+        ],
+        "newRecipeAnchorIds": [
+          {
+            "ownerId": "owner.a",
+            "anchorIds": [
+              "shape.d878fe95a3bf9b2f97a5b7a9.region"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "budgetProfile": "authoring-reference-proposal-v1"
+}

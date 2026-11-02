@@ -1,0 +1,358 @@
+{
+  "status": "UNBOUND CONTRACT FIXTURE; no live geometry/resource/budget/authority lease",
+  "coreCommit": "43227894c50ec62b71806978195fff2c650eb388",
+  "sourceDocument": "inputs/core-document-v3.json",
+  "notes": "The exact Core document uses a compatibility finish fixture and one borrowed-page mark. This is not the public finish library or an accepted/live host. The separate 30-frame selection examples bind every original Artist frame. Token/epoch values below are illustrative only.",
+  "packet": {
+    "kind": "candidate.local-surface-appearance-packet",
+    "version": 2,
+    "captures": {
+      "documentDigest": "40b1eeb290156af30f492be72f3f2d31b03eac8aeadc3b4adb39e5e9021ab403",
+      "checkpointToken": "4b85ff26149e1e5e54a1b2ab7d14fe436ba48c593e4ffc5b115daf50ed32cc38",
+      "authorityContextToken": "587a809c3b68adc26665a8ce96f5054131daa0adea8212b19926f9eaa20a36f4",
+      "presentationProfileDigest": "65833a9b6b2d5cffbe67900368ddf4ca1e94f6e50551e8f8c63e133f03674ef1",
+      "resourceEpoch": 1,
+      "geometryEpoch": 1,
+      "resourceLeaseSetDigest": "8db11b9388c5b1857f85323a78e61da1fce69f657c85d1928108fc91f23c00d3",
+      "geometryLeaseSetDigest": "0632773d59ab21e4ab0029488e6a34ce3a3479bb577d8083152259efb0d9568e",
+      "allocationLedgerDigest": "621cae0053c77306728dd5ba3a4251454cd07d34b3134f670340649fff706beb"
+    },
+    "document": {
+      "id": "workspace.fixture",
+      "version": 3,
+      "contentRevision": 0
+    },
+    "finishBinding": {
+      "id": "compatibility.finish-fixture",
+      "version": 1,
+      "digest": "79c146cae0f4a21e228e952a83bd474959dd190b684f9ffc7e3d2d79f09da7a7"
+    },
+    "artistImportBinding": {
+      "id": "nautilus.local-graphic-art-samples",
+      "version": 1,
+      "digest": "ef2daf8b205bae3ca14baa093be85fa46e46b769f645c95327a6bf72f2152d33"
+    },
+    "resources": [
+      {
+        "resourceRef": {
+          "kind": "nautilus-artwork-resource-ref",
+          "version": 1,
+          "artwork": {
+            "id": "fixture.borrowed-atlas",
+            "revision": 1,
+            "contentDigest": "e59a37724f9aa5a1daada42d83a71efe54dd2761bd17925d958a4f48b989a423"
+          },
+          "imageViewDigest": "6d3d23abe48f4c1afb55cb9291a1d2897713f82b420ea73e081101cd44c6d277"
+        },
+        "blob": {
+          "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2",
+          "byteLength": 2558637,
+          "mediaType": "image/png",
+          "widthPx": 1254,
+          "heightPx": 1254,
+          "colorSpace": "srgb",
+          "alphaMode": "straight"
+        },
+        "imageView": {
+          "profile": "finite-raster-frame-v1",
+          "pageDigest": "3cb15fee3fd3b62663fdf1ae3b1e2896a544d98d26576860b2f389bb255ff030",
+          "frame": {
+            "id": "whole-page",
+            "rectPx": [
+              0,
+              0,
+              1254,
+              1254
+            ],
+            "origin": "top-left",
+            "imageTop": "local-positive-v"
+          },
+          "sampler": {
+            "profile": "linear-premultiplied-bilinear-frame-v1",
+            "alphaFloor8": 0,
+            "mipmaps": false,
+            "stampOutside": "transparent",
+            "detailWrap": "repeat-frame"
+          }
+        },
+        "decoderProfile": "png-rgba8-srgb-straight-v1"
+      }
+    ],
+    "surfaces": [
+      {
+        "target": {
+          "ownerId": "owner.a",
+          "surfaceId": "top",
+          "floorId": "F00",
+          "bindingDigest": "5d1dd87ff31544658321c15a0e702046deeeb29a14771343e5211e4bd57853c2"
+        },
+        "definition": {
+          "id": "custom.paving",
+          "revision": 1,
+          "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+        },
+        "sourceFrame": {
+          "id": "top",
+          "sourceAnchorId": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+          "floorSlot": "base",
+          "floorOffsetM": 0,
+          "profile": "owner-local-level-top-v1",
+          "originM": [
+            0,
+            0,
+            0
+          ],
+          "axes": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "grid": {
+            "id": "grid.metres",
+            "version": 1,
+            "originM": [
+              0,
+              0
+            ],
+            "cellSizeM": [
+              1,
+              1
+            ],
+            "profile": "owner-local-grid-v1"
+          },
+          "geometryDigest": "a03ef94a0e790c682cfb852b751110f87dee57e55f8b1692b616743df0f4c20f",
+          "frameDigest": "380d8f02b41bdf9bd9aab4ef9eb4e41ae27f2c8c533d6dee1142564d298f8685"
+        },
+        "currentOwnerPose": {
+          "originM": [
+            0,
+            0,
+            0
+          ],
+          "transform": {
+            "quarterTurns": 0,
+            "mirrorX": false
+          },
+          "poseDigest": "f928467abc42e320de2f3cd8304f57c00a355cee088ed55aaea66a0c52719892"
+        },
+        "nativeFloorElevationM": 0,
+        "worldToSurface": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "geometryLeaseId": "unbound-fixture-geometry-owner.a",
+        "geometryEpoch": 1,
+        "clipProfile": "candidate.level-rectangle-top-v1",
+        "facePolicy": "front-facing-only-v1",
+        "layers": [
+          {
+            "layer": {
+              "id": "layer.wear",
+              "order": 0,
+              "label": "Wear graphic",
+              "opacity": 1,
+              "blendProfile": "source-over-linear-premultiplied-v1"
+            },
+            "marks": [
+              {
+                "id": "mark.a",
+                "revision": 1,
+                "target": {
+                  "ownerId": "owner.a",
+                  "surfaceId": "top",
+                  "floorId": "F00",
+                  "bindingDigest": "5d1dd87ff31544658321c15a0e702046deeeb29a14771343e5211e4bd57853c2"
+                },
+                "layerId": "layer.wear",
+                "ordinal": 0,
+                "graphic": {
+                  "artwork": {
+                    "id": "fixture.borrowed-atlas",
+                    "revision": 1,
+                    "contentDigest": "e59a37724f9aa5a1daada42d83a71efe54dd2761bd17925d958a4f48b989a423"
+                  },
+                  "form": "stamp",
+                  "transform": {
+                    "positionM": [
+                      0.5,
+                      0.5
+                    ],
+                    "sizeM": [
+                      1,
+                      1
+                    ],
+                    "rotationRad": 0,
+                    "mirrorU": false,
+                    "pivotUV": [
+                      0.5,
+                      0.5
+                    ]
+                  },
+                  "opacity": 0.75,
+                  "tintLinearRGB": [
+                    1,
+                    1,
+                    1
+                  ],
+                  "mask": {
+                    "kind": "grid-spans",
+                    "grid": {
+                      "id": "grid.metres",
+                      "version": 1,
+                      "digest": "965c3a02db8e4eec3e59f9036b0f16c513f807cbe1dedf98ce433ca7a10e5dcf"
+                    },
+                    "rows": [
+                      {
+                        "j": 0,
+                        "spans": [
+                          {
+                            "i0": 0,
+                            "count": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "wrap": "clamp"
+                },
+                "groupId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "target": {
+          "ownerId": "owner.b",
+          "surfaceId": "top",
+          "floorId": "F00",
+          "bindingDigest": "f844924f78f2b2d762f6b37ca49264d0ac8a1cd325eab1bce928278b58eddeb2"
+        },
+        "definition": {
+          "id": "custom.paving",
+          "revision": 1,
+          "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+        },
+        "sourceFrame": {
+          "id": "top",
+          "sourceAnchorId": "shape.d878fe95a3bf9b2f97a5b7a9.region",
+          "floorSlot": "base",
+          "floorOffsetM": 0,
+          "profile": "owner-local-level-top-v1",
+          "originM": [
+            0,
+            0,
+            0
+          ],
+          "axes": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "grid": {
+            "id": "grid.metres",
+            "version": 1,
+            "originM": [
+              0,
+              0
+            ],
+            "cellSizeM": [
+              1,
+              1
+            ],
+            "profile": "owner-local-grid-v1"
+          },
+          "geometryDigest": "a03ef94a0e790c682cfb852b751110f87dee57e55f8b1692b616743df0f4c20f",
+          "frameDigest": "380d8f02b41bdf9bd9aab4ef9eb4e41ae27f2c8c533d6dee1142564d298f8685"
+        },
+        "currentOwnerPose": {
+          "originM": [
+            20,
+            0,
+            0
+          ],
+          "transform": {
+            "quarterTurns": 0,
+            "mirrorX": false
+          },
+          "poseDigest": "245cdee5453aff09b1016fa1668a054f3021201489c1603b17bc483ede0ebfc9"
+        },
+        "nativeFloorElevationM": 0,
+        "worldToSurface": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -20,
+          0,
+          0,
+          1
+        ],
+        "geometryLeaseId": "unbound-fixture-geometry-owner.b",
+        "geometryEpoch": 1,
+        "clipProfile": "candidate.level-rectangle-top-v1",
+        "facePolicy": "front-facing-only-v1",
+        "layers": []
+      }
+    ],
+    "costs": {
+      "boundKind": "proposal-only-not-performance-measurement",
+      "residentMarksAllViews": 1024,
+      "rootsAllViews": 2,
+      "trianglesAllViews": 50000,
+      "cellsAllViews": 1024,
+      "ownedAppearanceMaterialsAllViews": 64,
+      "decodedAllocationBytesAllViews": 33554432,
+      "binReferencesAllViews": 32768,
+      "derivedBufferBytesAllViews": 4194304,
+      "atlasPagesAllViews": 4,
+      "contributorsPerBin": 8
+    }
+  }
+}

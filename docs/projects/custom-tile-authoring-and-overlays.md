@@ -1,6 +1,6 @@
 # Custom tile workbench and local overlays
 
-Status: user-authorized requirements and next contract tranche, 2026-11-01. This follows [stacked authoring](tile-stack-authoring.md); its current proof correction and fixed Gate A deliveries continue. This document does not declare the work implemented or register a public schema, capability or package export.
+Status: C0 contracts reconciled; C1 custom-tile implementation authorized, 2026-11-02. [Stacked authoring](tile-stack-authoring.md) is accepted on main at `d869410625b246cfff2b51089e7878c31951775c` through PR #32. The [accepted contract decisions](../reviews/tile-authoring/architect/c0-decisions.md) govern the next tranche; C2 overlays follow C1 acceptance. This document does not declare custom-tile runtime implemented or register a public schema, capability or package export.
 
 ## Intended authoring experience
 

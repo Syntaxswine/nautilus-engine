@@ -1,0 +1,129 @@
+{
+  "kind": "nautilus-tile-authoring-command",
+  "version": 1,
+  "requestId": "ui.command.preset.selected",
+  "expected": {
+    "workspaceRevision": 0,
+    "workspaceDigest": "928bf187c58f89a715e7955303154aa23c26c02f294842edc3007ff92743799a",
+    "hostDocumentDigest": "40b1eeb290156af30f492be72f3f2d31b03eac8aeadc3b4adb39e5e9021ab403",
+    "hostAuthorityToken": "2b6f788f72dcca1335d935198f5fe5e274bd4cc030482ef6e7d30ec9fcc6e7a6",
+    "authorityContextToken": "5dfaa34035bbf51b0dd052099db1914c7a3256cbc8bdb9071a861cea0e44c5f0",
+    "contentDigest": "718b146ca4ab18fefcc2f039f58931a9a602f7fd8423308e3abe9fe8cf7d1938",
+    "decorationDigest": "c2b7c7e9addad0b82b10c3e7fcf829a54e8f080e0fe491a76494362498b16845",
+    "resourceSetDigest": "78dc73569b01981781415d5fb0850a6d5182836922cc9b72566728a449c4a5fc",
+    "floorProfileDigest": "f798a28ac5a81f4d7d79168202e6e064cea25a61bc8bc8f5be5e62dd1fda89e1",
+    "stackConstraintsDigest": "e576a85f0d044593901c0c8180e6d4393f2e9c7551bf22f5f544256509626c2d",
+    "tileLayoutDigest": "4828a4cd6853f083c7a831113537638d413f09ce2b1dc7520551f7497a5f06ed",
+    "tileCatalogueDigest": "5bb1d5629b37ca69978f015226d85228c8a38acba3160eba476d30e8515433c4"
+  },
+  "operations": [
+    {
+      "opId": "ui.op.preset.selected",
+      "kind": "preset.save",
+      "body": {
+        "preset": {
+          "kind": "nautilus-tile-preset",
+          "version": 1,
+          "id": "ui.preset.selected-wear",
+          "revision": 1,
+          "body": {
+            "label": "Explicit selected local wear",
+            "definition": {
+              "id": "custom.paving",
+              "revision": 1,
+              "contentDigest": "08f183ea40c1e684c4622b709ecfa458c4d940f2a40a1c26818cdf71199dd6ce"
+            },
+            "defaultLayers": [
+              {
+                "surfaceId": "top",
+                "layer": {
+                  "id": "layer.wear",
+                  "order": 0,
+                  "label": "Wear graphic",
+                  "opacity": 1,
+                  "blendProfile": "source-over-linear-premultiplied-v1"
+                }
+              }
+            ],
+            "defaultMarks": [
+              {
+                "id": "template.ui.mark",
+                "surfaceId": "top",
+                "layerId": "layer.wear",
+                "ordinal": 0,
+                "graphic": {
+                  "artwork": {
+                    "id": "fixture.borrowed-atlas",
+                    "revision": 1,
+                    "contentDigest": "e59a37724f9aa5a1daada42d83a71efe54dd2761bd17925d958a4f48b989a423"
+                  },
+                  "form": "stamp",
+                  "transform": {
+                    "positionM": [
+                      0.5,
+                      0.5
+                    ],
+                    "sizeM": [
+                      1,
+                      1
+                    ],
+                    "rotationRad": 0,
+                    "mirrorU": false,
+                    "pivotUV": [
+                      0.5,
+                      0.5
+                    ]
+                  },
+                  "opacity": 0.75,
+                  "tintLinearRGB": [
+                    1,
+                    1,
+                    1
+                  ],
+                  "mask": {
+                    "kind": "grid-spans",
+                    "grid": {
+                      "id": "grid.metres",
+                      "version": 1,
+                      "digest": "965c3a02db8e4eec3e59f9036b0f16c513f807cbe1dedf98ce433ca7a10e5dcf"
+                    },
+                    "rows": [
+                      {
+                        "j": 0,
+                        "spans": [
+                          {
+                            "i0": 0,
+                            "count": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "wrap": "clamp"
+                }
+              }
+            ],
+            "requires": [
+              "owner-local-level-top-v1"
+            ],
+            "notices": [
+              {
+                "id": "notice.repo",
+                "licenseRef": "LicenseRef-Repository-NOTICE",
+                "attribution": "Contract fixture borrows existing source/resources; see complete repository NOTICE. No new artwork or licensed family is asserted.",
+                "noticeText": "# Sources and notices\n\nNautilus Engine includes selected, unchanged source and assets from the user's Animal Factory Tactics 3D and Farmyard Commando projects. `upstream.json` records exact commits; each `vendor/<donor>/<commit>/provenance.json` records original paths, SHA-256 values and byte counts. Original notices, including Three.js's embedded MIT notice, remain with their files.\n\nThe imported projects contain artwork and code with differing or unspecified per-file licensing. This record preserves provenance; it does not assert a new blanket license or grant redistribution rights. No new blanket license is applied to imported material. The source repository is public at the user's request; the review deployment uses owner sign-in.\n\nThe golden contour contribution additionally preserves the reviewed Farmyard renderer, tests and porting guide under its own `upstream.json` pin. These files are reference evidence; the separately maintained `packages/render-effects` extraction reuses the existing AFT-pinned Three.js instance and MIT notice. Source and dependency hashes, including comparison-only CRLF/LF evidence, are recorded in its provenance manifest.\n\nNautilus-authored files, original upstream files and generated deployment adaptations have separate paths or recorded build hashes. The donor games, their saves and their deployment/account settings are not imported as Nautilus defaults.\n\nThe `aft-assets` snapshot supplements the existing reviewed AFT commit with its original lathe v1, mill v1 and press v2 paint atlases. Its separate provenance manifest records all three source paths, byte counts and SHA-256 hashes; the original AFT snapshot is unchanged.\n\n# Gross catalogue building collection\n\nThe separate `vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/` snapshot preserves selected original Tinderbox house assemblies, plans, painted materials, source plates and artist evidence. `upstream.json` identifies the repository and reviewed commit; its `provenance.json` records every original file hash. Embedded source notices and attribution remain unchanged, including the nested Farmyard native geometry dependency. The artist's source records identify the S. E. Gross catalogue plates and their public-domain source status. That historical source status does not itself license all newly authored code or paintings. This provenance notice adds no license grant.\n\nNautilus's building registry, source-aware editor library, placement contract and seeded lot generator are separate adapters; they do not modify the imported bytes or incorporate a Tinderbox game runtime.\n\n## Tinderbox consumer conformance evidence\n\nThe test-only tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1 snapshot preserves the original compiler/simulation dependency closure and contract evidence from the user's Tinderbox project. Its provenance.json records exact Git blobs, byte counts and SHA-256 hashes. Embedded source notices remain unchanged; no new license grant is asserted. These source fixtures are excluded from distributable packages and are never a game runtime dependency. The engine-owned bounded adapter is separate from this evidence.\n\n## Farmyard stat-v2 conformance evidence\n\nThe test-only Farmyard rules fixtures at commit `279d2d34786b3e6e5c5baeeac6898e60030afdbe` retain three original module byte streams, including their original mixed line endings and comments. `upstream.json` and `docs/reviews/2026-10-29-farmyard-rules.sources.json` identify the full source commit, Git blobs, byte counts and hashes. The pinned root has no blanket license; this provenance adds no license grant. Fixtures are excluded from all distributions. The engine-owned pure calculation adapter uses only the existing public rules boundary, without a Farmyard runtime or production pin change.\n\n## Farmyard grenade workproduct\n\nThe immutable `vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves original gameplay/control sources, original conformance tests and source/reference notices from Farmyard Commando. Its provenance and source review record exact Git blobs, byte counts, SHA-256 values, dependency roles and dynamic-resource limits. Original bytes and embedded notices remain unchanged; the source has no blanket license and this intake adds no license grant. The donor game/reference snapshot stays outside runtime distributions. The separately maintained engine-owned grenade and aim entries preserve the declared static planar profile, with explicit refusal of unsupported reactive or multilevel behavior. Native art/rig reuse keeps its existing source attribution and reviewed snapshot.\n\nThe separate `vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the two original designer choreography/preparation inputs (626,567 bytes). The optional renderer adapts only the Three import and selects the unchanged horse balance data. It reuses the existing AFT grenade, horse, paints and Three/MIT closure; original bytes and notices remain distinct. Its source ledger records the exact transformations. The raw visual reference snapshot is excluded from distributions.\n\n## Farmyard door interactions\n\nThe optional Farmyard door adapter reuses the same immutable `251bf8094b5f9ebe44208443084c1a6d6658512a` source snapshot recorded above. `docs/reviews/farmyard-doors.sources.json` identifies its 22 original test-only modules, exact Git blobs, byte counts and SHA-256 values. No second donor runtime or source license is introduced. The separate engine-owned adapter preserves the named endpoint/control/AP/visibility profile; native door/stair policies remain distinct.\n\nThe separate `vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/` preserves the original mixed interaction view and wood paint (2,762,865 bytes). Its manifest inventories the 17-module static reference closure, two deferred chest paintings and shared Three/MIT resolutions without importing their game runtime. The optional leaf provider preserves original dimensions, material, visibility and endpoint policy using the existing shared Three; only the original wood PNG is a runtime resource. Original bytes/notices and Nautilus adapters remain separate; this adds no licence grant.\n\n## Procedural tile design references\n\nThe optional engine-owned tile kernel uses the alignment and shared-border principles reviewed in the existing AFT snapshot at 781246a668c723d5a4c5463e70534cc04b6a5641. The source audit at docs/reviews/procedural-tiles/source-audit.json records the seven exact reference files and historical conformance evidence. No new donor bytes, renderer closure or game runtime is imported; original vendor files and notices remain unchanged. packages/tiles-core/NOTICE.md identifies the separate engine-owned implementation. This record adds no licence grant.\n\n## Native Farmyard window presentation\n\nThe reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/` snapshot preserves seven original geometry dependency/notice Git objects from Farmyard `251bf8094b5f9ebe44208443084c1a6d6658512a`. Its provenance manifest retains paths, Git blobs, SHA-256 and byte counts. The original Three MIT notice is stored byte-exact as `THREE-LICENSE.txt.original`; original JavaScript/Three copies stay outside runtime distributions. The engine-owned optional presenter borrows the host core, Three and materials. Native study/art rights remain as previously recorded; this adds no licence grant. Renderer/compatibility packages explicitly include the presenter notice, adaptation record, reference provenance and original MIT notice.\n\n## Native canonical tile surfaces\n\nThe optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.\n",
+                "source": {
+                  "repository": "https://github.com/Syntaxswine/nautilus-engine",
+                  "commit": "b850e20e2fdd85435d33f16327482b80380af728",
+                  "path": "NOTICE.md"
+                }
+              }
+            ]
+          },
+          "contentDigest": "da3f57a1781072cf1154bf1adc68f99ea836dc88d40dfad11af597a44724e473"
+        }
+      }
+    }
+  ],
+  "budgetProfile": "authoring-reference-proposal-v1"
+}
