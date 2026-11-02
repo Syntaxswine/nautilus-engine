@@ -22,6 +22,7 @@ import {checkTileV2} from './check-tile-v2.mjs';
 import {checkNativeWindowPresenter} from './check-native-window-presenter.mjs';
 import {checkTileVisualsSource} from './check-tile-visuals-source.mjs';
 import {checkTileC2aSource} from './check-tile-c2a-source.mjs';
+import {checkSmartTileEditorSource} from './check-smart-tile-editor-source.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
@@ -149,3 +150,5 @@ console.log('Verified native window presentation: '+JSON.stringify({sourceCommit
 
 const tileArt=checkTileVisualsSource(root,{tracked});
 console.log('Verified native tile surfaces: '+JSON.stringify({registered:tileArt.registered,modules:tileArt.runtime.length,unchangedV1:tileArt.coreFiles.length,studies:tileArt.studies,preservedArtFiles:tileArt.preservedArtFiles}));
+
+console.log('Verified isolated Smart Tile Editor source: '+JSON.stringify(checkSmartTileEditorSource(root,{tracked})));

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Smart Tile UI conformance fixture — no authoring integration</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../../apps/editor/smart-tile/panel.css">
+<link rel="stylesheet" href="../../../packages/floor-navigation/style.css">
+<style>
+:root{color-scheme:dark;background:#10261e;color:#f0ecd8;font:15px/1.5 system-ui,sans-serif}*{box-sizing:border-box}
+body{margin:0;padding:20px max(12px,env(safe-area-inset-right)) 24px max(12px,env(safe-area-inset-left))}
+main{max-width:1160px;margin:auto}h1{font:32px/1.2 Georgia,serif}.proof-label{padding:12px;border:2px dashed #dbbb7e;background:#293a2b}
+.layout{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,540px);gap:20px;align-items:start}
+.host{border:1px solid #738367;padding:16px;background:#1b3328;position:sticky;top:12px;min-width:0}
+.host button,.host input{min-height:44px;font:inherit;max-width:100%}canvas{display:block;width:100%;height:170px;background:#12291e;border:1px dashed #8c9b7e}
+#floors{margin:20px 0}#outside{display:block;width:100%;margin:12px 0}#panel{min-width:0}
+@media(max-width:700px){body{padding-top:10px}.layout{display:flex;flex-direction:column}.host,#panel{width:100%}.host{position:static}h1{font-size:26px}}
+</style></head>
+<body><main>
+<h1>Smart Tile · UI conformance</h1>
+<p class="proof-label">Versioned UI test double. This page proves controls, action routing and layout only. It has no authored world, tile renderer, persistence or integrated authoring workflow.</p>
+<div class="layout"><section class="host" aria-label="Borrowed host controls">
+<h2>Host-owned view</h2><p>The real floor widget is borrowed. The canvas only counts host input; it does not draw or edit tiles.</p>
+<canvas id="host-canvas" tabindex="0" aria-label="Host input scope probe"></canvas>
+<div id="floors"></div>
+<label for="outside">Unrelated host input</label><input id="outside" value="Preserve this field">
+<button id="outside-action">Unrelated host action</button>
+<output id="host-status"></output>
+</section><div id="panel"></div></div>
+</main><script type="module" src="./harness.js"></script></body></html>

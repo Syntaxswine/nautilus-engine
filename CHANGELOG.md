@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add the isolated Smart Tile Editor reference host: Rectangle, level analytic Path, whole-owner Finish, Review/Apply, atomic complete checkpoints and Undo/Redo.
+- Preserve UI-first touch ownership, cancellation quarantine and selected anchor subsets; verify the actual public source/built/installed workflow in a separate bounded CI job.
+
 - Add the reviewed private C2a rectangle-composition profile with explicit finish ownership, exact native interval provenance and bounded retained preparation.
 - Refuse unproved actual overlaps independently of reservations, retain schema-valid generated identities, and verify all eight schemas plus independent source/installed geometry in CI.
 
