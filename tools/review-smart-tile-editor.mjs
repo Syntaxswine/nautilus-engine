@@ -5,7 +5,7 @@ import {createHash,randomUUID} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {withArtReview,projectRoot as root} from './art-review-browser.mjs';
 import {packProfile,moduleClosure} from './distribution.mjs';
-import {smartTileVerificationFiles} from './verify-smart-tile-editor-review.mjs';
+import {smartTileVerificationFiles,SMART_TILE_CONTROLLER_SOURCES} from './verify-smart-tile-editor-review.mjs';
 
 const installed=process.argv.includes('--installed'),built=process.argv.includes('--built'),smoke=process.argv.includes('--smoke'),phoneOnly=process.argv.includes('--phone-only');assert.ok(!(installed&&built));
 const mode=installed?'installed':built?'built':'source',output='smart-tile-editor-'+mode+(smoke?'-smoke':'')+(phoneOnly?'-phone-only':''),out=path.join(root,'artifacts',output),sha=b=>createHash('sha256').update(b).digest('hex'),slash=s=>s.replaceAll('\\','/');
@@ -15,7 +15,7 @@ const appFiles=[...fs.readdirSync(path.join(root,'apps/editor/smart-tile')).filt
 const files=[...new Set([...appFiles,...bindings.flatMap(b=>moduleClosure([b.file])),'assets/buildings/painted-materials-v2.png'])].sort(),inputs=files.map(file=>{const bytes=fs.readFileSync(path.join(root,file));return {file,bytes:bytes.length,sha256:sha(bytes)};});
 const verificationInputs=smartTileVerificationFiles(root).map(file=>({file,sha256:sha(fs.readFileSync(path.join(root,file)))}));
 let stage=null,prefix=null,entry='/examples/smart-tile-editor.html',installation=null,requests=[],outcome='pending',backend=null;
-const report=value=>fs.writeFileSync(path.join(out,'review.json'),JSON.stringify({version:1,runId,mode,smoke,phoneOnly,foundation:'8aac00de19c80c1143945b4dd4f2a88e59e86013',uiCommit:'e4196e43da9f7c480817b9ae22e237451d3c7a86',runtimeBase:'0fbc5c3630e257dfcd7a6ea82027634dfe6989b6',inputs,verificationInputs,bindings,backend,checks,captures,installation,...value},null,2)+'\n');
+const report=value=>fs.writeFileSync(path.join(out,'review.json'),JSON.stringify({version:1,runId,mode,smoke,phoneOnly,foundation:'8aac00de19c80c1143945b4dd4f2a88e59e86013',uiCommit:'e4196e43da9f7c480817b9ae22e237451d3c7a86',runtimeBase:'0fbc5c3630e257dfcd7a6ea82027634dfe6989b6',controllerSources:SMART_TILE_CONTROLLER_SOURCES,inputs,verificationInputs,bindings,backend,checks,captures,installation,...value},null,2)+'\n');
 function npm(args,cwd){
   const cli=[process.env.npm_execpath,path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')].find(file=>file&&path.basename(file)==='npm-cli.js'&&fs.existsSync(file));
   assert.ok(cli,'Node with npm is required.');
