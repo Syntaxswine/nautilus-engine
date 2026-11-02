@@ -1,0 +1,32 @@
+{
+  "id": "tile-stack-ui-gate-a",
+  "version": 1,
+  "status": "proposed candidate component",
+  "entry": "candidates/tile-stack/ui/panel.js",
+  "export": "mountTileStackUI",
+  "guide": "docs/reviews/tile-stack/ui/README.md",
+  "proposal": "candidates/tile-stack/ui/contract.js",
+  "adapter": {
+    "kind": "nautilus-tile-stack-editor-adapter",
+    "version": 2,
+    "fixedProposal": "cfd5a3226a687b9b166e240666a34c75ef3e7972"
+  },
+  "requires": [
+    "Actual borrowed floor controller and existing DOM widget/CSS",
+    "Owned keyboard element",
+    "Detached v2 snapshots and authoritative action flags",
+    "Captured immutable finish catalogue mapping",
+    "Existing Editor Review/Apply/recovery methods"
+  ],
+  "ownership": {
+    "ui": "DOM, widget/subscription handles, transient form inputs",
+    "host": "floor table, source, constraints, recipes, resolver, input router, history, save, recovery, renderer/materials"
+  },
+  "gameDecisions": [
+    "Physical support/navigation/game services are unbound",
+    "Native heights are declared data, never label conversion",
+    "Visibility and cosmetic finish do not grant geometry capability"
+  ],
+  "proof": "Source component fixture only; see evidence/component-proof.json",
+  "builderChecklist": "README.md#builder-checklist"
+}
