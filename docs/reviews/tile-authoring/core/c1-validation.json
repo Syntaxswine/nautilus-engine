@@ -34,7 +34,7 @@
     "tools/distribution.mjs",
     "tools/test-tile-authoring-core-package.mjs"
   ],
-  "status": "six architect corrections complete; focused controls pass; integration gate composition pending",
+  "status": "all C1-owned checks pass; shared historical registration composition and final architect acceptance pending",
   "checks": {
     "focused": {
       "command": "node --test tests/tile-authoring-core-runtime.test.mjs tests/tile-authoring-core-registration.test.mjs",
@@ -72,26 +72,33 @@
     "upstream": {
       "command": "npm run test:upstream",
       "passed": 32,
-      "failed": 0
+      "failed": 0,
+      "status": "pass",
+      "evidence": "artifacts/tile-authoring-core-c1/upstream-six-fixes.log"
     },
     "build": {
       "command": "npm run build",
       "status": "pass",
-      "modules": 552
+      "modules": 552,
+      "evidence": "artifacts/tile-authoring-core-c1/build-six-fixes.log"
     },
     "check": {
       "command": "npm run check",
-      "status": "fails at the deliberately unchanged historical B1 registration fence",
+      "status": "fails only at unchanged historical B1 registration fence before later checks run",
       "error": "Optional registration may add only the three reviewed entries.",
       "unexpectedDelta": "./tiles/authoring",
-      "evidence": "artifacts/tile-authoring-core-c1/global-check.log"
+      "evidence": "artifacts/tile-authoring-core-c1/check-six-fixes.log"
     },
     "fullSuite": {
       "command": "npm test",
-      "status": "pass on fixed178; six-correction rerun pending",
-      "passed": 1006,
+      "status": "pass",
+      "passed": 1013,
       "failed": 0,
-      "evidence": "artifacts/tile-authoring-core-c1/full-suite-budget-followup.log"
+      "evidence": "artifacts/tile-authoring-core-c1/full-suite-six-fixes.log"
+    },
+    "declarationSyntax": {
+      "command": "node --experimental-strip-types --check packages/tile-authoring-core/index.d.ts",
+      "status": "pass"
     }
   },
   "witnesses": [
@@ -218,5 +225,13 @@
     "behavior": "For existing unchanged exact geometry/frame/grid, update only the current SurfaceBinding.definition Pin during selected explicit upgrade. Preserve mark/chunk bytes, stable mark binding digest, other owners and pins.",
     "negative": "Dimensions/frame/grid changes still refuse C2_ANCHOR_EDIT_UNAVAILABLE.",
     "C2CreationOrRenderingAdded": false
+  },
+  "runtimeCommit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+  "delivery": {
+    "remotePush": "held because mandatory global check fails; user AGENTS prohibits push with failing relevant checks",
+    "fenceOwner": "Architect and native tooling helper",
+    "guardCallers": 5,
+    "worktreeRuntimeChangedOutsideApproved26Paths": false,
+    "retainedHelpers": 0
   }
 }
