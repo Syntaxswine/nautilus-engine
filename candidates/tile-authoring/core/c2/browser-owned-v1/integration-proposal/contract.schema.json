@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:private:owner-seam-proposal:1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "const": "nautilus-private-same-owner-integration-proposal"
+    },
+    "version": {
+      "const": 1
+    },
+    "status": {
+      "const": "PROPOSAL_UNBOUND"
+    },
+    "implemented": {
+      "const": false
+    },
+    "baseCoreCommit": {
+      "const": "30bfa968cf778750fbad6a7aec8ff7052e05ba0c"
+    },
+    "baseAccountingProfileDigest": {
+      "const": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765"
+    },
+    "liveCompositionProfileDigest": {
+      "const": null
+    },
+    "oneNormalizedReferenceGate": {
+      "const": 1000000
+    },
+    "rawCeilings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authoringReferenceUnits": {
+          "const": 1000000
+        },
+        "artistPreparationTicks": {
+          "const": 1000000
+        },
+        "decoderTicks": {
+          "const": 64000000
+        },
+        "publicSteps": {
+          "const": 0
+        },
+        "publicSpatialTests": {
+          "const": 0
+        },
+        "publicGeometryEvaluations": {
+          "const": 0
+        },
+        "inputBytes": {
+          "const": 6000000
+        },
+        "outputBytes": {
+          "const": 4000000
+        },
+        "hostNodeVisits": {
+          "const": 1000000
+        },
+        "copyBytes": {
+          "const": 6000000
+        }
+      },
+      "required": [
+        "authoringReferenceUnits",
+        "artistPreparationTicks",
+        "decoderTicks",
+        "publicSteps",
+        "publicSpatialTests",
+        "publicGeometryEvaluations",
+        "inputBytes",
+        "outputBytes",
+        "hostNodeVisits",
+        "copyBytes"
+      ]
+    },
+    "separateMonotonicMovements": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "encodedStreamBytes",
+          "encodedSnapshotBytes",
+          "decodedMovementBytes",
+          "derivedWriteBytes",
+          "nativeUploadBytes",
+          "checkpointFlowBytes",
+          "historyFlowBytes"
+        ]
+      }
+    },
+    "requiredEscrows": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "source",
+          "planning",
+          "capacity",
+          "native",
+          "final-bind",
+          "final-guard",
+          "ticket-operation",
+          "pending-wal",
+          "committed-wal",
+          "not-committed-wal",
+          "apply-wal",
+          "cleanup"
+        ]
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hook": {
+            "type": "string",
+            "minLength": 1
+          },
+          "normalized": {
+            "type": "string",
+            "minLength": 1
+          },
+          "raw": {
+            "type": "string",
+            "minLength": 1
+          },
+          "movement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mode": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "hook",
+          "normalized",
+          "raw",
+          "movement",
+          "mode"
+        ]
+      }
+    },
+    "actualSources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Core": {
+          "const": "30bfa968cf778750fbad6a7aec8ff7052e05ba0c"
+        },
+        "Kernel": {
+          "const": "4ade3ea02084472b30d036e8a0561e473aa84f3f"
+        },
+        "Artist": {
+          "const": "d4376bfa012683fe1848295e7a9a1a70b2eefc90"
+        }
+      },
+      "required": [
+        "Core",
+        "Kernel",
+        "Artist"
+      ]
+    },
+    "bindingState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "extendedOwner": {
+          "const": "UNBOUND"
+        },
+        "KernelBackend": {
+          "const": "UNBOUND"
+        },
+        "ArtistPairedWork": {
+          "const": "UNBOUND"
+        },
+        "DecoderCoverage": {
+          "const": "UNBOUND"
+        },
+        "NativeConstructorCoverage": {
+          "const": "UNBOUND"
+        },
+        "ActualCodecFacts": {
+          "const": "UNBOUND"
+        },
+        "ActualCapacityAdapter": {
+          "const": "UNBOUND"
+        },
+        "PublicRepair": {
+          "const": "UNBOUND"
+        }
+      },
+      "required": [
+        "extendedOwner",
+        "KernelBackend",
+        "ArtistPairedWork",
+        "DecoderCoverage",
+        "NativeConstructorCoverage",
+        "ActualCodecFacts",
+        "ActualCapacityAdapter",
+        "PublicRepair"
+      ]
+    },
+    "capacityFacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "readonlyPurposes": {
+      "const": [
+        "bootstrap",
+        "presentation",
+        "outcome-recovery",
+        "presentation-retry"
+      ]
+    },
+    "continuedSourceEntries": {
+      "const": [
+        "validateSource(deps,{document,subject},{observer})",
+        "documentFacts.read(document,{observer,documentDigest})",
+        "documentFacts.verify(actualFact,exactJournalDocumentText)"
+      ]
+    },
+    "purposeRules": {
+      "const": {
+        "readonly": "Actual complete C2 source/query validation and codec-owned facts with continued charged work, no C1Budget/fallback, no authoring plan/request IDs",
+        "authoring": "Only the real original-ID attempt may plan/capacity/bind; paid/rerun0597 surface inside that owner",
+        "uiBeforeCommand": "Accepted standalone bounded0597 readonly query; zero editing credit; no provisional authoring IDs"
+      }
+    }
+  },
+  "required": [
+    "kind",
+    "version",
+    "status",
+    "implemented",
+    "baseCoreCommit",
+    "baseAccountingProfileDigest",
+    "liveCompositionProfileDigest",
+    "oneNormalizedReferenceGate",
+    "rawCeilings",
+    "separateMonotonicMovements",
+    "requiredEscrows",
+    "coverage",
+    "actualSources",
+    "bindingState",
+    "capacityFacts",
+    "forbidden",
+    "readonlyPurposes",
+    "continuedSourceEntries",
+    "purposeRules"
+  ]
+}
