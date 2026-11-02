@@ -1,0 +1,197 @@
+{
+  "status": "declared reference-cost policy; not measured CPU time",
+  "referenceLimit": 1000000,
+  "rawCeilings": {
+    "authoringReferenceUnits": 1000000,
+    "artistPreparationTicks": 1000000,
+    "decoderTicks": 64000000,
+    "publicSteps": 0,
+    "publicSpatialTests": 0,
+    "publicGeometryEvaluations": 0,
+    "inputBytes": 6000000,
+    "outputBytes": 4000000,
+    "hostNodeVisits": 1000000,
+    "copyBytes": 6000000
+  },
+  "coverage": [
+    {
+      "id": "core-take",
+      "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+      "sourcePath": "candidates/tile-authoring/core/c2/budget.js",
+      "hooks": [
+        "take",
+        "node",
+        "text",
+        "hash",
+        "output"
+      ],
+      "rate": "actual take delta; node1; text ceil(chars/16); hash/copy/output ceil(JSON UTF8 bytes/64)",
+      "normalized": "actual delta once",
+      "raw": "authoringReferenceUnits same delta",
+      "covers": "node/text/hash/copy/output already invoke take; never add constituent charges again",
+      "binding": "BOUND private real Budget sink"
+    },
+    {
+      "id": "core-data-flow",
+      "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+      "sourcePath": "candidates/tile-authoring/core/c2/data.js",
+      "hooks": [
+        "readData",
+        "clone"
+      ],
+      "rate": "actual logical DTO copy/parse and compact-JSON UTF8 payload octets; not physical JS heap bytes",
+      "normalized": "already covered by real Core take model",
+      "raw": "inputBytes,outputBytes,copyBytes separately observed",
+      "covers": "each actual boundary input/copy/output; nested parsing copies still count",
+      "binding": "BOUND private Core reader/clone/marshaller"
+    },
+    {
+      "id": "artist-local",
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915",
+      "sourcePath": "candidates/tile-authoring/art/c2-runtime/work.mjs",
+      "hooks": [
+        "take",
+        "bytes",
+        "data"
+      ],
+      "rate": "actual LOCAL take delta; bytes uses ceil(cumulativeBytes/64)-priorByteUnits; data ceil(JSON UTF8/64)",
+      "normalized": "actual local delta once, never copied incoming carry",
+      "raw": "artistPreparationTicks local delta",
+      "covers": "decoder/copy/upload work sent through actual workBytes",
+      "binding": "UNBOUND"
+    },
+    {
+      "id": "decoder-covered",
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915",
+      "sourcePath": "candidates/tile-authoring/art/c2-runtime/memory.mjs",
+      "hooks": [
+        "ScratchJob constructor",
+        "tick",
+        "alloc",
+        "copy"
+      ],
+      "rate": "raw decoder ticks independently bounded; workBytes feeds Artist bytes",
+      "normalized": "no ADDITIONAL charge only when same intrinsic Artist receipt covers the event; otherwise UNBOUND",
+      "raw": "decoderTicks",
+      "covers": "never double-add decoder ticks already covered by Artist workBytes->PreparationWork.bytes",
+      "binding": "UNBOUND"
+    },
+    {
+      "id": "host-codec",
+      "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+      "sourcePath": "candidates/tile-authoring/core/c2/budget.js",
+      "hooks": [
+        "actual visits",
+        "text",
+        "hash",
+        "copy",
+        "serialization"
+      ],
+      "rate": "visit1; text ceil(chars/16); hash/copy/serialization ceil(actual UTF8 bytes/64)",
+      "normalized": "actual paired hook delta",
+      "raw": "hostNodeVisits/inputBytes/outputBytes/copyBytes separately",
+      "covers": "source/history, same real ticket, actual pending/committed/not-committed WAL, repeated Apply checks",
+      "binding": "UNBOUND"
+    },
+    {
+      "id": "public-repair",
+      "sourceCommit": "aa73328dcf541e307b55e7b7b98fedd457911b5f",
+      "sourcePath": "candidates/tile-authoring/editor/c2-phase/WORK-METER.md",
+      "hooks": [],
+      "rate": "appearance-only permits no repair",
+      "normalized": "no invented counter/conversion",
+      "raw": "all3public allowances0",
+      "covers": "existing bounded Core source validation is distinct from public repair",
+      "binding": "UNBOUND"
+    },
+    {
+      "id": "owner-bookkeeping",
+      "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+      "sourcePath": "candidates/tile-authoring/core/c2/budget.js",
+      "hooks": [
+        "actual fixed metadata field visits"
+      ],
+      "rate": "existing visit1 per field",
+      "normalized": "actual owner metadata visit delta once",
+      "raw": "hostNodeVisits for owner metadata only, not Host authority coverage",
+      "covers": "bounded ten-domain vectors/reservations/stamps; no recursive log",
+      "binding": "BOUND owner-internal"
+    }
+  ],
+  "rawDomainMapping": {
+    "inputBytes": "Core metadata/JSON ingress only; not encoded PNG streams, pixels, Native upload or Host checkpoint/history flows",
+    "outputBytes": "Core metadata/JSON compact output only; not Native pixels/uploads or Host checkpoint/history output",
+    "copyBytes": "Core metadata/JSON reader/clone/marshaller movement only; not all application/native byte movement",
+    "authoringReferenceUnits": "Actual normalized Core Budget deltas; includes existing source-backed operations once",
+    "artistPreparationTicks": "Actual LOCAL Artist take/bytes deltas only; includes cumulative byte conversion and covered decoder workBytes",
+    "decoderTicks": "Independent raw actual decoder ticks; no extra normalized charge when covered by same intrinsic Artist bytes receipt",
+    "hostNodeVisits": "Actual Host/codec node visits when paired; this component observes only its bounded owner metadata visits",
+    "publicSteps": "Actual public repair steps; unavailable for this appearance-only component",
+    "publicSpatialTests": "Actual public repair spatial tests; unavailable for this appearance-only component",
+    "publicGeometryEvaluations": "Actual public repair geometry evaluations; unavailable for this appearance-only component"
+  },
+  "separateMonotonicFlowDomains": {
+    "encodedStreamBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "decodedMovementBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "nativeUploadBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "checkpointFlowBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "0e7d0f40de790631c6421de2236b9df1c11c0b86"
+    },
+    "historyFlowBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "aa73328dcf541e307b55e7b7b98fedd457911b5f"
+    }
+  },
+  "coreOutputFixedPoint": "One actual compact output; 16 bounded seven-field metadata reconciliation rounds charged at field visit1, plus existing ceil(final JSON UTF8/64); no constituent double-add",
+  "privateValidationReuse": "Within one actual attempt Budget only, the exact immutable original sourceJSON text is fully parsed/validated once and then reused by value equality; complete outer document/marks/library/floor/Expected checks still run. Changed text is never skipped. No work receipts or reported costs seed this cache; each new attempt starts empty."
+}

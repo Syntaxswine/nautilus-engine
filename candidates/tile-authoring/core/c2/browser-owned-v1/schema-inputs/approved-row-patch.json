@@ -1,0 +1,4051 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:review:browser-accounting:core-amendment:1",
+  "description": "REVIEW-ONLY minimal replacement records and field patches for20118. NOT complete browser container schemas or runtime permission. No registered profile digest is minted. Cross-field byte/identity/owner/transition/meter equations require actual paired guards; see review.md and container-patches.json.",
+  "$defs": {
+    "TextureLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "texture-2d"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "levels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "internalFormat": {
+          "enum": [
+            "RGBA8",
+            "SRGB8_ALPHA8",
+            "RGBA32F"
+          ]
+        },
+        "logicalBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "kind",
+        "width",
+        "height",
+        "levels",
+        "internalFormat",
+        "logicalBytes"
+      ]
+    },
+    "BufferLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "buffer-store"
+        },
+        "target": {
+          "enum": [
+            "ARRAY_BUFFER",
+            "ELEMENT_ARRAY_BUFFER"
+          ]
+        },
+        "usage": {
+          "enum": [
+            "STATIC_DRAW",
+            "DYNAMIC_DRAW",
+            "STREAM_DRAW"
+          ]
+        },
+        "logicalBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "kind",
+        "target",
+        "usage",
+        "logicalBytes"
+      ]
+    },
+    "Reservation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ReservationCase1"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase2"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase3"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase4"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase5"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase6"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase7"
+        },
+        {
+          "$ref": "#/$defs/ReservationCase8"
+        }
+      ]
+    },
+    "BrowserAllocation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "cpu-fixed-buffer"
+            },
+            "purpose": {
+              "enum": [
+                "base-image",
+                "artwork-image",
+                "upload-staging",
+                "decoder-scratch"
+              ]
+            },
+            "charge": {
+              "const": "decoded-additional"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "engine-capacity"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "cpu-fixed-buffer"
+            },
+            "purpose": {
+              "enum": [
+                "derived-uniforms"
+              ]
+            },
+            "charge": {
+              "const": "derived"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "engine-capacity"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "cpu-fixed-buffer"
+            },
+            "purpose": {
+              "enum": [
+                "geometry-buffer"
+              ]
+            },
+            "charge": {
+              "const": "geometry-governed"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "engine-capacity"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "cpu-fixed-buffer"
+            },
+            "purpose": {
+              "enum": [
+                "encoded-blob"
+              ]
+            },
+            "charge": {
+              "const": "encoded"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "engine-capacity"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "api-texture-store"
+            },
+            "purpose": {
+              "enum": [
+                "base-image"
+              ]
+            },
+            "charge": {
+              "const": "baseline-visible"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "api-format-levels"
+            },
+            "sampled": {
+              "const": true
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "$ref": "#/$defs/TextureLayout"
+            },
+            "apiLayoutDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "baselineInventoryDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "api-texture-store"
+            },
+            "purpose": {
+              "enum": [
+                "base-image",
+                "artwork-image"
+              ]
+            },
+            "charge": {
+              "const": "decoded-additional"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "api-format-levels"
+            },
+            "sampled": {
+              "const": true
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "$ref": "#/$defs/TextureLayout"
+            },
+            "apiLayoutDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "api-texture-store"
+            },
+            "purpose": {
+              "enum": [
+                "derived-uniforms"
+              ]
+            },
+            "charge": {
+              "const": "derived"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "api-format-levels"
+            },
+            "sampled": {
+              "const": true
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "$ref": "#/$defs/TextureLayout"
+            },
+            "apiLayoutDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "api-buffer-store"
+            },
+            "purpose": {
+              "enum": [
+                "derived-uniforms"
+              ]
+            },
+            "charge": {
+              "const": "derived"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "api-buffer-size"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "$ref": "#/$defs/BufferLayout"
+            },
+            "apiLayoutDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "api-buffer-store"
+            },
+            "purpose": {
+              "enum": [
+                "geometry-buffer"
+              ]
+            },
+            "charge": {
+              "const": "geometry-governed"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "api-buffer-size"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "$ref": "#/$defs/BufferLayout"
+            },
+            "apiLayoutDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "encoded-handle"
+            },
+            "purpose": {
+              "enum": [
+                "encoded-blob"
+              ]
+            },
+            "charge": {
+              "const": "encoded"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "encoded-length"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "actual-store"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "type": "null"
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "base-image",
+                "artwork-image",
+                "upload-staging",
+                "decoder-scratch"
+              ]
+            },
+            "charge": {
+              "const": "decoded-additional"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase1"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase2"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "base-image",
+                "artwork-image"
+              ]
+            },
+            "charge": {
+              "const": "decoded-additional"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": true
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase5"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase6"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "derived-uniforms"
+              ]
+            },
+            "charge": {
+              "const": "derived"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase1"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase2"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase7"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase8"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "derived-uniforms"
+              ]
+            },
+            "charge": {
+              "const": "derived"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": true
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase5"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase6"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "geometry-buffer"
+              ]
+            },
+            "charge": {
+              "const": "geometry-governed"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase1"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase2"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase7"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase8"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "allocationId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "allocationClass": {
+              "const": "application-reservation"
+            },
+            "purpose": {
+              "enum": [
+                "encoded-blob"
+              ]
+            },
+            "charge": {
+              "const": "encoded"
+            },
+            "observableBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "byteBasis": {
+              "const": "reserved-policy"
+            },
+            "sampled": {
+              "const": false
+            },
+            "identityBasis": {
+              "const": "reservation"
+            },
+            "nativeOrBackingIdentityDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "blobSha256": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "apiLayout": {
+              "type": "null"
+            },
+            "apiLayoutDigest": {
+              "type": "null"
+            },
+            "baselineInventoryDigest": {
+              "type": "null"
+            },
+            "reservation": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ReservationCase1"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase2"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase3"
+                },
+                {
+                  "$ref": "#/$defs/ReservationCase4"
+                }
+              ]
+            },
+            "state": {
+              "enum": [
+                "acquiring",
+                "held",
+                "release-pending",
+                "released-owned"
+              ]
+            },
+            "ownerRequestId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "fulfillsReservationId": {
+              "type": "null"
+            },
+            "releaseReceiptId": {
+              "oneOf": [
+                {
+                  "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            }
+          },
+          "required": [
+            "allocationId",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "allocationClass",
+            "purpose",
+            "charge",
+            "observableBytes",
+            "byteBasis",
+            "sampled",
+            "identityBasis",
+            "nativeOrBackingIdentityDigest",
+            "blobSha256",
+            "apiLayout",
+            "apiLayoutDigest",
+            "baselineInventoryDigest",
+            "reservation",
+            "state",
+            "ownerRequestId",
+            "referenceIds",
+            "fulfillsReservationId",
+            "releaseReceiptId",
+            "physicalReclamation"
+          ]
+        }
+      ]
+    },
+    "BrowserGeometryView": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "viewId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "role": {
+          "enum": [
+            "accepted",
+            "candidate",
+            "retiring"
+          ]
+        },
+        "state": {
+          "enum": [
+            "acquiring",
+            "held",
+            "release-pending",
+            "released-owned"
+          ]
+        },
+        "identityBasis": {
+          "enum": [
+            "owned-reservation",
+            "actual-native"
+          ]
+        },
+        "ownerRequestId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geometryLeaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "bundleDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometrySourceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "roots": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cells": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "geometryAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024
+        },
+        "materialIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 64
+        },
+        "ownerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "releaseReceiptId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "viewId",
+        "role",
+        "state",
+        "identityBasis",
+        "ownerRequestId",
+        "geometryLeaseId",
+        "geometryEpoch",
+        "bundleDigest",
+        "geometrySourceDigest",
+        "geometryObjectsDigest",
+        "roots",
+        "triangles",
+        "cells",
+        "visible",
+        "geometryAllocationIds",
+        "materialIds",
+        "ownerLifetimeId",
+        "contextId",
+        "contextEpoch",
+        "releaseReceiptId"
+      ]
+    },
+    "BrowserMaterial": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "materialId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "state": {
+          "enum": [
+            "acquiring",
+            "held",
+            "release-pending",
+            "released-owned",
+            "cache-idle"
+          ]
+        },
+        "ownerRequestId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "referenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "ownerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "releaseReceiptId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "materialId",
+        "state",
+        "ownerRequestId",
+        "referenceIds",
+        "ownerLifetimeId",
+        "contextId",
+        "contextEpoch",
+        "releaseReceiptId"
+      ]
+    },
+    "BrowserGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "geometryLeaseSetDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "rootsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "trianglesAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cellsAllViews": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BrowserGeometryView"
+          },
+          "minItems": 0,
+          "maxItems": 8,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "geometryLeaseSetDigest",
+        "geometryObjectsDigest",
+        "rootsAllViews",
+        "trianglesAllViews",
+        "cellsAllViews",
+        "views"
+      ]
+    },
+    "BrowserCandidateView": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "viewId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "role": {
+          "const": "candidate"
+        },
+        "state": {
+          "enum": [
+            "acquiring",
+            "held",
+            "release-pending",
+            "released-owned"
+          ]
+        },
+        "identityBasis": {
+          "const": "actual-native"
+        },
+        "ownerRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryLeaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "geometryEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "bundleDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometrySourceDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "geometryObjectsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "roots": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cells": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "geometryAllocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 1024
+        },
+        "materialIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "maxItems": 64
+        },
+        "ownerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "releaseReceiptId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "projectionProfile": {
+          "const": "public-canonical-flat-tile-art-v1"
+        },
+        "projectionDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "releaseOwnerRequestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "releaseProfile": {
+          "const": "browser-owner-release-v1"
+        }
+      },
+      "required": [
+        "viewId",
+        "role",
+        "state",
+        "identityBasis",
+        "ownerRequestId",
+        "geometryLeaseId",
+        "geometryEpoch",
+        "bundleDigest",
+        "geometrySourceDigest",
+        "geometryObjectsDigest",
+        "roots",
+        "triangles",
+        "cells",
+        "visible",
+        "geometryAllocationIds",
+        "materialIds",
+        "ownerLifetimeId",
+        "contextId",
+        "contextEpoch",
+        "releaseReceiptId",
+        "projectionProfile",
+        "projectionDigest",
+        "releaseOwnerRequestId",
+        "releaseProfile"
+      ]
+    },
+    "BrowserRangeLease": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rangeLeaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "ownerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "allocationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "viewIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "protectedRegionDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "state": {
+          "enum": [
+            "held",
+            "release-pending",
+            "released-owned"
+          ]
+        },
+        "releaseReceiptId": {
+          "oneOf": [
+            {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "rangeLeaseId",
+        "ownerLifetimeId",
+        "contextId",
+        "contextEpoch",
+        "allocationIds",
+        "viewIds",
+        "protectedRegionDigest",
+        "state",
+        "releaseReceiptId"
+      ]
+    },
+    "BrowserFulfillmentReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-browser-reservation-fulfillment"
+        },
+        "version": {
+          "const": 1
+        },
+        "accountingScope": {
+          "const": "engine-owned-and-api-logical-only"
+        },
+        "profileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "ownerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "contextEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "receiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "requestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "reservationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "allocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "reservedBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "actualBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "beforeMutationEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "afterMutationEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "observationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "accountingScope",
+        "profileDigest",
+        "ownerLifetimeId",
+        "contextId",
+        "contextEpoch",
+        "receiptId",
+        "requestId",
+        "reservationId",
+        "allocationId",
+        "reservedBytes",
+        "actualBytes",
+        "beforeMutationEpoch",
+        "afterMutationEpoch",
+        "observationDigest"
+      ]
+    },
+    "BrowserReleaseReceipt": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "nautilus-browser-owner-release"
+            },
+            "version": {
+              "const": 1
+            },
+            "accountingScope": {
+              "const": "engine-owned-and-api-logical-only"
+            },
+            "profileDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "receiptId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "itemClass": {
+              "const": "cpu-buffer"
+            },
+            "allocationIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 1,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "viewIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "materialIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "rangeLeaseIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "beforeMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "releaseBasis": {
+              "enum": [
+                "detached-no-engine-receiver",
+                "engine-owner-release"
+              ]
+            },
+            "remainingReferencesDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "logicalOwnershipReleased": {
+              "type": "boolean"
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            },
+            "observationDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "kind",
+            "version",
+            "accountingScope",
+            "profileDigest",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "receiptId",
+            "requestId",
+            "itemClass",
+            "allocationIds",
+            "viewIds",
+            "materialIds",
+            "rangeLeaseIds",
+            "beforeMutationEpoch",
+            "afterMutationEpoch",
+            "releaseBasis",
+            "remainingReferencesDigest",
+            "logicalOwnershipReleased",
+            "physicalReclamation",
+            "observationDigest"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "nautilus-browser-owner-release"
+            },
+            "version": {
+              "const": 1
+            },
+            "accountingScope": {
+              "const": "engine-owned-and-api-logical-only"
+            },
+            "profileDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "receiptId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "itemClass": {
+              "const": "api-store"
+            },
+            "allocationIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 1,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "viewIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "materialIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "rangeLeaseIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "beforeMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "releaseBasis": {
+              "enum": [
+                "api-object-deleted",
+                "context-lifetime-ended"
+              ]
+            },
+            "remainingReferencesDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "logicalOwnershipReleased": {
+              "type": "boolean"
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            },
+            "observationDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "kind",
+            "version",
+            "accountingScope",
+            "profileDigest",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "receiptId",
+            "requestId",
+            "itemClass",
+            "allocationIds",
+            "viewIds",
+            "materialIds",
+            "rangeLeaseIds",
+            "beforeMutationEpoch",
+            "afterMutationEpoch",
+            "releaseBasis",
+            "remainingReferencesDigest",
+            "logicalOwnershipReleased",
+            "physicalReclamation",
+            "observationDigest"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "nautilus-browser-owner-release"
+            },
+            "version": {
+              "const": 1
+            },
+            "accountingScope": {
+              "const": "engine-owned-and-api-logical-only"
+            },
+            "profileDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "receiptId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "itemClass": {
+              "const": "view-material-range"
+            },
+            "allocationIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "viewIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "materialIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "rangeLeaseIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "beforeMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "releaseBasis": {
+              "enum": [
+                "engine-owner-release"
+              ]
+            },
+            "remainingReferencesDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "logicalOwnershipReleased": {
+              "type": "boolean"
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            },
+            "observationDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "kind",
+            "version",
+            "accountingScope",
+            "profileDigest",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "receiptId",
+            "requestId",
+            "itemClass",
+            "allocationIds",
+            "viewIds",
+            "materialIds",
+            "rangeLeaseIds",
+            "beforeMutationEpoch",
+            "afterMutationEpoch",
+            "releaseBasis",
+            "remainingReferencesDigest",
+            "logicalOwnershipReleased",
+            "physicalReclamation",
+            "observationDigest"
+          ],
+          "anyOf": [
+            {
+              "properties": {
+                "viewIds": {
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "properties": {
+                "materialIds": {
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "properties": {
+                "rangeLeaseIds": {
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "nautilus-browser-owner-release"
+            },
+            "version": {
+              "const": 1
+            },
+            "accountingScope": {
+              "const": "engine-owned-and-api-logical-only"
+            },
+            "profileDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "ownerLifetimeId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "contextEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "receiptId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "requestId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "itemClass": {
+              "const": "reservation"
+            },
+            "allocationIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 1,
+              "maxItems": 1024,
+              "uniqueItems": true
+            },
+            "viewIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "materialIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "rangeLeaseIds": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 0,
+              "uniqueItems": true
+            },
+            "beforeMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "afterMutationEpoch": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "releaseBasis": {
+              "enum": [
+                "engine-owner-release"
+              ]
+            },
+            "remainingReferencesDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "logicalOwnershipReleased": {
+              "type": "boolean"
+            },
+            "physicalReclamation": {
+              "const": "UNMEASURED"
+            },
+            "observationDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            }
+          },
+          "required": [
+            "kind",
+            "version",
+            "accountingScope",
+            "profileDigest",
+            "ownerLifetimeId",
+            "contextId",
+            "contextEpoch",
+            "receiptId",
+            "requestId",
+            "itemClass",
+            "allocationIds",
+            "viewIds",
+            "materialIds",
+            "rangeLeaseIds",
+            "beforeMutationEpoch",
+            "afterMutationEpoch",
+            "releaseBasis",
+            "remainingReferencesDigest",
+            "logicalOwnershipReleased",
+            "physicalReclamation",
+            "observationDigest"
+          ]
+        }
+      ]
+    },
+    "BrowserCapacitySourceStamp": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceOwnerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "sourceLedgerScopeDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceMutationEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "sourceOwnerLifetimeId",
+        "sourceLedgerScopeDigest",
+        "sourceMutationEpoch"
+      ]
+    },
+    "BrowserBudgetCounters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spentWorkUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "reservedWorkUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "coreInputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "coreOutputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "checkpointBytesVisited": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "peakCheckpointBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "historyBytesVisited": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "peakHistoryBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "encodedStreamBytesMoved": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "decodedBytesMoved": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "nativeUploadBytesSubmitted": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "spentWorkUnits",
+        "reservedWorkUnits",
+        "coreInputBytes",
+        "coreOutputBytes",
+        "checkpointBytesVisited",
+        "peakCheckpointBytes",
+        "historyBytesVisited",
+        "peakHistoryBytes",
+        "encodedStreamBytesMoved",
+        "decodedBytesMoved",
+        "nativeUploadBytesSubmitted"
+      ]
+    },
+    "BrowserBudgetBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accountingScope": {
+          "const": "engine-owned-and-api-logical-only"
+        },
+        "profileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "attemptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "budgetOwnerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "purpose": {
+          "enum": [
+            "authoring",
+            "outcome-recovery",
+            "presentation-retry"
+          ]
+        },
+        "limitsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "domainRulesDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "phaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "phaseReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "observationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "accountingScope",
+        "profileDigest",
+        "attemptId",
+        "budgetOwnerLifetimeId",
+        "purpose",
+        "limitsDigest",
+        "domainRulesDigest",
+        "phaseId",
+        "phaseReceiptId",
+        "observationDigest"
+      ]
+    },
+    "BrowserBudgetObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accountingScope": {
+          "const": "engine-owned-and-api-logical-only"
+        },
+        "profileDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "attemptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "budgetOwnerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "purpose": {
+          "enum": [
+            "authoring",
+            "outcome-recovery",
+            "presentation-retry"
+          ]
+        },
+        "limitsDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "domainRulesDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "phaseId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "phaseReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "observationDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "counters": {
+          "$ref": "#/$defs/BrowserBudgetCounters"
+        },
+        "outstandingReservationIds": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "accountingScope",
+        "profileDigest",
+        "attemptId",
+        "budgetOwnerLifetimeId",
+        "purpose",
+        "limitsDigest",
+        "domainRulesDigest",
+        "phaseId",
+        "phaseReceiptId",
+        "observationDigest",
+        "counters",
+        "outstandingReservationIds"
+      ]
+    },
+    "BrowserPreparedFieldPatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceGeometry": {
+          "$ref": "#/$defs/BrowserGeometry"
+        },
+        "admittedGeometry": {
+          "$ref": "#/$defs/BrowserGeometry"
+        },
+        "candidateBaseView": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/BrowserCandidateView"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attemptBudget": {
+          "$ref": "#/$defs/BrowserBudgetBinding"
+        }
+      },
+      "required": [
+        "sourceGeometry",
+        "admittedGeometry",
+        "candidateBaseView",
+        "attemptBudget"
+      ]
+    },
+    "BrowserCapacityFieldPatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceOwnerLifetimeId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "sourceLedgerScopeDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "sourceMutationEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "attemptBudget": {
+          "$ref": "#/$defs/BrowserBudgetBinding"
+        }
+      },
+      "required": [
+        "sourceOwnerLifetimeId",
+        "sourceLedgerScopeDigest",
+        "sourceMutationEpoch",
+        "attemptBudget"
+      ]
+    },
+    "Opaque": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "const": "UNMEASURED"
+        },
+        "excludedCategories": {
+          "const": [
+            "browser-managed decoded image backing",
+            "browser/driver internal upload copies",
+            "driver storage padding, caches and deferred deletion",
+            "GC and allocator physical reclamation",
+            "unobserved JS/object heap and browser process memory"
+          ]
+        },
+        "totalRamBoundClaim": {
+          "const": false
+        },
+        "physicalVramBoundClaim": {
+          "const": false
+        },
+        "gcReclamationClaim": {
+          "const": false
+        }
+      },
+      "required": [
+        "status",
+        "excludedCategories",
+        "totalRamBoundClaim",
+        "physicalVramBoundClaim",
+        "gcReclamationClaim"
+      ]
+    },
+    "ReservationCase1": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "unfulfilled"
+        },
+        "targetClass": {
+          "const": "cpu-fixed-buffer"
+        },
+        "expectedApiLayout": {
+          "type": "null"
+        },
+        "fulfilledAllocationId": {
+          "type": "null"
+        },
+        "fulfillmentReceiptId": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase2": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "fulfilled"
+        },
+        "targetClass": {
+          "const": "cpu-fixed-buffer"
+        },
+        "expectedApiLayout": {
+          "type": "null"
+        },
+        "fulfilledAllocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "fulfillmentReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase3": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "unfulfilled"
+        },
+        "targetClass": {
+          "const": "encoded-handle"
+        },
+        "expectedApiLayout": {
+          "type": "null"
+        },
+        "fulfilledAllocationId": {
+          "type": "null"
+        },
+        "fulfillmentReceiptId": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase4": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "fulfilled"
+        },
+        "targetClass": {
+          "const": "encoded-handle"
+        },
+        "expectedApiLayout": {
+          "type": "null"
+        },
+        "fulfilledAllocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "fulfillmentReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase5": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "unfulfilled"
+        },
+        "targetClass": {
+          "const": "api-texture-store"
+        },
+        "expectedApiLayout": {
+          "$ref": "#/$defs/TextureLayout"
+        },
+        "fulfilledAllocationId": {
+          "type": "null"
+        },
+        "fulfillmentReceiptId": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase6": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "fulfilled"
+        },
+        "targetClass": {
+          "const": "api-texture-store"
+        },
+        "expectedApiLayout": {
+          "$ref": "#/$defs/TextureLayout"
+        },
+        "fulfilledAllocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "fulfillmentReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase7": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "unfulfilled"
+        },
+        "targetClass": {
+          "const": "api-buffer-store"
+        },
+        "expectedApiLayout": {
+          "$ref": "#/$defs/BufferLayout"
+        },
+        "fulfilledAllocationId": {
+          "type": "null"
+        },
+        "fulfillmentReceiptId": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    },
+    "ReservationCase8": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "const": "fulfilled"
+        },
+        "targetClass": {
+          "const": "api-buffer-store"
+        },
+        "expectedApiLayout": {
+          "$ref": "#/$defs/BufferLayout"
+        },
+        "fulfilledAllocationId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "fulfillmentReceiptId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        }
+      },
+      "required": [
+        "state",
+        "targetClass",
+        "expectedApiLayout",
+        "fulfilledAllocationId",
+        "fulfillmentReceiptId"
+      ]
+    }
+  }
+}

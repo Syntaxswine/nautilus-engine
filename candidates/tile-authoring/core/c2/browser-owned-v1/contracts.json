@@ -1,0 +1,138 @@
+{
+  "status": "PRIVATE data producer/validators; Host/Native/codec UNBOUND",
+  "schemaId": "urn:nautilus:private:browser-owned-core:1",
+  "schemaCanonicalSha256": "074c5e798df8a3539b00aa5147cd6e71d1f18f9b4ec6a468dcb3bac481a84c02",
+  "coverageCanonicalSha256": "d4f9e40496e839a22242b3656cb64917213e391327017e3def8e7aa42428cd72",
+  "containers": [
+    "BrowserAllocation",
+    "BrowserGeometryView",
+    "BrowserMaterial",
+    "BrowserGeometry",
+    "BrowserCandidateView",
+    "BrowserRangeLease",
+    "BrowserFulfillmentReceipt",
+    "BrowserReleaseReceipt",
+    "BrowserCapacitySourceStamp",
+    "BrowserReference",
+    "BrowserTotals",
+    "BrowserProfiles",
+    "BrowserContentUpdate",
+    "BrowserResourceCatalogueBinding",
+    "BrowserLedger",
+    "BrowserSourceCapture",
+    "BrowserAppearancePlan",
+    "BrowserCapacityBound",
+    "BrowserLedgerStep",
+    "BrowserPreparedCapture",
+    "BrowserRecoveryRetention",
+    "BrowserCandidateRelease",
+    "BrowserAuthoringTarget"
+  ],
+  "normalizedPolicy": {
+    "ceiling": 1000000,
+    "rule": "one real owner gate plus ten independently capped raw domains; actual Core deltas only; decoder already covered by actual Artist workBytes is not added again"
+  },
+  "capacityBasis": "conservative headless data envelope bound, not real counted Host WAL",
+  "liveBindings": {
+    "CoreReferenceSink": "BOUND",
+    "Host": "UNBOUND",
+    "Native": "UNBOUND",
+    "Artist": "UNBOUND",
+    "Decoder": "UNBOUND",
+    "actualCodec": "UNBOUND",
+    "publicRepair": "UNBOUND"
+  },
+  "strictFallback": "forbidden",
+  "counterCreditFromDTO": "forbidden",
+  "corePrivateHooks": [
+    "take",
+    "node",
+    "text",
+    "hash",
+    "readData",
+    "clone",
+    "output"
+  ],
+  "phaseEscrows": "same-owner nonwithdrawable continuation escrow before acquisition; this component acquires no native resources",
+  "schemasFullyEnumerated": true,
+  "coreByteDomains": {
+    "inputBytes": "Core metadata/JSON ingress only; not encoded PNG streams, pixels, Native upload or Host checkpoint/history flows",
+    "outputBytes": "Core metadata/JSON compact output only; not Native pixels/uploads or Host checkpoint/history output",
+    "copyBytes": "Core metadata/JSON reader/clone/marshaller movement only; not all application/native byte movement",
+    "authoringReferenceUnits": "Actual normalized Core Budget deltas; includes existing source-backed operations once",
+    "artistPreparationTicks": "Actual LOCAL Artist take/bytes deltas only; includes cumulative byte conversion and covered decoder workBytes",
+    "decoderTicks": "Independent raw actual decoder ticks; no extra normalized charge when covered by same intrinsic Artist bytes receipt",
+    "hostNodeVisits": "Actual Host/codec node visits when paired; this component observes only its bounded owner metadata visits",
+    "publicSteps": "Actual public repair steps; unavailable for this appearance-only component",
+    "publicSpatialTests": "Actual public repair spatial tests; unavailable for this appearance-only component",
+    "publicGeometryEvaluations": "Actual public repair geometry evaluations; unavailable for this appearance-only component"
+  },
+  "separateMonotonicFlowDomains": {
+    "encodedStreamBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "decodedMovementBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "nativeUploadBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "f029e7e75e225c5f973052552deb61403a2fc915"
+    },
+    "checkpointFlowBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "0e7d0f40de790631c6421de2236b9df1c11c0b86"
+    },
+    "historyFlowBytes": {
+      "unit": "octets",
+      "counterBinding": "UNBOUND",
+      "observation": null,
+      "ceiling": "No fabricated generic Core-byte cap; actual normalized rate coverage plus fixed resource stock and existing Host format limits govern",
+      "mustNotMapTo": [
+        "inputBytes",
+        "outputBytes",
+        "copyBytes"
+      ],
+      "sourceCommit": "aa73328dcf541e307b55e7b7b98fedd457911b5f"
+    }
+  },
+  "resourceCatalogue": {
+    "catalogueDigest": "a923620ef1d57eb9632c6419a24f4f2709652e866ba40d0f28afd673efd198b1",
+    "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+    "sourceSha256": "d1d76aa90c80aa91a17cbf5fdc7dc67105ae0b556bde51170baf19a3868c9eed"
+  },
+  "preCommandResources": "separately bounded resource scope, no authoring IDs or edit credit; stock observed by the subsequent attempt; actual acquisition UNBOUND here"
+}
