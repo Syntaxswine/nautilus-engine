@@ -11,7 +11,8 @@ library. Architect authorized a new branch from accepted main
 builders' deliveries. Architect accepted Core runtime
 `3df11ce6e62fb94806e30652b87168949f8ef4dd` with documentation tip
 `eedfc0149cbaa5715445ed2dc909c2d694a81d50`, UI follow-up
-`f94b57b2cebce55fc27cc94dea7a9fe39ec20193`, and review helper
+`95511cb6f04dcba65656b2d9156c6173a84d6198` (stable select labels following
+`f94b57b2cebce55fc27cc94dea7a9fe39ec20193`), and review helper
 `08540b0ec8acd1be8b9d9929187d82a7300a59c2`. Their exact approved paths are imported
 unchanged and recorded in `core-import.json`, `ui-import.json`, and
 `helper-import.json`. Actual browser/package acceptance is underway.
@@ -148,7 +149,7 @@ retained consumer, shared host and JSONL with zero metadata prepares and exactly
 two geometry prepares/applies. Current UI/cache/resource/transport controls pass
 48 checks. `tools/editor-direct-tile-authoring-c1.mjs` preserves that finite
 review entry. Its synthetic atlas has no rendered/installed/device claim.
-The complete current history/recovery suite passes eight cases. The six-edit,
+The immutable ad41 history/recovery suite passes eight cases. The six-edit,
 six-undo, six-redo/reopen case took 242 seconds; all eight cases took 521 seconds.
 These are elapsed CPU/native test durations including assertions and checkpoint
 reads, not renderer or physical-device performance measurements. The Architect
@@ -177,9 +178,33 @@ The immutable stager accepts a separate full `--core-docs` pin for exactly
 only runtime-to-docs-tip difference, and authenticates every Core import-audit
 row against Git bytes and its chosen per-path pin. The current 196-file source
 stage passes that check. One exact hash-pinned UI proof tool has an explicit
-two-local-import tooling closure: its selected test exercises the early
+explicit local tooling closure: its selected test exercises the early
 unapproved-pin refusal, without invoking its computed fixed-Git constructor
 loader. All runtime and test modules retain the strict ordinary import parser.
+
+The focused performance candidate reuses only static data validation. Every
+incoming document still passes descriptor-safe inspection. Fixed fields compare
+exactly against the codec's fully validated immutable source template, including
+the unchanged original source text; bounded fixed records compare with the
+same property-order independence as their original canonical hash. The private
+64-entry validation key then hashes the complete mutable payload. Successful
+entries retain the original full canonical document/workspace digests and
+static content bindings. Public authority/context fields are assembled freshly.
+Presentation fingerprints are retained only for codec-validated frozen document
+identities. Review, session apply and authority staging reuse one fully
+validated prospective journal only after a fresh strict operation inspection
+and exact operation-JSON comparison for the same owned immutable checkpoint.
+Live storage reads, final CAS, context/resource guards and Core target binding
+continue to run; shared authority/checkpoint/journal/view algorithms are intact.
+
+Five focused controls pass old/new token parity, changed mutable/shallow-frozen
+data, fixed source changes, getters/duplicate keys, settled request reuse and a
+floor change inside the final storage hook. The 46 native resource, transport
+and accepted UI controls also pass. `node tools/editor-direct-tile-authoring-c1.mjs
+--history` separately times production calls and proof work while recording
+actual input hashes and counts. A real outer 180-second process bound is used
+for the candidate timing run; its measured result remains pending at this
+checkpoint. No timeout or Core cost limit changed.
 
 ## Builder checklist
 

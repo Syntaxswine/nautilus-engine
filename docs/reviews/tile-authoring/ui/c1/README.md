@@ -184,3 +184,24 @@ Accuracy favors exact pins/targets/full documents. Efficiency favors one borrowe
 authority and no library-only geometry allocation (required behavior, unmeasured
 here). Narrative favors the existing palette and clearly separated reusable versus
 placed scope (subjective). No device/performance claim or retained helper.
+
+## Stable select accessible names
+
+The shared select helper gives each control an explicit name matching its visible
+label: Definition revision, Preset revision and Selected upgrade target. Dynamic
+option text cannot change these accessible names. Existing htmlFor, styles and
+deliberate empty selection remain intact; P1 is never chosen automatically.
+
+~~~text
+node tools/ui-review-tile-authoring-c1.mjs --select-labels
+~~~
+
+This focused mode mounts the production component in isolated Edge with explicit
+render-only document/service/constructor doubles. It executes no Core/Host command.
+It checks exact label lookup, role name and native AX tree across empty, populated,
+selected, changed, removed and restored options (18 control observations), plus
+selection/focus preservation and disposal. The same harness first reproduced the
+unfixed failure. Forty protocol tests also pass. This DOM evidence does not replace
+the separately gated actual Host/native/source-built-installed proof above. All three
+short-lived browser/server runs closed and their ports were verified released.
+The f94 validation fields remain unchanged; the follow-up is additive.

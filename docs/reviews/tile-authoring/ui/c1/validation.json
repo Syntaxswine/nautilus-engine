@@ -374,5 +374,172 @@
     "packetsExecuted": false,
     "actualHost": false,
     "installedPackage": false
+  },
+  "selectAccessibleNamesFollowup": {
+    "parent": "f94b57b2cebce55fc27cc94dea7a9fe39ec20193",
+    "description": "Give all three production selects their stable explicit aria-label while preserving visible label/htmlFor/styles and option/selection behavior.",
+    "runtimeFiles": [
+      "apps/editor/tile-authoring/ui/panel.js"
+    ],
+    "runtimeDelta": "node.setAttribute('aria-label',label)",
+    "checks": {
+      "protocol": {
+        "tests": 40,
+        "pass": 40,
+        "fail": 0
+      },
+      "realDOM": {
+        "checks": 18,
+        "pass": 18,
+        "fail": 0,
+        "controls": [
+          "Definition revision",
+          "Preset revision",
+          "Selected upgrade target"
+        ],
+        "phases": [
+          "initial empty",
+          "populated unselected",
+          "selected",
+          "option text/order changed",
+          "selected options removed",
+          "options restored without automatic selection"
+        ],
+        "backend": {
+          "channel": "msedge",
+          "version": "156.0.4314.58",
+          "node": "v24.15.0"
+        },
+        "assertions": [
+          "exact getByLabel",
+          "exact combobox accessible name",
+          "native Edge AX tree name",
+          "visible label/htmlFor retained",
+          "enabled select",
+          "deliberate empty selection",
+          "existing selection/focus retained",
+          "no auto-picked P1/target",
+          "no producer/Host command execution"
+        ]
+      }
+    },
+    "scope": "Actual production mount and native Edge DOM/accessibility names only. Explicit render-only document/service/constructor doubles; no Core command or production HostService/native renderer integration.",
+    "actualHost": false,
+    "packetsExecuted": false,
+    "fullRepositoryGatesRepeated": false,
+    "reason": "Architect requested a focused accessible-control follow-up while actual C1 combined Host/browser proof continues; providers/executor/profiles remain fixed.",
+    "inputs": [
+      {
+        "file": "apps/editor/tile-authoring/ui/panel.js",
+        "bytes": 27549,
+        "sha256": "834b33d8be86f20471cd9625d85ae7fac56062fbbf90d5e29194ec128b7303e5"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/commands.js",
+        "bytes": 9799,
+        "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b"
+      },
+      {
+        "file": "apps/editor/tile-authoring/ui/styles.css",
+        "bytes": 3863,
+        "sha256": "612668e48be39b79ceaf6aa49ee7696ce6aa72dd56c70700167656881ab4320d"
+      },
+      {
+        "file": "tools/ui-review-tile-authoring-c1.mjs",
+        "bytes": 26471,
+        "sha256": "42da384eb7ea9986e5dddb98126a9cd0e993ab809fb83f12f491f0d640b84f0c"
+      },
+      {
+        "file": "tools/art-review-browser.mjs",
+        "bytes": 6366,
+        "sha256": "75fea2756e756f032cce68a699917a9e6e74f759506e5540687c2f2ede7dc3de"
+      }
+    ],
+    "selectionPolicy": "Empty selection remains deliberate; removed options reset empty; no automatic P1/upgrade target. Existing valid selection and focused select node survive option changes.",
+    "lifecycle": {
+      "boundedMs": 60000,
+      "runs": 3,
+      "retainedHelpers": 0,
+      "cleanup": {
+        "before": {
+          "status": "failed",
+          "error": "initial empty: exact label Definition revision\n\n0 !== 1\n"
+        },
+        "after": {
+          "status": "pass",
+          "checks": 18,
+          "phases": [
+            "initial empty",
+            "populated unselected",
+            "selected",
+            "option text/order changed",
+            "selected options removed",
+            "options restored without automatic selection"
+          ],
+          "browser": {
+            "channel": "msedge",
+            "version": "156.0.4314.58",
+            "node": "v24.15.0"
+          }
+        },
+        "cleanup": {
+          "runs": 3,
+          "allClosed": true,
+          "ports": [
+            {
+              "port": 52968,
+              "released": true
+            },
+            {
+              "port": 61809,
+              "released": true
+            },
+            {
+              "port": 55433,
+              "released": true
+            }
+          ]
+        }
+      }
+    },
+    "evidence": [
+      {
+        "file": "artifacts/ui-tile-authoring-c1-select-labels/before-fix-review.json",
+        "rawBytes": 1512,
+        "rawSha256": "e16ffcc28c645f37c0e0e8cd55fe9f1dca138e3a2b40ee781fee8763ef159ed5",
+        "encoding": "gzip+base64",
+        "archiveSha256": "7cffd4b4d4eb80c1c49e45e2186f51e73e11692f679c0ba021413a9f33b8ae60",
+        "archiveBase64": "H4sIAAAAAAAACqWUwY7cNgyG7/sUqs+xR5ItyZoih6C7QC5BDu2p2R4oit5R1yMNJHmziyDvXtgzKTbAoAWSiwCRFPnxh8gvN4w1jyH6Zs+aCEsN81LaJbQo2kIzYW1ncDS3mZ4CfW7erPFPlEtIsdkzsd1LhbqUNcMEYSZ/jiqYTrQa32FdYGannPyCNaTIjmmJlUH0LEINT8Tu/AOx248fdoBIpQQX5lBfWIQjFZbi/NKxu+fTHDBUlil6yu1qZT7hcqRYd4XyU0DaYYql5gVrysynxc1UfmUxsd9SJobpeFyLpvwa5n0q9ffL8wvOuQRlFmKlhwxrXHfuCrZmbj9+aPas5oVeGddEzZ5NMJez+QT4SLXcPRMulfx3vhBPS101+3TDGGNftpOxZgrzJhqcTmVHPtSUdzXM1MJSDymH+LBbwu4Ekebu77Ixbe/cS6U1nTRKiH+t5QBS6TWfkx6I+GQFyF474yfd4+hReGl9P4zElZdScdNzFNZy1LI3SAoHNYIk02wpv775EdqL7uUqsDXWXuHFXikzSOTeGXJ8ICDtLDg5ekPe68FpcGjENGnBubCckzVcGRQTIRr3M7ylvsxUOixXcPtR91dwtZBajzSMjnrrjEWCSQMMlshoq5E0gJHeK42GG86FNlrpcRTghl5y/9+4NaW57JZwmcL2e+QWRXe8+he00tf+gvLkR5jAKs6FnIQT6EcctR2tmKybyPlh8iARuBESxGSFADv03pKUY/8/2p5hIddvtC6nz4XydUbda30F0aiJQBqlySg98V4ikh5BW2uFAUuazDAZZRXXpNTA9WhQTpI8GY+9pwviDWN/beOGB8LHbdzO90wVQiT/nuYT5dXBN7tbR3bbhue+GjxAjDSvTMdC/oEuLbxago1QuuPd0IuhU+M3f0x+k+NJDp1QHV+JNskayjnl1RViqAFmRsdTfdkzegasbFu37JamzZsiW1VcK93H+8jZL2/fMnEfz8tojSkH8u/WvdNILnUrRMvlH0LuB7kf+q4345/NzdebfwCvUsxU6AUAAA=="
+      },
+      {
+        "file": "artifacts/ui-tile-authoring-c1-select-labels/review.json",
+        "rawBytes": 12251,
+        "rawSha256": "73fdb7e1de9f9f35cb5773b8fdbe07514682efd0561e1e39f6097e5c875e595b",
+        "encoding": "gzip+base64",
+        "archiveSha256": "32a8448a587c1fa18c8900c2741abca456fc52cade6355372f4012a9c7328cf0",
+        "archiveBase64": "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"
+      },
+      {
+        "file": "artifacts/ui-tile-authoring-c1/protocol.log",
+        "rawBytes": 9455,
+        "rawSha256": "02447513425d0bccc21bec7554b99f65dd42bd2f4781917a54e9833009f5e4f0",
+        "encoding": "gzip+base64",
+        "archiveSha256": "291aa13ce21ed711867fd9628502b879cabea49166169c24b8234deef592fe28",
+        "archiveBase64": "H4sIAAAAAAAACr1aTZMbNw69z69AVQ65WBq1Pkf2yev1brwHJ7WOzymIhNRcsckOyZYi//otgN2SxutOzyZSblLPCMQjiYcHoH9++xMcKETjHRSzh+/gU7NJFNNreFdA5XVjKQIGAuMoJDAOPnpNgE5DiQcC5+HdBJR3MYVGJTazRWs3qPYPfg8FjG5gCGA0Gj0A6CYg/+WXKr6G2Xi6mMweANKpptfwPXv9/QPAeDy+hvH5A2hMCAqd8wkUWgs7SolCfAU6+Bqcd1vjTCI4oG0ogg+ASlHNXpYUTCINgZQPOjKmKYxubfWbACfj+WK1GgT4/reaFBszEVJJQL+hSpCOZA802hqyGt5rk3wAhXVqQt7zw5T/P9B/5LcMawaj29j6JphiPFsPH5YKhIkelfWOHgMdTKS8t+xMbOraGtJQB68bRQG8U9mDOlCkcCAwKYLyVW0pEfgm1U1ibHMY3cd2D9bVevY0CLZuNtao84qPkdBSgC0a2wTiDd02keBoUumbBIFqNMG4HWizo5jkRgVK4cTPrgOHES9gdMcFeu7rcrFaDsL+qQD6rbZGmWRPUBsX4W8F0IEcHEtygM6nknjlgxFaMhEi2XwvyUY6lhSIMS5hdCtrfYCWxfA5ekdQW1RUkUt8Qyq+NgpDMBRh41N5dhH80VGIcq+oqtMJNG2xsbz5FdZCLysY3dRkD7TF8mkYWlPvAmoChxUzmLMncU2WlBUdHSh00RPBVK1TmolNlgNNlrpb+QSj29rsO7fJvBgE9ynhji73Ol5CvkSnY8d0TA8KnXdGoT2fRRc0NUcNBw3DW8Po1la/CXA6ni+fpoMA/00HQ0fY+nDEoDtGNzFxPEf2U4PfMGtnJ3Uj0R+oZqbUgCqZA3ZnV0xgdEuTPcgmi9kwh7yta3v62gtOVXl3R4ESGicJ9teGYrq6V3lrWYvs0GRgLFJuZ7EH12I2H8aFvIeWQJtYWzyRhuiwjqVIDFEagTaNsRqQab32Ea1cGojGkmMKDLQNFEvS52QuGFm03Md6TwqcL4fppUK79aEiDa6xFpxPZmuUWOHsdPB7khvjXXwDESsaMbGzm6jbdNV5vgvoEh9bJXBZzNzHeg/c9XQxHJCBnL4k4NaHCDWFykTJTo1LxgKCxSQcqBTFuG1s+1PBxmLmz1vqw7GYDye8jQgiTqrkUjh1UY6u3c+8hc/2DqH0HDVngVKwQvnzlnpgLKbLYeXcuL3zRwfbQPSFIquGcIKqSTnJiIgwW9ig7rzZWtxFiHgCcrixpN+IhGcEe6KaFZPZGYcWPvxdQLJEufMyPXwzW67Wgzvw8cdf3v3w9uM/3z+KFuRMhE2kyNUYNslXmIyCIxcrr6A0Mflw6pwUcdhyn2Bl4XIzg31FxGo1HGam4s3dWIKjD/tYoyJQJbpdGyHoOjJLJpBwfeUbl87pV6FTZC3fxI0PwR+ZKikcjCKRaAXrmPuu0oN/upwOV1GdX8q7xITGqepc2TW1xsQudmUNO7YxTue408AlAYLQPLBmFku52hPsLHLut0KPoFuvXyDEOa/52PKHcaOtNbsyZT9cG21m5zznaqZFruL57MQpS3ignPiFX3xNrdhErhil8GcFdNdF+nLpajV86meFsjnx7vNynVYxmlwy6ST9F1WS2pO+KvsupR2jalLpg0knQVxIrrmx4R7GKhbDhHUsvaWR9qqRyujMIF2d3p2AlK1SARl3ia5We5fe7yNX8NFogh98TJ9y2AlkVkp3XqbnmJeTxXDTgCSORq2GOyfOTgHw1Wr5dENbLx2a08U1uXXc9RCorJJuZrAHVDF7gZ5HZn6ud/X1Pn2DRrM/z86gu26tdm8j01stNT8dBelc5O8dF+nNV8PpKgUziglzU0l5ropbwbNhhqXAHvvQOcQMK+KPnTwGnwuvlC8vi6pb2etrSi5fIK3o1wZtWwmO9sQ764OmcE4K8Sohclihtf6YH6omBI66tpxsa2OBx3LqDqb7StGnFzBSILSwtd6HttH7qv2GIeAJsmvCmXiE6Jug6F+ffvwoZHrWCzEZazulcHUhBfRKOPieq/T01xfz2fBJ535HbiVGQJACksJImo9SKR7QGn1WwWf14y134TiSsvCzKH3GHHq5Yynwn85NlTst0nPPV4vlcNJ97ljnVjIVtUIBbUebcv+yPz7kslo6DG3/6+sG7nT9P7hvZr6vJfi0/uPnna/V9QU8a76+0xAFyN+uOxWzye+c900W6ZOY09nweXvmfgync5tPFsvk8mybeZSAak/p2Qwh5iFC1rrPOzQzllp3Mt+XmqeL4dTcHYWou68WaKsVdstR1gi45XbDszHeuakp44hzP3E2vTro21rvOeGn6QtK4nbnc22Wk38ystPGCcnkZxvr2eHutl050vbQ2pbwbHbpCd/EZl9huJj/v2yFzwnlQh6tTBLpy65y+dbpvcthCLr57wTrH7Pa19EvXjAKDaQSup0l1mkVVJRQprQVJlWybyqxdnhXnAuXx8wiH3R85GltLEGmnPGKTq5KmB35ihW/QF9IWv6LFuzblekLSoZnE8/sJ9Y1m7/whq9MYlJpSbUdWctMSbrgl2bHBqNIzRlrsTuY7kE6XT0NNybFA20qctIC3fiGJy7tmLMbw7f12GRcQCqDb3YlLOeXSOPftMlDWazqLo5Zhd3Lfg/mYj0bxlxMJ3lWJpHFueOzM4pfrbC4IQu1Ny7lNy/y6wei97Mk1G+gmBZfz4E///yPYgkpNO6KrFmF/QVL9Z3+ZDm8E452mMyB4AsFfxFNWR6JGo4UDFrzJdOtQncZbGQvszCUxCqoWYPd2GzfWS/Xw5ViSydnipAizvtt++5FhMZhXQd/IA3v2D2Zh1+V7YGnAhWB9X7f1PJmBMutW9v9JsbFuFj1jcCK8Xg+efgOkrx2IB9jY7jbxB9rjO1DnnfIozaXkpZvcW/quv2cvPby4WpxKFar8XI5Wzz8F/Ywu0HvJAAA"
+      },
+      {
+        "file": "artifacts/ui-tile-authoring-c1-select-labels/cleanup-verification.json",
+        "rawBytes": 777,
+        "rawSha256": "a36ff7ae28de685f059a2c042b71d4c36d0b4c09bc31539691809cb75ad97a97",
+        "encoding": "gzip+base64",
+        "archiveSha256": "8896cbda4ab6346ed22bee1d94ff54225204cfa81ec761433aeebd5253a0745c",
+        "archiveBase64": "H4sIAAAAAAAACqWRwW6DMAyG7zyFl3PFoEBFkXra3mLdIQUzooUEJQ7tVPHuU4CWau20w4757fy//fkcALAD1togK+AcAAAwS5ycZQWwmguJFVtNOhqjjZeFEiS4BGw7+ioAT7wkkPyAEl6xHqtagcFeWKHVXu1VBE+7HcR7xQKAwfsxXhOaR6Edt/YSWTZYfno1zmela7hFr7yNb/gxzfzRN+rOSU5YgVMWJZZ03cTH3Sm6G6cmPNGzNhUaKBuuPh59gqnXgsFW9/cmvmBJG6zgKKjRjoA70i0nUcJkIvSIAuB93utg9NHeABmX50qh9Exai9UHLjk9Go/Wl+JsE0ZhmsRpmOVLh9KVPynr12kYZ2E0pQ1X/KVErly3HMA45bEm8zxcyhepLVasADIOL/i1oVv6l2HnEisgW283+WqRDUrki89cGFa/GmziPNr+xyDL0iT522DC74EEQ/ANaT9ccQkDAAA="
+      }
+    ],
+    "screenshot": {
+      "file": "artifacts/ui-tile-authoring-c1-select-labels/select-labels.png",
+      "sha256": "32eec50bfe2329e80da806bb220ab59d22fe0add11b2374a3d73bf310bf4e661"
+    },
+    "finishedAt": "2026-11-02T12:46:41.596Z"
   }
 }

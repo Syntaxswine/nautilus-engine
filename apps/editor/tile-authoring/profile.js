@@ -1,13 +1,13 @@
 // Pure Core data binding inside the one existing asynchronous session owner.
 import {smartTileData,smartTileDigest,fields,fail} from '../smart-tile/checkpoint.js';
 import {smartTileActions,assertSmartTileAdapter} from '../smart-tile/contract.js';
-import {TILE_AUTHORING_EDITOR,tileAuthoringSource,tileAuthoringExpected,tileAuthoringOperationBinding} from './checkpoint.js';
+import {TILE_AUTHORING_EDITOR,tileAuthoringSource} from './checkpoint.js';
 import {readAuthoringJSON} from './jsonl.js';
 
 const raise=result=>{const e=new TypeError(result.diagnostics?.[0]?.message??'Core refused authoring.');e.code=result.diagnostics?.[0]?.code??'AUTHORING_REFUSED';e.diagnostics=result.diagnostics;throw e;};
 const checked=result=>result?.ok===true?result:raise(result);
 export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,resourcePorts,inspection=null}){
-  const {codec,domain}=binding,core=deps.authoring,leases=new WeakMap();
+  const {codec,domain}=binding,core=deps.authoring,leases=new WeakMap(),fingerprints=new WeakMap();
   for(const name of ['capture','contextToken','missingBindings'])if(typeof resourcePorts?.[name]!=='function')fail('AUTHORING_RESOURCE_PORT','/resources/'+name,'Bind the actual retained resource owner.');
   const menu=smartTileData(finishCatalogue);fields(menu,['id','version','digest','entries'],'/finishCatalogue');
   const presentationProfileDigest=resourcePorts.presentationProfileDigest;
@@ -23,14 +23,14 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
     return {lease,contextData};
   }
   function operation(before,{id,action,request,target,command,contextToken,token,authoringBinding=null,tilePreparation}){
-    return {kind:TILE_AUTHORING_EDITOR.operation,version:3,id,documentId:before.id,action,expected:{token,contextToken},request,target:domain.targetFields(target),binding:tileAuthoringOperationBinding(deps.tiles,before,target,request,command,contextToken),authoringBinding,tilePreparation,command};
+    return {kind:TILE_AUTHORING_EDITOR.operation,version:3,id,documentId:before.id,action,expected:{token,contextToken},request,target:domain.targetFields(target),binding:domain.operationBinding(before,target,request,command,contextToken),authoringBinding,tilePreparation,command};
   }
   function snapshotPacket({checkpoint,token,contextToken}){
     const document=domain.validateDocument(checkpoint.document);
-    return {document,source:tileAuthoringSource(document),expected:tileAuthoringExpected(deps.tiles,document,token,contextToken),hostProtocolVersion:1,missingBindings:resourcePorts.missingBindings(document)};
+    return {document,source:tileAuthoringSource(document),expected:domain.expected(document,token,contextToken),hostProtocolVersion:1,missingBindings:resourcePorts.missingBindings(document)};
   }
   const profile={authoring:true,interface:TILE_AUTHORING_EDITOR,assertAdapter:assertSmartTileAdapter,context,
-    presentationFingerprint(d){return smartTileDigest({geometry:deps.tiles.tileLayoutToken({sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,tileBundle:d.tileBundle}),appearance:deps.tiles.tileLayoutToken({tileBundle:d.tileBundle,finishBinding:d.finishBinding,decorations:d.authoring.decorations,resourceRefs:d.resourceRefs,profileDigest:presentationProfileDigest})});},
+    presentationFingerprint(input){const d=domain.validateDocument(input);let value=fingerprints.get(d);if(value===undefined){value=smartTileDigest({geometry:deps.tiles.tileLayoutToken({sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,tileBundle:d.tileBundle}),appearance:deps.tiles.tileLayoutToken({tileBundle:d.tileBundle,finishBinding:d.finishBinding,decorations:d.authoring.decorations,resourceRefs:d.resourceRefs,profileDigest:presentationProfileDigest})});fingerprints.set(d,value);}return value;},
     validateDraft(input){const command=readAuthoringJSON(input);fields(command,['kind','version','requestId','expected','operations','budgetProfile'],'/command');if(command.kind!=='nautilus-tile-authoring-command'||command.version!==1)fail('AUTHORING_COMMAND_VERSION','/command','Use the canonical Core command.');return command;},
     requestId:draft=>draft.requestId,
     plan({checkpoint,draft,requestId,contextToken,hostContext}){
@@ -55,15 +55,15 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
     },
     validateCommit({document,hostContext,transaction:t,packet}){
       const op=t.operation;if(context(document,hostContext)!==op.expected.contextToken||!leases.get(op)?.isCurrent({sourceUnchanged:t.tilePreparation==='source-unchanged'}))return false;
-      if(t.action!=='edit')return smartTileDigest(codec.targetDocument(document,op))===smartTileDigest(smartTileData(t.ticket.targetText));
+      if(t.action!=='edit')return domain.documentDigest(codec.targetDocument(document,op))===domain.documentDigest(t.ticket.targetText);
       const bound=checked(core.bindTileAuthoringTarget(deps.tiles,{before:document,plan:t.plan.corePlan,prepared:t.prepared}));
-      if(smartTileDigest(bound.bindings)!==smartTileDigest(op.authoringBinding)||smartTileDigest(bound.targetDocument)!==smartTileDigest(codec.targetDocument(document,op)))return false;
+      if(smartTileDigest(bound.bindings)!==smartTileDigest(op.authoringBinding)||domain.documentDigest(bound.targetDocument)!==domain.documentDigest(codec.targetDocument(document,op)))return false;
       return t.tilePreparation==='source-unchanged'?packet===null:packet?.requestId===op.id&&smartTileDigest(packet.nextBundle)===smartTileDigest(bound.targetDocument.tileBundle);
     },
     actions(state){const value={...smartTileActions(state)},settled=['idle','draft','review','presentation-error'].includes(state.phase)&&state.manual;if(settled){value.setDraft=true;value.selectOwner=true;value.review=state.hasDraft;value.undo=state.undo>0;value.redo=state.redo>0;}value.setInspection=!!inspection&&settled;return value;},
-    snapshot(base,document){const missingBindings=resourcePorts.missingBindings(document),readiness={...base.readiness,resources:{state:missingBindings.length?'unbound':'host-bound',missingBindings}};if(missingBindings.length&&!['failed','unconfirmed'].includes(readiness.visual.state))readiness.visual={...readiness.visual,state:'unbound'};return {...base,readiness,interface:{kind:TILE_AUTHORING_EDITOR.kind,version:3},workspace:{id:document.id,checkpointVersion:3,contentRevision:document.contentRevision,sourceDocumentDigest:smartTileDigest(document),policyToken:domain.bindingToken},floors:document.floorBinding.floors,finishCatalogue:menu,inspection:inspection?.get()??{mode:'selected-floor',cutawayFloorId:null}};},
+    snapshot(base,document){const missingBindings=resourcePorts.missingBindings(document),readiness={...base.readiness,resources:{state:missingBindings.length?'unbound':'host-bound',missingBindings}};if(missingBindings.length&&!['failed','unconfirmed'].includes(readiness.visual.state))readiness.visual={...readiness.visual,state:'unbound'};return {...base,readiness,interface:{kind:TILE_AUTHORING_EDITOR.kind,version:3},workspace:{id:document.id,checkpointVersion:3,contentRevision:document.contentRevision,sourceDocumentDigest:domain.documentDigest(document),policyToken:domain.bindingToken},floors:document.floorBinding.floors,finishCatalogue:menu,inspection:inspection?.get()??{mode:'selected-floor',cutawayFloorId:null}};},
     authoringSnapshot:snapshotPacket,
-    settlement(checkpoint){return {workspaceDigest:deps.tiles.tileLayoutToken(tileAuthoringSource(checkpoint.document)),hostDocumentDigest:deps.tiles.tileLayoutToken(checkpoint.document),authorityToken:codec.token(checkpoint)};},
+    settlement(checkpoint){const b=domain.documentBindings(checkpoint.document);return {workspaceDigest:b.workspaceDigest,hostDocumentDigest:b.hostDocumentDigest,authorityToken:codec.token(checkpoint)};},
     authoringReview(r){return {requestId:r.requestId,bindings:r.plan.bound.bindings,targetDocument:r.plan.bound.targetDocument,costBounds:r.plan.bound.costBounds,tilePreparation:r.tilePreparation};},
     query(document,input){const query=readAuthoringJSON(input);if(query.kind!=='requirements.inspect')fail('C1_QUERY_UNAVAILABLE','/query','Content-pack export is not implemented in C1.');fields(query,['kind','subject'],'/query');return core.inspectTileAuthoringRequirements(deps.tiles,{document,subject:query.subject});}
   };

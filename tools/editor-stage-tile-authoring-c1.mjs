@@ -43,14 +43,18 @@ function copy(file){
 // The final UI control imports this proof tool only to check its early
 // unapproved-pin refusal. Its separate actual-constructor entry loads a fixed
 // Git-object closure through a computed file URL, outside this source probe.
-// Authenticate the one reviewed tool before enumerating its two literal local
+// Authenticate the reviewed tool before enumerating its literal local
 // imports; the ordinary strict parser still owns every runtime/test module.
 const explicitProofTools=[];
+const proofToolPins=new Map([
+  ['f94b57b2cebce55fc27cc94dea7a9fe39ec20193',{sha256:'1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs']}],
+  ['95511cb6f04dcba65656b2d9156c6173a84d6198',{sha256:'42da384eb7ea9986e5dddb98126a9cd0e993ab809fb83f12f491f0d640b84f0c',specifiers:['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs','./art-review-browser.mjs']}]
+]);
 function explicitProofReferences(file){
-  if(file==='tools/ui-review-tile-authoring-c1.mjs'&&ui==='f94b57b2cebce55fc27cc94dea7a9fe39ec20193'){
+  if(file==='tools/ui-review-tile-authoring-c1.mjs'&&proofToolPins.has(ui)){
     const source=fs.readFileSync(path.join(stage,file),'utf8');
-    if(createHash('sha256').update(source).digest('hex')!=='1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79')throw Error('Reviewed UI proof-tool bytes changed.');
-    const specifiers=['../apps/editor/tile-authoring/ui/commands.js','./module-references.mjs'];explicitProofTools.push({file,commit:ui,sha256:rows.get(file).sha256,specifiers,scope:'Literal local tooling imports only; computed fixed-Git constructor loader is not executed by these source-probe tests.'});return {filename:file,specifiers};
+    const pin=proofToolPins.get(ui);if(createHash('sha256').update(source).digest('hex')!==pin.sha256)throw Error('Reviewed UI proof-tool bytes changed.');
+    const {specifiers}=pin;explicitProofTools.push({file,commit:ui,sha256:rows.get(file).sha256,specifiers,scope:'Literal local tooling imports only; fixed-Git constructor and browser-only loaders are not executed by these source-probe tests. Browser-only UI files are separately staged byte-exact from this same UI pin.'});return {filename:file,specifiers};
   }
   return null;
 }

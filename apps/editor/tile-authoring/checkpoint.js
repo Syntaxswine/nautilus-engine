@@ -7,6 +7,12 @@ import {validateTileStackDocument} from '../tile-stack/policy.js';
 import {readAuthoringJSON} from './jsonl.js';
 
 const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
+// Both operands have already passed descriptor-safe JSON inspection. Fixed
+// source text compares exactly; bounded JSON records compare without depending
+// on property order, as their existing canonical binding hash does.
+const sameData=(a,b)=>Object.is(a,b)||!!(a&&b&&typeof a==='object'&&typeof b==='object'&&Array.isArray(a)===Array.isArray(b)&&Object.keys(a).length===Object.keys(b).length&&Object.keys(a).every(key=>Object.hasOwn(b,key)&&sameData(a[key],b[key])));
+const fixedFields=d=>({id:d.id,sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,finishBinding:d.finishBinding,layoutId:d.tileBundle.layout.id,minimumClearanceM:d.constraints.minimumClearanceM});
+const mutableFields=d=>({tileBundle:d.tileBundle,constraints:d.constraints,contentRevision:d.contentRevision,authoring:d.authoring,resourceRefs:d.resourceRefs});
 export const TILE_AUTHORING_EDITOR=freeze({kind:'nautilus-tile-authoring-editor-adapter',version:3,
   checkpoint:'nautilus-tile-authoring-editor-checkpoint',journal:'nautilus-tile-authoring-editor-journal',operation:'nautilus-tile-authoring-editor-operation',
   tools:['authoring'],methods:SMART_TILE_INTERFACE.methods,storagePrefix:'nautilus-tile-authoring-editor-v3:',limits:SMART_TILE_LIMITS});
@@ -29,30 +35,38 @@ export function tileAuthoringOperationBinding(tiles,before,target,request,comman
 
 export function createTileAuthoringCheckpointCodec(deps,initialDocument){
   if(typeof deps.authoring?.inspectTileAuthoringRequirements!=='function')fail('AUTHORING_CORE_REQUIRED','/core','Borrow the actual public authoring validator/query.');
-  const checked=new WeakSet(),validatedContent=new Map(),documentTokens=new WeakMap();let identity=null;
-  const documentToken=document=>{let token=documentTokens.get(document);if(token===undefined){token=smartTileDigest(document);documentTokens.set(document,token);}return token;};
+  const checked=new WeakSet(),validatedContent=new Map(),documentFacts=new WeakMap();let identity=null,fixedTemplate=null,floorProfileDigest=null;
+  const documentToken=input=>{const document=validateDocument(input),facts=documentFacts.get(document);return facts.documentDigest??=smartTileDigest(document);};
   function validateDocument(input){
     if(input&&typeof input==='object'&&checked.has(input))return input;
     const d=readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});fields(d,documentFields,'/document');
     if(d.kind!=='nautilus-tile-workbench-document'||d.version!==3)fail('AUTHORING_DOCUMENT_VERSION','/document/version','Open an explicit complete v3 document; v1/v2 migration is not implicit.');
+    if(fixedTemplate!==null&&!sameData(fixedFields(d),fixedTemplate))fail('AUTHORING_WORKSPACE_BINDING','/document','Retain the exact original source, workspace, layout, floor, finish and clearance bindings.');
     // Receipt replay repeatedly visits exact historical documents. Cache only
     // successful full-data validation hashes, after hostile-input inspection;
     // keep this detached input's own ordering and original JSON bytes intact.
-    const contentToken=smartTileDigest(d);
-    if(!validatedContent.has(contentToken)){
+    // Fixed fields were proved equal to the codec's validated template above.
+    // Only the complete mutable payload needs a new private validation key.
+    // Public document/workspace digests still use their original full inputs.
+    const contentToken=smartTileDigest(mutableFields(d));let facts=validatedContent.get(contentToken);
+    if(!facts){
       validateTileStackDocument(deps,Object.fromEntries(baseFields.map(k=>[k,d[k]])));
       const first=d.authoring?.library?.definitions?.[0]??d.authoring?.library?.presets?.[0]??d.authoring?.library?.artwork?.[0],subject=first?{id:first.id,revision:first.revision,contentDigest:first.contentDigest}:tileAuthoringSource(d);
       const requirements=deps.authoring.inspectTileAuthoringRequirements(deps.tiles,{document:d,subject});
       if(requirements?.kind!=='nautilus-tile-authoring-requirements')fail('AUTHORING_DOCUMENT_REFUSED','/document','Core did not validate the complete authoring source.');
-      validatedContent.set(contentToken,true);while(validatedContent.size>64)validatedContent.delete(validatedContent.keys().next().value);
+      facts={documentDigest:null,bindings:null};validatedContent.set(contentToken,facts);while(validatedContent.size>64)validatedContent.delete(validatedContent.keys().next().value);
     }
-    const fixed={id:d.id,sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,finishBinding:d.finishBinding,layoutId:d.tileBundle.layout.id,minimumClearanceM:d.constraints.minimumClearanceM};
-    if(identity!==null&&smartTileDigest(fixed)!==identity)fail('AUTHORING_WORKSPACE_BINDING','/document','Retain the exact original source, workspace, layout, floor, finish and clearance bindings.');
-    freeze(d);checked.add(d);return d;
+    freeze(d);checked.add(d);documentFacts.set(d,facts);return d;
   }
-  const initial=validateDocument(initialDocument);identity=smartTileDigest({id:initial.id,sourceJSON:initial.sourceJSON,floorBinding:initial.floorBinding,finishBinding:initial.finishBinding,layoutId:initial.tileBundle.layout.id,minimumClearanceM:initial.constraints.minimumClearanceM});
+  const initial=validateDocument(initialDocument);fixedTemplate=Object.freeze(fixedFields(initial));identity=smartTileDigest(fixedTemplate);floorProfileDigest=deps.tiles.tileLayoutToken(initial.floorBinding);
+  function documentBindings(input){
+    const d=validateDocument(input),facts=documentFacts.get(d),hash=deps.tiles.tileLayoutToken;
+    return facts.bindings??=Object.freeze({workspaceDigest:hash(tileAuthoringSource(d)),hostDocumentDigest:hash(d),contentDigest:hash(d.authoring.library),decorationDigest:hash(d.authoring.decorations),resourceSetDigest:hash(d.resourceRefs),floorProfileDigest,stackConstraintsDigest:hash(d.constraints),tileLayoutDigest:hash(d.tileBundle.layout),tileCatalogueDigest:d.tileBundle.layout.catalogueDigest});
+  }
+  function expected(input,hostAuthorityToken,authorityContextToken){const d=validateDocument(input),b=documentBindings(d);return {workspaceRevision:d.contentRevision,workspaceDigest:b.workspaceDigest,hostDocumentDigest:b.hostDocumentDigest,hostAuthorityToken,authorityContextToken,contentDigest:b.contentDigest,decorationDigest:b.decorationDigest,resourceSetDigest:b.resourceSetDigest,floorProfileDigest:b.floorProfileDigest,stackConstraintsDigest:b.stackConstraintsDigest,tileLayoutDigest:b.tileLayoutDigest,tileCatalogueDigest:b.tileCatalogueDigest};}
+  function operationBinding(before,target,request,command,contextToken){const source=documentBindings(before),next=documentBindings(target);return {sourceDocumentDigest:documentToken(before),targetDocumentDigest:documentToken(target),sourceLayoutDigest:source.tileLayoutDigest,sourceCatalogueDigest:source.tileCatalogueDigest,contextToken,sourceConstraintsDigest:source.stackConstraintsDigest,nextConstraintsDigest:next.stackConstraintsDigest,floorProfileDigest,requestDigest:deps.tiles.tileLayoutToken(request),commandDigest:deps.tiles.tileLayoutToken(command)};}
   const formats=freeze({checkpoint:TILE_AUTHORING_EDITOR.checkpoint,checkpointVersion:3,journal:TILE_AUTHORING_EDITOR.journal,journalVersion:3,operation:TILE_AUTHORING_EDITOR.operation,operationVersion:3});
-  const domain=freeze({formats,bindingToken:identity,floorRecords:initial.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM})),validateDocument,
+  const domain=freeze({formats,bindingToken:identity,floorRecords:initial.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM})),validateDocument,documentDigest:documentToken,documentBindings,expected,operationBinding,
     targetFields(input){const target=validateDocument(input);return {kind:'nautilus-tile-authoring-target-fields',version:1,sourceBindingToken:identity,tileBundle:target.tileBundle,constraints:target.constraints,contentRevision:target.contentRevision,authoring:target.authoring,resourceRefs:target.resourceRefs};},
     targetDocument(before,input){const target=smartTileData(input);fields(target,['kind','version','sourceBindingToken','tileBundle','constraints','contentRevision','authoring','resourceRefs'],'/operation/target');if(target.kind!=='nautilus-tile-authoring-target-fields'||target.version!==1||target.sourceBindingToken!==identity)fail('AUTHORING_TARGET_FIELDS','/operation/target','Retain the explicit target schema and exact immutable workspace-source binding.');const {kind,version,sourceBindingToken,...mutable}=target;return validateDocument({...validateDocument(before),...mutable});},
     contextToken(document,host){const d=validateDocument(document);fields(host,['floorId','mode','floorEpoch','providerToken'],'/context');if(!d.floorBinding.floors.some(f=>f.id===host.floorId)||!['manual','character-follow','contact-inspection'].includes(host.mode)||!Number.isSafeInteger(host.floorEpoch)||host.floorEpoch<0||typeof host.providerToken!=='string'||!host.providerToken.length||host.providerToken.length>512)fail('AUTHORING_CONTEXT','/context','Capture the actual floor, mode, epoch and provider.');return smartTileDigest({policyToken:identity,documentDigest:documentToken(d),...host});}
@@ -64,39 +78,48 @@ export function createTileAuthoringCheckpointCodec(deps,initialDocument){
       if(op.documentId!==initial.id||!['edit','undo','redo'].includes(op.action)||!['source-unchanged','public-v1-prepared'].includes(op.tilePreparation))fail('AUTHORING_OPERATION','/operation','Retain the workspace, exact action and preparation classification.');
       fields(op.expected,['token','contextToken'],'/operation/expected');Object.entries(op.expected).forEach(([k,v])=>digest(v,'/operation/expected/'+k));
       fields(op.binding,bindingFields,'/operation/binding');Object.entries(op.binding).forEach(([k,v])=>digest(v,'/operation/binding/'+k));const b=op.binding;
-      if(op.request?.id!==op.id||b.contextToken!==op.expected.contextToken||b.targetDocumentDigest!==smartTileDigest(target)||b.nextConstraintsDigest!==deps.tiles.tileLayoutToken(target.constraints)||b.floorProfileDigest!==deps.tiles.tileLayoutToken(target.floorBinding)||b.requestDigest!==deps.tiles.tileLayoutToken(op.request)||b.commandDigest!==deps.tiles.tileLayoutToken(op.command))fail('AUTHORING_OPERATION_BINDING','/operation/binding','Retain the complete target, original request, command and fixed full floor binding.');
+      if(op.request?.id!==op.id||b.contextToken!==op.expected.contextToken||b.targetDocumentDigest!==documentToken(target)||b.nextConstraintsDigest!==documentBindings(target).stackConstraintsDigest||b.floorProfileDigest!==floorProfileDigest||b.requestDigest!==deps.tiles.tileLayoutToken(op.request)||b.commandDigest!==deps.tiles.tileLayoutToken(op.command))fail('AUTHORING_OPERATION_BINDING','/operation/binding','Retain the complete target, original request, command and fixed full floor binding.');
       if(op.action==='edit'){
         fields(op.command,['kind','version','requestId','expected','operations','budgetProfile'],'/operation/command');
         if(op.command.kind!=='nautilus-tile-authoring-command'||op.command.version!==1||op.command.requestId!==op.id||op.command.budgetProfile!=='authoring-reference-proposal-v1'||!Array.isArray(op.command.operations)||!op.command.operations.length||op.command.operations.length>1024)fail('AUTHORING_COMMAND_BINDING','/operation/command','Retain the original finite canonical command.');
         const cb=op.authoringBinding;fields(cb,coreBindings,'/operation/authoringBinding');Object.entries(cb).forEach(([k,v])=>digest(v,'/operation/authoringBinding/'+k));
-        const expected=tileAuthoringExpected(deps.tiles,target,op.expected.token,op.expected.contextToken);
-        for(const [key,value]of Object.entries({commandDigest:b.commandDigest,sourceHostDocumentDigest:b.sourceDocumentDigest,targetHostDocumentDigest:b.targetDocumentDigest,sourceAuthorityToken:op.expected.token,authorityContextToken:b.contextToken,nextConstraintsDigest:b.nextConstraintsDigest,floorProfileDigest:b.floorProfileDigest,targetWorkspaceDigest:expected.workspaceDigest,targetContentDigest:expected.contentDigest,targetDecorationDigest:expected.decorationDigest,targetResourceSetDigest:expected.resourceSetDigest}))if(cb[key]!==value)fail('AUTHORING_TARGET_BINDING','/operation/authoringBinding/'+key,'The Core binding must describe the exact complete target.');
+        const targetExpected=expected(target,op.expected.token,op.expected.contextToken);
+        for(const [key,value]of Object.entries({commandDigest:b.commandDigest,sourceHostDocumentDigest:b.sourceDocumentDigest,targetHostDocumentDigest:b.targetDocumentDigest,sourceAuthorityToken:op.expected.token,authorityContextToken:b.contextToken,nextConstraintsDigest:b.nextConstraintsDigest,floorProfileDigest:b.floorProfileDigest,targetWorkspaceDigest:targetExpected.workspaceDigest,targetContentDigest:targetExpected.contentDigest,targetDecorationDigest:targetExpected.decorationDigest,targetResourceSetDigest:targetExpected.resourceSetDigest}))if(cb[key]!==value)fail('AUTHORING_TARGET_BINDING','/operation/authoringBinding/'+key,'The Core binding must describe the exact complete target.');
         const e=op.command.expected;
         fields(e,expectedFields,'/operation/command/expected');for(const key of expectedFields.filter(k=>k!=='workspaceRevision'))digest(e[key],'/operation/command/expected/'+key);
         if(!Number.isSafeInteger(e.workspaceRevision)||e.workspaceRevision<0)fail('AUTHORING_CONTENT_REVISION','/operation/command/expected/workspaceRevision','Retain a bounded source content revision.');
         for(const [key,value]of Object.entries({sourceWorkspaceDigest:e.workspaceDigest,sourceContentDigest:e.contentDigest,sourceDecorationDigest:e.decorationDigest,sourceResourceSetDigest:e.resourceSetDigest,sourceConstraintsDigest:e.stackConstraintsDigest}))if(cb[key]!==value)fail('AUTHORING_SOURCE_BINDING','/operation/authoringBinding/'+key,'Retain every exact captured Core source binding.');
         if(e.hostAuthorityToken!==op.expected.token||e.authorityContextToken!==b.contextToken||e.hostDocumentDigest!==b.sourceDocumentDigest||e.tileLayoutDigest!==b.sourceLayoutDigest||e.tileCatalogueDigest!==b.sourceCatalogueDigest||e.stackConstraintsDigest!==b.sourceConstraintsDigest||e.floorProfileDigest!==b.floorProfileDigest||target.contentRevision!==e.workspaceRevision+1)fail('AUTHORING_SOURCE_BINDING','/operation/command/expected','Keep the captured full source and one content revision per command.');
         if(op.tilePreparation==='source-unchanged'){
-          fields(op.request,['id','kind','version'],'/operation/request');if(op.request.kind!=='nautilus-tile-authoring-source-unchanged'||op.request.version!==1||b.sourceLayoutDigest!==deps.tiles.tileLayoutToken(target.tileBundle.layout)||b.sourceCatalogueDigest!==target.tileBundle.layout.catalogueDigest||b.sourceConstraintsDigest!==b.nextConstraintsDigest)fail('SOURCE_UNCHANGED_MISMATCH','/operation','A metadata command cannot change layout, catalogue or constraints.');
+          fields(op.request,['id','kind','version'],'/operation/request');if(op.request.kind!=='nautilus-tile-authoring-source-unchanged'||op.request.version!==1||b.sourceLayoutDigest!==documentBindings(target).tileLayoutDigest||b.sourceCatalogueDigest!==target.tileBundle.layout.catalogueDigest||b.sourceConstraintsDigest!==b.nextConstraintsDigest)fail('SOURCE_UNCHANGED_MISMATCH','/operation','A metadata command cannot change layout, catalogue or constraints.');
         }else if(op.request.version!==1||target.tileBundle.layout.revision!==op.request.expected?.revision+1||op.request.expected.layoutDigest!==b.sourceLayoutDigest||op.request.expected.catalogueDigest!==b.sourceCatalogueDigest||op.request.expected.contextToken!==b.contextToken)fail('AUTHORING_REQUEST_TARGET','/operation/request','Bind the actual ordinary public-v1 prepared target.');
-        if(before&&smartTileDigest(op.command.expected)!==smartTileDigest(tileAuthoringExpected(deps.tiles,before,op.expected.token,op.expected.contextToken)))fail('STALE_SOURCE','/operation/command/expected','The command must bind every field of its actual accepted source.');
+        if(before&&smartTileDigest(op.command.expected)!==smartTileDigest(expected(before,op.expected.token,op.expected.contextToken)))fail('STALE_SOURCE','/operation/command/expected','The command must bind every field of its actual accepted source.');
       }else{
         fields(op.request,['id','kind','action','targetDocumentDigest'],'/operation/request');
-        if(op.command!==null||op.authoringBinding!==null||op.request.kind!=='smart-tile-history-restore'||op.request.action!==op.action||op.request.targetDocumentDigest!==smartTileDigest(target))fail('HISTORY_TARGET_MISMATCH','/operation','History restores the exact complete historical document.');
+        if(op.command!==null||op.authoringBinding!==null||op.request.kind!=='smart-tile-history-restore'||op.request.action!==op.action||op.request.targetDocumentDigest!==documentToken(target))fail('HISTORY_TARGET_MISMATCH','/operation','History restores the exact complete historical document.');
       }
       if(before){
-        if(smartTileDigest(b)!==smartTileDigest(tileAuthoringOperationBinding(deps.tiles,before,target,op.request,op.command,op.expected.contextToken)))fail('AUTHORING_OPERATION_SOURCE','/operation/binding','Bind the exact complete accepted source.');
+        if(smartTileDigest(b)!==smartTileDigest(operationBinding(before,target,op.request,op.command,op.expected.contextToken)))fail('AUTHORING_OPERATION_SOURCE','/operation/binding','Bind the exact complete accepted source.');
         const same=smartTileDigest(before.tileBundle)===smartTileDigest(target.tileBundle)&&smartTileDigest(before.constraints)===smartTileDigest(target.constraints);
         if((op.tilePreparation==='source-unchanged')!==same)fail('SOURCE_UNCHANGED_MISMATCH','/operation/tilePreparation','Classify the actual whole source/target pair.');
       }
       return op;
     }};
-  const shared=createSmartTileCheckpointCodec(deps,policy),tokens=new WeakMap(),owned=new WeakSet(),reader=input=>readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});
+  const shared=createSmartTileCheckpointCodec(deps,policy),tokens=new WeakMap(),owned=new WeakSet(),staged=new WeakMap(),reader=input=>readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});
   const remember=checkpoint=>{owned.add(checkpoint);return checkpoint;};
   const open=input=>owned.has(input)?shared.open(input):remember(shared.open(reader(input)));
   const codec=Object.freeze({...shared,open,
     create:input=>remember(shared.create(input)),serialize:input=>shared.serialize(open(input)),
-    stage:(input,operation)=>remember(shared.stage(open(input),reader(operation))),
+    stage(input,operation){
+      const checkpoint=open(input),inspected=reader(operation),operationJSON=JSON.stringify(inspected),known=staged.get(checkpoint);
+      // Review preflight, session apply and the actual authority stage the same
+      // prospective WAL. Reuse only a fully validated frozen result for this
+      // codec-owned immutable checkpoint and freshly inspected exact bytes.
+      // This stores data, not a live authority/context/resource decision: all
+      // synchronous storage reads, final CAS and host guards still run.
+      if(known?.operationJSON===operationJSON)return known.checkpoint;
+      const next=remember(shared.stage(checkpoint,inspected));staged.set(checkpoint,{operationJSON,checkpoint:next});return next;
+    },
     settle:(input,requestId,outcome)=>remember(shared.settle(open(input),requestId,outcome)),
     inspectRecovery:(pending,actual,requestId)=>shared.inspectRecovery(open(pending),open(actual),requestId),
     token(input){const checkpoint=open(input);let token=tokens.get(checkpoint);if(token===undefined){token=shared.token(checkpoint);tokens.set(checkpoint,token);}return token;}});

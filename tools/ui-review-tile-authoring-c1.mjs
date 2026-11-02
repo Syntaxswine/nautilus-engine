@@ -111,10 +111,100 @@ export async function reviewTileAuthoringConstructors(coreCommit){
   }catch(error){report.status='failed';report.error=error.message;report.finishedAt=new Date().toISOString();save();throw error;}
 }
 
+export async function reviewTileAuthoringSelectLabels(){
+  const {withArtReview}=await import('./art-review-browser.mjs');
+  const output='ui-tile-authoring-c1-select-labels',out=path.join(root,'artifacts',output);
+  fs.mkdirSync(out,{recursive:true});
+  const inputFiles=['apps/editor/tile-authoring/ui/panel.js','apps/editor/tile-authoring/ui/commands.js','apps/editor/tile-authoring/ui/styles.css','tools/ui-review-tile-authoring-c1.mjs','tools/art-review-browser.mjs'];
+  const inputs=inputFiles.map(file=>{const bytes=fs.readFileSync(path.join(root,file));return{file,bytes:bytes.length,sha256:digest(bytes)};});
+  const report={kind:'nautilus-ui-c1-select-label-review',version:1,status:'pending',scope:'Actual production mount and native Edge DOM/accessibility names only. Explicit render-only document/service/constructor doubles; no Core command or production HostService/native renderer integration.',actualDOM:true,actualHost:false,packetsExecuted:false,inputs,checks:[],retainedHelpers:0};
+  const save=()=>fs.writeFileSync(path.join(out,'review.json'),JSON.stringify(report,null,2)+'\n');
+  try{
+    save();
+    await withArtReview('C1 stable select accessible names',async({page,context,browser,baseURL})=>{
+      report.backend={channel:process.env.NAUTILUS_REVIEW_CHANNEL||(process.platform==='win32'?'msedge':'chromium'),version:browser.version(),node:process.version};
+      await page.route(baseURL+'/__c1_select_labels__',route=>route.fulfill({contentType:'text/html',body:'<!doctype html><html lang="en"><title>C1 select accessible-name check</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/apps/editor/tile-authoring/ui/styles.css"><main></main></html>'}));
+      await page.goto(baseURL+'/__c1_select_labels__');
+      await page.evaluate(async()=>{
+        const {mountTileAuthoringUI}=await import('/apps/editor/tile-authoring/ui/panel.js');
+        const {TILE_AUTHORING_EXPECTED_FIELDS}=await import('/apps/editor/tile-authoring/ui/commands.js');
+        const hash=c=>c.repeat(64),pin=r=>({id:r.id,revision:r.revision,contentDigest:r.contentDigest});
+        const definition=(id,revision,label)=>({kind:'nautilus-recipe-definition',version:1,id,revision,contentDigest:hash(String(revision)),body:{label,recipe:{kind:'render-only-double',id:'recipe.'+id,anchors:[]},sourceProfile:'local-level-region-v1',surfaces:[],requires:[],notices:[]}});
+        const preset=(id,label,d)=>({kind:'nautilus-tile-preset',version:1,id,revision:1,contentDigest:hash('a'),body:{label,definition:pin(d),defaultLayers:[],defaultMarks:[],requires:[],notices:[]}});
+        const actions=['recipe.create','recipe.clone','recipe.revise','preset.save','preset.place','placement.upgrade','review','apply','cancel','recover','undo','redo','save','open','retryPresentation'];
+        let view={snapshot:{document:{kind:'nautilus-tile-workbench-document',version:3,id:'render-only-select-labels',sourceJSON:'{"renderOnly":true}',floorBinding:{floors:[{id:'F00',label:'1',elevationM:0}]},finishBinding:{id:'render-only'},tileBundle:{layout:{revision:0,instances:[]}},contentRevision:0,authoring:{library:{definitions:[],presets:[],artwork:[]},decorations:{surfaces:[],chunks:[],groups:[]},ownerPins:[]},resourceRefs:[]},expected:Object.fromEntries(TILE_AUTHORING_EXPECTED_FIELDS.map(k=>[k,k==='workspaceRevision'?0:hash('a')]))},presentation:{command:null,scope:'new-immutable-library-record',targetOwnerIds:[],includeSelectedDecorationDefaults:false,selectedCaptureMarkIds:[],review:null,retainedApplyRequest:null,outcome:null,actions:Object.fromEntries(actions.map(n=>[n,{enabled:true,diagnostics:[]}]))},commandJSON:null};
+        const observers=new Set(),calls=[];
+        const forbidden=name=>()=>{calls.push(name);throw Error('Render-only check must not call '+name);};
+        const service=Object.fromEntries(['describe','snapshot','query','prepare','apply','cancel','recover'].map(name=>[name,forbidden(name)]));
+        const binding={service,getSnapshot:()=>view,subscribe(fn){observers.add(fn);return()=>observers.delete(fn);},collectCommand:forbidden('collectCommand'),discardDraft:forbidden('discardDraft'),allocateIds:forbidden('allocateIds'),borrowedFloorController:{state:{selectedId:'F00'}},history:{}};
+        const mounted=mountTileAuthoringUI(document.querySelector('main'),binding,{tiles:{renderOnly:true},authoring:{createRectangleDefinition:forbidden('producer'),sealTileContentRecord:forbidden('sealer')},rectangleSpec:forbidden('rectangleSpec')});
+        function publish(mode){
+          const d1=definition('definition.a',1,'A1'),d2=definition('definition.b',2,'B2');
+          const populated=mode!=='empty';
+          const definitions=populated?[d1,d2]:[],presets=populated?[preset('preset.p','P1',d1),preset('preset.q','Q1',d2)]:[];
+          const ownerPins=populated?[{ownerId:'owner.one',definition:pin(d1)},{ownerId:'owner.two',definition:pin(d2)}]:[];
+          if(mode==='changed'){
+            definitions[0].body.label='A1 changed visible option';
+            definitions.reverse();presets[0].body.label='P1 changed visible option';presets.reverse();ownerPins.reverse();
+          }
+          view={...view,snapshot:{...view.snapshot,document:{...view.snapshot.document,authoring:{...view.snapshot.document.authoring,library:{...view.snapshot.document.authoring.library,definitions,presets},ownerPins},tileBundle:{layout:{revision:0,instances:ownerPins.map(p=>({id:p.ownerId,locked:false}))}}}}};
+          for(const fn of observers)fn(view);
+        }
+        window.selectLabelCheck={publish,calls,dispose:()=>mounted.dispose(),observers:()=>observers.size};
+      });
+      const cdp=await context.newCDPSession(page);
+      const controls=[['Definition revision','definition'],['Preset revision','preset'],['Selected upgrade target','owner']];
+      async function check(phase,{empty=false,preserve=null}={}){
+        const tree=await cdp.send('Accessibility.getFullAXTree');
+        const values={};
+        for(const [label,name] of controls){
+          const exact=page.getByLabel(label,{exact:true}),role=page.getByRole('combobox',{name:label,exact:true});
+          assert.equal(await exact.count(),1,phase+': exact label '+label);
+          assert.equal(await role.count(),1,phase+': exact accessible name '+label);
+          assert.equal(await exact.isEnabled(),true);
+          const dom=await exact.evaluate(n=>({id:n.id,name:n.name,value:n.value,explicitLabel:n.getAttribute('aria-label'),visibleLabel:n.labels[0]?.childNodes[0]?.textContent,htmlFor:n.labels[0]?.htmlFor,options:[...n.options].map(o=>o.text)}));
+          assert.equal(dom.name,name);assert.equal(dom.explicitLabel,label);assert.equal(dom.visibleLabel,label);assert.equal(dom.htmlFor,dom.id);
+          assert.equal(tree.nodes.filter(n=>!n.ignored&&n.role?.value==='combobox'&&n.name?.value===label).length,1,phase+': native AX name '+label);
+          if(empty)assert.equal(dom.value,'',phase+': no automatic selection '+label);
+          if(preserve)assert.equal(dom.value,preserve[name],phase+': preserve exact selected value '+label);
+          values[name]=dom.value;
+          report.checks.push({phase,label,status:'pass',exactLabel:true,exactRoleName:true,nativeAXName:true,...dom});
+        }
+        assert.deepEqual(await page.evaluate(()=>selectLabelCheck.calls),[],'Render-only review must not execute commands');
+        save();return values;
+      }
+      await check('initial empty',{empty:true});
+      await page.evaluate(()=>selectLabelCheck.publish('populated'));
+      await check('populated unselected',{empty:true});
+      for(const [label] of controls){const node=page.getByLabel(label,{exact:true}),values=await node.locator('option').evaluateAll(options=>options.map(o=>o.value));await node.selectOption(values[1]);}
+      const selected=await check('selected');
+      await page.getByLabel('Preset revision',{exact:true}).focus();
+      const focused=await page.evaluate(()=>document.activeElement.id);
+      await page.evaluate(()=>selectLabelCheck.publish('changed'));
+      await check('option text/order changed',{preserve:selected});
+      assert.equal(await page.evaluate(()=>document.activeElement.id),focused,'Refresh must preserve focused select node');
+      await page.evaluate(()=>selectLabelCheck.publish('empty'));
+      await check('selected options removed',{empty:true});
+      await page.evaluate(()=>selectLabelCheck.publish('populated'));
+      await check('options restored without automatic selection',{empty:true});
+      assert.equal(await page.getByRole('button',{name:'Stage two copies',exact:true}).isDisabled(),true,'P1 must not be auto-picked');
+      await page.screenshot({path:path.join(out,'select-labels.png'),fullPage:true});
+      assert.deepEqual(await page.evaluate(()=>selectLabelCheck.dispose()),[]);
+      assert.equal(await page.evaluate(()=>selectLabelCheck.observers()),0);
+      report.selectionPolicy='Empty selection remains deliberate; removed options reset empty; no automatic P1/upgrade target. Existing valid selection and focused select node survive option changes.';
+    },{source:true,output,timeoutMs:60000});
+    report.lifecycle=JSON.parse(fs.readFileSync(path.join(out,'cleanup-receipt.json')));
+    assert.equal(report.lifecycle.httpClosed,true);assert.equal(report.lifecycle.browserClosed,true);
+    for(const item of inputs)assert.equal(digest(fs.readFileSync(path.join(root,item.file))),item.sha256,'Input changed during review');
+    report.status='pass';report.finishedAt=new Date().toISOString();save();return report;
+  }catch(error){report.status='failed';report.error=error.message;report.finishedAt=new Date().toISOString();save();throw error;}
+}
+
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   if(process.argv.length===3&&process.argv[2]==='--protocol')console.log(JSON.stringify(reviewTileAuthoringUIProtocol(),null,2));
+  else if(process.argv.length===3&&process.argv[2]==='--select-labels'){const report=await reviewTileAuthoringSelectLabels();console.log(JSON.stringify({status:report.status,checks:report.checks.length,actualDOM:true,actualHost:false,retainedHelpers:report.retainedHelpers},null,2));}
   else if(process.argv.length===4&&process.argv[2]==='--constructors'){
     const report=await reviewTileAuthoringConstructors(process.argv[3]);
     console.log(JSON.stringify({status:report.status,coreCommit:report.coreCommit,coreModules:report.coreInputs.length,checks:report.checks.length,actualCoreConstruction:true,actualHost:false,packetsExecuted:false,browserStarted:false},null,2));
-  }else throw Error('UI_C1_NATIVE_REVIEW_GATED: Use --protocol or --constructors <approved fixed Core SHA>. Actual source/built/installed browser proof still requires reviewed fixed Editor HostService/ledger; no C0/fixture runtime fallback.');
+  }else throw Error('UI_C1_NATIVE_REVIEW_GATED: Use --protocol, --select-labels (render-only real DOM) or --constructors <approved fixed Core SHA>. Actual source/built/installed browser proof still requires reviewed fixed Editor HostService/ledger; no C0/fixture runtime fallback.');
 }
