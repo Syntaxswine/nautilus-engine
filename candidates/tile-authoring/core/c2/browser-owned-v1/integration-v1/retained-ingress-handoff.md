@@ -1,0 +1,19 @@
+# Actual retained command ingress
+
+Membership originates inside the actual original Root profile.validateDraft body. Its readonly scope must carry this Kernel actual validated source. Its descriptor-safe result passes the original complete command/Expected schema, is freshly copied under the same counted readonly Core Budget, deeply frozen and privately registered against this Kernel and original profile. A caller's frozen object, clone, digest or ready flag is never a control.
+
+The source-private safe Host port adds:
+
+- validateRetainedCommand(input): actual readonly original Root producer, useful for the concrete caller/control probe. Actual source session setDraft automatically uses the same registered profile method when Native/session readiness is paired.
+- captureRetainedCommand(actualDraft): constant-time actual object membership lookup, returning an opaque control. This and retainedCommandReference can run before the new authoring owner.begin; they perform no full metadata copy/inspection.
+- retainedCommandReference(control): frozen actual references `{requestId,command,expected}`. Read the canonical original ID here BEFORE starting the one real authoring work token. The command/complete captured Expected are immutable original producer references, not current Host/Native proof or edit credit.
+- inspectRetainedCommand(control): after owner.begin({source:theRealCheckpoint.document,requestId:reference.requestId}) and activation of its explicit ingress/source lease, freshly read/copy/schema-check the exact retained command under that SAME persistent Core Budget. It checks the original ID, original profile and actual validated source identity before copying, and produces `{inspection,requestId,command,expected}`. Readonly work is not credited, refunded or used as an incoming counter.
+- requireRetainedInspection(inspection): authenticate the opaque paid inspection against this same original authoring attempt/profile. A clone or another attempt refuses. Each control is freshly inspected at most once per actual attempt; failure cannot obtain new work for the same ID.
+
+The concrete one-session Host/Editor read owner must own an explicit counted readonly span around actual Session.setDraft, and end it before beginning authoring. That read-owner wiring remains unavailable until its actual producer is paired. These methods do not create/choose scopes, reservations or quotas and expose no arbitrary callback runner.
+
+Fresh command metadata remains UNBOUND dispatch until the complete source/route and actual current Expected comparison have been performed under this original gate. No public or Artist work is permitted by this witness. Actual Native/Host currentness, Core-owned bound target, real same journal/head/ticket/target JSON, one-use operation permission and complete-WAL guards remain separate and unavailable. No observer/codec/sourceAccess, callback runner, counters or success/ready flags are exposed.
+
+Controls cover real Root emission, before-begin constant-time original ID/reference lookup, deep immutability/caller independence, copied/tagged/accessor controls refusing without getter calls, fresh input/copy/Core work under the original edit attempt, no readonly credit, duplicate/readonly/replacement-ID refusal and complete Expected validation. The literal session constructor and getter corrections remain required. Broad gates stay queued during the architect's shared gate run; this is a local focused continuation.
+
+Design assessment: prefer the actual retained source control for Nautilus. Accuracy ties ingress to the original command/reference and complete captured Expected while preserving a fresh actual currentness comparison later. Efficiency uses constant-time membership before begin and one fresh paid command inspection after it; no processor timing claim. Narrative preserves one editor action/ID through review without treating UI queries as completed game work.
