@@ -22,11 +22,11 @@ export function mountTileStackUI(container,adapter,{floorController,keyboardTarg
   const status=make('output',undefined,'ts-status');status.setAttribute('aria-live','polite');status.setAttribute('aria-atomic','true');
   const fault=make('p','','ts-fault');fault.setAttribute('role','alert');fault.hidden=true;
   const notice=make('p','','ts-notice');notice.setAttribute('role','status');
-  const floorMount=make('div',undefined,'ts-floor-mount'),current=make('p','','ts-current');
-  const floorHeading=make('h3','Inspect a floor'),floorHint=make('p','Inspection changes only the working view. Stack members are chosen separately below.','ts-hint');
+  const floorMount=make('div',undefined,'ts-floor-mount'),current=make('p','','ts-current'),viewReadout=make('p','','ts-view');viewReadout.setAttribute('role','status');viewReadout.setAttribute('aria-live','polite');viewReadout.setAttribute('aria-atomic','true');
+  const floorHeading=make('h3','Drawing floor and view'),floorHint=make('p','Choose the drawing floor separately from the view. Cutaway keeps its captured cutoff when you change the drawing floor.','ts-hint');
   const gates=[];
   const control=(label,action,callback)=>{const node=make('button',label);node.type='button';node.dataset.action=action;gates.push({node,action});listen(node,'click',callback);return node;};
-  const viewGroup=make('div',undefined,'ts-row');viewGroup.setAttribute('role','group');viewGroup.setAttribute('aria-label','Surface inspection');
+  const viewGroup=make('div',undefined,'ts-row ts-inspection');viewGroup.setAttribute('role','group');viewGroup.setAttribute('aria-label','Surface inspection');
   const selectedView=control('Selected floor','setInspection',()=>act('setInspection',()=>[{mode:'selected-floor',cutawayFloorId:null}]));
   const overview=control('Overview','setInspection',()=>act('setInspection',()=>[{mode:'overview',cutawayFloorId:null}]));
   const cutaway=control('Cutaway here','setInspection',()=>act('setInspection',()=>[{mode:'cutaway',cutawayFloorId:floorController.state.selectedId}]));
@@ -57,7 +57,7 @@ export function mountTileStackUI(container,adapter,{floorController,keyboardTarg
   for(const [label,reason]of [['Character follow','No follow action is bound in this authoring proof.'],['Contact / eye','No contact/detection action is bound in this authoring proof.'],['Geometry Paint / Boolean union','This tranche binds no Boolean construction provider.'],['Ramps / stairs / grade','Only level rectangle stacks are proposed.']]){const li=make('li'),button=make('button',label);button.type='button';button.disabled=true;li.append(button,make('p',reason));unavailableList.append(li);}
   const diagnostics=make('ol',undefined,'ts-diagnostics'),readiness=make('dl',undefined,'ts-readiness'),resources=make('p','','ts-hint');
   const actionBar=make('div',undefined,'ts-actions');actionBar.append(control('Review','review',()=>act('review')),control('Apply','apply',()=>act('apply',value=>[value.reviewId])),control('Cancel draft','cancel',()=>act('cancel',()=>['tile-stack-ui-cancel'])),control('Check edit result','recover',()=>act('recover',value=>[value.recoveryId])),control('Retry accepted view','retryPresentation',()=>act('retryPresentation')));
-  root.append(title,intro,status,fault,notice,floorHeading,floorHint,floorMount,current,viewGroup,viewReason,sourceMode,stackForm,finishForm,make('h3','Review diagnostics'),diagnostics,make('h3','Separate readiness'),readiness,resources,unavailable,actionBar,make('p','Flat surfaces and authoring clearance do not establish slabs, support, navigation or gameplay. Visibility never changes source, contacts or allocation budgets.','ts-hint'));container.append(root);
+  root.append(title,intro,status,fault,notice,floorHeading,floorHint,floorMount,current,viewReadout,viewGroup,viewReason,sourceMode,stackForm,finishForm,make('h3','Review diagnostics'),diagnostics,make('h3','Separate readiness'),readiness,resources,unavailable,actionBar,make('p','Flat surfaces and authoring clearance do not establish slabs, support, navigation or gameplay. Visibility never changes source, contacts or allocation budgets.','ts-hint'));container.append(root);
   listen(root,'keydown',event=>{if(event.repeat&&((event.target.closest?.('button')&&['Enter',' '].includes(event.key))||(event.key==='Enter'&&event.target.closest?.('form'))))event.preventDefault();});
   function error(reason){if(retired)return;fault.textContent=reason instanceof Error?reason.message:String(reason);fault.hidden=false;if(reporting)return;reporting=true;try{onError(reason);}catch{}finally{reporting=false;}}
   function permitted(value,action){
@@ -96,7 +96,13 @@ export function mountTileStackUI(container,adapter,{floorController,keyboardTarg
       throw new TypeError('Workspace/floor/catalogue identity changed. Rebind through a new host session; no local catalogue upgrade.');
     }
     const state=floorController.state,floors=state.floors,active=floors.find(item=>item.id===state.selectedId),draft=value.draft;
-    status.textContent=phaseLabel(value.phase);root.dataset.phase=value.phase;current.textContent='Current floor '+active.label+' · '+active.elevationM+' m · '+state.mode;
+    status.textContent=phaseLabel(value.phase);root.dataset.phase=value.phase;current.textContent='Drawing floor '+active.label+' · '+active.elevationM+' m · '+state.mode;
+    if(value.inspection.mode==='selected-floor')viewReadout.textContent='View: Selected floor '+active.label+' · '+active.elevationM+' m';
+    else if(value.inspection.mode==='overview')viewReadout.textContent='View: Overview · All declared floors';
+    else if(value.inspection.mode==='cutaway'){
+      const cutoff=floors.find(floor=>floor.id===value.inspection.cutawayFloorId);if(!cutoff)throw new TypeError('The captured cutaway cutoff must be a declared floor.');
+      viewReadout.textContent='View: Cutaway through floor '+cutoff.label+' · '+cutoff.elevationM+' m (captured cutoff)';
+    }else throw new TypeError('Use a declared selected-floor, overview or cutaway view.');
     acceptedClearance.textContent='Accepted saved minimum: '+(value.acceptedMinimumClearanceM===undefined?'Not reported by the host.':value.acceptedMinimumClearanceM===null?'No accepted constraint is bound.':value.acceptedMinimumClearanceM+' m');
     sourceReadout.textContent=['rectangle','stack'].includes(draft?.tool)?'Current rectangle: '+draft.widthM+' × '+draft.depthM+' m · seed '+draft.seed+' · finish '+draft.finishId:'Choose Rectangle source mode before defining stack members.';
     const table=JSON.stringify(floors);if(floorKey!==table){floorKey=table;memberInputs.clear();membership.replaceChildren();for(const floor of floors){const label=make('label'),input=make('input');input.type='checkbox';input.value=floor.id;input.checked=true;input.setAttribute('aria-label','Stack floor '+floor.label+' · '+floor.elevationM+' m');label.append(input,make('span',floor.label+' · '+floor.elevationM+' m'));membership.append(label);memberInputs.set(floor.id,input);listen(input,'change',updateCount);}updateCount();}
