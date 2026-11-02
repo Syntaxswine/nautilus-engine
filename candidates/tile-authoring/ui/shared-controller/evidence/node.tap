@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: two attachments share one actual Root controller/subscription and one draft/history
+ok 1 - two attachments share one actual Root controller/subscription and one draft/history
+  ---
+  duration_ms: 69.4894
+  type: 'test'
+  ...
+# Subtest: pending on one attachment gates actions on both through the SAME Root controller
+ok 2 - pending on one attachment gates actions on both through the SAME Root controller
+  ---
+  duration_ms: 9.2813
+  type: 'test'
+  ...
+# Subtest: detach only one consumer; stale facade refuses and remaining attachment stays usable
+ok 3 - detach only one consumer; stale facade refuses and remaining attachment stays usable
+  ---
+  duration_ms: 4.8738
+  type: 'test'
+  ...
+# Subtest: detachment inside pending callback invalidates the outer operation before build
+ok 4 - detachment inside pending callback invalidates the outer operation before build
+  ---
+  duration_ms: 59.1277
+  type: 'test'
+  ...
+# Subtest: detaching another attachment during construction refuses collection with no replay
+ok 5 - detaching another attachment during construction refuses collection with no replay
+  ---
+  duration_ms: 2.3065
+  type: 'test'
+  ...
+# Subtest: reentrant actions/attachments inside callbacks cannot invoke or create another controller
+ok 6 - reentrant actions/attachments inside callbacks cannot invoke or create another controller
+  ---
+  duration_ms: 4.4229
+  type: 'test'
+  ...
+# Subtest: caught connection replacement in callback permanently refuses despite restoring method
+ok 7 - caught connection replacement in callback permanently refuses despite restoring method
+  ---
+  duration_ms: 1.9042
+  type: 'test'
+  ...
+# Subtest: the whole overlay is compared even when C1 supplies no additional callback
+ok 8 - the whole overlay is compared even when C1 supplies no additional callback
+  ---
+  duration_ms: 2.2845
+  type: 'test'
+  ...
+# Subtest: last close retires and unsubscribes, a later explicit lifetime owns one new subscription
+ok 9 - last close retires and unsubscribes, a later explicit lifetime owns one new subscription
+  ---
+  duration_ms: 1.2296
+  type: 'test'
+  ...
+# Subtest: new attachment during pending shares pending and does not create a second controller
+ok 10 - new attachment during pending shares pending and does not create a second controller
+  ---
+  duration_ms: 8.1131
+  type: 'test'
+  ...
+# Subtest: late actual result survives last UI detach; hub does not cancel the borrowed operation
+ok 11 - late actual result survives last UI detach; hub does not cancel the borrowed operation
+  ---
+  duration_ms: 3.547
+  type: 'test'
+  ...
+# Subtest: factory rejects foreign bindings and incomplete overlay comparison attachment
+ok 12 - factory rejects foreign bindings and incomplete overlay comparison attachment
+  ---
+  duration_ms: 1.2967
+  type: 'test'
+  ...
+# Subtest: fanout skips consumer detached by an earlier callback
+ok 13 - fanout skips consumer detached by an earlier callback
+  ---
+  duration_ms: 2.7867
+  type: 'test'
+  ...
+# Subtest: reentry during initial binding subscription cannot create another controller
+ok 14 - reentry during initial binding subscription cannot create another controller
+  ---
+  duration_ms: 0.6092
+  type: 'test'
+  ...
+# Subtest: post-callback consumer predicate failure sends invalidation to both surfaces
+ok 15 - post-callback consumer predicate failure sends invalidation to both surfaces
+  ---
+  duration_ms: 1.3952
+  type: 'test'
+  ...
+# Subtest: observed rebind from view callback clears both views even after caught restoration
+ok 16 - observed rebind from view callback clears both views even after caught restoration
+  ---
+  duration_ms: 1.4812
+  type: 'test'
+  ...
+# Subtest: pending prepare with unavailable owned cancellation never aliases to discard or review-token cancel
+ok 17 - pending prepare with unavailable owned cancellation never aliases to discard or review-token cancel
+  ---
+  duration_ms: 58.0194
+  type: 'test'
+  ...
+# Subtest: error callback reentry cannot stage and default Root recovery refresh still works
+ok 18 - error callback reentry cannot stage and default Root recovery refresh still works
+  ---
+  duration_ms: 51.0826
+  type: 'test'
+  ...
+# Subtest: a detached consumer no longer observes callbacks or poisons the remaining lifetime
+ok 19 - a detached consumer no longer observes callbacks or poisons the remaining lifetime
+  ---
+  duration_ms: 6.0799
+  type: 'test'
+  ...
+# Subtest: a rebind first observed by an action invalidates every panel immediately and stays retired
+ok 20 - a rebind first observed by an action invalidates every panel immediately and stays retired
+  ---
+  duration_ms: 2.321
+  type: 'test'
+  ...
+# Subtest: resource invocation gates both attachments without a new controller or command
+ok 21 - resource invocation gates both attachments without a new controller or command
+  ---
+  duration_ms: 2.2811
+  type: 'test'
+  ...
+# Subtest: ending resource UI cannot reset actual action debt or the underlying pending operation
+ok 22 - ending resource UI cannot reset actual action debt or the underlying pending operation
+  ---
+  duration_ms: 34.5185
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1559.0263

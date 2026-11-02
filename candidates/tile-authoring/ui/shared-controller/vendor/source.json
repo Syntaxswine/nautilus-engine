@@ -1,0 +1,63 @@
+{
+  "kind": "private-shared-controller-frozen-inputs",
+  "root": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+  "protectedBaseline": "938ea1f78d305d86c163f9e4e84033236916e897",
+  "inputs": [
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "apps/editor/tile-authoring/ui/panel.js",
+      "vendored": "vendor/root648/panel.js",
+      "bytes": 34183,
+      "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4"
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "apps/editor/tile-authoring/ui/commands.js",
+      "vendored": "vendor/root648/commands.js",
+      "bytes": 9799,
+      "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b"
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "apps/editor/tile-authoring/ui/styles.css",
+      "vendored": "vendor/root648/styles.css",
+      "bytes": 3838,
+      "sha256": "f9c4de456b2ee0fb1b402fc7e9d8089748adeb50a86c6bb79234d4e68d857a79"
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "NOTICE.md",
+      "vendored": "vendor/NOTICE.md",
+      "bytes": 8811,
+      "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd"
+    }
+  ],
+  "mountContinuation": {
+    "changes": [
+      {
+        "from": "rectangleSpec,onError=()=>{}}={})",
+        "to": "rectangleSpec,onError=()=>{},attachCoordinator=null}={})"
+      },
+      {
+        "from": "  const commands=createTileAuthoringCommands({tiles,authoring})",
+        "to": "  if(attachCoordinator!==null&&typeof attachCoordinator!=='function')throw issue('UI_ATTACHMENT_FACTORY_REQUIRED','Supply an explicit borrowed coordinator attachment factory.');\n  const commands=createTileAuthoringCommands({tiles,authoring})"
+      },
+      {
+        "from": "controller=createTileAuthoringUIController(binding,{onView:render,onPending:updateGates,onError:showError})",
+        "to": "controller=(attachCoordinator??createTileAuthoringUIController)(binding,{onView:render,onPending:updateGates,onError:showError})"
+      }
+    ],
+    "semantic": "proposal/root-panel.semantic.js.txt",
+    "patch": "proposal/root-mount-opt-in.patch",
+    "candidate": "c1-mount.mjs",
+    "candidateImportRelocation": "./commands.js -> ./vendor/root648/commands.js",
+    "semanticSha256": "6c432d366e7afd0e13b1eab5c58bc8afcf503a3959d3f21cd4fc8dedf0d79729"
+  },
+  "previousRootProvenance": {
+    "commit": "938ea1f78d305d86c163f9e4e84033236916e897",
+    "path": "candidates/tile-authoring/ui/c2-read-pairing/vendor/root-coordinator/panel.js",
+    "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4",
+    "equivalentReviewedRootCommit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+    "status": "Additive equivalence receipt; historical938e files and proof unchanged"
+  }
+}

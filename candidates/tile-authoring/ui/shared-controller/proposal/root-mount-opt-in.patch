@@ -1,0 +1,24 @@
+diff --git a/apps/editor/tile-authoring/ui/panel.js b/apps/editor/tile-authoring/ui/panel.js
+index 5e061e9..5a3a8df 100644
+--- a/apps/editor/tile-authoring/ui/panel.js
++++ b/apps/editor/tile-authoring/ui/panel.js
+@@ -138,9 +138,10 @@ export function attachTileAuthoringOverlayCoordinator(binding,options){
+ }
+ 
+ let mountedCount = 0;
+-export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangleSpec,onError=()=>{}}={}) {
++export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangleSpec,onError=()=>{},attachCoordinator=null}={}) {
+   const doc=container?.ownerDocument;
+   if(!doc||typeof container.append!=='function'||typeof rectangleSpec!=='function'||!ownFunction(binding,'allocateIds')) throw issue('UI_MOUNT_BINDING_REQUIRED','Supply a DOM container, explicit ID port and mapping to the reviewed public rectangle constructor spec.');
++  if(attachCoordinator!==null&&typeof attachCoordinator!=='function')throw issue('UI_ATTACHMENT_FACTORY_REQUIRED','Supply an explicit borrowed coordinator attachment factory.');
+   const commands=createTileAuthoringCommands({tiles,authoring}),events=new doc.defaultView.AbortController(),id='tile-authoring-'+(++mountedCount);
+   const make=(tag,text,cls)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+   const listen=(node,type,fn)=>node.addEventListener(type,fn,{signal:events.signal});
+@@ -267,6 +268,6 @@ export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangl
+   }
+   for(const node of [definitionSelect,presetSelect,ownerSelect])listen(node,'change',selectionText);
+   listen(root,'keydown',event=>{if(event.repeat&&['Enter',' '].includes(event.key)&&event.target.closest?.('button,form'))event.preventDefault();});
+-  try{controller=createTileAuthoringUIController(binding,{onView:render,onPending:updateGates,onError:showError});updateGates();}catch(reason){events.abort();root.remove();throw reason;}
++  try{controller=(attachCoordinator??createTileAuthoringUIController)(binding,{onView:render,onPending:updateGates,onError:showError});updateGates();}catch(reason){events.abort();root.remove();throw reason;}
+   return Object.freeze({element:root,refresh:()=>controller.refresh(),dispose(){const errors=[];for(const cleanup of [()=>controller.dispose(),()=>events.abort(),()=>root.remove()])try{cleanup();}catch(reason){errors.push(reason);}return errors;}});
+ }
