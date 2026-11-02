@@ -1,0 +1,86 @@
+{
+  "status": "PROPOSED FILE-BYTE DELTAS ONLY; no packages built/packed/installed",
+  "basis": {
+    "canonicalArtworkBytes": 121046,
+    "defaultPinsBytes": 55356,
+    "proposalPureModuleBytes": 213319,
+    "artworkTypesBytes": 1711,
+    "indexTypesBytes": 884,
+    "coreCanonicalTypeBytes": 15887,
+    "indexRuntimeDeltaBytes": 103,
+    "baselineIndexBytes": 490,
+    "baselineCatalogueBytes": 180321,
+    "projectedCatalogueBytes": 211872,
+    "catalogueDeltaBytes": 31551,
+    "baselineRows": 407,
+    "proposedRows": 437,
+    "pngBytes": 2560200,
+    "noticeAndCompanionBytes": 48134,
+    "binaryCarryingBundleBytes": 2608334,
+    "guideBytes": 5747
+  },
+  "profiles": [
+    {
+      "profile": "core",
+      "package": "@nautilus-engine/core",
+      "metadataEntry": "@nautilus-engine/core/assets",
+      "metadataDeltaBytes": 253315,
+      "binaryBundleDeltaBytes": 0,
+      "proposedKnownDeltaBytes": 253315,
+      "artworkPNGs": 0,
+      "declarationClosure": "New assets/index.d.ts and artwork.d.ts;canonical Core index.d.ts already present",
+      "exportsDelta": "none",
+      "pngURLPolicy": "No Core delivery locator;no self-relative PNG URL.Explicit foreign-package locators only."
+    },
+    {
+      "profile": "renderer",
+      "package": "@nautilus-engine/renderer",
+      "metadataEntry": "@nautilus-engine/renderer/assets",
+      "metadataDeltaBytes": 450013,
+      "binaryBundleDeltaBytes": 2608334,
+      "proposedKnownDeltaBytes": 3058347,
+      "artworkPNGs": 2,
+      "declarationClosure": "Two new asset declaration sidecars+existing flat Core index.d.ts(type-only)",
+      "exportsDelta": "Add ./assets alias to the same existing assets/index.js;do not export files.js building URL helpers",
+      "baselineNote": "Index/catalogue not reached by current renderer assets facade;estimate includes the entire437-row generated catalogue rather than only the30-row delta."
+    },
+    {
+      "profile": "assets",
+      "package": "@nautilus-engine/building-assets",
+      "metadataEntry": "@nautilus-engine/building-assets/catalogue",
+      "metadataDeltaBytes": 269202,
+      "binaryBundleDeltaBytes": 2608334,
+      "proposedKnownDeltaBytes": 2877536,
+      "artworkPNGs": 2,
+      "declarationClosure": "Two new asset declaration sidecars+existing flat Core index.d.ts(type-only)",
+      "exportsDelta": "none;existing ./catalogue index;default building API/48 original models unchanged",
+      "binarySelection": "Explicit six artwork payload files in addition to existing assets/buildings walk;do not broaden all assets."
+    },
+    {
+      "profile": "compatibility",
+      "package": "@nautilus-engine/map-core",
+      "metadataEntry": "@nautilus-engine/map-core/assets",
+      "metadataDeltaBytes": 253315,
+      "binaryBundleDeltaBytes": 2608334,
+      "proposedKnownDeltaBytes": 2861649,
+      "artworkPNGs": 2,
+      "declarationClosure": "Two new asset sidecars;canonical Core index.d.ts already present",
+      "exportsDelta": "none;direct source npm files whitelist also gets the same explicit module/types/payloads/guide"
+    }
+  ],
+  "qualifications": [
+    "Includes proposal-text JS/type bytes and guide,not measured tarball/gzip/memory size.Implementation headers may change final counts.",
+    "Generated package-provenance/manifests and small Root-owned NOTICE/handoff/build integration text changes are additional/TBD.",
+    "Renderer metadata estimate includes new index+full catalogue graph;actual module closure must be confirmed at authorized package gate.",
+    "No decoder/Pako/compositor/Host code,PNG decoding,GPU allocation or game rollout included.",
+    "Core carries no binary artwork payload path and no invalid Core-relative PNG URL."
+  ],
+  "proposedBinaryPaths": [
+    "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+    "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+    "assets/artwork/local-graphics-v1/PROVENANCE.md",
+    "assets/artwork/local-graphics-v1/resources.json",
+    "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+    "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg"
+  ]
+}

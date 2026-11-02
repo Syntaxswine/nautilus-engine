@@ -1,0 +1,12 @@
+// PROPOSAL:packages/assets/artwork.d.ts. Type-only canonical dependency.
+import type {Pin,Artwork,Graphic,ResourceRef,ImageBlob,ImageView} from '../tile-authoring-core/index.js';
+export interface SharedArtworkLocation {readonly profile:'renderer'|'assets'|'compatibility';readonly package:string;readonly anchorSpecifier:string;readonly anchorFile:'packages/assets/index.js';readonly packagePath:string;readonly relativeToAnchor:string;}
+export interface SharedArtworkImageDelivery {readonly artwork:Pin;readonly resourceRef:ResourceRef;readonly blob:ImageBlob;readonly imageView:ImageView;readonly locations:readonly SharedArtworkLocation[];readonly artist:{readonly manifest:{id:string;version:number;digest:string};readonly artwork:{id:string;version:number;digest:string};readonly resource:{id:string;version:number;sha256:string};readonly frameId:string};readonly readiness:'not-assessed';}
+export interface SharedArtworkDiscoveryRow {id:string;name:string;category:'Artwork';dimensions:{width:number;depth:number;metresPerUnit:1};source:{project:'nautilus';commit:string;catalogue:'shared-artwork';artistCommit:string;originalArtistCommit:string};availability:'content-binding-required';package:'@nautilus-engine/core';entry:'./assets';lookup:'sharedArtwork';artworkPin:Pin;note:string;}
+export function listSharedArtwork():Artwork[];
+export function sharedArtwork(pin:Pin):Artwork;
+export function sharedArtworkDefaults(pin:Pin):Graphic;
+export function sharedArtworkImage(pin:Pin):SharedArtworkImageDelivery;
+// Tools-only module exports; not public ./assets index exports.
+export function sharedArtworkDiscoveryRows():SharedArtworkDiscoveryRow[];
+export function sharedArtworkPayloadPaths():string[];

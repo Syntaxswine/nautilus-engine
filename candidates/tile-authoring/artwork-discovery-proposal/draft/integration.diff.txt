@@ -1,0 +1,87 @@
+PROPOSAL TEXT ONLY. Apply none of these edits in this planning pass.
+Fixed inspection baseline:8184f06aa587542b026352a739f3766d1794c4fe.
+
+1. NEW packages/assets/artwork.js (ONE pure runtime module)
+   Use artwork-module.proposal.js.txt with exactly the reviewed30 records/defaults,
+   two PNG locator descriptors and30 discovery rows. No runtime import from
+   candidates/,artifacts/,a worker checkout,Core executor,DOM,renderer or storage.
+   Historical candidate source paths inside immutable notices/provenance are DATA,
+   not runtime imports. Keep original blob hashes and every canonical content pin.
+
+2. packages/assets/index.js (Root-owned existing public index)
+   Retain existing SHARED_ASSET_CONTRACT,listSharedAssets,sharedAsset unchanged.
+   Append:
+   export {listSharedArtwork,sharedArtwork,sharedArtworkDefaults,sharedArtworkImage} from './artwork.js';
+   Do NOT publicly re-export the tools-only discovery/payload-path helpers.
+
+3. NEW type sidecars (no conditional export rewrite)
+   packages/assets/artwork.d.ts <- artwork-types.proposal.d.ts.txt
+   packages/assets/index.d.ts <- assets-index-types.proposal.d.ts.txt
+   Types import canonical Pin/Artwork/Graphic/ResourceRef/ImageBlob/ImageView from
+   ../tile-authoring-core/index.js. Ship its EXISTING flat index.d.ts in renderer
+   and assets profiles as a TYPE-ONLY dependency. No authoring executor JS/schema
+   is pulled into those profiles merely to support declaration resolution.
+
+4. tools/shared-assets.mjs (Root-owned generator)
+   Import sharedArtworkDiscoveryRows from '../packages/assets/artwork.js'.
+   Inside sharedAssetCatalogueSource(),after existing reviewed rows and before
+   return serialization:assets.push(...sharedArtworkDiscoveryRows()).
+   Existing generated header/serialization remain identical.
+   Regenerate packages/assets/catalogue.js through this generator only at the
+   authorized implementation gate.407 existing rows remain exact;append30 to437.
+   No ad-hoc runtime concatenation in listSharedAssets and no hand-edit-only row.
+
+5. tools/distribution.mjs (Root-owned profile assembly)
+   Import sharedArtworkPayloadPaths from '../packages/assets/artwork.js'.
+   renderer branch:after its current filter,add
+   exports['./assets']=source.exports['./assets'];
+   This exposes the same pure index,not files.js/building URL helpers and not an
+   alternate renderer-specific record set.
+   core/compatibility already export ./assets; assets already exports ./catalogue.
+   Preserve package names,existing exports and assets-profile building helpers.
+
+   For renderer/assets/compatibility ONLY:
+   extras.push(...sharedArtworkPayloadPaths());
+   Those are the six explicit original payload paths in payload-manifest.json.
+   Do not broaden walk(root/assets) or rely on a source-checkout fallback.
+   Core gets ZERO such paths;no self-relative Core PNG URLs are exported.
+
+   All profiles:explicitly include packages/assets/index.d.ts,
+   packages/assets/artwork.d.ts and docs/shared-artwork.md.
+   Renderer/assets:add existing packages/tile-authoring-core/index.d.ts for the
+   type-only closure;Core/compatibility already include it.
+   Runtime moduleClosure picks up artwork.js via the index in all four profiles;
+   generated catalogue.js includes437 rows. Keep profile file/provenance bytehashes.
+
+6. package.json (Root-owned direct compatibility npm whitelist)
+   Keep './assets':'./packages/assets/index.js' as-is.
+   Add artwork.js,its two type sidecars,the six payload-manifest paths and
+   docs/shared-artwork.md to files. No new Core PNG export or implicit latest alias.
+   No version or consumer pin change is part of this draft.
+
+7. tools/build.mjs (Root-owned standalone workshop delivery)
+   Existing recursive packages copy carries the pure module/declarations;existing
+   docs copy carries docs/shared-artwork.md. Existing assets copy handles only
+   assets/buildings,so explicitly copy the six sharedArtworkPayloadPaths to the
+   same paths under dist. Use a finite explicit list;record hashes in existing
+   build provenance. Do not copy all candidates/artifacts or a private worktree.
+
+8. Asset publication (Root-approved scope,Artist-supplied immutable sources)
+   Copy the six original payload files from full57/f5 Git objects to
+   assets/artwork/local-graphics-v1/ with identical bytes. No image generation,
+   raster edit,re-encoding,manifest rewrite or changed notice. Source/version/
+   notice import hashes remain separate from the new engine delivery locations.
+
+9. docs/shared-artwork.md <- guide.proposal.md (after acceptance)
+   Add its usage-card link to docs/asset-handoffs.md and a provenance reference in
+   root NOTICE.md as Root reviews. Do not rewrite the original artwork notice.
+
+10. FUTURE validation only;none run now
+   Exact record/default/resource-pin/deep-clone/unknown-pin/alias controls;
+   listSharedAssets437 IDs with407 untouched,30 Artwork,61 Buildings/48 original;
+   generator round-trip;all4 ACTUAL offline-installed package profiles and types;
+   no PNGs/URL fallback in Core;actual two PNG hashes and all six payload files in
+   binary-carrying profiles;location anchors resolve from the real package rather
+   than a checkout;provenance/notices match;pure import graph has no private/DOM/
+   renderer/executor dependency. Actual decoder/resource/compositor and480 mixed
+   acceptance remain separate C2 proof,not satisfied by metadata/package checks.

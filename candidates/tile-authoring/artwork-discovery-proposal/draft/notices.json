@@ -1,0 +1,13 @@
+[
+  {
+    "id": "notice.artist-provenance",
+    "licenseRef": "LicenseRef-Nautilus-Original-Contract-Samples",
+    "attribution": "Original Nautilus contract samples. Full immutable Artist provenance follows.",
+    "noticeText": "# Artwork provenance\n\nThese are original Nautilus contract samples. They are not public registered\nresources or evidence that a game supports decoration. No donor worktree,\nstock image, external font or third-party graphic was imported.\n\n`resources/organic-marks-v1.png` is the exact RGBA output of the built-in\nimagegen tool, generation `exec-69d95695-e9d6-41fe-92fe-c4dd4c6b1582`. The full\nfinal prompt is `prompts/organic-marks-v1.txt`. It requested true transparency\nand a painterly six-frame albedo atlas. The original output was copied to this\nproject without pixel edits. The generated alpha is preserved, including low\nvalues of 1–2/255 in the outer 16 px gutter. The proposed manifest explicitly\ndeclares `zeroAtOrBelow8:2`; an eventual sampling kernel must apply that policy\nbefore premultiplication, or refuse this resource profile. No hidden alpha\ncleanup or reinterpretation of stored bytes is permitted. This is generated\nartwork made for the user's Nautilus asset work; no claim of a third-party\nlicense or exclusive copyright is inferred.\n\n`resources/road-marks-v1.svg` is original vector source authored by this task.\nDigits are path outlines/strokes, with no font dependency. Arrows, lines and\nsymbols use original path geometry. `tools/art-tile-authoring-samples.mjs\n--masters` reproduces the master exactly and refuses a changed version-1 file.\n`resources/road-marks-v1.png` is the browser Canvas RGBA PNG export of that\nmaster. It has no external image/font references and no pixel postprocessing.\n`export-review.json` records the source/output hashes and browser version.\n\nResource, prompt and master hashes are recorded in `resources.json` and the\nreview manifest. Portable packs must include the actual PNG bytes, this notice\nand referenced metadata; the SVG/prompt are useful retained authoring sources.\nNothing depends on the machine's imagegen output directory. The initial custom\nimage proposal is bounded PNG/WebP RGBA; the SVG is an authoring companion,\nnot an extra implicitly supported runtime image format.\n",
+    "source": {
+      "repository": "https://github.com/Syntaxswine/nautilus-engine",
+      "commit": "f5bfda9ec0f639018ccfee2415b1f70502e77cae",
+      "path": "candidates/tile-authoring/art/PROVENANCE.md"
+    }
+  }
+]
