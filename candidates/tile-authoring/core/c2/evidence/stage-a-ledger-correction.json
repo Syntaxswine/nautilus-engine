@@ -1,0 +1,58 @@
+{
+  "checkpoint": "private Stage A ledger consistency correction",
+  "parent": "f32f02a57d445b393b9fc96a8d757f1947a6f46a",
+  "architectStatus": "returned parent; correction pending independent recheck",
+  "stageB": "No Stage B code; partials remain local-only on separate WIP branch dd870e1dea574a710fcfd00ce6d5baae5b8f3f62",
+  "corrections": [
+    "Ordered allocation/material identity, quantity, state and retirement continuity",
+    "Accepted-source mark residency preservation across all surviving views",
+    "Complete known-blob RGBA8 bounds for every physical artwork copy, independent of decoded-observation IDs",
+    "Retired-row pruning only after explicit positive verified retirement; no identity resurrection"
+  ],
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1137,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    }
+  ],
+  "focusedControls": {
+    "total": 38,
+    "original": 26,
+    "additional": 12,
+    "exactArchitectWitnesses": 4,
+    "passed": 38
+  },
+  "provenance": {
+    "bytePreservedArchitectWitnesses": true,
+    "originalFailedFourthPagePositivePreserved": true,
+    "acceptedDependenciesUnchanged": 83,
+    "normalDistributionsShipCandidate": false,
+    "persistedC0AndEphemeralCaptureSchemasChanged": false,
+    "capsRaised": false
+  },
+  "abiManifestSha256": "f819d85c7f2f1f1111754e1f91f1dba40f3026ef6af726f809fc677e6497af70",
+  "abiManifestDelta": "README documentation only; schema/types/decisions/vectors unchanged from parent",
+  "limits": "Pure DATA consistency controls only; no native/decoder/renderer/Host/WAL/Apply/480 integration acceptance.",
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "foregroundChecksCompleted": true
+  }
+}

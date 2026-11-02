@@ -112,14 +112,14 @@ test('source same-count physical ABA, foreign allocation owners and forgotten ch
 });
 test('four actual sampled allocations fit; a fifth physical copy refuses even with identical page bytes',()=>{
  const c=preparedCapture(paintPlan),l=c.ledgerTrace[0].ledger,sha=paintPlan.resourceRequirements.decodeNeeds[0].blobSha256;
- l.allocations.push(allocation('fixture.duplicate.copy','artwork-image','decoded-additional',1024,paintPlan.original.requestId,{blobSha256:sha}));refresh(c);const good=bind(painted,paintPlan,c);assert.equal(good.ok,true,JSON.stringify(good));assert.equal(good.costBounds.atlasPagesAllViews,4);
- l.allocations.push(allocation('fixture.fifth.copy','artwork-image','decoded-additional',1024,paintPlan.original.requestId,{blobSha256:sha}));refresh(c);reject(bind(painted,paintPlan,c),'SCHEMA_RANGE');
+ l.allocations.push(allocation('fixture.duplicate.copy','artwork-image','decoded-additional',6291456,paintPlan.original.requestId,{blobSha256:sha}));refresh(c);const good=bind(painted,paintPlan,c);assert.equal(good.ok,true,JSON.stringify(good));assert.equal(good.costBounds.atlasPagesAllViews,4);
+ l.allocations.push(allocation('fixture.fifth.copy','artwork-image','decoded-additional',6291456,paintPlan.original.requestId,{blobSha256:sha}));refresh(c);reject(bind(painted,paintPlan,c),'SCHEMA_RANGE');
 });
 test('all transient CPU/GPU/upload/scratch copies and cached materials count at peaks',()=>{
  const c=preparedCapture(paintPlan),l=c.ledgerTrace[0].ledger;
  l.allocations.push(allocation('fixture.scratch','decoder-scratch','decoded-additional',24000000,paintPlan.original.requestId,{sampledAtlas:false}));ledger(l);
  const final=cp(l);final.sequence++;const a=final.allocations.at(-1);a.state='retired-verified';a.retirementReceiptDigest=token('DTO verified scratch retirement');a.referenceIds=[];ledger(final);
- c.ledgerTrace.push({eventId:'fixture.admit.final',action:'admit',ownerRequestId:paintPlan.original.requestId,ledger:final});c.ledgerTrace[0].action='acquire';c.admittedGeometry=cp(final.geometry);c.peakTotals=cp(l.totals);Object.assign(c.costBounds,final.totals);reject(bind(painted,paintPlan,c));
+ c.ledgerTrace.push({eventId:'fixture.retire.scratch',action:'retire-verified',ownerRequestId:paintPlan.original.requestId,ledger:final});const admitted=cp(final);admitted.sequence++;c.ledgerTrace.push({eventId:'fixture.admit.final',action:'admit',ownerRequestId:paintPlan.original.requestId,ledger:admitted});c.ledgerTrace[0].action='acquire';c.admittedGeometry=cp(final.geometry);c.peakTotals=cp(l.totals);Object.assign(c.costBounds,final.totals);reject(bind(painted,paintPlan,c));
  const q=preparedCapture(paintPlan);for(let i=0;i<64;i++)q.ledgerTrace[0].ledger.materials.push({materialId:'fixture.cache.'+i,state:'cache-idle',ownerRequestId:paintPlan.original.requestId,referenceIds:[],retirementReceiptDigest:null});refresh(q);reject(bind(painted,paintPlan,q));
 });
 test('exact finite authored-grid masks and repeat detail survive; wrong grid, overlapping spans and 4097 cells refuse',()=>{

@@ -1,5 +1,6 @@
 import {fail,hash,equal,captureShape} from './data.js';
 import {CAPS,PROFILES} from './contract.js';
+import {lifetimeTracker,validateLifetimes} from './ledger-transitions.js';
 export const live=x=>x.state!=='retired-verified';
 export const allocationKey=a=>[a.contextId,a.contextEpoch,a.allocationId].join('|');
 const requireData=(value,code,path,message)=>{if(!value)fail(code,path,message);};
@@ -44,6 +45,23 @@ export function validateLedger(t,l,b){
  for(const [k,cap]of Object.entries(CAPS))requireData(Number.isSafeInteger(totals[k])&&totals[k]<=cap,'BUDGET_EXHAUSTED','/ledger/totals/'+k,'Fixed shared allocation cap exhausted.');
  return l;
 }
+export function knownArtworkBlobs(t,documents,b){
+ const blobs=new Map();
+ for(const d of documents)for(const r of d.authoring.library.artwork){
+  b.take();const blob=r.body.blob,prior=blobs.get(blob.sha256);
+  if(prior&&!equal(t,prior,blob,b))fail('BLOB_DESCRIPTOR_CONFLICT','/ledger','Every physical copy must bind one complete immutable source/target blob descriptor.');
+  blobs.set(blob.sha256,blob);
+ }
+ return blobs;
+}
+export function validateArtworkAllocations(l,blobs,b){
+ for(const row of l.allocations){
+  b.take();if(row.purpose!=='artwork-image')continue;
+  const blob=row.blobSha256===null?null:blobs.get(row.blobSha256);
+  requireData(blob,'ARTWORK_BLOB_UNBOUND','/ledger/allocations','Every physical artwork image, including extra/source-only/cached copies, needs verified complete blob metadata. Unknown quantities cannot become zero.');
+  requireData(row.chargedBytes>=blob.widthPx*blob.heightPx*4,'RGBA8_ALLOCATION_BOUND','/ledger/allocations','Every full RGBA8 image copy keeps its complete byte lower bound, independently of decoder-observation references.');
+ }
+}
 export function validateSourceCapture(t,before,context,s,original,b){
  captureShape(t,'SourceCapture',s,b);requireData(equal(t,s.profiles,PROFILES,b),'C2_HOST_PROFILE_UNBOUND','/appearanceSource/profiles','Pair the explicit C2 profiles; profile strings on an old Host are insufficient.');
  requireData(equal(t,s.original,original,b),'ORIGINAL_BINDING','/appearanceSource/original','Retain the original ID, digest, Expected and Host request.');
@@ -51,7 +69,7 @@ export function validateSourceCapture(t,before,context,s,original,b){
  for(const k of ['hostAuthorityToken','authorityContextToken','presentationProfileDigest'])requireData(s.authority[k]===context[k],'STALE_CONTEXT','/appearanceSource/authority/'+k,'One actual source authority/context is required.');
  requireData(s.authority.hostAuthorityToken===original.expected.hostAuthorityToken&&s.authority.authorityContextToken===original.expected.authorityContextToken,'ORIGINAL_BINDING','/appearanceSource/authority','Source Expected stays fixed throughout preparation.');
  requireData(before.floorBinding.floors.some(f=>f.id===s.authority.floorId),'FLOOR_BINDING','/appearanceSource/authority/floorId','Capture an actual source floor.');
- validateLedger(t,s.ledger,b);
+ validateLedger(t,s.ledger,b);validateArtworkAllocations(s.ledger,knownArtworkBlobs(t,[before],b),b);
  for(const chunk of before.authoring.decorations.chunks)for(const m of chunk.marks)requireData(s.ledger.residency.some(row=>row.ownerId===m.target.ownerId&&row.markIds.includes(m.id)&&s.ledger.geometry.views.some(v=>v.viewId===row.viewId&&v.role==='accepted'&&live(v))),'SOURCE_RESIDENCY_UNBOUND','/appearanceSource/ledger','Every accepted source mark, including hidden/zero-alpha marks, must remain resident and charged.');
  requireData(equal(t,context.allocations,s.ledger.totals,b)&&context.allocationLedgerDigest===hash(t,s.ledger,b)&&context.resourceLeaseSetDigest===s.resourceLeaseSetDigest,'SOURCE_LEDGER_BINDING','/appearanceSource/ledger','Context binds the exact actual source ledger and lease set.');
  return s;
@@ -66,6 +84,13 @@ function preserveSource(t,source,now,candidate,requestId,sharing,b){
  for(const v of now.geometry.views)if(!sourceViews.has(v.viewId)){
   requireData(candidate&&v.viewId===candidate.viewId&&v.ownerRequestId===requestId&&v.role==='candidate'&&v.geometryLeaseId===candidate.geometryLeaseId&&v.geometryEpoch===candidate.geometryEpoch&&v.bundleDigest===candidate.bundleDigest&&v.geometrySourceDigest===candidate.geometrySourceDigest&&v.roots===1,'OWNED_CANDIDATE_GEOMETRY','/ledger/geometry','Only one exact request-owned candidate is allowed.');
  }
+ // Accepted/retiring source views are immutable through appearance preparation.
+ // Their real resident mark copies survive even when hidden or zero alpha.
+ for(const old of source.residency){
+  const row=now.residency.find(x=>x.viewId===old.viewId&&x.ownerId===old.ownerId);
+  requireData(row&&equal(t,row,old,b),'SOURCE_RESIDENCY_CHANGED','/ledger/residency','Retain every actual source-view mark record until that view has positively verified retirement.');
+ }
+ for(const row of now.residency)if(sourceViews.has(row.viewId))requireData(source.residency.some(x=>equal(t,x,row,b)),'SOURCE_RESIDENCY_CHANGED','/ledger/residency','Do not restamp or relabel residency on an unchanged accepted native view.');
  for(const old of source.allocations){
   const row=now.allocations.find(x=>allocationKey(x)===allocationKey(old));
   requireData(row&&equal(t,without(old,['referenceIds']),without(row,['referenceIds']),b)&&old.referenceIds.every(x=>row.referenceIds.includes(x)),'FOREIGN_ALLOCATION_TRANSITION','/ledger/allocations','Preserve every source physical allocation, epoch, charge and debt.');
@@ -96,11 +121,11 @@ export function validatePreparedCapture(t,before,p,c,b){
  for(let i=0;i<encoded.length;i++)requireData(c.encodedAvailability[i].blobDescriptorDigest===hash(t,encoded[i].blob,b),'ENCODED_RESOURCE_UNBOUND','/appearanceCapture','Encoded verification binds full blob descriptor.');
  requireData(equal(t,c.decodedObservations.map(x=>x.blobSha256),decoded.map(x=>x.blobSha256),b),'DECODE_NEEDS','/appearanceCapture','Only actual required decode observations belong here.');
  requireData(c.ledgerTrace.length>0&&c.ledgerTrace.at(-1).action==='admit','PREPARATION_REQUIRED','/appearanceCapture','Actual owned admission is the final trace step.');
+ const blobs=knownArtworkBlobs(t,[before,p.targetDocument],b),tracker=lifetimeTracker(s.ledger);
  let previous=s.ledger;const peak={...previous.totals},events=new Set();
  for(const step of c.ledgerTrace){
   requireData(!events.has(step.eventId)&&step.ownerRequestId===req&&step.ledger.sequence===previous.sequence+1&&step.ledger.scopeDigest===s.ledger.scopeDigest&&step.ledger.preservedObjectsDigest===s.ledger.preservedObjectsDigest,'FOREIGN_ALLOCATION_TRANSITION','/appearanceCapture/ledgerTrace','Own each exact monotonic event; foreign epochs, reentry and same-count ABA refuse.');events.add(step.eventId);
-  validateLedger(t,step.ledger,b);preserveSource(t,s.ledger,step.ledger,candidate,req,c.sampledSharing,b);
-  for(const old of previous.allocations)requireData(step.ledger.allocations.some(a=>allocationKey(a)===allocationKey(old)),'UNVERIFIED_ALLOCATION_LOSS','/ledgerTrace','Every transient copy stays in the trace until positive retirement.');
+  validateLedger(t,step.ledger,b);validateArtworkAllocations(step.ledger,blobs,b);validateLifetimes(t,previous,step,b,tracker);preserveSource(t,s.ledger,step.ledger,candidate,req,c.sampledSharing,b);
   for(const a of step.ledger.allocations)if(!s.ledger.allocations.some(x=>allocationKey(x)===allocationKey(a)))requireData(a.ownerRequestId===req&&a.charge!=='baseline-visible','FOREIGN_ALLOCATION_TRANSITION','/ledgerTrace','New physical allocations belong to this request and consume additional charges.');
   for(const m of step.ledger.materials)if(!s.ledger.materials.some(x=>x.materialId===m.materialId))requireData(m.ownerRequestId===req,'FOREIGN_MATERIAL_TRANSITION','/ledgerTrace','New material/cache rows belong to the actual request.');
   for(const k of Object.keys(peak))peak[k]=Math.max(peak[k],step.ledger.totals[k]);
@@ -117,7 +142,7 @@ export function validatePreparedCapture(t,before,p,c,b){
  for(const x of c.decodedObservations){
   const need=encoded.find(e=>e.blob.sha256===x.blobSha256);
   requireData(x.resourceContextEpoch===s.authority.resourceContextEpoch&&x.imageInterpretationDigest===hash(t,{blob:need.blob,decoderProfile:x.decoderProfile},b)&&x.allocationIds.length>0,'DECODE_OBSERVATION','/appearanceCapture','Bind actual full-page interpretation and current resource epoch.');
-  for(const id of x.allocationIds)requireData(previous.allocations.some(a=>a.allocationId===id&&live(a)&&a.blobSha256===x.blobSha256&&a.purpose==='artwork-image'&&a.chargedBytes>=need.blob.widthPx*need.blob.heightPx*4),'DECODE_ALLOCATION','/appearanceCapture','Actual decoded/texture physical copies remain charged.');
+  for(const id of x.allocationIds)requireData(previous.allocations.some(a=>a.allocationId===id&&a.state==='live'&&a.blobSha256===x.blobSha256&&a.purpose==='artwork-image'&&a.chargedBytes>=need.blob.widthPx*need.blob.heightPx*4),'DECODE_ALLOCATION','/appearanceCapture','Actual decoded/texture physical copies remain charged.');
   requireData(x.allocationIds.some(id=>previous.allocations.some(a=>a.allocationId===id&&a.sampledAtlas&&a.storage==='gpu')),'DECODE_TEXTURE_REQUIRED','/appearanceCapture','Actual sampled image allocation is required; a pixel digest alone is insufficient.');
  }
  return previous;

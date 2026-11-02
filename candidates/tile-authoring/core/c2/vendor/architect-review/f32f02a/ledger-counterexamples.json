@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "fixed": "f32f02a57d445b393b9fc96a8d757f1947a6f46a",
+  "scope": "Independent data/consistency falsifiers using labelled synthetic committed captures; no renderer/Host/decoder proof",
+  "positiveBaselineAccepted": true,
+  "rows": [
+    {
+      "name": "owned-live-charge-shrink",
+      "accepted": true,
+      "diagnostics": null,
+      "costBounds": {
+        "sourceMarks": 1,
+        "maxLayersOnSurface": 1,
+        "newBlobBytes": 2560200,
+        "declaredDecodedAllocationBytes": 12582913,
+        "residentMarksAllViews": 1,
+        "rootsAllViews": 2,
+        "trianglesAllViews": 1860,
+        "cellsAllViews": 960,
+        "ownedAppearanceMaterialsAllViews": 2,
+        "contributorsPerBin": 1,
+        "binReferencesAllViews": 1,
+        "derivedBufferBytesAllViews": 0,
+        "atlasPagesAllViews": 3,
+        "boundKind": "proposal-only-not-performance-measurement",
+        "planning": {
+          "unitsCharged": 696011,
+          "inputBytes": 2185034,
+          "outputBytes": 702640,
+          "definitionVisits": 34,
+          "maskCellsEvaluated": 0,
+          "dependencyEdges": 12,
+          "resourceReferences": 60
+        }
+      },
+      "explanation": "An owned still-live scratch allocation falls1000000→1 byte with same physical identity and no retirement receipt. The row remains live and referenced.",
+      "file": "owned-live-charge-shrink.json",
+      "sha256": "b34de0357c1c4ff8824d4bb5bfa9546026dc0811b05f058b92e875d7131bd64c"
+    },
+    {
+      "name": "owned-material-disappears",
+      "accepted": true,
+      "diagnostics": null,
+      "costBounds": {
+        "sourceMarks": 1,
+        "maxLayersOnSurface": 1,
+        "newBlobBytes": 2560200,
+        "declaredDecodedAllocationBytes": 12582912,
+        "residentMarksAllViews": 1,
+        "rootsAllViews": 2,
+        "trianglesAllViews": 1860,
+        "cellsAllViews": 960,
+        "ownedAppearanceMaterialsAllViews": 2,
+        "contributorsPerBin": 1,
+        "binReferencesAllViews": 1,
+        "derivedBufferBytesAllViews": 0,
+        "atlasPagesAllViews": 3,
+        "boundKind": "proposal-only-not-performance-measurement",
+        "planning": {
+          "unitsCharged": 695839,
+          "inputBytes": 2184460,
+          "outputBytes": 702640,
+          "definitionVisits": 34,
+          "maskCellsEvaluated": 0,
+          "dependencyEdges": 12,
+          "resourceReferences": 60
+        }
+      },
+      "explanation": "A new request-owned cache-idle material vanishes between acquire/admit with no retained retired-verified row or positive receipt.",
+      "file": "owned-material-disappears.json",
+      "sha256": "867ebb6283647f6f64ac2de1a2e156077581aa7533f246e80e15f2274240eb04"
+    },
+    {
+      "name": "accepted-source-residency-disappears",
+      "accepted": true,
+      "diagnostics": null,
+      "costBounds": {
+        "sourceMarks": 1,
+        "maxLayersOnSurface": 1,
+        "newBlobBytes": 0,
+        "declaredDecodedAllocationBytes": 18874368,
+        "residentMarksAllViews": 1,
+        "rootsAllViews": 2,
+        "trianglesAllViews": 1860,
+        "cellsAllViews": 960,
+        "ownedAppearanceMaterialsAllViews": 2,
+        "contributorsPerBin": 1,
+        "binReferencesAllViews": 1,
+        "derivedBufferBytesAllViews": 0,
+        "atlasPagesAllViews": 4,
+        "boundKind": "proposal-only-not-performance-measurement",
+        "planning": {
+          "unitsCharged": 715322,
+          "inputBytes": 2260015,
+          "outputBytes": 702647,
+          "definitionVisits": 34,
+          "maskCellsEvaluated": 0,
+          "dependencyEdges": 12,
+          "resourceReferences": 60
+        }
+      },
+      "explanation": "The accepted source root/native IDs remain live and identical, but its existing mark residency vanishes; only the full candidate copy remains charged,1instead of2 resident mark records.",
+      "file": "accepted-source-residency-disappears.json",
+      "sha256": "da7defb9e8170ed71a3460f131a513463b68ff3a53cefb95ce70a3adf2b67111"
+    },
+    {
+      "name": "extra-sampled-page-under-rgba-bound",
+      "accepted": true,
+      "diagnostics": null,
+      "costBounds": {
+        "sourceMarks": 1,
+        "maxLayersOnSurface": 1,
+        "newBlobBytes": 2560200,
+        "declaredDecodedAllocationBytes": 12583936,
+        "residentMarksAllViews": 1,
+        "rootsAllViews": 2,
+        "trianglesAllViews": 1860,
+        "cellsAllViews": 960,
+        "ownedAppearanceMaterialsAllViews": 2,
+        "contributorsPerBin": 1,
+        "binReferencesAllViews": 1,
+        "derivedBufferBytesAllViews": 0,
+        "atlasPagesAllViews": 4,
+        "boundKind": "proposal-only-not-performance-measurement",
+        "planning": {
+          "unitsCharged": 694455,
+          "inputBytes": 2179507,
+          "outputBytes": 702640,
+          "definitionVisits": 34,
+          "maskCellsEvaluated": 0,
+          "dependencyEdges": 12,
+          "resourceReferences": 60
+        }
+      },
+      "explanation": "An extra sampled GPU artwork image tied to the full immutable1536×1024page is charged1024bytes instead of6291456, because it is not named by decodedObservations.allocationIds. Existing committed4-page positive test uses the same loophole.",
+      "file": "extra-sampled-page-under-rgba-bound.json",
+      "sha256": "021f82820080227dabc8cff97d2a71c7cbe81717a3d6a095e1b7783458184160"
+    }
+  ]
+}

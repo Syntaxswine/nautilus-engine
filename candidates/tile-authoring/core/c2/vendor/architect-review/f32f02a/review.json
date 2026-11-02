@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "fixed": "f32f02a57d445b393b9fc96a8d757f1947a6f46a",
+  "status": "must-fix-four-ledger-consistency-findings",
+  "scope": "Independent data/consistency falsifiers using labelled synthetic committed captures; no renderer/Host/decoder proof",
+  "findings": [
+    {
+      "id": "A1",
+      "file": "candidates/tile-authoring/core/c2/ledger.js",
+      "line": 103,
+      "relatedLines": [
+        61,
+        74
+      ],
+      "title": "owned-live-charge-shrink",
+      "acceptedInvalidCapture": true,
+      "evidence": "owned-live-charge-shrink.json",
+      "sha256": "b34de0357c1c4ff8824d4bb5bfa9546026dc0811b05f058b92e875d7131bd64c",
+      "explanation": "An owned still-live scratch allocation falls1000000→1 byte with same physical identity and no retirement receipt. The row remains live and referenced."
+    },
+    {
+      "id": "A2",
+      "file": "candidates/tile-authoring/core/c2/ledger.js",
+      "line": 103,
+      "relatedLines": [
+        74,
+        105
+      ],
+      "title": "owned-material-disappears",
+      "acceptedInvalidCapture": true,
+      "evidence": "owned-material-disappears.json",
+      "sha256": "867ebb6283647f6f64ac2de1a2e156077581aa7533f246e80e15f2274240eb04",
+      "explanation": "A new request-owned cache-idle material vanishes between acquire/admit with no retained retired-verified row or positive receipt."
+    },
+    {
+      "id": "A3",
+      "file": "candidates/tile-authoring/core/c2/ledger.js",
+      "line": 61,
+      "relatedLines": [
+        40,
+        115
+      ],
+      "title": "accepted-source-residency-disappears",
+      "acceptedInvalidCapture": true,
+      "evidence": "accepted-source-residency-disappears.json",
+      "sha256": "da7defb9e8170ed71a3460f131a513463b68ff3a53cefb95ce70a3adf2b67111",
+      "explanation": "The accepted source root/native IDs remain live and identical, but its existing mark residency vanishes; only the full candidate copy remains charged,1instead of2 resident mark records."
+    },
+    {
+      "id": "A4",
+      "file": "candidates/tile-authoring/core/c2/ledger.js",
+      "line": 120,
+      "relatedLines": [
+        117,
+        121
+      ],
+      "title": "extra-sampled-page-under-rgba-bound",
+      "acceptedInvalidCapture": true,
+      "evidence": "extra-sampled-page-under-rgba-bound.json",
+      "sha256": "021f82820080227dabc8cff97d2a71c7cbe81717a3d6a095e1b7783458184160",
+      "explanation": "An extra sampled GPU artwork image tied to the full immutable1536×1024page is charged1024bytes instead of6291456, because it is not named by decodedObservations.allocationIds. Existing committed4-page positive test uses the same loophole."
+    }
+  ],
+  "positiveBaselineAccepted": true,
+  "focused": {
+    "tests": 26,
+    "passed": 26,
+    "run": {
+      "purpose": "Exact fixed private StageA26 correctness controls; no browser/profile/pack",
+      "startedAt": "2026-11-02T15:58:16.026Z",
+      "finishedAt": "2026-11-02T15:58:51.382Z",
+      "process": {
+        "pid": 19888,
+        "executable": "C:\\Program Files\\nodejs\\node.exe"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "timeoutMs": 90000,
+      "ports": [],
+      "helpersRetained": 0
+    },
+    "outputSha256": "c4c2309f431b4dc7a77f7852df1528b98fb6ad691da7ea7aec239d96493abb0e"
+  },
+  "sourceAndProfiles": {
+    "fixed": "f32f02a57d445b393b9fc96a8d757f1947a6f46a",
+    "base": "8184f06aa587542b026352a739f3766d1794c4fe",
+    "changedOwnPaths": 37,
+    "privateRuntimeInventory": 13,
+    "unchangedAcceptedDependencies": 83,
+    "abiManifestSha256": "07b20b0c1916551027250a98a66e20a4a159e918ab8e06c2b68c240c959690cb",
+    "canonicalArtworkRecords": 30,
+    "pages": 2,
+    "allCanonicalRecordsPinsFramesNoticesExact": true,
+    "C0SchemaUnchanged": true,
+    "profiles": [
+      {
+        "profile": "core",
+        "fileCount": 303,
+        "filesSha256": "038a30ba47133c858af79dd5402943f3d1d8a08eff6965d85b21bfed2415e378",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "renderer",
+        "fileCount": 145,
+        "filesSha256": "46a80cc3a7c18b9c2d18c7f74cce96b48b4138a691dc2b3407ff9baff548aa04",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "assets",
+        "fileCount": 224,
+        "filesSha256": "65ad931a8520ef8b34ea4e4db9a98a182aef54de23ff5063a1a579f9df5b0149",
+        "exportsExact": true,
+        "candidateExcluded": true
+      },
+      {
+        "profile": "compatibility",
+        "fileCount": 366,
+        "filesSha256": "6642a6d034f12dfe8a7ba8eb1ec61c644c25de6762aadda189d15f8f9799a0f2",
+        "exportsExact": true,
+        "candidateExcluded": true
+      }
+    ],
+    "allStagedSourceStillExact": true,
+    "noRootOrWorkerTrackedEdits": true
+  },
+  "inputInventorySha256": "0714fc0409e687aefb371ab4b1b2fccd8324d2d72ff2cedcc5969641f04d075e",
+  "committedBadPositivePreserved": "source/tests/tile-authoring-core-c2-stage-a.test.mjs:115",
+  "noFurtherF32Probes": true,
+  "remainingAcceptance": "Focused correction of these transition/residency/full-page lower-bound classes; no Stage B or public adoption.",
+  "helpers": {
+    "foregroundProcessHandle": {
+      "pid": 19888,
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "exitCode": 0,
+    "signal": null,
+    "execSessionCompleted": 99737,
+    "backgroundHelpers": 0,
+    "browsers": 0,
+    "servers": 0,
+    "ports": [],
+    "retained": 0
+  },
+  "trackedFilesChanged": false
+}
