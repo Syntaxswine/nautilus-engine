@@ -1,0 +1,6 @@
+export function fail(code,message=code){const e=new TypeError(message);e.code=code;throw e;}
+export function need(v,code,message){if(!v)fail(code,message);}
+export function own(v,allowed,required=allowed){need(v&&[Object.prototype,null].includes(Object.getPrototypeOf(v)),'C2_HOST_DATA');const out={};for(const key of Reflect.ownKeys(v)){const d=Object.getOwnPropertyDescriptor(v,key);need(typeof key==='string'&&allowed.includes(key)&&d.enumerable&&Object.hasOwn(d,'value'),'C2_HOST_DATA');Object.defineProperty(out,key,{value:d.value,enumerable:true});}for(const key of required)need(Object.hasOwn(out,key),'C2_HOST_DATA');return out;}
+export function field(v,key){const d=Object.getOwnPropertyDescriptor(v??{},key);need(d&&d.enumerable&&Object.hasOwn(d,'value'),'C2_HOST_DATA');return d.value;}
+export function canonicalId(value){need(typeof value==='string'&&/^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\s\S])/.test(value),'C2_HOST_ORIGINAL_ID');return value;}
+export const expectedKeys=['workspaceRevision','workspaceDigest','hostDocumentDigest','hostAuthorityToken','authorityContextToken','contentDigest','decorationDigest','resourceSetDigest','floorProfileDigest','stackConstraintsDigest','tileLayoutDigest','tileCatalogueDigest'];

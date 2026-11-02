@@ -11,6 +11,7 @@ import {createTileAuthoringSessionProfile} from './root-profile.js';
 import {invokeRootProfileSource} from './root-profile-helpers.js';
 import {createOrdinaryCore} from './ordinary/index.js';
 import {createActualSessionJournal} from './journal.js';
+import {createPrivateC2HostComposition,hostCompositionSourceForKernel} from './host/host-composition.js';
 import {SMART_TILE_LIMITS} from './kernel/deps/apps/editor/smart-tile/contract.js';
 import {fail,freeze} from '../data.js';
 const actualKernels=new WeakMap();
@@ -32,7 +33,7 @@ export function kernelConstructionSourceForHost(kernel,input){
  });
 }
 export function createActualKernelSource(owner,{deps,initialDocument}){
- const access=sourceAccess(owner);if(access.current().a.source!==initialDocument)fail('C2_SOURCE_IDENTITY','/initialDocument','Begin on this exact original document before actual construction.');const source=createContinuedSource(owner,{tiles:deps.tiles}),checkpoints=new WeakMap(),encodings=new WeakMap(),documentFacts=new WeakMap(),documentEncodings=new WeakMap(),authorities=new WeakMap(),rawAuthorities=new WeakMap(),sessions=new WeakMap(),profiles=new WeakMap();let authorityCount=0;let bridge=null,binding=null;
+ const access=sourceAccess(owner);if(access.current().a.source!==initialDocument)fail('C2_SOURCE_IDENTITY','/initialDocument','Begin on this exact original document before actual construction.');const source=createContinuedSource(owner,{tiles:deps.tiles}),checkpoints=new WeakMap(),encodings=new WeakMap(),documentFacts=new WeakMap(),documentEncodings=new WeakMap(),authorities=new WeakMap(),rawAuthorities=new WeakMap(),sessions=new WeakMap(),profiles=new WeakMap();let authorityCount=0,compositionCount=0;let bridge=null,binding=null;
  const hooks=createKernelBackend(owner,source,{
   onComplete(call,value){
    if(['v3.open','v3.create','v3.stage','v3.settle','codec.open','codec.create','codec.stage','codec.settle'].includes(call.name)&&value?.kind==='nautilus-tile-authoring-editor-checkpoint'){
@@ -72,10 +73,14 @@ export function createActualKernelSource(owner,{deps,initialDocument}){
    if(options.contextKey!=='smart-tile-session-v3'||options.maxEntries!==SMART_TILE_LIMITS.historyEntries||options.maxBytes!==SMART_TILE_LIMITS.historyBytes||options.maxDocumentBytes!==SMART_TILE_LIMITS.checkpointBytes)fail('C2_JOURNAL_OPTIONS','/options','Use the unchanged original session history options.');
    const result=createActualSessionJournal(owner,api,v.checkpoint,options);record.sessionJournal=result;return result;
   },
+  constructHostComposition(input){access.current();const v=ownConfig(input,['authority','profile','bootstrap'],['authority','profile']);authorityRecord(v.authority);api.requireAuthoringProfile(v.profile);access.conservative('kernel',512,{hostNodeVisits:512});const handle=createPrivateC2HostComposition({owner,kernel:api,...v});compositionCount++;return handle;},
   async constructSession(input){
-   const v=ownConfig(input,['authority','profile','floorController','presentation','newId','providerToken','retireInput'],['authority','profile','floorController','presentation']),a=authorityRecord(v.authority),profile=profiles.get(v.profile);access.current();
-   if(!profile||!profile.actualC2Composition)fail('C2_SESSION_PROFILE_UNBOUND','/profile','The actual Root profile/Host/phase producer has not been paired. A frozen callback object is not an owned source profile.');
-   const result=await createSmartTileSession(deps,{...v,authority:a.actual,codec:binding.codec,profile:profile.value});access.current();sessions.set(result,{authority:a,profile,owner,kernel:api});return result;
+   const v=ownConfig(input,['authority','profile','composition','floorController','presentation','newId','providerToken','retireInput'],['authority','profile','floorController','presentation']),a=authorityRecord(v.authority),profile=profiles.get(v.profile);access.current();
+   if(!profile||!v.composition)fail('C2_SESSION_PROFILE_UNBOUND','/profile','Actual Root profile and literal Host composition required.');
+   const host=hostCompositionSourceForKernel(v.composition);if(!Object.isFrozen(host)||Reflect.ownKeys(host).length!==6||host.kernel!==api||host.owner!==owner||host.authority!==v.authority||host.profile!==v.profile)fail('C2_SESSION_COMPOSITION_UNBOUND','/composition','Exact same-Kernel/owner/authority/original-profile producer membership required.');
+   if(profile.actualC2Composition&&profile.actualC2Composition!==v.composition)fail('C2_SESSION_PROFILE_REBOUND','/profile','The original Root profile binds one actual Host composition.');
+   if(!profile.actualC2Composition){profile.value=Object.freeze({...profile.value,c2Host:host.c2Host,c2PhasePorts:host.c2PhasePorts});profile.actualC2Composition=v.composition;}
+   access.conservative('kernel',128,{hostNodeVisits:128});const result=await createSmartTileSession(deps,{...v,authority:a.actual,codec:binding.codec,profile:profile.value});access.current();sessions.set(result,{authority:a,profile,owner,kernel:api});return result;
   },
   requireSession(value){if(!sessions.has(value))fail('C2_SESSION_SOURCE_UNBOUND','/session','Use this actual source-constructed session.');return true;},
   documentFacts(document){const d=binding.domain.validateDocument(document),cached=documentFacts.get(d);if(cached){access.actual('kernel',1,{hostNodeVisits:1});return cached;}let encoded=documentEncodings.get(d);if(!encoded){const text=utilities.stringify(d);encoded=documentEncodings.get(d);if(!encoded)fail('C2_ENCODING_FACTS_UNBOUND','/document','Require the actual codec serializer.');}source.noteEncoded(d,encoded.text,encoded.encodedBytes);const text=encoded.text,fact=binding.codec.privateSourceFacts.read(d);if(!binding.codec.privateSourceFacts.verify(fact,text))fail('C2_HISTORY_FACTS_UNBOUND','/documentFacts','Actual source fact must verify exact actual serialized text.');documentFacts.set(d,fact);return fact;},
@@ -83,7 +88,7 @@ export function createActualKernelSource(owner,{deps,initialDocument}){
   requireCheckpoint(value){const r=checkpoints.get(value);if(!r||r.codec&&r.codec!==binding.codec)fail('C2_CHECKPOINT_UNBOUND','/checkpoint','Use an actual checkpoint produced by this fixed codec.');return true;},
   checkpointEncoding(value){const r=checkpoints.get(value),e=encodings.get(value);if(!r||!e)fail('C2_ENCODING_FACTS_UNBOUND','/checkpoint','Actual owned complete checkpoint serialization is required.');return freeze({text:e.text,entry:e.entry});},
   requireNative(){fail('C2_NATIVE_SOURCE_UNBOUND','/native','Actual paired Artist/Native/decoder source hook identity is unavailable.');},
-  state:()=>freeze({kind:'nautilus-private-actual-source-binding',version:1,kernelSourceCommit:'4ade3ea02084472b30d036e8a0561e473aa84f3f',rootSourceCommit:'648cad33c3e0e1f36b4313b1492b1a750492ece4',actualKernelHooks:'BOUND',continuedC2Source:'BOUND',oneOwner:true,authoritySource:authorityCount?'BOUND':'UNBOUND',hostAuthority:'UNBOUND',Artist:'UNBOUND',Native:'UNBOUND',Decoder:'UNBOUND',publicActivation:false}),
+  state:()=>freeze({kind:'nautilus-private-actual-source-binding',version:1,kernelSourceCommit:'4ade3ea02084472b30d036e8a0561e473aa84f3f',rootSourceCommit:'648cad33c3e0e1f36b4313b1492b1a750492ece4',actualKernelHooks:'BOUND',continuedC2Source:'BOUND',oneOwner:true,authoritySource:authorityCount?'BOUND':'UNBOUND',hostCompositionSource:compositionCount?'BOUND':'UNBOUND',hostAuthority:'UNBOUND',Artist:'UNBOUND',Native:'UNBOUND',Decoder:'UNBOUND',publicActivation:false}),
  });
  actualKernels.set(api,{owner,access,source,bridge,hooks,binding,utilities,documentFacts,documentEncodings,authorities,rawAuthorities,sessions,profiles,ordinary,authoringPort,ownConfig});return api;
 }

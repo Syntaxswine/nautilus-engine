@@ -279,7 +279,7 @@
       "sha256": "007d66fa8047e043a0544a7ce02ef8f4a49538616d305b4d273e5fe8a7db0a83",
       "gitBlob": "0044d321e07d6c05740812976691b7fb550184b8",
       "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/session.js",
-      "adapterSha256": "aaf84491edb1594cdf7c64621b95521835e57c179f2bbf55b5e442257eccade4",
+      "adapterSha256": "55cfdf74757302504c4d9e4c815929502ef877384be998618b10ac3abbf7b96a",
       "importRewrites": [
         {
           "from": "../../../../../../../../apps/editor/smart-tile/contract.js",
@@ -310,6 +310,32 @@
           "from": "../../../../../../../../apps/editor/smart-tile/views.js",
           "to": "../../../../deps/apps/editor/smart-tile/views.js",
           "sourceTarget": "apps/editor/smart-tile/views.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "source-private-owned-codec-v1-1",
+          "from": "    for(const key of ['prepare','restore'])if(typeof Object.getOwnPropertyDescriptor(c2Ports,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2PhasePorts/'+key,'Bind an actual phase owner.');\n    for(const key of ['assertPaired','requireCountedBootstrap','beginPrepare','captureRetainedIngress','originalRequestId','ownsConnection','cancelOwnedPreparation','checkAllowed','retirePreviousInput','captureSource','captureObligations','bindSourceOnce','sourceCurrent','nativeReadiness','bindActualManagerCandidate','prepareInput','requireOwnedPrepared','serializeBoundDocument','adoptActualTicket','createActualOperation','beforeActualWal','recordActualWal','phaseRefusal','retireBeforeStage','finishUnacquired','retainFailedPreparation','selectsRetainedCommand','enterActualApply','enterActualRecovery','validateActualCommit','acceptActualOutcome','refuseActualOutcome','retainActualUnknown','retireReviewThroughManager','retireSessionResourcesThroughSameManager','recoveryCanWrite','retainBootstrapRecovery','requireBootstrapEscrow','beginBootstrapRetry','finishBootstrapRetry','beginRestore','requireOwnedRestore','finishRestore','refuseRestore','restorePresentation'])if(typeof Object.getOwnPropertyDescriptor(c2Host,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2Host/'+key,'The actual private pairing is incomplete.');\n    c2Host.assertPaired({codec,phasePorts:c2Ports,profile});\n",
+          "to": "    for(const key of ['prepare','restore'])if(typeof Object.getOwnPropertyDescriptor(c2Ports,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2PhasePorts/'+key,'Bind an actual phase owner.');\n    for(const key of ['assertPaired','requireCountedBootstrap','constructActualJournal','adoptActualManager','bindActualTargetAcquisition','beginPrepare','captureRetainedIngress','originalRequestId','ownsConnection','cancelOwnedPreparation','checkAllowed','retirePreviousInput','captureSource','captureObligations','bindSourceOnce','sourceCurrent','nativeReadiness','bindActualManagerCandidate','prepareInput','requireOwnedPrepared','serializeBoundDocument','adoptActualTicket','createActualOperation','beforeActualWal','recordActualWal','phaseRefusal','retireBeforeStage','finishUnacquired','retainFailedPreparation','selectsRetainedCommand','enterActualApply','enterActualRecovery','validateActualCommit','acceptActualOutcome','refuseActualOutcome','retainActualUnknown','retireReviewThroughManager','retireSessionResourcesThroughSameManager','recoveryCanWrite','retainBootstrapRecovery','requireBootstrapEscrow','beginBootstrapRetry','finishBootstrapRetry','beginRestore','requireOwnedRestore','finishRestore','refuseRestore','restorePresentation'])if(typeof Object.getOwnPropertyDescriptor(c2Host,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2Host/'+key,'The actual private pairing is incomplete.');\n    c2Host.assertPaired({codec,phasePorts:c2Ports,profile});\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-2",
+          "from": "  }\n  deps.tiles.openTileBundle(checkpoint.document.tileBundle,{requireResolved:true});\n  const supplied=checkpoint.document.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM}));\n",
+          "to": "  }\n  if(c2Host){if(!codec.privateSourceBundle)fail('C2_VALIDATED_SOURCE_UNBOUND','/bundle','Use the actual counted complete-source constructor.');codec.privateSourceBundle.open(checkpoint.document);}else deps.tiles.openTileBundle(checkpoint.document.tileBundle,{requireResolved:true});\n  const supplied=checkpoint.document.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM}));\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-3",
+          "from": "  const historyOptions={initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes};\n  const history=c2Host?observed.observer.run('session.journal.construct',()=>observed.observer.opaque('journal.construct',historyOptions,()=>createWindowAuthoringJournal(historyOptions))):createWindowAuthoringJournal(historyOptions);\n  const historyRead=c2Host?createWindowAuthoringJournalReadPort(history,c2Host.historyObserver,observed.observer):null;\n  const authorityObservation=c2Host?createPrivateAuthorityObservationPort(authority):null;\n",
+          "to": "  const historyOptions={initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes};\n  const actualJournal=c2Host?c2Host.constructActualJournal({checkpoint,options:historyOptions}):null;\n  const history=c2Host?actualJournal.journal:createWindowAuthoringJournal(historyOptions);\n  const historyRead=c2Host?actualJournal.historyRead:null;\n  const authorityObservation=c2Host?createPrivateAuthorityObservationPort(authority):null;\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-4",
+          "from": "  }\n  const views=createSmartTileViews({...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')});\n  const floor=()=>({...supplied.find(f=>f.id===floorState.selectedId),mode:floorState.mode});\n",
+          "to": "  }\n  const viewOptions={...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')};\n  const views=c2Host?c2Host.adoptActualManager(viewOptions):createSmartTileViews(viewOptions);\n  const floor=()=>({...supplied.find(f=>f.id===floorState.selectedId),mode:floorState.mode});\n",
+          "occurrences": 1
         }
       ]
     },
@@ -343,7 +369,7 @@
       "sha256": "e738e0d37c04016d90584023ff223badbb18679c3b6be25bef4cf1868b6da9ec",
       "gitBlob": "5e4555b32065668f28e690a5f1e42cf9ed9833ae",
       "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/checkpoint.js",
-      "adapterSha256": "e3a404d6585889af84416ad513246e4888cfe4d02751d1a0bb8f33a9945d7f23",
+      "adapterSha256": "c90b5b7bb0d4b5d6afe886c6cb9aab0193f773cad0ce93828ad6227dc951bc79",
       "importRewrites": [
         {
           "from": "../../../observation.js",
@@ -374,6 +400,14 @@
           "from": "./jsonl.js",
           "to": "./jsonl.js",
           "sourceTarget": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/tile-authoring/jsonl.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "source-private-owned-codec-v1-1",
+          "from": "    Object.defineProperty(codecValue,'privateObservation',{value:shared.privateObservation});\n    Object.defineProperty(codecValue,'privateSourceFacts',{value:Object.freeze({\n",
+          "to": "    Object.defineProperty(codecValue,'privateObservation',{value:shared.privateObservation});\n    Object.defineProperty(codecValue,'privateSourceBundle',{value:Object.freeze({open:observer.fixed('session.bundle.open',input=>{if(!resourceFacts||typeof resourceFacts.openInitialBundle!=='function')fail('C2_VALIDATED_SOURCE_UNBOUND','/bundle','Actual source bundle boundary required.');return resourceFacts.openInitialBundle(validateDocument(input),{observer});})})});\n    Object.defineProperty(codecValue,'privateSourceFacts',{value:Object.freeze({\n",
+          "occurrences": 1
         }
       ]
     },

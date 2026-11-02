@@ -1,5 +1,5 @@
 {
-  "status": "PRIVATE actual authority/profile/current-checkpoint journal constructors and ordinary C1 continuation; live Host/session/Native/final-WAL UNBOUND",
+  "status": "PRIVATE literal Host and actual source session prologue with one journal; Native/ready-session/final-WAL UNBOUND",
   "parent": "30bfa968cf778750fbad6a7aec8ff7052e05ba0c",
   "kernelCommit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
   "ArtistCommit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
@@ -7,7 +7,8 @@
   "rootSourceInputs": 9,
   "ordinarySourceInputs": 14,
   "viewsCommit": "8b4f810727f8feb4d2913619f2471f2d7fa04fce",
-  "runtimeInputs": 45,
+  "HostCommit": "642086abf90b5108cca116d34d1561915cf1b738",
+  "runtimeInputs": 47,
   "protectedDependencies": 110,
   "frozenCorrectedCoreClosure": 95,
   "profiles": [
@@ -41,8 +42,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/adapter-inventory.json",
-      "bytes": 3987,
-      "sha256": "464a387ffb9f53a15d38c7bf654636dfef9f136b22c59cc7ed4f29fe6646f45f"
+      "bytes": 4414,
+      "sha256": "e1171a6f06a2977245e681ad170a055cf7f67981c9b8769dc496516a54db779f"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/capacity.js",
@@ -75,9 +76,24 @@
       "sha256": "a1444a14ad504df5926c6aa8ba4f710e9bf820036c9d6afb43ba0e8ce84e83b8"
     },
     {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host-inputs.json",
+      "bytes": 2120,
+      "sha256": "84d1dcb070436ae7b9bbdd6f66041d128d9a15ff5bbd59f041c4f90b3f582bb1"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host/data.js",
+      "bytes": 1235,
+      "sha256": "b067da1ac1a710b99626aae7fdb1d511d9def0febc24775f9ea2fa3ef4acb1af"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host/host-composition.js",
+      "bytes": 5007,
+      "sha256": "881bf4eec11cf5a7f420d42834bf5da028b568a196fc8db782c21fd37c433199"
+    },
+    {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.d.ts",
-      "bytes": 10439,
-      "sha256": "eadc7da9ddd0696dcde6ab524349a2dd3819dbdd9872f5c2eb7cc76e26571a0d"
+      "bytes": 10719,
+      "sha256": "bf2cdcd509234e40e92a273001d47ebe051dd328c7907e20b72971a606c96fd4"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.js",
@@ -91,18 +107,18 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel-backend.js",
-      "bytes": 7945,
-      "sha256": "e6922451ffbd72732564edb939bce9e9527ee8d913630c0088b57e3f721d2153"
+      "bytes": 7967,
+      "sha256": "c42a3dd0a7f33e61e5839f9d256620e0f813a7e826b1f025f2c2cd3a9a26038b"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel-inputs.json",
-      "bytes": 36309,
-      "sha256": "6189c3749ab4a5830f1c9147f7c9579c43d0b682aea2004c43a1c114e8136645"
+      "bytes": 43154,
+      "sha256": "3a5313ea40c01fe7ae89d7da7920840a4f56ea9cd7d615b291b09528cc3fe94c"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel.js",
-      "bytes": 13691,
-      "sha256": "427d36767423630773076ec82d4db80d28d7b2fe720c1bde12c0234d6026877c"
+      "bytes": 14949,
+      "sha256": "c120119a540abc5e387861d8a61f877e9891a8c7177731ad478aaca7ce2484bc"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/checkpoint.js",
@@ -156,8 +172,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/session.js",
-      "bytes": 47556,
-      "sha256": "aaf84491edb1594cdf7c64621b95521835e57c179f2bbf55b5e442257eccade4"
+      "bytes": 47808,
+      "sha256": "55cfdf74757302504c4d9e4c815929502ef877384be998618b10ac3abbf7b96a"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/storage.js",
@@ -166,8 +182,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/checkpoint.js",
-      "bytes": 24638,
-      "sha256": "e3a404d6585889af84416ad513246e4888cfe4d02751d1a0bb8f33a9945d7f23"
+      "bytes": 25011,
+      "sha256": "c90b5b7bb0d4b5d6afe886c6cb9aab0193f773cad0ce93828ad6227dc951bc79"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/jsonl.js",
@@ -290,14 +306,39 @@
       "sha256": "6dcf263a959309822030542f36bd4f1c45499027838b39c80ba54d62e9c7193f"
     },
     {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/session-constructor-handoff.md",
+      "bytes": 3531,
+      "sha256": "1ab789b51961826d4c3e6465fd14750924c8a45e45278b1ab45bda4ce39746cf"
+    },
+    {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/source.js",
-      "bytes": 10832,
-      "sha256": "91c8f07531d93b32e1c3ff84c9910c22909c18b895ba9287caf832ea55894daf"
+      "bytes": 11160,
+      "sha256": "a7b49e675e3696126da290027b01f369de9dc05120c2325a5eff3bcc0bfb6605"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/NOTICE.kernel-4ade.md",
       "bytes": 8106,
       "sha256": "04579b40906420c34979a34771e6361adce4738b30bcca11703ff1951ef5590c"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/host/0504a2096e11.host-composition.js.original",
+      "bytes": 4868,
+      "sha256": "25deb00f3407f5108132284772b6c91a977d4cd6f90608e6696d3468a4e0d712"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/host/51ca6f082be8.data.js.original",
+      "bytes": 1235,
+      "sha256": "b067da1ac1a710b99626aae7fdb1d511d9def0febc24775f9ea2fa3ef4acb1af"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/host/NOTICE.f7fcc89.md",
+      "bytes": 8811,
+      "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/host/b1fe0967e215.host-composition.js.original",
+      "bytes": 5050,
+      "sha256": "93d7c4b95ffec1212ed8c22f771950654eff16db840e846d8ecc1c61a496cfbd"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/0044d321e07d.session.js.original",
@@ -530,9 +571,14 @@
       "sha256": "8e127e7d0154681f6653af12fa144816fc29293bc37ea0e837c875b5306ee048"
     },
     {
+      "path": "tests/tile-authoring-core-c2-browser-session-constructor.test.mjs",
+      "bytes": 4739,
+      "sha256": "50f7c8cc2d38fddc938e8fa482f6dadcc6000483b69fc5d8c36b6c3e4e84d9e4"
+    },
+    {
       "path": "tools/tile-authoring-core-c2-browser-integration-audit.mjs",
-      "bytes": 8248,
-      "sha256": "eb513ef695ee2cc7bb40337cb03122b03d8468bc9198431ee3e76045ec0abc5a"
+      "bytes": 9217,
+      "sha256": "7039704b12f5fc72518668417db74153d8f32490db97a636f3551a78c7f0f81d"
     }
   ],
   "runtime": [
@@ -552,6 +598,16 @@
       "sha256": "a1444a14ad504df5926c6aa8ba4f710e9bf820036c9d6afb43ba0e8ce84e83b8"
     },
     {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host/data.js",
+      "bytes": 1235,
+      "sha256": "b067da1ac1a710b99626aae7fdb1d511d9def0febc24775f9ea2fa3ef4acb1af"
+    },
+    {
+      "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/host/host-composition.js",
+      "bytes": 5007,
+      "sha256": "881bf4eec11cf5a7f420d42834bf5da028b568a196fc8db782c21fd37c433199"
+    },
+    {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/index.js",
       "bytes": 418,
       "sha256": "37fb22e666369a9fe9d78c697d80c26861df487a1caf4f7a869e2818caf49cf3"
@@ -563,13 +619,13 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel-backend.js",
-      "bytes": 7945,
-      "sha256": "e6922451ffbd72732564edb939bce9e9527ee8d913630c0088b57e3f721d2153"
+      "bytes": 7967,
+      "sha256": "c42a3dd0a7f33e61e5839f9d256620e0f813a7e826b1f025f2c2cd3a9a26038b"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel.js",
-      "bytes": 13691,
-      "sha256": "427d36767423630773076ec82d4db80d28d7b2fe720c1bde12c0234d6026877c"
+      "bytes": 14949,
+      "sha256": "c120119a540abc5e387861d8a61f877e9891a8c7177731ad478aaca7ce2484bc"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/checkpoint.js",
@@ -623,8 +679,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/session.js",
-      "bytes": 47556,
-      "sha256": "aaf84491edb1594cdf7c64621b95521835e57c179f2bbf55b5e442257eccade4"
+      "bytes": 47808,
+      "sha256": "55cfdf74757302504c4d9e4c815929502ef877384be998618b10ac3abbf7b96a"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/storage.js",
@@ -633,8 +689,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/checkpoint.js",
-      "bytes": 24638,
-      "sha256": "e3a404d6585889af84416ad513246e4888cfe4d02751d1a0bb8f33a9945d7f23"
+      "bytes": 25011,
+      "sha256": "c90b5b7bb0d4b5d6afe886c6cb9aab0193f773cad0ce93828ad6227dc951bc79"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/tile-authoring/jsonl.js",
@@ -748,8 +804,8 @@
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/source.js",
-      "bytes": 10832,
-      "sha256": "91c8f07531d93b32e1c3ff84c9910c22909c18b895ba9287caf832ea55894daf"
+      "bytes": 11160,
+      "sha256": "a7b49e675e3696126da290027b01f369de9dc05120c2325a5eff3bcc0bfb6605"
     },
     {
       "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/work-profiles.js",

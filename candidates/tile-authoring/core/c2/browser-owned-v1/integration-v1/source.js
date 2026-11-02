@@ -1,7 +1,7 @@
 // Actual continued complete C2 source/query validation. All work goes through
 // the one current private owner; readonly purposes never construct a plan.
 import * as ActualTiles from '../../../../../../packages/tiles-core/index.js';
-import {Budget,readData,fields,shape,hash,equal,freeze,fail,clone} from '../data.js';
+import {Budget,readData,fields,shape,hash,equal,freeze,fail,clone,openSourceBundle} from '../data.js';
 import {jsonBytes,utf8Bytes} from '../budget.js';
 import {validateDocument,sourceProjection,pin,recordKey} from '../model.js';
 import {validateAppearanceDocument,supportedRecord} from '../operations.js';
@@ -53,6 +53,7 @@ export function createContinuedSource(owner,{tiles=ActualTiles}={}){
   adoptActualValidatedDocument(document){if(documents.has(document)){documents.get(document).actualDocument=document;return;}const b=budget(),direct=pendingDocuments.get(document),digest=direct?(b.take(),direct.digest):hash(tiles,document,b),fact=direct??byDigest.get(digest);if(!fact||fact.digest!==digest||!Object.isFrozen(document))fail('C2_VALIDATED_SOURCE_UNBOUND','/document','Require actual fixed codec validation output and its complete C2 source fact.');documents.set(document,fact);fact.actualDocument=document;safeTree(document);},
   noteEncoded(document,text,actualEncodedBytes=undefined){let fact=documents.get(document);if(!fact&&Object.isFrozen(document)){fact=pendingDocuments.get(document);if(fact){documents.set(document,fact);safeTree(document);}}if(!fact||typeof text!=='string')return;const b=budget(),bytes=actualEncodedBytes??utf8Bytes(text);if(bytes!==fact.logicalBytes)fail('C2_ENCODING_FACT_MISMATCH','/documentFacts','Actual compact document text differs from the complete validated document length.');b.take(1);fact.texts.add(text);while(fact.texts.size>4)fact.texts.delete(fact.texts.values().next().value);emitted.set(text,fact);while(emitted.size>64)emitted.delete(emitted.keys().next().value);},
   facts:{
+   openInitialBundle(document,{observer}){if(!bridges.get(observer)?.()||!documents.has(document))fail('C2_VALIDATED_SOURCE_UNBOUND','/bundle','Use the exact actual complete validated document and registered source invocation.');const b=budget();b.take();return openSourceBundle(tiles,document.tileBundle,b);},
    read(document,{observer,documentDigest}){if(!bridges.get(observer)?.())fail('C2_HISTORY_FACTS_UNBOUND','/observer','Actual continued observer required.');const b=budget();let fact=documents.get(document);if(!fact&&Object.isFrozen(document)){fact=pendingDocuments.get(document);if(fact){documents.set(document,fact);safeTree(document);}}if(!fact||documentDigest!==fact.digest||!fact.texts.size)fail('C2_HISTORY_FACTS_UNBOUND','/documentFacts','Require a complete paid source plus an actual codec-owned document serialization; no predicted byte/count fact.');b.take(4);const data=freeze({documentDigest:fact.digest,encodedBytes:fact.logicalBytes,...fact.dimensions,resourceRefs:fact.resourceRefs,resourceRefsDigest:hash(tiles,fact.resourceRefs,b)}),token=freeze({data});facts.set(token,fact);return token;},
    verify(token,text){const b=budget();b.take();const fact=facts.get(token);return !!fact&&fact.texts.has(text)&&emitted.get(text)===fact;}
   },
