@@ -165,7 +165,7 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
    const mobile=await phone.newPage();mobile.on('pageerror',error=>errors.push(error.message));mobile.on('console',msg=>{if(msg.type()==='error')errors.push(msg.text());});mobile.on('response',response=>{if(response.status()>=400)failedRequests.push({url:response.url(),status:response.status()});});
    await mobile.bringToFront();
    await mobile.goto(url);await mobile.locator('[data-action=start]').waitFor({state:'visible'});await mobile.waitForFunction(()=>!document.querySelector('[data-action=start]').disabled);
-   // JS readiness does not establish that the new mobile surface has painted.
+   // JS readiness does not establish paint: a capture in a new page's first frames can come back empty while another page is open.
    await mobile.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});
    const captureSession=await phone.newCDPSession(mobile);let layoutMetrics;
    try{layoutMetrics=await captureSession.send('Page.getLayoutMetrics');}finally{await captureSession.detach();}
