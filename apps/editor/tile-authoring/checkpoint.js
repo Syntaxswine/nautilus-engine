@@ -29,14 +29,23 @@ export function tileAuthoringOperationBinding(tiles,before,target,request,comman
 
 export function createTileAuthoringCheckpointCodec(deps,initialDocument){
   if(typeof deps.authoring?.inspectTileAuthoringRequirements!=='function')fail('AUTHORING_CORE_REQUIRED','/core','Borrow the actual public authoring validator/query.');
-  const checked=new WeakSet();let identity=null;
+  const checked=new WeakSet(),validatedContent=new Map(),documentTokens=new WeakMap();let identity=null;
+  const documentToken=document=>{let token=documentTokens.get(document);if(token===undefined){token=smartTileDigest(document);documentTokens.set(document,token);}return token;};
   function validateDocument(input){
     if(input&&typeof input==='object'&&checked.has(input))return input;
     const d=readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});fields(d,documentFields,'/document');
     if(d.kind!=='nautilus-tile-workbench-document'||d.version!==3)fail('AUTHORING_DOCUMENT_VERSION','/document/version','Open an explicit complete v3 document; v1/v2 migration is not implicit.');
-    validateTileStackDocument(deps,Object.fromEntries(baseFields.map(k=>[k,d[k]])));
-    const requirements=deps.authoring.inspectTileAuthoringRequirements(deps.tiles,{document:d,subject:tileAuthoringSource(d)});
-    if(requirements?.kind!=='nautilus-tile-authoring-requirements')fail('AUTHORING_DOCUMENT_REFUSED','/document','Core did not validate the complete authoring source.');
+    // Receipt replay repeatedly visits exact historical documents. Cache only
+    // successful full-data validation hashes, after hostile-input inspection;
+    // keep this detached input's own ordering and original JSON bytes intact.
+    const contentToken=smartTileDigest(d);
+    if(!validatedContent.has(contentToken)){
+      validateTileStackDocument(deps,Object.fromEntries(baseFields.map(k=>[k,d[k]])));
+      const first=d.authoring?.library?.definitions?.[0]??d.authoring?.library?.presets?.[0]??d.authoring?.library?.artwork?.[0],subject=first?{id:first.id,revision:first.revision,contentDigest:first.contentDigest}:tileAuthoringSource(d);
+      const requirements=deps.authoring.inspectTileAuthoringRequirements(deps.tiles,{document:d,subject});
+      if(requirements?.kind!=='nautilus-tile-authoring-requirements')fail('AUTHORING_DOCUMENT_REFUSED','/document','Core did not validate the complete authoring source.');
+      validatedContent.set(contentToken,true);while(validatedContent.size>64)validatedContent.delete(validatedContent.keys().next().value);
+    }
     const fixed={id:d.id,sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,finishBinding:d.finishBinding,layoutId:d.tileBundle.layout.id,minimumClearanceM:d.constraints.minimumClearanceM};
     if(identity!==null&&smartTileDigest(fixed)!==identity)fail('AUTHORING_WORKSPACE_BINDING','/document','Retain the exact original source, workspace, layout, floor, finish and clearance bindings.');
     freeze(d);checked.add(d);return d;
@@ -44,10 +53,12 @@ export function createTileAuthoringCheckpointCodec(deps,initialDocument){
   const initial=validateDocument(initialDocument);identity=smartTileDigest({id:initial.id,sourceJSON:initial.sourceJSON,floorBinding:initial.floorBinding,finishBinding:initial.finishBinding,layoutId:initial.tileBundle.layout.id,minimumClearanceM:initial.constraints.minimumClearanceM});
   const formats=freeze({checkpoint:TILE_AUTHORING_EDITOR.checkpoint,checkpointVersion:3,journal:TILE_AUTHORING_EDITOR.journal,journalVersion:3,operation:TILE_AUTHORING_EDITOR.operation,operationVersion:3});
   const domain=freeze({formats,bindingToken:identity,floorRecords:initial.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM})),validateDocument,
-    contextToken(document,host){const d=validateDocument(document);fields(host,['floorId','mode','floorEpoch','providerToken'],'/context');if(!d.floorBinding.floors.some(f=>f.id===host.floorId)||!['manual','character-follow','contact-inspection'].includes(host.mode)||!Number.isSafeInteger(host.floorEpoch)||host.floorEpoch<0||typeof host.providerToken!=='string'||!host.providerToken.length||host.providerToken.length>512)fail('AUTHORING_CONTEXT','/context','Capture the actual floor, mode, epoch and provider.');return smartTileDigest({policyToken:identity,documentDigest:smartTileDigest(d),...host});}
+    targetFields(input){const target=validateDocument(input);return {kind:'nautilus-tile-authoring-target-fields',version:1,sourceBindingToken:identity,tileBundle:target.tileBundle,constraints:target.constraints,contentRevision:target.contentRevision,authoring:target.authoring,resourceRefs:target.resourceRefs};},
+    targetDocument(before,input){const target=smartTileData(input);fields(target,['kind','version','sourceBindingToken','tileBundle','constraints','contentRevision','authoring','resourceRefs'],'/operation/target');if(target.kind!=='nautilus-tile-authoring-target-fields'||target.version!==1||target.sourceBindingToken!==identity)fail('AUTHORING_TARGET_FIELDS','/operation/target','Retain the explicit target schema and exact immutable workspace-source binding.');const {kind,version,sourceBindingToken,...mutable}=target;return validateDocument({...validateDocument(before),...mutable});},
+    contextToken(document,host){const d=validateDocument(document);fields(host,['floorId','mode','floorEpoch','providerToken'],'/context');if(!d.floorBinding.floors.some(f=>f.id===host.floorId)||!['manual','character-follow','contact-inspection'].includes(host.mode)||!Number.isSafeInteger(host.floorEpoch)||host.floorEpoch<0||typeof host.providerToken!=='string'||!host.providerToken.length||host.providerToken.length>512)fail('AUTHORING_CONTEXT','/context','Capture the actual floor, mode, epoch and provider.');return smartTileDigest({policyToken:identity,documentDigest:documentToken(d),...host});}
   });
   const policy={formats,validateDocument,
-    targetDocument(_before,operation){return validateDocument(operation.target);},
+    targetDocument(before,operation){return domain.targetDocument(before,operation.target);},
     validateOperation(op,_document,_deps,before,target){
       fields(op,['kind','version','id','documentId','action','expected','request','target','binding','authoringBinding','tilePreparation','command'],'/operation');id(op.id,'/operation/id');
       if(op.documentId!==initial.id||!['edit','undo','redo'].includes(op.action)||!['source-unchanged','public-v1-prepared'].includes(op.tilePreparation))fail('AUTHORING_OPERATION','/operation','Retain the workspace, exact action and preparation classification.');
@@ -80,7 +91,16 @@ export function createTileAuthoringCheckpointCodec(deps,initialDocument){
       }
       return op;
     }};
-  return Object.freeze({codec:createSmartTileCheckpointCodec(deps,policy),domain});
+  const shared=createSmartTileCheckpointCodec(deps,policy),tokens=new WeakMap(),owned=new WeakSet(),reader=input=>readAuthoringJSON(input,{maxBytes:16_000_000,maxNodes:1_000_000,maxDepth:40});
+  const remember=checkpoint=>{owned.add(checkpoint);return checkpoint;};
+  const open=input=>owned.has(input)?shared.open(input):remember(shared.open(reader(input)));
+  const codec=Object.freeze({...shared,open,
+    create:input=>remember(shared.create(input)),serialize:input=>shared.serialize(open(input)),
+    stage:(input,operation)=>remember(shared.stage(open(input),reader(operation))),
+    settle:(input,requestId,outcome)=>remember(shared.settle(open(input),requestId,outcome)),
+    inspectRecovery:(pending,actual,requestId)=>shared.inspectRecovery(open(pending),open(actual),requestId),
+    token(input){const checkpoint=open(input);let token=tokens.get(checkpoint);if(token===undefined){token=shared.token(checkpoint);tokens.set(checkpoint,token);}return token;}});
+  return Object.freeze({codec,domain});
 }
 export function tileAuthoringStorageKey(workspaceId){id(workspaceId,'/workspaceId');return TILE_AUTHORING_EDITOR.storagePrefix+workspaceId;}
 export function createTileAuthoringStorage(deps,{binding,storage,initialCheckpoint,...options}){

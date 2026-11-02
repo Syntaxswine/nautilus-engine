@@ -12,8 +12,8 @@ export function finiteUIData(value) {
   const copy = (input, depth) => {
     if (++visits > 200000 || depth > 64) throw problem('UI_DATA_BOUND', 'Use bounded finite JSON data.');
     if (input === null || typeof input === 'string' || typeof input === 'boolean') return input;
-    if (typeof input === 'number' && Number.isFinite(input)) return input;
-    if (!input || typeof input !== 'object') throw problem('UI_FINITE_DATA', 'No undefined, functions, symbols or nonfinite numbers.');
+    if (typeof input === 'number' && Number.isFinite(input) && !Object.is(input,-0)) return input;
+    if (!input || typeof input !== 'object') throw problem('UI_FINITE_DATA', 'No undefined, functions, symbols, nonfinite numbers or negative zero.');
     const array = Array.isArray(input), proto = Object.getPrototypeOf(input);
     if (!array && proto !== Object.prototype && proto !== null) throw problem('UI_FINITE_DATA', 'Use plain data.');
     const keys = Reflect.ownKeys(input);
@@ -91,4 +91,30 @@ export function createTileAuthoringCommands({tiles, authoring}) {
       })]});
     }
   });
+}
+
+export const TILE_AUTHORING_FORM_LIMITS = Object.freeze({minimumM:0.1,maximumM:64,labelCodePoints:120});
+export function tileAuthoringLabelMessage(value) {
+  if(typeof value!=='string'||value==='')return 'Enter a library label.';
+  let count=0;for(const point of value){if(++count>TILE_AUTHORING_FORM_LIMITS.labelCodePoints)return 'Use at most 120 characters.';}
+  return '';
+}
+// Field mapping only. The actual public producer constructs and validates source,
+// inherited anchors/notices, hash domains and immutable pins.
+export function rectangleSpecFromFields(fields,{kind,base=null,ids,finishId}) {
+  const values=finiteUIData(fields),reserved=finiteUIData(ids),message=tileAuthoringLabelMessage(values.label);
+  if(message)throw problem('UI_LABEL_BOUND',message);
+  if(!['recipe.create','recipe.clone','recipe.revise'].includes(kind))throw problem('UI_RECTANGLE_OPERATION','Choose create, clone or revise.');
+  const dimension=(key,required)=>{if(!Object.hasOwn(values,key)){if(required)throw problem('UI_RECTANGLE_FIELDS','Supply '+key+'.');return undefined;}const value=values[key];if(typeof value!=='number'||value<TILE_AUTHORING_FORM_LIMITS.minimumM||value>TILE_AUTHORING_FORM_LIMITS.maximumM)throw problem('UI_RECTANGLE_BOUND','Use rectangle dimensions from 0.1 to 64 metres.');return value;};
+  const recipeId=identity(reserved.recipeId,'public recipe ID');
+  if(kind==='recipe.create'){
+    const sourceIds=finiteUIData(reserved.sourceIds);
+    for(const key of ['prefix','surfaceId','gridId'])identity(sourceIds[key],'source '+key);
+    return finiteUIData({identity:{id:identity(reserved.definitionId,'definition ID'),revision:1,recipeId},sourceIds,widthM:dimension('widthM',true),depthM:dimension('depthM',true),finishId:identity(finishId,'captured finish ID'),label:values.label});
+  }
+  tileAuthoringPin(base);
+  if(kind==='recipe.clone'&&(Object.hasOwn(values,'widthM')||Object.hasOwn(values,'depthM')))throw problem('UI_CLONE_FIELDS','Clone preserves source dimensions. Choose a revision to edit dimensions.');
+  const edits={label:values.label};
+  if(kind==='recipe.revise')for(const key of ['widthM','depthM']){const value=dimension(key,false);if(value!==undefined)edits[key]=value;}
+  return finiteUIData({identity:{id:kind==='recipe.clone'?identity(reserved.definitionId,'definition ID'):base.id,revision:kind==='recipe.clone'?1:base.revision+1,recipeId},base,edits});
 }

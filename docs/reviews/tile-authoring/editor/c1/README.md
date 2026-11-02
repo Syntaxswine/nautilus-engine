@@ -8,9 +8,13 @@ library. Architect authorized a new branch from accepted main
 `678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2`.
 
 **Dependency gate:** the actual C1 Core runtime and UI component are separate
-builders' deliveries. Architect accepted UI component
-`fac180e2909ba499146bb8e4560c79cf4794ca93`; its exact nine paths are imported
-unchanged and recorded in `ui-import.json`. The reviewed Core follow-up is pending.
+builders' deliveries. Architect accepted Core runtime
+`3df11ce6e62fb94806e30652b87168949f8ef4dd` with documentation tip
+`eedfc0149cbaa5715445ed2dc909c2d694a81d50`, UI follow-up
+`f94b57b2cebce55fc27cc94dea7a9fe39ec20193`, and review helper
+`08540b0ec8acd1be8b9d9929187d82a7300a59c2`. Their exact approved paths are imported
+unchanged and recorded in `core-import.json`, `ui-import.json`, and
+`helper-import.json`. Actual browser/package acceptance is underway.
 The new entry and actual C1 tests deliberately import the production modules;
 there is no C0 fixture, copied worker source, alternate constructor or executor
 fallback. This checkpoint is not a completed integration or a passing full-gate
@@ -62,6 +66,20 @@ The saved document is exactly `nautilus-tile-workbench-document@3`. It retains
 V3 uses `nautilus-tile-authoring-editor-v3:<workspaceId>` and explicit closed v3
 checkpoint/journal/operation envelopes over the same existing codec algorithm.
 No v1/v2 save is migrated, normalized or overwritten.
+
+The private operation target is a closed `nautilus-tile-authoring-target-fields@1`
+record: exact fixed-source binding plus complete bundle, constraints, content
+revision, authoring module and resource references. The saved document retains
+the original JSON/floor/finish/workspace source once. Reconstruction validates
+the source binding and complete target; public reviews contain the full v3
+document. Receipt replay uses no external source or worker checkout. There is
+no journal algorithm change, compaction, pruning or receipt reset.
+
+Fresh maps use compact JSON; loaded source bytes remain exact. Bounded caches
+reuse only freshly inspected, fully validated content hashes and actually owned
+frozen checkpoint identities. Returned caller ordering is preserved. Mutable or
+shallow-frozen DTOs, duplicate keys, negative zero and changed record bytes are
+rechecked. Current authority/context/resource/admitted-ledger guards still run.
 
 New geometry commands retain one actual public preparation. Pure Core planning
 and target binding do not create handles or establish authority. The ordinary
@@ -119,11 +137,20 @@ UI `2e4730e56db86d9336455ba1671d8ded788ff9da`, and Editor
 `52f4a52481c47e2186e099165e1058988d7997e1`. It copied 176 files from exact Git
 objects, with per-file hashes under `artifacts/editor-tile-authoring-c1-staging-8e09f144-c390-4ba4-8480-2bcc7ae56dd0/`.
 It passed five tests and refused four at `AUTHORING_WORK_LIMIT` during the
-full-map library sequence. Core's compile-cache/copy-charge follow-up remains
-pending; no cap was raised. This probe is not adoption or a successful full C1
+full-map library sequence. At that point Core's compile-cache/copy-charge follow-up
+was pending; no cap was raised. This probe is not adoption or a successful full C1
 integration. Subsequent allocation/transport unit checks passed all six cases;
 the accepted UI protocol tests plus these units passed 40 cases. Protocol tests
 keep their explicit Core/Host/native-unbound labels.
+
+The current actual six-command CPU/native flow passes through producers,
+retained consumer, shared host and JSONL with zero metadata prepares and exactly
+two geometry prepares/applies. Current UI/cache/resource/transport controls pass
+48 checks. `tools/editor-direct-tile-authoring-c1.mjs` preserves that finite
+review entry. Its synthetic atlas has no rendered/installed/device claim.
+Complete history, browser/package matrices and the final four gates remain
+pending. Superseded profiling runs stopped through their owning exec sessions
+are not reported as successful current-tree evidence.
 
 ## Builder checklist
 

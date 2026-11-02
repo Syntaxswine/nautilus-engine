@@ -66,7 +66,7 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     if(!transaction&&!recovery)history.cancel();try{retireInput('ticket-retired');}catch{diagnostic('INPUT_RETIRE_FAILED');}views.cancel();
   }
   const current=(g,c)=>!disposed&&generation===g&&context()===c;
-  function actual(){const c=authority.read();if(c.journal.pending||smartTileDigest(c)!==smartTileDigest(checkpoint))fail('STALE_AUTHORITY','/checkpoint','The authoritative complete checkpoint changed; preserve it and reopen deliberately.');return c;}
+  function actual(){const c=authority.read();if(authoring&&c===checkpoint&&!c.journal.pending)return c;if(c.journal.pending||smartTileDigest(c)!==smartTileDigest(checkpoint))fail('STALE_AUTHORITY','/checkpoint','The authoritative complete checkpoint changed; preserve it and reopen deliberately.');return c;}
   const consumer=deps.tiles.createRetainedTileConsumer({
     read(){actual();return {bundle:checkpoint.document.tileBundle,token:smartTileCheckpointToken(checkpoint),contextToken:context(),cancelled:disposed};},
     compareAndSwap(packet){
@@ -188,14 +188,14 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     undo(){return Promise.resolve(invoke(()=>{allowed('undo');retire();return prepare('undo');}));},
     redo(){return Promise.resolve(invoke(()=>{allowed('redo');retire();return prepare('redo');}));},
     save(){return invoke(()=>{allowed('save');actual();return {ok:true,checkpointJSON:serializeSmartTileCheckpoint(deps,checkpoint)};});},
-    open(input){return Promise.resolve(invoke(()=>{allowed('open');const next=openSmartTileCheckpoint(deps,input),actual=authority.read();if(next.journal.pending||smartTileDigest(next)!==smartTileDigest(actual)||smartTileDigest(next)!==smartTileDigest(checkpoint))fail('CHECKPOINT_AUTHORITY_MISMATCH','/checkpoint','This retained session reopens its current authoritative checkpoint. Start a separate session to inspect a different checkpoint.');return rebuild({resetHistory:true});}));},
+    open(input){return Promise.resolve(invoke(()=>{allowed('open');const next=openSmartTileCheckpoint(deps,input),actual=authority.read();if(next.journal.pending||smartTileDigest(next)!==smartTileDigest(actual)||smartTileDigest(next)!==smartTileDigest(checkpoint))fail('CHECKPOINT_AUTHORITY_MISMATCH','/checkpoint','This retained session reopens its current authoritative checkpoint. Start a separate session to inspect a different checkpoint.');return rebuild({resetHistory:!authoring});}));},
     recover(requestId){return Promise.resolve(invoke(async()=>{
       if(authoring&&!recovery){
         const accepted=actual(),index=accepted.journal.receipts.findIndex(r=>r.id===requestId);
         if(index<0)return {ok:false,committed:false,requestId,code:'RECOVERY_ID_MISMATCH'};
         const receipt=accepted.journal.receipts[index];
         if(receipt.outcome==='not-committed')return {ok:true,committed:false,requestId,code:'RECOVERED_NOT_COMMITTED'};
-        const historical=codec.open({...accepted,document:receipt.operation.target,journal:{...accepted.journal,serial:index+1,receipts:accepted.journal.receipts.slice(0,index+1),pending:null}});
+        const historical=codec.open({...accepted,document:codec.targetDocument(accepted.document,receipt.operation),journal:{...accepted.journal,serial:index+1,receipts:accepted.journal.receipts.slice(0,index+1),pending:null}});
         return {ok:true,committed:true,requestId,settlement:profile.settlement(historical)};
       }
       allowed('recover');const t=recovery;if(!t||requestId!==t.operation.id)return {ok:false,committed:null,requestId,code:'RECOVERY_ID_MISMATCH'};

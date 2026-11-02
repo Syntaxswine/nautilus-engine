@@ -23,7 +23,7 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
     return {lease,contextData};
   }
   function operation(before,{id,action,request,target,command,contextToken,token,authoringBinding=null,tilePreparation}){
-    return {kind:TILE_AUTHORING_EDITOR.operation,version:3,id,documentId:before.id,action,expected:{token,contextToken},request,target,binding:tileAuthoringOperationBinding(deps.tiles,before,target,request,command,contextToken),authoringBinding,tilePreparation,command};
+    return {kind:TILE_AUTHORING_EDITOR.operation,version:3,id,documentId:before.id,action,expected:{token,contextToken},request,target:domain.targetFields(target),binding:tileAuthoringOperationBinding(deps.tiles,before,target,request,command,contextToken),authoringBinding,tilePreparation,command};
   }
   function snapshotPacket({checkpoint,token,contextToken}){
     const document=domain.validateDocument(checkpoint.document);
@@ -57,7 +57,7 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
       const op=t.operation;if(context(document,hostContext)!==op.expected.contextToken||!leases.get(op)?.isCurrent({sourceUnchanged:t.tilePreparation==='source-unchanged'}))return false;
       if(t.action!=='edit')return smartTileDigest(codec.targetDocument(document,op))===smartTileDigest(smartTileData(t.ticket.targetText));
       const bound=checked(core.bindTileAuthoringTarget(deps.tiles,{before:document,plan:t.plan.corePlan,prepared:t.prepared}));
-      if(smartTileDigest(bound.bindings)!==smartTileDigest(op.authoringBinding)||smartTileDigest(bound.targetDocument)!==smartTileDigest(op.target))return false;
+      if(smartTileDigest(bound.bindings)!==smartTileDigest(op.authoringBinding)||smartTileDigest(bound.targetDocument)!==smartTileDigest(codec.targetDocument(document,op)))return false;
       return t.tilePreparation==='source-unchanged'?packet===null:packet?.requestId===op.id&&smartTileDigest(packet.nextBundle)===smartTileDigest(bound.targetDocument.tileBundle);
     },
     actions(state){const value={...smartTileActions(state)},settled=['idle','draft','review','presentation-error'].includes(state.phase)&&state.manual;if(settled){value.setDraft=true;value.selectOwner=true;value.review=state.hasDraft;value.undo=state.undo>0;value.redo=state.redo>0;}value.setInspection=!!inspection&&settled;return value;},

@@ -18,12 +18,12 @@ import {createTileAuthoringPresentation,createTileAuthoringResourcePorts} from '
 import {createTileAuthoringJSONL} from '../../../apps/editor/tile-authoring/jsonl.js';
 export {authoring,tiles,T};
 export const pin=r=>({id:r.id,revision:r.revision,contentDigest:r.contentDigest});
-export async function harness({values=new Map(),profileId='aft-native-fifteen',nativeFactory=presenter.createTileArtProvider}={}){
+export async function harness({values=new Map(),profileId='aft-native-fifteen',nativeFactory=presenter.createTileArtProvider,sourceIndent}={}){
   const counts={prepare:0,apply:0,acquire:0,directRepair:0},writes=[],nativeViews=[],scene=new T.Scene(),released={atlas:false,base:false};let session=null,ordinal=0,hook=()=>{},authorized=true;
   const measured={...tiles,prepareTileRepair(...args){counts.directRepair++;return tiles.prepareTileRepair(...args);},createRetainedTileConsumer(host){const actual=tiles.createRetainedTileConsumer(host);return {...actual,prepare(...args){counts.prepare++;return actual.prepare(...args);},apply(...args){counts.apply++;return actual.apply(...args);}};}};
   const deps={mapCore,tiles:measured,authoring,examples},source=mapCore.blankMap('C1 complete original map');source.metadata={retained:{hp:37,ap:0,unknown:['keep',7]}};
   const template=examples.surfaceRecipe('c1.template',8,4,{segments:16});template.interior.skinId='skin.brick-pavers';
-  const document=createTileAuthoringWorkspace(deps,{workspaceId:'c1-workspace-'+profileId,sourceJSON:JSON.stringify(source,null,1),profileId,finishBinding:finishMetadata.tileFinishBinding(),templateRecipe:template});
+  const document=createTileAuthoringWorkspace(deps,{workspaceId:'c1-workspace-'+profileId,sourceJSON:JSON.stringify(source,null,sourceIndent),profileId,finishBinding:finishMetadata.tileFinishBinding(),templateRecipe:template});
   const binding=createTileAuthoringCheckpointCodec(deps,document),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)},key=tileAuthoringStorageKey(document.id);
   const authority=createTileAuthoringStorage(deps,{binding,storage,initialCheckpoint:binding.codec.create(document),beforeWrite(packet){writes.push({phase:packet.phase,requestId:packet.requestId});hook(packet,'before');},afterWrite(packet){hook(packet,'after');}});
   const atlas=new T.Texture({width:4,height:4});atlas.colorSpace=T.SRGBColorSpace;const base=new T.MeshStandardMaterial({roughness:.95});

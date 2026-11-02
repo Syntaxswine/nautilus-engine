@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "owner": "Coder, Nautilus Engine",
+  "tranche": "C1 public pure Core",
+  "baseCommit": "d869410625b246cfff2b51089e7878c31951775c",
+  "baseTree": "485cac35ec3060f8962c94e05b8f451907d44a3b",
+  "contractCommit": "43227894c50ec62b71806978195fff2c650eb388",
+  "contractSchemaSha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+  "scope": [
+    ".github/workflows/check.yml",
+    "docs/distribution.md",
+    "docs/reviews/tile-authoring/core/c1-registration.json",
+    "docs/reviews/tile-authoring/core/c1-validation.json",
+    "docs/tile-authoring.md",
+    "package.json",
+    "packages/tile-authoring-core/README.md",
+    "packages/tile-authoring-core/budget.js",
+    "packages/tile-authoring-core/contract.js",
+    "packages/tile-authoring-core/contract.schema.json",
+    "packages/tile-authoring-core/data.js",
+    "packages/tile-authoring-core/geometry.js",
+    "packages/tile-authoring-core/index.d.ts",
+    "packages/tile-authoring-core/index.js",
+    "packages/tile-authoring-core/model.js",
+    "packages/tile-authoring-core/operations.js",
+    "packages/tile-authoring-core/source.json",
+    "packages/tile-authoring-core/target.js",
+    "tests/fixtures/tile-authoring/c1-workflow.mjs",
+    "tests/fixtures/tile-authoring/package-proof.mjs",
+    "tests/tile-authoring-core-registration.test.mjs",
+    "tests/tile-authoring-core-runtime.test.mjs",
+    "tools/check-tile-authoring-core-source.mjs",
+    "tools/check.mjs",
+    "tools/distribution.mjs",
+    "tools/test-tile-authoring-core-package.mjs"
+  ],
+  "status": "all C1-owned checks pass; shared historical registration composition and final architect acceptance pending",
+  "checks": {
+    "focused": {
+      "command": "node --test tests/tile-authoring-core-runtime.test.mjs tests/tile-authoring-core-registration.test.mjs",
+      "passed": 21,
+      "failed": 0,
+      "evidence": "artifacts/tile-authoring-core-c1/focused-six-fixes.log"
+    },
+    "sourceRegistration": {
+      "command": "node tools/check-tile-authoring-core-source.mjs",
+      "status": "pass",
+      "profiles": 4
+    },
+    "ordinaryInstalledPackage": {
+      "command": "npm run test:tiles:authoring",
+      "status": "pass on six-correction bytes",
+      "evidence": "artifacts/tile-authoring-core-c1/installed-six-fixes.log",
+      "actualProof": {
+        "publicEntry": true,
+        "producerPath": "actual-public-factory-and-sealer",
+        "sequentialCommands": 6,
+        "actualPreparationsPerFlow": 2,
+        "objectJSONCompleteTargetsEqual": true,
+        "oneBatchPreparation": true,
+        "oldBundleAndForeignSourceRejected": true,
+        "viewRendererDecoderClaim": false
+      },
+      "packed": {
+        "profile": "core",
+        "name": "@nautilus-engine/core",
+        "version": "0.10.0",
+        "fileCount": 305,
+        "integrity": "sha512-e9Qp65gUay4GxLKYKdDBMIpIjjGcLvpbvDKvF6UZfjSo8RvaFhHGDAXyHkh/ohqn5QhRnPNTiv66Bym8Fe/3XQ=="
+      }
+    },
+    "upstream": {
+      "command": "npm run test:upstream",
+      "passed": 32,
+      "failed": 0,
+      "status": "pass",
+      "evidence": "artifacts/tile-authoring-core-c1/upstream-six-fixes.log"
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "pass",
+      "modules": 552,
+      "evidence": "artifacts/tile-authoring-core-c1/build-six-fixes.log"
+    },
+    "check": {
+      "command": "npm run check",
+      "status": "fails only at unchanged historical B1 registration fence before later checks run",
+      "error": "Optional registration may add only the three reviewed entries.",
+      "unexpectedDelta": "./tiles/authoring",
+      "evidence": "artifacts/tile-authoring-core-c1/check-six-fixes.log"
+    },
+    "fullSuite": {
+      "command": "npm test",
+      "status": "pass",
+      "passed": 1013,
+      "failed": 0,
+      "evidence": "artifacts/tile-authoring-core-c1/full-suite-six-fixes.log"
+    },
+    "declarationSyntax": {
+      "command": "node --experimental-strip-types --check packages/tile-authoring-core/index.d.ts",
+      "status": "pass"
+    }
+  },
+  "witnesses": [
+    "actual public producers, six sequential canonical commands, actual retained prepare/apply twice",
+    "four metadata edits preserve complete layout and geometry/appearance fingerprints",
+    "complete object/strict raw JSON command target parity",
+    "one ordered six-operation batch, one request, one actual preparation",
+    "explicit selected owner upgrade; other owner, preset pin, old versions, unused map recipe preserved",
+    "returned old bundle, foreign owner/recipe and coherently rehashed dropped crossing rejected",
+    "clone preserves source anchors/frame/grid and original notice prefix; unique notices append",
+    "strict decoded duplicate keys, aliases, accessors, stale full floor binding and tightened work budget refuse atomically",
+    "exact preset dependency reports unavailable C1 profile",
+    "Instrumented actual public compiler called once per distinct metadata recipe in one call and again on a separate call; no cross-call cache.",
+    "Supplied revisions cannot replace original source attribution; notices append uniquely.",
+    "An actual public path recipe can be sealed as immutable compatibility data but C1 creation refuses its unsupported source profile."
+  ],
+  "budget": {
+    "sharedPlannerLimit": 1000000,
+    "resetPerOperation": false,
+    "limitRaised": false,
+    "hashSerializationBlockBytes": 64,
+    "textScanCharactersPerUnit": 16,
+    "optimization": "Within-call actual public compiler results, checked bundles and immutable-record validation are reused only after freshly recomputed full canonical source hashes match. This avoids actual duplicate work. Every remaining read/hash, compile and sample, detached structuredClone, staged operation, stack derivation and output remains charged under the shared limit. Binder rederives canonical request and full constraints under the remaining budget.",
+    "measurementClaim": false,
+    "capOrMeterRateChangedByCorrections": false,
+    "grammarChangedByCorrections": false
+  },
+  "nonClaims": [
+    "Test host is not production Editor adoption.",
+    "No browser, renderer, decoder, clipping or C2 visual verification is claimed.",
+    "Geometry/appearance fingerprints are data, not authority or view readiness.",
+    "No deployed Sites change or game integration."
+  ],
+  "helperCleanup": {
+    "retainedHelpers": 0,
+    "serverBrowserOrWatcherStarted": false,
+    "packageProofReceipt": "artifacts/tile-authoring-core-c1/package-proof/cleanup.json",
+    "owner": "Coder, Nautilus Engine",
+    "foreground": [
+      {
+        "owner": "Coder, Nautilus Engine",
+        "purpose": "offline ordinary tarball install",
+        "project": "Nautilus Engine C1",
+        "pid": 40192,
+        "executable": "node.exe",
+        "startedAt": "2026-11-02T11:20:16.985Z",
+        "endedAt": "2026-11-02T11:20:19.333Z",
+        "foreground": true,
+        "endCondition": "bounded command exit",
+        "stopMethod": "owning process handle",
+        "exitCode": 0,
+        "signal": null,
+        "ports": []
+      },
+      {
+        "owner": "Coder, Nautilus Engine",
+        "purpose": "actual public installed workflow",
+        "project": "Nautilus Engine C1",
+        "pid": 56692,
+        "executable": "node.exe",
+        "startedAt": "2026-11-02T11:20:19.335Z",
+        "endedAt": "2026-11-02T11:20:28.423Z",
+        "foreground": true,
+        "endCondition": "bounded command exit",
+        "stopMethod": "owning process handle",
+        "exitCode": 0,
+        "signal": null,
+        "ports": []
+      }
+    ],
+    "temporaryInstallRemoved": true,
+    "ports": [],
+    "noBackgroundServerBrowser": true
+  },
+  "designEvaluation": {
+    "useCase": "Nautilus rectangle-first tile authoring for the three games",
+    "accuracy": "Exact original source bytes, full native floor provenance, immutable pins and explicit upgrade decisions preserve authored intent; no claim of physical/rendered slab calibration.",
+    "efficiency": "Code-based estimate: per-call exact immutable validation reuse, one retained geometry preparation and metadata without new geometry/view allocation. Hash/validation limits are refusal ceilings, not performance measurements.",
+    "narrative": "Subjective: independently placed copies and explicit upgrades let authors control local visual changes while preserving old content.",
+    "recommendation": "Prefer shared pure C1 rectangle source/commands with one Editor commit authority for this milestone. Keep richer C2 decoration and game-specific simulation behind later reviewed adapters.",
+    "adoption": "pure Core implemented; production Editor/UI/visual integration remains separately owned"
+  },
+  "earlyCheckpoint": "981a496a8fda395dd70838f5f1361b44e3fc7b70",
+  "priorCheckpoint": "178289fbff6ffc5d3e1fa3db2b3b3252b6b31d89",
+  "architectReviewCorrections": [
+    {
+      "finding": "UTF16 units incorrectly rejected valid Unicode code point lengths",
+      "correction": "Use proven UTF16 lower/upper length bounds first; only ambiguous schema cases run a precharged scalar counter loop with no code point array allocation. UTF8 byte/work bounds remain independent.",
+      "positive": "ASCII120, emoji60/61/120 accepted",
+      "negative": "ASCII/emoji121 and unpaired surrogate refuse"
+    },
+    {
+      "finding": "Old preset association accepted after current owner definition upgrade",
+      "correction": "Resolve exact preset and require preset.definition equal the complete current owner Definition Pin.",
+      "positive": "B1 owner retains P1; upgraded B2 owner has null preset",
+      "negative": "Restoring P1(B1) onto current B2 refuses OWNER_PRESET_PIN"
+    },
+    {
+      "finding": "Surface binding could use alternate Definition/frame behind equal recipe bytes",
+      "correction": "Require SurfaceBinding.definition equal current owner Definition Pin and validate current geometry/frame/grid.",
+      "positive": "Exact current Pin/frame accepts",
+      "negative": "Separately sealed origin[10,20,0] Definition with fresh hashes refuses SURFACE_DEFINITION_PIN; same Pin with wrong frame refuses SURFACE_BINDING"
+    },
+    {
+      "finding": "Active preset requirements were ignored",
+      "correction": "Stage operations check active preset and definition requirements before any preparation; binder replays the same semantics.",
+      "positive": "Supported preset places through actual public prepare/bind; unsupported metadata remains inspectable immutable content",
+      "negative": "Unavailable active preset profile refuses UNSUPPORTED_REQUIRED_PROFILE before preparation"
+    },
+    {
+      "finding": "Binder omitted exact source resource/context closure",
+      "correction": "Planner and binder share validateResourceContext; binder checks source and returned target descriptor closure on both routes.",
+      "positive": "Exact typed descriptor binds on metadata and geometry routes",
+      "negative": "Dropping context descriptor refuses UNBOUND_RESOURCE_SET in both planner and binder"
+    },
+    {
+      "finding": "Binder echoed modified proposal cost fields",
+      "correction": "Shared authoringCosts derives source counts/layers and captured aggregate allocations; binder validates cost schema and compares all nonplanning fields with fresh derivation, then returns those derived values.",
+      "positive": "Captured owned material total64 is returned64 on both routes",
+      "negative": "Altered total0, sourceMarks or layer observation refuses PLAN_COST_BINDING"
+    }
+  ],
+  "cosmeticUpgradeControl": {
+    "behavior": "For existing unchanged exact geometry/frame/grid, update only the current SurfaceBinding.definition Pin during selected explicit upgrade. Preserve mark/chunk bytes, stable mark binding digest, other owners and pins.",
+    "negative": "Dimensions/frame/grid changes still refuse C2_ANCHOR_EDIT_UNAVAILABLE.",
+    "C2CreationOrRenderingAdded": false
+  },
+  "runtimeCommit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+  "delivery": {
+    "remotePush": "held because mandatory global check fails; user AGENTS prohibits push with failing relevant checks",
+    "fenceOwner": "Architect and native tooling helper",
+    "guardCallers": 5,
+    "worktreeRuntimeChangedOutsideApproved26Paths": false,
+    "retainedHelpers": 0
+  }
+}

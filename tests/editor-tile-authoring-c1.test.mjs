@@ -16,6 +16,7 @@ test('C1 actual public Core/native service and JSONL create A1/clone B1/revise B
   for(let i=0;i<6;i++)assert.equal((await h.session.undo()).committed,true);assert.deepEqual(saved(h).document,initial.document);
   for(let i=0;i<6;i++)assert.equal((await h.session.redo()).committed,true);assert.deepEqual(saved(h).document,after.document);
   assert.equal(h.counts.prepare,2);assert.equal(h.counts.acquire,7);assert.equal(saved(h).journal.receipts.length,18);
+  const history=clone(h.session.getSnapshot().history),checkpoint=h.raw;assert.equal((await h.session.open(checkpoint)).ok,true);assert.deepEqual(h.session.getSnapshot().history,history);assert.deepEqual(saved(h).document,after.document);assert.equal(h.counts.prepare,2);
 });
 
 test('C1 source-unchanged review/cancel/history and real NO_CHANGE retain the accepted view, allocations and redo',async t=>{
@@ -43,6 +44,15 @@ test('C1 same-connection one-use review, stale source/context and strict complet
   h.floors.select('F01');assert.equal((await h.service.apply(request)).committed,false);assert.deepEqual(saved(h),before);assert.equal((await h.service.prepare(command)).ok,false);
   const malformed=clone(before);malformed.document.extraAuthority={};assert.throws(()=>h.binding.codec.open(malformed));malformed.document=clone(before.document);malformed.document.version=2;assert.throws(()=>h.binding.codec.open(malformed));
   assert.equal(h.counts.prepare,0);assert.equal(h.counts.acquire,1);assert.equal(h.writes.length,0);assert.equal(review.tilePreparation,'source-unchanged');
+});
+
+test('C1 retains formatted original full-map source bytes across accepted or budget-refused commands',async t=>{
+  const h=await harness({sourceIndent:1});t.after(()=>h.dispose());const records=definitions(),original=h.document.sourceJSON;
+  await applyCommand(h,h.command('recipe.create',{definition:records.a}));const before=saved(h),counts=clone(h.counts);
+  const review=await h.service.prepare(h.command('recipe.clone',{base:pin(records.a),definition:records.b1}));
+  if(review.status==='reviewable')assert.equal((await h.service.apply(h.workbench.getSnapshot().presentation.retainedApplyRequest)).committed,true);
+  else {assert.ok(review.diagnostics.some(d=>d.code==='AUTHORING_WORK_LIMIT'));assert.deepEqual(saved(h),before);}
+  assert.equal(saved(h).document.sourceJSON,original);assert.equal(h.service.snapshot().source.originalSourceJSON,original);assert.deepEqual(h.counts,counts);
 });
 
 test('C1 metadata and metadata history preserve actual accepted identity and unverified native retirement debt',async t=>{

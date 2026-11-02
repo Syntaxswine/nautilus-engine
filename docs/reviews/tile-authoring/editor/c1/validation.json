@@ -3,15 +3,17 @@
   "version": 1,
   "status": "early-review-checkpoint-not-integration-delivery",
   "checks": [
+    {"command": "node tools/editor-direct-tile-authoring-c1.mjs", "status": "pass", "scope": "actual Core/retained host/native CPU six-command flow, including JSONL placement; synthetic atlas, no browser claim", "log": "artifacts/editor-tile-authoring-current-direct.jsonl", "geometryPrepares": 2, "geometryApplies": 2},
+    {"command": "node --test tests/editor-tile-authoring-cache.test.mjs tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs tests/ui-tile-authoring-c1.test.mjs", "status": "pass", "passed": 48, "log": "artifacts/editor-tile-authoring-current-controls.log", "scope": "cache mutation, actual native resource/lease owner, transport, accepted UI protocol component; not full rendered integration"},
     {"command": "node --test tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 2, "scope": "transport syntax and forwarding; service double, no Core/native integration claim"},
     {"command": "node --test tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 6, "log": "artifacts/editor-tile-authoring-resource-and-transport.log", "scope": "actual native allocation/manager/pool/lease unit checks and transport; no authoring Core integration or rendered claim"},
     {"command": "node --test tests/ui-tile-authoring-c1.test.mjs tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 40, "log": "artifacts/editor-tile-authoring-component-resource-transport.log", "scope": "accepted UI protocol component plus native resource and transport units; Core/Host/native integration remains unbound in UI protocol tests"},
     {"command": "isolated fixed-Git-object source probe of Editor52/Core981/UI2e4730", "status": "partial", "passed": 5, "failed": 4, "failure": "AUTHORING_WORK_LIMIT during full-map library revision; pending Core cache/copy-charge follow-up", "log": "artifacts/editor-tile-authoring-c1-staging-8e09f144-c390-4ba4-8480-2bcc7ae56dd0/focused-test.log", "runtimeAdoption": false},
     {"command": "node --test tests/smart-tile-session.test.mjs tests/editor-tile-stack-inspection-fence.test.mjs", "status": "pass-before-subsequent-v3-only-hooks", "passed": 22, "scope": "initial shared session extension; current-tree regression rerun remains required"},
     {"command": "git diff --check", "status": "pass"},
-    {"command": "node --test tests/editor-tile-authoring-c1.test.mjs", "status": "pending-fixed-reviewed-Core-runtime"},
-    {"command": "actual source/built/installed human-UI and JSONL proof", "status": "pending-fixed-reviewed-Core-and-UI-runtime"},
-    {"command": "npm run check; npm test; npm run test:upstream; npm run build", "status": "pending-runtime-dependencies"}
+    {"command": "node --test tests/editor-tile-authoring-c1.test.mjs", "status": "pending-current-complete-history-and-recovery-run"},
+    {"command": "actual source/built/installed human-UI and JSONL proof", "status": "pending-current-browser-proof"},
+    {"command": "npm run check; npm test; npm run test:upstream; npm run build", "status": "pending-final-delivery-gates"}
   ],
   "helpers": {"retained": [], "temporaryTestSessions": "completed; no preview server started"},
   "pushStatus": "not-pushed; full delivery gates pending"

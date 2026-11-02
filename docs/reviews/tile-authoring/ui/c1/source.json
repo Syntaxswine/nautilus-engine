@@ -5,7 +5,7 @@
   "coreContract": "43227894c50ec62b71806978195fff2c650eb388",
   "uiContract": "678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2",
   "copiedHistoricalRuntime": false,
-  "actualCoreCommit": null,
+  "actualCoreCommit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
   "actualHostCommit": null,
   "actualIntegration": false,
   "roleOwnedFiles": [
@@ -32,13 +32,13 @@
   "files": [
     {
       "file": "apps/editor/tile-authoring/ui/panel.js",
-      "bytes": 26873,
-      "sha256": "3d598570bfe3d66c299f1611cb93158aa19df4d7985a9cab2d99bdc923e8e6ef"
+      "bytes": 27511,
+      "sha256": "b2daee0f91a236b7df63c8dc1d29d348e05d2250730c1990c6237ce5c458a2e7"
     },
     {
       "file": "apps/editor/tile-authoring/ui/commands.js",
-      "bytes": 7364,
-      "sha256": "063eb1876fe6138cda3fa3813c6370bec8a8f6a31a7fde564da280da595e8b79"
+      "bytes": 9799,
+      "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b"
     },
     {
       "file": "apps/editor/tile-authoring/ui/styles.css",
@@ -47,32 +47,32 @@
     },
     {
       "file": "tests/ui-tile-authoring-c1.test.mjs",
-      "bytes": 27943,
-      "sha256": "171ddc4d8f13449af10c9095c7fc71d345a7cccc350b74eeb7e9b73eacecdec9"
+      "bytes": 31601,
+      "sha256": "4b0d735ae7db4c42f2243a9e476eb9e5684a421f252909be8aca150ef0ca7794"
     },
     {
       "file": "tools/ui-review-tile-authoring-c1.mjs",
-      "bytes": 2593,
-      "sha256": "d138af80ccc7dfe2463d991116890665f27cd62b608cb8d12219e5061c60d807"
+      "bytes": 16457,
+      "sha256": "1fa1ac840c8929fe596d388e3bf391314c66d98b0ecb9bc61b82ace2959b2d79"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/README.md",
-      "bytes": 8509,
-      "sha256": "fa82b0c56261575d460bf7a175814f2dca714f9cbfc9f95ce872f506592b55d0"
+      "bytes": 10664,
+      "sha256": "6cedce583f55a450d8232211b81d0f341ac374a0db3769dbdb216b6f3aa472f5"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/usage-card.json",
-      "bytes": 2173,
-      "sha256": "1635807fff63fca806fdce368da59871ea1116a622ce94eb5b7002b7f8bdaced"
+      "bytes": 2667,
+      "sha256": "0bc2b94a81cc30773a14d40aafd84158e9ccf4a8a81786619f5475a455422107"
     },
     {
       "file": "docs/reviews/tile-authoring/ui/c1/validation.json",
-      "bytes": 72185,
-      "sha256": "8ceb82638baabe220e38d87bdde006625a8cfa6412d9e7e4592a09f027f2ab79"
+      "bytes": 122337,
+      "sha256": "30ab17dbf5e66e18e35055ef0c6dfe901541fa24455788305f25d6676f4b4b43"
     }
   ],
-  "status": "component-with-focused-protocol-corrections-awaiting-Root-review",
-  "correctionOf": "2e4730e56db86d9336455ba1671d8ded788ff9da",
+  "status": "focused-form-alignment-with-actual-Core-construction-Host-pending",
+  "correctionOf": "fac180e2909ba499146bb8e4560c79cf4794ca93",
   "comparison": {
     "objectKeyOrder": "ignored for finite data comparison only",
     "arrayOrder": "preserved",
@@ -88,6 +88,35 @@
     {
       "parent": "2e4730e56db86d9336455ba1671d8ded788ff9da",
       "kind": "post-construction-Stage-live-frame-fence"
+    },
+    {
+      "parent": "fac180e2909ba499146bb8e4560c79cf4794ca93",
+      "kind": "actual-constructor-field-bounds-Unicode-alignment"
     }
-  ]
+  ],
+  "actualCoreDocsCommit": "eedfc0149cbaa5715445ed2dc909c2d694a81d50",
+  "actualCoreDependency": {
+    "codeCommit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+    "docsCommit": "eedfc0149cbaa5715445ed2dc909c2d694a81d50",
+    "publicEntry": "./tiles/authoring",
+    "sourceEntry": "packages/tile-authoring-core/index.js",
+    "mode": "Immutable Git-object constructor/sealer proof only; no installed package or production host.",
+    "fixedModules": 133,
+    "inventorySha256": "9ef8ab55edbaceff409c4306deb19403f4a9bf29e7a4f2c385a2f8c5c0b7e7ac",
+    "inventoryEvidence": "validation.json evidence.constructors gzip payload",
+    "supportingInputs": [
+      {
+        "commit": "3df11ce6e62fb94806e30652b87168949f8ef4dd",
+        "file": "packages/tile-authoring-core/index.d.ts",
+        "bytes": 15887,
+        "sha256": "5842a9153dcafb7e66591ad4d91ee522e28e0e5f61ed2b46d000e9331edb3feb"
+      },
+      {
+        "commit": "eedfc0149cbaa5715445ed2dc909c2d694a81d50",
+        "file": "docs/tile-authoring.md",
+        "bytes": 9202,
+        "sha256": "4fff62285ac6fa18b5a6b9f597d2f5348526619e7486e1eecdbda7564bde08e8"
+      }
+    ]
+  }
 }
