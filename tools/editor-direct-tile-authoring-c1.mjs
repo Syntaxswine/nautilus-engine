@@ -6,10 +6,17 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash,randomUUID} from 'node:crypto';
-import {moduleClosure} from './distribution.mjs';
+import {moduleReferencesBatch} from './module-references.mjs';
 import {harness,definitions,pin,placeBody,upgradeBody} from '../tests/fixtures/tile-authoring-editor/c1.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),history=process.argv.includes('--history'),stem=history?'editor-tile-authoring-performance':'editor-tile-authoring-current-direct',file=path.join(root,'artifacts',stem+'.jsonl'),summaryFile=path.join(root,'artifacts',stem+'-summary.json');fs.mkdirSync(path.dirname(file),{recursive:true});
-const sha=bytes=>createHash('sha256').update(bytes).digest('hex'),inputs=moduleClosure(['tools/editor-direct-tile-authoring-c1.mjs']).sort().map(file=>({file,sha256:sha(fs.readFileSync(path.join(root,file)))})),runId=randomUUID(),started=performance.now(),sourceHead=execFileSync('git',['rev-parse','HEAD'],{cwd:root,windowsHide:true,encoding:'utf8'}).trim(),phases=[];
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+function inputClosure(){
+  const records=new Map(),pending=['tools/editor-direct-tile-authoring-c1.mjs'];
+  while(pending.length){const batch=[...new Set(pending.splice(0))].filter(file=>!records.has(file)),modules=[];for(const file of batch){const bytes=fs.readFileSync(path.join(root,file));records.set(file,{file,sha256:sha(bytes)});if(/\.m?js$/.test(file))modules.push({filename:file,source:bytes.toString('utf8')});}
+    for(const record of moduleReferencesBatch(modules))for(const specifier of record.specifiers){if(specifier.startsWith('node:')){assert.match(record.filename,/^(tools|tests)\//,'Node tooling is not a Core/browser runtime dependency.');continue;}assert.ok(specifier.startsWith('.'),'Use explicit local source dependencies.');const file=path.posix.normalize(path.posix.join(path.posix.dirname(record.filename),specifier));assert.ok(!file.startsWith('../')&&!path.posix.isAbsolute(file));if(!records.has(file))pending.push(file);}}
+  return [...records.values()].sort((a,b)=>a.file.localeCompare(b.file));
+}
+const inputs=inputClosure(),runId=randomUUID(),started=performance.now(),sourceHead=execFileSync('git',['rev-parse','HEAD'],{cwd:root,windowsHide:true,encoding:'utf8'}).trim(),phases=[];
 let host,status='running',failure=null;
 const report=()=>fs.writeFileSync(summaryFile,JSON.stringify({version:1,runId,status,sourceHead,history,scope:'Actual Core/retained host/native CPU; synthetic atlas, no DOM/WebGL/installed/device claim. Production calls and proof work are timed separately.',inputs,phases,counts:host?.counts??null,elapsedMs:performance.now()-started,...(failure?{error:failure}:{})},null,2)+'\n');
 const log=value=>fs.appendFileSync(file,JSON.stringify({at:new Date().toISOString(),runId,elapsedMs:performance.now()-started,...value})+'\n');
