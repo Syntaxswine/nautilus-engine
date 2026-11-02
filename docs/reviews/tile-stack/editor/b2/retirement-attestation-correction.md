@@ -8,6 +8,8 @@ Inactive/retiring views are skipped for visibility, picking and framing bounds. 
 
 Validation: `node --test tests/editor-tile-stack-retirement-receipts.test.mjs tests/editor-tile-stack-b2-native.test.mjs` passes **12/12**. Five new cases use actual public native geometry, the actual finish pool and ordinary actual Three dispose events, with earlier throwing listeners and later delivery witnesses. No provider or dispose method is monkeypatched in these five cases; the small synthetic atlas is Node setup, without a renderer/GPU claim.
 
+The fixed runtime is **`faf4454bc2760f91743039b0ea42bff15055c57c`**. Its required repository gates were rerun: **991/992 tests pass**, with the sole failure remaining the unchanged historical `input.js` source fence; `npm run check` stops at that same expected fence. Upstream passes **32/32** and build passes with **544 module paths** checked. `retirement-gates/results.json` records these results, exact current runtime/test source hashes and compressed raw logs. No preview/browser/server helper was started for this correction, and all finite gate processes exited.
+
 | Actual event case | Geometry receipts | Material receipts | Result |
 | --- | --- | --- | --- |
 | Both earlier listeners throw | 0/75 | 0/4 | One retiring root, 930 triangles and 480 cells retained; four material reservations retained; borrowed leases held |
