@@ -1,0 +1,10 @@
+import {currentOrdinaryBudget} from '../../scope.js';
+import {fail} from './contracts.js';
+export class PlannerBudget{
+  constructor(limits){this.shared=currentOrdinaryBudget();this.limits=limits;this.units=0;this.bytes=0;this.reservedBytes=0;}
+  take(n=1){if(!Number.isSafeInteger(n)||n<0||this.units+n>this.limits.maxPlannerWork)fail('STACK_PLANNER_WORK_LIMIT','/limits/maxPlannerWork','Whole planner work exceeds its captured bound.');this.shared.take(n);this.units+=n;}
+  record(){this.take(16);if(this.reservedBytes+2048>this.limits.maxPlannerBytes)fail('STACK_PLANNER_BYTES_LIMIT','/limits/maxPlannerBytes','Bounded inspection records exceed the captured byte allowance.');this.reservedBytes+=2048;}
+  source(value){this.take();if(typeof value==='string')this.take(value.length);else if(value&&typeof value==='object')for(const [k,v]of Object.entries(value)){this.take(k.length+1);this.source(v);}}
+  preflight(value){let size=0;const add=n=>{if(size+n>this.limits.maxPlannerBytes)fail('STACK_PLANNER_BYTES_LIMIT','/limits/maxPlannerBytes','Complete plan exceeds its captured UTF-8 artifact bound.');size+=n;};const string=s=>{add(2);for(let i=0;i<s.length;i++){this.take();const c=s.charCodeAt(i);if(c===34||c===92||[8,9,10,12,13].includes(c))add(2);else if(c<32)add(6);else if(c<128)add(1);else if(c<2048)add(2);else if(c>=0xd800&&c<=0xdbff&&i+1<s.length&&s.charCodeAt(i+1)>=0xdc00&&s.charCodeAt(i+1)<=0xdfff){add(4);i++;}else if(c>=0xd800&&c<=0xdfff)add(6);else add(3);}};const visit=v=>{this.take();if(v===null){add(4);return;}if(typeof v==='string'){string(v);return;}if(typeof v!=='object'){add(JSON.stringify(v).length);return;}add(2);const list=Array.isArray(v)?v:Object.entries(v);for(let i=0;i<list.length;i++){if(i)add(1);if(Array.isArray(v))visit(list[i]);else{string(list[i][0]);add(1);visit(list[i][1]);}}};visit(value);this.bytes=size;return size;}
+  snapshot(){return {plannerUnits:this.units,serializedBytes:this.bytes};}
+}

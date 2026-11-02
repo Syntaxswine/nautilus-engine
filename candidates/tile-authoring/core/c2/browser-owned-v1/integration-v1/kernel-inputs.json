@@ -1,5 +1,5 @@
 {
-  "status": "PRIVATE source-preserving static import adapters; no public adoption. Original bodies preserved except listed relative imports; actual backend still must bind.",
+  "status": "PRIVATE originals retained; exact import relocations and separately recorded same-observer/owned-codec adaptations. Actual original/default source files untouched.",
   "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
   "runtimeEntries": [
     "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/packages/windows-authoring/journal.js",
@@ -68,14 +68,14 @@
       ]
     },
     {
-      "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+      "commit": "8b4f810727f8feb4d2913619f2471f2d7fa04fce",
       "path": "apps/editor/smart-tile/views.js",
-      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/a0b2fdebc9b9.views.js.original",
-      "bytes": 5514,
-      "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
-      "gitBlob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/kernel/57e7474974ec.views.js.original",
+      "bytes": 8434,
+      "sha256": "61fcc88d8dc1a12f50430ce7855610ae4563eaf9649dd29231b87188a653ee61",
+      "gitBlob": "57e7474974ec52ba81ccfa4bc25e06384fc9bc42",
       "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/deps/apps/editor/smart-tile/views.js",
-      "adapterSha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf",
+      "adapterSha256": "61fcc88d8dc1a12f50430ce7855610ae4563eaf9649dd29231b87188a653ee61",
       "importRewrites": [
         {
           "from": "./contract.js",
@@ -190,7 +190,7 @@
       "sha256": "a9ce135bbc9b956be350fc170522a692af8a95991b938cb4f65c7f0cadacd006",
       "gitBlob": "68ecd7ed4c28d65dcdc30a09829f80844a9e0476",
       "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/kernel/runtime/apps/editor/smart-tile/checkpoint.js",
-      "adapterSha256": "0651fa8338b44ec76e56fa5555ca7bde5b21cd4a1b19c7a96066fe854436fd25",
+      "adapterSha256": "938e289a32a48be8f7763e63f52484651602358d0637a7b8dd858b731554c402",
       "importRewrites": [
         {
           "from": "../../../observation.js",
@@ -206,6 +206,68 @@
           "from": "../../../../../../../../apps/editor/smart-tile/contract.js",
           "to": "../../../../deps/apps/editor/smart-tile/contract.js",
           "sourceTarget": "apps/editor/smart-tile/contract.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "source-private-owned-codec-v1-1",
+          "from": "const canonical=(v,observer=undefined)=>{observer?.visit('/canonical',0);if(Array.isArray(v))return '['+v.map(x=>canonical(x,observer)).join(',')+']';if(v&&typeof v==='object'){const keys=observer?observer.opaque('canonical.keys-sort',v,()=>Object.keys(v).sort()):Object.keys(v).sort();return '{'+keys.map(k=>{observer?.key(k);return observedStringify(observer,k,'canonical.key-json')+':'+canonical(v[k],observer);}).join(',')+'}';}if(typeof v==='string')observer?.text(v);return observedStringify(observer,v,'canonical.scalar-json');};\nexport const smartTileDigest=(value,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.digest',smartTileDigest,value,observer);const text=canonical(smartTileData(value,observer),observer);return observer?observer.opaque('frozen.sha256',text,()=>sha256(text)):sha256(text);};\nconst sourceChecks=new WeakMap();\n",
+          "to": "const canonical=(v,observer=undefined)=>{observer?.visit('/canonical',0);if(Array.isArray(v))return '['+v.map(x=>canonical(x,observer)).join(',')+']';if(v&&typeof v==='object'){const keys=observer?observer.opaque('canonical.keys-sort',v,()=>Object.keys(v).sort()):Object.keys(v).sort();return '{'+keys.map(k=>{observer?.key(k);return observedStringify(observer,k,'canonical.key-json')+':'+canonical(v[k],observer);}).join(',')+'}';}if(typeof v==='string')observer?.text(v);return observedStringify(observer,v,'canonical.scalar-json');};\nexport const smartTileDigest=(value,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.digest',smartTileDigest,value,observer);if(observer&&value&&typeof value==='object'&&privateFrozenValues.has(value)&&privateDigestValues.has(value)){observer.visit('/digest/actual-owned-cache',0);return privateDigestValues.get(value);}const text=canonical(smartTileData(value,observer),observer),result=observer?observer.opaque('frozen.sha256',text,()=>sha256(text)):sha256(text);if(observer&&value&&typeof value==='object'&&privateFrozenValues.has(value))privateDigestValues.set(value,result);return result;};\nconst privateFrozenValues=new WeakSet(),privateDigestValues=new WeakMap();\nconst sourceChecks=new WeakMap();\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-2",
+          "from": "const integer=(v,path)=>{if(!Number.isSafeInteger(v)||v<0)fail('INVALID_INTEGER',path,'Supply a nonnegative safe integer.');};\nconst freeze=(v,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.freeze',freeze,v,observer);observer?.visit('/freeze',0);if(v&&typeof v==='object'){const values=observer?observer.opaque('data.freeze-values',v,()=>Object.values(v)):Object.values(v);values.forEach(x=>freeze(x,observer));Object.freeze(v);}return v;};\nfunction services(deps){\n",
+          "to": "const integer=(v,path)=>{if(!Number.isSafeInteger(v)||v<0)fail('INVALID_INTEGER',path,'Supply a nonnegative safe integer.');};\nconst freeze=(v,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.freeze',freeze,v,observer);observer?.visit('/freeze',0);if(v&&typeof v==='object'){if(observer&&privateFrozenValues.has(v))return v;const values=observer?observer.opaque('data.freeze-values',v,()=>Object.values(v)):Object.values(v);values.forEach(x=>freeze(x,observer));Object.freeze(v);if(observer)privateFrozenValues.add(v);}return v;};\nfunction services(deps){\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-3",
+          "from": "  const smartTileCheckpointToken=observer?v=>baseCodecOps.smartTileCheckpointToken(v,observer):baseCodecOps.smartTileCheckpointToken;\n  const JSON=observer?{stringify:v=>observedStringify(observer,v,'codec.json.stringify'),parse:v=>observedParse(observer,v,'codec.json.parse')}:globalThis.JSON;\n  const structuredClone=observer?v=>observedClone(observer,v,'codec.structuredClone'):globalThis.structuredClone;\n",
+          "to": "  const smartTileCheckpointToken=observer?v=>baseCodecOps.smartTileCheckpointToken(v,observer):baseCodecOps.smartTileCheckpointToken;\n  const ownedJSON=new WeakMap(),ownedEncoded=new Map(),ownedOperations=new WeakSet(),operationTargets=new WeakMap();\n  const stringifyOwned=(value,site)=>{const text=value&&typeof value==='object'?ownedJSON.get(value):undefined;if(text!==undefined){observer.visit('/codec/actual-owned-json',0);return text;}return observedStringify(observer,value,site);};\n  const JSON=observer?{stringify:v=>stringifyOwned(v,'codec.json.stringify'),parse:v=>observedParse(observer,v,'codec.json.parse')}:globalThis.JSON;\n  const structuredClone=observer?v=>observedClone(observer,v,'codec.structuredClone'):globalThis.structuredClone;\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-4",
+          "from": "    while(facts.size&&(facts.size>=limits.entries||!fits({bytes:charges.bytes+charge.bytes,nodes:charges.nodes+charge.nodes,text:charges.text+charge.text})))discard(facts.keys().next().value);\n    entry.documentDigest??=smartTileDigest(c.document);entry.charge=charge;\n    facts.set(c,entry);for(const name of ['bytes','nodes','text'])charges[name]+=charge[name];counts.admissions++;\n",
+          "to": "    while(facts.size&&(facts.size>=limits.entries||!fits({bytes:charges.bytes+charge.bytes,nodes:charges.nodes+charge.nodes,text:charges.text+charge.text})))discard(facts.keys().next().value);\n    entry.documentDigest??=smartTileDigest(c.document);entry.charge=charge;if(observer)ownedJSON.set(c.document,entry.documentJSON);\n    facts.set(c,entry);for(const name of ['bytes','nodes','text'])charges[name]+=charge[name];counts.admissions++;\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-5",
+          "from": "    if(!witnesses.has(witness))return openSmartTileCheckpoint(bound,candidate);\n    const c=fresh(candidate),deps=services(bound),source=witness.source,entry=proofFor(source);\n    fields(c,['kind','version','document','journal'],'');if(c.kind!==formats.checkpoint||c.version!==formats.checkpointVersion)fail('UNSUPPORTED_CHECKPOINT','/version','Use the explicitly bound Editor-local checkpoint format.');c.document=document(c.document,deps);\n",
+          "to": "    if(!witnesses.has(witness))return openSmartTileCheckpoint(bound,candidate);\n    const c=observer?candidate:fresh(candidate),deps=services(bound),source=witness.source,entry=proofFor(source);\n    fields(c,['kind','version','document','journal'],'');if(c.kind!==formats.checkpoint||c.version!==formats.checkpointVersion)fail('UNSUPPORTED_CHECKPOINT','/version','Use the explicitly bound Editor-local checkpoint format.');c.document=document(c.document,deps);\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-6",
+          "from": "  const document=input=>hooks.validateDocument(input,bound);\n  function targetDocument(before,op){const next=hooks.targetDocument(before,op);return document(next);}\n  function operation(input,doc,deps,before=null){\n",
+          "to": "  const document=input=>hooks.validateDocument(input,bound);\n  function targetDocument(before,op){if(observer&&ownedOperations.has(op)&&operationTargets.has(op)){observer.visit('/codec/actual-owned-operation-target',0);return operationTargets.get(op);}const next=hooks.targetDocument(before,op),target=document(next);if(observer&&ownedOperations.has(op))operationTargets.set(op,target);return target;}\n  function operation(input,doc,deps,before=null){\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-7",
+          "from": "function openSmartTileCheckpoint(dependencies,input){\n  const deps=services(dependencies),known=validated.get(input);if(known&&known.mapCore===deps.mapCore&&known.tiles===deps.tiles)return input;\n  if(reuse)counts.fullReads++;\n",
+          "to": "function openSmartTileCheckpoint(dependencies,input){\n  if(observer&&typeof input==='string'&&ownedEncoded.size){const cached=observer.opaque('codec.owned-encoding-lookup',input,()=>ownedEncoded.get(input));if(cached&&validated.has(cached))return cached;}const deps=services(dependencies),known=validated.get(input);if(known&&known.mapCore===deps.mapCore&&known.tiles===deps.tiles)return input;\n  if(reuse)counts.fullReads++;\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-8",
+          "from": "}\nfunction createSmartTileCheckpoint(deps,input){return openSmartTileCheckpoint(deps,{kind:formats.checkpoint,version:formats.checkpointVersion,document:input,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}});}\nfunction serializeSmartTileCheckpoint(deps,input){return JSON.stringify(openSmartTileCheckpoint(deps,input));}\nfunction stageSmartTileOperation(deps,input,rawOperation){\n  const c=openSmartTileCheckpoint(deps,input),op=reuse?fresh(rawOperation):smartTileData(rawOperation);if(c.journal.pending)fail('RECOVERY_REQUIRED','/journal/pending','Recover the original request before another operation.');if(c.journal.receipts.length>=L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Journal capacity is full; preserve source and receipts.');\n  if(c.journal.receipts.some(r=>r.id===op.id))fail('REQUEST_ID_REUSED','/operation/id','Use each request identity once.');operation(op,c.document,services(deps),c.document);if(op.expected.token!==(reuse?ownedToken(c):smartTileCheckpointToken(c)))fail('STALE_CHECKPOINT','/operation/expected/token','The complete retained checkpoint changed.');\n  const candidate={...structuredClone(c),journal:{...structuredClone(c.journal),pending:op}};\n  return reuse?successor(candidate,c,'stage',{operationJSON:JSON.stringify(op)}):openSmartTileCheckpoint(deps,candidate);\n",
+          "to": "}\nfunction createSmartTileCheckpoint(deps,input){if(observer&&reuse){const d=document(input),c={kind:formats.checkpoint,version:formats.checkpointVersion,document:d,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}};freeze(c);const actual=services(bound);validated.set(c,actual);admit(c,actual);return c;}return openSmartTileCheckpoint(deps,{kind:formats.checkpoint,version:formats.checkpointVersion,document:input,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}});}\nfunction serializeSmartTileCheckpoint(deps,input){const c=openSmartTileCheckpoint(deps,input),text=JSON.stringify(c);if(observer&&validated.has(c)){ownedJSON.set(c,text);ownedEncoded.delete(text);ownedEncoded.set(text,c);while(ownedEncoded.size>64)ownedEncoded.delete(ownedEncoded.keys().next().value);}return text;}\nfunction stageSmartTileOperation(deps,input,rawOperation){\n  const c=openSmartTileCheckpoint(deps,input),op=reuse?fresh(rawOperation):smartTileData(rawOperation);if(observer){freeze(op);ownedOperations.add(op);}if(c.journal.pending)fail('RECOVERY_REQUIRED','/journal/pending','Recover the original request before another operation.');if(c.journal.receipts.length>=L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Journal capacity is full; preserve source and receipts.');\n  if(c.journal.receipts.some(r=>r.id===op.id))fail('REQUEST_ID_REUSED','/operation/id','Use each request identity once.');operation(op,c.document,services(deps),c.document);if(op.expected.token!==(reuse?ownedToken(c):smartTileCheckpointToken(c)))fail('STALE_CHECKPOINT','/operation/expected/token','The complete retained checkpoint changed.');\n  const candidate=observer?{...c,journal:{...c.journal,pending:op}}:{...structuredClone(c),journal:{...structuredClone(c.journal),pending:op}};\n  return reuse?successor(candidate,c,'stage',{operationJSON:JSON.stringify(op)}):openSmartTileCheckpoint(deps,candidate);\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-9",
+          "from": "  const c=openSmartTileCheckpoint(deps,input),op=c.journal.pending;if(!op||op.id!==requestId)fail('RECOVERY_ID_MISMATCH','/journal/pending','Settle only the exact original request.');if(!['committed','not-committed'].includes(outcome))fail('INVALID_OUTCOME','/outcome','Use an authoritative settled outcome.');\n  if(reuse){const inspected=fresh(op);if(JSON.stringify(inspected)!==JSON.stringify(op))fail('RECEIPT_MISMATCH','/journal/pending','Keep the exact inspected original operation.');operation(inspected,c.document,services(deps),c.document);}\n  if((reuse?ownedToken(c):smartTileCheckpointToken(c))!==op.expected.token)fail('STALE_CHECKPOINT','/journal/pending','Pending recovery does not bind the complete accepted source.');\n  const nextDocument=structuredClone(outcome==='committed'?targetDocument(c.document,op):c.document),receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:structuredClone(op)};\n  const candidate={...structuredClone(c),document:nextDocument,journal:{...structuredClone(c.journal),serial:c.journal.serial+1,receipts:[...structuredClone(c.journal.receipts),receipt],pending:null}};\n  return reuse?successor(candidate,c,'settle',{operationJSON:JSON.stringify(op),documentJSON:JSON.stringify(nextDocument),outcome}):openSmartTileCheckpoint(deps,candidate);\n",
+          "to": "  const c=openSmartTileCheckpoint(deps,input),op=c.journal.pending;if(!op||op.id!==requestId)fail('RECOVERY_ID_MISMATCH','/journal/pending','Settle only the exact original request.');if(!['committed','not-committed'].includes(outcome))fail('INVALID_OUTCOME','/outcome','Use an authoritative settled outcome.');\n  if(reuse){const inspected=observer&&ownedOperations.has(op)?op:fresh(op);if(JSON.stringify(inspected)!==JSON.stringify(op))fail('RECEIPT_MISMATCH','/journal/pending','Keep the exact inspected original operation.');operation(inspected,c.document,services(deps),c.document);}\n  if((reuse?ownedToken(c):smartTileCheckpointToken(c))!==op.expected.token)fail('STALE_CHECKPOINT','/journal/pending','Pending recovery does not bind the complete accepted source.');\n  const selectedDocument=outcome==='committed'?targetDocument(c.document,op):c.document,nextDocument=observer?selectedDocument:structuredClone(selectedDocument),receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:observer?op:structuredClone(op)};\n  const candidate=observer?{...c,document:nextDocument,journal:{...c.journal,serial:c.journal.serial+1,receipts:[...c.journal.receipts,receipt],pending:null}}:{...structuredClone(c),document:nextDocument,journal:{...structuredClone(c.journal),serial:c.journal.serial+1,receipts:[...structuredClone(c.journal.receipts),receipt],pending:null}};\n  return reuse?successor(candidate,c,'settle',{operationJSON:JSON.stringify(op),documentJSON:JSON.stringify(nextDocument),outcome}):openSmartTileCheckpoint(deps,candidate);\n",
+          "occurrences": 1
+        },
+        {
+          "id": "source-private-owned-codec-v1-10",
+          "from": "    Object.defineProperty(codec,'privateObservation',{value:Object.freeze({observer,utilities:Object.freeze({\n      data:observer.fixed('host.data',smartTileData),digest:observer.fixed('host.digest',smartTileDigest),\n      bytes:observer.fixed('host.utf8',bytes),clone:observer.fixed('host.clone',v=>structuredClone(v)),\n      stringify:observer.fixed('host.stringify',v=>JSON.stringify(v)),parse:observer.fixed('host.parse',v=>JSON.parse(v))})})});\n  }\n",
+          "to": "    Object.defineProperty(codec,'privateObservation',{value:Object.freeze({observer,utilities:Object.freeze({\n      data:observer.fixed('host.data',v=>smartTileData(v,observer)),digest:observer.fixed('host.digest',v=>smartTileDigest(v,observer)),\n      bytes:observer.fixed('host.utf8',v=>bytes(v,observer)),clone:observer.fixed('host.clone',v=>structuredClone(v)),\n      stringify:observer.fixed('host.stringify',v=>stringifyOwned(v,'codec.json.stringify')),parse:observer.fixed('host.parse',v=>JSON.parse(v))})})});\n  }\n",
+          "occurrences": 1
         }
       ]
     },
@@ -380,5 +442,6 @@
   "notice": {
     "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/NOTICE.kernel-4ade.md",
     "sha256": "04579b40906420c34979a34771e6361adce4738b30bcca11703ff1951ef5590c"
-  }
+  },
+  "viewsCommit": "8b4f810727f8feb4d2913619f2471f2d7fa04fce"
 }

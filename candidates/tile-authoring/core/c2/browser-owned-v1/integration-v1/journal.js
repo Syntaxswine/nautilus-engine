@@ -8,6 +8,16 @@ import {utf8Bytes} from '../budget.js';
 const journals=new WeakMap(),heads=new WeakMap(),selections=new WeakMap(),obligations=new WeakMap();
 export function actualJournalAccess(value,owner){const x=journals.get(value);if(!x||x.owner!==owner)fail('C2_HISTORY_OWNER_UNBOUND','/journal','Use the original actual same-owner journal adapter.');return x;}
 export function createActualJournal(owner,kernel,{contextKey,maxEntries=64,maxBytes=16000000,maxDocumentBytes=8000000}={}){
+ return constructJournal(owner,kernel,{initialText:kernel.encodedDocument(kernel.initialDocument),contextKey,maxEntries,maxBytes,maxDocumentBytes});
+}
+// Source-private entry for the ORIGINAL session construction site. The Kernel
+// authenticates its settled current authority checkpoint before entering here.
+export function createActualSessionJournal(owner,kernel,checkpoint,options){
+ kernel.requireCheckpoint(checkpoint);if(checkpoint.journal.pending!==null)fail('C2_JOURNAL_PENDING','/checkpoint','Reconcile the original pending operation before constructing history.');
+ const actualText=kernel.encodedDocument(checkpoint.document);if(options.initialText!==actualText)fail('C2_JOURNAL_INITIAL_TEXT','/options/initialText','Use the exact actual settled checkpoint document encoding.');
+ const historyRead=constructJournal(owner,kernel,options);return Object.freeze({journal:historyRead.journal,historyRead});
+}
+function constructJournal(owner,kernel,config){
  let activeHead=null;const selectedByWork=new WeakSet();
  const access=sourceAccess(owner),k=kernelSourceAccess(kernel,owner),{source,bridge,utilities}=k;
  const paid=()=>{access.current();access.actual('kernel',1,{hostNodeVisits:1});};
@@ -29,7 +39,6 @@ export function createActualJournal(owner,kernel,{contextKey,maxEntries=64,maxBy
   equalText(work,a,b){originalAttempt(work);access.conservative('kernel',Math.ceil(Math.max(utf8Bytes(a),utf8Bytes(b))/64));return a===b;},
   openObligations(work){originalAttempt(work);paid();const scannedHead=activeHead;const refs=new Map(),seen=new Set();let ended=false,records=0;return Object.freeze({fact(token){originalAttempt(work);if(ended)fail('C2_HISTORY_CALL_CLOSED','/obligations','The real obligation scan is closed.');const fact=source.factRecord(token);paid();records++;for(const ref of fact.resourceRefs){paid();const key=utilities.digest(ref,bridge);if(!seen.has(key)){seen.add(key);refs.set(key,ref);}}},finish(){originalAttempt(work);if(ended)fail('C2_HISTORY_CALL_CLOSED','/obligations','Finish the real scan once.');ended=true;const result=Object.freeze({data:immutable({kind:'nautilus-actual-journal-resource-obligations',version:1,records,resourceRefs:[...refs.values()].sort((a,b)=>a.artwork.id.localeCompare(b.artwork.id)||a.artwork.revision-b.artwork.revision)})});obligations.set(result,{owner,work,journal:actual,head:scannedHead});return result;},fail(){ended=true;access.fail();}});}
  });
- const initialText=kernel.encodedDocument(kernel.initialDocument),config={initialText,contextKey,maxEntries,maxBytes,maxDocumentBytes};
  const actual=bridge.run('session.journal.construct',()=>bridge.opaque('session.journal.construct',config,()=>createWindowAuthoringJournal(config)));
  const readPort=createWindowAuthoringJournalReadPort(actual,observer,bridge);let api;
  api=Object.freeze({

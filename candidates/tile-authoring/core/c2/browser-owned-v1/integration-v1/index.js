@@ -4,3 +4,4 @@ export {createPrivateSourceOwner} from './owner.js';
 export {createActualKernelSource} from './kernel.js';
 export {createActualJournal} from './journal.js';
 export {createContinuedCore} from './core.js';
+export {createOrdinaryCore} from './ordinary/index.js';

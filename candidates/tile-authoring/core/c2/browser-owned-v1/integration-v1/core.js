@@ -32,7 +32,7 @@ export function createContinuedCore(owner,{tiles=ActualTiles,presentationProfile
    b.take(0);b.input(0);if(b.nodes>b.limits.nodes||(b.maxDepthObserved??0)>b.limits.depth)fail('AUTHORING_NODE_LIMIT','/limits','Captured source exceeds tightened bounds.');
    b.take(Math.ceil(jsonBytes(v.document,b.limits.sourceBytes)/64));if(v.command!==null)b.take(Math.ceil(jsonBytes(v.command,b.limits.commandBytes)/64));
    validateContext(t,v.context,b);need(v.context.presentationProfileDigest===presentationProfileDigest,'C2_PRESENTATION_BINDING','/context','Exact constructor composite profile required.');validateDocument(t,v.document,b);validateResourceContext(t,v.document,v.context,b);validateAppearanceDocument(t,v.document,b);
-   const digests=documentDigests(t,v.document,b);b.bindSource(digests.hostDocumentDigest);let original;
+   access.bindWorkProfile('appearance');const digests=documentDigests(t,v.document,b);b.bindSource(digests.hostDocumentDigest);let original;
    if(v.command!==null){shape(t,'command',v.command,b);original={action:'edit',requestId:v.command.requestId,commandDigest:hash(t,v.command,b),expected:v.command.expected,hostRequest:{id:v.command.requestId,kind:'nautilus-tile-authoring-source-unchanged',version:1}};}
    else{fields(v.history,['request','targetDocument','expected'],'/history');original={action:v.history.request.action,requestId:v.history.request.id,commandDigest:hash(t,null,b),expected:v.history.expected,hostRequest:v.history.request};}
    need(original.requestId===a.requestId,'C2_ORIGINAL_REQUEST','/requestId','Use only the real original request ID.');for(const [key,value]of Object.entries(digests))need(original.expected[key]===value,'STALE_SOURCE','/expected/'+key,'Complete original source must match.');

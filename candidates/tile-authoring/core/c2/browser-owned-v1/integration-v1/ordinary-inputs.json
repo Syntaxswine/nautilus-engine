@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+  "status": "PRIVATE ordinary C1 continuation with exact source preimages and explicit same-owner adaptations.",
+  "inputs": [
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/index.js",
+      "gitBlob": "fa390e79a5c3af707772ecf6f4ec6dcafc469a6a",
+      "bytes": 3860,
+      "sha256": "d46fae833b20ca228be0ae03220287d1c5f90421a3de23cf00cabbde8a3680a1",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/fa390e79a5c3.index.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/index.js",
+      "adapterSha256": "ffb47086749714963053d6344f8ea42298a66ea2a3e20594310e4425b3a0ad3b",
+      "importRewrites": [
+        {
+          "from": "./data.js",
+          "to": "../../../../../../../../../packages/tile-authoring-core/data.js",
+          "sourceTarget": "packages/tile-authoring-core/data.js"
+        },
+        {
+          "from": "./model.js",
+          "to": "./model.js",
+          "sourceTarget": "packages/tile-authoring-core/model.js"
+        },
+        {
+          "from": "./operations.js",
+          "to": "./operations.js",
+          "sourceTarget": "packages/tile-authoring-core/operations.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-authoring-core/geometry.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "packages/tile-authoring-core/contract.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-authoring-core/geometry.js"
+        },
+        {
+          "from": "./model.js",
+          "to": "./model.js",
+          "sourceTarget": "packages/tile-authoring-core/model.js"
+        },
+        {
+          "from": "./target.js",
+          "to": "./target.js",
+          "sourceTarget": "packages/tile-authoring-core/target.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "// Public pure value/planning entry. No retained host, journal or renderer.\nimport {Budget,fail,readData,corePort,fields,shape,hash,equal,freeze,clone,refusal} from '../../../../../../../../../packages/tile-authoring-core/data.js';\nimport {validateDocument,validateContext,documentDigests,presentationFingerprints,sourceProjection,resourceRefs,validateResourceContext,authoringCosts} from './model.js';\n",
+          "to": "import {tightenOrdinaryBudget,bindOrdinaryDispatch} from '../../scope.js';\nimport {jsonBytes} from '../../../../budget.js';\nimport {finishData} from '../../../../output.js';\n// Public pure value/planning entry. No retained host, journal or renderer.\nimport {Budget,fail,readData,corePort,fields,shape,hash,equal,freeze,clone,refusal} from '../../data.js';\nimport {validateDocument,validateContext,documentDigests,presentationFingerprints,sourceProjection,resourceRefs,validateResourceContext,authoringCosts} from './model.js';\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-2",
+          "from": " let b=new Budget(),requestId='invalid-request';try{\n const t=corePort(actual),raw=readData(input,b,b.limits.inputBytes);fields(raw,['document','command','context','limits'],'/plan',['document','command','context']);const tightened=new Budget(raw.limits??{});tightened.take(b.units);tightened.nodes=b.nodes;tightened.input(b.inputBytes);b=tightened;\n const before=readData(raw.document,b,b.limits.sourceBytes,{chargeInput:false}),command=readData(raw.command,b,b.limits.commandBytes,{chargeInput:false}),context=readData(raw.context,b,b.limits.sourceBytes,{chargeInput:false});requestId=command?.requestId;shape(t,'command',command,b);if(command.operations.length>b.limits.operations)fail('OPERATION_LIMIT','/operations','Operation count exceeds captured bound.');validateContext(t,context,b);validateDocument(t,before,b);\n const source=documentDigests(t,before,b);for(const [key,value]of Object.entries(source))if(command.expected[key]!==value)fail('STALE_SOURCE','/expected/'+key,'Capture every exact source/document/profile/resource digest from the one host snapshot.');if(command.expected.hostAuthorityToken!==context.hostAuthorityToken||command.expected.authorityContextToken!==context.authorityContextToken)fail('STALE_CONTEXT','/expected','Captured host/journal/context tokens changed.');validateResourceContext(t,before,context,b);\n const staged=stageOperations(t,before,command,context,b);if(equal(t,staged,before,b))fail('NO_CHANGE','/operations','No write/history change; retain redo.');if(before.contentRevision===Number.MAX_SAFE_INTEGER)fail('CONTENT_REVISION_LIMIT','/contentRevision','Content revision cannot overflow.');\n",
+          "to": " let b=new Budget(),requestId='invalid-request';try{\n const t=corePort(actual),raw=readData(input,b,b.limits.inputBytes);fields(raw,['document','command','context','limits'],'/plan',['document','command','context']);tightenOrdinaryBudget(raw.limits??{});\n const field=(v,max)=>typeof v==='string'?readData(v,b,max,{chargeInput:false}):(b.take(Math.ceil(jsonBytes(v,max)/64)),v);const before=field(raw.document,b.limits.sourceBytes),command=field(raw.command,b.limits.commandBytes),context=field(raw.context,b.limits.sourceBytes);requestId=command?.requestId;shape(t,'command',command,b);if(command.operations.length>b.limits.operations)fail('OPERATION_LIMIT','/operations','Operation count exceeds captured bound.');validateContext(t,context,b);validateDocument(t,before,b);\n const source=documentDigests(t,before,b);for(const [key,value]of Object.entries(source))if(command.expected[key]!==value)fail('STALE_SOURCE','/expected/'+key,'Capture every exact source/document/profile/resource digest from the one host snapshot.');if(command.expected.hostAuthorityToken!==context.hostAuthorityToken||command.expected.authorityContextToken!==context.authorityContextToken)fail('STALE_CONTEXT','/expected','Captured host/journal/context tokens changed.');validateResourceContext(t,before,context,b);bindOrdinaryDispatch(before,command,b);\n const staged=stageOperations(t,before,command,context,b);if(equal(t,staged,before,b))fail('NO_CHANGE','/operations','No write/history change; retain redo.');if(before.contentRevision===Number.MAX_SAFE_INTEGER)fail('CONTENT_REVISION_LIMIT','/contentRevision','Content revision cannot overflow.');\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-3",
+          "from": " const result={kind:'nautilus-tile-authoring-plan',version:1,ok:true,committable:false,requestId:command.requestId,route:metadata?'source-unchanged':'public-v1-repair',command,commandDigest:hash(t,command,b),expected:clone(command.expected,b),context,limits:clone(b.limits,b),request:stack?.request??null,constraints:stack?.constraints??clone(before.constraints,b),stackBinding:stack?.binding??null,staged:stagedData(staged),targetDocument:target,fingerprints,costBounds:authoringCosts(staged,context,b)};\n b.output(result);result.costBounds.planning=b.snapshot();if(JSON.stringify(result).length>b.limits.outputBytes)fail('AUTHORING_OUTPUT_LIMIT','/plan','Plan bound exceeded.');return freeze(result);\n }catch(e){return refusal(requestId,e);}\n",
+          "to": " const result={kind:'nautilus-tile-authoring-plan',version:1,ok:true,committable:false,requestId:command.requestId,route:metadata?'source-unchanged':'public-v1-repair',command,commandDigest:hash(t,command,b),expected:clone(command.expected,b),context,limits:clone(b.limits,b),request:stack?.request??null,constraints:stack?.constraints??clone(before.constraints,b),stackBinding:stack?.binding??null,staged:stagedData(staged),targetDocument:target,fingerprints,costBounds:authoringCosts(staged,context,b)};\n return finishData(result,b);\n }catch(e){return refusal(requestId,e);}\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/target.js",
+      "gitBlob": "88b4aa061b5712fa2a987b7d7e1fea7cfbf6fa0d",
+      "bytes": 9438,
+      "sha256": "928ba0da78f9797b934ecc2e6250e4fcafa56a645822ae7da9cf855a17eeff3c",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/88b4aa061b57.target.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/target.js",
+      "adapterSha256": "6cf0496a5722a97ad2e3202ed7640245fc63e7107841ae74129e78f3fe980f4c",
+      "importRewrites": [
+        {
+          "from": "./data.js",
+          "to": "../../../../../../../../../packages/tile-authoring-core/data.js",
+          "sourceTarget": "packages/tile-authoring-core/data.js"
+        },
+        {
+          "from": "./model.js",
+          "to": "./model.js",
+          "sourceTarget": "packages/tile-authoring-core/model.js"
+        },
+        {
+          "from": "./operations.js",
+          "to": "./operations.js",
+          "sourceTarget": "packages/tile-authoring-core/operations.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-authoring-core/geometry.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "import {Budget,fail,readData,corePort,fields,shape,hash,equal,clone,freeze,refusal,openSourceBundle} from '../../../../../../../../../packages/tile-authoring-core/data.js';\nimport {validateDocument,validateContext,documentDigests,presentationFingerprints,sourceProjection,validateResourceContext,authoringCosts} from './model.js';\n",
+          "to": "import {readOrdinaryBindInput} from '../../scope.js';\nimport {finishData} from '../../../../output.js';\nimport {Budget,fail,readData,corePort,fields,shape,hash,equal,clone,freeze,refusal,openSourceBundle} from '../../data.js';\nimport {validateDocument,validateContext,documentDigests,presentationFingerprints,sourceProjection,validateResourceContext,authoringCosts} from './model.js';\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-2",
+          "from": "export function bindTileAuthoringTarget(actual,input){let requestId='invalid-request';try{\n const t=corePort(actual),reader=new Budget(),v=readData(input,reader,reader.limits.inputBytes);fields(v,['before','plan','prepared'],'/bind');const p=v.plan;requestId=p?.requestId;if(p?.kind!=='nautilus-tile-authoring-plan'||p.version!==1||p.ok!==true||p.committable!==false)fail('PLAN_REQUIRED','/plan','Expected pure planning data, not a review capability.');const b=new Budget(p.limits);b.take(reader.units);shape(t,'costBounds',p.costBounds,b);b.take(p.costBounds?.planning?.unitsCharged??b.limits.plannerUnits);b.input(p.costBounds?.planning?.inputBytes??0);const before=v.before;validateContext(t,p.context,b);validateDocument(t,before,b);validateResourceContext(t,before,p.context,b);shape(t,'command',p.command,b);if(p.command.requestId!==p.requestId||!equal(t,p.command.expected,p.expected,b)||hash(t,p.command,b)!==p.commandDigest)fail('PLAN_COMMAND_BINDING','/plan','Exact original command and Expected required.');const source=documentDigests(t,before,b);for(const [key,want]of Object.entries(source))if(p.expected[key]!==want)fail('STALE_SOURCE','/expected/'+key,'Complete source changed.');if(p.expected.hostAuthorityToken!==p.context.hostAuthorityToken||p.expected.authorityContextToken!==p.context.authorityContextToken)fail('STALE_CONTEXT','/expected','Captured host/context mismatch.');\n const staged=stageOperations(t,before,p.command,p.context,b),expectedStaged={authoring:staged.authoring,resourceRefs:staged.resourceRefs,recipes:staged.tileBundle.recipes,owners:staged.tileBundle.layout.instances};if(!equal(t,p.staged,expectedStaged,b))fail('PLAN_STAGED_BINDING','/plan/staged','Staged data must derive from actual canonical operations.');const verifiedCosts=authoringCosts(staged,p.context,b),{planning:reportedPlanning,...reportedCosts}=p.costBounds,{planning:verifiedPlanning,...derivedCosts}=verifiedCosts;if(!equal(t,reportedCosts,derivedCosts,b))fail('PLAN_COST_BINDING','/plan/costBounds','Reported costs must equal freshly derived source and captured allocation totals.');if(equal(t,staged,before,b)||before.contentRevision===Number.MAX_SAFE_INTEGER)fail('NO_CHANGE','/operations','No candidate write/redo loss.');let target;\n",
+          "to": "export function bindTileAuthoringTarget(actual,input){let requestId='invalid-request';try{\n const t=corePort(actual),reader=new Budget(),v=readOrdinaryBindInput(input,reader);fields(v,['before','plan','prepared'],'/bind');const p=v.plan;requestId=p?.requestId;if(p?.kind!=='nautilus-tile-authoring-plan'||p.version!==1||p.ok!==true||p.committable!==false)fail('PLAN_REQUIRED','/plan','Expected pure planning data, not a review capability.');const b=new Budget(p.limits);shape(t,'costBounds',p.costBounds,b);const before=v.before;validateContext(t,p.context,b);validateDocument(t,before,b);validateResourceContext(t,before,p.context,b);shape(t,'command',p.command,b);if(p.command.requestId!==p.requestId||!equal(t,p.command.expected,p.expected,b)||hash(t,p.command,b)!==p.commandDigest)fail('PLAN_COMMAND_BINDING','/plan','Exact original command and Expected required.');const source=documentDigests(t,before,b);for(const [key,want]of Object.entries(source))if(p.expected[key]!==want)fail('STALE_SOURCE','/expected/'+key,'Complete source changed.');if(p.expected.hostAuthorityToken!==p.context.hostAuthorityToken||p.expected.authorityContextToken!==p.context.authorityContextToken)fail('STALE_CONTEXT','/expected','Captured host/context mismatch.');\n const staged=stageOperations(t,before,p.command,p.context,b),expectedStaged={authoring:staged.authoring,resourceRefs:staged.resourceRefs,recipes:staged.tileBundle.recipes,owners:staged.tileBundle.layout.instances};if(!equal(t,p.staged,expectedStaged,b))fail('PLAN_STAGED_BINDING','/plan/staged','Staged data must derive from actual canonical operations.');const verifiedCosts=authoringCosts(staged,p.context,b),{planning:reportedPlanning,...reportedCosts}=p.costBounds,{planning:verifiedPlanning,...derivedCosts}=verifiedCosts;if(!equal(t,reportedCosts,derivedCosts,b))fail('PLAN_COST_BINDING','/plan/costBounds','Reported costs must equal freshly derived source and captured allocation totals.');if(equal(t,staged,before,b)||before.contentRevision===Number.MAX_SAFE_INTEGER)fail('NO_CHANGE','/operations','No candidate write/redo loss.');let target;\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-3",
+          "from": " const bindings={commandDigest:p.commandDigest,sourceWorkspaceDigest:source.workspaceDigest,targetWorkspaceDigest:after.workspaceDigest,sourceHostDocumentDigest:source.hostDocumentDigest,targetHostDocumentDigest:after.hostDocumentDigest,sourceAuthorityToken:p.expected.hostAuthorityToken,authorityContextToken:p.context.authorityContextToken,sourceContentDigest:source.contentDigest,targetContentDigest:after.contentDigest,sourceDecorationDigest:source.decorationDigest,targetDecorationDigest:after.decorationDigest,sourceConstraintsDigest:source.stackConstraintsDigest,nextConstraintsDigest:after.stackConstraintsDigest,floorProfileDigest:source.floorProfileDigest,sourceResourceSetDigest:source.resourceSetDigest,targetResourceSetDigest:after.resourceSetDigest,resourceLeaseSetDigest:p.context.resourceLeaseSetDigest,presentationProfileDigest:p.context.presentationProfileDigest,allocationLedgerDigest:p.context.allocationLedgerDigest};shape(t,'bindings',bindings,b);\n const result={kind:'nautilus-tile-authoring-target',version:1,ok:true,committable:false,requestId:p.requestId,targetDocument:target,bindings,fingerprints,tilePreparation:p.route==='source-unchanged'?'source-unchanged':'public-v1-prepared',costBounds:{...verifiedCosts,planning:b.snapshot()}};b.output(result);result.costBounds.planning=b.snapshot();return freeze(result);\n }catch(e){return refusal(requestId,e);}}\n",
+          "to": " const bindings={commandDigest:p.commandDigest,sourceWorkspaceDigest:source.workspaceDigest,targetWorkspaceDigest:after.workspaceDigest,sourceHostDocumentDigest:source.hostDocumentDigest,targetHostDocumentDigest:after.hostDocumentDigest,sourceAuthorityToken:p.expected.hostAuthorityToken,authorityContextToken:p.context.authorityContextToken,sourceContentDigest:source.contentDigest,targetContentDigest:after.contentDigest,sourceDecorationDigest:source.decorationDigest,targetDecorationDigest:after.decorationDigest,sourceConstraintsDigest:source.stackConstraintsDigest,nextConstraintsDigest:after.stackConstraintsDigest,floorProfileDigest:source.floorProfileDigest,sourceResourceSetDigest:source.resourceSetDigest,targetResourceSetDigest:after.resourceSetDigest,resourceLeaseSetDigest:p.context.resourceLeaseSetDigest,presentationProfileDigest:p.context.presentationProfileDigest,allocationLedgerDigest:p.context.allocationLedgerDigest};shape(t,'bindings',bindings,b);\n const result={kind:'nautilus-tile-authoring-target',version:1,ok:true,committable:false,requestId:p.requestId,targetDocument:target,bindings,fingerprints,tilePreparation:p.route==='source-unchanged'?'source-unchanged':'public-v1-prepared',costBounds:{...verifiedCosts,planning:b.snapshot()}};return finishData(result,b);\n }catch(e){return refusal(requestId,e);}}\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/model.js",
+      "gitBlob": "d915b11aab0a9f109adbc214fb97f44d982299cf",
+      "bytes": 17822,
+      "sha256": "a33cba60484638e84679f3486b50a9f0106b26f8a40bf59a880ed9333c05341e",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/d915b11aab0a.model.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/model.js",
+      "adapterSha256": "aee4ce9bcf312abe75826338e8bbaed576a15e0f5db15376e627cf05ae35bb7e",
+      "importRewrites": [
+        {
+          "from": "../parts-core/hash.js",
+          "to": "../../../../../../../../../packages/parts-core/hash.js",
+          "sourceTarget": "packages/parts-core/hash.js"
+        },
+        {
+          "from": "../map-core/roof-maps.js",
+          "to": "../../../../../../../../../packages/map-core/roof-maps.js",
+          "sourceTarget": "packages/map-core/roof-maps.js"
+        },
+        {
+          "from": "./data.js",
+          "to": "../../../../../../../../../packages/tile-authoring-core/data.js",
+          "sourceTarget": "packages/tile-authoring-core/data.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "packages/tile-authoring-core/contract.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-authoring-core/geometry.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "import {sha256} from '../../../../../../../../../packages/parts-core/hash.js';\nimport {parseMap} from '../../../../../../../../../packages/map-core/roof-maps.js';\nimport {Budget,fail,readData,shape,hash,equal,freeze,clone,corePort,fields} from '../../../../../../../../../packages/tile-authoring-core/data.js';\nimport {LIMITS,REQUIRED} from './contract.js';\n",
+          "to": "import {validateDocument as validateCompleteC2Document} from '../../../../model.js';\nimport {validateAppearanceDocument} from '../../../../operations.js';\nimport {sha256} from '../../../../../../../../../packages/parts-core/hash.js';\nimport {parseMap} from '../../../../../../../../../packages/map-core/roof-maps.js';\nimport {Budget,fail,readData,shape,hash,equal,freeze,clone,corePort,fields} from '../../data.js';\nimport {LIMITS,REQUIRED} from './contract.js';\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-2",
+          "from": "const heights={'aft-native-fifteen':[0,2.12,4.24,6.36,8.48,10.6,12.72,14.84,16.96,19.08,21.2,23.32,25.44,27.56,29.68],'nonuniform-fifteen':[0,2.12,4.24,6.75,9.1,12.4,15,18.6,21.3,24.9,28.2,31,34.8,38.1,42.7]};\nexport function validateDocument(t,d,b,{legacy=true}={}){\n shape(t,'workbenchDocument',d,b);const f=d.floorBinding,values=heights[f.profile.id];if(!values||f.id!==f.profile.id+'-table'||f.sourceSha256!==sha256(d.sourceJSON))fail('FLOOR_BINDING','/floorBinding','Bind the complete original source/table/profile.');\n for(let i=0;i<15;i++){const row=f.floors[i],want={id:'F'+String(i).padStart(2,'0'),label:String(i+1),elevationM:values[i],source:i<3?{kind:'legacy-layer',layerIndex:i}:{kind:'authored-tile'}};if(!equal(t,row,want,b))fail('FLOOR_BINDING','/floorBinding/floors/'+i,'Keep all native floor records exactly.');}\n if(!equal(t,d.tileBundle.layout.floors,f.floors.map(({id,elevationM})=>({id,elevationM})),b)||d.constraints.floorProfileId!==f.profile.id)fail('FLOOR_BINDING','/tileBundle/layout/floors','Layout/constraints must match full source floor binding.');\n if(legacy){const raw=readData(d.sourceJSON,b,b.limits.sourceBytes,{chargeInput:false});if(raw.version!==2||raw.levels!==3||raw.kind==='red-shift-block')fail('ORIGINAL_SOURCE_PROFILE','/sourceJSON','Retain an original three-layer portable map.');const visit=v=>{if(!v||typeof v!=='object')return;if(typeof v.kind==='string'&&/^nautilus-(tile|smart-tile|window|functional|extended)/.test(v.kind))fail('NESTED_AUTHORITY','/sourceJSON','Do not nest a second authoring authority.');for(const x of Object.values(v))visit(x);};visit(raw);parseMap(d.sourceJSON,{allowDisconnected:true});}\n if(new Set(d.constraints.managedRelations.map(r=>r.id)).size!==d.constraints.managedRelations.length)fail('CONSTRAINT_RELATION','/constraints','Unique managed relation identities required.');\n const layout=d.tileBundle.layout;if(layout.instances.length>LIMITS.owners||d.tileBundle.recipes.length>LIMITS.mapRecipes)fail('REFERENCE_MAP_LIMIT','/tileBundle','Keep all accepted/unused owners and recipes within32.');const owners=new Map(layout.instances.map(v=>[v.id,v])),managed=new Set();for(const x of d.constraints.owners){b.take();if(managed.has(x.instanceId)||!owners.has(x.instanceId)||!d.tileBundle.recipes.find(r=>r.id===owners.get(x.instanceId).recipeId)?.reservations.some(r=>r.id===x.primaryReservationId))fail('CONSTRAINT_OWNER','/constraints','Unique actual owner/reservation required.');managed.add(x.instanceId);}for(const x of d.constraints.managedRelations)if(!managed.has(x.a)||!managed.has(x.b)||x.a===x.b||x.clearanceM<d.constraints.minimumClearanceM||!equal(t,x,layout.relations.find(r=>r.id===x.id)??null,b))fail('CONSTRAINT_RELATION','/constraints','Keep complete actual managed crossing records.');\n const lib=libraryIndex(t,d.authoring.library,b);for(const def of d.authoring.library.definitions){const old=d.tileBundle.recipes.find(r=>r.id===def.body.recipe.id);if(old&&!equal(t,old,def.body.recipe,b))fail('V1_RECIPE_ID_CONTENT_CONFLICT','/library','Library and retained map source cannot disagree behind the same recipe ID.');}if(!equal(t,d.resourceRefs,resourceRefs(t,d.authoring.library.artwork,b),b))fail('RESOURCE_REF_SET','/resourceRefs','Exact sorted descriptor coverage of one library required.');const pins=new Map();for(const p of d.authoring.ownerPins){if(pins.has(p.ownerId))fail('DUPLICATE_OWNER_PIN','/ownerPins','One pin row per actual owner.');pins.set(p.ownerId,p);const def=lib.resolve(p.definition,'nautilus-recipe-definition'),o=owners.get(p.ownerId);if(!o||o.recipeId!==def.body.recipe.id||!equal(t,def.body.recipe,d.tileBundle.recipes.find(r=>r.id===o.recipeId),b))fail('OWNER_PIN','/ownerPins','Pin must bind actual current recipe bytes.');if(p.preset){const preset=lib.resolve(p.preset,'nautilus-tile-preset');if(!equal(t,preset.body.definition,p.definition,b))fail('OWNER_PRESET_PIN','/ownerPins/preset','A current preset association must pin this exact current owner definition.');}}\n const bindings=new Map(),markIds=new Set();for(const s of d.authoring.decorations.surfaces){const k=[s.ownerId,s.surfaceId,s.floorId].join('|');if(bindings.has(k))fail('DUPLICATE_SURFACE','/decorations','Duplicate source surface.');bindings.set(k,s);const current=pins.get(s.ownerId);if(!current||!equal(t,s.definition,current.definition,b))fail('SURFACE_DEFINITION_PIN','/decorations/surfaces/definition','Surface binding must name the exact current owner definition Pin, including its frame.');const def=lib.resolve(current.definition,'nautilus-recipe-definition'),surface=def.body.surfaces.find(v=>v.id===s.surfaceId),o=owners.get(s.ownerId),data={ownerId:s.ownerId,surfaceId:s.surfaceId,floorId:s.floorId,geometryDigest:s.geometryDigest,frameDigest:s.frameDigest,gridDigest:s.gridDigest};if(!o||o.recipeId!==def.body.recipe.id||!surface||o.floorBindings[surface.floorSlot]!==s.floorId||s.geometryDigest!==surface.geometryDigest||s.frameDigest!==surface.frameDigest||s.gridDigest!==hash(t,surface.grid,b)||s.bindingDigest!==hash(t,data,b)||new Set(s.layers.map(l=>l.id)).size!==s.layers.length||new Set(s.layers.map(l=>l.order)).size!==s.layers.length)fail('SURFACE_BINDING','/decorations','Current exact owner/surface/floor/frame/grid/layers required.');}\n for(const chunk of d.authoring.decorations.chunks)for(const m of chunk.marks){b.take();if(markIds.has(m.id))fail('DUPLICATE_MARK','/decorations','Unique mark IDs required.');markIds.add(m.id);const s=bindings.get([m.target.ownerId,m.target.surfaceId,m.target.floorId].join('|'));if(!s||s.bindingDigest!==m.target.bindingDigest||!s.layers.some(l=>l.id===m.layerId))fail('MARK_BINDING','/decorations','Actual source target/layer required.');lib.resolve(m.graphic.artwork,'nautilus-tile-artwork');if(m.graphic.mask.kind==='grid-spans'){let prior=-Infinity,total=0;if(m.graphic.mask.grid.digest!==s.gridDigest)fail('MASK_GRID','/decorations','Current authored grid required.');for(const row of m.graphic.mask.rows){if(row.j<=prior)fail('MASK_ROWS','/decorations','Strict row order required.');prior=row.j;let end=-Infinity;for(const span of row.spans){if(span.i0<end)fail('MASK_OVERLAP','/decorations','Nonoverlapping sorted spans required.');end=span.i0+span.count;total+=span.count;}}b.maskCellsEvaluated+=total;b.take(total);if(total>4096)fail('MASK_LIMIT','/decorations','Mask exceeds4096 cells.');}}\n const groups=new Map(d.authoring.decorations.groups.map(g=>[g.id,g]));if(groups.size!==d.authoring.decorations.groups.length)fail('GROUP_DUPLICATE','/decorations','Unique stroke groups required.');const marks=d.authoring.decorations.chunks.flatMap(c=>c.marks);for(const m of marks)if(m.groupId!==null&&!groups.get(m.groupId)?.memberMarkIds.includes(m.id))fail('GROUP_RECIPROCITY','/decorations','Group membership must reciprocate.');for(const g of groups.values())for(const id of g.memberMarkIds){const m=marks.find(m=>m.id===id);if(!m||m.groupId!==g.id||m.target.floorId!==g.floorId||!equal(t,m.graphic.artwork,g.capturedPhase.artwork,b))fail('GROUP_RECIPROCITY','/decorations','Exact same-floor/artwork reciprocal membership required.');}\n return lib;\n}\nexport function documentDigests(t,d,b){return {workspaceRevision:d.contentRevision,workspaceDigest:hash(t,sourceProjection(d),b),hostDocumentDigest:hash(t,d,b),contentDigest:hash(t,d.authoring.library,b),decorationDigest:hash(t,d.authoring.decorations,b),resourceSetDigest:hash(t,d.resourceRefs,b),floorProfileDigest:hash(t,d.floorBinding,b),stackConstraintsDigest:hash(t,d.constraints,b),tileLayoutDigest:hash(t,d.tileBundle.layout,b),tileCatalogueDigest:d.tileBundle.layout.catalogueDigest};}\n",
+          "to": "const heights={'aft-native-fifteen':[0,2.12,4.24,6.36,8.48,10.6,12.72,14.84,16.96,19.08,21.2,23.32,25.44,27.56,29.68],'nonuniform-fifteen':[0,2.12,4.24,6.75,9.1,12.4,15,18.6,21.3,24.9,28.2,31,34.8,38.1,42.7]};\nexport function validateDocument(t,d,b,options={}){const index=validateCompleteC2Document(t,d,b,options);validateAppearanceDocument(t,d,b);return index;}\nexport function documentDigests(t,d,b){return {workspaceRevision:d.contentRevision,workspaceDigest:hash(t,sourceProjection(d),b),hostDocumentDigest:hash(t,d,b),contentDigest:hash(t,d.authoring.library,b),decorationDigest:hash(t,d.authoring.decorations,b),resourceSetDigest:hash(t,d.resourceRefs,b),floorProfileDigest:hash(t,d.floorBinding,b),stackConstraintsDigest:hash(t,d.constraints,b),tileLayoutDigest:hash(t,d.tileBundle.layout,b),tileCatalogueDigest:d.tileBundle.layout.catalogueDigest};}\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/geometry.js",
+      "gitBlob": "46c448399c4f9f2e2304e47ae0251b7a7bc5eb56",
+      "bytes": 8713,
+      "sha256": "aa636cc6c0d1bb0d03e13295ea2613fe4af41d344cb1c89ca13c3e33c6ddc9f6",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/46c448399c4f.geometry.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/geometry.js",
+      "adapterSha256": "2cf188971261ed91ce7336c4768e1fa30502e5a79b80b7d92dbec4b321d3bfcf",
+      "importRewrites": [
+        {
+          "from": "../tile-visuals/example.js",
+          "to": "../../../../../../../../../packages/tile-visuals/example.js",
+          "sourceTarget": "packages/tile-visuals/example.js"
+        },
+        {
+          "from": "../tile-stack-core/index.js",
+          "to": "../stack/index.js",
+          "sourceTarget": "packages/tile-stack-core/index.js"
+        },
+        {
+          "from": "./data.js",
+          "to": "../../../../../../../../../packages/tile-authoring-core/data.js",
+          "sourceTarget": "packages/tile-authoring-core/data.js"
+        },
+        {
+          "from": "./model.js",
+          "to": "./model.js",
+          "sourceTarget": "packages/tile-authoring-core/model.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "packages/tile-authoring-core/contract.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "import {planTileStack,STACK_PLANNER_LIMITS} from '../stack/index.js';\nimport {Budget,fail,readData,corePort,fields,shape,hash,equal,clone,freeze,compileSource} from '../../../../../../../../../packages/tile-authoring-core/data.js';\nimport {sealTileContentRecord,validateRecord} from './model.js';\n",
+          "to": "import {planTileStack,STACK_PLANNER_LIMITS} from '../stack/index.js';\nimport {Budget,fail,readData,corePort,fields,shape,hash,equal,clone,freeze,compileSource} from '../../data.js';\nimport {sealTileContentRecord,validateRecord} from './model.js';\n",
+          "occurrences": 1
+        },
+        {
+          "id": "same-owner-ordinary-v1-2",
+          "from": " const floorProfile={id:before.floorBinding.profile.id,version:before.floorBinding.profile.version,floors:before.tileBundle.layout.floors},e={revision:before.tileBundle.layout.revision,layoutDigest:hash(t,before.tileBundle.layout,b),catalogueDigest:before.tileBundle.layout.catalogueDigest,contextToken:context.authorityContextToken,sourceConstraintsDigest:hash(t,before.constraints,b),floorProfileDigest:hash(t,floorProfile,b)};\n const limits={...STACK_PLANNER_LIMITS,maxPlannerWork:Math.max(0,b.limits.plannerUnits-b.units),maxPlannerBytes:b.limits.outputBytes,maxSteps:b.limits.maxSteps,maxClosure:b.limits.maxClosure,maxSpatialTests:b.limits.maxSpatialTests,maxGeometryWork:b.limits.maxGeometryWork,neighbourRadiusM:0};if(!limits.maxPlannerWork)fail('AUTHORING_WORK_LIMIT','/','No remaining planner work.');\n const result=planTileStack(t,{bundle:before.tileBundle,context:{contextToken:context.authorityContextToken,cancelled:false,sourceConstraintsDigest:e.sourceConstraintsDigest,floorProfile},constraints:before.constraints,expected:e,intent:{kind:'edit-owners',version:1,id:requestId,minimumClearanceM:before.constraints.minimumClearanceM,upserts,removeIds:[],recipeUpdates,joins:{removeIds:[],upserts:[]},relations:{removeIds:[],upserts:[]}},limits});b.take(result.work.plannerUnits);if(!result.ok){const error=new TypeError('Actual rectangle planner refused.');error.diagnostics=result.diagnostics;throw error;}return result;\n}\n",
+          "to": " const floorProfile={id:before.floorBinding.profile.id,version:before.floorBinding.profile.version,floors:before.tileBundle.layout.floors},e={revision:before.tileBundle.layout.revision,layoutDigest:hash(t,before.tileBundle.layout,b),catalogueDigest:before.tileBundle.layout.catalogueDigest,contextToken:context.authorityContextToken,sourceConstraintsDigest:hash(t,before.constraints,b),floorProfileDigest:hash(t,floorProfile,b)};\n const limits={...STACK_PLANNER_LIMITS,maxPlannerWork:b.limits.plannerUnits,maxPlannerBytes:b.limits.outputBytes,maxSteps:b.limits.maxSteps,maxClosure:b.limits.maxClosure,maxSpatialTests:b.limits.maxSpatialTests,maxGeometryWork:b.limits.maxGeometryWork,neighbourRadiusM:0};if(!limits.maxPlannerWork)fail('AUTHORING_WORK_LIMIT','/','No remaining planner work.');\n const result=planTileStack(t,{bundle:before.tileBundle,context:{contextToken:context.authorityContextToken,cancelled:false,sourceConstraintsDigest:e.sourceConstraintsDigest,floorProfile},constraints:before.constraints,expected:e,intent:{kind:'edit-owners',version:1,id:requestId,minimumClearanceM:before.constraints.minimumClearanceM,upserts,removeIds:[],recipeUpdates,joins:{removeIds:[],upserts:[]},relations:{removeIds:[],upserts:[]}},limits});if(!result.ok){const error=new TypeError('Actual rectangle planner refused.');error.diagnostics=result.diagnostics;throw error;}return result;\n}\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/operations.js",
+      "gitBlob": "5f221f7df2a2a9896b91f49b0f242d730b33fb5f",
+      "bytes": 8568,
+      "sha256": "8ce75cd7413959580b01ecddeb8b66248c22d3d7cc1c32bb75dca50276ba0dd8",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/5f221f7df2a2.operations.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/operations.js",
+      "adapterSha256": "b0e63491bf7befbe5e74c6dea379cd8c7262529bca0365aad51046fc7f967b8f",
+      "importRewrites": [
+        {
+          "from": "./data.js",
+          "to": "../../../../../../../../../packages/tile-authoring-core/data.js",
+          "sourceTarget": "packages/tile-authoring-core/data.js"
+        },
+        {
+          "from": "./model.js",
+          "to": "./model.js",
+          "sourceTarget": "packages/tile-authoring-core/model.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-authoring-core/geometry.js"
+        },
+        {
+          "from": "./contract.js",
+          "to": "./contract.js",
+          "sourceTarget": "packages/tile-authoring-core/contract.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "import {fail,hash,equal,clone,shape,compileSource} from '../../../../../../../../../packages/tile-authoring-core/data.js';\nimport {libraryIndex,recordKey,pin,validateRecord} from './model.js';\n",
+          "to": "import {fail,hash,equal,clone,shape,compileSource} from '../../data.js';\nimport {libraryIndex,recordKey,pin,validateRecord} from './model.js';\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/contract.js",
+      "gitBlob": "0671499dd6a75cb90e979a150186d86f61e94e49",
+      "bytes": 11190,
+      "sha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/0671499dd6a7.contract.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/contract.js",
+      "adapterSha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38",
+      "importRewrites": [
+        {
+          "from": "./contract.schema.json",
+          "to": "./contract.schema.json",
+          "sourceTarget": "packages/tile-authoring-core/contract.schema.json"
+        }
+      ],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/contract.schema.json",
+      "gitBlob": "18ffef1e24c0d120d95e630ab36635c3d6a0d7ab",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/18ffef1e24c0.contract.schema.json.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/c1/contract.schema.json",
+      "adapterSha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+      "importRewrites": [],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-stack-core/budget.js",
+      "gitBlob": "0940c8987df83a6a589b255fe365e94093f8661c",
+      "bytes": 1837,
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/0940c8987df8.budget.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/stack/budget.js",
+      "adapterSha256": "374e2c6c007d70afbcdc42a1bb25d03685df076366f63c1d76f925e41c7c8f21",
+      "importRewrites": [
+        {
+          "from": "./contracts.js",
+          "to": "./contracts.js",
+          "sourceTarget": "packages/tile-stack-core/contracts.js"
+        }
+      ],
+      "sourceAdaptations": [
+        {
+          "id": "same-owner-ordinary-v1-1",
+          "from": "import {fail} from './contracts.js';\nexport class PlannerBudget{\n  constructor(limits){this.limits=limits;this.units=0;this.bytes=0;this.reservedBytes=0;}\n  take(n=1){if(!Number.isSafeInteger(n)||n<0||this.units+n>this.limits.maxPlannerWork)fail('STACK_PLANNER_WORK_LIMIT','/limits/maxPlannerWork','Whole planner work exceeds its captured bound.');this.units+=n;}\n  record(){this.take(16);if(this.reservedBytes+2048>this.limits.maxPlannerBytes)fail('STACK_PLANNER_BYTES_LIMIT','/limits/maxPlannerBytes','Bounded inspection records exceed the captured byte allowance.');this.reservedBytes+=2048;}\n",
+          "to": "import {currentOrdinaryBudget} from '../../scope.js';\nimport {fail} from './contracts.js';\nexport class PlannerBudget{\n  constructor(limits){this.shared=currentOrdinaryBudget();this.limits=limits;this.units=0;this.bytes=0;this.reservedBytes=0;}\n  take(n=1){if(!Number.isSafeInteger(n)||n<0||this.units+n>this.limits.maxPlannerWork)fail('STACK_PLANNER_WORK_LIMIT','/limits/maxPlannerWork','Whole planner work exceeds its captured bound.');this.shared.take(n);this.units+=n;}\n  record(){this.take(16);if(this.reservedBytes+2048>this.limits.maxPlannerBytes)fail('STACK_PLANNER_BYTES_LIMIT','/limits/maxPlannerBytes','Bounded inspection records exceed the captured byte allowance.');this.reservedBytes+=2048;}\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-stack-core/contracts.js",
+      "gitBlob": "139fe1cb0316e675b6fc707c314eefad35aff068",
+      "bytes": 8440,
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/139fe1cb0316.contracts.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/stack/contracts.js",
+      "adapterSha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8",
+      "importRewrites": [],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-stack-core/geometry.js",
+      "gitBlob": "0ae2fa4a1f7bcf70ab8dc9876f49614a70d6086c",
+      "bytes": 6596,
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/0ae2fa4a1f7b.geometry.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/stack/geometry.js",
+      "adapterSha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0",
+      "importRewrites": [
+        {
+          "from": "./contracts.js",
+          "to": "./contracts.js",
+          "sourceTarget": "packages/tile-stack-core/contracts.js"
+        }
+      ],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-stack-core/ids.js",
+      "gitBlob": "4bfa8d9caf0e04c921d0247ac0cb3ede18863373",
+      "bytes": 483,
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/4bfa8d9caf0e.ids.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/stack/ids.js",
+      "adapterSha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d",
+      "importRewrites": [
+        {
+          "from": "./contracts.js",
+          "to": "./contracts.js",
+          "sourceTarget": "packages/tile-stack-core/contracts.js"
+        }
+      ],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-stack-core/index.js",
+      "gitBlob": "7d39fdc4dfd213317a9e5c22340f3b6a48fd8c8c",
+      "bytes": 20494,
+      "sha256": "4e8da94f77006a1b2f39719d1d96c3226f432fc80b8433ceacafc7e0aa33d1a2",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/7d39fdc4dfd2.index.js.original",
+      "adapter": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/ordinary/runtime/stack/index.js",
+      "adapterSha256": "4e8da94f77006a1b2f39719d1d96c3226f432fc80b8433ceacafc7e0aa33d1a2",
+      "importRewrites": [
+        {
+          "from": "./contracts.js",
+          "to": "./contracts.js",
+          "sourceTarget": "packages/tile-stack-core/contracts.js"
+        },
+        {
+          "from": "./budget.js",
+          "to": "./budget.js",
+          "sourceTarget": "packages/tile-stack-core/budget.js"
+        },
+        {
+          "from": "./ids.js",
+          "to": "./ids.js",
+          "sourceTarget": "packages/tile-stack-core/ids.js"
+        },
+        {
+          "from": "./geometry.js",
+          "to": "./geometry.js",
+          "sourceTarget": "packages/tile-stack-core/geometry.js"
+        }
+      ],
+      "sourceAdaptations": []
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/data.js",
+      "gitBlob": "766d34832254d7b9a476a8da55f4aa68cbb297c7",
+      "bytes": 10529,
+      "sha256": "9679dac492042d857a64421d63c4e9d5737aab49badf9396cbb984eb8a83079d",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/766d34832254.data.js.original",
+      "role": "preserved source input; private shared-budget data adapter replaces allowance construction"
+    },
+    {
+      "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "path": "packages/tile-authoring-core/budget.js",
+      "gitBlob": "33fa51a050136d5e91204d3313f226fd0e02b677",
+      "bytes": 3422,
+      "sha256": "a03b9aff11efbdb7d59d7301565e3d3367911b036264cebbab22fafebee213bd",
+      "vendor": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/ordinary/33fa51a05013.budget.js.original",
+      "role": "preserved source input; private shared-budget data adapter replaces allowance construction"
+    }
+  ],
+  "notice": {
+    "path": "candidates/tile-authoring/core/c2/browser-owned-v1/integration-v1/vendor/root/NOTICE.648cad3.md",
+    "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd",
+    "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+    "sourcePath": "NOTICE.md"
+  }
+}
