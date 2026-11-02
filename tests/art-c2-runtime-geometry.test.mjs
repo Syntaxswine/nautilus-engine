@@ -35,3 +35,6 @@ for(const[label,change]of[
  ['invalid index layout',g=>{g.index.itemSize=3;}],
  ['nonfinite bounds',g=>{g.boundingSphere.radius=NaN;}]
 ])test('unsupported '+label+' state refuses instead of disappearing from the snapshot',()=>{const x=fixture();change(x.g);assert.throws(x.state,e=>e.code==='GEOMETRY_STATE_PROFILE'||e.code==='GEOMETRY_ATTRIBUTE_PROFILE');});
+
+test('attribute and index metadata use actual slots without invoking hostile getters',()=>{const x=fixture(),before=x.fingerprint();let reads=0;for(const a of [x.g.attributes.position.array,x.g.index.array]){const real=a.buffer;for(const k of ['buffer','byteLength','byteOffset','length','constructor'])Object.defineProperty(a,k,{get(){reads++;throw Error('hostile array metadata');}});Object.defineProperty(a,Symbol.toStringTag,{get(){reads++;throw Error('hostile tag');}});Object.defineProperty(real,'byteLength',{get(){reads++;throw Error('hostile capacity');}});}assert.equal(x.fingerprint(),before);assert.equal(reads,0);});
+test('BufferAttribute.array accessors refuse before they can substitute storage',()=>{const x=fixture();let reads=0;Object.defineProperty(x.g.attributes.position,'array',{get(){reads++;return new Float32Array(9);}});assert.throws(x.state,e=>e.code==='GEOMETRY_ATTRIBUTE_PROFILE');assert.equal(reads,0);});

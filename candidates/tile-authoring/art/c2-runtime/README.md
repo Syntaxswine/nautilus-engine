@@ -72,3 +72,5 @@ See VALIDATION.md for measured evidence and the remaining boundaries; NOTICE.md 
 ## Follow-up owner-state correction
 
 See review/corrections/owner-state/README.md for the returned drawRange/index and mutable-ledger findings, corrected currentness/retirement contracts and new evidence. The original f029 mixed/pixel reports remain unchanged; strict capture/upload admission stays UNBOUND.
+
+The append-only intrinsic storage correction and hostile-getter controls are recorded in review/corrections/intrinsic-geometry/README.md. Earlier evidence remains unchanged.

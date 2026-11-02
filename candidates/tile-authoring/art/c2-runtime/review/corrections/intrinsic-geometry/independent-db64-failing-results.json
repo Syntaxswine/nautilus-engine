@@ -1,0 +1,191 @@
+{
+  "sourceCommit": "db64bc5c666f635f64b3bd6f1a838a0a85d3aa36",
+  "status": "blocker",
+  "scope": "Focused actual public Three geometry, private source handles and real typed storage;no renderer/Host/strict admission claimed",
+  "observations": [
+    {
+      "name": "unchanged",
+      "expectedCurrent": true,
+      "current": true,
+      "preparedCurrent": true,
+      "nextPreparationAccepted": true,
+      "error": null,
+      "sameFingerprint": true,
+      "sourceViewCurrent": true,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "no-op-full-drawRange",
+      "expectedCurrent": true,
+      "current": true,
+      "preparedCurrent": true,
+      "nextPreparationAccepted": true,
+      "error": null,
+      "sameFingerprint": true,
+      "sourceViewCurrent": true,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "original-drawRange",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "original-index",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "canonical-interface-index",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "rendered-groups",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "attribute-usage",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "bounds-radius",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": false,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "drawRange-reseal",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": true,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "drawRange-baseline-replacement",
+      "expectedCurrent": false,
+      "current": false,
+      "preparedCurrent": false,
+      "nextPreparationAccepted": false,
+      "error": "STALE_SOURCE",
+      "sameFingerprint": false,
+      "sourceViewCurrent": true,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "status": "pass"
+    },
+    {
+      "name": "typed-array-diagnostic-getter-spoof",
+      "expectedCurrent": false,
+      "current": true,
+      "preparedCurrent": true,
+      "nextPreparationAccepted": true,
+      "error": null,
+      "sameFingerprint": true,
+      "sourceViewCurrent": true,
+      "totalsUnchanged": true,
+      "sourceDisposed": false,
+      "spoof": {
+        "before": 21,
+        "after": 21.125,
+        "realBytes": 1080,
+        "diagnosticGetterReads": 152
+      },
+      "status": "blocker"
+    },
+    {
+      "name": "original-live-cpu-reclassification",
+      "status": "pass",
+      "set": false,
+      "accepted": false,
+      "error": "GLOBAL_DECODEDBYTES_LIMIT",
+      "actualBackingBytes": 1024,
+      "totals": {
+        "decodedBytes": 1024,
+        "encodedBytes": 0,
+        "derivedBytes": 0,
+        "atlasPages": 0
+      }
+    },
+    {
+      "name": "original-forged-native-retirement-state",
+      "status": "pass",
+      "set": false,
+      "setReceipt": false,
+      "accepted": false,
+      "error": "ATLAS_PAGE_LIMIT",
+      "totals": {
+        "decodedBytes": 16,
+        "encodedBytes": 0,
+        "derivedBytes": 0,
+        "atlasPages": 4
+      }
+    },
+    {
+      "name": "typed-array-shadow-and-snapshot-spoof",
+      "status": "pass",
+      "intrinsicBackingCharge": 1024,
+      "nativeError": "NATIVE_RETIREMENT_OWNER",
+      "rows": 1
+    }
+  ]
+}
