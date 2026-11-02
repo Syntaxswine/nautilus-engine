@@ -12,6 +12,7 @@ export function createTileAuthoringHostService({session,authoring,isAuthorized,c
   const listeners=new Set();
   const authorize=()=>{if(!isAuthorized())fail('HOST_UNAUTHORIZED','/service','This connection is no longer authorized for the workspace.');};
   const state=()=>session.getSnapshot();
+  const initial=state();if(initial.recoveryId)lastOutcome={outcome:'unknown',requestId:initial.recoveryId,committed:null,recoveryRequestId:initial.recoveryId,writesFrozen:true,potentiallyCommittedResources:'retain-until-same-id-recovery'};
   const refusal=(error,requestId)=>transportRefusal(error,requestId);
   function outcome(result,requestId){
     if(result.committed===null)return {outcome:'unknown',requestId,committed:null,recoveryRequestId:requestId,writesFrozen:true,potentiallyCommittedResources:'retain-until-same-id-recovery'};
@@ -54,7 +55,7 @@ export function createTileAuthoringHostService({session,authoring,isAuthorized,c
       retained=null;const result={cancelled:session.cancel('authoring-review-cancelled').ok===true};publish();return result;
     },
     async recover(requestId){
-      try{return await finite(async()=>{id(requestId,'/requestId');lastOutcome=outcome(await session.recover(requestId),requestId);return structuredClone(lastOutcome);});}
+      try{return await finite(async()=>{id(requestId,'/requestId');const pending=state().recoveryId;if(pending&&pending!==requestId)fail('RECOVERY_ID_MISMATCH','/requestId','Recover the original pending request; its outcome and resources remain retained.');lastOutcome=outcome(await session.recover(requestId),requestId);return structuredClone(lastOutcome);});}
       catch(error){return {outcome:'rejected',requestId:typeof requestId==='string'?requestId:'invalid-request',committed:false,diagnostics:refusal(error,requestId).diagnostics};}
     }
   });

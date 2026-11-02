@@ -13,10 +13,11 @@ const core=option('core'),ui=option('ui'),editor=option('editor'),base='d8694106
 const git=args=>execFileSync('git',args,{cwd:root,windowsHide:true,maxBuffer:32*1024*1024});
 for(const commit of [core,ui,editor]){if(git(['rev-parse','--verify',commit+'^{commit}']).toString().trim()!==commit)throw Error('Commit mismatch.');git(['merge-base','--is-ancestor',base,commit]);}
 const stage=path.join(root,'artifacts','editor-tile-authoring-c1-staging-'+randomUUID());fs.mkdirSync(stage,{recursive:true});
-const overrides=new Map(),rows=new Map(),queue=[],parsed=new Set(),entries=['tests/editor-tile-authoring-c1.test.mjs','tests/editor-tile-authoring-jsonl.test.mjs'];
+const overrides=new Map(),rows=new Map(),queue=[],parsed=new Set(),entries=['tests/editor-tile-authoring-c1.test.mjs','tests/editor-tile-authoring-jsonl.test.mjs','tests/editor-tile-authoring-resources.test.mjs','tests/ui-tile-authoring-c1.test.mjs'];
+const uiPaths=['apps/editor/tile-authoring/ui/panel.js','apps/editor/tile-authoring/ui/commands.js','apps/editor/tile-authoring/ui/styles.css','tests/ui-tile-authoring-c1.test.mjs','tools/ui-review-tile-authoring-c1.mjs',...['README.md','usage-card.json','source.json','validation.json'].map(name=>'docs/reviews/tile-authoring/ui/c1/'+name)];
 const ownPaths=git(['diff','--name-only',base,editor]).toString().trim().split(/\r?\n/).filter(Boolean);
-for(const file of ownPaths){if(!/^(apps\/editor\/tile-authoring\/|apps\/editor\/smart-tile\/session\.js$|examples\/tile-authoring-editor\.(html|js)$|tests\/editor-tile-authoring-|tests\/fixtures\/tile-authoring-editor\/|docs\/reviews\/tile-authoring\/editor\/|tools\/build\.mjs$|tools\/editor-(stage|review|verify)-tile-authoring-c1\.mjs$)/.test(file))throw Error('Unexpected Editor checkpoint path: '+file);overrides.set(file,editor);}
-for(const file of ['apps/editor/tile-authoring/ui/panel.js','apps/editor/tile-authoring/ui/commands.js','apps/editor/tile-authoring/ui/styles.css'])overrides.set(file,ui);
+for(const file of ownPaths){if(uiPaths.includes(file)){if(!git(['show',editor+':'+file]).equals(git(['show',ui+':'+file])))throw Error('UI checkpoint bytes differ from explicit UI pin: '+file);continue;}if(!/^(apps\/editor\/tile-authoring\/|apps\/editor\/smart-tile\/session\.js$|examples\/tile-authoring-editor\.(html|js)$|tests\/editor-tile-authoring-|tests\/fixtures\/tile-authoring-editor\/|docs\/reviews\/tile-authoring\/editor\/|tools\/build\.mjs$|tools\/editor-(stage|review|verify)-tile-authoring-c1\.mjs$)/.test(file))throw Error('Unexpected Editor checkpoint path: '+file);overrides.set(file,editor);}
+for(const file of uiPaths)overrides.set(file,ui);
 function copy(file){
   if(file.startsWith('/')||file.split('/').some(p=>p==='..'||p==='')||file.includes('\\'))throw Error('Unsafe repository path: '+file);
   if(rows.has(file))return rows.get(file);

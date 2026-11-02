@@ -8,7 +8,9 @@ library. Architect authorized a new branch from accepted main
 `678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2`.
 
 **Dependency gate:** the actual C1 Core runtime and UI component are separate
-builders' deliveries. Their fixed reviewed pins are pending at this checkpoint.
+builders' deliveries. Architect accepted UI component
+`fac180e2909ba499146bb8e4560c79cf4794ca93`; its exact nine paths are imported
+unchanged and recorded in `ui-import.json`. The reviewed Core follow-up is pending.
 The new entry and actual C1 tests deliberately import the production modules;
 there is no C0 fixture, copied worker source, alternate constructor or executor
 fallback. This checkpoint is not a completed integration or a passing full-gate
@@ -119,7 +121,9 @@ objects, with per-file hashes under `artifacts/editor-tile-authoring-c1-staging-
 It passed five tests and refused four at `AUTHORING_WORK_LIMIT` during the
 full-map library sequence. Core's compile-cache/copy-charge follow-up remains
 pending; no cap was raised. This probe is not adoption or a successful full C1
-integration. Subsequent allocation/transport unit checks passed all six cases.
+integration. Subsequent allocation/transport unit checks passed all six cases;
+the accepted UI protocol tests plus these units passed 40 cases. Protocol tests
+keep their explicit Core/Host/native-unbound labels.
 
 ## Builder checklist
 
