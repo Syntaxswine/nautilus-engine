@@ -1,0 +1,76 @@
+{
+  "status": "Design proposals submitted for Architect freeze; no implementation authorization",
+  "baseAcceptedPrivateB": "53d7d1f4bc4b5a8205e16cbbf6a29672e6f9db32",
+  "architectBRecheck": {
+    "existingBControls": 24,
+    "independentControls": 19,
+    "acceptedScope": "headless/private only; no Host/native/placement/public adoption"
+  },
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1167,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulePaths": 552
+    }
+  ],
+  "focusedProposalControls": {
+    "command": "node --test tests/tile-authoring-core-c2-combined-proposal.test.mjs",
+    "passed": 6,
+    "failed": 0
+  },
+  "schemaCheck": {
+    "command": "python candidates/tile-authoring/core/c2/proposals/check-schemas.py --dependencies artifacts/schema-validator",
+    "validator": "jsonschema==4.23.0",
+    "offlineDraft202012Schemas": 7,
+    "structuralCases": 9,
+    "semanticOrOwnershipAcceptance": false
+  },
+  "sourceReference": {
+    "fixedSources": 13,
+    "actualRetainedPreparations": 1,
+    "observedCASCalls": 0,
+    "currentHistoryTicketBehaviorExercised": true,
+    "knownFirstSurfaceDomainsChecked": true,
+    "claims": "Existing C1/public journal facts and fixed-source domain oracle only"
+  },
+  "invariants": {
+    "acceptedPrivateBRuntimeModules": 18,
+    "acceptedDependencies": 83,
+    "runtimeAndDependenciesExactlyEqual53d": true,
+    "normalDistributionInventoriesUnchanged": 4,
+    "frozenPlan1Plan2AndC0Persist": true,
+    "frozenAppearanceAbiManifestSha256": "f819d85c7f2f1f1111754e1f91f1dba40f3026ef6af726f809fc677e6497af70",
+    "pinsAndSitesUnchanged": true
+  },
+  "claims": {
+    "combinedRuntimeImplemented": false,
+    "firstSurfaceProducerImplemented": false,
+    "hostOwnership": false,
+    "nativeOwnership": false,
+    "decoderRun": false,
+    "walRecoveryProved": false,
+    "publicRegistration": false,
+    "deployment": false
+  },
+  "helpers": {
+    "retained": 0,
+    "previewServers": 0,
+    "allOwnedForegroundGateSessionsCompleted": true
+  }
+}
