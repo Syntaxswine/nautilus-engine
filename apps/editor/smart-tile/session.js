@@ -157,10 +157,11 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
       const view=await views.acquire(bundle,()=>current(g,c));
       if(!current(g,c)){history.reject(ticket);return {ok:false,code:'STALE_PREPARATION'};}
       if(!view.ok){history.reject(ticket);setPhase(draft?'draft':'idle');diagnostic(view.code);notify();return {ok:false,code:view.code};}
+      if(authoring){profile.admitPresentation({operation,record:view.record,acceptedView:views.accepted});if(!current(g,c)){history.reject(ticket);return {ok:false,code:'STALE_PREPARATION'};}}
       const r={id:'review-'+requestId,requestId,context:c,generation:g,request,prepared,bundle,ownerId,ticket,record:view.record,operation,plan,tilePreparation};
       if(action!=='edit')return commitPrepared(r,action);
       reviewed=r;setPhase('review');notify();return current(g,c)&&reviewed===r?{ok:true,reviewId:r.id,requestId}:{ok:false,code:'STALE_PREPARATION'};
-    }catch(e){if(ticket)history.reject(ticket);if(current(g,c)){setPhase(draft?'draft':'idle');diagnostic(errorCode(e));notify();}return {ok:false,code:errorCode(e),diagnostics:clone(diagnostics)};}
+    }catch(e){if(ticket)history.reject(ticket);if(current(g,c)){if(authoring)views.cancel();setPhase(draft?'draft':'idle');let recorded=false;if(authoring)try{const own=Object.getOwnPropertyDescriptor(e,'diagnostics');if(own&&Object.hasOwn(own,'value'))recorded=kernelDiagnostics(own.value);}catch{}if(!recorded)diagnostic(errorCode(e));notify();}return {ok:false,code:errorCode(e),diagnostics:clone(diagnostics)};}
   }
   async function rebuild({resetHistory=false}={}){
     retire();const g=generation,c=context();setPhase('preparing');notify();

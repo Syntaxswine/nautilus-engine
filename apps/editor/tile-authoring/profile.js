@@ -13,7 +13,9 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
   const presentationProfileDigest=resourcePorts.presentationProfileDigest;
   if(typeof presentationProfileDigest!=='string'||!/^[a-f0-9]{64}$/.test(presentationProfileDigest))fail('AUTHORING_PRESENTATION_PROFILE','/resources','Capture the immutable actual presentation profile.');
   const hostOnly=({floorId,mode,floorEpoch,providerToken})=>({floorId,mode,floorEpoch,providerToken});
-  const context=(document,host)=>smartTileDigest({workspace:domain.contextToken(document,hostOnly(host)),resources:resourcePorts.contextToken()});
+  // Dynamic resource/ledger leases bind the review separately. An owned
+  // acquisition never refreshes or invalidates this authority/floor generation.
+  const context=(document,host)=>domain.contextToken(document,hostOnly(host));
   function capture(document,token,contextToken,hostContext){
     const lease=resourcePorts.capture(document),contextData={hostAuthorityToken:token,authorityContextToken:contextToken,...lease.data,
       availableFinishIds:menu.entries.filter(x=>x.available).map(x=>x.id)};
@@ -46,6 +48,7 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
       const op=operation(checkpoint.document,{id:requestId,action:'edit',request:plan.request,target:bound.targetDocument,command:plan.corePlan.command,contextToken,token,authoringBinding:bound.bindings,tilePreparation:bound.tilePreparation});leases.set(op,plan.captured.lease);return op;
     },
     validateHistoryTarget(_before,target){domain.validateDocument(target);},
+    admitPresentation({operation,record,acceptedView}){leases.get(operation).admit({record,acceptedView,targetBundle:operation.target.tileBundle});},
     historyOperation({checkpoint,target,requestId,action,request,contextToken,token}){
       const same=smartTileDigest(checkpoint.document.tileBundle)===smartTileDigest(target.tileBundle)&&smartTileDigest(checkpoint.document.constraints)===smartTileDigest(target.constraints)&&profile.presentationFingerprint(checkpoint.document)===profile.presentationFingerprint(target);
       const op=operation(checkpoint.document,{id:requestId,action,request,target,command:null,contextToken,token,tilePreparation:same?'source-unchanged':'public-v1-prepared'});leases.set(op,resourcePorts.capture(checkpoint.document));return op;
@@ -58,7 +61,7 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
       return t.tilePreparation==='source-unchanged'?packet===null:packet?.requestId===op.id&&smartTileDigest(packet.nextBundle)===smartTileDigest(bound.targetDocument.tileBundle);
     },
     actions(state){const value={...smartTileActions(state)},settled=['idle','draft','review','presentation-error'].includes(state.phase)&&state.manual;if(settled){value.setDraft=true;value.selectOwner=true;value.review=state.hasDraft;value.undo=state.undo>0;value.redo=state.redo>0;}value.setInspection=!!inspection&&settled;return value;},
-    snapshot(base,document){return {...base,interface:{kind:TILE_AUTHORING_EDITOR.kind,version:3},workspace:{id:document.id,checkpointVersion:3,contentRevision:document.contentRevision,sourceDocumentDigest:smartTileDigest(document),policyToken:domain.bindingToken},floors:document.floorBinding.floors,finishCatalogue:menu,inspection:inspection?.get()??{mode:'selected-floor',cutawayFloorId:null}};},
+    snapshot(base,document){const missingBindings=resourcePorts.missingBindings(document),readiness={...base.readiness,resources:{state:missingBindings.length?'unbound':'host-bound',missingBindings}};if(missingBindings.length&&!['failed','unconfirmed'].includes(readiness.visual.state))readiness.visual={...readiness.visual,state:'unbound'};return {...base,readiness,interface:{kind:TILE_AUTHORING_EDITOR.kind,version:3},workspace:{id:document.id,checkpointVersion:3,contentRevision:document.contentRevision,sourceDocumentDigest:smartTileDigest(document),policyToken:domain.bindingToken},floors:document.floorBinding.floors,finishCatalogue:menu,inspection:inspection?.get()??{mode:'selected-floor',cutawayFloorId:null}};},
     authoringSnapshot:snapshotPacket,
     settlement(checkpoint){return {workspaceDigest:deps.tiles.tileLayoutToken(tileAuthoringSource(checkpoint.document)),hostDocumentDigest:deps.tiles.tileLayoutToken(checkpoint.document),authorityToken:codec.token(checkpoint)};},
     authoringReview(r){return {requestId:r.requestId,bindings:r.plan.bound.bindings,targetDocument:r.plan.bound.targetDocument,costBounds:r.plan.bound.costBounds,tilePreparation:r.tilePreparation};},

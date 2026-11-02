@@ -4,6 +4,8 @@
   "status": "early-review-checkpoint-not-integration-delivery",
   "checks": [
     {"command": "node --test tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 2, "scope": "transport syntax and forwarding; service double, no Core/native integration claim"},
+    {"command": "node --test tests/editor-tile-authoring-resources.test.mjs tests/editor-tile-authoring-jsonl.test.mjs", "status": "pass", "passed": 6, "log": "artifacts/editor-tile-authoring-resource-and-transport.log", "scope": "actual native allocation/manager/pool/lease unit checks and transport; no authoring Core integration or rendered claim"},
+    {"command": "isolated fixed-Git-object source probe of Editor52/Core981/UI2e4730", "status": "partial", "passed": 5, "failed": 4, "failure": "AUTHORING_WORK_LIMIT during full-map library revision; pending Core cache/copy-charge follow-up", "log": "artifacts/editor-tile-authoring-c1-staging-8e09f144-c390-4ba4-8480-2bcc7ae56dd0/focused-test.log", "runtimeAdoption": false},
     {"command": "node --test tests/smart-tile-session.test.mjs tests/editor-tile-stack-inspection-fence.test.mjs", "status": "pass-before-subsequent-v3-only-hooks", "passed": 22, "scope": "initial shared session extension; current-tree regression rerun remains required"},
     {"command": "git diff --check", "status": "pass"},
     {"command": "node --test tests/editor-tile-authoring-c1.test.mjs", "status": "pending-fixed-reviewed-Core-runtime"},

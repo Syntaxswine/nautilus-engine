@@ -13,6 +13,8 @@ The new entry and actual C1 tests deliberately import the production modules;
 there is no C0 fixture, copied worker source, alternate constructor or executor
 fallback. This checkpoint is not a completed integration or a passing full-gate
 claim. See `validation.json` for checks actually run.
+The adjacent [usage card](usage-card.json) records the dependency gate and host
+connections; it is Editor documentation, not public capability registration.
 
 ## Ownership
 
@@ -72,6 +74,16 @@ It checks identity/liveness without advancing that lease's visual revision.
 Presentation error and unverified retirement debt survive metadata edits and
 metadata Undo/Redo. Actual aggregate manager/native-pool charges remain bounded.
 
+The follow-up allocation guard privately records the real before-state and the
+actual candidate returned by this session's acquisition. Admission checks its
+target bundle, original view identities, exact manager charges and pool changes.
+Only that transition is admitted. Final guards require its exact live ledger;
+foreign allocation/release ABA increments a private allocation epoch and refuses.
+Neither admission nor the dynamic resource ledger restamps public Expected or
+the stable authority generation. Verified retired view records are released;
+unverified records remain charged. An artwork decoder/allocation adapter is
+explicitly unavailable in C1 rather than reporting assumed zero allocations.
+
 Unknown acknowledgement freezes mutations and overwriting saves. The complete
 operation and potentially adopted references remain retained. Recovery uses the
 original request ID. Cold recovery reads the existing pending record or retained
@@ -99,6 +111,15 @@ double accordingly. Required final evidence is actual source/built/installed
 human UI plus JSONL workflow, desktop/320/390 px inspection, save/reopen/history,
 unknown outcome recovery and the four project gates. No performance measurement
 or C2 renderer/decoder support is claimed by proposed cost bounds.
+
+The isolated candidate source probe used Core `981a496a8fda395dd70838f5f1361b44e3fc7b70`,
+UI `2e4730e56db86d9336455ba1671d8ded788ff9da`, and Editor
+`52f4a52481c47e2186e099165e1058988d7997e1`. It copied 176 files from exact Git
+objects, with per-file hashes under `artifacts/editor-tile-authoring-c1-staging-8e09f144-c390-4ba4-8480-2bcc7ae56dd0/`.
+It passed five tests and refused four at `AUTHORING_WORK_LIMIT` during the
+full-map library sequence. Core's compile-cache/copy-charge follow-up remains
+pending; no cap was raised. This probe is not adoption or a successful full C1
+integration. Subsequent allocation/transport unit checks passed all six cases.
 
 ## Builder checklist
 

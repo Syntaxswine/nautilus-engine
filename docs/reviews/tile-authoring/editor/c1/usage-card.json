@@ -1,0 +1,29 @@
+{
+  "kind": "nautilus-editor-component-usage-card",
+  "version": 1,
+  "id": "editor.tile-authoring.c1",
+  "status": "candidate-in-review; reviewed Core/UI runtime adoption pending",
+  "guide": "README.md",
+  "example": "../../../../../../examples/tile-authoring-editor.html",
+  "exampleStatus": "dependency-gated; browser and installed acceptance pending",
+  "editorEntry": "apps/editor/tile-authoring/host-service.js",
+  "dependencyEntry": "@nautilus-engine/core/tiles/authoring",
+  "versions": {"document": 3, "editorCheckpoint": 3, "command": 1, "hostProtocol": 1, "immutableRecords": 1},
+  "purpose": "Immutable rectangle definitions and clean pinned presets, explicit independent placement and selected upgrade through one Editor authority",
+  "connections": {
+    "required": ["actual public Core producer/sealer/planner/binder", "actual v1 tile core and retained consumer", "bound whole-document codec and synchronous durable writer", "native floor/input owners", "verified live native presentation and resource leases", "authorized HostService connection"],
+    "uiPorts": ["getSnapshot", "subscribe", "collectCommand", "discardDraft", "allocateIds", "history", "borrowedFloorController", "borrowedInputOwner", "borrowedResourcePorts"],
+    "serviceMethods": ["describe", "snapshot", "query", "prepare", "apply", "cancel", "recover"],
+    "agentTransport": "createTileAuthoringJSONL(service, {isAuthorized}); same actual service and private retained review"
+  },
+  "space": {"units": "metres", "sourceAxes": "[x,y,h]", "renderAxes": "[x,h,y] once", "floors": "all fifteen declared native records retained verbatim", "collisionAndTraversal": "unbound"},
+  "ownership": "Editor owns one codec/WAL/history/CAS and private review/resource transitions; Core returns pure data; UI and JSONL forward canonical commands",
+  "persistence": "Complete explicit v3 checkpoint in a separate namespace; derived Source is not saved; no v1/v2 migration, receipt reset or implicit latest pins",
+  "uncertainty": "Freeze writes and overwriting saves, retain full references and reconcile the original request ID; presentation failure cannot reverse an acknowledged commit",
+  "allocationPolicy": "Capture real charged before-state, admit only the actual owned candidate, reject foreign changes and allocation/release ABA; metadata preserves accepted lease provenance and error/debt",
+  "supported": ["rectangle create/clone/revise", "clean preset save", "atomic two-copy placement", "explicit selected upgrade", "requirements inspection", "complete save/history and same-ID recovery"],
+  "unavailable": ["path placement", "overlays", "artwork decoder/allocation adapter", "artwork import/capture", "content-pack export", "game adapters"],
+  "gameDecisions": ["permissions", "support/collision/navigation", "fire/water", "actor costs and scheduling", "consumer export/adoption"],
+  "proof": {"focusedUnits": "tests/editor-tile-authoring-resources.test.mjs and tests/editor-tile-authoring-jsonl.test.mjs", "workflow": "tests/editor-tile-authoring-c1.test.mjs; fixed accepted runtime dependencies required", "limitations": "native unit atlas is synthetic; no rendered, installed, device or performance claim"},
+  "cleanup": "No retained helpers; temporary tests exit. Browser proofs must close their task-owned server/browser and verify released ports."
+}
