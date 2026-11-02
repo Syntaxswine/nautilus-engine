@@ -3,6 +3,7 @@ import {distribution} from './distribution.mjs';
 import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
+import {checkBabbleLab} from './check-babble-lab.mjs';
 import {checkSearchHalo} from './check-search-halo.mjs';
 import {verifyFarmyardGrenadeIntake} from './intake-farmyard-grenades.mjs';
 import {checkGrenadeVisuals} from './check-grenade-visuals.mjs';
@@ -159,3 +160,5 @@ console.log('Verified optional stack planner and finish sources: '+JSON.stringif
 console.log('Verified isolated Smart Tile Editor source: '+JSON.stringify(checkSmartTileEditorSource(root,{tracked})));
 
 console.log('Verified optional tile authoring Core: '+JSON.stringify(checkTileAuthoringCoreSource(root,{tracked})));
+
+console.log('Verified complete Babble Lab source and optional audio closure: '+JSON.stringify(checkBabbleLab(root,{tracked})));

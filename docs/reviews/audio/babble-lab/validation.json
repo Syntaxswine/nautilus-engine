@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-02",
+  "base": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
+  "sourceCommit": "0df4be4a05cfa7b636624e1911c5413a9fe844cd",
+  "sourceTree": "770f23853ba4ab0c90deef77953574acb90e6623",
+  "sourceFiles": 72,
+  "sourceBytes": 877146,
+  "sourceHistoryCommits": 16,
+  "gates": [
+    {
+      "command": "npm run check -- --tracked",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "passed": 1165
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "passed": 32
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "checkedModules": 563
+    }
+  ],
+  "audio": {
+    "focusedCases": 3,
+    "originalCases": 84,
+    "originalSuiteSerial": true,
+    "installedPackage": "passed",
+    "builtBrowserChecks": 6,
+    "perceivedQuality": "human audition still required"
+  },
+  "rootRegistration": "unchanged; independent optional audio package",
+  "helpers": "review browser and HTTP server closed; exact lifetimes absent and port released"
+}
