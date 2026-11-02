@@ -1,0 +1,15 @@
+# Paused custom-tile Editor contract draft
+
+Base/brief: `b850e20e2fdd85435d33f16327482b80380af728`. This checkpoint preserves three private, incomplete contract proposals while the Architect prioritizes stacked-tile Gate B review. It is not an accepted interface, registered service, working CLI, module codec or implementation.
+
+The declarations in `candidates/tile-authoring/editor/api.d.ts`, declarative discovery record and closed outer command schema propose one human/agent authority and a new versioned workspace covering original map, floor/finish bindings, tile map, stack constraints, immutable library definitions, sparse decorations and resource references. Unknown or unbound domain schemas must refuse before preparation; validating the outer envelope alone never establishes readiness. Existing v1/v2 documents remain closed and unchanged.
+
+The draft proposes complete eight-slot target manifests, with changed module bodies supplied separately. A later shared interpreter must resolve every slot against the exact accepted source and verify schema/content digests before validating or adopting a complete target. There is no interpreter here. Resource preparation may reserve immutable blobs, but adoption belongs to the same whole-document checkpoint. Unknown acceptance must retain potentially committed resources and recover the original request. No separate library/overlay journal is proposed.
+
+Outstanding before contract acceptance: pinned Coder/Artist domain schemas and stable surface vocabulary; immutable revision/canonical recipe identity rules; portable pack closure and artwork verification; exact command payloads; permission/lock binding; the one shared codec/session policy; human/JSON examples and meaningful source/installed acceptance proofs. The proposed limits are unmeasured, not device performance evidence. No browser review or public API readiness is claimed.
+
+Accuracy: explicit immutable identities and complete workspace semantics are preferred provisionally because partial library/decorations saves could lose authored intent. Efficiency: one authority and sparse per-instance graphics are code/design expectations only; no allocation or timing measurements exist. Narrative: reusable named recipes and deliberately saved decoration defaults support human building authorship while leaving physical/game effects to explicit future services.
+
+The next active work is the stacked-tile shared-codec/session/input/view refactor inventory against fixed reviewed inputs. Protected hosts, source fences, public exports/versions, consumer pins and Sites settings are unchanged by this checkpoint.
+
+Checkpoint validation: `npm run check`, `npm test` (912 passed), `npm run test:upstream` (32 passed) and `npm run build` (519 module paths) pass. A finite Node smoke read confirms discovery remains unavailable and its command names agree with the outer schema; this is not domain or service conformance. All four finite gate sessions exited. No browser, server or retained helper was created.

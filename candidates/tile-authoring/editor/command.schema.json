@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:nautilus:candidate:tile-authoring:editor:command:1",
+  "title":"Private proposed Editor/agent command envelope; domain schema binding is mandatory",
+  "type":"object","additionalProperties":false,
+  "required":["kind","version","requestId","actor","expected","operation"],
+  "properties":{
+    "kind":{"const":"nautilus-tile-authoring-command"},"version":{"const":1},
+    "requestId":{"$ref":"#/$defs/workspaceId"},
+    "actor":{"type":"object","additionalProperties":false,"required":["principalId","caller"],"properties":{"principalId":{"$ref":"#/$defs/id"},"caller":{"enum":["human","agent","consumer"]}}},
+    "expected":{"type":"object","additionalProperties":false,"required":["workspaceId","checkpointToken","contextToken","contentBindings"],"properties":{"workspaceId":{"$ref":"#/$defs/workspaceId"},"checkpointToken":{"$ref":"#/$defs/digest"},"contextToken":{"$ref":"#/$defs/digest"},"contentBindings":{"type":"array","maxItems":128,"items":{"$ref":"#/$defs/pin"}}}},
+    "operation":{"type":"object","additionalProperties":false,"required":["name","payload"],"properties":{"name":{"enum":["recipe.create","recipe.clone","recipe.revise","preset.save","preset.place","instance.upgrade","instance.delete","decoration.batch","workspace.undo","workspace.redo","pack.import"]},"payload":{"type":"object","additionalProperties":false,"required":["schema","body"],"properties":{"schema":{"$ref":"#/$defs/schemaPin"},"body":{"description":"Not an unchecked metadata bag: the exact pinned domain schema MUST validate this body before prepare; unknown/unbound schemas refuse."}}}}}
+  },
+  "$defs":{
+    "id":{"type":"string","minLength":1,"maxLength":96,"pattern":"^[A-Za-z0-9][A-Za-z0-9_.:/-]*$"},
+    "workspaceId":{"type":"string","minLength":1,"maxLength":96,"pattern":"^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "digest":{"type":"string","minLength":64,"maxLength":64,"pattern":"^[a-f0-9]{64}$"},
+    "pin":{"type":"object","additionalProperties":false,"required":["id","version","hash"],"properties":{"id":{"$ref":"#/$defs/id"},"version":{"type":"integer","minimum":1},"hash":{"$ref":"#/$defs/digest"}}},
+    "schemaPin":{"type":"object","additionalProperties":false,"required":["kind","version","schemaHash"],"properties":{"kind":{"$ref":"#/$defs/id"},"version":{"type":"integer","minimum":1},"schemaHash":{"$ref":"#/$defs/digest"}}}
+  }
+}
