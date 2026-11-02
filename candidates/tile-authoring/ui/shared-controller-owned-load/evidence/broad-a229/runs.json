@@ -1,0 +1,67 @@
+{
+  "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+  "project": "Nautilus Engine UI worktree",
+  "purpose": "Four required repository checks on private a229 component",
+  "identity": {
+    "pid": 51716,
+    "creationFiletime": "134381365723565746",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "sourcePin": "a229a1a8997f80b1e129b11cb510e80dcd75fc58",
+  "start": "2026-11-02T23:42:53.585Z",
+  "endCondition": "All four foreground commands exit, each has a real20minute timeout; no server/watch/helper retained",
+  "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-ui-c2-host-bridge\\Nautilus Engine",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "file": "check.log",
+      "startedAt": "2026-11-02T23:42:53.588Z",
+      "finishedAt": "2026-11-02T23:46:33.986Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--test-concurrency=4"
+      ],
+      "file": "tests.log",
+      "startedAt": "2026-11-02T23:46:33.988Z",
+      "finishedAt": "2026-11-02T23:50:28.670Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:upstream"
+      ],
+      "file": "upstream.log",
+      "startedAt": "2026-11-02T23:50:28.671Z",
+      "finishedAt": "2026-11-02T23:50:31.723Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "file": "build.log",
+      "startedAt": "2026-11-02T23:50:31.724Z",
+      "finishedAt": "2026-11-02T23:51:02.893Z",
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "retained": [],
+  "finishedAt": "2026-11-02T23:51:02.893Z"
+}

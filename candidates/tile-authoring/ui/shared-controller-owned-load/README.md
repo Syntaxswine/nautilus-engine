@@ -16,7 +16,10 @@ current. The final visit must perform no snapshot, predicate or source callback.
 
 The Root coordinator completes callbackful snapshot/currentness comparisons
 first, then verifies the owned final observation. The UI calls the borrowed
-`loadSelected(actualIssuedRead)` immediately after the callback-free final path.
+`loadSelected(actualIssuedRead)` after the callback-free final path and pure
+descriptor/lifetime checks of its captured action and owner ports. These checks
+invoke no predicate or snapshot callback. A last currentness callback replacing
+the action therefore refuses rather than calling a retired captured function.
 The existing `withCurrentRead` remains check → callback → check and is never
 used as atomic dispatch permission. No callback alternation loop or caller
 boolean supplies missing ownership.

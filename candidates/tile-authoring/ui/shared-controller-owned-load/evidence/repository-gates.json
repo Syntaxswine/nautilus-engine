@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "sourcePin": "a229a1a8997f80b1e129b11cb510e80dcd75fc58",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "file": "check.log",
+      "startedAt": "2026-11-02T23:42:53.588Z",
+      "finishedAt": "2026-11-02T23:46:33.986Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--test-concurrency=4"
+      ],
+      "file": "tests.log",
+      "startedAt": "2026-11-02T23:46:33.988Z",
+      "finishedAt": "2026-11-02T23:50:28.670Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:upstream"
+      ],
+      "file": "upstream.log",
+      "startedAt": "2026-11-02T23:50:28.671Z",
+      "finishedAt": "2026-11-02T23:50:31.723Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "file": "build.log",
+      "startedAt": "2026-11-02T23:50:31.724Z",
+      "finishedAt": "2026-11-02T23:51:02.893Z",
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "tests": 1162,
+  "upstream": 32,
+  "buildModules": 563,
+  "scope": "All four gates on exact a229 checkpoint. Subsequent changes affect only this private unregistered candidate; no Root runtime/tool/package/test/manifest/config bytes changed. Final private bridge/resource changes separately pass67 Node,54 actual DOM and16 negative types. Full Root gates remain required after actual promotion.",
+  "subsequentRootGateInputsChanged": false,
+  "gateRunnerExactLifetimeExited": true,
+  "retained": [],
+  "files": [
+    {
+      "file": "broad-a229/runs.json",
+      "bytes": 1748,
+      "sha256": "fe937d6461f1742a39d54193083bb93cd1ae7323bd108374e6949d23f5abf9de"
+    },
+    {
+      "file": "broad-a229/runner.mjs",
+      "bytes": 2169,
+      "sha256": "54e2ec7a8171115344192d17bb37ae0261f85162c02633a552a4129377dd0f5f"
+    },
+    {
+      "file": "broad-a229/check.log",
+      "bytes": 19121,
+      "sha256": "d5edfce1969d302ef076b7b9f1fd2e82cf49f42fd4cca40115be12ef20c76d96"
+    },
+    {
+      "file": "broad-a229/tests.log",
+      "bytes": 126353,
+      "sha256": "6838d5e664e71ae1a2bc80dcb2ccfe64821a76ad7a8debb096d75e931035348f"
+    },
+    {
+      "file": "broad-a229/upstream.log",
+      "bytes": 3079,
+      "sha256": "37a24dedf29f5d5b0955ebe3f080e915de9ff6fe0dbbff09454c10593f66c2fd"
+    },
+    {
+      "file": "broad-a229/build.log",
+      "bytes": 372,
+      "sha256": "29156efe73061ca1172f55d312ccc62a21d421ac9aece46c892ba90861114785"
+    }
+  ]
+}

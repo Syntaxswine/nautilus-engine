@@ -8,7 +8,7 @@
    const proof=finalObservations.get(ticket),e=finalEntry(read);if(!proof||proof.used||proof.read!==read||proof.e!==e||proof.version!==version||proof.selectionVersion!==selectionVersion||typeof visit!=='function')throw failure('C2_FINAL_READ_FOREIGN','Use the original same-owner final observation once.');proof.used=true;let calls=0;
    // The actual producer visitor authenticates its private source/context epoch.
    // No snapshot, predicate, source capture or other user callback is called here.
-   const value=producerVisit.call(producerFinal,proof.sourceTicket,e.capture.scope,e.originalBaseRead,()=>{if(++calls!==1||!finalConnection()||finalEntry(read)!==e||version!==proof.version||selectionVersion!==proof.selectionVersion)throw failure('C2_FINAL_READ_RETIRED','The original bridge/read lifetime retired.');return visit(read);});
+   const value=producerVisit.call(producerFinal,proof.sourceTicket,e.capture.scope,e.originalBaseRead,actualBaseRead=>{if(++calls!==1||actualBaseRead!==e.originalBaseRead||!finalConnection()||finalEntry(read)!==e||version!==proof.version||selectionVersion!==proof.selectionVersion)throw failure('C2_FINAL_READ_RETIRED','The original bridge/read lifetime retired.');return visit(read);});
    if(calls!==1||value&&typeof value.then==='function')throw failure('C2_FINAL_VISITOR_REQUIRED','The actual owner must synchronously visit the authenticated original read exactly once.');return value;
   }
  }):null;

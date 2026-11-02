@@ -38,6 +38,8 @@ export function mountSelectedArtworkLoadControl(container,{binding,hub,resourceA
    // The guard returns the actual issued read, never its parsed display copy.
    if(own(resourceActions,'loadSelected')!==loadSelected){retired=true;throw issue('UI_RESOURCE_RETIRED','The artwork loading port changed.');}
    const read=guard.read();
+   // Pure descriptor/lifetime checks only; no callback after final source facts.
+   if(disposed||retired||own(resourceActions,'loadSelected')!==loadSelected||own(binding,'getSnapshot')!==getSnapshot||own(binding,'resourceReadOwner')!==readOwner||own(readOwner,'capture')!==captureRead||own(readOwner,'visit')!==visitRead){retired=true;throw issue('UI_RESOURCE_RETIRED','The artwork loading port changed before dispatch.');}
    await loadSelected.call(resourceActions,read);
    if(disposed)return{status:'detached'};
    if(!current())throw issue('UI_RESOURCE_RETIRED','The artwork loading connection changed.');
