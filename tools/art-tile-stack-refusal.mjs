@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+import {root,moduleClosure} from './distribution.mjs';
+import * as core from '../packages/tiles-core/index.js';import * as art from '../packages/tile-visuals/prepare.js';import * as examples from '../packages/tile-visuals/example.js';
+import {pathStudyRecipe} from '../candidates/tile-stack/art/fixtures.js';
+const hash=b=>createHash('sha256').update(b).digest('hex'),files=moduleClosure(['packages/tiles-core/index.js','packages/tile-visuals/prepare.js','packages/tile-visuals/three.js']).map(file=>{const b=fs.readFileSync(path.join(root,file));return {path:file,bytes:b.length,sha256:hash(b)};}),cases=[];
+for(const transform of [{quarterTurns:1,mirrorX:false},{quarterTurns:3,mirrorX:true}]){
+ const recipe=pathStudyRecipe(examples,'valid-level-line-d4','line'),bundle=examples.tileArtBundle(core,[recipe],[{id:'line-owner',recipeId:recipe.id,transform}]),before=JSON.stringify(bundle),beforeHash=hash(before);
+ assert.equal(core.openTileBundle(bundle,{requireResolved:true}).ok,true);
+ let failure;try{art.prepareTileArt(core,bundle,{detail:0});}catch(e){failure=e;}assert.equal(failure?.code,'INVALID_NUMBER');assert.equal(failure.path,'/startRad');assert.equal(JSON.stringify(bundle),before);
+ const calls=[];
+ // Diagnostic call-through only. No substituted return value, correction or
+ // retry is used by the candidate. The direct actual-core call above is proof.
+ const observed={...core,sampleTileCurve(curve,...rest){if(Object.is(curve.startRad,-0)){const bytes=new ArrayBuffer(8);new DataView(bytes).setFloat64(0,curve.startRad,false);calls.push({curve:structuredClone(curve),startRadToken:'-0',startRadIsNegativeZero:true,startRadIEEE754BigEndian:Buffer.from(bytes).toString('hex'),forwardedWithoutChanges:true});}return core.sampleTileCurve(curve,...rest);}};
+ assert.throws(()=>art.prepareTileArt(observed,bundle,{detail:0}),e=>e.code===failure.code&&e.path===failure.path);assert.equal(calls.length,1);assert.equal(JSON.stringify(bundle),before);
+ cases.push({sourceValidity:'Actual public openTileBundle(requireResolved:true) returned ok before failure',sourceBundle:bundle,exactRecipe:recipe,exactPlacement:bundle.layout.instances[0],publicFailure:{code:failure.code,path:failure.path,message:failure.message},derivedAngleWitness:calls[0],beforeSourceSha256:beforeHash,afterSourceSha256:hash(JSON.stringify(bundle)),sourceByteEqualBeforeFailure:true,sourceByteEqualAfterDirectAndObservedFailures:true,classification:'Valid public level source produces an invalid derived helper angle in the accepted public surface provider; this is not authored unsupported/graded geometry.',policy:'No source normalisation, silent retry, core relaxation or frozen provider change. These two poses refuse pending separately authorized provider correction.'});
+}
+const report={status:'reproduced',base:'5d69c2130eb64b6f4e31bc672e884bdc33bf47d2',runtime:'2502646482218524fd5129641da769bb82462e4d',metadataCheckpoint:'84bcb886a25826ba710b9c285316bee5582fa7ef',directActualPublicCoreAndProvider:true,diagnosticObservation:'Second diagnostic call uses an explicit sampleTileCurve call-through observer, forwarding all arguments/returns/errors unchanged. It is not the production binding or a fake public package.',dependencies:files,cases};
+fs.writeFileSync(path.join(root,'docs/reviews/tile-stack/art/line-d4-refusal.json'),JSON.stringify(report,null,2)+'\n');console.log('Recorded two valid-source derived-negative-zero refusals with exact source and dependency hashes.');

@@ -1,0 +1,363 @@
+{
+  "status": "pass",
+  "base": "5d69c2130eb64b6f4e31bc672e884bdc33bf47d2",
+  "runtime": "2502646482218524fd5129641da769bb82462e4d",
+  "earlyMetadataCheckpoint": "84bcb886a25826ba710b9c285316bee5582fa7ef",
+  "binding": {
+    "id": "nautilus-tile-finish-catalogue",
+    "version": 1,
+    "digest": "4da6c7e85b9819aa6c6d847b0447d5baa80db77a824a04e24579209ccc0c381b"
+  },
+  "availability": "Private Gate A candidate only",
+  "scopeGuard": {
+    "allChangesInArtistPaths": true,
+    "changed": [
+      "candidates/tile-stack/art/README.md",
+      "candidates/tile-stack/art/catalogue.js",
+      "candidates/tile-stack/art/data.js",
+      "candidates/tile-stack/art/finishes.js",
+      "candidates/tile-stack/art/fixtures.js",
+      "candidates/tile-stack/art/study.css",
+      "candidates/tile-stack/art/study.html",
+      "candidates/tile-stack/art/study.js",
+      "candidates/tile-stack/art/view.js",
+      "docs/reviews/tile-stack/art/acceptance.md",
+      "docs/reviews/tile-stack/art/installed-helper-retirement.json",
+      "docs/reviews/tile-stack/art/installed-review.json",
+      "docs/reviews/tile-stack/art/installed-tests.tap",
+      "docs/reviews/tile-stack/art/line-d4-refusal.json",
+      "docs/reviews/tile-stack/art/metadata-checkpoint.md",
+      "docs/reviews/tile-stack/art/metadata-sources.json",
+      "docs/reviews/tile-stack/art/previews/all-families.png",
+      "docs/reviews/tile-stack/art/previews/finish-brick-pavers.png",
+      "docs/reviews/tile-stack/art/previews/finish-poured-concrete.png",
+      "docs/reviews/tile-stack/art/previews/finish-stone-flags.png",
+      "docs/reviews/tile-stack/art/previews/finish-timber-boards.png",
+      "docs/reviews/tile-stack/art/previews/native-cutaway.png",
+      "docs/reviews/tile-stack/art/previews/native-overview.png",
+      "docs/reviews/tile-stack/art/previews/native-selected-top.png",
+      "docs/reviews/tile-stack/art/previews/nonuniform-floor-four.png",
+      "docs/reviews/tile-stack/art/previews/phone-320.png",
+      "docs/reviews/tile-stack/art/previews/phone-390.png",
+      "docs/reviews/tile-stack/art/previews/shapes-brick-pavers.png",
+      "docs/reviews/tile-stack/art/previews/shapes-poured-concrete.png",
+      "docs/reviews/tile-stack/art/previews/shapes-stone-flags.png",
+      "docs/reviews/tile-stack/art/previews/shapes-timber-boards.png",
+      "docs/reviews/tile-stack/art/source-helper-retirement.json",
+      "docs/reviews/tile-stack/art/source-manifest.json",
+      "docs/reviews/tile-stack/art/source-review.json",
+      "tests/art-tile-stack-catalogue.test.mjs",
+      "tests/art-tile-stack-materials.test.mjs",
+      "tests/art-tile-stack-native.test.mjs",
+      "tools/art-tile-stack-cleanup.ps1",
+      "tools/art-tile-stack-evidence.mjs",
+      "tools/art-tile-stack-final.mjs",
+      "tools/art-tile-stack-refusal.mjs",
+      "tools/art-tile-stack-review.mjs"
+    ],
+    "protectedSourceFences": "npm run check passed; no accepted source files changed"
+  },
+  "gates": [
+    {
+      "exitCode": 0,
+      "command": "npm run check",
+      "finishedAt": "2026-11-02T04:13:22.0356379Z",
+      "log": "artifacts/art-tile-stack-final-check.log",
+      "logSha256": "ea043a3f992a5a650a158cffb83c679671b94c464087ef3d3b102f3f897e349c"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T04:13:46.7477099Z",
+      "log": "artifacts/art-tile-stack-final-test.log",
+      "logSha256": "517df60d2dc79402c198c0d6f02d2ca0f126d697a15faed6056e4eda38db64f2"
+    },
+    {
+      "exitCode": 0,
+      "log": "artifacts/art-tile-stack-final-upstream.log",
+      "command": "npm run test:upstream",
+      "finishedAt": "2026-11-02T04:11:48.5988787Z",
+      "logSha256": "eca94a1f4a16188c6b015fb563d0de32b0c54e9f3d001a5ce926d948714a379b"
+    },
+    {
+      "finishedAt": "2026-11-02T04:13:13.1946389Z",
+      "exitCode": 0,
+      "command": "npm run build",
+      "log": "artifacts/art-tile-stack-final-build.log",
+      "logSha256": "91f9db3ca0da253d4cd413e2d78bdf14da3a56966237c0becc76f37057f962c7"
+    }
+  ],
+  "sourceBrowser": {
+    "checks": 19,
+    "captures": 15
+  },
+  "installed": {
+    "nodeTests": 17,
+    "browserChecks": 19,
+    "captures": 15,
+    "sourceSemanticParity": true,
+    "all15CaptureBytesEqual": true,
+    "actualPublicPackages": true,
+    "privateHelperDeclared": true,
+    "consumerRemoved": true
+  },
+  "nativeFixture": {
+    "owners": 15,
+    "lockedLower": 14,
+    "crossings": 105,
+    "declaredClearanceM": 2,
+    "work": {
+      "steps": 16,
+      "spatialTests": 435,
+      "geometryEvaluations": 1950
+    },
+    "detailZeroTriangles": 450,
+    "cells": 480,
+    "derivedCellWork": 152910,
+    "twoViews": {
+      "triangles": 900,
+      "cells": 960
+    },
+    "ceilings": {
+      "roots": 2,
+      "triangles": 50000,
+      "cells": 1024
+    },
+    "heightsUnshifted": true
+  },
+  "knownPublicProviderRefusals": [
+    {
+      "transform": {
+        "quarterTurns": 1,
+        "mirrorX": false
+      },
+      "code": "INVALID_NUMBER",
+      "path": "/startRad",
+      "sourceUnchanged": true,
+      "derivedAngle": "-0"
+    },
+    {
+      "transform": {
+        "quarterTurns": 3,
+        "mirrorX": true
+      },
+      "code": "INVALID_NUMBER",
+      "path": "/startRad",
+      "sourceUnchanged": true,
+      "derivedAngle": "-0"
+    }
+  ],
+  "helpers": {
+    "retiredLifetimes": 4,
+    "allOriginalIdentitiesGone": true,
+    "allPortsReleased": true,
+    "retained": 0
+  },
+  "inputs": [
+    {
+      "path": "candidates/tile-stack/art/README.md",
+      "bytes": 10213,
+      "sha256": "1d698f462d1c29b28f2352764d0179a8ada5865c24c3cffcd608489a0dbbc482"
+    },
+    {
+      "path": "candidates/tile-stack/art/catalogue.js",
+      "bytes": 5953,
+      "sha256": "fe1db713bdc3a8adc1a4b3479cd9809bd7d66ea28beab6c5c737962ddede2cdc"
+    },
+    {
+      "path": "candidates/tile-stack/art/data.js",
+      "bytes": 2176,
+      "sha256": "7c898395c4fcc885cfc2d4c3ae0b94f41a2ba9a0b50c92b6cb7e1546c90fa2a7"
+    },
+    {
+      "path": "candidates/tile-stack/art/finishes.js",
+      "bytes": 10779,
+      "sha256": "4fce2a7c24ec7c8060db4b033c30cd8a1818613c7b27459a3cb0e4a3666dc4a4"
+    },
+    {
+      "path": "candidates/tile-stack/art/fixtures.js",
+      "bytes": 4607,
+      "sha256": "3536c8c8964acf40b3637cf51e55163d3787ea9394be613a3522d0e0a616976e"
+    },
+    {
+      "path": "candidates/tile-stack/art/study.css",
+      "bytes": 2982,
+      "sha256": "b021a078e88d12830defbfc1fada87589fe69235bdb9c7d29ca58d7317c2d215"
+    },
+    {
+      "path": "candidates/tile-stack/art/study.html",
+      "bytes": 3221,
+      "sha256": "e7c408e23fc690a0041f6106174cb98a5de6451ddb54c2f635997083815f5584"
+    },
+    {
+      "path": "candidates/tile-stack/art/study.js",
+      "bytes": 10264,
+      "sha256": "e991f3dd8a13da58e373c156e9818d3663faf260a682267d6167f03743b349dc"
+    },
+    {
+      "path": "candidates/tile-stack/art/view.js",
+      "bytes": 3647,
+      "sha256": "245c1b8df8371bac08178bc0de3c9cd77849f5133a2ce68659b6d55bae9329f6"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/acceptance.md",
+      "bytes": 8073,
+      "sha256": "290e1084a6013697a391d75c93fe5f040c40b350a658d53c95449203a8065746"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/installed-helper-retirement.json",
+      "bytes": 3435,
+      "sha256": "65649752d4bd8283279e367e97ba2cada2dda74e91e0bcd4528fa0b602a36cb9"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/installed-review.json",
+      "bytes": 161358,
+      "sha256": "25f544288531feadf55943807444bdc6a0644d4757a50557bf5adcbb51d949df"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/installed-tests.tap",
+      "bytes": 4807,
+      "sha256": "aa2771eb7ed1160c3d3043e653636e713c1b4b01292b6706f3114e26ef7803a5"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/line-d4-refusal.json",
+      "bytes": 19597,
+      "sha256": "017b703dd5f1973756687cabb010285dc3a5ac583f72c325ac02d384094f3270"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/metadata-checkpoint.md",
+      "bytes": 1995,
+      "sha256": "47cd70c847fd30a306961f33060cc53cddaf1a8db0784a8290998c885ae26282"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/metadata-sources.json",
+      "bytes": 1486,
+      "sha256": "bdd97111722f8fed2adfb02b6d4bead8d7105905f973acb9837e24f264234235"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/all-families.png",
+      "bytes": 111774,
+      "sha256": "48b1946051db6c81fa25e6cad78f3ba735cb00ef6e8c11db497d677494c4022f"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/finish-brick-pavers.png",
+      "bytes": 383544,
+      "sha256": "d8aa7495fb2b3bfdc65900ccf50a714dcfd9a41880132aa8fc9557e0154bc2b5"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/finish-poured-concrete.png",
+      "bytes": 372434,
+      "sha256": "a6b6d75389e224ea84e2cdb0da85081c0c8ddb5e6d4d0ae1a5b8639d3811cf7c"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/finish-stone-flags.png",
+      "bytes": 217074,
+      "sha256": "a3eebe1f0fbe8fa3fa3389f5b51edae22ba8bcf1316140317a15e34781c74f91"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/finish-timber-boards.png",
+      "bytes": 328508,
+      "sha256": "bf1e44763c2a22201ff05b8f87326179f0948feb7ee7f69073efef81f44ab223"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/native-cutaway.png",
+      "bytes": 263244,
+      "sha256": "4215ef5dd465ebf8c5c6a96aae92e8a7fe1f03e04dd9830906589a10edf96e54"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/native-overview.png",
+      "bytes": 135137,
+      "sha256": "da8d76688615ec0e01cb7d5d6964924083f3101d6527726e2afb2a7d063c669a"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/native-selected-top.png",
+      "bytes": 327470,
+      "sha256": "df67d88aa815954cef33915d72d2440d231c55a22338019f7b1f2642003d08ca"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/nonuniform-floor-four.png",
+      "bytes": 371131,
+      "sha256": "eb4d09bdf60ddbea6e752b680a8ad2eacca3c84fe37880c738289b3f10757b9d"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/phone-320.png",
+      "bytes": 101856,
+      "sha256": "43c0a0f28b00720c8f1480d2b0e4cd66d42442ec176e3a95a937cdea584fa67c"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/phone-390.png",
+      "bytes": 121275,
+      "sha256": "3cc729a7d9e5548f08189fdbc53d1bd66690384dadc7db80397d9a52db8f9da1"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/shapes-brick-pavers.png",
+      "bytes": 160042,
+      "sha256": "c6da69dc40db616917fc9bfd376a8a2e7f32dd843fbd71b7d1d38c9dcd213b7b"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/shapes-poured-concrete.png",
+      "bytes": 135174,
+      "sha256": "00d0a44008a4925a319b358af0f669cc9f5305c7891bebfc984557c3e75e36bb"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/shapes-stone-flags.png",
+      "bytes": 93498,
+      "sha256": "a245125211736509dd28933ca3c3cc63d15b7e9b3e97ae5725058b8c7c0067c8"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/previews/shapes-timber-boards.png",
+      "bytes": 144223,
+      "sha256": "6e7c0d5e99b02f4867102bab6b749fac7bd4d34414784e0e6cb3d73532eb7d3d"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/source-helper-retirement.json",
+      "bytes": 9507,
+      "sha256": "b60d9d83227600b45e3c8f5a84d5b81e89b886f0d937347da8d7116f6c61e04d"
+    },
+    {
+      "path": "docs/reviews/tile-stack/art/source-review.json",
+      "bytes": 86188,
+      "sha256": "60399d045016ff5c2612977f70b622e037b272d036944408970007d1ae0bae20"
+    },
+    {
+      "path": "tests/art-tile-stack-catalogue.test.mjs",
+      "bytes": 2463,
+      "sha256": "bf661662d5b90fcaa6c3adaf86343a78aea4912f199188bd690b45cde96d15a2"
+    },
+    {
+      "path": "tests/art-tile-stack-materials.test.mjs",
+      "bytes": 11980,
+      "sha256": "c8c71e74952320a6aafd6eb7d89c7fe8daec1c195e4035d36e45e97c3b4b39a9"
+    },
+    {
+      "path": "tests/art-tile-stack-native.test.mjs",
+      "bytes": 6080,
+      "sha256": "f91287cc679c7db8d2e6dcce454ec4bb904ce9901cf3e3da300f2f9e5d6e81c0"
+    },
+    {
+      "path": "tools/art-tile-stack-cleanup.ps1",
+      "bytes": 1684,
+      "sha256": "ccd2a62584c0a6c379f38522756bb4325c3c3a15c8abe781939c969056f6ed6f"
+    },
+    {
+      "path": "tools/art-tile-stack-evidence.mjs",
+      "bytes": 1810,
+      "sha256": "330968d4ea1fb39fa60a9f2b113a783eaba89e50d431fd0b5f50b0a6de007eb6"
+    },
+    {
+      "path": "tools/art-tile-stack-final.mjs",
+      "bytes": 5598,
+      "sha256": "3a9376d90099c32fe6a280de1baeb90ce42fb60ef7c7f3e5791c906464d35ad0"
+    },
+    {
+      "path": "tools/art-tile-stack-refusal.mjs",
+      "bytes": 3608,
+      "sha256": "e97b3ee7915e25c498e39343b42d218790f7b1ddc701ba3dd425cf9fc66d4eac"
+    },
+    {
+      "path": "tools/art-tile-stack-review.mjs",
+      "bytes": 17639,
+      "sha256": "69de9ccaaef253e7b2976fde49e2044b993387e71658cc4a7e3d3eda0ccd65b9"
+    }
+  ]
+}
