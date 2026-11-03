@@ -1,0 +1,69 @@
+{
+  "kind": "nautilus-private-browser-core-closure-correction",
+  "version": 1,
+  "returnedCommit": "ed66b63e28f7125030a0e55f1542b20aea67b0b8",
+  "independentReview": {
+    "path": "Root artifacts/tile-authoring-review/c2-browser-core-owner-review",
+    "files": {
+      "review.json": {
+        "bytes": 5456,
+        "sha256": "55d280569b6106984973c636fb2562f7437b02ace17977a72708bff6dcedb897"
+      },
+      "probes.mjs": {
+        "bytes": 3811,
+        "sha256": "31c4a5c24a2553c921fb1b255d40791d60300399aba39ff32725b9061e4f2e8e"
+      }
+    }
+  },
+  "scope": "Two contradictory DATA acceptance corrections; no Host/native readiness or authority",
+  "profileDigest": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765",
+  "unchanged": [
+    "API/types/closed schema/profile/rates",
+    "fifteen resource ceilings and ten raw numeric caps",
+    "C0/public/C1/strict/format/build/source fences"
+  ],
+  "corrections": [
+    {
+      "id": "held-resource-closure",
+      "reproducedBeforeFix": [
+        "held accepted view with released CPU geometry row; geometry CPU total dropped to zero",
+        "held accepted view with released material row; material total dropped to zero"
+      ],
+      "guard": "Nonempty held view requires nonempty held same-owner/context CPU/API geometry and material rows; geometry roles/layout/Buffer target must match. Held ranges require actual held full same-context stores and held views. Active references require held targets (unused cache-idle materials remain allowed outside held views). Released records require their original positive homogeneous receipts.",
+      "expectedRefusals": [
+        "BROWSER_GEOMETRY_STORE",
+        "BROWSER_MATERIAL_STORE",
+        "BROWSER_RANGE_STORE",
+        "BROWSER_RANGE_VIEW",
+        "BROWSER_REFERENCE_LIVE"
+      ]
+    },
+    {
+      "id": "decoded-full-page-usage",
+      "reproducedBeforeFix": {
+        "command": [
+          "content.import",
+          "surface.layers",
+          "decoration.add"
+        ],
+        "CPUBytesBefore": 6291456,
+        "purposeBefore": "artwork-image",
+        "CPUBytesAfter": 1,
+        "purposeAfter": "upload-staging",
+        "acceptedPeakBytesBeforeFix": 25165825
+      },
+      "guard": "Every decoded observation row is an actual held artwork-image, decoded-additional CPU/API receiver for the exact blob and owner/context, at least the entire known RGBA page capacity. At least one full CPU and one full API receiver are required. Scratch/upload/encoded/derived/baseline/reservation aliases cannot stand in.",
+      "expectedRefusal": "BROWSER_DECODE_ROLE"
+    }
+  ],
+  "verification": {
+    "beforeFix": "All three exact falsifiers failed by Missing expected exception on ed66",
+    "afterFixFocused": {
+      "tests": 31,
+      "passed": 31,
+      "failed": 0
+    },
+    "fullGates": "Run before fixed delivery; receipts/logs retained locally"
+  },
+  "compatibility": "This fixes conformance to existing complete held ownership/full-image contracts; no schema/API/profile changes or returned counter-credit mechanism. ed66 remains immutable in Git."
+}

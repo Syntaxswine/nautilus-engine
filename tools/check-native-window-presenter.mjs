@@ -8,6 +8,8 @@ import {root,sourceCommit,vendorRoot,verifySnapshot} from './snapshot-native-win
 import {moduleClosure,distribution} from './distribution.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
+import {checkTileAuthoringC2KernelRegistration} from './tile-authoring-c2-kernel-registration.mjs';
+import {kernelPromotionSources,HELPER as KERNEL_HELPER} from './tile-authoring-c2-kernel-source.mjs';
 
 const acceptedPresenter='5f027e039ba9307fd25719c6307d9760baf54e20';
 const integrationBase='3f602272a3a2ecbe4ade0d33773a0e4f52da0706';
@@ -21,7 +23,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   assert.equal(path.resolve(projectRoot),root,'Use this checkout with its owning distribution module.');
   const git=(...args)=>execFileSync('git',['-c','core.longpaths=true','-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:20*1024*1024});
-  const object=(commit,file)=>git('show',commit+':'+file);
+  const objects=new Map(),object=(commit,file)=>{const key=commit+':'+file;if(!objects.has(key))objects.set(key,git('show',key));return objects.get(key);};
   const read=file=>fs.readFileSync(path.join(root,file));
   const json=file=>JSON.parse(read(file));
   const listed=(commit,...folders)=>git('ls-tree','-r','--name-only',commit,...folders).toString().trim().split('\n').filter(Boolean);
@@ -69,11 +71,20 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
 
   // Freeze the promoted headless/window/authoring and schema contracts. The
   // public renderer entry and a reference-only pin grant no new authority.
+  const kernelRegistration=checkTileAuthoringC2KernelRegistration({object,read,indexed,moduleClosure,distribution});
+  const kernel=kernelRegistration.report.enabled?kernelPromotionSources({object}):null;
   const headless=moduleClosure(['packages/map-core/index.js','packages/windows-core/index.js','packages/adapters/farmyard/windows.js','packages/windows-authoring/index.js']);
   const frozen=[...new Set([...listed(integrationBase,'packages/map-core','packages/windows-core','packages/windows-authoring','packages/adapters/farmyard/windows','schemas'),'packages/adapters/farmyard/windows.js',...headless,...listed(integrationBase).filter(f=>f.endsWith('.schema.json'))])].sort();
   // The reviewed private C2a source updates precisely these three unregistered
   // schemas. Every other headless/window/authoring/schema byte stays at3f602.
-  for(const file of frozen){const expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file);assert.ok(read(file).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,expected);}
+  for(const file of frozen){
+    let expected;
+    if(kernel&&file===KERNEL_HELPER)expected=kernel.rows.find(row=>row.path===KERNEL_HELPER).expectedBuffer;
+    else if(kernel&&file==='packages/windows-authoring/journal.js'){
+      const row=kernel.rows.find(row=>row.path===file);assert.ok(row.beforeBuffer.equals(object(integrationBase,file)),'Kernel journal must start at the exact historical native-window preimage');expected=row.expectedBuffer;
+    }else expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file);
+    assert.ok(read(file).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,expected);
+  }
   const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=json('upstream.json'),{farmyardWindowArt:pin,...existing}=upstream;
   assert.deepEqual(existing,before,'Pre-existing upstream pins must remain unchanged.');
   assert.ok(pin,'Register the explicit reference-only farmyardWindowArt pin.');

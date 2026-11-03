@@ -1,0 +1,82 @@
+{
+  "kind": "private-browser-owner-rate-mapping",
+  "version": 1,
+  "admission": "UNBOUND",
+  "oneNormalizedReferenceGate": 1000000,
+  "tenRawDomains": {
+    "authoringReferenceUnits": 1000000,
+    "artistPreparationTicks": 1000000,
+    "decoderTicks": 64000000,
+    "publicSteps": 256,
+    "publicSpatialTests": 100000,
+    "publicGeometryEvaluations": 100000,
+    "inputBytes": 6000000,
+    "outputBytes": 4000000,
+    "hostNodeVisits": 1000000,
+    "copyBytes": 6000000
+  },
+  "metadataFlowMapping": {
+    "inputBytes": "Corresponding Core metadata/JSON boundary input octets. This component reports its private descriptor-checked input; Core receiver is UNBOUND.",
+    "outputBytes": "Corresponding Core metadata/JSON output octets. No Core output producer here: UNBOUND, never inferred from PNG pixels.",
+    "copyBytes": "Corresponding metadata/JSON logical copies, observed by private copyData. Formal Core flow pairing UNBOUND.",
+    "excludedFromAllThree": [
+      "encoded PNG streams",
+      "decoded RGBA/Pako movement",
+      "native texture and buffer uploads",
+      "checkpoint/history payloads outside corresponding Core metadata flow"
+    ]
+  },
+  "separateMonotonicObservations": [
+    "encodedStreamBytes",
+    "encodedSnapshotBytes",
+    "decodedMovementBytes",
+    "derivedWriteBytes",
+    "nativeUploadBytes",
+    "checkpointHistoryBytes"
+  ],
+  "rates": [
+    {
+      "hook": "local take(n)",
+      "normalization": "actual n once",
+      "raw": "authoringReferenceUnits and artistPreparationTicks receive the same LOCAL delta; no incoming Core carry"
+    },
+    {
+      "hook": "local bytes(n)",
+      "normalization": "delta of cumulative ceil(totalByteWork/64)",
+      "raw": "No automatic input/output/copy domain inference"
+    },
+    {
+      "hook": "decoder tick(n)",
+      "normalization": "covered by local bytes(n) once",
+      "raw": "decoderTicks n, separately bounded at 64M"
+    },
+    {
+      "hook": "decoder set/copy",
+      "normalization": "Retain original decoder coverage: allocation/tick work already pays these copies; no second normalization. Copy observations remain separate and monotonic.",
+      "raw": "encodedSnapshotBytes or decodedMovementBytes; NEVER generic Core copyBytes"
+    },
+    {
+      "hook": "data-atlas writes / native uploads",
+      "normalization": "local bytes(n) once; pre-operation upload charge is a conservative full charge, not a claim of measured timing",
+      "raw": "derivedWriteBytes or nativeUploadBytes, not metadata flow"
+    },
+    {
+      "hook": "private descriptor-checked metadata copy",
+      "normalization": "paid node/text visits + bytes(n) under existing reference policy",
+      "raw": "metadata copyBytes only; does not authorize Core success"
+    }
+  ],
+  "palette": {
+    "scope": "Separate non-authoring, no operation/request IDs and no authoring credit. Monotonic observations retained per independently bounded acquisition.",
+    "bounds": "same 1M normalized reference gate, 64M decoder ticks, all 15 unchanged resource stocks",
+    "extraRawPixelByteCeiling": null,
+    "hostReceiver": "Private bounded exact receiver port; actual Host stream/history accounting UNBOUND"
+  },
+  "unbound": [
+    "Core producer/profile/digest/closed browser DTOs",
+    "Editor whole-attempt journal",
+    "Host source/history/codec/WAL",
+    "native constructor internal-work meter",
+    "formal capture/admission/ticket/write lease"
+  ]
+}

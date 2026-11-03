@@ -1,0 +1,15 @@
+# Ordinary geometry and appearance work in one editor
+
+Architect decision, 2026-11-02. Implementation and combined browser acceptance remain pending.
+
+The frozen browser appearance profile `fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765` permits no public geometry repair work: its public steps, spatial tests and geometry evaluations have zero ceilings. The existing rectangle workflow needs those operations before a user can paint a tile. Broadening that appearance profile would change its reviewed meaning.
+
+Use a distinct private ordinary-C1 work profile, with the accepted C1 ceilings of 256 public steps, 100,000 spatial tests and 100,000 geometry evaluations. Retain the single 1,000,000 normalized-work ceiling and all fifteen browser resource limits. The new profile needs its own identifier, version and digest; the existing appearance profile and public packages remain unchanged.
+
+Start one attempt with the original request ID before ingress or dispatch. Classify the complete owned command and validated source in that same paid scope, then bind its profile once before any public repair. An unbound dispatch scope cannot perform public or Artist work. Selecting a profile may narrow its declared dispatch bounds; it cannot reset counters, grant another allowance or accept caller-reported readiness. Reuse the same actual consumer, authority, session, journal and native manager.
+
+The ordinary route requires a source without active geometry-dependent decoration marks or groups. Retained unused artwork and empty layers may remain only when complete C2 source/resource validation proves their exact preservation, including resource references and idle native cache charges. Bare C1 parsing must not reinterpret them. Removing all marks should not permanently lock geometry merely because an immutable imported record remains. Mixed geometry and appearance operations, or geometry changes with active marks, must preserve the complete source and return an explicit unsupported result until a combined route is separately implemented and reviewed. The appearance-only Plan2 geometry fence stays intact. The first integration proof must start empty, create and place a rectangle, and paint that same rectangle through the same session and history; removal followed by ordinary geometry must verify unused-record preservation.
+
+This favors source fidelity and explicit compatibility over silently dropping artwork. Efficiency is bounded by the already accepted C1 maxima; no frame-rate or physical-memory improvement is claimed. The narrative preference is a usable authoring sequence in one workspace rather than requiring a prebuilt demonstration map; that preference is a UI judgment. This decision does not change donor designs, adopt a game, or establish implementation readiness.
+
+Verification must cover appearance-profile zero public counters, ordinary ceiling boundaries, mixed and painted-source refusal, original identity and counters across dispatch, one consumer, actual native preparation, history and recovery. Component or protocol tests alone do not establish the final browser workflow.

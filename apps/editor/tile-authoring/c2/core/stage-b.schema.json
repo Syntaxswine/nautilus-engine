@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:private:tile-authoring:c2:stage-b-producers:1",
+  "description": "Closed private metadata only. Portable calls additionally require entries:Array<{entry:string,bytes:Uint8Array}> with actual non-shared stable bytes; no JSON serialization implies bytes, readiness, archive or authority. Canonical persisted pack is unchanged.",
+  "$defs": {
+    "CaptureInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "required": [
+            "id",
+            "revision",
+            "label"
+          ]
+        },
+        "ownerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "layerRemaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "surfaceId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "layerId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "templateLayerId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              }
+            },
+            "required": [
+              "surfaceId",
+              "layerId",
+              "templateLayerId"
+            ]
+          },
+          "maxItems": 64
+        },
+        "markRemaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "markId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              },
+              "templateMarkId": {
+                "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+              }
+            },
+            "required": [
+              "markId",
+              "templateMarkId"
+            ]
+          },
+          "maxItems": 4096
+        },
+        "limits": {
+          "$ref": "urn:nautilus:proposal:tile-authoring:c2-capture:1#/$defs/TightenedLimits"
+        }
+      },
+      "required": [
+        "document",
+        "identity",
+        "ownerId",
+        "layerRemaps",
+        "markRemaps"
+      ]
+    },
+    "ByteEntryHeader": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry": {
+          "type": "string",
+          "pattern": "^blobs/[a-f0-9]{64}\\\\.png$"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        }
+      },
+      "required": [
+        "entry",
+        "byteLength"
+      ]
+    },
+    "ExportMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "query": {
+          "$ref": "#/$defs/ExportQuery"
+        },
+        "manifestId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "limits": {
+          "$ref": "urn:nautilus:proposal:tile-authoring:c2-capture:1#/$defs/TightenedLimits"
+        }
+      },
+      "required": [
+        "document",
+        "query",
+        "manifestId"
+      ]
+    },
+    "ImportMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pack": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pack"
+        },
+        "limits": {
+          "$ref": "urn:nautilus:proposal:tile-authoring:c2-capture:1#/$defs/TightenedLimits"
+        }
+      },
+      "required": [
+        "pack"
+      ]
+    },
+    "ExportQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "content.export"
+        },
+        "presetRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "includeAllDependencies": {
+          "const": true
+        }
+      },
+      "required": [
+        "kind",
+        "presetRefs",
+        "includeAllDependencies"
+      ]
+    }
+  }
+}
