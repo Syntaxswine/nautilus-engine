@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "decision": "Architect approved ordinary C1 maxima on2026-11-02; frozen fc/public0 and all15 resource caps unchanged.",
+  "profiles": {
+    "dispatch": {
+      "id": "nautilus-private-authoring-dispatch-work",
+      "version": 1,
+      "normalizedLimit": 1000000,
+      "rawCeilings": {
+        "authoringReferenceUnits": 1000000,
+        "artistPreparationTicks": 1000000,
+        "decoderTicks": 64000000,
+        "publicSteps": 256,
+        "publicSpatialTests": 100000,
+        "publicGeometryEvaluations": 100000,
+        "inputBytes": 6000000,
+        "outputBytes": 4000000,
+        "hostNodeVisits": 1000000,
+        "copyBytes": 6000000
+      },
+      "stockProfileDigest": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765",
+      "route": "unbound-dispatch-no-public-or-artist-work",
+      "sourceCommit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "authoringCredit": false,
+      "digest": "93a0d78882dd41a4928f79a4863f070647ea67f19cea4f9ea39073df16abb863"
+    },
+    "ordinary": {
+      "id": "nautilus-private-ordinary-c1-work",
+      "version": 1,
+      "normalizedLimit": 1000000,
+      "rawCeilings": {
+        "authoringReferenceUnits": 1000000,
+        "artistPreparationTicks": 1000000,
+        "decoderTicks": 64000000,
+        "publicSteps": 256,
+        "publicSpatialTests": 100000,
+        "publicGeometryEvaluations": 100000,
+        "inputBytes": 6000000,
+        "outputBytes": 4000000,
+        "hostNodeVisits": 1000000,
+        "copyBytes": 6000000
+      },
+      "stockProfileDigest": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765",
+      "route": "ordinary-c1-no-active-marks",
+      "sourceCommit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "authoringCredit": true,
+      "eligibility": "No active geometry-dependent marks/groups; unused artwork and empty layers require complete C2 validation and exact retained artwork/resource/cache accounting.",
+      "digest": "5afaa0d1542f68c8bc5d1068fccaeb9c2264990bd65a93ca40da22850e122ecf"
+    },
+    "appearance": {
+      "id": "nautilus-private-appearance-c2-work",
+      "version": 1,
+      "normalizedLimit": 1000000,
+      "rawCeilings": {
+        "authoringReferenceUnits": 1000000,
+        "artistPreparationTicks": 1000000,
+        "decoderTicks": 64000000,
+        "publicSteps": 0,
+        "publicSpatialTests": 0,
+        "publicGeometryEvaluations": 0,
+        "inputBytes": 6000000,
+        "outputBytes": 4000000,
+        "hostNodeVisits": 1000000,
+        "copyBytes": 6000000
+      },
+      "stockProfileDigest": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765",
+      "route": "appearance-only",
+      "sourceCommit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "authoringCredit": true,
+      "digest": "5888e5ebce1a6812e6fd1e90e58a0a5f9c8a5cf4a455b26e3fcfe9f35a438479"
+    },
+    "readonly": {
+      "id": "nautilus-private-readonly-source-work",
+      "version": 1,
+      "normalizedLimit": 1000000,
+      "rawCeilings": {
+        "authoringReferenceUnits": 1000000,
+        "artistPreparationTicks": 1000000,
+        "decoderTicks": 64000000,
+        "publicSteps": 0,
+        "publicSpatialTests": 0,
+        "publicGeometryEvaluations": 0,
+        "inputBytes": 6000000,
+        "outputBytes": 4000000,
+        "hostNodeVisits": 1000000,
+        "copyBytes": 6000000
+      },
+      "stockProfileDigest": "fc436496bbc1e1915d0b2434ea7d69df841be089b9173584f4c7a16bb7a23765",
+      "route": "readonly-no-edit-credit",
+      "sourceCommit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+      "authoringCredit": false,
+      "digest": "1a9089f75bb1d5f712cc1e85ae4ca4d3ef57d77aead9644ab801985943ac6684"
+    }
+  }
+}

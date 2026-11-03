@@ -16,10 +16,10 @@ const compact=file=>{const {expected,expectedBuffer,...record}=file;return recor
 
 export function checkSmartTileEditorSource(project=root,{tracked=null}={}){
   const objects=new Map(),object=(commit,file)=>{const key=commit+':'+file;if(!objects.has(key))objects.set(key,execFileSync('git',['-c','safe.directory='+path.resolve(project).replaceAll('\\','/'),'-C',project,'show',key],{windowsHide:true,timeout:30000,maxBuffer:24*1024*1024}));return objects.get(key);};
-  const surface=tileSurfaceCorrection({object}),c1=tileAuthoringEditorSourceModel({object,projectRoot:project}),b2=c1.b2,b1=b2.b1;
-  const c2=tileAuthoringC2EditorSources({object,projectRoot:project});
-  const artworkBuild=sharedArtworkBuildBytes({object});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer),'Artwork build preimage must be the accepted C1 build');
   const indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Untracked reviewed Editor source: '+file);assert.ok(object('',file).equals(expected),'Index changes reviewed Editor bytes: '+file);};
+  const c2=tileAuthoringC2EditorSources({object,projectRoot:project,indexed});
+  const surface=tileSurfaceCorrection({object}),c1=tileAuthoringEditorSourceModel({object,projectRoot:project}),b2=c1.b2,b1=b2.b1;
+  const artworkBuild=sharedArtworkBuildBytes({object});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer),'Artwork build preimage must be the accepted C1 build');
   function current(file,expected){
     const override=c2.overrides[file];
     if(override){assert.ok(expected.equals(override.before),'C2 override must start at the exact authenticated C1 body: '+file);expected=override.expectedBuffer;}

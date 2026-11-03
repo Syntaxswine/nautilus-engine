@@ -1,0 +1,2121 @@
+{
+  "kind": "nautilus.private-editor.shared-ui-owned-read-source",
+  "version": 1,
+  "sourceCommit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+  "RootBase": "e4d798cd30857e4a77c8875817f9f333286eb32c",
+  "readPairingSourceCommit": "938ea1f78d305d86c163f9e4e84033236916e897",
+  "returnedUI": "81c0233d84f024fe7750aacee67f6cdaf1494219",
+  "runtimeModules": 3,
+  "readPairingOverrides": [
+    {
+      "path": "apps/editor/tile-authoring/c2/read-pairing/adapter.mjs",
+      "source": {
+        "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+        "path": "candidates/tile-authoring/ui/shared-controller-owned-load/adapter.mjs",
+        "bytes": 13961,
+        "sha256": "ea26147ddbad9eb9d6e525d9af8efa30c6218a508fe16dcd4eead19a04922008",
+        "gitBlob": "8ab1c3cc68043075fe9d08534687f837a1ee161d"
+      },
+      "rewrites": [
+        {
+          "from": "'../c2-host-bridge/vendor/bytesd8/root/candidates/tile-authoring/host/builtin-dependency-prefix/index.mjs'",
+          "to": "'../builtin-prefix/index.mjs'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/vendor/bytesd8/root/candidates/tile-authoring/host/builtin-dependency-prefix/index.mjs",
+          "targetDependency": "apps/editor/tile-authoring/c2/builtin-prefix/index.mjs"
+        },
+        {
+          "from": "'../c2-host-bridge/vendor/core0597/root/candidates/tile-authoring/core/c2/portable.js'",
+          "to": "'../core/portable.js'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/vendor/core0597/root/candidates/tile-authoring/core/c2/portable.js",
+          "targetDependency": "apps/editor/tile-authoring/c2/core/portable.js"
+        },
+        {
+          "from": "'../c2-host-bridge/vendor/ui5a7/root/candidates/tile-authoring/ui/c2-runtime/contract.js'",
+          "to": "'../ui/contract.js'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/vendor/ui5a7/root/candidates/tile-authoring/ui/c2-runtime/contract.js",
+          "targetDependency": "apps/editor/tile-authoring/c2/ui/contract.js"
+        },
+        {
+          "from": "'../../../../packages/tiles-core/index.js'",
+          "to": "'../../../../../packages/tiles-core/index.js'",
+          "occurrences": 1,
+          "sourceDependency": "packages/tiles-core/index.js",
+          "targetDependency": "packages/tiles-core/index.js"
+        },
+        {
+          "from": "'../../../../packages/assets/index.js'",
+          "to": "'../../../../../packages/assets/index.js'",
+          "occurrences": 1,
+          "sourceDependency": "packages/assets/index.js",
+          "targetDependency": "packages/assets/index.js"
+        },
+        {
+          "from": "'../c2-read-pairing/form-producer.mjs'",
+          "to": "'./form-producer.mjs'",
+          "occurrences": 1,
+          "reason": "Reuse original938 form WeakMap singleton"
+        }
+      ],
+      "expected": {
+        "bytes": 13738,
+        "sha256": "0d6a6f088c9e085f0f6843bdea71a85ac573929edb3b518603b1be8707003402",
+        "gitBlob": "8b69acc324787022f8a6c145a94c3f5dbe78b859"
+      },
+      "role": "Actual same-owner adapter.mjs continuation, preserving original938 semantics outside final-read port",
+      "preimage": {
+        "commit": "e4d798cd30857e4a77c8875817f9f333286eb32c",
+        "path": "apps/editor/tile-authoring/c2/read-pairing/adapter.mjs",
+        "bytes": 12123,
+        "sha256": "ae87f472e1134421ee4009657e8f95cbba1a13961f6365b898435e9fc74ebcd0",
+        "gitBlob": "1050381785276047f9fcda16e77b5dd2127d0c11"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/read-pairing/bridge-owner.mjs",
+      "source": {
+        "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+        "path": "candidates/tile-authoring/ui/shared-controller-owned-load/bridge-owner.mjs",
+        "bytes": 26983,
+        "sha256": "2fb063078342e7e923a88ffe2f40f637be6638fcbc0aaf5461785c7ad89f86c9",
+        "gitBlob": "461e1c32835b26baeb11477ba2edf71776e4ceac"
+      },
+      "rewrites": [
+        {
+          "from": "'../c2-host-bridge/vendor/ui5a7/root/candidates/tile-authoring/ui/c2-runtime/contract.js'",
+          "to": "'../ui/contract.js'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/vendor/ui5a7/root/candidates/tile-authoring/ui/c2-runtime/contract.js",
+          "targetDependency": "apps/editor/tile-authoring/c2/ui/contract.js"
+        },
+        {
+          "from": "'./root-resource-guard.mjs'",
+          "to": "'../../ui/panel.js'",
+          "occurrences": 1,
+          "sourceDependency": "apps/editor/tile-authoring/ui/panel.js",
+          "targetDependency": "apps/editor/tile-authoring/ui/panel.js"
+        },
+        {
+          "from": "'../c2-host-bridge/query.mjs'",
+          "to": "'./query.mjs'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/query.mjs",
+          "targetDependency": "apps/editor/tile-authoring/c2/read-pairing/query.mjs"
+        },
+        {
+          "from": "'../../../../packages/assets/index.js'",
+          "to": "'../../../../../packages/assets/index.js'",
+          "occurrences": 1,
+          "sourceDependency": "packages/assets/index.js",
+          "targetDependency": "packages/assets/index.js"
+        },
+        {
+          "from": "'../c2-host-bridge/construct.mjs'",
+          "to": "'./construct.mjs'",
+          "occurrences": 1,
+          "sourceDependency": "candidates/tile-authoring/ui/c2-host-bridge/construct.mjs",
+          "targetDependency": "apps/editor/tile-authoring/c2/read-pairing/construct.mjs"
+        }
+      ],
+      "expected": {
+        "bytes": 26876,
+        "sha256": "0ca9865c13fcde037bf1e1350c7726e27eb64614042840d1bc5cc310105cae70",
+        "gitBlob": "ebbe5c466c749bea426d446abe89a803c0800493"
+      },
+      "role": "Actual same-owner bridge-owner.mjs continuation, preserving original938 semantics outside final-read port",
+      "preimage": {
+        "commit": "e4d798cd30857e4a77c8875817f9f333286eb32c",
+        "path": "apps/editor/tile-authoring/c2/read-pairing/bridge-owner.mjs",
+        "bytes": 24528,
+        "sha256": "66994b5017021ca1e0688edd018ffe8dcfc2993fae40219ba5e4320efa5360cc",
+        "gitBlob": "568009942d79821a153b5255df1ff7c69d567911"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "apps/editor/tile-authoring/c2/ui/hub.mjs",
+      "source": {
+        "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+        "path": "candidates/tile-authoring/ui/shared-controller-owned-load/hub.mjs",
+        "bytes": 11422,
+        "sha256": "f89a61fcd0cc84a26bd023c363611e43deffdb752e0963176f1ae3b26b330e45",
+        "gitBlob": "c7d330d49b5e0078377ed78a0b8571dd2c14ae0b"
+      },
+      "rewrites": [
+        {
+          "from": "'./root-resource-guard.mjs'",
+          "to": "'../../ui/panel.js'",
+          "occurrences": 1
+        }
+      ],
+      "expected": {
+        "bytes": 11414,
+        "sha256": "5e193b9df37a009398fa78ad63c5b451eaa5689d371952f71be0aa8f08875eb4",
+        "gitBlob": "cc3754f4a0da3b552614dfca4b3c807d9b28ed45"
+      },
+      "role": "One actual canonical Root controller; borrowed shared draft/history"
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/ui/mount.mjs",
+      "source": {
+        "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+        "path": "candidates/tile-authoring/ui/shared-controller-owned-load/mount.mjs",
+        "bytes": 2168,
+        "sha256": "1b10e7624832ca26861054b79ba349a36f09cee86a6d5233ecae40076dcad9d0",
+        "gitBlob": "3005c76ebcc4fa14e665b7cf36a3f91c3bcf6349"
+      },
+      "rewrites": [
+        {
+          "from": "'../shared-controller/c1-mount.mjs'",
+          "to": "'../../ui/panel.js'",
+          "occurrences": 1
+        },
+        {
+          "from": "'../c2-read-pairing/component.mjs'",
+          "to": "'../read-pairing/component.mjs'",
+          "occurrences": 1
+        }
+      ],
+      "expected": {
+        "bytes": 2149,
+        "sha256": "d728cfafd9764ac8158c670a5054296f47635374d54d0be7407fc13ba5734f42",
+        "gitBlob": "78f1824bacc3c1adf6b9465e0c10b7a005bacf76"
+      },
+      "role": "Explicit opt-in combined C1 and original938 overlay mount"
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/ui/resource-control.mjs",
+      "source": {
+        "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+        "path": "candidates/tile-authoring/ui/shared-controller-owned-load/resource-control.mjs",
+        "bytes": 5422,
+        "sha256": "12b722588f3af8e5669b1c4e48b39f9372e70133ce6850818da4f8e802cfa1f2",
+        "gitBlob": "36d5b62412b83be0f13a9fd99396222c6334c7a5"
+      },
+      "rewrites": [],
+      "expected": {
+        "bytes": 5422,
+        "sha256": "12b722588f3af8e5669b1c4e48b39f9372e70133ce6850818da4f8e802cfa1f2",
+        "gitBlob": "36d5b62412b83be0f13a9fd99396222c6334c7a5"
+      },
+      "role": "Load original issued read only after actual owner final observation; absent owner disables action"
+    }
+  ],
+  "entry": "apps/editor/tile-authoring/c2/ui/mount.mjs",
+  "factoryCallsByPromotion": 0,
+  "publicRegistration": false,
+  "workflowAcceptance": false,
+  "productionFinalReadOwner": "UNBOUND",
+  "missingProducer": "Editor dfb01d2b1323cc628b3e92c2033ac72de5d4ec1e records no actual SourceReadOwner private epoch port; missing port keeps Load disabled. Actual producer required before resource runtime acceptance.",
+  "producerContract": "sourceOwner.finalReadOwner.capture(originalScope, actualBaseRead) / visit(ticket, originalScope, actualBaseRead, visitor): original private source/context/lifetime facts; no getter/predicate/source callbacks during final visit; no restamping old reads",
+  "resourceActions": "Root-owned loadSelected(actualIssuedRead): actual d8 bytes AND Native page, bounded RESOURCE work, zero editing credit/IDs/commands/WAL; callback flags ignored",
+  "requiredGitCommits": [
+    "e4d798cd30857e4a77c8875817f9f333286eb32c",
+    "938ea1f78d305d86c163f9e4e84033236916e897",
+    "63f3506daced32e2ac135e008e00ac939ca90f87",
+    "81c0233d84f024fe7750aacee67f6cdaf1494219",
+    "b3726886635b37326c3e3507e357cbee6cccd25b"
+  ],
+  "coordinator": {
+    "path": "apps/editor/tile-authoring/ui/panel.js",
+    "source": {
+      "commit": "e4d798cd30857e4a77c8875817f9f333286eb32c",
+      "path": "apps/editor/tile-authoring/ui/panel.js",
+      "bytes": 34183,
+      "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4",
+      "gitBlob": "5e061e9ef0ad643ad5b77b238f751734a4e6849f"
+    },
+    "guardMember": {
+      "commit": "b3726886635b37326c3e3507e357cbee6cccd25b",
+      "path": "candidates/tile-authoring/ui/shared-controller-owned-load/coordinator-resource-method.js.txt",
+      "bytes": 3870,
+      "sha256": "8932987bd0f5606c7bfc26f2eeddaea88653a517aed958a634f95d754dc6fa84",
+      "gitBlob": "d062191ece9e43ebe35d8ecdbf9997fb1dafc2ec"
+    },
+    "mountRecipe": {
+      "commit": "63f3506daced32e2ac135e008e00ac939ca90f87",
+      "path": "candidates/tile-authoring/ui/shared-controller/vendor/source.json",
+      "bytes": 2869,
+      "sha256": "57a5657b0372036733c9c2dde5396b123903e92c8577c76be17cadc1aa08fbae",
+      "gitBlob": "901a63bed62ba9b16da15773d32425c30ff51c1e"
+    },
+    "changes": [
+      {
+        "from": "    get pending(){return pending;},",
+        "to": "    // UI intent guard only. Reuse this coordinator's displayed identity, epoch,\n    // strict callback read and complete additional-data comparison. Never execute\n    // a command or turn a displayed/parsed copy into an actual issued read.\n    captureResourceDisplay(displayed){\n      const stamp=epoch;\n      const stable=()=>!disposed&&!broken&&!rendering&&lastView===displayed&&epoch===stamp;\n      const changed=raw=>{if(!disposed&&!broken){if(raw===undefined)refresh();else receive(raw);}throw issue('UI_DISPLAY_CHANGED','The displayed source, selection or action state changed. Inspect the refreshed editor before loading artwork.');};\n      if(!displayed||!stable())return changed();\n      const guard=Object.freeze({read(){\n        if(!stable())return changed();\n        let checked;try{checked=read();}catch(reason){invalidate(reason);throw reason;}\n        if(!stable()||!sameView(checked.view,displayed)||!sameData(bindingKey(checked.view),identity)||!sameData(checked.view.snapshot,displayed.snapshot)||!sameData(checked.view.presentation,displayed.presentation))return changed(checked.raw);\n        // Finish callbackful snapshot/currentness checks, then authenticate the\n        // original issued read with the actual producer-owned final observation.\n        const raw=binding.getSnapshot(),view=readTileAuthoringUIView(raw);\n        if(Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value!==collectCommand||Object.getOwnPropertyDescriptor(binding,'service')?.value!==service||!serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i])||!borrowed.every(([name,value])=>Object.getOwnPropertyDescriptor(binding,name)?.value===value)){\n          broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection changed during the final resource read.');invalidate(reason);throw reason;\n        }\n        if(!stable()||!sameData(actionKey(view),actionKey(displayed))||!sameData(bindingKey(view),bindingKey(displayed))||!sameData(view.snapshot,displayed.snapshot)||!sameData(view.presentation,displayed.presentation)||!sameData(view.overlay,displayed.overlay))return changed(raw);\n        // All callbackful checks finish before the source-private final visitor.\n        // It authenticates facts recorded for this issued read; no caller bool,\n        // parsed copy, fresh DTO stamp or check-after-dispatch grants permission.\n        if(!sameConnection()){broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection retired during the final snapshot.');invalidate(reason);throw reason;}\n        if(!stable())return changed();\n        const finalOwner=Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value,capture=Object.getOwnPropertyDescriptor(finalOwner??{},'capture')?.value,visit=Object.getOwnPropertyDescriptor(finalOwner??{},'visit')?.value;\n        if(typeof capture!=='function'||typeof visit!=='function')throw issue('UI_FINAL_READ_OWNER_UNBOUND','Bind the actual source-private final read owner before loading artwork.');\n        const observation=capture.call(finalOwner,raw);let visits=0;\n        const result=visit.call(finalOwner,observation,raw,actual=>{\n          if(++visits!==1||actual!==raw||!stable()||Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value!==finalOwner||Object.getOwnPropertyDescriptor(finalOwner,'capture')?.value!==capture||Object.getOwnPropertyDescriptor(finalOwner,'visit')?.value!==visit)throw issue('UI_DISPLAY_CHANGED','The original displayed/read lifetime retired before dispatch.');\n          return actual;\n        });\n        if(visits!==1||result!==raw)throw issue('UI_FINAL_READ_OWNER_REQUIRED','The owned visitor must return the same authenticated issued read once.');\n        return result;\n\n      }});\n      guard.read();return guard;\n    },\n    get pending(){return pending;},",
+        "occurrences": 1
+      },
+      {
+        "from": "rectangleSpec,onError=()=>{}}={})",
+        "to": "rectangleSpec,onError=()=>{},attachCoordinator=null}={})",
+        "occurrences": 1
+      },
+      {
+        "from": "  const commands=createTileAuthoringCommands({tiles,authoring})",
+        "to": "  if(attachCoordinator!==null&&typeof attachCoordinator!=='function')throw issue('UI_ATTACHMENT_FACTORY_REQUIRED','Supply an explicit borrowed coordinator attachment factory.');\n  const commands=createTileAuthoringCommands({tiles,authoring})",
+        "occurrences": 1
+      },
+      {
+        "from": "controller=createTileAuthoringUIController(binding,{onView:render,onPending:updateGates,onError:showError})",
+        "to": "controller=(attachCoordinator??createTileAuthoringUIController)(binding,{onView:render,onPending:updateGates,onError:showError})",
+        "occurrences": 1
+      }
+    ],
+    "expected": {
+      "bytes": 38275,
+      "sha256": "e504b3ce26af0ce9d391367d3e69cd05cd3e0dc871fa15200d66b03bef29d378",
+      "gitBlob": "9a3e856c2e39755d1a45e9375a3c77cc1ac18552"
+    },
+    "defaultProof": "Reverse one member and three opt-in C1 mount edits: exact Root e4d798/648 parser, action and default mount bytes"
+  },
+  "borrowedNotCopied": {
+    "readPairingMetadata": {
+      "path": "apps/editor/tile-authoring/c2/read-pairing/source.json",
+      "commit": "e4d798cd30857e4a77c8875817f9f333286eb32c",
+      "bytes": 207500,
+      "sha256": "f35e259772cacb0b623696c419d8192101749be21b0937a01195be4b9588206e",
+      "gitBlob": "82f57a04687e3f961af82018348fba3a6e33f5d5"
+    },
+    "RootClosurePreimages": [
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/index.mjs",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/index.mjs",
+          "bytes": 129,
+          "sha256": "aba123760f29a578bf50eec52b65c0e5b6f6ec7c39895e3171bcb6b3c71eef38",
+          "gitBlob": "3ae99ac7371f924b3d28e8753cdf9af546f24741"
+        },
+        "expected": {
+          "bytes": 129,
+          "sha256": "aba123760f29a578bf50eec52b65c0e5b6f6ec7c39895e3171bcb6b3c71eef38"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/portable.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/portable.js",
+          "bytes": 8412,
+          "sha256": "8c641e3f9dc46b985d919d40e7644353c375de2f3612f068bfb561f505b761bb",
+          "gitBlob": "ea3e15f1276db888361aa3f2a774823d854555b0"
+        },
+        "expected": {
+          "bytes": 8412,
+          "sha256": "8c641e3f9dc46b985d919d40e7644353c375de2f3612f068bfb561f505b761bb"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/contract.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/contract.js",
+          "bytes": 18881,
+          "sha256": "e9ae56bf89b2c048bf9d311d76acf187456b18676acd9bfd777fcaa678e2d119",
+          "gitBlob": "8be71fafeac0439b4dd15b04fb6b318e887baa22"
+        },
+        "expected": {
+          "bytes": 18881,
+          "sha256": "e9ae56bf89b2c048bf9d311d76acf187456b18676acd9bfd777fcaa678e2d119"
+        }
+      },
+      {
+        "path": "packages/tiles-core/index.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/index.js",
+          "bytes": 728,
+          "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2",
+          "gitBlob": "f860d3f157c3587a5bf9244a3d185f1e8562ecdb"
+        },
+        "expected": {
+          "bytes": 728,
+          "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+        }
+      },
+      {
+        "path": "packages/assets/index.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/assets/index.js",
+          "bytes": 593,
+          "sha256": "bd66b5fe9ec2f959c2592bb31b4f10745a6c2384e726eeaaee13f5476033e2c0",
+          "gitBlob": "93cc43228c79c51594e1f8a1428d7894052af622"
+        },
+        "expected": {
+          "bytes": 593,
+          "sha256": "bd66b5fe9ec2f959c2592bb31b4f10745a6c2384e726eeaaee13f5476033e2c0"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/ui/panel.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/ui/panel.js",
+          "bytes": 34183,
+          "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4",
+          "gitBlob": "5e061e9ef0ad643ad5b77b238f751734a4e6849f"
+        },
+        "expected": {
+          "bytes": 34183,
+          "sha256": "81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/forms.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/forms.js",
+          "bytes": 5940,
+          "sha256": "396bc1e99806ce4de8ffa3695488c112ec115f2761a21968937cc6c09e5a3f13",
+          "gitBlob": "17c5e4798b51beb691cdee1561a7f546917ada32"
+        },
+        "expected": {
+          "bytes": 5940,
+          "sha256": "396bc1e99806ce4de8ffa3695488c112ec115f2761a21968937cc6c09e5a3f13"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/surface-target.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/surface-target.js",
+          "bytes": 5632,
+          "sha256": "02a1124239b9bae0bece94401fe54b05c38b141a543b42d3e5c8d8e8a3219107",
+          "gitBlob": "8ea2fca6e3e4538eec002945e4d30f1a8742d6a7"
+        },
+        "expected": {
+          "bytes": 5632,
+          "sha256": "02a1124239b9bae0bece94401fe54b05c38b141a543b42d3e5c8d8e8a3219107"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/data.js",
+          "bytes": 11081,
+          "sha256": "c91938a1691cd2b19852e2aa90a876ba24d598e0074fffe3aefcd10114f32001",
+          "gitBlob": "e3284ad48c6806dcac7f61a852dcf479bc90e16e"
+        },
+        "expected": {
+          "bytes": 11081,
+          "sha256": "c91938a1691cd2b19852e2aa90a876ba24d598e0074fffe3aefcd10114f32001"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/operations.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/operations.js",
+          "bytes": 14955,
+          "sha256": "a800dcdad835a60a253b6becc826eff3238ac95ce7d80c08b96e184866815747",
+          "gitBlob": "d6004702873202d7e475376e35715e59817bbfb5"
+        },
+        "expected": {
+          "bytes": 14955,
+          "sha256": "a800dcdad835a60a253b6becc826eff3238ac95ce7d80c08b96e184866815747"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/pack.mjs",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/pack.mjs",
+          "bytes": 4633,
+          "sha256": "208415b6d900a69bdfdd9e7c96a5457eb99407a01f5acbd7a013e9524249b9f9",
+          "gitBlob": "41e698e18f4ef6e3135d68c7aca424599d621f0a"
+        },
+        "expected": {
+          "bytes": 4633,
+          "sha256": "208415b6d900a69bdfdd9e7c96a5457eb99407a01f5acbd7a013e9524249b9f9"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/owner.mjs",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/owner.mjs",
+          "bytes": 18272,
+          "sha256": "0519f9ecd20113b8fd0b5179e2e7e98b80a60b124cd43f8c0dc2f004d9135633",
+          "gitBlob": "b4faba5fd2df73fb3fe71ed05aca96847c5b6d7c"
+        },
+        "expected": {
+          "bytes": 18272,
+          "sha256": "0519f9ecd20113b8fd0b5179e2e7e98b80a60b124cd43f8c0dc2f004d9135633"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/budget.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/budget.js",
+          "bytes": 3561,
+          "sha256": "e6af03ae8fbe32a7ac44712a460cde00f0186850a14cff2f0a59da8bcf593e3f",
+          "gitBlob": "7b6942aa9a093d1edd7baf4c5be1fe2bb2dd2f62"
+        },
+        "expected": {
+          "bytes": 3561,
+          "sha256": "e6af03ae8fbe32a7ac44712a460cde00f0186850a14cff2f0a59da8bcf593e3f"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/model.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/model.js",
+          "bytes": 17871,
+          "sha256": "10e9c3b4937e38e15d2879ddcf84190422566c822447aaa713d303ccd72a2eaf",
+          "gitBlob": "0b40ee5112377ef5a14a3dfd674897259eeb6512"
+        },
+        "expected": {
+          "bytes": 17871,
+          "sha256": "10e9c3b4937e38e15d2879ddcf84190422566c822447aaa713d303ccd72a2eaf"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/stage-b-limits.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/stage-b-limits.js",
+          "bytes": 495,
+          "sha256": "6614ed0b2704696a09f0fbf1604173a9df8e5d0134bfc99de5eebc32c2d19eab",
+          "gitBlob": "5c924e0b00e6e477f91f1d873b7656f47041e116"
+        },
+        "expected": {
+          "bytes": 495,
+          "sha256": "6614ed0b2704696a09f0fbf1604173a9df8e5d0134bfc99de5eebc32c2d19eab"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/byte-hash.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/byte-hash.js",
+          "bytes": 2119,
+          "sha256": "6cb2ea24ff2a387329706edbf89eb87db6f1c8be7c00e642e98fd8e306a202fb",
+          "gitBlob": "ee4d4b38e655c62767cd33d6008ef401cf0bebb1"
+        },
+        "expected": {
+          "bytes": 2119,
+          "sha256": "6cb2ea24ff2a387329706edbf89eb87db6f1c8be7c00e642e98fd8e306a202fb"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/vendor/ui/05723c3cada36249c6b6777dd40c8a478701bccb/projection.schema.json",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/vendor/ui/05723c3cada36249c6b6777dd40c8a478701bccb/projection.schema.json",
+          "bytes": 58062,
+          "sha256": "e93b79e925fc878ff6e1aff6ec730574347ece3b71a72ed456bd156945215aac",
+          "gitBlob": "70dc34edd112ae82ca71695b0a7ad08646b97d1c"
+        },
+        "expected": {
+          "bytes": 58062,
+          "sha256": "e93b79e925fc878ff6e1aff6ec730574347ece3b71a72ed456bd156945215aac"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/vendor/core/8b4cd72c2d8f424d6811196d9651916bb7e9e2bd/contract.schema.json",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/vendor/core/8b4cd72c2d8f424d6811196d9651916bb7e9e2bd/contract.schema.json",
+          "bytes": 91653,
+          "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+          "gitBlob": "18ffef1e24c0d120d95e630ab36635c3d6a0d7ab"
+        },
+        "expected": {
+          "bytes": 91653,
+          "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/ui/commands.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/ui/commands.js",
+          "bytes": 9799,
+          "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b",
+          "gitBlob": "35b0017017a6576a7334f8b1564fb203f2c90d63"
+        },
+        "expected": {
+          "bytes": 9799,
+          "sha256": "c355742c0db7eb04eae6b9ab28d7edd64b6abc71ff61001900e97057c1fecc7b"
+        }
+      },
+      {
+        "path": "packages/tiles-core/data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/data.js",
+          "bytes": 4579,
+          "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed",
+          "gitBlob": "cb2108a0cd9011bad1740c6f7932cca18c8b89ed"
+        },
+        "expected": {
+          "bytes": 4579,
+          "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+        }
+      },
+      {
+        "path": "packages/tiles-core/contract.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/contract.js",
+          "bytes": 1730,
+          "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7",
+          "gitBlob": "9f90d63987b62fa09bc5a291a18bb6b959744004"
+        },
+        "expected": {
+          "bytes": 1730,
+          "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+        }
+      },
+      {
+        "path": "packages/tiles-core/curves.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/curves.js",
+          "bytes": 9480,
+          "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402",
+          "gitBlob": "386c68038aab468712264f56d6b845902e03bd5d"
+        },
+        "expected": {
+          "bytes": 9480,
+          "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+        }
+      },
+      {
+        "path": "packages/tiles-core/fields.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/fields.js",
+          "bytes": 5394,
+          "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667",
+          "gitBlob": "9b5496547bd6186a4f5e57d23c17918ccb9a42eb"
+        },
+        "expected": {
+          "bytes": 5394,
+          "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+        }
+      },
+      {
+        "path": "packages/tiles-core/recipes.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/recipes.js",
+          "bytes": 10523,
+          "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19",
+          "gitBlob": "a3499550f5f7e4b22d6294949ccc5d883b697ec2"
+        },
+        "expected": {
+          "bytes": 10523,
+          "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+        }
+      },
+      {
+        "path": "packages/tiles-core/layout.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/layout.js",
+          "bytes": 12740,
+          "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7",
+          "gitBlob": "03fe27243030f5d8eaf9c5dcfeaebbd5d954692f"
+        },
+        "expected": {
+          "bytes": 12740,
+          "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+        }
+      },
+      {
+        "path": "packages/tiles-core/repair.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/repair.js",
+          "bytes": 11562,
+          "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f",
+          "gitBlob": "0bdd9284d4d175fa040efcdff426610b7aa3c665"
+        },
+        "expected": {
+          "bytes": 11562,
+          "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+        }
+      },
+      {
+        "path": "packages/tiles-core/projection.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/projection.js",
+          "bytes": 1657,
+          "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9",
+          "gitBlob": "329fe7e9e29405db12c4e1840e0c864f35e13957"
+        },
+        "expected": {
+          "bytes": 1657,
+          "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+        }
+      },
+      {
+        "path": "packages/tiles-core/cells.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/cells.js",
+          "bytes": 8266,
+          "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811",
+          "gitBlob": "8a62be034a6a8da8854112da38928aaf6741ca15"
+        },
+        "expected": {
+          "bytes": 8266,
+          "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+        }
+      },
+      {
+        "path": "packages/tiles-core/example.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/example.js",
+          "bytes": 2579,
+          "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0",
+          "gitBlob": "f4baab12378d9c779551e5c95029514f1b4445b8"
+        },
+        "expected": {
+          "bytes": 2579,
+          "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+        }
+      },
+      {
+        "path": "packages/assets/catalogue.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/assets/catalogue.js",
+          "bytes": 211872,
+          "sha256": "54caa9f5cc026cd34db7214701f9729ff0f6636509536cd126ef172c1860c775",
+          "gitBlob": "9341c0a4fa80ad816bc69afa8ea948399313eeee"
+        },
+        "expected": {
+          "bytes": 211872,
+          "sha256": "54caa9f5cc026cd34db7214701f9729ff0f6636509536cd126ef172c1860c775"
+        }
+      },
+      {
+        "path": "packages/assets/artwork.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/assets/artwork.js",
+          "bytes": 213358,
+          "sha256": "c5122e96520a09bf1da0b6be11a6ac9f09476df7410357a240c6eb6ac1309b9e",
+          "gitBlob": "2c03e586abdfc2d27a36937254c6fe8c821179e4"
+        },
+        "expected": {
+          "bytes": 213358,
+          "sha256": "c5122e96520a09bf1da0b6be11a6ac9f09476df7410357a240c6eb6ac1309b9e"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/surface-target.schema.json",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/surface-target.schema.json",
+          "bytes": 10063,
+          "sha256": "add5f875c5d0ba7f168e30dd9ac9bef198ff8b5a36d20b7c33049677743467c8",
+          "gitBlob": "dc256077e65feee023e82e49cc8930010909f595"
+        },
+        "expected": {
+          "bytes": 10063,
+          "sha256": "add5f875c5d0ba7f168e30dd9ac9bef198ff8b5a36d20b7c33049677743467c8"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/contract.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/contract.js",
+          "bytes": 1492,
+          "sha256": "78e553f1f7d520d7f851e9d061223c34a4e156c10cc9a743d947d61da585faca",
+          "gitBlob": "990409013d0d1261100cf602bd5e7e69d36bf0e0"
+        },
+        "expected": {
+          "bytes": 1492,
+          "sha256": "78e553f1f7d520d7f851e9d061223c34a4e156c10cc9a743d947d61da585faca"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/geometry.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/geometry.js",
+          "bytes": 1512,
+          "sha256": "805e3d6c59db4bebcb1da7ad2221befab614a4431d57612bf2775474c48bc2ee",
+          "gitBlob": "3ea6b2de2f8f2305af7f00e27cccfc641190c010"
+        },
+        "expected": {
+          "bytes": 1512,
+          "sha256": "805e3d6c59db4bebcb1da7ad2221befab614a4431d57612bf2775474c48bc2ee"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/data.mjs",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/data.mjs",
+          "bytes": 3639,
+          "sha256": "d6e81af188e542938dbf03e97e913554025abfff674593c6e41f90a6e191b88e",
+          "gitBlob": "dc9a2d96d641d86340ef20ce7638f1d8959cb715"
+        },
+        "expected": {
+          "bytes": 3639,
+          "sha256": "d6e81af188e542938dbf03e97e913554025abfff674593c6e41f90a6e191b88e"
+        }
+      },
+      {
+        "path": "packages/parts-core/hash.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/parts-core/hash.js",
+          "bytes": 2105,
+          "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e",
+          "gitBlob": "5d0575cdb03732cab1a6cb099e09e236e92d35d8"
+        },
+        "expected": {
+          "bytes": 2105,
+          "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+        }
+      },
+      {
+        "path": "packages/map-core/roof-maps.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/map-core/roof-maps.js",
+          "bytes": 1089,
+          "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848",
+          "gitBlob": "b45acc7cefddf706f61d4e0d6edaaeed43e811d7"
+        },
+        "expected": {
+          "bytes": 1089,
+          "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848"
+        }
+      },
+      {
+        "path": "packages/tiles-core/interfaces.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/interfaces.js",
+          "bytes": 11429,
+          "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136",
+          "gitBlob": "96f4d51156754f43083bea1e36a01e32cb076c30"
+        },
+        "expected": {
+          "bytes": 11429,
+          "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+        }
+      },
+      {
+        "path": "packages/tiles-core/dependencies.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/tiles-core/dependencies.js",
+          "bytes": 8832,
+          "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d",
+          "gitBlob": "0aad469f01ccc53c47636fbb4f7af4e00c4b3429"
+        },
+        "expected": {
+          "bytes": 8832,
+          "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/contract.schema.json",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/contract.schema.json",
+          "bytes": 91653,
+          "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc",
+          "gitBlob": "18ffef1e24c0d120d95e630ab36635c3d6a0d7ab"
+        },
+        "expected": {
+          "bytes": 91653,
+          "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/abi/proposal.schema.json",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/abi/proposal.schema.json",
+          "bytes": 60396,
+          "sha256": "c4e42350552b6493822b6ab8f88c7b904ebff4f26cd0baae1ffbe1045cc5f950",
+          "gitBlob": "e331923af16d0400ea4b5e52125cd72ce03f3432"
+        },
+        "expected": {
+          "bytes": 60396,
+          "sha256": "c4e42350552b6493822b6ab8f88c7b904ebff4f26cd0baae1ffbe1045cc5f950"
+        }
+      },
+      {
+        "path": "packages/map-core/prefab-maps.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/map-core/prefab-maps.js",
+          "bytes": 1754,
+          "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9",
+          "gitBlob": "6f995aabc8e906d52693dbab8e4f9966d22a287b"
+        },
+        "expected": {
+          "bytes": 1754,
+          "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9"
+        }
+      },
+      {
+        "path": "packages/roof-core/index.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/roof-core/index.js",
+          "bytes": 13011,
+          "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c",
+          "gitBlob": "c3531180906b28cb5b288b0b827ee18563c991d8"
+        },
+        "expected": {
+          "bytes": 13011,
+          "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c"
+        }
+      },
+      {
+        "path": "packages/map-core/roof-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/map-core/roof-data.js",
+          "bytes": 4699,
+          "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7",
+          "gitBlob": "d774ad00f81906c4ef9470ff8fd8626ab2a0f07e"
+        },
+        "expected": {
+          "bytes": 4699,
+          "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7"
+        }
+      },
+      {
+        "path": "packages/world-core/parts-refusal.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/world-core/parts-refusal.js",
+          "bytes": 901,
+          "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+          "gitBlob": "ea00767af9204704eb139b4bde53dbca44a850b4"
+        },
+        "expected": {
+          "bytes": 901,
+          "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+        }
+      },
+      {
+        "path": "packages/map-core/maps.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/map-core/maps.js",
+          "bytes": 3184,
+          "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756",
+          "gitBlob": "4fcffdb8629b00fda0fde0f1afb79c1be05da88d"
+        },
+        "expected": {
+          "bytes": 3184,
+          "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756"
+        }
+      },
+      {
+        "path": "packages/map-core/wall-runs.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/map-core/wall-runs.js",
+          "bytes": 8795,
+          "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d",
+          "gitBlob": "b8d046b5a346edd367aa3b22be0d0d10b59b2b4a"
+        },
+        "expected": {
+          "bytes": 8795,
+          "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+        }
+      },
+      {
+        "path": "packages/prefab-core/index.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/prefab-core/index.js",
+          "bytes": 13696,
+          "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c",
+          "gitBlob": "3520f3f10b4fdfc5af34a0f7e0958d7510aa9c00"
+        },
+        "expected": {
+          "bytes": 13696,
+          "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+          "bytes": 23284,
+          "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4",
+          "gitBlob": "af76700ee6e3761d9dd2075277793716eaa43230"
+        },
+        "expected": {
+          "bytes": 23284,
+          "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+          "bytes": 5813,
+          "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a",
+          "gitBlob": "d3035afc9b0729c54e63501c34816ce203868508"
+        },
+        "expected": {
+          "bytes": 5813,
+          "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a"
+        }
+      },
+      {
+        "path": "packages/prefab-core/registry.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/prefab-core/registry.js",
+          "bytes": 1847,
+          "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b",
+          "gitBlob": "0f6763ce543bc62c0e4d54b32fd0ee1e80414535"
+        },
+        "expected": {
+          "bytes": 1847,
+          "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+          "bytes": 6342,
+          "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c",
+          "gitBlob": "30a6f6fcda259063197cfdb006b6ab4a443a8054"
+        },
+        "expected": {
+          "bytes": 6342,
+          "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+          "bytes": 2326,
+          "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563",
+          "gitBlob": "2f3cfcb4687384e967021348f02c30522aa6a3ef"
+        },
+        "expected": {
+          "bytes": 2326,
+          "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+          "bytes": 666,
+          "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d",
+          "gitBlob": "2ffe4bcf19de4708e5fdb1f148b6c1f4ff0e91c5"
+        },
+        "expected": {
+          "bytes": 666,
+          "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+          "bytes": 2680,
+          "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68",
+          "gitBlob": "0e77739aa4ee91c41eebe052bbeb115e7573b5f5"
+        },
+        "expected": {
+          "bytes": 2680,
+          "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+          "bytes": 9636,
+          "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523",
+          "gitBlob": "37ec15945bf79aac370e904b659234fec08c9994"
+        },
+        "expected": {
+          "bytes": 9636,
+          "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+          "bytes": 1743,
+          "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884",
+          "gitBlob": "9f5d1a53030ffb53b7b408668f86c166a618e85f"
+        },
+        "expected": {
+          "bytes": 1743,
+          "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+          "bytes": 945,
+          "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47",
+          "gitBlob": "c3b156d8d91d4d8067377b1cc949af954f0e2d14"
+        },
+        "expected": {
+          "bytes": 945,
+          "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+          "bytes": 3997,
+          "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c",
+          "gitBlob": "ecaac2f49ba5b1cce8ee99e77b8f01a530c0891c"
+        },
+        "expected": {
+          "bytes": 3997,
+          "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+          "bytes": 2022,
+          "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb",
+          "gitBlob": "b532973d6222e19c1aaf0d795f6cf348d963ba47"
+        },
+        "expected": {
+          "bytes": 2022,
+          "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+          "bytes": 6511,
+          "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba",
+          "gitBlob": "d1d5a585a36bade0fd0e1397db39721b7e80b13e"
+        },
+        "expected": {
+          "bytes": 6511,
+          "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+          "bytes": 5475,
+          "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14",
+          "gitBlob": "2181f8a832d9be046039b560dd6f1369db6489dc"
+        },
+        "expected": {
+          "bytes": 5475,
+          "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+          "bytes": 2845,
+          "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f",
+          "gitBlob": "60429f4a80ff96f831ff51e83b08048f194fdbbe"
+        },
+        "expected": {
+          "bytes": 2845,
+          "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+          "bytes": 3032,
+          "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941",
+          "gitBlob": "8bb435d11ae6612138741373f00d1bc7030725f3"
+        },
+        "expected": {
+          "bytes": 3032,
+          "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+          "bytes": 4614,
+          "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f",
+          "gitBlob": "de927e94226d50f2c7d84b44af24c87e3b69d941"
+        },
+        "expected": {
+          "bytes": 4614,
+          "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+          "bytes": 3010,
+          "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31",
+          "gitBlob": "d7f2d620e9a665a62fd7fd08f3378d8094b1065a"
+        },
+        "expected": {
+          "bytes": 3010,
+          "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+          "bytes": 3095,
+          "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924",
+          "gitBlob": "d35056e45a32f0828ab21d913de8d950e6345054"
+        },
+        "expected": {
+          "bytes": 3095,
+          "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+          "bytes": 6825,
+          "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9",
+          "gitBlob": "a8b13ca3890185a7812a0406f44989ae97290a50"
+        },
+        "expected": {
+          "bytes": 6825,
+          "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+          "bytes": 3809,
+          "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c",
+          "gitBlob": "f066aa495f66a20bbeaa298da98837933f92c9e6"
+        },
+        "expected": {
+          "bytes": 3809,
+          "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+          "bytes": 7744,
+          "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17",
+          "gitBlob": "93de05beba772a8927754d3436f0c6093879258a"
+        },
+        "expected": {
+          "bytes": 7744,
+          "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+          "bytes": 3151,
+          "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95",
+          "gitBlob": "5ac4425a0143937128e72dff4ff0261eec445938"
+        },
+        "expected": {
+          "bytes": 3151,
+          "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+          "bytes": 1888,
+          "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd",
+          "gitBlob": "4799f0223ca08ab2501744a23a453e4dc6858b49"
+        },
+        "expected": {
+          "bytes": 1888,
+          "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+          "bytes": 3494,
+          "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361",
+          "gitBlob": "08d33e249170407ab71041f1f73b9c59ae9c7b38"
+        },
+        "expected": {
+          "bytes": 3494,
+          "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+          "bytes": 5856,
+          "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf",
+          "gitBlob": "074f47fecdd8f2ec0feb96cd4e8593a136493f99"
+        },
+        "expected": {
+          "bytes": 5856,
+          "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+          "bytes": 7740,
+          "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329",
+          "gitBlob": "02c17928e0592e97a80ab9f615ec3d201b56c68d"
+        },
+        "expected": {
+          "bytes": 7740,
+          "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+          "bytes": 1686,
+          "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb",
+          "gitBlob": "ee1bd72fcf899e13f4a04c990b9685184a5a74ff"
+        },
+        "expected": {
+          "bytes": 1686,
+          "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+          "bytes": 2588,
+          "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3",
+          "gitBlob": "cd59a1046c264e337dbe980ad898dc71104bec7f"
+        },
+        "expected": {
+          "bytes": 2588,
+          "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+          "bytes": 5263,
+          "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29",
+          "gitBlob": "afdab7e13ef65efe3379845e46f2a183842abf75"
+        },
+        "expected": {
+          "bytes": 5263,
+          "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+          "bytes": 1890,
+          "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a",
+          "gitBlob": "a2a290a72cce7c49bf6c70abf187be4318f39692"
+        },
+        "expected": {
+          "bytes": 1890,
+          "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a"
+        }
+      },
+      {
+        "path": "packages/prefab-core/catalogue.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/prefab-core/catalogue.js",
+          "bytes": 26848,
+          "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85",
+          "gitBlob": "4c8eb6085dac77d8785af3fe3bb696884b523a2e"
+        },
+        "expected": {
+          "bytes": 26848,
+          "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85"
+        }
+      },
+      {
+        "path": "packages/prefab-core/original-catalogue.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "packages/prefab-core/original-catalogue.js",
+          "bytes": 67995,
+          "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1",
+          "gitBlob": "94013e2ee2daaefbc7f2b677a9f8b947bd061460"
+        },
+        "expected": {
+          "bytes": 67995,
+          "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+          "bytes": 502,
+          "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab",
+          "gitBlob": "29b5bb7e2d343faa0ab116cabd74440bfe9abcb3"
+        },
+        "expected": {
+          "bytes": 502,
+          "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+          "bytes": 1083,
+          "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e",
+          "gitBlob": "5f8ebb8d0c827d85e3c9505075d1036d21e61f8d"
+        },
+        "expected": {
+          "bytes": 1083,
+          "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+          "bytes": 1859,
+          "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45",
+          "gitBlob": "aa127bb4ca2fbea6e92d205b128bb7afa16b9e0d"
+        },
+        "expected": {
+          "bytes": 1859,
+          "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+          "bytes": 3352,
+          "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d",
+          "gitBlob": "4514067b9642eed30931628157c81efa4437bcba"
+        },
+        "expected": {
+          "bytes": 3352,
+          "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+          "bytes": 1150,
+          "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb",
+          "gitBlob": "f6ff6f372d260106ca757c91928404075ad39080"
+        },
+        "expected": {
+          "bytes": 1150,
+          "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+          "bytes": 4357,
+          "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d",
+          "gitBlob": "5876e9d05149052cbed1cde3a85c8c97f82c79f9"
+        },
+        "expected": {
+          "bytes": 4357,
+          "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+          "bytes": 16205,
+          "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d",
+          "gitBlob": "1539641aef21adde50f83131d5ec0b371a5f7fe9"
+        },
+        "expected": {
+          "bytes": 16205,
+          "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+          "bytes": 855,
+          "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39",
+          "gitBlob": "06d158511782242535564f4a018d0896bba4b43e"
+        },
+        "expected": {
+          "bytes": 855,
+          "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+          "bytes": 4333,
+          "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6",
+          "gitBlob": "a98b25740ae1d8a673b84abf458bd831621deee3"
+        },
+        "expected": {
+          "bytes": 4333,
+          "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+          "bytes": 1763,
+          "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f",
+          "gitBlob": "ff07c25a094d09eab7277bd2f00b504db5d37cac"
+        },
+        "expected": {
+          "bytes": 1763,
+          "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+          "bytes": 1944,
+          "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e",
+          "gitBlob": "8d2449800ae4b015b6f06ad085b1784de215b3c1"
+        },
+        "expected": {
+          "bytes": 1944,
+          "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+          "bytes": 2798,
+          "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493",
+          "gitBlob": "9e5f873c3338434d248c2625ba57cd58ca2f2522"
+        },
+        "expected": {
+          "bytes": 2798,
+          "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+          "bytes": 2296,
+          "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0",
+          "gitBlob": "eabb4a2bf8d64acdd88b6014b4665682ea6eeee8"
+        },
+        "expected": {
+          "bytes": 2296,
+          "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+          "bytes": 3175,
+          "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f",
+          "gitBlob": "456c38ed42264a7059c426015bd6326d8e6fb1b1"
+        },
+        "expected": {
+          "bytes": 3175,
+          "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+          "bytes": 601010,
+          "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e",
+          "gitBlob": "09abee349052a17188b3f3245d9d74fb5b550c52"
+        },
+        "expected": {
+          "bytes": 601010,
+          "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+          "bytes": 2344,
+          "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec",
+          "gitBlob": "48a5dae77a5d0731564c67b776181c6499787010"
+        },
+        "expected": {
+          "bytes": 2344,
+          "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+          "bytes": 722,
+          "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c",
+          "gitBlob": "a0ef75c4a267336d74dee58f2c0604ecd262bea5"
+        },
+        "expected": {
+          "bytes": 722,
+          "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+          "bytes": 932,
+          "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f",
+          "gitBlob": "f3dc25eef7aa6c50e493c1bdf515788c9d87a3fb"
+        },
+        "expected": {
+          "bytes": 932,
+          "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+          "bytes": 942,
+          "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001",
+          "gitBlob": "651137de69d01408968a8d085db59ee6a8b468ce"
+        },
+        "expected": {
+          "bytes": 942,
+          "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+          "bytes": 714,
+          "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74",
+          "gitBlob": "ffb10d0dd2d2fb415cf6b99c244798c4013be639"
+        },
+        "expected": {
+          "bytes": 714,
+          "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+          "bytes": 5648,
+          "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022",
+          "gitBlob": "4b87516456e79841dac6b2724d5bf47e9c573af3"
+        },
+        "expected": {
+          "bytes": 5648,
+          "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+          "bytes": 2886480,
+          "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb",
+          "gitBlob": "3f9f46121e9d0903393cbfb96cea4687420be2ee"
+        },
+        "expected": {
+          "bytes": 2886480,
+          "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+          "bytes": 1569,
+          "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884",
+          "gitBlob": "ddddbd62c7cccf817621bf05ed78e08b00b7ac30"
+        },
+        "expected": {
+          "bytes": 1569,
+          "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+          "bytes": 4583,
+          "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5",
+          "gitBlob": "827aef3628bd0f8269452a53a48bdb758540229d"
+        },
+        "expected": {
+          "bytes": 4583,
+          "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+          "bytes": 330,
+          "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799",
+          "gitBlob": "9ab6f2a1ec1c1a3a4cac84679bc09272d038e165"
+        },
+        "expected": {
+          "bytes": 330,
+          "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799"
+        }
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+        "role": "existing runtime dependency",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+          "bytes": 1706403,
+          "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40",
+          "gitBlob": "b3303f26dcb4be084d4231447333df97e4ff7b21"
+        },
+        "expected": {
+          "bytes": 1706403,
+          "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/styles.css",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/styles.css",
+          "bytes": 3079,
+          "sha256": "9ad730ddaa7ff548f2bc0bbc412173eb442754ab1a7ace5ef3fc452874c5806c",
+          "gitBlob": "9577d2fe0bb10d428f116488087134a946af1fae"
+        },
+        "expected": {
+          "bytes": 3079,
+          "sha256": "9ad730ddaa7ff548f2bc0bbc412173eb442754ab1a7ace5ef3fc452874c5806c"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/vendor/NOTICE.md",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/vendor/NOTICE.md",
+          "bytes": 746,
+          "sha256": "692af6bfc5fca716f99034bb666821ac98dec07ab29249c0150abe21b3899d68",
+          "gitBlob": "5ec55a50d66fb24d1b8654d8401c99fcbed8d914"
+        },
+        "expected": {
+          "bytes": 746,
+          "sha256": "692af6bfc5fca716f99034bb666821ac98dec07ab29249c0150abe21b3899d68"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/component.js",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/component.js",
+          "bytes": 30745,
+          "sha256": "1b0f2994244b01b7cd0e8d87565730430bbe4e85246075349887d97b7a6cd8e3",
+          "gitBlob": "9f23e19ee583ff8c5ba3f45fff65bbadcaeec28b"
+        },
+        "expected": {
+          "bytes": 30745,
+          "sha256": "1b0f2994244b01b7cd0e8d87565730430bbe4e85246075349887d97b7a6cd8e3"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/ui/source.json",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/ui/source.json",
+          "bytes": 5367,
+          "sha256": "947ae728ea0171c774fd83aeba26f99583d8c871b0ad8b109e385b7bad51fec7",
+          "gitBlob": "fa5f94cb94fe240b3ebd61e0bfe0849b337c9f41"
+        },
+        "expected": {
+          "bytes": 5367,
+          "sha256": "947ae728ea0171c774fd83aeba26f99583d8c871b0ad8b109e385b7bad51fec7"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/core/source.json",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/core/source.json",
+          "bytes": 45109,
+          "sha256": "0ebc72d1e075736d6c4035714af5e9f1f39c6e1fdf33d806aa254297e53cff41",
+          "gitBlob": "6d9a1bddd58b9362a1183c71b20eeb05aebbfc9e"
+        },
+        "expected": {
+          "bytes": 45109,
+          "sha256": "0ebc72d1e075736d6c4035714af5e9f1f39c6e1fdf33d806aa254297e53cff41"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/NOTICE.md",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/NOTICE.md",
+          "bytes": 1499,
+          "sha256": "88807e74e576268a59c09080e4041eb4c4c4576876b97a2e4f9d9de03b972a3a",
+          "gitBlob": "81a13db23eb44c01836699c3d840a7ae5f6b324b"
+        },
+        "expected": {
+          "bytes": 1499,
+          "sha256": "88807e74e576268a59c09080e4041eb4c4c4576876b97a2e4f9d9de03b972a3a"
+        }
+      },
+      {
+        "path": "apps/editor/tile-authoring/c2/builtin-prefix/source.json",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "apps/editor/tile-authoring/c2/builtin-prefix/source.json",
+          "bytes": 3851,
+          "sha256": "c52f10ebd747a91f65fd1879e12cec4ef019070680760d3bd54af4647f2dd277",
+          "gitBlob": "e190e60fb11b7f05fd8297ca5865855782a63c99"
+        },
+        "expected": {
+          "bytes": 3851,
+          "sha256": "c52f10ebd747a91f65fd1879e12cec4ef019070680760d3bd54af4647f2dd277"
+        }
+      },
+      {
+        "path": "NOTICE.md",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "NOTICE.md",
+          "bytes": 8811,
+          "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd",
+          "gitBlob": "b7f1012e6cfd49b480aac93380d6e8d4c0b42f5c"
+        },
+        "expected": {
+          "bytes": 8811,
+          "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd"
+        }
+      },
+      {
+        "path": "package.json",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "package.json",
+          "bytes": 28478,
+          "sha256": "56c3112e2c2c7ab181f3db4f98430a11db1d1d6b66b9c989215c044695758172",
+          "gitBlob": "a41e53661cd6bb62a916b5b186254e8bf9a91775"
+        },
+        "expected": {
+          "bytes": 28478,
+          "sha256": "56c3112e2c2c7ab181f3db4f98430a11db1d1d6b66b9c989215c044695758172"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/PROVENANCE.md",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/PROVENANCE.md",
+          "bytes": 2042,
+          "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6",
+          "gitBlob": "db0b0bffb833f91166bb4f37e287c26466c4a33d"
+        },
+        "expected": {
+          "bytes": 2042,
+          "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources.json",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/resources.json",
+          "bytes": 39166,
+          "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa",
+          "gitBlob": "e3510e74bf64c0980f83c1e6a2c06502f6e55369"
+        },
+        "expected": {
+          "bytes": 39166,
+          "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+          "bytes": 2068,
+          "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98",
+          "gitBlob": "18c1d62bde09c03e52bbf05cfd71f0d43e3041b8"
+        },
+        "expected": {
+          "bytes": 2068,
+          "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+          "bytes": 2481966,
+          "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6",
+          "gitBlob": "c3f1589bd9aa587defb4ba73f5673d514823ff04"
+        },
+        "expected": {
+          "bytes": 2481966,
+          "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+          "bytes": 78234,
+          "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633",
+          "gitBlob": "55842bf5e31f97325599dec40fd44e6faee3a8e0"
+        },
+        "expected": {
+          "bytes": 78234,
+          "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+        }
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg",
+        "role": "existing support/provenance only; not a copied or automatically loaded payload",
+        "source": {
+          "commit": "648cad33c3e0e1f36b4313b1492b1a750492ece4",
+          "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg",
+          "bytes": 4858,
+          "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90",
+          "gitBlob": "8f4f9c441337e305992274525b8f195cd147d8c8"
+        },
+        "expected": {
+          "bytes": 4858,
+          "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90"
+        }
+      }
+    ]
+  },
+  "excluded": [
+    "Private Core/d8/renderer copies",
+    "Private Root guard and C1 mount mirrors",
+    "A second form producer",
+    "Fixtures/assets/types/public exports/normal navigation/consumer pins"
+  ]
+}

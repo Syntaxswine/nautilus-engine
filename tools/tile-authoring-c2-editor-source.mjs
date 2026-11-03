@@ -7,6 +7,8 @@ import {kernelPromotionSources,serializablePlan,HELPER as KERNEL_HELPER} from '.
 import {tileAuthoringC2ArtSources} from './tile-authoring-c2-art-source.mjs';
 import {tileAuthoringC2ViewsSource} from './tile-authoring-c2-views-source.mjs';
 import {tileAuthoringC2UISources} from './tile-authoring-c2-ui-source.mjs';
+import {authenticateCoreIntegrationSources} from './tile-authoring-c2-core-integration-source.mjs';
+const coreRecordSha256='fcf20bd703802eba02231d7576b9e37ae562b4ceb2ce571dc46e9554b9580cad';
 
 const prefixCommit='d8ff73ce63282e897cac146bc3077ea443c38e05';
 const uiCommit='5a7cb4ce728d158f42d997e076c296459cb259aa';
@@ -18,12 +20,15 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
 const json=value=>Buffer.from(JSON.stringify(value,null,2)+'\n');
 
-export function tileAuthoringC2EditorSources({object,projectRoot}){
+export function tileAuthoringC2EditorSources({object,projectRoot,indexed=()=>{}}){
  const directory=path.join(projectRoot,namespace);
  assert.ok(fs.existsSync(directory),'The registered C2 source profile requires its complete directory');
  const files=[];
  const borrowedFiles=[];
  const add=(file,bytes,provenance)=>{assert.ok(Buffer.isBuffer(bytes));assert.ok(!files.some(row=>row.path===file));files.push({path:file,expectedBuffer:bytes,bytes:bytes.length,sha256:sha(bytes),...provenance});};
+ const readCurrent=file=>{assert.equal(path.posix.normalize(file),file);assert.ok(!file.startsWith('/')&&!file.includes('\\')&&!file.split('/').includes('..'));const absolute=path.join(projectRoot,file);assert.equal(fs.lstatSync(absolute).isSymbolicLink(),false,'Private SDK source symlink: '+file);return fs.readFileSync(absolute);};
+ const sdk=authenticateCoreIntegrationSources({object,read:readCurrent,indexed,expectedRecordSha256:coreRecordSha256});
+ for(const row of sdk.files)add(row.path,row.expectedBuffer,row);
  const component=(commit,source,target,names,transform=(_name,bytes)=>({bytes,rewrites:[]}))=>names.map(name=>{
   const original=object(commit,source+name),{bytes,rewrites}=transform(name,original);
   add(target+name,bytes,{sourceCommit:commit,sourcePath:source+name,sourceSha256:sha(original),rewrites});
@@ -92,14 +97,18 @@ export function tileAuthoringC2EditorSources({object,projectRoot}){
   const expectedMetadata={...serializablePlan(kernel),kind:'nautilus-root-c2-kernel-source',status:'Reviewed shared hooks adopted; actual Core/Artist/meter/Host bindings remain unavailable until composition',independentReview:{file:'artifacts/tile-authoring-review/c2-shared-runtime-review-4ade3ea/REVIEW.md',sha256:'49611c059bbd0944e35e0b16fbc13eb7467e0faf1f811950fa78c027f1c8a28f'},sourceTool:{path:kernelTool,sha256:sha(toolBytes)}};
   assert.ok(metadataBytes.equals(json(expectedMetadata)),'Kernel source record must match the fixed-object plan');
   for(const row of kernel.rows){
-   if(row.beforeBuffer){assert.ok(!Object.hasOwn(overrides,row.path));assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(row.expectedBuffer),'Changed promoted Kernel body: '+row.path);overrides[row.path]={path:row.path,before:row.beforeBuffer,expectedBuffer:row.expectedBuffer,sha256:row.expected.sha256,baseCommit:kernel.main,baseSha256:row.before.sha256,sourceCommit:kernel.kernel,sourcePath:row.sourcePath,rewrites:row.rewrites,role:row.role};}
+   if(row.beforeBuffer){const sdkOverride=sdk.overrides[row.path];if(sdkOverride)assert.ok(sdkOverride.before.equals(row.expectedBuffer),'SDK semantic override requires exact reviewed promoted Kernel preimage: '+row.path);const expected=sdkOverride?.expectedBuffer??row.expectedBuffer;assert.ok(!Object.hasOwn(overrides,row.path));assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(expected),'Changed promoted Kernel body: '+row.path);overrides[row.path]={path:row.path,before:row.beforeBuffer,expectedBuffer:expected,sha256:sha(expected),baseCommit:kernel.main,baseSha256:row.before.sha256,sourceCommit:sdkOverride?'f727599bbbe619910fea0bcd54d206854cb709e2':kernel.kernel,sourcePath:row.sourcePath,rewrites:row.rewrites,role:sdkOverride?'Authenticated exact SDK continuation over the unchanged historical Kernel chain':row.role};}
    else add(row.path,row.expectedBuffer,{sourceCommit:kernel.kernel,sourcePath:row.sourcePath,sourceSha256:row.source.sha256,rewrites:row.rewrites,role:row.role});
   }
   add(kernelMetadata,metadataBytes,{role:'Exact reviewed Kernel adaptation record'});add(kernelTool,toolBytes,{role:'Exact read-only Kernel source planner'});add('package.json',kernel.packageWhitelist.expectedBuffer,{role:'Exact one-file internal helper whitelist addition'});
  }
+ for(const [file,override]of Object.entries(sdk.overrides)){
+  if(overrides[file])assert.ok(overrides[file].expectedBuffer.equals(override.expectedBuffer),'Conflicting SDK override: '+file);
+  else overrides[file]=override;
+ }
  const views=tileAuthoringC2ViewsSource({object,projectRoot});
  overrides[views.file]=views.override;add(views.metadata.path,views.metadata.expectedBuffer,views.metadata);
- const renderer=tileAuthoringC2ArtSources({object,projectRoot});
+ const renderer=tileAuthoringC2ArtSources({object,projectRoot,coreIntegration:sdk});
  for(const row of renderer.files)add(row.path,row.expectedBuffer,row);
  for(const row of renderer.borrowedFiles)if(!borrowedFiles.some(item=>item.path===row.path))borrowedFiles.push(row);
  const readPairing=tileAuthoringC2UISources({object,projectRoot});
@@ -109,7 +118,7 @@ export function tileAuthoringC2EditorSources({object,projectRoot}){
  assert.deepEqual(paths(namespace.slice(0,-1)).sort(),files.filter(row=>row.path.startsWith(namespace)).map(row=>row.path).sort(),'Only the exact reviewed C2 files are authorized.');
  for(const row of files)assert.ok(fs.readFileSync(path.join(projectRoot,row.path)).equals(row.expectedBuffer),'Changed exact C2 contribution: '+row.path);
  const panel='apps/editor/tile-authoring/ui/panel.js',before=object(base,panel),after=fs.readFileSync(path.join(projectRoot,panel));
- assert.equal(sha(after),'81e0d2ad2aaa52c01b9d1d3ed172b5bef951b4f8e7440c8218e591f787425db4','Unreviewed shared UI coordinator body');
- overrides[panel]={path:panel,before,expectedBuffer:after,sha256:sha(after),baseCommit:base,baseSha256:sha(before),role:'Root opt-in coordinator attachment; separate independent review required'};
- return {enabled:true,files,borrowedFiles,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,requiredGitCommits:[base,prefixCommit,uiCommit,coreCommit,encodedCommit,...(kernel?.requiredGitCommits??[]),...renderer.requiredGitCommits,...readPairing.requiredGitCommits],status:'exact-source-authentication-only; actual overlay workflow remains separately gated'};
+ assert.ok(readPairing.coordinator&&readPairing.coordinator.path===panel&&after.equals(readPairing.coordinator.expectedBuffer),'Unreviewed shared UI coordinator body');
+ overrides[panel]={path:panel,before,expectedBuffer:readPairing.coordinator.expectedBuffer,sha256:sha(after),baseCommit:base,baseSha256:sha(before),sourceCommit:readPairing.coordinator.sourceCommit,sourcePath:readPairing.coordinator.sourcePath,rewrites:readPairing.coordinator.rewrites,role:'Explicit owned-read shared UI guard and opt-in C1 mount; actual Source/Native workflow still UNBOUND'};
+ return {enabled:true,files,borrowedFiles,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,coreIntegration:sdk.report,requiredGitCommits:[base,prefixCommit,uiCommit,coreCommit,encodedCommit,...(kernel?.requiredGitCommits??[]),...renderer.requiredGitCommits,...readPairing.requiredGitCommits,...sdk.requiredGitCommits],status:'exact-source-authentication-only; private canonical SDK imported, actual overlay workflow remains separately gated'};
 }

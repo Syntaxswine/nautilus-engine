@@ -111,6 +111,43 @@ export function createTileAuthoringUIController(binding,{onView=()=>{},onPending
     finally{if(!disposed&&!broken&&operation===ticket){pending=false;onPending(false);}}
   }
   const api = {
+    // UI intent guard only. Reuse this coordinator's displayed identity, epoch,
+    // strict callback read and complete additional-data comparison. Never execute
+    // a command or turn a displayed/parsed copy into an actual issued read.
+    captureResourceDisplay(displayed){
+      const stamp=epoch;
+      const stable=()=>!disposed&&!broken&&!rendering&&lastView===displayed&&epoch===stamp;
+      const changed=raw=>{if(!disposed&&!broken){if(raw===undefined)refresh();else receive(raw);}throw issue('UI_DISPLAY_CHANGED','The displayed source, selection or action state changed. Inspect the refreshed editor before loading artwork.');};
+      if(!displayed||!stable())return changed();
+      const guard=Object.freeze({read(){
+        if(!stable())return changed();
+        let checked;try{checked=read();}catch(reason){invalidate(reason);throw reason;}
+        if(!stable()||!sameView(checked.view,displayed)||!sameData(bindingKey(checked.view),identity)||!sameData(checked.view.snapshot,displayed.snapshot)||!sameData(checked.view.presentation,displayed.presentation))return changed(checked.raw);
+        // Finish callbackful snapshot/currentness checks, then authenticate the
+        // original issued read with the actual producer-owned final observation.
+        const raw=binding.getSnapshot(),view=readTileAuthoringUIView(raw);
+        if(Object.getOwnPropertyDescriptor(binding,'collectCommand')?.value!==collectCommand||Object.getOwnPropertyDescriptor(binding,'service')?.value!==service||!serviceMethods.every((name,i)=>Object.getOwnPropertyDescriptor(service,name)?.value===originalMethods[i])||!borrowed.every(([name,value])=>Object.getOwnPropertyDescriptor(binding,name)?.value===value)){
+          broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection changed during the final resource read.');invalidate(reason);throw reason;
+        }
+        if(!stable()||!sameData(actionKey(view),actionKey(displayed))||!sameData(bindingKey(view),bindingKey(displayed))||!sameData(view.snapshot,displayed.snapshot)||!sameData(view.presentation,displayed.presentation)||!sameData(view.overlay,displayed.overlay))return changed(raw);
+        // All callbackful checks finish before the source-private final visitor.
+        // It authenticates facts recorded for this issued read; no caller bool,
+        // parsed copy, fresh DTO stamp or check-after-dispatch grants permission.
+        if(!sameConnection()){broken=true;ticket++;pending=false;const reason=issue('UI_REBIND_REQUIRED','The borrowed connection retired during the final snapshot.');invalidate(reason);throw reason;}
+        if(!stable())return changed();
+        const finalOwner=Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value,capture=Object.getOwnPropertyDescriptor(finalOwner??{},'capture')?.value,visit=Object.getOwnPropertyDescriptor(finalOwner??{},'visit')?.value;
+        if(typeof capture!=='function'||typeof visit!=='function')throw issue('UI_FINAL_READ_OWNER_UNBOUND','Bind the actual source-private final read owner before loading artwork.');
+        const observation=capture.call(finalOwner,raw);let visits=0;
+        const result=visit.call(finalOwner,observation,raw,actual=>{
+          if(++visits!==1||actual!==raw||!stable()||Object.getOwnPropertyDescriptor(binding,'resourceReadOwner')?.value!==finalOwner||Object.getOwnPropertyDescriptor(finalOwner,'capture')?.value!==capture||Object.getOwnPropertyDescriptor(finalOwner,'visit')?.value!==visit)throw issue('UI_DISPLAY_CHANGED','The original displayed/read lifetime retired before dispatch.');
+          return actual;
+        });
+        if(visits!==1||result!==raw)throw issue('UI_FINAL_READ_OWNER_REQUIRED','The owned visitor must return the same authenticated issued read once.');
+        return result;
+
+      }});
+      guard.read();return guard;
+    },
     get pending(){return pending;},
     get view(){return lastView;},
     refresh,
@@ -138,9 +175,10 @@ export function attachTileAuthoringOverlayCoordinator(binding,options){
 }
 
 let mountedCount = 0;
-export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangleSpec,onError=()=>{}}={}) {
+export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangleSpec,onError=()=>{},attachCoordinator=null}={}) {
   const doc=container?.ownerDocument;
   if(!doc||typeof container.append!=='function'||typeof rectangleSpec!=='function'||!ownFunction(binding,'allocateIds')) throw issue('UI_MOUNT_BINDING_REQUIRED','Supply a DOM container, explicit ID port and mapping to the reviewed public rectangle constructor spec.');
+  if(attachCoordinator!==null&&typeof attachCoordinator!=='function')throw issue('UI_ATTACHMENT_FACTORY_REQUIRED','Supply an explicit borrowed coordinator attachment factory.');
   const commands=createTileAuthoringCommands({tiles,authoring}),events=new doc.defaultView.AbortController(),id='tile-authoring-'+(++mountedCount);
   const make=(tag,text,cls)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
   const listen=(node,type,fn)=>node.addEventListener(type,fn,{signal:events.signal});
@@ -267,6 +305,6 @@ export function mountTileAuthoringUI(container,binding,{tiles,authoring,rectangl
   }
   for(const node of [definitionSelect,presetSelect,ownerSelect])listen(node,'change',selectionText);
   listen(root,'keydown',event=>{if(event.repeat&&['Enter',' '].includes(event.key)&&event.target.closest?.('button,form'))event.preventDefault();});
-  try{controller=createTileAuthoringUIController(binding,{onView:render,onPending:updateGates,onError:showError});updateGates();}catch(reason){events.abort();root.remove();throw reason;}
+  try{controller=(attachCoordinator??createTileAuthoringUIController)(binding,{onView:render,onPending:updateGates,onError:showError});updateGates();}catch(reason){events.abort();root.remove();throw reason;}
   return Object.freeze({element:root,refresh:()=>controller.refresh(),dispose(){const errors=[];for(const cleanup of [()=>controller.dispose(),()=>events.abort(),()=>root.remove()])try{cleanup();}catch(reason){errors.push(reason);}return errors;}});
 }

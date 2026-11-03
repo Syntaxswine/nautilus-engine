@@ -150,6 +150,7 @@ function createObservedV3Binding(deps,initialDocument,{observer,validateSource,d
     token(input){const checkpoint=open(input);let token=tokens.get(checkpoint);if(token===undefined){token=shared.token(checkpoint);tokens.set(checkpoint,token);}return token;}};
   if(observer){
     Object.defineProperty(codecValue,'privateObservation',{value:shared.privateObservation});
+    Object.defineProperty(codecValue,'privateSourceBundle',{value:Object.freeze({open:observer.fixed('session.bundle.open',input=>{if(!resourceFacts||typeof resourceFacts.openInitialBundle!=='function')fail('C2_VALIDATED_SOURCE_UNBOUND','/bundle','Actual source bundle boundary required.');return resourceFacts.openInitialBundle(validateDocument(input),{observer});})})});
     Object.defineProperty(codecValue,'privateSourceFacts',{value:Object.freeze({
       state:()=>resourceFacts?'constructor-bound':'unbound',
       read:observer.fixed('v3.documentFacts',input=>{

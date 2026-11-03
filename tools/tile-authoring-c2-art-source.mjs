@@ -11,7 +11,7 @@ const metadataSha='46ae2ab734fd4c0a20c84710a3fb23d6c94d7d4e9cf6d644ce48a63b9ab9c
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
 
-export function tileAuthoringC2ArtSources({object,projectRoot}){
+export function tileAuthoringC2ArtSources({object,projectRoot,coreIntegration=null}){
  assert.ok(fs.existsSync(path.join(projectRoot,metadataPath)),'The pinned renderer manifest is required by the registered C2 source profile');
  const metadata=fs.readFileSync(path.join(projectRoot,metadataPath));
  assert.equal(sha(metadata),metadataSha,'Unreviewed private renderer relocation manifest');
@@ -38,6 +38,15 @@ export function tileAuthoringC2ArtSources({object,projectRoot}){
   const bytes=fs.readFileSync(path.join(projectRoot,row.path));
   let expected=row.expected;
   if(row.path===views.file){assert.equal(row.expected.bytes,views.override.before.length);assert.equal(row.expected.sha256,views.override.baseSha256);expected={bytes:views.override.expectedBuffer.length,sha256:views.override.sha256};}
+  // The caller authenticates the complete SDK and its actual index first.
+  // This single borrowed checkpoint may continue from its exact e4d preimage;
+  // no other renderer dependency or arbitrary override is normalized here.
+  if(coreIntegration&&row.path==='apps/editor/smart-tile/checkpoint.js'){
+   const override=coreIntegration.overrides[row.path],before=object('e4d798cd30857e4a77c8875817f9f333286eb32c',row.path);
+   assert.ok(override.before.equals(before));assert.equal(row.expected.bytes,before.length);assert.equal(row.expected.sha256,sha(before));
+   assert.equal(sha(override.expectedBuffer),'60c932437c272edc79b8b3e9b961910fa532ff3b8aed1ce17d7a489411358bb8','Only the exact reviewed SDK checkpoint continuation is authorized');
+   expected={bytes:override.expectedBuffer.length,sha256:sha(override.expectedBuffer)};
+  }
   assert.equal(bytes.length,expected.bytes,'Changed borrowed renderer dependency: '+row.path);assert.equal(sha(bytes),expected.sha256,'Changed borrowed renderer dependency: '+row.path);
   borrowedFiles.push({path:row.path,bytes:bytes.length,sha256:sha(bytes),gitBlob:blob(bytes)});
  }

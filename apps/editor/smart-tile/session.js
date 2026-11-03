@@ -32,7 +32,7 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     if(!authoring||I.version!==3||!Object.isFrozen(c2Host)||!Object.isFrozen(c2Ports)||!observed)fail('C2_HOST_UNBOUND','/profile','Pair an explicit frozen private host, observed v3 codec and phase owner.');
     if(Reflect.ownKeys(c2Ports).length!==4||c2Ports.kind!=='nautilus-editor-c2-phase-ports'||c2Ports.version!==1)fail('C2_HOST_UNBOUND','/profile/c2PhasePorts','Keep the closed four-field phase interface.');
     for(const key of ['prepare','restore'])if(typeof Object.getOwnPropertyDescriptor(c2Ports,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2PhasePorts/'+key,'Bind an actual phase owner.');
-    for(const key of ['assertPaired','requireCountedBootstrap','beginPrepare','captureRetainedIngress','originalRequestId','ownsConnection','cancelOwnedPreparation','checkAllowed','retirePreviousInput','captureSource','captureObligations','bindSourceOnce','sourceCurrent','nativeReadiness','bindActualManagerCandidate','prepareInput','requireOwnedPrepared','serializeBoundDocument','adoptActualTicket','createActualOperation','beforeActualWal','recordActualWal','phaseRefusal','retireBeforeStage','finishUnacquired','retainFailedPreparation','selectsRetainedCommand','enterActualApply','enterActualRecovery','validateActualCommit','acceptActualOutcome','refuseActualOutcome','retainActualUnknown','retireReviewThroughManager','retireSessionResourcesThroughSameManager','recoveryCanWrite','retainBootstrapRecovery','requireBootstrapEscrow','beginBootstrapRetry','finishBootstrapRetry','beginRestore','requireOwnedRestore','finishRestore','refuseRestore','restorePresentation'])if(typeof Object.getOwnPropertyDescriptor(c2Host,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2Host/'+key,'The actual private pairing is incomplete.');
+    for(const key of ['assertPaired','requireCountedBootstrap','constructActualJournal','adoptActualManager','bindActualTargetAcquisition','beginPrepare','captureRetainedIngress','originalRequestId','ownsConnection','cancelOwnedPreparation','checkAllowed','retirePreviousInput','captureSource','captureObligations','bindSourceOnce','sourceCurrent','nativeReadiness','bindActualManagerCandidate','prepareInput','requireOwnedPrepared','serializeBoundDocument','adoptActualTicket','createActualOperation','beforeActualWal','recordActualWal','phaseRefusal','retireBeforeStage','finishUnacquired','retainFailedPreparation','selectsRetainedCommand','enterActualApply','enterActualRecovery','validateActualCommit','acceptActualOutcome','refuseActualOutcome','retainActualUnknown','retireReviewThroughManager','retireSessionResourcesThroughSameManager','recoveryCanWrite','retainBootstrapRecovery','requireBootstrapEscrow','beginBootstrapRetry','finishBootstrapRetry','beginRestore','requireOwnedRestore','finishRestore','refuseRestore','restorePresentation'])if(typeof Object.getOwnPropertyDescriptor(c2Host,key)?.value!=='function')fail('C2_HOST_UNBOUND','/profile/c2Host/'+key,'The actual private pairing is incomplete.');
     c2Host.assertPaired({codec,phasePorts:c2Ports,profile});
     bootstrap=c2Host.requireCountedBootstrap(authority,codec);
   }
@@ -81,7 +81,7 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     }
     checkpoint=openSmartTileCheckpoint(deps,decision.checkpoint);
   }
-  deps.tiles.openTileBundle(checkpoint.document.tileBundle,{requireResolved:true});
+  if(c2Host){if(!codec.privateSourceBundle)fail('C2_VALIDATED_SOURCE_UNBOUND','/bundle','Use the actual counted complete-source constructor.');codec.privateSourceBundle.open(checkpoint.document);}else deps.tiles.openTileBundle(checkpoint.document.tileBundle,{requireResolved:true});
   const supplied=checkpoint.document.floorBinding.floors.map(({id,label,elevationM})=>({id,label,elevationM}));
   if(smartTileDigest(supplied)!==smartTileDigest(floorController.state.floors))fail('FLOOR_AUTHORITY_MISMATCH','/floors','Borrow the actual complete supplied native floor controller.');
   // No synthetic character/contact is registered. Manual inspection is explicit.
@@ -92,8 +92,9 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
   let visualWitness=null,visualError=false;
   const listeners=new Set(),diagnostics=[];
   const historyOptions={initialText:documentText(checkpoint),contextKey:'smart-tile-session-v'+I.version,maxEntries:L.historyEntries,maxBytes:L.historyBytes,maxDocumentBytes:L.checkpointBytes};
-  const history=c2Host?observed.observer.run('session.journal.construct',()=>observed.observer.opaque('journal.construct',historyOptions,()=>createWindowAuthoringJournal(historyOptions))):createWindowAuthoringJournal(historyOptions);
-  const historyRead=c2Host?createWindowAuthoringJournalReadPort(history,c2Host.historyObserver,observed.observer):null;
+  const actualJournal=c2Host?c2Host.constructActualJournal({checkpoint,options:historyOptions}):null;
+  const history=c2Host?actualJournal.journal:createWindowAuthoringJournal(historyOptions);
+  const historyRead=c2Host?actualJournal.historyRead:null;
   const authorityObservation=c2Host?createPrivateAuthorityObservationPort(authority):null;
   let floorState=floorController.state,floorEpoch=0;
   const hostContext=()=>({floorId:floorState.selectedId,mode:floorState.mode,floorEpoch,providerToken,cancelled:disposed});
@@ -103,7 +104,8 @@ export async function createSmartTileSession(deps,{authority,floorController,pre
     const copied=smartTileData(input);if(!Array.isArray(copied))return false;
     for(const d of copied.slice(0,16)){if(!d||typeof d.code!=='string')continue;diagnostics.push({...d,code:d.code.slice(0,128),path:typeof d.path==='string'?d.path.slice(0,512):'/editor',message:typeof d.message==='string'?d.message.slice(0,4000):'The operation was refused.',action:typeof d.action==='string'?d.action.slice(0,4000):'Keep accepted state and correct the draft using the named public contract.'});while(diagnostics.length>32)diagnostics.shift();}return copied.length>0;
   }
-  const views=createSmartTileViews({...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')});
+  const viewOptions={...presentation,onDiagnostic:code=>diagnostic(code,'Owned presentation cleanup reported a callback failure. Borrowed resources remain host-owned.')};
+  const views=c2Host?c2Host.adoptActualManager(viewOptions):createSmartTileViews(viewOptions);
   const floor=()=>({...supplied.find(f=>f.id===floorState.selectedId),mode:floorState.mode});
   const fingerprint=document=>profile.presentationFingerprint(document);
   function live(view){try{return !!view&&view.diagnostics().disposed===false;}catch{return false;}}
