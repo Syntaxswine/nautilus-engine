@@ -20,7 +20,11 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
 const json=value=>Buffer.from(JSON.stringify(value,null,2)+'\n');
 
-export function tileAuthoringC2EditorSources({object,projectRoot,indexed=()=>{}}){
+export function tileAuthoringC2EditorSources({object:readObject,projectRoot,indexed=()=>{}}){
+ const observedGitCommits=new Set();
+ // Record the authentic port's actual read closure, including manifest-driven inputs.
+ // This observes the existing validators; it never substitutes source bytes or approval.
+ const object=(commit,file)=>{assert.match(commit,/^[a-f0-9]{40}$/);const bytes=readObject(commit,file);observedGitCommits.add(commit);return bytes;};
  const directory=path.join(projectRoot,namespace);
  assert.ok(fs.existsSync(directory),'The registered C2 source profile requires its complete directory');
  const files=[];
@@ -120,5 +124,5 @@ export function tileAuthoringC2EditorSources({object,projectRoot,indexed=()=>{}}
  const panel='apps/editor/tile-authoring/ui/panel.js',before=object(base,panel),after=fs.readFileSync(path.join(projectRoot,panel));
  assert.ok(readPairing.coordinator&&readPairing.coordinator.path===panel&&after.equals(readPairing.coordinator.expectedBuffer),'Unreviewed shared UI coordinator body');
  overrides[panel]={path:panel,before,expectedBuffer:readPairing.coordinator.expectedBuffer,sha256:sha(after),baseCommit:base,baseSha256:sha(before),sourceCommit:readPairing.coordinator.sourceCommit,sourcePath:readPairing.coordinator.sourcePath,rewrites:readPairing.coordinator.rewrites,role:'Explicit owned-read shared UI guard and opt-in C1 mount; actual Source/Native workflow still UNBOUND'};
- return {enabled:true,files,borrowedFiles,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,coreIntegration:sdk.report,requiredGitCommits:[base,prefixCommit,uiCommit,coreCommit,encodedCommit,...(kernel?.requiredGitCommits??[]),...renderer.requiredGitCommits,...readPairing.requiredGitCommits,...sdk.requiredGitCommits],status:'exact-source-authentication-only; private canonical SDK imported, actual overlay workflow remains separately gated'};
+ return {enabled:true,files,borrowedFiles,namespaceFiles:files.filter(row=>row.path.startsWith(namespace)&&/\.(?:m?js|css)$/.test(row.path)),overrides,coreIntegration:sdk.report,requiredGitCommits:[...new Set([base,prefixCommit,uiCommit,coreCommit,encodedCommit,...(kernel?.requiredGitCommits??[]),...renderer.requiredGitCommits,...readPairing.requiredGitCommits,...sdk.requiredGitCommits,...observedGitCommits])],status:'exact-source-authentication-only; private canonical SDK imported, actual overlay workflow remains separately gated'};
 }

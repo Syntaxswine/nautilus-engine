@@ -8,9 +8,15 @@ import {execFileSync} from 'node:child_process';
 import {tileAuthoringC2EditorSources} from '../tools/tile-authoring-c2-editor-source.mjs';
 
 test('exact C2 source authentication rejects ownership, SDK, index, manifest and unknown-runtime drift',()=>{
- const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),objects=new Map();
- const object=(commit,file)=>{const key=commit+':'+file;if(!objects.has(key))objects.set(key,execFileSync('git',['show',key],{cwd:root,windowsHide:true,timeout:30000,maxBuffer:4*1024*1024}));return objects.get(key);};
+ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),objects=new Map(),observedGitCommits=new Set();
+ const object=(commit,file)=>{const key=commit+':'+file;if(!objects.has(key))objects.set(key,execFileSync('git',['show',key],{cwd:root,windowsHide:true,timeout:30000,maxBuffer:4*1024*1024}));observedGitCommits.add(commit);return objects.get(key);};
  const source=tileAuthoringC2EditorSources({object,projectRoot:root});assert.equal(source.enabled,true);
+ const required=new Set(source.requiredGitCommits);
+ for(const commit of observedGitCommits)assert.ok(required.has(commit),'Actual source-object read omitted from requiredGitCommits: '+commit);
+ assert.ok(observedGitCommits.has('42c1a61d1e8836f22ee59d74d52779aa920a91fa'),'Exercise the actual encoded transport public-metadata dependency');
+ const workflow=fs.readFileSync(path.join(root,'.github/workflows/check.yml'),'utf8').split(/\r?\n/),fetchLists=[];
+ for(let i=0;i<workflow.length;i++)if(workflow[i].trim()==='git fetch --no-tags --depth=1 origin'){const commits=[];while(++i<workflow.length&&/^\s+[a-f0-9]{40}\s*$/.test(workflow[i]))commits.push(workflow[i].trim());i--;fetchLists.push(commits);}
+ assert.equal(fetchLists.length,6);for(const fetched of fetchLists){assert.deepEqual(fetched,fetchLists[0]);for(const commit of required)assert.ok(fetched.includes(commit),'CI shallow fetch omits required source commit: '+commit);}
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'nautilus-c2-source-'));
  const owned=new Set([fs.realpathSync(temporary)]);
  const putAt=(base,file,bytes)=>{const target=path.resolve(base,file);assert.ok(target.startsWith(base+path.sep));fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,bytes);};
