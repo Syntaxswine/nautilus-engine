@@ -3,8 +3,9 @@ import {seededRandom} from './turbulence.js';
 // Smoke for games: emitters release puffs that ride any wind sample(x, y, z, out), live or
 // baked. A puff rises while it is warm (an upward drift of rise * exp(-age / riseTime) m/s,
 // standing in for buoyancy; it does not lift the air), spreads by a random walk of `spread`
-// m^2/s and expires after `lifetime` seconds or on leaving `bounds`. One seeded stream drives
-// the jitter and the walk, so the same seed and the same calls give the same smoke.
+// m^2/s and expires after `lifetime` seconds or on leaving `bounds`. With blocked(x, y, z) it
+// does not step from air into a solid. One seeded stream drives the jitter and the walk, so
+// the same seed and the same calls give the same smoke.
 export function createSmoke({capacity=2048,lifetime=26,rate=14,rise=1.1,riseTime=5,spread=.12,jitter=.15,seed=1,bounds=null,blocked=null}={}){
   if(!Number.isInteger(capacity)||capacity<1||capacity>1000000)throw Error('Smoke capacity is 1 to 1,000,000 puffs.');
   if(!(lifetime>0)||!(spread>=0)||!(jitter>=0)||!Number.isFinite(lifetime+spread+jitter))throw Error('Smoke needs a positive lifetime and non-negative spread and jitter.');
@@ -34,8 +35,9 @@ export function createSmoke({capacity=2048,lifetime=26,rate=14,rise=1.1,riseTime
       for(let n=0;n<count;n++)up[n]=warmth[n]*Math.exp(-(ages[n]+.5*dt)/cooling[n]);
       if(before)before.set(positions.subarray(0,count*3));
       advectTracers(sample,positions,dt,{count,rise:up,spread,random:spread>0?random:null});
-      // A puff that would enter a solid waits where it was; its walk and rise move it on later.
-      if(before)for(let n=0,o=0;n<count;n++,o+=3)if(blocked(positions[o],positions[o+1],positions[o+2])){positions[o]=before[o];positions[o+1]=before[o+1];positions[o+2]=before[o+2];}
+      // A puff that would step from air into a solid waits where it was; its walk and rise move
+      // it on later. One already inside (a source in a coarse voxel) moves freely until it is out.
+      if(before)for(let n=0,o=0;n<count;n++,o+=3)if(blocked(positions[o],positions[o+1],positions[o+2])&&!blocked(before[o],before[o+1],before[o+2])){positions[o]=before[o];positions[o+1]=before[o+1];positions[o+2]=before[o+2];}
       for(let n=0;n<count;n++){const o=n*3;ages[n]+=dt;if(ages[n]>lifetime||outside(positions[o],positions[o+1],positions[o+2])){remove(n);n--;}}
       time+=dt;return count;
     }

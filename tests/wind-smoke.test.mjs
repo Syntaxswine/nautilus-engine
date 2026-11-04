@@ -60,6 +60,8 @@ test('between bake bearings slerp keeps the free stream exactly and linear slows
   const mid=W.blendWindBearings(set,{fromDeg:22.5,speed:6,blend:'linear'});assert.ok(Math.abs(Math.hypot(mid.velocity[0],mid.velocity[2])/W.profileSpeed(.5,6,.25)-Math.cos(Math.PI/8))<1e-5);
   const wrap=W.blendWindBearings(set,{fromDeg:-22.5,speed:6});assert.deepEqual(wrap.blend.bearings,[315,0]);assert.ok(Math.abs(wrap.blend.weights[0]-wrap.blend.weights[1])<1e-15);
   assert.deepEqual(W.blendWindBearings(set,{fromDeg:382.5,speed:6}).blend.bearings,[0,45]);assert.deepEqual(W.blendWindBearings(set,{fromDeg:0,speed:6}).blend.weights,[1,0]);
+  // A set that starts east of north wraps the other way: north lies between 270 and 90.
+  const east=W.blendWindBearings(emptySet([90,180,270]),{fromDeg:0,speed:6,blend:'linear'});assert.deepEqual(east.blend.bearings,[270,90]);assert.deepEqual(east.blend.weights,[.5,.5]);
   // A calm is a calm, and a lone bearing serves every bearing.
   assert.ok(W.blendWindBearings(set,{fromDeg:10,speed:0}).velocity.every(v=>v===0));
   const lone=emptySet([90]);assert.ok(W.blendWindBearings(lone,{fromDeg:200,speed:3}).velocity.every((v,c)=>v===lone.fields[0].velocity[c]/2));
@@ -137,6 +139,10 @@ test('smoke is reproducible from its seed, spreads at its diffusivity, stays out
   // A wall across the wind at 0 < x < 1: without the solid test puffs pass through it.
   const wall=(x,y,z)=>x>0&&x<1&&y<12,count=(s,where)=>{let n=0;for(let p=0;p<s.count;p++)if(where(s.positions[p*3],s.positions[p*3+1],s.positions[p*3+2]))n++;return n;},beyond=(x,y)=>x>1&&y<11;
   const walled=run(4,{blocked:wall});assert.ok(count(b,beyond)>10&&count(b,wall)>0,'the falsifier: puffs cross an unchecked wall');assert.equal(count(walled,wall),0);assert.equal(count(walled,beyond),0);
+  // A source inside a solid (a coarse roof voxel) still lets its puffs out: with a net climb of
+  // 0.6-0.8 m/s, every puff is above y = 2 m within 0.7 s.
+  const roof=(x,y,z)=>y<2,buried=W.createSmoke({rate:20,rise:1,spread:0,jitter:.2,blocked:roof});buried.addEmitter({x:0,y:1.6,z:0});for(let n=0;n<40;n++)buried.step(uniform(.5,-.2,0),.1);
+  let out=0,stuck=0;for(let p=0;p<buried.count;p++)if(buried.ages[p]>.75){if(buried.positions[p*3+1]>=2)out++;else stuck++;}assert.ok(out>40&&stuck===0,'buried source: '+out+' out, '+stuck+' stuck');
   // A random walk of K m^2/s spreads a puff by 2 K t on each axis.
   const walk=W.createSmoke({capacity:4000,rate:2000,rise:0,jitter:0,spread:.3,seed:9});walk.addEmitter({x:0,y:50,z:0});for(let n=0;n<10;n++)walk.step(uniform(1,0,0),.1);
   let ratio=0;for(let n=0;n<walk.count;n++)ratio+=walk.positions[n*3+2]**2/(2*.3*walk.ages[n]);ratio/=walk.count;assert.ok(Math.abs(ratio-1)<.06,'lateral variance over 2Kt: '+ratio);
