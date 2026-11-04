@@ -144,7 +144,10 @@ function compare(){
             for(const b of batches)for(let k=0;k<=end*3+2;k++)mean[k]+=b.path[k]/batches.length;
             let scatter=0;for(const b of batches)scatter+=(b.path[end*3]-mean[end*3])**2+(b.path[end*3+1]-mean[end*3+1])**2+(b.path[end*3+2]-mean[end*3+2])**2;scatter=Math.sqrt(scatter/batches.length);
             const baked=fieldArm(W.blendWindBearings(sets[set][3],{fromDeg,speed:SPEED,blend:'slerp'})),slerp3=plume(baked.sample,source,{dt,steps:end,blocked:baked.blocked});
-            results.live.push({source:label,set,target:fromDeg,batches:batches.length,T_end:row.T_end,scatter:+scatter.toFixed(4),slerp3ToLive:+dist(slerp3,end,mean,end).toFixed(4),truthToLive:+dist(truthPath,end,mean,end).toFixed(4)});
+            // Supplementary, added after the runs and outside P7: the other blends against the same live mean.
+            const toLive=blend=>{const a=fieldArm(W.blendWindBearings(sets[set][3],{fromDeg,speed:SPEED,blend}));return+dist(plume(a.sample,source,{dt,steps:end,blocked:a.blocked}),end,mean,end).toFixed(4);};
+            results.live.push({source:label,set,target:fromDeg,batches:batches.length,T_end:row.T_end,scatter:+scatter.toFixed(4),slerp3ToLive:+dist(slerp3,end,mean,end).toFixed(4),truthToLive:+dist(truthPath,end,mean,end).toFixed(4),
+              supplementary:{linear3ToLive:toLive('linear'),keepSpeed3ToLive:toLive('keep-speed'),uniformToLive:+dist(plume(uniformWind(fromDeg,SPEED),source,{dt,steps:end}),end,mean,end).toFixed(4)}});
           }
           results.rows.push(row);
         }

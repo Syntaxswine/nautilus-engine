@@ -1,0 +1,510 @@
+{
+ "note": "Not registered. timingRepeat ran with the machine at 100 % load (upper bounds); blendInterleaved times the three blends call by call in ABC/CBA order; veer is the mean wind direction aloft (top 40 % of the domain) against the bearing, A = 12.",
+ "timingRepeat": {
+  "rig": {
+   "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+   "threads": 16,
+   "node": "v24.15.0",
+   "platform": "win32 10.0.26200"
+  },
+  "positions": 1000000,
+  "cells": 99200,
+  "rows": [
+   {
+    "name": "E1 sampleWindField, blended field",
+    "median": 84.98,
+    "min": 83.82,
+    "max": 91.6,
+    "check": -13298250.174
+   },
+   {
+    "name": "E2 two bakes sampled and blended per call",
+    "median": 743.07,
+    "min": 427.07,
+    "max": 965.29,
+    "check": -13298250.173
+   },
+   {
+    "name": "E3 uniform log law",
+    "median": 21.06,
+    "min": 20.34,
+    "max": 27.7,
+    "check": -13846192.969
+   },
+   {
+    "name": "E4 live solver.sample",
+    "median": 255.57,
+    "min": 239.65,
+    "max": 269.61,
+    "check": -15898191.951
+   },
+   {
+    "name": "E5 createSmoke.step per puff (1,000 puffs, spread, blocked)",
+    "median": 406.05,
+    "min": 345.03,
+    "max": 443.29
+   },
+   {
+    "name": "E6 blendWindBearings linear per call (99200 cells)",
+    "median": 1017000,
+    "min": 695500,
+    "max": 1921100,
+    "check": -23.301
+   },
+   {
+    "name": "E6 blendWindBearings slerp per call (99200 cells)",
+    "median": 1602100,
+    "min": 1368600,
+    "max": 2811800,
+    "check": -23.666
+   },
+   {
+    "name": "E6 blendWindBearings keep-speed per call (99200 cells)",
+    "median": 10865600,
+    "min": 9990300,
+    "max": 12821100,
+    "check": -23.752
+   }
+  ]
+ },
+ "blendInterleaved": {
+  "units": "ms per call, 99,200 cells, 32 calls each after 8 warm-up rounds",
+  "linear": {
+   "median": 1.488,
+   "min": 1.223,
+   "max": 2.688
+  },
+  "slerp": {
+   "median": 1.538,
+   "min": 1.242,
+   "max": 9.168
+  },
+  "keep-speed": {
+   "median": 12.505,
+   "min": 10.851,
+   "max": 75.261
+  }
+ },
+ "veer": {
+  "single": [
+   {
+    "bearing": 0,
+    "seed": 1,
+    "veer3": -1.7,
+    "speed3": 6.941,
+    "veer12": 0.15,
+    "speed12": 7.126
+   },
+   {
+    "bearing": 11.25,
+    "seed": 1,
+    "veer3": -3.45,
+    "speed3": 7.364,
+    "veer12": -0.48,
+    "speed12": 7.061
+   },
+   {
+    "bearing": 22.5,
+    "seed": 1,
+    "veer3": -0.8,
+    "speed3": 7.885,
+    "veer12": 0.75,
+    "speed12": 7.711
+   },
+   {
+    "bearing": 22.5,
+    "seed": 2,
+    "veer3": 0.05,
+    "speed3": 7.257,
+    "veer12": 0.9,
+    "speed12": 7.269
+   },
+   {
+    "bearing": 45,
+    "seed": 1,
+    "veer3": 1.47,
+    "speed3": 7.182,
+    "veer12": 0.44,
+    "speed12": 7.084
+   },
+   {
+    "bearing": 56.25,
+    "seed": 1,
+    "veer3": 0.16,
+    "speed3": 6.752,
+    "veer12": 0.4,
+    "speed12": 7.136
+   },
+   {
+    "bearing": 67.5,
+    "seed": 1,
+    "veer3": 0.04,
+    "speed3": 7.181,
+    "veer12": 0.59,
+    "speed12": 7.27
+   },
+   {
+    "bearing": 90,
+    "seed": 1,
+    "veer3": 0.58,
+    "speed3": 7.249,
+    "veer12": 0.07,
+    "speed12": 7.19
+   },
+   {
+    "bearing": 101.25,
+    "seed": 1,
+    "veer3": -0.37,
+    "speed3": 7.084,
+    "veer12": 2.17,
+    "speed12": 7.122
+   },
+   {
+    "bearing": 112.5,
+    "seed": 1,
+    "veer3": 0.23,
+    "speed3": 6.961,
+    "veer12": 0.92,
+    "speed12": 7.196
+   },
+   {
+    "bearing": 135,
+    "seed": 1,
+    "veer3": 0.37,
+    "speed3": 7.66,
+    "veer12": 0.5,
+    "speed12": 7.361
+   },
+   {
+    "bearing": 146.25,
+    "seed": 1,
+    "veer3": 0.48,
+    "speed3": 7.001,
+    "veer12": 0.21,
+    "speed12": 7.196
+   },
+   {
+    "bearing": 157.5,
+    "seed": 1,
+    "veer3": 1.14,
+    "speed3": 7.013,
+    "veer12": 0.45,
+    "speed12": 7.161
+   },
+   {
+    "bearing": 180,
+    "seed": 1,
+    "veer3": 1.64,
+    "speed3": 7.095,
+    "veer12": 0.31,
+    "speed12": 7.185
+   },
+   {
+    "bearing": 191.25,
+    "seed": 1,
+    "veer3": 2.97,
+    "speed3": 7.26,
+    "veer12": 1.66,
+    "speed12": 7.027
+   },
+   {
+    "bearing": 202.5,
+    "seed": 1,
+    "veer3": 1.35,
+    "speed3": 7.063,
+    "veer12": 0.78,
+    "speed12": 7.187
+   },
+   {
+    "bearing": 202.5,
+    "seed": 2,
+    "veer3": -0.06,
+    "speed3": 7.346,
+    "veer12": -0.91,
+    "speed12": 7.331
+   },
+   {
+    "bearing": 225,
+    "seed": 1,
+    "veer3": -0.72,
+    "speed3": 7.096,
+    "veer12": 0.16,
+    "speed12": 7.319
+   },
+   {
+    "bearing": 236.25,
+    "seed": 1,
+    "veer3": 1.82,
+    "speed3": 7.629,
+    "veer12": 0.91,
+    "speed12": 7.363
+   },
+   {
+    "bearing": 247.5,
+    "seed": 1,
+    "veer3": -0.34,
+    "speed3": 7.312,
+    "veer12": 0.43,
+    "speed12": 7.379
+   },
+   {
+    "bearing": 270,
+    "seed": 1,
+    "veer3": 1.16,
+    "speed3": 7.447,
+    "veer12": 1.01,
+    "speed12": 6.902
+   },
+   {
+    "bearing": 281.25,
+    "seed": 1,
+    "veer3": 0.75,
+    "speed3": 7.481,
+    "veer12": -0.65,
+    "speed12": 7.451
+   },
+   {
+    "bearing": 292.5,
+    "seed": 1,
+    "veer3": -1.21,
+    "speed3": 7.393,
+    "veer12": 0.12,
+    "speed12": 7.349
+   },
+   {
+    "bearing": 315,
+    "seed": 1,
+    "veer3": -1.29,
+    "speed3": 7.14,
+    "veer12": 0.39,
+    "speed12": 7.232
+   },
+   {
+    "bearing": 326.25,
+    "seed": 1,
+    "veer3": -1.72,
+    "speed3": 7.106,
+    "veer12": 0.4,
+    "speed12": 7.245
+   },
+   {
+    "bearing": 337.5,
+    "seed": 1,
+    "veer3": -0.48,
+    "speed3": 7.187,
+    "veer12": 0.56,
+    "speed12": 7.19
+   }
+  ],
+  "street": [
+   {
+    "bearing": 0,
+    "seed": 1,
+    "veer3": -2.13,
+    "speed3": 6.882,
+    "veer12": 0.24,
+    "speed12": 7.237
+   },
+   {
+    "bearing": 11.25,
+    "seed": 1,
+    "veer3": -0.39,
+    "speed3": 7.076,
+    "veer12": -2.08,
+    "speed12": 6.914
+   },
+   {
+    "bearing": 22.5,
+    "seed": 1,
+    "veer3": -0.3,
+    "speed3": 8.131,
+    "veer12": 2.24,
+    "speed12": 7.709
+   },
+   {
+    "bearing": 22.5,
+    "seed": 2,
+    "veer3": 5.07,
+    "speed3": 6.428,
+    "veer12": 1.06,
+    "speed12": 6.592
+   },
+   {
+    "bearing": 45,
+    "seed": 1,
+    "veer3": 1.68,
+    "speed3": 7.188,
+    "veer12": 1.61,
+    "speed12": 7.439
+   },
+   {
+    "bearing": 56.25,
+    "seed": 1,
+    "veer3": 1.35,
+    "speed3": 7.119,
+    "veer12": -0.24,
+    "speed12": 7.095
+   },
+   {
+    "bearing": 67.5,
+    "seed": 1,
+    "veer3": 0.85,
+    "speed3": 7.793,
+    "veer12": 1.01,
+    "speed12": 7.888
+   },
+   {
+    "bearing": 90,
+    "seed": 1,
+    "veer3": 0.72,
+    "speed3": 7.63,
+    "veer12": -0.28,
+    "speed12": 7.804
+   },
+   {
+    "bearing": 101.25,
+    "seed": 1,
+    "veer3": 0.1,
+    "speed3": 7.403,
+    "veer12": 1.07,
+    "speed12": 7.517
+   },
+   {
+    "bearing": 112.5,
+    "seed": 1,
+    "veer3": -0.07,
+    "speed3": 7.297,
+    "veer12": -0.08,
+    "speed12": 7.51
+   },
+   {
+    "bearing": 135,
+    "seed": 1,
+    "veer3": -1.15,
+    "speed3": 8.191,
+    "veer12": -1.05,
+    "speed12": 7.79
+   },
+   {
+    "bearing": 146.25,
+    "seed": 1,
+    "veer3": -0.66,
+    "speed3": 6.972,
+    "veer12": -1.47,
+    "speed12": 7.133
+   },
+   {
+    "bearing": 157.5,
+    "seed": 1,
+    "veer3": -0.69,
+    "speed3": 7.462,
+    "veer12": -1.28,
+    "speed12": 7.466
+   },
+   {
+    "bearing": 180,
+    "seed": 1,
+    "veer3": 1.07,
+    "speed3": 7.357,
+    "veer12": -0.23,
+    "speed12": 7.313
+   },
+   {
+    "bearing": 191.25,
+    "seed": 1,
+    "veer3": 1.29,
+    "speed3": 7.201,
+    "veer12": 1.69,
+    "speed12": 7.108
+   },
+   {
+    "bearing": 202.5,
+    "seed": 1,
+    "veer3": 2.21,
+    "speed3": 7.42,
+    "veer12": 1.06,
+    "speed12": 7.206
+   },
+   {
+    "bearing": 202.5,
+    "seed": 2,
+    "veer3": -0.41,
+    "speed3": 7.419,
+    "veer12": 0.19,
+    "speed12": 7.473
+   },
+   {
+    "bearing": 225,
+    "seed": 1,
+    "veer3": 0.39,
+    "speed3": 7.498,
+    "veer12": 0.9,
+    "speed12": 7.477
+   },
+   {
+    "bearing": 236.25,
+    "seed": 1,
+    "veer3": 2.19,
+    "speed3": 7.565,
+    "veer12": 0.73,
+    "speed12": 7.589
+   },
+   {
+    "bearing": 247.5,
+    "seed": 1,
+    "veer3": -0.58,
+    "speed3": 7.956,
+    "veer12": 0.21,
+    "speed12": 7.407
+   },
+   {
+    "bearing": 270,
+    "seed": 1,
+    "veer3": 0.57,
+    "speed3": 7.462,
+    "veer12": 0.25,
+    "speed12": 7.533
+   },
+   {
+    "bearing": 281.25,
+    "seed": 1,
+    "veer3": 2.29,
+    "speed3": 7.794,
+    "veer12": 2.48,
+    "speed12": 7.262
+   },
+   {
+    "bearing": 292.5,
+    "seed": 1,
+    "veer3": -0.89,
+    "speed3": 7.734,
+    "veer12": 7.22,
+    "speed12": 6.398
+   },
+   {
+    "bearing": 315,
+    "seed": 1,
+    "veer3": -2.93,
+    "speed3": 7.499,
+    "veer12": -1.72,
+    "speed12": 7.327
+   },
+   {
+    "bearing": 326.25,
+    "seed": 1,
+    "veer3": -3.76,
+    "speed3": 7.444,
+    "veer12": -0.41,
+    "speed12": 7.384
+   },
+   {
+    "bearing": 337.5,
+    "seed": 1,
+    "veer3": -0.66,
+    "speed3": 7.473,
+    "veer12": -0.13,
+    "speed12": 7.484
+   }
+  ]
+ }
+}
