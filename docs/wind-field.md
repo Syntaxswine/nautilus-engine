@@ -99,7 +99,7 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 
 **How far baked smoke strays.** Measured on the page's house and street sites at bearings halfway between 8 bake bearings, against the field solved at that exact bearing ([record](reviews/2026-11-04-wind-bearings-smoke.md)):
 
-- **Chimney plumes.** A linear blend of 12-flow-through bakes leaves them 3.4 m (house) and 4.1 m (street roof) from the exact-bearing plume after 30–32 m of travel: 10–12 %. The heading is off by 1.7–2.8°. For comparison, snapping to the nearest bake is 12 m and 22° off.
+- **Chimney plumes.** A linear blend of 12-flow-through bakes leaves them 3.4 m (house) and 4.1 m (street roof) from the exact-bearing plume after 30–32 m of travel: 10–12 %. The heading is off by 1.7–2.8°. A default 3-flow-through bake leaves them 4.2 and 5.5 m off. For comparison, snapping to the nearest bake is 12 m and 22° off.
 - **Error along the path.** The error lies along the path: how far the smoke has gone, not which way it went.
 - **A fire in the street.** 6.3 m off (18 %, 6.4°).
 - **The uniform fallback.** 8.1 m and 4.5 m off for the roofs, which is about as good as a bake for smoke above the roofs. For the street fire it is 49 m off, because it carries smoke straight through the buildings.
@@ -196,7 +196,7 @@ The block test's signs were set from the physics before it first ran, and one of
 - An 8-bearing set takes 10.3 MB in memory and 13.8 MB as JSON.
 - The live solver takes 90–230 ms a step on these sites. It stays an authoring and review tool.
 
-**Narrative.** These judgments are subjective. In Tinderbox, smoke that holds in a courtyard, streams down a street or lifts out of a lee makes the wind legible and position matter. Baked smoke keeps the site's shape of the wind, and it swings at once when the bearing turns, which keeps cause and effect readable. A live plume lags about a flow-through behind a turn. Baked smoke is also steadier than live smoke: without meander it reads as a calm, laminar day. For chimney smoke above the roofs, a uniform drift reads almost the same as a bake. The difference shows where the smoke is low among the buildings, which is where Tinderbox's fires and the tactical games' grenades are.
+**Narrative.** These judgments are subjective. In Tinderbox, smoke that holds in a courtyard, streams down a street or lifts out of a lee makes the wind legible and position matter. Baked smoke keeps the site's shape of the wind, and it swings at once when the bearing turns, which keeps cause and effect readable. A live plume lags about a flow-through behind a turn. Baked smoke is also steadier than live smoke: without meander it reads as a calm, laminar day. For chimney smoke above the roofs, a uniform drift reads almost the same as a bake. The difference shows where the smoke is low among the buildings, which is where Tinderbox's fires and the tactical games' grenades are. There, smoke can also fork. On the page's street at 248°, the baked plume of a street fire left the canyon over the north row while the live one ran out of its east end; a bake picks one way ([pictures](reviews/2026-11-04-wind-bearings-smoke.md#visual-review)).
 
 **Recommendation (provisional).**
 

@@ -156,6 +156,13 @@ Timing load was 15–44 % on the registered timing run; a repeat at 100 % load g
    - The likely cause is a few of the 32 synthetic gust modes running slower than the window (that is a hypothesis), so a longer average barely helps. Averaging several seeds should.
 4. **A street fire's path forks (P4, P7).** At six of the eight 16-set targets, the exact-bearing bake at 3 flow-throughs is 10.9–18.0 m from its own 12-flow-through mean. Two seeds at 22.5° end 13–19 m apart at every averaging. The canyon sends smoke one way or the other on small differences. That uncertainty belongs to the site and the solver, not to the bake. Neither more bearings nor longer averaging removes it.
 
+### Visual review
+
+These judgments are subjective. The pictures are the page's own renderer in the app's browser pane, which was hidden, so frames were driven through `windFieldReview.advance`. In both, the wind is from 248°, between the 225° and 270° bakes. The blend is linear, the blue smoke is baked, and the white smoke is live, from the same sources.
+
+- **The house.** ![Baked and live chimney smoke over the Rowan family house](assets/2026-11-04-wind-bearings-smoke-house-248.png) The baked plume leaves the chimney as a narrow ribbon along the line the live plume follows on average. The live plume puffs out and wanders around it. The direction is the same; the live one is restless and the baked one calm. [With streaks](assets/2026-11-04-wind-bearings-smoke-page.jpg).
+- **The street.** The source is the street-level fire. ![Baked and live smoke from a fire in the street canyon](assets/2026-11-04-wind-bearings-smoke-street-248.png) The two plumes take different ways out of the canyon. The live smoke runs out of the street's east end, and the baked smoke climbs over the north row. This is the fork the numbers describe: the live scatter for this source is 13 m RMS and up to 48 m. Here it decides which building the smoke hangs over.
+
 ### Tables
 
 The tables give D_end in metres. Each cell is the median over the 8 targets, then the largest, the median share of travel and the median heading error.

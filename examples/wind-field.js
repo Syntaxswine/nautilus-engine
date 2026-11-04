@@ -321,6 +321,8 @@ window.windFieldReview={get state(){return structuredClone(state);},get domain()
   sample(x,y,z){return sample(x,y,z,[0,0,0]);},sampleBaked(x,y,z){return sampler?sampler.sample(x,y,z,[0,0,0]):null;},setBearing(deg){setBearing(deg);sendWind();},startBake(count=8){$('bake-count').value=String(count);if(!bake)startBake();},setSmokeMode,
   // Moves streaks and smoke as the frame loop does, for review where animation frames do not run.
   advance(seconds=1,dt=1/30){for(let t=0;t<seconds;t+=dt){if(state.streaks)moveStreaks(dt);if(state.smoke)moveSmoke(dt);}resize();if(state.streaks)drawStreaks();drawSmoke();renderer?.render(scene,camera);return{puffs:plumes.live.smoke?.count??0,bakedPuffs:plumes.baked.smoke?.count??0};},
+  // A smoke source at a world point, as a click would place it.
+  addSmoke(x,y,z){addSource(new T.Vector3(x,y,z));return sources.length;},
   // Camera for review shots: azimuth and elevation in degrees, distance in metres.
   look({azimuth=view.azimuth,elevation=view.elevation,distance=view.distance}={}){Object.assign(view,{azimuth,elevation,distance});placeCamera();resize();renderer?.render(scene,camera);return{...view,target:view.target.toArray()};},
   // Centroid of each smoke system's puffs, metres.
