@@ -23,6 +23,7 @@ const MUTANTS=[
   ['B15 sampler cache ignores the speed','killed','bearings.js',"const next=bearing+' '+u;",'const next=String(bearing);'],
   ['B16 decode skips the set check','killed','bearings.js','return checkBearings({...record,fields:record.fields.map(decodeWindField)});','return{...record,fields:record.fields.map(decodeWindField)};'],
   ['B17 bracket starts at the first bearing','killed','bearings.js','let i=n-1;for(let k=0;','let i=0;for(let k=0;'],
+  ['B18 the sampler defaults to slerp','killed','bearings.js',"export function createWindBearingSampler(set,{fromDeg,speed,blend='linear'}={}){","export function createWindBearingSampler(set,{fromDeg,speed,blend='slerp'}={}){"],
   ['S01 rise taken at the step start','killed','smoke.js','Math.exp(-(ages[n]+.5*dt)/cooling[n])','Math.exp(-ages[n]/cooling[n])'],
   ['S02 rise never cools','killed','smoke.js','up[n]=warmth[n]*Math.exp(-(ages[n]+.5*dt)/cooling[n]);','up[n]=warmth[n];'],
   ['S03 no solid test','killed','smoke.js','if(before)for(let n=0,o=0;n<count;n++,o+=3)if(blocked(','if(false)for(let n=0,o=0;n<count;n++,o+=3)if(blocked('],

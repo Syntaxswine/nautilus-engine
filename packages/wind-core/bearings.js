@@ -6,7 +6,9 @@ import {WIND_FIELD_KIND,WIND_FIELD_VERSION,bakeWindField,sampleWindField,encodeW
 // field baked at U0 is exact at U once multiplied by U / U0.
 export const WIND_BEARINGS_KIND='nautilus-wind-bearings';
 export const WIND_BEARINGS_VERSION=1;
-// linear: weights 1 - t and t; slows the free stream by up to cos(gap/2) between bake bearings.
+// linear (the default): weights 1 - t and t; slows the free stream by up to cos(gap/2) between
+// bake bearings. It carried chimney and street smoke closest to the exact-bearing field in the
+// registered measurement (docs/reviews/2026-11-04-wind-bearings-smoke.md).
 // slerp: weights sin((1 - t) gap) / sin gap and sin(t gap) / sin gap; the free stream is exact
 // in speed and direction, and flow that both neighbours share is sped up by as much.
 // keep-speed: linear, then each cell's horizontal speed is restored toward the weighted mean of
@@ -60,7 +62,7 @@ function bracket(bearings,fromDeg){
 // two baked bearings either side. The result is an ordinary wind field on the set's grid, so
 // sampleWindField and advectTracers take it unchanged; pass the previous result as `into` to
 // reuse its buffers. At a baked bearing it is that field times speed / baked speed.
-export function blendWindBearings(set,{fromDeg,speed,blend='slerp'}={},into=null){
+export function blendWindBearings(set,{fromDeg,speed,blend='linear'}={},into=null){
   checkBearings(set);if(!BEARING_BLENDS.includes(blend))throw Error('Blend is one of '+BEARING_BLENDS.join(', ')+'.');
   if(!Number.isFinite(fromDeg))throw Error('Wind bearing must be finite.');if(!(speed>=0&&Number.isFinite(speed)))throw Error('Wind speed must be finite and non-negative.');
   const{bearings,fields}=set,a=fields[0],cells=a.solid.length,{i,j,t,gap}=bracket(bearings,fromDeg),s=speed/a.wind.speed;
@@ -80,7 +82,7 @@ export function blendWindBearings(set,{fromDeg,speed,blend='slerp'}={},into=null
 }
 // A host's handle on a bearing set: sample() reads the current blend, and setWind() blends again
 // only when the bearing or speed changes. One trilinear lookup per sample either way.
-export function createWindBearingSampler(set,{fromDeg,speed,blend='slerp'}={}){
+export function createWindBearingSampler(set,{fromDeg,speed,blend='linear'}={}){
   checkBearings(set);let field=null,key='';
   const api={
     get field(){return field;},get fromDeg(){return field.wind.fromDeg;},get speed(){return field.wind.speed;},

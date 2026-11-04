@@ -107,7 +107,8 @@ test('the bearing sampler reads the current blend and blends again only when the
     for(let n=0;n<200;n++){const x=-16+32*random(),y=10*random(),z=-16+32*random();assert.deepEqual(sampler.sample(x,y,z,out),W.sampleWindField(field,x,y,z));}}
   sampler.field.velocity.fill(0);sampler.setWind({fromDeg:300,speed:7.5});assert.ok(sampler.field.velocity.every(v=>v===0),'an unchanged wind must not blend again');
   sampler.setWind({speed:7.4});assert.ok(sampler.field.velocity.some(v=>v!==0));assert.equal(sampler.fromDeg,300);
-  assert.equal(W.createWindBearingSampler(set).fromDeg,set.bearings[0]);assert.equal(W.createWindBearingSampler(set).field.blend.mode,'slerp');
+  // Linear is the default because it carried smoke closest to the exact bearings when measured.
+  assert.equal(W.createWindBearingSampler(set).fromDeg,set.bearings[0]);assert.equal(W.createWindBearingSampler(set).field.blend.mode,'linear');assert.equal(W.blendWindBearings(set,{fromDeg:30,speed:4}).blend.mode,'linear');
 });
 
 test('smoke rides the wind, rises as it cools by the midpoint rule and leaves on time',()=>{

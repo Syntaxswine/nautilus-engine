@@ -41,7 +41,7 @@
         <p class="eyebrow" id="bake-title">BAKED BEARINGS</p>
         <p class="hint">A game bakes the mean wind at a few bearings once, then blends the two either side of the day's wind and scales it to its speed. No solver runs while it plays.</p>
         <label class="row">Bearings <select id="bake-count"><option value="8" selected>8, every 45°</option><option value="16">16, every 22.5°</option></select></label>
-        <label class="row">Blend <select id="bake-blend"><option value="slerp" selected>Slerp (exact free stream)</option><option value="linear">Linear</option><option value="keep-speed">Keep speed</option></select></label>
+        <label class="row">Blend <select id="bake-blend"><option value="linear" selected>Linear (measured best)</option><option value="slerp">Slerp (exact free stream)</option><option value="keep-speed">Keep speed</option></select></label>
         <div class="bake-actions"><button id="bake">Bake bearings</button><button id="export-bake" disabled>Export set</button></div>
         <progress id="bake-progress" max="1" value="0" hidden></progress>
         <p class="hint" id="bake-note" role="status" aria-live="polite">Not baked yet.</p>

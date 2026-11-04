@@ -26,7 +26,27 @@ const puffs = Float32Array.of(0, 8.4, -1);                 // one puff at a chim
 advectTracers((x, y, z, out) => sampleWindField(field, x, y, z, out), puffs, 0.1, {rise: 1});
 ```
 
-Open `/examples/wind-field.html` in the built preview. Pick a layout (a single building, a street canyon or a farmyard) and swap or turn any of the 48 original buildings. Then set the bearing, the speed at 10 m, the upwind terrain and the gusts. Streaks follow the air. Clicking a roof or the ground releases smoke. Slices show the speed on a horizontal or along-wind plane. **Export mean field** downloads the baked field as JSON. The solver runs in a worker.
+A game should not run the solver. It bakes a set of bearings once and blends at play time, as described under [baked bearings and smoke](#baked-bearings-and-smoke):
+
+```js
+import {bakeWindBearings, encodeWindBearings, decodeWindBearings, createWindBearingSampler,
+  createSmoke, windFieldBounds, windFieldSolid} from '../packages/wind-core/index.js';
+
+// Authoring: one grid with equal margins on every side serves every bearing.
+const site = windDomain(triangleBounds(triangles), {cell: 1, upstream: 3, lateral: 3, downstream: 3});
+const walls = voxelizeTriangles(site, triangles).solid; fillEnclosed(site, walls);
+const set = bakeWindBearings({grid: site, solid: walls, bearings: 8, wind: {speed: 6, z0: 0.25}});
+const json = JSON.stringify(encodeWindBearings(set));      // ships with the map
+
+// Play: no solver. Any bearing, any speed at 10 m.
+const wind = createWindBearingSampler(decodeWindBearings(json), {fromDeg: 200, speed: 4.5});
+const smoke = createSmoke({seed: 7, bounds: windFieldBounds(wind.field), blocked: windFieldSolid(wind.field)});
+smoke.addEmitter({x: 0, y: 8.5, z: -1});                    // a chimney top
+wind.setWind({fromDeg: 205});                               // blends again only when the wind changes
+smoke.step(wind.sample, 1 / 30);                            // draw smoke.positions[0 .. 3 * smoke.count)
+```
+
+Open `/examples/wind-field.html` in the built preview. Pick a layout (a single building, a street canyon or a farmyard) and swap or turn any of the 48 original buildings. Then set the bearing, the speed at 10 m, the upwind terrain and the gusts. Streaks follow the air. Clicking a roof or the ground releases smoke. Slices show the speed on a horizontal or along-wind plane. **Export mean field** downloads the baked field as JSON. The solver runs in a worker. **Bake bearings** bakes 8 or 16 bearings in further workers while the live wind runs; the page then draws the baked smoke (blue) beside the live smoke (white) from the same sources. Turn the dial: the baked plume swings at once, and the live one follows after about a flow-through. **Export set** downloads the bearing set.
 
 ## Conventions
 
@@ -46,6 +66,71 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 | Gusts | Random Fourier modes, each divergence-free, weighted by the von Kármán spectrum and convected with the wind (frozen turbulence). Standard deviations are 2.5, 1.9 and 1.25 u* along-wind, lateral and vertical. They enter only through the inflow. | Kraichnan (1970); Smirnov, Shi and Celik (2001); Panofsky and Dutton (1984) |
 | Solids | Conservative triangle–box overlap marks every cell a model surface touches. Air not reachable from the sides or top of the domain is sealed and becomes solid. So does air that reaches no outlet. | Akenine-Möller (2001) |
 | Tracers | Midpoint steps through any `sample(x, y, z, out)`. A per-tracer upward drift stands in for warm smoke's rise, with an optional seeded random walk. Tracers do not push the air. | — |
+
+## Baked bearings and smoke
+
+The headless path for games (`packages/wind-core/bearings.js` and `smoke.js`). The measurement behind the numbers here was registered before it ran: [the record](reviews/2026-11-04-wind-bearings-smoke.md).
+
+**Bake.** `bakeWindBearings({grid, solid, bearings, wind: {speed, z0}, turbulence, warmup, average})` solves each bearing on one grid. The grid should have equal margins on every side, so one grid serves every bearing. Each bearing starts from the bare inflow profile, so no bearing depends on the order of the bake. It warms up for `warmup` flow-throughs and averages over `average` more; a flow-through is the longer horizontal side divided by the reference speed. The defaults are 8 bearings, gusts at gain 1, `warmup` 1 and `average` 3. Steps whose pressure solve did not converge are counted per bearing in `unconverged`. `bearings` is a count (evenly spaced from north) or a list.
+
+**Speed is exact.** The solver has no speed scale of its own. dt = cfl·h/U, the gusts' u*, convection and frequencies, and the pressure tolerance all scale with U. A field baked at U0 is the field at U once multiplied by U/U0, so one bake serves every speed. Doubling is exact in binary: on the single-house site, the 3 m/s bake is exactly half the 6 m/s bake in all 297,600 values at every averaging length. At 9 m/s against 1.5 × the 6 m/s bake, rounding grows in the turbulent flow to a largest difference of 2.4 m/s. The chimney plumes still end only 1.5 m apart, below the 2.8 m that two gust seeds give. Any viscosity or a fixed dt would break the scaling, so `bakeWindBearings` offers neither. Terrain is not scaled: the bake holds one z0.
+
+**Blend.** `blendWindBearings(set, {fromDeg, speed, blend}, into)` takes the two bake bearings either side of `fromDeg` and returns an ordinary wind field on the set's grid, so `sampleWindField`, `advectTracers` and smoke take it unchanged. At a bake bearing it is that bake times U/U0, value for value. A cell solid in either weighted neighbour is solid and still.
+
+| Blend | Weights at t of the way across a gap Δ | Free stream between bake bearings | Where both neighbours agree |
+| --- | --- | --- | --- |
+| `linear` (default) | 1 − t and t | Slowed to the chord, cos(Δ/2) at the midpoint; turned slightly off the bearing elsewhere | Unchanged |
+| `slerp` | sin((1 − t)Δ)/sin Δ and sin(tΔ)/sin Δ | Exact in speed and direction | Sped up by up to 1/cos(Δ/2): 8 % at 8 bearings, 2 % at 16 |
+| `keep-speed` | Linear, then each cell's horizontal speed restored toward the weighted mean of its neighbours' speeds, at most 1/cos(Δ/2) | Exact speed, linear's direction | Unchanged; no longer exactly divergence-free |
+
+`createWindBearingSampler(set, {fromDeg, speed, blend})` holds one blended field. `setWind()` blends again only when the bearing or the speed changes, and `sample()` is one trilinear lookup. `encodeWindBearings` and `decodeWindBearings` write each bearing in the wind-field encoding: 1.7 MB of JSON per bearing for the page's 99,200-cell house site, and 10.3 MB in memory for 8 bearings.
+
+Linear is the default because the registered rule chose it: it carried smoke closest to the exact bearings, by a cancellation described below. Slerp is the principled choice where the free stream matters more than wakes, such as sources upwind of buildings or on open ground; that case was not measured. Keep-speed measured no better than slerp and costs 8–12 times as much per blend.
+
+**Smoke.** `createSmoke({capacity, lifetime, rate, rise, riseTime, spread, jitter, seed, bounds, blocked})` rides any `sample()`, live or baked.
+
+- **Emitters.** `addEmitter({x, y, z, rate, rise, riseTime})` places a source; `moveEmitter` and `removeEmitter` change them. Each puff starts within `jitter` of its source.
+- **Rise.** A puff climbs at rise·e^(−age/riseTime) m/s, taken at the middle of each step, so a step adds the midpoint rule's share of the exact integral. The climb is a drift that does not lift the air.
+- **Spread.** A seeded random walk of `spread` m²/s spreads each axis by 2·spread·t.
+- **Lifetime and bounds.** A puff expires at `lifetime` seconds or on leaving `bounds`.
+- **Solids.** With `blocked(x, y, z)`, a step from air into a solid is refused and the puff waits. A puff that starts inside a coarse voxel moves until it is out.
+- **Seed.** One seeded stream drives the jitter and the walk. `reset()` rewinds it, so the same seed and the same calls give the same smoke, bit for bit.
+- **Helpers.** `windFieldBounds` and `windFieldSolid` give a field's box and solid test.
+
+**How far baked smoke strays.** Measured on the page's house and street sites at bearings halfway between 8 bake bearings, against the field solved at that exact bearing ([record](reviews/2026-11-04-wind-bearings-smoke.md)):
+
+- **Chimney plumes.** A linear blend of 12-flow-through bakes leaves them 3.4 m (house) and 4.1 m (street roof) from the exact-bearing plume after 30–32 m of travel: 10–12 %. The heading is off by 1.7–2.8°. For comparison, snapping to the nearest bake is 12 m and 22° off.
+- **Error along the path.** The error lies along the path: how far the smoke has gone, not which way it went.
+- **A fire in the street.** 6.3 m off (18 %, 6.4°).
+- **The uniform fallback.** 8.1 m and 4.5 m off for the roofs, which is about as good as a bake for smoke above the roofs. For the street fire it is 49 m off, because it carries smoke straight through the buildings.
+- **Against live smoke.** About 110–130 live plumes in the running solver wander 9–13 m RMS around their mean path. A practical 3-flow-through bake ends 4.5–4.7 m (roofs) and 9.8 m (street) from that mean.
+- **Seed bias.** A bake also carries the seed of its gusts. Two seeds differ by 6–15 % in mean speed aloft even after 12 flow-throughs, and averaging longer barely helps.
+- **Street forks.** In the street canyon, some bearings send smoke one way or the other on small differences, by up to 19 m.
+
+**Cost.** Measured with Node 24.15 on a Ryzen 7 5800X at 15–44 % background load:
+
+| Operation | Cost |
+| --- | --- |
+| One baked sample (`sampleWindField`, one trilinear lookup) | 64 ns |
+| Two bakes sampled and blended on every call | 149 ns. Sampling one pre-blended field is cheaper, and the gap grows under load: 85 against 743 ns at 100 %. |
+| The uniform log law | 14 ns |
+| A live `solver.sample` | 211 ns |
+| One `createSmoke.step` per puff | 360 ns, so 1,000 puffs take 0.36 ms a frame |
+| A re-blend of 99,200 cells (when the wind changes) | 0.7–1.5 ms for linear or slerp; 9–13 ms for keep-speed |
+| A default bake (1 + 3 flow-throughs) | About 30–50 s per bearing on one quiet thread for these 100k-cell sites; the page's 8 workers took 297 s with the machine fully loaded |
+
+**Verification.** `tests/wind-smoke.test.mjs` (9 tests, about 3 s, in `npm test`):
+
+- A bake at 8 m/s is twice the bake at 4 m/s in all 147,456 values, gusts included.
+- On an empty site each blend meets its free-stream row above to 1e-5 at five bearings, including a wrap past north.
+- keep-speed never exceeds its cap, and solid flags follow their weighted neighbours.
+- A set survives a JSON round trip, and eight inconsistent sets are refused with their reasons.
+- The sampler blends again only on a change.
+- Smoke matches its midpoint-rule rise to 1e-5 and the 2Kt spread to 6 %.
+- Smoke replays from its seed and keeps each puff's warmth across removals.
+- Puffs never cross a wall that unchecked smoke crosses, and a buried source still lets its puffs out.
+
+`node tools/wind-smoke-mutants.mjs` kills all 30 of its faults in a private copy, the linear default among them; the comment-only control survives. `node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
 
 ## Verification
 
@@ -82,15 +167,47 @@ The block test's signs were set from the physics before it first ran, and one of
 
 ## Design evaluation
 
-**Alternatives.** (a) One uniform wind vector for the whole map, which is what a game without wind physics effectively uses. (b) This solved field, baked per bearing. (c) Offline RANS or LES at fine resolution in an external CFD tool.
+**Alternatives and context.** The subsystem is smoke direction in a built site: where smoke from a chimney, a burning building or a grenade goes under any wind. It matters to Tinderbox, where fire is the game, and to Farmyard Commando and AFT-3D, where smoke screens. The behaviour that matters is the plume's path at play-time cost. The options:
 
-**Accuracy.** A uniform vector carries the right mean direction and nothing else. It has no shelter behind buildings, no channelling along streets, no updraft on windward faces and no downwash into a lee. The solved field reproduces those causes, matches the cavity benchmark within 1 % of the lid speed, and gives a cube wake in the observed range once gusts are on. It omits buoyancy, ground friction and fine geometry. Offline CFD would be more accurate still, at a cost no game pays at runtime.
+- (a) One uniform log-law wind for the map, turned to the bearing. This is what a game without wind physics uses, and the fallback.
+- (b) This solver baked at a set of bearings and blended at play time (`bakeWindBearings`, `createWindBearingSampler`, `createSmoke`, this branch).
+- (c) The live solver every frame.
+- (d) Offline RANS or LES in an external CFD tool, as a reference only.
 
-**Efficiency.** A uniform vector costs nothing. Sampling a baked field is one trilinear lookup per tracer: three components from eight cells. Baking costs seconds to minutes per bearing at authoring time and grows with cell count. The live solver here is an authoring and review tool, not a per-frame game system.
+**Accuracy.** The [registered measurement](reviews/2026-11-04-wind-bearings-smoke.md) compares smoke halfway between bake bearings with the field solved at that exact bearing.
 
-**Narrative.** (Subjective.) In Tinderbox the fire is the game, and smoke that pools in a courtyard, rolls off a roof ridge or streams down a street makes the wind legible and makes position matter. The tactical games could use the same field for smoke grenades and screening. A uniform drift reads as weather. A solved drift reads as a place.
+- **The uniform wind** points roof smoke the right way: its heading is within 1.3–3.8° of the exact plume's. It lacks shelter, channelling, updraft and downwash. Its roof plumes end 8.1 m (house) and 4.5 m (street roof) off; its street fire ends 49 m off, with the smoke passing through the buildings.
+- **An 8-bearing linear blend** holds roof plumes to 3.4–4.1 m (10–12 % of travel, 1.7–2.8° of heading) and the street fire to 6.3 m. Snapping to the nearest bake is 12–22 m off.
+- **Sixteen bearings** cut slerp's error at the same targets by 16–34 %, but not linear's everywhere: its street-roof error grew by 17 %.
+- **What a single bake carries:**
+  - its gust seed, a 6–15 % bias in mean speed aloft that longer averaging barely removes;
+  - in a canyon, the forks of the smoke's own path (up to 19 m between two seeds).
+- **What it omits:**
+  - all the solver's limits (neutral air, slip ground, 1 m cells, small domains);
+  - meander, since live plumes wander 9–13 m RMS around their mean;
+  - buoyancy, since the rise is a drift that does not lift the air.
+- **Offline CFD** would be more accurate still, at a cost no game pays.
 
-**Recommendation (provisional).** Bake mean fields at authoring time for 8 or 16 bearings per map, and interpolate between neighbouring bearings at runtime. Add the gust model, or a cheap noise on top, for motion. Keep the uniform vector as the fallback for maps without a bake. The observation that would settle it is a Tinderbox scene with fire and buildings, compared side by side under both. **Adoption status:** candidate, source-only; no game, consumer pin or editor flow changes.
+**Efficiency.** Measured; see [cost](#baked-bearings-and-smoke).
+
+- A uniform sample costs 14 ns. A baked sample is one trilinear lookup, 64 ns, and a smoke puff costs 360 ns a step, so a thousand puffs take a third of a millisecond a frame.
+- Re-blending the 99,200-cell site when the wind changes costs 0.7–1.5 ms. Blending two bakes on every sample instead costs 2.3 times one lookup, and much more under memory contention.
+- Baking is authoring time: about 30–50 s per bearing on one thread for these sites, and it scales with cells.
+- An 8-bearing set takes 10.3 MB in memory and 13.8 MB as JSON.
+- The live solver takes 90–230 ms a step on these sites. It stays an authoring and review tool.
+
+**Narrative.** These judgments are subjective. In Tinderbox, smoke that holds in a courtyard, streams down a street or lifts out of a lee makes the wind legible and position matter. Baked smoke keeps the site's shape of the wind, and it swings at once when the bearing turns, which keeps cause and effect readable. A live plume lags about a flow-through behind a turn. Baked smoke is also steadier than live smoke: without meander it reads as a calm, laminar day. For chimney smoke above the roofs, a uniform drift reads almost the same as a bake. The difference shows where the smoke is low among the buildings, which is where Tinderbox's fires and the tactical games' grenades are.
+
+**Recommendation (provisional).**
+
+- Bake 8 bearings per map with the defaults (linear blend, `average` 3), and blend them at play time.
+- Bake 16 bearings where smoke sits low among buildings and the extra 10 MB is affordable.
+- Average two or three gust seeds into a bake when absolute plume positions matter. This removes the seed bias but is untested here.
+- Add a cheap meander, such as the gust model sampled at the puffs, if steady plumes look too calm.
+- Keep the uniform wind as the fallback for maps without a bake. It is already adequate for plumes released above the roofs.
+- The observation that would settle it is a Tinderbox scene with fire among buildings, compared side by side under the uniform wind and a bake.
+
+**Adoption status.** This is a candidate, source-only. There is no `./wind` export, and no game, consumer pin or editor flow changes. Whether Tinderbox adopts it is the architect's and the owner's call.
 
 ## Mutation sweep
 
@@ -108,6 +225,12 @@ The neutral control (a comment-only edit) survived every round. **M03 is the hon
 
 - Register `./wind` with an installed-package proof, as the other optional entries have.
 - Voxelize an editor map (walls, roofs, prefabs and tiles) instead of catalogue placements.
-- Bake sets of bearings, and add a smoke component with Boussinesq buoyancy if Tinderbox needs real plume rise.
+- Bearing sets and smoke are in place (above). Still open:
+  - Average several gust seeds into one bake, and check that it removes the seed bias.
+  - Give baked smoke a cheap meander.
+  - Measure slerp against linear for sources upwind of buildings.
+  - Quantize the stored fields.
+  - Let `bakeWindBearings` pass the solver's `step` option on once advection–reflection lands.
+  - Add Boussinesq buoyancy if Tinderbox needs real plume rise.
 - Cut the dissipation with advection–reflection, checked against the Taylor–Green record above.
 - Run faster: a multigrid preconditioner, or a WebGL2 path verified against this one.

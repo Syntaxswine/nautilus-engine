@@ -91,6 +91,8 @@ Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The p
 
 The headless `packages/wind-core` voxelizes those building models and solves the incompressible air around them: a log-law inflow, optional surface-layer gusts and a velocity field that tracers such as smoke can follow. Open `/examples/wind-field.html` after building and serving. Choose buildings and a wind, watch the streaks, and click a roof to release smoke. See [the wind contract, its verification and limits](docs/wind-field.md). No `./wind` export is registered yet, and no game reads the field.
 
+For games, `bakeWindBearings` bakes the mean wind at several bearings once. `createWindBearingSampler` blends the two either side of any bearing and scales the result to any speed, so no solver runs at play time. `createSmoke` carries seeded, cooling, spreading puffs through the baked blend or the live solver. The page's **Bake bearings** draws the two side by side. How far baked smoke strays from live smoke was [measured against checks registered before the run](docs/reviews/2026-11-04-wind-bearings-smoke.md).
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.
