@@ -1,7 +1,8 @@
 import * as T from '../packages/render-effects/three.js';
 import {DESIGNS} from '../packages/building-catalog/index.js';
 import {createBuildingModel} from '../packages/building-catalog/three.js';
-import {TERRAIN,windDirection,bearingName,frictionVelocity,SURFACE_LAYER_SIGMA,windDomain,objectTriangles,triangleBounds,sampleWindField,advectTracers,seededRandom,WIND_FIELD_KIND,WIND_FIELD_VERSION} from '../packages/wind-core/index.js';
+import {TERRAIN,windDirection,bearingName,frictionVelocity,SURFACE_LAYER_SIGMA,windDomain,objectTriangles,triangleBounds,sampleWindField,seededRandom,WIND_FIELD_KIND,WIND_FIELD_VERSION,
+  WIND_BEARINGS_KIND,WIND_BEARINGS_VERSION,evenBearings,createWindBearingSampler,encodeWindBearings,createSmoke,windFieldBounds,windFieldSolid} from '../packages/wind-core/index.js';
 
 const $=id=>document.getElementById(id),errors=[],say=text=>{$('status').textContent=text;};
 addEventListener('error',event=>errors.push(event.message));addEventListener('unhandledrejection',event=>errors.push(String(event.reason)));
@@ -13,7 +14,7 @@ const SITES={
 };
 const MAX_CELLS=1000000,TOLERANCE=2e-4;
 const state={preset:'single',buildings:structuredClone(SITES.single.buildings),cell:1,fromDeg:225,speed:6,terrain:'rough',gust:1,running:!matchMedia('(prefers-reduced-motion: reduce)').matches,
-  streaks:true,mean:false,slice:'off',sliceHeight:1.5,smoke:true};
+  streaks:true,mean:false,slice:'off',sliceHeight:1.5,smoke:true,smokeMode:'live'};
 // One gold hue, dark to light: slow air recedes into the dark ground, fast air glows.
 const RAMP=['#3a3424','#6b5a33','#a3844a','#d6b679','#fbf0d0'],LUT=new Float32Array(64*3),LUT8=new Uint8Array(64*3);
 {const stops=RAMP.map(hex=>new T.Color(hex)),srgb=RAMP.map(hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)));
@@ -30,7 +31,7 @@ const ground=new T.Mesh(new T.PlaneGeometry(400,400),new T.MeshStandardMaterial(
 const grid=new T.GridHelper(200,200,0x7d8a6c,0x6c785e);grid.material.opacity=.18;grid.material.transparent=true;grid.position.y=-.01;scene.add(grid);
 const camera=new T.PerspectiveCamera(38,1,.1,900),view={target:new T.Vector3(),azimuth:-35,elevation:32,distance:60};
 function placeCamera(){const a=view.azimuth*Math.PI/180,e=view.elevation*Math.PI/180;camera.position.set(view.target.x+view.distance*Math.sin(a)*Math.cos(e),view.target.y+view.distance*Math.sin(e),view.target.z+view.distance*Math.cos(a)*Math.cos(e));camera.lookAt(view.target);updateRose();}
-function resize(){const r=stage.getBoundingClientRect(),w=Math.max(1,r.width),h=Math.max(1,r.height);renderer?.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();smokeMaterial.uniforms.scale.value=h*renderer?.getPixelRatio?.()/(2*Math.tan(camera.fov*Math.PI/360));}
+function resize(){const r=stage.getBoundingClientRect(),w=Math.max(1,r.width),h=Math.max(1,r.height);renderer?.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();for(const p of Object.values(plumes))p.material.uniforms.scale.value=h*renderer?.getPixelRatio?.()/(2*Math.tan(camera.fov*Math.PI/360));}
 
 // ---------- site models
 const atlas=renderer?await new T.TextureLoader().loadAsync('../assets/buildings/painted-materials-v2.png'):null;
@@ -56,7 +57,7 @@ function rebuild({frame=false}={}){
   const triangles=objectTriangles(site),bounds=triangleBounds(triangles),preset=SITES[state.preset];
   let g;try{g=windDomain(bounds,{cell:state.cell,fromDeg:state.fromDeg,upstream:preset.margin,lateral:preset.margin,downstream:preset.margin,height:preset.height,minimum:8});}catch(error){say(error.message);return;}
   if(g.cells>MAX_CELLS){say('That site needs '+g.cells.toLocaleString()+' cells at '+state.cell+' m; the limit here is '+MAX_CELLS.toLocaleString()+'. Choose 1 m cells.');return;}
-  domain=g;field=meanField=null;solid=null;readyInfo=null;stats=null;
+  domain=g;field=meanField=null;solid=null;readyInfo=null;stats=null;forgetBake();
   // Frame the site from the wind's right-hand side, so streaks and smoke cross the view.
   if(frame){const c=siteBounds.getCenter(new T.Vector3()),size=siteBounds.getSize(new T.Vector3());view.target.set(c.x,Math.min(4,size.y*.35),c.z);view.distance=Math.max(28,Math.hypot(size.x,size.z)*1.55)/Math.sqrt(Math.min(1,camera.aspect));view.azimuth=270-state.fromDeg;view.elevation=30;}
   const half=Math.max(g.size[0],g.size[2])*g.cell/2+10;Object.assign(sun.shadow.camera,{left:-half,right:half,top:half,bottom:-half,near:1,far:220});sun.shadow.camera.updateProjectionMatrix();
@@ -121,27 +122,85 @@ function drawStreaks(){
   streakGeometry.attributes.position.needsUpdate=true;streakGeometry.attributes.color.needsUpdate=true;
 }
 
-// ---------- smoke: puffs carried by the wind, rising while they are warm
-const PUFFS=3200,MAX_SOURCES=6,puffPosition=new Float32Array(PUFFS*3),puffAge=new Float32Array(PUFFS),puffRise=new Float32Array(PUFFS),PUFF_LIFE=26;let puffCount=0,sources=[],emitDebt=0;
-const smokeGeometry=new T.BufferGeometry();smokeGeometry.setAttribute('position',new T.BufferAttribute(puffPosition,3).setUsage(T.DynamicDrawUsage));smokeGeometry.setAttribute('age',new T.BufferAttribute(puffAge,1).setUsage(T.DynamicDrawUsage));
-const smokeMaterial=new T.ShaderMaterial({uniforms:{scale:{value:600},life:{value:PUFF_LIFE},color:{value:new T.Color('#d9dbd3')}},transparent:true,depthWrite:false,
+// ---------- smoke: puffs carried by the wind, rising while they are warm (wind-core createSmoke).
+// Two systems share the sources and the seed: one rides the live solver, one the baked blend.
+// The rise is the puffs' own drift, not a buoyant flow.
+const MAX_SOURCES=6,SMOKE={capacity:3200,lifetime:26,rate:14,rise:1.1,riseTime:5,spread:.12,jitter:.15,seed:11};let sources=[];
+const smokeMaterial=new T.ShaderMaterial({uniforms:{scale:{value:600},life:{value:SMOKE.lifetime},color:{value:new T.Color('#d9dbd3')}},transparent:true,depthWrite:false,
   vertexShader:'attribute float age;uniform float scale;uniform float life;varying float vAge;void main(){vAge=age/life;vec4 p=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*p;gl_PointSize=(.5+3.2*sqrt(vAge))*scale/-p.z;}',
   fragmentShader:'uniform vec3 color;varying float vAge;void main(){float d=length(gl_PointCoord-.5);float a=smoothstep(.5,.08,d)*(1.-vAge)*min(1.,vAge*40.)*.42;if(a<.004)discard;gl_FragColor=vec4(color*(1.-.25*vAge),a);}'});
-const smoke=new T.Points(smokeGeometry,smokeMaterial);smoke.frustumCulled=false;smoke.renderOrder=4;smokeGeometry.setDrawRange(0,0);scene.add(smoke);
+const bakedMaterial=smokeMaterial.clone();bakedMaterial.uniforms.color.value=new T.Color('#8fc3dc');
+const plumes={live:{material:smokeMaterial,smoke:null},baked:{material:bakedMaterial,smoke:null}};
+for(const p of Object.values(plumes)){p.geometry=new T.BufferGeometry();p.points=new T.Points(p.geometry,p.material);p.points.frustumCulled=false;p.points.renderOrder=4;p.points.visible=false;scene.add(p.points);}
+let sampler=null,bakedSolid=null;
+function resetPlumes(){
+  const bounds=domain?windFieldBounds(domain):null;
+  for(const[name,p]of Object.entries(plumes)){
+    p.smoke=createSmoke({...SMOKE,bounds,blocked:name==='live'?isSolid:(x,y,z)=>bakedSolid!==null&&bakedSolid(x,y,z)});for(const s of sources)p.smoke.addEmitter({x:s.x,y:s.y,z:s.z});
+    p.geometry.setAttribute('position',new T.BufferAttribute(p.smoke.positions,3).setUsage(T.DynamicDrawUsage));p.geometry.setAttribute('age',new T.BufferAttribute(p.smoke.ages,1).setUsage(T.DynamicDrawUsage));p.geometry.setDrawRange(0,0);
+  }
+}
 const sourceMarkers=new T.Group();scene.add(sourceMarkers);const markerGeometry=new T.CylinderGeometry(.18,.18,.5,10),markerMaterial=new T.MeshBasicMaterial({color:0xd6b679});
-function addSource(point){if(sources.length>=MAX_SOURCES){sources.shift();sourceMarkers.remove(sourceMarkers.children[0]);}sources.push(point.clone());const m=new T.Mesh(markerGeometry,markerMaterial);m.position.copy(point).add(new T.Vector3(0,-.15,0));sourceMarkers.add(m);}
-function clearSmoke(){sources=[];sourceMarkers.clear();puffCount=0;}
+function addSource(point){
+  if(sources.length>=MAX_SOURCES){sources.shift();sourceMarkers.remove(sourceMarkers.children[0]);for(const p of Object.values(plumes))p.smoke?.removeEmitter(0);}
+  sources.push(point.clone());for(const p of Object.values(plumes))p.smoke?.addEmitter({x:point.x,y:point.y,z:point.z});
+  const m=new T.Mesh(markerGeometry,markerMaterial);m.position.copy(point).add(new T.Vector3(0,-.15,0));sourceMarkers.add(m);
+}
+function clearSmoke(){sources=[];sourceMarkers.clear();resetPlumes();}
 function addDefaultSmoke(){const holder=models[SITES[state.preset].smoke]?.holder||models[0]?.holder;if(!holder)return;const box=new T.Box3().setFromObject(holder),c=box.getCenter(new T.Vector3());addSource(new T.Vector3(c.x,box.max.y+.3,c.z));}
-const smokeRandom=seededRandom(11);
 function moveSmoke(dt){
-  if(!field)return;
-  emitDebt+=dt*14*sources.length;
-  while(emitDebt>=1&&sources.length){emitDebt--;const s=sources[Math.floor(smokeRandom()*sources.length)];if(puffCount>=PUFFS)break;const o=puffCount*3;puffPosition[o]=s.x+(smokeRandom()-.5)*.3;puffPosition[o+1]=s.y;puffPosition[o+2]=s.z+(smokeRandom()-.5)*.3;puffAge[puffCount]=0;puffCount++;}
-  // Warm smoke rises at first and slows as it mixes; this drift is the tracer's own, not a buoyant flow.
-  for(let n=0;n<puffCount;n++)puffRise[n]=1.1*Math.exp(-puffAge[n]/5);
-  advectTracers(sample,puffPosition,dt,{count:puffCount,rise:puffRise,spread:.12,random:smokeRandom});
-  for(let n=0;n<puffCount;n++){puffAge[n]+=dt;const o=n*3;if(puffAge[n]>PUFF_LIFE||!inside(puffPosition[o],puffPosition[o+1],puffPosition[o+2])){const last=--puffCount;puffAge[n]=puffAge[last];puffPosition[o]=puffPosition[last*3];puffPosition[o+1]=puffPosition[last*3+1];puffPosition[o+2]=puffPosition[last*3+2];n--;}}
-  smokeGeometry.setDrawRange(0,puffCount);smokeGeometry.attributes.position.needsUpdate=true;smokeGeometry.attributes.age.needsUpdate=true;
+  if(field)plumes.live.smoke.step(sample,dt);
+  if(sampler)plumes.baked.smoke.step(sampler.sample,dt);
+}
+function drawSmoke(){
+  for(const[name,p]of Object.entries(plumes)){
+    p.points.visible=state.smoke&&Boolean(p.smoke)&&(state.smokeMode===name||state.smokeMode==='both');if(!p.points.visible)continue;
+    p.geometry.setDrawRange(0,p.smoke.count);p.geometry.attributes.position.needsUpdate=true;p.geometry.attributes.age.needsUpdate=true;
+  }
+}
+
+// ---------- baked bearings: workers bake the set; the page then blends it as a game would
+const BAKE={speed:6,warmup:1,average:3};let bake=null,bakedSet=null,bakedFor=null,bakeGeneration=0;
+function stopBake(){if(bake)for(const w of bake.workers)w.terminate();bake=null;$('bake').textContent='Bake bearings';$('bake-progress').hidden=true;}
+function forgetBake(){stopBake();bakedSet=sampler=bakedSolid=bakedFor=null;setSmokeMode('live');$('export-bake').disabled=true;$('bake-note').textContent='Not baked yet.';}
+function startBake(){
+  if(bake){stopBake();$('bake-note').textContent='Bake cancelled.';return;}
+  if(!domain||!readyInfo){say('Wait for the site to finish voxelizing, then bake.');return;}
+  const count=Number($('bake-count').value),bearings=evenBearings(count),lanes=Math.max(1,Math.min(count,(navigator.hardwareConcurrency||4)-2)),generation=++bakeGeneration;
+  const message={generation,grid:{origin:[...domain.origin],cell:domain.cell,size:[...domain.size]},wind:{speed:BAKE.speed,z0:TERRAIN[state.terrain].z0},turbulence:turbulenceSettings(),warmup:BAKE.warmup,average:BAKE.average,tolerance:TOLERANCE};
+  bake={generation,count,bearings,fields:new Map(),unconverged:new Map(),workers:[],started:performance.now(),terrain:state.terrain,gust:state.gust};
+  for(let lane=0;lane<lanes;lane++){
+    const w=new Worker(new URL('./wind-field-bake-worker.js',import.meta.url),{type:'module'}),triangles=objectTriangles(site);
+    w.onmessage=onBake;w.onerror=event=>{errors.push(event.message);say('A bake worker failed: '+event.message);stopBake();};
+    w.postMessage({...message,triangles,bearings:bearings.filter((_,n)=>n%lanes===lane)},[triangles.buffer]);bake.workers.push(w);
+  }
+  $('bake').textContent='Cancel bake';$('bake-progress').hidden=false;$('bake-progress').value=0;
+  $('bake-note').textContent='Baking '+count+' bearings in '+lanes+' worker'+(lanes>1?'s':'')+': each warms up for '+BAKE.warmup+' flow-through and averages '+BAKE.average+'. The live wind keeps running.';
+}
+function onBake({data}){
+  if(!bake||data.generation!==bake.generation)return;
+  if(data.type==='error'){errors.push(data.message);say('Bake error: '+data.message);stopBake();return;}
+  if(data.type!=='bearing')return;
+  bake.fields.set(data.fromDeg,data.field);bake.unconverged.set(data.fromDeg,data.unconverged);$('bake-progress').value=bake.fields.size/bake.count;
+  const elapsed=(performance.now()-bake.started)/1000,left=elapsed/bake.fields.size*(bake.count-bake.fields.size);
+  $('bake-note').textContent='Baked '+bake.fields.size+' of '+bake.count+' bearings in '+elapsed.toFixed(0)+' s'+(left>0?'; about '+Math.ceil(left)+' s to go.':'.');
+  if(bake.fields.size<bake.count)return;
+  const{bearings,fields,unconverged}=bake;
+  bakedSet={kind:WIND_BEARINGS_KIND,version:WIND_BEARINGS_VERSION,bearings,warmup:BAKE.warmup,average:BAKE.average,unconverged:bearings.map(b=>unconverged.get(b)),fields:bearings.map(b=>fields.get(b))};
+  bakedFor={terrain:bake.terrain,gust:bake.gust,seconds:elapsed,count:bake.count};stopBake();makeSampler();
+  $('export-bake').disabled=false;setSmokeMode('both');
+  say('Baked '+bakedFor.count+' bearings in '+elapsed.toFixed(0)+' s. Blue smoke follows the blend; turn the dial and it swings at once, while the live wind takes a flow-through to settle.');
+}
+function makeSampler(){if(!bakedSet)return;sampler=createWindBearingSampler(bakedSet,{fromDeg:state.fromDeg,speed:state.speed,blend:$('bake-blend').value});bakedSolid=windFieldSolid(sampler.field);showBlend();}
+function showBlend(){
+  if(!sampler)return;sampler.setWind({fromDeg:state.fromDeg,speed:state.speed});
+  const{bearings:[a,b],weights:[wa,wb],mode}=sampler.field.blend,stale=bakedFor.terrain!==state.terrain||bakedFor.gust!==state.gust;
+  $('bake-note').textContent=(a===b||wb===0?'At '+a+'°, a baked bearing':'Blending '+a+'° and '+b+'° ('+mode+', '+wa.toFixed(2)+' and '+wb.toFixed(2)+')')+', times '+(state.speed/BAKE.speed).toFixed(2)+' for '+state.speed+' m/s.'
+    +(stale?' Baked for '+bakedFor.terrain+' terrain and gusts '+bakedFor.gust+'; bake again to match the live wind.':'');
+}
+function setSmokeMode(mode){
+  state.smokeMode=bakedSet||mode==='live'?mode:'live';$('smoke-mode').value=state.smokeMode;
+  for(const option of $('smoke-mode').options)option.disabled=option.value!=='live'&&!bakedSet;$('smoke-key').hidden=state.smokeMode!=='both';
 }
 
 // ---------- slices: the speed on a plane through the field
@@ -185,7 +244,7 @@ function updateRose(){
   const a=view.azimuth*Math.PI/180,[dx,dz]=windDirection(state.fromDeg),right=dx*Math.cos(a)-dz*Math.sin(a),up=-dx*Math.sin(a)-dz*Math.cos(a),wind=Math.atan2(right,up)*180/Math.PI;
   $('rose-north').setAttribute('transform','rotate('+view.azimuth+')');$('rose-n').setAttribute('transform','rotate('+view.azimuth+')');$('rose-wind').setAttribute('transform','rotate('+(wind-180)+')');
 }
-function setBearing(deg){state.fromDeg=((Math.round(deg)%360)+360)%360;$('bearing').textContent=state.fromDeg+'°';$('bearing-name').textContent=bearingName(state.fromDeg)+' wind';$('dial-arrow').setAttribute('transform','rotate('+state.fromDeg+')');$('dial').setAttribute('aria-valuenow',String(state.fromDeg));$('dial').setAttribute('aria-valuetext',state.fromDeg+' degrees, from the '+bearingName(state.fromDeg));updateRose();if(state.slice==='vertical')layoutSlices();}
+function setBearing(deg){state.fromDeg=((Math.round(deg)%360)+360)%360;$('bearing').textContent=state.fromDeg+'°';$('bearing-name').textContent=bearingName(state.fromDeg)+' wind';$('dial-arrow').setAttribute('transform','rotate('+state.fromDeg+')');$('dial').setAttribute('aria-valuenow',String(state.fromDeg));$('dial').setAttribute('aria-valuetext',state.fromDeg+' degrees, from the '+bearingName(state.fromDeg));updateRose();if(state.slice==='vertical')layoutSlices();showBlend();}
 function buildingList(){
   const list=$('buildings');list.replaceChildren(...state.buildings.map((def,index)=>{
     const li=document.createElement('li'),select=document.createElement('select'),turn=document.createElement('button');
@@ -198,14 +257,16 @@ for(const[id,t]of Object.entries(TERRAIN))$('terrain').add(new Option(t.label.sp
 {const ticks=$('dial-ticks');for(let a=0;a<360;a+=15){const r=a%90===0?40:a%45===0?44:47,l=document.createElementNS('http://www.w3.org/2000/svg','line'),t=a*Math.PI/180;l.setAttribute('x1',String(Math.sin(t)*r));l.setAttribute('y1',String(-Math.cos(t)*r));l.setAttribute('x2',String(Math.sin(t)*51));l.setAttribute('y2',String(-Math.cos(t)*51));l.setAttribute('class','dial-tick'+(a%45===0?' major':''));ticks.append(l);}}
 $('preset').onchange=()=>{state.preset=$('preset').value;state.buildings=structuredClone(SITES[state.preset].buildings);buildingList();rebuild({frame:true});};
 $('cell').onchange=()=>{state.cell=Number($('cell').value);rebuild();};
-$('speed').oninput=()=>{state.speed=Number($('speed').value);$('speed-value').textContent=state.speed+' m/s';sendWind();};
-$('terrain').onchange=()=>{state.terrain=$('terrain').value;sendWind();};
-$('gust').oninput=()=>{state.gust=Number($('gust').value);$('gust-value').textContent=state.gust===0?'steady':state.gust===1?'surface layer':'× '+state.gust.toFixed(2);sendWind();};
+$('speed').oninput=()=>{state.speed=Number($('speed').value);$('speed-value').textContent=state.speed+' m/s';sendWind();showBlend();};
+$('terrain').onchange=()=>{state.terrain=$('terrain').value;sendWind();showBlend();};
+$('gust').oninput=()=>{state.gust=Number($('gust').value);$('gust-value').textContent=state.gust===0?'steady':state.gust===1?'surface layer':'× '+state.gust.toFixed(2);sendWind();showBlend();};
+$('bake').onclick=startBake;$('bake-blend').onchange=makeSampler;$('smoke-mode').onchange=()=>setSmokeMode($('smoke-mode').value);
+$('export-bake').onclick=()=>{if(!bakedSet)return;const text=JSON.stringify(encodeWindBearings(bakedSet)),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'application/json'}));a.download='nautilus-wind-bearings-'+state.preset+'-'+bakedSet.bearings.length+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);say('Exported the '+bakedSet.bearings.length+'-bearing set ('+(text.length/1e6).toFixed(1)+' MB).');};
 $('show-streaks').onchange=()=>{state.streaks=$('show-streaks').checked;streaks.visible=state.streaks;};
 $('show-mean').onchange=()=>{state.mean=$('show-mean').checked;paintSlice();};
 $('slice').onchange=()=>{state.slice=$('slice').value;layoutSlices();};
 $('slice-height').oninput=()=>{state.sliceHeight=Number($('slice-height').value);$('slice-height-value').textContent=state.sliceHeight+' m';if(domain)slicePlane.position.y=Math.min(state.sliceHeight,domain.size[1]*domain.cell-domain.cell/2);paintSlice();};
-$('show-smoke').onchange=()=>{state.smoke=$('show-smoke').checked;smoke.visible=sourceMarkers.visible=state.smoke;};
+$('show-smoke').onchange=()=>{state.smoke=$('show-smoke').checked;sourceMarkers.visible=state.smoke;};
 $('run').onclick=()=>{state.running=!state.running;$('run').textContent=state.running?'Pause wind':'Resume wind';$('run').setAttribute('aria-pressed',String(state.running));worker.postMessage({type:'run',running:state.running});};
 $('restart').onclick=()=>{worker.postMessage({type:'restart'});resetStreaks();say('The flow restarts from the bare inflow profile.');};
 $('clear-smoke').onclick=()=>{clearSmoke();say('Smoke cleared. Click a roof or the ground to release more.');};
@@ -250,10 +311,17 @@ let previous=performance.now();
 function frame(now){
   const dt=Math.min(.05,(now-previous)/1000);previous=now;
   if(state.running){if(state.streaks)moveStreaks(dt);if(state.smoke)moveSmoke(dt);}
-  if(state.streaks)drawStreaks();
+  if(state.streaks)drawStreaks();drawSmoke();
   renderer?.render(scene,camera);requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
 window.windFieldReview={get state(){return structuredClone(state);},get domain(){return domain&&{origin:[...domain.origin],cell:domain.cell,size:[...domain.size],cells:domain.cells};},
-  get stats(){return stats&&{...stats};},get ready(){return Boolean(readyInfo&&field);},get puffs(){return puffCount;},get sources(){return sources.map(s=>s.toArray());},get errors(){return[...errors];},
-  sample(x,y,z){return sample(x,y,z,[0,0,0]);},setBearing(deg){setBearing(deg);sendWind();}};
+  get stats(){return stats&&{...stats};},get ready(){return Boolean(readyInfo&&field);},get puffs(){return plumes.live.smoke?.count??0;},get bakedPuffs(){return plumes.baked.smoke?.count??0;},get sources(){return sources.map(s=>s.toArray());},get errors(){return[...errors];},
+  get bake(){return{baking:Boolean(bake),done:bake?bake.fields.size:bakedSet?.bearings.length??0,count:bake?.count??bakedSet?.bearings.length??0,seconds:bakedFor?.seconds??null,blend:sampler?structuredClone(sampler.field.blend):null,smokeMode:state.smokeMode};},
+  sample(x,y,z){return sample(x,y,z,[0,0,0]);},sampleBaked(x,y,z){return sampler?sampler.sample(x,y,z,[0,0,0]):null;},setBearing(deg){setBearing(deg);sendWind();},startBake(count=8){$('bake-count').value=String(count);if(!bake)startBake();},setSmokeMode,
+  // Moves streaks and smoke as the frame loop does, for review where animation frames do not run.
+  advance(seconds=1,dt=1/30){for(let t=0;t<seconds;t+=dt){if(state.streaks)moveStreaks(dt);if(state.smoke)moveSmoke(dt);}resize();if(state.streaks)drawStreaks();drawSmoke();renderer?.render(scene,camera);return{puffs:plumes.live.smoke?.count??0,bakedPuffs:plumes.baked.smoke?.count??0};},
+  // Camera for review shots: azimuth and elevation in degrees, distance in metres.
+  look({azimuth=view.azimuth,elevation=view.elevation,distance=view.distance}={}){Object.assign(view,{azimuth,elevation,distance});placeCamera();resize();renderer?.render(scene,camera);return{...view,target:view.target.toArray()};},
+  // Centroid of each smoke system's puffs, metres.
+  centroids(){return Object.fromEntries(Object.entries(plumes).map(([name,p])=>{const s=p.smoke,c=[0,0,0];if(!s?.count)return[name,null];for(let n=0;n<s.count;n++)for(let a=0;a<3;a++)c[a]+=s.positions[n*3+a]/s.count;return[name,c];}));}};
