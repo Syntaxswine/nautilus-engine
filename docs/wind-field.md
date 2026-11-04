@@ -42,6 +42,7 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 | Sides | Sides facing into the wind take the inflow. Sides the wind leaves through are open at pressure 0. Sides parallel to it, the ground and the lid are slip planes. | — |
 | Advection | MacCormack on a staggered (MAC) grid, reverting to semi-Lagrangian where the correction leaves the local range. `advection: 'semi-lagrangian'` is the cheaper, more diffusive first-order option. | Selle et al. (2008) |
 | Pressure | Projection onto divergence-free fields: MIC(0)-preconditioned conjugate gradients, warm-started from the last step. The tolerance is a fraction of the reference speed (default 1e-4). | Bridson, *Fluid Simulation for Computer Graphics* |
+| Step | Advect, then project (`step: 'projection'`, the default). `step: 'reflection'` takes two half steps joined by a reflection; see [advection–reflection](#advectionreflection). | Zehnder, Narain and Thomaszewski (2018) |
 | Turbulence model | None. The limiter's numerical dissipation stands in for subgrid mixing (implicit LES). Optional constant viscosity serves the cavity benchmark. | — |
 | Gusts | Random Fourier modes, each divergence-free, weighted by the von Kármán spectrum and convected with the wind (frozen turbulence). Standard deviations are 2.5, 1.9 and 1.25 u* along-wind, lateral and vertical. They enter only through the inflow. | Kraichnan (1970); Smirnov, Shi and Celik (2001); Panofsky and Dutton (1984) |
 | Solids | Conservative triangle–box overlap marks every cell a model surface touches. Air not reachable from the sides or top of the domain is sealed and becomes solid. So does air that reaches no outlet. | Akenine-Möller (2001) |
@@ -69,6 +70,36 @@ Cube wakes in the literature are usually quoted near 1.6H in channel flow (Marti
 The block test's signs were set from the physics before it first ran, and one of them was wrong. The first stagnation check (u < 0.5 U at 0.25H upstream) failed: 0.69 at 4 cells per height and 0.56 at 6. The slowed zone is shorter than assumed, so the check now requires u to fall toward the face, below 0.25 U at 0.05H; it measured 0.14. At 4 cells per building height the lee did not reverse at 1.5H (u = +0.20); 6 cells resolve it, and the test uses 6.
 
 **Mutation sweep.** Twenty deliberate physics and plumbing faults went into a private copy. The final suite kills 19; the [record](#mutation-sweep) names the one it misses and why.
+
+## Advection–reflection
+
+`step: 'reflection'` replaces each step with two half steps joined by a reflection (Zehnder, Narain and Thomaszewski 2018). The default stays `step: 'projection'`, which is byte-identical to the solver before this option existed.
+
+1. Advect the velocity half a step with itself, diffuse half a step, and project.
+2. Reflect: u_r = 2·P(u) − u, where u is the field that went into that projection.
+3. Advect u_r half a step with the projected velocity, diffuse half a step, and project again.
+
+Each projection warm-starts from its own solution in the last step. The inflow, gusts included, is read at the time of the field being carried: the half step for the first projection and for samples beyond the inflow side in the second half.
+
+### Pre-registered expectations
+
+Written on 2026-11-04 with the code in place and before any measurement of the quantities below. The code had been run only on checks this list does not name: the empty site stays exact at four bearings, and 60 steps around a block converge, with and without gusts. The numbers come from the derivation, not from runs.
+
+**Derivation.** The projection P is orthogonal in the sum of squared face velocities, so projecting a field q removes exactly ‖(I − P)q‖² of kinetic energy. The plain step projects q = u − Δt (u·∇)u + O(Δt²), so it loses Δt² ‖(I − P)(u·∇)u‖² per step, which is first order in Δt per unit time. On the Taylor–Green vortex (u·∇)u = ½(sin 2x, sin 2y) is a pure gradient, so the projection removes all of it. That loss scales with the square of the energy, which gives E/E0 = 1/(1 + Δt·t/2): 0.764 after one turnover at CFL 1, where the record measured 0.769. The split therefore accounts for essentially all of MacCormack's loss. In the reflection step the reflection keeps the norm, and the reflected field carries the first half's divergent part with the opposite sign, so the second half's advection cancels it. The field reaching the last projection has a divergent part of order Δt², here −(Δt/2)² (I − P)[(u·∇)(u·∇)u]. Its loss per step is therefore of order Δt⁴, 8×10⁻⁵ per turnover on this vortex. What remains is the advection's own dissipation, which the plain split's larger loss hid.
+
+| Quantity | Plain split | Expected with reflection | Counts against it |
+| --- | --- | --- | --- |
+| Taylor–Green energy kept per turnover, MacCormack, CFL 1 | 0.769 (recorded) | 0.98–1.00 | below 0.95 |
+| Same, semi-Lagrangian | 0.644 (recorded) | 0.70–0.80. Linear interpolation's truncation term makes its own loss about 1.5 times larger over two half steps, so it gains much less. | outside 0.70–0.80 |
+| MacCormack at CFL 0.5 | 0.866 by the law above | at least the CFL 1 value | below it |
+| With ν = 0.01, absolute, against exp(−4νt) | 21 % short (recorded) | within 5 % | 5 % or more short |
+| Cost per step, in paired runs | 1 | 1.5–2.0 times. There are two advections at half the stride and two projections; the second removes only an O(Δt²) divergence from its own warm start, so it should need fewer iterations than the first. | outside 1.5–2.0 |
+| Cube wake, H = 6, without gusts: X_R | 3.08H (recorded) | Shorter. The split's loss sits where the pressure gradient is steep: the stagnation zone, the leading edges and the roof. Removing it should let the shear layers mix more. Direction only. | 3.08H or longer |
+| Same with gusts: intensity at H, 2H upstream; X_R | 0.196; 1.35H (recorded) | Higher intensity, because the gusts lose less energy on their way in. X_R within 1.0–1.6H. | intensity 0.196 or lower; X_R outside 1.0–1.6H |
+
+The Taylor–Green rows follow from the derivation. The wake rows are a physical argument: their direction is predicted, their size is not. A failed wake row would not contradict the energy rows. The Euler backtrace keeps a steady state first-order in Δt under either split, so a mean wake depends on more than the projection's loss.
+
+**Method, fixed in advance.** The Taylor–Green setup is the test's own: a slip box [0, π]² with 32 cells, tolerance 1e-8 and one turnover, 2π. Both splits run at CFL 1 and 0.5, with MacCormack and semi-Lagrangian. The wake runs repeat the record's: the `blockSolver` site at H = 6 cells (60 × 24 × 42), 400 steps of spin-up and then 800 averaged steps. X_R is where reverse mean flow ends on the centreline in the first face row (y = 0.5 m), and the intensity is σu/ū at (−2H, H, 0). Each splitting runs with and without gusts. Cost is measured on the same site, with both splits in one process in alternating ABBA blocks after a warm-up, and the CPU taken by foreign processes is recorded during each block.
 
 ## Limits
 
