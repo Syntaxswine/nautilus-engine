@@ -67,7 +67,7 @@ function rebuild({frame=false}={}){
   }
   applied={preset:state.preset,buildings:structuredClone(state.buildings),cell:state.cell};
   // A refused change returned above with the previous site and its bake together; an accepted one drops the bake.
-  generation++;domain=g;field=meanField=null;solid=null;readyInfo=null;stats=null;forgetBake();
+  generation++;domain=g;field=meanField=null;solid=liveSolid=null;readyInfo=null;stats=null;forgetBake();
   // Frame the site from the wind's right-hand side, so streaks and smoke cross the view.
   if(frame){const c=siteBounds.getCenter(new T.Vector3()),size=siteBounds.getSize(new T.Vector3());view.target.set(c.x,Math.min(4,size.y*.35),c.z);view.distance=Math.max(28,Math.hypot(size.x,size.z)*1.55)/Math.sqrt(Math.min(1,camera.aspect));view.azimuth=270-state.fromDeg;view.elevation=30;}
   const half=Math.max(g.size[0],g.size[2])*g.cell/2+10;Object.assign(sun.shadow.camera,{left:-half,right:half,top:half,bottom:-half,near:1,far:220});sun.shadow.camera.updateProjectionMatrix();
@@ -82,7 +82,7 @@ function rebuild({frame=false}={}){
 const asField=velocity=>({kind:WIND_FIELD_KIND,version:WIND_FIELD_VERSION,origin:domain.origin,cell:domain.cell,size:domain.size,velocity,solid});
 worker.onmessage=({data})=>{
   if(data.generation!==undefined&&data.generation!==generation)return;
-  if(data.type==='ready'){solid=data.solid;readyInfo=data;say('Air is flowing. '+(data.enclosed?data.enclosed.toLocaleString()+' sealed interior cells count as solid. ':'')+'Click a roof or the ground to release smoke.');if(state.smoke)addDefaultSmoke();}
+  if(data.type==='ready'){solid=data.solid;liveSolid=windFieldSolid({origin:domain.origin,cell:domain.cell,size:domain.size,solid});readyInfo=data;say('Air is flowing. '+(data.enclosed?data.enclosed.toLocaleString()+' sealed interior cells count as solid. ':'')+'Click a roof or the ground to release smoke.');if(state.smoke)addDefaultSmoke();}
   else if(data.type==='field'){field=asField(data.velocity);meanField=data.mean?asField(data.mean):null;stats=data.stats;paintSlice();showStats();}
   else if(data.type==='export'){const blob=new Blob([data.text],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nautilus-wind-'+state.preset+'-'+Math.round(state.fromDeg)+'deg.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);say('Exported the '+(stats?.averagedSteps?'mean':'current')+' field ('+(data.text.length/1e6).toFixed(1)+' MB).');}
   else if(data.type==='error'){errors.push(data.message);say('Solver error: '+data.message);}
@@ -142,11 +142,15 @@ const smokeMaterial=new T.ShaderMaterial({uniforms:{scale:{value:600},life:{valu
 const bakedMaterial=smokeMaterial.clone();bakedMaterial.uniforms.color.value=new T.Color('#8fc3dc');
 const plumes={live:{material:smokeMaterial,smoke:null},baked:{material:bakedMaterial,smoke:null}};
 for(const p of Object.values(plumes)){p.geometry=new T.BufferGeometry();p.points=new T.Points(p.geometry,p.material);p.points.frustumCulled=false;p.points.renderOrder=4;p.points.visible=false;scene.add(p.points);}
-let sampler=null,bakedSolid=null;
+let sampler=null,bakedSolid=null,liveSolid=null;
+// Each system's solid test walks every cell a puff's move crosses (windFieldSolid), so a fast
+// puff cannot skip a wall; these delegate to the current site's and bake's solids.
+const solidTest=current=>Object.assign((x,y,z)=>{const s=current();return s!==null&&s(x,y,z);},{segment:(x0,y0,z0,x1,y1,z1)=>{const s=current();return s!==null&&s.segment(x0,y0,z0,x1,y1,z1);}});
+const liveBlocked=solidTest(()=>liveSolid),bakedBlocked=solidTest(()=>bakedSolid);
 function resetPlumes(){
   const bounds=domain?windFieldBounds(domain):null;
   for(const[name,p]of Object.entries(plumes)){
-    p.smoke=createSmoke({...SMOKE,bounds,blocked:name==='live'?isSolid:(x,y,z)=>bakedSolid!==null&&bakedSolid(x,y,z)});for(const s of sources)p.smoke.addEmitter({x:s.x,y:s.y,z:s.z});
+    p.smoke=createSmoke({...SMOKE,bounds,blocked:name==='live'?liveBlocked:bakedBlocked});for(const s of sources)p.smoke.addEmitter({x:s.x,y:s.y,z:s.z});
     p.geometry.setAttribute('position',new T.BufferAttribute(p.smoke.positions,3).setUsage(T.DynamicDrawUsage));p.geometry.setAttribute('age',new T.BufferAttribute(p.smoke.ages,1).setUsage(T.DynamicDrawUsage));p.geometry.setDrawRange(0,0);
   }
 }
@@ -327,7 +331,8 @@ function frame(now){
 requestAnimationFrame(frame);
 window.windFieldReview={get state(){return structuredClone(state);},get domain(){return domain&&{origin:[...domain.origin],cell:domain.cell,size:[...domain.size],cells:domain.cells};},
   get stats(){return stats&&{...stats};},get ready(){return Boolean(readyInfo&&field);},get puffs(){return plumes.live.smoke?.count??0;},get bakedPuffs(){return plumes.baked.smoke?.count??0;},get sources(){return sources.map(s=>s.toArray());},get errors(){return[...errors];},
-  get bake(){return{baking:Boolean(bake),done:bake?bake.fields.size:bakedSet?.bearings.length??0,count:bake?.count??bakedSet?.bearings.length??0,seconds:bakedFor?.seconds??null,blend:sampler?structuredClone(sampler.field.blend):null,smokeMode:state.smokeMode};},
+  get bake(){return{baking:Boolean(bake),done:bake?bake.fields.size:bakedSet?.bearings.length??0,count:bake?.count??bakedSet?.bearings.length??0,seconds:bakedFor?.seconds??null,blend:sampler?structuredClone(sampler.field.blend):null,smokeMode:state.smokeMode,
+    grid:bakedSet?{origin:[...bakedSet.fields[0].origin],cell:bakedSet.fields[0].cell,size:[...bakedSet.fields[0].size]}:null,exportable:!$('export-bake').disabled};},
   sample(x,y,z){return sample(x,y,z,[0,0,0]);},sampleBaked(x,y,z){return sampler?sampler.sample(x,y,z,[0,0,0]):null;},setBearing(deg){setBearing(deg);sendWind();},startBake(count=8){$('bake-count').value=String(count);if(!bake)startBake();},setSmokeMode,
   // Moves streaks and smoke as the frame loop does, for review where animation frames do not run.
   advance(seconds=1,dt=1/30){for(let t=0;t<seconds;t+=dt){if(state.streaks)moveStreaks(dt);if(state.smoke)moveSmoke(dt);}resize();if(state.streaks)drawStreaks();drawSmoke();renderer?.render(scene,camera);return{puffs:plumes.live.smoke?.count??0,bakedPuffs:plumes.baked.smoke?.count??0};},

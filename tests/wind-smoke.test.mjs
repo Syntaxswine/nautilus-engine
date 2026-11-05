@@ -152,11 +152,45 @@ test('smoke is reproducible from its seed, spreads at its diffusivity, stays out
   const xs=[...scatter.positions.subarray(0,30)].filter((_,i)=>i%3===0);assert.equal(scatter.count,10);assert.ok(xs.every(x=>Math.abs(x-2)<=.5)&&Math.max(...xs)-Math.min(...xs)>.2);
 });
 
+// The architect's case (wind review, 2026-11-04): a wall at 0 <= x < 1, a puff at x = -0.5 and
+// 20 m/s for 0.1 s. Both ends of the move are air, so a test of the end alone lets it through.
+test('a fast puff cannot skip a wall: field solids walk every cell, a host test samples every sweep',()=>{
+  const wall=(x,y,z)=>x>=0&&x<1,fast=uniform(20,0,0),grid=W.createWindGrid({origin:[-4,0,-2],cell:1,size:[8,4,4]}),solid=new Uint8Array(grid.cells);
+  for(let k=0;k<4;k++)for(let j=0;j<4;j++)solid[4+8*(j+4*k)]=1;
+  const field={origin:grid.origin,cell:1,size:grid.size,solid},run=options=>{const s=W.createSmoke({capacity:1,rate:10,rise:0,spread:0,jitter:0,...options});s.addEmitter({x:-.5,y:1,z:0});s.step(fast,.1);return s.positions[0];};
+  assert.equal(run({blocked:wall}),1.5,'the stated limit: a plain test checks the end of the move alone');
+  assert.equal(run({blocked:wall,sweep:.25}),-.5);assert.equal(run({blocked:W.windFieldSolid(field)}),-.5);assert.equal(run({}),1.5);
+  // Jitter cannot put a new puff into or across a wall from its source either: a 0.2 m wall
+  // (0 <= x < 0.2) 0.1 m from the source, 0.5 m of jitter, so 40 % of the scatter lands in or beyond it.
+  const thin=new Uint8Array(20*10*10);for(let k=0;k<10;k++)for(let j=0;j<10;j++)thin[10+20*(j+10*k)]=1;
+  const scatter=W.createSmoke({capacity:400,rate:4000,rise:0,spread:0,jitter:.5,blocked:W.windFieldSolid({origin:[-2,0,-1],cell:.2,size:[20,10,10],solid:thin})});
+  scatter.addEmitter({x:-.1,y:1,z:0});scatter.step(uniform(0,0,0),.1);let across=0,home=0;
+  for(let n=0;n<scatter.count;n++){const x=scatter.positions[n*3];if(x>=0)across++;if(x===Math.fround(-.1))home++;}
+  assert.equal(scatter.count,400);assert.equal(across,0);assert.ok(home>120&&home<200,'jittered puffs pulled home: '+home);
+  // A source buried in a solid: the wind there is zero, so only the rise and the walk move it.
+  const roof={origin:[-4,0,-2],cell:1,size:[8,4,4],solid:Uint8Array.from(solid,(_,c)=>Math.floor(c/8)%4<2?1:0),velocity:new Float32Array(8*4*4*3).fill(3),kind:W.WIND_FIELD_KIND,version:W.WIND_FIELD_VERSION};
+  const buried=rise=>{const s=W.createSmoke({capacity:4,rate:10,rise,riseTime:100,spread:0,jitter:0,blocked:W.windFieldSolid(roof)});s.addEmitter({x:-2.5,y:1.5,z:0});s.step((x,y,z,o)=>W.sampleWindField(roof,x,y,z,o),.1);for(let n=0;n<30;n++)s.step((x,y,z,o)=>W.sampleWindField(roof,x,y,z,o),.1);return[s.positions[0],s.positions[1]];};
+  assert.deepEqual(buried(0),[-2.5,1.5]);const out=buried(1);assert.ok(out[1]>2&&out[0]>-2.5,'risen out and carried: '+out);
+});
+
+// Against an exact oracle: a move hits a solid cell when the segment meets the cell's box
+// (slab test). Random segments in a grid with random solid cells.
+test('a field\'s segment test meets exactly the solid cells a straight move passes through',()=>{
+  const size=[9,6,7],h=.5,origin=[-1,0,2],random=W.seededRandom(21),solid=Uint8Array.from({length:9*6*7},()=>random()<.08?1:0),test=W.windFieldSolid({origin,cell:h,size,solid});
+  const boxes=[];for(let k=0;k<7;k++)for(let j=0;j<6;j++)for(let i=0;i<9;i++)if(solid[i+9*(j+6*k)])boxes.push([origin[0]+i*h,origin[1]+j*h,origin[2]+k*h]);
+  const meets=(a,b)=>boxes.some(lo=>{let t0=0,t1=1;for(let q=0;q<3;q++){const d=b[q]-a[q],l=lo[q],u=lo[q]+h;if(d===0){if(a[q]<l||a[q]>=u)return false;continue;}let s=(l-a[q])/d,e=(u-a[q])/d;if(s>e)[s,e]=[e,s];t0=Math.max(t0,s);t1=Math.min(t1,e);if(t0>t1)return false;}return true;});
+  let hits=0,lengths=0;
+  for(let n=0;n<4000;n++){const a=[origin[0]-.5+random()*5.5,origin[1]-.5+random()*4,origin[2]-.5+random()*4.5],r=n%4?.3+random()*1.2:random()*6,b=a.map(v=>v+(random()*2-1)*r);
+    const expect=meets(a,b);assert.equal(test.segment(...a,...b),expect,'segment '+a.map(v=>v.toFixed(3))+' -> '+b.map(v=>v.toFixed(3)));if(expect)hits++;lengths+=r;}
+  assert.ok(hits>200&&hits<3800,'both answers occur in hundreds: '+hits+' of 4000 hit');
+  assert.equal(test.segment(1,1,3,1,1,3),test(1,1,3));assert.equal(test.segment(-9,1,3,-8,1,3),false);
+});
+
 test('smoke counts what it drops, refuses bad settings and reads solids from a wind field',()=>{
   const s=W.createSmoke({capacity:5,rate:10,jitter:0,spread:0});s.addEmitter({x:0,y:1,z:0});s.step(uniform(1,0,0),1);assert.equal(s.count,5);assert.equal(s.dropped,5);
   assert.equal(s.addEmitter({x:3,y:1,z:0,rate:2,rise:0,riseTime:1}),1);assert.deepEqual(s.emitters[1],{x:3,y:1,z:0,rate:2,rise:0,riseTime:1});s.moveEmitter(1,{x:4,y:1,z:0});assert.equal(s.emitters[1].x,4);s.removeEmitter(0);assert.equal(s.emitters.length,1);
   s.clear();assert.equal(s.count,0);s.step(uniform(0,0,0),.5);assert.equal(s.count,1);
-  for(const bad of[{capacity:0},{lifetime:0},{spread:-1},{rate:-1},{riseTime:0},{bounds:{min:[0,0],max:[1,1,1]}},{blocked:true}])assert.throws(()=>W.createSmoke(bad),undefined,JSON.stringify(bad));
+  for(const bad of[{capacity:0},{lifetime:0},{spread:-1},{rate:-1},{riseTime:0},{bounds:{min:[0,0],max:[1,1,1]}},{blocked:true},{sweep:-1},{sweep:NaN}])assert.throws(()=>W.createSmoke(bad),undefined,JSON.stringify(bad));
   assert.throws(()=>s.addEmitter({x:0,y:NaN,z:0}));assert.throws(()=>s.step(null,.1));assert.throws(()=>s.step(uniform(0,0,0),-1));assert.throws(()=>s.removeEmitter(7));assert.throws(()=>s.moveEmitter(3,{x:0,y:0,z:0}));
   // Cell 4 of a 3 x 2 x 3 grid of 2 m cells is i = 1, j = 1, k = 0.
   const field={origin:[0,0,0],cell:2,size:[3,2,3],solid:Uint8Array.from({length:18},(_,c)=>c===4?1:0)};assert.deepEqual(W.windFieldBounds(field),{min:[0,0,0],max:[6,4,6]});
