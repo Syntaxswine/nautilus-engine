@@ -268,4 +268,8 @@ The architect reviewed `0cc0752` read-only (`Documents\ChatGPT\Nautilus Engine\a
 
 Every prediction verdict and every rule is unchanged: R1 linear, R2 8 bearings, R3 `average` 3, R4 the two roof sources. The registered tables above stand as measured. The re-measured results are in `evidence/wind-bearings-smoke/results-after-review.json`, and the sampler-only run in `results-after-review-sampler-only.json`. The live batches were recorded during the runs, under the old sampler and the endpoint rule, and were not re-run.
 
-**Narrowed: the seed noise floor** (item 3 under "What the misses say"). Its claims rest on two bearings per source. "A longer average barely helps" and the slow-mode cause are not established by this data. The follow-up on `claude/wind-seeds`, with more seeds and bearings, measures both.
+**Narrowed: the seed noise floor** (item 3 under "What the misses say"). Its claims rest on two bearings per source. "A longer average barely helps" and the slow-mode cause are not established by this data. The follow-up, [#42](https://github.com/Syntaxswine/nautilus-engine/pull/42), measured both with 8 seeds at 8 bearings on both sites:
+- From 3 to 12 flow-throughs the median plume separation falls to 0.62. This record's 0.76–0.88 came from two bearings.
+- The gust forcing alone converges as 1/T, so the part that does not average away comes from the solved flow, not slow inflow modes.
+- Averaging 3–4 seeds within the same budget mostly cuts the tail.
+- Its tunnelling audit of the old endpoint test found 0.035 % of puff steps crossing a solid cell with both ends in air. All were corner cuts at most 0.86 m deep; none went through 1 m of solid. The re-measure above gives what removing them does to this record's metric: at most 0.74 m per plume end.

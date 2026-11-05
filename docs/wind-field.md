@@ -108,9 +108,9 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - **A fire in the street.** 6.3 m off (18 %, 6.4°).
 - **The uniform fallback.** 8.1 m and 4.5 m off for the roofs, which is about as good as a bake for smoke above the roofs. For the street fire it is 49 m off, because it carries smoke straight through the buildings.
 - **Against live smoke.** About 110–130 live plumes in the running solver wander 9–13 m RMS around their mean path. A practical 3-flow-through bake ends 4.5–4.7 m (roofs) and 9.8 m (street) from that mean.
-- **Seed bias.** A bake also carries the seed of its gusts. At the two bearings measured, two seeds put chimney plumes 2.3–4.4 m apart (house) at every averaging length, and at one street bearing (22.5°) 13–19 m apart. Two bearings are too few to say how this falls with averaging. A follow-up with more seeds is measuring it on `claude/wind-seeds`.
+- **Seed bias.** A bake also carries the seed of its gusts. At the two bearings measured, two seeds put chimney plumes 2.3–4.4 m apart (house) at every averaging length, and at one street bearing (22.5°) 13–19 m apart. Two bearings were too few to say how this falls with averaging. With 8 seeds at 8 bearings, [#42](https://github.com/Syntaxswine/nautilus-engine/pull/42) finds that a longer average does help: from 3 to 12 flow-throughs the median falls to 0.62. Averaging 3–4 seeds mostly cuts the rare large misses.
 - **Street forks.** In the street canyon, some bearings send smoke one way or the other on small differences, by up to 19 m.
-- **After review.** These numbers were measured before #39's sampler fix (zero anywhere inside a solid cell) and before the swept collision above. Re-run on the same bakes with both, 371 of 720 plume ends moved, the largest by 0.73 m. No median moved more than 0.24 m, and every verdict and rule held. The [record's addendum](reviews/2026-11-04-wind-bearings-smoke.md#addendum-after-review-2026-11-05) has the split.
+- **After review.** These numbers were measured before #39's sampler fix (zero anywhere inside a solid cell) and before the swept collision above. With the old endpoint test, 0.035 % of puff steps cut across a solid corner, none through 1 m of solid ([#42](https://github.com/Syntaxswine/nautilus-engine/pull/42)'s audit). Re-run on the same bakes with both, 371 of 720 plume ends moved, the largest by 0.73 m. No median moved more than 0.24 m, and every verdict and rule held. The [record's addendum](reviews/2026-11-04-wind-bearings-smoke.md#addendum-after-review-2026-11-05) has the split.
 
 **Cost.** Measured with Node 24.15 on a Ryzen 7 5800X at 15–44 % background load:
 
@@ -213,7 +213,7 @@ The block test's signs were set from the physics before it first ran, and one of
 
 - Bake 8 bearings per map with the defaults (linear blend, `average` 3), and blend them at play time.
 - Bake 16 bearings where smoke sits low among buildings and the extra 10 MB is affordable.
-- Where absolute plume positions matter, average longer or over several gust seeds. The follow-up on `claude/wind-seeds` measures which pays.
+- Where absolute plume positions matter, average longer. #42 found a longer single-seed average buys more than the same budget split across seeds, while seeds cut the rare large misses.
 - Add a cheap meander, such as the gust model sampled at the puffs, if steady plumes look too calm.
 - Keep the uniform wind as the fallback for maps without a bake. It is already adequate for plumes released above the roofs.
 - The observation that would settle it is a Tinderbox scene with fire among buildings, compared side by side under the uniform wind and a bake.
@@ -238,7 +238,7 @@ The neutral control (a comment-only edit) survived every round. **M03 is the hon
 - Register `./wind` with an installed-package proof, as the other optional entries have.
 - Voxelize an editor map (walls, roofs, prefabs and tiles) instead of catalogue placements.
 - Bearing sets and smoke are in place (above). Still open:
-  - Average several gust seeds into one bake, and check what it removes (in progress on `claude/wind-seeds`).
+  - Seed averaging is measured in #42: seeds cut the tail, and a longer average moves the median.
   - Give baked smoke a cheap meander.
   - Measure slerp against linear for sources upwind of buildings.
   - Quantize the stored fields.
