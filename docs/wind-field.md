@@ -52,7 +52,7 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 
 - Metres. The axes are x (east), y (height) and z (south), with north at −z, as in the tile edges. The ground is y = 0.
 - A bearing is meteorological: the direction the wind blows **from**, clockwise from north. `windDirection(fromDeg)` returns the `[x, z]` direction the air moves.
-- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids.
+- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids. Both samplers return zero at any point inside a solid cell, not only at its centre; outside the grid, the solver prescribes the inflow beyond an inflow side, and a baked field uses its nearest edge.
 
 ## The model
 
@@ -95,15 +95,19 @@ The headless path for games (`packages/wind-core/bearings.js` and `smoke.js`). T
 
 Linear is the default because the registered rule chose it: it carried smoke closest to the exact bearings, by a cancellation described below. Slerp is the principled choice where the free stream matters more than wakes, such as sources upwind of buildings or on open ground; that case was not measured. Keep-speed measured no better than slerp and costs 8–12 times as much per blend.
 
-**Smoke.** `createSmoke({capacity, lifetime, rate, rise, riseTime, spread, jitter, seed, bounds, blocked})` rides any `sample()`, live or baked.
+**Smoke.** `createSmoke({capacity, lifetime, rate, rise, riseTime, spread, jitter, seed, bounds, blocked, sweep})` rides any `sample()`, live or baked.
 
 - **Emitters.** `addEmitter({x, y, z, rate, rise, riseTime})` places a source; `moveEmitter` and `removeEmitter` change them. Each puff starts within `jitter` of its source.
 - **Rise.** A puff climbs at rise·e^(−age/riseTime) m/s, taken at the middle of each step, so a step adds the midpoint rule's share of the exact integral. The climb is a drift that does not lift the air.
 - **Spread.** A seeded random walk of `spread` m²/s spreads each axis by 2·spread·t.
 - **Lifetime and bounds.** A puff expires at `lifetime` seconds or on leaving `bounds`.
-- **Solids.** With `blocked(x, y, z)`, a step from air into a solid is refused and the puff waits. A puff that starts inside a coarse voxel moves until it is out.
+- **Solids.** With `blocked(x, y, z)`, a puff in air never moves into or through a solid. The whole move is checked, walk included, and a move that would cross a solid is refused while the puff waits. How the move is checked depends on the test:
+  - **A field's test.** `windFieldSolid(field)` carries `segment()`, which walks every cell the straight move passes through (Amanatides and Woo 1987), so no step is too long.
+  - **A plain host test** is checked at points no more than `sweep` metres apart. With `sweep` 0, the default, it checks the end of the move alone. That is the stated limit: a move longer than a wall is thick can then skip the wall (20 m/s for 0.1 s crosses 1 m). Keep each step shorter than the thinnest wall, or give `sweep` half a cell.
+  - **Jitter.** It never places a new puff in or across a wall from its source.
+  - **Buried sources.** A puff that starts inside a coarse voxel moves freely until it is out. The wind is zero inside solids, so only its rise and its walk move it; with neither it stays.
 - **Seed.** One seeded stream drives the jitter and the walk. `reset()` rewinds it, so the same seed and the same calls give the same smoke, bit for bit.
-- **Helpers.** `windFieldBounds` and `windFieldSolid` give a field's box and solid test.
+- **Helpers.** `windFieldBounds` gives a field's box. `windFieldSolid` gives its solid test, with the cell walk.
 
 **How far baked smoke strays.** Measured on the page's house and street sites at bearings halfway between 8 bake bearings, against the field solved at that exact bearing ([record](reviews/2026-11-04-wind-bearings-smoke.md)):
 
@@ -118,7 +122,9 @@ Linear is the default because the registered rule chose it: it carried smoke clo
   - At the same cost (13 flow-throughs), averaging three or four seeds narrows the typical separation by only 7–14 %, against a registered bar of 30 %.
   - Seeds do cut the large misses, mostly street smoke leaving by another way. That result is not registered and rests on 24 pairs: the 90th percentile falls from 10.7 m to 5.6–6.4 m, and pairs more than 10 m apart from 12 of 96 to none.
   - The record's earlier reading, 6–15 % that longer averaging barely helped, came from two bearings.
+  - These numbers predate #39's sampler fix and the swept collision. Re-run on the same bakes with both, 339 of 672 pair separations moved, the largest by 0.46 m, and no pooled median by more than 0.08 m. Three or four seeds then narrow the typical separation by 10–16 %, and the audit finds no step crossing a solid. Every verdict and rule held. R5 now holds on its field bar alone: the plume ratio fell to 0.84, inside its bar of 0.85, while the field ratio stayed 0.94 against 0.90 ([record](reviews/2026-11-04-wind-seeds.md#later-re-run-on-the-fixed-sampler-and-swept-smoke-2026-11-05)).
 - **Street forks.** In the street canyon, some bearings send smoke one way or the other on small differences, by up to 19 m.
+- **After review.** These numbers were measured before #39's sampler fix (zero anywhere inside a solid cell) and before the swept collision above. With the old endpoint test, 0.035 % of puff steps cut across a solid corner, none through 1 m of solid ([#42](https://github.com/Syntaxswine/nautilus-engine/pull/42)'s audit). Re-run on the same bakes with both, 371 of 720 plume ends moved, the largest by 0.73 m. No median moved more than 0.24 m, and every verdict and rule held. The [record's addendum](reviews/2026-11-04-wind-bearings-smoke.md#addendum-after-review-2026-11-05) has the split.
 
 **Cost.** Measured with Node 24.15 on a Ryzen 7 5800X at 15–44 % background load:
 
@@ -128,11 +134,11 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 | Two bakes sampled and blended on every call | 149 ns. Sampling one pre-blended field is cheaper, and the gap grows under load: 85 against 743 ns at 100 %. |
 | The uniform log law | 14 ns |
 | A live `solver.sample` | 211 ns |
-| One `createSmoke.step` per puff | 360 ns, so 1,000 puffs take 0.36 ms a frame |
+| One `createSmoke.step` per puff | 360 ns, so 1,000 puffs take 0.36 ms a frame. The swept solid test adds about 40–50 ns (a one-off check at 40 % load). |
 | A re-blend of 99,200 cells (when the wind changes) | 0.7–1.5 ms for linear or slerp; 9–13 ms for keep-speed |
 | A default bake (1 + 3 flow-throughs) | About 30–50 s per bearing on one quiet thread for these 100k-cell sites; the page's 8 workers took 297 s with the machine fully loaded |
 
-**Verification.** `tests/wind-smoke.test.mjs` (11 tests, about 6 s, in `npm test`):
+**Verification.** `tests/wind-smoke.test.mjs` (13 tests, about 4 s, in `npm test`):
 
 - A bake at 8 m/s is twice the bake at 4 m/s in all 147,456 values, gusts included.
 - On an empty site each blend meets its free-stream row above to 1e-5 at five bearings, including a wrap past north.
@@ -142,10 +148,14 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - Smoke matches its midpoint-rule rise to 1e-5 and the 2Kt spread to 6 %.
 - Smoke replays from its seed and keeps each puff's warmth across removals.
 - Puffs never cross a wall that unchecked smoke crosses, and a buried source still lets its puffs out.
+- In the review's case (20 m/s for 0.1 s at a 1 m wall), a field's test and a host test with `sweep` hold the puff, and a plain endpoint test lets it through, which is the stated limit.
+- The segment walk agrees with an exact slab-test oracle on 4,000 random moves.
+- Jitter never places a puff in or beyond a 0.2 m wall.
+- In a field (the wind is zero inside solids), a buried source with no rise stays put, and with rise it climbs out and is carried.
 - A bake over two seeds is their mean value by value (and twice the speed is still exactly twice the field). A seed given alone is the plain bake. Unconverged steps add up. Seeds without gusts are refused.
 - `averageWindFields` refuses fields that differ in grid, wind or solid cells.
 
-`node tools/wind-smoke-mutants.mjs` kills all 43 of its faults in a private copy, the linear default and 13 seed faults among them; the comment-only control survives.
+`node tools/wind-smoke-mutants.mjs` kills 48 of its 49 faults in a private copy, the linear default, the swept test and 13 seed faults among them. The survivor, S19, only changes which cell the walk visits first when a move runs exactly through a cell edge; that move touches all four cells at one point, so it is equivalent. The comment-only control survives.
 
 `node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered bearing measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
 
@@ -155,8 +165,6 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - it waits while other processes hold more than `--yield` of the machine;
 - it stops cleanly on a `STOP` file;
 - it reports `progress.json`.
-
-**Smoke steps can cut corners.** `createSmoke` tests only where a step ends. In the seed measurement's plumes, 0.035 % of puff steps crossed a solid cell with both ends in air. That happened in 60 % of the house-roof plumes, 77 % of the street-fire plumes and 1 of 488 street-roof plumes. None went through 1 m of solid; the deepest went 0.86 m. They are cuts across roof staircases and building corners, not passages through walls. How much they move a plume was not measured.
 
 ## Verification
 
@@ -169,17 +177,19 @@ Measured on 2026-11-03 and 04. The gates in `tests/wind-core.test.mjs` run in `n
 | Inviscid Taylor–Green vortex, slip box [0, π]², 32 cells, CFL 1, one turnover | Kinetic energy kept: MacCormack 0.769, semi-Lagrangian 0.644. With ν = 0.01 the run loses an extra factor 0.798, against the exact exp(−4νt) = 0.778. | MacCormack above 0.74 and at least 0.08 above semi-Lagrangian (pins on these measurements); viscous share within 5 % |
 | Airtight buildings | All 48 catalogue buildings, at 1 m and 0.5 m: no room probe on any level is reachable from outside air. With the window glass removed, at least three buildings open up, so the probe can fail. | No leaks |
 | Projection | Every step converges; the largest face divergence stays within the tolerance; the side fluxes balance | 1e-4 of U |
-| Cube, 6 cells per height, no gusts | The windward face divides near 0.65H, flowing down below and up above. Reverse flow at the foot starts about 0.55H upstream (the horseshoe vortex). The air 1.25–2H over the roof is 4–7 % faster than the inflow. Reverse flow behind the cube ends 3.08H downstream. | Signs only (see below) |
-| Same cube with surface-layer gusts | Turbulence intensity 0.196 at height H inside the domain (Eurocode's 1/ln(z/z0) gives 0.244). The recirculation behind the cube shortens to **1.35H**. | Reported |
+| Cube, 6 cells per height, no gusts | The windward face divides near 0.65H, flowing down below and up above. Reverse flow at the foot starts about 0.55H upstream (the horseshoe vortex). The air 1.25–2H over the roof is 4–7 % faster than the inflow. Reverse flow behind the cube ends 2.95H downstream. | Signs only (see below) |
+| Same cube with surface-layer gusts | Turbulence intensity 0.200 at height H inside the domain (Eurocode's 1/ln(z/z0) gives 0.244). The recirculation behind the cube shortens to **1.43H**. | Reported |
 | Gusts | Component standard deviations within 15 % of 2.5, 1.9 and 1.25 u* on 20,000 fresh points. The pattern rides the wind: a point moving with it sees 0.063 of the change a fixed point sees. Inside the domain, two cells from the inflow, the lateral gusts keep 0.67 of their 0.84 m/s. | 15 %; 0.5; half of σv |
 | Voxel marking | Exact against an independent oracle for a tilted plane, and against 200,000 sample points on a sliver triangle (89 cells, no extras) | Exact |
 | Determinism | Two runs with gusts are bit-identical | Exact |
 
-Cube wakes in the literature are usually quoted near 1.6H in channel flow (Martinuzzi and Tropea 1993), and shorter in turbulent boundary layers. I could not check either figure against the primary sources here, so neither is a gate. The gust-free 3.08H is too long, which is typical of a wake without inflow turbulence. With physically scaled gusts it falls inside the quoted range.
+Cube wakes in the literature are usually quoted near 1.6H in channel flow (Martinuzzi and Tropea 1993), and shorter in turbulent boundary layers. I could not check either figure against the primary sources here, so neither is a gate. The gust-free 2.95H is too long, which is typical of a wake without inflow turbulence. With physically scaled gusts it falls inside the quoted range.
+
+**Correction (2026-11-04).** The two cube rows first said 3.08H, 1.35H and an intensity of 0.196. Those figures came from a tree earlier than the committed one. The record's own probe, run unchanged against f3a52cd, gives 2.95H, 1.43H and 0.200, and so does an independent copy of its method. The windward divide, the horseshoe point and the roof speed-up re-measured within the ranges stated in the table.
 
 The block test's signs were set from the physics before it first ran, and one of them was wrong. The first stagnation check (u < 0.5 U at 0.25H upstream) failed: 0.69 at 4 cells per height and 0.56 at 6. The slowed zone is shorter than assumed, so the check now requires u to fall toward the face, below 0.25 U at 0.05H; it measured 0.14. At 4 cells per building height the lee did not reverse at 1.5H (u = +0.20); 6 cells resolve it, and the test uses 6.
 
-**Mutation sweep.** Twenty deliberate physics and plumbing faults went into a private copy. The final suite kills 19; the [record](#mutation-sweep) names the one it misses and why.
+**Mutation sweep.** Twenty-two deliberate physics and plumbing faults went into a private copy. The final suite kills 21; the [record](#mutation-sweep) names the one it misses and why.
 
 ## Limits
 
@@ -206,7 +216,7 @@ The block test's signs were set from the physics before it first ran, and one of
 - **An 8-bearing linear blend** holds roof plumes to 3.4–4.1 m (10–12 % of travel, 1.7–2.8° of heading) and the street fire to 6.3 m. Snapping to the nearest bake is 12–22 m off.
 - **Sixteen bearings** cut slerp's error at the same targets by 16–34 %, but not linear's everywhere: its street-roof error grew by 17 %.
 - **What a single bake carries:**
-  - its gust seed: two 12-flow-through bakes with different seeds end a plume 3.0 m apart (median), and occasionally more than 10 m apart in the street (12 of 96 pairs) ([seed record](reviews/2026-11-04-wind-seeds.md));
+  - its gust seed: two 12-flow-through bakes with different seeds end a plume 3.0 m apart (median), and occasionally more than 10 m apart on the street site (12 of 96 pairs) ([seed record](reviews/2026-11-04-wind-seeds.md));
   - in a canyon, the forks of the smoke's own path (up to 19 m between two seeds).
 - **What it omits:**
   - all the solver's limits (neutral air, slip ground, 1 m cells, small domains);
@@ -244,7 +254,8 @@ The block test's signs were set from the physics before it first ran, and one of
 | --- | --- | --- | --- |
 | 1 | First 15 tests | 10 of 20 | M02 MacCormack off; M03 limiter revert off; M04 and M06 the two gust paths, each covering for the other; M09 plain IC(0); M10 and M11 voxel plane and edge axes; M12 top seeding; M16 frozen convection; M17 Euler tracers |
 | 2 | Plus Taylor–Green, gust entry, CG pin, voxel oracles, convection and rotation tests | 18 of 20 | M03; M12 |
-| 3 | Plus the walled courtyard open to the sky (the committed tool, 2026-11-04) | **19 of 20** | M03 |
+| 3 | Plus the walled courtyard open to the sky (2026-11-04) | 19 of 20 | M03 |
+| 4 | Plus the solid-sampling test, after the architect's review. M26 and M27 each remove one sampler's solid check; M18 follows the rewritten field sampler (the committed tool, 2026-11-04) | **21 of 22** | M03 |
 
 The neutral control (a comment-only edit) survived every round. **M03 is the honest gap.** The revert limiter acts only where the corrected value leaves the local range, at sharp gradients, and none of the tests' flows has one: on the Taylor–Green vortex the limiter changes the energy by 0.0003. A test that advects a sharp front and checks the maximum principle would pin it.
 
@@ -255,7 +266,6 @@ The neutral control (a comment-only edit) survived every round. **M03 is the hon
 - Bearing sets, smoke and seed averaging are in place (above). Still open:
   - Register a tail metric for seed averaging, such as the share of plume pairs more than 10 m apart, with at least 96 pairs per arm. It would settle whether seeds should become the default for street sites.
   - Find what makes the part of the seed noise that no window removes (0.15 m/s per seed). The inflow's own time mean does not leave one.
-  - Let `createSmoke` test a step's swept path, or substep it below half a cell, so puffs cannot cut solid corners.
   - Give baked smoke a cheap meander.
   - Measure slerp against linear for sources upwind of buildings.
   - Quantize the stored fields.

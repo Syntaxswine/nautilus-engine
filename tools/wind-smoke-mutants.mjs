@@ -39,16 +39,24 @@ const MUTANTS=[
   ['F06 the mean of instantaneous fields called a mean','killed','field.js','mean:fields.every(f=>f.mean===true)','mean:true'],
   ['S01 rise taken at the step start','killed','smoke.js','Math.exp(-(ages[n]+.5*dt)/cooling[n])','Math.exp(-ages[n]/cooling[n])'],
   ['S02 rise never cools','killed','smoke.js','up[n]=warmth[n]*Math.exp(-(ages[n]+.5*dt)/cooling[n]);','up[n]=warmth[n];'],
-  ['S03 no solid test','killed','smoke.js','if(before)for(let n=0,o=0;n<count;n++,o+=3)if(blocked(','if(false)for(let n=0,o=0;n<count;n++,o+=3)if(blocked('],
-  ['S04 puffs inside a solid are held too','killed','smoke.js','&&!blocked(before[o],before[o+1],before[o+2])',''],
+  ['S03 no solid test','killed','smoke.js','if(before)for(let n=0,o=0;n<count;n++,o+=3)if(!blocked(','if(false)for(let n=0,o=0;n<count;n++,o+=3)if(!blocked('],
+  ['S04 puffs inside a solid are held too','killed','smoke.js','if(!blocked(before[o],before[o+1],before[o+2])&&crosses(','if(crosses('],
   ['S05 no bounds','killed','smoke.js','const outside=(x,y,z)=>bounds!==null&&(','const outside=(x,y,z)=>false&&('],
   ['S06 no lifetime','killed','smoke.js','if(ages[n]>lifetime||outside(','if(outside('],
   ['S07 emission remainder dropped','killed','smoke.js','e.debt+=e.rate*dt;','e.debt=e.rate*dt;'],
   ['S08 removal forgets the warmth','killed','smoke.js','ages[n]=ages[last];warmth[n]=warmth[last];cooling[n]=cooling[last];','ages[n]=ages[last];'],
   ['S09 walk never reaches the tracers','killed','smoke.js','{count,rise:up,spread,random:spread>0?random:null}','{count,rise:up}'],
-  ['S10 no jitter','killed','smoke.js','positions[o]=e.x+jitter*(2*random()-1);','positions[o]=e.x;'],
+  ['S10 no jitter','killed','smoke.js','let x=e.x+jitter*(2*random()-1),z=e.z+jitter*(2*random()-1);','let x=e.x,z=e.z;'],
   ['S11 reset keeps the random stream','killed','smoke.js','api.clear();random=seededRandom(seed);','api.clear();'],
   ['S12 field solids read k-major','killed','smoke.js','solid[i+nx*(j+ny*k)]!==0','solid[k+nz*(j+ny*i)]!==0'],
+  ['S14 the segment test is ignored','killed','smoke.js',"const segment=typeof blocked?.segment==='function'?blocked.segment:null;",'const segment=null;'],
+  ['S15 sweep is ignored','killed','smoke.js','if(sweep>0)for(let s=1,','if(false)for(let s=1,'],
+  ['S16 jitter may cross a wall','killed','smoke.js','if(blocked&&!blocked(e.x,e.y,e.z)&&crosses(e.x,e.y,e.z,x,e.y,z)){x=e.x;z=e.z;}',''],
+  ['S17 the walk ignores the end cell','killed','smoke.js','if(at(i,j,k))return true;if(i===ie&&j===je&&k===ke)return false;','if(i===ie&&j===je&&k===ke)return false;if(at(i,j,k))return true;'],
+  ['S18 the walk misplaces its first x boundary','killed','smoke.js','let nexti=dx>0?(i+1-X)*ti:','let nexti=dx>0?(i+2-X)*ti:'],
+  // A tie means the move runs through a cell edge, touching all four cells there at one point;
+  // either order reports a touched cell, so no test can prefer one.
+  ['S19 the walk breaks ties toward y','equivalent','smoke.js','if(nexti<=nextj&&nexti<=nextk)','if(nexti<nextj&&nexti<=nextk)'],
   ['S13 neutral control (comment only)','survives','smoke.js','// The box a wind field covers, as smoke bounds.','// The box a wind field covers, as smoke bounds (neutral).'],
 ];
 let failures=0;const results=[];

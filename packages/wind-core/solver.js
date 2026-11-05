@@ -258,7 +258,9 @@ export function createWindSolver(options={}){
     stopAveraging(){averaging=false;return api;},
     get averaging(){return averaging;},
     // Velocity (m/s) at world (x, y, z), interpolated from the faces; zero inside solids.
-    sample(x,y,z,out=[0,0,0],{mean=false}={}){const X=(x-origin[0])/h,Y=(y-origin[1])/h,Z=(z-origin[2])/h,a=mean?mu:u,b=mean?mv:v,c=mean?mw:w;out[0]=su(a,X,Y,Z,null);out[1]=sv(b,X,Y,Z,null);out[2]=sw(c,X,Y,Z,null);return out;},
+    sample(x,y,z,out=[0,0,0],{mean=false}={}){const X=(x-origin[0])/h,Y=(y-origin[1])/h,Z=(z-origin[2])/h,i=Math.floor(X),j=Math.floor(Y),k=Math.floor(Z);
+      if(i>=0&&j>=0&&k>=0&&i<nx&&j<ny&&k<nz&&solid[i+nx*(j+ny*k)]){out[0]=out[1]=out[2]=0;return out;}
+      const a=mean?mu:u,b=mean?mv:v,c=mean?mw:w;out[0]=su(a,X,Y,Z,null);out[1]=sv(b,X,Y,Z,null);out[2]=sw(c,X,Y,Z,null);return out;},
     // Cell-centred [u,v,w] per cell (index i + nx*(j + ny*k)), zero in solids.
     cellVelocities({mean=false,out=new Float32Array(cells*3)}={}){const a=mean?mu:u,b=mean?mv:v,c=mean?mw:w;
       for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const n=i+nx*(j+ny*k),o=n*3;if(solid[n]){out[o]=out[o+1]=out[o+2]=0;continue;}

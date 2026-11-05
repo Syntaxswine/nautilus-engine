@@ -62,5 +62,29 @@
   "leaves": 4764,
   "differences": 0,
   "first": []
+ },
+ "afterMerge": {
+  "note": "After merging #41's head 4ef13e7 (14827fd's sampler, 8aa72f7's swept smoke): a re-bake on the merged packages/ against the registered sweep's files, then compare on the registered runs (results-after-merge.json).",
+  "rebake": {
+   "arguments": "--phase runs --jobs 2 --only single/b22.5-s1,check",
+   "dataFiles": 12,
+   "identical": 12,
+   "metaFiles": 2,
+   "metaIdentical": 2,
+   "bytes": 12102400,
+   "differ": 0,
+   "missing": 0
+  },
+  "compare": {
+   "pairSeparationsMoved": 339,
+   "pairSeparations": 672,
+   "largestMove": 0.458,
+   "largestPooledMedianChange": 0.081,
+   "verdictsChanged": 0,
+   "tunnels": 0,
+   "puffSteps": 41281600,
+   "reproductionAfterReview": "24 of 24",
+   "reproductionRegistered": "10 of 24"
+  }
  }
 }

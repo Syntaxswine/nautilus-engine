@@ -169,7 +169,7 @@ A roof plume's error lies mostly along its path (the record), so its separation 
 
 **The typical case barely moves.** At a fixed budget of 13 flow-throughs, averaging three or four seeds lowers the typical seed noise of a plume by 7–14 %: a pooled median separation of 2.75 and 2.56 m, against 2.97 m for one seed. That is far from 1/√S.
 
-**The tail drops.** Not registered: the 90th percentile falls from 10.7 m to 5.6–6.4 m, and the largest separation from 22.6 m to 7.0–7.7 m. Pairs more than 10 m apart fall from 12 of 96 to none of 24 in each arm. All 12 of those pairs are street plumes.
+**The tail drops.** Not registered: the 90th percentile falls from 10.7 m to 5.6–6.4 m, and the largest separation from 22.6 m to 7.0–7.7 m. Pairs more than 10 m apart fall from 12 of 96 to none of 24 in each arm. All 12 of those pairs are on the street site: 8 street-fire and 4 street-roof plumes.
 
 **A longer single-seed average helps more than the record thought.** From 3 to 12 flow-throughs, the median falls to 0.62.
 
@@ -263,7 +263,7 @@ This audit was not registered.
 | Street roof | 1 of 488 | 1 | 0.000 % | 1 | 0 | 0 | 0.16 |
 | Street fire | 375 of 488 | 10,269 | 0.044 % | 7,377 | 2,617 | 275 | 0.84 |
 
-**Limits.** How much these cuts move the plume metric was not measured. They are a limit of the metric and of `createSmoke`. The fix belongs to the smoke component: test the step's swept path, or split a step until it covers less than half a cell. Corners can then no longer be cut.
+**Limits.** How much these cuts move the plume metric was not measured. They are a limit of the metric and of `createSmoke`. The fix belongs to the smoke component: test the step's swept path, or split a step until it covers less than half a cell. Corners can then no longer be cut. #41's `8aa72f7` has since done the first; the [re-run](#later-re-run-on-the-fixed-sampler-and-swept-smoke-2026-11-05) measures what it changes.
 
 ### Tables
 
@@ -378,3 +378,25 @@ By source, the tail is mostly the street:
    - The runs used `48ef4bd`. Compare and timing used `d11a7b3`.
    - `packages/` is identical in both to `0608fda`, the code under test. Nothing from later wind-field commits was merged first; in particular not the change that makes `sampleWindField` read zero inside solid cells.
 4. **Verdicts.** The instrument scored the predictions and rules with its own code, unchanged since `48ef4bd`. The cluster bootstrap, the c + d/a fit and the distribution beyond the median are diagnostics added after the results.
+## Later: re-run on the fixed sampler and swept smoke (2026-11-05)
+
+To resolve its conflicts with #41, this branch merged #41's head `4ef13e7`. That brings #39's sampler fix (`14827fd`: zero anywhere inside a solid cell) and the swept smoke collision (`8aa72f7`). Neither changes how a bake is solved: on the merged code, `single` b22.5-s1 and the 4-seed library bake were baked again and match the registered files byte for byte (12 data files, 12.1 MB; `proofs.json`, `afterMerge`). So compare ran again on the registered runs (`evidence/wind-seeds/results-after-merge.json`).
+
+| Quantity | Registered code | Merged code |
+| --- | --- | --- |
+| Pooled median, 1 × 12 | 2.97 m | 3.05 m |
+| S1: 3 × 10/3 and 4 × 9/4 against 1 × 12 | 0.93, 0.86 | 0.90, 0.84 |
+| S2: 1 × 12 against 1 × 3 | 0.62 | 0.64 |
+| S3: 3 × 4 and 4 × 3 against 1 × 12 | 1.01, 0.67 | 0.98, 0.67 |
+| R5: 4 × 9/4's plume and field ratios (bars 0.85 and 0.90) | 0.86, 0.94 | 0.84, 0.94 |
+| 90th percentile: 1 × 12, 3 × 10/3, 4 × 9/4 | 10.7, 6.4, 5.6 m | 10.7, 6.5, 5.4 m |
+| Pairs over 10 m: 1 × 12; 3 × 10/3 and 4 × 9/4 | 12 of 96; none of 24 | 12 of 96; none of 24 |
+| Puff steps crossing a solid (the audit) | 14,602 of 41.3 M | none |
+| #41's noise rows reproduced | 24 of 24 of its registered rows | 24 of 24 of its re-measured rows |
+
+- Every prediction keeps its verdict, and both rules keep their decisions. 339 of 672 pair separations moved, the largest by 0.46 m, and no pooled median by more than 0.08 m.
+- **R5 now rests on its field bar.** 4 × 9/4's plume ratio, 0.84, is inside its bar. Its field ratio is not: the field functional reads the baked values in air cells, not a sampler, so it stays 0.94. This is the case the field bar was registered for, a plume ratio from 24 pairs crossing its bar on a small change.
+- At the same cost, three or four seeds now narrow the typical plume by 10–16 %, against 7–14 % on the registered code.
+- **The swept test holds in real plumes.** The audit, an independent cell walk, finds no puff step crossing a solid, where the endpoint test let 14,602 through.
+- **The two instruments still agree.** The 24 reproduction rows equal #41's re-measured rows (`evidence/wind-bearings-smoke/results-after-review.json`) exactly; 10 of 24 still equal its registered rows.
+- The tables above stand as measured on the registered code.

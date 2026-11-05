@@ -154,6 +154,7 @@ Timing load was 15–44 % on the registered timing run; a repeat at 100 % load g
    - Their speeds differ by 6 % (house, 22.5°: 7.71 against 7.27 m/s) and 15 % (street, 22.5°: 7.71 against 6.59 m/s), even after 12 flow-throughs.
    - An exact-bearing bake at 3 flow-throughs is 1.8–3.8 m from the same bearing at 12.
    - The likely cause is a few of the 32 synthetic gust modes running slower than the window (that is a hypothesis), so a longer average barely helps. Averaging several seeds should.
+   - *Narrowed after review:* these claims rest on two bearings per source. Neither "a longer average barely helps" nor the slow-mode cause is established by this data; see the [addendum](#addendum-after-review-2026-11-05).
 4. **A street fire's path forks (P4, P7).** At six of the eight 16-set targets, the exact-bearing bake at 3 flow-throughs is 10.9–18.0 m from its own 12-flow-through mean. Two seeds at 22.5° end 13–19 m apart at every averaging. The canyon sends smoke one way or the other on small differences. That uncertainty belongs to the site and the solver, not to the bake. Neither more bearings nor longer averaging removes it.
 
 ### Visual review
@@ -239,10 +240,36 @@ The tables give D_end in metres. Each cell is the median over the 8 targets, the
    - A noise floor per source is the median, here the mean, of its two bearings.
 3. **The solver is `f3a52cd`'s plain advect-then-project step.** The advection–reflection option on `claude/wind-reflection` was not used.
 
-## Later: the seed bias, measured
+## Addendum after review (2026-11-05)
 
-Item 3 of [what the misses say](#what-the-misses-say) read the seed bias from two bearings and suggested averaging seeds. [A registered measurement](2026-11-04-wind-seeds.md) then ran 8 seeds at 8 bearings on both sites.
+The architect reviewed `0cc0752` read-only (`Documents\ChatGPT\Nautilus Engine\artifacts\worktree-review-20261104\wind-review.txt`). Three findings touch this record.
 
-- **The bias is smaller than item 3 read it.** At 12 flow-throughs the speed aloft varies by 0.21 m/s per seed, about 3 %, not 6–15 %. Of that, about 0.15 m/s is a part no window removes.
-- **A longer average does help.** From 3 to 12 flow-throughs the seed noise of a plume falls to 0.62 (median). The 0.76–0.88 above came from two bearings.
-- **Averaging seeds is only a partial remedy.** At the same cost, three or four seeds narrow the typical plume by 7–14 %. They cut the large misses in the street, though that result is not registered.
+1. **Smoke could tunnel through a wall (P2, qualified).** The `blocked` rule tested only where a move ended. A puff at x = −0.5, carried at 20 m/s for 0.1 s, crossed a wall at 0 ≤ x < 1 with both ends in air. This reproduces, and it contradicted the claim that puffs never cross a wall. Fixed in `8aa72f7`: a puff in air never moves into or through a solid, walk included.
+   - `windFieldSolid` walks every cell the move passes through.
+   - A host test is sampled `sweep` metres apart.
+   - A plain test checks the end of the move alone, which is the stated limit.
+   - Jitter never places a puff across a wall.
+   - The page's live and baked smoke use the cell walk.
+2. **Samplers returned flow inside a solid cell.** #39's `14827fd` makes `sampleWindField`, and so every blend, return zero anywhere inside a solid cell. It is merged here in `5fdd452`.
+3. **A refused site left its old bake exportable.** With `14827fd`'s transactional `rebuild()`, `forgetBake()` now runs only when a site is accepted. A refused change keeps the previous site and its bake together. Checked in the built page (the app's browser pane, through `windFieldReview`):
+   - The street site with the Copper Watch Firehouse was baked at 1 m (8 bearings, 332 s).
+   - Switching to 0.5 m cells was refused: "That site needs 1,111,968 cells at 0.5 m; the limit here is 1,000,000. The cells stay at 1 m."
+   - The cell control and state returned to 1 m, and the buildings and domain stayed the same. The field kept advancing, from step 612 to 621.
+   - The bake stayed complete and exportable, its grid equal to the domain (67 × 27 × 78 at 1 m).
+   - Turning a building was then accepted and dropped the bake: "Not baked yet.", nothing to export, and smoke back to live.
+   - There were no page errors.
+
+**Re-measured.** The registered compare ran again on the same 54 runs' bakes. The solver runs are unchanged; only sampling and smoke changed. The 720 plume ends are 72 targets × 10 arms.
+
+| Code | Plume ends moved | Largest move | Largest change of a median |
+| --- | --- | --- | --- |
+| `5fdd452`: #39's sampler fix only | 335 of 720 | 0.20 m | 0.10 m |
+| `8aa72f7`: plus the swept test | 371 of 720 | 0.73 m | 0.24 m |
+
+Every prediction verdict and every rule is unchanged: R1 linear, R2 8 bearings, R3 `average` 3, R4 the two roof sources. The registered tables above stand as measured. The re-measured results are in `evidence/wind-bearings-smoke/results-after-review.json`, and the sampler-only run in `results-after-review-sampler-only.json`. The live batches were recorded during the runs, under the old sampler and the endpoint rule, and were not re-run.
+
+**Narrowed: the seed noise floor** (item 3 under "What the misses say"). Its claims rest on two bearings per source. "A longer average barely helps" and the slow-mode cause are not established by this data. The follow-up, [#42](https://github.com/Syntaxswine/nautilus-engine/pull/42), measured both with 8 seeds at 8 bearings on both sites:
+- From 3 to 12 flow-throughs the median plume separation falls to 0.62. This record's 0.76–0.88 came from two bearings.
+- The gust forcing alone converges as 1/T, so the part that does not average away comes from the solved flow, not slow inflow modes.
+- Averaging 3–4 seeds within the same budget mostly cuts the tail.
+- Its tunnelling audit of the old endpoint test found 0.035 % of puff steps crossing a solid cell with both ends in air. All were corner cuts at most 0.86 m deep; none went through 1 m of solid. The re-measure above gives what removing them does to this record's metric: at most 0.74 m per plume end.
