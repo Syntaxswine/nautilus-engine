@@ -32,7 +32,7 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 
 - Metres. The axes are x (east), y (height) and z (south), with north at −z, as in the tile edges. The ground is y = 0.
 - A bearing is meteorological: the direction the wind blows **from**, clockwise from north. `windDirection(fromDeg)` returns the `[x, z]` direction the air moves.
-- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids.
+- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids. Both samplers return zero at any point inside a solid cell, not only at its centre; outside the grid, the solver prescribes the inflow beyond an inflow side, and a baked field uses its nearest edge.
 
 ## The model
 
@@ -72,7 +72,7 @@ Cube wakes in the literature are usually quoted near 1.6H in channel flow (Marti
 
 The block test's signs were set from the physics before it first ran, and one of them was wrong. The first stagnation check (u < 0.5 U at 0.25H upstream) failed: 0.69 at 4 cells per height and 0.56 at 6. The slowed zone is shorter than assumed, so the check now requires u to fall toward the face, below 0.25 U at 0.05H; it measured 0.14. At 4 cells per building height the lee did not reverse at 1.5H (u = +0.20); 6 cells resolve it, and the test uses 6.
 
-**Mutation sweep.** Twenty-four deliberate physics and plumbing faults went into a private copy, four of them in the reflection step. The final suite kills 22; the [record](#mutation-sweep) names the two it misses and why.
+**Mutation sweep.** Twenty-six deliberate physics and plumbing faults went into a private copy, four of them in the reflection step. The final suite kills 24; the [record](#mutation-sweep) names the two it misses and why.
 
 ## Advection–reflection
 
@@ -197,8 +197,9 @@ The runs below were not pre-registered. They came after the failure, for two rea
 | --- | --- | --- | --- |
 | 1 | First 15 tests | 10 of 20 | M02 MacCormack off; M03 limiter revert off; M04 and M06 the two gust paths, each covering for the other; M09 plain IC(0); M10 and M11 voxel plane and edge axes; M12 top seeding; M16 frozen convection; M17 Euler tracers |
 | 2 | Plus Taylor–Green, gust entry, CG pin, voxel oracles, convection and rotation tests | 18 of 20 | M03; M12 |
-| 3 | Plus the walled courtyard open to the sky (the committed tool, 2026-11-04) | **19 of 20** | M03 |
-| 4 | Plus the advection–reflection test, both steps in the empty-site, projection and determinism tests, and the reset check; four mutants of the reflection step, M22–M25 (2026-11-04) | **22 of 24** | M03; M25 |
+| 3 | Plus the walled courtyard open to the sky (2026-11-04) | 19 of 20 | M03 |
+| 4 | Plus the solid-sampling test, after the architect's review. M26 and M27 each remove one sampler's solid check; M18 follows the rewritten field sampler (2026-11-04) | 21 of 22 | M03 |
+| 5 | Plus the advection–reflection test, both steps in the empty-site, projection and determinism tests, and the reset check; four mutants of the reflection step, M22–M25 (the committed tool, 2026-11-04) | **24 of 26** | M03; M25 |
 
 The neutral control (a comment-only edit) survived every round. **M03 is the honest gap.** The revert limiter acts only where the corrected value leaves the local range, at sharp gradients, and none of the tests' flows has one: on the Taylor–Green vortex the limiter changes the energy by 0.0003 under the plain split and by 0.0022 under the reflection. A test that advects a sharp front and checks the maximum principle would pin it. **M25 is the second gap.** In the reflection's second half, samples beyond the inflow side read the gusts at the start of the step instead of half a step on. That shifts the inflow pattern by half a step within one cell of the side, and no test resolves it. The new test kills M22 (the reflection dropped) and M24 (the second half advecting a full step), and the reset check kills M23 (the half-step pressure kept across a reset).
 
