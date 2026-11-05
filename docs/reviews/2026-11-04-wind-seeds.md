@@ -376,7 +376,7 @@ By source, the tail is mostly the street:
 2. **Compare gained the tunnelling audit, not registered** (`ebdf61e`, `d11a7b3`). It only reads positions. On the dry data, compare at `d11a7b3` reported all 4,764 registered values exactly as the registered compare (`48ef4bd`) did, with only wall-clock seconds set aside.
 3. **The code that ran.**
    - The runs used `48ef4bd`. Compare and timing used `d11a7b3`.
-   - `packages/` is identical in both to `0608fda`, the code under test. Nothing from later wind-field commits was merged first; in particular not the change that makes `sampleWindField` read zero inside solid cells.
+   - `packages/` is identical in both to `0608fda`, the code under test. Nothing from later wind-field commits was merged first: not #39's change that makes `sampleWindField` read zero inside solid cells (`14827fd`), nor #41's swept smoke test (`8aa72f7`). The [re-run](#later-re-run-on-the-fixed-sampler-and-swept-smoke-2026-11-05) measures both.
 4. **Verdicts.** The instrument scored the predictions and rules with its own code, unchanged since `48ef4bd`. The cluster bootstrap, the c + d/a fit and the distribution beyond the median are diagnostics added after the results.
 ## Later: re-run on the fixed sampler and swept smoke (2026-11-05)
 
