@@ -73,6 +73,14 @@ The headless path for games (`packages/wind-core/bearings.js` and `smoke.js`). T
 
 **Bake.** `bakeWindBearings({grid, solid, bearings, wind: {speed, z0}, turbulence, warmup, average})` solves each bearing on one grid. The grid should have equal margins on every side, so one grid serves every bearing. Each bearing starts from the bare inflow profile, so no bearing depends on the order of the bake. It warms up for `warmup` flow-throughs and averages over `average` more; a flow-through is the longer horizontal side divided by the reference speed. The defaults are 8 bearings, gusts at gain 1, `warmup` 1 and `average` 3. Steps whose pressure solve did not converge are counted per bearing in `unconverged`. `bearings` is a count (evenly spaced from north) or a list.
 
+**Seeds.** `seeds` bakes each bearing once per gust seed and keeps the mean. A count n is `turbulence.seed` (default 1) and the n − 1 seeds after it; a list is used as given.
+
+- Each seed is an ordinary bake: it starts from the bare profile, warms up and averages. The cost is `seeds` × (`warmup` + `average`) flow-throughs.
+- The set and its fields record their seeds.
+- Without `seeds`, a bake is unchanged: same values, no new keys.
+- `averageWindFields(fields)` is the mean it uses. It accepts any baked fields that share a grid, a wind and their solid cells.
+- What seeds buy is measured under [baked bearings and smoke](#baked-bearings-and-smoke).
+
 **Speed is exact.** The solver has no speed scale of its own. dt = cfl·h/U, the gusts' u*, convection and frequencies, and the pressure tolerance all scale with U. A field baked at U0 is the field at U once multiplied by U/U0, so one bake serves every speed. Doubling is exact in binary: on the single-house site, the 3 m/s bake is exactly half the 6 m/s bake in all 297,600 values at every averaging length. At 9 m/s against 1.5 × the 6 m/s bake, rounding grows in the turbulent flow to a largest difference of 2.4 m/s. The chimney plumes still end only 1.5 m apart, below the 2.8 m that two gust seeds give. Any viscosity or a fixed dt would break the scaling, so `bakeWindBearings` offers neither. Terrain is not scaled: the bake holds one z0.
 
 **Blend.** `blendWindBearings(set, {fromDeg, speed, blend}, into)` takes the two bake bearings either side of `fromDeg` and returns an ordinary wind field on the set's grid, so `sampleWindField`, `advectTracers` and smoke take it unchanged. At a bake bearing it is that bake times U/U0, value for value. A cell solid in either weighted neighbour is solid and still.
@@ -104,7 +112,12 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - **A fire in the street.** 6.3 m off (18 %, 6.4°).
 - **The uniform fallback.** 8.1 m and 4.5 m off for the roofs, which is about as good as a bake for smoke above the roofs. For the street fire it is 49 m off, because it carries smoke straight through the buildings.
 - **Against live smoke.** About 110–130 live plumes in the running solver wander 9–13 m RMS around their mean path. A practical 3-flow-through bake ends 4.5–4.7 m (roofs) and 9.8 m (street) from that mean.
-- **Seed bias.** A bake also carries the seed of its gusts. Two seeds differ by 6–15 % in mean speed aloft even after 12 flow-throughs, and averaging longer barely helps.
+- **Seed noise.** A bake also carries the seed of its gusts. The measurement is [registered and recorded](reviews/2026-11-04-wind-seeds.md): 8 seeds at 8 bearings on both sites.
+  - At 12 flow-throughs the along-wind speed aloft varies by 0.21 m/s from seed to seed, about 3 %. Of that, about 0.15 m/s per seed is a part no window removes.
+  - Two 12-flow-through bakes with different seeds end a plume 3.0 m apart (median). A longer average helps: 12 flow-throughs against 3 bring the median separation to 0.62.
+  - At the same cost (13 flow-throughs), averaging three or four seeds narrows the typical separation by only 7–14 %, against a registered bar of 30 %.
+  - Seeds do cut the large misses, mostly street smoke leaving by another way. That result is not registered and rests on 24 pairs: the 90th percentile falls from 10.7 m to 5.6–6.4 m, and pairs more than 10 m apart from 12 of 96 to none.
+  - The record's earlier reading, 6–15 % that longer averaging barely helped, came from two bearings.
 - **Street forks.** In the street canyon, some bearings send smoke one way or the other on small differences, by up to 19 m.
 
 **Cost.** Measured with Node 24.15 on a Ryzen 7 5800X at 15–44 % background load:
@@ -119,7 +132,7 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 | A re-blend of 99,200 cells (when the wind changes) | 0.7–1.5 ms for linear or slerp; 9–13 ms for keep-speed |
 | A default bake (1 + 3 flow-throughs) | About 30–50 s per bearing on one quiet thread for these 100k-cell sites; the page's 8 workers took 297 s with the machine fully loaded |
 
-**Verification.** `tests/wind-smoke.test.mjs` (9 tests, about 3 s, in `npm test`):
+**Verification.** `tests/wind-smoke.test.mjs` (11 tests, about 6 s, in `npm test`):
 
 - A bake at 8 m/s is twice the bake at 4 m/s in all 147,456 values, gusts included.
 - On an empty site each blend meets its free-stream row above to 1e-5 at five bearings, including a wrap past north.
@@ -129,8 +142,21 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - Smoke matches its midpoint-rule rise to 1e-5 and the 2Kt spread to 6 %.
 - Smoke replays from its seed and keeps each puff's warmth across removals.
 - Puffs never cross a wall that unchecked smoke crosses, and a buried source still lets its puffs out.
+- A bake over two seeds is their mean value by value (and twice the speed is still exactly twice the field). A seed given alone is the plain bake. Unconverged steps add up. Seeds without gusts are refused.
+- `averageWindFields` refuses fields that differ in grid, wind or solid cells.
 
-`node tools/wind-smoke-mutants.mjs` kills all 30 of its faults in a private copy, the linear default among them; the comment-only control survives. `node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
+`node tools/wind-smoke-mutants.mjs` kills all 43 of its faults in a private copy, the linear default and 13 seed faults among them; the comment-only control survives.
+
+`node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered bearing measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
+
+`node tools/wind-seeds-measure.mjs --out <dir>` repeats the seed measurement: 128 runs, about 80 minutes in 8 workers on a busy machine. It is built for a shared machine:
+
+- it runs at below-normal priority with 4 jobs by default;
+- it waits while other processes hold more than `--yield` of the machine;
+- it stops cleanly on a `STOP` file;
+- it reports `progress.json`.
+
+**Smoke steps can cut corners.** `createSmoke` tests only where a step ends. In the seed measurement's plumes, 0.035 % of puff steps crossed a solid cell with both ends in air. That happened in 60 % of the house-roof plumes, 77 % of the street-fire plumes and 1 of 488 street-roof plumes. None went through 1 m of solid; the deepest went 0.86 m. They are cuts across roof staircases and building corners, not passages through walls. How much they move a plume was not measured.
 
 ## Verification
 
@@ -180,7 +206,7 @@ The block test's signs were set from the physics before it first ran, and one of
 - **An 8-bearing linear blend** holds roof plumes to 3.4–4.1 m (10–12 % of travel, 1.7–2.8° of heading) and the street fire to 6.3 m. Snapping to the nearest bake is 12–22 m off.
 - **Sixteen bearings** cut slerp's error at the same targets by 16–34 %, but not linear's everywhere: its street-roof error grew by 17 %.
 - **What a single bake carries:**
-  - its gust seed, a 6–15 % bias in mean speed aloft that longer averaging barely removes;
+  - its gust seed: two 12-flow-through bakes with different seeds end a plume 3.0 m apart (median), and occasionally more than 10 m apart in the street (12 of 96 pairs) ([seed record](reviews/2026-11-04-wind-seeds.md));
   - in a canyon, the forks of the smoke's own path (up to 19 m between two seeds).
 - **What it omits:**
   - all the solver's limits (neutral air, slip ground, 1 m cells, small domains);
@@ -202,7 +228,8 @@ The block test's signs were set from the physics before it first ran, and one of
 
 - Bake 8 bearings per map with the defaults (linear blend, `average` 3), and blend them at play time.
 - Bake 16 bearings where smoke sits low among buildings and the extra 10 MB is affordable.
-- Average two or three gust seeds into a bake when absolute plume positions matter. This removes the seed bias but is untested here.
+- Keep one gust seed by default. Spend a larger budget on a longer average rather than on more seeds: that is the registered rule's choice for the typical plume.
+- Where smoke sits low among buildings and a plume leaving by the wrong street would matter, `seeds: 3` or `4` at the same cost cut the large misses. That result is not registered and rests on 24 pairs.
 - Add a cheap meander, such as the gust model sampled at the puffs, if steady plumes look too calm.
 - Keep the uniform wind as the fallback for maps without a bake. It is already adequate for plumes released above the roofs.
 - The observation that would settle it is a Tinderbox scene with fire among buildings, compared side by side under the uniform wind and a bake.
@@ -225,8 +252,10 @@ The neutral control (a comment-only edit) survived every round. **M03 is the hon
 
 - Register `./wind` with an installed-package proof, as the other optional entries have.
 - Voxelize an editor map (walls, roofs, prefabs and tiles) instead of catalogue placements.
-- Bearing sets and smoke are in place (above). Still open:
-  - Average several gust seeds into one bake, and check that it removes the seed bias.
+- Bearing sets, smoke and seed averaging are in place (above). Still open:
+  - Register a tail metric for seed averaging, such as the share of plume pairs more than 10 m apart, with at least 96 pairs per arm. It would settle whether seeds should become the default for street sites.
+  - Find what makes the part of the seed noise that no window removes (0.15 m/s per seed). The inflow's own time mean does not leave one.
+  - Let `createSmoke` test a step's swept path, or substep it below half a cell, so puffs cannot cut solid corners.
   - Give baked smoke a cheap meander.
   - Measure slerp against linear for sources upwind of buildings.
   - Quantize the stored fields.

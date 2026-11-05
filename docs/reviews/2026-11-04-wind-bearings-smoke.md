@@ -238,3 +238,11 @@ The tables give D_end in metres. Each cell is the median over the 8 targets, the
    - R1–R3 name no source, so they pool all three (24 targets; the noise floor's 6).
    - A noise floor per source is the median, here the mean, of its two bearings.
 3. **The solver is `f3a52cd`'s plain advect-then-project step.** The advection–reflection option on `claude/wind-reflection` was not used.
+
+## Later: the seed bias, measured
+
+Item 3 of [what the misses say](#what-the-misses-say) read the seed bias from two bearings and suggested averaging seeds. [A registered measurement](2026-11-04-wind-seeds.md) then ran 8 seeds at 8 bearings on both sites.
+
+- **The bias is smaller than item 3 read it.** At 12 flow-throughs the speed aloft varies by 0.21 m/s per seed, about 3 %, not 6–15 %. Of that, about 0.15 m/s is a part no window removes.
+- **A longer average does help.** From 3 to 12 flow-throughs the seed noise of a plume falls to 0.62 (median). The 0.76–0.88 above came from two bearings.
+- **Averaging seeds is only a partial remedy.** At the same cost, three or four seeds narrow the typical plume by 7–14 %. They cut the large misses in the street, though that result is not registered.

@@ -1,0 +1,66 @@
+{
+ "note": "The redesigned runner (ebdf61e) and compare (d11a7b3) against the registered instrument (48ef4bd). Data files are byte-compared; run metas are compared with only the wall-clock seconds set aside; results.json with only wall-clock seconds and the added tunnelling audit set aside.",
+ "dryAllRuns": {
+  "registered": "48ef4bd --dry, 6 jobs",
+  "redesigned": "ebdf61e --dry, 4 jobs, persistent workers",
+  "dataFiles": 1282,
+  "identical": 1282,
+  "metaFiles": 129,
+  "metaIdentical": 129,
+  "bytes": 1421603200,
+  "differ": 0,
+  "missing": 0
+ },
+ "fullScale": {
+  "registered": "48ef4bd, the measured sweep",
+  "redesigned": "ebdf61e, --only single/b22.5-s1,check",
+  "dataFiles": 12,
+  "identical": 12,
+  "metaFiles": 2,
+  "metaIdentical": 2,
+  "bytes": 12102400,
+  "differ": 0,
+  "missing": 0
+ },
+ "stopAndResume": {
+  "dataFiles": 642,
+  "identical": 642,
+  "metaFiles": 65,
+  "metaIdentical": 65,
+  "bytes": 693308800,
+  "differ": 0,
+  "missing": 0,
+  "sequence": {
+   "stopAt": {
+    "done": 10,
+    "inFlight": [
+     "single/b67.5-s2",
+     "single/b67.5-s3"
+    ]
+   },
+   "firstExit": 0,
+   "stateAfterStop": "stopped",
+   "doneAfterStop": 12,
+   "filesAfterStop": 12,
+   "inFlightFinished": 2,
+   "blockedExit": 0,
+   "blockedSaid": "A STOP file is waiting in C:\\Users\\baals\\AppData\\Local\\Temp\\claude\\3909a266fe46ce66\\45a65087-073f-4520-ac7f-0bd86ef5d4df\\scratchpad\\seeds\\stoptest; remove it to run.",
+   "resumePending": 53,
+   "resumeState": "done",
+   "resumeDone": 53,
+   "filesAtEnd": 65,
+   "expected": 65
+  }
+ },
+ "forcing": {
+  "arguments": "--phase forcing --seeds 6 --sites single",
+  "identical": true
+ },
+ "compareOnDryData": {
+  "registered": "48ef4bd",
+  "redesigned": "d11a7b3",
+  "leaves": 4764,
+  "differences": 0,
+  "first": []
+ }
+}
