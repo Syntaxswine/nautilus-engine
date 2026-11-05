@@ -76,33 +76,35 @@ function plume(sample,source,{dt,steps,count=PUFFS,seed=1,blocked=null,spread=SM
   const path=new Float64Array((steps+1)*3);path.set([source.x,source.y,source.z]);const before=audit?new Float32Array(count*3):null;
   for(let n=1;n<=steps;n++){if(before&&n>1)before.set(smoke.positions.subarray(0,count*3));smoke.step(sample,dt);if(n===1){if(smoke.count!==count)throw Error('Released '+smoke.count+' of '+count+' puffs.');smoke.removeEmitter(0);}
     let x=0,y=0,z=0;const p=smoke.positions;for(let q=0;q<count;q++){x+=p[q*3];y+=p[q*3+1];z+=p[q*3+2];}path[n*3]=x/count;path[n*3+1]=y/count;path[n*3+2]=z/count;
-    if(before&&n>1){audit.puffSteps+=count;for(let q=0,o=0;q<count;q++,o+=3)if(crossesSolid(audit.field,before[o],before[o+1],before[o+2],p[o],p[o+1],p[o+2]))audit.tunnels++;}}
+    if(before&&n>1){audit.puffSteps+=count;for(let q=0,o=0;q<count;q++,o+=3){const d=solidPath(audit.field,before[o],before[o+1],before[o+2],p[o],p[o+1],p[o+2]);if(d>0){audit.tunnels++;audit.inside[d<.1?0:d<.25?1:d<.5?2:d<1?3:4]++;if(d>audit.max)audit.max=d;}}}}
   return path;
 }
-// Whether the segment a -> b passes through a solid cell of field while both ends lie in air:
-// a voxel walk (Amanatides and Woo 1987) over the cells the segment touches.
-function crossesSolid(field,ax,ay,az,bx,by,bz){
+// How much of the segment a -> b lies inside solid cells of field when both ends are in air (0 if
+// an end is solid: smoke refuses such a step, or the puff starts in a coarse voxel). A voxel
+// walk (Amanatides and Woo 1987) over the cells the segment touches.
+function solidPath(field,ax,ay,az,bx,by,bz){
   const{origin:[ox,oy,oz],cell:h,size:[nx,ny,nz],solid}=field,cellAt=(i,j,k)=>i>=0&&j>=0&&k>=0&&i<nx&&j<ny&&k<nz&&solid[i+nx*(j+ny*k)]!==0;
   let i=Math.floor((ax-ox)/h),j=Math.floor((ay-oy)/h),k=Math.floor((az-oz)/h);const ie=Math.floor((bx-ox)/h),je=Math.floor((by-oy)/h),ke=Math.floor((bz-oz)/h);
-  if(cellAt(i,j,k)||cellAt(ie,je,ke))return false;
-  const dx=bx-ax,dy=by-ay,dz=bz-az,si=Math.sign(dx),sj=Math.sign(dy),sk=Math.sign(dz);
+  if(cellAt(i,j,k)||cellAt(ie,je,ke))return 0;
+  const dx=bx-ax,dy=by-ay,dz=bz-az,si=Math.sign(dx),sj=Math.sign(dy),sk=Math.sign(dz),length=Math.hypot(dx,dy,dz);
   const first=(p,o,c,s,d)=>d?((s>0?o+(c+1)*h:o+c*h)-p)/d:Infinity;
-  let tx=first(ax,ox,i,si,dx),ty=first(ay,oy,j,sj,dy),tz=first(az,oz,k,sk,dz);const ddx=dx?h/Math.abs(dx):Infinity,ddy=dy?h/Math.abs(dy):Infinity,ddz=dz?h/Math.abs(dz):Infinity;
+  let tx=first(ax,ox,i,si,dx),ty=first(ay,oy,j,sj,dy),tz=first(az,oz,k,sk,dz),inside=0;const ddx=dx?h/Math.abs(dx):Infinity,ddy=dy?h/Math.abs(dy):Infinity,ddz=dz?h/Math.abs(dz):Infinity;
   for(let guard=0;guard<256&&!(i===ie&&j===je&&k===ke);guard++){
-    if(tx<=ty&&tx<=tz){if(tx>1)break;i+=si;tx+=ddx;}else if(ty<=tz){if(ty>1)break;j+=sj;ty+=ddy;}else{if(tz>1)break;k+=sk;tz+=ddz;}
-    if(cellAt(i,j,k))return true;
+    let t;if(tx<=ty&&tx<=tz){t=tx;if(t>1)break;i+=si;tx+=ddx;}else if(ty<=tz){t=ty;if(t>1)break;j+=sj;ty+=ddy;}else{t=tz;if(t>1)break;k+=sk;tz+=ddz;}
+    if(cellAt(i,j,k))inside+=(Math.min(tx,ty,tz,1)-t)*length;
   }
-  return false;
+  return inside;
 }
 // The audit's known answers: a wall of cells at i = 2 below y = 2, and one lone solid cell.
 function auditSelfCheck(){
   const size=[6,3,6],solid=new Uint8Array(6*3*6),at=(i,j,k)=>i+6*(j+3*k);for(let k=0;k<6;k++)for(let j=0;j<2;j++)solid[at(2,j,k)]=1;solid[at(4,0,4)]=1;
   const field={origin:[0,0,0],cell:1,size,solid},cases=[
-    ['through the wall in one step',[1.5,.5,1.5],[3.4,.5,1.5],true],['short of the wall',[1.2,.5,1.5],[1.9,.5,1.5],false],['ends inside the wall (refused, not a tunnel)',[1.5,.5,1.5],[2.5,.5,1.5],false],
-    ['over the top of the wall',[1.5,2.5,1.5],[3.5,2.5,1.5],false],['backwards through the wall',[3.2,1.5,.5],[1.8,1.2,.9],true],
-    ['across a lone cell\'s corner',[3.9,.5,5.05],[5.05,.5,3.9],true],['past the lone cell',[3.5,.5,5.2],[4.2,.5,5.9],false]];
-  const rows=cases.map(([name,a,b,want])=>({name,want,got:crossesSolid(field,...a,...b)}));
-  return{pass:rows.every(r=>r.want===r.got),rows};
+    ['through the wall in one step',[1.5,.5,1.5],[3.4,.5,1.5],1],['short of the wall',[1.2,.5,1.5],[1.9,.5,1.5],0],['ends inside the wall (refused, not a tunnel)',[1.5,.5,1.5],[2.5,.5,1.5],0],
+    ['over the top of the wall',[1.5,2.5,1.5],[3.5,2.5,1.5],0],['backwards through the wall',[3.2,1.5,.5],[1.8,1.2,.9],Math.hypot(1.4,.3,.4)/1.4],
+    ['diagonally through a lone cell',[3.9,.5,5.05],[5.05,.5,3.9],.95*Math.SQRT2],['clipping a lone cell\'s corner',[3.8,.5,4.7],[4.3,.5,5.2],.2*.5*Math.SQRT2],
+    ['past the lone cell',[3.5,.5,5.2],[4.2,.5,5.9],0]];
+  const rows=cases.map(([name,a,b,want])=>({name,want:+want.toFixed(9),got:+solidPath(field,...a,...b).toFixed(9)}));
+  return{pass:rows.every(r=>Math.abs(r.want-r.got)<1e-9),rows};
 }
 // Machine load: the share of all logical processors busy, and the share this process used.
 function cpuMark(){let idle=0,total=0;for(const c of os.cpus()){const t=c.times;idle+=t.idle;total+=t.user+t.nice+t.sys+t.idle+t.irq;}return{idle,total,own:process.cpuUsage(),at:performance.now()};}
@@ -243,11 +245,14 @@ function compare(){
   const results={rig:{cpu:os.cpus()[0].model,threads:os.cpus().length,node:process.version,platform:os.platform()+' '+os.release()},runs:{count:0,missed:0,seconds:[]},controls:{},field:{},plumes:[],transient:[],summary:{}};
   let nonFinite=0;const finite=p=>{for(const v of p)if(!Number.isFinite(v))nonFinite++;return p;};
   // Unregistered (added after the registration, read-only): steps that cross a solid cell.
-  const tunnels={note:'Puff steps whose straight path crosses a solid cell while both ends are in air, from the second step on, over every plume the registered metrics use (not the reproduction rows). Read-only: it changes no plume.',selfCheck:auditSelfCheck(),plumes:0,puffSteps:0,tunnels:0,bySource:{},worst:[]};
-  if(!tunnels.selfCheck.pass)throw Error('The tunnelling audit misses a known answer: '+JSON.stringify(tunnels.selfCheck.rows.filter(r=>r.want!==r.got)));
-  const audited=(field,source,label2,what,options)=>{const audit={field,puffSteps:0,tunnels:0},p=plume(fieldArm(field).sample,source,{...options,blocked:W.windFieldSolid(field),audit});
-    tunnels.plumes++;tunnels.puffSteps+=audit.puffSteps;tunnels.tunnels+=audit.tunnels;const b=tunnels.bySource[label2]||={plumes:0,withTunnels:0,puffSteps:0,tunnels:0};b.plumes++;b.puffSteps+=audit.puffSteps;b.tunnels+=audit.tunnels;
-    if(audit.tunnels){b.withTunnels++;tunnels.worst.push({source:label2,plume:what,tunnels:audit.tunnels,puffSteps:audit.puffSteps});}return p;};
+  const BINS=['<0.1','0.1-0.25','0.25-0.5','0.5-1','>=1'];
+  const tunnels={note:'Puff steps whose straight path crosses a solid cell while both ends are in air, from the second step on, over every plume the registered metrics use (not the reproduction rows); inside = the metres of that path inside solid cells. Read-only: it changes no plume.',selfCheck:auditSelfCheck(),plumes:0,puffSteps:0,tunnels:0,inside:Object.fromEntries(BINS.map(b=>[b,0])),max:0,bySource:{},worst:[]};
+  if(!tunnels.selfCheck.pass)throw Error('The tunnelling audit misses a known answer: '+JSON.stringify(tunnels.selfCheck.rows.filter(r=>Math.abs(r.want-r.got)>=1e-9)));
+  const audited=(field,source,label2,what,options)=>{const audit={field,puffSteps:0,tunnels:0,inside:[0,0,0,0,0],max:0},p=plume(fieldArm(field).sample,source,{...options,blocked:W.windFieldSolid(field),audit});
+    tunnels.plumes++;tunnels.puffSteps+=audit.puffSteps;tunnels.tunnels+=audit.tunnels;tunnels.max=Math.max(tunnels.max,audit.max);
+    const b=tunnels.bySource[label2]||={plumes:0,withTunnels:0,puffSteps:0,tunnels:0,inside:Object.fromEntries(BINS.map(x=>[x,0])),max:0};b.plumes++;b.puffSteps+=audit.puffSteps;b.tunnels+=audit.tunnels;b.max=Math.max(b.max,audit.max);
+    BINS.forEach((x,n)=>{tunnels.inside[x]+=audit.inside[n];b.inside[x]+=audit.inside[n];});
+    if(audit.tunnels){b.withTunnels++;tunnels.worst.push({source:label2,plume:what,tunnels:audit.tunnels,deep:audit.inside[3]+audit.inside[4],max:+audit.max.toFixed(3),puffSteps:audit.puffSteps});}return p;};
   const prior=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/reviews/evidence/wind-bearings-smoke/results.json'),'utf8')).noise;
   const reproduction=[];
   for(const site of sites){
