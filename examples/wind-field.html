@@ -9,7 +9,7 @@
   <header class="masthead"><a href="../" aria-label="Nautilus workshop home" class="brand">N<span>NAUTILUS <small>FIELD NOTES / WIND</small></span></a><span class="edition">Where the air goes around what we build.</span></header>
   <main>
     <section class="scene-panel" aria-labelledby="title">
-      <div class="intro"><p class="eyebrow">ENGINE STUDY · WIND CORE</p><h1 id="title">Wind around the buildings</h1><p>Nautilus building models become solid cells; the air flows around them. Streaks show the wind moving; click a roof or the ground to release smoke and see where it drifts.</p></div>
+      <div class="intro"><p class="eyebrow">ENGINE STUDY · WIND CORE</p><h1 id="title">Wind around the buildings</h1><p>Nautilus building models become solid cells; the air flows around them. Streaks show the wind moving; click a roof or the ground to release smoke and see where it drifts. Bake the bearings to see the smoke a game would draw without running the solver.</p></div>
       <div id="stage" role="group" aria-label="Three dimensional site. Drag to turn the view, scroll or pinch to zoom, click to place a smoke source.">
         <canvas id="scene" tabindex="0" aria-label="Wind field around the selected buildings"></canvas>
         <svg id="rose" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="ring"/><path id="rose-north" d="M0-40 L5-26 L-5-26Z" class="north"/><text id="rose-n" x="0" y="-30" class="n">N</text><path id="rose-wind" d="M0-34 L0 22 M-8 12 L0 26 L8 12" class="wind"/></svg>
@@ -36,6 +36,17 @@
         <label class="row">Upwind terrain <select id="terrain"></select></label>
         <label class="row">Gusts <output id="gust-value">surface layer</output><input id="gust" type="range" min="0" max="1.5" step="0.05" value="1"></label>
         <p class="hint">Gusts are synthetic turbulence fed in upwind, scaled to the terrain's friction velocity. At 0 the inflow is steady.</p>
+      </section>
+      <section class="card" aria-labelledby="bake-title">
+        <p class="eyebrow" id="bake-title">BAKED BEARINGS</p>
+        <p class="hint">A game bakes the mean wind at a few bearings once, then blends the two either side of the day's wind and scales it to its speed. No solver runs while it plays.</p>
+        <label class="row">Bearings <select id="bake-count"><option value="8" selected>8, every 45°</option><option value="16">16, every 22.5°</option></select></label>
+        <label class="row">Blend <select id="bake-blend"><option value="linear" selected>Linear (measured best)</option><option value="slerp">Slerp (exact free stream)</option><option value="keep-speed">Keep speed</option></select></label>
+        <div class="bake-actions"><button id="bake">Bake bearings</button><button id="export-bake" disabled>Export set</button></div>
+        <progress id="bake-progress" max="1" value="0" hidden></progress>
+        <p class="hint" id="bake-note" role="status" aria-live="polite">Not baked yet.</p>
+        <label class="row">Smoke follows <select id="smoke-mode"><option value="live" selected>The live solver</option><option value="baked" disabled>The baked blend</option><option value="both" disabled>Both, side by side</option></select></label>
+        <p class="hint" id="smoke-key" hidden><span class="swatch live"></span> live solver <span class="swatch baked"></span> baked blend, from the same sources</p>
       </section>
       <section class="card">
         <p class="eyebrow">SHOW</p>

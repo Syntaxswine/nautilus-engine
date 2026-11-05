@@ -1,0 +1,67 @@
+{
+ "rig": {
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "threads": 16,
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200"
+ },
+ "positions": 1000000,
+ "cells": 99200,
+ "rows": [
+  {
+   "name": "E1 sampleWindField, blended field",
+   "median": 64.37,
+   "min": 56.27,
+   "max": 73.03,
+   "check": -13298250.174
+  },
+  {
+   "name": "E2 two bakes sampled and blended per call",
+   "median": 148.91,
+   "min": 133.58,
+   "max": 208.25,
+   "check": -13298250.173
+  },
+  {
+   "name": "E3 uniform log law",
+   "median": 14.19,
+   "min": 13.4,
+   "max": 16.64,
+   "check": -13846192.969
+  },
+  {
+   "name": "E4 live solver.sample",
+   "median": 211.4,
+   "min": 207.07,
+   "max": 224.83,
+   "check": -15898191.951
+  },
+  {
+   "name": "E5 createSmoke.step per puff (1,000 puffs, spread, blocked)",
+   "median": 359.67,
+   "min": 331.06,
+   "max": 377.12
+  },
+  {
+   "name": "E6 blendWindBearings linear per call (99200 cells)",
+   "median": 702000,
+   "min": 495100,
+   "max": 1686300,
+   "check": -23.301
+  },
+  {
+   "name": "E6 blendWindBearings slerp per call (99200 cells)",
+   "median": 1918900,
+   "min": 1049400,
+   "max": 2274000,
+   "check": -23.666
+  },
+  {
+   "name": "E6 blendWindBearings keep-speed per call (99200 cells)",
+   "median": 8738600,
+   "min": 6905200,
+   "max": 11003200,
+   "check": -23.752
+  }
+ ]
+}

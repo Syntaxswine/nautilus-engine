@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add baked bearings and smoke to the wind candidate: `bakeWindBearings` bakes the mean wind at several bearings, `blendWindBearings` and `createWindBearingSampler` blend any bearing (slerp, linear or keep-speed) and scale it exactly to any speed, a bearing set has a JSON encoding, and `createSmoke` gives emitters, a cooling rise, a seeded spread, a lifetime, bounds and solids that a puff's whole move is checked against. The reference page bakes in workers and draws baked smoke beside live smoke. Still source-only; no export, consumer pin or game behaviour changes.
 - Add the source-only wind candidate: `packages/wind-core` voxelizes Nautilus building models and solves incompressible air around them, with a log-law inflow, synthetic surface-layer gusts, a baked field format and smoke-ready tracers. The `/examples/wind-field.html` reference page runs the solver in a worker. No public export, consumer pin or game behaviour changes.
 
 - Add optional headless rectangle-stack planning, four reusable engine finishes and a native fifteen-floor tile workspace with five-label navigation and selected-floor/overview/cutaway inspection.
