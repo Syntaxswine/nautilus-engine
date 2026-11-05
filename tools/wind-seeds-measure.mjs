@@ -1,14 +1,24 @@
 // The registered measurement in docs/reviews/2026-11-04-wind-seeds.md: does averaging several
 // gust seeds into one bake remove the seed bias that the baked-bearing record measured, at a
 // fixed solver budget? Not a gate: it records numbers and verdicts.
-//   node tools/wind-seeds-measure.mjs --out <dir> [--jobs 6] [--sites single,street] [--phase forcing|runs|compare|timing|all] [--dry]
+//   node tools/wind-seeds-measure.mjs --out <dir> [--phase forcing|runs|compare|timing|all] [--sites single,street] [--dry]
+//     [--jobs 4] [--yield 0.8|off] [--normal-priority] [--only single/b22.5-s1,check]
 // Runs write each seed's running-mean snapshots under <dir>/runs and are skipped when present.
 // forcing is the gusts alone, no solver: an estimate that preceded the registration.
+//
+// A light footprint on a shared machine (none of it changes a result; the solver is deterministic):
+// - below-normal process priority, worker threads included (--normal-priority opts out);
+// - a quarter of the logical processors by default (--jobs);
+// - before each run starts, a wait while other processes use more than --yield of the machine
+//   (default 0.8; runs already started carry on);
+// - one persistent worker per job slot; the main thread builds each site once and workers get its
+//   grid, solid cells and sources, so a worker loads wind-core alone, not three.js or the catalogue;
+// - <dir>/STOP (or Ctrl+C) stops starting runs, lets the ones in flight finish, then exits;
+// - <dir>/progress.json: done, total, in flight, the last load reading and an ETA.
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
 import {Worker,isMainThread,parentPort,workerData} from 'node:worker_threads';import {fileURLToPath} from 'node:url';
-import * as T from '../packages/render-effects/three.js';
-import {createBuildingModel} from '../packages/building-catalog/three.js';
 import * as W from '../packages/wind-core/index.js';
+const T=isMainThread?await import('../packages/render-effects/three.js'):null,catalog=isMainThread?await import('../packages/building-catalog/three.js'):null;
 
 const SELF=fileURLToPath(import.meta.url),ROOT=path.resolve(path.dirname(SELF),'..');
 // The page's layouts, as tools/wind-bearings-measure.mjs builds them (its noise floor is the
@@ -36,9 +46,10 @@ const groups=S=>{const g=[];for(let n=0;n+S<=SEEDS.length;n+=S)g.push(SEEDS.slic
 const pairsOf=S=>{const g=groups(S),p=[];for(let n=0;n+1<g.length;n+=2)p.push([g[n],g[n+1]]);return p;};
 const key=({fromDeg,seed})=>'b'+fromDeg+'-s'+seed;
 
+// Main thread only: the site's models, voxels, sealed interiors and sources, built once.
 function buildSite(name){
   const def=SITES[name],site=new T.Group(),holders=[];
-  for(const b of def.buildings){const model=createBuildingModel(T,b.id),holder=new T.Group(),m=model.building;model.root.position.set(-m.width/2,0,-m.depth/2);holder.add(model.root);holder.position.set(b.x,0,b.z);holder.rotation.y=-b.turn*Math.PI/180;site.add(holder);holders.push({holder,model});}
+  for(const b of def.buildings){const model=catalog.createBuildingModel(T,b.id),holder=new T.Group(),m=model.building;model.root.position.set(-m.width/2,0,-m.depth/2);holder.add(model.root);holder.position.set(b.x,0,b.z);holder.rotation.y=-b.turn*Math.PI/180;site.add(holder);holders.push({holder,model});}
   site.updateMatrixWorld(true);
   const triangles=W.objectTriangles(site),grid=W.windDomain(W.triangleBounds(triangles),{cell:1,fromDeg:0,upstream:def.margin,lateral:def.margin,downstream:def.margin,height:def.height,minimum:8}),{solid}=W.voxelizeTriangles(grid,triangles);W.fillEnclosed(grid,solid);
   const[nx,ny,nz]=grid.size,h=grid.cell,[ox,oy,oz]=grid.origin,at=(i,j,k)=>solid[i+nx*(j+ny*k)],I=x=>Math.floor((x-ox)/h),K=z=>Math.floor((z-oz)/h);
@@ -51,30 +62,63 @@ function buildSite(name){
   for(const{model}of holders)model.dispose();
   return{grid,solid,sources};
 }
+// What a worker receives for a site: plain data. Its grid is rebuilt with createWindGrid, which
+// is all windDomain returns.
+const siteData=name=>{const{grid,solid,sources}=buildSite(name);return{origin:[...grid.origin],cell:grid.cell,size:[...grid.size],solid,sources};};
+const siteOf=d=>({grid:W.createWindGrid({origin:d.origin,cell:d.cell,size:d.size}),solid:d.solid,sources:d.sources});
 // A smoke ensemble released together at t = 0 from source, then carried for steps; returns its
 // centroid after every step (index 0 is the source). As in tools/wind-bearings-measure.mjs.
-function plume(sample,source,{dt,steps,count=PUFFS,seed=1,blocked=null,spread=SMOKE.spread,jitter=SMOKE.jitter}){
+// With audit {field}, it also counts puff steps whose straight path crosses a solid cell of the
+// field while both ends are in air (createSmoke tests only where a step ends), from the second
+// step on; the audit only reads positions.
+function plume(sample,source,{dt,steps,count=PUFFS,seed=1,blocked=null,spread=SMOKE.spread,jitter=SMOKE.jitter,audit=null}){
   const smoke=W.createSmoke({capacity:count,rate:(count+.5)/dt,lifetime:1e9,rise:SMOKE.rise,riseTime:SMOKE.riseTime,spread,jitter,seed,blocked});smoke.addEmitter(source);
-  const path=new Float64Array((steps+1)*3);path.set([source.x,source.y,source.z]);
-  for(let n=1;n<=steps;n++){smoke.step(sample,dt);if(n===1){if(smoke.count!==count)throw Error('Released '+smoke.count+' of '+count+' puffs.');smoke.removeEmitter(0);}
-    let x=0,y=0,z=0;const p=smoke.positions;for(let q=0;q<count;q++){x+=p[q*3];y+=p[q*3+1];z+=p[q*3+2];}path[n*3]=x/count;path[n*3+1]=y/count;path[n*3+2]=z/count;}
+  const path=new Float64Array((steps+1)*3);path.set([source.x,source.y,source.z]);const before=audit?new Float32Array(count*3):null;
+  for(let n=1;n<=steps;n++){if(before&&n>1)before.set(smoke.positions.subarray(0,count*3));smoke.step(sample,dt);if(n===1){if(smoke.count!==count)throw Error('Released '+smoke.count+' of '+count+' puffs.');smoke.removeEmitter(0);}
+    let x=0,y=0,z=0;const p=smoke.positions;for(let q=0;q<count;q++){x+=p[q*3];y+=p[q*3+1];z+=p[q*3+2];}path[n*3]=x/count;path[n*3+1]=y/count;path[n*3+2]=z/count;
+    if(before&&n>1){audit.puffSteps+=count;for(let q=0,o=0;q<count;q++,o+=3)if(crossesSolid(audit.field,before[o],before[o+1],before[o+2],p[o],p[o+1],p[o+2]))audit.tunnels++;}}
   return path;
 }
+// Whether the segment a -> b passes through a solid cell of field while both ends lie in air:
+// a voxel walk (Amanatides and Woo 1987) over the cells the segment touches.
+function crossesSolid(field,ax,ay,az,bx,by,bz){
+  const{origin:[ox,oy,oz],cell:h,size:[nx,ny,nz],solid}=field,cellAt=(i,j,k)=>i>=0&&j>=0&&k>=0&&i<nx&&j<ny&&k<nz&&solid[i+nx*(j+ny*k)]!==0;
+  let i=Math.floor((ax-ox)/h),j=Math.floor((ay-oy)/h),k=Math.floor((az-oz)/h);const ie=Math.floor((bx-ox)/h),je=Math.floor((by-oy)/h),ke=Math.floor((bz-oz)/h);
+  if(cellAt(i,j,k)||cellAt(ie,je,ke))return false;
+  const dx=bx-ax,dy=by-ay,dz=bz-az,si=Math.sign(dx),sj=Math.sign(dy),sk=Math.sign(dz);
+  const first=(p,o,c,s,d)=>d?((s>0?o+(c+1)*h:o+c*h)-p)/d:Infinity;
+  let tx=first(ax,ox,i,si,dx),ty=first(ay,oy,j,sj,dy),tz=first(az,oz,k,sk,dz);const ddx=dx?h/Math.abs(dx):Infinity,ddy=dy?h/Math.abs(dy):Infinity,ddz=dz?h/Math.abs(dz):Infinity;
+  for(let guard=0;guard<256&&!(i===ie&&j===je&&k===ke);guard++){
+    if(tx<=ty&&tx<=tz){if(tx>1)break;i+=si;tx+=ddx;}else if(ty<=tz){if(ty>1)break;j+=sj;ty+=ddy;}else{if(tz>1)break;k+=sk;tz+=ddz;}
+    if(cellAt(i,j,k))return true;
+  }
+  return false;
+}
+// The audit's known answers: a wall of cells at i = 2 below y = 2, and one lone solid cell.
+function auditSelfCheck(){
+  const size=[6,3,6],solid=new Uint8Array(6*3*6),at=(i,j,k)=>i+6*(j+3*k);for(let k=0;k<6;k++)for(let j=0;j<2;j++)solid[at(2,j,k)]=1;solid[at(4,0,4)]=1;
+  const field={origin:[0,0,0],cell:1,size,solid},cases=[
+    ['through the wall in one step',[1.5,.5,1.5],[3.4,.5,1.5],true],['short of the wall',[1.2,.5,1.5],[1.9,.5,1.5],false],['ends inside the wall (refused, not a tunnel)',[1.5,.5,1.5],[2.5,.5,1.5],false],
+    ['over the top of the wall',[1.5,2.5,1.5],[3.5,2.5,1.5],false],['backwards through the wall',[3.2,1.5,.5],[1.8,1.2,.9],true],
+    ['across a lone cell\'s corner',[3.9,.5,5.05],[5.05,.5,3.9],true],['past the lone cell',[3.5,.5,5.2],[4.2,.5,5.9],false]];
+  const rows=cases.map(([name,a,b,want])=>({name,want,got:crossesSolid(field,...a,...b)}));
+  return{pass:rows.every(r=>r.want===r.got),rows};
+}
 // Machine load: the share of all logical processors busy, and the share this process used.
+function cpuMark(){let idle=0,total=0;for(const c of os.cpus()){const t=c.times;idle+=t.idle;total+=t.user+t.nice+t.sys+t.idle+t.irq;}return{idle,total,own:process.cpuUsage(),at:performance.now()};}
+function shares(a,b){const span=b.total-a.total,machine=span>0?1-(b.idle-a.idle)/span:0,own=((b.own.user-a.own.user)+(b.own.system-a.own.system))/1000/(b.at-a.at)/os.cpus().length;return{machine:+machine.toFixed(3),own:+own.toFixed(3),foreign:+Math.max(0,machine-own).toFixed(3)};}
 function loadMeter(){
-  const busy=()=>{let idle=0,total=0;for(const c of os.cpus()){const t=c.times;idle+=t.idle;total+=t.user+t.nice+t.sys+t.idle+t.irq;}return{idle,total};};
-  let last=busy(),own=process.cpuUsage(),at=performance.now();const samples=[];
-  const timer=setInterval(()=>{const now=busy(),mine=process.cpuUsage(),t=performance.now(),span=now.total-last.total;
-    if(span>0)samples.push({machine:+(1-(now.idle-last.idle)/span).toFixed(3),own:+(((mine.user-own.user)+(mine.system-own.system))/1000/(t-at)/os.cpus().length).toFixed(3)});last=now;own=mine;at=t;},15000);
+  let last=cpuMark();const samples=[];
+  const timer=setInterval(()=>{const now=cpuMark();samples.push({...shares(last,now),rssMB:Math.round(process.memoryUsage().rss/2**20)});last=now;},15000);
   timer.unref();
   return{stop(){clearInterval(timer);const q=(v,f)=>{const s=[...v].sort((a,b)=>a-b);return s.length?s[Math.min(s.length-1,Math.floor(f*s.length))]:null;};
-    const m=samples.map(s=>s.machine),o=samples.map(s=>s.own),f=samples.map(s=>Math.max(0,s.machine-s.own));
-    return{samples:samples.length,every:'15 s',machine:{median:q(m,.5),max:q(m,1)},own:{median:q(o,.5)},foreign:{median:q(f,.5),max:q(f,1)}};}};
+    const m=samples.map(s=>s.machine),o=samples.map(s=>s.own),f=samples.map(s=>s.foreign),r=samples.map(s=>s.rssMB);
+    return{samples:samples.length,every:'15 s',machine:{median:q(m,.5),max:q(m,1)},own:{median:q(o,.5)},foreign:{median:q(f,.5),max:q(f,1)},rssMB:{median:q(r,.5),max:q(r,1)}};}};
 }
 
 // ---------- forcing: the gusts alone (no solver), averaged over the aloft box and a window
-function forcingJob({site,fromDeg,seeds}){
-  const{grid}=buildSite(site),[nx,ny,nz]=grid.size,h=grid.cell,[ox,,oz]=grid.origin,d=W.windDirection(fromDeg),flow=Math.max(nx,nz)*h/SPEED;
+function forcingJob({fromDeg,seeds},{grid}){
+  const[nx,ny,nz]=grid.size,h=grid.cell,[ox,,oz]=grid.origin,d=W.windDirection(fromDeg),flow=Math.max(nx,nz)*h/SPEED;
   const dt=W.createWindSolver({grid,solid:new Uint8Array(grid.cells),wind:{speed:SPEED,fromDeg,z0:Z0},turbulence:null}).dt*2;
   const points=[];for(let k=2;k<nz;k+=4)for(let j=0;j<ny;j++)if((j+.5)*h>=.6*ny*h&&j%2===0)for(let i=2;i<nx;i+=4)points.push([ox+(i+.5)*h,(j+.5)*h,oz+(k+.5)*h]);
   const w0=Math.round(WARMUP*SCALE*flow/dt),marks=WINDOWS.map(a=>Math.max(1,Math.round(a*SCALE*flow/dt))),end=w0+Math.max(...marks),out=[0,0,0],means=WINDOWS.map(()=>[]);
@@ -83,32 +127,37 @@ function forcingJob({site,fromDeg,seeds}){
     let sum=0;const at=new Map(marks.map((m,i)=>[w0+m,i]));
     for(let n=w0+1;n<=end;n++){let s=0;for(const p of points){g.sample(p[0],p[1],p[2],n*dt,out);s+=out[0]*d[0]+out[2]*d[1];}sum+=s/points.length;if(at.has(n))means[at.get(n)].push(sum/(n-w0));}
   }
-  return{site,fromDeg,seeds,points:points.length,dt,flow,windows:Object.fromEntries(WINDOWS.map((a,i)=>[label(a),means[i]]))};
+  return{fromDeg,seeds,points:points.length,dt,flow,windows:Object.fromEntries(WINDOWS.map((a,i)=>[label(a),means[i]]))};
 }
 
 // ---------- one run: one seed at one bearing, 1 + 12 flow-throughs, running-mean snapshots
-function runJob({site,fromDeg,seed,check}){
-  const{grid,solid,sources}=buildSite(site),wind={speed:SPEED,fromDeg,z0:Z0},started=performance.now();
+function runJob({site:name,fromDeg,seed,check},{grid,solid,sources}){
+  const wind={speed:SPEED,fromDeg,z0:Z0},started=performance.now();
   if(check){// The library's own seed bake, for the bit-for-bit check: seeds 1-4, 2.25 flow-throughs each.
     const set=W.bakeWindBearings({grid,solid,bearings:[fromDeg],wind,turbulence:{gain:1,lengthScale:20,modes:32},seeds:check.seeds,warmup:WARMUP*SCALE,average:check.average*SCALE,tolerance:TOLERANCE});
-    const f=set.fields[0];return{check:true,meta:{site,fromDeg,seeds:check.seeds,average:check.average,steps:f.steps,unconverged:set.unconverged[0],seconds:(performance.now()-started)/1000},velocity:f.velocity,solid:f.solid,transfer:[f.velocity.buffer,f.solid.buffer]};}
+    const f=set.fields[0];return{check:true,meta:{site:name,fromDeg,seeds:check.seeds,average:check.average,steps:f.steps,unconverged:set.unconverged[0],seconds:(performance.now()-started)/1000},velocity:f.velocity,solid:f.solid,transfer:[f.velocity.buffer,f.solid.buffer]};}
   const solver=W.createWindSolver({grid,solid,wind,turbulence:turbulence(seed),tolerance:TOLERANCE}),dt=solver.dt,flow=Math.max(grid.size[0],grid.size[2])*grid.cell/SPEED,steps=f=>Math.round(f*SCALE*flow/dt);
   let missed=0;for(let n=steps(WARMUP);n>0;n--)if(!solver.step().converged)missed++;
   solver.startAveraging();const marks=new Map(WINDOWS.map(a=>[Math.max(1,steps(a)),[]]));for(const a of WINDOWS)marks.get(Math.max(1,steps(a))).push(a);
   const total=Math.max(...marks.keys()),snapshots={},transfer=[];
   for(let n=1;n<=total;n++){if(!solver.step().converged)missed++;if(marks.has(n)){const f=W.bakeWindField(solver);for(const a of marks.get(n)){const v=marks.get(n).length>1?f.velocity.slice():f.velocity;snapshots[label(a)]=v;transfer.push(v.buffer);}}}
-  const meta={site,fromDeg,seed,dt,steps:solver.steps,warmSteps:steps(WARMUP),marks:WINDOWS.map(a=>({average:label(a),averagedSteps:Math.max(1,steps(a))})),missed,seconds:(performance.now()-started)/1000,
+  const meta={site:name,fromDeg,seed,dt,steps:solver.steps,warmSteps:steps(WARMUP),marks:WINDOWS.map(a=>({average:label(a),averagedSteps:Math.max(1,steps(a))})),missed,seconds:(performance.now()-started)/1000,
     grid:{origin:[...grid.origin],cell:grid.cell,size:[...grid.size]},sources,cutOff:solver.cutOffCells};
   const fieldSolid=Uint8Array.from(solver.solid,v=>v?1:0);transfer.push(fieldSolid.buffer);
   return{meta,snapshots,solid:fieldSolid,transfer};
 }
-if(!isMainThread){const{transfer,...result}=workerData.forcing?forcingJob(workerData):runJob(workerData);parentPort.postMessage(result,transfer||[]);}
+// A persistent worker: it takes jobs by message for as long as the main thread keeps it.
+if(!isMainThread){const sites=Object.fromEntries(Object.entries(workerData.sites).map(([n,d])=>[n,siteOf(d)]));
+  parentPort.on('message',({id,spec})=>{const{transfer=[],...result}=spec.forcing?forcingJob(spec,sites[spec.site]):runJob(spec,sites[spec.site]);parentPort.postMessage({id,result},transfer);});}
 
 // ---------- files
 const args=Object.fromEntries(process.argv.slice(2).reduce((list,arg,i,all)=>arg.startsWith('--')?[...list,[arg.slice(2),all[i+1]?.startsWith('--')||all[i+1]===undefined?true:all[i+1]]]:list,[]));
-const out=path.resolve(String(args.out||'artifacts/wind-seeds')),jobs=Number(args.jobs||Math.max(1,os.cpus().length/2-2)),sites=String(args.sites||'single,street').split(','),phase=String(args.phase||'all');
+const out=path.resolve(String(args.out||'artifacts/wind-seeds')),jobs=Number(args.jobs||Math.max(1,Math.round(os.cpus().length/4))),sites=String(args.sites||'single,street').split(','),phase=String(args.phase||'all');
+const yieldAt=args.yield==='off'?Infinity:Number(args.yield??.8),only=args.only?new Set(String(args.only).split(',')):null;
+if(!(jobs>=1&&Number.isInteger(jobs))||!(yieldAt>0))throw Error('--jobs is a whole number from 1 and --yield a share above 0 (or off).');
 const runDir=site=>path.join(out,'runs',site);
 const CHECK={site:'single',fromDeg:22.5,seeds:[1,2,3,4],average:2.25},checkFile=()=>path.join(out,'runs','check-library.json');
+const runName=spec=>spec.check?'check':spec.forcing?'forcing/'+spec.site+'/b'+spec.fromDeg:spec.site+'/'+key(spec);
 function save(result){
   if(result.check){fs.mkdirSync(path.join(out,'runs'),{recursive:true});fs.writeFileSync(path.join(out,'runs','check-library.f32'),Buffer.from(result.velocity.buffer));fs.writeFileSync(path.join(out,'runs','check-library.solid'),result.solid);fs.writeFileSync(checkFile(),JSON.stringify(result.meta));return;}
   const{meta,snapshots,solid}=result,dir=runDir(meta.site),k=key(meta);fs.mkdirSync(dir,{recursive:true});
@@ -122,26 +171,51 @@ function load(site,spec){
     return{kind:W.WIND_FIELD_KIND,version:W.WIND_FIELD_VERSION,...meta.grid,axes:['x','height','z'],units:'m/s',wind:{speed:SPEED,fromDeg:spec.fromDeg,z0:Z0,referenceHeight:10},mean:true,averagedSteps:mark.averagedSteps,steps:meta.warmSteps+mark.averagedSteps,velocity,solid};};
   return{meta,field};
 }
+
+// ---------- the scheduler: persistent workers, a yield to other load, a clean stop, progress
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let stopping=false;
+const stopFile=()=>path.join(out,'STOP'),stopAsked=()=>stopping||(stopping=fs.existsSync(stopFile()));
+function progress(state,extra={}){try{fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'progress.json'),JSON.stringify({pid:process.pid,updated:new Date().toISOString(),state,jobs,priority:os.getPriority(),yieldAt:Number.isFinite(yieldAt)?yieldAt:'off',rssMB:Math.round(process.memoryUsage().rss/2**20),...extra},null,1));}catch{}}
 async function pool(queue,onDone){
-  const total=queue.length;let done=0;
-  await Promise.all(Array.from({length:Math.min(jobs,total)},async()=>{
-    while(queue.length){const spec=queue.shift();
-      const result=await new Promise((resolve,reject)=>{const w=new Worker(SELF,{workerData:{...spec,dry:DRY}});w.once('message',resolve);w.once('error',reject);w.once('exit',code=>{if(code)reject(Error('Job '+JSON.stringify(spec)+' exited '+code));});});
-      done++;onDone(result,spec,done,total);}
-  }));
+  const total=queue.length,names=[...new Set(queue.map(q=>q.site))],data=Object.fromEntries(names.map(n=>[n,siteData(n)]));
+  const slots=Math.min(jobs,total),workers=Array.from({length:slots},()=>new Worker(SELF,{workerData:{dry:DRY,sites:data}}));
+  const started=Date.now(),inFlight=new Map(),seconds={};let done=0,id=0,load=null,waiting=null;
+  // Seconds per run by site, from runs already on disk and from this session.
+  for(const n of names){seconds[n]=[];const dir=runDir(n);if(fs.existsSync(dir))for(const f of fs.readdirSync(dir))if(f.endsWith('.json'))try{seconds[n].push(JSON.parse(fs.readFileSync(path.join(dir,f),'utf8')).meta.seconds);}catch{}}
+  const median=v=>{const s=[...v].sort((a,b)=>a-b);return s.length?s[s.length>>1]:null;};
+  const report=state=>{const left=[...queue,...inFlight.values()],each=n=>median(seconds[n])??median(Object.values(seconds).flat())??null,work=left.reduce((s,q)=>s+(each(q.site)??0),0);
+    progress(state,{phase,started:new Date(started).toISOString(),done,total,pending:queue.length,inFlight:[...inFlight.values()].map(runName),waiting,load,secondsPerRun:Object.fromEntries(names.map(n=>[n,each(n)])),
+      etaMinutes:left.length&&each(left[0].site)!==null?+(work/Math.min(slots,left.length)/60).toFixed(1):null});};
+  const ask=(w,spec)=>new Promise((resolve,reject)=>{const mine=id++,onMessage=m=>{if(m.id!==mine)return;w.off('message',onMessage);w.off('error',reject);resolve(m.result);};w.on('message',onMessage);w.once('error',reject);w.postMessage({id:mine,spec});});
+  // Wait while other processes hold more than yieldAt of the machine; each reading spans 3 s.
+  const yieldToLoad=async()=>{if(!Number.isFinite(yieldAt))return;for(;;){const a=cpuMark();await sleep(3000);load=shares(a,cpuMark());if(load.foreign<=yieldAt||stopAsked()){waiting=null;return;}waiting='other processes hold '+load.foreign+' of the machine (yield above '+yieldAt+')';report('waiting');await sleep(10000);}};
+  report('running');
+  try{
+    await Promise.all(workers.map(async w=>{
+      while(queue.length&&!stopAsked()){
+        await yieldToLoad();if(stopAsked())break;const spec=queue.shift();if(!spec)break;
+        inFlight.set(spec,spec);report('running');const result=await ask(w,spec);inFlight.delete(spec);done++;
+        if(spec.site&&result.meta?.seconds)seconds[spec.site].push(result.meta.seconds);onDone(result,spec,done,total);report(stopping?'stopping':'running');
+      }
+    }));
+  }finally{await Promise.all(workers.map(w=>w.terminate()));}
+  report(stopping&&queue.length?'stopped':'done');
+  return{done,total,stopped:stopping&&queue.length>0,minutes:+((Date.now()-started)/60000).toFixed(1)};
 }
 async function runPhase(){
-  const queue=[{site:CHECK.site,fromDeg:CHECK.fromDeg,check:CHECK}].filter(s=>sites.includes(s.site)),meter=loadMeter(),started=Date.now();
+  const meter=loadMeter(),started=Date.now(),queue=[{site:CHECK.site,fromDeg:CHECK.fromDeg,check:CHECK}].filter(s=>sites.includes(s.site));
   for(const site of sites)for(const fromDeg of BEARINGS)for(const seed of SEEDS)queue.push({site,fromDeg,seed});
-  const pending=queue.filter(s=>!has(s));queue.length=0;queue.push(...pending);
-  console.log(JSON.stringify({phase:'runs',pending:queue.length,jobs,cpus:os.cpus().length}));
-  await pool(queue,(result,spec,done,total)=>{save(result);console.log(JSON.stringify({done,total,run:spec.check?'check':spec.site+' '+key(spec),seconds:+result.meta.seconds.toFixed(1),steps:result.meta.steps,missed:result.meta.missed??result.meta.unconverged}));});
-  const load=meter.stop();fs.writeFileSync(path.join(out,'runs','load-'+new Date(started).toISOString().replace(/[:.]/g,'-')+'.json'),JSON.stringify({started:new Date(started).toISOString(),minutes:+((Date.now()-started)/60000).toFixed(1),jobs,load}));
-  console.log(JSON.stringify({phase:'runs done',load}));
+  const pending=queue.filter(s=>!has(s)&&(!only||only.has(runName(s))));
+  console.log(JSON.stringify({phase:'runs',pending:pending.length,jobs,cpus:os.cpus().length,priority:os.getPriority(),yieldAt:Number.isFinite(yieldAt)?yieldAt:'off'}));
+  const summary=await pool(pending,(result,spec,done,total)=>{save(result);console.log(JSON.stringify({done,total,run:runName(spec),seconds:+result.meta.seconds.toFixed(1),steps:result.meta.steps,missed:result.meta.missed??result.meta.unconverged}));});
+  const load=meter.stop();fs.mkdirSync(path.join(out,'runs'),{recursive:true});
+  fs.writeFileSync(path.join(out,'runs','load-'+new Date(started).toISOString().replace(/[:.]/g,'-')+'.json'),JSON.stringify({started:new Date(started).toISOString(),minutes:summary.minutes,jobs,priority:os.getPriority(),yieldAt:Number.isFinite(yieldAt)?yieldAt:'off',done:summary.done,stopped:summary.stopped,load}));
+  console.log(JSON.stringify({phase:summary.stopped?'runs stopped (STOP file or Ctrl+C); finished runs are kept':'runs done',load}));
 }
 async function forcingPhase(){
   const seeds=Number(args.seeds||(DRY?4:200)),queue=[];for(const site of sites)for(const fromDeg of[22.5,112.5,202.5,292.5])queue.push({forcing:true,site,fromDeg,seeds});const results=[];
-  await pool(queue,r=>results.push(r));
+  await pool(queue,(r,spec)=>results.push({site:spec.site,...r}));
   const summary={note:'The along-wind gust averaged over the aloft box (cells centred in the top 40 % of the domain, every 4th column, every 2nd layer) and over a window after 1 flow-through, frozen-convected as turbulence.js samples it. No solver.',seeds,sites:{}};
   for(const site of sites){const rows=results.filter(r=>r.site===site),sd={};
     for(const a of WINDOWS){const k=label(a);let v=0;for(const r of rows){const m=r.windows[k],mu=m.reduce((s,x)=>s+x,0)/m.length;v+=m.reduce((s,x)=>s+(x-mu)**2,0)/(m.length-1);}sd[k]=Math.sqrt(v/rows.length);}
@@ -153,7 +227,6 @@ async function forcingPhase(){
 
 // ---------- compare
 const median=v=>{const s=[...v].sort((a,b)=>a-b),n=s.length;return n?n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2:NaN;};
-const rms=v=>Math.sqrt(v.reduce((s,x)=>s+x*x,0)/v.length);
 const dist=(p,a,q,b)=>Math.hypot(p[a*3]-q[b*3],p[a*3+1]-q[b*3+1],p[a*3+2]-q[b*3+2]);
 const fieldArm=field=>({sample:(x,y,z,out)=>W.sampleWindField(field,x,y,z,out),blocked:W.windFieldSolid(field)});
 // The mean along-wind velocity over air cells centred in the top 40 % (aloft) or bottom 40 %
@@ -169,6 +242,12 @@ function lateField(early,whole){const m=early.averagedSteps,n=whole.averagedStep
 function compare(){
   const results={rig:{cpu:os.cpus()[0].model,threads:os.cpus().length,node:process.version,platform:os.platform()+' '+os.release()},runs:{count:0,missed:0,seconds:[]},controls:{},field:{},plumes:[],transient:[],summary:{}};
   let nonFinite=0;const finite=p=>{for(const v of p)if(!Number.isFinite(v))nonFinite++;return p;};
+  // Unregistered (added after the registration, read-only): steps that cross a solid cell.
+  const tunnels={note:'Puff steps whose straight path crosses a solid cell while both ends are in air, from the second step on, over every plume the registered metrics use (not the reproduction rows). Read-only: it changes no plume.',selfCheck:auditSelfCheck(),plumes:0,puffSteps:0,tunnels:0,bySource:{},worst:[]};
+  if(!tunnels.selfCheck.pass)throw Error('The tunnelling audit misses a known answer: '+JSON.stringify(tunnels.selfCheck.rows.filter(r=>r.want!==r.got)));
+  const audited=(field,source,label2,what,options)=>{const audit={field,puffSteps:0,tunnels:0},p=plume(fieldArm(field).sample,source,{...options,blocked:W.windFieldSolid(field),audit});
+    tunnels.plumes++;tunnels.puffSteps+=audit.puffSteps;tunnels.tunnels+=audit.tunnels;const b=tunnels.bySource[label2]||={plumes:0,withTunnels:0,puffSteps:0,tunnels:0};b.plumes++;b.puffSteps+=audit.puffSteps;b.tunnels+=audit.tunnels;
+    if(audit.tunnels){b.withTunnels++;tunnels.worst.push({source:label2,plume:what,tunnels:audit.tunnels,puffSteps:audit.puffSteps});}return p;};
   const prior=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/reviews/evidence/wind-bearings-smoke/results.json'),'utf8')).noise;
   const reproduction=[];
   for(const site of sites){
@@ -182,16 +261,16 @@ function compare(){
       const cell=site+'@'+fromDeg;results.field[cell]=Object.fromEntries(WINDOWS.map(a=>[label(a),SEEDS.map(s=>{const u=alongWind(at(s,a),fromDeg);return{seed:s,aloft:+u.aloft.toFixed(5),low:+u.low.toFixed(5)};})]));
       const reference=bake(SEEDS,12);
       for(const source of meta.sources){
-        const label2=site+'/'+source.id,ref=fieldArm(reference),refPath=finite(plume(ref.sample,source,{dt,steps:maxSteps,blocked:ref.blocked})),end=window(refPath),L=dist(refPath,end,Float64Array.of(source.x,source.y,source.z),0);
-        const paths=new Map(),pathOf=(seeds,a)=>{const k=seeds.join(',')+'@'+label(a);if(!paths.has(k)){const f=fieldArm(bake(seeds,a));paths.set(k,finite(plume(f.sample,source,{dt,steps:end,blocked:f.blocked})));}return paths.get(k);};
+        const label2=site+'/'+source.id,ref=fieldArm(reference),refPath=finite(audited(reference,source,label2,fromDeg+' reference',{dt,steps:maxSteps})),end=window(refPath),L=dist(refPath,end,Float64Array.of(source.x,source.y,source.z),0);
+        const paths=new Map(),pathOf=(seeds,a)=>{const k=seeds.join(',')+'@'+label(a);if(!paths.has(k))paths.set(k,finite(audited(bake(seeds,a),source,label2,fromDeg+' seeds '+k,{dt,steps:end})));return paths.get(k);};
         const row={source:label2,target:fromDeg,T_end:+(end*dt).toFixed(3),L_end:+L.toFixed(3),arms:{}};
         for(const arm of ARMS)row.arms[arm.id]=pairsOf(arm.S).map(([p,q])=>+dist(pathOf(p,arm.a),end,pathOf(q,arm.a),end).toFixed(4));
         // Null control: the reference against a bit-identical copy of itself.
         if(!results.controls[label2]){const copy={...reference,velocity:reference.velocity.slice()},c=fieldArm(copy),p=plume(c.sample,source,{dt,steps:end,blocked:c.blocked});let d=0;for(let k=0;k<=end;k++)d=Math.max(d,dist(p,k,refPath,k));results.controls[label2]={nullControlMax:d};}
         results.plumes.push(row);
         // Transient: the 8-seed mean of each early window against the 8-seed mean of the rest of the run.
-        for(const a of[1,2.25]){const early=bake(SEEDS,a),late=W.averageWindFields(SEEDS.map(s=>lateField(at(s,a),at(s,12)))),e=fieldArm(early),l=fieldArm(late);
-          results.transient.push({source:label2,target:fromDeg,a:label(a),D_end:+dist(plume(e.sample,source,{dt,steps:end,blocked:e.blocked}),end,plume(l.sample,source,{dt,steps:end,blocked:l.blocked}),end).toFixed(4)});}
+        for(const a of[1,2.25]){const early=bake(SEEDS,a),late=W.averageWindFields(SEEDS.map(s=>lateField(at(s,a),at(s,12))));
+          results.transient.push({source:label2,target:fromDeg,a:label(a),D_end:+dist(audited(early,source,label2,fromDeg+' early '+label(a),{dt,steps:end}),end,audited(late,source,label2,fromDeg+' late '+label(a),{dt,steps:end}),end).toFixed(4)});}
         // Reproduction: seeds 1 and 2 at the record's noise-floor bearings, with its window (truth = seed 1, 12 flow-throughs).
         if(fromDeg===22.5||fromDeg===202.5){const t=fieldArm(at(1,12)),truth=plume(t.sample,source,{dt,steps:maxSteps,blocked:t.blocked}),e0=window(truth),e1=Math.round(+(e0*dt).toFixed(3)/dt);
           for(const A of[1.5,3,6,12]){const a=fieldArm(at(1,A)),b=fieldArm(at(2,A)),D=+dist(plume(a.sample,source,{dt,steps:e1,blocked:a.blocked}),e1,plume(b.sample,source,{dt,steps:e1,blocked:b.blocked}),e1).toFixed(4),was=prior.find(x=>x.source===label2&&x.target===fromDeg&&x.average===A);
@@ -205,6 +284,7 @@ function compare(){
     results.controls.libraryCheck={...m,values:lib.length,identical:lib.length===mine.velocity.length&&lib.every((v,i)=>Object.is(v,mine.velocity[i]))&&solid.every((v,i)=>v===mine.solid[i])};}
   results.controls.reproduction={rows:reproduction.length,same:reproduction.filter(r=>r.same).length,table:reproduction};
   results.controls.nonFinite=nonFinite;
+  tunnels.worst=tunnels.worst.sort((a,b)=>b.tunnels-a.tunnels).slice(0,20);results.tunnels=tunnels;
   verdicts(results);
   return results;
 }
@@ -249,13 +329,16 @@ function timing(){
   rows.push(time('E8 one seed\'s solver setup (createWindSolver: classify, precondition, first projection), ms',()=>W.createWindSolver({grid,solid,wind,turbulence:turbulence(1),tolerance:TOLERANCE})));
   const solver=W.createWindSolver({grid,solid,wind,turbulence:turbulence(1),tolerance:TOLERANCE});solver.run(20);
   rows.push(time('E9 one solver step with gusts (reference), ms',()=>solver.step(),{passes:21,warm:5}));
-  return{rig:{cpu:os.cpus()[0].model,threads:os.cpus().length,node:process.version,platform:os.platform()+' '+os.release()},rows};
+  return{rig:{cpu:os.cpus()[0].model,threads:os.cpus().length,node:process.version,platform:os.platform()+' '+os.release()},priority:os.getPriority(),rows};
 }
 
 if(isMainThread){
   fs.mkdirSync(out,{recursive:true});
+  if(!args['normal-priority'])try{os.setPriority(os.constants.priority.PRIORITY_BELOW_NORMAL);}catch(error){console.warn('Could not lower the priority: '+error.message);}
+  if((phase==='runs'||phase==='all'||phase==='forcing')&&fs.existsSync(stopFile())){console.log('A STOP file is waiting in '+out+'; remove it to run.');process.exit(0);}
+  process.on('SIGINT',()=>{if(stopping)process.exit(130);stopping=true;console.log('Stopping: no new runs; the ones in flight finish first (Ctrl+C again to quit now).');});
   if(phase==='forcing')await forcingPhase();
   if(phase==='runs'||phase==='all')await runPhase();
-  if(phase==='compare'||phase==='all'){const r=compare();fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(r,null,1));console.log(JSON.stringify({summary:r.summary},null,1));}
+  if((phase==='compare'||phase==='all')&&!stopping){const r=compare();fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(r,null,1));console.log(JSON.stringify({summary:r.summary,tunnels:{plumes:r.tunnels.plumes,puffSteps:r.tunnels.puffSteps,tunnels:r.tunnels.tunnels}},null,1));}
   if(phase==='timing'){const meter=loadMeter(),r=timing();r.load=meter.stop();fs.writeFileSync(path.join(out,'timing.json'),JSON.stringify(r,null,1));console.log(JSON.stringify(r,null,1));}
 }
