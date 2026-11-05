@@ -13,11 +13,12 @@ function checkField(field){
   if(!(field.velocity instanceof Float32Array)||field.velocity.length!==nx*ny*nz*3)throw Error('A wind field needs three Float32 velocity components per cell.');
   if(!(field.solid instanceof Uint8Array)||field.solid.length!==nx*ny*nz)throw Error('A wind field needs one solid flag per cell.');
 }
-// Trilinear between cell centres; positions outside the grid use its nearest edge, and
-// solid cells hold zero velocity.
+// Trilinear between cell centres. Any point inside a solid cell samples zero, not only its
+// centre; positions outside the grid use its nearest edge.
 export function sampleWindField(field,x,y,z,out=[0,0,0]){
-  const size=field.size,nx=size[0],ny=size[1],nz=size[2],h=field.cell,o=field.origin,vel=field.velocity;
-  let fx=(x-o[0])/h-.5,fy=(y-o[1])/h-.5,fz=(z-o[2])/h-.5,i=0,j=0,k=0,tx=0,ty=0,tz=0,sx=0,sy=0,sz=0;
+  const size=field.size,nx=size[0],ny=size[1],nz=size[2],h=field.cell,o=field.origin,vel=field.velocity,X=(x-o[0])/h,Y=(y-o[1])/h,Z=(z-o[2])/h,ci=Math.floor(X),cj=Math.floor(Y),ck=Math.floor(Z);
+  if(ci>=0&&cj>=0&&ck>=0&&ci<nx&&cj<ny&&ck<nz&&field.solid[ci+nx*(cj+ny*ck)]){out[0]=out[1]=out[2]=0;return out;}
+  let fx=X-.5,fy=Y-.5,fz=Z-.5,i=0,j=0,k=0,tx=0,ty=0,tz=0,sx=0,sy=0,sz=0;
   if(nx>1){if(fx<0)fx=0;else if(fx>nx-1)fx=nx-1;i=fx|0;if(i>nx-2)i=nx-2;tx=fx-i;sx=3;}
   if(ny>1){if(fy<0)fy=0;else if(fy>ny-1)fy=ny-1;j=fy|0;if(j>ny-2)j=ny-2;ty=fy-j;sy=3*nx;}
   if(nz>1){if(fz<0)fz=0;else if(fz>nz-1)fz=nz-1;k=fz|0;if(k>nz-2)k=nz-2;tz=fz-k;sz=3*nx*ny;}

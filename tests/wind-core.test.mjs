@@ -195,6 +195,22 @@ test('a baked field round-trips through JSON and samples like the solver',()=>{
   assert.equal(W.bakeWindField(blockSolver()).mean,false);assert.throws(()=>W.decodeWindField({...W.encodeWindField(field),version:2}));
 });
 
+test('both samplers return zero anywhere inside a solid cell, and the air beside it keeps moving',()=>{
+  // One marked cell in a 6 m box: the trilinear stencils of points inside it reach into the air around it.
+  const grid=W.createWindGrid({origin:[0,0,0],cell:1,size:[6,6,6]}),solid=new Uint8Array(grid.cells);solid[2+6*(2+6*2)]=1;
+  const s=W.createWindSolver({grid,solid,wind:{speed:6,fromDeg:270,z0:.25}});s.run(4);s.startAveraging();s.run(4);
+  const field=W.bakeWindField(s),copy=W.decodeWindField(JSON.parse(JSON.stringify(W.encodeWindField(field)))),out=[0,0,0],zero=[0,0,0];
+  for(const p of[[2.1,2.1,2.1],[2.9,2.5,2.05],[2.5,2.95,2.5],[2,2,2],[2.99,2.01,2.99]]){
+    assert.deepEqual(s.sample(...p,out),zero,'solver at '+p);assert.deepEqual(s.sample(...p,out,{mean:true}),zero,'solver mean at '+p);
+    assert.deepEqual(W.sampleWindField(field,...p,out),zero,'field at '+p);assert.deepEqual(W.sampleWindField(copy,...p,out),zero,'decoded field at '+p);
+  }
+  // The control: points just outside the cell, whose stencils include it, keep their flow.
+  for(const p of[[1.9,2.1,2.1],[2.5,3.05,2.5],[2.5,2.5,1.95]]){assert.ok(Math.hypot(...s.sample(...p,out))>.5,'solver air at '+p);assert.ok(Math.hypot(...W.sampleWindField(field,...p,out))>.5,'field air at '+p);}
+  // Outside the grid nothing changes: beyond the inflow side the solver gives the profile, and a field uses its nearest edge.
+  const profile=s.inflowAt(2.5);s.sample(-.5,2.5,2.5,out);for(let a=0;a<3;a++)assert.ok(Math.abs(out[a]-profile[a])<1e-12,'inflow component '+a);
+  assert.deepEqual(W.sampleWindField(field,-.5,2.5,2.5,out),W.sampleWindField(field,.5,2.5,2.5,[0,0,0]));
+});
+
 test('tracers ride a uniform wind exactly, rise, spread reproducibly and stay above ground',()=>{
   const wind=(x,y,z,out)=>{out[0]=2;out[1]=-1;out[2]=-1;return out;},p=Float32Array.of(0,5,0,3,.05,3);
   for(let n=0;n<10;n++)W.advectTracers(wind,p,.1,{rise:Float32Array.of(.5,0)});

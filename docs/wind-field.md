@@ -32,7 +32,7 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 
 - Metres. The axes are x (east), y (height) and z (south), with north at −z, as in the tile edges. The ground is y = 0.
 - A bearing is meteorological: the direction the wind blows **from**, clockwise from north. `windDirection(fromDeg)` returns the `[x, z]` direction the air moves.
-- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids.
+- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids. Both samplers return zero at any point inside a solid cell, not only at its centre; outside the grid, the solver prescribes the inflow beyond an inflow side, and a baked field uses its nearest edge.
 
 ## The model
 
@@ -70,7 +70,7 @@ Cube wakes in the literature are usually quoted near 1.6H in channel flow (Marti
 
 The block test's signs were set from the physics before it first ran, and one of them was wrong. The first stagnation check (u < 0.5 U at 0.25H upstream) failed: 0.69 at 4 cells per height and 0.56 at 6. The slowed zone is shorter than assumed, so the check now requires u to fall toward the face, below 0.25 U at 0.05H; it measured 0.14. At 4 cells per building height the lee did not reverse at 1.5H (u = +0.20); 6 cells resolve it, and the test uses 6.
 
-**Mutation sweep.** Twenty deliberate physics and plumbing faults went into a private copy. The final suite kills 19; the [record](#mutation-sweep) names the one it misses and why.
+**Mutation sweep.** Twenty-two deliberate physics and plumbing faults went into a private copy. The final suite kills 21; the [record](#mutation-sweep) names the one it misses and why.
 
 ## Limits
 
@@ -102,7 +102,8 @@ The block test's signs were set from the physics before it first ran, and one of
 | --- | --- | --- | --- |
 | 1 | First 15 tests | 10 of 20 | M02 MacCormack off; M03 limiter revert off; M04 and M06 the two gust paths, each covering for the other; M09 plain IC(0); M10 and M11 voxel plane and edge axes; M12 top seeding; M16 frozen convection; M17 Euler tracers |
 | 2 | Plus Taylor–Green, gust entry, CG pin, voxel oracles, convection and rotation tests | 18 of 20 | M03; M12 |
-| 3 | Plus the walled courtyard open to the sky (the committed tool, 2026-11-04) | **19 of 20** | M03 |
+| 3 | Plus the walled courtyard open to the sky (2026-11-04) | 19 of 20 | M03 |
+| 4 | Plus the solid-sampling test, after the architect's review. M26 and M27 each remove one sampler's solid check; M18 follows the rewritten field sampler (the committed tool, 2026-11-04) | **21 of 22** | M03 |
 
 The neutral control (a comment-only edit) survived every round. **M03 is the honest gap.** The revert limiter acts only where the corrected value leaves the local range, at sharp gradients, and none of the tests' flows has one: on the Taylor–Green vortex the limiter changes the energy by 0.0003. A test that advects a sharp front and checks the maximum principle would pin it.
 
