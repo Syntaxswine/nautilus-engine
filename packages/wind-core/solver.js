@@ -4,8 +4,11 @@ import {createInflowTurbulence} from './turbulence.js';
 // w on z faces, pressure at cell centres. Each step advects velocity with the
 // MacCormack scheme of Selle et al. (2008), optionally diffuses it, then projects it
 // onto divergence-free fields with MIC(0)-preconditioned conjugate gradients
-// (Bridson, Fluid Simulation for Computer Graphics). No turbulence model is applied:
-// the limiter's numerical dissipation stands in for subgrid mixing (implicit LES).
+// (Bridson, Fluid Simulation for Computer Graphics). step:'reflection' takes two half
+// steps joined by a reflection instead (Zehnder, Narain and Thomaszewski 2018), which cuts
+// the energy a projection removes from order dt^2 per step to order dt^4. No turbulence
+// model is applied: the limiter's numerical dissipation stands in for subgrid mixing
+// (implicit LES).
 export const WIND_SOLVER_VERSION=1;
 export const BOUNDARY_TYPES=Object.freeze(['inflow','outflow','slip','wall']);
 const SIDES=['xMin','xMax','yMin','yMax','zMin','zMax'],FIXED=0,FREE=1,INFLOW=2,OPEN=3;
@@ -41,9 +44,10 @@ function sampler(sx,sy,sz){
   };
 }
 export function createWindSolver(options={}){
-  const{grid,solid:mask,wind=null,viscosity=0,cfl=1,tolerance=1e-4,maxIterations=800,advection='maccormack'}=options;
+  const{grid,solid:mask,wind=null,viscosity=0,cfl=1,tolerance=1e-4,maxIterations=800,advection='maccormack',step='projection'}=options;
   if(!['maccormack','semi-lagrangian'].includes(advection))throw Error('Advection is maccormack or semi-lagrangian.');
-  const corrected=advection==='maccormack';
+  if(!['projection','reflection'].includes(step))throw Error('The step is projection or reflection.');
+  const corrected=advection==='maccormack',reflect=step==='reflection';
   if(!grid||!Array.isArray(grid.size))throw Error('createWindSolver needs a wind grid.');
   if(!(mask instanceof Uint8Array)||mask.length!==grid.cells)throw Error('The solid mask must be a Uint8Array with one entry per cell.');
   if(!(viscosity>=0&&Number.isFinite(viscosity)))throw Error('Viscosity must be a finite non-negative m^2/s.');
@@ -56,16 +60,20 @@ export function createWindSolver(options={}){
   const F=new Float32Array(most),MN=new Float32Array(most),MX=new Float32Array(most),T1=new Float32Array(most),T2=new Float32Array(most);
   const p=new Float64Array(cells+nxy),r=new Float64Array(cells),z=new Float64Array(cells+nxy),s=new Float64Array(cells+nxy),q=new Float64Array(cells),precon=new Float64Array(cells),diag=new Uint8Array(cells),px=new Uint8Array(cells),py=new Uint8Array(cells),pz=new Uint8Array(cells);
   const ax=new Float64Array(cells),ay=new Float64Array(cells),az=new Float64Array(cells);
-  let sides,inflow,inflowComp,gust=null,turbulence=null,scale,dt,pinned=-1,cutOff=0,steps=0,time=0,averaged=0,windState=null,last=Object.freeze({iterations:0,divergence:0,converged:true});
+  // A reflection step keeps the reflected field in ru, rv, rw, and its half-step pressure in
+  // ph, so that each of its two projections warm-starts from its own last solution.
+  const ph=reflect?new Float64Array(cells+nxy):null,ru=reflect?new Float32Array(NU):null,rv=reflect?new Float32Array(NV):null,rw=reflect?new Float32Array(NW):null;
+  let sides,inflow,inflowComp,gust=null,turbulence=null,scale,dt,pinned=-1,cutOff=0,steps=0,time=0,ahead=0,averaged=0,windState=null,last=Object.freeze({iterations:0,divergence:0,converged:true});
   const lu=sampler(nx+1,ny,nz),lv=sampler(nx,ny+1,nz),lw=sampler(nx,ny,nz+1),RANGE=new Float64Array(2),G=[0,0,0];
   // Inflow at a cell-unit point: the profile plus any synthetic turbulence at the current time.
   const inflowAt=(comp,X,Y,Z,t)=>{const y=Y<0?0:Y*h,mean=inflowComp(comp,y);return gust?mean+gust.sample(origin[0]+X*h,y,origin[2]+Z*h,t,G)[comp]:mean;};
   // Prescribed velocity for points outside the domain beyond an inflow or wall side; NaN
-  // where the side only clamps (slip, outflow).
+  // where the side only clamps (slip, outflow). The inflow is read at the time of the field
+  // being advected: ahead of the clock by half a step in a reflection's second half.
   const outside=(comp,X,Y,Z)=>{
     const hit=X<0?sides.xMin:X>nx?sides.xMax:Z<0?sides.zMin:Z>nz?sides.zMax:Y<0?sides.yMin:Y>ny?sides.yMax:null;
     if(!hit||hit.type==='slip'||hit.type==='outflow')return NaN;
-    return hit.type==='inflow'?inflowAt(comp,X,Y,Z,time):hit.velocity[comp];
+    return hit.type==='inflow'?inflowAt(comp,X,Y,Z,time+ahead):hit.velocity[comp];
   };
   // With turbulence, the inflow faces' normal velocity follows the fluctuating inflow.
   function updateInflow(t){
@@ -105,7 +113,7 @@ export function createWindSolver(options={}){
     for(let f=0;f<NU;f++)if(tu[f]===FIXED)u[f]=0;for(let f=0;f<NV;f++)if(tv[f]===FIXED)v[f]=0;for(let f=0;f<NW;f++)if(tw[f]===FIXED)w[f]=0;
     for(let k=0;k<nz;k++)for(let j=0;j<ny;j++){const y=(j+.5)*h,a=inflow(y);for(let i=0;i<=nx;i++){const f=i+(nx+1)*(j+ny*k);if(tu[f]===INFLOW)u[f]=a[0];}for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]===INFLOW)w[f]=a[2];const g=i+nx*(j+ny*nz);if(k===nz-1&&tw[g]===INFLOW)w[g]=a[2];}}
     for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const c=i+nx*(j+ny*k);
-      if(solid[c]){diag[c]=px[c]=py[c]=pz[c]=0;p[c]=0;continue;}
+      if(solid[c]){diag[c]=px[c]=py[c]=pz[c]=0;p[c]=0;if(ph)ph[c]=0;continue;}
       const a=tu[i+(nx+1)*(j+ny*k)],b=tu[i+1+(nx+1)*(j+ny*k)],e=tv[i+nx*(j+(ny+1)*k)],g=tv[i+nx*(j+1+(ny+1)*k)],m=tw[c],n=tw[c+nxy],live=t=>t===FREE||t===OPEN?1:0;
       diag[c]=live(a)+live(b)+live(e)+live(g)+live(m)+live(n)+(c===pinned?1:0);px[c]=b===FREE?1:0;py[c]=g===FREE?1:0;pz[c]=n===FREE?1:0;}
     const tau=.97,sigma=.25;
@@ -137,8 +145,9 @@ export function createWindSolver(options={}){
     return dot;
   }
   // Pressure p is scaled by dt/(rho h), so a face update is u -= p_right - p_left and the
-  // residual is the remaining divergence as a face-velocity sum (m/s).
-  function project(){
+  // residual is the remaining divergence as a face-velocity sum (m/s). p also holds the
+  // starting guess: the same projection's solution from the last step.
+  function project(p){
     let maxR=0;
     for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const c=i+nx*(j+ny*k);if(solid[c]){r[c]=0;continue;}
       r[c]=-(u[i+1+(nx+1)*(j+ny*k)]-u[i+(nx+1)*(j+ny*k)]+v[i+nx*(j+1+(ny+1)*k)]-v[i+nx*(j+(ny+1)*k)]+w[c+nxy]-w[c]);}
@@ -163,24 +172,25 @@ export function createWindSolver(options={}){
   // error added back; reverting to F where the correction leaves the forward stencil's range.
   // advection:'semi-lagrangian' keeps F alone: half the cost, first order, more diffusive.
   // The other two components at a face are the mean of their four nearest faces, which is
-  // exactly the clamped trilinear value there.
-  function advect(){
-    const a=dt/h,NX=nx+1,NY=ny+1,R=RANGE;
-    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<=nx;i++){const f=i+NX*(j+ny*k);if(tu[f]!==FREE&&tu[f]!==OPEN){F[f]=u[f];continue;}
+  // exactly the clamped trilinear value there. The fields qu, qv, qw ride the current
+  // velocity for tau seconds, and the result becomes the velocity.
+  function advect(qu,qv,qw,tau){
+    const a=tau/h,NX=nx+1,NY=ny+1,R=RANGE;
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<=nx;i++){const f=i+NX*(j+ny*k);if(tu[f]!==FREE&&tu[f]!==OPEN){F[f]=qu[f];continue;}
       const i0=i>0?i-1:0,i1=i<nx?i:nx-1,vb=nx*(j+NY*k),wb=nx*(j+ny*k),U=u[f],V=.25*(v[i0+vb]+v[i1+vb]+v[i0+vb+nx]+v[i1+vb+nx]),W=.25*(w[i0+wb]+w[i1+wb]+w[i0+wb+nxy]+w[i1+wb+nxy]);
-      T1[f]=V;T2[f]=W;F[f]=su(u,i-a*U,j+.5-a*V,k+.5-a*W,R);MN[f]=R[0];MX[f]=R[1];}
-    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<=nx;i++){const f=i+NX*(j+ny*k);if(tu[f]!==FREE&&tu[f]!==OPEN){un[f]=u[f];continue;}if(!corrected){un[f]=F[f];continue;}
-      const U=u[f],c=F[f]+.5*(U-su(F,i+a*U,j+.5+a*T1[f],k+.5+a*T2[f],null));un[f]=c<MN[f]||c>MX[f]?F[f]:c;}
-    for(let k=0;k<nz;k++)for(let j=0;j<=ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+NY*k);if(tv[f]!==FREE&&tv[f]!==OPEN){F[f]=v[f];continue;}
+      T1[f]=V;T2[f]=W;F[f]=su(qu,i-a*U,j+.5-a*V,k+.5-a*W,R);MN[f]=R[0];MX[f]=R[1];}
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<=nx;i++){const f=i+NX*(j+ny*k);if(tu[f]!==FREE&&tu[f]!==OPEN){un[f]=qu[f];continue;}if(!corrected){un[f]=F[f];continue;}
+      const U=u[f],c=F[f]+.5*(qu[f]-su(F,i+a*U,j+.5+a*T1[f],k+.5+a*T2[f],null));un[f]=c<MN[f]||c>MX[f]?F[f]:c;}
+    for(let k=0;k<nz;k++)for(let j=0;j<=ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+NY*k);if(tv[f]!==FREE&&tv[f]!==OPEN){F[f]=qv[f];continue;}
       const j0=j>0?j-1:0,j1=j<ny?j:ny-1,u0=i+NX*(j0+ny*k),u1=i+NX*(j1+ny*k),w0=i+nx*(j0+ny*k),w1=i+nx*(j1+ny*k),V=v[f],U=.25*(u[u0]+u[u0+1]+u[u1]+u[u1+1]),W=.25*(w[w0]+w[w1]+w[w0+nxy]+w[w1+nxy]);
-      T1[f]=U;T2[f]=W;F[f]=sv(v,i+.5-a*U,j-a*V,k+.5-a*W,R);MN[f]=R[0];MX[f]=R[1];}
-    for(let k=0;k<nz;k++)for(let j=0;j<=ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+NY*k);if(tv[f]!==FREE&&tv[f]!==OPEN){vn[f]=v[f];continue;}if(!corrected){vn[f]=F[f];continue;}
-      const V=v[f],c=F[f]+.5*(V-sv(F,i+.5+a*T1[f],j+a*V,k+.5+a*T2[f],null));vn[f]=c<MN[f]||c>MX[f]?F[f]:c;}
-    for(let k=0;k<=nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]!==FREE&&tw[f]!==OPEN){F[f]=w[f];continue;}
+      T1[f]=U;T2[f]=W;F[f]=sv(qv,i+.5-a*U,j-a*V,k+.5-a*W,R);MN[f]=R[0];MX[f]=R[1];}
+    for(let k=0;k<nz;k++)for(let j=0;j<=ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+NY*k);if(tv[f]!==FREE&&tv[f]!==OPEN){vn[f]=qv[f];continue;}if(!corrected){vn[f]=F[f];continue;}
+      const V=v[f],c=F[f]+.5*(qv[f]-sv(F,i+.5+a*T1[f],j+a*V,k+.5+a*T2[f],null));vn[f]=c<MN[f]||c>MX[f]?F[f]:c;}
+    for(let k=0;k<=nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]!==FREE&&tw[f]!==OPEN){F[f]=qw[f];continue;}
       const k0=k>0?k-1:0,k1=k<nz?k:nz-1,u0=i+NX*(j+ny*k0),u1=i+NX*(j+ny*k1),v0=i+nx*(j+NY*k0),v1=i+nx*(j+NY*k1),W=w[f],U=.25*(u[u0]+u[u0+1]+u[u1]+u[u1+1]),V=.25*(v[v0]+v[v0+nx]+v[v1]+v[v1+nx]);
-      T1[f]=U;T2[f]=V;F[f]=sw(w,i+.5-a*U,j+.5-a*V,k-a*W,R);MN[f]=R[0];MX[f]=R[1];}
-    for(let k=0;k<=nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]!==FREE&&tw[f]!==OPEN){wn[f]=w[f];continue;}if(!corrected){wn[f]=F[f];continue;}
-      const W=w[f],c=F[f]+.5*(W-sw(F,i+.5+a*T1[f],j+.5+a*T2[f],k+a*W,null));wn[f]=c<MN[f]||c>MX[f]?F[f]:c;}
+      T1[f]=U;T2[f]=V;F[f]=sw(qw,i+.5-a*U,j+.5-a*V,k-a*W,R);MN[f]=R[0];MX[f]=R[1];}
+    for(let k=0;k<=nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]!==FREE&&tw[f]!==OPEN){wn[f]=qw[f];continue;}if(!corrected){wn[f]=F[f];continue;}
+      const W=w[f],c=F[f]+.5*(qw[f]-sw(F,i+.5+a*T1[f],j+.5+a*T2[f],k+a*W,null));wn[f]=c<MN[f]||c>MX[f]?F[f]:c;}
     let t=u;u=un;un=t;t=v;v=vn;vn=t;t=w;w=wn;wn=t;
   }
   // Explicit viscous diffusion, substepped for stability. A wall's tangential ghost mirrors
@@ -199,10 +209,24 @@ export function createWindSolver(options={}){
         a[f]=c+lambda*(sum-terms*c);}
     }
   }
-  function diffuse(){
+  function diffuse(tau){
     if(!viscosity)return;
-    const dims=(nx>1)+(ny>1)+(nz>1),total=viscosity*dt/(h*h),count=Math.max(1,Math.ceil(total*2*dims/.9)),lambda=total/count;
+    const dims=(nx>1)+(ny>1)+(nz>1),total=viscosity*tau/(h*h),count=Math.max(1,Math.ceil(total*2*dims/.9)),lambda=total/count;
     diffuseComponent(u,tu,0,nx+1,ny,nz,[0,.5,.5],count,lambda);diffuseComponent(v,tv,1,nx,ny+1,nz,[.5,0,.5],count,lambda);diffuseComponent(w,tw,2,nx,ny,nz+1,[.5,.5,0],count,lambda);
+  }
+  // One step. The plain split advects, diffuses and projects. Advection-reflection does that
+  // over half a step, then reflects the field through the divergence-free space,
+  // u_r = 2 P(u) - u, which gives back the energy that projection took. It carries u_r half
+  // a step with the projected velocity and projects again. The second half undoes the first
+  // half's divergence to first order, so the last projection removes only O(dt^2).
+  function advance(){
+    if(!reflect){advect(u,v,w,dt);diffuse(dt);updateInflow(time+dt);return project(p);}
+    const half=.5*dt;advect(u,v,w,half);diffuse(half);updateInflow(time+half);ru.set(u);rv.set(v);rw.set(w);
+    const first=project(ph);
+    for(const[b,a]of[[ru,u],[rv,v],[rw,w]])for(let f=0;f<b.length;f++)b[f]=2*a[f]-b[f];
+    ahead=half;advect(ru,rv,rw,half);ahead=0;diffuse(half);updateInflow(time+dt);
+    const second=project(p);
+    return{iterations:first.iterations+second.iterations,divergence:second.divergence,converged:first.converged&&second.converged};
   }
   function configure(next){
     if(next.wind){
@@ -228,9 +252,9 @@ export function createWindSolver(options={}){
   }
   // Starts from the inflow profile everywhere in the air, made divergence-free.
   function reset(){
-    u.fill(0);v.fill(0);w.fill(0);p.fill(0);steps=0;time=0;averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);
+    u.fill(0);v.fill(0);w.fill(0);p.fill(0);ph?.fill(0);steps=0;time=0;averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);
     for(let k=0;k<nz;k++)for(let j=0;j<ny;j++){const a=inflow((j+.5)*h);for(let i=0;i<=nx;i++){const f=i+(nx+1)*(j+ny*k);if(tu[f]!==FIXED)u[f]=a[0];}for(let i=0;i<nx;i++){if(tw[i+nx*(j+ny*k)]!==FIXED)w[i+nx*(j+ny*k)]=a[2];if(k===nz-1&&tw[i+nx*(j+ny*nz)]!==FIXED)w[i+nx*(j+ny*nz)]=a[2];}}
-    last=Object.freeze(project());
+    last=Object.freeze(project(p));
   }
   configure(options);reset();
   function accumulate(){averaged++;const f=1/averaged;for(let n=0;n<NU;n++)mu[n]+=(u[n]-mu[n])*f;for(let n=0;n<NV;n++)mv[n]+=(v[n]-mv[n])*f;for(let n=0;n<NW;n++)mw[n]+=(w[n]-mw[n])*f;}
@@ -240,7 +264,7 @@ export function createWindSolver(options={}){
     get dt(){return dt;},get time(){return time;},get steps(){return steps;},get wind(){return windState;},get boundaries(){return sides;},
     get solid(){return solid;},get cutOffCells(){return cutOff;},get averagedSteps(){return averaged;},get last(){return last;},
     get turbulence(){return gust?Object.freeze({sigma:gust.sigma,lengthScale:gust.lengthScale,modes:gust.modes,seed:gust.seed}):null;},
-    step(){const started=globalThis.performance?.now?.()??0;advect();diffuse();updateInflow(time+dt);const result=project();steps++;time+=dt;if(averaging)accumulate();
+    step(){const started=globalThis.performance?.now?.()??0;const result=advance();steps++;time+=dt;if(averaging)accumulate();
       last=Object.freeze({...result,milliseconds:(globalThis.performance?.now?.()??0)-started});return last;},
     run(count){for(let n=0;n<count;n++)api.step();return last;},
     reset(){reset();return api;},
@@ -249,11 +273,11 @@ export function createWindSolver(options={}){
       for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<=nx;i++){const f=i+(nx+1)*(j+ny*k);if(tu[f]===FREE||tu[f]===OPEN)u[f]=velocity(ox+i*h,oy+(j+.5)*h,oz+(k+.5)*h)[0];}
       for(let k=0;k<nz;k++)for(let j=0;j<=ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+(ny+1)*k);if(tv[f]===FREE||tv[f]===OPEN)v[f]=velocity(ox+(i+.5)*h,oy+j*h,oz+(k+.5)*h)[1];}
       for(let k=0;k<=nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const f=i+nx*(j+ny*k);if(tw[f]===FREE||tw[f]===OPEN)w[f]=velocity(ox+(i+.5)*h,oy+(j+.5)*h,oz+k*h)[2];}
-      p.fill(0);averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);last=Object.freeze(project());return api;},
+      p.fill(0);ph?.fill(0);averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);last=Object.freeze(project(p));return api;},
     // Changing the bearing reclassifies the sides; the flow continues from its current state.
     // next may also carry turbulence settings (null turns them off).
     setWind(next={}){if(!windState)throw Error('This solver was created with custom boundaries.');const{turbulence:t,...wind}=next;
-      configure({wind:{...windState,...wind},turbulence:t});averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);updateInflow(time);last=Object.freeze(project());return api;},
+      configure({wind:{...windState,...wind},turbulence:t});averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);updateInflow(time);last=Object.freeze(project(p));return api;},
     startAveraging(){averaging=true;averaged=0;mu.fill(0);mv.fill(0);mw.fill(0);return api;},
     stopAveraging(){averaging=false;return api;},
     get averaging(){return averaging;},

@@ -55,26 +55,28 @@ test('every catalogue building voxelizes airtight at 1 m and 0.5 m, and the prob
 });
 
 test('an empty site carries the inflow profile unchanged at any bearing',()=>{
-  for(const fromDeg of[0,90,230,317.5]){
-    const grid=W.createWindGrid({origin:[-8,0,-7],cell:1,size:[16,8,14]}),s=W.createWindSolver({grid,solid:new Uint8Array(grid.cells),wind:{speed:6,fromDeg,z0:.25}});
+  for(const step of['projection','reflection'])for(const fromDeg of[0,90,230,317.5]){
+    const grid=W.createWindGrid({origin:[-8,0,-7],cell:1,size:[16,8,14]}),s=W.createWindSolver({grid,solid:new Uint8Array(grid.cells),wind:{speed:6,fromDeg,z0:.25},step});
     s.run(25);const{u,v,w}=s.faces(),[nx,ny,nz]=grid.size;
     for(let k=0;k<nz;k++)for(let j=0;j<ny;j++){const a=s.inflowAt(j+.5);for(let i=0;i<=nx;i++)assert.equal(u[i+(nx+1)*(j+ny*k)],Math.fround(a[0]));for(let i=0;i<nx;i++)assert.equal(w[i+nx*(j+ny*k)],Math.fround(a[2]));}
     assert.ok(v.every(x=>x===0));assert.equal(s.last.iterations,0);assert.equal(s.flux().imbalance,0);
   }
 });
 
-function blockSolver({H=4,fromDeg=270,turbulence=null,size=[10,4,7],origin=[-3,0,-3.5]}={}){
+function blockSolver({H=4,fromDeg=270,turbulence=null,size=[10,4,7],origin=[-3,0,-3.5],step='projection'}={}){
   const grid=W.createWindGrid({origin:origin.map(f=>f*H),cell:1,size:size.map(f=>f*H)}),[nx,ny,nz]=grid.size,solid=new Uint8Array(grid.cells);
   for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const x=grid.origin[0]+i+.5,y=j+.5,z=grid.origin[2]+k+.5;if(x>0&&x<H&&y<H&&Math.abs(z)<H/2)solid[i+nx*(j+ny*k)]=1;}
-  return W.createWindSolver({grid,solid,wind:{speed:5,fromDeg,z0:.1},turbulence});
+  return W.createWindSolver({grid,solid,wind:{speed:5,fromDeg,z0:.1},turbulence,step});
 }
 test('projection leaves no divergence and balances the flux around a block',()=>{
-  const s=blockSolver({fromDeg:250});
-  for(let n=0;n<30;n++){const r=s.step();assert.ok(r.converged);assert.ok(r.divergence<=1e-4);}
-  const{u,v,w}=s.faces(),[nx,ny,nz]=s.grid.size;let worst=0;
-  for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const c=i+nx*(j+ny*k);if(s.solid[c])continue;worst=Math.max(worst,Math.abs(u[i+1+(nx+1)*(j+ny*k)]-u[i+(nx+1)*(j+ny*k)]+v[i+nx*(j+1+(ny+1)*k)]-v[i+nx*(j+(ny+1)*k)]+w[c+nx*ny]-w[c]));}
-  const scale=Math.max(5,W.profileSpeed(ny,5,.1));assert.ok(worst<=1e-4*scale*1.0001,'max face divergence '+worst);assert.ok(s.flux().imbalance<1e-3);
-  assert.ok(s.blockage()>0&&s.blockage()<.1);
+  for(const step of['projection','reflection']){
+    const s=blockSolver({fromDeg:250,step});
+    for(let n=0;n<30;n++){const r=s.step();assert.ok(r.converged);assert.ok(r.divergence<=1e-4);}
+    const{u,v,w}=s.faces(),[nx,ny,nz]=s.grid.size;let worst=0;
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const c=i+nx*(j+ny*k);if(s.solid[c])continue;worst=Math.max(worst,Math.abs(u[i+1+(nx+1)*(j+ny*k)]-u[i+(nx+1)*(j+ny*k)]+v[i+nx*(j+1+(ny+1)*k)]-v[i+nx*(j+(ny+1)*k)]+w[c+nx*ny]-w[c]));}
+    const scale=Math.max(5,W.profileSpeed(ny,5,.1));assert.ok(worst<=1e-4*scale*1.0001,step+' max face divergence '+worst);assert.ok(s.flux().imbalance<1e-3);
+    assert.ok(s.blockage()>0&&s.blockage()<.1);
+  }
 });
 
 // Signs set from the physics: the windward face stagnates with downwash below, the lee
@@ -104,23 +106,36 @@ test('the lid-driven cavity at Re 100 matches Ghia, Ghia and Shin on a 32 x 32 g
 });
 
 // The Taylor-Green vortex is exact and steady in a slip box [0, pi]^2 without viscosity, so
-// any energy it loses is the scheme's. Measured at 32 cells, CFL 1, one turnover: MacCormack
-// keeps 0.769, semi-Lagrangian 0.644. The loss halves with dt and does not change with the
-// grid at fixed dt: it is the first-order split between advection and projection. The floors
-// below are pins on those measurements. With nu = 0.01 the run loses the exact viscous factor
-// on top (measured 0.798 against exp(-4 nu t) = 0.778); the absolute check, viscous run
-// against exp(-4 nu t) within 5 %, failed at 21 % for the same splitting reason.
+// any energy it loses is the scheme's. Energy kept after one turnover at 32 cells.
+function taylorGreen(advection,viscosity,options={}){
+  const n=32,h=Math.PI/n,grid=W.createWindGrid({origin:[0,0,0],cell:h,size:[n,n,1]}),slip={type:'slip'};
+  const s=W.createWindSolver({grid,solid:new Uint8Array(grid.cells),boundaries:{xMin:slip,xMax:slip,yMin:slip,yMax:slip,zMin:slip,zMax:slip},speedScale:1,viscosity,advection,tolerance:1e-8,...options});
+  s.setFlow((x,y)=>[Math.sin(x)*Math.cos(y),-Math.cos(x)*Math.sin(y),0]);
+  const energy=()=>{const{u,v}=s.faces();let e=0;for(const a of u)e+=a*a;for(const a of v)e+=a*a;return e;},e0=energy();s.run(Math.round(2*Math.PI/s.dt));return{ratio:energy()/e0,t:s.time};
+}
+// Measured at CFL 1: MacCormack keeps 0.769, semi-Lagrangian 0.644. The loss halves with dt and
+// does not change with the grid at fixed dt: it is the first-order split between advection and
+// projection. The floors below are pins on those measurements. With nu = 0.01 the run loses the
+// exact viscous factor on top (measured 0.798 against exp(-4 nu t) = 0.778); the absolute check,
+// viscous run against exp(-4 nu t) within 5 %, failed at 21 % for the same splitting reason.
 test('a Taylor-Green vortex: MacCormack keeps more energy than semi-Lagrangian, and viscosity takes its exact share',()=>{
-  const slip={type:'slip'},kept=(advection,viscosity)=>{
-    const n=32,h=Math.PI/n,grid=W.createWindGrid({origin:[0,0,0],cell:h,size:[n,n,1]});
-    const s=W.createWindSolver({grid,solid:new Uint8Array(grid.cells),boundaries:{xMin:slip,xMax:slip,yMin:slip,yMax:slip,zMin:slip,zMax:slip},speedScale:1,viscosity,advection,tolerance:1e-8});
-    s.setFlow((x,y)=>[Math.sin(x)*Math.cos(y),-Math.cos(x)*Math.sin(y),0]);
-    const energy=()=>{const{u,v}=s.faces();let e=0;for(const a of u)e+=a*a;for(const a of v)e+=a*a;return e;},e0=energy();s.run(Math.round(2*Math.PI/s.dt));return{ratio:energy()/e0,t:s.time};
-  };
-  const mc=kept('maccormack',0),sl=kept('semi-lagrangian',0),viscous=kept('maccormack',.01);
+  const mc=taylorGreen('maccormack',0),sl=taylorGreen('semi-lagrangian',0),viscous=taylorGreen('maccormack',.01);
   assert.ok(mc.ratio>.74,'MacCormack kept '+mc.ratio);assert.ok(sl.ratio<mc.ratio-.08,'semi-Lagrangian kept '+sl.ratio);
   assert.ok(Math.abs(viscous.ratio/mc.ratio/Math.exp(-4*.01*viscous.t)-1)<.05,'viscous share '+viscous.ratio/mc.ratio);
-  assert.throws(()=>kept('upwind',0));
+  assert.throws(()=>taylorGreen('upwind',0));
+});
+
+// Advection-reflection on the same vortex, pre-registered in docs/wind-field.md before it ran.
+// Measured at CFL 1: MacCormack keeps 0.9974, and with nu = 0.01 the run sits 0.26 % below the
+// exact exp(-4 nu t), so the absolute check that failed above now holds. The last projection
+// removes 8.1e-5 per turnover (derived: 8.4e-5) against the plain split's 0.232; most of what
+// is left is the limiter's reverts to semi-Lagrangian. Without the reflection, two half steps
+// keep 0.868, as the plain split does at CFL 0.5.
+test('advection-reflection keeps the energy the split loses, and viscosity then takes the exact decay',()=>{
+  const mc=taylorGreen('maccormack',0,{step:'reflection'}),viscous=taylorGreen('maccormack',.01,{step:'reflection'});
+  assert.ok(mc.ratio>.99,'reflection kept '+mc.ratio);
+  assert.ok(Math.abs(viscous.ratio/Math.exp(-4*.01*viscous.t)-1)<.02,'viscous run against exp(-4 nu t): '+viscous.ratio);
+  assert.throws(()=>taylorGreen('maccormack',0,{step:'leapfrog'}));
 });
 
 test('gusts enter through the inflow faces and the samples beyond them',()=>{
@@ -159,9 +174,13 @@ test('tracers keep their radius through a full turn of solid-body rotation',()=>
   assert.ok(Math.abs(Math.hypot(p[0],p[2])-1)<1e-3);assert.ok(Math.abs(p[0]-1)<.01&&Math.abs(p[2])<.01);
 });
 
-test('identical runs are bit-identical, turbulence included',()=>{
-  const run=()=>{const s=blockSolver({turbulence:{gain:1,modes:16,seed:3}});s.run(12);return s.faces();},a=run(),b=run();
-  for(const key of['u','v','w'])assert.equal(Buffer.compare(Buffer.from(a[key].buffer),Buffer.from(b[key].buffer)),0);
+// A reset clears every warm start, so a run after it repeats a fresh run bit for bit.
+test('identical runs are bit-identical, turbulence included, and a reset run repeats a fresh one',()=>{
+  for(const step of['projection','reflection']){
+    const make=()=>blockSolver({turbulence:{gain:1,modes:16,seed:3},step}),run=s=>{s.run(12);return s.faces();},again=make();again.run(7);again.reset();
+    const a=run(make()),b=run(make()),c=run(again);
+    for(const key of['u','v','w'])for(const other of[b,c])assert.equal(Buffer.compare(Buffer.from(a[key].buffer),Buffer.from(other[key].buffer)),0,step+' '+key);
+  }
 });
 
 test('synthetic gusts carry the surface-layer standard deviations',()=>{

@@ -29,6 +29,10 @@ const MUTANTS=[
   ['M19 world matrix ignored in objectTriangles','killed','meshes.js','out[n++]=e[0]*x+e[4]*y+e[8]*z+e[12];','out[n++]=x;'],
   ['M20 base64 drops the last byte','killed','field.js','bytes[o++]=n>>16&255;if(o<bytes.length)bytes[o++]=n>>8&255;if(o<bytes.length)bytes[o++]=n&255;','bytes[o++]=n>>16&255;if(o<bytes.length)bytes[o++]=n>>8&255;if(o<bytes.length-1)bytes[o++]=n&255;'],
   ['M21 neutral control (comment only)','survives','solver.js','export const WIND_SOLVER_VERSION=1;','export const WIND_SOLVER_VERSION=1;// neutral'],
+  ['M22 no reflection (u_r = P(u))','killed','solver.js','b[f]=2*a[f]-b[f];','b[f]=a[f];'],
+  ['M23 half-step pressure survives a reset','killed','solver.js','p.fill(0);ph?.fill(0);steps=0;','p.fill(0);steps=0;'],
+  ['M24 second half advects a full step','killed','solver.js','advect(ru,rv,rw,half)','advect(ru,rv,rw,dt)'],
+  ['M25 second half reads the gusts at t','equivalent','solver.js','ahead=half;advect(ru,rv,rw,half);ahead=0;','advect(ru,rv,rw,half);'],
 ];
 let failures=0;const results=[];
 try{
