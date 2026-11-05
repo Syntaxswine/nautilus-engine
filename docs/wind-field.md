@@ -87,15 +87,19 @@ The headless path for games (`packages/wind-core/bearings.js` and `smoke.js`). T
 
 Linear is the default because the registered rule chose it: it carried smoke closest to the exact bearings, by a cancellation described below. Slerp is the principled choice where the free stream matters more than wakes, such as sources upwind of buildings or on open ground; that case was not measured. Keep-speed measured no better than slerp and costs 8–12 times as much per blend.
 
-**Smoke.** `createSmoke({capacity, lifetime, rate, rise, riseTime, spread, jitter, seed, bounds, blocked})` rides any `sample()`, live or baked.
+**Smoke.** `createSmoke({capacity, lifetime, rate, rise, riseTime, spread, jitter, seed, bounds, blocked, sweep})` rides any `sample()`, live or baked.
 
 - **Emitters.** `addEmitter({x, y, z, rate, rise, riseTime})` places a source; `moveEmitter` and `removeEmitter` change them. Each puff starts within `jitter` of its source.
 - **Rise.** A puff climbs at rise·e^(−age/riseTime) m/s, taken at the middle of each step, so a step adds the midpoint rule's share of the exact integral. The climb is a drift that does not lift the air.
 - **Spread.** A seeded random walk of `spread` m²/s spreads each axis by 2·spread·t.
 - **Lifetime and bounds.** A puff expires at `lifetime` seconds or on leaving `bounds`.
-- **Solids.** With `blocked(x, y, z)`, a step from air into a solid is refused and the puff waits. A puff that starts inside a coarse voxel moves until it is out.
+- **Solids.** With `blocked(x, y, z)`, a puff in air never moves into or through a solid. The whole move is checked, walk included, and a move that would cross a solid is refused while the puff waits. How the move is checked depends on the test:
+  - **A field's test.** `windFieldSolid(field)` carries `segment()`, which walks every cell the straight move passes through (Amanatides and Woo 1987), so no step is too long.
+  - **A plain host test** is checked at points no more than `sweep` metres apart. With `sweep` 0, the default, it checks the end of the move alone. That is the stated limit: a move longer than a wall is thick can then skip the wall (20 m/s for 0.1 s crosses 1 m). Keep each step shorter than the thinnest wall, or give `sweep` half a cell.
+  - **Jitter.** It never places a new puff in or across a wall from its source.
+  - **Buried sources.** A puff that starts inside a coarse voxel moves freely until it is out. The wind is zero inside solids, so only its rise and its walk move it; with neither it stays.
 - **Seed.** One seeded stream drives the jitter and the walk. `reset()` rewinds it, so the same seed and the same calls give the same smoke, bit for bit.
-- **Helpers.** `windFieldBounds` and `windFieldSolid` give a field's box and solid test.
+- **Helpers.** `windFieldBounds` gives a field's box. `windFieldSolid` gives its solid test, with the cell walk.
 
 **How far baked smoke strays.** Measured on the page's house and street sites at bearings halfway between 8 bake bearings, against the field solved at that exact bearing ([record](reviews/2026-11-04-wind-bearings-smoke.md)):
 
@@ -104,8 +108,9 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - **A fire in the street.** 6.3 m off (18 %, 6.4°).
 - **The uniform fallback.** 8.1 m and 4.5 m off for the roofs, which is about as good as a bake for smoke above the roofs. For the street fire it is 49 m off, because it carries smoke straight through the buildings.
 - **Against live smoke.** About 110–130 live plumes in the running solver wander 9–13 m RMS around their mean path. A practical 3-flow-through bake ends 4.5–4.7 m (roofs) and 9.8 m (street) from that mean.
-- **Seed bias.** A bake also carries the seed of its gusts. Two seeds differ by 6–15 % in mean speed aloft even after 12 flow-throughs, and averaging longer barely helps.
+- **Seed bias.** A bake also carries the seed of its gusts. At the two bearings measured, two seeds put chimney plumes 2.3–4.4 m apart (house) at every averaging length, and at one street bearing (22.5°) 13–19 m apart. Two bearings are too few to say how this falls with averaging. A follow-up with more seeds is measuring it on `claude/wind-seeds`.
 - **Street forks.** In the street canyon, some bearings send smoke one way or the other on small differences, by up to 19 m.
+- **After review.** These numbers were measured before #39's sampler fix (zero anywhere inside a solid cell) and before the swept collision above. Re-run on the same bakes with both, 371 of 720 plume ends moved, the largest by 0.73 m. No median moved more than 0.24 m, and every verdict and rule held. The [record's addendum](reviews/2026-11-04-wind-bearings-smoke.md#addendum-after-review-2026-11-05) has the split.
 
 **Cost.** Measured with Node 24.15 on a Ryzen 7 5800X at 15–44 % background load:
 
@@ -115,11 +120,11 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 | Two bakes sampled and blended on every call | 149 ns. Sampling one pre-blended field is cheaper, and the gap grows under load: 85 against 743 ns at 100 %. |
 | The uniform log law | 14 ns |
 | A live `solver.sample` | 211 ns |
-| One `createSmoke.step` per puff | 360 ns, so 1,000 puffs take 0.36 ms a frame |
+| One `createSmoke.step` per puff | 360 ns, so 1,000 puffs take 0.36 ms a frame. The swept solid test adds about 40–50 ns (a one-off check at 40 % load). |
 | A re-blend of 99,200 cells (when the wind changes) | 0.7–1.5 ms for linear or slerp; 9–13 ms for keep-speed |
 | A default bake (1 + 3 flow-throughs) | About 30–50 s per bearing on one quiet thread for these 100k-cell sites; the page's 8 workers took 297 s with the machine fully loaded |
 
-**Verification.** `tests/wind-smoke.test.mjs` (9 tests, about 3 s, in `npm test`):
+**Verification.** `tests/wind-smoke.test.mjs` (11 tests, about 3 s, in `npm test`):
 
 - A bake at 8 m/s is twice the bake at 4 m/s in all 147,456 values, gusts included.
 - On an empty site each blend meets its free-stream row above to 1e-5 at five bearings, including a wrap past north.
@@ -129,8 +134,12 @@ Linear is the default because the registered rule chose it: it carried smoke clo
 - Smoke matches its midpoint-rule rise to 1e-5 and the 2Kt spread to 6 %.
 - Smoke replays from its seed and keeps each puff's warmth across removals.
 - Puffs never cross a wall that unchecked smoke crosses, and a buried source still lets its puffs out.
+- In the review's case (20 m/s for 0.1 s at a 1 m wall), a field's test and a host test with `sweep` hold the puff, and a plain endpoint test lets it through, which is the stated limit.
+- The segment walk agrees with an exact slab-test oracle on 4,000 random moves.
+- Jitter never places a puff in or beyond a 0.2 m wall.
+- In a field (the wind is zero inside solids), a buried source with no rise stays put, and with rise it climbs out and is carried.
 
-`node tools/wind-smoke-mutants.mjs` kills all 30 of its faults in a private copy, the linear default among them; the comment-only control survives. `node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
+`node tools/wind-smoke-mutants.mjs` kills 35 of its 36 faults in a private copy, the linear default and the swept test among them. The survivor, S19, only changes which cell the walk visits first when a move runs exactly through a cell edge; that move touches all four cells at one point, so it is equivalent. The comment-only control survives. `node tools/wind-bearings-measure.mjs --out <dir>` repeats the registered measurement; it takes about 45 minutes in 6 workers, and `--dry` checks the plumbing in two.
 
 ## Verification
 
@@ -182,7 +191,7 @@ The block test's signs were set from the physics before it first ran, and one of
 - **An 8-bearing linear blend** holds roof plumes to 3.4–4.1 m (10–12 % of travel, 1.7–2.8° of heading) and the street fire to 6.3 m. Snapping to the nearest bake is 12–22 m off.
 - **Sixteen bearings** cut slerp's error at the same targets by 16–34 %, but not linear's everywhere: its street-roof error grew by 17 %.
 - **What a single bake carries:**
-  - its gust seed, a 6–15 % bias in mean speed aloft that longer averaging barely removes;
+  - its gust seed: two seeds put chimney plumes 2.3–4.4 m apart at the bearings measured, and 13–19 m at one street bearing;
   - in a canyon, the forks of the smoke's own path (up to 19 m between two seeds).
 - **What it omits:**
   - all the solver's limits (neutral air, slip ground, 1 m cells, small domains);
@@ -204,7 +213,7 @@ The block test's signs were set from the physics before it first ran, and one of
 
 - Bake 8 bearings per map with the defaults (linear blend, `average` 3), and blend them at play time.
 - Bake 16 bearings where smoke sits low among buildings and the extra 10 MB is affordable.
-- Average two or three gust seeds into a bake when absolute plume positions matter. This removes the seed bias but is untested here.
+- Where absolute plume positions matter, average longer or over several gust seeds. The follow-up on `claude/wind-seeds` measures which pays.
 - Add a cheap meander, such as the gust model sampled at the puffs, if steady plumes look too calm.
 - Keep the uniform wind as the fallback for maps without a bake. It is already adequate for plumes released above the roofs.
 - The observation that would settle it is a Tinderbox scene with fire among buildings, compared side by side under the uniform wind and a bake.
@@ -229,7 +238,7 @@ The neutral control (a comment-only edit) survived every round. **M03 is the hon
 - Register `./wind` with an installed-package proof, as the other optional entries have.
 - Voxelize an editor map (walls, roofs, prefabs and tiles) instead of catalogue placements.
 - Bearing sets and smoke are in place (above). Still open:
-  - Average several gust seeds into one bake, and check that it removes the seed bias.
+  - Average several gust seeds into one bake, and check what it removes (in progress on `claude/wind-seeds`).
   - Give baked smoke a cheap meander.
   - Measure slerp against linear for sources upwind of buildings.
   - Quantize the stored fields.
