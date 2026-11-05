@@ -13,6 +13,25 @@ function checkField(field){
   if(!(field.velocity instanceof Float32Array)||field.velocity.length!==nx*ny*nz*3)throw Error('A wind field needs three Float32 velocity components per cell.');
   if(!(field.solid instanceof Uint8Array)||field.solid.length!==nx*ny*nz)throw Error('A wind field needs one solid flag per cell.');
 }
+// The mean of several baked fields of one wind on one grid, such as bakes of one bearing with
+// different gust seeds. Values are summed in double precision in the order given and stored as
+// Float32; steps, averaged steps and solver time add up, and `runs` counts the fields. Every
+// field must share the grid, the wind and the solid cells.
+export function averageWindFields(fields){
+  if(!Array.isArray(fields)||!fields.length)throw Error('Average at least one wind field.');
+  for(const f of fields)checkField(f);
+  const a=fields[0],w=a.wind,n=fields.length,length=a.velocity.length,cells=a.solid.length;
+  for(const f of fields){
+    if(f.cell!==a.cell||f.size.some((v,i)=>v!==a.size[i])||f.origin.some((v,i)=>v!==a.origin[i]))throw Error('Averaged wind fields must share one grid.');
+    const v=f.wind;if(w?v?.speed!==w.speed||v.fromDeg!==w.fromDeg||v.z0!==w.z0||v.referenceHeight!==w.referenceHeight:v)throw Error('Averaged wind fields must share one wind.');
+    for(let c=0;c<cells;c++)if(f.solid[c]!==a.solid[c])throw Error('Averaged wind fields must share their solid cells.');
+  }
+  const sum=new Float64Array(length),velocity=new Float32Array(length),total=key=>fields.reduce((s,f)=>s+(f[key]||0),0);
+  for(const f of fields){const v=f.velocity;for(let i=0;i<length;i++)sum[i]+=v[i];}
+  for(let i=0;i<length;i++)velocity[i]=sum[i]/n;
+  return{kind:WIND_FIELD_KIND,version:WIND_FIELD_VERSION,origin:[...a.origin],cell:a.cell,size:[...a.size],axes:['x','height','z'],units:'m/s',wind:w?{...w}:null,mean:fields.every(f=>f.mean===true),
+    averagedSteps:total('averagedSteps'),time:total('time'),steps:total('steps'),runs:n,velocity,solid:Uint8Array.from(a.solid)};
+}
 // Trilinear between cell centres; positions outside the grid use its nearest edge, and
 // solid cells hold zero velocity.
 export function sampleWindField(field,x,y,z,out=[0,0,0]){

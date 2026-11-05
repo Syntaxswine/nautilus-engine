@@ -1,5 +1,5 @@
 import {createWindSolver} from './solver.js';
-import {WIND_FIELD_KIND,WIND_FIELD_VERSION,bakeWindField,sampleWindField,encodeWindField,decodeWindField} from './field.js';
+import {WIND_FIELD_KIND,WIND_FIELD_VERSION,bakeWindField,averageWindFields,sampleWindField,encodeWindField,decodeWindField} from './field.js';
 // Baked bearing sets: the mean field at several bearings on one grid, so a game can blow smoke
 // at any bearing without running the solver. The solver has no speed scale of its own (no
 // viscosity, no buoyancy; the time step, gusts and pressure tolerance all scale with U), so a
@@ -33,24 +33,41 @@ function checkBearings(set){
   }
   return set;
 }
+// The gust seeds a bake averages: a count n is turbulence.seed (default 1) and the n - 1 seeds
+// after it; a list is used as given. Without gusts every seed bakes the same field, so such a
+// bake takes one seed at most.
+function gustSeeds(seeds,turbulence){
+  const first=turbulence?.seed??1,list=Array.isArray(seeds)?[...seeds]:Number.isInteger(seeds)&&seeds>=1&&seeds<=1024?Array.from({length:seeds},(_,n)=>first+n):null;
+  if(!list?.length||list.some(s=>!Number.isInteger(s)||s<0||s>0xffffffff)||new Set(list).size!==list.length)throw Error('Seeds are a count from 1 to 1,024 or a list of distinct whole numbers from 0 to 2^32 - 1.');
+  if(list.length>1&&!(turbulence&&turbulence.gain!==0))throw Error('Seeds average gusts: turn gusts on (a turbulence gain above 0) or bake one seed.');
+  return list;
+}
 // Bakes the mean field at each bearing on one grid (give it equal margins on every side). Each
 // bearing starts from the bare inflow profile, warms up for `warmup` flow-throughs (the longer
 // horizontal side over the reference speed) and averages over `average` more, so no bearing
-// depends on the order of the bake. Viscosity and a fixed dt are not offered: either would give
-// the bake a speed scale of its own.
-export function bakeWindBearings({grid,solid,bearings=8,wind={},turbulence={gain:1},warmup=1,average=3,tolerance,advection,cfl,maxIterations,onBearing=null}={}){
+// depends on the order of the bake. With `seeds`, each bearing is baked that way once per gust
+// seed and its field is the mean of those bakes (averageWindFields), so a bake costs seeds times
+// (warmup + average) flow-throughs; the set and its fields then record the seeds. Viscosity and
+// a fixed dt are not offered: either would give the bake a speed scale of its own.
+export function bakeWindBearings({grid,solid,bearings=8,wind={},turbulence={gain:1},seeds,warmup=1,average=3,tolerance,advection,cfl,maxIterations,onBearing=null}={}){
   const list=Array.isArray(bearings)?bearings.map(turn).sort((a,b)=>a-b):evenBearings(bearings);
   if(!list.length||list.some((b,n)=>!Number.isFinite(b)||n&&b===list[n-1]))throw Error('Bake bearings must be finite and distinct.');
   if(!(wind.speed>0))throw Error('A bake needs a positive reference speed.');
   if(!(warmup>=0&&Number.isFinite(warmup))||!(average>0&&Number.isFinite(average)))throw Error('Warm-up and averaging are flow-throughs: warmup >= 0 and average > 0.');
+  const seedList=seeds===undefined?null:gustSeeds(seeds,turbulence),gusts=Boolean(turbulence&&turbulence.gain!==0);
   const fields=[],unconverged=[],flow=Math.max(grid?.size?.[0],grid?.size?.[2])*grid?.cell/wind.speed;
   for(const[index,fromDeg]of list.entries()){
-    const solver=createWindSolver({grid,solid,wind:{...wind,fromDeg},turbulence,tolerance,advection,cfl,maxIterations}),steps=f=>Math.round(f*flow/solver.dt);let missed=0;
-    for(let n=steps(warmup);n>0;n--)if(!solver.step().converged)missed++;
-    solver.startAveraging();for(let n=Math.max(1,steps(average));n>0;n--)if(!solver.step().converged)missed++;
-    const field=bakeWindField(solver);fields.push(field);unconverged.push(missed);onBearing?.({index,count:list.length,fromDeg,field,unconverged:missed});
+    const runs=[];let missed=0;
+    for(const seed of seedList??[null]){
+      const solver=createWindSolver({grid,solid,wind:{...wind,fromDeg},turbulence:seed===null||!gusts?turbulence:{...turbulence,seed},tolerance,advection,cfl,maxIterations}),steps=f=>Math.round(f*flow/solver.dt);
+      for(let n=steps(warmup);n>0;n--)if(!solver.step().converged)missed++;
+      solver.startAveraging();for(let n=Math.max(1,steps(average));n>0;n--)if(!solver.step().converged)missed++;
+      runs.push(bakeWindField(solver));
+    }
+    const field=runs.length===1?runs[0]:averageWindFields(runs);if(seedList)field.seeds=[...seedList];
+    fields.push(field);unconverged.push(missed);onBearing?.({index,count:list.length,fromDeg,field,unconverged:missed});
   }
-  return{kind:WIND_BEARINGS_KIND,version:WIND_BEARINGS_VERSION,bearings:list,warmup,average,unconverged,fields};
+  return{kind:WIND_BEARINGS_KIND,version:WIND_BEARINGS_VERSION,bearings:list,warmup,average,...seedList?{seeds:[...seedList]}:{},unconverged,fields};
 }
 // The two baked bearings either side of fromDeg, i then j clockwise, t of the way from i to j.
 function bracket(bearings,fromDeg){
