@@ -49,15 +49,25 @@ function buildModels(){
 
 // ---------- the solver worker
 const worker=new Worker(new URL('./wind-field-worker.js',import.meta.url),{type:'module'});
-let generation=0,domain=null,solid=null,field=null,meanField=null,stats=null,readyInfo=null;
+let generation=0,domain=null,solid=null,field=null,meanField=null,stats=null,readyInfo=null,applied=null;
 const windSettings=()=>({speed:state.speed,fromDeg:state.fromDeg,z0:TERRAIN[state.terrain].z0});
 const turbulenceSettings=()=>state.gust>0?{gain:state.gust,lengthScale:20,modes:32,seed:1}:null;
+// Builds the site the state describes. A site that does not fit is refused as a whole: the state,
+// the controls and the models go back to the last site that ran, whose field and worker generation
+// stay current, so no field is ever drawn or exported under another site's buildings.
 function rebuild({frame=false}={}){
-  generation++;buildModels();
+  buildModels();
   const triangles=objectTriangles(site),bounds=triangleBounds(triangles),preset=SITES[state.preset];
-  let g;try{g=windDomain(bounds,{cell:state.cell,fromDeg:state.fromDeg,upstream:preset.margin,lateral:preset.margin,downstream:preset.margin,height:preset.height,minimum:8});}catch(error){say(error.message);return;}
-  if(g.cells>MAX_CELLS){say('That site needs '+g.cells.toLocaleString()+' cells at '+state.cell+' m; the limit here is '+MAX_CELLS.toLocaleString()+'. Choose 1 m cells.');return;}
-  domain=g;field=meanField=null;solid=null;readyInfo=null;stats=null;forgetBake();
+  let g=null,problem='';try{g=windDomain(bounds,{cell:state.cell,fromDeg:state.fromDeg,upstream:preset.margin,lateral:preset.margin,downstream:preset.margin,height:preset.height,minimum:8});}catch(error){problem=error.message;}
+  if(g&&g.cells>MAX_CELLS)problem='That site needs '+g.cells.toLocaleString()+' cells at '+state.cell+' m; the limit here is '+MAX_CELLS.toLocaleString()+'.';
+  if(problem){
+    if(!applied){say(problem);return false;}
+    const cellChanged=applied.cell!==state.cell;Object.assign(state,structuredClone(applied));buildModels();$('preset').value=state.preset;$('cell').value=String(state.cell);buildingList();
+    say(problem+(cellChanged?' The cells stay at '+state.cell+' m.':state.cell<1?' The previous site stays; switch to 1 m cells first.':' The previous site stays.'));return false;
+  }
+  applied={preset:state.preset,buildings:structuredClone(state.buildings),cell:state.cell};
+  // A refused change returned above with the previous site and its bake together; an accepted one drops the bake.
+  generation++;domain=g;field=meanField=null;solid=null;readyInfo=null;stats=null;forgetBake();
   // Frame the site from the wind's right-hand side, so streaks and smoke cross the view.
   if(frame){const c=siteBounds.getCenter(new T.Vector3()),size=siteBounds.getSize(new T.Vector3());view.target.set(c.x,Math.min(4,size.y*.35),c.z);view.distance=Math.max(28,Math.hypot(size.x,size.z)*1.55)/Math.sqrt(Math.min(1,camera.aspect));view.azimuth=270-state.fromDeg;view.elevation=30;}
   const half=Math.max(g.size[0],g.size[2])*g.cell/2+10;Object.assign(sun.shadow.camera,{left:-half,right:half,top:half,bottom:-half,near:1,far:220});sun.shadow.camera.updateProjectionMatrix();
@@ -67,7 +77,7 @@ function rebuild({frame=false}={}){
   $('site-note').textContent=g.size.join(' × ')+' cells ('+g.cells.toLocaleString()+') over '+g.size.map(n=>Math.round(n*g.cell)).join(' × ')+' m.';
   say('Voxelizing '+(triangles.length/9).toLocaleString()+' model triangles…');
   worker.postMessage({type:'site',generation,grid:{origin:[...g.origin],cell:g.cell,size:[...g.size]},triangles,wind:windSettings(),turbulence:turbulenceSettings(),tolerance:TOLERANCE},[triangles.buffer]);
-  worker.postMessage({type:'run',running:state.running});
+  worker.postMessage({type:'run',running:state.running});return true;
 }
 const asField=velocity=>({kind:WIND_FIELD_KIND,version:WIND_FIELD_VERSION,origin:domain.origin,cell:domain.cell,size:domain.size,velocity,solid});
 worker.onmessage=({data})=>{

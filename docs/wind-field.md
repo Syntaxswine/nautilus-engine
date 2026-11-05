@@ -52,7 +52,7 @@ Open `/examples/wind-field.html` in the built preview. Pick a layout (a single b
 
 - Metres. The axes are x (east), y (height) and z (south), with north at −z, as in the tile edges. The ground is y = 0.
 - A bearing is meteorological: the direction the wind blows **from**, clockwise from north. `windDirection(fromDeg)` returns the `[x, z]` direction the air moves.
-- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids.
+- A wind grid is a box of cubic cells starting at the ground. Cell `(i, j, k)` has index `i + nx·(j + ny·k)`. A baked field stores `[u, v, w]` per cell and is zero in solids. Both samplers return zero at any point inside a solid cell, not only at its centre; outside the grid, the solver prescribes the inflow beyond an inflow side, and a baked field uses its nearest edge.
 
 ## The model
 
@@ -143,17 +143,19 @@ Measured on 2026-11-03 and 04. The gates in `tests/wind-core.test.mjs` run in `n
 | Inviscid Taylor–Green vortex, slip box [0, π]², 32 cells, CFL 1, one turnover | Kinetic energy kept: MacCormack 0.769, semi-Lagrangian 0.644. With ν = 0.01 the run loses an extra factor 0.798, against the exact exp(−4νt) = 0.778. | MacCormack above 0.74 and at least 0.08 above semi-Lagrangian (pins on these measurements); viscous share within 5 % |
 | Airtight buildings | All 48 catalogue buildings, at 1 m and 0.5 m: no room probe on any level is reachable from outside air. With the window glass removed, at least three buildings open up, so the probe can fail. | No leaks |
 | Projection | Every step converges; the largest face divergence stays within the tolerance; the side fluxes balance | 1e-4 of U |
-| Cube, 6 cells per height, no gusts | The windward face divides near 0.65H, flowing down below and up above. Reverse flow at the foot starts about 0.55H upstream (the horseshoe vortex). The air 1.25–2H over the roof is 4–7 % faster than the inflow. Reverse flow behind the cube ends 3.08H downstream. | Signs only (see below) |
-| Same cube with surface-layer gusts | Turbulence intensity 0.196 at height H inside the domain (Eurocode's 1/ln(z/z0) gives 0.244). The recirculation behind the cube shortens to **1.35H**. | Reported |
+| Cube, 6 cells per height, no gusts | The windward face divides near 0.65H, flowing down below and up above. Reverse flow at the foot starts about 0.55H upstream (the horseshoe vortex). The air 1.25–2H over the roof is 4–7 % faster than the inflow. Reverse flow behind the cube ends 2.95H downstream. | Signs only (see below) |
+| Same cube with surface-layer gusts | Turbulence intensity 0.200 at height H inside the domain (Eurocode's 1/ln(z/z0) gives 0.244). The recirculation behind the cube shortens to **1.43H**. | Reported |
 | Gusts | Component standard deviations within 15 % of 2.5, 1.9 and 1.25 u* on 20,000 fresh points. The pattern rides the wind: a point moving with it sees 0.063 of the change a fixed point sees. Inside the domain, two cells from the inflow, the lateral gusts keep 0.67 of their 0.84 m/s. | 15 %; 0.5; half of σv |
 | Voxel marking | Exact against an independent oracle for a tilted plane, and against 200,000 sample points on a sliver triangle (89 cells, no extras) | Exact |
 | Determinism | Two runs with gusts are bit-identical | Exact |
 
-Cube wakes in the literature are usually quoted near 1.6H in channel flow (Martinuzzi and Tropea 1993), and shorter in turbulent boundary layers. I could not check either figure against the primary sources here, so neither is a gate. The gust-free 3.08H is too long, which is typical of a wake without inflow turbulence. With physically scaled gusts it falls inside the quoted range.
+Cube wakes in the literature are usually quoted near 1.6H in channel flow (Martinuzzi and Tropea 1993), and shorter in turbulent boundary layers. I could not check either figure against the primary sources here, so neither is a gate. The gust-free 2.95H is too long, which is typical of a wake without inflow turbulence. With physically scaled gusts it falls inside the quoted range.
+
+**Correction (2026-11-04).** The two cube rows first said 3.08H, 1.35H and an intensity of 0.196. Those figures came from a tree earlier than the committed one. The record's own probe, run unchanged against f3a52cd, gives 2.95H, 1.43H and 0.200, and so does an independent copy of its method. The windward divide, the horseshoe point and the roof speed-up re-measured within the ranges stated in the table.
 
 The block test's signs were set from the physics before it first ran, and one of them was wrong. The first stagnation check (u < 0.5 U at 0.25H upstream) failed: 0.69 at 4 cells per height and 0.56 at 6. The slowed zone is shorter than assumed, so the check now requires u to fall toward the face, below 0.25 U at 0.05H; it measured 0.14. At 4 cells per building height the lee did not reverse at 1.5H (u = +0.20); 6 cells resolve it, and the test uses 6.
 
-**Mutation sweep.** Twenty deliberate physics and plumbing faults went into a private copy. The final suite kills 19; the [record](#mutation-sweep) names the one it misses and why.
+**Mutation sweep.** Twenty-two deliberate physics and plumbing faults went into a private copy. The final suite kills 21; the [record](#mutation-sweep) names the one it misses and why.
 
 ## Limits
 
@@ -217,7 +219,8 @@ The block test's signs were set from the physics before it first ran, and one of
 | --- | --- | --- | --- |
 | 1 | First 15 tests | 10 of 20 | M02 MacCormack off; M03 limiter revert off; M04 and M06 the two gust paths, each covering for the other; M09 plain IC(0); M10 and M11 voxel plane and edge axes; M12 top seeding; M16 frozen convection; M17 Euler tracers |
 | 2 | Plus Taylor–Green, gust entry, CG pin, voxel oracles, convection and rotation tests | 18 of 20 | M03; M12 |
-| 3 | Plus the walled courtyard open to the sky (the committed tool, 2026-11-04) | **19 of 20** | M03 |
+| 3 | Plus the walled courtyard open to the sky (2026-11-04) | 19 of 20 | M03 |
+| 4 | Plus the solid-sampling test, after the architect's review. M26 and M27 each remove one sampler's solid check; M18 follows the rewritten field sampler (the committed tool, 2026-11-04) | **21 of 22** | M03 |
 
 The neutral control (a comment-only edit) survived every round. **M03 is the honest gap.** The revert limiter acts only where the corrected value leaves the local range, at sharp gradients, and none of the tests' flows has one: on the Taylor–Green vortex the limiter changes the energy by 0.0003. A test that advects a sharp front and checks the maximum principle would pin it.
 
