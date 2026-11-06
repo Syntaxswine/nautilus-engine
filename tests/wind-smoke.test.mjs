@@ -111,6 +111,45 @@ test('the bearing sampler reads the current blend and blends again only when the
   assert.equal(W.createWindBearingSampler(set).fromDeg,set.bearings[0]);assert.equal(W.createWindBearingSampler(set).field.blend.mode,'linear');assert.equal(W.blendWindBearings(set,{fromDeg:30,speed:4}).blend.mode,'linear');
 });
 
+// A bake over several gust seeds bakes each seed as an ordinary bake and keeps their mean, value
+// by value; a seed given alone is the plain bake with that seed. bakeBlock's gusts start at seed 3.
+test('a bake over several gust seeds is the mean of one bake per seed, and records its seeds',()=>{
+  const at=(options={})=>bakeBlock(4,{bearings:[30],warmup:.2,average:.1,...options}),plain=at(),seed=s=>at({turbulence:{gain:1,modes:16,seed:s}}).fields[0];
+  const a=plain.fields[0],b=seed(4),c=seed(9),pair=at({seeds:2}),f=pair.fields[0];
+  assert.deepEqual(pair.seeds,[3,4]);assert.deepEqual(f.seeds,[3,4]);assert.equal(f.runs,2);
+  assert.deepEqual([f.steps,f.averagedSteps,f.mean],[2*a.steps,2*a.averagedSteps,true]);
+  let parted=0;for(let i=0;i<f.velocity.length;i++){assert.equal(f.velocity[i],Math.fround((a.velocity[i]+b.velocity[i])/2));if(Math.abs(a.velocity[i]-b.velocity[i])>.01)parted++;}
+  assert.ok(parted>f.velocity.length/4,'the falsifier: two seeds bake different fields ('+parted+' values apart)');assert.deepEqual([...f.solid],[...a.solid]);
+  // One seed given is the plain bake; without `seeds` nothing new is recorded.
+  const alone=at({seeds:[3]});assert.equal(Buffer.compare(Buffer.from(alone.fields[0].velocity.buffer),Buffer.from(plain.fields[0].velocity.buffer)),0);assert.deepEqual(alone.seeds,[3]);assert.deepEqual(alone.fields[0].seeds,[3]);
+  assert.ok(!('seeds'in plain)&&!('seeds'in plain.fields[0])&&!('runs'in plain.fields[0]));
+  // A list keeps its order; a count starts at seed 1 when the turbulence names none.
+  const three=at({seeds:[9,3,4]}).fields[0];assert.deepEqual(three.seeds,[9,3,4]);assert.ok(three.velocity.every((v,i)=>v===Math.fround((c.velocity[i]+a.velocity[i]+b.velocity[i])/3)));
+  assert.deepEqual(at({turbulence:{gain:1,modes:16},seeds:2}).seeds,[1,2]);
+  // Speed scaling survives the mean: twice the speed is twice the field, value for value.
+  const fast=bakeBlock(8,{bearings:[30],warmup:.2,average:.1,seeds:2}).fields[0];assert.ok(fast.velocity.every((v,i)=>v===2*f.velocity[i]));
+  // Unconverged steps add up over the seeds.
+  const starved=options=>at({maxIterations:1,...options}).unconverged[0],s3=starved({}),s4=starved({turbulence:{gain:1,modes:16,seed:4}});
+  assert.ok(s3>0&&s4>0);assert.equal(starved({seeds:2}),s3+s4);
+  for(const bad of[0,1.5,1025,'2',[],[3,3],[-1],[2**32],[1.5]])assert.throws(()=>at({seeds:bad}),/Seeds are/,JSON.stringify(bad));
+  for(const turbulence of[null,{gain:0}]){assert.throws(()=>at({turbulence,seeds:2}),/Seeds average gusts/);assert.deepEqual(at({turbulence,seeds:1}).seeds,[1]);}
+});
+
+test('averageWindFields averages value by value and refuses fields that do not belong together',()=>{
+  const set=block(),f=set.fields[0],g={...f,velocity:f.velocity.map(v=>v*3)},mean=W.averageWindFields([f,g]);
+  assert.ok(mean.velocity.every((v,i)=>v===Math.fround((f.velocity[i]+g.velocity[i])/2)));assert.ok(mean.velocity.some(v=>v!==0));
+  assert.deepEqual([mean.runs,mean.steps,mean.averagedSteps,mean.time,mean.mean],[2,2*f.steps,2*f.averagedSteps,2*f.time,true]);
+  assert.deepEqual(mean.wind,f.wind);assert.deepEqual([...mean.solid],[...f.solid]);assert.notEqual(mean.solid,f.solid);assert.deepEqual([mean.origin,mean.cell,mean.size],[f.origin,f.cell,f.size]);
+  const lone=W.averageWindFields([f]);assert.ok(lone.velocity.every((v,i)=>v===f.velocity[i]));assert.equal(lone.runs,1);
+  // A still field and a live one average to half the live one; an instantaneous field makes the mean not a mean.
+  assert.ok(W.averageWindFields([f,{...f,velocity:new Float32Array(f.velocity.length)}]).velocity.every((v,i)=>v===Math.fround(f.velocity[i]/2)));
+  assert.equal(W.averageWindFields([f,{...f,mean:false}]).mean,false);
+  const solid=f.solid.slice(),cell=solid.indexOf(0);solid[cell]=1;
+  for(const[bad,reason]of[[[],/at least one/],[[f,{...f,origin:[-15,0,-16]}],/one grid/],[[f,{...f,size:[32,12,31],velocity:f.velocity.subarray(0,32*12*31*3),solid:f.solid.subarray(0,32*12*31)}],/one grid/],
+    [[f,{...f,wind:{...f.wind,fromDeg:10}}],/one wind/],[[f,{...f,wind:{...f.wind,z0:.2}}],/one wind/],[[f,{...f,wind:null}],/one wind/],[[{...f,wind:null},f],/one wind/],[[f,{...f,solid}],/solid cells/],[[f,{...f,kind:'x'}],/Not a version/]])
+    assert.throws(()=>W.averageWindFields(bad),reason);
+});
+
 test('smoke rides the wind, rises as it cools by the midpoint rule and leaves on time',()=>{
   const smoke=W.createSmoke({rate:10,rise:1.2,riseTime:4,spread:0,jitter:0,lifetime:3,seed:1});smoke.addEmitter({x:1,y:2,z:3});
   for(let n=0;n<8;n++)smoke.step(uniform(2,0,-1),.25);

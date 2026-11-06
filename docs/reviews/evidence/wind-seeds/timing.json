@@ -1,0 +1,61 @@
+{
+ "rig": {
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor             ",
+  "threads": 16,
+  "node": "v24.15.0",
+  "platform": "win32 10.0.26200"
+ },
+ "priority": 0,
+ "rows": [
+  {
+   "name": "E7 averageWindFields of 2 fields (99200 cells), ms",
+   "median": 6.589,
+   "min": 5.135,
+   "max": 16.494
+  },
+  {
+   "name": "E7 averageWindFields of 4 fields (99200 cells), ms",
+   "median": 7.22,
+   "min": 5.614,
+   "max": 29.03
+  },
+  {
+   "name": "E7 averageWindFields of 8 fields (99200 cells), ms",
+   "median": 9.228,
+   "min": 8.428,
+   "max": 85.637
+  },
+  {
+   "name": "E8 one seed's solver setup (createWindSolver: classify, precondition, first projection), ms",
+   "median": 283.743,
+   "min": 217.696,
+   "max": 534.661
+  },
+  {
+   "name": "E9 one solver step with gusts (reference), ms",
+   "median": 220.427,
+   "min": 164.686,
+   "max": 242.695
+  }
+ ],
+ "load": {
+  "samples": 0,
+  "every": "15 s",
+  "machine": {
+   "median": null,
+   "max": null
+  },
+  "own": {
+   "median": null
+  },
+  "foreign": {
+   "median": null,
+   "max": null
+  },
+  "rssMB": {
+   "median": null,
+   "max": null
+  }
+ },
+ "note": "E7-E9 ran at normal priority on d11a7b3. The 15 s load meter took no sample in a phase this short; Win32_Processor LoadPercentage read 100 just before and just after."
+}
