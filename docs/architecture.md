@@ -42,6 +42,8 @@ Design selection follows [accuracy, efficiency and narrative](design-evaluation.
 
 The [contour effect contract](render-effects.md) exposes the reviewed Farmyard golden halo with standard and wide profiles. Its separately pinned source is reference evidence; the engine extraction uses the existing Three instance and has no gameplay imports. It does not enable itself in the map workshop or donor games.
 
+The optional Farmyard firearm feedback profile consumes committed rounds and layers aim and recoil over a borrowed rig. Hosts supply licensed or owned clips and retain their own timing, equipment and impacts. [Firearm feedback guide](../packages/firearm-feedback/README.md)
+
 ## Shared building authoring
 
 The [prefab contract](building-prefabs.md) preserves source assemblies and saved collection identities, while [the original building catalogue](building-catalog.md) supplies additional painted architectural designs and exported glTF assets. Buildings are visual authoring references; collision, navigation, doors, fire and game persistence remain explicit consumer responsibilities. Legacy AFT structure stamps still produce ordinary editable geometry. The [integration intake](intake/2026-10-28-expanded-library.md) records contribution pins, design choices and acceptance evidence.
