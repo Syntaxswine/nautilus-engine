@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firearm feedback · Nautilus</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; font: 16px system-ui, sans-serif; background: #182120; color: #f3efe1 }
+    * { box-sizing: border-box }
+    body { max-width: 65rem; margin: auto; padding: clamp(1rem, 3vw, 2rem) }
+    header p { color: #c9cec0; margin: .4rem 0 1rem }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 0 }
+    fieldset { display: flex; align-items: end; flex-wrap: wrap; gap: .55rem 1rem; margin: 0 0 .75rem; padding: .8rem; border: 1px solid #62706a; border-radius: .4rem }
+    legend { padding: 0 .4rem; color: #f1cf84 }
+    label { display: grid; gap: .25rem; font-size: .88rem }
+    button, select { min-height: 2.75rem; padding: .45rem .65rem; border: 1px solid #87988f; border-radius: .25rem; font: inherit; background: #293b36; color: inherit }
+    button[aria-pressed=true] { background: #f1cf84; border-color: #f1cf84; color: #17201a }
+    button:focus-visible, select:focus-visible { outline: 3px solid #f1cf84; outline-offset: 3px }
+    button:disabled { opacity: .55 }
+    canvas { width: 100%; display: block; aspect-ratio: 16 / 8; border: 1px solid #62706a; border-radius: .4rem }
+    output { display: block; min-height: 2.4em; margin-top: .6rem; color: #f1cf84; font-variant-numeric: tabular-nums }
+    @media (max-width: 38rem) { canvas { aspect-ratio: 5 / 6 } }
+  </style>
+  <script type="importmap">
+    {"imports":{
+      "@nautilus-engine/firearm-feedback":"../packages/firearm-feedback/three.js",
+      "@nautilus-engine/renderer/render-effects/three":"../packages/render-effects/three.js"
+    }}
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Firearm feedback</h1>
+    <p>Farmyard aim and recoil on a native horse rig. Each practice round misses. The example uses generated test audio.</p>
+  </header>
+  <main>
+    <fieldset id="controls" disabled>
+      <legend>Practice controls</legend>
+      <label>Firearm
+        <select id="weapon">
+          <option value="assault">AK-47</option><option value="pistol">TT-33</option>
+          <option value="pistol-offhand">TT-33 off hand</option><option value="rifle">Mosin-Nagant</option>
+          <option value="shotgun">Pump shotgun</option><option value="sniper">Sniper rifle</option>
+          <option value="smg">PPSh</option><option value="hmg">Heavy machine gun</option>
+        </select>
+      </label>
+      <label>Stance
+        <select id="stance"><option value="stand">Standing</option><option value="kneel">Kneeling</option><option value="prone">Prone</option></select>
+      </label>
+      <button id="aim" aria-pressed="false">Aim</button>
+      <button id="single">Fire</button>
+      <button id="burst">Three rounds</button>
+    </fieldset>
+    <canvas id="scene" aria-label="Animated horse worker holding the selected firearm"></canvas>
+    <output id="status" aria-live="polite">Loading native rig…</output>
+  </main>
+  <script type="module" src="./firearm-feedback.js"></script>
+</body>
+</html>

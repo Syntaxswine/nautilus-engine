@@ -50,6 +50,8 @@ See [the rules contract and examples](docs/rules.md) and [the comparison of all 
 
 Designs are selected using [accuracy, efficiency and narrative](docs/design-evaluation.md), with [explicit recommendations](docs/reviews/2026-10-28-design-tradeoffs.md) for the current differences. Weekly intake applies the same criteria as the games grow.
 
+Games with a compatible rig can opt into Farmyard's aim and recoil, and bind their own licensed or owned recordings to its firing cues. [Firearm feedback guide and practice example](packages/firearm-feedback/README.md)
+
 ## Basic character development
 
 `./rules/progression` exposes headless progression on the existing 14 stats. Levels award 15 assignable points; XP requirements increase with level. Separate practice records useful exertion, weapon use and treatment. Games supply eligible committed outcomes and atomically persist accepted rewards.
