@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin,TILE_AUTHORING_EXPECTED_FIELDS} from '../apps/editor/tile-authoring/ui/commands.js';
+import {createTileAuthoringCommands,finiteUIData,tileAuthoringExpected,tileAuthoringPin,TILE_AUTHORING_EXPECTED_FIELDS,rectangleSpecFromFields,tileAuthoringLabelMessage,TILE_AUTHORING_FORM_LIMITS} from '../apps/editor/tile-authoring/ui/commands.js';
 import {createTileAuthoringUIController,readTileAuthoringUIView,mountTileAuthoringUI} from '../apps/editor/tile-authoring/ui/panel.js';
 
 // Every producer, sealer, authority token, document and HostService below is a
@@ -260,4 +260,38 @@ test('Stage refuses a builder-time collector replacement on the borrowed connect
   const result=await controller.stage('recipe.create',s=>{const packet=c.commands.rectangle({...request(),snapshot:s});h.binding.collectCommand=()=>{replacementCalls++;return {ok:true};};return packet;});
   assert.equal(result.ok,false);assert.equal(c.calls.produce.length,1);assert.equal(h.calls.collect.length+replacementCalls,0);
   assert.equal(controller.view,null);controller.dispose();
+});
+
+test('rectangle form metadata matches actual C1 identity/sourceIds/finish fields without constructing geometry',()=>{
+  const ids={definitionId:'definition.new',recipeId:'recipe.new.1',sourceIds:{prefix:'source.new',surfaceId:'top',gridId:'grid.new'}},fields={label:'New rectangle',widthM:0.1,depthM:64},before=copy(ids);
+  const spec=rectangleSpecFromFields(fields,{kind:'recipe.create',ids,finishId:'skin.stone-flags'});
+  assert.deepEqual(spec,{identity:{id:'definition.new',revision:1,recipeId:'recipe.new.1'},sourceIds:ids.sourceIds,widthM:0.1,depthM:64,finishId:'skin.stone-flags',label:fields.label});
+  assert.deepEqual(ids,before);assert.equal(Object.hasOwn(spec,'recipe'),false);assert.equal(Object.hasOwn(spec,'contentDigest'),false);
+});
+test('clone/revise form mapping preserves omitted source values and exact immutable base',()=>{
+  const base=def('definition.b',1),ids={definitionId:'definition.clone',recipeId:'recipe.next'},clone=rectangleSpecFromFields({label:'Clone'},{kind:'recipe.clone',base,ids});
+  assert.deepEqual(clone.identity,{id:'definition.clone',revision:1,recipeId:'recipe.next'});assert.deepEqual(clone.base,base);assert.deepEqual(clone.edits,{label:'Clone'});
+  const revised=rectangleSpecFromFields({label:'B2',depthM:5},{kind:'recipe.revise',base,ids});
+  assert.deepEqual(revised.identity,{id:base.id,revision:2,recipeId:'recipe.next'});assert.deepEqual(revised.edits,{label:'B2',depthM:5});assert.equal(Object.hasOwn(revised.edits,'widthM'),false);
+  assert.throws(()=>rectangleSpecFromFields({label:'Clone',widthM:8},{kind:'recipe.clone',base,ids}),/UI_CLONE_FIELDS/);
+});
+test('form dimension bounds refuse values outside 0.1 through 64 without rounding or clamping',()=>{
+  const ids={definitionId:'definition.new',recipeId:'recipe.new',sourceIds:{prefix:'source.new',surfaceId:'top',gridId:'grid.new'}};
+  for(const widthM of [0.099,64.001])assert.throws(()=>rectangleSpecFromFields({label:'Rectangle',widthM,depthM:4},{kind:'recipe.create',ids,finishId:'skin.stone-flags'}),/UI_RECTANGLE_BOUND/);
+  assert.deepEqual(TILE_AUTHORING_FORM_LIMITS,{minimumM:0.1,maximumM:64,labelCodePoints:120});
+});
+test('120 supplementary Unicode label points are accepted unchanged; 121 refuse without UTF16 truncation',()=>{
+  const label='🧭'.repeat(120),ids={definitionId:'definition.unicode',recipeId:'recipe.unicode',sourceIds:{prefix:'source.unicode',surfaceId:'top',gridId:'grid.unicode'}};
+  assert.equal(label.length,240);assert.equal(tileAuthoringLabelMessage(label),'');
+  const spec=rectangleSpecFromFields({label,widthM:8,depthM:4},{kind:'recipe.create',ids,finishId:'skin.stone-flags'});assert.equal(spec.label,label);
+  assert.equal(tileAuthoringLabelMessage('A'.repeat(60)+'🧭'.repeat(60)),'');assert.notEqual(tileAuthoringLabelMessage('A'.repeat(121)),'');
+  assert.notEqual(tileAuthoringLabelMessage(label+'🧭'),'');assert.throws(()=>rectangleSpecFromFields({label:label+'🧭',widthM:8,depthM:4},{kind:'recipe.create',ids,finishId:'skin.stone-flags'}),/UI_LABEL_BOUND/);
+});
+test('negative zero refuses before JSON serialization can silently change the packet',()=>{
+  assert.throws(()=>finiteUIData({originM:[-0,0,0]}),/UI_FINITE_DATA/);assert.ok(Object.is(finiteUIData({originM:[0,0,0]}).originM[0],0));
+});
+
+test('actual constructor proof rejects unapproved Core pins before any runtime lookup',async()=>{
+  const {reviewTileAuthoringConstructors}=await import('../tools/ui-review-tile-authoring-c1.mjs');
+  await assert.rejects(()=>reviewTileAuthoringConstructors('moving-worker-branch'),/UI_C1_APPROVED_CORE_REQUIRED/);
 });

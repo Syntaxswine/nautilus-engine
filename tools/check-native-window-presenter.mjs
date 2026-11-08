@@ -20,7 +20,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 // Importing this checker does not write an audit, pack a package or start a helper.
 export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   assert.equal(path.resolve(projectRoot),root,'Use this checkout with its owning distribution module.');
-  const git=(...args)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:20*1024*1024});
+  const git=(...args)=>execFileSync('git',['-c','core.longpaths=true','-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,...args],{windowsHide:true,maxBuffer:20*1024*1024});
   const object=(commit,file)=>git('show',commit+':'+file);
   const read=file=>fs.readFileSync(path.join(root,file));
   const json=file=>JSON.parse(read(file));

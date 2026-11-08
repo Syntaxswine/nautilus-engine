@@ -5,11 +5,18 @@ d869410625b246cfff2b51089e7878c31951775c. Normative inputs: Core
 43227894c50ec62b71806978195fff2c650eb388 and UI
 678ceb609d05d2bc13e2a1f83cc7ab7e0e3c5cf2.
 
-Actual Core authoring and Editor full-v3 runtime are not included. No actual
-authoring execution, native browser layout, persistence, decoder, game integration
-or installed-package acceptance is claimed. Focused tests use explicitly labelled
-constructor/sealer/HostService protocol doubles. The review tool refuses before
-starting any browser; only its component --protocol mode is implemented.
+The accepted component checkpoint is fac180e2909ba499146bb8e4560c79cf4794ca93.
+The focused field/bounds alignment uses actual approved public Core construction
+from 3df11ce6e62fb94806e30652b87168949f8ef4dd and final documentation
+from eedfc0149cbaa5715445ed2dc909c2d694a81d50. The UI branch does not vendor or
+register that package. The explicit constructor tool imports only fixed Git bytes.
+
+Controller protocol tests still use labelled HostService doubles. A separate proof
+calls the actual public producer/sealer through the UI field mapping and command
+builder. Its snapshot/Expected is from Core's fixed C1 test fixture with unbound
+test authority; the six packets are construction evidence and are NOT executed.
+There is no production Editor HostService, ledger, retained write, persistence,
+native browser, decoder, installed-package or game acceptance here.
 
 ## Components and proposed Editor binding
 
@@ -50,14 +57,26 @@ The UI consumes createRectangleDefinition(tiles,spec)->{definition,pin} and
 sealTileContentRecord(tiles,input)->{record,pin}. It implements neither hash domain.
 Supplied digest failures propagate without repair or fallback.
 
-rectangleSpec(fields,{kind,base,ids,snapshot}) maps fields to the actual reviewed
-producer overload; final argument names must follow the fixed Core implementation.
-Clone supplies label only, leaving geometric values omitted. Core owns derivation
-from the complete base and retained anchors/omitted values. This mapping must be
-confirmed before an actual host mounts the component.
+The exported UI helper rectangleSpecFromFields maps fields to the exact reviewed
+RectangleSpec. The existing rectangleSpec option can bind its captured finish:
+
+~~~js
+rectangleSpec: (fields, context) => rectangleSpecFromFields(fields, {
+  ...context, finishId: capturedFinishId
+})
+~~~
+
+Creation sends identity:{id,revision:1,recipeId}, explicit sourceIds:{prefix,
+surfaceId,gridId}, dimensions, label and the captured declared finish ID.
+Clone/revise send the full immutable base, a new recipe ID and explicit edits.
+Clone supplies label only. Revision keeps the base ID and next revision; omitted
+width/depth/finish/seed inherit through Core. No source anchors, notices or hashes
+are reconstructed by UI. The finish comes from the existing captured workspace
+profile, without another snapshot read during construction.
 
 allocateIds(kind) supplies requestId/opId and, as appropriate, definitionId,
-recipeId, presetId, ownerIds[2] and chunkIds[2]. IDs are explicit before Review.
+recipeId, sourceIds:{prefix,surfaceId,gridId} for initial creation, presetId,
+ownerIds[2] and chunkIds[2]. IDs are explicit before Review.
 Upgrade selects an existing target pin and does not manufacture a definition.
 
 ## Actual six-step proof after runtime binding
@@ -118,6 +137,12 @@ Paths, overlays, artwork import and decoration capture are unavailable text.
 Locked owners are labelled and further restrict local Stage. Host diagnostics
 remain authoritative. Support/navigation/gameplay readiness stays separate.
 
+Source width/depth fields use Core's inclusive 0.1 through 64 metre bounds.
+Library and preset labels accept 120 Unicode code points, including supplementary
+characters. No UTF-16 maxlength, trimming, normalization or truncation is used.
+Invalid labels refuse with field feedback. Noncanonical negative zero also refuses
+before JSON serialization can change it to zero.
+
 Scoped CSS uses the established green/gold palette, 44 px minimum buttons,
 wrapping pins/command text, and single-column forms at 320/390 px.
 This is a code/layout proposal until native captures exist. Subscription refresh
@@ -128,6 +153,7 @@ canvas handler, floor widget or gesture owner is added.
 
 ~~~text
 node tools/ui-review-tile-authoring-c1.mjs --protocol
+node tools/ui-review-tile-authoring-c1.mjs --constructors 3df11ce6e62fb94806e30652b87168949f8ef4dd
 ~~~
 
 Protocol tests cover constructor/sealer forwarding, explicit pins and scopes,
@@ -135,7 +161,17 @@ Stage without prepare, once-only Review/Apply, retained requests, stale/malforme
 render/reentry fences, tri-state recovery, NO_CHANGE forwarding, borrowed history
 and permanent connection retirement. They are not Core transaction/history proof.
 
-Next actual proof needs reviewed fixed Core and Editor Host SHAs. Use actual public
+The constructor-only tool verifies all six actual public export names and invokes
+the producer/sealer through UI assembly: fresh/derived field shapes, inherited
+anchors/notices/finish/seed, P1 pinned to B1, exact returned pins, 120-point Unicode
+labels, 0.1/64 boundary dimensions, out-of-bound and 121-point refusal, supplied
+digest refusal and negative-zero refusal. It authenticates 133 fixed modules,
+including the explicitly labelled C1 test fixture, without checkout fallbacks.
+It constructs six canonical packets but does not plan/apply them or use a fake
+HostService. Those packets are not portable review authority; run the UI afresh
+on an authorized Editor connection for executable commands.
+
+Next actual Host/native proof needs the reviewed fixed Editor Host/ledger SHA. Use actual public
 exports and one authorized UI/JSONL service; retain bytes/IDs and apply once.
 Alternate transports without duplicate prepare for parity. Prove the six steps,
 library-only zero allocation, metadata-only revision, NO_CHANGE/redo preservation,
@@ -148,3 +184,53 @@ Accuracy favors exact pins/targets/full documents. Efficiency favors one borrowe
 authority and no library-only geometry allocation (required behavior, unmeasured
 here). Narrative favors the existing palette and clearly separated reusable versus
 placed scope (subjective). No device/performance claim or retained helper.
+
+## Stable select accessible names
+
+The shared select helper gives each control an explicit name matching its visible
+label: Definition revision, Preset revision and Selected upgrade target. Dynamic
+option text cannot change these accessible names. Existing htmlFor, styles and
+deliberate empty selection remain intact; P1 is never chosen automatically.
+
+~~~text
+node tools/ui-review-tile-authoring-c1.mjs --select-labels
+~~~
+
+This focused mode mounts the production component in isolated Edge with explicit
+render-only document/service/constructor doubles. It executes no Core/Host command.
+It checks exact label lookup, role name and native AX tree across empty, populated,
+selected, changed, removed and restored options (18 control observations), plus
+selection/focus preservation and disposal. The same harness first reproduced the
+unfixed failure. Forty protocol tests also pass. This DOM evidence does not replace
+the separately gated actual Host/native/source-built-installed proof above. All three
+short-lived browser/server runs closed and their ports were verified released.
+The f94 validation fields remain unchanged; the follow-up is additive.
+
+## C1 panel presentation
+
+The main panel uses label/revision selectors and readable copy names. Exact Pin
+JSON and owner IDs remain in values, titles and the existing collapsed Technical
+details. That section also retains full action availability, readiness, the
+retained command and the editable complete-checkpoint JSON. Save/Reopen/Undo/Redo
+remain visible; their existing hooks and checkpoint bytes are unchanged.
+
+Current review/outcome and attempted-action messages share one alert, deduplicated
+by message. Unattempted unavailable-action reasons stay in Technical details;
+disabled controls use short contextual titles. The selected-copy scope reads,
+for example, Copy 2 · From B1 r1 → B2 r2. Ordinary text is at least 14 px and
+controls retain 44 px minimum targets. Review/Apply/Cancel sit under the review
+scope in normal flow so they cannot cover a phone heading.
+
+~~~text
+node tools/ui-review-tile-authoring-c1.mjs --usability <fixed Root review directory>
+~~~
+
+This focused mode keeps the 18 real-DOM/native-AX label observations and adds
+seven presentation/error checks using explicitly labelled render doubles. Its
+separate actual-source capture loads Root's accepted checkpoint with fixed
+ad41 Host/Core inputs and overrides only this panel and CSS. It captures desktop,
+390 px and 320 px, checks selected-copy labels and zero prepare/apply calls,
+preserves the full document, and verifies native-resource/helper retirement. It
+does not repeat the six-step authoring/history campaign or claim installed-package
+or physical-phone performance proof. The earlier 955 evidence and first captures
+remain preserved. No Host/Core/helper/package/profile or authority code changes.

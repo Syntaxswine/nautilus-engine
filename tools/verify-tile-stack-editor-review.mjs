@@ -42,19 +42,21 @@ export const TILE_STACK_REVIEW_CAPTURES=Object.freeze([
 export const TILE_STACK_INTERNAL_BINDINGS=immutable([
   'packages/parts-core/hash.js','packages/windows-authoring/journal.js','packages/tile-stack-core/contracts.js'
 ].map(file=>({profile:'core',file,entry:null,scope:'engine-app internal physical dependency; no public export claimed'})));
-export const TILE_STACK_REVIEW_LINEAGE=Object.freeze({baseline:'d0ecfdfb35110616fbd4c03ad41775acf6a2d163',ui:'8622c77234036d786474689f7e70671ecf01136b'});
+export const TILE_STACK_REVIEW_LINEAGE=Object.freeze({baseline:'d0ecfdfb35110616fbd4c03ad41775acf6a2d163',ui:'8622c77234036d786474689f7e70671ecf01136b',stackController:'f754afcc9f46b196f258bf09e8091c962c9b31f8',sharedControllerSource:'f9ea6ce0ad5600ce07f4be634a29b699d61790f8',sharedCheckpointRuntime:'1e8d0d702938e7418dc0203383516ab0c26a6e6a'});
 // Explicit tool/source-authentication inventory. Do not feed Node tooling into
 // the browser runtime dependency parser or infer that this discovers Node imports.
 const verificationFiles=[
+  '.github/workflows/check.yml',
   'tools/review-tile-stack-editor.mjs','tools/verify-tile-stack-editor-review.mjs',
   'tools/art-review-browser.mjs','tools/build.mjs','tools/verify-build.mjs','tools/distribution.mjs','tools/module-references.mjs',
   'tools/check.mjs','tools/check-smart-tile-editor-source.mjs','tools/tile-stack-editor-source.mjs',
   'tools/tile-stack-editor-b2-source.mjs','docs/reviews/smart-tile-editor/sources.json',
+  'tools/tile-authoring-editor-source.mjs','docs/reviews/tile-authoring/architect/c1-sources.json',
   'docs/reviews/smart-tile-editor/integration-sources.json','docs/reviews/tile-stack/architect/b1-sources.json',
   'docs/reviews/tile-stack/architect/b2-sources.json','tools/check-tile-stack-source.mjs',
   'tools/check-tile-finishes-source.mjs','tools/check-tile-visuals-source.mjs',
   'tools/check-tile-visuals-lifecycle.mjs','tools/tile-stack-registration.mjs','tools/tile-surface-corrections.mjs',
-  'tools/tile-authoring-registration.mjs','tools/check-tile-authoring-core-source.mjs',
+  'tools/tile-authoring-registration.mjs','tools/shared-artwork-registration.mjs','tools/check-tile-authoring-core-source.mjs',
   'tools/check-native-window-presenter.mjs','packages/tile-authoring-core/source.json',
   'packages/tile-stack-core/source.json','packages/tile-finishes/source.json','packages/tile-visuals/source.json',
   'packages/map-core/contract-manifest.js','packages/map-core/capabilities.js','package.json','upstream.json','NOTICE.md'
@@ -116,7 +118,7 @@ export async function tileStackReviewInputModel({projectRoot}={}){
     packages[profile]={name:plan.name,version:pkg.version,manifest:generated[0],provenance:generated[1],physicalFiles:[...files,...generated.map(({data,...r})=>r)].sort((a,b)=>a.file.localeCompare(b.file))};
   }
   profileInputs.sort((a,b)=>(a.profile+'/'+a.file).localeCompare(b.profile+'/'+b.file));
-  const sourceBindings=['docs/reviews/tile-stack/architect/b1-sources.json','docs/reviews/tile-stack/architect/b2-sources.json'].map(file=>({file,sha256:sha(read(root,file))}));
+  const sourceBindings=['docs/reviews/tile-stack/architect/b1-sources.json','docs/reviews/tile-stack/architect/b2-sources.json','docs/reviews/tile-authoring/architect/c1-sources.json'].map(file=>({file,sha256:sha(read(root,file))}));
   const fingerprint=sha(JSON.stringify({inputs,verificationInputs,profileInputs,bindings:TILE_STACK_REVIEW_BINDINGS,sourceBindings,manifest:{name:pkg.name,version:pkg.version,exports:pkg.exports,files:pkg.files},profiles:Object.fromEntries(Object.entries(plans).map(([p,v])=>[p,{name:v.name,exports:v.exports,files:v.files}]))}));
   const atlasBytes=read(root,atlas);assert.ok(atlasBytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])));const atlasIdentity={sha256:sha(atlasBytes),bytes:atlasBytes.length,width:atlasBytes.readUInt32BE(16),height:atlasBytes.readUInt32BE(20)};
   return {root,pkg,plans,closures,hostFiles,inputs,verificationInputs,profileInputs,packages,sourceBindings,fingerprint,atlasIdentity,hostPlan:tileStackInstalledHostPlan(root)};

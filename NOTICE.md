@@ -47,3 +47,7 @@ The reference-only `vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6
 ## Native canonical tile surfaces
 
 The optional native flat-surface provider preserves reviewed source ca285aa76a49b74df6067caab661d7bed39bd523 and the original 294-study checkpoint. Its code borrows public core/Three/materials; no lab matcher or duplicate renderer is packaged. Existing atlas/source notices remain applicable. See packages/tile-visuals/NOTICE.md and source.json; no new inherited-asset licence is granted.
+
+## Shared original artwork palette
+
+The30 canonical artwork records retain Core43227894c50ec62b71806978195fff2c650eb388 identities and Artist57c651fb0a7ed0b01c1435ba18e87efde290443a defaults. The six explicit payload files under assets/artwork/local-graphics-v1/ preserve original f5bfda9ec0f639018ccfee2415b1f70502e77cae bytes, including the unchanged PROVENANCE.md, historical manifest, prompt and SVG companions. packages/assets/artwork-source.json records the immutable06dee5b01eeefddbe5e92a3f71d4382dffad0986 handoff and hashes. Public metadata/encoded delivery is a separate engine-owned integration; no immutable noticeText or source asset is rewritten, and this provenance adds no licence grant.

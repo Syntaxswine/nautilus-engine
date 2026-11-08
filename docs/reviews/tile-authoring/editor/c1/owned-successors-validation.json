@@ -1,0 +1,451 @@
+{
+  "kind": "nautilus-c1-owned-successors-validation",
+  "version": 1,
+  "status": "focused-component-pass-integration-pending",
+  "base": "191f6fe63de6125d3a0f0e96b998541bade01d19",
+  "branch": "codex/c1-owned-successors",
+  "runtimePaths": [
+    "apps/editor/smart-tile/checkpoint.js",
+    "apps/editor/tile-authoring/checkpoint.js"
+  ],
+  "testPath": "tests/owned-successors.test.mjs",
+  "scope": "Explicit C1 opt-in only; existing defaultv1/v2 paths and canonical global hash functions retained; construction-only prefix transfer after strict fresh inspection; no authority/storage/journal/views/Core/export/schema/version changes.",
+  "source": [
+    {
+      "path": "apps/editor/smart-tile/checkpoint.js",
+      "sha256": "a790d2f6966849f6bde7aeecc030fd7f2a7415e126a8c9f484bf25f2aa7b3949"
+    },
+    {
+      "path": "apps/editor/tile-authoring/checkpoint.js",
+      "sha256": "d55f0b681b4d82d98fb818b90751e616b7ac324c386c4f152525822d295fcd08"
+    },
+    {
+      "path": "tests/owned-successors.test.mjs",
+      "sha256": "8c64e5ebc0f6e5cd32d370a7aac846571fcebdc185e3add6289d772ca4a971d8"
+    }
+  ],
+  "sourceAuthorization": "Root must explicitly add the reviewed shared checkpoint row after independent review; current191 registration fence is intentionally not rebaselined here.",
+  "controls": {
+    "passed": 13,
+    "firstRun": "Preserved in artifacts/owned-successors/controls-first: two harness issues (reference variable shadowing and oldest-diagnostic assertion), fixed before final controls. No timing was run then.",
+    "failed": 0,
+    "coverage": [
+      "default v1/v2 byte/token/API/error parity against exact191 Git object",
+      "explicit descriptor-safe config and primitive frozen stats mutation isolation",
+      "full canonical pending/committed/not-committed token parity",
+      "fresh invalid/mutated/accessor/duplicate/negative-zero operation refusals",
+      "quiet old receipt mutation full-reader refusal",
+      "source/base/header/pending and frozen lookalike ownership refusal",
+      "foreign config base and exact cold reopen",
+      "live current storage/floorABA",
+      "actual native allocation/releaseABA",
+      "original-ID live/cold unknown acknowledgement recovery",
+      "actual cache eviction/oversize and fallback parity",
+      "settled ID reuse and receipt outcomes",
+      "actual public-Core/C1 text cap with complete shadow-fact keys/scalars/copies and independent byte/node/text oracle, including no-header-string lower bound"
+    ],
+    "durationMs": 15288.7177
+  },
+  "existing": {
+    "passed": 19,
+    "scope": "Inherited v1 complete checkpoint/receipt/recovery cases plus actual v2 authority, namespace ownership, targeted refusal and actual retained consumer/runtime cases.",
+    "failed": 0,
+    "files": [
+      "tests/smart-tile-checkpoint.test.mjs",
+      "tests/editor-tile-stack-b1-authority.test.mjs"
+    ],
+    "durationMs": 34357.0742
+  },
+  "cacheLimits": {
+    "accounting": "Checkpoint graph counted once plus actual retained fact shadow with only root/receipts/pending graph aliases nulled. Every metadata key, scalar, ID, JSON string and both 64-code-unit materialized digests are charged; charge-number widths reserve the unchanged maximum admitted limits. Serialized graph aliases count each occurrence. No string interning assumed; logical encoded/text/node charges do not assert measured RSS.",
+    "utf16TextCodeUnits": 4194304,
+    "entries": 64,
+    "encodedPayloadBytes": 8388608,
+    "inspectedNodes": 65536
+  },
+  "diagnostic": {
+    "availability": "Opted-in internal codec only",
+    "shape": "Fresh frozen record of primitive counts/charges/hits/evictions/oversize misses; no keys, brands, input references, configuration or mutation controls.",
+    "method": "ownedSuccessorCacheStats"
+  },
+  "timing": {
+    "runnerDurationMs": 30229.5554,
+    "scope": "Retained predecessor-only measurement before the accounting correction. Synthetic atlas, actual Core/native geometry/retained consumer/JSONL; no DOM/WebGL/installed/device claim. Current accounting successor was not timed.",
+    "finalCache": {
+      "entries": 1,
+      "chargedBytes": 3513112,
+      "chargedNodes": 41927,
+      "chargedTextCodeUnits": 3227266,
+      "admissions": 41,
+      "evictions": 40,
+      "oversizeMisses": 0,
+      "baseMisses": 0,
+      "hits": 155,
+      "misses": 4,
+      "stageReuses": 16,
+      "settleReuses": 18,
+      "fullReads": 7,
+      "tokenHits": 66,
+      "tokenMisses": 23
+    },
+    "counts": {
+      "prepare": 2,
+      "apply": 2,
+      "acquire": 7,
+      "directRepair": 0
+    },
+    "fallbacks": [
+      {
+        "name": "create A1 Expected",
+        "kind": "host query",
+        "fullReadsDelta": 2,
+        "missesDelta": 0,
+        "entries": 2,
+        "bytes": 3152182,
+        "nodes": 1416,
+        "text": 2914100
+      },
+      {
+        "name": "open accepted checkpoint",
+        "kind": "proof checkpoint open",
+        "fullReadsDelta": 1,
+        "missesDelta": 0,
+        "entries": 1,
+        "bytes": 2448293,
+        "nodes": 18899,
+        "text": 2255623
+      },
+      {
+        "name": "Undo 1",
+        "kind": "production API",
+        "fullReadsDelta": 1,
+        "missesDelta": 2,
+        "entries": 1,
+        "bytes": 2567360,
+        "nodes": 21114,
+        "text": 2365660
+      },
+      {
+        "name": "open initial history",
+        "kind": "proof checkpoint open",
+        "fullReadsDelta": 1,
+        "missesDelta": 0,
+        "entries": 1,
+        "bytes": 2799314,
+        "nodes": 26609,
+        "text": 2575158
+      },
+      {
+        "name": "Redo 1",
+        "kind": "production API",
+        "fullReadsDelta": 1,
+        "missesDelta": 2,
+        "entries": 1,
+        "bytes": 2870067,
+        "nodes": 28222,
+        "text": 2639390
+      },
+      {
+        "name": "open restored history",
+        "kind": "proof checkpoint open",
+        "fullReadsDelta": 1,
+        "missesDelta": 0,
+        "entries": 1,
+        "bytes": 3513112,
+        "nodes": 41927,
+        "text": 3227266
+      }
+    ],
+    "status": "predecessor-only-component-pass",
+    "baseline": "191 one prior fixed-source profile77.945s included18.311s Git-object bootstrap. Compare per-production-call timings; avoid treating total times as identical bootstrap workloads.",
+    "outerSeconds": 120,
+    "limitation": "Text-accounting budget permits only one tail entry. Required cold proof opens evict the session-owned identity, so Undo1/Redo1 fall through the full reader. This is preserved and measured, not hidden by a cap increase. Other warm tail calls improve.",
+    "limitsRaised": false,
+    "observedMaxCharges": {
+      "nodes": 41927,
+      "textCodeUnits": 4068942,
+      "bytes": 4403892
+    },
+    "production": [
+      {
+        "name": "create A1 prepare",
+        "durationMs": 820.5845000000002
+      },
+      {
+        "name": "create A1 apply",
+        "durationMs": 918.1911
+      },
+      {
+        "name": "clone B1 prepare",
+        "durationMs": 856.3433999999997
+      },
+      {
+        "name": "clone B1 apply",
+        "durationMs": 979.2561000000001
+      },
+      {
+        "name": "revise B2 prepare",
+        "durationMs": 907.9513000000006
+      },
+      {
+        "name": "revise B2 apply",
+        "durationMs": 1151.2230999999992
+      },
+      {
+        "name": "save P1 prepare",
+        "durationMs": 900.1792000000005
+      },
+      {
+        "name": "save P1 apply",
+        "durationMs": 1126.3360999999995
+      },
+      {
+        "name": "place two prepare",
+        "durationMs": 1076.0230999999985
+      },
+      {
+        "name": "place two apply",
+        "durationMs": 1245.0398999999998
+      },
+      {
+        "name": "upgrade one prepare",
+        "durationMs": 1084.3333999999995
+      },
+      {
+        "name": "upgrade one apply",
+        "durationMs": 1465.560800000001
+      },
+      {
+        "name": "Undo 1",
+        "durationMs": 1469.0812999999998
+      },
+      {
+        "name": "Undo 2",
+        "durationMs": 831.3580999999995
+      },
+      {
+        "name": "Undo 3",
+        "durationMs": 859.5601000000024
+      },
+      {
+        "name": "Undo 4",
+        "durationMs": 836.1504999999997
+      },
+      {
+        "name": "Undo 5",
+        "durationMs": 820.3942999999999
+      },
+      {
+        "name": "Undo 6",
+        "durationMs": 779.7063000000016
+      },
+      {
+        "name": "Redo 1",
+        "durationMs": 2074.9362
+      },
+      {
+        "name": "Redo 2",
+        "durationMs": 928.5470000000023
+      },
+      {
+        "name": "Redo 3",
+        "durationMs": 974.7301000000007
+      },
+      {
+        "name": "Redo 4",
+        "durationMs": 1041.8639000000003
+      },
+      {
+        "name": "Redo 5",
+        "durationMs": 1124.7284
+      },
+      {
+        "name": "Redo 6",
+        "durationMs": 1184.0217000000011
+      }
+    ],
+    "exactRuns": 1,
+    "measuredCommit": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+    "appliesToCurrentCommit": false,
+    "successorProfiled": false,
+    "accountingLimitation": "All timing charge values below are historical predecessor diagnostics using the undercharged metadata estimate; they are not current quota evidence. The independent correction oracle and current correctness controls above supersede that accounting."
+  },
+  "lifecycle": {
+    "existingExited": true,
+    "controlsExited": true,
+    "remainingHelpers": [],
+    "forcedStops": [
+      false,
+      false,
+      false
+    ],
+    "ports": [],
+    "timingExited": true,
+    "accountingControls": {
+      "mode": "controls",
+      "completed": true,
+      "expired": false,
+      "stopped": false,
+      "verifiedOriginalExited": true,
+      "exitCode": 0,
+      "beforeStop": null,
+      "startedUtc": "2026-11-02T15:15:12.6277494Z",
+      "deadlineUtc": "2026-11-02T15:17:12.6277494Z",
+      "finishedUtc": "2026-11-02T15:15:28.3235606Z",
+      "ports": [],
+      "files": [
+        {
+          "Name": "identity.json",
+          "Length": 1076
+        },
+        {
+          "Name": "receipt.json",
+          "Length": 550
+        },
+        {
+          "Name": "stderr.log",
+          "Length": 0
+        },
+        {
+          "Name": "stdout.log",
+          "Length": 1519
+        }
+      ]
+    },
+    "accountingExisting": {
+      "mode": "existing",
+      "completed": true,
+      "expired": false,
+      "stopped": false,
+      "verifiedOriginalExited": true,
+      "exitCode": 0,
+      "beforeStop": null,
+      "startedUtc": "2026-11-02T15:09:58.9429249Z",
+      "deadlineUtc": "2026-11-02T15:11:58.9429249Z",
+      "finishedUtc": "2026-11-02T15:10:33.7080472Z",
+      "ports": [],
+      "files": [
+        {
+          "Name": "identity.json",
+          "Length": 1088
+        },
+        {
+          "Name": "stderr.log",
+          "Length": 0
+        },
+        {
+          "Name": "stdout.log",
+          "Length": 2194
+        }
+      ]
+    }
+  },
+  "integration": {
+    "globalGates": "Not run/rebaselined in this helper: known unregistered Root composition layer. Root owns full check/test/upstream/build and fresh source/built/installed browser matrices.",
+    "push": "Not authorized before final integration checks; helper commit only."
+  },
+  "evidence": [
+    "artifacts/owned-successors/controls/stdout.log",
+    "artifacts/owned-successors/existing/stdout.log",
+    "artifacts/owned-successors/timing/summary.json",
+    "artifacts/owned-successors/timing/fallbacks.json",
+    "artifacts/owned-successors/{controls,existing,timing}/{identity,receipt}.json",
+    "artifacts/owned-successors/controls-accounting/stdout.log",
+    "artifacts/owned-successors/existing-accounting/stdout.log",
+    "artifacts/owned-successors/text-accounting-correction.json",
+    "artifacts/owned-successors/{controls-accounting,existing-accounting}/{identity,receipt}.json"
+  ],
+  "predecessor": "3c3280c9adccdd2d7590a6b746b2db0397289ee5",
+  "predecessorControls": {
+    "passed": 12,
+    "durationMs": 13348.9312,
+    "existingPassed": 19,
+    "existingDurationMs": 34905.7247,
+    "evidence": "Original controls/existing/timing folders preserved unchanged."
+  },
+  "accountingCorrection": {
+    "reason": "Predecessor fixed +128 text reserve undercounted actual fact metadata by90 code units at the confirmed C1 edge. Replaced the reserve with a measured shadow of the actual entry before admission; no caps raised.",
+    "oracle": "Independent traversal of the known fact-key inventory and real values, root/receipts/pending nulled, plus the complete checkpoint graph once; independent UTF-8 JSON byte lower bound. Actual public Core/C1 constructors, no renderer/host writes or policy double.",
+    "results": [
+      {
+        "padding": 0,
+        "stats": {
+          "entries": 1,
+          "chargedBytes": 2038203,
+          "chargedNodes": 688,
+          "chargedTextCodeUnits": 1457333,
+          "admissions": 1,
+          "evictions": 0,
+          "oversizeMisses": 0,
+          "baseMisses": 0,
+          "hits": 1,
+          "misses": 0,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 1457333,
+          "bytes": 2038201
+        }
+      },
+      {
+        "padding": 912323,
+        "stats": {
+          "entries": 1,
+          "chargedBytes": 4775172,
+          "chargedNodes": 688,
+          "chargedTextCodeUnits": 4194302,
+          "admissions": 1,
+          "evictions": 0,
+          "oversizeMisses": 0,
+          "baseMisses": 0,
+          "hits": 1,
+          "misses": 0,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 4194302,
+          "bytes": 4775170
+        }
+      },
+      {
+        "padding": 912353,
+        "stats": {
+          "entries": 0,
+          "chargedBytes": 0,
+          "chargedNodes": 0,
+          "chargedTextCodeUnits": 0,
+          "admissions": 0,
+          "evictions": 0,
+          "oversizeMisses": 1,
+          "baseMisses": 0,
+          "hits": 0,
+          "misses": 1,
+          "stageReuses": 0,
+          "settleReuses": 0,
+          "fullReads": 1,
+          "tokenHits": 0,
+          "tokenMisses": 1
+        },
+        "minimum": {
+          "nodes": 686,
+          "text": 4194392,
+          "bytes": 4775246
+        },
+        "minimumWithoutHeaderStrings": 4194313
+      }
+    ],
+    "limitsRaised": false,
+    "additionalTimingRuns": 0,
+    "successorProfiled": false
+  }
+}
