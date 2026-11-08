@@ -10,16 +10,20 @@ import {FOLIAGE_PRESETS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc0
 import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js';
 import {ANIMAL_MOTION_CATALOG} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js';
 
-export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
+import {CITY_PROPS, CITY_SCENERY} from '../../packages/city-props/index.js';
+
+export const CITY_ASSET_CATEGORY = '1880s City';
+export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps', CITY_ASSET_CATEGORY];
 const readable = id => id.replaceAll('-', ' ').replace(/^./, c => c.toUpperCase());
 const label = (id, name) => name && name !== id ? name : readable(id);
 
 // Derive entries from the same registries as the placement tools. Adding a
 // reviewed donor asset must not require maintaining a second list of IDs.
-export function editorAssets() {
+export function editorAssets({includeCityProps = false} = {}) {
   const assets = GROUNDS.map(id => ({id, category:'Terrain', name:label(id, BIOME_TERRAIN_NAMES[id] || roadLabel(id)), tool:'texture', bindings:{'ground-kind':id}, w:1, h:1}));
   for (const id of ['floor', 'water', 'bridge']) assets.push({id, category:'Terrain', name:readable(id), tool:id, bindings:{}, w:1, h:1});
   for (const [id, rule] of Object.entries(PROPS)) {
+    if (Object.hasOwn(CITY_SCENERY, id)) continue;
     let category = id.startsWith('roof-') ? 'Roofs' : rule.cliff ? 'Cliffs' : rule.ramp || id.startsWith('rampbank-') ? 'Ramps' : 'Objects';
     let tool = category === 'Roofs' ? 'roof-tile' : category === 'Cliffs' ? 'cliff' : 'prop';
     let bindings = {[category === 'Cliffs' ? 'cliff-kind' : 'prop-kind']:id};
@@ -44,10 +48,16 @@ export function editorAssets() {
   // Movement's inherited change handler selects a generic preset. Apply the
   // authored preset last so wetland/bog identities survive that handler.
   for (const [id, rule] of Object.entries(FOLIAGE_PRESETS)) assets.push({id, category:'Foliage', name:rule.label, tool:'foliage-cover', bindings:{'foliage-mode':'paint', 'foliage-density':'65', 'foliage-tree-cover':'brush-v1', 'foliage-passability':rule.blocked ? 'blocked' : 'passable', 'foliage-preset':id}, w:8, h:8, note:rule.summary});
+  for (const prop of includeCityProps ? CITY_PROPS : []) {
+    const [w, h] = prop.cells;
+    assets.push({id: prop.id, name: prop.name, category: CITY_ASSET_CATEGORY, family: prop.family,
+      tool: 'prop', bindings: {'prop-kind': prop.id}, w, h, note: prop.note,
+      search: prop.family + (prop.lit ? ' kerosene wick' : '')});
+  }
   return assets.sort((a,b) => ASSET_CATEGORIES.indexOf(a.category)-ASSET_CATEGORIES.indexOf(b.category) || a.name.localeCompare(b.name));
 }
 
 export function findAssets(assets, query = '', category = '') {
   const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
-  return assets.filter(asset => (!category || asset.category === category) && words.every(word => `${asset.id} ${asset.name} ${asset.category}`.toLowerCase().includes(word)));
+  return assets.filter(asset => (!category || asset.category === category) && words.every(word => `${asset.id} ${asset.name} ${asset.category} ${asset.search || ''}`.toLowerCase().includes(word)));
 }

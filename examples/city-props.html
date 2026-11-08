@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bell & Alder · Nautilus 1880s City Props</title>
+<link rel="icon" href="data:,">
+<style>
+:root{color-scheme:light;background:#eee8d9;color:#30271d;font:15px/1.5 system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0}header{background:#29362d;color:#f6ecd7;padding:24px max(24px,calc((100vw - 1340px)/2));border-bottom:4px solid #b39457}h1,h2{font-family:Georgia,serif;font-weight:normal;line-height:1.1}h1{margin:4px 0 7px;font-size:clamp(31px,5vw,52px)}h2{font-size:25px;margin:0 0 9px}p{margin:0 0 12px}.eyebrow{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:#ddc291}
+main{max-width:1390px;margin:auto;padding:22px 24px 30px}.tabs,.turns,.links{display:flex;flex-wrap:wrap;align-items:center;gap:7px}.tabs{margin-bottom:12px}
+button,select,a.action{font:inherit;background:#faf5e8;color:#30271d;border:1px solid #ab967a;border-radius:3px;padding:7px 12px;cursor:pointer;text-decoration:none}button[aria-pressed=true],a.action.primary{background:#374d3c;color:#fff7e8;border-color:#374d3c}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #9b4d33;outline-offset:2px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(218px,295px);gap:17px}.stage{min-width:0;border:1px solid #ab967a;background:#e4ddcb}canvas{display:block;width:100%;height:clamp(410px,63vh,700px);touch-action:none}.turns{padding:10px;border-top:1px solid #ab967a;background:#f7f0df}.turns span{color:#685743;font-size:12px}.info{min-width:0;padding:17px;background:#f9f3e5;border:1px solid #ab967a;align-self:start}.info p{color:#645441}.info label{display:block;margin-bottom:10px}.info select{display:block;width:100%;margin-top:4px}#assets{margin:13px 0 15px;padding:0;list-style:none}#assets a{color:#405c48}.links{margin-top:16px}#status{margin:10px 0 0;color:#8b442f}
+@media(max-width:800px){main{padding:14px}.layout{grid-template-columns:1fr}canvas{height:390px}header{padding:18px 14px}}
+@media(max-width:420px){canvas{height:320px}.turns span{width:100%}}
+</style>
+</head>
+<body>
+<header><p class="eyebrow">Nautilus Engine · Map Workshop art</p><h1>Bell &amp; Alder</h1><p>Eastlake furniture, shop fittings, and oil lighting for a city around 1885.</p></header>
+<main>
+<nav class="tabs" aria-label="Prop collections">
+  <button type="button" data-mode="street" aria-pressed="true">Shops &amp; rooms</button>
+  <button type="button" data-mode="furniture" aria-pressed="false">Eastlake furniture</button>
+  <button type="button" data-mode="shop" aria-pressed="false">Shop fixtures</button>
+  <button type="button" data-mode="lamps" aria-pressed="false">Oil lighting</button>
+</nav>
+<div class="layout">
+  <section class="stage" aria-label="3D prop display">
+    <canvas aria-label="3D view of the selected props"></canvas>
+    <div class="turns"><button type="button" id="turn-left" aria-label="Turn view left">↶</button><button type="button" id="turn-right" aria-label="Turn view right">↷</button><span>Drag to orbit. Shapes are shown at metre scale.</span></div>
+  </section>
+  <aside class="info">
+    <h2 id="title">Shops &amp; rooms</h2><p id="description"></p>
+    <label for="specimen">Inspect a model<select id="specimen"></select></label>
+    <ul id="assets"></ul>
+    <div class="links"><a class="action primary" href="../assets/city-props/workshop-sample.json" download>Download workshop map</a><a class="action" href="../">Open Map Workshop</a></div>
+    <p id="status" role="status"></p>
+  </aside>
+</div>
+</main>
+<script type="module" src="./city-props.js"></script>
+</body></html>

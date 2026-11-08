@@ -8,6 +8,7 @@ import {LAUNCH_PLAYTEST, SEND_CLICK} from './editor-game-handoff.mjs';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
 import {adaptEditorPrefabs} from './editor-prefab-adapter.mjs';
 import {adaptEditorRoofs} from './editor-roof-adapter.mjs';
+import {adaptCityProps} from './editor-city-props.mjs';
 import {BUILDING_ASSETS,GROSS_BUILDING_ASSETS,PREFAB_CATALOGUE,COMBINED_PREFAB_CATALOGUE,ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/index.js';
 import {verifyBuild} from './verify-build.mjs';
 import {checkFarmyardDoors} from './check-farmyard-doors.mjs';
@@ -64,6 +65,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
       if (donor === 'aft') text = adaptWallEditor(entry.path, text, once);
       if (donor === 'aft') text = adaptEditorPrefabs(entry.path,text,once);
       if (donor === 'aft') text = adaptEditorRoofs(entry.path,text,once);
+      if (donor === 'aft') text = adaptCityProps(entry.path,text,once);
       // The deployed Send click is the text tests/editor-host-bridge.test.mjs runs.
       if (donor === 'aft' && (entry.path.endsWith('/editor-playtest.js') ? text !== LAUNCH_PLAYTEST : entry.path.endsWith('/editor-3d-tools.js') && text.split(SEND_CLICK).length !== 2)) throw Error('The deployed Send click differs from the tested one: ' + entry.path);
       data = Buffer.from(text);
@@ -88,6 +90,7 @@ const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
 const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
 fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
+fs.cpSync(path.join(root, 'assets/city-props'), path.join(output, 'assets/city-props'), {recursive: true});
 for(const file of sharedArtworkPayloadPaths())write(file,fs.readFileSync(path.join(root,file)));
 fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});
 write('buildings/references.json', fs.readFileSync(path.join(root, 'art/buildings/reference-register.json')));
@@ -105,7 +108,7 @@ html = once(html, '</body>', '<script type="module" src="' + toRoot + 'app/edito
 write('index.html', html);
 write(base + 'nautilus-example.json', JSON.stringify(exampleYard()));
 for (const name of fs.readdirSync(path.join(root, 'apps/editor')).filter(name => /\.(js|css)$/.test(name))) write('app/' + name, fs.readFileSync(path.join(root, 'apps/editor', name), 'utf8').replaceAll('../../vendor/', '../vendor/').replaceAll('../../packages/', '../packages/').replaceAll('__AFT__', sources.aft.root).replaceAll('__FARMYARD__', sources.farmyard.root + '/sites/tactical-animal/dist'));
-const assets = editorAssets();
+const assets = editorAssets({includeCityProps: true});
 write('editor-assets.json', JSON.stringify({schemaVersion:1, sources:{aft:sources.aft.commit,farmyard:sources.farmyard.commit,aftAssets:sources.aftAssets.commit}, assets}, null, 2));
 write('building-prefabs.json',JSON.stringify({schemaVersion:2,catalogue:COMBINED_PREFAB_CATALOGUE,catalogues:[{id:PREFAB_CATALOGUE,source:sources.tinderboxPrefabs,assets:GROSS_BUILDING_ASSETS.map(a=>a.id)},{id:COMBINED_PREFAB_CATALOGUE,sources:{gross:sources.tinderboxPrefabs,original:ORIGINAL_BUILDING_SOURCE},assets:BUILDING_ASSETS.map(a=>a.id)}],assets:BUILDING_ASSETS},null,2));
 const itemRuntime=['packages/items-core','packages/item-visuals'].flatMap(folder=>fs.readdirSync(path.join(root,folder)).filter(name=>name.endsWith('.js')).map(name=>{const file=folder+'/'+name,data=fs.readFileSync(path.join(root,file));return {path:file,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')};}));

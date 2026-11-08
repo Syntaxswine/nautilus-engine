@@ -5,7 +5,7 @@ import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/di
 import {DIMENSIONS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-world.js';
 
 export function installAssetLibrary() {
-  const $ = id => document.getElementById(id), assets = editorAssets();
+  const $ = id => document.getElementById(id), assets = editorAssets({includeCityProps: true});
   const launch = document.createElement('button'); launch.id = 'nautilus-assets'; launch.textContent = 'Asset library'; launch.disabled = true;
   document.querySelector('.nautilus-header nav').prepend(launch);
   const dialog = document.createElement('dialog'); dialog.id = 'asset-library'; dialog.setAttribute('aria-labelledby','asset-library-title');

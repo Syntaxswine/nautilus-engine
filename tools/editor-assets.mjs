@@ -9,7 +9,7 @@ import {machinePaintPath} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b
 import {SCENERY_PROPS} from '../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js';
 
 export function checkEditorAssets(root, sources, tracked = null) {
-  const assets = editorAssets(), keys = new Set();
+  const assets = editorAssets({includeCityProps: true}), keys = new Set();
   const donorRoot = path.join(root,sources.aft.root);
   const manifest = JSON.parse(fs.readFileSync(path.join(donorRoot,'provenance.json')));
   const declared = new Set(manifest.files.map(entry => path.resolve(donorRoot,entry.path)));
