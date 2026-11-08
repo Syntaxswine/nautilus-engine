@@ -1,0 +1,19 @@
+# Solid ground tiles
+
+In the ordinary Map Workshop, choose **Land**, then **Solid block**. Use the existing ground swatches and choose a height from **1/8** to **8/8**. On the ground layer, click to edit one cell or drag to preview a rectangle. Release to apply the stroke and press Escape to cancel. Painting over a solid block changes its height and skin. **Remove solid block** reveals the original ground. The Select tool can pick the raised surface, copy its settings or delete it. R rotates directional road paint.
+
+Each cell covers 1 × 1 m, centred on its integer map coordinate. One step is 265 mm, and eight steps reach the standard 2.12 m datum. The 84 skins come from the pinned AFT Ground/Texture registry, including the diagonal road and biome swatches. The selected ground paint continues from each top edge down its exposed side at the same texture scale. The sides mirror the paint at metre intervals to keep long faces within the same tile pattern. At a shared edge, only the taller tile draws a side, and only above the shorter tile. The solid volume and top height are independent of the paint.
+
+## Save and share
+
+Portable Nautilus maps and reusable blocks use a sparse `solidTiles` extension. Its complete v1 shape is `{"version":1,"cells":{"10,11":[1,"ground-wood-planks"],"11,11":[2,"ground-biome-snow"]}}`. Coordinates are relative to the map or reusable block that holds them. The first value is the integer height step and the second is the existing ground skin ID. The editor keeps the base terrain and removes the extension when its last cell is erased. One stroke can edit up to 256 cells. The complete map can hold up to 4,096 solid cells.
+
+Named saves, JSON exports and block capture, rotation and manual placement preserve the extension. Saved layouts require the `nautilus-solid-ground-tiles-v1` capability. Connected generation and sector variant publishing refuse solid blocks with guidance to place them manually or save a Nautilus design. The editor accepts dry unraised ground. It checks for buried ground actors, markers, placed objects, vegetation, building footprints and access points, and for a first-floor slab where a full-height column would overlap it. A solid column uses the ground plane even when its top is 8/8.
+
+## Use in a game
+
+On a validated blueprint, `solidTileGeometry(map)` returns solid bounds, top elevations and exposed side intervals in metres. A game can use these records for its world collision and support projection. `planSolidTileStep(map, from, to, assess)` offers a ground-based, cardinal neighbour route where either endpoint has a solid block. A flat route has kind `walk`. A rise or drop of one eighth has kind `stairs`, with the two actual surface heights. Larger rises and gaps require a different game action.
+
+Bind `assess(route)` to the same clearance, eligibility and cost services used for ordinary walking and stairs. Return `{ok:true,cost}` for a clear route, or `{ok:false,code}` for a refusal. The candidate path rises before moving horizontally uphill and drops after moving horizontally downhill. Check the full actor and route, including obstacles and overhead clearance. The host owns committing movement and spending its normal cost. The reference test compares the one-eighth rise against the pinned AFT stair route and commits the same 2 AP cost. Game support remains opt-in via capability negotiation.
+
+The existing Land brush keeps its whole-layer plateau behavior. Eighth-step solids give the workshop the requested smaller rises while preserving the same floor datum. Sparse records and chunked instances bound geometry to five visible quads per cell before adjacent faces are removed. This is a geometry count rather than a frame-rate measurement. One-eighth rises keep rough paths walkable with the ordinary stair rules. The native ground paint lets a path retain its existing surface identity while it rises.

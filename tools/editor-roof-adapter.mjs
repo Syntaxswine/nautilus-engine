@@ -1,3 +1,4 @@
+import {adaptEditorSolidTiles} from './editor-solid-tile-adapter.mjs';
 // Guarded build adapters applied after the existing wall and prefab adapters.
 // The byte-preserved donor editor is never edited in place.
 export function adaptEditorRoofs(name,text,once) {
@@ -35,5 +36,5 @@ export function adaptEditorRoofs(name,text,once) {
     change("['roofs','⌑','Roofs',['roof-tile']]","['roofs','⌑','Roofs',['roof-tile','sloped-roof']]",'roof modes');
     change("showFor(['wall-run-options'],['wall-run']);","showFor(['wall-run-options'],['wall-run']);showFor(['sloped-roof-options'],['sloped-roof']);",'roof options visibility');
   }
-  return text;
+  return adaptEditorSolidTiles(name,text,once);
 }

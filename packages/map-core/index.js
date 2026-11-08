@@ -1,24 +1,24 @@
 // The public boundary is headless: no renderer, DOM or browser storage required.
-import {EditingDocument} from './roof-document.js';
-import {blankMap, parseMap, validateMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
-import {blockCanvas, extractBlock, validateBlock} from './roof-blocks.js';
+import {EditingDocument, parseMap, validateMap, extractBlock, validateBlock} from './solid-tile-document.js';
+import {blankMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
+import {blockCanvas} from './roof-blocks.js';
+import {SOLID_TILE_FEATURE} from './solid-tiles.js';
 
 export {EditingDocument as MapDocument, blankMap, parseMap, validateMap, blockCanvas, extractBlock, validateBlock};
-export {generateConnectedMap} from './roof-generator.js';
-export {assertMapCapabilities,requiredMapFeatures} from './roof-maps.js';
+export {generateConnectedMap, assertMapCapabilities, requiredMapFeatures} from './solid-tile-document.js';
 export * from '../prefab-core/index.js';
 export * from './wall-runs.js';
 export * from '../roof-core/index.js';
 export {blockedEdge, neighbors} from './maps.js';
-export {openBlock, placeBlock} from './roof-blocks.js';
-export {rotateSceneryBlock} from './roof-rotation.js';
+export {openBlock, placeBlock, rotateSceneryBlock} from './solid-tile-document.js';
+export {SOLID_TILE_FEATURE, SOLID_TILE_STEPS, SOLID_TILE_LIMIT, SOLID_TILE_SKINS, solidTileHeightM, solidTileAt, solidTileGeometry, planSolidTileStep} from './solid-tiles.js';
 export {connectionSet, connectionsMatch} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js';
 export {emptyFeaturePlan, seededFeaturePlan, validateFeaturePlan} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js';
 
 export {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS, FEATURE_IDS, engineManifest, schemaDocuments} from './contract-manifest.js';
 export {CompatibilityError, blueprintRequirements, negotiateCapabilities, assertRequirements, assertBlueprintCompatible} from './capabilities.js';
 export {BlueprintError, loadBlueprint, validateBlueprint, migrateBlueprint, createSave, parseSave, serializeSave} from './persistence.js';
-export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1']});
+export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1',SOLID_TILE_FEATURE]});
 export function createMapDocument(name = 'Untitled map') { return new EditingDocument().open(JSON.stringify(blankMap(name))); }
 export function createBlockDocument(name = 'Untitled block') { return new EditingDocument().open(JSON.stringify(extractBlock(blockCanvas(name)))); }
 export function openDocument(input) {

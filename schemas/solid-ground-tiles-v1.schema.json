@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:solid-ground-tiles:1",
+  "title": "Nautilus solid ground tiles v1",
+  "type": "object",
+  "required": ["version", "cells"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "cells": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 4096,
+      "propertyNames": { "pattern": "^(0|[1-9][0-9]{0,2}),(0|[1-9][0-9]{0,2})$" },
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "prefixItems": [
+          { "type": "integer", "minimum": 1, "maximum": 8 },
+          { "type": "string", "pattern": "^(ground-|road-diagonal-)[a-z0-9-]+$", "maxLength": 80 }
+        ]
+      }
+    }
+  },
+  "$comment": "Coordinates are tile centres in the containing map or block. Runtime validation checks the containing footprint, exact ground skin catalogue and compatible supporting ground."
+}
