@@ -1,5 +1,4 @@
-import {validateMap} from '../../../map-core/index.js';
-import {FARMYARD_DOOR_CONTRACT} from '../doors/profile.js';
+import {validateMap, FARMYARD_DOOR_CONTRACT} from './core-peer.js';
 
 export const FARMYARD_PLAYTEST_PROFILE = Object.freeze({
   id: 'farmyard-flat-solo-door-v1',

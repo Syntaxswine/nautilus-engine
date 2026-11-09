@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {createMapDocument, MAP_CONTRACT} from '@nautilus-engine/map-core';
-import {createFarmyardPlaytestConnector, FARMYARD_PLAYTEST_PROFILE} from '@nautilus-engine/map-core/adapters/farmyard/playtest';
+import {createFarmyardPlaytestConnector, FARMYARD_PLAYTEST_PROFILE} from '../packages/adapters/farmyard/playtest/index.js';
 import {createGameHandoff} from '../apps/editor/game-handoff.js';
 import {doorPlaytestDocument} from './fixtures/farmyard-playtest/door-start.mjs';
 import {preparePinnedFarmyardHost, verifyProductionDoor} from './fixtures/farmyard-playtest/production-proof.mjs';
@@ -22,18 +22,18 @@ function deferred() {
 }
 
 test('fixed production source bytes and Git blob identities match the proof pin', () => {
-  const upstream = JSON.parse(fs.readFileSync(new URL('../upstream.json', import.meta.url)));
-  const pin = upstream.farmyardPlaytestConformance;
-  assert.equal(pin.commit, FARMYARD_PLAYTEST_PROFILE.productionCommit);
-  const root = new URL('../' + pin.root + '/', import.meta.url);
+  const pin = FARMYARD_PLAYTEST_PROFILE.productionCommit;
+  const root = new URL('../vendor/farmyard-playtest/' + pin + '/', import.meta.url);
   const manifest = JSON.parse(fs.readFileSync(new URL('provenance.json', root)));
-  assert.equal(manifest.commit, pin.commit);
+  assert.equal(manifest.commit, pin);
   assert.equal(manifest.reviewedChange, '5cd3f22f40d3009e54405be25bb19c1a6451c06d');
   assert.ok(manifest.files.some(file => file.path === manifest.entry));
+  const notice = 'sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt';
   for (const file of manifest.files) {
     assert.match(file.path, /^sites\/tactical-animal\//);
     assert.ok(!file.path.split('/').includes('..'));
-    const bytes = fs.readFileSync(new URL(file.path, root));
+    assert.equal(file.snapshotPath, file.path === notice ? notice + '.original' : undefined);
+    const bytes = fs.readFileSync(new URL(file.snapshotPath ?? file.path, root));
     assert.equal(bytes.length, file.bytes, file.path);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), file.sha256, file.path);
     assert.equal(createHash('sha1').update('blob ' + bytes.length + '\0').update(bytes).digest('hex'), file.gitBlob, file.path);

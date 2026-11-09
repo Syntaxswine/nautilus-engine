@@ -4,7 +4,7 @@ Connect `createFarmyardPlaytestConnector({prepareHost})` to the Workshop's exist
 
 ## Accepted Workshop export
 
-Use `FARMYARD_PLAYTEST_PROFILE` and `preflightFarmyardPlaytest({json, contract})` from `@nautilus-engine/map-core/adapters/farmyard/playtest`. The input is Workshop AFT v2 JSON with all 240 × 240 ground cells at one metre per tile and ground axes `x`, `y`. The profile accepts three to six declared layers with empty upper layers and runs the portable map's full validation.
+Use `FARMYARD_PLAYTEST_PROFILE` and `preflightFarmyardPlaytest({json, contract})` from `@nautilus-engine/farmyard-playtest`. The input is Workshop AFT v2 JSON with all 240 × 240 ground cells at one metre per tile and ground axes `x`, `y`. The profile accepts three to six declared layers with empty upper layers and runs the portable map's full validation.
 
 | Content | Binding |
 | --- | --- |
@@ -21,10 +21,12 @@ Use empty guards, props, stairs, climbs and canopies. Empty lock and foliage rec
 
 ## Bind a production host
 
+Build the optional tarball with `node tools/pack-farmyard-playtest.mjs` from a Nautilus checkout. Install the emitted `@nautilus-engine/farmyard-playtest` tarball alongside its `@nautilus-engine/core` peer at version 0.10.0 or another compatible 0.10 release. Checkout-based Workshop builds can import `packages/adapters/farmyard/playtest/index.js`. The package uses the public core map validator and the public Farmyard door contract.
+
 `prepareHost({authoredMap, signal})` stages the embedding game's ready host offscreen. At the reviewed Farmyard pin, initialize it with `createSoloGame(DEFAULT_BUILD, 1947, WINDOW_REVIEW_ID, {authoredMap})`. Return a fresh host object with a `dispose()` method. The factory owns partial setup until it returns the host. Honor the abort signal and release partial setup on a rejected preparation. The disposer may be asynchronous and should settle independently of the connector's open and disposal promises.
 
 ```js
-import {createFarmyardPlaytestConnector} from '@nautilus-engine/map-core/adapters/farmyard/playtest';
+import {createFarmyardPlaytestConnector} from '@nautilus-engine/farmyard-playtest';
 
 const connector = createFarmyardPlaytestConnector({prepareHost: stageFarmyardSoloHost});
 const disconnect = window.nautilus.connectGame(connector);
@@ -43,8 +45,8 @@ if (disposalError) reportPlaytestError(disposalError);
 
 ## Start fixture and proof
 
-In a checkout, call `doorPlaytestDocument(createMapDocument, 'e').export()` using the [start fixture](../../tests/fixtures/farmyard-playtest/door-start.mjs). Its sole door is immediately east of the starting actor. Pass `'s'` for the south-facing steel fixture. Run `node --test tests/farmyard-playtest.test.mjs tests/game-handoff.test.mjs` and `npm run test:farmyard-playtest:installed`.
+In a Nautilus checkout, call `doorPlaytestDocument(createMapDocument, 'e').export()` using `tests/fixtures/farmyard-playtest/door-start.mjs`. Its sole door is immediately east of the starting actor. Pass `'s'` for the south-facing steel fixture. Run `node --test tests/farmyard-playtest.test.mjs tests/game-handoff.test.mjs` and `node tools/test-farmyard-playtest-package.mjs`.
 
-The proof uses the original Farmyard application hand handler and solo host from commit `4a0bd292ee09abb7f61e743289f5a40f09655b2c`, which contains production playtest change `5cd3f22f40d3009e54405be25bb19c1a6451c06d`. The [test-only provenance](../../vendor/farmyard-playtest/4a0bd292ee09abb7f61e743289f5a40f09655b2c/provenance.json) records exact Git blobs, byte counts and hashes. The pinned test harness supplies a lightweight DOM and view for the production handlers. Browser presentation is checked with the combined editor integration.
+The proof uses the original Farmyard application hand handler and solo host from commit `4a0bd292ee09abb7f61e743289f5a40f09655b2c`, which contains production playtest change `5cd3f22f40d3009e54405be25bb19c1a6451c06d`. The checkout ledger at `vendor/farmyard-playtest/4a0bd292ee09abb7f61e743289f5a40f09655b2c/provenance.json` records exact Git blobs, byte counts and hashes. The pinned test harness supplies a lightweight DOM and view for the production handlers. Browser presentation is checked with the combined editor integration.
 
 For this playtest, Farmyard's production host gives fidelity to the played mission's clearance, AP and persistence. One retained simulation avoids duplicate movement and door work by design. Processor cost is unmeasured. Seeing the authored door change where a player can walk and see is the intended playtest experience.
