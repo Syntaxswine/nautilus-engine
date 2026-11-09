@@ -13,6 +13,8 @@ const packagePath = path.join(root, 'package.json');
 const slash = value => value.replaceAll('\\', '/');
 const relative = file => slash(path.relative(root, file));
 const sourcePackage = () => JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+const testOnlyFarmyard = file => ['vendor/farmyard-grenades/', 'vendor/farmyard-grenade-visuals/', 'vendor/farmyard-playtest/']
+  .some(prefix => file.startsWith(prefix));
 function inside(file) { if (!file.startsWith(root + path.sep)) throw Error('Distribution dependency escapes the project: ' + file); }
 export function moduleClosure(entries) {
   return moduleReferenceGraph(entries.map(entry=>path.resolve(root,entry)),{root}).map(record=>relative(record.filename)).sort();
@@ -35,7 +37,7 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
   'docs/window-authoring.md', 'docs/reviews/window-authoring/registration-request.json', 'docs/reviews/window-authoring/dependencies.json',
   'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json', 'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original',
   'packages/tiles-core/NOTICE.md', 'docs/procedural-tiles.md', 'docs/proposals/procedural-tiles-v1.md', 'docs/reviews/procedural-tiles/source-audit.json', 'docs/reviews/procedural-tiles/registration-request.json',
-  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !testOnlyFarmyard(file)).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
   if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id)));
@@ -49,11 +51,12 @@ export function distribution(profile = 'compatibility') {
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-stack-core/README.md','packages/tile-stack-core/api.d.ts','packages/tile-stack-core/source.json');
   if(profile!=='assets')extras.push('packages/tile-finishes/README.md','packages/tile-finishes/source.json','docs/stacked-tiles.md');
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-authoring-core/index.d.ts','packages/tile-authoring-core/contract.schema.json','packages/tile-authoring-core/README.md','packages/tile-authoring-core/source.json','docs/tile-authoring.md');
+  if(profile==='core'||profile==='compatibility')extras.push('docs/adapters/farmyard-playtest.md');
   extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md');
   if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
   if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
-  if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
+  if (files.some(testOnlyFarmyard)) throw Error('Distribution includes test-only Farmyard game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
   for (const file of files) { inside(path.resolve(root, file)); if (!fs.existsSync(path.join(root, file))) throw Error('Missing distribution file: ' + file); }
   return {exports, files, name: profile === 'compatibility' ? source.name : '@nautilus-engine/' + (profile === 'assets' ? 'building-assets' : profile)};
