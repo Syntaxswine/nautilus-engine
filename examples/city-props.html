@@ -19,7 +19,8 @@ button,select,a.action{font:inherit;background:#faf5e8;color:#30271d;border:1px 
 <header><p class="eyebrow">Nautilus Engine · Map Workshop art</p><h1>Bell &amp; Alder</h1><p>Eastlake furniture, shop fittings, and oil lighting for a city around 1885.</p></header>
 <main>
 <nav class="tabs" aria-label="Prop collections">
-  <button type="button" data-mode="street" aria-pressed="true">Shops &amp; rooms</button>
+  <button type="button" data-mode="front" aria-pressed="true">Storefront</button>
+  <button type="button" data-mode="street" aria-pressed="false">Shops &amp; rooms</button>
   <button type="button" data-mode="furniture" aria-pressed="false">Eastlake furniture</button>
   <button type="button" data-mode="shop" aria-pressed="false">Shop fixtures</button>
   <button type="button" data-mode="lamps" aria-pressed="false">Oil lighting</button>
@@ -30,7 +31,7 @@ button,select,a.action{font:inherit;background:#faf5e8;color:#30271d;border:1px 
     <div class="turns"><button type="button" id="turn-left" aria-label="Turn view left">↶</button><button type="button" id="turn-right" aria-label="Turn view right">↷</button><span>Drag to orbit. Shapes are shown at metre scale.</span></div>
   </section>
   <aside class="info">
-    <h2 id="title">Shops &amp; rooms</h2><p id="description"></p>
+    <h2 id="title">Storefront</h2><p id="description"></p>
     <label for="specimen">Inspect a model<select id="specimen"></select></label>
     <ul id="assets"></ul>
     <div class="links"><a class="action primary" href="../assets/city-props/workshop-sample.json" download>Download workshop map</a><a class="action" href="../">Open Map Workshop</a></div>

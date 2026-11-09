@@ -35,9 +35,10 @@ atlas.colorSpace = T.SRGBColorSpace;
 atlas.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
 const library = createCityPropLibrary(T, atlas);
 const props = [], stageObjects = [];
-let mode = 'street', angle = .46, target = new T.Vector3(), size = 7.8, drag = null;
+let mode = 'front', angle = .46, target = new T.Vector3(), size = 7.8, eyeRise = 8.7, drag = null;
 const field = id => document.getElementById(id);
 const modeData = {
+  front: ['Storefront', 'Tall glazing and transoms, a recessed door, and a projecting cornice with painted dentils. Inspect the individual bays the hanging trade signs, and the room cornice below.', CITY_PROPS.filter(p => p.family === 'Storefront & trim')],
   street: ['Shops & rooms', 'A row of shop bays, a glazed counter, and a furnished parlor. The downloadable map adds a second shop and a bedroom.', CITY_PROPS],
   furniture: ['Eastlake furniture', 'Angular walnut and ebonized cherry frames, incised fans, turned spindles, patterned wool, and marble.', CITY_PROPS.filter(p => p.family === 'Eastlake furniture')],
   shop: ['Shop fixtures', 'One-metre sales counters and wall bays, a corner, glass case, cloth rack, bins, and scale.', CITY_PROPS.filter(p => p.family === 'Shop fixtures')],
@@ -74,7 +75,10 @@ function planks(x, z, w, d) {
   box([x, -.061, z], [w, .035, d + .04], 0x534335);
 }
 function mount(spec, x, z) {
-  if (spec.mounting === 'wall') {
+  if (spec.form.startsWith('room-cornice') || spec.form.startsWith('hanging-sign')) {
+    box([x, 1.052, z - .542], [1.027, 2.104, .105], 0x788176);
+    if (spec.form.endsWith('-corner')) box([x - .541, 1.052, z], [.105, 2.104, 1.02], 0x899284);
+  } else if (spec.mounting === 'wall') {
     box([x, .92, z - .545], [.64, 1.84, .096], 0x746450);
   }
   if (spec.mounting === 'ceiling') {
@@ -82,13 +86,65 @@ function mount(spec, x, z) {
     box([x, 2.147, z], [.82, .054, .67], 0x655441);
   }
 }
+function paintedPlane(paint, size, at) {
+  const map = new T.CanvasTexture(paint);
+  map.colorSpace = T.SRGBColorSpace;
+  const mesh = new T.Mesh(new T.PlaneGeometry(...size), new T.MeshStandardMaterial({map, roughness: .88}));
+  mesh.position.set(...at);
+  mesh.receiveShadow = true;
+  group.add(mesh);
+  stageObjects.push(mesh);
+}
+function parlorPaint() {
+  const paint = document.createElement('canvas');
+  paint.width = 1024;
+  paint.height = 440;
+  const context = paint.getContext('2d');
+  context.fillStyle = '#b5a384';
+  context.fillRect(0, 0, paint.width, paint.height);
+  context.fillStyle = '#826954';
+  context.fillRect(0, 278, paint.width, 162);
+  for (let x = 21; x < 1004; x += 163) {
+    context.strokeStyle = '#594632';
+    context.lineWidth = 5;
+    context.strokeRect(x, 302, 146, 119);
+    context.strokeStyle = '#a7896a';
+    context.lineWidth = 3;
+    context.strokeRect(x + 5, 307, 136, 109);
+  }
+  context.fillStyle = '#6b5644';
+  context.fillRect(0, 272, paint.width, 9);
+  context.fillRect(0, 430, paint.width, 10);
+  paintedPlane(paint, [4.9, 2.115], [2.45, 1.06, -2.654]);
+}
+function storefront() {
+  planks(-.024, -1.455, 5.08, 3.04);
+  box([.02, -.058, .82], [5.76, .116, 1.77], 0x887b68);
+  for (const x of [-2.4, -1.45, -.48, .49, 1.46, 2.42]) box([x, .002, .83], [.926, .021, 1.63], 0xb0a38a);
+  box([-2.59, 1.06, -.036], [.174, 2.12, .234], 0x775b4a);
+  box([-.017, 1.052, -2.79], [5.06, 2.104, .144], 0x738072);
+  for (const [id, x] of [['shop-window', -2], ['shop-window', -1], ['shop-entry', 0], ['shop-window', 1], ['shop-corner', 2]]) {
+    place(id, x, 0);
+  }
+  place('shop-window', 2, -1, Math.PI / 2);
+  place('shop-window', 2, -2, Math.PI / 2);
+  place('shelf-stocked', -1.97, -2.218);
+  place('apothecary', -.97, -2.218);
+  place('bolt-rack', 1.165, -1.873);
+  place('glass-case', -1.63, -1.09);
+  place('scale-counter', -.63, -1.09);
+  place('shop-pendant-lit', .82, -1.34, 0, {showLight: true});
+  place('hanging-sign-goods', -2.59, .578);
+}
 function sample() {
   planks(0, .07, 9.8, 5.85);
   box([-2.45, 1.06, -2.74], [4.9, 2.12, .17], 0x7b806a);
-  box([2.45, .99, -2.74], [4.9, 1.98, .17], 0xb5a384);
-  box([0, .99, -1.45], [.14, 1.98, 2.52], 0x8c8271);
-  box([2.46, .13, -2.62], [4.79, .26, .09], 0x665343);
-  for (let i = 0; i < 5; i++) box([.59 + i * .93, 1.31, -2.642], [.025, 1.36, .025], 0x96846b);
+  box([2.45, 1.06, -2.74], [4.9, 2.12, .17], 0xb5a384);
+  box([0, 1.06, -1.655], [.14, 2.12, 2], 0x8c8271);
+  place('room-cornice-corner', .56, -2.165);
+  for (const x of [1.56, 2.56, 3.56, 4.56]) place('room-cornice', x, -2.165);
+  place('room-cornice', .56, -1.165, Math.PI / 2);
+  parlorPaint();
   box([-2.53, 2.165, -1.24], [.092, .09, 2.97], 0x5c4d3b);
   place('shelf-stocked', -4.09, -2.165);
   place('apothecary', -3.09, -2.165);
@@ -134,6 +190,7 @@ function clear() {
   for (const object of stageObjects.splice(0)) {
     object.removeFromParent();
     object.geometry?.dispose();
+    object.material?.map?.dispose();
     object.material?.dispose();
   }
 }
@@ -143,7 +200,7 @@ function draw() {
   renderer.setSize(w, h, false);
   const aspect = w / h, span = size * Math.max(1, 1.36 / aspect);
   Object.assign(camera, {left: -span * aspect / 2, right: span * aspect / 2, top: span / 2, bottom: -span / 2, near: .05, far: 120});
-  camera.position.set(target.x + 12 * Math.sin(angle), target.y + 8.7, target.z + 12 * Math.cos(angle));
+  camera.position.set(target.x + 12 * Math.sin(angle), target.y + eyeRise, target.z + 12 * Math.cos(angle));
   camera.lookAt(target);
   camera.updateProjectionMatrix();
   renderer.render(scene, camera);
@@ -153,7 +210,8 @@ function links(spec) {
   list.replaceChildren();
   if (!spec) return;
   const urls = cityPropURLs(spec.id);
-  for (const [name, href] of [['Model (.gltf)', urls.model], ['Mesh buffer (.bin)', urls.buffer], ['Shared paint atlas', urls.atlas]]) {
+  for (const [name, href] of [['Model (.gltf)', urls.model], ['Mesh buffer (.bin)', urls.buffer],
+    ['Shared paint atlas', urls.atlas], ['Panel and dentil skin', urls.trim]]) {
     const li = document.createElement('li'), a = document.createElement('a');
     a.textContent = name; a.href = href; a.download = ''; li.append(a); list.append(li);
   }
@@ -165,6 +223,9 @@ function view(id = '') {
   field('description').textContent = spec ? spec.note || spec.family + ' · ' + spec.cells.join(' × ') + ' tile footprint.' : description;
   links(spec);
   const dark = mode === 'lamps';
+  const corniceDetail = spec?.form.startsWith('room-cornice');
+  const signDetail = spec?.form.startsWith('hanging-sign');
+  eyeRise = corniceDetail ? 2.9 : mode === 'front' ? 5.35 : 8.7;
   scene.background = new T.Color(dark ? 0x343d43 : 0xded3be);
   scene.fog = new T.FogExp2(scene.background, .017);
   daylight.intensity = dark ? .76 : 2.09;
@@ -176,17 +237,29 @@ function view(id = '') {
     mount(spec, 0, 0);
     place(spec.id.slice(9), 0, 0, 0, {showLight: true});
     size = spec.cells[0] === 2 ? 3.22 : 2.67;
-    target.set(0, spec.mounting === 'ceiling' ? 1.05 : spec.mounting === 'wall' ? .9 : .54, 0);
+    const architectural = spec.family === 'Storefront & trim';
+    if (architectural) size = 3.25;
+    target.set(0, architectural || spec.mounting === 'ceiling' ? 1.08 : spec.mounting === 'wall' ? .9 : .54, 0);
+    if (corniceDetail) {
+      size = 1.53;
+      target.set(-.07, 1.79, -.16);
+    }
+    if (signDetail) {
+      size = 1.57;
+      angle = .98;
+      target.set(0, 1.66, .04);
+    }
   } else {
-    if (mode === 'street') sample();
+    if (mode === 'front') storefront();
+    else if (mode === 'street') sample();
     else lineup(items, dark);
-    size = mode === 'street' ? 8.05 : dark ? 5.55 : 7.12;
-    target.set(0, .63, 0);
+    size = mode === 'front' ? 5.38 : mode === 'street' ? 8.05 : dark ? 5.55 : 7.12;
+    target.set(0, mode === 'front' ? 1.10 : .63, mode === 'front' ? -.65 : 0);
   }
   draw();
 }
 function collection(next) {
-  mode = next; angle = next === 'lamps' ? .24 : .43;
+  mode = next; angle = next === 'front' ? .51 : next === 'lamps' ? .24 : .43;
   for (const button of document.querySelectorAll('[data-mode]')) button.setAttribute('aria-pressed', String(button.dataset.mode === next));
   field('specimen').replaceChildren(new Option('All in this collection', ''),
     ...modeData[next][2].map(p => new Option(p.name, p.id)));
@@ -207,6 +280,6 @@ window.addEventListener('pagehide', e => {
   clear(); library.dispose(); atlas.dispose();
   ground.geometry.dispose(); ground.material.dispose(); renderer.dispose();
 }, {once: true});
-collection('street');
-field('status').textContent = '28 pieces and lighting variants';
+collection('front');
+field('status').textContent = CITY_PROPS.length + ' pieces and lighting variants';
 document.documentElement.dataset.cityPropsReady = 'true';

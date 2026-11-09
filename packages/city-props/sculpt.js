@@ -1,9 +1,11 @@
+import {TRIM_PAINTS, TRIM_COLUMNS, TRIM_ROWS} from './trim-paint.js';
+
 // Continuous turnings and bevels share their control points across both mesh densities.
 export const PAINTS = Object.freeze({
   walnut: 0, ebony: 1, oak: 2, sage: 3, wine: 4, olive: 5, ticking: 6, marble: 7,
   brass: 8, iron: 9, paper: 10, bottle: 11, canvas: 12, leather: 13, ceramic: 14, blue: 15
 });
-export const FINISHES = Object.freeze(['paint', 'glass', 'amber', 'mirror', 'flame']);
+export const FINISHES = Object.freeze(['paint', 'trim', 'glass', 'store-glass', 'amber', 'mirror', 'flame']);
 const empty = () => ({positions: [], normals: [], colors: [], uvs: [], indices: []});
 const inset = .036; // Keep bilinear sampling inside the original swatches.
 
@@ -19,7 +21,8 @@ export class Sculpt {
 
   add(geometry, paint, at = [0, 0, 0], {rotation, quaternion, shade = 1, grain = false, localUV = false} = {}) {
     const T = this.T;
-    const family = Object.hasOwn(PAINTS, paint) ? 'paint' : paint;
+    const isTrim = Object.hasOwn(TRIM_PAINTS, paint);
+    const family = isTrim ? 'trim' : Object.hasOwn(PAINTS, paint) ? 'paint' : paint;
     if (!FINISHES.includes(family)) throw new Error('Unknown city finish: ' + paint);
     if (!this.parts.has(family)) this.parts.set(family, empty());
     const output = this.parts.get(family);
@@ -29,7 +32,9 @@ export class Sculpt {
     const position = geometry.getAttribute('position'), normal = geometry.getAttribute('normal'), uv = geometry.getAttribute('uv');
     if (localUV) geometry.computeBoundingBox();
     const box = geometry.boundingBox;
-    const cell = PAINTS[paint] ?? 0;
+    const cell = (isTrim ? TRIM_PAINTS[paint] : PAINTS[paint]) ?? 0;
+    const columns = isTrim ? TRIM_COLUMNS : 4;
+    const rows = isTrim ? TRIM_ROWS : 4;
     for (let i = 0; i < position.count; i++) {
       p.fromBufferAttribute(position, i);
       n.fromBufferAttribute(normal, i);
@@ -49,8 +54,8 @@ export class Sculpt {
       output.normals.push(...n.applyQuaternion(q).normalize().toArray());
       output.colors.push(...tint);
       output.uvs.push(
-        (cell % 4 + inset + u * (1 - 2 * inset)) / 4,
-        1 - (Math.floor(cell / 4) + inset + (1 - v) * (1 - 2 * inset)) / 4
+        (cell % columns + inset + u * (1 - 2 * inset)) / columns,
+        1 - (Math.floor(cell / columns) + inset + (1 - v) * (1 - 2 * inset)) / rows
       );
     }
     const indices = geometry.getIndex();
@@ -62,6 +67,10 @@ export class Sculpt {
 
   box(at, size, paint, options) {
     this.add(new this.T.BoxGeometry(...size), paint, at, options);
+  }
+
+  face(at, size, paint, options) {
+    this.add(new this.T.PlaneGeometry(...size), paint, at, options);
   }
 
   // Chamfer a plate in XY, then extrude along Z. The stated dimensions include the bevel.

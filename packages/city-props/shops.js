@@ -1,46 +1,34 @@
-const oak = 'oak', trim = 'walnut', green = 'sage';
+import {corniceRun} from './trim.js';
 
-function border(b, x, y, z, width, height) {
-  const [l, r, d, u] = [x - width / 2, x + width / 2, y - height / 2, y + height / 2];
-  b.mark([l, d], [l, u], z, .005, trim, .87);
-  b.mark([l, u], [r, u], z, .005, trim, .87);
-  b.mark([r, u], [r, d], z, .004, 'brass', .70);
-  b.mark([r, d], [l, d], z, .004, 'brass', .70);
-}
+const wood = 'walnut', trim = 'ebony', green = 'sage';
+const agedGreen = {shade: .56};
 
 function salesBay(b, {caseBase = false} = {}) {
   const top = caseBase ? .742 : .947;
-  b.box([0, (top - .035) / 2, 0], [.977, top - .035, .54], green);
-  b.box([0, .063, .008], [.992, .126, .588], trim, {grain: true});
-  b.soft([0, top - .022, .004], [.998, .049, .645], oak, .008, {grain: true});
-  for (const x of [-.457, 0, .457]) b.box([x, top * .52, .285], [.046, top - .16, .035], oak);
-  for (const x of [-.23, .23]) {
-    b.soft([x, top * .51, .274], [.363, top - .265, .038], green, .009);
-    border(b, x, top * .51, .294, .310, top - .321);
+  b.box([0, (top - .034) / 2, 0], [.986, top - .034, .54], green, agedGreen);
+  b.box([0, .051, .008], [.994, .102, .558], trim, {grain: true, shade: .82});
+  b.soft([0, top - .022, .004], [.998, .049, .645], wood, .008, {grain: true});
+  const panelHeight = top - .24;
+  for (const x of [-.244, .244]) {
+    b.face([x, .112 + panelHeight / 2, .271], [.453, panelHeight], 'panel-green');
+    b.face([x, top - .171, -.271], [.414, .113], 'drawer-walnut', {rotation: [0, Math.PI, 0]});
   }
-  for (const y of [.142, top - .071]) b.box([0, y, .286], [.985, .046, .041], oak, {grain: true});
-  for (const x of [-.23, .23]) {
-    b.soft([x, top - .134, -.279], [.409, .099, .021], oak, .004);
-    b.box([x, top - .135, -.296], [.05, .021, .019], 'brass');
-  }
+  corniceRun(b, [[-.499, .271], [.499, .271]],
+    {top: top - .048, rise: .062, depth: .026, caps: false});
 }
 
 function cornerBay(b) {
-  // Each leg ends on a cell boundary. Keep the straight counter's top and base profiles.
-  for (const [x, z, w, d] of [[-.105, 0, .788, .54], [0, -.384, .54, .228]]) {
-    b.box([x, .456, z], [w, .912, d], green);
-    b.box([x, .063, z], [w, .126, d + (z === 0 ? .044 : 0)], trim);
+  for (const [x, z, w, d] of [[-.113, 0, .773, .54], [0, -.384, .54, .228]]) {
+    b.box([x, .456, z], [w, .912, d], green, agedGreen);
+    b.box([x, .051, z], [w, .102, d], trim);
   }
   const outline = [[-.493, -.319], [-.319, -.319], [-.319, -.493], [.319, -.493],
     [.319, .326], [-.493, .326]];
-  b.plate([0, .925, 0], outline, .049, oak, {rotation: [Math.PI / 2, 0, 0], grain: true, bevel: .006});
-  for (const x of [-.457, -.119, .244]) b.box([x, .482, .285], [.046, .76, .035], oak);
-  for (const x of [-.287, .061]) border(b, x, .482, .273, .245, .60);
-  for (const y of [.142, .876]) {
-    b.box([-.108, y, .287], [.782, .046, .041], oak, {grain: true});
-    b.box([.282, y, -.098], [.043, .046, .796], oak);
-  }
-  for (const z of [-.454, -.092, .246]) b.box([.285, .48, z], [.035, .76, .041], oak);
+  b.plate([0, .925, 0], outline, .049, wood, {rotation: [Math.PI / 2, 0, 0], grain: true, bevel: .006});
+  for (const x of [-.288, .07]) b.face([x, .465, .271], [.35, .706], 'panel-green');
+  for (const z of [-.293, .068]) b.face([.2745, .465, z], [.345, .706], 'panel-green', {rotation: [0, Math.PI / 2, 0]});
+  corniceRun(b, [[-.499, .271], [.2745, .271], [.2745, -.499]],
+    {top: .899, rise: .062, depth: .026, caps: false});
 }
 
 function displayCase(b) {
@@ -62,17 +50,16 @@ function displayCase(b) {
 
 const shelves = [.248, .697, 1.154, 1.602];
 function cabinetFrame(b, y = 1.91) {
-  b.box([0, y / 2, -.466], [.974, y, .051], green);
-  for (const x of [-.466, .466]) {
-    b.box([x, y / 2, -.221], [.060, y, .50], oak);
-    b.box([x, y / 2, .044], [.065, y, .04], trim);
-  }
-  b.box([0, .083, -.222], [.998, .166, .545], trim);
-  b.soft([0, y + .021, -.222], [.998, .084, .552], oak, .01, {grain: true});
-  b.box([0, y - .034, .051], [.994, .025, .043], trim, {grain: true});
+  b.box([0, y / 2, -.466], [.974, y, .051], green, agedGreen);
+  for (const x of [-.457, .457]) b.box([x, y / 2, -.218], [.059, y, .499], wood, {shade: .67});
+  b.box([0, .072, -.219], [.993, .144, .547], trim);
+  b.soft([0, y + .034, -.222], [.998, .058, .552], wood, .01, {grain: true, shade: .74});
+  corniceRun(b, [[-.485, -.463], [-.485, .031], [.485, .031], [.485, -.463]],
+    {top: y + .005, rise: .091, depth: .014, paint: 'dentil-walnut'});
 }
+
 function shelf(b, y, d = .45) {
-  b.box([0, y - .018, -.451 + d / 2], [.886, .036, d], oak, {grain: true});
+  b.box([0, y - .018, -.451 + d / 2], [.886, .036, d], wood, {grain: true});
   b.box([0, y - .025, -.441 + d], [.894, .052, .032], trim, {grain: true});
 }
 
@@ -108,12 +95,7 @@ function apothecary(b) {
   cabinetFrame(b);
   b.box([0, .555, -.234], [.874, .846, .422], trim);
   for (const y of [.256, .447, .638, .829]) for (const x of [-.335, -.112, .112, .335]) {
-    b.soft([x, y, -.012], [.208, .174, .043], oak, .004);
-    border(b, x, y, .010, .182, .142);
-    b.box([x, y + .031, .012], [.083, .028, .005], 'brass', {shade: .69});
-    b.box([x, y + .031, .016], [.067, .016, .002], 'paper');
-    b.turn([x, y - .024, .026], [[-.006, 0], [-.006, .013], [.006, .014], [.011, 0]], 'brass',
-      {small: true, rotation: [Math.PI / 2, 0, 0]});
+    b.face([x, y, -.022], [.207, .174], 'drawer-walnut');
   }
   for (const y of [1.004, 1.443]) {
     shelf(b, y);
@@ -125,10 +107,10 @@ function apothecary(b) {
 
 function dryBins(b) {
   for (const x of [-.457, .457]) for (const z of [-.365, .331]) b.box([x, .346, z], [.056, .692, .061], trim);
-  b.box([0, .461, -.035], [.973, .071, .785], oak);
+  b.box([0, .461, -.035], [.973, .071, .785], wood);
   for (const x of [-.47, -.16, .16, .47]) {
     const side = [[-.389, .447], [.412, .447], [.412, .921], [.284, .921], [-.389, .67]];
-    b.plate([x, 0, 0], side, .04, oak, {rotation: [0, Math.PI / 2, 0]});
+    b.plate([x, 0, 0], side, .04, wood, {rotation: [0, Math.PI / 2, 0]});
   }
   b.box([0, .701, -.405], [.968, .444, .042], green);
   b.box([0, .557, .388], [.969, .217, .042], green);
@@ -136,7 +118,7 @@ function dryBins(b) {
     b.soft([x, .548, -.033], [.272, .117, .560], x > 0 ? 'canvas' : 'leather', .025);
     for (let i = 0; i < 5; i++) {
       b.turn([x + (i % 2 ? .056 : -.035), .57, -.204 + i * .071],
-        [[0, .041], [.028, .057], [.074, .052], [.083, .032], [.083, 0]], x > 0 ? 'ceramic' : 'oak', {small: true});
+        [[0, .041], [.028, .057], [.074, .052], [.083, .032], [.083, 0]], x > 0 ? 'ceramic' : 'walnut', {small: true});
     }
   }
   for (const x of [-.315, 0, .315]) {
@@ -148,10 +130,10 @@ function dryBins(b) {
 function boltRack(b) {
   for (const x of [-.45, .45]) {
     b.box([x, .581, -.341], [.064, 1.162, .067], trim);
-    b.box([x, .137, -.017], [.068, .274, .786], oak);
+    b.box([x, .137, -.017], [.068, .274, .786], wood);
   }
-  b.soft([0, .302, -.024], [.96, .065, .791], oak, .009);
-  b.box([0, .998, -.336], [.908, .144, .058], oak, {grain: true});
+  b.soft([0, .302, -.024], [.96, .065, .791], wood, .009);
+  b.box([0, .998, -.336], [.908, .144, .058], wood, {grain: true});
   b.box([0, .422, .366], [.919, .134, .055], trim, {grain: true});
   for (const [i, x] of [-.337, -.117, .112, .333].entries()) {
     const rotation = [-.29, 0, .07 * (i - 1)];

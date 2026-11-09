@@ -19,6 +19,8 @@ function room(x, w, door) {
 room(4, 8, 7);
 room(12, 6, 15);
 room(18, 8, 21);
+for (let x = 5; x <= 11; x++) delete map.edges[edgeKey('s', x, 14, 0)];
+for (const y of [13, 14]) delete map.edges[edgeKey('e', 11, y, 0)];
 for (let x = 18; x <= 25; x++) map.edges[edgeKey('s', x, 9, 0)] = x === 21 ? 'door' : 'wall-brick';
 map.starts = [{x:9,y:18,z:0}, {x:10,y:18,z:0}, {x:9,y:19,z:0}, {x:10,y:19,z:0}];
 map.exits = [{x:25,y:19,z:0}];
@@ -26,8 +28,12 @@ map.exits = [{x:25,y:19,z:0}];
 const layout = [
   ['reflector-sconce-lit',4,6], ['shelf-stocked',5,6], ['shelf-empty',6,6], ['shelf-stocked',7,6],
   ['scale-counter',5,9], ['counter',6,9], ['glass-case',7,9], ['corner-counter',8,9], ['counter',8,8,90],
-  ['bolt-rack',10,7], ['dry-bin',10,11], ['shop-pendant-lit',7,11], ['entry-lantern-lit',9,15],
-  ['reflector-sconce-unlit',12,6], ['apothecary',13,6], ['apothecary',14,6], ['shelf-stocked',15,6],
+  ['bolt-rack',10,7], ['dry-bin',10,11], ['shop-pendant-lit',7,11], ['entry-lantern-lit',17,15], ['hanging-sign-goods',4,15],
+  ['hanging-sign-apothecary',12,15], ['hanging-sign-blank',18,15],
+  ['shop-window',5,14], ['shop-window',6,14], ['shop-entry',7,14], ['shop-window',8,14],
+  ['shop-window',9,14], ['shop-window',10,14], ['shop-corner',11,14], ['shop-window',11,13,270],
+  ['room-cornice-corner',12,6], ['room-cornice',13,6], ['room-cornice',12,7,270],
+  ['apothecary',14,6], ['shelf-stocked',15,6], ['apothecary',16,6], ['reflector-sconce-unlit',17,6],
   ['glass-case',13,9], ['counter',14,9], ['scale-counter',15,9], ['shop-pendant-unlit',15,11],
   ['hand-lantern-lit',16,13], ['entry-lantern-unlit',16,15],
   ['bedstead',19,6], ['dresser',22,6], ['washstand',24,6], ['rocker',18,7,270],

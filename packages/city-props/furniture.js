@@ -1,3 +1,5 @@
+import {corniceRun} from './trim.js';
+
 const TAU = Math.PI * 2;
 const wood = 'walnut', black = 'ebony';
 
@@ -103,10 +105,9 @@ export function pedestal(b, y = .747) {
 }
 
 function drawer(b, x, y, z, w, h) {
-  b.soft([x, y, z], [w, h, .031], wood, .006);
-  inlay(b, x, y, z + .017, w - .024, h - .021);
-  b.box([x, y, z + .022], [.065, .028, .011], 'brass', {shade: .71});
-  b.ring([x, y - .005, z + .039], .018, .004, 'brass');
+  b.face([x, y, z], [w, h], 'panel-walnut');
+  b.box([x, y, z + .005], [.065, .028, .009], 'brass', {shade: .71});
+  b.ring([x, y - .005, z + .019], .018, .004, 'brass');
 }
 
 function cabinet(b, washstand) {
@@ -115,13 +116,12 @@ function cabinet(b, washstand) {
   b.box([0, (h + .13) / 2, 0], [.82, h - .13, .516], wood);
   b.soft([0, h + .027, 0], [.881, .054, .565], washstand ? 'marble' : wood, .009);
   b.box([0, .152, .015], [.864, .056, .535], black);
-  const z = .269;
+  const z = .259;
   if (washstand) {
     for (const x of [-.19, .19]) {
       drawer(b, x, .565, z, .354, .144);
-      b.soft([x, .339, z], [.352, .262, .028], wood, .006);
-      inlay(b, x, .339, z + .016, .28, .198);
-      fan(b, x, .29, z + .017, .064);
+      b.face([x, .339, z], [.352, .262], 'panel-walnut');
+      fan(b, x, .29, z + .001, .064);
       b.ring([x - Math.sign(x) * .09, .414, z + .034], .015, .004, 'brass');
     }
     b.soft([0, .809, -.238], [.861, .141, .058], 'marble', .007);
@@ -131,6 +131,8 @@ function cabinet(b, washstand) {
       [.135, .047], [.172, .049], [.181, .056], [.189, .055], [.188, .04], [.144, .035]], 'ceramic');
     b.sweep([[.269, .908, -.035], [.32, .91, -.035], [.332, .87, -.035], [.282, .831, -.035]], .012, 'ceramic');
   } else {
+    corniceRun(b, [[-.408, -.253], [-.408, .259], [.408, .259], [.408, -.253]],
+      {top: h, rise: .043, depth: .019, paint: 'dentil-walnut'});
     for (const y of [.269, .477, .684]) {
       drawer(b, -.176, y, z, .33, .183);
       drawer(b, .176, y, z, .33, .183);

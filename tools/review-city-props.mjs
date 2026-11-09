@@ -1,11 +1,23 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import {CITY_PROPS} from '../packages/city-props/index.js';
 import {withArtReview, projectRoot} from './art-review-browser.mjs';
 
 const owner = '01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3';
 const sample = path.join(projectRoot, 'assets/city-props/workshop-sample.json');
-const output = 'city-props-review-' + new Date().toISOString().replace(/[^0-9]/g, '');
+const sampleCount = JSON.parse(fs.readFileSync(sample)).props.length;
+const {aft} = JSON.parse(fs.readFileSync(path.join(projectRoot, 'upstream.json')));
+const sceneryRoot = aft.root + '/dist/tactics/';
+for (const name of ['scenery-catalog.js', 'scenery-scene.js']) {
+  const original = fs.readFileSync(path.join(projectRoot, sceneryRoot, name));
+  const built = fs.readFileSync(path.join(projectRoot, 'dist', sceneryRoot, name));
+  assert.ok(built.equals(original), 'A standalone editor scenery input changed: ' + name);
+}
+const catalogueURL = '/' + sceneryRoot + 'scenery-catalog.js';
+const recognisesCity = (page) => page.evaluate(async url =>
+  (await import(url)).isScenery({kind: 'city1880-hanging-sign-goods'}), catalogueURL);
+const output = 'city-props-frontage-review-' + new Date().toISOString().replace(/[^0-9]/g, '');
 await withArtReview('1880s art and native Workshop placement', async ({page, baseURL, out, browser, errors, failedRequests}) => {
   const capture = (file, selector) => selector
     ? page.locator(selector).screenshot({path: path.join(out, file), animations: 'disabled'})
@@ -16,13 +28,21 @@ await withArtReview('1880s art and native Workshop placement', async ({page, bas
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto(baseURL + '/examples/city-props.html');
   await page.waitForFunction(() => document.documentElement.dataset.cityPropsReady === 'true');
+  assert.equal(await recognisesCity(page), false, 'The gallery sees the standalone registry.');
+  await capture('storefront.png', 'canvas');
+  await page.locator('#specimen').selectOption('city1880-hanging-sign-goods');
+  await capture('hanging-sign.png', 'canvas');
+  await page.locator('[data-mode="front"]').click();
+  await page.locator('#specimen').selectOption('city1880-room-cornice-corner');
+  await capture('dentil-corner.png', 'canvas');
+  await page.locator('[data-mode="street"]').click();
   await capture('bell-and-alder.png', 'canvas');
   for (const [mode, file] of [['furniture','eastlake.png'],['shop','shop-fixtures.png'],['lamps','oil-lighting.png']]) {
     await page.locator('[data-mode="' + mode + '"]').click();
     await capture(file, 'canvas');
   }
   await page.locator('#specimen').selectOption('city1880-reflector-sconce-lit');
-  assert.equal(await page.locator('#assets a').count(), 3);
+  assert.equal(await page.locator('#assets a').count(), 4);
   for (const link of await page.locator('#assets a').all()) {
     const response = await page.request.get(await link.getAttribute('href'));
     assert.ok(response.ok(), 'Individual model files must resolve.');
@@ -35,6 +55,7 @@ await withArtReview('1880s art and native Workshop placement', async ({page, bas
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto(baseURL + '/');
   await waitEditor();
+  assert.equal(await recognisesCity(page), true, 'The Workshop import map loads the extended registry.');
   await page.evaluate(async () => {
     const {blankMap} = await import('/packages/map-core/index.js');
     await window.nautilus.open(blankMap('Bell & Alder placement review'));
@@ -43,7 +64,7 @@ await withArtReview('1880s art and native Workshop placement', async ({page, bas
   });
   await page.locator('#nautilus-assets').click();
   await page.locator('#asset-category').selectOption('1880s City');
-  assert.equal(await page.locator('#asset-results button[data-asset]').count(), 28);
+  assert.equal(await page.locator('#asset-results button[data-asset]').count(), CITY_PROPS.length);
   await page.locator('#asset-search').fill('Eastlake dining');
   assert.equal(await page.locator('#asset-results button[data-asset]').count(), 1);
   await page.locator('#asset-results button[data-asset]').click();
@@ -105,9 +126,9 @@ await withArtReview('1880s art and native Workshop placement', async ({page, bas
   assert.equal(await state(), placed, 'File import should retain the city prop record.');
   if (!await page.locator('#editor-settings').evaluate(el => el.open)) await page.locator('#settings-button').click();
   await importFile(sample);
-  await page.waitForFunction(() => window.editor3d.document.map.props.length === 36 && !window.editor3d.loading);
+  await page.waitForFunction(count => window.editor3d.document.map.props.length === count && !window.editor3d.loading, sampleCount);
   if (await page.locator('#editor-settings').evaluate(el => el.open)) await page.locator('#close-settings').click();
-  await page.waitForFunction(() => window.editor3d.scene.sceneryAssets.items.size === 36);
+  await page.waitForFunction(count => window.editor3d.scene.sceneryAssets.items.size === count, sampleCount);
   await page.evaluate(() => {
     Object.assign(window.editor3d.view, {x: 14.4, y: 11.3, span: 22, preset: '0'});
     window.editor3d.scene.changed();
@@ -127,7 +148,7 @@ await withArtReview('1880s art and native Workshop placement', async ({page, bas
   assert.deepEqual(review.validation, []);
   assert.deepEqual(review.diagnostics, []);
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify({status: 'pass', browser: browser.version(),
-    galleryCollections: 4, phoneWidth: 390, placement, rotatedBlock: block.turned, undoRedo: true, saveReload: true,
-    fileRoundtrip: true, review, errors, failedRequests}, null, 2) + '\n');
+    galleryCollections: 5, phoneWidth: 390, placement, rotatedBlock: block.turned, undoRedo: true, saveReload: true,
+    fileRoundtrip: true, workshopSceneryIsolation: true, review, errors, failedRequests}, null, 2) + '\n');
   console.log(JSON.stringify({status: 'pass', placements: review.placements, models: review.models, out}));
 }, {owner, output, timeoutMs: 210000});
