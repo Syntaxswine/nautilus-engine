@@ -49,7 +49,7 @@ export function distribution(profile = 'compatibility') {
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-stack-core/README.md','packages/tile-stack-core/api.d.ts','packages/tile-stack-core/source.json');
   if(profile!=='assets')extras.push('packages/tile-finishes/README.md','packages/tile-finishes/source.json','docs/stacked-tiles.md');
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-authoring-core/index.d.ts','packages/tile-authoring-core/contract.schema.json','packages/tile-authoring-core/README.md','packages/tile-authoring-core/source.json','docs/tile-authoring.md');
-  extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md');
+  extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md','docs/railway-track-kit.md');
   if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
   if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();

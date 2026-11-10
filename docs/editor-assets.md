@@ -4,7 +4,7 @@ The editor owns asset discovery, visual consistency, preview and placement bindi
 
 ## Current library
 
-The Asset library button opens a searchable catalog derived from the same terrain, prop, edge, character-model and foliage registries used by the editor. It currently contains 344 entries: 341 placeable assets and three character models available for preview only. Categories cover terrain, objects, roofs, boundaries, people, foliage, cliffs and ramps. Character previews also expose the current weapon and outfit choices, including the donkey's Hawaiian shirt.
+The Asset library button opens a searchable catalog derived from the same terrain, prop, edge, character-model and foliage registries used by the editor. It contains 346 entries, including 341 placeable assets, three preview-only character models and two preview-only [railway pieces](railway-track-kit.md). Categories cover terrain, railway, objects, roofs, boundaries, people, foliage, cliffs and ramps. Character previews also expose the current weapon and outfit choices, including the donkey's Hawaiian shirt.
 
 Bull, rabbit and dog models are already present in the reviewed renderer snapshot, but its portable map schema rejects those species. They are labeled **Preview only**, and placement stays disabled. Supporting them in saved maps needs a separate format/consumer compatibility decision. Existing map/block formats and consumer capabilities have not been expanded by the library.
 

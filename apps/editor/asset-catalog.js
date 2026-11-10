@@ -9,8 +9,9 @@ import {roofLabel} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a56
 import {FOLIAGE_PRESETS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js';
 import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js';
 import {ANIMAL_MOTION_CATALOG} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js';
+import {RAIL_TRACK_ASSETS} from '../../packages/railway-visuals/catalogue.js';
 
-export const ASSET_CATEGORIES = ['Terrain', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
+export const ASSET_CATEGORIES = ['Terrain', 'Railway', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
 const readable = id => id.replaceAll('-', ' ').replace(/^./, c => c.toUpperCase());
 const label = (id, name) => name && name !== id ? name : readable(id);
 
@@ -19,6 +20,11 @@ const label = (id, name) => name && name !== id ? name : readable(id);
 export function editorAssets() {
   const assets = GROUNDS.map(id => ({id, category:'Terrain', name:label(id, BIOME_TERRAIN_NAMES[id] || roadLabel(id)), tool:'texture', bindings:{'ground-kind':id}, w:1, h:1}));
   for (const id of ['floor', 'water', 'bridge']) assets.push({id, category:'Terrain', name:readable(id), tool:id, bindings:{}, w:1, h:1});
+  for (const piece of RAIL_TRACK_ASSETS) assets.push({
+    id: piece.id.slice('railway:'.length), category: piece.category, name: piece.name,
+    w: piece.dimensions.width, h: piece.dimensions.depth, railwayPiece: piece.id,
+    disabled: 'Preview only in Map Workshop. Use the shared railway renderer to assemble these pieces in a game.'
+  });
   for (const [id, rule] of Object.entries(PROPS)) {
     let category = id.startsWith('roof-') ? 'Roofs' : rule.cliff ? 'Cliffs' : rule.ramp || id.startsWith('rampbank-') ? 'Ramps' : 'Objects';
     let tool = category === 'Roofs' ? 'roof-tile' : category === 'Cliffs' ? 'cliff' : 'prop';

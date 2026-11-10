@@ -2,6 +2,7 @@
 import {loadGrossHousing,createGrossHouse} from '../../vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js';
 import {createOriginalBuildingProvider} from '../prefab-core/provider-original.js';
 import {buildingAsset} from '../prefab-core/registry.js';
+export {createRailwayKit} from '../railway-visuals/three.js';
 export async function loadBuildingAssets(THREE,{renderer,providers=['original','gross'],loadTexture}={}) {
  if(!THREE?.Group||!Array.isArray(providers)||!providers.length||providers.some(id=>!['original','gross'].includes(id))||new Set(providers).size!==providers.length)throw Error('Supply Three and distinct supported building providers.');
  const original=createOriginalBuildingProvider(THREE,loadTexture?{loadTexture}:{}),libraries=new Map(),instances=new Set();let disposed=false;

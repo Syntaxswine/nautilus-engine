@@ -21,7 +21,7 @@ export function checkEditorAssets(root, sources, tracked = null) {
   const requireDeclared = target => {if (!declared.has(target) || !fs.existsSync(target)) throw Error('Editor dependency is outside the reviewed source manifest: ' + target);};
   for (const asset of assets) {
     const key = asset.category + ':' + asset.id;
-    if (keys.has(key) || !asset.tool || !asset.name || !asset.w || !asset.h) throw Error('Invalid editor asset: ' + key);
+    if (keys.has(key) || (!asset.tool && !asset.disabled) || !asset.name || !asset.w || !asset.h) throw Error('Invalid editor asset: ' + key);
     keys.add(key);
   }
   for (const name of fs.readdirSync(path.join(root,'apps/editor')).filter(name => name.endsWith('.js'))) {

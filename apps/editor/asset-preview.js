@@ -23,7 +23,7 @@ export function assetPreview(asset, appearance = {}) {
     units.push(unit); map.guards.push(unit);
   } else if (asset.category === 'Foliage') {
     paintFoliage(map,{tool:'foliage-cover',start:{x,y,z:0},end:{x:x+w-1,y:y+h-1,z:0},options:{foliagePreset:asset.id,foliageDensity:65,foliageTreeCover:'brush-v1'}},24);
-  } else {
+  } else if (!asset.railwayPiece) {
     const prop = {kind:asset.id,x,y,z:0}; map.props.push(prop);
     if (asset.tool === 'ramp') {
       const r = rampInfo(prop); setTerrain(map,r.exit.x,r.exit.y,1,'ground-grass');
@@ -31,5 +31,6 @@ export function assetPreview(asset, appearance = {}) {
     }
   }
   const span = Math.max(5,w+2,h+2) * 1.45;
-  return {document:{map,size:24,units,block:true}, view:{x:x+(w-1)/2,y:y+(h-1)/2,span,preset:'0'}};
+  return {document:{map,size:24,units,block:true}, view:{x:x+(w-1)/2,y:y+(h-1)/2,span,preset:'0'},
+    ...(asset.railwayPiece && {railway:{id:asset.railwayPiece,x:x+.5,z:y-.5}})};
 }

@@ -7097,5 +7097,99 @@ export const SHARED_ASSETS = [
       "contentDigest": "f4a4be1838dd903fc8877aeed7f0b274e055ca5fd1fa9c55b912e6c4c20a49f6"
     },
     "note": "Default decorative footprint only. Exact canonical albedo/alpha artwork; actual packaged PNG bytes, verified decoder/resource leases and supported surface compositor remain host-bound. No geometry or gameplay is implied."
+  },
+  {
+    "id": "railway:track-straight",
+    "name": "Rail track · Straight",
+    "category": "Railway",
+    "radiusM": null,
+    "lengthM": 2,
+    "dimensions": {
+      "width": 2,
+      "depth": 2,
+      "height": 0.43,
+      "metresPerUnit": 1
+    },
+    "ports": {
+      "start": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "outward": [
+          0,
+          -1
+        ]
+      },
+      "end": {
+        "position": [
+          0,
+          2,
+          0
+        ],
+        "outward": [
+          0,
+          1
+        ]
+      }
+    },
+    "source": {
+      "project": "nautilus",
+      "profile": "nautilus.railway.branch-line",
+      "version": 1
+    },
+    "availability": "shared-railway-renderer",
+    "entry": "./assets/three",
+    "factory": "createRailwayKit",
+    "guide": "docs/railway-track-kit.md",
+    "note": "Rounded gravel bed, timber ties and steel rails. The host owns train routes, collision and map placement."
+  },
+  {
+    "id": "railway:track-quarter-curve",
+    "name": "Rail track · Quarter curve",
+    "category": "Railway",
+    "radiusM": 4,
+    "lengthM": 6.283185307179586,
+    "dimensions": {
+      "width": 5,
+      "depth": 5,
+      "height": 0.43,
+      "metresPerUnit": 1
+    },
+    "ports": {
+      "start": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "outward": [
+          0,
+          -1
+        ]
+      },
+      "end": {
+        "position": [
+          4,
+          4,
+          0
+        ],
+        "outward": [
+          1,
+          0
+        ]
+      }
+    },
+    "source": {
+      "project": "nautilus",
+      "profile": "nautilus.railway.branch-line",
+      "version": 1
+    },
+    "availability": "shared-railway-renderer",
+    "entry": "./assets/three",
+    "factory": "createRailwayKit",
+    "guide": "docs/railway-track-kit.md",
+    "note": "Rounded gravel bed, timber ties and steel rails. The host owns train routes, collision and map placement."
   }
 ];
