@@ -20,7 +20,9 @@ The pivot is the centre of the start connector at ground height. Asset cards giv
 
 A 45° turn uses about 1.66 m of each approach and a 90° turn uses 4 m. An approach shared by two turns needs room for both. The tool keeps the 4 m radius and identifies the approach to lengthen if it cannot fit. The clearance check reserves the 2 m ballast and a conservative margin around its ends. Keep it on clear, flat ground away from objects, walls, wet ground, land relief and other track beds. Separate routes cannot cross, touch or connect.
 
-Each route saves an ID and its ordered waypoint pairs in the optional `railwayRoutes` v1 map extension. A full map can hold up to 64 routes with up to 48 waypoints and 480 m per route, and up to 1,200 m of fitted track in total. The engine advertises `nautilus-railway-routes-v1` on maps that contain track. Blocks, connected map generation on a railway-bearing map, and sector variant publishing require their own railway support. The portable map and named Design save preserve the full track. Switches, rail crossings, gradients and train gameplay are outside this profile.
+To branch off a placed route, choose **Railway action → Add split**. Click a straight section and then a branch endpoint 45° from the main line. **Place split** keeps the through track and adds a branch with longer switch ties and a rail gap where the inside branch rail meets the through rail. The split needs 2.16 m of straight track behind the chosen point, 4 m ahead and a branch endpoint at least 4 m away. Use Undo or select the route in **Add split** and choose **Remove split**.
+
+Each route saves an ID and its ordered waypoint pairs in the optional `railwayRoutes` map extension. Plain routes use version 1. A map with a split uses version 2 and adds `turnout: {at, end}` to the parent route. This first split supports one branch per route on level ground. A full map can hold up to 64 routes with up to 48 waypoints and 480 m per route including its branch, and up to 1,200 m of fitted track in total. A game that accepts splits must advertise both `nautilus-railway-routes-v1` and `nautilus-railway-turnouts-v1`. Block capture, connected generation, and sector publishing require their own railway support. The portable map and named Design save preserve the full track. The split is a static asset for authoring.
 
 ## Use in a game
 
@@ -43,7 +45,7 @@ scene.add(incoming.root, curve.root, outgoing.root);
 // track.dispose();
 ```
 
-For a saved route, call `track.createRoute(route.waypoints)` and add its root to the scene. Route roots use the authored map coordinates directly, with ground at Three Y = 0. The headless `planRailwayRoute(waypoints)` export from map-core describes the same straight and circular spans. Each route uses one sweep per component, so the rail sections, gravel texture and tie spacing continue through every tangent join.
+For a saved route, call `track.createRoute(route.waypoints, route.turnout)` and add its root to the scene. Route roots use the authored map coordinates directly, with ground at Three Y = 0. Use `planRailwayRoute(waypoints)` and, for a split, `planRailwayTurnout(mainPlan, turnout)` from map-core for the fitted geometry. Each route uses continuous sweeps, so the rails, gravel texture and tie spacing follow the tangent joins.
 
 The kit creates two procedural texture maps and shares geometries and materials across segment instances. Ties and tie plates are instanced. The kit owns those resources and removes its live roots on disposal. The host owns its renderer, scene, transforms and serialized placements. An unknown asset ID throws before a segment is created.
 

@@ -4,7 +4,7 @@ import {
   blankMap, createMapDocument, createBlockDocument, openDocument, validateMap, parseMap,
   createSave, parseSave, serializeSave, engineManifest, requiredMapFeatures, describeBlueprint,
   validateBlock, extractBlock, placeBlock, openBlock, rotateSceneryBlock, generateConnectedMap,
-  planRailwayRoute, railwayStationAt, snapRailwayWaypoint, RAILWAY_ROUTE_FEATURE
+  planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE
 } from '@nautilus-engine/map-core';
 import {sendMapToGame} from '../apps/editor/game-handoff.js';
 import {createTinderboxScene} from '../packages/adapters/tinderbox/index.js';
@@ -127,4 +127,56 @@ test('old maps retain their shape and unsupported block, generation and consumer
     error.code === 'UNSUPPORTED_CAPABILITY' && /nautilus-railway-routes-v1/.test(error.message));
   const opened = sendMapToGame(json, {features: [RAILWAY_ROUTE_FEATURE], openMap: payload => JSON.parse(payload.json)});
   assert.deepEqual(opened.railwayRoutes, envelope());
+});
+
+test('a split leaves the main line intact, mirrors in either direction, and needs enough straight track', () => {
+  const plan = planRailwayRoute([[50, 65], [78, 65]]);
+  for (const [end, sign, forward] of [[[72, 75], 1, 1], [[72, 55], -1, 1], [[52, 75], -1, -1]]) {
+    const split = planRailwayTurnout(plan, {at: [62, 65], end});
+    const {spans, stations} = split.plan;
+    assert.deepEqual(split.incoming.map(n => n || 0), [forward, 0]);
+    close(spans[0].turn, sign * Math.PI / 4);
+    close(stations[0].z, 65);
+    close(stations[0].s, forward);
+    close(stations[0].c, 0);
+    assert.deepEqual([stations.at(-1).x, stations.at(-1).z], end);
+  }
+  assert.throws(() => planRailwayTurnout(plan, {at: [51, 65], end: [61, 75]}), /straight track behind/);
+  assert.throws(() => planRailwayTurnout(plan, {at: [62, 65], end: [62, 75]}), /leaves the main line at 45°/);
+});
+
+test('a split is one undoable save change with its own capability and respects other tracks', () => {
+  const doc = createMapDocument();
+  const points = [[50, 65], [78, 65]], turnout = {at: [62, 65], end: [72, 75]};
+  assert.ok(doc.apply(command(points)).ok);
+  const plain = doc.export();
+  assert.deepEqual(JSON.parse(plain).railwayRoutes, envelope(points));
+  const split = {tool: 'railway-turnout', start: {z: 0}, options: {id: 'rail-1', turnout}};
+  assert.ok(doc.apply(command([[62, 72], [82, 72]])).ok);
+  const before = doc.export(), history = doc.editor.undo.length;
+  assert.match(doc.apply(split).error, /crosses or is too close/);
+  assert.equal(doc.export(), before);
+  assert.equal(doc.editor.undo.length, history);
+  assert.ok(doc.undo());
+
+  const preview = doc.preview(split);
+  assert.equal(preview.railwayPreview.replaces, 'rail-1');
+  assert.equal(doc.export(), plain);
+  assert.ok(doc.apply(split).ok);
+  const saved = doc.export();
+  const data = {version: 2, routes: [{id: 'rail-1', waypoints: points, turnout}]};
+  assert.deepEqual(doc.map.railwayRoutes, data);
+  assert.deepEqual(openDocument(saved).map.railwayRoutes, data);
+  assert.deepEqual(parseSave(serializeSave(createSave(saved))).payload.data.railwayRoutes, data);
+  assert.equal(doc.inspect(71, 74).data.id, 'rail-1');
+  assert.deepEqual(requiredMapFeatures(doc.map), [RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE]);
+  assert.throws(() => sendMapToGame(saved, {
+    features: [RAILWAY_ROUTE_FEATURE], openMap: () => assert.fail('Old railway host accepted a split.')
+  }), /nautilus-railway-turnouts-v1/);
+  assert.ok(doc.undo());
+  assert.equal(doc.export(), plain);
+  assert.ok(doc.redo());
+  assert.equal(doc.export(), saved);
+  assert.ok(doc.apply({tool: 'erase-railway-turnout', start: {z: 0}, options: {id: 'rail-1'}}).ok);
+  assert.equal(doc.export(), plain);
 });

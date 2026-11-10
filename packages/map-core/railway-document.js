@@ -14,7 +14,7 @@ export class EditingDocument extends Legacy {
 
   preview(command) {
     try {
-      if (command?.tool !== 'railway-route' && command?.tool !== 'erase-railway-route') {
+      if (!['railway-route', 'erase-railway-route', 'railway-turnout', 'erase-railway-turnout'].includes(command?.tool)) {
         const result = super.preview(command);
         if (result.ok) assertRailwayRoutes(result.map);
         return result;
@@ -22,6 +22,20 @@ export class EditingDocument extends Legacy {
       if (this.block) throw new Error('Railway routes are available in a full map. Open the full map workspace.');
       if (command.start?.z !== 0) throw new Error('Railway routes need the ground layer. Select level 1.');
       const map = structuredClone(this.editor.map), routes = railwayRoutesOf(map), {id, waypoints} = command.options ?? {};
+      if (command.tool === 'railway-turnout' || command.tool === 'erase-railway-turnout') {
+        const route = routes.find(item => item.id === id);
+        if (!route) throw new Error('Choose a straight section of a placed railway route.');
+        if (command.tool === 'erase-railway-turnout') {
+          if (!route.turnout) throw new Error('The selected route has no split.');
+          delete route.turnout;
+          setRailwayRoutes(map, routes);
+          return {ok: true, map, cells: [], edges: []};
+        }
+        route.turnout = structuredClone(command.options.turnout);
+        setRailwayRoutes(map, routes);
+        const {turnout} = assertRailwayRoutes(map).find(item => item.id === id);
+        return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: turnout.plan, replaces: id}};
+      }
       if (command.tool === 'erase-railway-route') {
         if (!routes.some(route => route.id === id)) throw new Error('Select an existing railway route.');
         setRailwayRoutes(map, routes.filter(route => route.id !== id));
@@ -47,7 +61,7 @@ export class EditingDocument extends Legacy {
   inspect(x, y, z = 0, options = {}) {
     if (z === 0 && [undefined, 'auto', 'prop'].includes(options.mode)) {
       const route = railwayRouteAt(this.map, x, y);
-      if (route) return {x, y, z, type: 'railway-route', label: 'Railway · ' + route.id,
+      if (route) return {x, y, z, type: 'railway-route', label: (route.turnout ? 'Railway with split · ' : 'Railway · ') + route.id,
         data: structuredClone(route), cells: []};
     }
     return super.inspect(x, y, z, options);

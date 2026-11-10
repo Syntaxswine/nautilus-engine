@@ -3,9 +3,9 @@ import {InspectionScene as Legacy} from './roof-scene.js';
 import {railwayRoutesOf} from '../../packages/map-core/railway-routes.js';
 import {RAIL_TRACK_PROFILE} from '../../packages/railway-visuals/catalogue.js';
 import {createRailwayKit} from '../../packages/railway-visuals/three.js';
-import {planRailwayRoute} from '../../packages/railway-visuals/route.js';
+import {planRailwayRoute, planRailwayTurnout} from '../../packages/railway-visuals/route.js';
 
-const signatureOf = route => JSON.stringify(route.waypoints);
+const signatureOf = route => JSON.stringify([route.waypoints, route.turnout]);
 const markerHeight = RAIL_TRACK_PROFILE.railTopM + .045;
 
 export class InspectionScene extends Legacy {
@@ -22,7 +22,7 @@ export class InspectionScene extends Legacy {
 
   makeRailway(route) {
     this.railwayKit ??= createRailwayKit(T);
-    const model = this.railwayKit.createRoute(route.waypoints);
+    const model = this.railwayKit.createRoute(route.waypoints, route.turnout);
     model.root.userData.routeId = route.id;
     this.scene.add(model.root);
     return {model, signature: signatureOf(route)};
@@ -42,8 +42,13 @@ export class InspectionScene extends Legacy {
         entry = this.makeRailway(route);
         this.railwayModels.set(route.id, entry);
       }
-      entry.model.root.visible = this.options.showAllLevels !== false || !this.options.level;
     }
+    this.syncRailwayVisibility();
+  }
+
+  syncRailwayVisibility() {
+    const visible = this.options.showAllLevels !== false || !this.options.level;
+    for (const [id, entry] of this.railwayModels) entry.model.root.visible = visible && id !== this.railwayReplacement;
   }
 
   rebuild() { super.rebuild(); this.updateRailway(); }
@@ -59,6 +64,8 @@ export class InspectionScene extends Legacy {
       this.railwayGhost = route ? this.makeRailway(route) : null;
       if (this.railwayGhost) this.railwayGhost.model.root.name = 'Railway route preview';
     }
+    this.railwayReplacement = route && result.railwayPreview.replaces;
+    this.syncRailwayVisibility();
     const points = result?.railwayWaypoints ?? [], signature = JSON.stringify(points);
     if (signature !== this.railwayMarksSignature) {
       this.railwayMarksSignature = signature;
@@ -76,8 +83,10 @@ export class InspectionScene extends Legacy {
   select(selection) {
     super.select(selection);
     if (selection?.type !== 'railway-route') return;
-    const {segments} = planRailwayRoute(selection.data.waypoints);
-    const vertices = segments.flatMap(({a, b}) => [a[0], markerHeight, a[1], b[0], markerHeight, b[1]]);
+    const plan = planRailwayRoute(selection.data.waypoints);
+    const turnout = selection.data.turnout && planRailwayTurnout(plan, selection.data.turnout);
+    const vertices = [...plan.segments, ...(turnout?.plan.segments ?? [])]
+      .flatMap(({a, b}) => [a[0], markerHeight, a[1], b[0], markerHeight, b[1]]);
     this.highlight.geometry.dispose();
     this.highlight.geometry = new T.BufferGeometry().setAttribute('position', new T.Float32BufferAttribute(vertices, 3));
     this.highlight.material.color.setHex(0xffe5a5);

@@ -1,12 +1,15 @@
 import {RAIL_TRACK_ASSETS, RAIL_TRACK_PROFILE} from './catalogue.js';
 import {ballastPaint, tiePaint} from './paint.js';
-import {planRailwayRoute, railwayStationAt} from './route.js';
+import {assertRailwaySeparation, planRailwayRoute, planRailwayTurnout, railwayStationAt, RAILWAY_RADIUS_M} from './route.js';
 
 const {ballastRiseM, ballastWidthM, railCentresM, tieIntervalM} = RAIL_TRACK_PROFILE;
 const halfBed = ballastWidthM / 2;
 const shoulderStart = .56;
 const tieHeight = .106;
 const tieTop = .324;
+const tieWidth = 1.44;
+const crossingM = RAILWAY_RADIUS_M * Math.acos((RAILWAY_RADIUS_M - railCentresM / 2) /
+  (RAILWAY_RADIUS_M + railCentresM / 2));
 
 function station(piece, t) {
   if (piece.radiusM === null) return {x: 0, z: piece.lengthM * t, c: 1, s: 0, angle: 0, t};
@@ -37,12 +40,13 @@ const RAIL_PROFILE = [
 
 // Sweep closed clockwise sections. The end rings use exact stations, with the
 // same section and analytic normals on a straight and either end of a curve.
-function sweep(T, stations, profile, repeats, colourAt) {
+function sweep(T, stations, profile, repeats, colourAt, profileCentre = 0) {
   const positions = [], normals = [], uvs = [], indices = [], colours = [];
   const size = profile.length;
   function vertex(site, point, normal, end, colour) {
     const index = positions.length / 3;
-    positions.push(site.x + site.c * point.u, point.h, site.z - site.s * point.u);
+    const u = profileCentre + (point.u - profileCentre) * (site.taper ?? 1);
+    positions.push(site.x + site.c * u, point.h, site.z - site.s * u);
     normals.push(...normal);
     uvs.push((point.u + halfBed) * 2, end ? point.h * 2 : site.t * repeats);
     if (colour) colours.push(colour.r, colour.g, colour.b);
@@ -91,36 +95,72 @@ function sweep(T, stations, profile, repeats, colourAt) {
   return geo;
 }
 
-function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats}, materials, fixtures, own) {
+function turnoutDistance(site, turnout, axis) {
+  return (site.x - turnout.throat[0]) * axis[0] + (site.z - turnout.throat[1]) * axis[1];
+}
+
+function timberExtension(site, turnout) {
+  if (site.distanceM < turnout.mainStartM || site.distanceM > turnout.mainEndM) return 0;
+  const along = turnoutDistance(site, turnout, turnout.incoming);
+  if (along <= 0) return 0;
+  const radius = RAILWAY_RADIUS_M, arcEnd = radius * Math.SQRT1_2;
+  const offset = along <= arcEnd ? radius - Math.sqrt(radius ** 2 - along ** 2)
+    : radius - arcEnd + along - arcEnd;
+  return offset <= 1.4 ? offset : Math.max(0, 1.4 - (offset - 1.4) * 3);
+}
+
+function bladeStations(plan, from, to) {
+  const between = plan.stations.filter(site => site.distanceM > from + 1e-8 && site.distanceM < to - 1e-8);
+  return [railwayStationAt(plan, from), ...between, railwayStationAt(plan, to)].map(site => ({
+    ...site, t: site.distanceM / plan.lengthM, taper: Math.max(.06, Math.min(1, (site.distanceM - .35) / .95))
+  }));
+}
+
+function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, branch}, materials, fixtures, own) {
   const root = new T.Group();
   root.name = id;
   root.userData = {assetId: id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
-  const bed = new T.Mesh(own(sweep(T, stations, ballastSection(), gravelRepeats)), materials.gravel);
+  const bed = new T.Mesh(own(sweep(T, stations, ballastSection(), gravelRepeats)),
+    branch ? materials.branchGravel : materials.gravel);
   bed.name = 'Rounded gravel ballast';
   root.add(bed);
 
   const iron = new T.Color(0x69483a), polished = new T.Color(0xaebdc4), head = new T.Color(0x7f888c);
   const railColour = (height, cap) => !cap && height >= .42 ? polished : height >= .40 ? head : iron;
   for (const side of [-1, 1]) {
-    const profile = RAIL_PROFILE.map(([u, h]) => ({u: u + side * railCentresM / 2, h}));
-    const rail = new T.Mesh(own(sweep(T, stations, profile, 1, railColour)), materials.rail);
-    rail.name = side < 0 ? 'Left steel rail' : 'Right steel rail';
-    root.add(rail);
+    const centre = side * railCentresM / 2;
+    const profile = RAIL_PROFILE.map(([u, h]) => ({u: u + centre, h}));
+    // Both blades start inside the existing rail heads. A relief in the
+    // inside blade leaves room where it meets the straight stock rail.
+    const strips = branch ? (side === turnout.side
+      ? [[.35, crossingM - .19], [crossingM + .19, lengthM]]
+      : [[.35, lengthM]]).map(([from, to]) => bladeStations(turnout.plan, from, to)) : [stations];
+    for (const strip of strips) {
+      const rail = new T.Mesh(own(sweep(T, strip, profile, 1, railColour, centre)),
+        branch ? materials.branchRail : materials.rail);
+      rail.name = side < 0 ? 'Left steel rail' : 'Right steel rail';
+      root.add(rail);
+    }
   }
 
   const count = Math.round(lengthM / tieIntervalM);
-  const ties = own(new T.InstancedMesh(fixtures.tie, materials.timber, count));
-  const plates = own(new T.InstancedMesh(fixtures.plate, materials.plate, 2 * count));
+  const tieSites = Array.from({length: count}, (_, i) => sample((i + .5) / count))
+    .filter(site => !branch || turnoutDistance(site, turnout, turnout.outward) > 1.4);
+  const ties = own(new T.InstancedMesh(fixtures.tie, materials.timber, tieSites.length));
+  const plates = own(new T.InstancedMesh(fixtures.plate, materials.plate, 2 * tieSites.length));
   const tint = new T.Color();
   const transform = new T.Object3D();
-  for (let i = 0; i < count; i++) {
-    const site = sample((i + .5) / count);
+  for (const [i, site] of tieSites.entries()) {
     transform.rotation.y = site.angle;
-    transform.position.set(site.x, tieTop - tieHeight / 2, site.z);
+    const extension = turnout && !branch ? timberExtension(site, turnout) : 0;
+    const [ox, oz] = turnout?.outward ?? [0, 0];
+    transform.scale.x = 1 + extension / tieWidth;
+    transform.position.set(site.x + ox * extension / 2, tieTop - tieHeight / 2, site.z + oz * extension / 2);
     transform.updateMatrix();
     ties.setMatrixAt(i, transform.matrix);
     tint.setScalar(.72 + .28 * ((i * 13 + 5) % 17) / 16);
     ties.setColorAt(i, tint);
+    transform.scale.x = 1;
     for (const [j, side] of [-1, 1].entries()) {
       const u = side * railCentresM / 2;
       transform.position.set(site.x + site.c * u, tieTop + .003, site.z - site.s * u);
@@ -131,6 +171,15 @@ function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats}, materials,
   ties.name = 'Timber ties';
   plates.name = 'Rail tie plates';
   root.add(ties, plates);
+  if (branch) {
+    const crossing = railwayStationAt(turnout.plan, crossingM), u = turnout.side * railCentresM / 2;
+    const frog = new T.Mesh(fixtures.plate, materials.plate);
+    frog.name = 'Turnout crossing plate';
+    frog.position.set(crossing.x + crossing.c * u, tieTop + .003, crossing.z - crossing.s * u);
+    frog.rotation.y = crossing.angle;
+    frog.scale.set(2, 1, 2.8);
+    root.add(frog);
+  }
   for (const mesh of root.children) mesh.castShadow = mesh.receiveShadow = true;
   return root;
 }
@@ -152,6 +201,14 @@ function retire(actions) {
   if (errors.length) throw new AggregateError(errors, 'Railway resources retired with cleanup errors.');
 }
 
+function overlayMaterial(base) {
+  const material = base.clone();
+  material.polygonOffset = true;
+  material.polygonOffsetFactor = -1;
+  material.polygonOffsetUnits = -1;
+  return material;
+}
+
 export function createRailwayKit(T) {
   if (!T?.InstancedMesh || !T?.DataTexture || !T?.ShapeUtils || !T?.MeshStandardMaterial) {
     throw new TypeError('Supply the host Three namespace to create a railway kit.');
@@ -167,7 +224,7 @@ export function createRailwayKit(T) {
       plate: own(new T.MeshStandardMaterial({color: 0x3a312a, roughness: .78, metalness: .2}))
     };
     fixtures = {
-      tie: own(new T.BoxGeometry(1.44, tieHeight, .20)),
+      tie: own(new T.BoxGeometry(tieWidth, tieHeight, .20)),
       plate: own(new T.BoxGeometry(.175, .022, .155))
     };
     for (const piece of RAIL_TRACK_ASSETS) templates.set(piece.id, trackTemplate(T, piece, materials, fixtures, own));
@@ -194,14 +251,25 @@ export function createRailwayKit(T) {
       const root = templates.get(id).clone(true);
       return retain(root, root.children.filter(child => child.isInstancedMesh));
     },
-    createRoute(waypoints) {
+    createRoute(waypoints, split) {
       if (disposed) throw new Error('Railway kit is disposed.');
-      const plan = planRailwayRoute(waypoints), {lengthM} = plan, owned = [];
-      try {
-        const root = trackMesh(T, {id: 'railway:route', lengthM,
-          stations: plan.stations.map(site => ({...site, t: site.distanceM / lengthM})),
-          sample: t => railwayStationAt(plan, t * lengthM), gravelRepeats: 2 * lengthM
+      const plan = planRailwayRoute(waypoints), owned = [];
+      const turnout = split === undefined ? null : planRailwayTurnout(plan, split);
+      if (turnout) assertRailwaySeparation([{id: 'route', plan, turnout}]);
+      function track(id, path, branch = false) {
+        const {lengthM} = path;
+        return trackMesh(T, {id, lengthM,
+          stations: path.stations.map(site => ({...site, t: site.distanceM / lengthM})),
+          sample: t => railwayStationAt(path, t * lengthM), gravelRepeats: 2 * lengthM, turnout, branch
         }, materials, fixtures, resource => { owned.push(resource); return resource; });
+      }
+      try {
+        const root = track('railway:route', plan);
+        if (turnout) {
+          materials.branchGravel ??= own(overlayMaterial(materials.gravel));
+          materials.branchRail ??= own(overlayMaterial(materials.rail));
+          root.add(track('railway:branch', turnout.plan, true));
+        }
         return retain(root, owned);
       } catch (error) {
         retire([...owned.reverse().map(resource => () => resource.dispose()), () => { throw error; }]);

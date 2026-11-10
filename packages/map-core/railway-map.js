@@ -2,7 +2,7 @@ import * as maps from './roof-maps.js';
 import * as blocks from './roof-blocks.js';
 import {generateConnectedMap as generate} from './roof-generator.js';
 import {rotateSceneryBlock as rotate} from './roof-rotation.js';
-import {RAILWAY_ROUTE_FEATURE} from '../railway-visuals/route.js';
+import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE} from '../railway-visuals/route.js';
 import {assertRailwayRoutes, refuseRailwayRoutes} from './railway-routes.js';
 
 export {blankMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
@@ -28,13 +28,20 @@ export function parseMap(text, options) {
 
 export function requiredMapFeatures(map) {
   const required = maps.requiredMapFeatures(map);
-  return assertRailwayRoutes(map).length ? [...required, RAILWAY_ROUTE_FEATURE] : required;
+  const routes = assertRailwayRoutes(map);
+  if (routes.length) required.push(RAILWAY_ROUTE_FEATURE);
+  if (routes.some(route => route.turnout)) required.push(RAILWAY_TURNOUT_FEATURE);
+  return required;
 }
 
 export function assertMapCapabilities(map, features = []) {
   maps.assertMapCapabilities(map, features);
-  if (assertRailwayRoutes(map).length && !features.includes(RAILWAY_ROUTE_FEATURE)) {
+  const routes = assertRailwayRoutes(map);
+  if (routes.length && !features.includes(RAILWAY_ROUTE_FEATURE)) {
     throw new Error(`This game adapter does not support railway routes (${RAILWAY_ROUTE_FEATURE}).`);
+  }
+  if (routes.some(route => route.turnout) && !features.includes(RAILWAY_TURNOUT_FEATURE)) {
+    throw new Error(`This game adapter does not support railway splits (${RAILWAY_TURNOUT_FEATURE}).`);
   }
   return map;
 }

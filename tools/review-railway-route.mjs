@@ -11,11 +11,12 @@ await withArtReview('Lay and reopen a connected railway in the built Map Worksho
   await page.goto(baseURL + '/');
   const ready = () => page.waitForFunction(() => window.editor3d?.scene.railwayModels && !window.editor3d.loading);
   await ready();
-  const frameRoute = () => page.evaluate(async () => {
-    Object.assign(window.editor3d.view, {x: 27.5, y: 21, span: 29, preset: '0'});
+  const frame = (x, y, span) => page.evaluate(async ({x, y, span}) => {
+    Object.assign(window.editor3d.view, {x, y, span, preset: '0'});
     window.editor3d.scene.changed();
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-  });
+  }, {x, y, span});
+  const frameRoute = () => frame(27.5, 21, 29);
   await page.evaluate(async () => {
     const {blankMap} = await import('/packages/map-core/index.js');
     await window.nautilus.open(blankMap('Railway route review'));
@@ -93,7 +94,9 @@ await withArtReview('Lay and reopen a connected railway in the built Map Worksho
       const bytes = await crypto.subtle.digest('SHA-256', array);
       return [...new Uint8Array(bytes)].map(value => value.toString(16).padStart(2, '0')).join('');
     };
-    const models = await Promise.all(root.children.map(async mesh => ({
+    const meshes = [];
+    root.traverse(node => { if (node.isMesh) meshes.push(node); });
+    const models = await Promise.all(meshes.map(async mesh => ({
       name: mesh.name, instances: mesh.count ?? null,
       vertices: await digest(mesh.geometry.attributes.position.array),
       indices: await digest(mesh.geometry.index.array),
@@ -167,9 +170,61 @@ await withArtReview('Lay and reopen a connected railway in the built Map Worksho
   await page.locator('[data-group="railway"]').click();
   await frameRoute();
   await page.screenshot({path: path.join(out, 'railway-route-desktop.png')});
+  const split = {at: [18, 12], end: [26, 4]};
+  const mode = page.locator('#railway-mode');
+  const withSplit = () => page.waitForFunction(() => !window.editor3d.loading &&
+    window.editor3d.scene.railwayModels.get('rail-1')?.model.root.getObjectByName('railway:branch'));
+  const trunkOnly = () => page.waitForFunction(() => {
+    const root = window.editor3d.scene.railwayModels.get('rail-1')?.model.root;
+    return !window.editor3d.loading && root?.visible && !root.getObjectByName('railway:branch');
+  });
+  await frame(21, 10, 22);
+  await mode.selectOption('turnout');
+  const beforeSplit = await history();
+  await tap(split.at);
+  await tap([20, 12]);
+  assert.match(await draft.textContent(), /at least 4 m/);
+  assert.equal(await portable(), committed);
+  await page.mouse.move(...await spot(split.end));
+  await page.waitForFunction(() => {
+    const {railwayModels, railwayGhost} = window.editor3d.scene;
+    return railwayGhost?.model.root.getObjectByName('railway:branch') && !railwayModels.get('rail-1').model.root.visible;
+  });
+  await page.locator('#railway-cancel').click();
+  await trunkOnly();
+  assert.equal(await portable(), committed);
+  await tap(split.at);
+  await tap(split.end);
+  await page.locator('#railway-place').click();
+  await withSplit();
+  assert.equal(await history(), beforeSplit + 1);
+  const splitMap = await portable();
+  assert.deepEqual(JSON.parse(splitMap).railwayRoutes, {version: 2, routes: [{id: 'rail-1', waypoints, turnout: split}]});
+  const joined = await geometry();
+  assert.ok(joined.visible);
+  assert.ok(joined.models.some(mesh => mesh.name === 'Turnout crossing plate'));
+  assert.notEqual(joined.models[3].instanceMatrix, built.models[3].instanceMatrix, 'Switch ties should extend toward the branch.');
+  await page.locator('#undo').click();
+  await trunkOnly();
+  assert.equal(await portable(), committed);
+  await page.locator('#redo').click();
+  await withSplit();
+  assert.equal(await portable(), splitMap);
+  await page.evaluate(json => window.nautilus.open(json), splitMap);
+  await withSplit();
+  assert.deepEqual(await geometry(), joined);
+  assert.equal(await portable(), splitMap);
+  await frame(20.8, 9.6, 12);
+  await page.screenshot({path: path.join(out, 'railway-turnout-desktop.png')});
+  await mode.selectOption('turnout');
+  await tap(split.at);
+  await page.locator('#railway-remove-split').click();
+  await trunkOnly();
+  assert.equal(await portable(), committed);
   const report = {browser: browser.version(), route: data, geometry: built, previewNonmutating: true,
     invalidApproachRefused: true, cancellation: true, undoRedo: true, namedSave: true, fileImport: true,
-    unsupportedSendButtonAndAPI: true, geometryParity: true};
+    unsupportedSendButtonAndAPI: true, geometryParity: true,
+    turnout: {data: split, cancellation: true, undoRedo: true, geometryParity: true, removed: true}};
   fs.writeFileSync(path.join(out, 'acceptance.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({browser: report.browser, metres: built.lengthM, joins: built.offsets.length, route: data}));
-}, {owner: 'nautilus-railway-route-builder', output: 'railway-route-review', timeoutMs: 180000});
+}, {owner: 'nautilus-railway-turnout-review', output: 'railway-route-review', timeoutMs: 225000});

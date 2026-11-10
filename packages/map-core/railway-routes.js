@@ -1,5 +1,5 @@
 import {
-  planRailwayRoute, RAILWAY_ROUTE_LIMITS, assertRailwaySeparation, railwaySegmentBounds,
+  planRailwayRoute, planRailwayTurnout, RAILWAY_ROUTE_LIMITS, assertRailwaySeparation, railwaySegmentBounds,
   railwaySegmentDistance, pointToRailwaySegment
 } from '../railway-visuals/route.js';
 import {buildingLot} from '../prefab-core/index.js';
@@ -23,7 +23,7 @@ export function refuseRailwayRoutes(map, workflow) {
 }
 
 export function setRailwayRoutes(map, routes) {
-  if (routes.length) map.railwayRoutes = {version: 1, routes};
+  if (routes.length) map.railwayRoutes = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
   else delete map.railwayRoutes;
   return map;
 }
@@ -73,7 +73,9 @@ function groundObstacles(map) {
 
 function assertGround(map, routes) {
   const {cells, walls, lots} = groundObstacles(map);
-  for (const {id, plan} of routes) for (const segment of plan.segments) {
+  for (const {id, plan, turnout} of routes) for (const segment of [
+    ...plan.segments, ...(turnout?.plan.segments ?? [])
+  ]) {
     const bounds = railwaySegmentBounds(segment);
     const [west, north, east, south] = bounds;
     const fail = (reason, where = segment.a.map(Math.round).join(', ')) => {
@@ -107,27 +109,40 @@ export function assertRailwayRoutes(map) {
   if (map.version !== 2 || map.width !== W || map.height !== H) {
     throw new Error('Railway routes require a full aft-map-v2 design.');
   }
-  if (!exact(data, ['version', 'routes']) || data.version !== 1 || !Array.isArray(data.routes) ||
+  if (!exact(data, ['version', 'routes']) || ![1, 2].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1 or 2 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
+  const mapPoint = point => Array.isArray(point) && point.length === 2 &&
+    Number.isInteger(point[0]) && point[0] >= 0 && point[0] < W &&
+    Number.isInteger(point[1]) && point[1] >= 0 && point[1] < H;
   let totalLength = 0;
   for (const route of data.routes) {
-    if (!exact(route, ['id', 'waypoints']) || typeof route.id !== 'string' || !idPattern.test(route.id) || ids.has(route.id)) {
+    const hasTurnout = data.version === 2 && Object.hasOwn(route ?? {}, 'turnout');
+    const keys = hasTurnout ? ['id', 'waypoints', 'turnout'] : ['id', 'waypoints'];
+    if (!exact(route, keys) || typeof route.id !== 'string' || !idPattern.test(route.id) || ids.has(route.id)) {
       throw new Error('Each railway route needs unique portable ID and waypoints fields.');
     }
     if (!Array.isArray(route.waypoints) || route.waypoints.length < 2 || route.waypoints.length > RAILWAY_ROUTE_LIMITS.waypoints ||
-        ![...route.waypoints].every(point => Array.isArray(point) && point.length === 2 &&
-          Number.isInteger(point[0]) && point[0] >= 0 && point[0] < W &&
-          Number.isInteger(point[1]) && point[1] >= 0 && point[1] < H)) {
+        ![...route.waypoints].every(mapPoint)) {
       throw new Error(`Railway route ${route.id} needs whole-metre waypoints inside the map.`);
     }
     const plan = planRailwayRoute(route.waypoints);
+    let turnout;
+    if (hasTurnout) {
+      if (!exact(route.turnout, ['at', 'end']) || !mapPoint(route.turnout.at) || !mapPoint(route.turnout.end)) {
+        throw new Error(`The split on railway route ${route.id} needs whole-metre start and end points inside the map.`);
+      }
+      turnout = planRailwayTurnout(plan, route.turnout);
+    }
     ids.add(route.id);
-    totalLength += plan.lengthM;
+    totalLength += plan.lengthM + (turnout?.plan.lengthM ?? 0);
     if (totalLength > RAILWAY_ROUTE_LIMITS.totalLengthM) throw new Error('Keep the total railway length at or below 1200 m.');
-    plans.push({id: route.id, plan});
+    plans.push({id: route.id, plan, turnout});
+  }
+  if (data.version === 2 && !plans.some(route => route.turnout)) {
+    throw new Error('Use railwayRoutes version 1 for routes without a split.');
   }
   assertRailwaySeparation(plans);
   assertGround(map, plans);
@@ -137,9 +152,9 @@ export function assertRailwayRoutes(map) {
 export function railwayRouteAt(map, x, y) {
   for (const route of railwayRoutesOf(map)) {
     const plan = planRailwayRoute(route.waypoints);
-    if (plan.segments.some(segment => pointToRailwaySegment([x, y], segment.a, segment.b) <= segment.radius + EPS)) {
-      return route;
-    }
+    const hits = ({segments}) => segments.some(segment =>
+      pointToRailwaySegment([x, y], segment.a, segment.b) <= segment.radius + EPS);
+    if (hits(plan) || (route.turnout && hits(planRailwayTurnout(plan, route.turnout).plan))) return route;
   }
   return null;
 }

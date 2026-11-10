@@ -128,7 +128,10 @@
       "$ref": "urn:nautilus:schema:sloped-roofs:1"
     },
     "railwayRoutes": {
-      "$ref": "urn:nautilus:schema:railway-routes:1"
+      "oneOf": [
+        {"$ref": "urn:nautilus:schema:railway-routes:1"},
+        {"$ref": "urn:nautilus:schema:railway-routes:2"}
+      ]
     }
   },
   "additionalProperties": true,

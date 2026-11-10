@@ -1,4 +1,4 @@
-import {snapRailwayWaypoint} from '../../packages/railway-visuals/route.js';
+import {planRailwayRoute, snapRailwayTurnoutAnchor, snapRailwayWaypoint} from '../../packages/railway-visuals/route.js';
 
 export function installRailwayTools({panel, canvas, getDocument, apply, scene, status, isBusy}) {
   const tool = panel.querySelector('#edit-tool');
@@ -6,15 +6,21 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   const controls = document.createElement('section');
   controls.id = 'railway-options';
   controls.hidden = true;
-  controls.innerHTML = `<p class="muted">Click or tap to add waypoints. Track snaps to the metre grid and joins 45° and 90° turns. Leave room for the 4 m bends and 2 m ballast.</p>
+  controls.innerHTML = `<label for="railway-mode">Railway action</label>
+    <select id="railway-mode"><option value="route">Lay route</option><option value="turnout">Add split</option></select>
+    <p id="railway-help" class="muted"></p>
     <p id="railway-draft" role="status"></p>
     <div class="row"><button type="button" id="railway-undo-point">Undo point</button><button type="button" id="railway-cancel">Cancel route</button></div>
-    <button type="button" id="railway-place">Place route</button>`;
+    <button type="button" id="railway-place">Place route</button>
+    <button type="button" id="railway-remove-split" hidden>Remove split</button>`;
   panel.append(controls);
   const place = controls.querySelector('#railway-place'), undo = controls.querySelector('#railway-undo-point');
   const cancelButton = controls.querySelector('#railway-cancel'), note = controls.querySelector('#railway-draft');
+  const mode = controls.querySelector('#railway-mode'), help = controls.querySelector('#railway-help');
+  const removeSplit = controls.querySelector('#railway-remove-split');
   const active = () => tool.value === 'railway-route';
-  let accepted = [], preview = null, hover = null, gesture = null, frame = 0, pending = null;
+  const splitting = () => mode.value === 'turnout';
+  let accepted = [], preview = null, hover = null, gesture = null, frame = 0, pending = null, targetRoute = null;
 
   function availability() {
     if (!getDocument()) return 'Wait for the scene to finish loading.';
@@ -27,11 +33,24 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     const blocked = active() ? availability() : '';
     place.disabled = !!blocked || accepted.length < 2;
     undo.disabled = cancelButton.disabled = !accepted.length;
-    note.textContent = message || blocked || (accepted.length ?
-      `${accepted.length} waypoints accepted${preview?.railwayPreview ? ' · ' + preview.railwayPreview.plan.lengthM.toFixed(1) + ' m fitted' : ''}` :
-      'Choose the first waypoint.');
+    place.textContent = splitting() ? 'Place split' : 'Place route';
+    cancelButton.textContent = splitting() ? 'Cancel split' : 'Cancel route';
+    removeSplit.hidden = !splitting() || !targetRoute?.turnout;
+    removeSplit.disabled = !!blocked;
+    help.textContent = splitting() ? 'Choose a straight section of a placed route, then choose where the 45° branch ends.'
+      : 'Click or tap to add waypoints. Track snaps to the metre grid and joins 45° and 90° turns. Leave room for the 4 m bends and 2 m ballast.';
+    const length = preview?.railwayPreview?.plan.lengthM;
+    const progress = accepted.length
+      ? `${accepted.length} waypoints accepted${length ? ' · ' + length.toFixed(1) + ' m fitted' : ''}`
+      : 'Choose the first waypoint.';
+    const splitProgress = targetRoute
+      ? length ? length.toFixed(1) + ' m fitted' : 'Choose the branch endpoint.'
+      : 'Choose a straight section of an existing route.';
+    note.textContent = message || blocked || (splitting() ? splitProgress : progress);
   }
   function command(waypoints) {
+    if (splitting()) return {tool: 'railway-turnout', start: {z: 0},
+      options: {id: targetRoute.id, turnout: {at: waypoints[0], end: waypoints[1]}}};
     return {tool: 'railway-route', start: {z: 0}, options: {waypoints}};
   }
   function check(waypoints) {
@@ -40,12 +59,13 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     return {ok, error, railwayPreview, cells: [], edges: [], railwayWaypoints: waypoints};
   }
   function proposed(point) {
-    if (!point || point.z !== 0) return null;
-    const next = snapRailwayWaypoint(accepted.at(-1), [point.x, point.y]);
-    if (next.join() === accepted.at(-1)?.join()) return null;
+    if (!point || point.z !== 0 || (splitting() && !targetRoute)) return null;
+    const anchor = splitting() ? accepted[0] : accepted.at(-1);
+    const next = snapRailwayWaypoint(anchor, [point.x, point.y]);
+    if (next.join() === anchor?.join()) return null;
     const key = next.join();
     if (hover?.key === key) return hover;
-    const waypoints = [...accepted, next];
+    const waypoints = splitting() ? [anchor, next] : [...accepted, next];
     const size = getDocument().size;
     const result = next.some(n => n < 0 || n >= size) ?
       {ok: false, error: 'Choose a railway waypoint inside the map.'} : check(waypoints);
@@ -65,6 +85,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   function cancel() {
     stopHover();
     accepted = [];
+    targetRoute = null;
     gesture = preview = null;
     sync();
   }
@@ -99,7 +120,20 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     const {x, y} = gesture;
     gesture = null;
     if (isBusy() || availability() || Math.hypot(event.clientX - x, event.clientY - y) > 9) return;
-    const draft = proposed(point(event));
+    const clicked = point(event);
+    if (splitting() && !targetRoute && clicked) {
+      const selected = getDocument().inspect(clicked.x, clicked.y, 0);
+      const at = selected?.type === 'railway-route' &&
+        snapRailwayTurnoutAnchor(planRailwayRoute(selected.data.waypoints), [clicked.x, clicked.y]);
+      if (!at) { sync('Choose a point on a straight section of the main track.'); return; }
+      targetRoute = selected.data;
+      accepted = [at];
+      preview = check(accepted);
+      scene.preview(preview);
+      sync();
+      return;
+    }
+    const draft = proposed(clicked);
     stopHover();
     if (draft?.result.ok) {
       accepted = draft.waypoints;
@@ -114,9 +148,15 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     return apply(command(accepted));
   }
   place.onclick = commit;
+  mode.onchange = () => { cancel(); scene.preview(null); };
+  removeSplit.onclick = () => {
+    if (!active() || !splitting() || !targetRoute?.turnout || isBusy() || availability()) return;
+    return apply({tool: 'erase-railway-turnout', start: {z: 0}, options: {id: targetRoute.id}});
+  };
   undo.onclick = () => {
     stopHover();
     accepted = accepted.slice(0, -1);
+    if (!accepted.length) targetRoute = null;
     preview = accepted.length ? check(accepted) : null;
     scene.preview(preview);
     sync();

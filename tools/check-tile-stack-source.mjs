@@ -5,7 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
-import {historicalRailwayRouteBytes,RAILWAY_ROUTE_SCHEMA} from './railway-route-registration.mjs';
+import {historicalRailwayRouteBytes,RAILWAY_ROUTE_SCHEMAS} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 
@@ -144,7 +144,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
   assert.deepEqual(authoringSchemaSupport,['packages/tile-authoring-core/contract.schema.json'],'Only the separately authenticated authoring contract schema is added.');
   const schemaFiles=listed(TILE_STACK_REGISTRATION_BASE,'packages','schemas').filter(file=>file.endsWith('.schema.json'));
   const currentSchemas=[...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort();
-  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport,RAILWAY_ROUTE_SCHEMA].sort(),'Keep every historical schema plus the authenticated authoring and railway route additions.');
+  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport,...RAILWAY_ROUTE_SCHEMAS].sort(),'Keep every historical schema plus the authenticated authoring and railway route additions.');
   // The Root C2a fence separately owns the newer accepted private v2 schema
   // bytes. This registration preserves the public schema inventory/content;
   // it must not roll private schemas back to an older public-package baseline.

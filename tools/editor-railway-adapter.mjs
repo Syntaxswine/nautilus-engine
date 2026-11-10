@@ -36,7 +36,7 @@ export function adaptEditorRailway(name, text, once) {
     change('async function rotateBoth(){if(busy||isLoading())return;',
       "async function rotateBoth(){if(busy||isLoading())return;if(railTools.active())return status('Railway heading follows the waypoints.');", 'automatic orientation');
     change('roofTools.applied(result);status(result.roofPreview?',
-      "roofTools.applied(result);status(result.railwayPreview?'Railway route placed. Undo removes the whole route.':result.roofPreview?", 'placed message');
+      "roofTools.applied(result);status(result.railwayPreview?.replaces?'Railway split placed. Undo removes the branch.':result.railwayPreview?'Railway route placed. Undo removes the whole route.':result.roofPreview?", 'placed message');
     change("const tool=s.type==='sloped-roof'?'erase-sloped-roof'",
       "if(s.type==='railway-route')return apply({tool:'erase-railway-route',start:{z:0},options:{id:s.data.id}});const tool=s.type==='sloped-roof'?'erase-sloped-roof'", 'delete selected route');
     // The frozen Send click and the API share the normal capability boundary.
