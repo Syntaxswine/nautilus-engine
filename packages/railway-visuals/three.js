@@ -8,6 +8,8 @@ const shoulderStart = .56;
 const tieHeight = .106;
 const tieTop = .324;
 const tieWidth = 1.44;
+const tieDepth = .20;
+const EPS = 1e-8;
 const crossingM = RAILWAY_RADIUS_M * Math.acos((RAILWAY_RADIUS_M - railCentresM / 2) /
   (RAILWAY_RADIUS_M + railCentresM / 2));
 
@@ -116,36 +118,97 @@ function bladeStations(plan, from, to) {
   }));
 }
 
-function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, branch}, materials, fixtures, own) {
+function trackSections(stations, sample, lengthM, windows, keepWindows = false) {
+  if (!windows.length) return [{sites: stations, inside: false}];
+  const sections = [];
+  function append(from, to, inside) {
+    if (to - from <= EPS) return;
+    const between = stations.filter(site => site.distanceM > from + EPS && site.distanceM < to - EPS);
+    sections.push({sites: [sample(from / lengthM), ...between, sample(to / lengthM)], inside});
+  }
+  let from = 0;
+  for (const {start, end} of windows) {
+    append(from, start, false);
+    if (keepWindows) append(start, end, true);
+    from = end;
+  }
+  append(from, lengthM, false);
+  return sections;
+}
+
+function diamondRailSites({point, track, other}, side) {
+  const [dx, dz] = track.heading, [ox, oz] = other.heading;
+  const sin = dx * oz - dz * ox;
+  const offset = side * railCentresM / 2;
+  const x = point[0] + dz * offset, z = point[1] - dx * offset;
+  return [-1, 1].map(peerSide => {
+    const peerOffset = peerSide * railCentresM / 2;
+    const deltaX = oz * peerOffset - dz * offset, deltaZ = -ox * peerOffset + dx * offset;
+    const along = (deltaX * oz - deltaZ * ox) / sin;
+    const atM = track.stationM + along, gap = .080 / Math.abs(sin);
+    return {start: atM - gap, end: atM + gap, x: x + dx * along, z: z + dz * along};
+  });
+}
+
+function overlapsDiamondTies(site, {track, other, angleDeg}) {
+  const [dx, dz] = track.heading, [ox, oz] = other.heading;
+  const sine = Math.abs(dx * oz - dz * ox);
+  const cosine = angleDeg === 90 ? 0 : Math.SQRT1_2;
+  const sharedM = tieWidth * (1 + cosine) / (2 * sine) + tieDepth / 2;
+  return Math.abs(site.distanceM - track.stationM) < sharedM;
+}
+
+function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, branch, crossings = []}, materials, fixtures, own) {
   const root = new T.Group();
   root.name = id;
   root.userData = {assetId: id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
-  const bed = new T.Mesh(own(sweep(T, stations, ballastSection(), gravelRepeats)),
-    branch ? materials.branchGravel : materials.gravel);
-  bed.name = 'Rounded gravel ballast';
-  root.add(bed);
+  const secondary = crossings.filter(crossing => !crossing.primary);
+  const ballastWindows = secondary.map(({track, clearanceM}) => ({
+    start: track.stationM - clearanceM, end: track.stationM + clearanceM
+  }));
+  // The second bed only takes depth priority at the crossing, so the flat
+  // crowns don't flicker where they overlap.
+  for (const {sites, inside} of trackSections(stations, sample, lengthM, ballastWindows, true)) {
+    const bed = new T.Mesh(own(sweep(T, sites, ballastSection(), gravelRepeats)),
+      branch || inside ? materials.branchGravel : materials.gravel);
+    bed.name = 'Rounded gravel ballast';
+    root.add(bed);
+  }
 
   const iron = new T.Color(0x69483a), polished = new T.Color(0xaebdc4), head = new T.Color(0x7f888c);
   const railColour = (height, cap) => !cap && height >= .42 ? polished : height >= .40 ? head : iron;
   for (const side of [-1, 1]) {
     const centre = side * railCentresM / 2;
     const profile = RAIL_PROFILE.map(([u, h]) => ({u: u + centre, h}));
+    const diamonds = crossings.flatMap(crossing => diamondRailSites(crossing, side)).sort((a, b) => a.start - b.start);
     // Both blades start inside the existing rail heads. A relief in the
     // inside blade leaves room where it meets the straight stock rail.
     const strips = branch ? (side === turnout.side
       ? [[.35, crossingM - .19], [crossingM + .19, lengthM]]
-      : [[.35, lengthM]]).map(([from, to]) => bladeStations(turnout.plan, from, to)) : [stations];
+      : [[.35, lengthM]]).map(([from, to]) => bladeStations(turnout.plan, from, to))
+      : trackSections(stations, sample, lengthM, diamonds).map(({sites}) => sites);
     for (const strip of strips) {
       const rail = new T.Mesh(own(sweep(T, strip, profile, 1, railColour, centre)),
         branch ? materials.branchRail : materials.rail);
       rail.name = side < 0 ? 'Left steel rail' : 'Right steel rail';
       root.add(rail);
     }
+    for (const crossing of crossings) if (crossing.primary) {
+      for (const {x, z} of diamondRailSites(crossing, side)) {
+        const frog = new T.Mesh(fixtures.plate, materials.plate);
+        frog.name = 'Diamond crossing frog';
+        frog.position.set(x, tieTop + .008, z);
+        frog.rotation.y = Math.atan2(crossing.track.heading[0], crossing.track.heading[1]);
+        frog.scale.set(1.65, 1, 1.8);
+        root.add(frog);
+      }
+    }
   }
 
   const count = Math.round(lengthM / tieIntervalM);
   const tieSites = Array.from({length: count}, (_, i) => sample((i + .5) / count))
-    .filter(site => !branch || turnoutDistance(site, turnout, turnout.outward) > 1.4);
+    .filter(site => (!branch || turnoutDistance(site, turnout, turnout.outward) > 1.4) &&
+      !secondary.some(crossing => overlapsDiamondTies(site, crossing)));
   const ties = own(new T.InstancedMesh(fixtures.tie, materials.timber, tieSites.length));
   const plates = own(new T.InstancedMesh(fixtures.plate, materials.plate, 2 * tieSites.length));
   const tint = new T.Color();
@@ -224,7 +287,7 @@ export function createRailwayKit(T) {
       plate: own(new T.MeshStandardMaterial({color: 0x3a312a, roughness: .78, metalness: .2}))
     };
     fixtures = {
-      tie: own(new T.BoxGeometry(tieWidth, tieHeight, .20)),
+      tie: own(new T.BoxGeometry(tieWidth, tieHeight, tieDepth)),
       plate: own(new T.BoxGeometry(.175, .022, .155))
     };
     for (const piece of RAIL_TRACK_ASSETS) templates.set(piece.id, trackTemplate(T, piece, materials, fixtures, own));
@@ -251,7 +314,7 @@ export function createRailwayKit(T) {
       const root = templates.get(id).clone(true);
       return retain(root, root.children.filter(child => child.isInstancedMesh));
     },
-    createRoute(waypoints, split) {
+    createRoute(waypoints, split, crossings = []) {
       if (disposed) throw new Error('Railway kit is disposed.');
       const plan = planRailwayRoute(waypoints), owned = [];
       const turnout = split === undefined ? null : planRailwayTurnout(plan, split);
@@ -260,13 +323,16 @@ export function createRailwayKit(T) {
         const {lengthM} = path;
         return trackMesh(T, {id, lengthM,
           stations: path.stations.map(site => ({...site, t: site.distanceM / lengthM})),
-          sample: t => railwayStationAt(path, t * lengthM), gravelRepeats: 2 * lengthM, turnout, branch
+          sample: t => ({...railwayStationAt(path, t * lengthM), t}),
+          gravelRepeats: 2 * lengthM, turnout, branch, crossings: branch ? [] : crossings
         }, materials, fixtures, resource => { owned.push(resource); return resource; });
       }
       try {
+        if (turnout || crossings.some(crossing => !crossing.primary)) {
+          materials.branchGravel ??= own(overlayMaterial(materials.gravel));
+        }
         const root = track('railway:route', plan);
         if (turnout) {
-          materials.branchGravel ??= own(overlayMaterial(materials.gravel));
           materials.branchRail ??= own(overlayMaterial(materials.rail));
           root.add(track('railway:branch', turnout.plan, true));
         }

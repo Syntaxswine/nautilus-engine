@@ -1,5 +1,5 @@
 import {
-  planRailwayRoute, planRailwayTurnout, RAILWAY_ROUTE_LIMITS, assertRailwaySeparation, railwaySegmentBounds,
+  planRailwayRoute, planRailwayTurnout, planRailwayCrossings, RAILWAY_ROUTE_LIMITS, assertRailwaySeparation, railwaySegmentBounds,
   railwaySegmentDistance, pointToRailwaySegment
 } from '../railway-visuals/route.js';
 import {buildingLot} from '../prefab-core/index.js';
@@ -23,9 +23,15 @@ export function refuseRailwayRoutes(map, workflow) {
 }
 
 export function setRailwayRoutes(map, routes) {
-  if (routes.length) map.railwayRoutes = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
-  else delete map.railwayRoutes;
-  return map;
+  if (!routes.length) {
+    delete map.railwayRoutes;
+    return {plans: [], crossings: []};
+  }
+  const data = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
+  const layout = checkRailwayRoutes(map, data, true);
+  if (layout.crossings.length) data.version = 3;
+  map.railwayRoutes = data;
+  return layout;
 }
 
 function hitsRect(segment, rect) {
@@ -102,16 +108,15 @@ function assertGround(map, routes) {
   }
 }
 
-export function assertRailwayRoutes(map) {
-  const data = map?.railwayRoutes;
-  if (data === undefined) return [];
+function checkRailwayRoutes(map, data, allowNewCrossings = false) {
+  if (data === undefined) return {plans: [], crossings: []};
   if (map.kind === 'red-shift-block') refuseRailwayRoutes(map, 'The reusable block format');
   if (map.version !== 2 || map.width !== W || map.height !== H) {
     throw new Error('Railway routes require a full aft-map-v2 design.');
   }
-  if (!exact(data, ['version', 'routes']) || ![1, 2].includes(data.version) || !Array.isArray(data.routes) ||
+  if (!exact(data, ['version', 'routes']) || ![1, 2, 3].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1 or 2 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1, 2, or 3 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
   const mapPoint = point => Array.isArray(point) && point.length === 2 &&
@@ -119,7 +124,7 @@ export function assertRailwayRoutes(map) {
     Number.isInteger(point[1]) && point[1] >= 0 && point[1] < H;
   let totalLength = 0;
   for (const route of data.routes) {
-    const hasTurnout = data.version === 2 && Object.hasOwn(route ?? {}, 'turnout');
+    const hasTurnout = data.version >= 2 && Object.hasOwn(route ?? {}, 'turnout');
     const keys = hasTurnout ? ['id', 'waypoints', 'turnout'] : ['id', 'waypoints'];
     if (!exact(route, keys) || typeof route.id !== 'string' || !idPattern.test(route.id) || ids.has(route.id)) {
       throw new Error('Each railway route needs unique portable ID and waypoints fields.');
@@ -144,17 +149,35 @@ export function assertRailwayRoutes(map) {
   if (data.version === 2 && !plans.some(route => route.turnout)) {
     throw new Error('Use railwayRoutes version 1 for routes without a split.');
   }
-  assertRailwaySeparation(plans);
+  const crossings = data.version === 3 || allowNewCrossings ? planRailwayCrossings(plans) : [];
+  if (data.version === 3 && !crossings.length) {
+    throw new Error('Railway routes version 3 requires at least one crossing.');
+  }
+  assertRailwaySeparation(plans, crossings);
   assertGround(map, plans);
-  return plans;
+  return {plans, crossings};
+}
+
+export function assertRailwayRoutes(map) {
+  return checkRailwayRoutes(map, map?.railwayRoutes);
+}
+
+export function railwayCrossingsOf(map) {
+  return map?.railwayRoutes?.version === 3 ? assertRailwayRoutes(map).crossings : [];
 }
 
 export function railwayRouteAt(map, x, y) {
+  let closest = null, distance = Infinity;
   for (const route of railwayRoutesOf(map)) {
     const plan = planRailwayRoute(route.waypoints);
-    const hits = ({segments}) => segments.some(segment =>
-      pointToRailwaySegment([x, y], segment.a, segment.b) <= segment.radius + EPS);
-    if (hits(plan) || (route.turnout && hits(planRailwayTurnout(plan, route.turnout).plan))) return route;
+    const branch = route.turnout ? planRailwayTurnout(plan, route.turnout).plan.segments : [];
+    for (const segment of [...plan.segments, ...branch]) {
+      const gap = pointToRailwaySegment([x, y], segment.a, segment.b);
+      if (gap <= segment.radius + EPS && gap < distance - EPS) {
+        closest = route;
+        distance = gap;
+      }
+    }
   }
-  return null;
+  return closest;
 }

@@ -28,6 +28,10 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     if (+document.getElementById('floor').value !== 0) return 'Select ground level 1 to lay railway.';
     return '';
   }
+  function crossingNote(draft) {
+    const count = draft?.crossings?.filter(crossing => crossing.tracks.some(track => track.id === draft.route.id)).length;
+    return count ? ` · ${count} crossing${count === 1 ? '' : 's'} fitted` : '';
+  }
   function sync(message) {
     controls.hidden = !active();
     const blocked = active() ? availability() : '';
@@ -38,10 +42,10 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     removeSplit.hidden = !splitting() || !targetRoute?.turnout;
     removeSplit.disabled = !!blocked;
     help.textContent = splitting() ? 'Choose a straight section of a placed route, then choose where the 45° branch ends.'
-      : 'Click or tap to add waypoints. Track snaps to the metre grid and joins 45° and 90° turns. Leave room for the 4 m bends and 2 m ballast.';
+      : 'Click or tap to add waypoints. Track snaps to the metre grid. Draw through a straight track to fit a 45° or 90° crossing.';
     const length = preview?.railwayPreview?.plan.lengthM;
     const progress = accepted.length
-      ? `${accepted.length} waypoints accepted${length ? ' · ' + length.toFixed(1) + ' m fitted' : ''}`
+      ? `${accepted.length} waypoints accepted${length ? ' · ' + length.toFixed(1) + ' m fitted' : ''}${crossingNote(preview?.railwayPreview)}`
       : 'Choose the first waypoint.';
     const splitProgress = targetRoute
       ? length ? length.toFixed(1) + ' m fitted' : 'Choose the branch endpoint.'
@@ -79,8 +83,9 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   function show(point) {
     const draft = proposed(point);
     scene.preview(draft?.result.ok ? draft.result : preview);
-    sync(draft && !draft.result.ok ? draft.result.error : draft?.result.railwayPreview ?
-      `Preview · ${draft.result.railwayPreview.plan.lengthM.toFixed(1)} m · Click or tap to add this waypoint.` : '');
+    const fit = draft?.result.railwayPreview;
+    sync(draft && !draft.result.ok ? draft.result.error : fit ?
+      `Preview · ${fit.plan.lengthM.toFixed(1)} m${crossingNote(fit)} · Click or tap to add this waypoint.` : '');
   }
   function cancel() {
     stopHover();

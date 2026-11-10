@@ -32,9 +32,9 @@ export class EditingDocument extends Legacy {
           return {ok: true, map, cells: [], edges: []};
         }
         route.turnout = structuredClone(command.options.turnout);
-        setRailwayRoutes(map, routes);
-        const {turnout} = assertRailwayRoutes(map).find(item => item.id === id);
-        return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: turnout.plan, replaces: id}};
+        const {plans, crossings} = setRailwayRoutes(map, routes);
+        const {turnout} = plans.find(item => item.id === id);
+        return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: turnout.plan, replaces: id, crossings}};
       }
       if (command.tool === 'erase-railway-route') {
         if (!routes.some(route => route.id === id)) throw new Error('Select an existing railway route.');
@@ -44,9 +44,8 @@ export class EditingDocument extends Legacy {
       let next = 1;
       while (routes.some(route => route.id === 'rail-' + next)) next++;
       const route = {id: 'rail-' + next, waypoints: structuredClone(waypoints)};
-      setRailwayRoutes(map, [...routes, route]);
-      const {plan} = assertRailwayRoutes(map).at(-1);
-      return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan}};
+      const {plans, crossings} = setRailwayRoutes(map, [...routes, route]);
+      return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: plans.at(-1).plan, crossings}};
     } catch (error) {
       return {ok: false, error: error.message, cells: [], edges: []};
     }

@@ -2,6 +2,7 @@ import {RAIL_TRACK_ASSETS, RAIL_TRACK_PROFILE} from './catalogue.js';
 
 export const RAILWAY_ROUTE_FEATURE = 'nautilus-railway-routes-v1';
 export const RAILWAY_TURNOUT_FEATURE = 'nautilus-railway-turnouts-v1';
+export const RAILWAY_CROSSING_FEATURE = 'nautilus-railway-crossings-v1';
 export const RAILWAY_ROUTE_LIMITS = Object.freeze({routes: 64, waypoints: 48, lengthM: 480, totalLengthM: 1200});
 export const RAILWAY_RADIUS_M = RAIL_TRACK_ASSETS.find(piece => piece.radiusM !== null).radiusM;
 const HALF_BED = RAIL_TRACK_PROFILE.ballastWidthM / 2;
@@ -211,8 +212,75 @@ export function railwaySegmentBounds(segment) {
     Math.max(a[0], b[0]) + radius, Math.max(a[1], b[1]) + radius];
 }
 
-export function assertRailwaySeparation(routes) {
+function diamondAt(a, b, firstId, secondId) {
+  const sin = cross(a.incoming, b.incoming);
+  if (Math.abs(sin) < EPS) return null;
+  const delta = offset(a.a, b.a);
+  const alongA = cross(delta, b.incoming) / sin;
+  const alongB = cross(delta, a.incoming) / sin;
+  if (alongA < -EPS || alongA > a.lengthM + EPS || alongB < -EPS || alongB > b.lengthM + EPS) return null;
+  // Integer compass lines intersect on the whole- or half-metre grid. Keep
+  // the exact point even when neither route has a waypoint there.
+  const point = moved(a.a, a.incoming, alongA).map(n => Math.round(n * 2) / 2);
+  const clearanceM = 2 * HALF_BED / Math.abs(sin);
+  if (Math.min(alongA, a.lengthM - alongA, alongB, b.lengthM - alongB) < clearanceM - EPS) {
+    throw new Error(`Extend both straight approaches at the crossing near ${point.join(', ')}. Leave ${clearanceM.toFixed(2)} m of straight track on each side.`);
+  }
+  const track = (id, span, along) => ({
+    id, stationM: span.startM + along, heading: span.incoming,
+    spanStartM: span.startM, spanEndM: span.startM + span.lengthM
+  });
+  const angleDeg = Math.abs(dot(a.incoming, b.incoming)) < EPS ? 90 : 45;
+  return {point, angleDeg, clearanceM, tracks: [track(firstId, a, alongA), track(secondId, b, alongB)]};
+}
+
+export function railwayCrossingsByRoute(crossings) {
+  const grouped = new Map();
+  for (const {point, angleDeg, clearanceM, tracks: [first, second]} of crossings) {
+    for (const [track, other, primary] of [[first, second, true], [second, first, false]]) {
+      if (!grouped.has(track.id)) grouped.set(track.id, []);
+      grouped.get(track.id).push({point, angleDeg, clearanceM, track, other, primary});
+    }
+  }
+  for (const along of grouped.values()) along.sort((a, b) => a.track.stationM - b.track.stationM);
+  return grouped;
+}
+
+export function planRailwayCrossings(routes) {
+  const ordered = routes.map(({id, plan}) => ({id, spans: plan.spans.filter(span => span.kind === 'straight')}));
+  // The first route owns the crossing fittings. Route order in the file does
+  // not affect that choice or the renderer's coplanar ballast priority.
+  ordered.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const crossings = [];
+  for (let i = 0; i < ordered.length; i++) {
+    const first = ordered[i];
+    for (let j = i + 1; j < ordered.length; j++) {
+      const second = ordered[j];
+      for (const a of first.spans) for (const b of second.spans) {
+        const crossing = diamondAt(a, b, first.id, second.id);
+        if (crossing) crossings.push(crossing);
+      }
+    }
+  }
+  for (const along of railwayCrossingsByRoute(crossings).values()) {
+    for (let i = 1; i < along.length; i++) {
+      const before = along[i - 1], after = along[i];
+      if (after.track.stationM - before.track.stationM < before.clearanceM + after.clearanceM - EPS) {
+        throw new Error(`Railway crossings need separate approaches near ${after.point.join(', ')}. Move one crossing farther away.`);
+      }
+    }
+  }
+  return crossings;
+}
+
+function onDiamondApproach(segment, track, clearance) {
+  return segment.startM >= track.spanStartM - EPS && segment.endM <= track.spanEndM + EPS &&
+    segment.startM <= track.stationM + clearance + EPS && segment.endM >= track.stationM - clearance - EPS;
+}
+
+export function assertRailwaySeparation(routes, crossings = []) {
   const bins = new Map();
+  const diamonds = railwayCrossingsByRoute(crossings);
   const tracks = routes.flatMap(({id, plan, turnout}) => [
     {id, plan, turnout, branch: false},
     ...(turnout ? [{id, plan: turnout.plan, turnout, branch: true}] : [])
@@ -237,6 +305,10 @@ export function assertRailwaySeparation(routes) {
           if (railwaySegmentDistance(segment.a, segment.b, b.a, b.b) <= segment.radius + b.radius + EPS) {
             const where = segment.a.map(n => Math.round(n)).join(', ');
             if (other.id === id) throw new Error(`Railway route ${id} crosses or doubles back near ${where}. Separate the two approaches.`);
+            if (!branch && !other.branch && diamonds.get(id)?.some(crossing =>
+              crossing.other.id === other.id &&
+              onDiamondApproach(segment, crossing.track, crossing.clearanceM) &&
+              onDiamondApproach(b, crossing.other, crossing.clearanceM))) continue;
             throw new Error(`Railway route ${id} crosses or is too close to ${other.id} near ${where}. Leave room for both 2 m ballast beds.`);
           }
         }

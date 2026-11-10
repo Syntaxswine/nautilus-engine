@@ -4,7 +4,8 @@ import {
   blankMap, createMapDocument, createBlockDocument, openDocument, validateMap, parseMap,
   createSave, parseSave, serializeSave, engineManifest, requiredMapFeatures, describeBlueprint,
   validateBlock, extractBlock, placeBlock, openBlock, rotateSceneryBlock, generateConnectedMap,
-  planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE
+  planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, railwayCrossingsOf,
+  RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE
 } from '@nautilus-engine/map-core';
 import {sendMapToGame} from '../apps/editor/game-handoff.js';
 import {createTinderboxScene} from '../packages/adapters/tinderbox/index.js';
@@ -86,7 +87,7 @@ test('ballast clearance protects ground, existing geometry and the exact history
   assert.equal(doc.apply(command()).ok, true);
   const authored = doc.export(), before = doc.editor.undo.length;
   assert.match(doc.apply(command([[12, 14], [20, 14]])).error, /too close to rail-1/);
-  assert.match(doc.apply(command([[17, 8], [17, 18]])).error, /crosses or is too close/);
+  assert.match(doc.apply(command([[17, 8], [17, 12]])).error, /Extend both straight approaches/);
   assert.match(doc.apply({tool:'water', start:{x:17, y:13, z:0}, options:{}}).error, /water/);
   const obstructed = JSON.parse(authored);
   obstructed.edges['e:17:12'] = 'wall';
@@ -179,4 +180,65 @@ test('a split is one undoable save change with its own capability and respects o
   assert.equal(doc.export(), saved);
   assert.ok(doc.apply({tool: 'erase-railway-turnout', start: {z: 0}, options: {id: 'rail-1'}}).ok);
   assert.equal(doc.export(), plain);
+});
+
+test('a crossing fits automatically and saves both original routes without linking them', () => {
+  const doc = createMapDocument();
+  const main = [[45, 50], [75, 50]], diagonal = [[52, 42], [69, 59]];
+  assert.ok(doc.apply(command(main)).ok);
+  const original = doc.export(), history = doc.editor.undo.length;
+  const draft = doc.preview(command(diagonal));
+  assert.equal(draft.ok, true);
+  assert.deepEqual(draft.railwayPreview.crossings.map(c => [c.point, c.angleDeg]), [[[60, 50], 45]]);
+  assert.equal(doc.export(), original);
+  assert.equal(doc.editor.undo.length, history);
+  assert.ok(doc.apply(command(diagonal)).ok);
+  const saved = doc.export();
+  assert.deepEqual(doc.map.railwayRoutes, {version: 3, routes: [
+    {id: 'rail-1', waypoints: main}, {id: 'rail-2', waypoints: diagonal}
+  ]});
+  assert.deepEqual(railwayCrossingsOf(openDocument(saved).map), draft.railwayPreview.crossings);
+  assert.equal(doc.inspect(61, 51).data.id, 'rail-2', 'Pick the nearer centreline inside the overlapping ballast.');
+  assert.equal(doc.inspect(61, 50).data.id, 'rail-1');
+  assert.deepEqual(requiredMapFeatures(doc.map), [RAILWAY_ROUTE_FEATURE, RAILWAY_CROSSING_FEATURE]);
+  assert.throws(() => sendMapToGame(saved, {
+    features: [RAILWAY_ROUTE_FEATURE], openMap: () => assert.fail('A plain railway host accepted a crossing.')
+  }), /nautilus-railway-crossings-v1/);
+  assert.equal(doc.editor.undo.length, history + 1);
+  assert.ok(doc.undo());
+  assert.equal(doc.export(), original);
+  assert.ok(doc.redo());
+  assert.equal(doc.export(), saved);
+  assert.deepEqual(parseSave(serializeSave(createSave(saved))).payload.data, doc.map);
+
+  const downgraded = JSON.parse(saved);
+  downgraded.railwayRoutes.version = 1;
+  assert.throws(() => openDocument(downgraded), /crosses or is too close/);
+  assert.ok(doc.apply({tool: 'railway-turnout', start: {z: 0},
+    options: {id: 'rail-1', turnout: {at: [68, 50], end: [78, 60]}}}).ok);
+  assert.deepEqual(requiredMapFeatures(doc.map), [RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE]);
+  assert.ok(doc.apply({tool: 'erase-railway-route', start: {z: 0}, options: {id: 'rail-2'}}).ok);
+  assert.equal(doc.map.railwayRoutes.version, 2);
+  assert.deepEqual(doc.map.railwayRoutes.routes[0].waypoints, main);
+  assert.deepEqual(railwayCrossingsOf(doc.map), []);
+});
+
+test('crossings use the true half-metre intersection and only waive clearance on the two approaches', () => {
+  const angled = createMapDocument();
+  for (const points of [[[46, 46], [74, 74]], [[74, 45], [45, 74]]]) assert.ok(angled.apply(command(points)).ok);
+  assert.deepEqual(railwayCrossingsOf(angled.map).map(c => [c.point, c.angleDeg]), [[[59.5, 59.5], 90]]);
+  const reversed = structuredClone(angled.map);
+  reversed.railwayRoutes.routes.reverse();
+  assert.deepEqual(railwayCrossingsOf(reversed), railwayCrossingsOf(angled.map));
+
+  const doc = createMapDocument();
+  assert.ok(doc.apply(command([[45, 50], [75, 50]])).ok);
+  assert.match(doc.apply(command([[55, 41], [55, 61], [72, 61], [72, 51]])).error, /crosses or is too close/,
+    'A valid crossing must not exempt a near miss elsewhere between the same routes.');
+  assert.ok(doc.apply(command([[60, 35], [60, 70]])).ok);
+  assert.deepEqual(railwayCrossingsOf(doc.map).map(c => [c.point, c.angleDeg]), [[[60, 50], 90]]);
+  const before = doc.export(), history = doc.editor.undo.length;
+  assert.match(doc.apply(command([[52, 42], [69, 59]])).error, /separate approaches/);
+  assert.equal(doc.export(), before);
+  assert.equal(doc.editor.undo.length, history);
 });

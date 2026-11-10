@@ -5,10 +5,42 @@ import {listSharedAssets} from '@nautilus-engine/map-core/assets';
 import * as T from '../packages/render-effects/three.js';
 import {editorAssets, findAssets} from '../apps/editor/asset-catalog.js';
 import {assetPreview} from '../apps/editor/asset-preview.js';
-import {planRailwayRoute, railwayStationAt} from '../packages/map-core/index.js';
+import {planRailwayRoute, railwayStationAt, createMapDocument, railwayCrossingsOf, railwayCrossingsByRoute} from '../packages/map-core/index.js';
 
 const STRAIGHT = 'railway:track-straight';
 const CURVE = 'railway:track-quarter-curve';
+
+test('both routes have rail gaps at the four shared diamond fittings', () => {
+  const doc = createMapDocument(), kit = createRailwayKit(T);
+  try {
+    for (const waypoints of [[[45, 50], [75, 50]], [[69, 59], [52, 42]]]) {
+      assert.ok(doc.apply({tool: 'railway-route', start: {z: 0}, options: {waypoints}}).ok);
+    }
+    const byRoute = railwayCrossingsByRoute(railwayCrossingsOf(doc.map));
+    const models = doc.map.railwayRoutes.routes.map(route =>
+      kit.createRoute(route.waypoints, route.turnout, byRoute.get(route.id)).root);
+    const frogs = models.flatMap(root => root.children.filter(mesh => mesh.name === 'Diamond crossing frog'));
+    assert.equal(frogs.length, 4);
+    assert.equal(new Set(frogs.map(frog => [frog.position.x, frog.position.z].join(','))).size, 4);
+    for (const [i, root] of models.entries()) {
+      const [{point, track}] = byRoute.get('rail-' + (i + 1));
+      const [dx, dz] = track.heading;
+      for (const {position: {x, z}} of frogs) {
+        const lateral = (x - point[0]) * dz - (z - point[1]) * dx;
+        assert.ok(Math.abs(Math.abs(lateral) - .45) < 1e-8);
+        const strips = root.children.filter(mesh => mesh.name === (lateral < 0 ? 'Left steel rail' : 'Right steel rail'));
+        assert.equal(strips.length, 3);
+        const limits = strips.map(({geometry}) => {
+          const p = geometry.attributes.position;
+          const along = Array.from({length: p.count}, (_, j) => (p.getX(j) - x) * dx + (p.getZ(j) - z) * dz);
+          return [Math.min(...along), Math.max(...along)];
+        });
+        assert.ok(limits.every(([min, max]) => min > .10 || max < -.10), 'Each steel rail clears the frog.');
+        assert.ok(limits.some(([min]) => min > 0) && limits.some(([, max]) => max < 0), 'The same rail resumes beyond it.');
+      }
+    }
+  } finally { kit.dispose(); }
+});
 
 function section(root, axis, coordinate) {
   const snap = number => Math.round(number * 1e6);

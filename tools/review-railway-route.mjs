@@ -5,7 +5,7 @@ import {withArtReview} from './art-review-browser.mjs';
 
 const waypoints = [[12, 12], [24, 12], [32, 20], [32, 30], [43, 30]];
 const feature = 'nautilus-railway-routes-v1';
-await withArtReview('Lay and reopen a connected railway in the built Map Workshop', async ({page, baseURL, out, browser}) => {
+await withArtReview('Lay and reopen railway routes, splits and crossings in the built Map Workshop', async ({page, baseURL, out, browser}) => {
   page.setDefaultTimeout(20000);
   await page.setViewportSize({width: 1440, height: 960});
   await page.goto(baseURL + '/');
@@ -221,10 +221,82 @@ await withArtReview('Lay and reopen a connected railway in the built Map Worksho
   await page.locator('#railway-remove-split').click();
   await trunkOnly();
   assert.equal(await portable(), committed);
+
+  await page.evaluate(async () => {
+    const {blankMap} = await import('/packages/map-core/index.js');
+    await window.nautilus.open(blankMap('Railway crossing review'));
+  });
+  await page.locator('[data-group="railway"]').click();
+  await mode.selectOption('route');
+  await frame(60, 50, 33);
+  const crossingMain = [[45, 50], [75, 50]], crossingDiagonal = [[52, 42], [69, 59]];
+  for (const waypoint of crossingMain) await tap(waypoint);
+  await page.locator('#railway-place').click();
+  const withoutDiamond = () => page.waitForFunction(() => {
+    const models = window.editor3d.scene.railwayModels;
+    const root = models.get('rail-1')?.model.root;
+    return !window.editor3d.loading && models.size === 1 && root?.visible && root.children.length === 5;
+  });
+  await withoutDiamond();
+  const beforeCrossing = await portable(), crossingHistory = await history();
+  const withDiamond = () => page.waitForFunction(() => {
+    const models = window.editor3d.scene.railwayModels;
+    return !window.editor3d.loading && models.size === 2 &&
+      models.get('rail-1')?.model.root.getObjectByName('Diamond crossing frog') &&
+      models.get('rail-2')?.model.root.visible;
+  });
+  await tap(crossingDiagonal[0]);
+  await page.mouse.move(...await spot(crossingDiagonal[1]));
+  await page.waitForFunction(() => {
+    const {railwayModels, railwayPeerGhosts, railwayGhost} = window.editor3d.scene;
+    return !railwayModels.get('rail-1').model.root.visible && railwayGhost &&
+      railwayPeerGhosts.get('rail-1')?.model.root.getObjectByName('Diamond crossing frog');
+  });
+  assert.match(await draft.textContent(), /1 crossing fitted/);
+  assert.equal(await portable(), beforeCrossing);
+  await page.locator('#railway-cancel').click();
+  await withoutDiamond();
+  assert.equal(await history(), crossingHistory);
+  for (const waypoint of crossingDiagonal) await tap(waypoint);
+  assert.match(await draft.textContent(), /1 crossing fitted/);
+  await page.locator('#railway-place').click();
+  await withDiamond();
+  assert.equal(await history(), crossingHistory + 1);
+  const crossed = await portable();
+  assert.deepEqual(JSON.parse(crossed).railwayRoutes, {version: 3, routes: [
+    {id: 'rail-1', waypoints: crossingMain}, {id: 'rail-2', waypoints: crossingDiagonal}
+  ]});
+  const crossingGeometry = () => page.evaluate(() => [...window.editor3d.scene.railwayModels.values()].map(({model}) =>
+    model.root.children.map(mesh => ({
+      name: mesh.name, position: mesh.position.toArray(), indices: mesh.geometry.index?.count,
+      bounds: [mesh.geometry.boundingBox?.min.toArray(), mesh.geometry.boundingBox?.max.toArray()],
+      sleepers: mesh.isInstancedMesh ? mesh.count : undefined
+    }))));
+  const crossedGeometry = await crossingGeometry();
+  assert.equal(crossedGeometry.flat().filter(mesh => mesh.name === 'Diamond crossing frog').length, 4);
+  await page.locator('#undo').click();
+  await withoutDiamond();
+  assert.equal(await portable(), beforeCrossing);
+  await page.locator('#redo').click();
+  await withDiamond();
+  assert.equal(await portable(), crossed);
+  await page.evaluate(json => window.nautilus.open(json), crossed);
+  await withDiamond();
+  assert.deepEqual(await crossingGeometry(), crossedGeometry);
+  await frame(60, 50, 12);
+  await page.screenshot({path: path.join(out, 'railway-crossing-desktop.png')});
+  await page.locator('[data-group="inspect"]').click();
+  await tap([64, 54]);
+  await page.locator('#delete-selected').click();
+  await withoutDiamond();
+  assert.equal(await portable(), beforeCrossing);
+
   const report = {browser: browser.version(), route: data, geometry: built, previewNonmutating: true,
     invalidApproachRefused: true, cancellation: true, undoRedo: true, namedSave: true, fileImport: true,
     unsupportedSendButtonAndAPI: true, geometryParity: true,
-    turnout: {data: split, cancellation: true, undoRedo: true, geometryParity: true, removed: true}};
+    turnout: {data: split, cancellation: true, undoRedo: true, geometryParity: true, removed: true},
+    crossing: {point: [60, 50], angleDeg: 45, previewRestoresBothTracks: true, undoRedo: true,
+      geometryParity: true, independentRemoval: true}};
   fs.writeFileSync(path.join(out, 'acceptance.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({browser: report.browser, metres: built.lengthM, joins: built.offsets.length, route: data}));
-}, {owner: 'nautilus-railway-turnout-review', output: 'railway-route-review', timeoutMs: 225000});
+}, {owner: 'nautilus-railway-crossing-review', output: 'railway-route-review', timeoutMs: 270000});
