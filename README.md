@@ -22,6 +22,8 @@ Open `http://127.0.0.1:4517`. The read-only preview server stops automatically a
 
 Start with the example yard, choose a build tool, and drag to place. Settings contains file import/export, named saves, camera controls and workspace switching. Blocks exposes the reusable-block library, connection settings and generation. On narrow screens, **Tool options** opens the properties drawer; Escape closes it. Right-drag or WASD pans, scroll zooms, Q/E turns the camera, and Ctrl/Cmd Z undoes.
 
+Under **Land → Solid block**, choose an existing ground skin and one of eight heights. Each step is 26.5 cm and a full block is 2.12 m. The headless projection supplies solid bounds and stair-equivalent one-step routes for compatible games. [Solid ground tiles](docs/solid-ground-tiles.md)
+
 ## Use the map core
 
 ```js

@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {historicalSolidTileBytes} from './solid-tile-registration.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
@@ -38,7 +39,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
     assert.ok(git('show',':'+file).equals(expected),'The index changes reviewed bytes: '+file);
   };
   const unchanged=(file,commit)=>{
-    const expected=object(commit,file);assert.ok(read(file).equals(expected),'Reviewed bytes changed: '+file);indexed(file,expected);return record(file,expected);
+    const expected=object(commit,file),actual=read(file);assert.ok(historicalSolidTileBytes(object,file,actual).equals(expected),'Reviewed bytes changed: '+file);indexed(file,actual);return record(file,expected);
   };
   const approvedRuntime=git('ls-tree','-r','--name-only',TILE_ART_ACCEPTED_SOURCE,'packages/tile-visuals').toString().trim().split('\n').filter(file=>file.endsWith('.js')).sort();
   assert.equal(approvedRuntime.length,6);

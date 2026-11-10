@@ -9,6 +9,7 @@ Nautilus exposes engine-owned plain-data interfaces. Import public package entry
 | aft-map | 2 | Existing 240 by 240 portable JSON remains unchanged; six available layers. |
 | aft-block | 1 | Existing 24 by 24 portable reusable blocks remain unchanged. |
 | nautilus-save | 1 | Optional stamped envelope around an unchanged portable blueprint. |
+| nautilus-solid-ground-tiles | 1 | Optional sparse map or reusable block extension. Each cell records a 1–8 height step and a ground skin ID. |
 | nautilus-rock | 1 | Optional item sidecar; explicit instance/owner/flight state. |
 | nautilus-rock-impact-noise | 1 | First confirmed surface-contact event; host deduplicates delivery. |
 | nautilus-progression | 1 | Optional strict progression bundle containing an unchanged character-v1 and saved reward/allocation receipts. |
@@ -29,6 +30,8 @@ Rock sidecars use the strict [item contract](rock-distraction.md), separately fr
 engineManifest returns a copied manifest with stable schema IDs, exact supported versions and feature IDs. blueprintRequirements derives required features from authored content. negotiateCapabilities accepts separate required and optional arrays, each with an inclusive integer minVersion/maxVersion. A consumer publishes contractVersion 1, an ID, schemas and capabilities with exact versions arrays. Unknown/invalid/duplicate entries and incompatible schema versions produce structured errors with code, path, affected feature, supported versions and an action.
 
 assertBlueprintCompatible refuses unsupported required data before handoff. The browser bridge accepts adapter.manifest; historical string-array adapter.features remains supported. A feature declaration is the consumer's promise to preserve and implement its semantics, not automatic gameplay integration. Empty future/invalid extension envelopes still reject through blueprint validation.
+
+Solid ground tiles require `nautilus-solid-ground-tiles-v1`. The main core export supplies `solidTileGeometry` for metre-based volume and support records and `planSolidTileStep` for ground-level cardinal movement. Bind the latter to the host's ordinary stair and walk clearance, eligibility and cost rules.
 
 ## Release policy
 

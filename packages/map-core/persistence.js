@@ -1,5 +1,4 @@
-import {EditingDocument} from './roof-document.js';
-import {parseMap} from './roof-maps.js';
+import {EditingDocument, parseMap} from './solid-tile-document.js';
 import {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS} from './contract-manifest.js';
 import {blueprintRequirements, assertRequirements, CompatibilityError} from './capabilities.js';
 import {refusePartsEnvelope} from '../world-core/parts-refusal.js';
