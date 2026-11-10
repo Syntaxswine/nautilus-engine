@@ -3,7 +3,8 @@ import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 
 const guide = 'docs/railway-track-kit.md';
-const modules = ['catalogue.js', 'paint.js', 'three.js'].map(name => 'packages/railway-visuals/' + name);
+const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'train-view.js']
+  .map(name => 'packages/railway-visuals/' + name);
 const renderer = 'packages/assets/three.js';
 
 export function railwayPackageFiles(profile) {
@@ -48,7 +49,9 @@ export function registeredRailwayBytes(file, before) {
 export function checkRailwayRenderer({baseFile, read, indexed}) {
   const anchor = "import {buildingAsset} from '../prefab-core/registry.js';";
   const expected = insert(baseFile(renderer).toString('utf8'), anchor,
-    anchor + "\nexport {createRailwayKit} from '../railway-visuals/three.js';");
+    anchor + "\nexport {createRailwayKit} from '../railway-visuals/three.js';" +
+    "\nexport {createRollingStockKit} from '../railway-visuals/rolling-stock.js';" +
+    "\nexport {createRailwayTrainView} from '../railway-visuals/train-view.js';");
   const actual = read(renderer);
   assert.ok(actual.equals(Buffer.from(expected)), 'Unreviewed railway renderer facade bytes.');
   indexed(renderer, actual);

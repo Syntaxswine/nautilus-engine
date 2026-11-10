@@ -5,14 +5,16 @@ export const RAILWAY_ROUTE_BASE = 'e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35';
 export const RAILWAY_ROUTE_SCHEMA = 'schemas/railway-routes-v1.schema.json';
 const turnoutSchema = 'schemas/railway-routes-v2.schema.json';
 const crossingSchema = 'schemas/railway-routes-v3.schema.json';
-export const RAILWAY_ROUTE_SCHEMAS = Object.freeze([RAILWAY_ROUTE_SCHEMA, turnoutSchema, crossingSchema]);
+const trainSchema = 'schemas/railway-routes-v4.schema.json';
+export const RAILWAY_ROUTE_SCHEMAS = Object.freeze([RAILWAY_ROUTE_SCHEMA, turnoutSchema, crossingSchema, trainSchema]);
 const planner = 'packages/railway-visuals/route.js';
-const core = ['packages/map-core/railway-document.js', 'packages/map-core/railway-map.js', 'packages/map-core/railway-routes.js'];
+const train = 'packages/map-core/railway-train.js';
+const core = ['packages/map-core/railway-document.js', 'packages/map-core/railway-map.js', 'packages/map-core/railway-routes.js', train];
 
 export function railwayRoutePackageFiles(profile) {
   if (profile === 'core') return [...RAILWAY_ROUTE_SCHEMAS, planner, ...core, 'packages/railway-visuals/catalogue.js'];
   if (profile === 'compatibility') return [...RAILWAY_ROUTE_SCHEMAS, planner, ...core];
-  return profile === 'renderer' ? [...RAILWAY_ROUTE_SCHEMAS, planner] : RAILWAY_ROUTE_SCHEMAS;
+  return profile === 'renderer' ? [...RAILWAY_ROUTE_SCHEMAS, planner, train] : RAILWAY_ROUTE_SCHEMAS;
 }
 
 export function historicalRailwayCoreClosure(closure) {
@@ -30,12 +32,12 @@ function replace(text, anchor, replacement) {
 const additions = {
   'packages/map-core/index.js': text => {
     text = replace(text, "import {EditingDocument} from './roof-document.js';\nimport {blankMap, parseMap, validateMap, W, H, SECTOR, LEVELS} from './roof-maps.js';\nimport {blockCanvas, extractBlock, validateBlock} from './roof-blocks.js';",
-      "import {EditingDocument} from './railway-document.js';\nimport {blankMap, parseMap, validateMap, W, H, SECTOR, LEVELS, blockCanvas, extractBlock, validateBlock} from './railway-map.js';\nimport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE} from '../railway-visuals/route.js';");
+      "import {EditingDocument} from './railway-document.js';\nimport {blankMap, parseMap, validateMap, W, H, SECTOR, LEVELS, blockCanvas, extractBlock, validateBlock} from './railway-map.js';\nimport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE} from '../railway-visuals/route.js';");
     text = replace(text, "export {generateConnectedMap} from './roof-generator.js';\nexport {assertMapCapabilities,requiredMapFeatures} from './roof-maps.js';",
       "export {generateConnectedMap,assertMapCapabilities,requiredMapFeatures} from './railway-map.js';");
     text = replace(text, "export {openBlock, placeBlock} from './roof-blocks.js';\nexport {rotateSceneryBlock} from './roof-rotation.js';",
-      "export {openBlock, placeBlock, rotateSceneryBlock} from './railway-map.js';\nexport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_ROUTE_LIMITS, RAILWAY_RADIUS_M, planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, railwayCrossingsByRoute} from '../railway-visuals/route.js';\nexport {railwayRoutesOf, railwayCrossingsOf} from './railway-routes.js';");
-    text = replace(text, "'nautilus-sloped-roofs-v1']});", "'nautilus-sloped-roofs-v1',RAILWAY_ROUTE_FEATURE,RAILWAY_TURNOUT_FEATURE,RAILWAY_CROSSING_FEATURE]});");
+      "export {openBlock, placeBlock, rotateSceneryBlock} from './railway-map.js';\nexport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE, RAILWAY_ROUTE_LIMITS, RAILWAY_RADIUS_M, planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, railwayCrossingsByRoute} from '../railway-visuals/route.js';\nexport {railwayRoutesOf, railwayCrossingsOf, railwayTrainOf} from './railway-routes.js';\nexport {createRailwayTrain, RAILWAY_STOCK, RAILWAY_COUPLER_HEIGHT_M} from './railway-train.js';");
+    text = replace(text, "'nautilus-sloped-roofs-v1']});", "'nautilus-sloped-roofs-v1',RAILWAY_ROUTE_FEATURE,RAILWAY_TURNOUT_FEATURE,RAILWAY_CROSSING_FEATURE,RAILWAY_TRAIN_FEATURE]});");
     return replace(text, '    upperLevels:', '    ...(map.railwayRoutes ? {railwayRoutes: map.railwayRoutes.routes.length} : {}),\n    upperLevels:');
   },
   'packages/map-core/capabilities.js': text => replace(text,
@@ -46,17 +48,17 @@ const additions = {
     "import {EditingDocument} from './railway-document.js';\nimport {parseMap} from './railway-map.js';"),
   'packages/map-core/contract-manifest.js': text => {
     text = replace(text, '// never an automatic promise that a consumer implements gameplay for them.\n',
-      "// never an automatic promise that a consumer implements gameplay for them.\nimport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE} from '../railway-visuals/route.js';\n\n");
+      "// never an automatic promise that a consumer implements gameplay for them.\nimport {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE} from '../railway-visuals/route.js';\n\n");
     text = replace(text, 'SCHEMA_IDS = freeze({', "SCHEMA_IDS = freeze({railwayRoutes:'nautilus-railway-routes', ");
-    text = replace(text, 'FEATURE_IDS = freeze({', 'FEATURE_IDS = freeze({railwayRoutes:RAILWAY_ROUTE_FEATURE, railwayTurnouts:RAILWAY_TURNOUT_FEATURE, railwayCrossings:RAILWAY_CROSSING_FEATURE, ');
-    text = replace(text, '  schemas: [', '  schemas: [{id:SCHEMA_IDS.railwayRoutes,versions:[1,2,3]}, ');
+    text = replace(text, 'FEATURE_IDS = freeze({', 'FEATURE_IDS = freeze({railwayRoutes:RAILWAY_ROUTE_FEATURE, railwayTurnouts:RAILWAY_TURNOUT_FEATURE, railwayCrossings:RAILWAY_CROSSING_FEATURE, railwayTrains:RAILWAY_TRAIN_FEATURE, ');
+    text = replace(text, '  schemas: [', '  schemas: [{id:SCHEMA_IDS.railwayRoutes,versions:[1,2,3,4]}, ');
     text = replace(text, '  capabilities: [',
-      "  capabilities: [\n    {id: FEATURE_IDS.railwayRoutes, versions: [1], description: 'Optional level railway waypoints and deterministic 4 m tangent routes; consumer owns presentation and runtime behavior.'},\n    {id: FEATURE_IDS.railwayTurnouts, versions: [1], description: 'Static level 45 degree railway splits and versioned branch waypoints.'},\n    {id: FEATURE_IDS.railwayCrossings, versions: [1], description: 'Derived level 45 and 90 degree diamond crossings between independent straight railway approaches.'},");
+      "  capabilities: [\n    {id: FEATURE_IDS.railwayRoutes, versions: [1], description: 'Optional level railway waypoints and deterministic 4 m tangent routes; consumer owns presentation and runtime behavior.'},\n    {id: FEATURE_IDS.railwayTurnouts, versions: [1], description: 'Static level 45 degree railway splits and versioned branch waypoints.'},\n    {id: FEATURE_IDS.railwayCrossings, versions: [1], description: 'Derived level 45 and 90 degree diamond crossings between independent straight railway approaches.'},\n    {id: FEATURE_IDS.railwayTrains, versions: [1], description: 'Authored train departure and switch position with a host-driven rail itinerary for a single consist.'},");
     return replace(text, 'const SCHEMA_DOCUMENTS = freeze([',
-      "const SCHEMA_DOCUMENTS = freeze([\n  {id:SCHEMA_IDS.railwayRoutes,version:1,uri:'urn:nautilus:schema:railway-routes:1',file:'railway-routes-v1.schema.json'},\n  {id:SCHEMA_IDS.railwayRoutes,version:2,uri:'urn:nautilus:schema:railway-routes:2',file:'railway-routes-v2.schema.json'},\n  {id:SCHEMA_IDS.railwayRoutes,version:3,uri:'urn:nautilus:schema:railway-routes:3',file:'railway-routes-v3.schema.json'},");
+      "const SCHEMA_DOCUMENTS = freeze([\n  {id:SCHEMA_IDS.railwayRoutes,version:1,uri:'urn:nautilus:schema:railway-routes:1',file:'railway-routes-v1.schema.json'},\n  {id:SCHEMA_IDS.railwayRoutes,version:2,uri:'urn:nautilus:schema:railway-routes:2',file:'railway-routes-v2.schema.json'},\n  {id:SCHEMA_IDS.railwayRoutes,version:3,uri:'urn:nautilus:schema:railway-routes:3',file:'railway-routes-v3.schema.json'},\n  {id:SCHEMA_IDS.railwayRoutes,version:4,uri:'urn:nautilus:schema:railway-routes:4',file:'railway-routes-v4.schema.json'},");
   },
   'schemas/aft-map-v2.schema.json': text => replace(text, '      "$ref": "urn:nautilus:schema:sloped-roofs:1"\n    }',
-    '      "$ref": "urn:nautilus:schema:sloped-roofs:1"\n    },\n    "railwayRoutes": {\n      "oneOf": [\n        {"$ref": "urn:nautilus:schema:railway-routes:1"},\n        {"$ref": "urn:nautilus:schema:railway-routes:2"},\n        {"$ref": "urn:nautilus:schema:railway-routes:3"}\n      ]\n    }')
+    '      "$ref": "urn:nautilus:schema:sloped-roofs:1"\n    },\n    "railwayRoutes": {\n      "oneOf": [\n        {"$ref": "urn:nautilus:schema:railway-routes:1"},\n        {"$ref": "urn:nautilus:schema:railway-routes:2"},\n        {"$ref": "urn:nautilus:schema:railway-routes:3"},\n        {"$ref": "urn:nautilus:schema:railway-routes:4"}\n      ]\n    }')
 };
 
 export function historicalRailwayRouteBytes(object, file, current) {
@@ -88,6 +90,10 @@ export function verifyRailwayRouteFiles({object, read, indexed}) {
     if (file === crossingSchema) {
       assert.equal(createHash('sha256').update(bytes).digest('hex'),
         '6296c51f34204ed6adab7bba0ae1f3c0b6e7c61f82192a0d4700caa76adebf86');
+    }
+    if (file === trainSchema) {
+      assert.equal(createHash('sha256').update(bytes).digest('hex'),
+        '572bd1a350d34c3c53f9c850dadc969924b48651211edb6e34dbf9e5fe73c106');
     }
     indexed(file, bytes);
   }

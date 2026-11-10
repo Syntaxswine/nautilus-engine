@@ -1,10 +1,11 @@
 import {
   planRailwayRoute, planRailwayTurnout, planRailwayCrossings, RAILWAY_ROUTE_LIMITS, assertRailwaySeparation, railwaySegmentBounds,
-  railwaySegmentDistance, pointToRailwaySegment
+  railwaySegmentDistance
 } from '../railway-visuals/route.js';
 import {buildingLot} from '../prefab-core/index.js';
 import {WALL_KIT, wallRunsOf} from './wall-runs.js';
 import {W, H, edgePoints} from './maps.js';
+import {assertRailwayTrainFits} from './railway-train.js';
 import {floorTerrain, propCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 
 const EPS = 1e-8;
@@ -15,6 +16,7 @@ const asPoint = ({x, y}) => [x, y];
 const idPattern = /^[a-zA-Z0-9_-]{1,64}$/;
 
 export function railwayRoutesOf(map) { return map?.railwayRoutes?.routes ?? []; }
+export function railwayTrainOf(map) { return map?.railwayRoutes?.train ?? null; }
 
 export function refuseRailwayRoutes(map, workflow) {
   if (map?.railwayRoutes !== undefined) {
@@ -22,14 +24,15 @@ export function refuseRailwayRoutes(map, workflow) {
   }
 }
 
-export function setRailwayRoutes(map, routes) {
+export function setRailwayRoutes(map, routes, train = railwayTrainOf(map)) {
   if (!routes.length) {
+    if (train) throw new Error('Choose a placed railway route for the train.');
     delete map.railwayRoutes;
     return {plans: [], crossings: []};
   }
-  const data = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
+  const data = train ? {version: 4, routes, train} : {version: routes.some(route => route.turnout) ? 2 : 1, routes};
   const layout = checkRailwayRoutes(map, data, true);
-  if (layout.crossings.length) data.version = 3;
+  if (!train && layout.crossings.length) data.version = 3;
   map.railwayRoutes = data;
   return layout;
 }
@@ -114,9 +117,10 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   if (map.version !== 2 || map.width !== W || map.height !== H) {
     throw new Error('Railway routes require a full aft-map-v2 design.');
   }
-  if (!exact(data, ['version', 'routes']) || ![1, 2, 3].includes(data.version) || !Array.isArray(data.routes) ||
+  const keys = data?.version === 4 ? ['version', 'routes', 'train'] : ['version', 'routes'];
+  if (!exact(data, keys) || ![1, 2, 3, 4].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1, 2, or 3 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1–4 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
   const mapPoint = point => Array.isArray(point) && point.length === 2 &&
@@ -149,12 +153,20 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   if (data.version === 2 && !plans.some(route => route.turnout)) {
     throw new Error('Use railwayRoutes version 1 for routes without a split.');
   }
-  const crossings = data.version === 3 || allowNewCrossings ? planRailwayCrossings(plans) : [];
+  const crossings = data.version >= 3 || allowNewCrossings ? planRailwayCrossings(plans) : [];
   if (data.version === 3 && !crossings.length) {
     throw new Error('Railway routes version 3 requires at least one crossing.');
   }
   assertRailwaySeparation(plans, crossings);
   assertGround(map, plans);
+  if (data.version === 4) {
+    if (!exact(data.train, ['routeId', 'stock', 'departure', 'switchPosition'])) {
+      throw new Error('The train needs a route, stock type, departure end and switch position.');
+    }
+    const route = plans.find(item => item.id === data.train.routeId);
+    if (!route) throw new Error('The train references a railway route that is missing.');
+    assertRailwayTrainFits(route, data.train);
+  }
   return {plans, crossings};
 }
 
@@ -163,21 +175,31 @@ export function assertRailwayRoutes(map) {
 }
 
 export function railwayCrossingsOf(map) {
-  return map?.railwayRoutes?.version === 3 ? assertRailwayRoutes(map).crossings : [];
+  return map?.railwayRoutes?.version >= 3 ? assertRailwayRoutes(map).crossings : [];
+}
+
+export function railwayTrackAt(map, x, y) {
+  let closest = null, distance = Infinity;
+  function inspect(route, path, branch) {
+    for (const {a, b, startM, endM, radius} of path.segments) {
+      const dx = b[0] - a[0], dy = b[1] - a[1];
+      const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / (dx * dx + dy * dy)));
+      const gap = Math.hypot(x - a[0] - t * dx, y - a[1] - t * dy);
+      if (gap > radius + EPS || gap >= distance - EPS) continue;
+      distance = gap;
+      const stationM = startM + t * (endM - startM);
+      const departure = branch ? 'branch' : stationM <= path.lengthM / 2 ? 'start' : 'end';
+      closest = {route, departure};
+    }
+  }
+  for (const route of railwayRoutesOf(map)) {
+    const plan = planRailwayRoute(route.waypoints);
+    inspect(route, plan, false);
+    if (route.turnout) inspect(route, planRailwayTurnout(plan, route.turnout).plan, true);
+  }
+  return closest;
 }
 
 export function railwayRouteAt(map, x, y) {
-  let closest = null, distance = Infinity;
-  for (const route of railwayRoutesOf(map)) {
-    const plan = planRailwayRoute(route.waypoints);
-    const branch = route.turnout ? planRailwayTurnout(plan, route.turnout).plan.segments : [];
-    for (const segment of [...plan.segments, ...branch]) {
-      const gap = pointToRailwaySegment([x, y], segment.a, segment.b);
-      if (gap <= segment.radius + EPS && gap < distance - EPS) {
-        closest = route;
-        distance = gap;
-      }
-    }
-  }
-  return closest;
+  return railwayTrackAt(map, x, y)?.route ?? null;
 }

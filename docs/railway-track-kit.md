@@ -26,6 +26,12 @@ To branch off a placed route, choose **Railway action → Add split**. Click a s
 
 Each route saves an ID and its ordered waypoint pairs in the optional `railwayRoutes` map extension. Plain routes use version 1. A map with a split uses version 2 and adds `turnout: {at, end}` to the parent route. A map with a crossing uses version 3 and derives each diamond from the same route records. A full map can hold up to 64 routes with up to 48 waypoints and 480 m per route including its branch, and up to 1,200 m of fitted track in total. A consumer advertises `nautilus-railway-routes-v1` for routes, `nautilus-railway-turnouts-v1` for splits and `nautilus-railway-crossings-v1` for crossings. Block capture, connected generation, and sector publishing require their own railway support. The portable map and named Design save preserve the full track.
 
+## Run a train in Map Workshop
+
+Choose **Railway → Train** and pick the steam or electric set. Click the track near the end you want to depart from. Choose **Main line** or **Branch** at a facing turnout, then select **Run train**. The locomotive commits to the turnout setting as it reaches the split. Every car follows it. The train carries straight on along its own track through a diamond and stops at its destination end. A train departing from the branch merges onto the main line.
+
+**Reset** returns the train to its departure end. A design holds one train. Choosing another type and clicking the track replaces that train. Keep at least 11.2 m of track for the steam set and 9.6 m for the electric set, with room along the selected itinerary. The version 4 railway record saves the stock, route, departure end and switch setting. Reopening starts the train at its departure end. Consumers handling that placement advertise `nautilus-railway-trains-v1` alongside the capabilities required by the track.
+
 ## Use in a game
 
 ```js
@@ -50,6 +56,8 @@ scene.add(incoming.root, curve.root, outgoing.root);
 For a saved route, call `track.createRoute(route.waypoints, route.turnout)` and add its root to the scene. Route roots use the authored map coordinates directly, with ground at Three Y = 0. Use `planRailwayRoute(waypoints)` and, for a split, `planRailwayTurnout(mainPlan, turnout)` from map-core for the fitted geometry. Each route uses continuous sweeps, so the rails, gravel texture and tie spacing follow the tangent joins.
 
 For a map with crossings, get the render inputs from map-core with `const byRoute = railwayCrossingsByRoute(railwayCrossingsOf(map))`. Pass `byRoute.get(route.id)` as the third argument to `track.createRoute` for each route. Both rails receive relief gaps at the four shared fittings while the planner keeps the two through paths independent.
+
+For an authored train, get the placement with `railwayTrainOf(map)` and find its route by `placement.routeId` in `railwayRoutesOf(map)`. Call `createRailwayTrain(route, placement)` from map-core. Use `train.read()` for the current car poses and `train.advance(distanceM, switchPosition)` to advance using the host clock. In Three, create the model with `createRailwayTrainView(THREE, train.read())` from the renderer asset entry, then pass each new pose to `view.update(state)`. Call `view.dispose()` when unloading the train. `createRollingStockKit(THREE)` exposes the individual cars for hosts that already render trains.
 
 The kit creates two procedural texture maps and shares geometries and materials across segment instances. Ties and tie plates are instanced. The kit owns those resources and removes its live roots on disposal. The host owns its renderer, scene, transforms and serialized placements. An unknown asset ID throws before a segment is created.
 

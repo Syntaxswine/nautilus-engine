@@ -4,6 +4,7 @@ import {railwayRoutesOf, railwayCrossingsOf} from '../../packages/map-core/railw
 import {RAIL_TRACK_PROFILE} from '../../packages/railway-visuals/catalogue.js';
 import {createRailwayKit} from '../../packages/railway-visuals/three.js';
 import {planRailwayRoute, planRailwayTurnout, railwayCrossingsByRoute} from '../../packages/railway-visuals/route.js';
+import {createWorkshopTrainPreview} from './railway-train-preview.js';
 
 const signatureOf = (route, crossings) => JSON.stringify([route.waypoints, route.turnout, crossings]);
 const markerHeight = RAIL_TRACK_PROFILE.railTopM + .045;
@@ -15,6 +16,7 @@ export class InspectionScene extends Legacy {
     this.railwayPeerGhosts = new Map();
     this.railwayHidden = new Set();
     this.railwayGhost = null;
+    this.railwayTrain = createWorkshopTrainPreview(T, this.scene, () => this.changed());
     this.railwayMarks = new T.LineSegments(new T.BufferGeometry(),
       new T.LineBasicMaterial({color: 0x78f1de, depthTest: false}));
     this.railwayMarks.name = 'Railway draft waypoints';
@@ -51,6 +53,7 @@ export class InspectionScene extends Legacy {
     if (!this.railwayModels || this.railwayDisposed) return;
     const crossings = railwayCrossingsByRoute(railwayCrossingsOf(document?.map));
     this.syncRailwayModels(this.railwayModels, railwayRoutesOf(document?.map), crossings);
+    this.railwayTrain.sync(document?.map);
     this.syncRailwayVisibility();
   }
 
@@ -59,11 +62,22 @@ export class InspectionScene extends Legacy {
     for (const [id, entry] of this.railwayModels) entry.model.root.visible = visible && !this.railwayHidden.has(id);
     for (const entry of this.railwayPeerGhosts.values()) entry.model.root.visible = visible;
     if (this.railwayGhost) this.railwayGhost.model.root.visible = visible;
+    this.railwayTrain.setVisible(visible);
   }
 
   rebuild() { super.rebuild(); this.updateRailway(); }
-  async open(document) { await super.open(document); this.updateRailway(document); }
-  async update(document) { await super.update(document); this.updateRailway(document); }
+  async open(document) {
+    this.railwayTrain.pause();
+    await super.open(document);
+    if (this.document !== document || this.railwayDisposed) return;
+    this.updateRailway(document);
+    this.railwayTrain.reset();
+  }
+  async update(document) {
+    this.railwayTrain.sync(document?.map);
+    await super.update(document);
+    if (this.document === document) this.updateRailway(document);
+  }
 
   preview(result) {
     super.preview(result);
@@ -111,6 +125,7 @@ export class InspectionScene extends Legacy {
   dispose() {
     if (this.railwayDisposed) return;
     this.railwayDisposed = true;
+    this.railwayTrain.dispose();
     this.railwayKit?.dispose();
     this.railwayModels.clear();
     this.railwayPeerGhosts.clear();

@@ -1,7 +1,7 @@
 // The public boundary is headless: no renderer, DOM or browser storage required.
 import {EditingDocument} from './railway-document.js';
 import {blankMap, parseMap, validateMap, W, H, SECTOR, LEVELS, blockCanvas, extractBlock, validateBlock} from './railway-map.js';
-import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE} from '../railway-visuals/route.js';
+import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE} from '../railway-visuals/route.js';
 
 export {EditingDocument as MapDocument, blankMap, parseMap, validateMap, blockCanvas, extractBlock, validateBlock};
 export {generateConnectedMap,assertMapCapabilities,requiredMapFeatures} from './railway-map.js';
@@ -10,15 +10,16 @@ export * from './wall-runs.js';
 export * from '../roof-core/index.js';
 export {blockedEdge, neighbors} from './maps.js';
 export {openBlock, placeBlock, rotateSceneryBlock} from './railway-map.js';
-export {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_ROUTE_LIMITS, RAILWAY_RADIUS_M, planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, railwayCrossingsByRoute} from '../railway-visuals/route.js';
-export {railwayRoutesOf, railwayCrossingsOf} from './railway-routes.js';
+export {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE, RAILWAY_ROUTE_LIMITS, RAILWAY_RADIUS_M, planRailwayRoute, planRailwayTurnout, railwayStationAt, snapRailwayWaypoint, railwayCrossingsByRoute} from '../railway-visuals/route.js';
+export {railwayRoutesOf, railwayCrossingsOf, railwayTrainOf} from './railway-routes.js';
+export {createRailwayTrain, RAILWAY_STOCK, RAILWAY_COUPLER_HEIGHT_M} from './railway-train.js';
 export {connectionSet, connectionsMatch} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js';
 export {emptyFeaturePlan, seededFeaturePlan, validateFeaturePlan} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js';
 
 export {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS, FEATURE_IDS, engineManifest, schemaDocuments} from './contract-manifest.js';
 export {CompatibilityError, blueprintRequirements, negotiateCapabilities, assertRequirements, assertBlueprintCompatible} from './capabilities.js';
 export {BlueprintError, loadBlueprint, validateBlueprint, migrateBlueprint, createSave, parseSave, serializeSave} from './persistence.js';
-export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1',RAILWAY_ROUTE_FEATURE,RAILWAY_TURNOUT_FEATURE,RAILWAY_CROSSING_FEATURE]});
+export const MAP_CONTRACT = Object.freeze({format: 'aft-map-v2', blockFormat: 'aft-block-v1', width: W, height: H, blockSize: SECTOR, levels: LEVELS, metresPerTile: 1, groundAxes: ['x', 'y'], renderUp: 'y', optionalFeatures:['nautilus-wall-runs-v1','nautilus-building-prefabs-v1','nautilus-original-buildings-v1','nautilus-sloped-roofs-v1',RAILWAY_ROUTE_FEATURE,RAILWAY_TURNOUT_FEATURE,RAILWAY_CROSSING_FEATURE,RAILWAY_TRAIN_FEATURE]});
 export function createMapDocument(name = 'Untitled map') { return new EditingDocument().open(JSON.stringify(blankMap(name))); }
 export function createBlockDocument(name = 'Untitled block') { return new EditingDocument().open(JSON.stringify(extractBlock(blockCanvas(name)))); }
 export function openDocument(input) {

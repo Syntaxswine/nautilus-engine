@@ -3,6 +3,7 @@ import {RAIL_TRACK_ASSETS, RAIL_TRACK_PROFILE} from './catalogue.js';
 export const RAILWAY_ROUTE_FEATURE = 'nautilus-railway-routes-v1';
 export const RAILWAY_TURNOUT_FEATURE = 'nautilus-railway-turnouts-v1';
 export const RAILWAY_CROSSING_FEATURE = 'nautilus-railway-crossings-v1';
+export const RAILWAY_TRAIN_FEATURE = 'nautilus-railway-trains-v1';
 export const RAILWAY_ROUTE_LIMITS = Object.freeze({routes: 64, waypoints: 48, lengthM: 480, totalLengthM: 1200});
 export const RAILWAY_RADIUS_M = RAIL_TRACK_ASSETS.find(piece => piece.radiusM !== null).radiusM;
 const HALF_BED = RAIL_TRACK_PROFILE.ballastWidthM / 2;

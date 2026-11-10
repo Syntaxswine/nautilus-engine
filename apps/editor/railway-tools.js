@@ -1,4 +1,5 @@
 import {planRailwayRoute, snapRailwayTurnoutAnchor, snapRailwayWaypoint} from '../../packages/railway-visuals/route.js';
+import {installRailwayTrainTools} from './railway-train-tools.js';
 
 export function installRailwayTools({panel, canvas, getDocument, apply, scene, status, isBusy}) {
   const tool = panel.querySelector('#edit-tool');
@@ -7,7 +8,8 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   controls.id = 'railway-options';
   controls.hidden = true;
   controls.innerHTML = `<label for="railway-mode">Railway action</label>
-    <select id="railway-mode"><option value="route">Lay route</option><option value="turnout">Add split</option></select>
+    <select id="railway-mode"><option value="route">Lay route</option><option value="turnout">Add split</option><option value="train">Train</option></select>
+    <section id="railway-train-options" hidden></section>
     <p id="railway-help" class="muted"></p>
     <p id="railway-draft" role="status"></p>
     <div class="row"><button type="button" id="railway-undo-point">Undo point</button><button type="button" id="railway-cancel">Cancel route</button></div>
@@ -18,8 +20,12 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   const cancelButton = controls.querySelector('#railway-cancel'), note = controls.querySelector('#railway-draft');
   const mode = controls.querySelector('#railway-mode'), help = controls.querySelector('#railway-help');
   const removeSplit = controls.querySelector('#railway-remove-split');
+  const trainSection = controls.querySelector('#railway-train-options');
   const active = () => tool.value === 'railway-route';
   const splitting = () => mode.value === 'turnout';
+  const trainMode = () => mode.value === 'train';
+  const train = installRailwayTrainTools({section: trainSection, getDocument, apply, preview: scene.railwayTrain,
+    status, isBusy, availability});
   let accepted = [], preview = null, hover = null, gesture = null, frame = 0, pending = null, targetRoute = null;
 
   function availability() {
@@ -35,11 +41,14 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   function sync(message) {
     controls.hidden = !active();
     const blocked = active() ? availability() : '';
+    trainSection.hidden = !trainMode();
+    help.hidden = note.hidden = undo.parentElement.hidden = place.hidden = trainMode();
+    removeSplit.hidden = !splitting() || !targetRoute?.turnout;
+    if (trainMode()) { train.sync(message); return; }
     place.disabled = !!blocked || accepted.length < 2;
     undo.disabled = cancelButton.disabled = !accepted.length;
     place.textContent = splitting() ? 'Place split' : 'Place route';
     cancelButton.textContent = splitting() ? 'Cancel split' : 'Cancel route';
-    removeSplit.hidden = !splitting() || !targetRoute?.turnout;
     removeSplit.disabled = !!blocked;
     help.textContent = splitting() ? 'Choose a straight section of a placed route, then choose where the 45° branch ends.'
       : 'Click or tap to add waypoints. Track snaps to the metre grid. Draw through a straight track to fit a 45° or 90° crossing.';
@@ -111,7 +120,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   }
   function move(event, point) {
     event.stopImmediatePropagation();
-    if (isBusy() || availability()) return;
+    if (trainMode() || isBusy() || availability()) return;
     pending = point(event);
     if (!frame) frame = requestAnimationFrame(() => {
       frame = 0;
@@ -126,6 +135,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     gesture = null;
     if (isBusy() || availability() || Math.hypot(event.clientX - x, event.clientY - y) > 9) return;
     const clicked = point(event);
+    if (trainMode()) return train.place(clicked);
     if (splitting() && !targetRoute && clicked) {
       const selected = getDocument().inspect(clicked.x, clicked.y, 0);
       const at = selected?.type === 'railway-route' &&
@@ -149,7 +159,9 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     if (draft && !draft.result.ok) status(draft.result.error);
   }
   function commit() {
-    if (!active() || place.disabled || isBusy() || availability()) return;
+    if (!active() || isBusy() || availability()) return;
+    if (trainMode()) return train.toggle();
+    if (place.disabled) return;
     return apply(command(accepted));
   }
   place.onclick = commit;
