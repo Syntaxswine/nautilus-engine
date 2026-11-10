@@ -14,7 +14,13 @@ assert.equal(walk(packageRoot).some(f=>/^(?:candidates|artifacts|tests|tools)\//
 const previousFetch=globalThis.fetch;let fetchCalls=0;globalThis.fetch=()=>{fetchCalls++;throw Error('Metadata must not fetch');};
 let Assets;try{Assets=await import(expected.specifier);}finally{globalThis.fetch=previousFetch;}assert.equal(fetchCalls,0);assert.equal(typeof globalThis.window,'undefined');assert.equal(typeof globalThis.document,'undefined');
 const records=Assets.listSharedArtwork();assert.equal(token(records),fixture.canonicalRecordsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkDefaults(p))),fixture.defaultGraphicsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkImage(p))),fixture.imageDeliveryDigest);
-const all=Assets.listSharedAssets();assert.equal(all.length,437);assert.equal(token(all.slice(0,407)),fixture.originalAssetRowsDigest);assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),fixture.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);
+const all=Assets.listSharedAssets(),railway=Assets.listSharedAssets({category:'Railway'}),reviewed=fixture.railway;
+assert.equal(all.length,reviewed.precedingRows+reviewed.ids.length);
+assert.equal(token(all.slice(0,reviewed.precedingRows)),reviewed.precedingRowsDigest,'Complete catalogue before Railway');
+assert.deepEqual(all.slice(reviewed.precedingRows),railway,'Railway adds only its reviewed rows at the end');
+assert.deepEqual(railway.map(row=>row.id),reviewed.ids);
+assert.equal(token(railway),reviewed.rowsDigest,'Reviewed Railway rows');
+assert.equal(token(all.slice(0,407)),fixture.originalAssetRowsDigest);assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),fixture.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);
 assert.equal('sharedArtworkDiscoveryRows' in Assets,false);assert.equal('sharedArtworkPayloadPaths' in Assets,false);
 const first=fixture.pins[0],changed=Assets.sharedArtwork(first);changed.body.notices[0].noticeText='consumer change';assert.equal(token(Assets.listSharedArtwork()),fixture.canonicalRecordsDigest);assert.throws(()=>Assets.sharedArtwork({...first,revision:999}));assert.throws(()=>Assets.sharedArtwork({id:first.id,version:1,digest:first.contentDigest}));
 let files=0;for(const f of fixture.payloads){const present=fs.existsSync(path.join(packageRoot,f.path));assert.equal(present,profile!=='core',f.path);if(present){const b=fs.readFileSync(path.join(packageRoot,f.path));assert.equal(b.length,f.bytes);assert.equal(sha(b),f.sha256);files++;}}
@@ -23,4 +29,4 @@ assert.equal(imagePaths.size,profile==='core'?0:2);
 for(const file of ['packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/tile-authoring-core/index.d.ts'])assert.ok(fs.existsSync(path.join(packageRoot,file)));
 if(profile==='renderer'||profile==='assets')assert.equal(fs.existsSync(path.join(packageRoot,'packages/tile-authoring-core/index.js')),false);
 if(profile==='assets'){const {listBuildingAssets,buildingAssetURLs}=await import(plan.name);assert.equal(listBuildingAssets().length,48);assert.ok(fs.statSync(new URL(buildingAssetURLs('bramble-ranch').model)).size>0);}
-console.log(JSON.stringify({status:'pass',profile,package:plan.name,specifier:expected.specifier,physicalFiles:plan.files.length+2,records:30,oldRowsExact:407,buildings:61,payloadFiles:files,pngPages:imagePaths.size,pureMetadataFetchCalls:fetchCalls,coreRuntimeRequired:false,privateOrSourceFallback:false,declarations:'physical closure; real compiler is a separate required driver step'}));
+console.log(JSON.stringify({status:'pass',profile,package:plan.name,specifier:expected.specifier,physicalFiles:plan.files.length+2,records:30,oldRowsExact:407,preRailwayRowsExact:reviewed.precedingRows,railwayRowsExact:railway.length,railwayKitCommit:reviewed.kitCommit,buildings:61,payloadFiles:files,pngPages:imagePaths.size,pureMetadataFetchCalls:fetchCalls,coreRuntimeRequired:false,privateOrSourceFallback:false,declarations:'physical closure; real compiler is a separate required driver step'}));

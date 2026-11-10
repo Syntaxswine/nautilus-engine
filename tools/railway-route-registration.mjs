@@ -12,6 +12,11 @@ export function railwayRoutePackageFiles(profile) {
   return profile === 'renderer' ? [RAILWAY_ROUTE_SCHEMA, planner] : [RAILWAY_ROUTE_SCHEMA];
 }
 
+export function historicalRailwayCoreClosure(closure) {
+  const additions = railwayRoutePackageFiles('core');
+  return closure.filter(file => !additions.includes(file));
+}
+
 function replace(text, anchor, replacement) {
   assert.equal(text.split(anchor).length, 2, 'Expected one railway route registration anchor: ' + anchor);
   return text.replace(anchor, replacement);
