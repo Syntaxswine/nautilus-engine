@@ -1,6 +1,6 @@
 # Raised railway track kit
 
-Find **Railway** in Map Workshop’s Asset library. The straight and quarter-curve previews use the same original meshes and materials that a game loads from `@nautilus-engine/renderer/assets/three`. Look up the version-1 asset cards through `listSharedAssets({category: 'Railway'})`.
+Find **Railway** in Map Workshop’s Build tools or select either track piece in **Asset library → Railway**. The straight and quarter-curve previews use the same original profiles and materials that a game loads from `@nautilus-engine/renderer/assets/three`. Look up the version-1 asset cards through `listSharedAssets({category: 'Railway'})`.
 
 | Piece | Native footprint | Start to end on the ground plane |
 | --- | --- | --- |
@@ -10,6 +10,17 @@ Find **Railway** in Map Workshop’s Asset library. The straight and quarter-cur
 The compact branch-line profile has 0.90 m between rail centres. Its gravel crown rises 0.265 m, one eighth of a 2.12 m story, before rolling down to the surrounding ground. Timber ties and steel rails sit on that crown, with the rail head at 0.43 m. The curve has a 4 m centreline radius. Both ends use the same cross-section, rail spacing, normals and repeating gravel phase. Tie spacing is 0.50 m on the straight and is distributed evenly along the curve.
 
 The pivot is the centre of the start connector at ground height. Asset cards give port positions in engine coordinates `[x, y, height]` and outward headings in `[x, y]`. The mesh uses Three coordinates `[x, height, z]`, with the start running toward +Z. Align port positions, face their outward headings opposite one another, and keep both at the same elevation. Use a yaw rotation to orient the piece at either end.
+
+## Lay a route in Map Workshop
+
+1. Open a full map on ground level 1 and select **Railway**.
+2. Click or tap the first waypoint, then add points along the route. Hover to preview the next fit. Waypoints snap to the metre grid and eight compass headings. The tangent points of the bends can fall between grid lines.
+3. Select **Place route**, or press Enter with the map canvas focused. **Undo point** backs up one waypoint. **Cancel route** or Escape on the canvas clears the draft. Workshop Undo and Redo act on the whole placed route. To remove an existing route, select it with **Select** and use **Delete selected**.
+4. Save in the Design panel or export ordinary map JSON. Reopening rebuilds the same rail, ballast and sleeper geometry from the waypoints.
+
+A 45° turn uses about 1.66 m of each approach and a 90° turn uses 4 m. An approach shared by two turns needs room for both. The tool keeps the 4 m radius and identifies the approach to lengthen if it cannot fit. The clearance check reserves the 2 m ballast and a conservative margin around its ends. Keep it on clear, flat ground away from objects, walls, wet ground, land relief and other track beds. Separate routes cannot cross, touch or connect.
+
+Each route saves an ID and its ordered waypoint pairs in the optional `railwayRoutes` v1 map extension. A full map can hold up to 64 routes with up to 48 waypoints and 480 m per route, and up to 1,200 m of fitted track in total. The engine advertises `nautilus-railway-routes-v1` on maps that contain track. Blocks, connected map generation on a railway-bearing map, and sector variant publishing require their own railway support. The portable map and named Design save preserve the full track. Switches, rail crossings, gradients and train gameplay are outside this profile.
 
 ## Use in a game
 
@@ -32,13 +43,15 @@ scene.add(incoming.root, curve.root, outgoing.root);
 // track.dispose();
 ```
 
+For a saved route, call `track.createRoute(route.waypoints)` and add its root to the scene. Route roots use the authored map coordinates directly, with ground at Three Y = 0. The headless `planRailwayRoute(waypoints)` export from map-core describes the same straight and circular spans. Each route uses one sweep per component, so the rail sections, gravel texture and tie spacing continue through every tangent join.
+
 The kit creates two procedural texture maps and shares geometries and materials across segment instances. Ties and tie plates are instanced. The kit owns those resources and removes its live roots on disposal. The host owns its renderer, scene, transforms and serialized placements. An unknown asset ID throws before a segment is created.
 
 ## Builder checklist
 
 - Pin the installed renderer and catalogue. Choose an exact asset ID and preserve it with the host’s transform.
 - Match the two metre bed and its ground datum to the host’s tiles. Verify both rails, the bed and tie spacing across a straight-to-curve seam at the intended camera scale.
-- Supply any train routing, collision, support and navigation through the game. The Workshop currently offers preview and rotation. This kit has no Workshop map placement or save binding.
+- Supply any train routing, collision, support and navigation through the game. Advertise the route capability only when the receiving game can preserve the route.
 - Reopen the host’s placement data and check the same joins. Dispose individual segments or the full kit when unloading and keep the host renderer alive.
 
 Original procedural geometry and gravel, wood and steel finishes are authored in `packages/railway-visuals/`. The focused test checks both joins, the shared resource lifetime and the editor discovery entries.

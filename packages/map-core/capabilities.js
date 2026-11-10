@@ -1,5 +1,4 @@
-import {requiredMapFeatures, parseMap} from './roof-maps.js';
-import {validateBlock} from './roof-blocks.js';
+import {requiredMapFeatures, parseMap, validateBlock} from './railway-map.js';
 import {SCHEMA_IDS} from './contract-manifest.js';
 import {CompatibilityError,assertRequirements} from './requirements.js';
 export {CompatibilityError,assertRequirements,negotiateCapabilities} from './requirements.js';

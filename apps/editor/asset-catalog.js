@@ -23,7 +23,7 @@ export function editorAssets() {
   for (const piece of RAIL_TRACK_ASSETS) assets.push({
     id: piece.id.slice('railway:'.length), category: piece.category, name: piece.name,
     w: piece.dimensions.width, h: piece.dimensions.depth, railwayPiece: piece.id,
-    disabled: 'Preview only in Map Workshop. Use the shared railway renderer to assemble these pieces in a game.'
+    tool: 'railway-route', note: 'Lay a connected route. The Workshop fits the straight and curved track automatically.'
   });
   for (const [id, rule] of Object.entries(PROPS)) {
     let category = id.startsWith('roof-') ? 'Roofs' : rule.cliff ? 'Cliffs' : rule.ramp || id.startsWith('rampbank-') ? 'Ramps' : 'Objects';

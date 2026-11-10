@@ -1,5 +1,6 @@
 import {RAIL_TRACK_ASSETS, RAIL_TRACK_PROFILE} from './catalogue.js';
 import {ballastPaint, tiePaint} from './paint.js';
+import {planRailwayRoute, railwayStationAt} from './route.js';
 
 const {ballastRiseM, ballastWidthM, railCentresM, tieIntervalM} = RAIL_TRACK_PROFILE;
 const halfBed = ballastWidthM / 2;
@@ -90,13 +91,11 @@ function sweep(T, stations, profile, repeats, colourAt) {
   return geo;
 }
 
-function trackTemplate(T, piece, materials, fixtures, own) {
-  const divisions = piece.radiusM === null ? 1 : 32;
-  const stations = Array.from({length: divisions + 1}, (_, i) => station(piece, i / divisions));
+function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats}, materials, fixtures, own) {
   const root = new T.Group();
-  root.name = piece.id;
-  root.userData = {assetId: piece.id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
-  const bed = new T.Mesh(own(sweep(T, stations, ballastSection(), Math.round(2 * piece.lengthM))), materials.gravel);
+  root.name = id;
+  root.userData = {assetId: id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
+  const bed = new T.Mesh(own(sweep(T, stations, ballastSection(), gravelRepeats)), materials.gravel);
   bed.name = 'Rounded gravel ballast';
   root.add(bed);
 
@@ -109,13 +108,13 @@ function trackTemplate(T, piece, materials, fixtures, own) {
     root.add(rail);
   }
 
-  const count = Math.round(piece.lengthM / tieIntervalM);
+  const count = Math.round(lengthM / tieIntervalM);
   const ties = own(new T.InstancedMesh(fixtures.tie, materials.timber, count));
   const plates = own(new T.InstancedMesh(fixtures.plate, materials.plate, 2 * count));
   const tint = new T.Color();
   const transform = new T.Object3D();
   for (let i = 0; i < count; i++) {
-    const site = station(piece, (i + .5) / count);
+    const site = sample((i + .5) / count);
     transform.rotation.y = site.angle;
     transform.position.set(site.x, tieTop - tieHeight / 2, site.z);
     transform.updateMatrix();
@@ -136,6 +135,14 @@ function trackTemplate(T, piece, materials, fixtures, own) {
   return root;
 }
 
+function trackTemplate(T, piece, materials, fixtures, own) {
+  const divisions = piece.radiusM === null ? 1 : 32;
+  const sample = t => station(piece, t);
+  const stations = Array.from({length: divisions + 1}, (_, i) => sample(i / divisions));
+  return trackMesh(T, {id: piece.id, lengthM: piece.lengthM, stations, sample,
+    gravelRepeats: Math.round(2 * piece.lengthM)}, materials, fixtures, own);
+}
+
 function retire(actions) {
   const errors = [];
   for (const action of actions) {
@@ -150,16 +157,16 @@ export function createRailwayKit(T) {
     throw new TypeError('Supply the host Three namespace to create a railway kit.');
   }
   const resources = [], templates = new Map(), active = new Set();
-  let disposed = false;
+  let disposed = false, materials, fixtures;
   const own = resource => { resources.push(resource); return resource; };
   try {
-    const materials = {
+    materials = {
       gravel: own(new T.MeshStandardMaterial({map: own(ballastPaint(T)), roughness: 1})),
       timber: own(new T.MeshStandardMaterial({map: own(tiePaint(T)), roughness: .92})),
       rail: own(new T.MeshStandardMaterial({vertexColors: true, roughness: .49, metalness: .26})),
       plate: own(new T.MeshStandardMaterial({color: 0x3a312a, roughness: .78, metalness: .2}))
     };
-    const fixtures = {
+    fixtures = {
       tie: own(new T.BoxGeometry(1.44, tieHeight, .20)),
       plate: own(new T.BoxGeometry(.175, .022, .155))
     };
@@ -168,21 +175,37 @@ export function createRailwayKit(T) {
     retire([...resources.reverse().map(resource => () => resource.dispose()), () => { throw error; }]);
   }
 
+  function retain(root, owned) {
+    const model = {
+      root,
+      dispose() {
+        if (!active.delete(model)) return;
+        retire([() => root.removeFromParent(), ...owned.map(resource => () => resource.dispose())]);
+      }
+    };
+    active.add(model);
+    return model;
+  }
+
   return {
     create(id) {
       if (disposed) throw new Error('Railway kit is disposed.');
       if (!templates.has(id)) throw new RangeError('Unknown railway piece: ' + id);
       const root = templates.get(id).clone(true);
-      const instances = root.children.filter(child => child.isInstancedMesh);
-      const model = {
-        root,
-        dispose() {
-          if (!active.delete(model)) return;
-          retire([() => root.removeFromParent(), ...instances.map(mesh => () => mesh.dispose())]);
-        }
-      };
-      active.add(model);
-      return model;
+      return retain(root, root.children.filter(child => child.isInstancedMesh));
+    },
+    createRoute(waypoints) {
+      if (disposed) throw new Error('Railway kit is disposed.');
+      const plan = planRailwayRoute(waypoints), {lengthM} = plan, owned = [];
+      try {
+        const root = trackMesh(T, {id: 'railway:route', lengthM,
+          stations: plan.stations.map(site => ({...site, t: site.distanceM / lengthM})),
+          sample: t => railwayStationAt(plan, t * lengthM), gravelRepeats: 2 * lengthM
+        }, materials, fixtures, resource => { owned.push(resource); return resource; });
+        return retain(root, owned);
+      } catch (error) {
+        retire([...owned.reverse().map(resource => () => resource.dispose()), () => { throw error; }]);
+      }
     },
     dispose() {
       if (disposed) return;

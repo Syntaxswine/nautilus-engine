@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
+import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 
 const guide = 'docs/railway-track-kit.md';
 const modules = ['catalogue.js', 'paint.js', 'three.js'].map(name => 'packages/railway-visuals/' + name);
 const renderer = 'packages/assets/three.js';
 
 export function railwayPackageFiles(profile) {
-  return profile === 'renderer' || profile === 'compatibility' ? [guide, ...modules] : [guide];
+  const pieces = profile === 'renderer' || profile === 'compatibility' ? modules : [];
+  return [guide, ...pieces, ...railwayRoutePackageFiles(profile)];
 }
 
 function insert(text, anchor, replacement) {

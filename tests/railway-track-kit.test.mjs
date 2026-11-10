@@ -5,6 +5,7 @@ import {listSharedAssets} from '@nautilus-engine/map-core/assets';
 import * as T from '../packages/render-effects/three.js';
 import {editorAssets, findAssets} from '../apps/editor/asset-catalog.js';
 import {assetPreview} from '../apps/editor/asset-preview.js';
+import {planRailwayRoute, railwayStationAt} from '../packages/map-core/index.js';
 
 const STRAIGHT = 'railway:track-straight';
 const CURVE = 'railway:track-quarter-curve';
@@ -72,9 +73,57 @@ test('the shared cards and Workshop preview resolve the same railway asset IDs',
   const assets = findAssets(editorAssets(), 'rail track', 'Railway');
   assert.equal(assets.length, cards.length);
   for (const asset of assets) {
-    assert.match(asset.disabled, /Preview only/);
+    assert.equal(asset.tool, 'railway-route');
+    assert.equal(asset.disabled, undefined);
     const preview = assetPreview(asset);
     assert.ok(cards.some(card => card.id === preview.railway.id));
     assert.deepEqual(preview.document.map.props, []);
   }
+});
+
+test('the continuous route shares the native profile, finishes and through-triangles at every tangent', () => {
+  const waypoints = [[12, 12], [24, 12], [32, 20], [32, 30], [43, 30]];
+  const plan = planRailwayRoute(waypoints), stations = plan.stations;
+  const joins = plan.spans.slice(1).map(span => stations.findIndex(site => Math.abs(site.distanceM - span.startM) < 1e-8));
+  const kit = createRailwayKit(T);
+  try {
+    const native = kit.create(STRAIGHT).root;
+    const route = kit.createRoute(waypoints), {root} = route;
+    assert.equal(root.children.length, 5);
+    root.children.forEach((mesh, i) => assert.equal(mesh.material, native.children[i].material));
+    const bed = root.children[0], [left, right] = root.children.slice(1, 3);
+    const distances = (mesh, index) => {
+      const {position} = mesh.geometry.attributes, site = stations[index];
+      return [2 * index, 2 * index + 1].map(i =>
+        (position.getX(i) - site.x) * site.c - (position.getZ(i) - site.z) * site.s);
+    };
+    const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-5, a + ' vs ' + b);
+    for (const i of joins) {
+      assert.ok(i > 0);
+      close(distances(bed, i)[0], -1);
+      close(distances(right, i)[0] - distances(left, i)[0], .90);
+      close(bed.geometry.attributes.uv.getY(2 * i), 2 * stations[i].distanceM);
+      for (const mesh of [bed, left, right]) {
+        const index = mesh.geometry.index.array, at = (i - 1) * 6, v = 2 * i;
+        assert.deepEqual([...index.slice(at, at + 12)],
+          [v - 2, v, v - 1, v - 1, v, v + 1, v, v + 2, v + 1, v + 1, v + 2, v + 3]);
+      }
+    }
+    close(bed.geometry.boundingBox.max.y, .265);
+    close(left.geometry.boundingBox.max.y, .43);
+    const ties = root.getObjectByName('Timber ties');
+    assert.equal(ties.count, Math.round(plan.lengthM / .5));
+    const matrix = new T.Matrix4();
+    for (const i of [0, 16, ties.count - 1]) {
+      ties.getMatrixAt(i, matrix);
+      const site = railwayStationAt(plan, (i + .5) * plan.lengthM / ties.count);
+      close(matrix.elements[12], site.x);
+      close(matrix.elements[14], site.z);
+    }
+    let disposals = 0;
+    bed.geometry.addEventListener('dispose', () => disposals++);
+    route.dispose();
+    route.dispose();
+    assert.equal(disposals, 1);
+  } finally { kit.dispose(); }
 });

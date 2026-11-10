@@ -115,6 +115,11 @@ export function installAssetLibrary() {
   use.onclick = () => {
     if (!selected || use.disabled) return;
     if (window.editor3d?.loading) { $('asset-preview-status').textContent = 'Wait for the map to finish loading.'; return; }
+    if (selected.railwayPiece) {
+      if (window.editor3d.document.block) { $('asset-preview-status').textContent = 'Switch to the full map workspace to lay railway.'; return; }
+      const floor = $('floor');
+      if (floor.value !== '0') { floor.value = '0'; floor.dispatchEvent(new Event('change')); }
+    }
     const tool = $('edit-tool'); tool.value = selected.tool; tool.dispatchEvent(new Event('change'));
     const bindings = {...selected.bindings};
     if (selected.category === 'People') {bindings['unit-weapon'] = $('asset-weapon').value; bindings['unit-outfit'] = $('asset-outfit').value;}
@@ -134,7 +139,8 @@ export function installAssetLibrary() {
     if (getComputedStyle($('nautilus-options')).display !== 'none') {
       document.body.classList.add('nautilus-options-open'); $('nautilus-options').setAttribute('aria-expanded','true');
     }
-    $('status').textContent = `${selected.name} selected. Click or drag in the map to place.`;
+    $('status').textContent = selected.railwayPiece ? 'Railway selected. Click or tap the map to add waypoints.' :
+      `${selected.name} selected. Click or drag in the map to place.`;
     tool.focus();
   };
   function releaseScene() {

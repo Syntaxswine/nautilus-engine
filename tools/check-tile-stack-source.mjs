@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {historicalRailwayRouteBytes,RAILWAY_ROUTE_SCHEMA} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 
@@ -119,7 +120,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
     assert.ok(git('show',':'+file).equals(expected),'Git index changes expected source bytes: '+file);
   };
   const fixed=(file,commit=TILE_STACK_REGISTRATION_BASE)=>{
-    const expected=object(commit,file);assert.ok(read(file).equals(expected),'Immutable dependency changed: '+file);indexed(file,expected);return record(file,expected);
+    const expected=object(commit,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Immutable dependency changed: '+file);indexed(file,actual);return record(file,expected);
   };
   for(const [file,expected]of expectedBytes){assert.ok(read(file).equals(expected),'Only fixed reviewed bytes and the single header adaptation are allowed: '+file);indexed(file,expected);}
   assert.deepEqual(walk(TILE_STACK_RUNTIME_ROOT),[...runtimeFiles,...support].sort(),'The public stack folder contains only five runtime files, reviewed types, guide and provenance.');
@@ -143,7 +144,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
   assert.deepEqual(authoringSchemaSupport,['packages/tile-authoring-core/contract.schema.json'],'Only the separately authenticated authoring contract schema is added.');
   const schemaFiles=listed(TILE_STACK_REGISTRATION_BASE,'packages','schemas').filter(file=>file.endsWith('.schema.json'));
   const currentSchemas=[...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort();
-  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport].sort(),'Keep every historical schema plus the one authenticated packaged authoring contract.');
+  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport,RAILWAY_ROUTE_SCHEMA].sort(),'Keep every historical schema plus the authenticated authoring and railway route additions.');
   // The Root C2a fence separately owns the newer accepted private v2 schema
   // bytes. This registration preserves the public schema inventory/content;
   // it must not roll private schemas back to an older public-package baseline.
