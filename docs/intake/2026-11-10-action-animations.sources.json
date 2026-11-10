@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "kind": "nautilus-action-animation-intake",
+  "observedDateEastern": "2026-11-10",
+  "engine": {
+    "publishedMain": "433ee2b1f741d4a45b80638418a6819a9d0b6000",
+    "scoutBeforeReport": "4507598e82275a1d419b9260d58483998f590b6b",
+    "scoutRuntimeBase": "1e6a97b67c57917160db89db34cbae9e4e46f90c",
+    "openFirearmPR": {
+      "number": 43,
+      "head": "568e88e926b304c001e8841fed0dcfe97cb3a022",
+      "source": "12cbb6881a344181f45519ca2275a20a7768f61b"
+    },
+    "publishedMainFailure": {
+      "run": 42733273984,
+      "job": 129556277049,
+      "name": "tile-authoring-workflow",
+      "summary": "Browser page.evaluate could not read id from undefined"
+    }
+  },
+  "sources": [
+    {
+      "id": "aft",
+      "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+      "ref": "refs/heads/main",
+      "commit": "25d0e91858be0fa5ea7d54132a4a642624bd9aa7",
+      "reviewedAncestor": "aa61ffa11c36c21aaa53b7ee48a4f24e4ccc5d4b",
+      "files": [
+        {
+          "path": "dist/tactics/animal-motion-catalog.js",
+          "gitBlob": "7c0500615f80b7734978a4538fb5ca71e0fd4af9",
+          "bytes": 4263,
+          "sha256": "7f8c0368b2a9cca8e7a6f11df652d1bc18991931738e547510dc8aef052d517c"
+        },
+        {
+          "path": "dist/tactics/crawl-equipment.js",
+          "gitBlob": "a7c8e870f212df1356561aaf9530f8f14a457130",
+          "bytes": 5711,
+          "sha256": "6d0566f15e0f6e704712ebdb0f6e24ad493ca1a0dd980da50c1c910a05ab9017"
+        },
+        {
+          "path": "dist/tactics/crawl-motion.js",
+          "gitBlob": "9eb5d4a544ae7afeb36a281b5cc5c165044f4ceb",
+          "bytes": 10746,
+          "sha256": "445ffeed819ade2af1a031ac0dab96eb23474bb60ffb55436bfd4748936a2ef2"
+        },
+        {
+          "path": "dist/tactics/crawl-state.js",
+          "gitBlob": "c7c71eaff83b4a893356952edfeb6f4e55a94971",
+          "bytes": 4537,
+          "sha256": "b1e8b2d41ec363e287a996994c1d50751170cd6e7b66e4fa73fed935a5f662a6"
+        },
+        {
+          "path": "dist/tactics/goat-10k-data.json",
+          "gitBlob": "f97954878328bfa7632b447e537fbdff2b32338f",
+          "bytes": 410861,
+          "sha256": "71d31781159f782447cacd8c133d094408b9d13d1b6f35ac31af5ac8cd452b81"
+        },
+        {
+          "path": "dist/tactics/grenade-release.js",
+          "gitBlob": "37e869821d5c25a0d909a1cba80775b9d08a9541",
+          "bytes": 752,
+          "sha256": "fcfc2e0348ea407c2a4e348fbbe4c77eff2e581842dbb119501b2181d4da4f72"
+        },
+        {
+          "path": "dist/tactics/hen-crawl-motion.js",
+          "gitBlob": "ac08b18d014e5357eb435cbf43c4e94531ea0e66",
+          "bytes": 5510,
+          "sha256": "a83cfb280a245f30d2befe394c4885b6d4b768f20042da284cfddeeffdbdde7d"
+        },
+        {
+          "path": "dist/tactics/horse-10k-data.json",
+          "gitBlob": "92a144e12c0b54257e5518a6d587c12b2e3742ae",
+          "bytes": 419190,
+          "sha256": "0188bf5c8911ca4270a349dea1fd73a02e285a4ba25d07501686b195e5d567b7"
+        },
+        {
+          "path": "dist/tactics/simple-traversal.js",
+          "gitBlob": "8cb9f7bc0c1b5fba73dd26cd292840546745e1a6",
+          "bytes": 2799,
+          "sha256": "9380d52d2d7e7bcb2b5848fe6311494311cdfc461c39710382c73a281c8c118b"
+        },
+        {
+          "path": "docs/tactics/CRAWLING-ARTIST-STUDY-2026-10-23.md",
+          "gitBlob": "c928a0cb6515e439603226e23b9969f9c99aafa1",
+          "bytes": 11132,
+          "sha256": "a72461f1ada1d9cd5259129a86f0080b3c14be02283d8eb9ae76d3ef7c7a26ee"
+        },
+        {
+          "path": "docs/tactics/CRAWLING-INTEGRATION-REVIEW-2026-10-24.md",
+          "gitBlob": "7ca4ab3b6268722d2b1f58938bab2f43dda275cd",
+          "bytes": 3467,
+          "sha256": "2610c457651ccdef2fbdc4086b9ecb920998950e672bef047f34bbebf8d68495"
+        },
+        {
+          "path": "docs/tactics/INTEGRATION-REVIEW-2026-10-28.md",
+          "gitBlob": "6373494880a71dca8f26e5f8770e850b3019a740",
+          "bytes": 5013,
+          "sha256": "a154b915b1d70cc11d5c5ffcda31364013c2c7abff666d858c820bda537ed0a9"
+        },
+        {
+          "path": "docs/tactics/review-images/crawling/sequence.png",
+          "gitBlob": "c39f058469fe92bb8ac140e51e172fe44f80643d",
+          "bytes": 2071110,
+          "sha256": "c42744d1ac284a62ef2df66a200d98488525491945886eed2da32471701d5a01"
+        },
+        {
+          "path": "tests/crawl-loadouts.test.mjs",
+          "gitBlob": "8028de1283903f22585e12c9b3a403b1dd45c105",
+          "bytes": 7040,
+          "sha256": "b1d3fc287df9fc96de2cd34ecbd61fcf0c4dbe23260e1fd2697fe694d9ce1ab3"
+        },
+        {
+          "path": "tests/crawl-motion.test.mjs",
+          "gitBlob": "c322e204be9c2f26e8d9b11fac5c745b4efdeb72",
+          "bytes": 11442,
+          "sha256": "cfa07577fc28b9a232d27b15831b3aafd9a9222849468e10e6e259932f6aa40b"
+        }
+      ]
+    },
+    {
+      "id": "farmyard",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "ref": "refs/heads/main",
+      "commit": "4a0bd292ee09abb7f61e743289f5a40f09655b2c",
+      "reviewedAncestor": "471a671fd6e0867f7637c3d2627a775b3d4a9b4f",
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/frame-timing.js",
+          "gitBlob": "6acf133cc8da26085a49025c8a5c4b7ba064c862",
+          "bytes": 660,
+          "sha256": "c6a70771779296b5090172999027f419d716382d15e3620c8da562f150715654"
+        },
+        {
+          "path": "sites/tactical-animal/dist/locomotion-sample.js",
+          "gitBlob": "51ab49db09c76a5ef25a93bf66c4d2357c3855ad",
+          "bytes": 539,
+          "sha256": "29b3f1ad9a779efd19c5d922692f95de5fff57565e616bf0792c3666cb7919d0"
+        },
+        {
+          "path": "sites/tactical-animal/movement-runtime.md",
+          "gitBlob": "74ad0ab94f5e77fcca4eaf7b6c34cfb0af08f8ff",
+          "bytes": 3663,
+          "sha256": "a9dbea747ef95575c16a03228f3fd8502493fabd0756298741ca2c5d2b91d70c"
+        },
+        {
+          "path": "sites/tactical-animal/tests/locomotion-timing.test.mjs",
+          "gitBlob": "62fdc3986f2a3f8699a9f62d7c22b149f3c1b5fc",
+          "bytes": 4740,
+          "sha256": "92d5445a630104decef4552e3800bcb008b637663ef7e5b8183cb53f7f01d6ec"
+        }
+      ]
+    },
+    {
+      "id": "farmyardRealtime",
+      "repository": "https://github.com/Syntaxswine/farmyard-commando-realtime",
+      "ref": "refs/heads/main",
+      "commit": "da33a458345cde8d8f9ea20361be0137b045dbc0",
+      "reviewedAncestor": "12cbb6881a344181f45519ca2275a20a7768f61b",
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/idle-rig-math.js",
+          "gitBlob": "420628024950d2958fe14b7608563d7d3929f087",
+          "bytes": 2051,
+          "sha256": "764539010c4647f4470962c20ed9d70ed1393a7e5434765f3f6ab3403f66a6b3"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/weapon-models.js",
+          "gitBlob": "388021c5005fce9fc5d210f82546c161c3bb37f5",
+          "bytes": 19315,
+          "sha256": "9827dacd81d430a6f92123ce9592d7f79c73e4e707462287a49abcb8529933a3"
+        },
+        {
+          "path": "sites/tactical-animal/dist/grenade-pose.js",
+          "gitBlob": "604da4cffbe0c1ced2295508ef480de3f8061ea8",
+          "bytes": 5791,
+          "sha256": "b6a362369a468846c8307898245a78a7d8590d3f73b1f13c6cb7a385a948c656"
+        },
+        {
+          "path": "sites/tactical-animal/dist/locomotion-sample.js",
+          "gitBlob": "51ab49db09c76a5ef25a93bf66c4d2357c3855ad",
+          "bytes": 539,
+          "sha256": "29b3f1ad9a779efd19c5d922692f95de5fff57565e616bf0792c3666cb7919d0"
+        },
+        {
+          "path": "sites/tactical-animal/dist/rifle-aim-pose.js",
+          "gitBlob": "260054cbd2920c765bd6391279c8497c3518250a",
+          "bytes": 7006,
+          "sha256": "ddca544b7309fe041c2efffe0c564272f8e71e0e339e249c6aafcf7feb010e3f"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose-rig.js",
+          "gitBlob": "168b078a689d4c39acbedc65284264aca35dbf05",
+          "bytes": 1954,
+          "sha256": "c1744efa29c566e2c76e9035e15670a4e195c159da8892ef5eaa0dbd84cb784a"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose.js",
+          "gitBlob": "ca255804f6bae22848922024f4df155af9838e23",
+          "bytes": 9616,
+          "sha256": "ab02101e2261536c0aa18f1ae080301ec8c8f784499ecbe699fe5027ac50d9d9"
+        }
+      ]
+    },
+    {
+      "id": "fighters",
+      "repository": "https://github.com/Syntaxswine/farmyard-fighters",
+      "ref": "refs/heads/main",
+      "commit": "7cd3d56e62a8087133a9fdf2f521cf92d310d6fd",
+      "reviewedAncestor": "033485ab1986f3735230da0ff30089794984e33c",
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/idle-rig-math.js",
+          "gitBlob": "420628024950d2958fe14b7608563d7d3929f087",
+          "bytes": 2051,
+          "sha256": "764539010c4647f4470962c20ed9d70ed1393a7e5434765f3f6ab3403f66a6b3"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/painted-fire-effects.js",
+          "gitBlob": "685c1f6bff088f4a2a1e4ca56e1b72a0becfc857",
+          "bytes": 11096,
+          "sha256": "903559ce0a9c4a65365e8e35d314079845145da5c85109fed0f0e2bac8d562e2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/painted-fire-state.js",
+          "gitBlob": "afd08f10a337e3c9f7ae9bcae4c4404eab364ed9",
+          "bytes": 4773,
+          "sha256": "6118e2baae9c43e5cdd556eaa19a5d1015f944c4413d1109de93fae961bee0bf"
+        },
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/weapon-models.js",
+          "gitBlob": "388021c5005fce9fc5d210f82546c161c3bb37f5",
+          "bytes": 19315,
+          "sha256": "9827dacd81d430a6f92123ce9592d7f79c73e4e707462287a49abcb8529933a3"
+        },
+        {
+          "path": "sites/tactical-animal/dist/burn-effects.js",
+          "gitBlob": "f53d5558587639429372647705e3a09ad5b97dbc",
+          "bytes": 9158,
+          "sha256": "22d5ea9c8e90cf80e9fa2f049398671fa89a1f23863cac07ce27b5e6c8cbd0e1"
+        },
+        {
+          "path": "sites/tactical-animal/dist/field-view.js",
+          "gitBlob": "df83066e3741ad47958798a9876ba3665c1ac423",
+          "bytes": 48129,
+          "sha256": "f50395c75a9b0d6e83e8766ac028a4b546ab7309541bddf4ff39198342640858"
+        },
+        {
+          "path": "sites/tactical-animal/dist/flame-effects.js",
+          "gitBlob": "31165fdfaa2ab7c0c0e00460d26a73f2143f1bcd",
+          "bytes": 11555,
+          "sha256": "d3e1cfb69435dd614a5594c4441a6457351f1e23e0f5721c01a51e838068e0f8"
+        },
+        {
+          "path": "sites/tactical-animal/dist/flame-pose.js",
+          "gitBlob": "105f305b1bc28aad0274c11c8134ea3a1d349be9",
+          "bytes": 3952,
+          "sha256": "28a4182d9f7b7fdaeb7768d5c529b5d300deae20e8e921f2960e4632c0f7d7b6"
+        },
+        {
+          "path": "sites/tactical-animal/dist/grenade-pose.js",
+          "gitBlob": "604da4cffbe0c1ced2295508ef480de3f8061ea8",
+          "bytes": 5791,
+          "sha256": "b6a362369a468846c8307898245a78a7d8590d3f73b1f13c6cb7a385a948c656"
+        },
+        {
+          "path": "sites/tactical-animal/dist/locomotion-sample.js",
+          "gitBlob": "51ab49db09c76a5ef25a93bf66c4d2357c3855ad",
+          "bytes": 539,
+          "sha256": "29b3f1ad9a779efd19c5d922692f95de5fff57565e616bf0792c3666cb7919d0"
+        },
+        {
+          "path": "sites/tactical-animal/dist/realtime-combat.js",
+          "gitBlob": "ca9ed488f3a2bab5823624c9b8cfa73c6f6ee4be",
+          "bytes": 18419,
+          "sha256": "685b6fbe500561177c1b48b96adc982080e1413360b6c38aaf0c49a2b61346c5"
+        },
+        {
+          "path": "sites/tactical-animal/dist/rifle-aim-pose.js",
+          "gitBlob": "260054cbd2920c765bd6391279c8497c3518250a",
+          "bytes": 7006,
+          "sha256": "ddca544b7309fe041c2efffe0c564272f8e71e0e339e249c6aafcf7feb010e3f"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose-rig.js",
+          "gitBlob": "168b078a689d4c39acbedc65284264aca35dbf05",
+          "bytes": 1954,
+          "sha256": "c1744efa29c566e2c76e9035e15670a4e195c159da8892ef5eaa0dbd84cb784a"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose.js",
+          "gitBlob": "ca255804f6bae22848922024f4df155af9838e23",
+          "bytes": 9616,
+          "sha256": "ab02101e2261536c0aa18f1ae080301ec8c8f784499ecbe699fe5027ac50d9d9"
+        },
+        {
+          "path": "sites/tactical-animal/tests/burn-effects.test.mjs",
+          "gitBlob": "9805a5ec787454e29a1847deeeea97e18e957a4b",
+          "bytes": 5634,
+          "sha256": "3a33f365646664b156bd2106e3d1c2f3b4d0ee7e4dbf43f7729b3be97c5c26af"
+        },
+        {
+          "path": "sites/tactical-animal/tests/flame-effects.test.mjs",
+          "gitBlob": "8bf7519057df34569eee84403265ab6901ef1e10",
+          "bytes": 10715,
+          "sha256": "2c138165d3082c4ff4d2e2c007e27eb5c82fd7d86027edcff66d16824f94558e"
+        },
+        {
+          "path": "sites/tactical-animal/tests/flame-pose.test.mjs",
+          "gitBlob": "e316ccd72febc2258714fb253b93a17b996dc9d6",
+          "bytes": 5746,
+          "sha256": "cfb38d466a672ae450e0e19b397d972c7f26cf895d19a8a2968c57f3f8b3820e"
+        }
+      ]
+    },
+    {
+      "id": "tinderbox",
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "ref": "refs/heads/master",
+      "commit": "4fc97bb5d14fe4f5b5557e0bc3ceee57bb2d1eee",
+      "reviewedAncestor": "03d08b35694093e202d01700af42ac8fda620522",
+      "files": [
+        {
+          "path": "docs/engineering/bell-and-alder-witness.md",
+          "gitBlob": "e3462886135de06c5c97cd0e201eeda3bcfd2f19",
+          "bytes": 6317,
+          "sha256": "487ca4e0f3afc71418e2df44a9972e77c8bf3f4efc3a3c19e999aecf58f53d94"
+        },
+        {
+          "path": "docs/engineering/chicago-police-sidearm.md",
+          "gitBlob": "b34666ee9ebaf64f051b401b9593deecf2fa9686",
+          "bytes": 3691,
+          "sha256": "d0295be22d3f9d23487a993130b0cb681918c118c62827062b39488eea386ca2"
+        },
+        {
+          "path": "docs/reviews/2026-11-09-bell-and-alder-officer.md",
+          "gitBlob": "761afaadcc8c37d7044dd423cec33b96595881b5",
+          "bytes": 2942,
+          "sha256": "d3206a91e1741cc5791dc01dab75e13793284e19557e9f98fde64b5bf70a5960"
+        },
+        {
+          "path": "src/art/witness-reaction.js",
+          "gitBlob": "d9f9033131f243687c8aaf4379a1cd521019dde5",
+          "bytes": 3076,
+          "sha256": "3aea15c048c1d3df3d6f3bec0601085cbf3a563ea2cb1ab133855c0224ce02b8"
+        },
+        {
+          "path": "src/content/patrol-pistol.js",
+          "gitBlob": "dd980092d06ce1b4ba593f916ff7d729c39c1d22",
+          "bytes": 410,
+          "sha256": "58186a45940e0187ad094ca1cbbc4fadb96330f5e6726b85b686b7a3bfcca6ce"
+        },
+        {
+          "path": "src/reuse/civilians.js",
+          "gitBlob": "f03a66755d004c7e50b0bdcf60f1e68ede7f8433",
+          "bytes": 8259,
+          "sha256": "f416857350957286d440eede43bafb0fba9c822d3a3df4e096cf7375c926006a"
+        },
+        {
+          "path": "src/reuse/patrol-pistol.js",
+          "gitBlob": "bd44c9ea61ba58ea57d46ff64a8a0c97dd9e2ee9",
+          "bytes": 4691,
+          "sha256": "5ee7edbb8d687dc431245b2d4cd653492d6eb49be27bd35d473da39c2af05a33"
+        },
+        {
+          "path": "src/simulation/shop-witness.js",
+          "gitBlob": "324f0e899d8ea22501a5b03f69f2eef0311a14a6",
+          "bytes": 7622,
+          "sha256": "fe2b3529addb263bfe6e33516dac90a7ee059d8e733fea03f7aa8ef9551f2d5a"
+        },
+        {
+          "path": "tests/integration/chicago-patrol.test.mjs",
+          "gitBlob": "721843c410a94d7e0c2e3cc4e65405006f264578",
+          "bytes": 9878,
+          "sha256": "491bdc4203d32f03fa21837b9950b06440d49dc121004d50efa9c917d28080dd"
+        },
+        {
+          "path": "tests/integration/shop-witness.test.mjs",
+          "gitBlob": "38fca6b33521797c6dcaa0afc1a1e2e74adfc3c7",
+          "bytes": 17760,
+          "sha256": "293b6be2cf543346a70b1be9149cd9f7e09444b55e8d64d77207c2ca542c62f9"
+        }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "TB-03d08b3-sidearm-draw",
+      "priority": "P1",
+      "status": "recommended",
+      "source": "tinderbox",
+      "dependsOn": [
+        "existing firearm pose contract and PR #43 coordination",
+        "native standing goat and compatible belt/grip/muzzle sockets"
+      ]
+    },
+    {
+      "id": "AFT-25d0e91-grounded-crawl",
+      "priority": "P1",
+      "status": "recommended",
+      "source": "aft",
+      "extends": [
+        "AFT-25d0e91-completed-roster"
+      ],
+      "dependsOn": [
+        "committed signed travel",
+        "single pose authority"
+      ]
+    },
+    {
+      "id": "FF-033485a-fire-actions",
+      "priority": "P2",
+      "status": "recommended",
+      "source": "fighters",
+      "dependsOn": [
+        "committed fire event snapshot",
+        "shared pose layer",
+        "flame atlas rights"
+      ]
+    },
+    {
+      "id": "AFT-26d37e8-traversal",
+      "status": "hold-unmerged",
+      "source": "aftDraft",
+      "dependsOn": [
+        "published donor acceptance and contact, clipping and CPU gates"
+      ]
+    }
+  ],
+  "aftDraft": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "ref": "refs/heads/anim/natural-motion",
+    "commit": "26d37e892a81993581aff4a39563dceed4c95ff0",
+    "review": "https://github.com/Syntaxswine/animal-factory-tactics-3d/pull/12",
+    "state": "open draft",
+    "files": [
+      {
+        "path": "dist/tactics/natural-traversal.js",
+        "gitBlob": "ced63160a52c6fea176b793464bb94c7a4aa8b09",
+        "bytes": 2109
+      },
+      {
+        "path": "dist/tactics/traversal-balance.js",
+        "gitBlob": "0d241b900e4e1c1c7f4bd86c941db26fbd67c0d1",
+        "bytes": 32374
+      },
+      {
+        "path": "dist/tactics/wall-climb.js",
+        "gitBlob": "36a6e7a6c741ff6daf46598f3cf009430a821f78",
+        "bytes": 24450
+      },
+      {
+        "path": "dist/tactics/wall-vault.js",
+        "gitBlob": "0037890597558553ebffdc6c78ff4b29775fb63e",
+        "bytes": 10203
+      },
+      {
+        "path": "dist/tactics/window-dive.js",
+        "gitBlob": "80eb790bbc8457b13e0b047a68b5fd2449642a90",
+        "bytes": 59811
+      },
+      {
+        "path": "docs/tactics/NATURAL-TRAVERSAL.md",
+        "gitBlob": "7bd15986bdfc6b8e7f4969b9d400bf7f37b5a137",
+        "bytes": 158834
+      },
+      {
+        "path": "tests/natural-traversal.test.mjs",
+        "gitBlob": "a308508333476148bc7383116c86faf86f287d2a",
+        "bytes": 25066
+      }
+    ]
+  },
+  "comparisons": {
+    "sameNautilusModelBytes": [
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+        "gitBlob": "f97954878328bfa7632b447e537fbdff2b32338f",
+        "bytes": 410861,
+        "sha256": "71d31781159f782447cacd8c133d094408b9d13d1b6f35ac31af5ac8cd452b81"
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-10k-data.json",
+        "gitBlob": "92a144e12c0b54257e5518a6d587c12b2e3742ae",
+        "bytes": 419190,
+        "sha256": "0188bf5c8911ca4270a349dea1fd73a02e285a4ba25d07501686b195e5d567b7"
+      }
+    ],
+    "sameFarmyardMotionSourceBytes": [
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/idle-rig-math.js",
+        "gitBlob": "420628024950d2958fe14b7608563d7d3929f087",
+        "bytes": 2051,
+        "sha256": "764539010c4647f4470962c20ed9d70ed1393a7e5434765f3f6ab3403f66a6b3"
+      },
+      {
+        "path": "sites/tactical-animal/dist/aft/tactics/weapon-models.js",
+        "gitBlob": "388021c5005fce9fc5d210f82546c161c3bb37f5",
+        "bytes": 19315,
+        "sha256": "9827dacd81d430a6f92123ce9592d7f79c73e4e707462287a49abcb8529933a3"
+      },
+      {
+        "path": "sites/tactical-animal/dist/grenade-pose.js",
+        "gitBlob": "604da4cffbe0c1ced2295508ef480de3f8061ea8",
+        "bytes": 5791,
+        "sha256": "b6a362369a468846c8307898245a78a7d8590d3f73b1f13c6cb7a385a948c656"
+      },
+      {
+        "path": "sites/tactical-animal/dist/locomotion-sample.js",
+        "gitBlob": "51ab49db09c76a5ef25a93bf66c4d2357c3855ad",
+        "bytes": 539,
+        "sha256": "29b3f1ad9a779efd19c5d922692f95de5fff57565e616bf0792c3666cb7919d0"
+      },
+      {
+        "path": "sites/tactical-animal/dist/rifle-aim-pose.js",
+        "gitBlob": "260054cbd2920c765bd6391279c8497c3518250a",
+        "bytes": 7006,
+        "sha256": "ddca544b7309fe041c2efffe0c564272f8e71e0e339e249c6aafcf7feb010e3f"
+      },
+      {
+        "path": "sites/tactical-animal/dist/weapon-pose-rig.js",
+        "gitBlob": "168b078a689d4c39acbedc65284264aca35dbf05",
+        "bytes": 1954,
+        "sha256": "c1744efa29c566e2c76e9035e15670a4e195c159da8892ef5eaa0dbd84cb784a"
+      },
+      {
+        "path": "sites/tactical-animal/dist/weapon-pose.js",
+        "gitBlob": "ca255804f6bae22848922024f4df155af9838e23",
+        "bytes": 9616,
+        "sha256": "ab02101e2261536c0aa18f1ae080301ec8c8f784499ecbe699fe5027ac50d9d9"
+      }
+    ],
+    "tinderboxSidearmReference": {
+      "repository": "https://github.com/Syntaxswine/farmyard-fighters",
+      "commit": "f6332900296d1e2727deaca875aa43a8c3f81b84",
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/aft/tactics/idle-rig-math.js",
+          "gitBlob": "420628024950d2958fe14b7608563d7d3929f087",
+          "bytes": 2051,
+          "sha256": "764539010c4647f4470962c20ed9d70ed1393a7e5434765f3f6ab3403f66a6b3"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose-rig.js",
+          "gitBlob": "168b078a689d4c39acbedc65284264aca35dbf05",
+          "bytes": 1954,
+          "sha256": "c1744efa29c566e2c76e9035e15670a4e195c159da8892ef5eaa0dbd84cb784a"
+        },
+        {
+          "path": "sites/tactical-animal/dist/weapon-pose.js",
+          "gitBlob": "ca255804f6bae22848922024f4df155af9838e23",
+          "bytes": 9616,
+          "sha256": "ab02101e2261536c0aa18f1ae080301ec8c8f784499ecbe699fe5027ac50d9d9"
+        }
+      ]
+    },
+    "tinderboxDrawUnchangedSinceReview": [
+      {
+        "path": "src/content/patrol-pistol.js",
+        "gitBlob": "dd980092d06ce1b4ba593f916ff7d729c39c1d22",
+        "bytes": 410,
+        "sha256": "58186a45940e0187ad094ca1cbbc4fadb96330f5e6726b85b686b7a3bfcca6ce"
+      },
+      {
+        "path": "src/reuse/patrol-pistol.js",
+        "gitBlob": "bd44c9ea61ba58ea57d46ff64a8a0c97dd9e2ee9",
+        "bytes": 4691,
+        "sha256": "5ee7edbb8d687dc431245b2d4cd653492d6eb49be27bd35d473da39c2af05a33"
+      }
+    ]
+  },
+  "verification": {
+    "mode": "Selected tests executed from disposable exact donor Git archives. Source repos were read-only. No browser was started.",
+    "passed": {
+      "aft": 16,
+      "tinderbox": 15,
+      "fighters": 17,
+      "farmyard": 5
+    },
+    "visualEvidence": [
+      "AFT committed crawl sequence board",
+      "Tinderbox reviewer stowed and firing WebGL stills"
+    ],
+    "unmeasured": [
+      "frame cost in Nautilus",
+      "combined gameplay and installed-package integration",
+      "natural traversal draft independently exercised"
+    ]
+  }
+}
