@@ -1,18 +1,38 @@
 # Train controls
 
-Status: **isolated UI candidate** against fixed connector
-`32cce619ac1b8930ac7636dc49aa8704ce08cc92`, based on reviewed railway/content
-`8efe3da49186f36b07e19da9a31777fe46a71874`. The [builder card](USAGE-CARD.md)
-defines ownership and the remaining integration steps. The [fixture](fixture/index.html)
-uses Coder's committed connector and always returns `FIXTURE_ONLY` from dispatch.
-The fixture does not demonstrate live motion or boarding. Architect owns the
-real two-circuit integration and its final acceptance.
+The default **classic** controls are integrated in fixed engine base
+`4d0f7e495d75a607c9bc4c026ab100c50e7c07b4`. This bounded revision adds the
+explicit steam-only **compact-notched** profile, adapted from Tinderbox commit
+`fb0628605c274550ff8abad50b151843f08747d1`. The v1 connector semantics remain.
+The [builder card](USAGE-CARD.md) defines ownership; the [compact guide](COMPACT-PROFILE.md)
+explains persistence, coasting, cancellation and its pinned resource closure.
+Architect owns the final rendered-yard integration and combined delivery.
 
-The optional DOM module is `index.js`; load `style.css` in the same document.
+The optional DOM module is `index.js`, re-exported by the existing `public.js`;
+load `style.css` in the same document. It imports the adjacent `compact.css`.
 Keep the adjacent `art/steam-cab-surface.svg` URL available with the stylesheet.
-There is no package export or workshop navigation change in this checkout.
-The Architect owns final shared package/export/example integration. The UI owns
+Compact also needs its pinned wood/fonts and OFL notices; see the exact
+[packaging handoff](compact-handoff.json). The public facade, root package/build,
+examples and consumer pins are unchanged by this revision. The UI owns
 no simulation clock, railway kernel, actor/occupancy rule, renderer or saved state.
+
+```js
+const ui = mountTrainControls(hudSlot, {
+  session, actorId: playerId, walkingElement: existingWalking.element,
+  setWalkingEnabled: enabled => existingWalking.setEnabled(enabled),
+  steamProfile: 'compact-notched', // omit for classic; electric stays classic
+  muted: settings.audioMuted
+});
+```
+
+Compact has four power notches: F II (100%), F I (50%), N (coast) and R (50%).
+Finger release ends the drag and keeps an accepted notch engaged. Pulling the
+chain selects neutral/full brake; cancellation, blur, hidden/modal state,
+context changes, revocation and disposal still retire the exact owned lease.
+A refused shift rereads confirmed controls; stationary drag never retries it.
+Mount/reload acquires no authority and emits no cue. It keeps the same contextual
+Enter/Exit, walking gates and mute controls. `state.notch` is a confirmed display,
+not a save or a way to grant input authority.
 
 The connector's `snapshot.train.stock` chooses the skin. Steam has an original
 ochre/timber, brass and iron fascia, a draggable three-detent **reverser** and a
@@ -20,7 +40,7 @@ ochre/timber, brass and iron fascia, a draggable three-detent **reverser** and a
 a brake paddle and confirmed traction/occupancy/brake lamps. No door-closed
 indicator is implied: the connector has no physical door state.
 
-The reverser and direction buttons select the driver's request. Drag up for
+With the default classic profile, the reverser and direction buttons select the driver's request. Drag up for
 forward, centre for neutral and down for reverse; arrows and Home/End also work.
 The dial, applied power and braking read only the latest actor snapshot. Choose
 a direction and power setting, then hold **Hold regulator / Hold power**
@@ -64,11 +84,15 @@ The component owns and closes its audio context, nodes and listeners. Reduced
 motion removes lever/chain transitions; indicators remain steady. Refusal text
 and accessible requested/confirmed readouts remain available without sound.
 
-Run the fixture with a short-lived source HTTP server and open
+Run the disconnected fixture with a short-lived source HTTP server and open
 `/packages/train-ui/fixture/index.html`. `node packages/train-ui/tools/review.mjs`
 owns a bounded isolated browser/server and closes both in `finally`. Screenshot
 and UI evidence are stored under `evidence/`; the [mechanical review](evidence/MECHANICAL-REVIEW.md)
-records this revision. `node --test packages/train-ui/tests/feedback.test.mjs`
-checks sparse cue gating and disposal. Fixture artwork is an original
+records the earlier classic revision. The [compact review](evidence/COMPACT-REVIEW.md)
+records current evidence. The visible fixture always returns `FIXTURE_ONLY`.
+Focused browser checks also bind the actual retained yard/Core connector with
+explicit ticks, without claiming rendered/native-art acceptance. Node tests in
+`tests/feedback.test.mjs` and `tests/compact.test.mjs` cover cue gating, detents,
+real authority, coasting and checkpoint revocation. Fixture artwork is an original
 code-native layout illustration, not shared train/actor acceptance. The live
 playtest must use the actual railway/rolling-stock and character assets.

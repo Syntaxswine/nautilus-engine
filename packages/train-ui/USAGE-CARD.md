@@ -2,16 +2,21 @@
 
 | Field | Candidate contract |
 | --- | --- |
-| Identity/status | `nautilus-train-controls`, UI candidate v1; no released package export. Engine connector `nautilus-drivable-trains` v1 / `bounded-rail-driver-v1`, fixed pin `32cce619ac1b8930ac7636dc49aa8704ce08cc92`. |
+| Identity/status | `nautilus-train-controls` v1. Classic is integrated in fixed base `4d0f7e495d75a607c9bc4c026ab100c50e7c07b4`; compact-notched is an explicit adaptation candidate. Engine connector remains `nautilus-drivable-trains` v1 / `bounded-rail-driver-v1`. |
 | Guide/example | [UI guide](README.md), [source fixture](fixture/index.html), [engine contract](../../docs/drivable-trains.md). Coder owns the live session and playable reference; Architect integrates shared exports and the two-circuit playtest. |
 | Required inputs | Exact `TrainConnector`, actor ID, one host-provided HUD container, its existing walking element, `setWalkingEnabled(enabled)` and focus restoration. The disabling callback must clear the host's held walking input. |
-| Optional inputs | Unique `newId(kind)` allocator (default UUID), requested initial power (default 35%), host `muted` preference, `focusWalking()` and `onError(error,{phase})`. IDs must be fresh, synchronous and stable; no world mutations inside allocation. |
-| Units/space | UI fits a roughly 288–354 CSS px HUD slot, reflowed within safe areas. Host measures that slot for camera/viewport framing. Speed comes in m/s and displays as km/h; no unit changes in commands. Spatial axes/collision are inapplicable to this DOM part. |
-| Actions | Snapshot-owned Enter/Exit tuples; local F/N/R and power request; exclusive per-gesture drive lease; exact-original-lease release. Authoritative validation/commit stays in Core/host. No walking or train simulation is duplicated. |
-| Lifecycle | One post-commit invalidation subscription. Blur/hidden/modal/focus loss/pointer release/cab change/disposal clear held power. `setBlocked(true)` before opening a host modal; false does not resume power. Dispose UI before retiring its borrowed session. |
+| Optional inputs | `steamProfile:'classic'|'compact-notched'` (default classic), unique `newId(kind)` allocator (default UUID), classic initial power (default 35%), host `muted` preference, `focusWalking()` and `onError(error,{phase})`. IDs must be fresh, synchronous and stable; no world mutations inside allocation. Compact uses fixed power notches and leaves electric behavior compatible. |
+| Units/space | Classic fits a roughly 288–354 CSS px HUD slot. Compact's mechanical square is 138px standard, 124px narrow and 96px landscape, with readouts/Exit/mute beside it. Measure the whole component for camera-safe space. Speed comes in m/s and displays as km/h; no unit changes in commands. |
+| Actions | Snapshot-owned Enter/Exit tuples; classic local F/N/R and power request or explicit compact power notches; exclusive input-owner lease and exact-original-lease release. Authoritative validation/commit stays in Core/host. No walking or train simulation is duplicated. |
+| Lifecycle | One post-commit invalidation subscription. Classic hold release clears power; compact normal notch release retains the accepted owner. Safety cancel/blur/hidden/modal/focus loss/cab change/disposal release both profiles. `setBlocked(true)` before a host modal; false never resumes power. Dispose UI before retiring the borrowed session. |
 | Persistence | Owns no save. Do not persist pointers, keys or lease IDs. Real restore revokes held input and applies neutral/full brake through the connector policy. Preserve World/Miniature and portable railway saves in Core. |
 | Game decisions | HUD positioning and camera-safe area, input focus, pause/menus, saved audio preference, actual actors/entrances/landing permissions and host-only passenger service. Skin is chosen from authoritative stock. Coal tenders acquire no riding action from artwork. |
 | Evidence boundary | Fixed fixture is always disconnected. Browser protocol tests can establish UI release/ownership behavior, not actual train motion/boarding or native content. Real steam/electric loops, moving coach ride, stopped platform exit and game adoption require Architect's combined playtest. |
+
+The [compact profile guide](COMPACT-PROFILE.md), [source record](compact-source.json)
+and [packaging handoff](compact-handoff.json) describe its persistent notch policy,
+real retained-host checks, pinned texture/fonts and complete notices. Select it
+explicitly through `steamProfile`; the current default and electric panel remain.
 
 ```js
 import {mountTrainControls} from './packages/train-ui/index.js';
@@ -21,6 +26,7 @@ const ui = mountTrainControls(hudSlot, {
   session, actorId: playerId, walkingElement: existingJoystick.element,
   setWalkingEnabled(enabled) { existingJoystick.setEnabled(enabled); },
   focusWalking() { gameInputSurface.focus(); },
+  // steamProfile: 'compact-notched',
   // muted: settings.audioMuted,
 });
 // Before host modal/scene pause: ui.setBlocked(true).
@@ -52,6 +58,12 @@ only from the connector. Steam also loads its original painted SVG surface.
 Keep brake/readout contrast, labels, 44px targets, focus outline and reduced
 motion behavior when reskinning. The walking joystick
 returns in its original host slot; no second keyboard/movement owner is created.
+
+Compact is a separate input policy: normal notch release keeps its accepted
+lease, N coasts, and the chain brakes/neutralizes. Every safety cancellation
+still closes the original actor/lease, and new input uses a fresh ID. Displayed
+notch comes from confirmed controls, including after refusals. Rebinding profiles
+must dispose the old component first and preserve the host's mute preference.
 
 Steam reverser drag selects F/N/R; it does not start motion. Native direction
 buttons and F/N/R keys remain alternatives. Drag cancellation restores the prior
@@ -93,9 +105,11 @@ timber, dark iron, brass dial, reverser and chain over the prior common green
 button panel. For the commuter train, prefer cool steel, restrained controls,
 state lamps and a short chime. This is a visual judgment, reviewed at desktop,
 390px and 320px. [Immutable visual references](art/references.json) informed the
-direction; all new art/code/audio is original, with no donor bytes imported.
-Adoption status: implemented in this isolated candidate; Architect owns the
-combined live stock/actor review and final package/example integration.
+direction for classic, whose art and whistle/chime are original. Compact's
+deliberate Tinderbox code/art/font import is recorded in compact-source.json.
+Adoption status: classic is integrated in the fixed engine base. Compact is a
+bounded adaptation candidate with real retained-host input checks; Architect
+owns the rendered stock/actor review and final package/example integration.
 
 ## Adoption checklist
 
@@ -108,5 +122,6 @@ combined live stock/actor review and final package/example integration.
 - [ ] Restore focus/walking only after confirmed disembark; preserve borrowed session on unmount.
 - [ ] Verify desktop/touch/keyboard,320px layout, safe areas and readable brake/refusal states.
 - [ ] Include the adjacent original SVG surface in static/package copies; load the scoped stylesheet.
+- [ ] For compact, preserve the adjacent compact CSS and exact pinned wood/fonts, OFL notices and source records listed in compact-handoff.json.
 - [ ] Bind saved audio preference; verify whistle/chime volume on speakers/headphones, trusted input, mute and scene disposal in the real host.
 - [ ] Run final project/package/browser gates on the integrated result; commit exact pins and stop disposable helpers.

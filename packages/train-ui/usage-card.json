@@ -1,20 +1,52 @@
 {
   "id": "nautilus-train-controls",
   "version": 1,
-  "status": "isolated-ui-candidate",
+  "status": "compact-adaptation-candidate-on-integrated-classic-base",
   "module": "packages/train-ui/index.js",
   "styles": "packages/train-ui/style.css",
   "types": "packages/train-ui/index.d.ts",
-  "styleAssets": ["packages/train-ui/art/steam-cab-surface.svg"],
+  "styleAssets": [
+    "packages/train-ui/compact.css",
+    "packages/train-ui/art/steam-cab-surface.svg",
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf",
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf"
+  ],
   "visualReferences": "packages/train-ui/art/references.json",
-  "stockSkins": {"source": "snapshot.train.stock", "steam": "painted mechanical reverser and pull-chain brake", "electric": "commuter controls and confirmed traction/occupancy/brake lamps"},
-  "audio": {"kind": "original WebAudio approximation", "requires": "trusted gesture and confirmed own-action transition", "hostPreference": "muted option / setMuted / state.feedback.muted", "ownsAudioContext": true},
+  "stockSkins": {
+    "source": "snapshot.train.stock",
+    "steam": "painted mechanical reverser and pull-chain brake",
+    "electric": "commuter controls and confirmed traction/occupancy/brake lamps"
+  },
+  "audio": {
+    "kind": "original WebAudio approximation",
+    "requires": "trusted gesture and confirmed own-action transition",
+    "hostPreference": "muted option / setMuted / state.feedback.muted",
+    "ownsAudioContext": true
+  },
   "guide": "packages/train-ui/USAGE-CARD.md",
   "example": "packages/train-ui/fixture/index.html",
-  "connector": {"id": "nautilus-drivable-trains", "version": 1, "profile": "bounded-rail-driver-v1", "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92"},
+  "connector": {
+    "id": "nautilus-drivable-trains",
+    "version": 1,
+    "profile": "bounded-rail-driver-v1",
+    "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92"
+  },
   "contentBase": "8efe3da49186f36b07e19da9a31777fe46a71874",
   "ownsSavedState": false,
   "ownsSimulation": false,
-  "publicPackageExport": false,
-  "livePlaytest": "Architect owns revised-UI acceptance in the real two-circuit host; this checkout remains a disconnected presentation fixture."
+  "publicPackageExport": true,
+  "livePlaytest": "Focused compact DOM checks use the real retained Core/yard authority; Architect owns rendered-yard and final integration acceptance.",
+  "baseCommit": "4d0f7e495d75a607c9bc4c026ab100c50e7c07b4",
+  "compactSource": "packages/train-ui/compact-source.json",
+  "compactGuide": "packages/train-ui/COMPACT-PROFILE.md",
+  "packaging": "packages/train-ui/compact-handoff.json",
+  "steamProfile": {
+    "values": [
+      "classic",
+      "compact-notched"
+    ],
+    "default": "classic",
+    "electric": "unchanged"
+  }
 }

@@ -5,7 +5,7 @@ import {mountTrainControls} from '../index.js';
 // Appearance variants change detached view data, never train/actor authority.
 const $ = id => document.getElementById(id), walking = $('walking');
 const commands = [], results = [], errors = [];
-let controls, selected = 'steam', walkingEnabled = false;
+let controls, selected = 'steam', walkingEnabled = false, steamProfile = 'classic';
 const descriptions = {
   steam: 'Steam locomotive · driving cab', electric: 'Electric train · rear-facing cab',
   walking: 'On foot · steam cab entrance', riding: 'Passenger coach · at platform', service: 'Passenger coach · in motion', commuter: 'Electric passenger coach · at platform',
@@ -46,7 +46,7 @@ function showStory(value) {
   $('scene-caption').textContent = descriptions[value];
   $('world-note').textContent = value === 'tender' ? 'No Enter action is offered for the coal tender.' : value === 'electric' ? 'Forward is relative to this rear-facing cab.' : 'Disconnected preview. Every action is refused by the fixed fixture.';
   const mode = ['walking', 'tender'].includes(value) ? 'on-foot' : ['riding', 'service', 'commuter'].includes(value) ? 'rider' : 'driver';
-  controls = mountTrainControls($('hud-slot'), {session: variant(mode), actorId: 'player', walkingElement: walking,
+  controls = mountTrainControls($('hud-slot'), {session: variant(mode), actorId: 'player', walkingElement: walking,steamProfile,
     setWalkingEnabled(value) { walkingEnabled = value;walking.dataset.enabled = String(value); },
     focusWalking() { $('walk-focus').focus(); }, onError(error, context) { errors.push({message: error.message, phase: context.phase}); }
   });
@@ -61,6 +61,7 @@ $('map-dialog').addEventListener('close', () => { controls.setBlocked(false);con
 window.addEventListener('pagehide', () => controls?.dispose());
 showStory('steam');
 window.trainStudy = Object.freeze({showStory, commands, results, errors,
+  showProfile(value) { if (!['classic','compact-notched'].includes(value)) throw Error('Unknown steam profile.');steamProfile=value;showStory(selected); },
   get controls() { return controls; }, get walkingEnabled() { return walkingEnabled; },
   dispose() { controls.dispose(); }
 });

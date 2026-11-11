@@ -6,7 +6,7 @@ import {trainConnectorFixture} from '../../train-core/connector-fixture.js';
 // Presentation-only audio device double. No physics or occupancy authority.
 function device(state = 'running') {
   const contexts = [], oscillators = [];
-  const parameter = () => ({value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}});
+  const parameter = () => ({value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {}});
   const node = () => ({connect() {}, disconnect() {this.disconnected = true;}});
   class AudioContext {
     constructor() { this.state = state;this.currentTime = 0;this.destination = {};contexts.push(this); }
@@ -78,4 +78,19 @@ test('disposal closes the owned device and makes further callbacks inert', async
 });
 test('missing optional WebAudio support leaves controls silent and usable', () => {
   const f = createTrainFeedback({});f.unlock({isTrusted: true});f.observe(moving(armed(f)));assert.equal(f.state.played, 0);f.dispose();
+});
+test('notch clicks require a trusted accepted own change and exact confirmed controls', () => {
+  const d=device(),f=createTrainFeedback(d.win);f.unlock({isTrusted:true});const before=read(),after=read();
+  after.train.controls={direction:'forward',power:.5,brake:0,leaseId:'own'};
+  const command={...drive,power:.5};
+  f.shift(command,result,before,after,{isTrusted:false});f.shift(command,{committed:false},before,after,{isTrusted:true});f.shift(command,{...result,repeated:true},before,after,{isTrusted:true});
+  f.shift(command,result,before,{...after,train:{...after.train,controls:{...after.train.controls,power:1}}},{isTrusted:true});assert.equal(f.state.played,0);
+  f.shift(command,result,before,after,{isTrusted:true});assert.equal(f.state.lastCue,'steam-shift');assert.equal(f.state.played,1);
+  f.shift(command,result,after,after,{isTrusted:true});assert.equal(f.state.played,1);f.dispose();
+});
+test('notch click shares mute, device ownership and bounded voice cleanup', async () => {
+  const d=device(),f=createTrainFeedback(d.win);f.unlock({isTrusted:true});const before=read(),after=read();after.train.controls={direction:'reverse',power:.5,brake:0,leaseId:'own'};
+  f.setMuted(true);f.shift({...drive,direction:'reverse',power:.5},result,before,after,{isTrusted:true});assert.equal(f.state.played,0);
+  f.setMuted(false);f.shift({...drive,direction:'reverse',power:.5},result,before,after,{isTrusted:true});assert.equal(f.state.played,1);assert.equal(d.oscillators.length,1);assert.equal(d.contexts.length,1);
+  f.dispose();await Promise.resolve();assert.equal(f.state.activeSounds,0);assert.equal(f.state.contextState,'closed');
 });
