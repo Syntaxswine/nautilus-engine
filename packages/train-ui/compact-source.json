@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "bounded-Tinderbox-control-adaptation",
-  "baseCommit": "4d0f7e495d75a607c9bc4c026ab100c50e7c07b4",
+  "baseCommit": "db656a6d717ad36aabe32955b47a09b8badb116e",
   "sourceRepository": "https://github.com/Syntaxswine/tinderbox",
   "sourceCommit": "fb0628605c274550ff8abad50b151843f08747d1",
   "sourceManifest": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/source.json",
@@ -36,14 +36,16 @@
     "compact-model.js": "train-control-model.js four notches and hysteresis; finite input and tiny boundary tolerance added",
     "compact-input.js": "train-control.js drag/keyboard policy; attempt detent separate from confirmed notch to bound refusal retries",
     "compact.css": "train-control.css raised grip/chain; scoped beside existing readouts, mute and contextual actions",
-    "index.js": "existing Nautilus lease/Expected/staged cleanup retained; explicit steam-only option and refusal handling",
+    "index.js": "Shared lease/Expected lifecycle plus compact opposite-direction full brake and pending notch. One deferred exact-owner safety release retry for Core SESSION_BUSY; direction commands are never retried.",
     "view.js": "adapted compact lever/chain markup; original classic/electric markup retained",
-    "feedback.js": "train-click.js envelope adapted into the existing shared owned audio lifecycle"
+    "feedback.js": "train-click.js envelope adapted into the existing shared owned audio lifecycle",
+    "reverse-intent.js": "Nautilus-authored local brake-before-opposite assistance; not present in the preserved Tinderbox controller. Guarded stopped-notification microtask, fresh owner/context/controls and consume-before-dispatch."
   },
   "guides": [
     "COMPACT-PROFILE.md",
     "USAGE-CARD.md",
-    "evidence/COMPACT-REVIEW.md"
+    "evidence/COMPACT-REVIEW.md",
+    "evidence/REVERSE-REVIEW.md"
   ],
   "runtimeResources": [
     {
@@ -79,5 +81,14 @@
       "line": 21,
       "reason": "Exact upstream license bytes retain a trailing blank; validate source SHA instead of trimming."
     }
-  ]
+  ],
+  "previousNautilusAdaptation": "004d244397fc88a2c411388dd9046858772c020e",
+  "reverseAssistance": {
+    "source": "Nautilus UI quality-of-life request",
+    "saved": false,
+    "ownsClock": false,
+    "coreMovingSwapRule": "unchanged",
+    "cancellation": "neutral/another notch/chain/safety/focus/visibility/pause/actor/cab/revocation/Exit/failure/disposal",
+    "record": "evidence/REVERSE-REVIEW.md"
+  }
 }

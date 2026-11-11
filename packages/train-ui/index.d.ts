@@ -7,7 +7,7 @@ export interface TrainControls {
   setMuted(muted: boolean): void;
   setActor(actorId: string): void;
   readonly state: Readonly<{actorId: string; mode: 'on-foot'|'driver'|'rider'|null; requestedDirection: Direction;
-    requestedPower: number; steamProfile: 'classic'|'compact-notched'; notch: 0|1|2|3|null; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean;
+    requestedPower: number; steamProfile: 'classic'|'compact-notched'; notch: 0|1|2|3|null; pendingNotch: 0|1|3|null; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean;
     feedback: Readonly<{muted: boolean; unlocked: boolean; played: number; lastCue: 'steam-departure'|'steam-shift'|'electric-boarded'|'electric-exited'|null; activeSounds: number; contextState: string}>;
     result: DispatchResult|null}>;
   dispose(): void;

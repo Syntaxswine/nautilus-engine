@@ -2,7 +2,7 @@
 
 | Field | Candidate contract |
 | --- | --- |
-| Identity/status | `nautilus-train-controls` v1. Classic is integrated in fixed base `4d0f7e495d75a607c9bc4c026ab100c50e7c07b4`; compact-notched is an explicit adaptation candidate. Engine connector remains `nautilus-drivable-trains` v1 / `bounded-rail-driver-v1`. |
+| Identity/status | `nautilus-train-controls` v1. Classic/compact are integrated in fixed base `db656a6d717ad36aabe32955b47a09b8badb116e`; compact opposite-direction assistance is the current bounded candidate. Engine connector remains `nautilus-drivable-trains` v1 / `bounded-rail-driver-v1`. |
 | Guide/example | [UI guide](README.md), [source fixture](fixture/index.html), [engine contract](../../docs/drivable-trains.md). Coder owns the live session and playable reference; Architect integrates shared exports and the two-circuit playtest. |
 | Required inputs | Exact `TrainConnector`, actor ID, one host-provided HUD container, its existing walking element, `setWalkingEnabled(enabled)` and focus restoration. The disabling callback must clear the host's held walking input. |
 | Optional inputs | `steamProfile:'classic'|'compact-notched'` (default classic), unique `newId(kind)` allocator (default UUID), classic initial power (default 35%), host `muted` preference, `focusWalking()` and `onError(error,{phase})`. IDs must be fresh, synchronous and stable; no world mutations inside allocation. Compact uses fixed power notches and leaves electric behavior compatible. |
@@ -64,6 +64,13 @@ lease, N coasts, and the chain brakes/neutralizes. Every safety cancellation
 still closes the original actor/lease, and new input uses a fresh ID. Displayed
 notch comes from confirmed controls, including after refusals. Rebinding profiles
 must dispose the old component first and preserve the host's mute preference.
+
+An opposite compact notch requests full brake on the current owned lease, then
+engages the selected direction after an authoritative stop. Confirmed grip and
+brake stay separate from `state.pendingNotch:0|1|3|null`. Normal finger release
+retains this request; N, another notch, chain, safety/context changes, Exit,
+failure and disposal cancel it. It is never saved or restored, and no queued
+callback may take over another lease. See the [current reverse proof](evidence/REVERSE-REVIEW.md).
 
 Steam reverser drag selects F/N/R; it does not start motion. Native direction
 buttons and F/N/R keys remain alternatives. Drag cancellation restores the prior

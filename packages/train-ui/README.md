@@ -1,8 +1,8 @@
 # Train controls
 
-The default **classic** controls are integrated in fixed engine base
-`4d0f7e495d75a607c9bc4c026ab100c50e7c07b4`. This bounded revision adds the
-explicit steam-only **compact-notched** profile, adapted from Tinderbox commit
+Classic and compact steam controls are integrated in fixed engine base
+`db656a6d717ad36aabe32955b47a09b8badb116e`. This bounded revision adds automatic
+brake-before-opposite-direction assistance to **compact-notched**, adapted from Tinderbox commit
 `fb0628605c274550ff8abad50b151843f08747d1`. The v1 connector semantics remain.
 The [builder card](USAGE-CARD.md) defines ownership; the [compact guide](COMPACT-PROFILE.md)
 explains persistence, coasting, cancellation and its pinned resource closure.
@@ -29,10 +29,18 @@ Compact has four power notches: F II (100%), F I (50%), N (coast) and R (50%).
 Finger release ends the drag and keeps an accepted notch engaged. Pulling the
 chain selects neutral/full brake; cancellation, blur, hidden/modal state,
 context changes, revocation and disposal still retire the exact owned lease.
-A refused shift rereads confirmed controls; stationary drag never retries it.
+Choosing the opposite direction now confirms neutral/full brake first, retains
+the local requested notch, then engages it once the host permits at a confirmed
+stop. Forward and reverse are symmetric. N, another notch, chain, safety/context
+cancellation, Exit, failure and disposal cancel it. The grip stays confirmed;
+`state.pendingNotch` and a small separate line show the request. No local intent
+survives mount or save/reload, and no callback can take over another lease.
 Mount/reload acquires no authority and emits no cue. It keeps the same contextual
 Enter/Exit, walking gates and mute controls. `state.notch` is a confirmed display,
 not a save or a way to grant input authority.
+
+The [reverse review](evidence/REVERSE-REVIEW.md) records the current focused proof.
+Classic/electric controls and Core's raw moving-direction refusal are unchanged.
 
 The connector's `snapshot.train.stock` chooses the skin. Steam has an original
 ochre/timber, brass and iron fascia, a draggable three-detent **reverser** and a

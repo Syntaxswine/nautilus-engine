@@ -195,11 +195,11 @@
       "status": "passed"
     },
     {
-      "name": "moving reverse refusal renders confirmed gear, retains valid authority and never retries on stationary drag",
+      "name": "moving reverse selection confirms full braking and keeps one pending direction through stationary drag",
       "status": "passed"
     },
     {
-      "name": "keyboard neutral coasts under real authority without retiring the latched owner",
+      "name": "keyboard neutral cancels pending direction and coasts without retiring the latched owner",
       "status": "passed"
     },
     {
@@ -268,6 +268,58 @@
     },
     {
       "name": "native emulated touch latches one notch and releases only the chain owner",
+      "status": "passed"
+    },
+    {
+      "name": "native moving R immediately applies full brake on the existing lease and shows a separate pending request",
+      "status": "passed"
+    },
+    {
+      "name": "one deferred accepted reverse follows the confirmed stop without another input or repeated-notification shifts",
+      "status": "passed"
+    },
+    {
+      "name": "reverse-to-forward uses the same full-brake stop sequence and preserves the selected forward power",
+      "status": "passed"
+    },
+    {
+      "name": "pending direction cancels on neutral/notch/chain and all input, focus, visibility, pause, actor, Exit and disposal paths",
+      "status": "passed"
+    },
+    {
+      "name": "a stopped callback cancelled by revocation cannot take over a new real source owner",
+      "status": "passed"
+    },
+    {
+      "name": "cab replacement clears pending direction and cleans up only the old source",
+      "status": "passed"
+    },
+    {
+      "name": "refused, thrown or malformed braking dispatch cancels intent and retires the exact owner",
+      "status": "passed"
+    },
+    {
+      "name": "failed or unknown automatic direction dispatch is consumed once and never retried by later notifications",
+      "status": "passed"
+    },
+    {
+      "name": "saving and reloading during pending reverse stays braked and silent with no restored intent",
+      "status": "passed"
+    },
+    {
+      "name": "muted or untrusted pending transitions never unlock or fabricate audio",
+      "status": "passed"
+    },
+    {
+      "name": "pause or disposal inside a stopped notification retries only the exact old safety release and never its pending shift",
+      "status": "passed"
+    },
+    {
+      "name": "classic still sends the raw moving swap and retains its original refusal/release behavior",
+      "status": "passed"
+    },
+    {
+      "name": "confirmed braking plus restrained pending direction fits phone, narrow phone and landscape",
       "status": "passed"
     }
   ],
@@ -388,6 +440,18 @@
       "scope": "real retained host DOM in full-viewport fixture",
       "square": 96,
       "grip": 42
+    },
+    {
+      "file": "reverse/braking-for-reverse.png",
+      "width": 390,
+      "height": 844,
+      "scope": "actual retained host UI; confirmed brake and local pending R"
+    },
+    {
+      "file": "reverse/backing-without-another-input.png",
+      "width": 390,
+      "height": 844,
+      "scope": "actual retained host UI; automatically accepted reverse and negative travel"
     }
   ],
   "fixture": "Actual fixed connector, always FIXTURE_ONLY",
@@ -413,26 +477,34 @@
   "compact": {
     "profile": "compact-notched",
     "sourcePin": "fb0628605c274550ff8abad50b151843f08747d1",
-    "baseCommit": "4d0f7e495d75a607c9bc4c026ab100c50e7c07b4",
+    "baseCommit": "db656a6d717ad36aabe32955b47a09b8badb116e",
     "authority": "actual retained two-circuit host and Core; explicit host ticks; no renderer/native-art acceptance",
     "physicalHandset": false
+  },
+  "reverse": {
+    "baseCommit": "db656a6d717ad36aabe32955b47a09b8badb116e",
+    "sameLease": true,
+    "automaticAcceptedShiftOnce": true,
+    "rawCoreRefusalPreserved": true,
+    "frameBoundary": "guarded microtask after stopped notification",
+    "rendererAcceptance": false
   },
   "status": "passed",
   "cleanup": {
     "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
     "purpose": "Train HUD fixed-fixture design and input lifecycle review",
-    "stoppedAt": "2026-11-11T20:14:45.037Z",
+    "stoppedAt": "2026-11-11T23:39:51.203Z",
     "process": {
-      "pid": 16720,
-      "creationFiletime": "134389016665368437",
+      "pid": 12536,
+      "creationFiletime": "134389138721408101",
       "executable": "C:\\Program Files\\nodejs\\node.exe"
     },
     "browser": {
-      "pid": 49836,
-      "creationFiletime": "134389016668415480",
+      "pid": 20124,
+      "creationFiletime": "134389138738553694",
       "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
     },
-    "port": 62963,
+    "port": 62359,
     "httpClosed": true,
     "browserClosed": true,
     "method": "Supported Playwright browser close and HTTP close in finally",

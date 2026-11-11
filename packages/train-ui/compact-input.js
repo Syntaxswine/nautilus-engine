@@ -16,8 +16,8 @@ export function bindCompactLever({win,node,listen,active,blocked,notch,stamp,sel
     if (event.pointerType !== 'touch' && event.buttons === 0) { release('notch-buttons-released');return; }
     const position = (event.clientY-drag.rect.top-16)/(drag.rect.height-32)*3;
     const next = compactDetent(position,drag.detent);
-    // Track attempted detents separately from the confirmed grip. A refused R
-    // remains visually at the host's gear, and a stationary finger never retries.
+    // Track attempted detents separately from the confirmed grip. Pending or
+    // denied direction requests never resend from stationary finger jitter.
     drag.detent = next;
     if (next !== drag.attempt) { drag.attempt = next;select(next,event); }
   }
