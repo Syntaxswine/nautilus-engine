@@ -17,7 +17,7 @@ export function trainConnectorFixture(mode = 'on-foot') {
       controlRevision: 0, controls: {direction: 'neutral', power: 0, brake: 1, leaseId: null}, hold: null},
     actions: [{id: mode === 'on-foot' ? 'enter/' + carId + '/' + entranceId : 'exit',
       label: mode === 'on-foot' ? 'Enter steam cab' : 'Exit train', enabled: true, code: null, reason: null,
-      command: {type: mode === 'on-foot' ? 'enter' : 'exit', actorId: 'player', trainId, carId, entranceId, expected}}
+      command: {type: mode === 'on-foot' ? 'enter' : 'exit', actorId: 'player', trainId, carId, entranceId, expected}}]
   };
   return Object.freeze({contract: TRAIN_SESSION_CONTRACT,
     readForActor(actorId) { if (actorId !== 'player') throw Error('Unknown fixture actor.'); return structuredClone(snapshot); },
