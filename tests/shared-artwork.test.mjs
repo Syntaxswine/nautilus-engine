@@ -1,5 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';
 import * as Assets from '../packages/assets/index.js';
+import {ROAD_VEHICLE_ASSETS} from '../packages/vehicle-visuals/catalogue.js';
 import {listBuildingAssets} from '../packages/assets/files.js';
 import {sharedAssetCatalogueSource,checkSharedAssets} from '../tools/shared-assets.mjs';
 import {distribution,moduleClosure} from '../tools/distribution.mjs';
@@ -7,7 +8,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),expec
 
 test('generated palette appends30 rows without changing any of the407 existing asset records',()=>{
  checkSharedAssets();assert.equal(sharedAssetCatalogueSource(),fs.readFileSync(path.join(root,'packages/assets/catalogue.js'),'utf8'));
- const all=Assets.listSharedAssets();assert.equal(all.length,439);assert.equal(token(all.slice(0,407)),expected.originalAssetRowsDigest);assert.equal(new Set(all.map(r=>r.id)).size,all.length);
+ const all=Assets.listSharedAssets();assert.equal(all.length,439+ROAD_VEHICLE_ASSETS.length);assert.deepEqual(all.slice(439),ROAD_VEHICLE_ASSETS);assert.equal(token(all.slice(0,407)),expected.originalAssetRowsDigest);assert.equal(new Set(all.map(r=>r.id)).size,all.length);
  assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),expected.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);assert.equal(listBuildingAssets().length,48);
 });
 test('all canonical record bodies, original defaults, ResourceRefs and image/frame/locator metadata stay exact',()=>{

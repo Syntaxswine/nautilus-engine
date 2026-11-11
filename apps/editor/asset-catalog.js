@@ -10,14 +10,15 @@ import {FOLIAGE_PRESETS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc0
 import {MAP_LEVELS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js';
 import {ANIMAL_MOTION_CATALOG} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-catalog.js';
 import {RAIL_TRACK_ASSETS} from '../../packages/railway-visuals/catalogue.js';
+import {ROAD_VEHICLES, ROAD_VEHICLE_SCENERY} from '../../packages/vehicle-visuals/catalogue.js';
 
-export const ASSET_CATEGORIES = ['Terrain', 'Railway', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
+export const ASSET_CATEGORIES = ['Terrain', 'Railway', 'Vehicles', 'Objects', 'Roofs', 'Boundaries', 'People', 'Foliage', 'Cliffs', 'Ramps'];
 const readable = id => id.replaceAll('-', ' ').replace(/^./, c => c.toUpperCase());
 const label = (id, name) => name && name !== id ? name : readable(id);
 
 // Derive entries from the same registries as the placement tools. Adding a
 // reviewed donor asset must not require maintaining a second list of IDs.
-export function editorAssets() {
+export function editorAssets({includeRoadVehicles = false} = {}) {
   const assets = GROUNDS.map(id => ({id, category:'Terrain', name:label(id, BIOME_TERRAIN_NAMES[id] || roadLabel(id)), tool:'texture', bindings:{'ground-kind':id}, w:1, h:1}));
   for (const id of ['floor', 'water', 'bridge']) assets.push({id, category:'Terrain', name:readable(id), tool:id, bindings:{}, w:1, h:1});
   for (const piece of RAIL_TRACK_ASSETS) assets.push({
@@ -26,6 +27,7 @@ export function editorAssets() {
     tool: 'railway-route', note: 'Lay a connected route. The Workshop fits the straight and curved track automatically.'
   });
   for (const [id, rule] of Object.entries(PROPS)) {
+    if (Object.hasOwn(ROAD_VEHICLE_SCENERY, id)) continue;
     let category = id.startsWith('roof-') ? 'Roofs' : rule.cliff ? 'Cliffs' : rule.ramp || id.startsWith('rampbank-') ? 'Ramps' : 'Objects';
     let tool = category === 'Roofs' ? 'roof-tile' : category === 'Cliffs' ? 'cliff' : 'prop';
     let bindings = {[category === 'Cliffs' ? 'cliff-kind' : 'prop-kind']:id};
@@ -50,6 +52,11 @@ export function editorAssets() {
   // Movement's inherited change handler selects a generic preset. Apply the
   // authored preset last so wetland/bog identities survive that handler.
   for (const [id, rule] of Object.entries(FOLIAGE_PRESETS)) assets.push({id, category:'Foliage', name:rule.label, tool:'foliage-cover', bindings:{'foliage-mode':'paint', 'foliage-density':'65', 'foliage-tree-cover':'brush-v1', 'foliage-passability':rule.blocked ? 'blocked' : 'passable', 'foliage-preset':id}, w:8, h:8, note:rule.summary});
+  if (includeRoadVehicles) for (const row of ROAD_VEHICLES) assets.push({
+    id: row.id, category: 'Vehicles', name: row.name, tool: 'prop',
+    bindings: {'prop-kind': row.id}, w: row.cells[0], h: row.cells[1], roadVehicle: true,
+    note: 'Parked vehicle. R turns the whole metre-grid footprint.'
+  });
   return assets.sort((a,b) => ASSET_CATEGORIES.indexOf(a.category)-ASSET_CATEGORIES.indexOf(b.category) || a.name.localeCompare(b.name));
 }
 

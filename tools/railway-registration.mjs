@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {roadVehicleRegisteredBytes} from './road-vehicle-registration.mjs';
 import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 import {trainPackageFiles, trainPackageExports, checkTrainRegistration, trainBuildBytes} from './train-registration.mjs';
@@ -62,7 +63,7 @@ export function checkRailwayRenderer({baseFile, read, indexed}) {
     "\nexport {createRailwayTrainView} from '../railway-visuals/train-view.js';" +
     "\nexport {createRailwaySignalView} from '../railway-visuals/signal-view.js';");
   const actual = read(renderer);
-  assert.ok(actual.equals(Buffer.from(expected)), 'Unreviewed railway renderer facade bytes.');
+  assert.ok(actual.equals(roadVehicleRegisteredBytes(renderer, Buffer.from(expected))), 'Unreviewed railway renderer facade bytes.');
   indexed(renderer, actual);
   for (const file of [...railwayPackageFiles('renderer'), 'tools/railway-registration.mjs']) {
     const bytes = read(file);

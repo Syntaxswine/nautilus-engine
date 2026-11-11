@@ -2,6 +2,8 @@
 // connect/send state can be tested headlessly. A host must declare every authored
 // feature, through a manifest or a feature list, before it is handed a validated copy.
 import {MAP_CONTRACT, openDocument, assertMapCapabilities, assertBlueprintCompatible} from '../../packages/map-core/index.js';
+import {ROAD_VEHICLES, ROAD_VEHICLE_FEATURE} from '../../packages/vehicle-visuals/catalogue.js';
+const vehicleKinds = new Set(ROAD_VEHICLES.map(row => row.id));
 
 export function checkGameAdapter(adapter) {
   if (!adapter || typeof adapter.openMap !== 'function') throw new TypeError('A game adapter needs openMap({json, contract}).');
@@ -12,6 +14,12 @@ export function sendMapToGame(json, adapter) {
   const document = openDocument(json), errors = document.validate();
   if (document.block) throw Error('Place this block in a full map first.');
   if (errors.length) throw Error(errors.join(' '));
+  if (document.map.props?.some(prop => vehicleKinds.has(prop.kind))) {
+    const supported = adapter.manifest
+      ? adapter.manifest.capabilities?.some(row => row.id === ROAD_VEHICLE_FEATURE && row.versions?.includes(1))
+      : Array.isArray(adapter.features) && adapter.features.includes(ROAD_VEHICLE_FEATURE);
+    if (!supported) throw new Error('This game adapter needs the road vehicle scenery binding (' + ROAD_VEHICLE_FEATURE + ').');
+  }
   if (adapter.manifest) assertBlueprintCompatible(document.map, adapter.manifest);
   else assertMapCapabilities(document.map, adapter.features || []);
   return adapter.openMap({json: document.export(), contract: MAP_CONTRACT});

@@ -8,6 +8,7 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {sharedArtworkBuildBytes} from './shared-artwork-registration.mjs';
 import {trainBuildBytes} from './train-registration.mjs';
+import {roadVehicleRegisteredBytes, roadVehiclePackageFiles} from './road-vehicle-registration.mjs';
 
 export const TILE_AUTHORING_REVIEW_STATUS='fixed-source-workflow-candidate';
 export const TILE_AUTHORING_REVIEW_LINEAGE=Object.freeze({
@@ -88,6 +89,8 @@ export function tileAuthoringInstalledHostPlan({files}){
 const extraVerificationFiles=[
  'tools/shared-artwork-registration.mjs',
  'tools/train-registration.mjs',
+ 'tools/road-vehicle-registration.mjs', 'tools/editor-road-vehicles.mjs',
+ ...roadVehiclePackageFiles('compatibility'),
  'tools/editor-review-tile-authoring-c1.mjs','tools/verify-tile-authoring-editor-review.mjs',
  'tools/tile-authoring-editor-review-inputs.mjs','tools/tile-authoring-editor-source.mjs',
  'tools/editor-stage-tile-authoring-c1.mjs','tools/editor-direct-tile-authoring-c1.mjs',
@@ -107,7 +110,7 @@ export async function tileAuthoringReviewInputModel({projectRoot}={}){
  assert.equal(c1.sourceCommit,TILE_AUTHORING_REVIEW_LINEAGE.editor);assert.equal(c1.uiOrigin,TILE_AUTHORING_REVIEW_LINEAGE.ui);assert.equal(c1.coreSource,TILE_AUTHORING_REVIEW_LINEAGE.core);assert.equal(c1.coreEvidence,TILE_AUTHORING_REVIEW_LINEAGE.coreEvidence);assert.equal(c1.status,TILE_AUTHORING_REVIEW_LINEAGE.sourceModelStatus);
  assert.equal(c1.runtimeCheckpoint,TILE_AUTHORING_REVIEW_LINEAGE.editorRuntime);assert.equal(c1.runtimeFiles.length,14);assert.equal(c1.files.length,39);assert.equal(c1.namespaceFiles.length,10);assert.deepEqual(Object.keys(c1.sharedOverrides),['apps/editor/smart-tile/checkpoint.js','apps/editor/smart-tile/session.js']);
  const artworkBuild=sharedArtworkBuildBytes({object:(commit,file)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',commit+':'+file],{windowsHide:true,timeout:30000,maxBuffer:2*1024*1024})});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer));
- for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(r.path==='tools/build.mjs'?trainBuildBytes(artworkBuild.expected):r.expectedBuffer),'Unauthenticated C1 input: '+r.path);
+ for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(r.path==='tools/build.mjs'?roadVehicleRegisteredBytes(r.path,trainBuildBytes(artworkBuild.expected)):r.expectedBuffer),'Unauthenticated C1 input: '+r.path);
  assert.deepEqual(namespace(root,c1Namespace),c1Runtime.sort());
  const hostFiles=tileAuthoringReviewHostFiles(b2.hostFiles);assert.equal(hostFiles.length,44);const hostPlan=tileAuthoringInstalledHostPlan({files:new Map(hostFiles.map(f=>[f,reviewRead(root,f)]))});
  const {moduleClosure,distribution}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);

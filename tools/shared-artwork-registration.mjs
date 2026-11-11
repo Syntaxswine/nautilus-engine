@@ -7,6 +7,7 @@ const ROOT_TEXT_HASHES={
   "docs/asset-handoffs.md": "d86a06dfcc95b0d13611ab6fcfa019aee32909cf610e4b08d827e17d6bacf70a"
 };
 const NOTICE_SUFFIX="\n## Shared original artwork palette\n\nThe30 canonical artwork records retain Core43227894c50ec62b71806978195fff2c650eb388 identities and Artist57c651fb0a7ed0b01c1435ba18e87efde290443a defaults. The six explicit payload files under assets/artwork/local-graphics-v1/ preserve original f5bfda9ec0f639018ccfee2415b1f70502e77cae bytes, including the unchanged PROVENANCE.md, historical manifest, prompt and SVG companions. packages/assets/artwork-source.json records the immutable06dee5b01eeefddbe5e92a3f71d4382dffad0986 handoff and hashes. Public metadata/encoded delivery is a separate engine-owned integration; no immutable noticeText or source asset is rewritten, and this provenance adds no licence grant.\n";
+import {roadVehicleRegisteredBytes, roadVehiclePackageFiles, checkRoadVehicleRegistration} from './road-vehicle-registration.mjs';
 import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
 import {checkRailwayRenderer, railwayPackageFiles, registeredRailwayBytes} from './railway-registration.mjs';
 import {RAILWAY_ROUTE_BASE, verifyRailwayRouteFiles} from './railway-route-registration.mjs';
@@ -26,9 +27,10 @@ export function sharedArtworkBuildBytes({object}){
 export function historicalArtworkNotice({object,current}){const before=object(SHARED_ARTWORK_BASE,'NOTICE.md'),expected=Buffer.concat([before,Buffer.from(NOTICE_SUFFIX)]);assert.ok(current.equals(expected),'Shared artwork NOTICE must be exactly the fixed preimage plus the single reviewed suffix');return before;}
 function actualPayloadFiles(){const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),folder=path.join(root,payloadRoot),walk=(dir,relative)=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false,'No symlinked artwork input');const f=relative+'/'+e.name;return e.isDirectory()?walk(path.join(dir,e.name),f):[f];});return walk(folder,payloadRoot).sort();}
 export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()=>{},moduleClosure,distribution,listArtworkFiles=actualPayloadFiles}){
- const cache=new Map(),object=(commit,file)=>{const k=commit+':'+file;if(!cache.has(k))cache.set(k,rawObject(commit,file));const b=cache.get(k);assert.ok(Buffer.isBuffer(b));return b;},baseFile=f=>object(SHARED_ARTWORK_BASE,f),sourceFile=f=>object(SHARED_ARTWORK_SOURCE,prefix+f),expect=(f,b)=>{const actual=read(f);assert.ok(actual.equals(registeredRailwayBytes(f,b)),'Unreviewed shared artwork or railway bytes: '+f);indexed(f,actual);return actual;};
+ const cache=new Map(),object=(commit,file)=>{const k=commit+':'+file;if(!cache.has(k))cache.set(k,rawObject(commit,file));const b=cache.get(k);assert.ok(Buffer.isBuffer(b));return b;},baseFile=f=>object(SHARED_ARTWORK_BASE,f),sourceFile=f=>object(SHARED_ARTWORK_SOURCE,prefix+f),expect=(f,b)=>{const actual=read(f);assert.ok(actual.equals(roadVehicleRegisteredBytes(f,registeredRailwayBytes(f,b))),'Unreviewed shared artwork or railway bytes: '+f);indexed(f,actual);return actual;};
  indexed('tools/shared-artwork-registration.mjs',read('tools/shared-artwork-registration.mjs'));
  checkRailwayRenderer({baseFile,read,indexed});
+ checkRoadVehicleRegistration({read,indexed});
  const railwayRoutes=verifyRailwayRouteFiles({object,read,indexed});
  const preservation=JSON.parse(sourceFile('preservation.json'));assert.equal(preservation.originalDraft.baseReviewManifestSha256,'b2ab141aeb1f63c31fdab231c9a158e1e92d730e503dc5804f2f343295679d0c');assert.equal(preservation.payloads.length,6);
  const original=sourceFile('draft/artwork-module.proposal.js.txt'),runtime=Buffer.from(replace(original.toString('utf8'),'// PROPOSAL TEXT ONLY. Future packages/assets/artwork.js; no current registration.',publicHeader));expect('packages/assets/artwork.js',runtime);
@@ -51,7 +53,7 @@ export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()
   const plan=distribution(profile),oldExports=exportsFor(profile),newExports={...oldExports,...(profile==='renderer'?{'./assets':'./packages/assets/index.js'}:{}),...trainPackageExports(profile)};
   assert.deepEqual(plan.exports,newExports,'Only the named renderer and train aliases may change exports');
   assert.deepEqual(plan.files,[...new Set(plan.files)].sort());
-  const railwayFiles=railwayPackageFiles(profile),registered=[...additions[profile],...railwayFiles];
+  const railwayFiles=railwayPackageFiles(profile),vehicleFiles=roadVehiclePackageFiles(profile),registered=[...additions[profile],...railwayFiles,...vehicleFiles];
   for(const f of registered)assert.ok(plan.files.includes(f),'Missing registered profile file '+profile+':'+f);
   const remaining=plan.files.filter(f=>!registered.includes(f)),preC1=remaining.filter(f=>!c1Files.includes(f)),baseline=c1.baseline.profiles[profile];
   assert.equal(preC1.length,baseline.fileCount);
@@ -60,7 +62,7 @@ export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()
   assert.equal(plan.name,profile==='compatibility'?base.name:'@nautilus-engine/'+(profile==='assets'?'building-assets':profile));
   assert.equal(plan.files.some(f=>/^(?:candidates|tests|artifacts|tools)\//.test(f)),false);
   oldPlans[profile]={...plan,exports:oldExports,files:remaining};
-  profiles[profile]={addedFiles:[...additions[profile]].sort(),addedCount:additions[profile].length,railwayFiles,currentFiles:plan.files.length,historicalFiles:remaining.length};
+  profiles[profile]={addedFiles:[...additions[profile]].sort(),addedCount:additions[profile].length,railwayFiles,vehicleFiles,currentFiles:plan.files.length,historicalFiles:remaining.length};
  }
  const artworkPreimages={'NOTICE.md':oldNotice,'package.json':oldPackage,'tools/distribution.mjs':oldDistribution};
  const preimages={...artworkPreimages,...railwayRoutes.preimages},actual={'NOTICE.md':currentNotice,'package.json':currentPackage,'tools/distribution.mjs':currentDistribution,...railwayRoutes.actual};
