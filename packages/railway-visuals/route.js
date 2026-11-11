@@ -306,6 +306,7 @@ export function assertRailwaySeparation(routes, crossings = []) {
           const b = other.segment;
           if (other.id === id) {
             if (branch === other.branch && segment.startM - b.endM < (plan.radiusM === 16 ? 5 : 3)) continue;
+            if (plan.closed && branch === other.branch && plan.lengthM - segment.endM + b.startM < (plan.radiusM === 16 ? 5 : 3)) continue;
             if (branch && !other.branch &&
                 b.startM >= turnout.mainStartM - EPS && b.endM <= turnout.mainEndM + EPS) continue;
           }
@@ -333,5 +334,31 @@ export function assertRailwaySeparation(routes, crossings = []) {
 export function planRailwayRoute(waypoints, radiusM = RAILWAY_RADIUS_M) {
   const plan = fit(waypoints, radiusM);
   assertRailwaySeparation([{id: 'preview', plan}]);
+  return plan;
+}
+
+// Optional runtime circuit contract. Portable map waypoints remain open and
+// distinct; a circuit closes its final corner analytically, without a repeated
+// endpoint, reset or invisible connecting chord.
+export function planRailwayCircuit(waypoints, radiusM = RAILWAY_RADIUS_M) {
+  fit(waypoints, radiusM); // Existing coordinate, radius and approach checks.
+  if (waypoints.length < 4) throw Error('A circuit needs at least four distinct waypoints.');
+  const runs = waypoints.map((a, index) => {
+    const b = waypoints[(index + 1) % waypoints.length], [dx, dy] = offset(a, b), length = distance(a, b);
+    if (dx && dy && Math.abs(dx) !== Math.abs(dy)) throw Error('Circuit approaches must follow cardinal or 45° headings.');
+    return {a, b, unit: [dx / length, dy / length], length};
+  });
+  const corners = runs.map((run, index) => corner(run.a, runs[(index + runs.length - 1) % runs.length].unit, run.unit, radiusM));
+  const spans = []; let lengthM = 0;
+  const append = span => { if (span.lengthM > EPS) { spans.push({...span, startM: lengthM}); lengthM += span.lengthM; } };
+  for (const [index, run] of runs.entries()) {
+    const before = corners[index], after = corners[(index + 1) % runs.length];
+    const straight = run.length - before.trim - after.trim;
+    if (straight < -EPS) throw Error('Lengthen this circuit approach to fit both rounded corners.');
+    append({kind: 'straight', gridAnchor: run.a, a: before.b, b: after.a, incoming: run.unit, outgoing: run.unit, lengthM: Math.max(0, straight)});
+    append(after);
+  }
+  const plan = {...sampleSpans(spans, lengthM, radiusM), closed: true};
+  assertRailwaySeparation([{id: 'circuit', plan}]);
   return plan;
 }

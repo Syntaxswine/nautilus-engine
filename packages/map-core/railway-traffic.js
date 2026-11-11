@@ -131,7 +131,8 @@ function makeEntries(layout, placements) {
   const entries = placements.map(placement => {
     const route = layout.byId.get(placement?.routeId);
     if (!route) throw new Error('The train references a railway route that is missing.');
-    return {placement: {...placement}, motion: createRailwayTrainOnPlan(route, placement), visits: new WeakMap(), waiting: null};
+    return {placement: {...placement}, motion: createRailwayTrainOnPlan(route, placement), visits: new WeakMap(),
+      reversed: new WeakMap(), travelDirection: 1, waiting: null};
   });
   if (entries.length === 2) {
     const [a, b] = entries.map(entry => occupied(entry, layout.blocks));
@@ -188,6 +189,29 @@ function travelLimit(entry, present, other, blocks, distanceM) {
   return {distance: Math.max(0, target - path.headM), waiting};
 }
 
+// Turn an itinerary around for reservation/collision queries, not the car
+// meshes. Its leading edge is the old rear and every physical interval keeps
+// its original route/track identity, including independent diamond routes.
+function oriented(entry, present, direction) {
+  if (direction > 0) return present;
+  const path = present.path;
+  let segments = entry.reversed.get(path.segments);
+  if (!segments) {
+    segments = Object.freeze([...path.segments].reverse().map(segment => Object.freeze({
+      track: segment.track, fromM: segment.toM, toM: segment.fromM, direction: -segment.direction,
+      startM: path.endM - segment.startM - segment.lengthM, lengthM: segment.lengthM
+    })));
+    entry.reversed.set(path.segments, segments);
+  }
+  return {...present, path: {...path, segments, headM: path.endM - path.headM + path.lengthM}};
+}
+
+function physicalPeer(entry, blocks) {
+  if (!entry) return undefined;
+  const present = occupied(entry, blocks);
+  return {...present, footprint: present.footprint.map(track => ({...track, direction: track.direction * entry.travelDirection}))};
+}
+
 // Advances both consists against the same track occupancy. Small, ordered
 // steps give simultaneous arrivals a deterministic tie-break on a clear block.
 export function createRailwayTraffic(routes, placements = []) {
@@ -199,6 +223,7 @@ export function createRailwayTraffic(routes, placements = []) {
   assertRailwaySeparation(plans, crossings);
   const layout = signalLayout(plans, crossings, placements);
   let entries = makeEntries(layout, placements);
+  const originalPlacements = entries.map(entry => ({...entry.placement}));
 
   function read() {
     const occupiedBy = new Map(), red = new Set();
@@ -207,7 +232,8 @@ export function createRailwayTraffic(routes, placements = []) {
       const {stock} = entry.placement;
       const present = positions[index];
       for (const id of present.owns) occupiedBy.set(id, stock);
-      const waiting = entry.waiting && travelLimit(entry, present, positions[1 - index], layout.blocks, STEP_M).waiting;
+      const waiting = entry.waiting && travelLimit(entry, oriented(entry, present, entry.travelDirection),
+        physicalPeer(entries[1 - index], layout.blocks), layout.blocks, STEP_M).waiting;
       if (waiting?.signalId) red.add(waiting.signalId);
       return {stock, state: entry.motion.read(), waiting, canTakeBranch: entry.motion.canTakeBranch};
     });
@@ -225,6 +251,7 @@ export function createRailwayTraffic(routes, placements = []) {
       throw new Error('Choose a placed train to run.');
     }
     const moving = entries.filter(entry => active.has(entry.placement.stock));
+    for (const entry of moving) entry.travelDirection = 1;
     // A waiting train may need its full travel budget after the other train
     // clears, so bound long calls by their combined remaining distances.
     const remainingTrack = moving.reduce((total, entry) => {
@@ -254,6 +281,91 @@ export function createRailwayTraffic(routes, placements = []) {
     return read();
   }
 
+  function advanceSigned(requests) {
+    if (!Array.isArray(requests) || requests.length > entries.length ||
+        new Set(requests.map(request => request?.stock)).size !== requests.length ||
+        requests.some(request => !entries.some(entry => entry.placement.stock === request?.stock) ||
+          !Number.isFinite(request.distanceM) || Math.abs(request.distanceM) > 1000)) {
+      throw Error('Supply one bounded signed distance per placed train.');
+    }
+    const distances = new Map(requests.map(request => [request.stock, request.distanceM]));
+    const maximum = Math.max(0, ...[...distances.values()].map(Math.abs));
+    const steps = Math.max(1, Math.ceil(maximum / STEP_M));
+    const moved = Object.fromEntries(entries.map(entry => [entry.placement.stock, 0]));
+    for (const entry of entries) {
+      const distance = distances.get(entry.placement.stock) ?? 0;
+      if (distance) entry.travelDirection = Math.sign(distance);
+      entry.waiting = null;
+    }
+    for (let step = 0; step < steps; step++) for (const entry of entries) {
+      const distance = (distances.get(entry.placement.stock) ?? 0) / steps;
+      if (!distance) continue;
+      const direction = Math.sign(distance), present = occupied(entry, layout.blocks);
+      const facing = oriented(entry, present, direction);
+      const peer = entries.find(candidate => candidate !== entry);
+      const limit = travelLimit(entry, facing, physicalPeer(peer, layout.blocks), layout.blocks, Math.abs(distance));
+      entry.waiting = limit.waiting;
+      if (limit.distance > EPS) {
+        protectSwitch(entry, present);
+        const before = entry.motion.trajectory().headM;
+        entry.motion.moveSigned(direction * limit.distance, entry.placement.switchPosition);
+        moved[entry.placement.stock] += entry.motion.trajectory().headM - before;
+        protectSwitch(entry, occupied(entry, layout.blocks));
+      }
+    }
+    return {snapshot: read(), moved};
+  }
+
+  function checkpoint() {
+    return {version: 1, trains: entries.map(entry => ({stock: entry.placement.stock,
+      switchPosition: entry.placement.switchPosition, travelDirection: entry.travelDirection,
+      waiting: entry.waiting ? {...entry.waiting} : null, motion: entry.motion.checkpoint()}))};
+  }
+
+  function restore(saved) {
+    if (!saved || saved.version !== 1 || Object.keys(saved).sort().join(',') !== 'trains,version' ||
+        !Array.isArray(saved.trains) || saved.trains.length !== entries.length) throw Error('Unsupported railway traffic checkpoint.');
+    const staged = makeEntries(layout, originalPlacements);
+    for (const [index, entry] of staged.entries()) {
+      const record = saved.trains[index];
+      if (!record || Object.keys(record).sort().join(',') !== 'motion,stock,switchPosition,travelDirection,waiting' ||
+          record.stock !== entry.placement.stock || ![-1, 1].includes(record.travelDirection) ||
+          record.switchPosition !== record.motion?.setting) throw Error('Saved train identity or switch history is incompatible.');
+      entry.motion.restore(record.motion);
+      entry.placement.switchPosition = record.switchPosition;
+      entry.travelDirection = record.travelDirection;
+      if (record.waiting !== null) {
+        const wait = record.waiting;
+        if (!wait || !['crossing', 'turnout', 'track'].includes(wait.kind) ||
+            Object.keys(wait).sort().join(',') !== (wait.kind === 'track' ? 'kind' : 'kind,signalId') ||
+            wait.kind !== 'track' && !layout.signals.some(signal => signal.id === wait.signalId && signal.kind === wait.kind)) {
+          throw Error('Invalid saved railway signal hold.');
+        }
+        entry.waiting = {...wait};
+      }
+    }
+    const positions = staged.map(entry => occupied(entry, layout.blocks));
+    if (positions.length === 2) {
+      const [a, b] = positions;
+      if ([...a.owns].some(block => b.owns.has(block)) || a.routeId === b.routeId &&
+          a.footprint.some(first => b.footprint.some(second => first.track === second.track &&
+            first.hi + EPS >= second.lo && second.hi + EPS >= first.lo))) throw Error('Saved trains overlap protected track.');
+    }
+    entries = staged;
+    return read();
+  }
+
+  function setTurnout(routeId, switchPosition) {
+    const relevant = entries.filter(entry => entry.placement.routeId === routeId && entry.motion.canTakeBranch);
+    if (!relevant.length) throw Error('No placed train can select this turnout.');
+    for (const entry of relevant) entry.motion.trajectory(switchPosition);
+    if (entries.some(entry => occupied(entry, layout.blocks).owns.has('turnout/' + routeId))) {
+      return {ok: false, code: 'TURNOUT_OCCUPIED', reason: 'Wait until every carriage clears the protected turnout.'};
+    }
+    for (const entry of relevant) entry.placement.switchPosition = switchPosition;
+    return {ok: true};
+  }
+
   function setSwitch(stock, switchPosition) {
     const entry = entries.find(candidate => candidate.placement.stock === stock);
     if (!entry) throw new Error('Place the selected train first.');
@@ -268,5 +380,5 @@ export function createRailwayTraffic(routes, placements = []) {
     return read();
   }
 
-  return Object.freeze({read, advance, setSwitch, reset});
+  return Object.freeze({read, advance, setSwitch, reset, advanceSigned, checkpoint, restore, setTurnout});
 }
