@@ -15,8 +15,16 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
   await page.screenshot({path: path.join(out, 'desktop-walk-up.png')});
   await enterCab(page);
   await page.waitForFunction(() => document.activeElement?.dataset.part === 'driver');
+  const lever = page.locator('[data-part=direction-lever]'), lb = await lever.boundingBox();
+  await page.mouse.move(lb.x + lb.width / 2, lb.y + lb.height - 10); await page.mouse.down();
+  assert.equal(await lever.getAttribute('aria-valuetext'), 'reverse');
+  await page.mouse.move(lb.x + lb.width / 2, lb.y + 10); await page.mouse.up();
+  assert.equal(await lever.getAttribute('aria-valuetext'), 'forward');
+  assert.equal((await read(page)).train.stopped, true);
+  await page.locator('[data-part=driver]').focus();
   await page.keyboard.press('f'); await page.keyboard.down('Space');
   await page.waitForFunction(() => window.trainYard.readForActor().train.speedMps > .1);
+  assert.equal(await page.evaluate(() => window.trainYard.controls.state.feedback.lastCue), 'steam-departure');
   await page.keyboard.up('Space'); await brakeToStop(page);
   await page.locator('[data-direction=forward]').click();
   const forward = page.locator('[data-part=power-hold]');
@@ -38,6 +46,7 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
   const restored = await read(page);
   assert.equal(restored.mode, 'driver'); assert.equal(restored.carId, movingSave.actors[0].attachment.carId);
   assert.equal(restored.train.controls.power, 0); assert.equal(restored.train.controls.brake, 1);
+  assert.equal(await page.evaluate(() => window.trainYard.controls.state.feedback.played), 0);
   assert.equal(await page.evaluate(() => window.trainYard.host.read().entryEffects), movingSave.entryEffects);
   await brakeToStop(page);
   await page.locator('[data-direction=reverse]').click();
@@ -45,6 +54,13 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
   const rb = await reverse.boundingBox(); await page.mouse.move(rb.x + rb.width / 2, rb.y + rb.height / 2); await page.mouse.down();
   await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps < -.2);
   await page.mouse.up(); await brakeToStop(page);
+  await page.locator('[data-part=driver]').focus(); await page.keyboard.press('f'); await page.keyboard.down('Space');
+  await page.waitForFunction(() => window.trainYard.readForActor().train.speedMps > .2);
+  const chain = page.locator('[data-part=brake]'), cb = await chain.boundingBox();
+  await page.mouse.move(cb.x + cb.width / 2, cb.y + cb.height / 2); await page.mouse.down();
+  await page.mouse.move(cb.x + cb.width / 2, cb.y + cb.height / 2 + 24);
+  assert.equal((await read(page)).train.controls.power, 0); assert.equal((await read(page)).train.controls.brake, 1);
+  await page.keyboard.up('Space'); await brakeToStop(page); await page.mouse.up();
   await page.getByRole('button', {name: 'Exit train', exact: true}).click();
   assert.equal((await read(page)).mode, 'on-foot');
   const after = await page.evaluate(() => window.trainYard.host.actors[0]);
@@ -77,6 +93,7 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
     }, goal);
     await page.locator('[data-train-action=enter]:enabled').filter({hasText: 'Enter ' + stock + ' coach'}).first().click();
     assert.equal((await read(page)).mode, 'rider');
+    if (stock === 'electric') assert.equal(await page.evaluate(() => window.trainYard.controls.state.feedback.lastCue), 'electric-boarded');
     assert.equal(await page.locator('[data-part=driver]').isVisible(), false);
     await page.waitForFunction(() => window.trainYard.readForActor().train.speedMps > .4);
     await page.screenshot({path: path.join(out, stock + '-coach-riding.png')});
@@ -110,7 +127,9 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
   const electricForward = await page.locator('[data-part=power-hold]').boundingBox();
   await page.mouse.move(electricForward.x + electricForward.width / 2, electricForward.y + electricForward.height / 2);
   await page.mouse.down(); await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps > .3);
+  assert.equal(await page.locator('[data-part=driver] [data-lamp=traction]').getAttribute('data-on'), 'true');
   await page.mouse.up(); await brakeToStop(page);
+  assert.equal(await page.locator('[data-part=driver] [data-lamp=brake]').getAttribute('data-on'), 'true');
   await page.locator('[data-direction=reverse]').click();
   const electricReverse = await page.locator('[data-part=power-hold]').boundingBox();
   await page.mouse.move(electricReverse.x + electricReverse.width / 2, electricReverse.y + electricReverse.height / 2);
@@ -133,7 +152,7 @@ await withArtReview('Review walking, boarding, driving, riding and reload on two
   assert.equal(await touch.locator('#walking').isVisible(), true);
   await touchContext.close();
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify({browser: browser.version(), sourceReview: false,
-    desktop: 'keyboard walk, contextual cab entry, pointer-held forward, release/brake/stop, reverse, exit and resource preservation',
+    desktop: 'keyboard walk, contextual cab entry, native mechanical lever/chain, confirmed whistle and commuter lamps/chimes, forward/brake/reverse/exit and resource preservation; restore stays silent',
     touch: '390x844 actual touch hold/cancel, authoritative brake, exit and walking restoration',
     rides, note: 'Full passenger laps use recorded explicit host-clock steps after visible live departure; no reset/teleport or wall-clock performance claim.'}, null, 2));
 }, {source: false, owner: '01a18107-b4af-78c0-850f-0235d4df307f', output: 'train-playtest-review', timeoutMs: 600000});

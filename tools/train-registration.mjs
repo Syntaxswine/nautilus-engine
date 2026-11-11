@@ -1,9 +1,21 @@
 // Explicit optional train additions. Fixture tools/evidence are source-only.
+import {createHash} from 'node:crypto';
+const trainImage = 'packages/train-ui/art/steam-cab-surface.svg';
+// Exact original art reviewed in UI5577773727b757c3142cb2ded0a10315e25cd41d.
+const trainImageSha256 = 'cc7479604e0eb2fdcc5f9a6ed1971a283b5c24dd1f4aa17b441bb7f24c8f7567';
+export function authenticatedTrainImages(profile, {read, indexed = () => {}}) {
+  if (profile !== 'compatibility') return [];
+  const bytes = read(trainImage);
+  if (createHash('sha256').update(bytes).digest('hex') !== trainImageSha256) throw Error('Unreviewed train panel artwork: ' + trainImage);
+  indexed(trainImage, bytes);
+  return [trainImage];
+}
 export const TRAIN_GUIDES = ['docs/drivable-trains.md', 'docs/train-controls.md',
   'docs/reviews/2026-11-10-drivable-trains.md', 'docs/reviews/2026-11-10-drivable-train-playtest.md'];
 const core = ['README.md', 'contract.js', 'data.js', 'circuit-traffic.js', 'index.js', 'index.d.ts']
   .map(file => 'packages/train-core/' + file);
-const ui = ['public.js', 'public.d.ts', 'index.js', 'index.d.ts', 'view.js', 'style.css']
+const ui = ['public.js', 'public.d.ts', 'index.js', 'index.d.ts', 'view.js', 'feedback.js', 'style.css',
+  'art/steam-cab-surface.svg', 'art/references.json']
   .map(file => 'packages/train-ui/' + file);
 
 export function trainPackageExports(profile = 'compatibility') {

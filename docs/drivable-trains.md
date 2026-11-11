@@ -93,6 +93,6 @@ The reference supplies a flat supported yard, conservative oriented train bodies
 - [x] Check competing drivers, stale/repeated commands, blocked landing, host rollback and resource preservation.
 - [x] Save/reload motion, occupied car, cab and switches; restore neutral/full brake without one-shot effects. Retire an abandoned paused operator safely.
 - [x] Review real desktop/touch input release with shared trains and native goat artwork; stop the disposable browser/server.
-- [ ] Architect runs four full gates and installed/build/UI integration on the combined fixed result before GitHub delivery.
+- [x] Architect runs four full gates and installed/build/UI integration on the combined fixed result before GitHub delivery; see the [combined review](reviews/2026-11-10-drivable-train-playtest.md).
 
 Focused evidence and narrow limitations are recorded in [the candidate review](reviews/2026-11-10-drivable-trains.md).
