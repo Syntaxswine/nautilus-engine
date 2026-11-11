@@ -1,0 +1,15 @@
+import {mountTrainControls} from '../index.js';
+import type {TrainConnector} from '../../train-core/index.js';
+declare const session:TrainConnector, slot:HTMLElement, walking:HTMLElement;
+const ui=mountTrainControls(slot,{session,actorId:'player',walkingElement:walking,setWalkingEnabled(enabled:boolean){void enabled;}});
+ui.setBlocked(true);ui.releaseInput('modal');ui.setActor('next-player');ui.dispose();
+// @ts-expect-error The connector supplies authoritative snapshots, not an actor DTO.
+mountTrainControls(slot,{session:{mode:'driver'},actorId:'player',walkingElement:walking,setWalkingEnabled(){}});
+// @ts-expect-error Borrowed walking input needs an explicit disabling callback.
+mountTrainControls(slot,{session,actorId:'player',walkingElement:walking});
+// @ts-expect-error A requested direction is not confirmed, mutable gameplay state.
+ui.state.requestedDirection='reverse';
+// @ts-expect-error UI owns no simulation clock.
+ui.advance(1);
+// @ts-expect-error UI cannot save or grant occupancy.
+ui.enterTrain('train/steam');

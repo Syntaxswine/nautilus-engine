@@ -1,0 +1,44 @@
+{
+  "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+  "purpose": "Train HUD fixed-fixture design and input lifecycle review",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 16800,
+    "creationFiletime": "134388447847521956",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 1136,
+    "creationFiletime": "134388447850788847",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 59844,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\artifacts\\train-ui-review\\STOP",
+  "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "packages/train-ui/tools/review.mjs",
+    "package.json",
+    "packages/train-ui/index.js",
+    "packages/train-ui/view.js",
+    "packages/train-ui/style.css",
+    "packages/train-ui/fixture/index.html",
+    "packages/train-ui/fixture/study.js",
+    "packages/train-ui/fixture/study.css",
+    "packages/train-ui/tests/scripted-connector.js"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\packages\\train-ui\\tools\\review.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/train-ui-review",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-11T04:26:25.374Z",
+  "expiresAt": "2026-11-11T04:29:25.374Z"
+}

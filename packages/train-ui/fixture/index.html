@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nautilus · Train control study</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./study.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="study-heading">
+    <div><p class="eyebrow">Nautilus / interface workshop</p><h1>A place at the controls.</h1>
+      <p class="intro">Train HUD study. Frozen connector fixture · every request returns FIXTURE_ONLY. Live trains are queued.</p></div>
+    <a href="../USAGE-CARD.md">Builder card ↗</a>
+  </header>
+  <main>
+    <div class="study-toolbar">
+      <label>Preview state <select id="story">
+        <option value="steam">Steam · driving cab</option>
+        <option value="electric">Electric · rear-facing cab</option>
+        <option value="walking">On foot · cab entrance</option>
+        <option value="riding">Passenger coach</option>
+        <option value="service">Coach · in motion</option>
+        <option value="signal">Waiting at a signal</option>
+        <option value="reverse">Reverse request refused</option>
+        <option value="tender">On foot · coal tender</option>
+      </select></label>
+      <button id="open-map" type="button">Open map / pause</button>
+    </div>
+    <section class="study-world" aria-label="Illustrated preview yard">
+      <svg class="yard-art" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#ced7c4"/><stop offset="1" stop-color="#f2dfb4"/></linearGradient>
+          <linearGradient id="green" x2="0" y2="1"><stop stop-color="#61816b"/><stop offset="1" stop-color="#2b4d42"/></linearGradient>
+          <pattern id="sleepers" width="54" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><rect x="2" y="3" width="45" height="9" rx="2" fill="#685f4e"/></pattern>
+        </defs>
+        <rect width="1200" height="720" fill="url(#sky)"/>
+        <path d="M0 240 Q210 125 390 225 T820 185 T1200 220V720H0Z" fill="#7d927c"/>
+        <path d="M0 340Q180 240 410 310T840 270T1200 290V720H0Z" fill="#516d56"/>
+        <path d="M0 420Q320 320 600 400T1200 380V720H0Z" fill="#a39e70"/>
+        <path d="M-100 660L1320 200L1360 286L-80 760Z" fill="#9d9881"/>
+        <path d="M-100 665L1320 205L1340 268L-80 728Z" fill="url(#sleepers)"/>
+        <path d="M-80 680L1330 225M-80 713L1340 256" stroke="#3d4a43" stroke-width="7"/>
+        <path d="M-80 677L1330 222M-80 710L1340 253" stroke="#d2d5b6" stroke-width="3"/>
+        <g transform="translate(590 190) rotate(-18)">
+          <g fill="#243e36" stroke="#18312c" stroke-width="5"><rect x="20" y="46" width="360" height="123" rx="10"/><rect x="302" y="-12" width="117" height="184" rx="4"/><rect x="290" y="-21" width="140" height="17" rx="6"/></g>
+          <path d="M42 72H286M43 140H287" stroke="#c8b67d" stroke-width="4"/>
+          <rect x="326" y="7" width="57" height="63" rx="3" fill="#b5c8b3"/>
+          <rect x="68" y="-1" width="38" height="56" rx="4" fill="#294239"/>
+          <rect x="61" y="-9" width="51" height="14" rx="4" fill="#384f40"/>
+          <path d="M22 170H429L451 189H5Z" fill="#253b33"/>
+          <g fill="#283c34" stroke="#b0a17b" stroke-width="5"><circle cx="87" cy="173" r="36"/><circle cx="183" cy="173" r="36"/><circle cx="280" cy="173" r="36"/><circle cx="380" cy="176" r="23"/></g>
+          <path d="M86 173H281" stroke="#b4b59a" stroke-width="7"/>
+          <path d="M77-18Q39-60 95-68T113-121T170-150" fill="none" stroke="#e4e5ce" stroke-width="28" stroke-linecap="round" opacity=".55"/>
+          <path d="M332 88V162H386V88" fill="#20382f" stroke="#c3af73" stroke-width="3"/>
+        </g>
+        <g fill="#274b3c"><path d="M1120 260L1178 70L1238 260Z"/><path d="M66 440L113 280L164 440Z"/></g>
+        <g stroke="#cad2ae" stroke-width="3" opacity=".35"><path d="M40 519L344 420M710 570L1136 431M117 205L370 165"/></g>
+      </svg>
+      <div class="yard-caption"><span class="route-tag">BELL & PINE / branch line</span><p id="scene-caption">Steam locomotive · driving cab</p><small>Illustration for layout only · shared train art joins with the live connector.</small></div>
+      <div class="world-note" id="world-note">The train keeps the last confirmed state until a response arrives.</div>
+      <div class="hud-slot" id="hud-slot" aria-label="Host-provided movement HUD slot">
+        <div id="walking" class="walking" hidden><button type="button" id="walk-focus" aria-label="Walking controls placeholder"><span aria-hidden="true">✦</span><span>Walk</span></button><p>Ordinary movement stays here.</p></div>
+
+      </div>
+    </section>
+    <section class="response-desk" aria-label="Fixture state changes">
+      <div><p class="eyebrow">Preview desk / disconnected fixture</p><p>Mode buttons swap the fixed fixture; they do not accept a boarding or driving command.</p></div>
+      <div class="response-buttons"><button type="button" id="confirm">Show driver fixture</button><button type="button" id="refuse">Show walking fixture</button></div>
+      <output id="last-request" aria-label="Last preview intent">No request yet.</output>
+    </section>
+  </main>
+  <dialog id="map-dialog"><h2>Map open</h2><p>Power input has been released. Closing the map does not resume it.</p><button id="close-map" type="button">Return to controls</button></dialog>
+  <script type="module" src="./study.js"></script>
+</body>
+</html>
