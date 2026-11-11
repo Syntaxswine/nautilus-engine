@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>babble-lab</title>
+<link rel="stylesheet" href="workbench/style.css">
+</head>
+<body>
+<header>
+  <h1>babble-lab</h1>
+  <p>text in, video-game voice out &middot; <span id="status">ready</span></p>
+</header>
+
+<main>
+  <section id="left">
+    <label class="cap" for="line">the line</label>
+    <textarea id="line" rows="3" spellcheck="false">Welcome to the village, stranger! Have you seen my little brother anywhere?</textarea>
+    <div id="samples" class="row wrap" aria-label="sample lines"></div>
+
+    <div class="row">
+      <button id="speak" class="primary" title="Ctrl+Enter">speak</button>
+      <button id="stop">stop</button>
+      <button id="take" title="the same line, said again: varies only the small human stuff">another take</button>
+      <button id="wav">save .wav</button>
+      <button id="cues">save cues.json</button>
+      <label class="check"><input type="checkbox" id="auto" checked> speak on change</label>
+    </div>
+
+    <div class="row">
+      <label for="duration">fit score to</label>
+      <input id="duration" type="number" min="0.1" max="600" step="0.05" placeholder="natural" aria-describedby="durationHint">
+      <span id="durationHint" class="dim">seconds · blank keeps natural timing; pitch stays the same. Audio includes the release/effect tail.</span>
+    </div>
+    <div class="row">
+      <button id="timingPick">load timing.json</button><input id="timingFile" type="file" accept=".json,application/json" hidden>
+      <button id="timingClear">reset timing</button><span id="timingNote" class="dim">Load syllable cues to match an animation.</span>
+    </div>
+
+    <div class="cap">as a game would show it</div>
+    <div id="typewriter" aria-live="off"><span id="shown"></span><span id="hidden"></span></div>
+
+    <div class="cap">the score <span class="dim">&mdash; spectrogram, syllables as said, pitch in semitones. click to play from there.</span></div>
+    <div id="scorewrap"><canvas id="score" height="330"></canvas></div>
+    <div id="readout" class="dim">&nbsp;</div>
+  </section>
+
+  <section id="right">
+    <div class="row">
+      <label class="cap inline" for="preset">voice</label>
+      <select id="preset"></select>
+      <button id="roll" title="roll a whole character from one number">roll</button>
+      <span id="note" class="dim"></span>
+    </div>
+    <div class="row">
+      <span class="cap inline">mode</span><span id="modes" class="seg"></span>
+      <label class="cap inline" for="wave">source</label><select id="wave"></select>
+    </div>
+    <div class="row" id="bankRow">
+      <span class="cap inline">bank</span>
+      <button id="bankPick" title="a .bank.wav made earlier, or ANY audio file: it is cut into quarter-second pieces and arranged by how each one looks">load audio&hellip;</button>
+      <input type="file" id="bankFile" accept="audio/*,.wav,.mp3,.ogg,.m4a,.flac" hidden>
+      <label class="cap inline" for="bankCut" id="bankCutLabel" hidden>cut</label>
+      <select id="bankCut" hidden title="how long each piece is. Changing it un-arranges the recording and cuts it again.">
+        <option value="1">whole second</option><option value="0.5">half second</option><option value="0.25" selected>quarter second</option>
+      </select>
+      <label class="check" id="bankUse" hidden><input type="checkbox" id="bankOn" checked> speak with it</label>
+      <button id="bankSave" hidden title="save the arranged bank: a WAV you can also just play">save .bank.wav</button>
+      <span id="bankNote" class="dim">speak with slices of a recording instead of the synth</span>
+    </div>
+    <div id="blipRow" class="row" hidden>
+      <label class="knob"><span>blip length</span><input type="range" id="blipLen" min="0.01" max="0.2" step="0.005"><output id="blipLenOut"></output></label>
+      <label class="knob"><span>blip every</span><input type="range" id="blipEvery" min="1" max="4" step="1"><output id="blipEveryOut"></output></label>
+    </div>
+    <div id="knobs"></div>
+
+    <details id="jsonbox">
+      <summary class="cap">this voice as JSON <span class="dim">&mdash; what you paste into a game</span></summary>
+      <textarea id="json" rows="7" spellcheck="false"></textarea>
+      <div class="row"><button id="copy">copy</button><button id="apply">apply edits</button><span id="jsonmsg" class="dim"></span></div>
+    </details>
+
+    <details id="castbox" open>
+      <summary class="cap">cast <span class="dim">&mdash; voices kept in this browser</span></summary>
+      <div class="row"><input id="castName" placeholder="name this voice" maxlength="40"><button id="castSave">keep</button><button id="castExport">export cast.json</button></div>
+      <ul id="cast"></ul>
+    </details>
+  </section>
+</main>
+
+<footer class="dim">
+  Same text, same voice, same seed &rarr; the same samples, here and in <code>node bin/babble.mjs</code>.
+  <kbd>Ctrl</kbd>+<kbd>Enter</kbd> speaks.
+</footer>
+<script type="module" src="workbench/app.mjs"></script>
+</body>
+</html>

@@ -20,6 +20,8 @@
 | `packages/adapters/farmyard/windows/` | Retained whole-game window saves and six explicit host-service bindings |
 | `packages/grenades-core/` | Optional Farmyard static-planar grenade transactions, retained-host checkpoints and independent aim math |
 | `packages/item-visuals/` | Original item models using the host Three namespace |
+| `modules/audio/` | Optional headless Babble Lab synthesis and separately imported, host-owned Web Audio playback |
+| `vendor/babble-lab/<commit>/` | Complete byte-preserved Babble Lab tree, including authoring tools, examples, tests and standalone builds |
 | `packages/rules-core/` | Headless character sheets, skills, explicit roll profiles and resource/damage boundaries |
 | `apps/editor/` | Nautilus workshop chrome, responsive layout and game-host bridge |
 | `vendor/aft/<commit>/` | Byte-preserved AFT editor, rendering dependency closure and selected original tests |
@@ -157,3 +159,7 @@ The separate [A/B tile candidate](procedural-tiles-v2-candidate.md) lives in sou
 The explicit private-package CI proof is source tooling. Candidate code and v2 schemas are excluded from normal distributions, and no v2 capability is assigned. [Architect acceptance](reviews/procedural-tiles/v2-integration.md) records the focused corrections; general native evaluators, public registration, renderer/editor and game adoption require later fixed reviews. [C1 acceptance](reviews/procedural-tiles/c1-integration.md) records the bounded subset and required association correction.
 
 The private [C2a rectangle profile](procedural-tiles-c2a-candidate.md) adds explicit bounded composition groups, deterministic finish ownership, native interval provenance and transactional complete-bundle preparation. Actual rectangle geometry is checked independently of optional reservation proxies; visible owner locks and whole-operation ceilings remain authoritative. The [C2a acceptance](reviews/procedural-tiles/c2a-integration.md) records its focused overlap/identity corrections and independent source/installed proofs. It does not register public v2 or provide a renderer, editor controller or game adapter.
+
+## Optional sound foundation
+
+The [audio usage card](../modules/audio/README.md) exposes the preserved Babble Lab synth through the separate `@nautilus-engine/audio` package, with borrowed Web Audio playback at `@nautilus-engine/audio/runtime`. The [intake review](reviews/2026-11-02-babble-lab.md) records the full source pin, design preference, source/installed/browser checks and limits. The complete donor tree remains immutable in vendor; wrappers and its independent audio build are engine-owned. The four root distribution profiles and static editor retain their reviewed registrations. Notifications, spatial audio, event routing and production game adoption remain explicit follow-up work.

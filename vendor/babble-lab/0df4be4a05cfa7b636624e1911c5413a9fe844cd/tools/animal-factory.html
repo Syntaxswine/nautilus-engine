@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Babble Lab · Animal Factory audition</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#171f1c;color:#eee7d5;font:16px/1.5 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:28px}header{border-bottom:1px solid #425046;padding-bottom:18px;margin-bottom:20px}.eyebrow{font:12px monospace;color:#d3b46f;letter-spacing:.12em}h1{font:normal 32px Georgia,serif;margin:8px 0}p{margin:8px 0;color:#bfc8bc}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:24px}canvas{display:block;width:100%;background:#202d25;border:1px solid #425046;border-radius:6px}audio{width:100%;margin:15px 0}.choice{display:block;width:100%;text-align:left;margin-bottom:8px;padding:12px;border:1px solid #425046;background:#222e27;color:inherit;border-radius:5px;font:inherit;cursor:pointer}.choice[aria-pressed=true]{border-color:#d3b46f;background:#344033}.choice small{display:block;color:#bfc8bc;font:12px monospace;margin-top:4px}.primary{padding:9px 16px;background:#d3b46f;color:#171f1c;border:0;border-radius:4px;font:inherit;cursor:pointer}.caption{font:22px/1.4 Georgia,serif;margin:16px 0;color:#eee7d5}.links{display:flex;gap:16px;margin:16px 0}a{color:#dfbf79}#clock,#metrics{font:12px/1.7 monospace;color:#bfc8bc}footer{border-top:1px solid #425046;margin-top:24px;padding-top:12px;font-size:13px}button:focus-visible,a:focus-visible{outline:2px solid #dfbf79;outline-offset:3px}@media(max-width:800px){main{padding:16px}.layout{grid-template-columns:1fr}h1{font-size:26px}}
+.preview{position:sticky;top:20px;align-self:start}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.secondary{padding:9px 12px;background:#222e27;color:#eee7d5;border:1px solid #425046;border-radius:4px;font:inherit;cursor:pointer}#choices{max-height:510px;overflow:auto;padding:2px 7px 2px 2px;scrollbar-color:#697b64 #222e27}.group{font:12px monospace;color:#d3b46f;margin:8px 0 12px;letter-spacing:.06em}#takeName{font:24px Georgia,serif;margin:14px 0 10px}.links{flex-wrap:wrap}@media(max-width:800px){.preview{position:static}#choices{max-height:430px}}
+.morph{padding:14px 16px;margin:16px 0;border:1px solid #697b64;border-radius:6px;background:#222e27}.morph-head,.morph-ends{display:flex;align-items:center;justify-content:space-between;gap:12px}.morph-head label{font-weight:600}.morph-head output{color:#dfbf79;font-variant-numeric:tabular-nums}.morph-ends{font-size:13px;color:#bfc8bc}.morph-ends span:last-child{text-align:right}.morph input[type=range]{width:100%;margin:16px 0 8px;accent-color:#d3b46f;cursor:pointer}#morphHelp,#sliceHelp,#morphStatus{font-size:13px}#morphStatus{min-height:1.5em;color:#dfbf79}#resetMorph,#muteSlices{padding:4px 9px;font-size:13px}.slice-control{border-top:1px solid #425046;margin-top:14px;padding-top:14px}input:focus-visible{outline:2px solid #dfbf79;outline-offset:3px}button:disabled,a[aria-disabled=true],audio[aria-disabled=true]{opacity:.5;cursor:wait}audio[aria-disabled=true]{pointer-events:none}
+</style></head><body><main>
+<header><div class="eyebrow">BABBLE LAB / ANIMAL FACTORY TACTICS</div><nav><span>Character voices</span> · <a href="sfx/index.html">Weapons &amp; explosions</a></nav><h1>The hen at the microphone</h1><p id="intro">Compare voices in the same shot. Click a voice to hear it with the scene.</p></header>
+<div class="layout"><section class="preview">
+<canvas id="scene" width="1600" height="900" aria-label="Chicken microphone shot from the introduction"></canvas>
+<audio id="audio" controls controlslist="nodownload" preload="auto"></audio>
+<h2 id="takeName"></h2>
+<p id="source"></p>
+<div id="morphControls" class="morph" hidden>
+ <div class="morph-head"><label for="morphAmount">Voice morph</label><output id="morphValue" for="morphAmount"></output><button id="resetMorph" class="secondary">Reset to default</button></div>
+ <input id="morphAmount" type="range" min="0" max="100" step="1" aria-describedby="morphHelp">
+ <div class="morph-ends"><span>0% · Speech tone</span><span>100% · Sliced-audio tone</span></div>
+ <p id="morphHelp">Adjust while the line plays. Tone changes blend in at the current position; pitch and timing stay with the speech.</p>
+ <div class="slice-control">
+  <div class="morph-head"><label for="sliceVolume">Beeps &amp; boops volume</label><output id="sliceValue" for="sliceVolume"></output><button id="muteSlices" class="secondary">Mute slices</button></div>
+  <input id="sliceVolume" type="range" min="0" max="100" step="1" aria-describedby="sliceHelp">
+  <div class="morph-ends"><span>0% · Muted</span><span>100% · Equal level</span></div>
+  <p id="sliceHelp">Adjust while listening. At 100%, the slices match the voice’s average level. Both sliders keep their positions when you change voices.</p>
+ </div>
+ <p id="morphStatus" role="status" aria-live="polite"></p>
+</div>
+<div class="controls"><button id="previous" class="secondary" aria-label="Play previous voice">Previous</button><button id="replay" class="primary">Play selected take</button><button id="next" class="secondary" aria-label="Play next voice">Next voice</button></div><p id="clock"></p>
+<p><label><input id="level" type="checkbox" checked> Match average listening level between takes</label></p>
+<p class="caption" id="caption"></p>
+</section><aside><div id="choices"></div><p id="note"></p><div id="metrics"></div>
+<div class="links"><a id="wav" download>Voice WAV</a><a id="voice" download>Voice JSON</a><a id="cues" download>Game cues JSON</a><a id="cast" href="cast.json" download>Voice presets</a><a id="bank" download hidden>Sample bank</a></div>
+<p id="exportNote"></p>
+<p id="bankNote"></p>
+<p id="status" role="status">Loading reference…</p></aside></div>
+<footer>Voice morph reshapes the tone colour while retaining speech pitch and timing. Beeps &amp; boops adds a separate layer of the actual sliced recording; mute it to hear the morph alone. Music slices takes play the sampled recording alone. Layered takes add the earlier speech and slices together. Formant takes use the synthesizer. The original narrator is the default formant voice, not an original game soundtrack. Cue error measures scheduled syllable boundaries, not perceived lip-sync or sound quality. Level matching adjusts playback volume using average signal energy; downloaded WAVs include both layers at your selected balance. The voice-only WAV starts at the line; this player adds one second of pre-roll. <a href="report.json">Measurements at the initial settings</a></footer>
+</main><script>
+/*AUDITION_DATA*/
+const $=id=>document.getElementById(id), audio=$('audio'), canvas=$('scene'), g=canvas.getContext('2d');
+const {example,sequence,results}=DATA;
+let selected=0, images=[], ready=false, frame=0, wantsPlay=false, transportUrl;
+const downloads=new Map(), standalone=new Map();
+const {encodeWav}=__m['src/wav.mjs'], {decodeTrack}=__m['tools/audition-morph-render.mjs'];
+const player=__m['tools/audition-player.mjs'].createAuditionPlayer({audio});
+const targetLevel=Math.min(...results.map(r=>r.rmsDbFS));
+function matchLevel(){audio.volume=$('level').checked?Math.min(1,Math.pow(10,(targetLevel-morph.current.take.rmsDbFS)/20)):1;player.volume();}
+const morph=__m['tools/audition-morph-control.mjs'].createMorphControl({
+ createWorker(){
+  const url=URL.createObjectURL(new Blob([MORPH_WORKER],{type:'text/javascript'}));
+  try{
+   const worker=new Worker(url), stop=worker.terminate.bind(worker);
+   worker.terminate=()=>{stop();URL.revokeObjectURL(url);};
+   return worker;
+  }catch(error){URL.revokeObjectURL(url);throw error;}
+ },
+ getRequest(recipe){return {recipe,sources:Object.fromEntries(recipe.sources.map(s=>[s.id,DATA.sources[s.id]])),preRoll:example.sceneStart-example.shotFrom,sceneSeconds:example.shotTo-example.shotFrom};},
+ onUpdate:showTake,
+});
+$('caption').textContent=example.text;
+const initialMorph=results.find(v=>v.engine==='morph');
+$('intro').textContent=initialMorph?`Start with ${Math.round(initialMorph.recipe.settings.amount*100)}% morph and ${Math.round(initialMorph.recipe.sliceLayer.level*100)}% beeps. Adjust while listening, then switch voices to compare the same balance across the cast.`:'Hen and character speech voices. No music sample bank was supplied for this audition.';
+if(DATA.bank){
+ $('bank').hidden=false;$('bank').href=DATA.bank.file;
+ $('bankNote').textContent=`Bank: ${DATA.bank.source||DATA.bank.name} · ${DATA.bank.segments} pieces of ${DATA.bank.segmentSeconds} s. To reuse a sliced voice JSON, load this sample bank too.${DATA.bank.note?' '+DATA.bank.note:''}`;
+}
+function draw(){
+ const t=example.shotFrom+audio.currentTime;
+ $('clock').textContent=`scene ${t.toFixed(2)} s · speech starts ${example.sceneStart.toFixed(2)} s`;
+ g.clearRect(0,0,canvas.width,canvas.height);
+ if(ready&&sequence){
+  g.drawImage(images[0],0,0,canvas.width,canvas.height);
+  const f=sequence.frames.reduce((chosen,next)=>next.t<=t?next:chosen,sequence.frames[0]);
+  const [sheet,x,y,w,h]=f.sprite;
+  g.drawImage(images[sheet+1],x,y,w,h,sequence.rect[0],sequence.rect[1],w,h);
+ }else{
+  g.fillStyle='#202d25';g.fillRect(0,0,1600,900);g.fillStyle='#eee7d5';g.textAlign='center';g.font='34px Georgia';
+  g.fillText(sequence?'Loading the chicken shot…':'Audio audition · no game artwork supplied',800,420);
+ }
+}
+function tick(){draw();if(!audio.paused&&!audio.ended)frame=requestAnimationFrame(tick);}
+function releaseAssets(urls){for(const key of ['clip','recipe','cues'])URL.revokeObjectURL(urls[key]);}
+function assets(state){
+ const id=state.base.id, old=downloads.get(id);
+ if(old&&old.output!==state.output){releaseAssets(old);downloads.delete(id);}
+ if(!state.output)return state.take;
+ if(!downloads.has(id))downloads.set(id,{
+  output:state.output,
+  clip:URL.createObjectURL(new Blob([state.output.clip],{type:'audio/wav'})),
+  recipe:URL.createObjectURL(new Blob([JSON.stringify(state.take.recipe,null,2)],{type:'application/json'})),
+  cues:URL.createObjectURL(new Blob([JSON.stringify(state.take.cueData,null,2)],{type:'application/json'})),
+ });
+ return downloads.get(id);
+}
+function showTake(state){
+ const v=state.take, isMorph=v.engine==='morph', exportReady=state.status==='ready', playable=!isMorph||!!state.playback, percent=Math.round(state.amount*100), slicePercent=Math.round(state.sliceLevel*100);
+ $('morphControls').hidden=!isMorph;
+ if(isMorph){
+  const defaultPercent=Math.round(state.base.recipe.settings.amount*100);
+  $('resetMorph').textContent=`Reset to ${defaultPercent}%`;
+  $('resetMorph').setAttribute('aria-label',`Reset voice morph to ${defaultPercent} percent`);
+  $('morphAmount').value=percent;$('morphValue').textContent=percent+'%';
+  $('morphAmount').setAttribute('aria-valuetext',`${percent}% toward sliced-audio tone`);
+  $('sliceVolume').value=slicePercent;$('sliceValue').textContent=slicePercent+'%';
+  $('sliceVolume').setAttribute('aria-valuetext',slicePercent?`${slicePercent}% of the voice's average level`:'Muted');
+  const balance=`${percent}% morph · slices ${slicePercent}%`;
+  $('morphStatus').textContent=state.status==='error'?`Could not update: ${state.error} Move either slider to try again.`:exportReady?`${balance} · live playback and downloads use both settings`:playable?`Updating tone to ${percent}% · playback continues · beeps ${slicePercent}%`:`Preparing ${balance}…`;
+  $('choices').querySelectorAll('button')[selected].querySelector('small').textContent=balance;
+ }
+ $('replay').disabled=!playable;
+ audio.setAttribute('aria-disabled',String(!playable));audio.tabIndex=playable?0:-1;
+ for(const id of ['wav','voice','cues']){
+  $(id).setAttribute('aria-disabled',String(!exportReady));$(id).tabIndex=exportReady?0:-1;
+  $(id).removeAttribute('href');
+ }
+ if(exportReady){
+  const urls=assets(state);
+  $('wav').href=urls.clip;$('wav').download=v.clip;
+  $('cues').href=urls.cues??v.cueFile;$('cues').download=v.cueFile;
+  $('voice').href=state.output?urls.recipe:v.recipeFile??v.voiceFile;$('voice').download=v.recipeFile??v.voiceFile;
+ }
+ if(playable){
+  if(!isMorph&&!standalone.has(v.id))standalone.set(v.id,{samples:decodeTrack(DATA.sources[v.id]),sampleRate:state.base.cueData.sampleRate,preRoll:example.sceneStart-example.shotFrom,sceneSeconds:example.shotTo-example.shotFrom});
+  player.update(isMorph?state.playback:standalone.get(v.id));matchLevel();
+ }
+ $('note').textContent=isMorph?`${v.recipe.sources[0].label} with its tone colour moved ${percent}% toward ${v.recipe.sources[1].label}. ${slicePercent?`The original slices play over it at ${slicePercent}% of the voice’s average level.`:'The separate slice layer is muted.'}`:v.note;
+ $('voice').textContent=v.engine==='morph'?'Morph + slices recipe JSON':v.recipe?'Mix recipe JSON':'Voice JSON';
+ $('exportNote').textContent=isMorph?'Download the current WAV for your game. Downloads use the settled slider settings. Both settings carry across voice changes until you reload the page.':v.recipe?'Use the mixed WAV in your game. The mix recipe records both source voices and their volume settings.':'';
+ $('takeName').textContent=`${selected+1} / ${results.length} · ${v.label}`;
+ $('source').textContent=isMorph?`${percent}% tone morph · original slices ${slicePercent}% · ${v.recipe.sources[1].label}`:v.engine==='layered'?`Layers: ${v.recipe.layers.map(l=>l.label).join(' + ')}`:v.engine==='sampler'?`Source: music slices · ${v.bank.source||v.bank.name} · ${((v.voice.pitch??140)/140).toFixed(2)}× base speed · ${v.used.length} slice selections`:'Source: formant synthesizer';
+ $('metrics').textContent=exportReady?`${v.audioSeconds.toFixed(2)} s voice WAV · peak ${v.peakDbFS.toFixed(1)} dBFS · maximum cue error ${v.maxCueErrorMs.toFixed(1)} ms`:playable?'The line keeps playing while the tone updates. Downloads will be ready when it catches up.':'Preparing this voice for live playback…';
+ if(state.status==='error')wantsPlay=false;
+ draw();
+ if(playable&&wantsPlay)play();
+}
+function choose(i){
+ wantsPlay=false;selected=i;audio.pause();player.select();cancelAnimationFrame(frame);
+ if(transportUrl)URL.revokeObjectURL(transportUrl);
+ const v=results[i], sr=v.cueData.sampleRate, length=Math.max(Math.ceil((example.shotTo-example.shotFrom)*sr),Math.round((example.sceneStart-example.shotFrom)*sr)+Math.round(v.audioSeconds*sr));
+ transportUrl=URL.createObjectURL(new Blob([encodeWav(new Float32Array(length),sr)],{type:'audio/wav'}));
+ audio.src=transportUrl;audio.load();
+ [...$('choices').querySelectorAll('button')].forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)));
+ morph.select(results[i]);
+}
+async function play(){
+ try{
+  player.ensure();
+  if(morph.current.base.engine==='morph'&&!morph.current.playback){wantsPlay=morph.current.status==='pending';return;}
+  wantsPlay=false;audio.pause();audio.currentTime=0;await audio.play();
+ }catch(e){if(e.name!=='AbortError')$('status').textContent=e.name==='NotAllowedError'?'Press Play selected take to listen.':e.message;}
+}
+results.forEach((v,i)=>{
+ if(i===0||results[i-1].group!==v.group){const heading=document.createElement('div');heading.className='group';heading.textContent=v.group;$('choices').append(heading);}
+ const b=document.createElement('button');b.className='choice';b.textContent=v.label;const s=document.createElement('small');s.textContent=v.tag??(v.timing?'14 animation cues · 100 ms pause':'natural rhythm');b.append(s);b.onclick=()=>{choose(i);play();};$('choices').append(b);
+});
+$('replay').onclick=play;
+$('morphAmount').oninput=()=>morph.change(Number($('morphAmount').value)/100);
+$('resetMorph').onclick=()=>morph.change(morph.current.base.recipe.settings.amount);
+$('sliceVolume').oninput=()=>morph.changeSlices(Number($('sliceVolume').value)/100);
+$('muteSlices').onclick=()=>morph.changeSlices(0);
+function advance(direction){choose((selected+direction+results.length)%results.length);$('choices').querySelectorAll('button')[selected].scrollIntoView({block:'nearest'});play();}
+$('previous').onclick=()=>advance(-1);$('next').onclick=()=>advance(1);
+function saveJSON(name,value){
+ const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+for(const id of ['wav','voice','cues'])$(id).onclick=e=>{if(morph.current?.status!=='ready')e.preventDefault();};
+$('cast').onclick=e=>{e.preventDefault();saveJSON('cast.json',Object.fromEntries(results.filter(v=>v.voice).map(v=>[v.id,v.voice])));};
+$('level').onchange=matchLevel;
+audio.onplay=()=>{player.play().catch(e=>{$('status').textContent=e.message;});cancelAnimationFrame(frame);tick();};
+audio.onpause=()=>{player.pause();cancelAnimationFrame(frame);draw();};audio.onended=()=>{player.pause();cancelAnimationFrame(frame);draw();};
+audio.onseeking=()=>player.pause();audio.onseeked=()=>{player.seek();draw();};audio.ontimeupdate=draw;
+audio.onvolumechange=()=>player.volume();audio.onratechange=()=>player.seek();
+audio.onerror=()=>{$('status').textContent='Could not start the scene player. Reload the audition page to retry.';};
+choose(0);
+(async()=>{
+ if(sequence){
+  try{images=await Promise.all([sequence.plate,...sequence.sheets].map(name=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load '+name));im.src='reference/'+name;})));ready=true;$('status').textContent='Actual game shot · 20 fps · cue fixture verified';}
+  catch(e){$('status').textContent=e.message;}
+ }else $('status').textContent='Audio is ready. Generate with --game to include the actual chicken shot.';
+ draw();
+})();
+addEventListener('pagehide',event=>{
+ wantsPlay=false;audio.pause();audio.removeAttribute('src');audio.load();cancelAnimationFrame(frame);
+ if(event.persisted)morph.suspend();else morph.dispose();
+ if(event.persisted)player.suspend();else player.dispose();
+ if(transportUrl)URL.revokeObjectURL(transportUrl);transportUrl=undefined;
+ for(const urls of downloads.values())releaseAssets(urls);downloads.clear();
+});
+addEventListener('pageshow',event=>{if(event.persisted)choose(selected);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){wantsPlay=false;audio.pause();morph.suspend();player.suspend();}else if(morph.current?.base.engine==='morph')morph.select(results[selected]);});
+window.audition={get ready(){return ready||!sequence;},get selected(){return selected;},draw};
+</script></body></html>
