@@ -3,6 +3,7 @@ import {VIEW_HTML} from './view.js';
 import {createTrainFeedback} from './feedback.js';
 import {COMPACT_NOTCHES,compactNotchOf} from './compact-model.js';
 import {bindCompactLever} from './compact-input.js';
+import {createReverseIntent,opposesTravel} from './reverse-intent.js';
 
 const failure = message => new TypeError(message);
 const sameContract = value => value?.id === TRAIN_SESSION_CONTRACT.id && value?.version === 1 && value?.profile === TRAIN_SESSION_CONTRACT.profile;
@@ -29,20 +30,21 @@ export function mountTrainControls(container, {
   const prefix = newId('mount');power.id = prefix + '/power';element.querySelector('[data-power-label]').htmlFor = power.id;
   container.append(element);
   const events = new win.AbortController(), actionEntries = new WeakMap(), listen = (target, type, fn, options = {}) => target.addEventListener(type, fn, {...options, signal: events.signal});
-  let currentActor = actorId, snapshot = null, context = null, selectedDirection = 'neutral', presetPower = initialPower, notch = 2, compactInput = null;
+  let currentActor = actorId, snapshot = null, context = null, selectedDirection = 'neutral', presetPower = initialPower, notch = 2, compactInput = null, reverseIntent = null;
   let disposed = false, blocked = false, fault = false, refreshing = false, refreshAgain = false, dispatching = false;
   let lease = null, activePointer = null, activeKey = null, leverDrag = null, walkingSent = null, unsubscribe = () => {}, message = '', messageKind = 'ready', lastResult = null;
 
   function report(error, phase) { try { onError(error, {phase}); } catch {} }
   function inputBlocked() { return disposed || blocked || fault || doc.visibilityState === 'hidden' || [...doc.querySelectorAll('dialog[open], [aria-modal="true"]')].some(node => !node.hidden && node.getClientRects().length > 0); }
   function compact() { return steamProfile === 'compact-notched' && snapshot?.mode === 'driver' && snapshot.train?.stock === 'steam'; }
+  function reverseView() {return {snapshot,context,owner:lease,active:compact()&&!inputBlocked()&&!dispatching};}
   function tell(text, kind = 'ready') { message = text;messageKind = kind;status.textContent = text;status.dataset.state = kind; }
   function resultMessage(result) {
     if (result?.committed === true) return result.observerErrors ? 'Accepted; view needs refresh.' : '';
     if (result?.code === 'FIXTURE_ONLY') return 'Preview only — train actions are not connected yet.';
     return result?.reason || result?.code || 'The train refused this request.';
   }
-  function send(command, quiet = false) {
+  function send(command, quiet = false, retryRelease = true) {
     if (disposed && command.type !== 'release') return null;
     if (dispatching) { tell('Wait for the current request to finish.', 'refused');return null; }
     dispatching = true;const before = snapshot;let result, acknowledged = false;
@@ -50,9 +52,16 @@ export function mountTrainControls(container, {
       result = session.dispatch(command);
       if (!result || typeof result.committed !== 'boolean' || result.commandId !== command.commandId) throw failure('The connector must return its synchronous command result.');
       acknowledged = true;
+      if (!result.committed) reverseIntent?.cancel();
+      if (retryRelease && command.type==='release' && result.code==='SESSION_BUSY') {
+        // Core notifies while its transaction is busy. A safety cancellation
+        // from that notification gets one deferred exact-owner release attempt.
+        // No direction command is retried and no current actor/lease is reused.
+        win.queueMicrotask(()=>{try{send({...command,commandId:newId('release')},true,false);}catch(error){report(error,'release-retry');}});
+      }
       if (!quiet) { lastResult = clone(result);tell(resultMessage(result), result.committed ? 'ready' : 'refused'); }
       return result;
-    } catch (error) { fault = true;tell('Train connection unavailable. Input released.', 'refused');report(error, 'dispatch');return null; }
+    } catch (error) { reverseIntent?.cancel();fault = true;tell('Train connection unavailable. Input released.', 'refused');report(error, 'dispatch');return null; }
     finally { dispatching = false;if (!disposed) { refresh();if (!quiet && acknowledged && !fault) feedback.committed(command, result, before, snapshot); } }
   }
   function cancelLever(restore = true) {
@@ -63,11 +72,11 @@ export function mountTrainControls(container, {
     return true;
   }
   function releaseInput(reason = 'released') {
-    const leverCancelled = cancelLever(), notchCancelled = compactInput?.cancel();feedback.cancelInput();
+    const leverCancelled = cancelLever(), notchCancelled = compactInput?.cancel(), reverseCancelled = reverseIntent?.cancel();feedback.cancelInput();
     const prior = lease, pointer = activePointer;
     lease = null;activePointer = null;activeKey = null;
     if (pointer) try { pointer.node.releasePointerCapture(pointer.id); } catch {}
-    if (!prior) { if (leverCancelled || notchCancelled) render();return false; }
+    if (!prior) { if (leverCancelled || notchCancelled || reverseCancelled) render();return false; }
     // The original actor and exclusive lease are retained. Never refresh these
     // identities to a new actor/cab or attach current expected revisions.
     const command = {type: 'release', actorId: prior.actorId, commandId: newId('release'), leaseId: prior.id};
@@ -104,11 +113,14 @@ export function mountTrainControls(container, {
     const driver = snapshot.mode === 'driver', riding = snapshot.mode === 'rider', unavailable = inputBlocked();
     const stock = snapshot.train?.stock || 'none';element.dataset.stock = stock;
     const notched = compact();element.dataset.steamProfile = notched ? 'compact-notched' : 'classic';
+    const pendingNotch=reverseIntent?.notch??null;
     panel.dataset.profile = notched ? 'compact-notched' : 'classic';
     panel.hidden = !driver;rider.hidden = !riding;panel.setAttribute('aria-disabled', String(unavailable));
     lever.hidden = !driver || stock !== 'steam' || notched;lever.tabIndex = unavailable ? -1 : 0;
     notchLever.hidden = !notched;notchLever.tabIndex = unavailable ? -1 : 0;
     notchLever.setAttribute('aria-disabled',String(unavailable));notchLever.setAttribute('aria-valuenow',String(3-notch));notchLever.setAttribute('aria-valuetext',COMPACT_NOTCHES[notch].label);
+    const pending=part('reverse-pending');pending.hidden=!notched||pendingNotch===null;
+    pending.textContent=pendingNotch===null?'':`${COMPACT_NOTCHES[pendingNotch].label} after stop`;
     panel.dataset.notch = String(notch);element.style.setProperty('--notch-position',`${notch/3*100}%`);
     part('compact-status').hidden = !notched;
     lever.setAttribute('aria-disabled', String(unavailable));lever.setAttribute('aria-valuenow', String({reverse: -1, neutral: 0, forward: 1}[selectedDirection]));lever.setAttribute('aria-valuetext', selectedDirection);
@@ -171,6 +183,7 @@ export function mountTrainControls(container, {
         snapshot = next;context = nextKey;feedback.observe(next);
         if (compact()) { notch = compactNotchOf(next.train.controls);selectedDirection = next.train.controls.direction;presetPower = next.train.controls.power; }
         if (context === nextKey && !changed && !message && next.mode === 'driver') selectedDirection = next.train?.controls.direction || 'neutral';
+        reverseIntent?.observe(reverseView());
         render();
         if (changed && wasOccupied && next.mode === 'on-foot' && next.walkingAllowed && !inputBlocked()) focusWalking();
       } while (refreshAgain);
@@ -179,6 +192,7 @@ export function mountTrainControls(container, {
   }
   function performAction(command, stamp = context) {
     if (inputBlocked() || stamp !== context || dispatching) return false;
+    if (command.type==='exit') reverseIntent?.cancel();
     const id = newId(command.type);if (stamp !== context || disposed) return false;
     const result = send({...clone(command), commandId: id});flushReleases();return result?.committed === true;
   }
@@ -210,22 +224,29 @@ export function mountTrainControls(container, {
   }
   function chooseDirection(direction) { if (inputBlocked() || compact() || snapshot?.mode !== 'driver' || direction === selectedDirection) return;selectedDirection = direction;tell(`${direction[0].toUpperCase() + direction.slice(1)} selected.`);if (lease) drive();render(); }
   function choosePower(value) { if (inputBlocked() || compact() || snapshot?.mode !== 'driver') return;const next = clamp(value);if (next === presetPower) return;presetPower = next;if (lease?.kind === 'power') drive();render(); }
-  function chooseNotch(next,event) {
+  function chooseNotch(next,event,continuation=null) {
     if (!compact() || inputBlocked() || dispatching || activePointer || activeKey || !COMPACT_NOTCHES[next]) return false;
-    feedback.unlock(event);refresh();if (!compact() || inputBlocked()) return false;
+    reverseIntent?.cancel();if (!continuation) feedback.unlock(event);refresh();if (!compact() || inputBlocked()) return false;
+    if (continuation && (lease!==continuation.owner || context!==continuation.context || !snapshot.train.stopped || snapshot.train.controls.leaseId!==lease?.id || snapshot.train.controls.direction!=='neutral' || snapshot.train.controls.power!==0 || snapshot.train.controls.brake!==1)) return false;
     const desired = COMPACT_NOTCHES[next], controls = snapshot.train.controls;
+    const opposite=!continuation&&opposesTravel(snapshot,next);
     if (lease?.kind === 'notch' && lease.accepted && controls.leaseId === lease.id && controls.direction === desired.direction && controls.power === desired.power && controls.brake === 0) {tell('');return true;}
     if (lease && lease.kind !== 'notch') return false;
     const stamp = context, held = lease || {id:newId('lease'),actorId:snapshot.actorId,trainId:snapshot.trainId,context:stamp,kind:'notch',accepted:false};
     if (stamp !== context || disposed) return false;
     lease = held;
     const commandId = newId('drive');if (lease !== held || context !== held.context || disposed) return false;
-    const before = snapshot, command = {type:'drive',actorId:held.actorId,trainId:held.trainId,commandId,leaseId:held.id,expected:clone(snapshot.expected),direction:desired.direction,power:desired.power,brake:0};
+    const before = snapshot, command = {type:'drive',actorId:held.actorId,trainId:held.trainId,commandId,leaseId:held.id,expected:clone(snapshot.expected),direction:opposite?'neutral':desired.direction,power:opposite?0:desired.power,brake:opposite?1:0};
     const result = send(command);flushReleases();
-    if (result?.committed && lease === held && !fault) {held.accepted = true;feedback.shift(command,result,before,snapshot,event);}
-    else if (lease === held && (!held.accepted || fault)) {const reason = message;releaseInput('notch-refused');tell(reason,'refused');}
-    // A known refused shift preserves a still-owned previous notch. refresh()
-    // has already read confirmed controls, including a refused moving reverse.
+    if (result?.committed && lease === held && !fault) {
+      held.accepted = true;
+      if (continuation) continuation.cue?.(command,result,before,snapshot);
+      else feedback.shift(command,result,before,snapshot,event);
+      if (opposite) {feedback.cancelInput();reverseIntent.arm({notch:next,owner:held,context:held.context,cue:feedback.deferShift(event)},reverseView());}
+    }
+    else if (lease === held && (opposite || !held.accepted || fault)) {const reason = message;releaseInput('notch-refused');tell(reason,'refused');}
+    // Known ordinary refusals keep confirmed controls. A failed braking request
+    // instead retires its exact owner, leaving no deferred direction change.
     render();return result?.committed === true;
   }
   function gesture(node, kind) {
@@ -268,6 +289,8 @@ export function mountTrainControls(container, {
   gesture(part('power-hold'), 'power');gesture(part('brake'), 'brake');gesture(power, 'power');
   compactInput = bindCompactLever({win,node:notchLever,listen,active:compact,blocked:() => inputBlocked() || dispatching || !!activePointer || !!activeKey,
     notch:() => notch,stamp:() => context,select:chooseNotch,release:releaseInput});
+  reverseIntent=createReverseIntent({schedule:fn=>win.queueMicrotask(fn),readFresh:()=>{refresh();return reverseView();},complete:intent=>chooseNotch(intent.notch,null,intent),
+    invalidated:(intent,reason,error)=>{feedback.cancelInput();if(error){fault=true;if(lease===intent.owner)releaseInput('reverse-'+reason);report(error,'reverse-intent');}render();}});
   listen(win, 'pointerup', event => { if (leverDrag?.id === event.pointerId) { moveLever(event);cancelLever(false);render(); }if (activePointer?.id === event.pointerId) releaseInput('pointer-up'); }, {capture: true});
   listen(win, 'pointercancel', event => { if (activePointer?.id === event.pointerId || leverDrag?.id === event.pointerId) releaseInput('pointer-cancel'); }, {capture: true});
   listen(win, 'pointermove', event => {
@@ -294,13 +317,13 @@ export function mountTrainControls(container, {
   listen(win, 'blur', () => releaseInput('blur'));listen(win, 'pagehide', () => releaseInput('page-hidden'));
   listen(doc, 'visibilitychange', () => { if (doc.visibilityState === 'hidden') releaseInput('hidden');render(); });
   try { unsubscribe = session.subscribe(refresh);if (typeof unsubscribe !== 'function') throw failure('The connector subscription must return its disposer.'); }
-  catch (error) { events.abort();feedback.dispose();element.remove();throw error; }
+  catch (error) { events.abort();reverseIntent.dispose();feedback.dispose();element.remove();throw error; }
   refresh();
   return Object.freeze({element, refresh, releaseInput,
     setBlocked(value) { if (disposed) return;blocked = !!value;if (blocked) releaseInput('modal-or-paused');render(); },
     setMuted(value) { if (disposed) return;feedback.setMuted(value);render(); },
     setActor(value) { if (disposed) return;if (typeof value !== 'string' || !value) throw failure('Supply the current actor ID.');if (value === currentActor) return;releaseInput('actor-change');currentActor = value;context = null;selectedDirection = 'neutral';message = '';refresh(); },
-    get state() { return Object.freeze({actorId: currentActor, mode: snapshot?.mode || null, requestedDirection: selectedDirection, requestedPower: presetPower, steamProfile, notch:compact()?notch:null, leaseId: lease?.id || null, blocked, fault, disposed, feedback: feedback.state, result: lastResult && clone(lastResult)}); },
-    dispose() { if (disposed) return;disposed = true;events.abort();feedback.dispose();try { unsubscribe(); } catch (error) { report(error, 'unsubscribe'); }try { releaseInput('disposed'); } finally { element.remove();setWalking(snapshot?.mode === 'on-foot' && snapshot.walkingAllowed && !blocked); } }
+    get state() { return Object.freeze({actorId: currentActor, mode: snapshot?.mode || null, requestedDirection: selectedDirection, requestedPower: presetPower, steamProfile, notch:compact()?notch:null, pendingNotch:compact()?reverseIntent.notch:null, leaseId: lease?.id || null, blocked, fault, disposed, feedback: feedback.state, result: lastResult && clone(lastResult)}); },
+    dispose() { if (disposed) return;disposed = true;events.abort();reverseIntent.dispose();feedback.dispose();try { unsubscribe(); } catch (error) { report(error, 'unsubscribe'); }try { releaseInput('disposed'); } finally { element.remove();setWalking(snapshot?.mode === 'on-foot' && snapshot.walkingAllowed && !blocked); } }
   });
 }

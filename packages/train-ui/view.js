@@ -31,7 +31,7 @@ export const VIEW_HTML = `
         <span class="brake-paddle" aria-hidden="true"><i></i></span><strong data-part="brake-caption">Pull to brake</strong><kbd>B</kbd>
       </button><small data-part="brake-state">Released</small></div>
     </div>
-    <div class="compact-status" data-part="compact-status" hidden><output data-part="compact-speed">0.0 km/h</output><p data-part="compact-applied">Stopped · 0% power</p><p data-part="compact-braking">Brake applied</p></div>
+    <div class="compact-status" data-part="compact-status" hidden><output data-part="compact-speed">0.0 km/h</output><p data-part="compact-applied">Stopped · 0% power</p><p data-part="compact-braking">Brake applied</p><p data-part="reverse-pending" role="status" hidden></p></div>
     <div class="power-row"><label data-power-label>Requested power <output data-part="power-request">35%</output></label><div class="power-controls"><button type="button" data-part="less-power" aria-label="Decrease power">−</button><input data-part="power" type="range" min="0" max="100" step="5" value="35" aria-label="Requested train power"><button type="button" data-part="more-power" aria-label="Increase power">+</button><button type="button" class="power-hold" data-part="power-hold" aria-pressed="false"><span data-part="power-caption">Hold regulator</span><kbd>Space</kbd></button></div><p data-part="confirmed-power">0% applied · neutral</p></div>
     <div class="signal-line" data-part="signal-line" hidden><span aria-hidden="true"></span><p data-part="signal-reason"></p></div>
     <p data-part="request-status" class="request-status" role="status" aria-live="polite"></p>

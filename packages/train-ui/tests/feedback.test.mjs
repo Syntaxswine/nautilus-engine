@@ -94,3 +94,11 @@ test('notch click shares mute, device ownership and bounded voice cleanup', asyn
   f.setMuted(false);f.shift({...drive,direction:'reverse',power:.5},result,before,after,{isTrusted:true});assert.equal(f.state.played,1);assert.equal(d.oscillators.length,1);assert.equal(d.contexts.length,1);
   f.dispose();await Promise.resolve();assert.equal(f.state.activeSounds,0);assert.equal(f.state.contextState,'closed');
 });
+test('deferred shift cues retain only trusted intent and still require a real accepted transition and live audio owner',()=>{
+  const d=device(),f=createTrainFeedback(d.win),before=read(),after=read();after.train.controls={direction:'reverse',power:.5,brake:0,leaseId:'own'};
+  const command={...drive,direction:'reverse',power:.5},untrusted=f.deferShift({isTrusted:false}),trusted=f.deferShift({isTrusted:true});
+  trusted(command,result,before,after);assert.equal(d.contexts.length,0);f.unlock({isTrusted:true});
+  untrusted(command,result,before,after);trusted(command,{committed:false},before,after);assert.equal(f.state.played,0);
+  trusted(command,result,before,after);assert.equal(f.state.played,1);f.setMuted(true);trusted(command,result,before,after);assert.equal(f.state.played,1);
+  f.dispose();trusted(command,result,before,after);assert.equal(f.state.played,1);
+});
