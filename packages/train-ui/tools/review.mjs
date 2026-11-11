@@ -1,6 +1,7 @@
 import fs from 'node:fs';import path from 'node:path';import net from 'node:net';import assert from 'node:assert/strict';import {fileURLToPath} from 'node:url';
 import {withArtReview, projectRoot} from '../../../tools/art-review-browser.mjs';
 import {reviewMechanicalControls} from './review-mechanical.mjs';
+import {reviewCompactControls} from './review-compact.mjs';
 const here = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), evidence = path.join(here, 'evidence'), output = 'train-ui-review', out = path.join(projectRoot, 'artifacts', output);
 fs.mkdirSync(evidence, {recursive: true});
 const report = {connectorPin: '32cce619ac1b8930ac7636dc49aa8704ce08cc92', contentPin: '8efe3da49186f36b07e19da9a31777fe46a71874', checks: [], captures: [], fixture: 'Actual fixed connector, always FIXTURE_ONLY', protocol: 'Scripted synchronous replies for DOM/input lifecycle only; no train simulation', liveBoardingMotion: false, nativeArtAcceptance: false, errors: []};
@@ -8,7 +9,7 @@ const record = name => report.checks.push({name, status: 'passed'});
 try {
  await withArtReview('Train HUD fixed-fixture design and input lifecycle review', async ({page, browser, baseURL, out}) => {
   report.browser = browser.version();page.setDefaultTimeout(6000);
-  const helperPath = path.join(out, 'helper-process.json'), helper = JSON.parse(fs.readFileSync(helperPath));helper.sourceFiles.push(...['index.js','view.js','style.css','feedback.js','art/steam-cab-surface.svg','fixture/index.html','fixture/study.js','fixture/study.css','tests/scripted-connector.js','tools/review-mechanical.mjs'].map(p => 'packages/train-ui/' + p));fs.writeFileSync(helperPath, JSON.stringify(helper, null, 2));
+  const helperPath = path.join(out, 'helper-process.json'), helper = JSON.parse(fs.readFileSync(helperPath));helper.sourceFiles.push(...['index.js','view.js','style.css','feedback.js','compact-model.js','compact-input.js','compact.css','art/steam-cab-surface.svg','fixture/index.html','fixture/study.js','fixture/study.css','tests/scripted-connector.js','tools/review-mechanical.mjs','tools/review-compact.mjs'].map(p => 'packages/train-ui/' + p),'examples/train-yard-host.js','packages/train-core/index.js','vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/source.json');fs.writeFileSync(helperPath, JSON.stringify(helper, null, 2));
   await page.goto(baseURL + '/packages/train-ui/fixture/index.html');
   const part = name => page.locator(`[data-part="${name}"]`), action = kind => page.locator(`[data-train-action="${kind}"]:visible`);
   assert.equal(await part('driver').isVisible(), true);assert.equal(await page.evaluate(() => trainStudy.walkingEnabled), false);record('fixed driver fixture replaces the walking slot');
@@ -32,10 +33,10 @@ try {
   await page.setViewportSize({width: 1100, height: 1000});
   await page.evaluate(async () => {
    const [ui, test] = await Promise.all([import('/packages/train-ui/index.js'), import('/packages/train-ui/tests/scripted-connector.js')]);
-   window.mountTest = mode => {
+   window.mountTest = (mode,steamProfile='classic') => {
     window.testUI?.dispose();trainStudy.dispose();window.testHost = test.scriptedConnector(mode);let serial = 0;
     window.walkingEvents = [];window.focusReturns = 0;
-    window.testUI = ui.mountTrainControls(document.getElementById('hud-slot'), {session: testHost.session, actorId: 'player', walkingElement: document.getElementById('walking'),
+    window.testUI = ui.mountTrainControls(document.getElementById('hud-slot'), {session: testHost.session, actorId: 'player', walkingElement: document.getElementById('walking'),steamProfile,
       newId: kind => `test/${kind}/${++serial}`, setWalkingEnabled: value => walkingEvents.push(value), focusWalking: () => { focusReturns++;document.getElementById('walk-focus').focus(); }, onError: error => {throw error;}
     });
    };
@@ -77,6 +78,7 @@ try {
    await touch.locator('[data-direction="forward"]').tap();await touch.locator('[data-part="power-hold"]').tap();assert.deepEqual(await touch.evaluate(()=>host.commands.map(c=>c.type)),['drive','release']);assert.equal(await touch.evaluate(()=>touchUI.state.leaseId),null);await touch.evaluate(()=>touchUI.dispose());assert.equal(await touch.evaluate(()=>host.subscribers),0);record('native emulated touch tap releases its exact lease and retires cleanly');
   }finally{await touchContext.close();}
   await reviewMechanicalControls({page,browser,evidence,report,record});
+  await reviewCompactControls({page,browser,evidence,report,record,baseURL});
   assert.deepEqual(report.errors,[]);
  }, {source:true,owner:'01a1810e-3297-7142-ac31-ac504ea8553d',output,timeoutMs:180000});
  report.status='passed';

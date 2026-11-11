@@ -54,6 +54,7 @@ jobs:
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
           5577773727b757c3142cb2ded0a10315e25cd41d
+          004d244397fc88a2c411388dd9046858772c020e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -62,6 +63,7 @@ jobs:
       - run: npm run test:upstream
       - run: npm run build
       - run: npm run test:package
+      - run: node tools/test-train-controls-package.mjs
       - run: npm run test:grenade-renderer
       - run: npm run test:game-ui-package
       - run: npm run test:doors

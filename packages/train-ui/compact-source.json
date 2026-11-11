@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-Tinderbox-control-adaptation",
+  "baseCommit": "4d0f7e495d75a607c9bc4c026ab100c50e7c07b4",
+  "sourceRepository": "https://github.com/Syntaxswine/tinderbox",
+  "sourceCommit": "fb0628605c274550ff8abad50b151843f08747d1",
+  "sourceManifest": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/source.json",
+  "sourceManifestSha256": "dd00fa451b542957600b23a908de5f65535048901aa070364c542c8b57687823",
+  "sourceInputs": [
+    {
+      "path": "src/ui/train-control.js",
+      "bytes": 11398,
+      "sha256": "18ae7370585d9df4b54868c03b8bb40dec5f339d191a48c327da102758c41da9",
+      "adaptations": "None; exact Git object bytes"
+    },
+    {
+      "path": "src/ui/train-control-model.js",
+      "bytes": 895,
+      "sha256": "c9e539f68d34590856860477fec15b3b0f5b75e0eec6bb7c518a31503f37e6f5",
+      "adaptations": "None; exact Git object bytes"
+    },
+    {
+      "path": "src/ui/train-control.css",
+      "bytes": 6342,
+      "sha256": "8d30fd3aed6371193050026208ff4874fd09e34f227d1fd09da359824edeae7c",
+      "adaptations": "None; exact Git object bytes"
+    },
+    {
+      "path": "src/ui/train-click.js",
+      "bytes": 1708,
+      "sha256": "9e1e93b1f566d70677f012cc43a9539041ae8d584e6fddae963326f4d21fe0bc",
+      "adaptations": "None; exact Git object bytes"
+    }
+  ],
+  "adaptedRuntime": {
+    "compact-model.js": "train-control-model.js four notches and hysteresis; finite input and tiny boundary tolerance added",
+    "compact-input.js": "train-control.js drag/keyboard policy; attempt detent separate from confirmed notch to bound refusal retries",
+    "compact.css": "train-control.css raised grip/chain; scoped beside existing readouts, mute and contextual actions",
+    "index.js": "existing Nautilus lease/Expected/staged cleanup retained; explicit steam-only option and refusal handling",
+    "view.js": "adapted compact lever/chain markup; original classic/electric markup retained",
+    "feedback.js": "train-click.js envelope adapted into the existing shared owned audio lifecycle"
+  },
+  "guides": [
+    "COMPACT-PROFILE.md",
+    "USAGE-CARD.md",
+    "evidence/COMPACT-REVIEW.md"
+  ],
+  "runtimeResources": [
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "bytes": 2757790,
+      "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf",
+      "bytes": 108640,
+      "sha256": "71f352d8859c787631a0978161d48497a72caa69dcae6996d6712a564df86c1e"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf",
+      "bytes": 249668,
+      "sha256": "42717a1280b523a506ca2b0285cca380e77fe214b1f6e3d75a8b925005f19eac"
+    }
+  ],
+  "notices": [
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/OFL.txt",
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OFL.txt"
+  ],
+  "donorWorktreeWrites": 0,
+  "globalRegistration": "Architect owns root metadata/NOTICE/build/package registration and rendered acceptance",
+  "preservedNoticeWhitespace": [
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/OFL.txt",
+      "line": 21,
+      "reason": "Exact upstream license bytes retain a trailing blank; validate source SHA instead of trimming."
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OFL.txt",
+      "line": 21,
+      "reason": "Exact upstream license bytes retain a trailing blank; validate source SHA instead of trimming."
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import {GRENADE_CONTRACT,FARMYARD_GRENADE_PROFILE} from '../packages/grenades-co
 import {FARMYARD_DOOR_CONTRACT,FARMYARD_DOOR_PROFILE} from '../packages/adapters/farmyard/doors/profile.js';
 import {PARTS_CONTRACT,PARTS_RUNTIME_PROFILE} from '../packages/parts-core/index.js';
 import {moduleReferenceGraph} from './module-references.mjs';
+import {trainStaticResourcePaths} from './train-registration.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -75,6 +76,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
 }
 for(const file of [...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS),sources.farmyardDoorVisuals.manifest,sources.farmyardDoorVisuals.root+'/NOTICE.md'])write(file,fs.readFileSync(path.join(root,file)));
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true, filter: source => !/^train-ui\/(?:evidence|tools|tests|fixture)(?:\/|$)/.test(path.relative(path.join(root, 'packages'), source).split(path.sep).join('/'))});
+for (const file of trainStaticResourcePaths()) write(file, fs.readFileSync(path.join(root, file)));
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});

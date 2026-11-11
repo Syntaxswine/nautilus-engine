@@ -8,6 +8,7 @@ import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {moduleReferenceGraph} from './module-references.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import {trainPackageFiles} from './train-registration.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
@@ -73,7 +74,7 @@ export function packProfile(profile) {
   const stage = path.join(output, 'stage-' + profile); fs.mkdirSync(stage, {recursive:true});
   for (const file of files) { const destination = path.join(stage, file); fs.mkdirSync(path.dirname(destination), {recursive:true}); fs.copyFileSync(path.join(root, file), destination); }
   const manifest = {name, version: source.version, private:true, type:'module', description:source.description, engines:source.engines, exports,
-    files:[...files, 'package-provenance.json']};
+    files:npmFilePatterns([...files, 'package-provenance.json'])};
   fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
   fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify({schemaVersion:1, profile, version:source.version,
     files:files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}))}, null, 2));
@@ -135,8 +136,8 @@ assert.equal(typeof globalThis.window,'undefined');console.log('Installed extern
 }
 const invoked = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
 if (invoked) {
-  if (process.argv.includes('--write')) { const pkg=sourcePackage();pkg.files=distribution().files;fs.writeFileSync(packagePath,JSON.stringify(pkg,null,2)+'\n');console.log('Updated explicit compatibility-package file whitelist.'); }
-  else if (process.argv.includes('--check')) { if (JSON.stringify(sourcePackage().files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');console.log('Verified explicit distributable files and runtime dependency closure.'); }
+  if (process.argv.includes('--write')) { const pkg=sourcePackage();pkg.files=npmFilePatterns(distribution().files);fs.writeFileSync(packagePath,JSON.stringify(pkg,null,2)+'\n');console.log('Updated explicit compatibility-package file whitelist.'); }
+  else if (process.argv.includes('--check')) { if (JSON.stringify(sourcePackage().files)!==JSON.stringify(npmFilePatterns(distribution().files))) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');console.log('Verified explicit distributable files and runtime dependency closure.'); }
   else if (process.argv.includes('--test-ui')) console.log(JSON.stringify(testExternalPackage('compatibility'),null,2));
   else if (process.argv.includes('--test-grenade-renderer')) console.log(JSON.stringify(testExternalPackage('renderer'),null,2));
   else if (process.argv.includes('--test-assets')) console.log(JSON.stringify(testExternalPackage('assets'),null,2));

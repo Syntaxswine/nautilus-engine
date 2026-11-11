@@ -13,6 +13,7 @@ await withArtReview('Review native touch walking and narrow train control layout
       page.on('response', response => { if (response.status() >= 400) failedRequests.push({url: response.url(), status: response.status()}); });
       await page.goto(baseURL + '/examples/train-yard.html');
       await page.waitForFunction(() => window.trainYard);
+      await page.locator('#steam-profile').selectOption('classic');
       const original = await page.evaluate(() => window.trainYard.readForActor().position);
       const stick = await page.locator('#walk-stick').boundingBox();
       const centre = {x: stick.x + stick.width / 2, y: stick.y + stick.height / 2};

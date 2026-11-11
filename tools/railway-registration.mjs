@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 import {trainPackageFiles, trainPackageExports, checkTrainRegistration, trainBuildBytes} from './train-registration.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 
 const guide = 'docs/railway-track-kit.md';
 const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'miniature-stock.js', 'stock-profile.js', 'train-view.js', 'signal-view.js', 'entrances.js']
@@ -40,14 +41,17 @@ export function registeredRailwayBytes(file, before) {
   if (file === 'tools/distribution.mjs') {
     let text = insert(before.toString('utf8'), "'docs/shared-artwork.md');", "'docs/shared-artwork.md','" + guide + "');");
     const anchor = "import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';";
-    text = insert(text, anchor, anchor + "\nimport {trainPackageFiles} from './train-registration.mjs';");
+    text = insert(text, anchor, anchor + "\nimport {trainPackageFiles} from './train-registration.mjs';\nimport {npmFilePatterns} from './npm-files.mjs';");
     text = insert(text, "'./grenades/view'].includes(id)", "'./grenades/view','./trains/ui','./trains/style.css'].includes(id)");
+    text = insert(text, "files:[...files, 'package-provenance.json']", "files:npmFilePatterns([...files, 'package-provenance.json'])");
+    text = insert(text, 'pkg.files=distribution().files', 'pkg.files=npmFilePatterns(distribution().files)');
+    text = insert(text, 'JSON.stringify(distribution().files)', 'JSON.stringify(npmFilePatterns(distribution().files))');
     return Buffer.from(insert(text, '  const files = [...new Set(', '  extras.push(...trainPackageFiles(profile));\n  const files = [...new Set('));
   }
   if (file === 'package.json') {
     const pkg = JSON.parse(before);
     Object.assign(pkg.exports, trainPackageExports());
-    pkg.files = [...pkg.files, ...railwayPackageFiles('compatibility')].sort();
+    pkg.files = npmFilePatterns([...pkg.files, ...railwayPackageFiles('compatibility')].sort());
     return Buffer.from(JSON.stringify(pkg, null, 2) + '\n');
   }
   return before;

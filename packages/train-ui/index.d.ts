@@ -7,8 +7,8 @@ export interface TrainControls {
   setMuted(muted: boolean): void;
   setActor(actorId: string): void;
   readonly state: Readonly<{actorId: string; mode: 'on-foot'|'driver'|'rider'|null; requestedDirection: Direction;
-    requestedPower: number; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean;
-    feedback: Readonly<{muted: boolean; unlocked: boolean; played: number; lastCue: 'steam-departure'|'electric-boarded'|'electric-exited'|null; activeSounds: number; contextState: string}>;
+    requestedPower: number; steamProfile: 'classic'|'compact-notched'; notch: 0|1|2|3|null; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean;
+    feedback: Readonly<{muted: boolean; unlocked: boolean; played: number; lastCue: 'steam-departure'|'steam-shift'|'electric-boarded'|'electric-exited'|null; activeSounds: number; contextState: string}>;
     result: DispatchResult|null}>;
   dispose(): void;
 }
@@ -21,6 +21,8 @@ export function mountTrainControls(container: HTMLElement, options: {
   focusWalking?: () => void;
   newId?: (kind: string) => string;
   initialPower?: number;
+  /** Explicit steam-only persistent notches; default classic keeps hold-to-drive. */
+  steamProfile?: 'classic'|'compact-notched';
   /** Host preference. Audio still requires a trusted user gesture. */
   muted?: boolean;
   onError?: (error: unknown, context: {phase: string}) => void;

@@ -1,6 +1,7 @@
 // Root-owned current-source-bound evidence for the reviewed native B2 integration.
 // Importing this module reads/writes nothing and never launches the collector.
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -57,6 +58,7 @@ const verificationFiles=[
   'tools/check-tile-finishes-source.mjs','tools/check-tile-visuals-source.mjs',
   'tools/check-tile-visuals-lifecycle.mjs','tools/tile-stack-registration.mjs','tools/tile-surface-corrections.mjs',
   'tools/tile-authoring-registration.mjs','tools/shared-artwork-registration.mjs','tools/check-tile-authoring-core-source.mjs',
+  'tools/npm-files.mjs','tools/train-registration.mjs',
   'tools/check-native-window-presenter.mjs','packages/tile-authoring-core/source.json',
   'packages/tile-stack-core/source.json','packages/tile-finishes/source.json','packages/tile-visuals/source.json',
   'packages/map-core/contract-manifest.js','packages/map-core/capabilities.js','package.json','upstream.json','NOTICE.md'
@@ -103,7 +105,7 @@ export function tileStackInstalledHostPlan(projectRoot){
 export async function tileStackReviewInputModel({projectRoot}={}){
   assert.equal(typeof projectRoot,'string','Pass the actual projectRoot explicitly from the draft.');const root=path.resolve(projectRoot);
   const {moduleClosure,distribution,root:distributionRoot}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);assert.equal(path.resolve(distributionRoot),root);
-  const pkg=json(root,'package.json'),plans=Object.fromEntries(['core','renderer'].map(p=>[p,distribution(p)]));assert.deepEqual(pkg.files,distribution().files,'Current Root whitelist must be exact.');
+  const pkg=json(root,'package.json'),plans=Object.fromEntries(['core','renderer'].map(p=>[p,distribution(p)]));assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Current Root whitelist must be exact.');
   for(const b of TILE_STACK_REVIEW_BINDINGS){assert.equal(pkg.exports[b.entry],'./'+b.file);assert.equal(plans[b.profile].exports[b.entry],'./'+b.file);}
   // Only the actual browser/public runtime entries enter moduleClosure.
   const closures=Object.fromEntries(['core','renderer'].map(p=>[p,[...new Set(TILE_STACK_REVIEW_BINDINGS.filter(b=>b.profile===p).flatMap(b=>moduleClosure([b.file])))].sort()]));
@@ -112,7 +114,7 @@ export async function tileStackReviewInputModel({projectRoot}={}){
   const profileInputs=[],packages={};
   for(const [profile,plan]of Object.entries(plans)){
     const files=plan.files.map(file=>row(root,file));for(const r of files)profileInputs.push({profile,...r});
-    const manifest={name:plan.name,version:pkg.version,private:true,type:'module',description:pkg.description,engines:pkg.engines,exports:plan.exports,files:[...plan.files,'package-provenance.json']};
+    const manifest={name:plan.name,version:pkg.version,private:true,type:'module',description:pkg.description,engines:pkg.engines,exports:plan.exports,files:npmFilePatterns([...plan.files,'package-provenance.json'])};
     const provenance={schemaVersion:1,profile,version:pkg.version,files:files.map(r=>({path:r.file,bytes:r.bytes,sha256:r.sha256}))};
     const generated=[['package.json',manifest,true],['package-provenance.json',provenance,false]].map(([file,data,newline])=>{const b=Buffer.from(JSON.stringify(data,null,2)+(newline?'\n':''));return {file,bytes:b.length,sha256:sha(b),data:JSON.parse(b)};});
     packages[profile]={name:plan.name,version:pkg.version,manifest:generated[0],provenance:generated[1],physicalFiles:[...files,...generated.map(({data,...r})=>r)].sort((a,b)=>a.file.localeCompare(b.file))};

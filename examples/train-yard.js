@@ -32,9 +32,10 @@ function releaseWalking() {
   $('walk-thumb').style.transform = 'translate(0px, 0px)';
 }
 function releaseAll() { releaseWalking(); controls?.releaseInput('host-release'); }
-function mountControls() {
+function mountControls(muted = false) {
   controls = mountTrainControls($('movement-slot'), {
     session: host.connector, actorId: 'player', walkingElement: $('walking'), newId: id,
+    steamProfile: $('steam-profile').value, muted,
     setWalkingEnabled(enabled) { walkingEnabled = enabled; if (!enabled) releaseWalking(); },
     focusWalking() { canvas.focus(); },
     onError(error) { $('feedback').textContent = error.message; }
@@ -46,15 +47,24 @@ function renderControls() {
   document.body.dataset.playerMode = current.mode;
   $('mode').textContent = current.mode === 'on-foot' ? 'On foot' : current.mode === 'driver' ? 'Driving ' + current.train.stock : 'Riding ' + current.train.stock;
   $('speed').textContent = current.train ? (current.train.speedMps * 3.6).toFixed(1) + ' km/h · ' + current.carId.split('/').slice(-2).join(' ') : 'Walk beside the platform to a named entrance';
-  $('feedback').textContent = current.train?.hold?.reason ?? (current.mode === 'rider' ? 'Your operator drives one lap and stops at this platform.' : current.mode === 'driver' ? 'Choose Forward or Reverse, then hold power. Release to brake.' : 'Use WASD, arrow keys or the walking joystick.');
+  const notched = current.train?.stock === 'steam' && $('steam-profile').value === 'compact-notched';
+  $('feedback').textContent = current.train?.hold?.reason ?? (current.mode === 'rider' ? 'Your operator drives one lap and stops at this platform.' : current.mode === 'driver' ? notched ? 'Slide into gear; it stays engaged. N coasts. Pull the chain to brake.' : 'Choose Forward or Reverse, then hold power. Release to brake.' : 'Use WASD, arrow keys or the walking joystick.');
   $('resume').hidden = current.mode !== 'rider' || host.read().services[current.train.stock]?.status !== 'paused';
   if (lastMode !== current.mode && current.mode === 'driver') queueMicrotask(() => {
-    if (!retired && host.connector.readForActor('player').mode === 'driver') controls?.element.querySelector('[data-part="driver"]').focus();
+    if (!retired && host.connector.readForActor('player').mode === 'driver') {
+      const target = notched ? [...controls.element.querySelectorAll('[role="slider"]')].find(node => node.getClientRects().length) : controls.element.querySelector('[data-part="driver"]');
+      target?.focus();
+    }
   });
   lastMode = current.mode;
 }
 let unsubscribe = host.connector.subscribe(renderControls);
 mountControls();
+listen($('steam-profile'), 'change', () => {
+  const muted = controls.state.feedback.muted;
+  releaseAll(); controls.dispose(); lastMode = null; mountControls(muted); renderControls();
+  if (host.connector.readForActor('player').mode === 'on-foot') canvas.focus();
+});
 for (const button of document.querySelectorAll('[data-walk]')) {
   listen(button, 'pointerdown', event => { if (event.button !== 0) return; button.setPointerCapture(event.pointerId); walks.set(event.pointerId, button.dataset.walk.split(',').map(Number)); event.preventDefault(); });
   for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) listen(button, type, event => walks.delete(event.pointerId));
@@ -78,7 +88,7 @@ listen(stick, 'pointermove', steer);
 for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) listen(stick, type, event => {
   if (stickPointer === event.pointerId) { walks.delete(event.pointerId); stickPointer = null; $('walk-thumb').style.transform = 'translate(0px, 0px)'; }
 });
-listen(window, 'keydown', event => { if (!walkingEnabled || /^(INPUT|TEXTAREA|BUTTON)$/.test(event.target.tagName)) return;
+listen(window, 'keydown', event => { if (!walkingEnabled || /^(INPUT|TEXTAREA|BUTTON|SELECT)$/.test(event.target.tagName)) return;
   if (['w', 'a', 's', 'd', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) { event.preventDefault(); keys.add(event.key); } });
 listen(window, 'keyup', event => keys.delete(event.key)); listen(window, 'blur', releaseAll);
 listen(document, 'visibilitychange', () => { if (document.hidden) releaseAll(); });
@@ -88,7 +98,8 @@ const saveKey = 'nautilus/two-circuit-yard/v1';
 listen($('save'), 'click', () => { localStorage.setItem(saveKey, host.save()); $('load').disabled = false; $('feedback').textContent = 'Saved actors, resources, moving cars and authority.'; });
 $('load').disabled = !localStorage.getItem(saveKey);
 listen($('load'), 'click', () => { try { const candidate = createTrainYardHost(localStorage.getItem(saveKey));
-  releaseAll(); controls.dispose(); unsubscribe(); host.dispose(); host = candidate; lastMode = null; unsubscribe = host.connector.subscribe(renderControls); mountControls(); renderControls();
+  const muted = controls.state.feedback.muted;
+  releaseAll(); controls.dispose(); unsubscribe(); host.dispose(); host = candidate; lastMode = null; unsubscribe = host.connector.subscribe(renderControls); mountControls(muted); renderControls();
   $('feedback').textContent = 'Restored the same car and resources. Held input is released; the train brakes.';
 } catch (error) { $('feedback').textContent = error.message; } });
 listen($('resume'), 'click', () => { message(host.resumeRide()); renderControls(); });
