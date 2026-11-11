@@ -5,26 +5,29 @@
 | Identity/status | `nautilus-train-controls`, UI candidate v1; no released package export. Engine connector `nautilus-drivable-trains` v1 / `bounded-rail-driver-v1`, fixed pin `32cce619ac1b8930ac7636dc49aa8704ce08cc92`. |
 | Guide/example | [UI guide](README.md), [source fixture](fixture/index.html), [engine contract](../../docs/drivable-trains.md). Coder owns the live session and playable reference; Architect integrates shared exports and the two-circuit playtest. |
 | Required inputs | Exact `TrainConnector`, actor ID, one host-provided HUD container, its existing walking element, `setWalkingEnabled(enabled)` and focus restoration. The disabling callback must clear the host's held walking input. |
-| Optional inputs | Unique `newId(kind)` allocator (default UUID), requested initial power (default35%), `focusWalking()` and `onError(error,{phase})`. IDs must be fresh, synchronous and stable; no world mutations inside allocation. |
-| Units/space | UI fits a roughly288–354 CSS px HUD slot, reflowed within safe areas. Host measures that slot for camera/viewport framing. Speed comes in m/s and displays as km/h; no unit changes in commands. Spatial axes/collision are inapplicable to this DOM part. |
+| Optional inputs | Unique `newId(kind)` allocator (default UUID), requested initial power (default 35%), host `muted` preference, `focusWalking()` and `onError(error,{phase})`. IDs must be fresh, synchronous and stable; no world mutations inside allocation. |
+| Units/space | UI fits a roughly 288–354 CSS px HUD slot, reflowed within safe areas. Host measures that slot for camera/viewport framing. Speed comes in m/s and displays as km/h; no unit changes in commands. Spatial axes/collision are inapplicable to this DOM part. |
 | Actions | Snapshot-owned Enter/Exit tuples; local F/N/R and power request; exclusive per-gesture drive lease; exact-original-lease release. Authoritative validation/commit stays in Core/host. No walking or train simulation is duplicated. |
 | Lifecycle | One post-commit invalidation subscription. Blur/hidden/modal/focus loss/pointer release/cab change/disposal clear held power. `setBlocked(true)` before opening a host modal; false does not resume power. Dispose UI before retiring its borrowed session. |
 | Persistence | Owns no save. Do not persist pointers, keys or lease IDs. Real restore revokes held input and applies neutral/full brake through the connector policy. Preserve World/Miniature and portable railway saves in Core. |
-| Game decisions | HUD positioning and camera-safe area, theme, input focus, pause/menus, audio, actual actors/entrances/landing permissions and host-only passenger service. Coal tenders acquire no riding action from artwork. |
+| Game decisions | HUD positioning and camera-safe area, input focus, pause/menus, saved audio preference, actual actors/entrances/landing permissions and host-only passenger service. Skin is chosen from authoritative stock. Coal tenders acquire no riding action from artwork. |
 | Evidence boundary | Fixed fixture is always disconnected. Browser protocol tests can establish UI release/ownership behavior, not actual train motion/boarding or native content. Real steam/electric loops, moving coach ride, stopped platform exit and game adoption require Architect's combined playtest. |
 
 ```js
 import {mountTrainControls} from './packages/train-ui/index.js';
-// Load packages/train-ui/style.css. session is the fixed real host connector,
+// Load style.css with its adjacent art/steam-cab-surface.svg. session is the real connector,
 // not a replacement simulation. Keep the existing walking control instance.
 const ui = mountTrainControls(hudSlot, {
   session, actorId: playerId, walkingElement: existingJoystick.element,
   setWalkingEnabled(enabled) { existingJoystick.setEnabled(enabled); },
-  focusWalking() { gameInputSurface.focus(); }
+  focusWalking() { gameInputSurface.focus(); },
+  // muted: settings.audioMuted,
 });
 // Before host modal/scene pause: ui.setBlocked(true).
 // After closing: ui.setBlocked(false). Old held power does not resume.
 // On selected actor replacement: ui.setActor(nextActorId).
+// On audio setting changes: ui.setMuted(settings.audioMuted).
+// Before unmount, persist ui.state.feedback.muted in host settings if desired.
 // On unmount: ui.dispose(); then retire the owned game session separately.
 ```
 
@@ -37,36 +40,62 @@ walking stays disabled even if the train UI is disposed; the host must provide
 its next input/menu owner. Restore walking/focus only on confirmed on-foot state.
 
 `mountTrainControls` returns `element`, `refresh()`, `releaseInput(reason)`,
-`setBlocked(bool)`, `setActor(id)`, readonly presentation `state`, and idempotent
+`setBlocked(bool)`, `setActor(id)`, `setMuted(bool)`, readonly presentation `state`, and idempotent
 `dispose()`. It reports synchronous dispatch outcomes but rereads for display.
 The UI cannot turn a successful callback or preview into occupancy/drive authority.
 Unknown/malformed transport outcomes disable controls and report the error;
 never automatically replay an action with a replacement ID.
 
-Theme variables are `--rail-panel`, `--rail-ink`, `--rail-muted`, `--rail-brass`
-and `--rail-brake` on `.nautilus-train-controls`. Keep brake/readout contrast,
-labels, focus outline and reduced-motion behavior when reskinning. Steam and
-electric share the restrained enamel/cream/brass panel. The walking joystick
+Theme variables include `--rail-panel`, `--rail-ink`, `--rail-muted`, `--rail-brass`,
+`--rail-edge` and `--rail-recess` on `.nautilus-train-controls`; `data-stock` comes
+only from the connector. Steam also loads its original painted SVG surface.
+Keep brake/readout contrast, labels, 44px targets, focus outline and reduced
+motion behavior when reskinning. The walking joystick
 returns in its original host slot; no second keyboard/movement owner is created.
+
+Steam reverser drag selects F/N/R; it does not start motion. Native direction
+buttons and F/N/R keys remain alternatives. Drag cancellation restores the prior
+selection. Grabbing the chain starts full brake, including while holding power;
+pointerup/cancel releases only that gesture. The ring's travel is presentation,
+not a second force model. Space/Enter and B remain available.
+
+Commuter lamps mean accepted traction power with no brake/signal hold, confirmed
+occupancy (**ABOARD**), and confirmed brake. No physical door sensor exists in
+this connector. Do not relabel occupancy as door-closed or infer it from artwork.
+
+Sounds require a trusted user gesture and confirmed transitions from this UI's
+accepted actions. Steam whistles at first actual departure on its held lease,
+once per boarding. Electric chimes on committed boarding and exit. There is no
+mount/restore/repeat/throttle-update cue. The mute button and `setMuted` stop
+current sounds; unmute never replays an old one. Audio contexts are lazy, owned
+by this component and closed on disposal. Host settings own persistence. These
+original synthesized sounds approximate whistle/chime; replace them deliberately
+if a game requires recordings. Quiet success text remains accessible; blocked
+actions keep visible reasons. See [review and limits](evidence/MECHANICAL-REVIEW.md).
 
 ## Design evaluation
 
-Accuracy: prefer a separate direction request and prominent brake over a single
-unlabelled throttle joystick. Requested state remains distinct from confirmed
-speed/direction/power. Cab-relative commands are passed unchanged; Core owns
-stop-before-reverse, signals and occupancy. This is game control mapping, not
-calibrated locomotive instrumentation.
+Accuracy: prefer the separate direction request, confirmed gauge and explicit
+brake. The lever suggests a locomotive reverser; the pull-chain brake is an
+intentional game fiction requested for intuitive use, not a historical claim.
+The electric lamps show only available confirmed fields. Core retains
+stop-before-reverse, signals, occupancy and cab-relative meaning. No pressure,
+fuel, physical door state or traction-force measurement is invented.
 
-Efficiency: the component renders on invalidation/input, reuses its panel DOM,
-borrows the host clock and creates no renderer/textures. This is a code-based
-estimate; no hardware/FPS benchmark is claimed. Keep the same small controls for
-both stock profiles instead of separate control systems.
+Efficiency: prefer one shared input/lease system with two CSS/SVG presentations.
+It renders on invalidation/input, reuses DOM, borrows the host clock and creates
+no renderer or polling loop. The small SVG has no heavy filters; WebAudio is lazy
+and cues are sparse with bounded duration. These are code-based cost estimates,
+not hardware/FPS measurements.
 
-Narrative: the painted green enamel, warm brass, cream dial and red brake follow
-the existing Farmyard/Nautilus art language and original railway timber/steel.
-Prefer this restrained shared skin for the requested steam/electric playtest;
-games can change theme tokens. This is a visual judgment to review at desktop
-and narrow-phone sizes, including actual shared stock/actors in the final host.
+Narrative: for steam/Tinderbox-style machinery, prefer the warm worn ochre,
+timber, dark iron, brass dial, reverser and chain over the prior common green
+button panel. For the commuter train, prefer cool steel, restrained controls,
+state lamps and a short chime. This is a visual judgment, reviewed at desktop,
+390px and 320px. [Immutable visual references](art/references.json) informed the
+direction; all new art/code/audio is original, with no donor bytes imported.
+Adoption status: implemented in this isolated candidate; Architect owns the
+combined live stock/actor review and final package/example integration.
 
 ## Adoption checklist
 
@@ -78,4 +107,6 @@ and narrow-phone sizes, including actual shared stock/actors in the final host.
 - [ ] Release on pointer cancel/up/lost capture, keyup, blur/hidden/modal, actor/cab change and disposal; never resume automatically.
 - [ ] Restore focus/walking only after confirmed disembark; preserve borrowed session on unmount.
 - [ ] Verify desktop/touch/keyboard,320px layout, safe areas and readable brake/refusal states.
+- [ ] Include the adjacent original SVG surface in static/package copies; load the scoped stylesheet.
+- [ ] Bind saved audio preference; verify whistle/chime volume on speakers/headphones, trusted input, mute and scene disposal in the real host.
 - [ ] Run final project/package/browser gates on the integrated result; commit exact pins and stop disposable helpers.

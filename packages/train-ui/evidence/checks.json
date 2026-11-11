@@ -1,16 +1,23 @@
 {
   "status": "passed",
   "connectorPin": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
-  "browserGroups": 29,
+  "browserGroups": 45,
   "viewports": [
     "1440×1000",
     "390×844",
+    "320×844",
     "320×700"
   ],
-  "captures": 5,
+  "captures": 12,
   "types": {
     "version": "Version 5.8.3",
     "negativeControls": 5
+  },
+  "audio": {
+    "tests": 11,
+    "failed": 0,
+    "node": "v24.15.0",
+    "browser": "native WebAudio lifecycle; headless speaker output muted"
   },
   "importWithoutDOM": true,
   "proof": {
@@ -20,14 +27,14 @@
     "nativeArtAcceptance": false
   },
   "helpers": {
-    "recordedBrowserLifetimes": 4,
+    "recordedBrowserLifetimes": 7,
     "primaryExactLifetimesExited": true,
     "allRecordedPortsReleased": true,
     "retained": []
   },
   "fullProjectGates": {
     "status": "DELEGATED_TO_ARCHITECT",
-    "reason": "Architect explicitly owns one full check/test/upstream/build sweep on the combined train playtest before final push; no duplicate intermediate1198-test sweep",
+    "reason": "Bounded revision uses focused UI/browser/type checks only. Architect owns full check/test/upstream/build on the combined train playtest.",
     "requiredBefore": "final integrated delivery"
   },
   "sourceInputs": [

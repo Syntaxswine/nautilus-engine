@@ -5,6 +5,10 @@
   "module": "packages/train-ui/index.js",
   "styles": "packages/train-ui/style.css",
   "types": "packages/train-ui/index.d.ts",
+  "styleAssets": ["packages/train-ui/art/steam-cab-surface.svg"],
+  "visualReferences": "packages/train-ui/art/references.json",
+  "stockSkins": {"source": "snapshot.train.stock", "steam": "painted mechanical reverser and pull-chain brake", "electric": "commuter controls and confirmed traction/occupancy/brake lamps"},
+  "audio": {"kind": "original WebAudio approximation", "requires": "trusted gesture and confirmed own-action transition", "hostPreference": "muted option / setMuted / state.feedback.muted", "ownsAudioContext": true},
   "guide": "packages/train-ui/USAGE-CARD.md",
   "example": "packages/train-ui/fixture/index.html",
   "connector": {"id": "nautilus-drivable-trains", "version": 1, "profile": "bounded-rail-driver-v1", "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92"},
@@ -12,5 +16,5 @@
   "ownsSavedState": false,
   "ownsSimulation": false,
   "publicPackageExport": false,
-  "livePlaytest": "Queued: Coder owns fixed live session/reference; Architect owns package/example integration and combined two-circuit acceptance."
+  "livePlaytest": "Architect owns revised-UI acceptance in the real two-circuit host; this checkout remains a disconnected presentation fixture."
 }

@@ -4,9 +4,12 @@ export interface TrainControls {
   refresh(): void;
   releaseInput(reason?: string): boolean;
   setBlocked(blocked: boolean): void;
+  setMuted(muted: boolean): void;
   setActor(actorId: string): void;
   readonly state: Readonly<{actorId: string; mode: 'on-foot'|'driver'|'rider'|null; requestedDirection: Direction;
-    requestedPower: number; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean; result: DispatchResult|null}>;
+    requestedPower: number; leaseId: string|null; blocked: boolean; fault: boolean; disposed: boolean;
+    feedback: Readonly<{muted: boolean; unlocked: boolean; played: number; lastCue: 'steam-departure'|'electric-boarded'|'electric-exited'|null; activeSounds: number; contextState: string}>;
+    result: DispatchResult|null}>;
   dispose(): void;
 }
 export function mountTrainControls(container: HTMLElement, options: {
@@ -18,5 +21,7 @@ export function mountTrainControls(container: HTMLElement, options: {
   focusWalking?: () => void;
   newId?: (kind: string) => string;
   initialPower?: number;
+  /** Host preference. Audio still requires a trusted user gesture. */
+  muted?: boolean;
   onError?: (error: unknown, context: {phase: string}) => void;
 }): TrainControls;
