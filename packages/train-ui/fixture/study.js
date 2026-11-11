@@ -8,7 +8,7 @@ const commands = [], results = [], errors = [];
 let controls, selected = 'steam', walkingEnabled = false;
 const descriptions = {
   steam: 'Steam locomotive · driving cab', electric: 'Electric train · rear-facing cab',
-  walking: 'On foot · steam cab entrance', riding: 'Passenger coach · at platform', service: 'Passenger coach · in motion',
+  walking: 'On foot · steam cab entrance', riding: 'Passenger coach · at platform', service: 'Passenger coach · in motion', commuter: 'Electric passenger coach · at platform',
   signal: 'Steam cab · waiting at the crossing', reverse: 'Steam cab · stop before reversing',
   tender: 'Coal tender · no boarding action'
 };
@@ -19,9 +19,9 @@ function variant(mode) {
     readForActor(actorId) {
       const state = core.readForActor(actorId);
       if (story === 'tender') state.actions = [];
-      if (story === 'electric') {
+      if (story === 'electric' || story === 'commuter') {
         state.trainId = 'train/electric';state.carId = 'train/electric/car/2';state.cabFacing = -1;
-        state.train.trainId = state.trainId;state.train.stock = 'electric';state.train.speedMps = 3.45;state.train.signedSpeedMps = -3.45;state.train.stopped = false;
+        state.train.trainId = state.trainId;state.train.stock = 'electric';state.train.speedMps = story === 'electric' ? 3.45 : 0;state.train.signedSpeedMps = -state.train.speedMps;state.train.stopped = story === 'commuter';
         for (const action of state.actions) { action.command.trainId = state.trainId;action.command.carId = state.carId; }
       }
       if (story === 'service') { state.train.speedMps = 2.8;state.train.signedSpeedMps = 2.8;state.train.stopped = false; }
@@ -45,7 +45,7 @@ function showStory(value) {
   controls?.dispose();selected = value;$('story').value = value;
   $('scene-caption').textContent = descriptions[value];
   $('world-note').textContent = value === 'tender' ? 'No Enter action is offered for the coal tender.' : value === 'electric' ? 'Forward is relative to this rear-facing cab.' : 'Disconnected preview. Every action is refused by the fixed fixture.';
-  const mode = ['walking', 'tender'].includes(value) ? 'on-foot' : ['riding', 'service'].includes(value) ? 'rider' : 'driver';
+  const mode = ['walking', 'tender'].includes(value) ? 'on-foot' : ['riding', 'service', 'commuter'].includes(value) ? 'rider' : 'driver';
   controls = mountTrainControls($('hud-slot'), {session: variant(mode), actorId: 'player', walkingElement: walking,
     setWalkingEnabled(value) { walkingEnabled = value;walking.dataset.enabled = String(value); },
     focusWalking() { $('walk-focus').focus(); }, onError(error, context) { errors.push({message: error.message, phase: context.phase}); }

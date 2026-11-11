@@ -117,6 +117,70 @@
     {
       "name": "native emulated touch tap releases its exact lease and retires cleanly",
       "status": "passed"
+    },
+    {
+      "name": "audio is silent and unallocated on mount",
+      "status": "passed"
+    },
+    {
+      "name": "native reverser drag selects detents without granting motion",
+      "status": "passed"
+    },
+    {
+      "name": "reverser arrow and Home/End keys expose requested direction accessibly",
+      "status": "passed"
+    },
+    {
+      "name": "cancelled reverser gestures restore their prior request on cancel/capture/blur/modal",
+      "status": "passed"
+    },
+    {
+      "name": "native pull-chain drag takes brake priority, moves the grip and releases its exact lease outside",
+      "status": "passed"
+    },
+    {
+      "name": "pull-chain brake keeps existing cancellation and disposal ownership",
+      "status": "passed"
+    },
+    {
+      "name": "authoritative stock switches skins; direction selection never lights traction",
+      "status": "passed"
+    },
+    {
+      "name": "refused power stays visible without optimistic lamps or audio",
+      "status": "passed"
+    },
+    {
+      "name": "commuter traction, occupancy and brake lamps follow confirmed controls and hold state",
+      "status": "passed"
+    },
+    {
+      "name": "native trusted boarding sounds one real WebAudio chime; repeated subscription updates stay silent",
+      "status": "passed"
+    },
+    {
+      "name": "commuter exit chime follows the confirmed on-foot transition",
+      "status": "passed"
+    },
+    {
+      "name": "mute button and host preference suppress cues without deferred playback",
+      "status": "passed"
+    },
+    {
+      "name": "native WebAudio whistle waits for confirmed departure and closes cleanly on disposal",
+      "status": "passed"
+    },
+    {
+      "name": "restored motion and untrusted synthetic control events cannot unlock or replay sounds",
+      "status": "passed"
+    },
+    {
+      "name": "reduced motion removes lever and chain transitions; lamps remain steady",
+      "status": "passed"
+    },
+    {
+      "name": "both stock skins and commuter rider fit desktop,390px and320px with44px targets",
+      "status": "passed"
     }
   ],
   "captures": [
@@ -149,6 +213,55 @@
       "width": 320,
       "height": 700,
       "story": "signal"
+    },
+    {
+      "file": "mechanical/desktop-steam.png",
+      "width": 1440,
+      "height": 1000,
+      "story": "steam",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/desktop-electric.png",
+      "width": 1440,
+      "height": 1000,
+      "story": "electric",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/phone-steam.png",
+      "width": 390,
+      "height": 844,
+      "story": "steam",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/phone-electric.png",
+      "width": 390,
+      "height": 844,
+      "story": "electric",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/narrow-steam.png",
+      "width": 320,
+      "height": 844,
+      "story": "steam",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/narrow-electric.png",
+      "width": 320,
+      "height": 844,
+      "story": "electric",
+      "scope": "component"
+    },
+    {
+      "file": "mechanical/phone-commuter-rider.png",
+      "width": 390,
+      "height": 844,
+      "story": "commuter",
+      "scope": "component"
     }
   ],
   "fixture": "Actual fixed connector, always FIXTURE_ONLY",
@@ -161,18 +274,18 @@
   "cleanup": {
     "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
     "purpose": "Train HUD fixed-fixture design and input lifecycle review",
-    "stoppedAt": "2026-11-11T04:26:33.444Z",
+    "stoppedAt": "2026-11-11T05:35:33.080Z",
     "process": {
-      "pid": 16800,
-      "creationFiletime": "134388447847521956",
+      "pid": 39564,
+      "creationFiletime": "134388489198043257",
       "executable": "C:\\Program Files\\nodejs\\node.exe"
     },
     "browser": {
-      "pid": 1136,
-      "creationFiletime": "134388447850788847",
+      "pid": 55668,
+      "creationFiletime": "134388489201232280",
       "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
     },
-    "port": 59844,
+    "port": 51994,
     "httpClosed": true,
     "browserClosed": true,
     "method": "Supported Playwright browser close and HTTP close in finally",
