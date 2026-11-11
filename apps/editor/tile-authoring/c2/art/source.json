@@ -1,0 +1,1940 @@
+{
+  "schemaVersion": 1,
+  "id": "nautilus.private-editor.browser-appearance-art",
+  "scope": "Reviewed private browser-renderer and portable-decoder source promotion only; formal source/Core/meter/authority pairing UNBOUND",
+  "sourceCommit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+  "parentCommit": "d4376bfa012683fe1848295e7a9a1a70b2eefc90",
+  "strictCheckpoint": "78769938f0d18e52d057b75867e1e544c5c0b69e",
+  "acceptedDecoder": "a66c78332c90fda33c16ffa7518a358b60249169",
+  "pakoCommit": "3c06216518c259b569a5168dee867e6dabbe5160",
+  "requiredGitCommits": [
+    "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+    "d4376bfa012683fe1848295e7a9a1a70b2eefc90",
+    "78769938f0d18e52d057b75867e1e544c5c0b69e",
+    "a66c78332c90fda33c16ffa7518a358b60249169",
+    "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+    "06dee5b01eeefddbe5e92a3f71d4382dffad0986"
+  ],
+  "runtimeModules": 29,
+  "entry": "apps/editor/tile-authoring/c2/art/browser-owner/owner.mjs",
+  "sharedThreeEntry": "packages/render-effects/three.js",
+  "sharedViewManager": "apps/editor/smart-tile/views.js",
+  "baselineURL": "/assets/buildings/painted-materials-v2.png",
+  "singleDecoderPath": "apps/editor/tile-authoring/c2/art/vendor/portable-png/png.mjs",
+  "pakoExecutableModules": 7,
+  "pakoOriginalSources": 7,
+  "pakoOriginalSourcesExecutable": false,
+  "publicRegistration": false,
+  "sourceCapture": "UNBOUND",
+  "meter": "UNBOUND",
+  "authority": "UNBOUND",
+  "hostWAL": "UNBOUND",
+  "workflowAcceptance": false,
+  "runtime": [
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/data-ranges.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/data-ranges.mjs",
+        "gitBlob": "ab2e8d902b840a6e00b788a7c2be3ccb1f7d7e28",
+        "bytes": 6573,
+        "sha256": "3890a00a313b20ff67ab500d8499e79d66e0d9f050340af0c1f1e2c08faa4d7c"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        },
+        {
+          "sourceSpecifier": "./sampler-state.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/sampler-state.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/sampler-state.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/data-ranges.mjs",
+        "bytes": 6573,
+        "sha256": "3890a00a313b20ff67ab500d8499e79d66e0d9f050340af0c1f1e2c08faa4d7c"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/data.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/data.mjs",
+        "gitBlob": "fe3d8499ecf5d9071f2b3f7d3c0f889a09ce1112",
+        "bytes": 3259,
+        "sha256": "e8965af16b22e5510e0ab26e018544dcdfbcd371fa69f967165a17fe26006562"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/sha256.mjs'",
+          "to": "'../common/sha256.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/sha256.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/sha256.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/data.mjs",
+        "bytes": 3248,
+        "sha256": "c51580c6913d7983ad2893bd1b683254ff7bb6ed4434717f52dd162ab01e1313"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/decoder.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/decoder.mjs",
+        "gitBlob": "744b2bc039b8e1f29afb52d375bbdfb5dd6633b6",
+        "bytes": 4635,
+        "sha256": "6197d78825bda2e7eb9f1164ec4d037147176471eebdd90109880f1d4d19233b"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/png.mjs'",
+          "to": "'../vendor/portable-png/png.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/portable-png/png.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/sha256.mjs'",
+          "to": "'../common/sha256.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../art/c2-runtime/png.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/png.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/portable-png/png.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/sha256.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/sha256.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        },
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/decoder.mjs",
+        "bytes": 4626,
+        "sha256": "6907638a50cd9eb5e8ce83115304236926af7d238d55232282c5fdf787b80c97"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/ledger.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/ledger.mjs",
+        "gitBlob": "1f637c054efcbc2802a792ef238533c2447c399f",
+        "bytes": 5910,
+        "sha256": "950ba7f702086224354d5194b0f60b45273f7dfe1f6efd4d1c3a17cfe5b7c38f"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/typed-array-storage.mjs'",
+          "to": "'../common/typed-array-storage.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../art/c2-runtime/typed-array-storage.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        },
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/ledger.mjs",
+        "bytes": 5899,
+        "sha256": "f561dbb61d856c47eb2fda4737b67b2997b6d6945c7e9928812eda2ed81915aa"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/owner.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/owner.mjs",
+        "gitBlob": "8b23e1e92ab98adf480cc016511d4d2067901dfb",
+        "bytes": 22903,
+        "sha256": "038371a6e1cf947bf135e3cf7a3dd1330f41cc53d51f04ce571beac993ef463c"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/geometry-state.mjs'",
+          "to": "'../common/geometry-state.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/geometry-state.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/typed-array-storage.mjs'",
+          "to": "'../common/typed-array-storage.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/sha256.mjs'",
+          "to": "'../common/sha256.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/shader.mjs'",
+          "to": "'../common/shader.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/shader.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/finish-kernel.mjs'",
+          "to": "'../common/finish-kernel.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/finish-kernel.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/artwork.mjs'",
+          "to": "'../common/artwork.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/artwork.mjs"
+        },
+        {
+          "from": "'../../../../packages/tile-visuals/three.js'",
+          "to": "'../../../../../../packages/tile-visuals/three.js'",
+          "occurrences": 1,
+          "targetDependency": "packages/tile-visuals/three.js"
+        },
+        {
+          "from": "'../../../../packages/tile-visuals/mesh.js'",
+          "to": "'../../../../../../packages/tile-visuals/mesh.js'",
+          "occurrences": 1,
+          "targetDependency": "packages/tile-visuals/mesh.js"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./sampler-state.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/sampler-state.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/sampler-state.mjs"
+        },
+        {
+          "sourceSpecifier": "./ledger.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/ledger.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/ledger.mjs"
+        },
+        {
+          "sourceSpecifier": "./webgl.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/webgl.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/webgl.mjs"
+        },
+        {
+          "sourceSpecifier": "./data-ranges.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/data-ranges.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/data-ranges.mjs"
+        },
+        {
+          "sourceSpecifier": "./decoder.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/decoder.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/decoder.mjs"
+        },
+        {
+          "sourceSpecifier": "./work.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/work.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/work.mjs"
+        },
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/geometry-state.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/geometry-state.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/geometry-state.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/typed-array-storage.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/sha256.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/sha256.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/shader.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/shader.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/shader.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/finish-kernel.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/finish-kernel.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/finish-kernel.mjs"
+        },
+        {
+          "sourceSpecifier": "./sparse.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/sparse.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/sparse.mjs"
+        },
+        {
+          "sourceSpecifier": "./data.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/data.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/data.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/artwork.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/artwork.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/artwork.mjs"
+        },
+        {
+          "sourceSpecifier": "../../../../packages/tile-visuals/three.js",
+          "source": "packages/tile-visuals/three.js",
+          "target": "packages/tile-visuals/three.js"
+        },
+        {
+          "sourceSpecifier": "../../../../packages/tile-visuals/mesh.js",
+          "source": "packages/tile-visuals/mesh.js",
+          "target": "packages/tile-visuals/mesh.js"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/owner.mjs",
+        "bytes": 22849,
+        "sha256": "54c91afb046faf1616464cea4956fa60dc2bebed2a0f858be32dedb98eb9bcda"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+        "gitBlob": "635275fd670e097e169947ac73f5e1674fcd850f",
+        "bytes": 1647,
+        "sha256": "9947bb41db49f3b18c46ee69ffb0b4dc9b14efeb8f7cd61b832522f83e78d3ec"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs",
+        "bytes": 1647,
+        "sha256": "9947bb41db49f3b18c46ee69ffb0b4dc9b14efeb8f7cd61b832522f83e78d3ec"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/sampler-state.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/sampler-state.mjs",
+        "gitBlob": "effd1431d34324ef0b86265653c72f0bd52d4744",
+        "bytes": 2700,
+        "sha256": "03bb3d6e3ef1887f86cad53d16a1acbc8eef890fc82500a260d81273710c0010"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/typed-array-storage.mjs'",
+          "to": "'../common/typed-array-storage.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../art/c2-runtime/typed-array-storage.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        },
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/sampler-state.mjs",
+        "bytes": 2689,
+        "sha256": "bac21068e3ad3142b39571ba8697c4bd104c92d53f45c68eac7e7ea08478ef91"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/sparse.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/sparse.mjs",
+        "gitBlob": "3775673bb5c6bb1dcc81aa462c13bcfe6de18c63",
+        "bytes": 9788,
+        "sha256": "392e004ffec131169df1c345843b1adede24cb25d9d8ae3f530eff0f240bcd17"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/common.mjs'",
+          "to": "'../common/common.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/coordinates.mjs'",
+          "to": "'../common/coordinates.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/coordinates.mjs"
+        },
+        {
+          "from": "'../../art/c2-runtime/artwork.mjs'",
+          "to": "'../common/artwork.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/artwork.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../art/c2-runtime/common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/coordinates.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/coordinates.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/coordinates.mjs"
+        },
+        {
+          "sourceSpecifier": "../../art/c2-runtime/artwork.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/artwork.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/artwork.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/sparse.mjs",
+        "bytes": 9755,
+        "sha256": "bc742ed695fdbe6d987fd3fe11b78f03b76feea45385f79aa7aa14130c8d3e15"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/webgl.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/webgl.mjs",
+        "gitBlob": "e354c3a8b484f84d4ef9285ce10f18bd55e1a7e6",
+        "bytes": 13229,
+        "sha256": "1d4f2ade47f7baab91f7a05fa5d7ed343a3fdf937479c4ebbc0a84328dcf6db7"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [
+        {
+          "from": "'../../art/c2-runtime/typed-array-storage.mjs'",
+          "to": "'../common/typed-array-storage.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../art/c2-runtime/typed-array-storage.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        },
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/webgl.mjs",
+        "bytes": 13218,
+        "sha256": "d2cb6134e0446fa1dcd26463941a9eacd5b4d2e0d471f54ea95ad4df9f13d68f"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/work.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/work.mjs",
+        "gitBlob": "e678f324ff29451bac942bad4a12ffaf6fe81a2d",
+        "bytes": 3617,
+        "sha256": "c3d2c7010f7d459545725e40e27a7da70de39a419c5332fa739a90559702d7c2"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./policy.mjs",
+          "source": "candidates/tile-authoring/browser-art/owner-v1/policy.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/browser-owner/policy.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/work.mjs",
+        "bytes": 3617,
+        "sha256": "c3d2c7010f7d459545725e40e27a7da70de39a419c5332fa739a90559702d7c2"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/artwork.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/artwork.mjs",
+        "gitBlob": "02a15d102a3623471aefa67facf219b928efbdc3",
+        "bytes": 145800,
+        "sha256": "8068bc9df58368c4fa876bd6eaf7e8c248d66dbcc6ef4af246323fa5d5f49b94"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/artwork.mjs",
+        "bytes": 145800,
+        "sha256": "8068bc9df58368c4fa876bd6eaf7e8c248d66dbcc6ef4af246323fa5d5f49b94"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/common.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+        "gitBlob": "de2aa27b5456c5f6453bbd02478cad57ecb063a3",
+        "bytes": 2955,
+        "sha256": "c5fdd0863fa0b4baf72cadc016ec7fc41f23907f2b04922164df73dac8fd8520"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [
+        {
+          "from": "'../../../../packages/tiles-core/index.js'",
+          "to": "'../../../../../../packages/tiles-core/index.js'",
+          "occurrences": 1,
+          "targetDependency": "packages/tiles-core/index.js"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "../../../../packages/tiles-core/index.js",
+          "source": "packages/tiles-core/index.js",
+          "target": "packages/tiles-core/index.js"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/common.mjs",
+        "bytes": 2961,
+        "sha256": "90773a9d4b0999fa75861e23d923e4087ab3ae5f58c7105543c176ab14cf16bf"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/coordinates.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/coordinates.mjs",
+        "gitBlob": "3275ddaa3debeeaac2cf5c288b1d4ed1f4e845d1",
+        "bytes": 1797,
+        "sha256": "4ac5a7ffc2ba70c4daf97d605ed3026f545d2130e630857892845cc01e0a745e"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [
+        {
+          "from": "'../c2-decoder-proof/sampler.mjs'",
+          "to": "'./sampler.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/sampler.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "sourceSpecifier": "../c2-decoder-proof/sampler.mjs",
+          "source": "candidates/tile-authoring/art/c2-decoder-proof/sampler.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/sampler.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/coordinates.mjs",
+        "bytes": 1779,
+        "sha256": "217503aa0cb99dbf567a4debb1ff4a1c78a0bc0d80fbebe5b88a5a4625e03924"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/data-atlas.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/data-atlas.mjs",
+        "gitBlob": "30a7bf38ea9e7b3d72d8f93b0704584e8eb86903",
+        "bytes": 5729,
+        "sha256": "c6890ba7c64cbbb7faedebb934335c9e0256692bd69cf00c2335f8b32ffa1467"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/data-atlas.mjs",
+        "bytes": 5729,
+        "sha256": "c6890ba7c64cbbb7faedebb934335c9e0256692bd69cf00c2335f8b32ffa1467"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/finish-kernel.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/finish-kernel.mjs",
+        "gitBlob": "81b7241095e60a8ac083ce171bdc4d5312146294",
+        "bytes": 1892,
+        "sha256": "1447d91085b084298f83c64e116a00ffc5e0eff1d9fe0efcbecc9dc8774592c1"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/finish-kernel.mjs",
+        "bytes": 1892,
+        "sha256": "1447d91085b084298f83c64e116a00ffc5e0eff1d9fe0efcbecc9dc8774592c1"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/geometry-state.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/geometry-state.mjs",
+        "gitBlob": "1d60a1bf75bd6eb7f6211a2b5e9dcfa0d43ead7c",
+        "bytes": 5003,
+        "sha256": "ba0eef8ad7017a20bdc89cfd54fa0fa3a6e7771e8e09253ca23657b594708cf8"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "sourceSpecifier": "./typed-array-storage.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/geometry-state.mjs",
+        "bytes": 5003,
+        "sha256": "ba0eef8ad7017a20bdc89cfd54fa0fa3a6e7771e8e09253ca23657b594708cf8"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/sha256.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/sha256.mjs",
+        "gitBlob": "c1ec7e392e9d9f93b5b11761c71d87108d7a1843",
+        "bytes": 2528,
+        "sha256": "9bce02f4745f3ad85183c7781bcc05cb5760de52b8b2433cb1cb14786b696dbe"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/sha256.mjs",
+        "bytes": 2528,
+        "sha256": "9bce02f4745f3ad85183c7781bcc05cb5760de52b8b2433cb1cb14786b696dbe"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/shader.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/shader.mjs",
+        "gitBlob": "09d3edd26b01f91e231a838c69293f67adbb755f",
+        "bytes": 6324,
+        "sha256": "63c060e3900fa348725ebec5fd0a86e77e763b77c47bc4057739342ddbbc636f"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [
+        {
+          "from": "'../../../../packages/tile-finishes/catalogue.js'",
+          "to": "'../../../../../../packages/tile-finishes/catalogue.js'",
+          "occurrences": 1,
+          "targetDependency": "packages/tile-finishes/catalogue.js"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "sourceSpecifier": "./finish-kernel.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/finish-kernel.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/finish-kernel.mjs"
+        },
+        {
+          "sourceSpecifier": "../../../../packages/tile-finishes/catalogue.js",
+          "source": "packages/tile-finishes/catalogue.js",
+          "target": "packages/tile-finishes/catalogue.js"
+        },
+        {
+          "sourceSpecifier": "./data-atlas.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/data-atlas.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/data-atlas.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/shader.mjs",
+        "bytes": 6330,
+        "sha256": "a071d8c0a21987a84e29c1cd2e7aa59abd674c3c78ac938de331acc8bcf83f00"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/typed-array-storage.mjs",
+        "gitBlob": "371e07e7e53a79b6044485197c3dca6e48668d0e",
+        "bytes": 2067,
+        "sha256": "a89bd0cbe97a42a75b4e949326129b74aa9e6568e5709d71b79b3635f252c3b1"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/typed-array-storage.mjs",
+        "bytes": 2067,
+        "sha256": "a89bd0cbe97a42a75b4e949326129b74aa9e6568e5709d71b79b3635f252c3b1"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/common/sampler.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/sampler.mjs",
+        "gitBlob": "1604729612c22d2bd098e1cccf0eaec3ddcbbb3a",
+        "bytes": 3311,
+        "sha256": "08197ead61bd6adbd95792d82c15b60619fadcd72cdb581367b0b4d16a4fde74"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/portable-png/NOTICE.decoder.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/common/sampler.mjs",
+        "bytes": 3311,
+        "sha256": "08197ead61bd6adbd95792d82c15b60619fadcd72cdb581367b0b4d16a4fde74"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/portable-png/png.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/png.mjs",
+        "gitBlob": "d7fab6c0def95fa158d62fb7f263842a3265388c",
+        "bytes": 8203,
+        "sha256": "137190512949b288a459bf532a399f62de261d46886f29d59d1d56d39b1733b8"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [
+        {
+          "from": "'./sha256.mjs'",
+          "to": "'../../common/sha256.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        },
+        {
+          "from": "'./common.mjs'",
+          "to": "'../../common/common.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "from": "'./pako-loader.mjs'",
+          "to": "'../pako/3c06216518c259b569a5168dee867e6dabbe5160/loader.mjs'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/loader.mjs"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./sha256.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/sha256.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/sha256.mjs"
+        },
+        {
+          "sourceSpecifier": "./common.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/common.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/common/common.mjs"
+        },
+        {
+          "sourceSpecifier": "./pako-loader.mjs",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-loader.mjs",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/loader.mjs"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/portable-png/png.mjs",
+        "bytes": 8267,
+        "sha256": "b17de5d892284dbbca808956d0dbf8d911605ba9eed06721efc3abbab49a0c2a"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/loader.mjs",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-loader.mjs",
+        "gitBlob": "6c3cca2a8b60de9ad5d4d4d5e7a12946d9273ed8",
+        "bytes": 1129,
+        "sha256": "3cf2ec3e385d71bc00fef9b3ecc6704b78875b2e9fcce9f27e9cb899a586e670"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [
+        {
+          "from": "'./pako-esm/inflate.js'",
+          "to": "'./esm/inflate.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inflate.js"
+        },
+        {
+          "from": "'./pako-esm/zstream.js'",
+          "to": "'./esm/zstream.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/zstream.js"
+        },
+        {
+          "from": "'./pako-esm/adler32.js'",
+          "to": "'./esm/adler32.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/adler32.js"
+        },
+        {
+          "from": "'./pako-esm/crc32.js'",
+          "to": "'./esm/crc32.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/crc32.js"
+        },
+        {
+          "from": "'./pako-esm/inffast.js'",
+          "to": "'./esm/inffast.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inffast.js"
+        },
+        {
+          "from": "'./pako-esm/inftrees.js'",
+          "to": "'./esm/inftrees.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inftrees.js"
+        },
+        {
+          "from": "'./pako-esm/constants.js'",
+          "to": "'./esm/constants.js'",
+          "occurrences": 1,
+          "targetDependency": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/constants.js"
+        }
+      ],
+      "imports": [
+        {
+          "sourceSpecifier": "./pako-esm/inflate.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/inflate.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inflate.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/zstream.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/zstream.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/zstream.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/adler32.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/adler32.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/adler32.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/crc32.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/crc32.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/crc32.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/inffast.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/inffast.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inffast.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/inftrees.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/inftrees.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inftrees.js"
+        },
+        {
+          "sourceSpecifier": "./pako-esm/constants.js",
+          "source": "candidates/tile-authoring/art/c2-runtime/pako-esm/constants.js",
+          "target": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/constants.js"
+        }
+      ],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/loader.mjs",
+        "bytes": 1094,
+        "sha256": "8ebf377c0c85eb38ce066e98bfd30cd18882f8a19a0caba31845c9ae76292dbe"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/adler32.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/adler32.js",
+        "gitBlob": "2bf40b70a8888dadc6c23a85845eba9321f82b68",
+        "bytes": 2015,
+        "sha256": "2373088845c3a2dd08a85af217202a831dfe7914dbc124c261878e8960203a70"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/adler32.js",
+        "bytes": 2015,
+        "sha256": "2373088845c3a2dd08a85af217202a831dfe7914dbc124c261878e8960203a70"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/constants.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/constants.js",
+        "gitBlob": "3e8ee5ed63e06c112644de01364939d0e60b7083",
+        "bytes": 2625,
+        "sha256": "191844c9497b57af5c6fd0f38c556481cdd45aa5e1239ab74d3c174c0d0fac03"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/constants.js",
+        "bytes": 2625,
+        "sha256": "191844c9497b57af5c6fd0f38c556481cdd45aa5e1239ab74d3c174c0d0fac03"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/crc32.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/crc32.js",
+        "gitBlob": "21c44c43f57112a0b263efacf54fd6b23f384812",
+        "bytes": 2111,
+        "sha256": "5b071d7cf485cd5018ec8dc606e5b5836537544da2ac410fe6ea84c6ad3bddb8"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/crc32.js",
+        "bytes": 2111,
+        "sha256": "5b071d7cf485cd5018ec8dc606e5b5836537544da2ac410fe6ea84c6ad3bddb8"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inffast.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/inffast.js",
+        "gitBlob": "08febbc9626faaa91029407372edc9a92bb10d29",
+        "bytes": 13451,
+        "sha256": "e9c5dcedb5f2cb8430ae7975235c57cf4223dda119ba24b28b22621c0defa62d"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inffast.js",
+        "bytes": 13451,
+        "sha256": "e9c5dcedb5f2cb8430ae7975235c57cf4223dda119ba24b28b22621c0defa62d"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inflate.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/inflate.js",
+        "gitBlob": "1dc96d7cc5d39cda0ae546caff5816a66fbfc15d",
+        "bytes": 52328,
+        "sha256": "757992b46e285cd4f283b567c238f18328832ee1bba3423822db9fe31c12df78"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inflate.js",
+        "bytes": 52328,
+        "sha256": "757992b46e285cd4f283b567c238f18328832ee1bba3423822db9fe31c12df78"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inftrees.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/inftrees.js",
+        "gitBlob": "02cf129c32b52a4f7fda15b09aa7f00544ce33c1",
+        "bytes": 13008,
+        "sha256": "b182629bbece7487c8472f785da808cc62a8e7d922e7a59100290450d2f8465a"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/inftrees.js",
+        "bytes": 13008,
+        "sha256": "b182629bbece7487c8472f785da808cc62a8e7d922e7a59100290450d2f8465a"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/zstream.js",
+      "role": "runtime",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/pako-esm/zstream.js",
+        "gitBlob": "8a8b887cba52d86802a95a18a35ed4c6a7bf7a6d",
+        "bytes": 2124,
+        "sha256": "3416575075f6210d45713c0b243027fca758bcef187e1728c977ebdd8276fed4"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/esm/zstream.js",
+        "bytes": 2124,
+        "sha256": "3416575075f6210d45713c0b243027fca758bcef187e1728c977ebdd8276fed4"
+      }
+    }
+  ],
+  "support": [
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inflate.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/inflate.js",
+        "gitBlob": "f5db4be048abf9a41e6c42454a4f03f65f56185d",
+        "bytes": 51173,
+        "sha256": "2375dd0e1a5eebf91fd75301b4cc8c120712978f513db8fedd2a5f3321f0145f"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inflate.js",
+        "bytes": 51173,
+        "sha256": "2375dd0e1a5eebf91fd75301b4cc8c120712978f513db8fedd2a5f3321f0145f"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/zstream.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/zstream.js",
+        "gitBlob": "122acfef0f720234db175fe5b9d6a9369d310d02",
+        "bytes": 1811,
+        "sha256": "5fa10c7a59ca99113cf92d1260e56cbd6282e15afa85dc8a0eb8e8d6d2321298"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/zstream.js",
+        "bytes": 1811,
+        "sha256": "5fa10c7a59ca99113cf92d1260e56cbd6282e15afa85dc8a0eb8e8d6d2321298"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/adler32.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/adler32.js",
+        "gitBlob": "d65072afdbff27d66d9ed2fedd30d274ff42862e",
+        "bytes": 1660,
+        "sha256": "1f181b4365677dcad5bd8fcc4594707171b7317875c50e88054b75d4fa285930"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/adler32.js",
+        "bytes": 1660,
+        "sha256": "1f181b4365677dcad5bd8fcc4594707171b7317875c50e88054b75d4fa285930"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/crc32.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/crc32.js",
+        "gitBlob": "60cbd51ec44ca3c93dcb5b4015d1f24219849140",
+        "bytes": 1781,
+        "sha256": "5452655b14329267c4c3fc58c43df53f4e6f5196fde9d2d431b1ad089e5f3742"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/crc32.js",
+        "bytes": 1781,
+        "sha256": "5452655b14329267c4c3fc58c43df53f4e6f5196fde9d2d431b1ad089e5f3742"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inffast.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/inffast.js",
+        "gitBlob": "f4d6e7e45380270131600fec2d798608ec885e85",
+        "bytes": 12671,
+        "sha256": "694b23b4d2c00c9d274274ecf092dc7c0c0c64125d54bda5286baf2711822d00"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inffast.js",
+        "bytes": 12671,
+        "sha256": "694b23b4d2c00c9d274274ecf092dc7c0c0c64125d54bda5286baf2711822d00"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inftrees.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/inftrees.js",
+        "gitBlob": "eee389eaccec76dfb18f2a2254c866e46d5a534f",
+        "bytes": 12487,
+        "sha256": "fa1434611e4cd6bb5bca02c99315bdb639a434c02f44fc1cc64d4b258187908f"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/inftrees.js",
+        "bytes": 12487,
+        "sha256": "fa1434611e4cd6bb5bca02c99315bdb639a434c02f44fc1cc64d4b258187908f"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/constants.js",
+      "role": "nonexecuted-original-source",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/constants.js",
+        "gitBlob": "b85cc0191d78df0b5c8004bbc0bbf410ad53fab4",
+        "bytes": 2312,
+        "sha256": "37c65f82b9bacde2bbccc9c980a20dee7e2b7f3658304a30abe1023e02ec407b"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/constants.js",
+        "bytes": 2312,
+        "sha256": "37c65f82b9bacde2bbccc9c980a20dee7e2b7f3658304a30abe1023e02ec407b"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "role": "upstream-notice",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/LICENSE",
+        "gitBlob": "a934ef8db478453e38b2f29af67610916fa9fc99",
+        "bytes": 1104,
+        "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+        "bytes": 1104,
+        "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/README",
+      "role": "upstream-notice",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/lib/zlib/README",
+        "gitBlob": "88a8752470dc696bf358e9622cc164572436f688",
+        "bytes": 2180,
+        "sha256": "d8b499598e43d755ea8918448128259ff01820c50d94d5a48c8883d0a594ddb1"
+      },
+      "notice": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/LICENSE",
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/pako/3c06216518c259b569a5168dee867e6dabbe5160/original/lib/zlib/README",
+        "bytes": 2180,
+        "sha256": "d8b499598e43d755ea8918448128259ff01820c50d94d5a48c8883d0a594ddb1"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+      "role": "notice",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/NOTICE.md",
+        "gitBlob": "2652c706679fed971a968bc189491f2399cacfa3",
+        "bytes": 1850,
+        "sha256": "52785b91bb81730dc40f70d5662b1cb86e3bac9776587498ca9e0d041ce06249"
+      },
+      "notice": null,
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/NOTICE.browser-owner.md",
+        "bytes": 1850,
+        "sha256": "52785b91bb81730dc40f70d5662b1cb86e3bac9776587498ca9e0d041ce06249"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+      "role": "notice",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-runtime/NOTICE.md",
+        "gitBlob": "2b30e0e000bf7213ae70834e4ca201751a56532f",
+        "bytes": 1792,
+        "sha256": "4ab7e92f241a436d662226d535275fdb5ea8abdbd01fbb8a6c28e93625e82b87"
+      },
+      "notice": null,
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/NOTICE.common.md",
+        "bytes": 1792,
+        "sha256": "4ab7e92f241a436d662226d535275fdb5ea8abdbd01fbb8a6c28e93625e82b87"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/vendor/portable-png/NOTICE.decoder.md",
+      "role": "notice",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/c2-decoder-proof/NOTICE.md",
+        "gitBlob": "5cc5ea3494805a8f62f11e2052ebec94cef99eb5",
+        "bytes": 1017,
+        "sha256": "752be820124cf31ef18c238d349ac7e56cbcb4c8a88e908b258237c14ff8a3d4"
+      },
+      "notice": null,
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/vendor/portable-png/NOTICE.decoder.md",
+        "bytes": 1017,
+        "sha256": "752be820124cf31ef18c238d349ac7e56cbcb4c8a88e908b258237c14ff8a3d4"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/rates.json",
+      "role": "data-only-descriptive-rates",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/rates.json",
+        "gitBlob": "e214922682db35cffad2f7b233206e0cd9deddcb",
+        "bytes": 3426,
+        "sha256": "da0e4afecb11f8162c2c5728f57d8e38bf76db1c84bdd30c6e7fc07c7cd827cc"
+      },
+      "notice": null,
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/rates.json",
+        "bytes": 3426,
+        "sha256": "da0e4afecb11f8162c2c5728f57d8e38bf76db1c84bdd30c6e7fc07c7cd827cc"
+      }
+    },
+    {
+      "path": "apps/editor/tile-authoring/c2/art/browser-owner/catalogue-binding.json",
+      "role": "data-only-original-catalogue",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/browser-art/owner-v1/catalogue-binding.json",
+        "gitBlob": "ad6081b85195b6ba7cfa3e600bd84092a8b113b6",
+        "bytes": 33934,
+        "sha256": "d1ddcde3a483cd776e96a3eecd9634a174c0372dea38bab7f3a69290d55ed4fb"
+      },
+      "notice": null,
+      "rewrites": [],
+      "imports": [],
+      "expected": {
+        "path": "apps/editor/tile-authoring/c2/art/browser-owner/catalogue-binding.json",
+        "bytes": 33934,
+        "sha256": "d1ddcde3a483cd776e96a3eecd9634a174c0372dea38bab7f3a69290d55ed4fb"
+      }
+    }
+  ],
+  "borrowed": [
+    {
+      "path": "packages/tile-visuals/three.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-visuals/three.js",
+        "gitBlob": "a7b48a2fcc129b8c3ca0a8c7fb7305d9a29eb819",
+        "bytes": 9772,
+        "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 9772,
+        "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+      }
+    },
+    {
+      "path": "packages/tile-visuals/mesh.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-visuals/mesh.js",
+        "gitBlob": "2c0d0c71ba1b03051974d5509658745d55e70f76",
+        "bytes": 13034,
+        "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 13034,
+        "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+      }
+    },
+    {
+      "path": "packages/tile-finishes/catalogue.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-finishes/catalogue.js",
+        "gitBlob": "605384a272e796a433425943c8bcfd554703a935",
+        "bytes": 5869,
+        "sha256": "f5ab5f15757537309a68d5d68c869004a044ad5bfff37089e928d35f09a4e73c"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 5869,
+        "sha256": "f5ab5f15757537309a68d5d68c869004a044ad5bfff37089e928d35f09a4e73c"
+      }
+    },
+    {
+      "path": "packages/tile-visuals/data.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-visuals/data.js",
+        "gitBlob": "7f9cbe87c31345582ad63c39fafe23881f0f109a",
+        "bytes": 3780,
+        "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 3780,
+        "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+      }
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-visuals/prepare.js",
+        "gitBlob": "ecae23c1d2429a5b038d9c83e14d49d59501af14",
+        "bytes": 12561,
+        "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 12561,
+        "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
+      }
+    },
+    {
+      "path": "packages/tile-visuals/cleanup.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tile-visuals/cleanup.js",
+        "gitBlob": "53dfba4ccbf30ac004682d11078a87a6a21252d4",
+        "bytes": 2059,
+        "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 2059,
+        "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+      }
+    },
+    {
+      "path": "packages/tiles-core/index.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/index.js",
+        "gitBlob": "f860d3f157c3587a5bf9244a3d185f1e8562ecdb",
+        "bytes": 728,
+        "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 728,
+        "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+      }
+    },
+    {
+      "path": "packages/tiles-core/data.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/data.js",
+        "gitBlob": "cb2108a0cd9011bad1740c6f7932cca18c8b89ed",
+        "bytes": 4579,
+        "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 4579,
+        "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+      }
+    },
+    {
+      "path": "packages/tiles-core/contract.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/contract.js",
+        "gitBlob": "9f90d63987b62fa09bc5a291a18bb6b959744004",
+        "bytes": 1730,
+        "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 1730,
+        "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+      }
+    },
+    {
+      "path": "packages/tiles-core/curves.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/curves.js",
+        "gitBlob": "386c68038aab468712264f56d6b845902e03bd5d",
+        "bytes": 9480,
+        "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 9480,
+        "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+      }
+    },
+    {
+      "path": "packages/tiles-core/fields.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/fields.js",
+        "gitBlob": "9b5496547bd6186a4f5e57d23c17918ccb9a42eb",
+        "bytes": 5394,
+        "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 5394,
+        "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+      }
+    },
+    {
+      "path": "packages/tiles-core/recipes.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/recipes.js",
+        "gitBlob": "a3499550f5f7e4b22d6294949ccc5d883b697ec2",
+        "bytes": 10523,
+        "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 10523,
+        "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+      }
+    },
+    {
+      "path": "packages/tiles-core/layout.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/layout.js",
+        "gitBlob": "03fe27243030f5d8eaf9c5dcfeaebbd5d954692f",
+        "bytes": 12740,
+        "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 12740,
+        "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+      }
+    },
+    {
+      "path": "packages/tiles-core/repair.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/repair.js",
+        "gitBlob": "0bdd9284d4d175fa040efcdff426610b7aa3c665",
+        "bytes": 11562,
+        "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 11562,
+        "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+      }
+    },
+    {
+      "path": "packages/tiles-core/projection.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/projection.js",
+        "gitBlob": "329fe7e9e29405db12c4e1840e0c864f35e13957",
+        "bytes": 1657,
+        "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 1657,
+        "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+      }
+    },
+    {
+      "path": "packages/tiles-core/cells.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/cells.js",
+        "gitBlob": "8a62be034a6a8da8854112da38928aaf6741ca15",
+        "bytes": 8266,
+        "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 8266,
+        "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+      }
+    },
+    {
+      "path": "packages/tiles-core/example.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/example.js",
+        "gitBlob": "f4baab12378d9c779551e5c95029514f1b4445b8",
+        "bytes": 2579,
+        "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 2579,
+        "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+      }
+    },
+    {
+      "path": "packages/parts-core/hash.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/parts-core/hash.js",
+        "gitBlob": "5d0575cdb03732cab1a6cb099e09e236e92d35d8",
+        "bytes": 2105,
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 2105,
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+      }
+    },
+    {
+      "path": "packages/tiles-core/interfaces.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/interfaces.js",
+        "gitBlob": "96f4d51156754f43083bea1e36a01e32cb076c30",
+        "bytes": 11429,
+        "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 11429,
+        "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+      }
+    },
+    {
+      "path": "packages/tiles-core/dependencies.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/tiles-core/dependencies.js",
+        "gitBlob": "0aad469f01ccc53c47636fbb4f7af4e00c4b3429",
+        "bytes": 8832,
+        "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 8832,
+        "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+      }
+    },
+    {
+      "path": "apps/editor/smart-tile/views.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "apps/editor/smart-tile/views.js",
+        "gitBlob": "a0b2fdebc9b9ffe2cd05033d5aa7ee92c21a9320",
+        "bytes": 5514,
+        "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 5514,
+        "sha256": "df0fef297d238b91dc52cdcf1381724b728b9fc6e4ff277a498952b26e72a3cf"
+      }
+    },
+    {
+      "path": "packages/render-effects/three.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "packages/render-effects/three.js",
+        "gitBlob": "b8bb3a8654cd5c495db68772091141096644a282",
+        "bytes": 202,
+        "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 202,
+        "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264"
+      }
+    },
+    {
+      "path": "apps/editor/smart-tile/contract.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "apps/editor/smart-tile/contract.js",
+        "gitBlob": "ddf6c23a21559b9b4008374c56a333b1e9b4fde6",
+        "bytes": 2912,
+        "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 2912,
+        "sha256": "f4037fb01826462d4432f1f5accfdeb411b53452d0c388fd34bcd88c9f14ba04"
+      }
+    },
+    {
+      "path": "apps/editor/smart-tile/checkpoint.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "apps/editor/smart-tile/checkpoint.js",
+        "gitBlob": "2402c19763e3f531e0d4dcf6ea6d0ea4dc7511f9",
+        "bytes": 21438,
+        "sha256": "f8b9f9c92c604a45635d97d2b789e53932a4d006e43ffc2e1f0b92bf1bc42538"
+      },
+      "adaptation": {
+        "kind": "Existing separately reviewed Root Kernel override;not Artist promotion",
+        "source": {
+          "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+          "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/apps/editor/smart-tile/checkpoint.js",
+          "gitBlob": "68ecd7ed4c28d65dcdc30a09829f80844a9e0476",
+          "bytes": 37052,
+          "sha256": "a9ce135bbc9b956be350fc170522a692af8a95991b938cb4f65c7f0cadacd006"
+        },
+        "rewrites": [
+          {
+            "from": "'../../../observation.js'",
+            "to": "'../../../packages/authoring-runtime/observation.js'",
+            "occurrences": 1
+          },
+          {
+            "from": "'../../../../../../../../packages/parts-core/hash.js'",
+            "to": "'../../../packages/parts-core/hash.js'",
+            "occurrences": 1
+          },
+          {
+            "from": "'../../../../../../../../apps/editor/smart-tile/contract.js'",
+            "to": "'./contract.js'",
+            "occurrences": 1
+          }
+        ]
+      },
+      "expected": {
+        "bytes": 37019,
+        "sha256": "f11d434c74b276d01c654fa9e526c723d13e36cf19281236c1a472cebd11a479"
+      }
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+        "gitBlob": "881def74e32e51ccf9ddf1a2ecc8d60041b2ba3e",
+        "bytes": 603412,
+        "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 603412,
+        "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d"
+      }
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+        "gitBlob": "1501453ec781ab369ebe450d916ed2cfafbfc0a7",
+        "bytes": 1403454,
+        "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47"
+      },
+      "adaptation": null,
+      "expected": {
+        "bytes": 1403454,
+        "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47"
+      }
+    },
+    {
+      "path": "packages/authoring-runtime/observation.js",
+      "source": {
+        "commit": "4ade3ea02084472b30d036e8a0561e473aa84f3f",
+        "path": "candidates/tile-authoring/editor/c2-shared-runtime-prototype/runtime/observation.js",
+        "gitBlob": "826d527a23535211c7ce157192f39fcbc38b428b",
+        "bytes": 4056,
+        "sha256": "97f9aa0d8b419dab41f6af116c5aeccd1f99d922474c38cd6ab9a55eabb39b3a"
+      },
+      "adaptation": {
+        "kind": "Existing separately reviewed Root internal helper;not copied by this plan",
+        "rewrites": []
+      },
+      "expected": {
+        "bytes": 4056,
+        "sha256": "97f9aa0d8b419dab41f6af116c5aeccd1f99d922474c38cd6ab9a55eabb39b3a"
+      }
+    }
+  ],
+  "existingAssets": [
+    {
+      "path": "assets/artwork/local-graphics-v1/PROVENANCE.md",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/PROVENANCE.md",
+        "gitBlob": "db0b0bffb833f91166bb4f37e287c26466c4a33d",
+        "bytes": 2042,
+        "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources.json",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/resources.json",
+        "gitBlob": "e3510e74bf64c0980f83c1e6a2c06502f6e55369",
+        "bytes": 39166,
+        "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/prompts/organic-marks-v1.txt",
+        "gitBlob": "18c1d62bde09c03e52bbf05cfd71f0d43e3041b8",
+        "bytes": 2068,
+        "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/resources/organic-marks-v1.png",
+        "gitBlob": "c3f1589bd9aa587defb4ba73f5673d514823ff04",
+        "bytes": 2481966,
+        "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/resources/road-marks-v1.png",
+        "gitBlob": "55842bf5e31f97325599dec40fd44e6faee3a8e0",
+        "bytes": 78234,
+        "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "candidates/tile-authoring/art/resources/road-marks-v1.svg",
+        "gitBlob": "8f4f9c441337e305992274525b8f195cd147d8c8",
+        "bytes": 4858,
+        "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90"
+      },
+      "role": "existing encoded artwork/source/notice;never copied or rewritten"
+    },
+    {
+      "path": "assets/buildings/painted-materials-v2.png",
+      "source": {
+        "commit": "e74df31fa9a4fdabd16ff9c5c018138bdc286ea5",
+        "path": "assets/buildings/painted-materials-v2.png",
+        "gitBlob": "71afd62a9d7443d1091638faf26c26f49b0f6626",
+        "bytes": 2558637,
+        "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+      },
+      "role": "existing borrowed constructor baseline;absolute /assets URL unchanged"
+    }
+  ],
+  "publicMetadata": [
+    {
+      "path": "packages/assets/artwork.js",
+      "source": {
+        "commit": "06dee5b01eeefddbe5e92a3f71d4382dffad0986",
+        "path": "candidates/tile-authoring/artwork-discovery-proposal/draft/artwork-module.proposal.js.txt",
+        "gitBlob": "b26295d19a8c9bdfe2d8d2c96bd4f6845dae1033",
+        "bytes": 213319,
+        "sha256": "0662235ad792222b951a1d4680a21edd36e5fff91c49e94ec21542e6a529553e"
+      },
+      "rewrites": [
+        {
+          "from": "// PROPOSAL TEXT ONLY. Future packages/assets/artwork.js; no current registration.",
+          "to": "// Shared original artwork metadata; immutable source06dee5b, canonical Core432 / Artist57. Encoded delivery is separate.",
+          "occurrences": 1
+        }
+      ],
+      "role": "Existing reviewed Root public metadata;not copied or changed",
+      "expected": {
+        "bytes": 213358,
+        "sha256": "c5122e96520a09bf1da0b6be11a6ac9f09476df7410357a240c6eb6ac1309b9e"
+      }
+    }
+  ],
+  "historicalDecoderAdaptations": [
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/inflate.js",
+      "sourceSha256": "0f686bb07eba36bf140ef2eeac0ae61b855367b6d1b8b87741aa086d9cbc8bdd",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/inflate.js",
+      "generatedSha256": "757992b46e285cd4f283b567c238f18328832ee1bba3423822db9fe31c12df78",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/zstream.js",
+      "sourceSha256": "ff4024832d652cb8b7ab7e7914263e3940d1411807b2a0b1ec655120e331b212",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/zstream.js",
+      "generatedSha256": "3416575075f6210d45713c0b243027fca758bcef187e1728c977ebdd8276fed4",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/adler32.js",
+      "sourceSha256": "46801028b49d10c09ce5df5de222df525fabbf877a88eaa5d3138ed83110193a",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/adler32.js",
+      "generatedSha256": "2373088845c3a2dd08a85af217202a831dfe7914dbc124c261878e8960203a70",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/crc32.js",
+      "sourceSha256": "695d792d51e793791242f30c82e5b1d3cfa3613a3a0e69418729e9fa2e79ceb5",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/crc32.js",
+      "generatedSha256": "5b071d7cf485cd5018ec8dc606e5b5836537544da2ac410fe6ea84c6ad3bddb8",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/inffast.js",
+      "sourceSha256": "c032f7a58f7e82337b29da20f772746e4900f85fddc6ae5c3677eb31236e1815",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/inffast.js",
+      "generatedSha256": "e9c5dcedb5f2cb8430ae7975235c57cf4223dda119ba24b28b22621c0defa62d",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/inftrees.js",
+      "sourceSha256": "342adaf10b87d828990fcd0e74d71aafe375334446490270446063fa4aa77138",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/inftrees.js",
+      "generatedSha256": "b182629bbece7487c8472f785da808cc62a8e7d922e7a59100290450d2f8465a",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    },
+    {
+      "source": "candidates/tile-authoring/art/c2-decoder-proof/adapted/pako/lib/zlib/constants.js",
+      "sourceSha256": "73e0f6946e0268b61c4aed1d55fa0132c232e71312b912f64a1cf850a56b1d7b",
+      "generated": "candidates/tile-authoring/art/c2-runtime/pako-esm/constants.js",
+      "generatedSha256": "191844c9497b57af5c6fd0f38c556481cdd45aa5e1239ab74d3c174c0d0fac03",
+      "adaptation": "Static ESM function envelope;existing instrumented body byte-exact;no eval/VM, no input-derived code"
+    }
+  ]
+}

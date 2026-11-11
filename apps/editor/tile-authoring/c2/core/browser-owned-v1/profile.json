@@ -1,0 +1,92 @@
+{
+  "id": "nautilus-browser-owned-appearance-accounting",
+  "version": 1,
+  "accountingScope": "engine-owned-and-api-logical-only",
+  "hostProfile": "nautilus-tile-authoring-c2-browser-owned-host-v1",
+  "ledgerProfile": "browser-owned-appearance-transition-v1",
+  "releaseProfile": "browser-owner-release-v1",
+  "nativeStateProfile": "owned-native-supported-state-v2",
+  "cpuBackingProfile": "fixed-nonshared-arraybuffer-capacity-v1",
+  "identityProfile": "actual-owner-lifetime-context-epoch-object-v1",
+  "browserAppearancePlan": {
+    "kind": "nautilus-tile-authoring-browser-appearance-plan",
+    "version": 1
+  },
+  "browserCapacityBound": {
+    "kind": "nautilus-tile-authoring-browser-capacity-bound",
+    "version": 1
+  },
+  "attemptBudgetProfile": "browser-owned-reference-and-ten-raw-domains-v1",
+  "ceilings": {
+    "additionalDecodedOwnedLogicalBytes": 33554432,
+    "derivedOwnedLogicalBytes": 4194304,
+    "encodedOwnedLogicalBytes": 67108864,
+    "sampledAllocationsAndReservationsAllOwners": 4,
+    "rootsAllOwners": 2,
+    "trianglesAllOwners": 50000,
+    "cellsAllOwners": 1024,
+    "residentMarksAllOwners": 1024,
+    "appearanceMaterialsAllOwners": 64,
+    "layersPerSurface": 8,
+    "storedMarksPerChunk": 4096,
+    "contributorsPerBin": 8,
+    "binReferencesAllOwners": 32768,
+    "activeOrUnverifiedAllocationRows": 1024,
+    "recentDiagnosticEvents": 64
+  },
+  "decodedEquation": "distinct additional decoded/scratch/application-upload CPU capacities + additional API-logical image texture stores + unfulfilled application-owned decoded reservations",
+  "derivedEquation": "distinct derived CPU capacities + API-logical derived data stores + unfulfilled application-owned derived reservations",
+  "geometryEquation": "enumerate actual owned CPU capacities and API buffer store sizes separately; enforce exact geometry layout plus roots/triangles/cells/residency limits",
+  "baselinePolicy": "constructor-frozen actual borrowed allocation inventory; count sampled slots; enumerate logical bytes separately; no in-flight additions or reclassification",
+  "reservationPolicy": "charge before acquisition; single actual fulfillment replaces its reservation; independent copies charge independently; unverified release retains debt",
+  "ownershipReferences": [
+    "source",
+    "candidate",
+    "history",
+    "redo",
+    "pending",
+    "export",
+    "cache",
+    "borrowed"
+  ],
+  "opaque": {
+    "status": "UNMEASURED",
+    "excludedCategories": [
+      "browser-managed decoded image backing",
+      "browser/driver internal upload copies",
+      "driver storage padding, caches and deferred deletion",
+      "GC and allocator physical reclamation",
+      "unobserved JS/object heap and browser process memory"
+    ],
+    "totalRamBoundClaim": false,
+    "physicalVramBoundClaim": false,
+    "gcReclamationClaim": false
+  },
+  "releaseMeaning": "verified end of defined engine ownership and API object lifetime only; no physical reclamation assertion",
+  "strictFallback": "forbidden",
+  "persistedGrammarChanges": false,
+  "contractsCanonicalSha256": "c5da5b18e48082aea85f0669ecbe8d8bd36544c6bb8e11188fd61e6632956395",
+  "coverageCanonicalSha256": "d4f9e40496e839a22242b3656cb64917213e391327017e3def8e7aa42428cd72",
+  "schemaId": "urn:nautilus:private:browser-owned-core:1",
+  "schemaCanonicalSha256": "074c5e798df8a3539b00aa5147cd6e71d1f18f9b4ec6a468dcb3bac481a84c02",
+  "referenceWorkCeiling": 1000000,
+  "rawDomainCeilings": {
+    "authoringReferenceUnits": 1000000,
+    "artistPreparationTicks": 1000000,
+    "decoderTicks": 64000000,
+    "publicSteps": 0,
+    "publicSpatialTests": 0,
+    "publicGeometryEvaluations": 0,
+    "inputBytes": 6000000,
+    "outputBytes": 4000000,
+    "hostNodeVisits": 1000000,
+    "copyBytes": 6000000
+  },
+  "textureStoreRule": "base0 contiguous full mip chain; immutable storage generation/layout; content updates require same-owner source-protected-range receipt",
+  "candidateStatus": "PRIVATE headless data; Host/Native/codec UNBOUND",
+  "resourceCatalogue": {
+    "catalogueDigest": "a923620ef1d57eb9632c6419a24f4f2709652e866ba40d0f28afd673efd198b1",
+    "sourceCommit": "0597fc3b7ed9213842df90e8a1bbd4d0887ba49f",
+    "sourceSha256": "d1d76aa90c80aa91a17cbf5fdc7dc67105ae0b556bde51170baf19a3868c9eed"
+  }
+}

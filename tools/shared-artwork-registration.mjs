@@ -1,6 +1,7 @@
 // Root-authorized exact shared-artwork registration; no generic exception.
 export const SHARED_ARTWORK_BASE='0e7d0f40de790631c6421de2236b9df1c11c0b86';
 export const SHARED_ARTWORK_SOURCE='06dee5b01eeefddbe5e92a3f71d4382dffad0986';
+import {checkTileAuthoringC2KernelRegistration} from './tile-authoring-c2-kernel-registration.mjs';
 const ROOT_TEXT_HASHES={
   "packages/assets/artwork-source.json": "474298169f841ab65897d457eeb301991e10e2cc0d397f061ee1649a5ce2c20b",
   "docs/shared-artwork.md": "3d093e32f4a77e8c6277b50ba3d6603ab802296ce786943ba3630ed0f6a1c2f4",
@@ -22,7 +23,11 @@ export function sharedArtworkBuildBytes({object}){
 }
 export function historicalArtworkNotice({object,current}){const before=object(SHARED_ARTWORK_BASE,'NOTICE.md'),expected=Buffer.concat([before,Buffer.from(NOTICE_SUFFIX)]);assert.ok(current.equals(expected),'Shared artwork NOTICE must be exactly the fixed preimage plus the single reviewed suffix');return before;}
 function actualPayloadFiles(){const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),folder=path.join(root,payloadRoot),walk=(dir,relative)=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false,'No symlinked artwork input');const f=relative+'/'+e.name;return e.isDirectory()?walk(path.join(dir,e.name),f):[f];});return walk(folder,payloadRoot).sort();}
-export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()=>{},moduleClosure,distribution,listArtworkFiles=actualPayloadFiles}){
+export function checkSharedArtworkRegistration(ports){
+ const kernel=checkTileAuthoringC2KernelRegistration(ports),artwork=checkPreKernelSharedArtworkRegistration(kernel.historicalPorts);
+ return {...artwork,report:{...artwork.report,kernelHelperRegistration:kernel.report,requiredGitCommits:[...new Set([...artwork.report.requiredGitCommits,...(kernel.report.requiredGitCommits??[])])]}};
+}
+function checkPreKernelSharedArtworkRegistration({object:rawObject,read,indexed=()=>{},moduleClosure,distribution,listArtworkFiles=actualPayloadFiles}){
  const cache=new Map(),object=(commit,file)=>{const k=commit+':'+file;if(!cache.has(k))cache.set(k,rawObject(commit,file));const b=cache.get(k);assert.ok(Buffer.isBuffer(b));return b;},baseFile=f=>object(SHARED_ARTWORK_BASE,f),sourceFile=f=>object(SHARED_ARTWORK_SOURCE,prefix+f),expect=(f,b)=>{const actual=read(f);assert.ok(actual.equals(b),'Unreviewed shared artwork bytes: '+f);indexed(f,actual);return actual;};
  indexed('tools/shared-artwork-registration.mjs',read('tools/shared-artwork-registration.mjs'));
  const preservation=JSON.parse(sourceFile('preservation.json'));assert.equal(preservation.originalDraft.baseReviewManifestSha256,'b2ab141aeb1f63c31fdab231c9a158e1e92d730e503dc5804f2f343295679d0c');assert.equal(preservation.payloads.length,6);

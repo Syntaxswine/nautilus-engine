@@ -1,0 +1,367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:private:tile-authoring:surface-target:1",
+  "description": "Private data-only first-surface producer frozen from proposal at 6d30535589ebdae0110199a324b324ecbe7d674f. No authority, operation, canonical command/query, capture profile or persisted format changes. Source/equality/hash/lock/profile and actual work rules require runtime validation.",
+  "$defs": {
+    "SurfaceTargetLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000000
+        },
+        "outputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000000
+        },
+        "inputBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6000000
+        },
+        "plannerUnits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "nodes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200000
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        }
+      },
+      "required": []
+    },
+    "SurfaceTargetInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/workbenchDocument"
+        },
+        "expectedSource": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hostDocumentDigest": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+            },
+            "workspaceRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "hostDocumentDigest",
+            "workspaceRevision"
+          ]
+        },
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ownerId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "surfaceId": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+            },
+            "definition": {
+              "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+            }
+          },
+          "required": [
+            "ownerId",
+            "surfaceId",
+            "definition"
+          ]
+        },
+        "limits": {
+          "$ref": "#/$defs/SurfaceTargetLimits"
+        }
+      },
+      "required": [
+        "document",
+        "expectedSource",
+        "selection"
+      ]
+    },
+    "SurfaceBindingSeed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownerId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "surfaceId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "floorId": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/id"
+        },
+        "definition": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/pin"
+        },
+        "geometryDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "frameDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "gridDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "bindingDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        }
+      },
+      "required": [
+        "ownerId",
+        "surfaceId",
+        "floorId",
+        "definition",
+        "geometryDigest",
+        "frameDigest",
+        "gridDigest",
+        "bindingDigest"
+      ]
+    },
+    "ExistingSurfaceTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-surface-target"
+        },
+        "version": {
+          "const": 1
+        },
+        "ok": {
+          "const": true
+        },
+        "committable": {
+          "const": false
+        },
+        "sourceDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "workspaceRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "surface": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/surface"
+        },
+        "bindingSeed": {
+          "$ref": "#/$defs/SurfaceBindingSeed"
+        },
+        "target": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/markTarget"
+        },
+        "grid": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/gridRef"
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unitsCharged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "inputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 6000000
+            },
+            "outputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4000000
+            },
+            "definitionVisits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "maskCellsEvaluated": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "dependencyEdges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "resourceReferences": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          "required": [
+            "unitsCharged",
+            "inputBytes",
+            "outputBytes",
+            "definitionVisits",
+            "maskCellsEvaluated",
+            "dependencyEdges",
+            "resourceReferences"
+          ]
+        },
+        "state": {
+          "const": "existing"
+        },
+        "existingBinding": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/surfaceBinding"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "ok",
+        "committable",
+        "sourceDocumentDigest",
+        "workspaceRevision",
+        "surface",
+        "bindingSeed",
+        "target",
+        "grid",
+        "work",
+        "state",
+        "existingBinding"
+      ]
+    },
+    "ProspectiveSurfaceTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "nautilus-tile-authoring-surface-target"
+        },
+        "version": {
+          "const": 1
+        },
+        "ok": {
+          "const": true
+        },
+        "committable": {
+          "const": false
+        },
+        "sourceDocumentDigest": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/digest"
+        },
+        "workspaceRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "surface": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/surface"
+        },
+        "bindingSeed": {
+          "$ref": "#/$defs/SurfaceBindingSeed"
+        },
+        "target": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/markTarget"
+        },
+        "grid": {
+          "$ref": "urn:nautilus:candidate:tile-authoring:core:1#/$defs/gridRef"
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unitsCharged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "inputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 6000000
+            },
+            "outputBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4000000
+            },
+            "definitionVisits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "maskCellsEvaluated": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "dependencyEdges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "resourceReferences": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          "required": [
+            "unitsCharged",
+            "inputBytes",
+            "outputBytes",
+            "definitionVisits",
+            "maskCellsEvaluated",
+            "dependencyEdges",
+            "resourceReferences"
+          ]
+        },
+        "state": {
+          "const": "prospective"
+        },
+        "existingBinding": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "kind",
+        "version",
+        "ok",
+        "committable",
+        "sourceDocumentDigest",
+        "workspaceRevision",
+        "surface",
+        "bindingSeed",
+        "target",
+        "grid",
+        "work",
+        "state",
+        "existingBinding"
+      ]
+    },
+    "SurfaceTargetResult": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ExistingSurfaceTarget"
+        },
+        {
+          "$ref": "#/$defs/ProspectiveSurfaceTarget"
+        }
+      ]
+    }
+  }
+}

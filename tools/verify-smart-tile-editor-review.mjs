@@ -81,6 +81,11 @@ export function assertSmartTileReviewChecks(checks){
 }
 function stagedHostBytes(root,file){
   const original=read(root,file);if(file==='packages/floor-navigation/dom.js'){const text=original.toString(),needle="from './index.js'";assert.equal(text.split(needle).length,2);return Buffer.from(text.replace(needle,"from '@nautilus-engine/core/floors'"));}
+  const helperImports={
+    'apps/editor/smart-tile/checkpoint.js':["from '../../../packages/authoring-runtime/observation.js'","from '../../../node_modules/@nautilus-engine/core/packages/authoring-runtime/observation.js'"],
+    'packages/windows-authoring/journal.js':["from '../authoring-runtime/observation.js'","from '../../node_modules/@nautilus-engine/core/packages/authoring-runtime/observation.js'"]
+  };
+  if(Object.hasOwn(helperImports,file)){const [from,to]=helperImports[file],text=original.toString();assert.equal(text.split(from).length,2);return Buffer.from(text.replace(from,to));}
   if(file!=='examples/smart-tile-editor.html')return original;
   let html=original.toString();const maps=[...html.matchAll(/<script type="importmap">([\s\S]*?)<\/script>/g)];assert.equal(maps.length,1);
   const imports=JSON.parse(maps[0][1]).imports;assert.deepEqual(Object.keys(imports).sort(),SMART_TILE_REVIEW_BINDINGS.map(b=>b.specifier).sort());
@@ -97,10 +102,10 @@ export async function verifySmartTileEditorReview({projectRoot=defaultRoot,write
   for(const b of SMART_TILE_REVIEW_BINDINGS){assert.equal(pkg.exports[b.entry],'./'+b.file);assert.equal(plans[b.profile].exports[b.entry],'./'+b.file);}
   const closures=Object.fromEntries(['core','renderer'].map(profile=>[profile,[...new Set(SMART_TILE_REVIEW_BINDINGS.filter(b=>b.profile===profile).flatMap(b=>moduleClosure([b.file])))].sort()]));
   const hostFiles=[...fs.readdirSync(path.join(root,'apps/editor/smart-tile')).filter(name=>/\.(js|css)$/.test(name)).map(name=>'apps/editor/smart-tile/'+name),'examples/smart-tile-editor.html','examples/smart-tile-editor.js','packages/parts-core/hash.js','packages/windows-authoring/journal.js','packages/floor-navigation/dom.js','packages/floor-navigation/style.css'];
-  const inputFiles=[...new Set([...hostFiles,...Object.values(closures).flat(),atlas])].sort();
+  const inputFiles=[...new Set([...hostFiles,...Object.values(closures).flat(),'packages/authoring-runtime/observation.js',atlas])].sort();
   const expectedInputs=inputFiles.map(file=>{const bytes=read(root,file);return {file,bytes:bytes.length,sha256:sha(bytes)};});
   const expectedVerification=smartTileVerificationFiles(root).map(file=>({file,sha256:sha(read(root,file))}));
-  const expectedInstalled=new Map();for(const profile of ['core','renderer'])for(const file of new Set([...closures[profile],...(profile==='renderer'?[atlas]:['packages/parts-core/hash.js','packages/windows-authoring/journal.js'])])){assert.ok(plans[profile].files.includes(file));expectedInstalled.set(profile+'/'+file,{profile,file,sha256:sha(read(root,file))});}
+  const expectedInstalled=new Map();for(const profile of ['core','renderer'])for(const file of new Set([...closures[profile],...(profile==='renderer'?[atlas]:['packages/parts-core/hash.js','packages/windows-authoring/journal.js','packages/authoring-runtime/observation.js'])])){assert.ok(plans[profile].files.includes(file));expectedInstalled.set(profile+'/'+file,{profile,file,sha256:sha(read(root,file))});}
   const summaries=[],semantic={},allRunIds=new Set();let baselineBackend=null;
   for(const mode of ['source','built','installed']){
     const directory=reportDirectory(mode),reportBytes=read(root,directory+'review.json'),report=JSON.parse(reportBytes);
@@ -131,6 +136,7 @@ export async function verifySmartTileEditorReview({projectRoot=defaultRoot,write
       const prefix=proof.requestedFiles[0].match(/^\/artifacts\/smart-tile-installed-[A-Za-z0-9]{6}\//)?.[0];assert.ok(prefix,'Missing isolated installed request prefix.');assert.equal(fs.existsSync(path.join(root,prefix.slice(1))),false,'Installed stage still exists.');
       for(const request of proof.requestedFiles){assert.equal(typeof request,'string');assert.equal(path.posix.normalize(request),request);assert.ok(!/[\\%?#\x00-\x1f\x7f]/.test(request));if(hostFiles.some(file=>request===prefix+file))continue;const profile=['core','renderer'].find(p=>request.startsWith(prefix+'node_modules/@nautilus-engine/'+p+'/'));assert.ok(profile,'Installed source/provider fallback '+request);const file=request.slice((prefix+'node_modules/@nautilus-engine/'+profile+'/').length);relative(file);assert.ok(plans[profile].files.includes(file),'Request outside declared installed files '+file);}
       for(const b of SMART_TILE_REVIEW_BINDINGS)assert.ok(proof.requestedFiles.includes(prefix+'node_modules/@nautilus-engine/'+b.profile+'/'+b.file),'Missing actual public binding request '+b.specifier);assert.ok(proof.requestedFiles.includes(prefix+'node_modules/@nautilus-engine/renderer/'+atlas),'Missing installed renderer atlas request.');
+      assert.ok(proof.requestedFiles.includes(prefix+'node_modules/@nautilus-engine/core/packages/authoring-runtime/observation.js'),'Missing actual installed observation helper request');
     }else assert.equal(report.installation,null);
     summaries.push({mode,runId:report.runId,reportSha256:sha(reportBytes),startedAt:helper.startedAt,finishedAt:report.finishedAt,checks:report.checks.length,captures,cleanup:{receiptSha256:sha(receiptBytes),httpClosed:true,browserClosed:true,port:receipt.port}});
   }

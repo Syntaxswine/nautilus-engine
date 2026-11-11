@@ -1,0 +1,93 @@
+{
+  "kind": "nautilus-root-encoded-reader-fixture-correction",
+  "version": 1,
+  "sourceCommit": "274e2d0a321934084f918e7a2e2678298132132f",
+  "scope": "Test lifetime and actionable failure only; production reader unchanged",
+  "files": [
+    {
+      "path": "tests/fixtures/tile-authoring/encoded-stream.mjs",
+      "sourceCommit": "274e2d0a321934084f918e7a2e2678298132132f",
+      "beforeSha256": "6667309f7493ce37955cfa5ab2ab457dcfb5eec269b8f361299cb497f926e850",
+      "sha256": "3131e8e3872b23e4744db502c2beea3745c2f8858aacfb05b28b305b5426d716",
+      "edits": [
+        {
+          "kind": "First write can fail; handled deferred lifetime",
+          "from": " const started=Date.now(),stats={requests:0,firstWrite:null,closed:false};let first;const firstWrite=new Promise(r=>{first=r;});",
+          "to": " const started=Date.now(),stats={requests:0,firstWrite:null,closed:false};let first,firstReject,deadlineReject,tearingDown=false;\n const failure=(code,cause)=>Object.assign(new Error(code,{cause}),{code});\n const firstWrite=new Promise((resolve,reject)=>{first=resolve;firstReject=reject;});firstWrite.catch(()=>{});\n const deadline=new Promise((resolve,reject)=>{deadlineReject=reject;});deadline.catch(()=>{});\n const rejectFirst=error=>{if(stats.firstWrite===null){stats.providerFailure={code:error.code,message:error.message,cause:error.cause?.code??null};firstReject(error);}};",
+          "occurrences": 1
+        },
+        {
+          "kind": "Reject wrong route before first write",
+          "from": "if(req.url!==resource||req.method!=='GET'){res.writeHead(404).end();return;}",
+          "to": "if(req.url!==resource||req.method!=='GET'){rejectFirst(failure('HTTP_PROVIDER_ROUTE'));res.writeHead(404).end();return;}",
+          "occurrences": 1
+        },
+        {
+          "kind": "Actual response close settles pending first-write",
+          "from": "  if(mode==='status')",
+          "to": "  res.once('close',()=>rejectFirst(failure('HTTP_PROVIDER_CLOSED_BEFORE_WRITE')));\n  if(mode==='status')",
+          "occurrences": 1
+        },
+        {
+          "kind": "Actual provider stream failure settles pending first-write",
+          "from": "}catch{res.destroy();}})();",
+          "to": "}catch(cause){rejectFirst(failure('HTTP_PROVIDER_READ_FAILED',cause));res.destroy();}})();",
+          "occurrences": 1
+        },
+        {
+          "kind": "Expiry/unexpected server close fail actual callback",
+          "from": " const timer=setTimeout(()=>{for(const input of streams)input.destroy();for(const socket of sockets)socket.destroy();server.close();},lifetimeMs);",
+          "to": " server.on('error',cause=>{const error=failure('HTTP_PROVIDER_ERROR',cause);rejectFirst(error);deadlineReject(error);});\n server.on('close',()=>{if(!tearingDown){const error=failure('HTTP_PROVIDER_CLOSED');rejectFirst(error);deadlineReject(error);}});\n const timer=setTimeout(()=>{const error=failure('HTTP_PROVIDER_EXPIRED');rejectFirst(error);deadlineReject(error);for(const input of streams)input.destroy();for(const socket of sockets)socket.destroy();server.close();},lifetimeMs);",
+          "occurrences": 1
+        },
+        {
+          "kind": "Listen failures reject instead of waiting",
+          "from": "await new Promise(r=>server.listen(0,'127.0.0.1',r));",
+          "to": "await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>{server.removeListener('error',reject);resolve();});});",
+          "occurrences": 1
+        },
+        {
+          "kind": "Provider lifetime bounds callback, not just sockets",
+          "from": "  return await fn({origin,assetAnchorURL:origin+'/packages/assets/index.js',resource,image,firstWrite,stats});",
+          "to": "  return await Promise.race([Promise.resolve().then(()=>fn({origin,assetAnchorURL:origin+'/packages/assets/index.js',resource,image,firstWrite,stats})),deadline]);",
+          "occurrences": 1
+        },
+        {
+          "kind": "Normal cleanup settles unused first-write without unhandled rejection",
+          "from": " }finally{clearTimeout(timer);",
+          "to": " }finally{tearingDown=true;rejectFirst(failure('HTTP_PROVIDER_CLOSED'));clearTimeout(timer);",
+          "occurrences": 1
+        },
+        {
+          "kind": "Preserve first actual provider failure",
+          "from": "if(stats.firstWrite===null){stats.providerFailure=",
+          "to": "if(stats.firstWrite===null&&!stats.providerFailure){stats.providerFailure=",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/tile-authoring-encoded-stream.test.mjs",
+      "sourceCommit": "274e2d0a321934084f918e7a2e2678298132132f",
+      "beforeSha256": "0a2102c388d9086846fbe2128d20ec231e93ddd3367df8add36499f21a2cb488",
+      "sha256": "e57240b4cd3bde61bc02567860e21fbd5ee600117fd522b5cbc56a12ec4a16f7",
+      "edits": [
+        {
+          "kind": "Observe acquisition failure before waiting for provider write",
+          "from": "await host.firstWrite;",
+          "to": "await Promise.race([host.firstWrite,pending.then(result=>{const error=new Error('HTTP_ACQUISITION_ENDED_BEFORE_FIRST_WRITE: '+JSON.stringify(result));error.code='HTTP_ACQUISITION_ENDED_BEFORE_FIRST_WRITE';throw error;})]);",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "originalSandboxFailure": "artifacts/tile-authoring-review/c2-reader-hang-diagnosis/owning-session-output.log",
+    "cause": "Actual localhost Fetch connect EACCES plus unresolved firstWrite in original test fixture",
+    "originalPassCases": 12,
+    "actualHostCases": 15,
+    "actualHostPass": 15,
+    "firstCauseRecheck": 3,
+    "productionSha256": "d45ce2f994e55cf2ab278f22ceb0bc9d5edb24176101d28a9810c9697384737b"
+  }
+}

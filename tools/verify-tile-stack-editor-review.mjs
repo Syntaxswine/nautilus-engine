@@ -40,7 +40,7 @@ export const TILE_STACK_REVIEW_CAPTURES=Object.freeze([
   'nonuniform-overview','original-line-arc-cubic','phone-390','phone-390-full','phone-320','phone-320-full'
 ]);
 export const TILE_STACK_INTERNAL_BINDINGS=immutable([
-  'packages/parts-core/hash.js','packages/windows-authoring/journal.js','packages/tile-stack-core/contracts.js'
+  'packages/parts-core/hash.js','packages/windows-authoring/journal.js','packages/tile-stack-core/contracts.js','packages/authoring-runtime/observation.js'
 ].map(file=>({profile:'core',file,entry:null,scope:'engine-app internal physical dependency; no public export claimed'})));
 export const TILE_STACK_REVIEW_LINEAGE=Object.freeze({baseline:'d0ecfdfb35110616fbd4c03ad41775acf6a2d163',ui:'8622c77234036d786474689f7e70671ecf01136b',stackController:'f754afcc9f46b196f258bf09e8091c962c9b31f8',sharedControllerSource:'f9ea6ce0ad5600ce07f4be634a29b699d61790f8',sharedCheckpointRuntime:'1e8d0d702938e7418dc0203383516ab0c26a6e6a'});
 // Explicit tool/source-authentication inventory. Do not feed Node tooling into
@@ -94,6 +94,7 @@ export function tileStackInstalledHostPlan(projectRoot){
   replace('packages/floor-navigation/dom.js',"from './index.js'","from '@nautilus-engine/core/floors'",'actual declared public entry');
   replace('apps/editor/tile-stack/profile.js',"from '../../../packages/tile-stack-core/index.js'","from '@nautilus-engine/core/tiles/stack'",'actual declared public entry');
   for(const [file,dependency]of [['apps/editor/smart-tile/checkpoint.js','packages/parts-core/hash.js'],['apps/editor/smart-tile/session.js','packages/windows-authoring/journal.js'],['apps/editor/tile-stack/floors.js','packages/parts-core/hash.js'],['apps/editor/tile-stack/checkpoint.js','packages/tile-stack-core/contracts.js']])replace(file,"from '../../../"+dependency+"'","from '../../../node_modules/@nautilus-engine/core/"+dependency+"'",'engine-app internal physical dependency; no public export claimed');
+  replace('apps/editor/smart-tile/checkpoint.js',"from '../../../packages/authoring-runtime/observation.js'","from '../../../node_modules/@nautilus-engine/core/packages/authoring-runtime/observation.js'",'Actual installed Core observation helper shared with its journal.');
   const html=bytes.get('examples/tile-stack-editor.html').toString(),maps=[...html.matchAll(/<script type="importmap">([\s\S]*?)<\/script>/g)];assert.equal(maps.length,1);const imports=JSON.parse(maps[0][1]).imports;assert.deepEqual(Object.keys(imports).sort(),TILE_STACK_REVIEW_BINDINGS.map(b=>b.specifier).sort());for(const b of TILE_STACK_REVIEW_BINDINGS)assert.equal(imports[b.specifier],'../'+b.file);
   replace('examples/tile-stack-editor.html',maps[0][0],'<script type="importmap">'+JSON.stringify({imports:Object.fromEntries(TILE_STACK_REVIEW_BINDINGS.map(b=>[b.specifier,'../node_modules/@nautilus-engine/'+b.profile+'/'+b.file]))})+'</script>','ten actual declared public entries');
   replace('examples/tile-stack-editor.html','href="../'+atlas+'"','href="../node_modules/@nautilus-engine/renderer/'+atlas+'"','actual installed renderer atlas');

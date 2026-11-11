@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {sharedArtworkBuildBytes} from './shared-artwork-registration.mjs';
+import {tileAuthoringC2EditorSources} from './tile-authoring-c2-editor-source.mjs';
 
 export const TILE_AUTHORING_REVIEW_STATUS='fixed-source-workflow-candidate';
 export const TILE_AUTHORING_REVIEW_LINEAGE=Object.freeze({
@@ -46,6 +47,7 @@ export const TILE_AUTHORING_REVIEW_CAPTURES=Object.freeze(['desktop-accepted','p
 export const TILE_AUTHORING_ATLAS='assets/buildings/painted-materials-v2.png';
 export const TILE_AUTHORING_INTERNAL_BINDINGS=immutable([
  ['packages/parts-core/hash.js',true],['packages/windows-authoring/journal.js',true],
+ ['packages/authoring-runtime/observation.js',true],
  ['packages/tile-stack-core/contracts.js',false],['packages/tile-stack-core/index.js',false]
 ].map(([file,requiredRequest])=>({profile:'core',file,requiredRequest,scope:'Engine-app physical dependency, not an additional public importmap binding.'})));
 export const reviewSha=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -73,6 +75,10 @@ export function tileAuthoringInstalledHostPlan({files}){
  for(const [file,dependency]of [
   ['apps/editor/smart-tile/checkpoint.js','packages/parts-core/hash.js'],
   ['apps/editor/smart-tile/session.js','packages/windows-authoring/journal.js'],
+  ['apps/editor/smart-tile/checkpoint.js','packages/authoring-runtime/observation.js'],
+  ['apps/editor/tile-authoring/checkpoint.js','packages/authoring-runtime/observation.js'],
+  ['apps/editor/tile-authoring/jsonl.js','packages/authoring-runtime/observation.js'],
+  ['apps/editor/tile-authoring/profile.js','packages/authoring-runtime/observation.js'],
   ['apps/editor/tile-stack/checkpoint.js','packages/tile-stack-core/contracts.js'],
   ['apps/editor/tile-stack/floors.js','packages/parts-core/hash.js'],
   ['apps/editor/tile-stack/profile.js','packages/tile-stack-core/index.js']
@@ -86,6 +92,8 @@ export function tileAuthoringInstalledHostPlan({files}){
 
 const extraVerificationFiles=[
  'tools/shared-artwork-registration.mjs',
+ 'tools/tile-authoring-c2-editor-source.mjs','tools/tile-authoring-c2-art-source.mjs',
+ 'tools/tile-authoring-c2-ui-source.mjs','tools/tile-authoring-c2-views-source.mjs',
  'tools/editor-review-tile-authoring-c1.mjs','tools/verify-tile-authoring-editor-review.mjs',
  'tools/tile-authoring-editor-review-inputs.mjs','tools/tile-authoring-editor-source.mjs',
  'tools/editor-stage-tile-authoring-c1.mjs','tools/editor-direct-tile-authoring-c1.mjs',
@@ -94,19 +102,23 @@ const extraVerificationFiles=[
  'docs/reviews/tile-authoring/editor/c1/core-import.json','docs/reviews/tile-authoring/editor/c1/helper-import.json',
  'docs/reviews/tile-authoring/ui/c1/source.json','docs/reviews/tile-authoring/core/c1-validation.json'
 ];
-function namespace(root,dir){const absolute=path.join(root,dir);assert.equal(fs.lstatSync(absolute).isSymbolicLink(),false);return fs.readdirSync(absolute,{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false);return e.isDirectory()?namespace(root,dir+e.name+'/'):/\.(js|css)$/.test(e.name)?[dir+e.name]:[];}).sort();}
+function namespace(root,dir){const absolute=path.join(root,dir);assert.equal(fs.lstatSync(absolute).isSymbolicLink(),false);return fs.readdirSync(absolute,{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false);return e.isDirectory()?namespace(root,dir+e.name+'/'):/\.(m?js|css)$/.test(e.name)?[dir+e.name]:[];}).sort();}
 export async function tileAuthoringReviewInputModel({projectRoot}={}){
  assert.equal(typeof projectRoot,'string');const root=path.resolve(projectRoot);
+ const objects=new Map(),object=(commit,file)=>{const key=commit+':'+file;if(!objects.has(key))objects.set(key,execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',key],{windowsHide:true,timeout:30000,maxBuffer:4*1024*1024}));return objects.get(key);};
+ // Authenticate the complete actual contribution before using its exact shared
+ // continuations. Historical C1 records remain fixed; they cannot bless changes.
+ const c2=tileAuthoringC2EditorSources({object,projectRoot:root});
  // Reuse the complete current physical package expectations unchanged. This
  // does not execute the B2 collector or change its source/metadata model.
  const b2Module=await import(pathToFileURL(path.join(root,'tools/verify-tile-stack-editor-review.mjs')).href);
  const b2=await b2Module.tileStackReviewInputModel({projectRoot:root});
- const sourceModule=await import(pathToFileURL(path.join(root,'tools/tile-authoring-editor-source.mjs')).href),c1=sourceModule.tileAuthoringEditorSourceModel({projectRoot:root});
+ const sourceModule=await import(pathToFileURL(path.join(root,'tools/tile-authoring-editor-source.mjs')).href),c1=sourceModule.tileAuthoringEditorSourceModel({object,projectRoot:root});
  assert.equal(c1.sourceCommit,TILE_AUTHORING_REVIEW_LINEAGE.editor);assert.equal(c1.uiOrigin,TILE_AUTHORING_REVIEW_LINEAGE.ui);assert.equal(c1.coreSource,TILE_AUTHORING_REVIEW_LINEAGE.core);assert.equal(c1.coreEvidence,TILE_AUTHORING_REVIEW_LINEAGE.coreEvidence);assert.equal(c1.status,TILE_AUTHORING_REVIEW_LINEAGE.sourceModelStatus);
  assert.equal(c1.runtimeCheckpoint,TILE_AUTHORING_REVIEW_LINEAGE.editorRuntime);assert.equal(c1.runtimeFiles.length,14);assert.equal(c1.files.length,39);assert.equal(c1.namespaceFiles.length,10);assert.deepEqual(Object.keys(c1.sharedOverrides),['apps/editor/smart-tile/checkpoint.js','apps/editor/smart-tile/session.js']);
- const artworkBuild=sharedArtworkBuildBytes({object:(commit,file)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',commit+':'+file],{windowsHide:true,timeout:30000,maxBuffer:2*1024*1024})});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer));
- for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(r.path==='tools/build.mjs'?artworkBuild.expected:r.expectedBuffer),'Unauthenticated C1 input: '+r.path);
- assert.deepEqual(namespace(root,c1Namespace),c1Runtime.sort());
+ const artworkBuild=sharedArtworkBuildBytes({object});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer));
+ for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(c2.overrides[r.path]?.expectedBuffer??(r.path==='tools/build.mjs'?artworkBuild.expected:r.expectedBuffer)),'Unauthenticated C1 input: '+r.path);
+ assert.deepEqual(namespace(root,c1Namespace),[...c1Runtime,...c2.namespaceFiles.map(r=>r.path)].sort());
  const hostFiles=tileAuthoringReviewHostFiles(b2.hostFiles);assert.equal(hostFiles.length,44);const hostPlan=tileAuthoringInstalledHostPlan({files:new Map(hostFiles.map(f=>[f,reviewRead(root,f)]))});
  const {moduleClosure,distribution}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);
  const normalProfiles=Object.fromEntries(['core','renderer','assets','compatibility'].map(profile=>{const plan=distribution(profile);return [profile,{name:plan.name,exports:plan.exports,files:plan.files}];}));
@@ -114,7 +126,7 @@ export async function tileAuthoringReviewInputModel({projectRoot}={}){
  for(const b of TILE_AUTHORING_REVIEW_BINDINGS){assert.equal(b2.pkg.exports[b.entry],'./'+b.file);assert.equal(b2.plans[b.profile].exports[b.entry],'./'+b.file);}
  for(const b of TILE_AUTHORING_INTERNAL_BINDINGS)assert.ok(b2.plans.core.files.includes(b.file));
  const inputs=sortedUnique([...hostFiles,...Object.values(closures).flat(),...TILE_AUTHORING_INTERNAL_BINDINGS.map(b=>b.file),TILE_AUTHORING_ATLAS]).map(f=>reviewRow(root,f));
- const verificationInputs=sortedUnique([...b2.verificationInputs.map(r=>r.file),...extraVerificationFiles,...c1.files.filter(f=>!c1.runtimeFiles.includes(f)).map(f=>f.path),...c1.dependencyEvidenceFiles.map(f=>f.path),...c1.helperFiles.map(f=>f.path)]).map(f=>reviewRow(root,f));
+ const verificationInputs=sortedUnique([...b2.verificationInputs.map(r=>r.file),...extraVerificationFiles,...c1.files.filter(f=>!c1.runtimeFiles.includes(f)).map(f=>f.path),...c1.dependencyEvidenceFiles.map(f=>f.path),...c1.helperFiles.map(f=>f.path),...c2.files.map(f=>f.path),...c2.borrowedFiles.map(f=>f.path)]).map(f=>reviewRow(root,f));
  const sourceBindings=sortedUnique([...b2.sourceBindings.map(r=>r.file),c1.metadata.path]).map(f=>reviewRow(root,f));
  const fingerprint=reviewToken({inputs,verificationInputs,sourceBindings,normalProfiles,profileInputs:b2.profileInputs,bindings:TILE_AUTHORING_REVIEW_BINDINGS,internalBindings:TILE_AUTHORING_INTERNAL_BINDINGS,lineage:TILE_AUTHORING_REVIEW_LINEAGE,hostPlan:{hostFiles:hostPlan.hostFiles,adaptations:hostPlan.adaptations},packages:b2.packages});
  return {root,status:TILE_AUTHORING_REVIEW_STATUS,lineage:TILE_AUTHORING_REVIEW_LINEAGE,b2,c1,inputs,verificationInputs,sourceBindings,normalProfiles,profileInputs:b2.profileInputs,packages:b2.packages,plans:b2.plans,hostFiles,hostPlan,fingerprint,atlasIdentity:b2.atlasIdentity,closures};

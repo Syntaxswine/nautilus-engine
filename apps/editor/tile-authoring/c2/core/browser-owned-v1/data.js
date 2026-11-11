@@ -1,0 +1,62 @@
+// Private C2 adapter derived from fixed C1; see source.json and vendor/c1.
+import {SCHEMA} from '../contract.js';
+import {BROWSER_SCHEMA as CAPTURE_SCHEMA} from './contract.js';
+import strictABI from '../abi/proposal.schema.json' with {type:'json'};
+import {Budget,fail,utf8Bytes,jsonBytes} from './budget.js';
+export {Budget,fail};
+export const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
+export const clone=(v,b)=>{const n=jsonBytes(v,b.limits.inputBytes);b.take(Math.ceil(n/64));b.copied(n);return structuredClone(v);};
+export const plain=v=>v!==null&&typeof v==='object'&&[Object.prototype,null].includes(Object.getPrototypeOf(v));
+export function fields(v,allowed,path,required=allowed){if(!plain(v))fail('INVALID_RECORD',path,'Expected a plain record.');for(const k of Object.keys(v))if(!allowed.includes(k))fail('UNKNOWN_FIELD',path+'/'+k,'Unknown field.');for(const k of required)if(!Object.hasOwn(v,k))fail('MISSING_FIELD',path+'/'+k,'Required field missing.');}
+// A bounded JSON parser detects duplicate decoded keys BEFORE object construction.
+function parse(text,b){let i=0;const ws=()=>{while(/[\x20\t\r\n]/.test(text[i]??'!'))i++;};
+ const string=()=>{const start=i++;for(;i<text.length;i++){if(text[i]==='\\'){i++;continue;}if(text[i]==='"'){i++;try{return JSON.parse(text.slice(start,i));}catch{break;}}}fail('INVALID_JSON','/','Invalid JSON string.');};
+ function value(d){b.node(d);ws();const c=text[i];if(c==='"'){const v=string();b.copied(jsonBytes(v));return v;}if(c==='['){b.copied(2);i++;const a=[];ws();if(text[i]===']'){i++;return a;}for(;;){if(a.length>=65536)fail('AUTHORING_NODE_LIMIT','/','Array too large.');a.push(value(d+1));ws();if(text[i]===']'){i++;return a;}if(text[i++]!==',')break;b.copied(1);}fail('INVALID_JSON','/','Invalid JSON array.');}
+ if(c==='{'){b.copied(2);i++;const out={},seen=new Set();ws();if(text[i]==='}'){i++;return out;}for(;;){ws();if(text[i]!=='"')break;const key=string();if(seen.has(key)||key==='__proto__')fail('DUPLICATE_JSON_KEY','/'+key,'Duplicate/unsafe decoded JSON key.');seen.add(key);ws();if(text[i++]!==':')break;b.copied(jsonBytes(key)+1+(seen.size>1?1:0));Object.defineProperty(out,key,{value:value(d+1),enumerable:true,writable:true,configurable:true});ws();if(text[i]==='}'){i++;return out;}if(text[i++]!==',')break;}fail('INVALID_JSON','/','Invalid JSON record.');}
+ const m=/^(?:true|false|null|-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?)/.exec(text.slice(i));if(!m)fail('INVALID_JSON','/','Invalid JSON value.');i+=m[0].length;const v=JSON.parse(m[0]);if(typeof v==='number'&&(!Number.isFinite(v)||Object.is(v,-0)))fail('INVALID_NUMBER','/','Finite values without negative zero required.');b.copied(jsonBytes(v));return v;}
+ const out=value(0);ws();if(i!==text.length)fail('INVALID_JSON','/','Trailing JSON data.');return out;
+}
+export function readData(input,b=new Budget(),max=b.limits.sourceBytes,{chargeInput=true}={}){
+ const encoded=typeof input==='string',rawBytes=encoded?utf8Bytes(input):null;
+ if(encoded){if(input.length>max||utf8Bytes(input)>max)fail('AUTHORING_BYTES_LIMIT','/','Raw UTF-8 input exceeds its bound.');if(chargeInput)b.input(rawBytes);b.text(input);input=parse(input,b);}
+ const active=new Set(),flow=n=>b.readFlow(n,chargeInput);function copy(v,d){b.node(d);if(v===null||typeof v==='boolean'){flow(jsonBytes(v));return v;}if(typeof v==='number'){if(!Number.isFinite(v)||Object.is(v,-0))fail('INVALID_NUMBER','/','Finite numbers without negative zero required.');flow(jsonBytes(v));return v;}if(typeof v==='string'){b.text(v);if(utf8Bytes(v)>max)fail('AUTHORING_BYTES_LIMIT','/','String too large.');flow(jsonBytes(v));return v;}if(typeof v!=='object'||active.has(v)||!Array.isArray(v)&&!plain(v))fail('INVALID_DATA','/','Expected finite acyclic plain data.');const arr=Array.isArray(v),keys=Reflect.ownKeys(v);if(arr&&v.length>65536)fail('AUTHORING_NODE_LIMIT','/','Array too large.');for(const k of keys){if(arr&&k==='length')continue;const q=Object.getOwnPropertyDescriptor(v,k);if(typeof k!=='string'||k==='__proto__'||!q.enumerable||!Object.hasOwn(q,'value')||arr&&(!/^(0|[1-9][0-9]*)$/.test(k)||+k>=v.length))fail('INVALID_DATA','/','No accessors/symbols/hidden fields/exotic arrays.');b.text(k);}flow(2);active.add(v);const out=arr?[]:{};if(arr)for(let j=0;j<v.length;j++){if(!Object.hasOwn(v,j))fail('INVALID_DATA','/','Sparse arrays refuse.');if(j)flow(1);out.push(copy(v[j],d+1));}else {let index=0;for(const k of keys){flow(jsonBytes(k)+1+(index++?1:0));Object.defineProperty(out,k,{value:copy(v[k],d+1),enumerable:true,writable:true,configurable:true});}}active.delete(v);return out;}
+ // The strict parser already constructed only dense own plain records. JSON size
+ // validates all decoded surrogate text; a second descriptor/copy walk adds no check.
+ const out=encoded?input:copy(input,0),bytes=jsonBytes(out,max);if(bytes>max)fail('AUTHORING_BYTES_LIMIT','/','Complete serialized input exceeds its bound.');return out;
+}
+export function corePort(t){const out={};for(const k of ['compileTileRecipe','openTileBundle','tileLayoutToken','createTileCatalogue','validateTileLayout','tileBundle','transformTileRecipe','prepareTileRepair']){const p=Object.getOwnPropertyDescriptor(t??{},k);if(!p||!Object.hasOwn(p,'value')||typeof p.value!=='function')fail('PUBLIC_CORE_REQUIRED','/core/'+k,'Supply actual public v1 tiles exports.');out[k]=p.value;}const p=Object.getOwnPropertyDescriptor(t??{},'TILE_CONTRACT');if(p?.value?.version!==1||p.value.positionPolicy!=='metres-q1e6-v1')fail('PUBLIC_CORE_REQUIRED','/core','Wrong public source contract.');out.TILE_CONTRACT=p.value;return out;}
+export function hash(t,v,b){b?.hash(v);return t.tileLayoutToken(typeof v==='string'?JSON.stringify(v):v);}
+export const equal=(t,a,b,budget)=>hash(t,a,budget)===hash(t,b,budget);
+// Interpreter for the exact fixed432 schema vocabulary; external v1 records
+// use actual public validators, never an alternate source grammar/solver.
+export function sourceWork(r,b){b.take(32);if(!plain(r))fail('SCHEMA_TYPE','/recipe','Canonical recipes are records, not encoded aliases.');for(const p of Array.isArray(r.ports)?r.ports:[]){const n=p?.boundary?.sampling?.segmentsPerPart,parts=p?.boundary?.curve?.kind==='compound'?p.boundary.curve.segments?.length:1;if(Number.isSafeInteger(n)&&n>0&&Number.isSafeInteger(parts)&&parts>0)b.take((parts*n+1)*32);}}
+// A private per-call cache is keyed only by a freshly charged full source hash.
+// The result comes from the borrowed actual public compiler, never an adapter.
+export function compileSource(t,r,b){const key=hash(t,r,b);b.compiledRecipes??=new Map();if(!b.compiledRecipes.has(key)){sourceWork(r,b);b.compiledRecipes.set(key,t.compileTileRecipe(r));}return b.compiledRecipes.get(key);}
+export function openSourceBundle(t,v,b){if(!plain(v))fail('SCHEMA_TYPE','/bundle','Canonical bundle must be a record.');const key=hash(t,v,b);b.checkedBundles??=new Set();if(!b.checkedBundles.has(key)){for(const r of Array.isArray(v.recipes)?v.recipes:[])sourceWork(r,b);t.openTileBundle(v,{requireResolved:true});b.checkedBundles.add(key);}return v;}
+function codePointLength(v,b){b.text(v);let n=0;for(let i=0;i<v.length;i++,n++){const c=v.charCodeAt(i);if(c>=0xd800&&c<=0xdbff&&v.charCodeAt(i+1)>=0xdc00&&v.charCodeAt(i+1)<=0xdfff)i++;}return n;}
+export function shape(t,name,value,b=new Budget(),schema=SCHEMA){
+ function check(s,v,path){b.take();if(s===true)return;if(s===false)fail('SCHEMA_VALUE',path,'Unexpected value.');if(s.$ref){
+ const ref=s.$ref;
+ if(ref.startsWith('#/$defs/')){const q=schema.$defs[ref.slice(8)];if(!q)fail('SCHEMA_REFERENCE',path,'Unknown local type.');check(q,v,path);}
+ else if(ref.startsWith(SCHEMA.$id+'#/$defs/'))shape(t,ref.slice((SCHEMA.$id+'#/$defs/').length),v,b);
+ else if(ref.startsWith(strictABI.$id+'#/$defs/'))shape(t,ref.split('#/$defs/')[1],v,b,strictABI);
+ else if(ref===schema.$id+'#/$defs/'+ref.split('#/$defs/')[1]){const q=schema.$defs[ref.split('#/$defs/')[1]];if(!q)fail('SCHEMA_REFERENCE',path,'Unknown type.');check(q,v,path);}
+ else if(ref==='urn:nautilus:schema:tile-recipe:1')compileSource(t,v,b);
+ else if(ref==='urn:nautilus:schema:tile-bundle:1')openSourceBundle(t,v,b);
+ else fail('SCHEMA_REFERENCE',path,'Unsupported schema dependency.');
+ }
+ if(Object.hasOwn(s,'const')&&JSON.stringify(s.const)!==JSON.stringify(v))fail('SCHEMA_CONST',path,'Wrong fixed value.');if(s.enum&&!s.enum.includes(v))fail('SCHEMA_ENUM',path,'Unsupported value.');
+ const test=(q)=>{try{check(q,v,path);return true;}catch(e){if(!e?.diagnostics||e.code?.includes('LIMIT')||e.code?.startsWith('BROWSER_'))throw e;return false;}};
+ if(s.anyOf&&!s.anyOf.some(test))fail('SCHEMA_ANY_OF',path,'At least one canonical branch is required.');if(s.oneOf){let count=0;for(const q of s.oneOf)if(test(q))count++;if(count!==1)fail('SCHEMA_ONE_OF',path,'Expected one exact canonical shape.');}if(s.allOf)for(const q of s.allOf)check(q,v,path);if(s.not&&test(s.not))fail('SCHEMA_NOT',path,'Forbidden data shape.');if(s.if)check(test(s.if)?s.then??true:s.else??true,v,path);
+ if(s.type){const ok=s.type==='object'?plain(v):s.type==='array'?Array.isArray(v):s.type==='integer'?Number.isSafeInteger(v):s.type==='null'?v===null:typeof v===s.type;if(!ok)fail('SCHEMA_TYPE',path,'Wrong data type.');}
+ if(typeof v==='number'){if(s.minimum!==undefined&&v<s.minimum||s.maximum!==undefined&&v>s.maximum)fail('SCHEMA_RANGE',path,'Outside bounds.');}
+ if(typeof v==='string'){const low=Math.ceil(v.length/2),high=v.length,uncertain=s.maxLength!==undefined&&high>s.maxLength&&low<=s.maxLength||s.minLength!==undefined&&low<s.minLength&&high>=s.minLength,length=uncertain?codePointLength(v,b):high;if(s.maxLength!==undefined&&length>s.maxLength||s.minLength!==undefined&&length<s.minLength||s.pattern&&!new RegExp(s.pattern).test(v))fail('SCHEMA_STRING',path,'Invalid bounded string.');}
+ if(Array.isArray(v)){if(s.maxItems!==undefined&&v.length>s.maxItems||s.minItems!==undefined&&v.length<s.minItems)fail('SCHEMA_ARRAY',path,'List outside bounds.');if(s.uniqueItems&&new Set(v.map(x=>hash(t,x,b))).size!==v.length)fail('SCHEMA_DUPLICATE',path,'Duplicate set value.');for(let j=0;j<v.length;j++){if(s.prefixItems&&j<s.prefixItems.length)check(s.prefixItems[j],v[j],path+'/'+j);else if(s.items!==undefined)check(s.items,v[j],path+'/'+j);}}
+ if(plain(v)){if(s.minProperties!==undefined&&Object.keys(v).length<s.minProperties||s.maxProperties!==undefined&&Object.keys(v).length>s.maxProperties)fail('SCHEMA_RECORD',path,'Record size outside bounds.');for(const k of s.required??[])if(!Object.hasOwn(v,k))fail('SCHEMA_REQUIRED',path+'/'+k,'Required canonical field absent.');for(const [k,x]of Object.entries(v)){if(s.propertyNames)check(s.propertyNames,k,path+'/'+k);if(s.properties?.[k])check(s.properties[k],x,path+'/'+k);else if(s.additionalProperties!==undefined)check(s.additionalProperties,x,path+'/'+k);}}
+ }
+ if(!schema.$defs[name])fail('SCHEMA_REFERENCE','/'+name,'Unknown type.');check(schema.$defs[name],value,'/'+name);return value;
+}
+export const refusal=(requestId,e)=>freeze({kind:'nautilus-tile-authoring-refusal',version:1,requestId:typeof requestId==='string'&&/^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,95}(?![\s\S])/.test(requestId)?requestId:'invalid-request',ok:false,targetDocument:null,diagnostics:(e?.diagnostics??[{code:'AUTHORING_FAILURE',path:'/',message:e.message??'Authoring failed.',action:'Keep accepted state.',ownerIds:[]}]).slice(0,128).map(x=>({code:String(x.code??'AUTHORING_FAILURE'),path:String(x.path??'/').slice(0,512),message:String(x.message??'').slice(0,2048),action:String(x.action??'Keep accepted state.').slice(0,2048),ownerIds:Array.isArray(x.ownerIds)?x.ownerIds.slice(0,32):[]}))});
+
+export const captureShape=(t,name,v,b)=>shape(t,name,v,b,CAPTURE_SCHEMA);

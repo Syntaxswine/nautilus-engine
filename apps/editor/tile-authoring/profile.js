@@ -1,12 +1,19 @@
 // Pure Core data binding inside the one existing asynchronous session owner.
-import {smartTileData,smartTileDigest,fields,fail} from '../smart-tile/checkpoint.js';
+import {smartTileData as originalData,smartTileDigest as originalDigest,fields as originalFields,fail} from '../smart-tile/checkpoint.js';
+import {bindPrivateObservation} from '../../../packages/authoring-runtime/observation.js';
 import {smartTileActions,assertSmartTileAdapter} from '../smart-tile/contract.js';
 import {TILE_AUTHORING_EDITOR,tileAuthoringSource} from './checkpoint.js';
-import {readAuthoringJSON} from './jsonl.js';
+import {readAuthoringJSON as originalReader} from './jsonl.js';
 
 const raise=result=>{const e=new TypeError(result.diagnostics?.[0]?.message??'Core refused authoring.');e.code=result.diagnostics?.[0]?.code??'AUTHORING_REFUSED';e.diagnostics=result.diagnostics;throw e;};
 const checked=result=>result?.ok===true?result:raise(result);
-export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,resourcePorts,inspection=null}){
+export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,resourcePorts,inspection=null},privateObservation=undefined){
+  const observer=bindPrivateObservation(privateObservation);
+  const smartTileData=value=>originalData(value,observer);
+  const smartTileDigest=value=>originalDigest(value,observer);
+  const fields=(value,keys,path,required=keys)=>originalFields(value,keys,path,required,observer);
+  const readAuthoringJSON=(value,options={})=>originalReader(value,{...options,observer});
+  const tileHash=value=>observer?observer.opaque('frozen.tiles.hash',value,()=>deps.tiles.tileLayoutToken(value)):deps.tiles.tileLayoutToken(value);
   const {codec,domain}=binding,core=deps.authoring,leases=new WeakMap(),fingerprints=new WeakMap();
   for(const name of ['capture','contextToken','missingBindings'])if(typeof resourcePorts?.[name]!=='function')fail('AUTHORING_RESOURCE_PORT','/resources/'+name,'Bind the actual retained resource owner.');
   const menu=smartTileData(finishCatalogue);fields(menu,['id','version','digest','entries'],'/finishCatalogue');
@@ -30,7 +37,7 @@ export function createTileAuthoringSessionProfile(deps,{binding,finishCatalogue,
     return {document,source:tileAuthoringSource(document),expected:domain.expected(document,token,contextToken),hostProtocolVersion:1,missingBindings:resourcePorts.missingBindings(document)};
   }
   const profile={authoring:true,interface:TILE_AUTHORING_EDITOR,assertAdapter:assertSmartTileAdapter,context,
-    presentationFingerprint(input){const d=domain.validateDocument(input);let value=fingerprints.get(d);if(value===undefined){value=smartTileDigest({geometry:deps.tiles.tileLayoutToken({sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,tileBundle:d.tileBundle}),appearance:deps.tiles.tileLayoutToken({tileBundle:d.tileBundle,finishBinding:d.finishBinding,decorations:d.authoring.decorations,resourceRefs:d.resourceRefs,profileDigest:presentationProfileDigest})});fingerprints.set(d,value);}return value;},
+    presentationFingerprint(input){const d=domain.validateDocument(input);let value=fingerprints.get(d);if(value===undefined){value=smartTileDigest({geometry:tileHash({sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,tileBundle:d.tileBundle}),appearance:tileHash({tileBundle:d.tileBundle,finishBinding:d.finishBinding,decorations:d.authoring.decorations,resourceRefs:d.resourceRefs,profileDigest:presentationProfileDigest})});fingerprints.set(d,value);}return value;},
     validateDraft(input){const command=readAuthoringJSON(input);fields(command,['kind','version','requestId','expected','operations','budgetProfile'],'/command');if(command.kind!=='nautilus-tile-authoring-command'||command.version!==1)fail('AUTHORING_COMMAND_VERSION','/command','Use the canonical Core command.');return command;},
     requestId:draft=>draft.requestId,
     plan({checkpoint,draft,requestId,contextToken,hostContext}){

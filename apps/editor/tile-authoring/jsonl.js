@@ -1,26 +1,30 @@
+// PRIVATE C2 shared-runtime prototype. Exact0e7 default algorithm; optional instrumentation only.
 // Transport syntax only. Core owns canonical Command/Query validation; this
 // port forwards to the same authorized live HostService used by the UI.
+import {observedStringify,observedParse} from '../../../packages/authoring-runtime/observation.js';
 import {smartTileData,fields,fail,bytes} from '../smart-tile/checkpoint.js';
 
-export function readAuthoringJSON(input,{maxBytes=1_000_000,maxNodes=100_000,maxDepth=40}={}){
+export function readAuthoringJSON(input,{maxBytes=1_000_000,maxNodes=100_000,maxDepth=40,observer=undefined}={}){
+  if(observer&&!observer.active)return observer.run('reader.strict',readAuthoringJSON,input,{maxBytes,maxNodes,maxDepth,observer});
+  observer?.visit('/transport',0);
   if(typeof input!=='string'){
-    const data=smartTileData(input);let nodes=0;
-    const visit=(v,d)=>{if(++nodes>maxNodes||d>maxDepth)fail('INPUT_LIMIT','/','Input exceeds the transport node/depth bound.');if(typeof v==='number'&&Object.is(v,-0))fail('INVALID_NUMBER','/','Negative zero is not canonical authoring input.');if(v&&typeof v==='object')Object.values(v).forEach(x=>visit(x,d+1));};
-    visit(data,0);if(bytes(JSON.stringify(data))>maxBytes)fail('INPUT_LIMIT','/','Input exceeds the transport byte bound.');return data;
+    const data=smartTileData(input,observer);let nodes=0;
+    const visit=(v,d)=>{observer?.visit('/transport/value',d);if(typeof v==='string')observer?.text(v);if(++nodes>maxNodes||d>maxDepth)fail('INPUT_LIMIT','/','Input exceeds the transport node/depth bound.');if(typeof v==='number'&&Object.is(v,-0))fail('INVALID_NUMBER','/','Negative zero is not canonical authoring input.');if(v&&typeof v==='object')Object.values(v).forEach(x=>visit(x,d+1));};
+    visit(data,0);if(bytes(observedStringify(observer,data,'reader.object-output'),observer)>maxBytes)fail('INPUT_LIMIT','/','Input exceeds the transport byte bound.');return data;
   }
-  if(bytes(input)>maxBytes)fail('INPUT_LIMIT','/','Input exceeds the transport byte bound.');
-  let i=0,nodes=0;const bad=()=>fail('INVALID_JSON','/','Supply one complete canonical JSON value.');
+  if(bytes(input,observer)>maxBytes)fail('INPUT_LIMIT','/','Input exceeds the transport byte bound.');
+  observer?.text(input);let i=0,nodes=0;const bad=()=>fail('INVALID_JSON','/','Supply one complete canonical JSON value.');
   const space=()=>{while(/[\x20\t\r\n]/.test(input[i]??'\0'))i++;};
   function string(){
-    const start=i++;while(i<input.length){const c=input[i++];if(c==='"'){try{return JSON.parse(input.slice(start,i));}catch{bad();}}if(c==='\\')i++;else if(c<' ')bad();}bad();
+    const start=i++;while(i<input.length){const c=input[i++];if(c==='"'){try{return observedParse(observer,input.slice(start,i),'reader.string-decode');}catch(error){if(observer?.isFailure(error))throw error;bad();}}if(c==='\\')i++;else if(c<' ')bad();}bad();
   }
   function value(depth){
-    space();if(++nodes>maxNodes||depth>maxDepth)fail('INPUT_LIMIT','/','Input exceeds the transport node/depth bound.');
+    space();observer?.visit('/transport/value',depth);if(++nodes>maxNodes||depth>maxDepth)fail('INPUT_LIMIT','/','Input exceeds the transport node/depth bound.');
     const c=input[i];if(c==='"')return string();
     if(c==='{'||c==='['){
       const array=c==='[',out=array?[]:{},seen=new Set(),end=array?']':'}';i++;space();if(input[i]===end){i++;return out;}
       while(i<input.length){
-        let key;if(!array){if(input[i]!=='"')bad();key=string();if(seen.has(key))fail('DUPLICATE_JSON_KEY','/','Duplicate JSON members refuse before calling the host.');seen.add(key);space();if(input[i++]!==':')bad();}
+        let key;if(!array){if(input[i]!=='"')bad();key=string();observer?.key(key);if(seen.has(key))fail('DUPLICATE_JSON_KEY','/','Duplicate JSON members refuse before calling the host.');seen.add(key);space();if(input[i++]!==':')bad();}
         const v=value(depth+1);if(array){if(out.length>=65536)fail('INPUT_LIMIT','/','Array exceeds its bounded length.');out.push(v);}else Object.defineProperty(out,key,{value:v,enumerable:true,writable:true,configurable:true});
         space();if(input[i]===end){i++;return out;}if(input[i++]!==',')bad();space();
       }bad();

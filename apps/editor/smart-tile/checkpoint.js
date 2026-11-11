@@ -1,3 +1,5 @@
+// PRIVATE C2 shared-runtime prototype. Exact0e7 default algorithm; optional instrumentation only.
+import {bindPrivateObservation,observedStringify,observedClone,observedParse,observedEncode} from '../../../packages/authoring-runtime/observation.js';
 import {sha256} from '../../../packages/parts-core/hash.js';
 import {SMART_TILE_INTERFACE as C,SMART_TILE_LIMITS as L} from './contract.js';
 
@@ -6,32 +8,34 @@ export class SmartTileError extends TypeError {
 }
 export const fail=(code,path,message)=>{throw new SmartTileError(code,path,message);};
 const plain=v=>v!==null&&typeof v==='object'&&[Object.prototype,null].includes(Object.getPrototypeOf(v));
-export const bytes=text=>new TextEncoder().encode(text).length;
+export const bytes=(text,observer=undefined)=>observer&&!observer.active?observer.run('data.utf8',bytes,text,observer):observedEncode(observer,text,'data.utf8.encode').length;
 const ptr=k=>k.replaceAll('~','~0').replaceAll('/','~1');
-const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
-export const smartTileDigest=value=>sha256(canonical(smartTileData(value)));
+const canonical=(v,observer=undefined)=>{observer?.visit('/canonical',0);if(Array.isArray(v))return '['+v.map(x=>canonical(x,observer)).join(',')+']';if(v&&typeof v==='object'){const keys=observer?observer.opaque('canonical.keys-sort',v,()=>Object.keys(v).sort()):Object.keys(v).sort();return '{'+keys.map(k=>{observer?.key(k);return observedStringify(observer,k,'canonical.key-json')+':'+canonical(v[k],observer);}).join(',')+'}';}if(typeof v==='string')observer?.text(v);return observedStringify(observer,v,'canonical.scalar-json');};
+export const smartTileDigest=(value,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.digest',smartTileDigest,value,observer);if(observer&&value&&typeof value==='object'&&privateFrozenValues.has(value)&&privateDigestValues.has(value)){observer.visit('/digest/actual-owned-cache',0);return privateDigestValues.get(value);}const text=canonical(smartTileData(value,observer),observer),result=observer?observer.opaque('frozen.sha256',text,()=>sha256(text)):sha256(text);if(observer&&value&&typeof value==='object'&&privateFrozenValues.has(value))privateDigestValues.set(value,result);return result;};
+const privateFrozenValues=new WeakSet(),privateDigestValues=new WeakMap();
 const sourceChecks=new WeakMap();
-export function smartTileData(input){
-  if(typeof input==='string'){if(bytes(input)>L.checkpointBytes)fail('CHECKPOINT_LIMIT','/','Checkpoint exceeds 16 MB.');try{input=JSON.parse(input);}catch{fail('INVALID_CHECKPOINT_JSON','/','Supply complete JSON.');}}
+export function smartTileData(input,observer=undefined){
+  if(observer&&!observer.active)return observer.run('data.read',smartTileData,input,observer);
+  if(typeof input==='string'){if(bytes(input,observer)>L.checkpointBytes)fail('CHECKPOINT_LIMIT','/','Checkpoint exceeds 16 MB.');try{input=observedParse(observer,input,'data.parse');}catch(error){if(observer?.isFailure(error))throw error;fail('INVALID_CHECKPOINT_JSON','/','Supply complete JSON.');}}
   const active=new Set();let nodes=0,text=0;
   function copy(v,path,depth){
-    if(++nodes>L.nodes||depth>L.depth)fail('CHECKPOINT_LIMIT',path,'Checkpoint exceeds its node/depth budget.');
+    observer?.visit(path,depth);if(++nodes>L.nodes||depth>L.depth)fail('CHECKPOINT_LIMIT',path,'Checkpoint exceeds its node/depth budget.');
     if(v===null||typeof v==='boolean'||typeof v==='number'&&Number.isFinite(v))return v;
-    if(typeof v==='string'){text+=v.length;if(text>L.checkpointBytes)fail('CHECKPOINT_LIMIT',path,'Text budget exceeded.');return v;}
+    if(typeof v==='string'){observer?.text(v);text+=v.length;if(text>L.checkpointBytes)fail('CHECKPOINT_LIMIT',path,'Text budget exceeded.');return v;}
     if(typeof v!=='object'||active.has(v)||!Array.isArray(v)&&!plain(v))fail('INVALID_CHECKPOINT_DATA',path,'Use finite acyclic plain JSON.');
-    const array=Array.isArray(v),keys=Reflect.ownKeys(v);if(keys.length>L.nodes||array&&v.length>65536)fail('CHECKPOINT_LIMIT',path,'Record/array budget exceeded.');
-    for(const key of keys){if(array&&key==='length')continue;const d=Object.getOwnPropertyDescriptor(v,key);if(typeof key!=='string'||!d.enumerable||!Object.hasOwn(d,'value')||array&&(!/^(0|[1-9][0-9]*)$/.test(key)||Number(key)>=v.length))fail('INVALID_CHECKPOINT_DATA',path,'Accessors, hidden/symbol fields and exotic arrays refuse before invocation.');text+=key.length;}
+    const array=Array.isArray(v),keys=observer?observer.opaque('data.own-keys',v,()=>Reflect.ownKeys(v)):Reflect.ownKeys(v);if(keys.length>L.nodes||array&&v.length>65536)fail('CHECKPOINT_LIMIT',path,'Record/array budget exceeded.');
+    for(const key of keys){if(array&&key==='length')continue;const d=Object.getOwnPropertyDescriptor(v,key);if(typeof key!=='string'||!d.enumerable||!Object.hasOwn(d,'value')||array&&(!/^(0|[1-9][0-9]*)$/.test(key)||Number(key)>=v.length))fail('INVALID_CHECKPOINT_DATA',path,'Accessors, hidden/symbol fields and exotic arrays refuse before invocation.');observer?.key(key);text+=key.length;}
     if(text>L.checkpointBytes)fail('CHECKPOINT_LIMIT',path,'Text budget exceeded.');active.add(v);const out=array?[]:{};
     if(array)for(let i=0;i<v.length;i++){if(!Object.hasOwn(v,i))fail('INVALID_CHECKPOINT_DATA',path,'Sparse arrays refuse.');out.push(copy(Object.getOwnPropertyDescriptor(v,String(i)).value,path+'/'+i,depth+1));}
     else for(const key of keys)Object.defineProperty(out,key,{value:copy(Object.getOwnPropertyDescriptor(v,key).value,path+'/'+ptr(key),depth+1),enumerable:true,writable:true,configurable:true});active.delete(v);return out;
   }
-  const out=copy(input,'',0);if(bytes(JSON.stringify(out))>L.checkpointBytes)fail('CHECKPOINT_LIMIT','/','Checkpoint exceeds 16 MB.');return out;
+  const out=copy(input,'',0);if(bytes(observedStringify(observer,out,'data.output-json'),observer)>L.checkpointBytes)fail('CHECKPOINT_LIMIT','/','Checkpoint exceeds 16 MB.');return out;
 }
-export function fields(value,keys,path,required=keys){if(!plain(value))fail('INVALID_CHECKPOINT_RECORD',path,'Expected a plain record.');for(const key of Object.keys(value))if(!keys.includes(key))fail('UNKNOWN_CHECKPOINT_FIELD',path+'/'+ptr(key),'Unknown versioned field.');for(const key of required)if(!Object.hasOwn(value,key))fail('MISSING_CHECKPOINT_FIELD',path+'/'+key,'Required field absent.');}
+export function fields(value,keys,path,required=keys,observer=undefined){if(observer&&!observer.active)return observer.run('data.fields',fields,value,keys,path,required,observer);observer?.visit(path,0);if(!plain(value))fail('INVALID_CHECKPOINT_RECORD',path,'Expected a plain record.');const actualKeys=observer?observer.opaque('data.field-keys',value,()=>Object.keys(value)):Object.keys(value);for(const key of actualKeys){observer?.key(key);if(!keys.includes(key))fail('UNKNOWN_CHECKPOINT_FIELD',path+'/'+ptr(key),'Unknown versioned field.');}for(const key of required)if(!Object.hasOwn(value,key))fail('MISSING_CHECKPOINT_FIELD',path+'/'+key,'Required field absent.');}
 export function id(v,path){if(typeof v!=='string'||v.length>96||!/^[A-Za-z0-9][A-Za-z0-9_.:-]*(?![\s\S])/.test(v))fail('INVALID_ID',path,'Supply a stable ASCII identity of at most 96 characters.');}
 const digest=(v,path)=>{if(typeof v!=='string'||!/^[a-f0-9]{64}(?![\s\S])/.test(v))fail('INVALID_DIGEST',path,'Supply an exact digest.');};
 const integer=(v,path)=>{if(!Number.isSafeInteger(v)||v<0)fail('INVALID_INTEGER',path,'Supply a nonnegative safe integer.');};
-const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
+const freeze=(v,observer=undefined)=>{if(observer&&!observer.active)return observer.run('data.freeze',freeze,v,observer);observer?.visit('/freeze',0);if(v&&typeof v==='object'){if(observer&&privateFrozenValues.has(v))return v;const values=observer?observer.opaque('data.freeze-values',v,()=>Object.values(v)):Object.values(v);values.forEach(x=>freeze(x,observer));Object.freeze(v);if(observer)privateFrozenValues.add(v);}return v;};
 function services(deps){
   const result={};for(const [name,methods]of [['mapCore',['loadBlueprint']],['tiles',['openTileBundle','tileLayoutToken']]]){const d=Object.getOwnPropertyDescriptor(deps,name);if(!d||!Object.hasOwn(d,'value'))fail('MISSING_CORE','/core/'+name,'Borrow the actual public core namespace.');for(const method of methods){const fn=Object.getOwnPropertyDescriptor(d.value,method);if(!fn||!Object.hasOwn(fn,'value')||typeof fn.value!=='function')fail('MISSING_CORE','/core/'+name+'/'+method,'Bind the actual public function.');}result[name]=d.value;}return result;
 }
@@ -76,7 +80,21 @@ const v1Policy=Object.freeze({
 
 // One algorithm for both formats. Policies supply closed domain grammars and
 // complete-target interpretation; they own no storage, history or recovery.
+const baseCodecOps={smartTileData,smartTileDigest,bytes,fields,freeze,smartTileCheckpointToken};
 export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,options=undefined){
+  const slot=options&&typeof options==='object'?Object.getOwnPropertyDescriptor(options,'privateObservation'):null;
+  if(slot&&!Object.hasOwn(slot,'value'))fail('CHECKPOINT_POLICY','/options/privateObservation','Bind an own explicit private observer.');
+  const observer=bindPrivateObservation(slot?.value);
+  const smartTileData=observer?v=>baseCodecOps.smartTileData(v,observer):baseCodecOps.smartTileData;
+  const smartTileDigest=observer?v=>baseCodecOps.smartTileDigest(v,observer):baseCodecOps.smartTileDigest;
+  const bytes=observer?v=>baseCodecOps.bytes(v,observer):baseCodecOps.bytes;
+  const fields=observer?(v,k,p,r)=>baseCodecOps.fields(v,k,p,r,observer):baseCodecOps.fields;
+  const freeze=observer?v=>baseCodecOps.freeze(v,observer):baseCodecOps.freeze;
+  const smartTileCheckpointToken=observer?v=>baseCodecOps.smartTileCheckpointToken(v,observer):baseCodecOps.smartTileCheckpointToken;
+  const ownedJSON=new WeakMap(),ownedEncoded=new Map(),ownedOperations=new WeakSet(),operationTargets=new WeakMap();
+  const stringifyOwned=(value,site)=>{const text=value&&typeof value==='object'?ownedJSON.get(value):undefined;if(text!==undefined){observer.visit('/codec/actual-owned-json',0);return text;}return observedStringify(observer,value,site);};
+  const JSON=observer?{stringify:v=>stringifyOwned(v,'codec.json.stringify'),parse:v=>observedParse(observer,v,'codec.json.parse')}:globalThis.JSON;
+  const structuredClone=observer?v=>observedClone(observer,v,'codec.structuredClone'):globalThis.structuredClone;
   const bound=services(dependencies),validated=new WeakMap();
   const hooks={};for(const name of ['validateDocument','targetDocument','validateOperation']){const d=Object.getOwnPropertyDescriptor(policy,name);if(!d||!Object.hasOwn(d,'value')||typeof d.value!=='function')fail('CHECKPOINT_POLICY','/policy/'+name,'Bind an own explicit synchronous checkpoint policy function.');hooks[name]=d.value;}
   const f=Object.getOwnPropertyDescriptor(policy,'formats');if(!f||!Object.hasOwn(f,'value'))fail('CHECKPOINT_POLICY','/policy/formats','Bind own plain format data.');const formats=smartTileData(f.value);fields(formats,['checkpoint','checkpointVersion','journal','journalVersion','operation','operationVersion'],'/policy/formats');
@@ -88,20 +106,21 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
   }
   let reuse=null;
   if(options!==undefined){
-    const option=configRecord(options,['ownedV3Successors'],'/options');
+    const option=configRecord(options,['ownedV3Successors','privateObservation'],'/options');
     if(Object.hasOwn(options,'ownedV3Successors')){
       const value=option('ownedV3Successors'),get=configRecord(value,['version','sourceBindingToken','inspectData'],'/options/ownedV3Successors');
       if(Reflect.ownKeys(value).length!==3||get('version')!==1||typeof get('sourceBindingToken')!=='string'||!/^[a-f0-9]{64}(?![\s\S])/.test(get('sourceBindingToken'))||typeof get('inspectData')!=='function'||formats.checkpoint!=='nautilus-tile-authoring-editor-checkpoint'||formats.journal!=='nautilus-tile-authoring-editor-journal'||formats.operation!=='nautilus-tile-authoring-editor-operation'||['checkpointVersion','journalVersion','operationVersion'].some(k=>formats[k]!==3))fail('CHECKPOINT_POLICY','/options/ownedV3Successors','Opt in only the reviewed C1 v3 policy, fixed source binding and strict reader.');
       reuse=Object.freeze({sourceBindingToken:get('sourceBindingToken'),inspectData:get('inspectData')});
     }
   }
+  if(observer&&(formats.checkpoint!=='nautilus-tile-authoring-editor-checkpoint'||formats.checkpointVersion!==3))fail('CHECKPOINT_POLICY','/options/privateObservation','Observe only the explicit private v3 family.');
   const limits={entries:64,bytes:8*1024*1024,nodes:65536,text:4194304},facts=reuse?new Map():null,witnesses=reuse?new WeakSet():null;
   const charges={bytes:0,nodes:0,text:0},counts={admissions:0,evictions:0,oversizeMisses:0,baseMisses:0,hits:0,misses:0,stageReuses:0,settleReuses:0,fullReads:0,tokenHits:0,tokenMisses:0};
   const fresh=input=>smartTileData(reuse.inspectData(input));
   const baseOf=d=>plain(d)&&plain(d.tileBundle)&&plain(d.tileBundle.layout)&&plain(d.constraints)?{id:d.id,sourceJSON:d.sourceJSON,floorBinding:d.floorBinding,finishBinding:d.finishBinding,layoutId:d.tileBundle.layout.id,minimumClearanceM:d.constraints.minimumClearanceM}:null;
   const targetBase=op=>op?.target?.kind==='nautilus-tile-authoring-target-fields'&&op.target.version===1&&op.target.sourceBindingToken===reuse.sourceBindingToken;
   function shapeCharge(value){
-    let nodes=1,text=0;const visit=v=>{nodes++;if(typeof v==='string')text+=v.length;else if(v&&typeof v==='object')for(const key of Object.keys(v)){text+=key.length;visit(v[key]);}};
+    let nodes=1,text=0;const visit=v=>{observer?.visit('/cache/shape',0);nodes++;if(typeof v==='string')text+=v.length;else if(v&&typeof v==='object')for(const key of Object.keys(v)){text+=key.length;visit(v[key]);}};
     visit(value);return {nodes,text};
   }
   function footprint(checkpoint,entry,shape){
@@ -134,7 +153,7 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
     if(!fits(charge)){counts.oversizeMisses++;return;}
     if(facts.has(c))discard(c);
     while(facts.size&&(facts.size>=limits.entries||!fits({bytes:charges.bytes+charge.bytes,nodes:charges.nodes+charge.nodes,text:charges.text+charge.text})))discard(facts.keys().next().value);
-    entry.documentDigest??=smartTileDigest(c.document);entry.charge=charge;
+    entry.documentDigest??=smartTileDigest(c.document);entry.charge=charge;if(observer)ownedJSON.set(c.document,entry.documentJSON);
     facts.set(c,entry);for(const name of ['bytes','nodes','text'])charges[name]+=charge[name];counts.admissions++;
   }
   function ownedToken(c){
@@ -142,7 +161,7 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
   }
   function constructed(candidate,witness){
     if(!witnesses.has(witness))return openSmartTileCheckpoint(bound,candidate);
-    const c=fresh(candidate),deps=services(bound),source=witness.source,entry=proofFor(source);
+    const c=observer?candidate:fresh(candidate),deps=services(bound),source=witness.source,entry=proofFor(source);
     fields(c,['kind','version','document','journal'],'');if(c.kind!==formats.checkpoint||c.version!==formats.checkpointVersion)fail('UNSUPPORTED_CHECKPOINT','/version','Use the explicitly bound Editor-local checkpoint format.');c.document=document(c.document,deps);
     fields(c.journal,['kind','version','serial','receipts','pending'],'/journal');if(c.journal.kind!==formats.journal||c.journal.version!==formats.journalVersion)fail('UNSUPPORTED_JOURNAL','/journal','Use the explicitly bound transaction journal format.');integer(c.journal.serial,'/journal/serial');if(!Array.isArray(c.journal.receipts)||c.journal.receipts.length>L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Retain at most 128 durable receipts; no silent eviction.');
     const base=baseOf(c.document),sameHeader=entry&&entry===witness.entry&&c.kind===source.kind&&c.version===source.version&&c.journal.kind===source.journal.kind&&c.journal.version===source.journal.version&&base&&JSON.stringify(base)===entry.baseJSON;
@@ -166,13 +185,13 @@ export function createSmartTileCheckpointCodec(dependencies,policy=v1Policy,opti
     const witness=Object.freeze({source,entry,kind,...extra});witnesses.add(witness);try{return constructed(candidate,witness);}finally{witnesses.delete(witness);}
   }
   const document=input=>hooks.validateDocument(input,bound);
-  function targetDocument(before,op){const next=hooks.targetDocument(before,op);return document(next);}
+  function targetDocument(before,op){if(observer&&ownedOperations.has(op)&&operationTargets.has(op)){observer.visit('/codec/actual-owned-operation-target',0);return operationTargets.get(op);}const next=hooks.targetDocument(before,op),target=document(next);if(observer&&ownedOperations.has(op))operationTargets.set(op,target);return target;}
   function operation(input,doc,deps,before=null){
     if(input?.kind!==formats.operation||input.version!==formats.operationVersion)fail('UNSUPPORTED_OPERATION','/operation','Use the explicitly bound operation format.');
     const target=targetDocument(doc,input);return hooks.validateOperation(input,doc,deps,before,target);
   }
 function openSmartTileCheckpoint(dependencies,input){
-  const deps=services(dependencies),known=validated.get(input);if(known&&known.mapCore===deps.mapCore&&known.tiles===deps.tiles)return input;
+  if(observer&&typeof input==='string'&&ownedEncoded.size){const cached=observer.opaque('codec.owned-encoding-lookup',input,()=>ownedEncoded.get(input));if(cached&&validated.has(cached))return cached;}const deps=services(dependencies),known=validated.get(input);if(known&&known.mapCore===deps.mapCore&&known.tiles===deps.tiles)return input;
   if(reuse)counts.fullReads++;
   const c=reuse?fresh(input):smartTileData(input);fields(c,['kind','version','document','journal'],'');if(c.kind!==formats.checkpoint||c.version!==formats.checkpointVersion)fail('UNSUPPORTED_CHECKPOINT','/version','Use the explicitly bound Editor-local checkpoint format.');c.document=document(c.document,deps);
   fields(c.journal,['kind','version','serial','receipts','pending'],'/journal');if(c.journal.kind!==formats.journal||c.journal.version!==formats.journalVersion)fail('UNSUPPORTED_JOURNAL','/journal','Use the explicitly bound transaction journal format.');integer(c.journal.serial,'/journal/serial');if(!Array.isArray(c.journal.receipts)||c.journal.receipts.length>L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Retain at most 128 durable receipts; no silent eviction.');
@@ -195,20 +214,20 @@ function openSmartTileCheckpoint(dependencies,input){
   if(c.journal.pending!==null){operation(c.journal.pending,c.document,deps,c.document);if(ids.has(c.journal.pending.id))fail('RECOVERY_ID_REUSED','/journal/pending','A settled request cannot also be pending.');if(c.journal.pending.expected.token!==smartTileCheckpointToken(c))fail('STALE_CHECKPOINT','/journal/pending','Pending recovery must bind the complete accepted source.');}
   freeze(c);validated.set(c,deps);if(reuse)admit(c,deps,{documentDigest:receipts.length?afterDigest:undefined});return c;
 }
-function createSmartTileCheckpoint(deps,input){return openSmartTileCheckpoint(deps,{kind:formats.checkpoint,version:formats.checkpointVersion,document:input,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}});}
-function serializeSmartTileCheckpoint(deps,input){return JSON.stringify(openSmartTileCheckpoint(deps,input));}
+function createSmartTileCheckpoint(deps,input){if(observer&&reuse){const d=document(input),c={kind:formats.checkpoint,version:formats.checkpointVersion,document:d,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}};freeze(c);const actual=services(bound);validated.set(c,actual);admit(c,actual);return c;}return openSmartTileCheckpoint(deps,{kind:formats.checkpoint,version:formats.checkpointVersion,document:input,journal:{kind:formats.journal,version:formats.journalVersion,serial:0,receipts:[],pending:null}});}
+function serializeSmartTileCheckpoint(deps,input){const c=openSmartTileCheckpoint(deps,input),text=JSON.stringify(c);if(observer&&validated.has(c)){ownedJSON.set(c,text);ownedEncoded.delete(text);ownedEncoded.set(text,c);while(ownedEncoded.size>64)ownedEncoded.delete(ownedEncoded.keys().next().value);}return text;}
 function stageSmartTileOperation(deps,input,rawOperation){
-  const c=openSmartTileCheckpoint(deps,input),op=reuse?fresh(rawOperation):smartTileData(rawOperation);if(c.journal.pending)fail('RECOVERY_REQUIRED','/journal/pending','Recover the original request before another operation.');if(c.journal.receipts.length>=L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Journal capacity is full; preserve source and receipts.');
+  const c=openSmartTileCheckpoint(deps,input),op=reuse?fresh(rawOperation):smartTileData(rawOperation);if(observer){freeze(op);ownedOperations.add(op);}if(c.journal.pending)fail('RECOVERY_REQUIRED','/journal/pending','Recover the original request before another operation.');if(c.journal.receipts.length>=L.receipts)fail('JOURNAL_LIMIT','/journal/receipts','Journal capacity is full; preserve source and receipts.');
   if(c.journal.receipts.some(r=>r.id===op.id))fail('REQUEST_ID_REUSED','/operation/id','Use each request identity once.');operation(op,c.document,services(deps),c.document);if(op.expected.token!==(reuse?ownedToken(c):smartTileCheckpointToken(c)))fail('STALE_CHECKPOINT','/operation/expected/token','The complete retained checkpoint changed.');
-  const candidate={...structuredClone(c),journal:{...structuredClone(c.journal),pending:op}};
+  const candidate=observer?{...c,journal:{...c.journal,pending:op}}:{...structuredClone(c),journal:{...structuredClone(c.journal),pending:op}};
   return reuse?successor(candidate,c,'stage',{operationJSON:JSON.stringify(op)}):openSmartTileCheckpoint(deps,candidate);
 }
 function settleSmartTileOperation(deps,input,requestId,outcome){
   const c=openSmartTileCheckpoint(deps,input),op=c.journal.pending;if(!op||op.id!==requestId)fail('RECOVERY_ID_MISMATCH','/journal/pending','Settle only the exact original request.');if(!['committed','not-committed'].includes(outcome))fail('INVALID_OUTCOME','/outcome','Use an authoritative settled outcome.');
-  if(reuse){const inspected=fresh(op);if(JSON.stringify(inspected)!==JSON.stringify(op))fail('RECEIPT_MISMATCH','/journal/pending','Keep the exact inspected original operation.');operation(inspected,c.document,services(deps),c.document);}
+  if(reuse){const inspected=observer&&ownedOperations.has(op)?op:fresh(op);if(JSON.stringify(inspected)!==JSON.stringify(op))fail('RECEIPT_MISMATCH','/journal/pending','Keep the exact inspected original operation.');operation(inspected,c.document,services(deps),c.document);}
   if((reuse?ownedToken(c):smartTileCheckpointToken(c))!==op.expected.token)fail('STALE_CHECKPOINT','/journal/pending','Pending recovery does not bind the complete accepted source.');
-  const nextDocument=structuredClone(outcome==='committed'?targetDocument(c.document,op):c.document),receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:structuredClone(op)};
-  const candidate={...structuredClone(c),document:nextDocument,journal:{...structuredClone(c.journal),serial:c.journal.serial+1,receipts:[...structuredClone(c.journal.receipts),receipt],pending:null}};
+  const selectedDocument=outcome==='committed'?targetDocument(c.document,op):c.document,nextDocument=observer?selectedDocument:structuredClone(selectedDocument),receipt={id:op.id,operationDigest:smartTileDigest(op),outcome,beforeToken:op.expected.token,afterDocumentDigest:smartTileDigest(nextDocument),operation:observer?op:structuredClone(op)};
+  const candidate=observer?{...c,document:nextDocument,journal:{...c.journal,serial:c.journal.serial+1,receipts:[...c.journal.receipts,receipt],pending:null}}:{...structuredClone(c),document:nextDocument,journal:{...structuredClone(c.journal),serial:c.journal.serial+1,receipts:[...structuredClone(c.journal.receipts),receipt],pending:null}};
   return reuse?successor(candidate,c,'settle',{operationJSON:JSON.stringify(op),documentJSON:JSON.stringify(nextDocument),outcome}):openSmartTileCheckpoint(deps,candidate);
 }
 function inspectSmartTileRecovery(deps,pendingInput,authoritativeInput,requestId){
@@ -228,6 +247,13 @@ function inspectSmartTileRecovery(deps,pendingInput,authoritativeInput,requestId
     targetDocument
   };
   if(reuse)codec.ownedSuccessorCacheStats=()=>Object.freeze({entries:facts.size,chargedBytes:charges.bytes,chargedNodes:charges.nodes,chargedTextCodeUnits:charges.text,...counts});
+  if(observer){
+    for(const key of ['open','create','serialize','token','stage','settle','inspectRecovery','targetDocument'])codec[key]=observer.fixed('codec.'+key,codec[key]);
+    Object.defineProperty(codec,'privateObservation',{value:Object.freeze({observer,utilities:Object.freeze({
+      data:observer.fixed('host.data',v=>smartTileData(v,observer)),digest:observer.fixed('host.digest',v=>smartTileDigest(v,observer)),
+      bytes:observer.fixed('host.utf8',v=>bytes(v,observer)),clone:observer.fixed('host.clone',v=>structuredClone(v)),
+      stringify:observer.fixed('host.stringify',v=>stringifyOwned(v,'codec.json.stringify')),parse:observer.fixed('host.parse',v=>JSON.parse(v))})})});
+  }
   return Object.freeze(codec);
 }
 const legacyCodecs=new WeakMap();
@@ -239,4 +265,4 @@ export const serializeSmartTileCheckpoint=(deps,input)=>legacyCodec(deps).serial
 export const stageSmartTileOperation=(deps,input,operation)=>legacyCodec(deps).stage(input,operation);
 export const settleSmartTileOperation=(deps,input,id,outcome)=>legacyCodec(deps).settle(input,id,outcome);
 export const inspectSmartTileRecovery=(deps,pending,actual,id)=>legacyCodec(deps).inspectRecovery(pending,actual,id);
-export function smartTileCheckpointToken(c){return smartTileDigest({...c,journal:{...c.journal,pending:null}});}
+export function smartTileCheckpointToken(c,observer=undefined){return smartTileDigest({...c,journal:{...c.journal,pending:null}},observer);}
