@@ -6,6 +6,7 @@ import {buildingLot} from '../prefab-core/index.js';
 import {WALL_KIT, wallRunsOf} from './wall-runs.js';
 import {W, H, edgePoints} from './maps.js';
 import {assertRailwayTrainFits} from './railway-train.js';
+import {assertRailwayTrainDepartures} from './railway-traffic.js';
 import {floorTerrain, propCells} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js';
 
 const EPS = 1e-8;
@@ -16,7 +17,15 @@ const asPoint = ({x, y}) => [x, y];
 const idPattern = /^[a-zA-Z0-9_-]{1,64}$/;
 
 export function railwayRoutesOf(map) { return map?.railwayRoutes?.routes ?? []; }
-export function railwayTrainOf(map) { return map?.railwayRoutes?.train ?? null; }
+export function railwayTrainsOf(map) {
+  const data = map?.railwayRoutes;
+  return data?.trains ?? (data?.train ? [data.train] : []);
+}
+export function railwayTrainOf(map) {
+  const trains = railwayTrainsOf(map);
+  if (trains.length > 1) throw new Error('Use railwayTrainsOf to read both train placements.');
+  return trains[0] ?? null;
+}
 
 export function refuseRailwayRoutes(map, workflow) {
   if (map?.railwayRoutes !== undefined) {
@@ -24,15 +33,18 @@ export function refuseRailwayRoutes(map, workflow) {
   }
 }
 
-export function setRailwayRoutes(map, routes, train = railwayTrainOf(map)) {
+export function setRailwayRoutes(map, routes, trains = railwayTrainsOf(map)) {
   if (!routes.length) {
-    if (train) throw new Error('Choose a placed railway route for the train.');
+    if (trains.length) throw new Error('Choose a placed railway route for the train.');
     delete map.railwayRoutes;
     return {plans: [], crossings: []};
   }
-  const data = train ? {version: 4, routes, train} : {version: routes.some(route => route.turnout) ? 2 : 1, routes};
+  let data;
+  if (trains.length > 1) data = {version: 5, routes, trains};
+  else if (trains.length) data = {version: 4, routes, train: trains[0]};
+  else data = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
   const layout = checkRailwayRoutes(map, data, true);
-  if (!train && layout.crossings.length) data.version = 3;
+  if (!trains.length && layout.crossings.length) data.version = 3;
   map.railwayRoutes = data;
   return layout;
 }
@@ -117,10 +129,12 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   if (map.version !== 2 || map.width !== W || map.height !== H) {
     throw new Error('Railway routes require a full aft-map-v2 design.');
   }
-  const keys = data?.version === 4 ? ['version', 'routes', 'train'] : ['version', 'routes'];
-  if (!exact(data, keys) || ![1, 2, 3, 4].includes(data.version) || !Array.isArray(data.routes) ||
+  const keys = ['version', 'routes'];
+  if (data?.version === 4) keys.push('train');
+  if (data?.version === 5) keys.push('trains');
+  if (!exact(data, keys) || ![1, 2, 3, 4, 5].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1–4 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1–5 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
   const mapPoint = point => Array.isArray(point) && point.length === 2 &&
@@ -166,6 +180,13 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
     const route = plans.find(item => item.id === data.train.routeId);
     if (!route) throw new Error('The train references a railway route that is missing.');
     assertRailwayTrainFits(route, data.train);
+  }
+  if (data.version === 5) {
+    if (!Array.isArray(data.trains) || data.trains.length !== 2 ||
+        ![...data.trains].every(train => exact(train, ['routeId', 'stock', 'departure', 'switchPosition']))) {
+      throw new Error('Railway routes version 5 needs two train placements.');
+    }
+    assertRailwayTrainDepartures(plans, crossings, data.trains);
   }
   return {plans, crossings};
 }

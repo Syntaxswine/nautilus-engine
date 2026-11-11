@@ -111,6 +111,7 @@ test('the map saves the departure and turnout setting and removes orphaned place
 
   assert.ok(doc.apply(edit('railway-train', {...departure, stock: 'electric', departure: 'branch'})).ok);
   assert.ok(doc.apply(edit('erase-railway-turnout', {id: trunk.id})).ok);
-  assert.equal(railwayTrainOf(doc.map), null);
-  assert.equal(doc.map.railwayRoutes.version, 3);
+  assert.deepEqual(railwayTrainOf(doc.map), departure);
+  assert.equal(doc.map.railwayRoutes.version, 4);
+  assert.ok(requiredMapFeatures(doc.map).includes(RAILWAY_CROSSING_FEATURE));
 });

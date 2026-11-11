@@ -1,99 +1,147 @@
-import {railwayRoutesOf, railwayTrainOf} from '../../packages/map-core/railway-routes.js';
-import {createRailwayTrain} from '../../packages/map-core/railway-train.js';
+import {railwayRoutesOf, railwayTrainsOf} from '../../packages/map-core/railway-routes.js';
+import {createRailwayTraffic} from '../../packages/map-core/railway-traffic.js';
 import {createRailwayTrainView} from '../../packages/railway-visuals/train-view.js';
+import {createRailwaySignalView} from '../../packages/railway-visuals/signal-view.js';
 
 const SPEED_M_PER_SECOND = 3.5;
+const EMPTY = {trains: [], signals: []};
+const statusKey = snapshot => JSON.stringify(snapshot.trains.map(({state, waiting}) =>
+  [state.stock, state.track, state.turnoutTaken, state.stopped, waiting?.kind]));
 
 export function createWorkshopTrainPreview(T, scene, changed) {
-  const listeners = new Set();
-  let saved = null, signature = '', motion = null, state = null, model = null;
-  let playing = false, visible = true, frame = 0, lastTime = null;
+  const listeners = new Set(), playing = new Set(), models = new Map();
+  let traffic = null, signature = '', snapshot = EMPTY, switches = new Map(), signalView = null;
+  let selectedStock = 'steam', visible = true, frame = 0, lastTime = null;
 
-  const read = () => ({playing, state, canTakeBranch: motion?.canTakeBranch ?? false});
+  function read(stock = selectedStock) {
+    const trains = snapshot.trains.map(train => ({...train, playing: playing.has(train.stock)}));
+    const selected = trains.find(train => train.stock === stock);
+    return {state: null, waiting: null, canTakeBranch: false, playing: false, ...selected, trains, signals: snapshot.signals};
+  }
   const notify = () => { for (const listener of listeners) listener(); };
 
-  function pause() {
+  function stopClock() {
     if (frame) cancelAnimationFrame(frame);
     frame = 0;
     lastTime = null;
-    if (!playing) return;
-    playing = false;
+  }
+
+  function pause(stock = selectedStock) {
+    if (!playing.delete(stock)) return;
+    if (!playing.size) stopClock();
+    notify();
+  }
+
+  function pauseAll() {
+    stopClock();
+    if (!playing.size) return;
+    playing.clear();
     notify();
   }
 
   function render(next) {
-    state = next;
-    model.update(state);
-    changed();
+    let redraw = false;
+    for (const [index, {stock, state}] of next.trains.entries()) {
+      const prior = snapshot.trains[index]?.state;
+      if (state.distanceM !== prior?.distanceM || state.turnoutTaken !== prior?.turnoutTaken) {
+        models.get(stock).update(state);
+        redraw = true;
+      }
+    }
+    redraw ||= next.signals.some((signal, index) => signal.aspect !== snapshot.signals[index]?.aspect);
+    signalView?.update(next.signals);
+    snapshot = next;
+    if (redraw) changed();
   }
 
   function tick(time) {
     frame = 0;
-    if (!playing) return;
+    if (!playing.size) return;
     if (lastTime !== null) {
-      const previous = state;
-      const seconds = Math.min(.1, (time - lastTime) / 1000);
-      render(motion.advance(seconds * SPEED_M_PER_SECOND, saved.switchPosition));
-      if (state.stopped) { pause(); return; }
-      if (state.track !== previous.track || state.turnoutTaken !== previous.turnoutTaken) notify();
+      const previous = statusKey(snapshot);
+      const seconds = Math.min(.25, (time - lastTime) / 1000);
+      render(traffic.advance(seconds * SPEED_M_PER_SECOND, playing));
+      for (const {stock, state} of snapshot.trains) if (state.stopped) playing.delete(stock);
+      if (previous !== statusKey(snapshot)) notify();
     }
-    lastTime = time;
-    frame = requestAnimationFrame(tick);
+    if (playing.size) {
+      lastTime = time;
+      frame = requestAnimationFrame(tick);
+    } else lastTime = null;
   }
 
-  function play() {
-    if (!motion || playing || state.stopped) return;
-    playing = true;
-    frame = requestAnimationFrame(tick);
+  function start(stocks) {
+    for (const {stock, state} of snapshot.trains) if (stocks.includes(stock) && !state.stopped) playing.add(stock);
+    if (playing.size && !frame) frame = requestAnimationFrame(tick);
     notify();
   }
 
   function reset() {
-    pause();
-    if (!motion) return;
-    render(motion.reset(saved.switchPosition));
+    pauseAll();
+    if (!traffic) return;
+    render(traffic.reset());
     notify();
   }
 
+  function releaseModels() {
+    for (const model of models.values()) model.dispose();
+    models.clear();
+    signalView?.dispose();
+    signalView = null;
+  }
+
   function sync(map) {
-    const next = railwayTrainOf(map);
-    const route = next && railwayRoutesOf(map).find(item => item.id === next.routeId);
-    const nextSignature = route ? JSON.stringify([route, next.stock, next.departure]) : '';
-    const switchChanged = saved?.switchPosition !== next?.switchPosition;
-    saved = next;
+    const routes = railwayRoutesOf(map), placements = railwayTrainsOf(map);
+    const departures = placements.map(({stock, routeId, departure}) => [stock, routeId, departure]);
+    const nextSignature = routes.length ? JSON.stringify([routes, departures]) : '';
     if (signature === nextSignature) {
-      if (switchChanged && motion) {
-        if (!state.distanceM) render(motion.reset(saved.switchPosition));
-        notify();
+      let edited = false;
+      for (const {stock, switchPosition} of placements) if (switches.get(stock) !== switchPosition) {
+        traffic.setSwitch(stock, switchPosition);
+        switches.set(stock, switchPosition);
+        edited = true;
       }
+      if (edited) { render(traffic.read()); notify(); }
       return;
     }
-    pause();
-    model?.dispose();
-    model = state = motion = null;
+
+    pauseAll();
+    releaseModels();
     signature = nextSignature;
-    if (route) {
-      motion = createRailwayTrain(route, next);
-      state = motion.read();
-      model = createRailwayTrainView(T, state);
-      model.root.visible = visible;
+    switches = new Map(placements.map(train => [train.stock, train.switchPosition]));
+    traffic = routes.length ? createRailwayTraffic(routes, placements) : null;
+    snapshot = traffic?.read() ?? EMPTY;
+    for (const {stock, state} of snapshot.trains) {
+      const model = createRailwayTrainView(T, state);
+      models.set(stock, model);
       scene.add(model.root);
     }
+    if (snapshot.signals.length) {
+      signalView = createRailwaySignalView(T, snapshot.signals);
+      scene.add(signalView.root);
+    }
+    setVisible(visible);
     changed();
     notify();
   }
 
   function setVisible(value) {
     visible = value;
-    if (model) model.root.visible = visible;
+    for (const model of models.values()) model.root.visible = visible;
+    if (signalView) signalView.root.visible = visible;
   }
 
   function dispose() {
-    pause();
     listeners.clear();
-    model?.dispose();
-    model = state = motion = null;
+    pauseAll();
+    releaseModels();
+    traffic = null;
+    snapshot = EMPTY;
   }
 
-  return {read, play, pause, reset, sync, setVisible, dispose, subscribe: listener => listeners.add(listener)};
+  return {
+    read, select: stock => { selectedStock = stock; },
+    play: (stock = selectedStock) => start([stock]), playAll: () => start(snapshot.trains.map(train => train.stock)),
+    pause, pauseAll, reset, sync, setVisible, dispose, subscribe: listener => listeners.add(listener)
+  };
 }

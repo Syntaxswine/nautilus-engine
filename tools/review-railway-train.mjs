@@ -103,6 +103,8 @@ await withArtReview('Run the steam and electric trains through the built Worksho
   await reset.click();
   assert.equal((await read()).state.distanceM, 0);
 
+  await page.locator('#railway-train-remove').click();
+  await page.waitForFunction(() => !window.editor3d.loading && !window.editor3d.scene.railwayTrain.read().state);
   await stock.selectOption('electric');
   await frame(57, 50, 65);
   await tap(31, 50);

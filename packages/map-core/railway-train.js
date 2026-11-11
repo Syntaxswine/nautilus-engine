@@ -28,15 +28,21 @@ function consist(stock) {
 }
 
 function itinerary(...legs) {
-  const lengthM = legs.reduce((sum, leg) => sum + leg.lengthM, 0);
-  return {legs, lengthM};
+  let lengthM = 0;
+  const segments = legs.map(({track, from, direction, lengthM: length}) => {
+    const segment = Object.freeze({track, fromM: from, toM: from + direction * length,
+      direction, startM: lengthM, lengthM: length});
+    lengthM += length;
+    return segment;
+  });
+  return {legs, lengthM, segments: Object.freeze(segments)};
 }
 
 function leg(track, plan, from, to) {
   return {track, plan, from, direction: Math.sign(to - from), lengthM: Math.abs(to - from)};
 }
 
-function turnoutStation(plan, turnout) {
+export function railwayTurnoutStation(plan, turnout) {
   const base = railwayStationAt(plan, turnout.mainStartM);
   const [x, z] = turnout.throat;
   const [dx, dz] = turnout.incoming;
@@ -59,7 +65,7 @@ function planTrain(plan, turnout, placement) {
   const {stock, departure, switchPosition} = placement;
   if (!['start', 'end', 'branch'].includes(departure)) throw new Error('Choose a railway departure end.');
   const train = consist(stock);
-  const junction = turnout && turnoutStation(plan, turnout);
+  const junction = turnout && railwayTurnoutStation(plan, turnout);
   let main, branch = null, decisionM = null;
   if (departure === 'branch') {
     if (!junction) throw new Error('This route has no branch departure.');
@@ -117,10 +123,14 @@ function pose(path, headM, {id, centreBehindM, wheelbaseM, lengthM, reverse}) {
 // The host supplies travel in metres. A turnout is the only place where the
 // selected route can diverge. Diamonds never appear in this itinerary.
 export function createRailwayTrain(route, placement) {
-  const {routeId, stock, departure, switchPosition} = placement;
-  if (route.id !== routeId) throw new Error('The train must start on its selected railway route.');
   const plan = planRailwayRoute(route.waypoints);
   const turnout = route.turnout && planRailwayTurnout(plan, route.turnout);
+  return createRailwayTrainOnPlan({id: route.id, plan, turnout}, placement);
+}
+
+export function createRailwayTrainOnPlan({id, plan, turnout}, placement) {
+  const {routeId, stock, departure, switchPosition} = placement;
+  if (id !== routeId) throw new Error('The train must start on its selected railway route.');
   const {main, branch, decisionM, train} = planTrain(plan, turnout, placement);
   let headM, path, turnoutTaken, setting;
 
@@ -150,16 +160,32 @@ export function createRailwayTrain(route, placement) {
     return read();
   }
 
-  function advance(distanceM, switchSetting = setting) {
+  function move(distanceM, switchSetting = setting) {
     if (!Number.isFinite(distanceM) || distanceM < 0) throw new Error('Train travel must be finite and nonnegative.');
     assertSwitch(switchSetting, branch);
     setting = switchSetting;
     const next = headM + distanceM;
     chooseAt(next);
     headM = Math.min(next, path.lengthM);
+  }
+
+  function advance(distanceM, switchSetting) {
+    move(distanceM, switchSetting);
     return read();
   }
 
+  function trajectory(switchSetting = setting) {
+    assertSwitch(switchSetting, branch);
+    const itinerary = turnoutTaken ? path : switchSetting === 'branch' ? branch : main;
+    return {headM, lengthM: train.lengthM, endM: itinerary.lengthM, segments: itinerary.segments};
+  }
+
+  function lockSwitch(switchSetting) {
+    assertSwitch(switchSetting, branch);
+    setting = switchSetting;
+    chooseAt(decisionM);
+  }
+
   reset(switchPosition);
-  return Object.freeze({canTakeBranch: Boolean(branch), read, advance, reset});
+  return Object.freeze({canTakeBranch: Boolean(branch), read, advance, reset, move, trajectory, lockSwitch});
 }

@@ -67,7 +67,7 @@ export class InspectionScene extends Legacy {
 
   rebuild() { super.rebuild(); this.updateRailway(); }
   async open(document) {
-    this.railwayTrain.pause();
+    this.railwayTrain.pauseAll();
     await super.open(document);
     if (this.document !== document || this.railwayDisposed) return;
     this.updateRailway(document);

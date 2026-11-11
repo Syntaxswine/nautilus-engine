@@ -3,7 +3,7 @@ import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 
 const guide = 'docs/railway-track-kit.md';
-const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'train-view.js']
+const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'train-view.js', 'signal-view.js']
   .map(name => 'packages/railway-visuals/' + name);
 const renderer = 'packages/assets/three.js';
 
@@ -51,7 +51,8 @@ export function checkRailwayRenderer({baseFile, read, indexed}) {
   const expected = insert(baseFile(renderer).toString('utf8'), anchor,
     anchor + "\nexport {createRailwayKit} from '../railway-visuals/three.js';" +
     "\nexport {createRollingStockKit} from '../railway-visuals/rolling-stock.js';" +
-    "\nexport {createRailwayTrainView} from '../railway-visuals/train-view.js';");
+    "\nexport {createRailwayTrainView} from '../railway-visuals/train-view.js';" +
+    "\nexport {createRailwaySignalView} from '../railway-visuals/signal-view.js';");
   const actual = read(renderer);
   assert.ok(actual.equals(Buffer.from(expected)), 'Unreviewed railway renderer facade bytes.');
   indexed(renderer, actual);

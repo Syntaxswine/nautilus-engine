@@ -1,27 +1,32 @@
 import {EditingDocument as Legacy} from './roof-document.js';
 import {parseMap, extractBlock, placeBlock, validateBlock} from './railway-map.js';
-import {assertRailwayRoutes, railwayRouteAt, railwayRoutesOf, railwayTrainOf, refuseRailwayRoutes, setRailwayRoutes} from './railway-routes.js';
+import {assertRailwayRoutes, railwayRouteAt, railwayRoutesOf, railwayTrainsOf, refuseRailwayRoutes, setRailwayRoutes} from './railway-routes.js';
 
 const trainTools = ['railway-train', 'railway-train-switch', 'erase-railway-train'];
 const routeTools = ['railway-route', 'erase-railway-route', 'railway-turnout', 'erase-railway-turnout'];
 
 function previewTrain(map, routes, tool, options) {
-  let train = railwayTrainOf(map), railwayTrainMessage;
+  const trains = railwayTrainsOf(map).slice();
+  const stock = options.stock ?? (trains.length === 1 && tool !== 'railway-train' ? trains[0].stock : undefined);
+  const index = trains.findIndex(train => train.stock === stock);
+  let railwayTrainMessage;
   if (tool === 'railway-train') {
-    const {routeId, stock, departure} = options;
-    train = {routeId, stock, departure, switchPosition: 'main'};
-    railwayTrainMessage = 'Train placed. Choose Run train to depart.';
+    const {routeId, departure} = options;
+    const train = {routeId, stock, departure, switchPosition: 'main'};
+    if (index < 0) trains.push(train);
+    else trains[index] = train;
+    railwayTrainMessage = trains.length === 2 ? 'Train placed. Choose Run both to depart together.' : 'Train placed. Choose Run train to depart.';
   } else {
-    if (!train) throw new Error('Place a train first.');
+    if (index < 0) throw new Error('Choose a placed train.');
     if (tool === 'railway-train-switch') {
-      train = {...train, switchPosition: options.switchPosition};
-      railwayTrainMessage = train.switchPosition === 'branch' ? 'Turnout set to Branch.' : 'Turnout set to Main line.';
+      trains[index] = {...trains[index], switchPosition: options.switchPosition};
+      railwayTrainMessage = options.switchPosition === 'branch' ? 'Turnout set to Branch.' : 'Turnout set to Main line.';
     } else {
-      train = null;
+      trains.splice(index, 1);
       railwayTrainMessage = 'Train removed.';
     }
   }
-  setRailwayRoutes(map, routes, train);
+  setRailwayRoutes(map, routes, trains);
   return {ok: true, map, cells: [], edges: [], railwayTrainMessage};
 }
 
@@ -48,17 +53,16 @@ export class EditingDocument extends Legacy {
       const map = structuredClone(this.editor.map), routes = railwayRoutesOf(map), options = command.options ?? {};
       if (isTrainEdit) return previewTrain(map, routes, command.tool, options);
       const {id, waypoints} = options;
-      const train = railwayTrainOf(map);
+      const trains = railwayTrainsOf(map);
       if (command.tool === 'railway-turnout' || command.tool === 'erase-railway-turnout') {
         const route = routes.find(item => item.id === id);
         if (!route) throw new Error('Choose a straight section of a placed railway route.');
         if (command.tool === 'erase-railway-turnout') {
           if (!route.turnout) throw new Error('The selected route has no split.');
           delete route.turnout;
-          const affected = train?.routeId === id;
-          const retainedTrain = affected && train.departure === 'branch' ? null
-            : affected ? {...train, switchPosition: 'main'} : train;
-          setRailwayRoutes(map, routes, retainedTrain);
+          const retained = trains.filter(train => train.routeId !== id || train.departure !== 'branch')
+            .map(train => train.routeId === id ? {...train, switchPosition: 'main'} : train);
+          setRailwayRoutes(map, routes, retained);
           return {ok: true, map, cells: [], edges: []};
         }
         route.turnout = structuredClone(command.options.turnout);
@@ -68,7 +72,7 @@ export class EditingDocument extends Legacy {
       }
       if (command.tool === 'erase-railway-route') {
         if (!routes.some(route => route.id === id)) throw new Error('Select an existing railway route.');
-        setRailwayRoutes(map, routes.filter(route => route.id !== id), train?.routeId === id ? null : train);
+        setRailwayRoutes(map, routes.filter(route => route.id !== id), trains.filter(train => train.routeId !== id));
         return {ok: true, map, cells: [], edges: []};
       }
       let next = 1;
