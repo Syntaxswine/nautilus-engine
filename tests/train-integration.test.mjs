@@ -5,8 +5,9 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {createTrainSession, TRAIN_SESSION_CONTRACT} from '@nautilus-engine/map-core/trains';
 import {mountTrainControls, TRAIN_CONTROLS_CARD} from '@nautilus-engine/map-core/trains/ui';
-import {moduleClosure, distribution} from '../tools/distribution.mjs';
+import {moduleClosure, distribution, root} from '../tools/distribution.mjs';
 import {authenticatedTrainImages} from '../tools/train-registration.mjs';
+import {tileAuthoringReviewInputModel} from '../tools/tile-authoring-editor-review-inputs.mjs';
 
 test('optional train entries retain a headless runtime and keep UI/reference artifacts out of core packages', () => {
   assert.equal(typeof createTrainSession, 'function');
@@ -23,6 +24,14 @@ test('optional train entries retain a headless runtime and keep UI/reference art
     assert.equal(Object.hasOwn(pkg.exports, './trains/ui'), profile === 'compatibility');
     if (profile === 'core') assert.ok(pkg.files.every(file => !file.startsWith('packages/train-ui/')));
   }
+});
+
+test('the actual CI tile-authoring preflight accepts the registered train build without weakening its lineage', async () => {
+  const model = await tileAuthoringReviewInputModel({projectRoot: root});
+  assert.equal(model.status, 'fixed-source-workflow-candidate');
+  assert.equal(model.lineage.editor, 'f9ea6ce0ad5600ce07f4be634a29b699d61790f8');
+  assert.equal(model.normalProfiles.core.exports['./trains'], './packages/train-core/index.js');
+  assert.ok(model.verificationInputs.some(row => row.file === 'tools/train-registration.mjs'));
 });
 
 test('the integrated HUD retains the exact reviewed input and view implementation', () => {

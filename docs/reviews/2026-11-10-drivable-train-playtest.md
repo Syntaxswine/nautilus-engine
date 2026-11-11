@@ -46,6 +46,10 @@ Two existing historical guards initially rejected the deliberate train export/bu
 
 Local records are under `artifacts/train-playtest-gates/`, `artifacts/train-playtest-review/`, `artifacts/train-walking-review/` and `artifacts/train-installed-proof/`. The review tools are committed for reproduction. Disposable browser/server lifetimes exited, cleanup receipts were checked, and their loopback ports refused connections. The retained user preview has a separate process/source/restart record and lifecycle registration, a private STOP marker and a real 48-hour timer. A one-second run of the same launcher demonstrated expiry, process exit and port release before the retained run.
 
+## CI preflight follow-up
+
+The first pushed commit exposed another authenticated build comparison used only by the full tile-authoring browser collector. Both push/PR jobs failed at the same `Unauthenticated C1 input: tools/build.mjs` preflight, before opening that editor. The four required local commands did not call this collector entry point. Its model now admits the same exact train copy-filter transformation, preserves the C1 lineage and includes the train registration source in its verification fingerprint. A new Node regression calls the actual CI model, so this case becomes part of ordinary `npm test`. All three train integration cases pass after this correction. Train runtime, UI, art and the retained user preview remain byte-identical to the reviewed version.
+
 ## Limits
 
 The yard has two independent closed circuits, with manual cabs and a retained operator for each one-lap passenger service. It does not connect the circuits through an interlock, simulate locomotive physics, provide walkable interiors or add boarding animation. A native goat is shown while on foot and hidden inside the occupied car; its movement animation is a neutral pose. The existing railway junction/signal behavior remains covered separately. Phone viewport evidence does not establish physical-device performance. No game consumer pin or private Sites audience changes.
