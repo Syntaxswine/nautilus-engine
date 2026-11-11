@@ -6,6 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,sourceCommit,vendorRoot,verifySnapshot} from './snapshot-native-window-presenter.mjs';
 import {moduleClosure,distribution} from './distribution.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {historicalRailwayCoreClosure, historicalRailwayRouteBytes} from './railway-route-registration.mjs';
@@ -104,7 +105,7 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
     }
     profiles[profile]={files:d.files.length,registered:rendered};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Root package whitelist must match the exact distribution closure.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Root package whitelist must match the exact distribution closure.');
   return {status:'pass',registered:true,sourceCommit,acceptedPresenter,integrationBase,snapshot,runtime,packageSupport:[...support],entry,entryFile,frozenFiles:frozen.length,profiles,coreOrThreeImports:false,newSchemaOrCapability:false,gameAdopted:false,optionalRegistration,requiredGitCommits:[...new Set([sourceCommit,acceptedPresenter,integrationBase,privateC2aSource,...optionalRegistration.requiredGitCommits])]};
 }
 

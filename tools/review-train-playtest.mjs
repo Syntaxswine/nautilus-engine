@@ -6,7 +6,7 @@ import {withArtReview} from './art-review-browser.mjs';
 await withArtReview('Review walking, boarding, driving, riding and reload on two closed railway circuits', async ({page, baseURL, out, browser}) => {
   await page.setViewportSize({width: 1440, height: 960});
   page.setDefaultTimeout(25000);
-  const open = async target => { await target.goto(baseURL + '/examples/train-yard.html'); await target.waitForFunction(() => window.trainYard); };
+  const open = async target => { await target.goto(baseURL + '/examples/train-yard.html'); await target.waitForFunction(() => window.trainYard); await target.locator('#steam-profile').selectOption('classic'); };
   const read = target => target.evaluate(() => window.trainYard.readForActor());
   const enterCab = async target => { await target.locator('[data-train-action=enter]:enabled').filter({hasText: 'Enter steam cab'}).first().click(); assert.equal((await read(target)).mode, 'driver'); };
   const brakeToStop = async target => target.waitForFunction(() => window.trainYard.readForActor().train?.stopped);

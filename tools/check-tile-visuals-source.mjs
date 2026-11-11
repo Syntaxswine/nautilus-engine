@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -118,7 +119,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
     }
     profiles[profile]={files:d.files.length,providerFiles:wanted};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Root whitelist must match the exact computed distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Root whitelist must match the exact computed distribution.');
   const families=Object.values(Object.groupBy(studies.studies,study=>study.family)).map(list=>({id:list[0].family,count:list.length}));
   return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],runtimeCorrections,coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,optionalRegistration,publicExportsChanged:true,publicWhitelistChanged:true,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES,optionalRegistration.base,...optionalRegistration.requiredGitCommits,...surfaceCorrection.requiredGitCommits])]};
 }

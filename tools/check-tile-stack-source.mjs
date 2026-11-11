@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -169,7 +170,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
     }
     profiles[name]={registered:included,runtime:included?[...runtimeFiles]:[],support:included?[...support]:[]};
   }
-  assert.deepEqual(pkg.files,distribution().files,'The exact Root whitelist must equal the registered normal distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'The exact Root whitelist must equal the registered normal distribution.');
   return {
     status:'pass',registered:true,id:profile,acceptedSource:TILE_STACK_ACCEPTED_SOURCE,integrationBase:TILE_STACK_REGISTRATION_BASE,
     entries:{[TILE_STACK_ENTRY]:TILE_STACK_ENTRY_FILE},runtime,types,closure,packageSupport:[...support],metadataAdaptations:[{...adaptation}],

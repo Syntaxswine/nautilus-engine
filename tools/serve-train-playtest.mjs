@@ -26,7 +26,7 @@ const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], {cwd: project, e
 const startedAt = new Date(), expiresAt = new Date(startedAt.getTime() + lifetimeMs);
 const types = {'.html':'text/html', '.js':'text/javascript', '.mjs':'text/javascript', '.css':'text/css',
   '.json':'application/json', '.png':'image/png', '.webp':'image/webp', '.jpg':'image/jpeg', '.svg':'image/svg+xml',
-  '.gltf':'model/gltf+json', '.glb':'model/gltf-binary', '.bin':'application/octet-stream', '.mp3':'audio/mpeg', '.ogg':'audio/ogg'};
+  '.gltf':'model/gltf+json', '.glb':'model/gltf-binary', '.bin':'application/octet-stream', '.mp3':'audio/mpeg', '.ogg':'audio/ogg', '.ttf':'font/ttf'};
 const server = http.createServer((request, response) => {
   if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405, {'Allow':'GET, HEAD'}).end(); return; }
   let file;

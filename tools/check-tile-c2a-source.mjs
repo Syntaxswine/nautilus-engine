@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -96,7 +97,7 @@ export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){
     for(const file of plan.files)assert.equal(privateOnly.has(file),false,'Private C2a runtime/schema/support entered '+profile+': '+file);
     profiles[profile]={files:plan.files.length,privateFiles:0};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Public whitelist must equal the exact registered distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Public whitelist must equal the exact registered distribution.');
   return {status:'pass',declared:false,acceptedSource:TILE_C2A_ACCEPTED_SOURCE,integrationBase:TILE_C2A_ROOT_BASE,runtime,runtimeBytes:audit.runtimeBytes,privateSchemas,proofInputs,historicalEvidence,support,preservedRoot,unchangedV1,profiles,optionalRegistration,publicExportsChanged:true,publicRegistryChanged:false,pinsChanged:false,versionChanged:false,publicWhitelistChanged:true,c2aPublicExportsChanged:false,c2aPublicWhitelistChanged:false,presenterAdopted:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_C2A_ACCEPTED_SOURCE,TILE_C2A_ROOT_BASE,...optionalRegistration.requiredGitCommits])]};
 }
 

@@ -1,5 +1,6 @@
 import {checkTileAuthoringCoreSource} from './check-tile-authoring-core-source.mjs';
 import {distribution} from './distribution.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
@@ -110,7 +111,7 @@ const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
 console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
 console.log('Verified native grenade source and derived modules: '+JSON.stringify(checkGrenadeVisuals(root,{tracked})));
 
-if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
+if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(npmFilePatterns(distribution().files))) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 
 const conformance = sources.tinderboxConformance, conformanceRoot = path.resolve(root, conformance.root);
 const conformanceManifest = JSON.parse(fs.readFileSync(path.join(conformanceRoot,'provenance.json')));
