@@ -14,7 +14,7 @@ const train = 'packages/map-core/railway-train.js';
 const core = ['packages/map-core/railway-document.js', 'packages/map-core/railway-map.js', 'packages/map-core/railway-routes.js', train, 'packages/map-core/railway-traffic.js'];
 
 export function railwayRoutePackageFiles(profile) {
-  if (profile === 'core') return [...RAILWAY_ROUTE_SCHEMAS, planner, ...core, 'packages/railway-visuals/catalogue.js', 'packages/railway-visuals/stock-profile.js'];
+  if (profile === 'core') return [...RAILWAY_ROUTE_SCHEMAS, planner, ...core, 'packages/railway-visuals/catalogue.js', 'packages/railway-visuals/stock-profile.js', 'packages/railway-visuals/entrances.js'];
   if (profile === 'compatibility') return [...RAILWAY_ROUTE_SCHEMAS, planner, ...core];
   return profile === 'renderer' ? [...RAILWAY_ROUTE_SCHEMAS, planner, train] : RAILWAY_ROUTE_SCHEMAS;
 }

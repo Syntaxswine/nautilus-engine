@@ -10,6 +10,7 @@ import {tileSurfaceCorrection,TILE_SURFACE_CORRECTION_BASE} from './tile-surface
 import {tileAuthoringEditorSourceModel} from './tile-authoring-editor-source.mjs';
 import {sharedArtworkBuildBytes,SHARED_ARTWORK_BASE} from './shared-artwork-registration.mjs';
 import {historicalRailwayRouteBytes} from './railway-route-registration.mjs';
+import {trainBuildBytes} from './train-registration.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const compact=file=>{const {expected,expectedBuffer,...record}=file;return record;};
@@ -21,7 +22,7 @@ export function checkSmartTileEditorSource(project=root,{tracked=null}={}){
   const indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Untracked reviewed Editor source: '+file);assert.ok(object('',file).equals(expected),'Index changes reviewed Editor bytes: '+file);};
   function current(file,expected){
     assert.equal(path.posix.normalize(file),file);assert.ok(!file.startsWith('/')&&!file.includes('\\')&&!file.split('/').includes('..'));
-    const absolute=path.join(project,file);assert.equal(fs.lstatSync(absolute).isSymbolicLink(),false,'Reviewed source is a symlink: '+file);const actual=fs.readFileSync(absolute),bytes=historicalRailwayRouteBytes(object,file,actual);assert.ok(bytes.equals(expected),'Source differs from fixed historical/B1/B2/C1 model: '+file);indexed(file,actual);return bytes;
+    const absolute=path.join(project,file);assert.equal(fs.lstatSync(absolute).isSymbolicLink(),false,'Reviewed source is a symlink: '+file);const actual=fs.readFileSync(absolute),bytes=historicalRailwayRouteBytes(object,file,actual);assert.ok(bytes.equals(file==='tools/build.mjs'?trainBuildBytes(expected):expected),'Source differs from fixed historical/B1/B2/C1 model: '+file);indexed(file,actual);return bytes;
   }
   const historical=new Map(b2.historical.map(file=>[file.path,current(file.path,file.expectedBuffer)]));
   for(const file of c1.modelInputs)current(file.path,file.expectedBuffer);

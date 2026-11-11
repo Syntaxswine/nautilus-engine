@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {moduleReferenceGraph} from './module-references.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
+import {trainPackageFiles} from './train-registration.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
@@ -38,7 +39,7 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
   ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
-  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id)));
+  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view','./trains/ui','./trains/style.css'].includes(id)));
   else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects' || id === './grenades/view')); exports['.'] = './packages/assets/three.js'; exports['./assets'] = source.exports['./assets']; extras = resources(); }
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
@@ -52,6 +53,7 @@ export function distribution(profile = 'compatibility') {
   extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md','docs/railway-track-kit.md');
   if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
   if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
+  extras.push(...trainPackageFiles(profile));
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

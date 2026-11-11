@@ -1,15 +1,16 @@
 import assert from 'node:assert/strict';
 import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
+import {trainPackageFiles, trainPackageExports, checkTrainRegistration, trainBuildBytes} from './train-registration.mjs';
 
 const guide = 'docs/railway-track-kit.md';
-const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'miniature-stock.js', 'stock-profile.js', 'train-view.js', 'signal-view.js']
+const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'miniature-stock.js', 'stock-profile.js', 'train-view.js', 'signal-view.js', 'entrances.js']
   .map(name => 'packages/railway-visuals/' + name);
 const renderer = 'packages/assets/three.js';
 
 export function railwayPackageFiles(profile) {
   const pieces = profile === 'renderer' || profile === 'compatibility' ? modules : [];
-  return [guide, ...pieces, ...railwayRoutePackageFiles(profile)];
+  return [guide, ...pieces, ...railwayRoutePackageFiles(profile), ...trainPackageFiles(profile)];
 }
 
 function insert(text, anchor, replacement) {
@@ -20,6 +21,7 @@ function insert(text, anchor, replacement) {
 // Apply only the railway additions to the already authenticated artwork
 // preimages. The historical checks still verify every prior row and file.
 export function registeredRailwayBytes(file, before) {
+  if (file === 'tools/build.mjs') return trainBuildBytes(before);
   if (file === 'packages/assets/catalogue.js') {
     const text = before.toString('utf8');
     const marker = 'export const SHARED_ASSETS = ';
@@ -36,10 +38,15 @@ export function registeredRailwayBytes(file, before) {
     return Buffer.from(insert(text, append, append + '\n  assets.push(...RAIL_TRACK_ASSETS);'));
   }
   if (file === 'tools/distribution.mjs') {
-    return Buffer.from(insert(before.toString('utf8'), "'docs/shared-artwork.md');", "'docs/shared-artwork.md','" + guide + "');"));
+    let text = insert(before.toString('utf8'), "'docs/shared-artwork.md');", "'docs/shared-artwork.md','" + guide + "');");
+    const anchor = "import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';";
+    text = insert(text, anchor, anchor + "\nimport {trainPackageFiles} from './train-registration.mjs';");
+    text = insert(text, "'./grenades/view'].includes(id)", "'./grenades/view','./trains/ui','./trains/style.css'].includes(id)");
+    return Buffer.from(insert(text, '  const files = [...new Set(', '  extras.push(...trainPackageFiles(profile));\n  const files = [...new Set('));
   }
   if (file === 'package.json') {
     const pkg = JSON.parse(before);
+    Object.assign(pkg.exports, trainPackageExports());
     pkg.files = [...pkg.files, ...railwayPackageFiles('compatibility')].sort();
     return Buffer.from(JSON.stringify(pkg, null, 2) + '\n');
   }
@@ -47,6 +54,7 @@ export function registeredRailwayBytes(file, before) {
 }
 
 export function checkRailwayRenderer({baseFile, read, indexed}) {
+  checkTrainRegistration({read, indexed});
   const anchor = "import {buildingAsset} from '../prefab-core/registry.js';";
   const expected = insert(baseFile(renderer).toString('utf8'), anchor,
     anchor + "\nexport {createRailwayKit} from '../railway-visuals/three.js';" +

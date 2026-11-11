@@ -10,6 +10,7 @@ const NOTICE_SUFFIX="\n## Shared original artwork palette\n\nThe30 canonical art
 import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
 import {checkRailwayRenderer, railwayPackageFiles, registeredRailwayBytes} from './railway-registration.mjs';
 import {RAILWAY_ROUTE_BASE, verifyRailwayRouteFiles} from './railway-route-registration.mjs';
+import {trainPackageExports} from './train-registration.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v),token=v=>sha(canonical(v));
 const prefix='candidates/tile-authoring/artwork-discovery-proposal/',payloadRoot='assets/artwork/local-graphics-v1',metadata=['packages/assets/artwork.js','packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md'];
 const publicHeader='// Shared original artwork metadata; immutable source06dee5b, canonical Core432 / Artist57. Encoded delivery is separate.';
@@ -47,8 +48,8 @@ export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()
  const c1=JSON.parse(object('3df11ce6e62fb94806e30652b87168949f8ef4dd','packages/tile-authoring-core/source.json')),c1Files=[...c1.runtime.map(r=>r.path),...c1.metadata.map(r=>r.path),'packages/tile-authoring-core/source.json'].sort(),oldPlans={},profiles={};assert.equal(c1Files.length,13);
  const exportsFor=profile=>profile==='core'?Object.fromEntries(Object.entries(base.exports).filter(([id])=>!id.endsWith('/three')&&!id.startsWith('./render-effects')&&!id.startsWith('./floors/')&&!id.startsWith('./game-ui/')&&!['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id))):profile==='renderer'?{...Object.fromEntries(Object.entries(base.exports).filter(([id])=>id.endsWith('/three')||id==='./render-effects'||id==='./grenades/view')),'.':'./packages/assets/three.js'}:profile==='assets'?{'.':'./packages/assets/files.js','./catalogue':'./packages/assets/index.js'}:{...base.exports};
  for(const profile of ['core','renderer','assets','compatibility']){
-  const plan=distribution(profile),oldExports=exportsFor(profile),newExports={...oldExports,...(profile==='renderer'?{'./assets':'./packages/assets/index.js'}:{})};
-  assert.deepEqual(plan.exports,newExports,'Only the named renderer metadata alias may change exports');
+  const plan=distribution(profile),oldExports=exportsFor(profile),newExports={...oldExports,...(profile==='renderer'?{'./assets':'./packages/assets/index.js'}:{}),...trainPackageExports(profile)};
+  assert.deepEqual(plan.exports,newExports,'Only the named renderer and train aliases may change exports');
   assert.deepEqual(plan.files,[...new Set(plan.files)].sort());
   const railwayFiles=railwayPackageFiles(profile),registered=[...additions[profile],...railwayFiles];
   for(const f of registered)assert.ok(plan.files.includes(f),'Missing registered profile file '+profile+':'+f);
