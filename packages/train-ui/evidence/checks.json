@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "connectorPin": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+  "browserGroups": 29,
+  "viewports": [
+    "1440×1000",
+    "390×844",
+    "320×700"
+  ],
+  "captures": 5,
+  "types": {
+    "version": "Version 5.8.3",
+    "negativeControls": 5
+  },
+  "importWithoutDOM": true,
+  "proof": {
+    "fixedConnectorFixture": "always FIXTURE_ONLY",
+    "inputOwnership": "actual DOM with explicitly scripted replies; no train simulation",
+    "liveBoardingMotion": false,
+    "nativeArtAcceptance": false
+  },
+  "helpers": {
+    "recordedBrowserLifetimes": 4,
+    "primaryExactLifetimesExited": true,
+    "allRecordedPortsReleased": true,
+    "retained": []
+  },
+  "fullProjectGates": {
+    "status": "DELEGATED_TO_ARCHITECT",
+    "reason": "Architect explicitly owns one full check/test/upstream/build sweep on the combined train playtest before final push; no duplicate intermediate1198-test sweep",
+    "requiredBefore": "final integrated delivery"
+  },
+  "sourceInputs": [
+    {
+      "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+      "path": "packages/train-core/index.d.ts",
+      "bytes": 2377,
+      "sha256": "9fa826457a03b0a14128c2d6032275f4d0af953599c7596e8dbd825631eb98a8"
+    },
+    {
+      "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+      "path": "packages/train-core/contract.js",
+      "bytes": 460,
+      "sha256": "fec8a1cc2e5912fe4dbe2dbd8c5164d3d0a79fa0c75758d386cfcade8bae8fba"
+    },
+    {
+      "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+      "path": "packages/train-core/connector-fixture.js",
+      "bytes": 2068,
+      "sha256": "f47dd4714106738b570c724646d67cc0973ff9697d53ed320795f0b29d2c5791"
+    },
+    {
+      "commit": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+      "path": "docs/drivable-trains.md",
+      "bytes": 5792,
+      "sha256": "7b06b84f0fc68096f58e04e026840ed51e816119d7975d8ff0305556cc289804"
+    }
+  ]
+}

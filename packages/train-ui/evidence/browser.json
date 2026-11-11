@@ -1,0 +1,181 @@
+{
+  "connectorPin": "32cce619ac1b8930ac7636dc49aa8704ce08cc92",
+  "contentPin": "8efe3da49186f36b07e19da9a31777fe46a71874",
+  "checks": [
+    {
+      "name": "fixed driver fixture replaces the walking slot",
+      "status": "passed"
+    },
+    {
+      "name": "fixed fixture refuses Drive without optimistic state or fake commits",
+      "status": "passed"
+    },
+    {
+      "name": "Enter and explicit retry preserve offered tuple/Expected and do not invent boarding",
+      "status": "passed"
+    },
+    {
+      "name": "rider exposes Exit and no driving UI; fixed fixture refuses exit",
+      "status": "passed"
+    },
+    {
+      "name": "tender offers no inferred passenger entry",
+      "status": "passed"
+    },
+    {
+      "name": "rear-facing cab formats speed/travel while forwarding cab-relative direction unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "host signal wait is shown as text",
+      "status": "passed"
+    },
+    {
+      "name": "desktop390px320px layouts keep readable44px controls and no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "scripted post-commit boarding disables the borrowed walking input before driver controls",
+      "status": "passed"
+    },
+    {
+      "name": "pointer release sends original actor/lease with fresh ID and no stale Expected",
+      "status": "passed"
+    },
+    {
+      "name": "native mouse capture releases after dragging outside the HUD",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on pointer-cancel does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on lost-capture does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on hover-repair does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on blur does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on hidden does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on modal does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "scripted input release on focus-left does not resume power",
+      "status": "passed"
+    },
+    {
+      "name": "keyboard power, priority brake and keyup use separate never-reused leases",
+      "status": "passed"
+    },
+    {
+      "name": "cab replacement releases only the original gesture, never a new occupancy",
+      "status": "passed"
+    },
+    {
+      "name": "selected actor replacement releases the original actor without retagging",
+      "status": "passed"
+    },
+    {
+      "name": "restore/revocation snapshot retires held UI input without replay",
+      "status": "passed"
+    },
+    {
+      "name": "stop-before-reverse refusal remains readable and deliberate retry uses a new command ID",
+      "status": "passed"
+    },
+    {
+      "name": "confirmed exit restores walking/focus and closed-lease refusal cannot replace the known primary outcome",
+      "status": "passed"
+    },
+    {
+      "name": "scripted rider exit restores walking without granting driving input",
+      "status": "passed"
+    },
+    {
+      "name": "typing inside the HUD retires power and does not trigger drive shortcuts",
+      "status": "passed"
+    },
+    {
+      "name": "subscription failure leaves no owned panel or listeners",
+      "status": "passed"
+    },
+    {
+      "name": "dispose releases once, unsubscribes and keeps walking disabled while still occupied",
+      "status": "passed"
+    },
+    {
+      "name": "native emulated touch tap releases its exact lease and retires cleanly",
+      "status": "passed"
+    }
+  ],
+  "captures": [
+    {
+      "file": "desktop-driver.png",
+      "width": 1440,
+      "height": 1000,
+      "story": "steam"
+    },
+    {
+      "file": "phone-driver.png",
+      "width": 390,
+      "height": 844,
+      "story": "steam"
+    },
+    {
+      "file": "phone-entry.png",
+      "width": 390,
+      "height": 844,
+      "story": "walking"
+    },
+    {
+      "file": "phone-rider.png",
+      "width": 390,
+      "height": 844,
+      "story": "riding"
+    },
+    {
+      "file": "narrow-signal.png",
+      "width": 320,
+      "height": 700,
+      "story": "signal"
+    }
+  ],
+  "fixture": "Actual fixed connector, always FIXTURE_ONLY",
+  "protocol": "Scripted synchronous replies for DOM/input lifecycle only; no train simulation",
+  "liveBoardingMotion": false,
+  "nativeArtAcceptance": false,
+  "errors": [],
+  "browser": "157.0.4341.46",
+  "status": "passed",
+  "cleanup": {
+    "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+    "purpose": "Train HUD fixed-fixture design and input lifecycle review",
+    "stoppedAt": "2026-11-11T04:26:33.444Z",
+    "process": {
+      "pid": 16800,
+      "creationFiletime": "134388447847521956",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "browser": {
+      "pid": 1136,
+      "creationFiletime": "134388447850788847",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+    },
+    "port": 59844,
+    "httpClosed": true,
+    "browserClosed": true,
+    "method": "Supported Playwright browser close and HTTP close in finally",
+    "portReleased": true
+  }
+}
