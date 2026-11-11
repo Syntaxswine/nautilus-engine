@@ -50,6 +50,7 @@ export function createTrainSession({routes, placements, actorIds, host, checkpoi
     trainId: 'train/' + stock, stock, profile: state.profile, signedSpeedMps: 0, controlRevision: 0,
     controls: safeControls(), lease: null, driverId: null, hold: null
   }]));
+  const leaseUse = trainValues => closedLeases.size + [...trainValues].filter(train => train?.lease).length;
 
   const assertLive = () => { if (disposed) throw Error('The train session has been disposed.'); };
   const currentEntrances = () => traffic.read().trains.flatMap(({state}) => railwayEntrancesForTrain(state));
@@ -161,6 +162,11 @@ export function createTrainSession({routes, placements, actorIds, host, checkpoi
       if (train.lease && train.lease.id !== command.leaseId || [...trains.values()].some(other => other !== train && other.lease?.id === command.leaseId)) {
         return refusal('INPUT_OWNED', 'Another input source owns this cab. Release it first.');
       }
+      // An active owner already reserves its eventual closed-ID slot. Updates,
+      // cancellation, exit and restore must not need any additional capacity.
+      if (!train.lease && leaseUse(trains.values()) >= LEASE_LIMIT) {
+        return refusal('LEASE_LIMIT', 'Migrate the retired input IDs deliberately before acquiring a new lease.');
+      }
       const sign = (command.direction === 'forward' ? 1 : command.direction === 'reverse' ? -1 : 0) * entranceFor(seat).cabFacing;
       if (sign && train.signedSpeedMps * sign < -EPS) return refusal('STOP_BEFORE_REVERSE', 'Brake to a complete stop before changing direction.');
       if (!train.lease) train.lease = {id: command.leaseId, actorId: actor.id, trainId: train.trainId, carId: seat.carId};
@@ -212,9 +218,9 @@ export function createTrainSession({routes, placements, actorIds, host, checkpoi
     if (busy || reading) return {ok: false, committed: false, code: 'SESSION_BUSY', reason: 'Wait for the active host transaction/query.', commandId: command.commandId, repeated: false, observerErrors: 0};
     // Keep the last two journal slots for exact-owner safety releases. Invalid
     // release attempts cannot consume this reserve or strand a held control.
-    const safetyRelease = command.type === 'release' && [...trains.values()].some(train =>
+    const safetyRelease = command.type === 'release' && Object.keys(command).sort().join(',') === 'actorId,commandId,leaseId,type' && [...trains.values()].some(train =>
       train.lease?.id === command.leaseId && train.lease.actorId === command.actorId);
-    if (receipts.size >= JOURNAL_LIMIT || receipts.size >= JOURNAL_LIMIT - 2 && !safetyRelease || closedLeases.size >= LEASE_LIMIT) return {
+    if (receipts.size >= JOURNAL_LIMIT || receipts.size >= JOURNAL_LIMIT - 2 && !safetyRelease) return {
       ok: false, committed: false, code: 'JOURNAL_LIMIT', reason: 'Checkpoint and migrate command receipts deliberately.',
       commandId: command.commandId, repeated: false, observerErrors: 0};
     busy = true;
@@ -292,7 +298,7 @@ export function createTrainSession({routes, placements, actorIds, host, checkpoi
     }
     revision(saved.occupancyRevision);
     if (!Array.isArray(saved.occupied) || saved.occupied.length > actorIds.length || !Array.isArray(saved.trains) || saved.trains.length !== trains.size ||
-        !Array.isArray(saved.receipts) || saved.receipts.length > JOURNAL_LIMIT || !Array.isArray(saved.closedLeases) || saved.closedLeases.length > LEASE_LIMIT - trains.size) {
+        !Array.isArray(saved.receipts) || saved.receipts.length > JOURNAL_LIMIT || !Array.isArray(saved.closedLeases) || saved.closedLeases.length > LEASE_LIMIT) {
       throw Error('Invalid bounded train checkpoint collections.');
     }
     const pairs = records => {
@@ -303,6 +309,7 @@ export function createTrainSession({routes, placements, actorIds, host, checkpoi
     closedLeases = new Set(saved.closedLeases);
     if (closedLeases.size !== saved.closedLeases.length) throw Error('Duplicate closed train leases.');
     closedLeases.forEach(identifier);
+    if (leaseUse(stagedTrains.values()) > LEASE_LIMIT) throw Error('Saved train leases exceed the bounded retirement capacity.');
     traffic.restore(saved.traffic);
     for (const [id, train] of stagedTrains) {
       const original = trains.get(id);
