@@ -5,8 +5,10 @@ import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {historicalRailwayRouteBytes} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
+import {authenticatedTrainImages} from './train-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_CORRECTION_SOURCE,TILE_SURFACE_CORRECTION_BASE,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
 
 export const TILE_FINISHES_ACCEPTED_ARTIST='6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03';
@@ -47,7 +49,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
   const indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Required tile-finish file is not tracked: '+file);assert.ok(git('show',':'+file).equals(expected),'Git index changes reviewed bytes: '+file);};
   const listed=(commit,...folders)=>git('ls-tree','-r','--name-only',commit,'--',...folders).toString('utf8').trim().split('\n').filter(Boolean).sort();
   function walk(folder){return fs.readdirSync(path.join(root,folder),{withFileTypes:true}).flatMap(entry=>{const file=folder+'/'+entry.name;assert.ok(relative(file));assert.equal(entry.isSymbolicLink(),false,'Symlink in finish inventory: '+file);return entry.isDirectory()?walk(file):[file];}).sort();}
-  const fixed=(file,commit)=>{const expected=object(commit,file);assert.ok(read(file).equals(expected),'Fixed dependency changed: '+file);indexed(file,expected);return row(file,expected);};
+  const fixed=(file,commit)=>{const expected=object(commit,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Fixed dependency changed: '+file);indexed(file,actual);return row(file,expected);};
 
   // Authenticate the Root-reviewed declaration before interpreting any paths,
   // source identities or literal transformations stored in that declaration.
@@ -110,6 +112,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
   for(const name of ['core','renderer','assets','compatibility']){
     const d=distribution(name),hasHeadless=name==='core'||name==='compatibility',hasRenderer=name==='renderer'||name==='compatibility';
     const authenticatedArtworkImages=registration.sharedArtworkRegistration.profiles[name].addedFiles.filter(image);
+    const trainImages=authenticatedTrainImages(name,{read,indexed});
     assert.equal(d.exports['./tiles/finishes'],hasHeadless?entries['./tiles/finishes']:undefined,name+' headless finish entry');
     assert.equal(d.exports['./tiles/finishes/three'],hasRenderer?entries['./tiles/finishes/three']:undefined,name+' native finish entry');
     const wantedRuntime=name==='core'?headless:name==='renderer'||name==='compatibility'?runtimeFiles:[],wantedSupport=name==='assets'?[]:[guideFile,sourceFile];
@@ -118,9 +121,9 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     if(hasRenderer||name==='assets')assert.ok(d.files.includes(atlas.path),name+' old atlas');
     for(const file of d.files){
       assert.equal(file.startsWith('candidates/')||file.startsWith('tests/')||file.startsWith('docs/reviews/tile-stack/')||file.startsWith('tools/tile-stack-'),false,'Private candidate/proof source leaked into '+name+': '+file);
-      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
+      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file)||trainImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
     }
-    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages};
+    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages,separatelyAuthenticatedTrainImages:trainImages};
   }
   return {
     status:'pass',registered:true,id:source.id,acceptedArtist:TILE_FINISHES_ACCEPTED_ARTIST,catalogue:{...TILE_FINISHES_CATALOGUE},privateCatalogue:{...TILE_FINISHES_PRIVATE_CATALOGUE},

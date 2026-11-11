@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two circuits · Nautilus railway</title><link rel="icon" href="data:,">
+<link rel="stylesheet" href="../packages/train-ui/style.css"><link rel="stylesheet" href="./train-yard.css"></head>
+<body>
+<canvas id="yard" tabindex="0" aria-label="Two railway circuits with a walking goat worker"></canvas>
+<header><a href="../">NAUTILUS / RAILWAY</a><h1>Two circuits</h1>
+<p>Walk to a cab to drive, or a coach for a one-lap ride. The operator returns passenger services to the platform.</p></header>
+<nav aria-label="Yard view and checkpoint"><button id="overview">Overview</button><button id="follow">Follow player</button>
+<button id="save">Save</button><button id="load" disabled>Reload</button><button id="resume" hidden>Resume passenger service</button></nav>
+<div id="marker" aria-hidden="true">YOU</div>
+<section id="readout" aria-label="Current actor and train"><strong id="mode">Loading native artwork…</strong><span id="speed"></span>
+<p id="feedback" role="status" aria-live="polite">Preparing the two circuits.</p></section>
+<section id="movement-slot" aria-label="Movement and train controls">
+<div id="walking" aria-label="Walking controls"><div id="walk-stick" aria-label="Walking joystick"><span id="walk-thumb"></span></div><div class="walk-buttons"><button data-walk="0,-1" aria-label="Walk north">↑</button><div>
+<button data-walk="-1,0" aria-label="Walk west">←</button><button data-walk="0,1" aria-label="Walk south">↓</button><button data-walk="1,0" aria-label="Walk east">→</button></div></div><small>WASD / arrows or drag the joystick</small></div></section>
+<footer>Native world-size stock and goat worker · two independent closed routes · resources persist through boarding and reload.</footer>
+<script type="module" src="./train-yard.js"></script>
+</body></html>

@@ -1,5 +1,5 @@
-import {EditingDocument} from './roof-document.js';
-import {parseMap} from './roof-maps.js';
+import {EditingDocument} from './railway-document.js';
+import {parseMap} from './railway-map.js';
 import {ENGINE_VERSION, ENGINE_MANIFEST, SCHEMA_IDS} from './contract-manifest.js';
 import {blueprintRequirements, assertRequirements, CompatibilityError} from './capabilities.js';
 import {refusePartsEnvelope} from '../world-core/parts-refusal.js';

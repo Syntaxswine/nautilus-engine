@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {editorAssets} from '../apps/editor/asset-catalog.js';
+import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {sharedArtworkDiscoveryRows} from '../packages/assets/artwork.js';
 import {BUILDING_ASSETS, ORIGINAL_BUILDING_SOURCE} from '../packages/prefab-core/registry.js';
 import {ROCK_ITEM, ROCK_PROFILE} from '../packages/items-core/index.js';
@@ -9,7 +10,7 @@ import {GRENADE_COMPONENT,FARMYARD_GRENADE_PROFILE,GRENADE_CONTRACT} from '../pa
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function sharedAssetCatalogueSource() {
   const upstream = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json'), 'utf8'));
-  const assets = editorAssets().map(item => ({id: item.category.toLowerCase() + ':' + item.id, name: item.name, category: item.category,
+  const assets = editorAssets().filter(item => !item.railwayPiece).map(item => ({id: item.category.toLowerCase() + ':' + item.id, name: item.name, category: item.category,
     dimensions: {width: item.w, depth: item.h, metresPerUnit: 1},
     source: {project: 'aft', commit: upstream.aft.commit},
     availability: item.disabled ? 'inspection-only' : 'content-binding-required',
@@ -31,6 +32,7 @@ export function sharedAssetCatalogueSource() {
     capability:{id:GRENADE_CONTRACT.capability,version:1},requiredHostServices:[...GRENADE_COMPONENT.requiredHostServices],
     note:'Original painted prop; optional ordinary same-floor grenade transactions and native horse throw. Bind inventory, complete host context and supported consequences explicitly; reactive and multilevel scenes refuse before costs.'});
   assets.push(...sharedArtworkDiscoveryRows());
+  assets.push(...RAIL_TRACK_ASSETS);
   return '// Generated from reviewed registries; no editor or renderer runtime imports.\nexport const SHARED_ASSETS = ' + JSON.stringify(assets, null, 2) + ';\n';
 }
 export function checkSharedAssets() {

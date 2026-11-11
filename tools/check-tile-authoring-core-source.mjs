@@ -15,11 +15,11 @@ export function checkTileAuthoringCoreSource(cwd=root,{tracked=null}={}){
  const cache=new Map(),object=(commit,file)=>{const key=commit+':'+file;if(!cache.has(key))cache.set(key,execFileSync('git',['-c','core.longpaths=true','-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',key],{windowsHide:true,timeout:30000,maxBuffer:24*1024*1024}));return cache.get(key);};
  const read=file=>fs.readFileSync(path.join(cwd,file)),indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Required shared artwork source is not tracked: '+file);assert.ok(object('',file).equals(expected),'Index changes authenticated artwork bytes: '+file);};
  const artwork=checkSharedArtworkRegistration({object,read,indexed,moduleClosure,distribution});
- const legacy=checkHistoricalTileAuthoringCoreSource(cwd,{tracked},artwork.historicalPorts.distribution);
+ const legacy=checkHistoricalTileAuthoringCoreSource(cwd,{tracked},artwork.historicalPorts.distribution,artwork.historicalPorts.read('package.json'));
  return {...legacy,sharedArtworkRegistration:artwork.report,historicalProfileScope:'Only the exact authenticated pre-artwork profile view; current artwork bytes/index/profile additions checked first. Actual C1 module closure and immutable records remain unchanged.'};
 }
-function checkHistoricalTileAuthoringCoreSource(cwd,{tracked},distribution){
- const manifest=JSON.parse(fs.readFileSync(path.join(cwd,directory+'source.json'))),pkg=JSON.parse(fs.readFileSync(path.join(cwd,'package.json')));assert.equal(manifest.base,base);assert.equal(manifest.c0,c0);assert.equal(pkg.exports['./tiles/authoring'],entry);const prior={...pkg.exports};delete prior['./tiles/authoring'];assert.deepEqual(prior,manifest.baseline.exports,'Unexpected export outside explicit C1 delta.');
+function checkHistoricalTileAuthoringCoreSource(cwd,{tracked},distribution,authenticatedHistoricalPackage){
+ const manifest=JSON.parse(fs.readFileSync(path.join(cwd,directory+'source.json'))),pkg=JSON.parse(authenticatedHistoricalPackage);assert.equal(manifest.base,base);assert.equal(manifest.c0,c0);assert.equal(pkg.exports['./tiles/authoring'],entry);const prior={...pkg.exports};delete prior['./tiles/authoring'];assert.deepEqual(prior,manifest.baseline.exports,'Unexpected export outside explicit C1 delta.');
  const paths=[...runtime,...metadata.filter(f=>!f.endsWith('/source.json')),guide];for(const f of paths)if(tracked)assert.ok(tracked.has(f),'Required C1 file not tracked: '+f);
  for(const row of [...manifest.runtime,...manifest.dependencies,...manifest.metadata])assert.deepEqual(record(cwd,row.path),row,'C1 source byte change: '+row.path);
  assert.deepEqual(manifest.runtime.map(r=>r.path),runtime);assert.equal(sha(fs.readFileSync(path.join(cwd,directory+'contract.schema.json'))),'3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc','Exact432 schema required.');

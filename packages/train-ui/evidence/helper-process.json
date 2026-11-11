@@ -1,0 +1,47 @@
+{
+  "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+  "purpose": "Train HUD fixed-fixture design and input lifecycle review",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 39564,
+    "creationFiletime": "134388489198043257",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 55668,
+    "creationFiletime": "134388489201232280",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 51994,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\artifacts\\train-ui-review\\STOP",
+  "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "packages/train-ui/tools/review.mjs",
+    "package.json",
+    "packages/train-ui/index.js",
+    "packages/train-ui/view.js",
+    "packages/train-ui/style.css",
+    "packages/train-ui/feedback.js",
+    "packages/train-ui/art/steam-cab-surface.svg",
+    "packages/train-ui/fixture/index.html",
+    "packages/train-ui/fixture/study.js",
+    "packages/train-ui/fixture/study.css",
+    "packages/train-ui/tests/scripted-connector.js",
+    "packages/train-ui/tools/review-mechanical.mjs"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\packages\\train-ui\\tools\\review.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/train-ui-review",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-11T05:35:20.400Z",
+  "expiresAt": "2026-11-11T05:38:20.400Z"
+}

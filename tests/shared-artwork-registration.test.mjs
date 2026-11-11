@@ -35,6 +35,7 @@ const variants=[
  ['corrupt original PNG bytes',p=>overrideRead(p,payloads[0],b=>{const c=Buffer.from(b);c[0]^=1;return c;})],
  ['changed legacy catalogue row',p=>overrideRead(p,'packages/assets/catalogue.js',b=>catalogue(b,rows=>rows[0].name+='changed'))],
  ['changed new Artwork row',p=>overrideRead(p,'packages/assets/catalogue.js',b=>catalogue(b,rows=>rows[407].name+='changed'))],
+ ['changed Railway row',p=>overrideRead(p,'packages/assets/catalogue.js',b=>catalogue(b,rows=>rows[437].name+='changed'))],
  ['drifting canonical Pin',p=>overrideRead(p,'packages/assets/catalogue.js',b=>catalogue(b,rows=>rows[407].artworkPin.contentDigest='0'.repeat(64)))],
  ['extra public renderer export',p=>{const actual=p.distribution;p.distribution=profile=>{const plan=actual(profile);return profile==='renderer'?{...plan,exports:{...plan.exports,'./unreviewed':'./packages/assets/index.js'}}:plan;};}],
  ['extra unrelated physical profile file',p=>{const actual=p.distribution;p.distribution=profile=>{const plan=actual(profile);if(profile!=='core')return plan;assert.equal(plan.files.includes('packages/assets/files.js'),false);return{...plan,files:[...plan.files,'packages/assets/files.js'].sort()};};}],

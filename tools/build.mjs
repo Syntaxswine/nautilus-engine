@@ -74,7 +74,7 @@ for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   write(folder + '/provenance.json', JSON.stringify(manifest, null, 2));
 }
 for(const file of [...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS),sources.farmyardDoorVisuals.manifest,sources.farmyardDoorVisuals.root+'/NOTICE.md'])write(file,fs.readFileSync(path.join(root,file)));
-fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true});
+fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true, filter: source => !/^train-ui\/(?:evidence|tools|tests|fixture)(?:\/|$)/.test(path.relative(path.join(root, 'packages'), source).split(path.sep).join('/'))});
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});

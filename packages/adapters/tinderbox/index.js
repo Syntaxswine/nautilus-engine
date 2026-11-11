@@ -14,7 +14,7 @@ export const TINDERBOX_TERRAIN_MATERIALS = Object.freeze({
 });
 export const TINDERBOX_WALL_MATERIALS = Object.freeze({wood: 'wood', brick: 'masonry', concrete: 'masonry'});
 const MAX_JSON_BYTES = 5000000;
-const MAP_KEYS = ['version', 'width', 'height', 'levels', 'name', 'terrain', 'upper', 'edges', 'stairs', 'climbs', 'props', 'starts', 'guards', 'exits', 'wallRuns', 'metadata'];
+const MAP_KEYS = ['version', 'width', 'height', 'levels', 'name', 'terrain', 'upper', 'edges', 'stairs', 'climbs', 'props', 'starts', 'guards', 'exits', 'wallRuns', 'railwayRoutes', 'metadata'];
 const MARKER_KEYS = ['x', 'y', 'z', 'heading', 'species', 'weapon', 'outfit', 'character'];
 const CHARACTER_MARKER_KEYS = ['id', 'displayName', 'scriptId', 'category', 'faction', 'attitude', 'combatBehavior', 'canTalk', 'dialogueRef', 'canSell', 'shopInventoryRef', 'shopPricingRef', 'references', 'model', 'visualVariant'];
 
