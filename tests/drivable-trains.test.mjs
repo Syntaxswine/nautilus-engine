@@ -193,9 +193,73 @@ test('bounded journal reserves exact-owner release slots and remains checkpointa
   for (let i = 0; i < 4092; i++) assert.equal(f.session.dispatch({type: 'unknown', actorId: 'player', commandId: 'fill/' + i,
     trainId: snapshot.trainId, expected: snapshot.expected}).committed, false);
   assert.equal(f.session.dispatch({type: 'release', actorId: 'other', commandId: 'steal-reserve', leaseId: 'lever/1'}).code, 'JOURNAL_LIMIT');
+  for (let i = 0; i < 2; i++) assert.equal(f.session.dispatch({type: 'release', actorId: 'player',
+    commandId: 'malformed-reserve/' + i, leaseId: 'lever/1', unexpected: true}).code, 'JOURNAL_LIMIT');
   assert.equal(f.session.dispatch({type: 'release', actorId: 'player', commandId: 'safety', leaseId: 'lever/1'}).ok, true);
   assert.equal(f.session.readForActor('player').train.controls.brake, 1);
   assert.equal(f.session.checkpoint().receipts.length, 4095);
+});
+
+test('two owners reserve lease retirement capacity before acquisition and remain cancellable/checkpointable at the bound', () => {
+  const routes = [{id: 'a', radiusM: 16, waypoints: [[20, 50], [220, 50]]},
+    {id: 'b', radiusM: 16, waypoints: [[20, 100], [220, 100]]}];
+  const placements = [placement('steam', 'a'), placement('electric', 'b')];
+  const original = retainedTrainFixture({routes, placements});
+  original.enter();
+  const cab = railwayEntrancesForTrain(state(original.session, 'electric')).find(e => e.mode === 'driver');
+  original.place('other', cab); original.enter('other');
+  const checkpoint = original.session.checkpoint();
+  checkpoint.closedLeases = Array.from({length: 8190}, (_, i) => 'old/' + i);
+  const f = retainedTrainFixture({routes, placements, actors: original.actors, checkpoint});
+  let serial = 0;
+  const driveOwner = (actorId, leaseId, power = 1) => {
+    const s = f.session.readForActor(actorId);
+    return f.session.dispatch({type: 'drive', actorId, commandId: 'lease-bound/' + ++serial, trainId: s.trainId,
+      expected: s.expected, leaseId, direction: power ? 'forward' : 'neutral', power, brake: power ? 0 : 1});
+  };
+  const releaseOwner = (actorId, leaseId) => f.session.dispatch({type: 'release', actorId, leaseId, commandId: 'lease-bound/' + ++serial});
+  const assertRestorable = () => {
+    const restored = retainedTrainFixture({routes, placements, actors: f.actors, checkpoint: f.session.checkpoint()});
+    for (const train of restored.session.read().controls) assert.deepEqual(train.controls,
+      {direction: 'neutral', power: 0, brake: 1, leaseId: null});
+    assert.deepEqual(restored.actors, f.actors);
+    const closed = restored.session.checkpoint().closedLeases;
+    assert.ok(closed.length <= 8192);
+    assert.doesNotThrow(() => retainedTrainFixture({routes, placements, actors: restored.actors, checkpoint: restored.session.checkpoint()}));
+  };
+  assert.equal(driveOwner('player', 'A').ok, true); assertRestorable();
+  assert.equal(driveOwner('other', 'B').ok, true); assertRestorable();
+  const overflow = f.session.checkpoint(); overflow.closedLeases.push('one-too-many');
+  assert.throws(() => retainedTrainFixture({routes, placements, actors: f.actors, checkpoint: overflow}), /capacity/);
+  assert.equal(releaseOwner('player', 'A').ok, true); assertRestorable();
+  assert.equal(driveOwner('player', 'C').code, 'LEASE_LIMIT');
+  assert.equal(f.session.readForActor('player').train.controls.brake, 1);
+  assert.equal(f.session.readForActor('other').train.controls.power, 1);
+  assert.equal(driveOwner('other', 'B', 0).ok, true, 'Existing input can still brake at full reserved capacity.');
+  assert.equal(releaseOwner('other', 'B').ok, true); assertRestorable();
+  assert.equal(f.session.checkpoint().closedLeases.length, 8192);
+  assert.equal(releaseOwner('player', 'C').code, 'LEASE_CLOSED');
+  assert.equal(driveOwner('player', 'fresh').code, 'LEASE_LIMIT');
+  const exit = f.session.readForActor('player').actions[0];
+  assert.equal(f.session.dispatch({...exit.command, commandId: 'lease-bound/exit'}).ok, true);
+  assertRestorable();
+});
+
+test('one-train lease retirement can fill all closed slots and its no-input checkpoint restores repeatedly', () => {
+  const original = retainedTrainFixture(); original.enter();
+  const checkpoint = original.session.checkpoint();
+  checkpoint.closedLeases = Array.from({length: 8191}, (_, i) => 'old/' + i);
+  const f = retainedTrainFixture({actors: original.actors, checkpoint});
+  assert.equal(drive(f, {commandId: 'single/acquire'}).ok, true);
+  const active = f.session.checkpoint();
+  const neutralized = retainedTrainFixture({actors: f.actors, checkpoint: active});
+  assert.equal(neutralized.session.checkpoint().closedLeases.length, 8192);
+  assert.doesNotThrow(() => retainedTrainFixture({actors: neutralized.actors, checkpoint: neutralized.session.checkpoint()}));
+  assert.equal(f.session.dispatch({type: 'release', actorId: 'player', commandId: 'single/release', leaseId: 'lever/1'}).ok, true);
+  assert.equal(f.session.checkpoint().closedLeases.length, 8192);
+  const restored = retainedTrainFixture({actors: f.actors, checkpoint: f.session.checkpoint()});
+  assert.deepEqual(restored.session.readForActor('player').train.controls, {direction: 'neutral', power: 0, brake: 1, leaseId: null});
+  assert.equal(drive(restored, {commandId: 'single/exhausted', leaseId: 'fresh'}).code, 'LEASE_LIMIT');
 });
 
 test('Miniature preserves native dimensions and supports appropriately sized retained actors', () => {
