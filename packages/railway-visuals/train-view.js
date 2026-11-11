@@ -1,5 +1,6 @@
 import {RAILWAY_COUPLER_HEIGHT_M} from '../map-core/railway-train.js';
 import {createRollingStockKit} from './rolling-stock.js';
+import {railwayCarEntrances} from './entrances.js';
 
 export function createRailwayTrainView(T, initialState) {
   const kit = createRollingStockKit(T, {profile: initialState.profile ?? 'miniature'});
@@ -63,6 +64,14 @@ export function createRailwayTrainView(T, initialState) {
   try {
     for (const [index, pose] of initialState.cars.entries()) {
       const model = kit.create(pose.id);
+      for (const entrance of railwayCarEntrances(initialState.profile ?? 'miniature', pose.id)) {
+        const anchor = new T.Group();
+        anchor.name = 'Entrance ' + entrance.id;
+        anchor.position.set(entrance.local.x, entrance.local.h, entrance.local.y);
+        anchor.userData = {entranceId: entrance.id, mode: entrance.mode, widthM: entrance.widthM,
+          clearanceM: entrance.clearanceM, carId: 'train/' + initialState.stock + '/car/' + index};
+        model.root.add(anchor);
+      }
       const frame = new T.Group();
       frame.name = 'Train car ' + (index + 1);
       frame.userData.carId = pose.id;

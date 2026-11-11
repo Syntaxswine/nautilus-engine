@@ -93,6 +93,12 @@ export function assertRailwayTrainFits({plan, turnout}, placement) {
 }
 
 function sample(path, distanceM) {
+  if (path.legs.length === 1 && path.legs[0].plan.closed) {
+    const item = path.legs[0], length = item.plan.lengthM;
+    const wrapped = ((item.from + item.direction * distanceM) % length + length) % length;
+    const at = railwayStationAt(item.plan, wrapped);
+    return {...at, s: at.s * item.direction, c: at.c * item.direction, track: item.track};
+  }
   let offset = distanceM;
   for (const item of path.legs) {
     if (offset < item.lengthM - EPS || item === path.legs.at(-1)) {
@@ -101,6 +107,31 @@ function sample(path, distanceM) {
     }
     offset -= item.lengthM;
   }
+}
+
+export function createRailwayCircuitTrainOnPlan({id, plan}, placement) {
+  if (!plan.closed || placement.routeId !== id || !['start', 'end'].includes(placement.departure) || placement.switchPosition !== 'main') {
+    throw Error('A circuit train needs its own closed route, start/end orientation and main setting.');
+  }
+  const profile = placement.profile ?? 'miniature', spec = railwayStockProfile(profile);
+  const train = consist(placement.stock, profile);
+  if (plan.radiusM < spec.minRadiusM || plan.lengthM < train.lengthM + 1) throw Error('This circuit cannot fit the selected stock.');
+  const path = itinerary(leg('main', plan, placement.departure === 'start' ? 0 : plan.lengthM,
+    placement.departure === 'start' ? plan.lengthM : 0));
+  let headM = train.lengthM;
+  function read() {
+    return {routeId: id, stock: placement.stock, profile, couplerHeightM: spec.couplerHeightM,
+      departure: placement.departure, turnoutTaken: null, distanceM: headM - train.lengthM,
+      track: 'main', stopped: false, circuit: true, circuitLengthM: plan.lengthM,
+      cars: train.cars.map(car => pose(path, headM, car))};
+  }
+  return Object.freeze({read, moveSigned(distanceM) {
+    if (!Number.isFinite(distanceM) || Math.abs(headM + distanceM) > 1e9) throw Error('Checkpoint and migrate this bounded circuit odometer.');
+    headM += distanceM;
+  }, checkpoint() { return {headM}; }, restore(record) {
+    if (!record || Object.keys(record).join(',') !== 'headM' || !Number.isFinite(record.headM) || Math.abs(record.headM) > 1e9) throw Error('Invalid circuit motion checkpoint.');
+    headM = record.headM;
+  }});
 }
 
 function pose(path, headM, {id, centreBehindM, wheelbaseM, lengthM, reverse}) {
@@ -172,6 +203,39 @@ export function createRailwayTrainOnPlan({id, plan, turnout}, placement) {
     return read();
   }
 
+  // Driver sessions use signed itinerary travel. Body orientation stays fixed;
+  // reversing follows the same latched path until the entire consist is back
+  // on the approach. The legacy nonnegative playback API remains unchanged.
+  function moveSigned(distanceM, switchSetting = setting) {
+    if (!Number.isFinite(distanceM)) throw Error('Signed train travel must be finite.');
+    assertSwitch(switchSetting, branch);
+    setting = switchSetting;
+    if (distanceM >= 0) chooseAt(headM + distanceM);
+    headM = Math.max(train.lengthM, Math.min(headM + distanceM, path.lengthM));
+    if (branch && headM < decisionM - EPS) {
+      turnoutTaken = null;
+      path = main;
+    }
+  }
+
+  function checkpoint() { return {version: 1, headM, setting, turnoutTaken}; }
+
+  function restore(saved) {
+    if (!saved || saved.version !== 1 || Object.keys(saved).sort().join(',') !== 'headM,setting,turnoutTaken,version') {
+      throw Error('Unsupported railway motion checkpoint.');
+    }
+    assertSwitch(saved.setting, branch);
+    if (![null, 'main', 'branch'].includes(saved.turnoutTaken) || saved.turnoutTaken === 'branch' && !branch ||
+        !Number.isFinite(saved.headM)) throw Error('Invalid railway path history.');
+    const stagedPath = saved.turnoutTaken === 'branch' ? branch : main;
+    if (saved.headM < train.lengthM - EPS || saved.headM > stagedPath.lengthM + EPS ||
+        branch && saved.headM >= decisionM + EPS && !saved.turnoutTaken || !branch && saved.turnoutTaken !== null) {
+      throw Error('Saved railway position does not fit its latched itinerary.');
+    }
+    headM = saved.headM; setting = saved.setting; turnoutTaken = saved.turnoutTaken; path = stagedPath;
+    return read();
+  }
+
   function trajectory(switchSetting = setting) {
     assertSwitch(switchSetting, branch);
     const itinerary = turnoutTaken ? path : switchSetting === 'branch' ? branch : main;
@@ -185,5 +249,6 @@ export function createRailwayTrainOnPlan({id, plan, turnout}, placement) {
   }
 
   reset(switchPosition);
-  return Object.freeze({canTakeBranch: Boolean(branch), read, advance, reset, move, trajectory, lockSwitch});
+  return Object.freeze({canTakeBranch: Boolean(branch), read, advance, reset, move, trajectory, lockSwitch,
+    moveSigned, checkpoint, restore});
 }

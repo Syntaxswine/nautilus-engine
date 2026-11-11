@@ -1,6 +1,6 @@
 import {RAIL_TRACK_ASSETS, RAIL_TRACK_PROFILE} from './catalogue.js';
 import {ballastPaint, tiePaint} from './paint.js';
-import {assertRailwaySeparation, planRailwayRoute, planRailwayTurnout, railwayStationAt, RAILWAY_RADIUS_M} from './route.js';
+import {assertRailwaySeparation, planRailwayRoute, planRailwayCircuit, planRailwayTurnout, railwayStationAt, RAILWAY_RADIUS_M} from './route.js';
 
 const {ballastRiseM, ballastWidthM, railCentresM, tieIntervalM} = RAIL_TRACK_PROFILE;
 const halfBed = ballastWidthM / 2;
@@ -314,9 +314,13 @@ export function createRailwayKit(T) {
       const root = templates.get(id).clone(true);
       return retain(root, root.children.filter(child => child.isInstancedMesh));
     },
-    createRoute(waypoints, split, crossings = [], radiusM = RAILWAY_RADIUS_M) {
+    createCircuit(waypoints, radiusM = RAILWAY_RADIUS_M) {
+      return this.createRoute(waypoints, undefined, [], radiusM, true);
+    },
+    createRoute(waypoints, split, crossings = [], radiusM = RAILWAY_RADIUS_M, circuit = false) {
       if (disposed) throw new Error('Railway kit is disposed.');
-      const plan = planRailwayRoute(waypoints, radiusM), owned = [];
+      const plan = circuit ? planRailwayCircuit(waypoints, radiusM) : planRailwayRoute(waypoints, radiusM), owned = [];
+      if (circuit && (split !== undefined || crossings.length)) throw Error('This circuit profile has no turnouts or crossings.');
       const turnout = split === undefined ? null : planRailwayTurnout(plan, split);
       if (turnout) assertRailwaySeparation([{id: 'route', plan, turnout}]);
       function track(id, path, branch = false) {

@@ -73,3 +73,5 @@ The kit creates two procedural texture maps and shares geometries and materials 
 - Reopen the host’s placement data and check the same joins. Dispose individual segments or the full kit when unloading and keep the host renderer alive.
 
 Original procedural geometry and gravel, wood and steel finishes are authored in `packages/railway-visuals/`. The focused test checks both joins, the shared resource lifetime and the editor discovery entries.
+
+The separate [drivable-train candidate](drivable-trains.md) adds retained actors, named car entrances, cab authority, coach riding, signed motion and runtime checkpoints. Its two-circuit reference is `/examples/train-yard.html`. Circuit authoring is an optional runtime contract; existing portable map and Workshop playback behavior stay on the formats described above. The architect owns public package/UI integration of that candidate.
