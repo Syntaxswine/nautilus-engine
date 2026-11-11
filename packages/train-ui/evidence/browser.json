@@ -181,6 +181,94 @@
     {
       "name": "both stock skins and commuter rider fit desktop,390px and320px with44px targets",
       "status": "passed"
+    },
+    {
+      "name": "compact real-host boarding keeps walking gates, entry and no automatic latch",
+      "status": "passed"
+    },
+    {
+      "name": "native compact notch persists after finger release under real authority and departure whistles once",
+      "status": "passed"
+    },
+    {
+      "name": "native detent hysteresis sends one accepted shift and one click across boundary jitter",
+      "status": "passed"
+    },
+    {
+      "name": "moving reverse refusal renders confirmed gear, retains valid authority and never retries on stationary drag",
+      "status": "passed"
+    },
+    {
+      "name": "keyboard neutral coasts under real authority without retiring the latched owner",
+      "status": "passed"
+    },
+    {
+      "name": "compact stopped Exit remains enabled and returns real walking before boarding again",
+      "status": "passed"
+    },
+    {
+      "name": "chain neutralizes and brakes; a fresh N deliberately rearms coasting on a fresh lease",
+      "status": "passed"
+    },
+    {
+      "name": "real checkpoint reload preserves motion while revoking notch authority and all cues",
+      "status": "passed"
+    },
+    {
+      "name": "real compact lease cleanup covers cancel/capture/missed-up/blur/hidden/pause/focus/disposal",
+      "status": "passed"
+    },
+    {
+      "name": "independent second-finger chain cancels the lever and keeps priority through the first finger release",
+      "status": "passed"
+    },
+    {
+      "name": "compact cab replacement releases the original lease and actor",
+      "status": "passed"
+    },
+    {
+      "name": "compact actor switch does not retag latched input",
+      "status": "passed"
+    },
+    {
+      "name": "compact source revocation never replays a notch",
+      "status": "passed"
+    },
+    {
+      "name": "compact post-commit context replacement defers exact cleanup without replacing the primary outcome",
+      "status": "passed"
+    },
+    {
+      "name": "compact option preserves electric classic hold controls",
+      "status": "passed"
+    },
+    {
+      "name": "compact option retains contextual rider exit and confirmed walking restoration",
+      "status": "passed"
+    },
+    {
+      "name": "real profile rebinding releases authority, preserves mute/resources and never resumes old input",
+      "status": "passed"
+    },
+    {
+      "name": "compact clicks share mute and owned WebAudio disposal without replay",
+      "status": "passed"
+    },
+    {
+      "name": "compact reduced-motion removes grip and chain animation",
+      "status": "passed"
+    },
+    {
+      "name": "compact wood/font closure and44px targets fit desktop,390x844,320x568 and844x390",
+      "status": "passed"
+    },
+    {
+      "name": "classic avoids compact wood/fonts; the compact profile resolves exactly its three pinned runtime resources",
+      "status": "passed"
+    },
+    {
+      "name": "native emulated touch latches one notch and releases only the chain owner",
+      "status": "passed"
     }
   ],
   "captures": [
@@ -262,6 +350,44 @@
       "height": 844,
       "story": "commuter",
       "scope": "component"
+    },
+    {
+      "file": "compact/phone-stopped.png",
+      "width": 390,
+      "height": 844,
+      "scope": "real retained host stopped cab; eligible contextual Exit"
+    },
+    {
+      "file": "compact/desktop.png",
+      "width": 1280,
+      "height": 800,
+      "scope": "real retained host DOM in full-viewport fixture",
+      "square": 138,
+      "grip": 80
+    },
+    {
+      "file": "compact/phone.png",
+      "width": 390,
+      "height": 844,
+      "scope": "real retained host DOM in full-viewport fixture",
+      "square": 138,
+      "grip": 80
+    },
+    {
+      "file": "compact/narrow.png",
+      "width": 320,
+      "height": 568,
+      "scope": "real retained host DOM in full-viewport fixture",
+      "square": 124,
+      "grip": 70
+    },
+    {
+      "file": "compact/landscape.png",
+      "width": 844,
+      "height": 390,
+      "scope": "real retained host DOM in full-viewport fixture",
+      "square": 96,
+      "grip": 42
     }
   ],
   "fixture": "Actual fixed connector, always FIXTURE_ONLY",
@@ -270,22 +396,43 @@
   "nativeArtAcceptance": false,
   "errors": [],
   "browser": "157.0.4341.46",
+  "compactResources": [
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "bytes": 2757790
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf",
+      "bytes": 108640
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf",
+      "bytes": 249668
+    }
+  ],
+  "compact": {
+    "profile": "compact-notched",
+    "sourcePin": "fb0628605c274550ff8abad50b151843f08747d1",
+    "baseCommit": "4d0f7e495d75a607c9bc4c026ab100c50e7c07b4",
+    "authority": "actual retained two-circuit host and Core; explicit host ticks; no renderer/native-art acceptance",
+    "physicalHandset": false
+  },
   "status": "passed",
   "cleanup": {
     "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
     "purpose": "Train HUD fixed-fixture design and input lifecycle review",
-    "stoppedAt": "2026-11-11T05:35:33.080Z",
+    "stoppedAt": "2026-11-11T20:14:45.037Z",
     "process": {
-      "pid": 39564,
-      "creationFiletime": "134388489198043257",
+      "pid": 16720,
+      "creationFiletime": "134389016665368437",
       "executable": "C:\\Program Files\\nodejs\\node.exe"
     },
     "browser": {
-      "pid": 55668,
-      "creationFiletime": "134388489201232280",
+      "pid": 49836,
+      "creationFiletime": "134389016668415480",
       "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
     },
-    "port": 51994,
+    "port": 62963,
     "httpClosed": true,
     "browserClosed": true,
     "method": "Supported Playwright browser close and HTTP close in finally",
