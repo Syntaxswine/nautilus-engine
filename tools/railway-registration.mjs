@@ -3,7 +3,7 @@ import {RAIL_TRACK_ASSETS} from '../packages/railway-visuals/catalogue.js';
 import {railwayRoutePackageFiles} from './railway-route-registration.mjs';
 
 const guide = 'docs/railway-track-kit.md';
-const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'train-view.js', 'signal-view.js']
+const modules = ['catalogue.js', 'paint.js', 'three.js', 'rolling-stock.js', 'miniature-stock.js', 'stock-profile.js', 'train-view.js', 'signal-view.js']
   .map(name => 'packages/railway-visuals/' + name);
 const renderer = 'packages/assets/three.js';
 

@@ -13,19 +13,21 @@ export function createRailwaySignalView(T, signals) {
   root.add(posts, heads, lamps);
 
   const transform = new T.Object3D();
-  function place(mesh, index, x, y, z, yaw) {
+  function place(mesh, index, x, y, z, yaw, heightScale = 1) {
     transform.position.set(x, y, z);
     transform.rotation.y = yaw;
+    transform.scale.set(1, heightScale, 1);
     transform.updateMatrix();
     mesh.setMatrixAt(index, transform.matrix);
   }
-  for (const [index, {x, z, yaw}] of signals.entries()) {
+  for (const [index, {x, z, yaw, sideOffsetM = 1.21, heightScale = 1}] of signals.entries()) {
     const dx = Math.sin(yaw), dz = Math.cos(yaw);
-    const sideX = x + dz * 1.21, sideZ = z - dx * 1.21;
-    place(posts, index, sideX, .59, sideZ, yaw);
-    place(heads, index, sideX, 1.12, sideZ, yaw);
-    place(lamps, index * 2, sideX - dx * .12, 1.23, sideZ - dz * .12, yaw);
-    place(lamps, index * 2 + 1, sideX - dx * .12, 1.01, sideZ - dz * .12, yaw);
+    const sideX = x + dz * sideOffsetM, sideZ = z - dx * sideOffsetM;
+    place(posts, index, sideX, .59 * heightScale, sideZ, yaw, heightScale);
+    const rise = 1.12 * (heightScale - 1);
+    place(heads, index, sideX, 1.12 + rise, sideZ, yaw);
+    place(lamps, index * 2, sideX - dx * .12, 1.23 + rise, sideZ - dz * .12, yaw);
+    place(lamps, index * 2 + 1, sideX - dx * .12, 1.01 + rise, sideZ - dz * .12, yaw);
   }
 
   const colour = new T.Color(), aspects = [];

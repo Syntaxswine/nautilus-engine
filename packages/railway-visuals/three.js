@@ -10,8 +10,7 @@ const tieTop = .324;
 const tieWidth = 1.44;
 const tieDepth = .20;
 const EPS = 1e-8;
-const crossingM = RAILWAY_RADIUS_M * Math.acos((RAILWAY_RADIUS_M - railCentresM / 2) /
-  (RAILWAY_RADIUS_M + railCentresM / 2));
+const turnoutCrossingM = radius => radius * Math.acos((radius - railCentresM / 2) / (radius + railCentresM / 2));
 
 function station(piece, t) {
   if (piece.radiusM === null) return {x: 0, z: piece.lengthM * t, c: 1, s: 0, angle: 0, t};
@@ -105,7 +104,7 @@ function timberExtension(site, turnout) {
   if (site.distanceM < turnout.mainStartM || site.distanceM > turnout.mainEndM) return 0;
   const along = turnoutDistance(site, turnout, turnout.incoming);
   if (along <= 0) return 0;
-  const radius = RAILWAY_RADIUS_M, arcEnd = radius * Math.SQRT1_2;
+  const radius = turnout.plan.radiusM, arcEnd = radius * Math.SQRT1_2;
   const offset = along <= arcEnd ? radius - Math.sqrt(radius ** 2 - along ** 2)
     : radius - arcEnd + along - arcEnd;
   return offset <= 1.4 ? offset : Math.max(0, 1.4 - (offset - 1.4) * 3);
@@ -159,6 +158,7 @@ function overlapsDiamondTies(site, {track, other, angleDeg}) {
 }
 
 function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, branch, crossings = []}, materials, fixtures, own) {
+  const crossingM = turnout && turnoutCrossingM(turnout.plan.radiusM);
   const root = new T.Group();
   root.name = id;
   root.userData = {assetId: id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
@@ -314,9 +314,9 @@ export function createRailwayKit(T) {
       const root = templates.get(id).clone(true);
       return retain(root, root.children.filter(child => child.isInstancedMesh));
     },
-    createRoute(waypoints, split, crossings = []) {
+    createRoute(waypoints, split, crossings = [], radiusM = RAILWAY_RADIUS_M) {
       if (disposed) throw new Error('Railway kit is disposed.');
-      const plan = planRailwayRoute(waypoints), owned = [];
+      const plan = planRailwayRoute(waypoints, radiusM), owned = [];
       const turnout = split === undefined ? null : planRailwayTurnout(plan, split);
       if (turnout) assertRailwaySeparation([{id: 'route', plan, turnout}]);
       function track(id, path, branch = false) {

@@ -92,7 +92,7 @@ export function createWorkshopTrainPreview(T, scene, changed) {
 
   function sync(map) {
     const routes = railwayRoutesOf(map), placements = railwayTrainsOf(map);
-    const departures = placements.map(({stock, routeId, departure}) => [stock, routeId, departure]);
+    const departures = placements.map(({stock, routeId, departure, profile}) => [stock, routeId, departure, profile]);
     const nextSignature = routes.length ? JSON.stringify([routes, departures]) : '';
     if (signature === nextSignature) {
       let edited = false;

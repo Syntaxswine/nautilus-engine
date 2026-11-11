@@ -40,11 +40,13 @@ export function setRailwayRoutes(map, routes, trains = railwayTrainsOf(map)) {
     return {plans: [], crossings: []};
   }
   let data;
-  if (trains.length > 1) data = {version: 5, routes, trains};
+  if (routes.some(route => route.radiusM !== undefined) || trains.some(train => train.profile !== undefined)) {
+    data = {version: 6, routes, trains};
+  } else if (trains.length > 1) data = {version: 5, routes, trains};
   else if (trains.length) data = {version: 4, routes, train: trains[0]};
   else data = {version: routes.some(route => route.turnout) ? 2 : 1, routes};
   const layout = checkRailwayRoutes(map, data, true);
-  if (!trains.length && layout.crossings.length) data.version = 3;
+  if (!trains.length && layout.crossings.length && data.version < 6) data.version = 3;
   map.railwayRoutes = data;
   return layout;
 }
@@ -131,10 +133,10 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   }
   const keys = ['version', 'routes'];
   if (data?.version === 4) keys.push('train');
-  if (data?.version === 5) keys.push('trains');
-  if (!exact(data, keys) || ![1, 2, 3, 4, 5].includes(data.version) || !Array.isArray(data.routes) ||
+  if (data?.version >= 5) keys.push('trains');
+  if (!exact(data, keys) || ![1, 2, 3, 4, 5, 6].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1–5 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1–6 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
   const mapPoint = point => Array.isArray(point) && point.length === 2 &&
@@ -144,6 +146,7 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   for (const route of data.routes) {
     const hasTurnout = data.version >= 2 && Object.hasOwn(route ?? {}, 'turnout');
     const keys = hasTurnout ? ['id', 'waypoints', 'turnout'] : ['id', 'waypoints'];
+    if (data.version === 6 && Object.hasOwn(route ?? {}, 'radiusM')) keys.push('radiusM');
     if (!exact(route, keys) || typeof route.id !== 'string' || !idPattern.test(route.id) || ids.has(route.id)) {
       throw new Error('Each railway route needs unique portable ID and waypoints fields.');
     }
@@ -151,7 +154,7 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
         ![...route.waypoints].every(mapPoint)) {
       throw new Error(`Railway route ${route.id} needs whole-metre waypoints inside the map.`);
     }
-    const plan = planRailwayRoute(route.waypoints);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM);
     let turnout;
     if (hasTurnout) {
       if (!exact(route.turnout, ['at', 'end']) || !mapPoint(route.turnout.at) || !mapPoint(route.turnout.end)) {
@@ -188,6 +191,15 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
     }
     assertRailwayTrainDepartures(plans, crossings, data.trains);
   }
+  if (data.version === 6) {
+    if (!Array.isArray(data.trains) || data.trains.length > 2 ||
+        ![...data.trains].every(train => exact(train, ['routeId', 'stock', 'departure', 'switchPosition',
+          ...(Object.hasOwn(train ?? {}, 'profile') ? ['profile'] : [])]) &&
+          (!Object.hasOwn(train, 'profile') || ['miniature', 'world'].includes(train.profile)))) {
+      throw new Error('Railway routes version 6 needs up to two placements with World size or Miniature proportions.');
+    }
+    assertRailwayTrainDepartures(plans, crossings, data.trains);
+  }
   return {plans, crossings};
 }
 
@@ -214,7 +226,7 @@ export function railwayTrackAt(map, x, y) {
     }
   }
   for (const route of railwayRoutesOf(map)) {
-    const plan = planRailwayRoute(route.waypoints);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM);
     inspect(route, plan, false);
     if (route.turnout) inspect(route, planRailwayTurnout(plan, route.turnout).plan, true);
   }

@@ -13,6 +13,7 @@ function previewTrain(map, routes, tool, options) {
   if (tool === 'railway-train') {
     const {routeId, departure} = options;
     const train = {routeId, stock, departure, switchPosition: 'main'};
+    if (options.profile !== undefined) train.profile = options.profile;
     if (index < 0) trains.push(train);
     else trains[index] = train;
     railwayTrainMessage = trains.length === 2 ? 'Train placed. Choose Run both to depart together.' : 'Train placed. Choose Run train to depart.';
@@ -78,6 +79,7 @@ export class EditingDocument extends Legacy {
       let next = 1;
       while (routes.some(route => route.id === 'rail-' + next)) next++;
       const route = {id: 'rail-' + next, waypoints: structuredClone(waypoints)};
+      if (options.radiusM !== undefined) route.radiusM = options.radiusM;
       const {plans, crossings} = setRailwayRoutes(map, [...routes, route]);
       return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: plans.at(-1).plan, crossings}};
     } catch (error) {

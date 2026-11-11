@@ -1,8 +1,9 @@
 import {RAIL_TRACK_PROFILE} from './catalogue.js';
 import {railwayPaint} from './paint.js';
+import {railwayStockProfile} from './stock-profile.js';
+import {createRollingStockKit as createMiniatureStockKit} from './miniature-stock.js';
 
 const {railCentresM, railTopM} = RAIL_TRACK_PROFILE;
-const COUPLER_Y = .71;
 const SIDES = [-1, 1];
 const BRUSH = 0, TIMBER = 1, FLUTED_STEEL = 2, GLASS = 3;
 
@@ -11,11 +12,11 @@ const GREEN = 0x344e43, RED_OXIDE = 0x7b3730;
 const SILVER = 0xb8c1c3, SIGNAL_RED = 0xb43c36, WINDOW = 0x91a7b0;
 
 const cars = {
-  'steam-engine': {lengthM: 2.40, wheelContactSpanM: 1.40, sculpt: steamEngine},
-  'coal-tender': {lengthM: 1.70, wheelContactSpanM: 1.05, sculpt: coalTender},
-  'steam-coach': {lengthM: 2.70, wheelContactSpanM: 1.65, sculpt: steamCoach},
-  'electric-cab': {lengthM: 2.85, wheelContactSpanM: 1.70, sculpt: (b, h, axle) => commuter(b, h, axle, true)},
-  'electric-coach': {lengthM: 2.75, wheelContactSpanM: 1.65, sculpt: (b, h, axle) => commuter(b, h, axle, false)}
+  'steam-engine': {scale: [2.2, 2.5], deckM: 1.25, driver: true, sculpt: steamEngine},
+  'coal-tender': {scale: [2.25, 2.5], deckM: 1.20, wheelRadiusM: .29, sculpt: coalTender},
+  'steam-coach': {scale: [2.12, 2.5], deckM: 1.10, wheelRadiusM: .32, sculpt: steamCoach},
+  'electric-cab': {scale: [2.05, 2.55], deckM: 1.10, wheelRadiusM: .32, sculpt: (b, h) => commuter(b, h, true)},
+  'electric-coach': {scale: [2.05, 2.55], deckM: 1.10, wheelRadiusM: .32, sculpt: (b, h) => commuter(b, h, false)}
 };
 
 // A shared paint sheet carries brush marks, varnished grain, shallow stainless
@@ -52,6 +53,7 @@ class CarSculpt {
     this.transform = new T.Object3D();
     this.normalMatrix = new T.Matrix3();
     this.up = new T.Vector3(0, 1, 0);
+    this.mapping = null;
   }
 
   primitive(key, make) {
@@ -75,6 +77,14 @@ class CarSculpt {
     for (let i = 0; i < position.count; i++) {
       const p = this.point.fromBufferAttribute(position, i).applyMatrix4(this.transform.matrix);
       const n = this.normal.fromBufferAttribute(normal, i).applyNormalMatrix(this.normalMatrix);
+      // Reuse the painted upper-body recipes, but keep wheels and their rail
+      // datum outside this affine transform. Normal correction keeps the
+      // stretched shells lit correctly without scaling the returned root.
+      if (this.mapping) {
+        const {x, y, z, offsetY} = this.mapping;
+        p.set(p.x * x, p.y * y + offsetY, p.z * z);
+        n.set(n.x / x, n.y / y, n.z / z).normalize();
+      }
       batch.positions.push(p.x, p.y, p.z);
       batch.normals.push(n.x, n.y, n.z);
       batch.colours.push(tint.r, tint.g, tint.b);
@@ -118,12 +128,12 @@ class CarSculpt {
     this.axial(rim, [x - .055, y, z], [x + .055, y, z], radius, radius, STEEL, 'metal');
   }
 
-  wheelCover(side, y, z) {
+  wheelCover(side, y, z, radius) {
     const cover = this.primitive('splasher', () => new this.T.LatheGeometry([
       [.972, -.50], [1, -.50], [1, .50], [.972, .50], [.972, -.50]
     ].map(([r, height]) => new this.T.Vector2(r, height)), 12, 1.19 * Math.PI, .62 * Math.PI));
-    const x = side * .464;
-    this.axial(cover, [x - .072, y, z], [x + .072, y, z], .322, .322, 0x2b3831, 'paint');
+    const x = side * .51;
+    this.axial(cover, [x - .075, y, z], [x + .075, y, z], radius, radius, 0x2b3831, 'paint');
   }
 
   lump(position, size, rotation, colour) {
@@ -191,20 +201,29 @@ function straightShell(b, back, front, profile, colour, swatch) {
   b.shell([[back, profile], [front, profile]], colour, swatch);
 }
 
-function chassis(b, half, colour, width = .49) {
-  const section = w => [[-w, .77], [w, .77], [w, .90], [-w, .90]];
-  b.shell([[-half + .025, section(.34)], [-half + .16, section(width)],
-    [half - .16, section(width)], [half - .025, section(.34)]], colour);
+function chassis(b, half, recipe, couplerY) {
+  const {deckM, driver} = recipe, width = driver ? .91 : 1.04;
+  const section = w => [[-w, deckM - .18], [w, deckM - .18], [w, deckM], [-w, deckM]];
+  b.shell([[-half + .075, section(.72)], [-half + .48, section(width)],
+    [half - .48, section(width)], [half - .075, section(.72)]], driver ? RED_OXIDE : INK);
   for (const side of SIDES) {
-    b.box([0, COUPLER_Y, side * half], [.080, .060, .14], IRON, BRUSH, 'coupler');
-    b.box([0, COUPLER_Y, side * (half + .051)], [.140, .079, .076], INK, BRUSH, 'coupler');
-    b.box([0, COUPLER_Y + .008, side * (half + .067)], [.105, .039, .044], STEEL, BRUSH, 'coupler');
+    b.box([side * .70, deckM - .15, 0], [.13, .22, 2 * half - .65], IRON);
+  }
+  for (const side of SIDES) {
+    b.box([0, couplerY, side * half], [.15, .10, .30], IRON, BRUSH, 'coupler');
+    b.box([0, couplerY, side * (half + .105)], [.26, .14, .15], INK, BRUSH, 'coupler');
+    b.box([0, couplerY + .014, side * (half + .14)], [.20, .075, .09], STEEL, BRUSH, 'coupler');
+  }
+  if (!driver) return;
+  for (const side of SIDES) {
+    b.cylinder([side * .63, 1.27, half - 1.20], [side * .63, 1.27, half - .58], .16, IRON);
+    b.cylinder([side * .63, 1.27, half - 1.24], [side * .63, 1.27, half - 1.13], .18, INK);
   }
 }
 
 function wheelset(b, z, radius, driver = false) {
   const gauge = railCentresM / 2, y = railTopM + radius;
-  b.cylinder([-.48, y, z], [.48, y, z], .044, IRON);
+  b.cylinder([-.51, y, z], [.51, y, z], .06, IRON);
   for (const s of SIDES) {
     const x = s * gauge;
     const across = (a, c, r, colour) => b.cylinder([s * a, y, z], [s * c, y, z], r, colour);
@@ -213,36 +232,28 @@ function wheelset(b, z, radius, driver = false) {
     if (driver) {
       for (let j = 0; j < 8; j++) {
         const a = j * Math.PI / 4, dy = Math.cos(a), dz = Math.sin(a);
-        b.bar([s * .47, y + .045 * dy, z + .045 * dz],
-          [s * .47, y + .243 * dy, z + .243 * dz], .048, .038, GREEN);
+        b.bar([s * .47, y + .08 * dy, z + .08 * dz],
+          [s * .47, y + .84 * radius * dy, z + .84 * radius * dz], .073, .056, GREEN);
       }
-      across(.40, .536, .074, IRON);
-      across(.536, .549, .041, BRASS);
+      across(.40, .57, .12, IRON);
+      across(.57, .604, .068, BRASS);
     } else {
       across(.410, .497, radius - .018, IRON);
-      across(.497, .53, .063, INK);
-      across(.53, .543, .036, STEEL);
-      b.box([s * .427, .758, z], [.13, .085, .39], INK);
-      b.box([s * .506, .789, z], [.066, .04, .235], IRON);
+      across(.497, .55, .09, INK);
+      across(.55, .572, .054, STEEL);
+      b.box([s * .51, y + .18, z], [.16, .11, .48], INK);
+      b.box([s * .57, y + .22, z], [.08, .045, .32], IRON);
     }
   }
 }
 
-function steamEngine(b, half, axle) {
-  chassis(b, half, RED_OXIDE);
+// These five body recipes retain the miniature's original paint, glazing and
+// silhouette details. Their coordinates remain in the original sculpt space;
+// template() expands only these upper parts, then builds world running gear.
+function steamEngine(b) {
   b.box([0, .93, -.11], [.778, .067, 1.87], INK);
-  const driverRadius = .286;
-  for (const z of [-axle, axle]) wheelset(b, z, driverRadius, true);
   for (const s of SIDES) {
-    const x = s * .55;
     b.box([s * .448, .93, 0], [.126, .060, .826], INK);
-    for (const z of [-axle, axle]) b.wheelCover(s, railTopM + driverRadius, z);
-    b.bar([x, .756, -axle], [x, .756, axle], .043, .034, STEEL);
-    b.bar([x, .756, -axle], [x, .870, .47], .034, .033, IRON);
-    b.cylinder([s * .423, .87, .47], [s * .423, .87, .88], .093, IRON);
-    b.cylinder([s * .423, .87, .43], [s * .423, .87, .50], .101, INK);
-    b.box([x, .756, -axle], [.041, .071, .071], BRASS, BRUSH, 'metal');
-    b.box([x, .756, axle], [.041, .071, .071], BRASS, BRUSH, 'metal');
     b.cylinder([s * .318, 1.30, -.59], [s * .318, 1.30, .70], .012, BRASS);
     for (const z of [-.40, .44]) b.cylinder([s * .29, 1.30, z], [s * .333, 1.30, z], .018, BRASS);
   }
@@ -273,18 +284,16 @@ function steamEngine(b, half, axle) {
     b.box([s * .518, 1.19, -.872], [.022, .106, .281], 0x416151);
     b.box([s * .482, .841, -.979], [.151, .047, .203], IRON);
   }
-  b.box([0, 1.412, -1.131], [.38, .385, .022], INK);
+  b.box([0, 1.30, -1.131], [.38, .74, .022], INK);
   straightShell(b, -1.175, -.56, barrelRoof(.558, 1.72, 1.84), INK);
   b.box([0, .824, 1.061], [.90, .106, .112], RED_OXIDE);
   for (let j = -3; j <= 3; j++) {
-    b.bar([j * .113, .818, 1.044], [j * .090, .563, 1.167], .036, .040, INK);
+    b.bar([j * .113, .818, 1.044], [j * .090, .646, 1.167], .036, .040, INK);
   }
-  b.box([0, .557, 1.169], [.60, .049, .047], INK);
+  b.box([0, .64, 1.169], [.60, .049, .047], INK);
 }
 
-function coalTender(b, half, axle) {
-  chassis(b, half, INK);
-  for (const z of [-axle, axle]) wheelset(b, z, .186);
+function coalTender(b) {
   const tank = w => [[-w, .884], [w, .884], [w, 1.388], [w - .04, 1.424], [-w + .04, 1.424], [-w, 1.388]];
   b.shell([[-.797, tank(.408)], [-.691, tank(.487)], [.655, tank(.487)], [.779, tank(.435)]], GREEN);
   for (const s of SIDES) {
@@ -310,10 +319,8 @@ function coalTender(b, half, axle) {
   }
 }
 
-function steamCoach(b, half, axle) {
+function steamCoach(b, half) {
   const wine = 0x674032, panel = 0x794d3b, cream = 0xc8ad78;
-  chassis(b, half, INK);
-  for (const z of [-axle, axle]) wheelset(b, z, .187);
   const section = w => [[-w + .035, .881], [w - .035, .881], [w, .959], [w, 1.728],
     [w - .043, 1.785], [-w + .043, 1.785], [-w, 1.728], [-w, .959]];
   b.shell([[-half + .132, section(.415)], [-half + .238, section(.522)],
@@ -336,7 +343,7 @@ function steamCoach(b, half, axle) {
       b.box([s * .544, 1.114, z], [.018, .191, .342], panel, TIMBER);
     }
     b.box([0, .862, s * (half - .080)], [.768, .040, .147], IRON);
-    b.box([0, 1.367, s * (half - .128)], [.325, .712, .045], 0x583a2e, TIMBER);
+    b.box([0, 1.343, s * (half - .128)], [.325, .76, .045], 0x583a2e, TIMBER);
     b.box([0, 1.535, s * (half - .099)], [.220, .263, .019], WINDOW, GLASS);
     for (const x of [-.377, .377]) {
       b.cylinder([x, .882, s * (half - .057)], [x, 1.141, s * (half - .057)], .017, BRASS);
@@ -347,9 +354,7 @@ function steamCoach(b, half, axle) {
   }
 }
 
-function commuter(b, half, axle, cab) {
-  chassis(b, half, INK);
-  for (const z of [-axle, axle]) wheelset(b, z, .167);
+function commuter(b, half, cab) {
   const profile = (w, crown = 1.953) => [[-w + .05, .868], [w - .05, .868],
     [w, .993], [w, 1.645], [w - .04, 1.795], [w - .14, crown - .03],
     [w - .25, crown], [-w + .25, crown], [-w + .14, crown - .03],
@@ -381,10 +386,10 @@ function commuter(b, half, axle, cab) {
       b.box([s * .568, 1.59, .981], [.011, .176, .087], WINDOW, GLASS);
     }
   }
-  b.box([0, 1.318, -half + .049], [.388, .738, .057], 0x465257);
+  b.box([0, 1.318, -half + .049], [.388, .72, .057], 0x465257);
   b.box([0, 1.51, -half + .017], [.221, .219, .022], WINDOW, GLASS);
   if (!cab) {
-    b.box([0, 1.318, half - .049], [.388, .738, .057], 0x465257);
+    b.box([0, 1.318, half - .049], [.388, .72, .057], 0x465257);
     b.box([0, 1.51, half - .017], [.221, .219, .022], WINDOW, GLASS);
   }
 
@@ -397,13 +402,14 @@ function commuter(b, half, axle, cab) {
 }
 
 function commuterDoor(b, side, z) {
-  b.box([side * .571, 1.330, z], [.037, .639, .365], 0x424c51);
+  // A 1.913 m frame surrounds 1.836 m leaves after the body mapping.
+  b.box([side * .571, 1.30, z], [.037, .75, .365], 0x424c51);
   for (const leaf of SIDES) {
     const at = z + leaf * .079;
-    b.box([side * .584, 1.330, at], [.015, .607, .149], 0xa5afb2);
-    b.box([side * .594, 1.468, at], [.010, .201, .098], WINDOW, GLASS);
+    b.box([side * .584, 1.30, at], [.015, .72, .149], 0xa5afb2);
+    b.box([side * .594, 1.438, at], [.010, .201, .098], WINDOW, GLASS);
   }
-  b.box([side * .566, 1.019, z], [.047, .028, .345], 0xc0aa72);
+  b.box([side * .566, .945, z], [.047, .028, .345], 0xc0aa72);
 }
 
 function cabFace(b, half) {
@@ -439,14 +445,10 @@ const meshNames = {
   paint: 'Paint and glazing', metal: 'Running gear and fittings', lamp: 'Lamp lenses', coupler: 'Couplers'
 };
 
-function template(T, id, materials, own) {
-  const {lengthM, wheelContactSpanM, sculpt} = cars[id];
-  const root = new T.Group();
-  root.name = id;
-  root.userData = {carId: id, lengthM, wheelContactSpanM, metresPerUnit: 1};
+function sculptMeshes(T, root, materials, own, sculpt) {
   const b = new CarSculpt(T);
   try {
-    sculpt(b, lengthM / 2, wheelContactSpanM / 2);
+    sculpt(b);
     for (const [finish, batch] of b.parts) {
       const geometry = own(new T.BufferGeometry());
       geometry.setAttribute('position', new T.Float32BufferAttribute(batch.positions, 3));
@@ -461,10 +463,113 @@ function template(T, id, materials, own) {
       mesh.castShadow = mesh.receiveShadow = finish !== 'lamp';
       root.add(mesh);
     }
-    return root;
   } finally {
     b.releasePrimitives();
   }
+}
+
+function wheelModule(b, recipe) {
+  if (recipe.driver) {
+    const radius = .58, y = railTopM + radius;
+    wheelset(b, 0, radius, true);
+    for (const side of SIDES) {
+      b.wheelCover(side, y, 0, radius + .065);
+      b.box([side * .50, y + .18, 0], [.16, .13, .55], INK);
+      b.box([side * .62, y + .04, 0], [.065, .11, .11], BRASS, BRUSH, 'metal');
+    }
+    return;
+  }
+  // One short, two-axle truck at each route contact. Only the truck pivot is
+  // supplied by the host; the +/- .43 m axles follow its local tangent.
+  for (const z of [-.43, .43]) wheelset(b, z, recipe.wheelRadiusM);
+  b.box([0, 1.00, 0], [1.10, .13, 1.34], INK, BRUSH, 'metal');
+  b.cylinder([0, 1.00, 0], [0, recipe.deckM - .06, 0], .16, IRON);
+  for (const side of SIDES) {
+    b.box([side * .54, .94, 0], [.14, .16, 1.32], IRON, BRUSH, 'metal');
+    for (const y of [.98, 1.025]) {
+      b.box([side * .58, y, 0], [.10, .026, .62], STEEL, BRUSH, 'metal');
+    }
+  }
+}
+
+function template(T, id, dimensions, profile, materials, own) {
+  const recipe = cars[id], {lengthM, wheelbaseM: wheelContactSpanM} = dimensions;
+  const root = new T.Group();
+  root.name = id;
+  root.userData = {carId: id, profile: 'world', lengthM, wheelContactSpanM, metresPerUnit: 1};
+  sculptMeshes(T, root, materials, own, b => {
+    const [x, y] = recipe.scale;
+    b.mapping = {x, y, z: 3, offsetY: recipe.deckM - .9 * y};
+    recipe.sculpt(b, lengthM / 6);
+    b.mapping = null;
+    chassis(b, lengthM / 2, recipe, profile.couplerHeightM);
+  });
+  const front = new T.Group();
+  front.name = 'Front wheel contact';
+  front.position.z = wheelContactSpanM / 2;
+  sculptMeshes(T, front, materials, own, b => wheelModule(b, recipe));
+  const rear = front.clone(true);
+  rear.name = 'Rear wheel contact';
+  rear.position.z *= -1;
+  root.add(front, rear);
+  if (recipe.driver) {
+    const rods = new T.Group();
+    sculptMeshes(T, rods, materials, own, b => b.box([0, 0, 0], [.065, 1, .065], STEEL, BRUSH, 'metal'));
+    const rod = rods.children[0];
+    for (const side of SIDES) {
+      for (const type of ['Coupling rod ', 'Valve rod ']) {
+        const link = rod.clone();
+        link.name = type + side;
+        root.add(link);
+      }
+    }
+  }
+  return root;
+}
+
+function wheelContacts(T, root, recipe, lengthM) {
+  const front = root.getObjectByName('Front wheel contact'), rear = root.getObjectByName('Rear wheel contact');
+  const up = new T.Vector3(0, 1, 0), a = new T.Vector3(), b = new T.Vector3(), axis = new T.Vector3();
+  const rods = recipe.driver ? SIDES.map(side => ({side,
+    coupling: root.getObjectByName('Coupling rod ' + side), valve: root.getObjectByName('Valve rod ' + side)})) : [];
+  function axle(out, group, side) {
+    const offset = side * .62;
+    out.set(group.position.x + Math.cos(group.rotation.y) * offset, railTopM + .58 + .04,
+      group.position.z - Math.sin(group.rotation.y) * offset);
+  }
+  function link(mesh) {
+    axis.subVectors(b, a);
+    mesh.position.copy(a).lerp(b, .5);
+    mesh.scale.y = axis.length();
+    if (axis.lengthSq() > 0) mesh.quaternion.setFromUnitVectors(up, axis.normalize());
+  }
+  function updateRods() {
+    for (const {side, coupling, valve} of rods) {
+      axle(a, rear, side);
+      axle(b, front, side);
+      link(coupling);
+      axle(a, front, side);
+      b.set(side * .63, 1.27, lengthM / 2 - .85);
+      link(valve);
+    }
+  }
+  function valid(contact) {
+    return contact && Number.isFinite(contact.x) && Number.isFinite(contact.z) &&
+      Number.isFinite(contact.yaw ?? 0);
+  }
+  function position(group, contact) {
+    group.position.set(contact.x, 0, contact.z);
+    group.rotation.y = contact.yaw ?? 0;
+  }
+  updateRods();
+  return contacts => {
+    if (!contacts || !valid(contacts.front) || !valid(contacts.rear)) {
+      throw new TypeError('Supply finite front/rear wheel contact x, z and optional yaw in car-local metres/radians.');
+    }
+    position(front, contacts.front);
+    position(rear, contacts.rear);
+    updateRods();
+  };
 }
 
 function release(resources) {
@@ -476,12 +581,25 @@ function release(resources) {
   if (errors.length) throw new AggregateError(errors, 'Rolling stock cleanup failed.');
 }
 
-export function createRollingStockKit(THREE) {
+export function createRollingStockKit(THREE, {profile = 'world'} = {}) {
+  const proportions = railwayStockProfile(profile);
+  if (profile === 'miniature') {
+    const miniature = createMiniatureStockKit(THREE);
+    return {
+      create(id) {
+        const model = miniature.create(id);
+        model.root.userData.profile = 'miniature';
+        return model;
+      },
+      dispose() { miniature.dispose(); }
+    };
+  }
   const T = THREE;
   if (!T?.LatheGeometry || !T?.DataTexture || !T?.MeshStandardMaterial) {
     throw new TypeError('Supply the host Three namespace to create rolling stock.');
   }
   const shared = [], templates = new Map(), live = new Set();
+  const dimensions = new Map(Object.values(proportions.stock).flatMap(stock => stock.cars.map(car => [car.id, car])));
   const own = resource => { shared.push(resource); return resource; };
   let disposed = false, materials;
   try {
@@ -501,7 +619,8 @@ export function createRollingStockKit(THREE) {
       if (!templates.has(id)) {
         const newGeometry = [];
         try {
-          const car = template(T, id, materials, resource => { newGeometry.push(resource); return resource; });
+          const car = template(T, id, dimensions.get(id), proportions, materials,
+            resource => { newGeometry.push(resource); return resource; });
           templates.set(id, car);
           shared.push(...newGeometry);
         } catch (error) {
@@ -510,8 +629,13 @@ export function createRollingStockKit(THREE) {
         }
       }
       const root = templates.get(id).clone(true);
+      const setWheelContacts = wheelContacts(T, root, cars[id], dimensions.get(id).lengthM);
       const model = {
         root,
+        setWheelContacts(contacts) {
+          if (!live.has(model)) throw new Error('This rolling stock model is disposed.');
+          setWheelContacts(contacts);
+        },
         dispose() {
           if (live.delete(model)) root.removeFromParent();
         }

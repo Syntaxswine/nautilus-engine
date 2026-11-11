@@ -28,6 +28,7 @@ await withArtReview('Lay and reopen railway routes, splits and crossings in the 
   await page.locator('#asset-use').click();
   assert.equal(await page.locator('#edit-tool').inputValue(), 'railway-route');
   assert.ok(await page.locator('#railway-options').isVisible());
+  await page.locator('#railway-radius').selectOption('4');
 
   const portable = () => page.evaluate(() => window.nautilus.export());
   const history = () => page.evaluate(() => window.editor3d.document.editor.undo.length);
@@ -168,6 +169,7 @@ await withArtReview('Lay and reopen railway routes, splits and crossings in the 
   assert.deepEqual(await geometry(), built);
   await page.locator('#close-settings').click();
   await page.locator('[data-group="railway"]').click();
+  await page.locator('#railway-radius').selectOption('4');
   await frameRoute();
   await page.screenshot({path: path.join(out, 'railway-route-desktop.png')});
   const split = {at: [18, 12], end: [26, 4]};

@@ -9,6 +9,8 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   controls.hidden = true;
   controls.innerHTML = `<label for="railway-mode">Railway action</label>
     <select id="railway-mode"><option value="route">Lay route</option><option value="turnout">Add split</option><option value="train">Train</option></select>
+    <div id="railway-radius-options"><label for="railway-radius">Route size</label>
+    <select id="railway-radius"><option value="16">World size · 16 m bends</option><option value="4">Miniature · 4 m bends</option></select></div>
     <section id="railway-train-options" hidden></section>
     <p id="railway-help" class="muted"></p>
     <p id="railway-draft" role="status"></p>
@@ -21,6 +23,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   const mode = controls.querySelector('#railway-mode'), help = controls.querySelector('#railway-help');
   const removeSplit = controls.querySelector('#railway-remove-split');
   const trainSection = controls.querySelector('#railway-train-options');
+  const radius = controls.querySelector('#railway-radius'), radiusOptions = controls.querySelector('#railway-radius-options');
   const active = () => tool.value === 'railway-route';
   const splitting = () => mode.value === 'turnout';
   const trainMode = () => mode.value === 'train';
@@ -42,6 +45,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     controls.hidden = !active();
     const blocked = active() ? availability() : '';
     trainSection.hidden = !trainMode();
+    radiusOptions.hidden = trainMode() || splitting();
     help.hidden = note.hidden = undo.parentElement.hidden = place.hidden = trainMode();
     removeSplit.hidden = !splitting() || !targetRoute?.turnout;
     if (trainMode()) { train.sync(message); return; }
@@ -64,7 +68,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   function command(waypoints) {
     if (splitting()) return {tool: 'railway-turnout', start: {z: 0},
       options: {id: targetRoute.id, turnout: {at: waypoints[0], end: waypoints[1]}}};
-    return {tool: 'railway-route', start: {z: 0}, options: {waypoints}};
+    return {tool: 'railway-route', start: {z: 0}, options: {waypoints, ...(+radius.value === 16 ? {radiusM: 16} : {})}};
   }
   function check(waypoints) {
     if (waypoints.length < 2) return {ok: true, cells: [], edges: [], railwayWaypoints: waypoints};
@@ -139,7 +143,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
     if (splitting() && !targetRoute && clicked) {
       const selected = getDocument().inspect(clicked.x, clicked.y, 0);
       const at = selected?.type === 'railway-route' &&
-        snapRailwayTurnoutAnchor(planRailwayRoute(selected.data.waypoints), [clicked.x, clicked.y]);
+        snapRailwayTurnoutAnchor(planRailwayRoute(selected.data.waypoints, selected.data.radiusM), [clicked.x, clicked.y]);
       if (!at) { sync('Choose a point on a straight section of the main track.'); return; }
       targetRoute = selected.data;
       accepted = [at];
@@ -166,6 +170,7 @@ export function installRailwayTools({panel, canvas, getDocument, apply, scene, s
   }
   place.onclick = commit;
   mode.onchange = () => { cancel(); scene.preview(null); };
+  radius.onchange = () => { cancel(); scene.preview(null); };
   removeSplit.onclick = () => {
     if (!active() || !splitting() || !targetRoute?.turnout || isBusy() || availability()) return;
     return apply({tool: 'erase-railway-turnout', start: {z: 0}, options: {id: targetRoute.id}});

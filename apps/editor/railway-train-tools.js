@@ -1,9 +1,11 @@
 import {railwayTrackAt, railwayTrainsOf} from '../../packages/map-core/railway-routes.js';
-import {RAILWAY_STOCK} from '../../packages/map-core/railway-train.js';
+import {RAILWAY_STOCK, RAILWAY_STOCK_PROFILES} from '../../packages/map-core/railway-train.js';
 
 export function installRailwayTrainTools({section, getDocument, apply, preview, status, isBusy, availability}) {
   section.innerHTML = `<label for="railway-train-stock">Train</label>
     <select id="railway-train-stock"></select>
+    <label for="railway-train-profile">Train size</label>
+    <select id="railway-train-profile"><option value="world">World size · 8–9 m passenger cars</option><option value="miniature">Miniature · original models</option></select>
     <p class="muted">Click a track near the end you want to depart from.</p>
     <label for="railway-train-switch">Turnout</label>
     <select id="railway-train-switch"><option value="main">Main line</option><option value="branch">Branch</option></select>
@@ -13,11 +15,12 @@ export function installRailwayTrainTools({section, getDocument, apply, preview, 
     <p id="railway-train-status" role="status"></p>
     <p id="railway-peer-status" role="status" hidden></p>`;
   const stock = section.querySelector('#railway-train-stock'), turnout = section.querySelector('#railway-train-switch');
+  const profile = section.querySelector('#railway-train-profile');
   const run = section.querySelector('#railway-train-run'), reset = section.querySelector('#railway-train-reset');
   const remove = section.querySelector('#railway-train-remove'), note = section.querySelector('#railway-train-status');
   const both = section.querySelector('#railway-train-run-both'), peerNote = section.querySelector('#railway-peer-status');
   for (const [id, {label}] of Object.entries(RAILWAY_STOCK)) stock.add(new Option(label, id));
-  let previousStocks = '';
+  let previousStocks = '', previousPlacement = '';
 
   function describe(entry) {
     const {state, playing, waiting} = entry;
@@ -44,7 +47,13 @@ export function installRailwayTrainTools({section, getDocument, apply, preview, 
     const current = preview.read(stock.value);
     const {playing, state, canTakeBranch, trains} = current;
     const saved = placements.find(train => train.stock === stock.value);
+    const placementKey = JSON.stringify([stock.value, saved]);
+    if (placementKey !== previousPlacement) {
+      if (saved) profile.value = saved.profile ?? 'miniature';
+      previousPlacement = placementKey;
+    }
     stock.disabled = !!blocked;
+    profile.disabled = !!blocked;
     turnout.value = saved?.switchPosition ?? 'main';
     turnout.disabled = !!blocked || !state || !canTakeBranch;
     run.disabled = !!blocked || !state || state.stopped;
@@ -57,7 +66,11 @@ export function installRailwayTrainTools({section, getDocument, apply, preview, 
     both.textContent = trains.some(train => train.playing) && allStarted(trains) ? 'Pause both' : 'Run both';
     const nextRun = state?.turnoutTaken && state.turnoutTaken !== saved?.switchPosition
       ? ' The new turnout setting applies on the next run.' : '';
-    note.textContent = message || blocked || describe(current) + nextRun;
+    const dimensions = RAILWAY_STOCK_PROFILES[profile.value];
+    const spec = dimensions.stock[stock.value];
+    const lengthM = spec.cars.reduce((length, car) => length + car.lengthM, dimensions.gapM * (spec.cars.length - 1));
+    note.textContent = message || blocked || (state ? describe(current) + nextRun :
+      `${lengthM.toFixed(1)} m of track needed. ${profile.value === 'world' ? 'Choose a World size route.' : 'Uses the original small models.'}`);
     const peer = trains.length === 2 && trains.find(train => train.stock !== stock.value);
     peerNote.hidden = !peer;
     peerNote.textContent = peer ? RAILWAY_STOCK[peer.stock].label + ' · ' + describe(peer) : '';
@@ -76,7 +89,8 @@ export function installRailwayTrainTools({section, getDocument, apply, preview, 
       status(message);
       return;
     }
-    return edit('railway-train', {routeId: picked.route.id, departure: picked.departure, stock: stock.value});
+    return edit('railway-train', {routeId: picked.route.id, departure: picked.departure, stock: stock.value,
+      ...(profile.value === 'world' ? {profile: 'world'} : {})});
   }
 
   function toggle() {
@@ -87,6 +101,7 @@ export function installRailwayTrainTools({section, getDocument, apply, preview, 
 
   run.onclick = toggle;
   stock.onchange = () => sync();
+  profile.onchange = () => sync();
   both.onclick = () => {
     if (isBusy() || both.disabled) return;
     if (allStarted(preview.read().trains)) preview.pauseAll();

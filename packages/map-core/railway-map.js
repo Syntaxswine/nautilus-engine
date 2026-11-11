@@ -3,7 +3,7 @@ import * as blocks from './roof-blocks.js';
 import {generateConnectedMap as generate} from './roof-generator.js';
 import {rotateSceneryBlock as rotate} from './roof-rotation.js';
 import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE,
-  RAILWAY_SIGNAL_FEATURE} from '../railway-visuals/route.js';
+  RAILWAY_SIGNAL_FEATURE, RAILWAY_WORLD_STOCK_FEATURE} from '../railway-visuals/route.js';
 import {assertRailwayRoutes, refuseRailwayRoutes, railwayTrainsOf} from './railway-routes.js';
 
 export {blankMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
@@ -36,6 +36,7 @@ export function requiredMapFeatures(map) {
   const trains = railwayTrainsOf(map);
   if (trains.length) required.push(RAILWAY_TRAIN_FEATURE);
   if (trains.length > 1) required.push(RAILWAY_SIGNAL_FEATURE);
+  if (map.railwayRoutes?.version === 6) required.push(RAILWAY_WORLD_STOCK_FEATURE);
   return required;
 }
 
@@ -57,6 +58,9 @@ export function assertMapCapabilities(map, features = []) {
   }
   if (trains.length > 1 && !features.includes(RAILWAY_SIGNAL_FEATURE)) {
     throw new Error(`This game adapter does not support shared railway signals (${RAILWAY_SIGNAL_FEATURE}).`);
+  }
+  if (map.railwayRoutes?.version === 6 && !features.includes(RAILWAY_WORLD_STOCK_FEATURE)) {
+    throw new Error(`This game adapter does not support world-size railways (${RAILWAY_WORLD_STOCK_FEATURE}).`);
   }
   return map;
 }

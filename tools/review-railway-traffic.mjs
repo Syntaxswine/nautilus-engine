@@ -58,6 +58,7 @@ await withArtReview('Run both trains through a crossing and a turnout in the bui
     await ready();
     await page.locator('[data-group="railway"]').click();
     await page.locator('#railway-mode').selectOption('train');
+  await page.locator('#railway-train-profile').selectOption('miniature');
   }
 
   async function waitForRed(kind) {

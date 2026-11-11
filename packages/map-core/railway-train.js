@@ -1,25 +1,18 @@
 import {planRailwayRoute, planRailwayTurnout, railwayStationAt} from '../railway-visuals/route.js';
+import {railwayStockProfile, RAILWAY_STOCK_PROFILES} from '../railway-visuals/stock-profile.js';
 
 export const RAILWAY_COUPLER_HEIGHT_M = .71;
-const COUPLED_GAP_M = .56;
 const EPS = 1e-8;
 
-const car = (id, lengthM, wheelbaseM, reverse = false) => Object.freeze({id, lengthM, wheelbaseM, reverse});
-const steamCoach = car('steam-coach', 2.70, 1.65);
-export const RAILWAY_STOCK = Object.freeze({
-  steam: Object.freeze({label: 'Steam passenger train', cars: Object.freeze([
-    car('steam-engine', 2.40, 1.40), car('coal-tender', 1.70, 1.05), steamCoach, steamCoach
-  ])}),
-  electric: Object.freeze({label: 'Electric commuter train', cars: Object.freeze([
-    car('electric-cab', 2.85, 1.70), car('electric-coach', 2.75, 1.65), car('electric-cab', 2.85, 1.70, true)
-  ])})
-});
+export const RAILWAY_STOCK = RAILWAY_STOCK_PROFILES.miniature.stock;
+export {RAILWAY_STOCK_PROFILES};
 
-function consist(stock) {
+function consist(stock, profileId) {
+  const profile = railwayStockProfile(profileId);
   if (typeof stock !== 'string' || !Object.hasOwn(RAILWAY_STOCK, stock)) throw new Error('Choose a steam or electric train.');
   let lengthM = 0;
-  const cars = RAILWAY_STOCK[stock].cars.map((spec, index) => {
-    if (index) lengthM += COUPLED_GAP_M;
+  const cars = profile.stock[stock].cars.map((spec, index) => {
+    if (index) lengthM += profile.gapM;
     const centreBehindM = lengthM + spec.lengthM / 2;
     lengthM += spec.lengthM;
     return {...spec, centreBehindM};
@@ -64,7 +57,11 @@ function assertSwitch(switchPosition, branch) {
 function planTrain(plan, turnout, placement) {
   const {stock, departure, switchPosition} = placement;
   if (!['start', 'end', 'branch'].includes(departure)) throw new Error('Choose a railway departure end.');
-  const train = consist(stock);
+  const profile = railwayStockProfile(placement.profile);
+  const train = consist(stock, placement.profile);
+  if ((plan.radiusM ?? 4) < profile.minRadiusM) {
+    throw new Error(`World-size trains need ${profile.minRadiusM} m curves. Lay a World size route or choose Miniature.`);
+  }
   const junction = turnout && railwayTurnoutStation(plan, turnout);
   let main, branch = null, decisionM = null;
   if (departure === 'branch') {
@@ -99,8 +96,8 @@ function sample(path, distanceM) {
   let offset = distanceM;
   for (const item of path.legs) {
     if (offset < item.lengthM - EPS || item === path.legs.at(-1)) {
-      return {...railwayStationAt(item.plan, item.from + item.direction * Math.min(item.lengthM, Math.max(0, offset))),
-        track: item.track};
+      const at = railwayStationAt(item.plan, item.from + item.direction * Math.min(item.lengthM, Math.max(0, offset)));
+      return {...at, s: at.s * item.direction, c: at.c * item.direction, track: item.track};
     }
     offset -= item.lengthM;
   }
@@ -115,21 +112,22 @@ function pose(path, headM, {id, centreBehindM, wheelbaseM, lengthM, reverse}) {
     x: (front.x + rear.x) / 2,
     z: (front.z + rear.z) / 2,
     yaw: Math.atan2(front.x - rear.x, front.z - rear.z),
-    front: {x: front.x, z: front.z, track: front.track},
-    rear: {x: rear.x, z: rear.z, track: rear.track}
+    front: {x: front.x, z: front.z, yaw: Math.atan2(front.s, front.c), track: front.track},
+    rear: {x: rear.x, z: rear.z, yaw: Math.atan2(rear.s, rear.c), track: rear.track}
   };
 }
 
 // The host supplies travel in metres. A turnout is the only place where the
 // selected route can diverge. Diamonds never appear in this itinerary.
 export function createRailwayTrain(route, placement) {
-  const plan = planRailwayRoute(route.waypoints);
+  const plan = planRailwayRoute(route.waypoints, route.radiusM);
   const turnout = route.turnout && planRailwayTurnout(plan, route.turnout);
   return createRailwayTrainOnPlan({id: route.id, plan, turnout}, placement);
 }
 
 export function createRailwayTrainOnPlan({id, plan, turnout}, placement) {
   const {routeId, stock, departure, switchPosition} = placement;
+  const profile = placement.profile ?? 'miniature';
   if (id !== routeId) throw new Error('The train must start on its selected railway route.');
   const {main, branch, decisionM, train} = planTrain(plan, turnout, placement);
   let headM, path, turnoutTaken, setting;
@@ -142,7 +140,7 @@ export function createRailwayTrainOnPlan({id, plan, turnout}, placement) {
 
   function read() {
     return {
-      routeId, stock, departure, turnoutTaken,
+      routeId, stock, profile, couplerHeightM: railwayStockProfile(profile).couplerHeightM, departure, turnoutTaken,
       distanceM: headM - train.lengthM,
       track: sample(path, headM).track,
       stopped: headM >= path.lengthM - EPS,

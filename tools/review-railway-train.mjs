@@ -64,6 +64,7 @@ await withArtReview('Run the steam and electric trains through the built Worksho
 
   await page.locator('[data-group="railway"]').click();
   await page.locator('#railway-mode').selectOption('train');
+  await page.locator('#railway-train-profile').selectOption('miniature');
   await frame(57, 50, 65);
   await tap(31, 50);
   await waitStock('steam');

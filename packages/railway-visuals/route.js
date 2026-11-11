@@ -5,6 +5,7 @@ export const RAILWAY_TURNOUT_FEATURE = 'nautilus-railway-turnouts-v1';
 export const RAILWAY_CROSSING_FEATURE = 'nautilus-railway-crossings-v1';
 export const RAILWAY_TRAIN_FEATURE = 'nautilus-railway-trains-v1';
 export const RAILWAY_SIGNAL_FEATURE = 'nautilus-railway-signals-v1';
+export const RAILWAY_WORLD_STOCK_FEATURE = 'nautilus-railway-world-stock-v1';
 export const RAILWAY_ROUTE_LIMITS = Object.freeze({routes: 64, waypoints: 48, lengthM: 480, totalLengthM: 1200});
 export const RAILWAY_RADIUS_M = RAIL_TRACK_ASSETS.find(piece => piece.radiusM !== null).radiusM;
 const HALF_BED = RAIL_TRACK_PROFILE.ballastWidthM / 2;
@@ -51,18 +52,19 @@ export function railwayStationAt(plan, distanceM) {
   return stationOn(span, at);
 }
 
-function corner(at, incoming, outgoing) {
+function corner(at, incoming, outgoing, radiusM = RAILWAY_RADIUS_M) {
   const turn = Math.atan2(cross(incoming, outgoing), dot(incoming, outgoing));
   if (Math.abs(turn) > Math.PI / 2 + EPS) {
     throw new Error(`Railway turn at ${at.join(', ')} is too sharp. Use 45° or 90° changes of heading.`);
   }
-  const trim = RAILWAY_RADIUS_M * Math.tan(Math.abs(turn) / 2);
+  const trim = radiusM * Math.tan(Math.abs(turn) / 2);
   const a = moved(at, incoming, -trim), b = moved(at, outgoing, trim);
-  const center = moved(a, [-incoming[1], incoming[0]], Math.sign(turn) * RAILWAY_RADIUS_M);
-  return {kind: 'curve', a, b, incoming, outgoing, turn, trim, center, lengthM: RAILWAY_RADIUS_M * Math.abs(turn)};
+  const center = moved(a, [-incoming[1], incoming[0]], Math.sign(turn) * radiusM);
+  return {kind: 'curve', a, b, incoming, outgoing, turn, trim, center, radiusM, lengthM: radiusM * Math.abs(turn)};
 }
 
-function fit(waypoints) {
+function fit(waypoints, radiusM) {
+  if (![4, 16].includes(radiusM)) throw new Error('Choose a 4 m miniature or 16 m world-size railway radius.');
   if (!Array.isArray(waypoints) || waypoints.length < 2 || waypoints.length > RAILWAY_ROUTE_LIMITS.waypoints ||
       ![...waypoints].every(integerPoint)) {
     throw new Error('Choose 2–48 whole-metre railway waypoints.');
@@ -92,7 +94,7 @@ function fit(waypoints) {
     } else runs.push(leg);
   }
 
-  const corners = runs.slice(1).map(({a, unit}, i) => corner(a, runs[i].unit, unit));
+  const corners = runs.slice(1).map(({a, unit}, i) => corner(a, runs[i].unit, unit, radiusM));
 
   const spans = [];
   let lengthM = 0;
@@ -105,16 +107,16 @@ function fit(waypoints) {
     const trimmed = (before?.trim ?? 0) + (after?.trim ?? 0);
     const straight = run.length - trimmed;
     if (straight < -EPS) {
-      throw new Error(`Railway approach ${run.a.join(', ')} to ${run.b.join(', ')} needs ${trimmed.toFixed(2)} m for its 4 m radius turns. Move the waypoint or lengthen the approach.`);
+      throw new Error(`Railway approach ${run.a.join(', ')} to ${run.b.join(', ')} needs ${trimmed.toFixed(2)} m for its ${radiusM} m radius turns. Move the waypoint or lengthen the approach.`);
     }
     if (straight > EPS) append({kind: 'straight', gridAnchor: run.a, a: before?.b ?? run.a, b: after?.a ?? run.b,
       incoming: run.unit, outgoing: run.unit, lengthM: straight});
     if (after) append(after);
   }
-  return sampleSpans(spans, lengthM);
+  return sampleSpans(spans, lengthM, radiusM);
 }
 
-function sampleSpans(spans, lengthM) {
+function sampleSpans(spans, lengthM, radiusM = RAILWAY_RADIUS_M) {
   if (lengthM > RAILWAY_ROUTE_LIMITS.lengthM) {
     throw new Error(`Keep each railway route at or below ${RAILWAY_ROUTE_LIMITS.lengthM} m.`);
   }
@@ -123,17 +125,17 @@ function sampleSpans(spans, lengthM) {
   const segments = [];
   for (const span of spans) {
     const count = span.kind === 'curve' ? Math.ceil(Math.abs(span.turn) / ANGLE_STEP) : Math.ceil(span.lengthM);
-    const pad = span.kind === 'curve' ? RAILWAY_RADIUS_M * (1 - Math.cos(Math.abs(span.turn) / count / 2)) : 0;
+    const pad = span.kind === 'curve' ? radiusM * (1 - Math.cos(Math.abs(span.turn) / count / 2)) : 0;
     for (let i = 1; i <= count; i++) {
       const end = stationOn(span, span.startM + span.lengthM * i / count);
       const start = stations.at(-1);
       stations.push(end);
       // Add the maximum arc-to-chord distance to the ballast half width.
       segments.push({a: [start.x, start.z], b: [end.x, end.z],
-        startM: start.distanceM, endM: end.distanceM, radius: HALF_BED + pad});
+        startM: start.distanceM, endM: end.distanceM, radius: (radiusM === 16 ? 2 : HALF_BED) + pad});
     }
   }
-  return {lengthM, spans, stations, segments};
+  return {lengthM, spans, stations, segments, radiusM};
 }
 
 export function snapRailwayTurnoutAnchor(plan, point) {
@@ -169,10 +171,11 @@ export function planRailwayTurnout(main, {at, end} = {}) {
   }
   const forward = alignment > 0;
   const incoming = straight.incoming.map(n => forward ? n : -n);
-  const arc = corner(at, incoming, outgoing);
+  const radiusM = main.radiusM ?? RAILWAY_RADIUS_M;
+  const arc = corner(at, incoming, outgoing, radiusM);
   const back = dot(offset(forward ? straight.a : straight.b, at), incoming);
-  if (back < arc.trim + .5 - EPS || straight.lengthM - back < 4 - EPS) {
-    throw new Error('The split needs at least 2.16 m of straight track behind the point and 4 m ahead in the branch direction.');
+  if (back < arc.trim + .5 - EPS || straight.lengthM - back < radiusM - EPS || length < arc.trim + EPS) {
+    throw new Error(`The split needs at least ${(arc.trim + .5).toFixed(2)} m of straight track behind the point and ${radiusM} m ahead in the branch direction.`);
   }
   const exitLength = length - arc.trim;
   const lengthM = arc.lengthM + exitLength;
@@ -181,7 +184,7 @@ export function planRailwayTurnout(main, {at, end} = {}) {
   }
   const plan = sampleSpans([{...arc, startM: 0}, {
     kind: 'straight', gridAnchor: at, a: arc.b, b: end, incoming: outgoing, outgoing, lengthM: exitLength, startM: arc.lengthM
-  }], lengthM);
+  }], lengthM, radiusM);
   const side = Math.sign(arc.turn), throat = arc.a;
   return {
     plan, throat, incoming, outward: [-side * incoming[1], side * incoming[0]], side,
@@ -214,7 +217,7 @@ export function railwaySegmentBounds(segment) {
     Math.max(a[0], b[0]) + radius, Math.max(a[1], b[1]) + radius];
 }
 
-function diamondAt(a, b, firstId, secondId) {
+function diamondAt(a, b, firstId, secondId, halfWidthM = HALF_BED) {
   const sin = cross(a.incoming, b.incoming);
   if (Math.abs(sin) < EPS) return null;
   const delta = offset(a.a, b.a);
@@ -224,7 +227,7 @@ function diamondAt(a, b, firstId, secondId) {
   // Integer compass lines intersect on the whole- or half-metre grid. Keep
   // the exact point even when neither route has a waypoint there.
   const point = moved(a.a, a.incoming, alongA).map(n => Math.round(n * 2) / 2);
-  const clearanceM = 2 * HALF_BED / Math.abs(sin);
+  const clearanceM = 2 * halfWidthM / Math.abs(sin);
   if (Math.min(alongA, a.lengthM - alongA, alongB, b.lengthM - alongB) < clearanceM - EPS) {
     throw new Error(`Extend both straight approaches at the crossing near ${point.join(', ')}. Leave ${clearanceM.toFixed(2)} m of straight track on each side.`);
   }
@@ -249,7 +252,8 @@ export function railwayCrossingsByRoute(crossings) {
 }
 
 export function planRailwayCrossings(routes) {
-  const ordered = routes.map(({id, plan}) => ({id, spans: plan.spans.filter(span => span.kind === 'straight')}));
+  const ordered = routes.map(({id, plan}) => ({id, halfWidthM: plan.radiusM === 16 ? 2 : HALF_BED,
+    spans: plan.spans.filter(span => span.kind === 'straight')}));
   // The first route owns the crossing fittings. Route order in the file does
   // not affect that choice or the renderer's coplanar ballast priority.
   ordered.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
@@ -259,7 +263,7 @@ export function planRailwayCrossings(routes) {
     for (let j = i + 1; j < ordered.length; j++) {
       const second = ordered[j];
       for (const a of first.spans) for (const b of second.spans) {
-        const crossing = diamondAt(a, b, first.id, second.id);
+        const crossing = diamondAt(a, b, first.id, second.id, Math.max(first.halfWidthM, second.halfWidthM));
         if (crossing) crossings.push(crossing);
       }
     }
@@ -297,10 +301,11 @@ export function assertRailwaySeparation(routes, crossings = []) {
           if (checked.has(other)) continue;
           checked.add(other);
           // Adjacent parts of one continuous track naturally share ballast.
-          // With the fixed radius, 3 m along that track exceeds the 2 m bed width.
+          // A little more than the corridor width separates non-neighbouring
+          // samples even on the minimum bend radius for that route size.
           const b = other.segment;
           if (other.id === id) {
-            if (branch === other.branch && segment.startM - b.endM < 3) continue;
+            if (branch === other.branch && segment.startM - b.endM < (plan.radiusM === 16 ? 5 : 3)) continue;
             if (branch && !other.branch &&
                 b.startM >= turnout.mainStartM - EPS && b.endM <= turnout.mainEndM + EPS) continue;
           }
@@ -325,8 +330,8 @@ export function assertRailwaySeparation(routes, crossings = []) {
   }
 }
 
-export function planRailwayRoute(waypoints) {
-  const plan = fit(waypoints);
+export function planRailwayRoute(waypoints, radiusM = RAILWAY_RADIUS_M) {
+  const plan = fit(waypoints, radiusM);
   assertRailwaySeparation([{id: 'preview', plan}]);
   return plan;
 }

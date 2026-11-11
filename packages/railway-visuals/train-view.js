@@ -2,10 +2,10 @@ import {RAILWAY_COUPLER_HEIGHT_M} from '../map-core/railway-train.js';
 import {createRollingStockKit} from './rolling-stock.js';
 
 export function createRailwayTrainView(T, initialState) {
-  const kit = createRollingStockKit(T);
+  const kit = createRollingStockKit(T, {profile: initialState.profile ?? 'miniature'});
   const root = new T.Group();
   root.name = 'Railway train';
-  root.userData = {routeId: initialState.routeId, stock: initialState.stock};
+  root.userData = {routeId: initialState.routeId, stock: initialState.stock, profile: initialState.profile ?? 'miniature'};
   const cars = [], couplers = [];
   const geometry = new T.BoxGeometry(.063, 1, .063);
   const material = new T.MeshStandardMaterial({color: 0x272625, roughness: .78, metalness: .32});
@@ -14,12 +14,14 @@ export function createRailwayTrainView(T, initialState) {
 
   function endpoint(out, pose, sign) {
     const offset = sign * pose.lengthM / 2;
-    out.set(pose.x + Math.sin(pose.yaw) * offset, RAILWAY_COUPLER_HEIGHT_M, pose.z + Math.cos(pose.yaw) * offset);
+    out.set(pose.x + Math.sin(pose.yaw) * offset, initialState.couplerHeightM ?? RAILWAY_COUPLER_HEIGHT_M,
+      pose.z + Math.cos(pose.yaw) * offset);
   }
 
   function update(state) {
     if (disposed) throw new Error('The train view has been disposed.');
     if (state.stock !== initialState.stock || state.routeId !== initialState.routeId ||
+        state.profile !== initialState.profile ||
         state.cars.length !== cars.length || state.cars.some((pose, i) =>
           pose.id !== cars[i].id || ![pose.x, pose.z, pose.yaw, pose.lengthM].every(Number.isFinite))) {
       throw new Error('Use a pose from the train this view was created for.');
@@ -28,6 +30,13 @@ export function createRailwayTrainView(T, initialState) {
       const frame = cars[index].frame;
       frame.position.set(pose.x, 0, pose.z);
       frame.rotation.y = pose.yaw;
+      if (cars[index].model.setWheelContacts) {
+        const yaw = pose.yaw + (pose.reverse ? Math.PI : 0), c = Math.cos(yaw), s = Math.sin(yaw);
+        const local = point => ({x: (point.x - pose.x) * c - (point.z - pose.z) * s,
+          z: (point.x - pose.x) * s + (point.z - pose.z) * c, yaw: point.yaw - yaw});
+        cars[index].model.setWheelContacts({front: local(pose.reverse ? pose.rear : pose.front),
+          rear: local(pose.reverse ? pose.front : pose.rear)});
+      }
       if (index === 0) continue;
       const link = couplers[index - 1];
       endpoint(a, state.cars[index - 1], -1);
@@ -60,7 +69,7 @@ export function createRailwayTrainView(T, initialState) {
       if (pose.reverse) model.root.rotation.y = Math.PI;
       frame.add(model.root);
       root.add(frame);
-      cars.push({id: pose.id, frame});
+      cars.push({id: pose.id, frame, model});
       if (index > 0) {
         const coupler = new T.Mesh(geometry, material);
         coupler.name = 'Train coupler';

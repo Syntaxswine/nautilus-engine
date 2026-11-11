@@ -18,7 +18,7 @@ function protectedTrack(routeId, track, plan, a, b, directions = [1, -1]) {
   return {routeId, track, plan, lo: Math.max(0, Math.min(a, b)), hi: Math.min(plan.lengthM, Math.max(a, b)), directions};
 }
 
-function turnoutBlock({id, plan, turnout}) {
+function turnoutBlock({id, plan, turnout}, extraClearanceM) {
   const {stationM, direction} = railwayTurnoutStation(plan, turnout);
   const [x, z] = turnout.throat, [dx, dz] = turnout.incoming;
   const branch = turnout.plan;
@@ -31,32 +31,36 @@ function turnoutBlock({id, plan, turnout}) {
   let lo = 0, hi = branch.lengthM;
   for (let i = 0; i < 24; i++) {
     const mid = (lo + hi) / 2;
-    if (divergence(mid) < RAIL_TRACK_PROFILE.ballastWidthM) lo = mid;
+    if (divergence(mid) < RAIL_TRACK_PROFILE.ballastWidthM + extraClearanceM) lo = mid;
     else hi = mid;
   }
   const end = railwayStationAt(branch, hi);
   const mainClearM = (end.x - x) * dx + (end.z - z) * dz;
-  const marginM = .75;
+  const marginM = .75 + extraClearanceM;
   return {id: 'turnout/' + id, kind: 'turnout', tracks: [
     protectedTrack(id, 'main', plan, stationM - direction * marginM, stationM + direction * (mainClearM + marginM)),
     protectedTrack(id, 'branch', branch, 0, hi + marginM, [-1])
   ]};
 }
 
-function signalLayout(plans, crossings) {
+function signalLayout(plans, crossings, placements = []) {
+  const worldSize = placements.some(train => train.profile === 'world');
+  const extraClearanceM = worldSize ? 1.5 : 0;
   const byId = new Map(plans.map(route => [route.id, route]));
   const blocks = crossings.map(crossing => ({
     id: 'crossing/' + crossing.point.join(',') + '/' + crossing.tracks.map(track => track.id).join('/'),
     kind: 'crossing',
     tracks: crossing.tracks.map(({id, stationM}) => protectedTrack(id, 'main', byId.get(id).plan,
-      stationM - crossing.clearanceM, stationM + crossing.clearanceM))
+      stationM - crossing.clearanceM - extraClearanceM * Math.SQRT2,
+      stationM + crossing.clearanceM + extraClearanceM * Math.SQRT2))
   }));
-  for (const route of plans) if (route.turnout) blocks.push(turnoutBlock(route));
+  for (const route of plans) if (route.turnout) blocks.push(turnoutBlock(route, extraClearanceM));
   const signals = [];
   for (const block of blocks) for (const track of block.tracks) for (const direction of track.directions) {
     const at = railwayStationAt(track.plan, direction > 0 ? track.lo : track.hi);
     signals.push({id: signalId(block.id, track.routeId, track.track, direction), blockId: block.id, kind: block.kind,
-      routeId: track.routeId, track: track.track, x: at.x, z: at.z, yaw: Math.atan2(direction * at.s, direction * at.c)});
+      routeId: track.routeId, track: track.track, x: at.x, z: at.z, yaw: Math.atan2(direction * at.s, direction * at.c),
+      sideOffsetM: worldSize ? 2.2 : 1.21, heightScale: worldSize ? 2 : 1});
   }
   return {byId, blocks, signals};
 }
@@ -143,7 +147,7 @@ function makeEntries(layout, placements) {
 }
 
 export function assertRailwayTrainDepartures(plans, crossings, placements) {
-  makeEntries(signalLayout(plans, crossings), placements);
+  makeEntries(signalLayout(plans, crossings, placements), placements);
 }
 
 function obstacles(path, routeId, other) {
@@ -188,12 +192,12 @@ function travelLimit(entry, present, other, blocks, distanceM) {
 // steps give simultaneous arrivals a deterministic tie-break on a clear block.
 export function createRailwayTraffic(routes, placements = []) {
   const plans = routes.map(route => {
-    const plan = planRailwayRoute(route.waypoints);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM);
     return {id: route.id, plan, turnout: route.turnout && planRailwayTurnout(plan, route.turnout)};
   });
   const crossings = planRailwayCrossings(plans);
   assertRailwaySeparation(plans, crossings);
-  const layout = signalLayout(plans, crossings);
+  const layout = signalLayout(plans, crossings, placements);
   let entries = makeEntries(layout, placements);
 
   function read() {
