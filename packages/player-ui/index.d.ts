@@ -9,6 +9,20 @@ export interface PlayerDiagnostic {code:string;path:string;message:string;action
 export interface PlayerConnection {componentPort:PlayerPort;providerId:string;providerPort:PlayerPort}
 export interface PlayerProvider {descriptor:{id:string;version:1;ports:readonly PlayerPort[]};services:Record<string,unknown>}
 export interface PlayerValidation {ok:boolean;errors:PlayerDiagnostic[];configuration:PlayerConfiguration|null;compiled:object|null;plan:object|null;connections:PlayerConnection[]}
+/** The menu carries bounded plain JSON; runtime callbacks never enter it. */
+export type MenuJSON=null|boolean|number|string|MenuJSON[]|{[key:string]:MenuJSON};
+export interface SetupMenuRecipe {components:Array<{id:string;version:number;settings:Record<string,string|number|boolean>}>;bindings:Record<string,string>;[key:string]:MenuJSON}
+export interface SetupMenuAdapter {
+  descriptors:readonly PlayerComponent[];
+  read():SetupMenuRecipe;
+  validate(recipe:unknown):{ok:boolean;errors:PlayerDiagnostic[];configuration:SetupMenuRecipe|null};
+  /** A committed result remains accepted even when post-commit feedback fails. */
+  apply(recipe:SetupMenuRecipe):TrainUIOutcome|Promise<TrainUIOutcome>;
+  connections():MenuJSON;
+  presets?:readonly {id:string;label:string}[];
+  /** Required for custom presets; unknown full recipes are never interpreted as Stage 1. */
+  preset?:(recipe:SetupMenuRecipe,presetId:string)=>SetupMenuRecipe;
+}
 export interface ControlContext {readonly version:1;readonly revision:number;readonly mode:'on-foot'|'driver'|'rider'|'menu'|'paused'|'unavailable';readonly actorId:string|null;readonly contextId:string|null;readonly token:string;readonly blocked:boolean}
 export interface PlayerSceneState {version:1;actorId:string;mode:'on-foot'|'driver'|'rider';contextId:string;walkingAllowed:boolean;position:{x:number;y:number;h:number};status:Array<{id:string;label:string;value:string}>}
 export interface PlayerScene {content:ContentIdentity;actorIds:readonly string[];inputElement?:HTMLElement;read(actorId:string):PlayerSceneState;subscribe(fn:()=>void):()=>void}
@@ -60,4 +74,4 @@ export function createActionRouter(options:{providers:readonly ActionProvider[];
 export function trainActionProvider(readActuator:()=>import('../train-ui/index.js').TrainControls|null|undefined):ActionProvider;
 export function createControlContext(options:{release(before:ControlContext,after:ControlContext):void;install(state:ControlContext,snapshot:PlayerSceneState|null):void}):Readonly<{readonly state:ControlContext;update(snapshot:PlayerSceneState|null,flags?:{menu?:boolean;paused?:boolean;hidden?:boolean;unavailable?:boolean;force?:boolean}):ControlContext;dispose():void}>;
 export function createTrainPlayerProvider(options:{host:{connector:TrainConnector;walk(x:number,y:number,seconds:number):unknown;readonly actors:readonly {id:string;health:number;ap:number}[]};inputElement?:HTMLElement;content:ContentIdentity;id?:string;setUIPaused(blocked:boolean):void;onHudBounds(bounds:HudBounds):void;camera?:CameraProvider;title?:{options:TitleOptions}}):PlayerProvider;
-export function mountPlayerUI(container:HTMLElement,options:{providers:readonly PlayerProvider[];configuration:PlayerConfiguration;actionProviders?:readonly ActionProvider[];resourceURL?:(packageURL:string)=>string;signal?:AbortSignal;onError?:(error:unknown,context:{phase:string})=>void;onConfigurationChange?:(configuration:PlayerConfiguration)=>void}):Promise<PlayerUI>;
+export function mountPlayerUI(container:HTMLElement,options:{providers:readonly PlayerProvider[];configuration:PlayerConfiguration;actionProviders?:readonly ActionProvider[];resourceURL?:(packageURL:string)=>string;signal?:AbortSignal;onError?:(error:unknown,context:{phase:string})=>void;onConfigurationChange?:(configuration:PlayerConfiguration)=>void;setupMenu?:SetupMenuAdapter}):Promise<PlayerUI>;

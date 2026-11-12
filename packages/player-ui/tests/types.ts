@@ -1,5 +1,5 @@
 import {mountPlayerUI,createPlayerConfiguration,PLAYER_PORTS,providerPort,validatePlayerConfiguration} from '../index.js';
-import type {PlayerProvider,PlayerIntent,PlayerUI,ControlContext} from '../index.js';
+import type {PlayerProvider,PlayerIntent,PlayerUI,ControlContext,SetupMenuAdapter,SetupMenuRecipe} from '../index.js';
 import {mountTrainControls} from '../../train-ui/index.js';
 import type {TrainConnector} from '../../train-core/index.js';
 declare const slot:HTMLElement,provider:PlayerProvider,session:TrainConnector,walking:HTMLElement;
@@ -24,3 +24,13 @@ train.requestControl({kind:'notch',notch:7},'stamp');
 mountTrainControls(slot,{session,actorId:'player',walkingElement:walking,setWalkingEnabled(){},actionPresentation:'both'});
 // @ts-expect-error No new actor is bootstrapped by the UI.
 mountPlayerUI(slot,{providers:[provider],configuration,actorBootstrap:{}});
+
+declare const fullRecipe:SetupMenuRecipe;
+const menu:SetupMenuAdapter={descriptors:[],read:()=>fullRecipe,
+  validate:()=>({ok:true,errors:[],configuration:fullRecipe}),connections:()=>({version:1}),
+  apply:()=>({version:1,ok:true,committed:true,code:null,reason:null})};
+mountPlayerUI(slot,{providers:[provider],configuration,setupMenu:menu});
+// @ts-expect-error Saved menu configuration cannot contain runtime callbacks.
+const callbackRecipe:SetupMenuRecipe={components:[],bindings:{},callback:()=>{}};void callbackRecipe;
+// @ts-expect-error An apply callback must return an explicit committed receipt.
+menu.apply=()=>({version:1,ok:true});

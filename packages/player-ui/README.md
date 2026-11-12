@@ -89,6 +89,30 @@ Apply validates and prepares the candidate, then closes for an immediate trial.
 Export copies the **accepted** recipe into the JSON field. Load validates a draft
 for review; Apply activates it. Invalid JSON never replaces the accepted setup.
 
+An executable outer setup may provide optional `setupMenu` bindings to
+`mountPlayerUI`: `{descriptors,read,validate,apply,connections,presets?,preset?}`.
+This additive seam sends the full recipe through this same generated menu while
+`ui.applyConfiguration` continues to accept only its existing typed UI subset.
+The shell retains menu opening/closing, focus, pause and input ownership.
+Omitting the adapter keeps the Stage 1 menu, presets and configuration path.
+
+The menu recipe is bounded finite plain JSON with `components` records
+`{id,version,settings}` and a `bindings` string record; the outer versioned schema
+may add its own plain-data fields. Descriptors supply actual ports and setting
+semantics. `read` returns the accepted full recipe; `validate` returns
+`{ok,errors,configuration}`, where errors have `code,path,message,action`.
+`apply` returns a version-1 `{ok,committed,code,reason}` receipt after its guarded
+prepare/accept lifecycle. A refusal keeps the accepted setup; a committed receipt
+cannot be relabelled as cancellation by a later menu close or callback.
+`connections` supplies a serializable inspector record. Runtime callbacks are
+bindings, never saved configuration. Custom presets require their own explicit
+`presets` list and `preset(recipe,id)` callback; the menu does not interpret an
+unknown full recipe as Stage 1. Settings marked `restart` say **requires restart**.
+
+Each menu opening has a separate lifetime. A closed, reopened or disposed menu
+ignores late apply completion, including focus, status, enabled buttons and close
+requests. The matching current menu alone may react to its committed receipt.
+
 Skin, walking pace, mute and staged camera settings are live-safe. Skin changes
 keep the existing mounted train actuator and its lease/world state. Layout,
 steam-control profile and component selection require pause. Exit the train before
