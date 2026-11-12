@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "baseline": "7a019ed555f6b263dc675e9e43349a1d15bf99fb",
+  "runtimeChanges": [
+    "packages/player-setup/configuration.js",
+    "packages/player-setup/surface.js",
+    "packages/player-setup/world.js"
+  ],
+  "nodeTests": 10,
+  "newNodeRegressions": 3,
+  "browserGroups": 8,
+  "browserScopes": [
+    "source",
+    "installed candidate overlay"
+  ],
+  "compiler": "Version 5.9.3",
+  "headlessTypesWithoutDOM": true,
+  "negativeTypeControls": 10,
+  "retainedBaseline": {
+    "checks": "baseline-checks.json",
+    "sourceBrowserGroups": 10,
+    "installedBrowserGroups": 5,
+    "untouched": true
+  },
+  "fixtureSource": {
+    "path": "examples/game-starter-host.js",
+    "bytes": 4939,
+    "sha256": "7b79efe74d8ea6463e4290344c71eead54b2a4e37897397a4ffecfcff7a41bda"
+  },
+  "counts": {
+    "runtimeFiles": 70,
+    "runtimeBytes": 2443433,
+    "resourceFiles": 13,
+    "resourceBytes": 7928238
+  },
+  "installedOverlay": {
+    "package": {
+      "name": "@nautilus-engine/map-core",
+      "version": "0.10.0",
+      "exports": [
+        "./player-setup",
+        "./player-setup/browser",
+        "./native-actors",
+        "./native-actors/three"
+      ],
+      "tarball": "artifacts/player-setup-installed-overlay/run-1794458505856/nautilus-engine-map-core-0.10.0.tgz",
+      "bytes": 7528189,
+      "sha256": "df6966c1b514e96354a4d7fc008d98cd8bebd5d5f335c7594c088149ac956401",
+      "npmIntegrity": "sha512-3HGqwrpjIVoaXNz9uioNw6eftYckCwO0cva3Q4o3cpS8nzfwzerLC6OUtuuvEq15/naajxRPTR0q/CDAIEh9GQ==",
+      "fileCount": 117,
+      "unpackedBytes": 10720536
+    },
+    "allSelectedBytesMatch": true,
+    "definitiveArchitectTarball": false
+  },
+  "helpers": {
+    "lifetimes": 1,
+    "exactLifetimesExited": true,
+    "portsReleased": true,
+    "retained": []
+  },
+  "scope": "Only the three reproduced defects, focused regressions, source/evidence refresh. Root owns raw vendor placement, registration, four engine gates and integration."
+}
