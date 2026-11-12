@@ -21,7 +21,7 @@ export function createSetupMenu(doc,{read,apply,validate,close,connections,descr
       const output=make('small',String(entry.settings[setting.id])+' · '+policy(setting.change));
       input.oninput=()=>{if(busy||!live(stamp))return;entry.settings[setting.id]=setting.type==='boolean'?input.checked:setting.type==='number'?Number(input.value):input.value;output.textContent=String(entry.settings[setting.id])+' · '+policy(setting.change);};
       label.append(text,input,output);group.append(label);}
-      if(!descriptor.settings.length)group.append(make('p','Connected through its retained provider.'));fields.append(group);}}
+      if(!descriptor.settings.length)group.append(make('p','Connected through its selected provider.'));fields.append(group);}}
   const inspector=make('details'),inspection=make('pre');inspector.append(make('summary','Connections for builders'),inspection);
   const transfer=make('details'),json=make('textarea'),importButton=make('button','Load recipe into menu'),exportButton=make('button','Export accepted recipe');json.setAttribute('aria-label','Player UI recipe JSON');json.spellcheck=false;importButton.type=exportButton.type='button';
   importButton.onclick=()=>{if(busy||!live(generation))return;const stamp=generation;try{const ready=validate(JSON.parse(json.value));if(!live(stamp))return;if(!ready.ok)throw Error(ready.errors.map(e=>e.message).join(' '));draft=data(ready.configuration);renderFields(stamp);if(live(stamp))status.textContent='Recipe loaded for review. Apply validates connections before activation.';}catch(error){if(live(stamp))status.textContent='Recipe not loaded: '+error.message;}};
