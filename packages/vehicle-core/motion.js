@@ -13,7 +13,8 @@ export function createVehicle(seed={}){
  return {id,body,finish,floorId:'floor-0',position:{...position},headingRad,speedMps:0,steeringRad:0,distanceM:0,wheelAngleRad:0,revision:0,wheelbaseM:b.axlesM[1]-b.axlesM[0]};
 }
 /** Pure bicycle step. A reversal spends at least one confirmed step at zero.
- * Local +Z is forward. Heading/steering positive turn right in world x/y.
+ * Local +Z is forward, +Y up. Heading and wheel yaw use Three's right-handed
+ * +Y rotation: positive yaw turns LEFT from behind. Public +steering is RIGHT.
  * Released ownership uses maximum braking; a held centred stick coasts at 2m/s².
  */
 export function stepVehicle(vehicle,input,seconds,profile=VEHICLE_MOTION_PROFILE){
@@ -26,7 +27,7 @@ export function stepVehicle(vehicle,input,seconds,profile=VEHICLE_MOTION_PROFILE
  if(!input.held||reversing)speed=towardZero(before,profile.serviceBrakeMps2*seconds);
  else if(!throttle)speed=towardZero(before,profile.coastBrakeMps2*seconds);
  else speed=Math.max(-profile.maxReverseMps,Math.min(profile.maxForwardMps,before+throttle*profile.accelerationMps2*seconds));
- const steeringRad=steer*profile.maxSteeringRad,ds=(before+speed)*seconds/2,k=Math.tan(steeringRad)/vehicle.wheelbaseM,theta=vehicle.headingRad,nextTheta=theta+ds*k;
+ const steeringRad=-steer*profile.maxSteeringRad||0,ds=(before+speed)*seconds/2,k=Math.tan(steeringRad)/vehicle.wheelbaseM,theta=vehicle.headingRad,nextTheta=theta+ds*k;
  let x=vehicle.position.x,y=vehicle.position.y;
  if(Math.abs(k)<1e-10){x+=ds*Math.sin(theta);y+=ds*Math.cos(theta);}
  else{

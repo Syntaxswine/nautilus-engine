@@ -88,6 +88,7 @@ export function tileAuthoringInstalledHostPlan({files}){
 }
 
 const extraVerificationFiles=[
+ 'tools/road-chase-registration.mjs','tools/seal-road-chase.mjs','docs/reviews/road-chase-steering/registration.json',
  'tools/vehicle-registration.mjs','tools/vehicle-package.mjs','docs/reviews/road-driving/registration.json',
  'tools/c1-checkpoint-fixture.mjs',
  'tools/shared-artwork-registration.mjs',
