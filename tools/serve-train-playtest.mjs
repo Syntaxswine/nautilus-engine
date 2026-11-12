@@ -4,11 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import {parseArgs} from 'node:util';
 
 const project = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.join(project, 'dist');
 const helper = path.join(project, 'artifacts/train-playtest-preview');
 const owner = '01a18107-b4af-78c0-850f-0235d4df307f';
+const {values} = parseArgs({options: {port: {type: 'string', default: '0'}, 'expires-at': {type: 'string'}}});
+const requestedPort = Number(values.port);
+if (!Number.isInteger(requestedPort) || requestedPort < 0 || requestedPort > 65535) throw Error('Choose a loopback port from 0 to 65535.');
 const entry = process.env.NAUTILUS_TRAIN_PREVIEW_ENTRY || 'examples/train-yard.html';
 const lifetimeMs = Number(process.env.NAUTILUS_TRAIN_PREVIEW_MS || 48 * 60 * 60 * 1000);
 if (!Number.isSafeInteger(lifetimeMs) || lifetimeMs < 1000 || lifetimeMs > 48 * 60 * 60 * 1000) {
@@ -23,7 +27,11 @@ const identity = process.platform === 'win32' ? JSON.parse(execFileSync('powersh
   `$p=Get-Process -Id ${process.pid};[pscustomobject]@{pid=$p.Id;creationFiletime=$p.StartTime.ToUniversalTime().ToFileTimeUtc().ToString();executable=$p.Path}|ConvertTo-Json -Compress`
 ], {encoding: 'utf8', windowsHide: true})) : {pid: process.pid, executable: process.execPath};
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], {cwd: project, encoding: 'utf8', windowsHide: true}).trim();
-const startedAt = new Date(), expiresAt = new Date(startedAt.getTime() + lifetimeMs);
+const startedAt = new Date(), expiresAt = values['expires-at'] ? new Date(values['expires-at']) : new Date(startedAt.getTime() + lifetimeMs);
+const remainingMs = expiresAt.getTime() - startedAt.getTime();
+if (!Number.isFinite(remainingMs) || remainingMs < 1000 || remainingMs > 48 * 60 * 60 * 1000) {
+  throw Error('Choose a future preview deadline within 48 hours.');
+}
 const types = {'.html':'text/html', '.js':'text/javascript', '.mjs':'text/javascript', '.css':'text/css',
   '.json':'application/json', '.png':'image/png', '.webp':'image/webp', '.jpg':'image/jpeg', '.svg':'image/svg+xml',
   '.gltf':'model/gltf+json', '.glb':'model/gltf-binary', '.bin':'application/octet-stream', '.mp3':'audio/mpeg', '.ogg':'audio/ogg', '.ttf':'font/ttf'};
@@ -60,7 +68,7 @@ const watcher = setInterval(() => { if (fs.existsSync(stopFile)) stop('private S
 const expiry = setTimeout(() => stop('preview expiry'), Math.max(0, expiresAt.getTime() - Date.now()));
 process.on('SIGINT', () => stop('SIGINT')); process.on('SIGTERM', () => stop('SIGTERM'));
 server.on('error', error => { clearInterval(watcher); clearTimeout(expiry); console.error(error.message); process.exitCode = 1; });
-server.listen(0, '127.0.0.1', () => {
+server.listen(requestedPort, '127.0.0.1', () => {
   record = {owner, project:'Nautilus Engine', purpose:'User playtest of boarding, driving and riding both train circuits',
     process: identity, sourceCommit, startedAt: startedAt.toISOString(), expiresAt: expiresAt.toISOString(),
     port: server.address().port, stopFile, url:'http://127.0.0.1:' + server.address().port + '/' + entry};

@@ -12,6 +12,8 @@ export function scriptedConnector(mode = 'driver') {
     subscribe(listener) { subscriptions++;listeners.add(listener);return () => listeners.delete(listener); },
     dispatch(command) {
       commands.push(structuredClone(command));const reply = replies.shift() || {};
+      if (reply.throws) throw Error('Injected transport failure before mutation.');
+      if (reply.malformed) return {committed:true,commandId:'wrong-receipt'};
       const committed = reply.committed ?? true;
       let next = reply.snapshot;
       if (!next && committed && defaultEcho && current.mode === 'driver' && ['drive', 'release'].includes(command.type)) {

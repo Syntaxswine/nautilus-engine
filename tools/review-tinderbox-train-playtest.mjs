@@ -14,6 +14,9 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
     assert.equal(await target.locator('#steam-profile').inputValue(), 'compact-notched');
   };
   const enter = async (target, stock, mode) => {
+    const label = 'Enter ' + stock + ' ' + (mode === 'driver' ? 'cab' : 'coach');
+    const offered = (await read(target)).actions.filter(action => action.command.type === 'enter' && action.label.startsWith(label));
+    assert.ok(offered.some(action => action.enabled), 'Boarding unavailable: ' + JSON.stringify(offered.map(({code, reason}) => ({code, reason}))));
     await target.locator('[data-train-action=enter]:enabled').filter({hasText: 'Enter ' + stock + ' ' + (mode === 'driver' ? 'cab' : 'coach')}).first().click();
     assert.equal((await read(target)).mode, mode);
     await target.evaluate(async () => { await document.fonts.ready; });
@@ -49,7 +52,7 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
   assert.equal((await ui(page)).notch, 1); assert.equal((await read(page)).train.controls.power, .5);
   await lever.press('End');
   assert.equal((await ui(page)).notch, 0); assert.equal((await read(page)).train.controls.power, 1);
-  await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps > .4);
+  await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps > 1.2);
   const latched = await read(page); await page.waitForTimeout(350);
   assert.equal((await read(page)).train.controls.leaseId, latched.train.controls.leaseId);
   assert.equal((await read(page)).train.controls.power, 1);
@@ -59,17 +62,27 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
   assert.equal((await ui(page)).notch, 2); assert.equal(coasting.train.controls.direction, 'neutral');
   assert.equal(coasting.train.controls.power, 0); assert.equal(coasting.train.controls.brake, 0); assert.ok(coasting.train.speedMps > 0);
   await lever.press('Home');
-  assert.equal((await ui(page)).notch, 2); assert.equal((await read(page)).train.controls.direction, 'neutral');
-  const refusal = page.locator('[data-part=driver] [data-part=request-status]');
-  await refusal.waitFor({state: 'visible'});
-  assert.equal(await refusal.innerText(), 'Brake to a complete stop before changing direction.');
+  assert.equal((await ui(page)).notch, 2); assert.equal((await ui(page)).pendingNotch, 3);
+  assert.equal((await read(page)).train.controls.direction, 'neutral');
+  assert.equal((await read(page)).train.controls.power, 0); assert.equal((await read(page)).train.controls.brake, 1);
+  await page.screenshot({path: path.join(out, 'steam-braking-to-reverse.png')});
+  await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps < -.2);
+  assert.equal((await ui(page)).notch, 3); assert.equal((await ui(page)).pendingNotch, null);
+  assert.equal((await read(page)).train.controls.power, .5);
+  await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps < -1.2);
+  await lever.press('End');
+  assert.equal((await ui(page)).pendingNotch, 0); assert.equal((await read(page)).train.controls.brake, 1);
+  await lever.press('n');
+  assert.equal((await ui(page)).pendingNotch, null); assert.equal((await read(page)).train.controls.brake, 0);
+  assert.equal((await read(page)).train.controls.direction, 'neutral');
   const brakeBox = await chain(page).boundingBox();
   await page.mouse.move(brakeBox.x + brakeBox.width / 2, brakeBox.y + brakeBox.height / 2); await page.mouse.down();
   assert.equal((await read(page)).train.controls.brake, 1); assert.equal((await read(page)).train.controls.direction, 'neutral');
   await page.mouse.move(brakeBox.x + brakeBox.width / 2, brakeBox.y + brakeBox.height / 2 + 18); await page.mouse.up(); await stop(page);
   assert.equal((await read(page)).train.controls.leaseId, null);
-  await lever.press('Home'); await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps < -.2);
-  assert.equal((await ui(page)).notch, 3);
+  await lever.press('End'); await page.waitForFunction(() => window.trainYard.readForActor().train.signedSpeedMps > 1.2);
+  await lever.press('Home');
+  assert.equal((await ui(page)).pendingNotch, 3); assert.equal((await read(page)).train.controls.brake, 1);
   const saved = await page.evaluate(() => {
     const text = window.trainYard.host.save(); localStorage.setItem('nautilus/two-circuit-yard/v1', text);
     document.getElementById('load').disabled = false; return JSON.parse(text);
@@ -77,7 +90,8 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
   await page.getByRole('button', {name: 'Reload', exact: true}).click();
   assert.equal((await read(page)).mode, 'driver'); assert.equal((await read(page)).carId, saved.actors[0].attachment.carId);
   assert.equal((await read(page)).train.controls.power, 0); assert.equal((await read(page)).train.controls.brake, 1);
-  assert.equal((await ui(page)).notch, 2); assert.equal((await ui(page)).feedback.played, 0); await stop(page);
+  assert.equal((await ui(page)).notch, 2); assert.equal((await ui(page)).pendingNotch, null);
+  assert.equal((await ui(page)).feedback.played, 0); await stop(page);
   await page.getByRole('slider').press('End'); await page.waitForFunction(() => window.trainYard.readForActor().train.speedMps > .2);
   await page.evaluate(() => window.trainYard.controls.setMuted(true));
   await page.locator('#steam-profile').selectOption('classic');
@@ -90,6 +104,9 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
   const after = await page.evaluate(() => window.trainYard.host.actors[0]);
   for (const key of ['health', 'ap', 'stamina', 'inventory']) assert.deepEqual(after[key], resources[key]);
 
+  // Driver manoeuvres can finish outside the station-service boarding window.
+  // Passenger workflows deliberately start with a fresh station fixture.
+  await open(page);
   const rides = [];
   for (const stock of ['steam', 'electric']) {
     await approach(page, stock, 'rider'); await enter(page, stock, 'rider');
@@ -139,6 +156,6 @@ await withArtReview('Review Tinderbox notched controls against the live train ya
       layouts.push({...viewport, controlsFit: true, exitRestoresWalking: true});
     } finally { await context.close(); }
   }
-  fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify({desktop: 'persistent notches, coast, refused moving reversal, chain stop, reverse, silent restore, safe profile switch and retained resources', fonts, rides, layouts,
-    note: 'Passenger laps use explicit host-clock steps after live departure. Phone viewports do not establish physical-device performance.'}, null, 2));
+  fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify({desktop: 'persistent notches, coast, automatic brake-then-reverse, symmetric pending forward, neutral cancellation, chain stop, silent pending restore, safe profile switch and retained resources', fonts, rides, layouts,
+    note: 'Passenger workflows use a fresh station fixture and explicit host-clock steps after live departure. Phone viewports do not establish physical-device performance.'}, null, 2));
 }, {source: installed, owner: '01a18107-b4af-78c0-850f-0235d4df307f', output: installed ? 'tinderbox-train-installed' : 'tinderbox-train-playtest', timeoutMs: 600000});

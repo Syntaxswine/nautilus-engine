@@ -59,13 +59,20 @@ export function createTrainFeedback(win, {muted = false} = {}) {
       armed = {context: identity(after), leaseId: command.leaseId};
     }
   }
-  function shift(command,result,before,after,event) {
-    if (!event?.isTrusted || !result?.committed || result.repeated || command.type !== 'drive' || !before || !after || identity(before) !== identity(after) || command.actorId !== after.actorId || after.mode !== 'driver' || after.train?.stock !== 'steam') return;
+  function confirmedShift(command,result,before,after,trusted) {
+    if (!trusted || !result?.committed || result.repeated || command.type !== 'drive' || !before || !after || identity(before) !== identity(after) || command.actorId !== after.actorId || after.mode !== 'driver' || after.train?.stock !== 'steam') return;
     const controls = after.train.controls;
     if (controls.leaseId !== command.leaseId || controls.direction !== command.direction || controls.power !== command.power || controls.brake !== command.brake || compactNotchOf(before.train?.controls) === compactNotchOf(controls)) return;
     play('steam-shift');
   }
-  return Object.freeze({unlock, observe, committed, shift, cancelInput,
+  function shift(command,result,before,after,event) {confirmedShift(command,result,before,after,event?.isTrusted===true);}
+  function deferShift(event) {
+    // Capture only the original gesture's provenance, never the DOM event or a
+    // request to create/resume audio later. The intent owner controls lifetime.
+    const trusted=event?.isTrusted===true;
+    return (command,result,before,after)=>confirmedShift(command,result,before,after,trusted);
+  }
+  return Object.freeze({unlock, observe, committed, shift, deferShift, cancelInput,
     setMuted(value) { muted = !!value;if (muted) { armed = null;stopSources(); }if (master && context) master.gain.setValueAtTime(muted ? 0 : .055, context.currentTime); },
     get state() { return Object.freeze({muted, unlocked, played, lastCue, activeSounds: sources.size, contextState: disposed ? contextState : context?.state || contextState}); },
     dispose() { if (disposed) return;disposed = true;armed = null;stopSources();try { master?.disconnect(); } catch {}if (context) { contextState = 'closing';context.close().then(() => { contextState = 'closed'; }).catch(() => { contextState = 'unavailable'; }); } }

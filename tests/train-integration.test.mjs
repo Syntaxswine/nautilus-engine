@@ -39,10 +39,11 @@ test('the actual CI tile-authoring preflight accepts the registered train build 
 });
 
 test('the integrated HUD retains the exact reviewed input and view implementation', () => {
-  const pin = '004d244397fc88a2c411388dd9046858772c020e';
+  const pin = 'd99fcf85256c90474cf570185159669caaed8070';
   const digest = bytes => createHash('sha256').update(bytes).digest('hex');
-  for (const name of ['index.js', 'index.d.ts', 'view.js', 'feedback.js', 'style.css', 'art/steam-cab-surface.svg', 'art/references.json', 'compact-input.js', 'compact-model.js', 'compact.css', 'compact-source.json']) {
-    const file = 'packages/train-ui/' + name;
+  const runtime = moduleClosure(['packages/train-ui/public.js']).filter(file => file.startsWith('packages/train-ui/') && !file.endsWith('/public.js'));
+  const support = ['index.d.ts', 'style.css', 'art/steam-cab-surface.svg', 'art/references.json', 'compact.css', 'compact-source.json'].map(name => 'packages/train-ui/' + name);
+  for (const file of new Set([...runtime, ...support])) {
     assert.equal(digest(fs.readFileSync(file)), digest(execFileSync('git', ['-c', 'core.longpaths=true', 'show', pin + ':' + file])));
   }
   const read = file => fs.readFileSync(file);

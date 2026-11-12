@@ -25,11 +25,11 @@ export function authenticatedTrainImages(profile, {read, indexed = () => {}}) {
 }
 export const TRAIN_GUIDES = ['docs/drivable-trains.md', 'docs/train-controls.md',
   'docs/reviews/2026-11-10-drivable-trains.md', 'docs/reviews/2026-11-10-drivable-train-playtest.md',
-  'docs/reviews/2026-11-11-tinderbox-train-controls.md'];
+  'docs/reviews/2026-11-11-tinderbox-train-controls.md', 'docs/projects/player-setup-composition.md'];
 const core = ['README.md', 'contract.js', 'data.js', 'circuit-traffic.js', 'index.js', 'index.d.ts']
   .map(file => 'packages/train-core/' + file);
 const ui = ['public.js', 'public.d.ts', 'index.js', 'index.d.ts', 'view.js', 'feedback.js', 'style.css',
-  'art/steam-cab-surface.svg', 'art/references.json', 'compact-model.js', 'compact-input.js', 'compact.css',
+  'art/steam-cab-surface.svg', 'art/references.json', 'compact-model.js', 'compact-input.js', 'reverse-intent.js', 'compact.css',
   'compact-source.json', 'compact-handoff.json', 'source.json', 'COMPACT-PROFILE.md']
   .map(file => 'packages/train-ui/' + file);
 
@@ -58,7 +58,7 @@ export function checkTrainRegistration({read, indexed}) {
     indexed(file, bytes);
   }
   if (digest(read(compactRoot + '/NOTICE.md')) !== '2a72e16a8c12cdf08b091ca4dc754b80c552fca6c726517a82ff2aedfbf02895') throw Error('Compact source notice changed.');
-  if (digest(read('packages/train-ui/compact-source.json')) !== 'ded0653ff0b31f66391afd2026c2e03bc8770706992fb72833e12ecf8ac10c3e') throw Error('Compact adaptation source record changed.');
+  if (digest(read('packages/train-ui/compact-source.json')) !== '6c75b69c3a362e99fe4985b8ea1523352ab8f9e2a9f32af5b87a872316e7fb12') throw Error('Compact adaptation source record changed.');
 }
 
 export function trainBuildBytes(before) {
