@@ -1,0 +1,1364 @@
+{
+  "version": 1,
+  "source": "explicit uncommitted candidate with synthetic test content",
+  "installed": null,
+  "results": [
+    {
+      "name": "startup",
+      "read": {
+        "state": {
+          "revision": 0,
+          "occupancyRevision": 0,
+          "vehicles": [
+            {
+              "id": "compact",
+              "body": "hatchback",
+              "finish": "sage",
+              "floorId": "floor-0",
+              "position": {
+                "x": 6,
+                "y": 7,
+                "h": 0
+              },
+              "headingRad": 0,
+              "speedMps": 0,
+              "steeringRad": 0,
+              "distanceM": 0,
+              "wheelAngleRad": 0,
+              "revision": 0,
+              "wheelbaseM": 2.21
+            },
+            {
+              "id": "truck",
+              "body": "pickup",
+              "finish": "oxide",
+              "floorId": "floor-0",
+              "position": {
+                "x": 15,
+                "y": 8,
+                "h": 0
+              },
+              "headingRad": 0,
+              "speedMps": 0,
+              "steeringRad": 0,
+              "distanceM": 0,
+              "wheelAngleRad": 0,
+              "revision": 0,
+              "wheelbaseM": 3
+            }
+          ],
+          "occupancy": [],
+          "obstructions": [],
+          "observerErrors": 0
+        },
+        "player": {
+          "configuration": {
+            "kind": "nautilus-player-setup",
+            "version": 1,
+            "engine": {
+              "package": "@nautilus-engine/map-core",
+              "version": "0.10.0",
+              "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+            },
+            "content": {
+              "id": "nautilus-road-yard",
+              "version": 1,
+              "sourcePin": "0000000000000000000000000000000000000000"
+            },
+            "actorId": "player",
+            "components": [
+              {
+                "id": "player.shell",
+                "version": 1,
+                "settings": {
+                  "skin": "farmyard",
+                  "layout": "auto",
+                  "actions": "icon-text"
+                }
+              },
+              {
+                "id": "player.walking",
+                "version": 1,
+                "settings": {
+                  "pace": 1
+                }
+              },
+              {
+                "id": "player.vehicles",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "player.camera",
+                "version": 1,
+                "settings": {
+                  "mode": "follow",
+                  "zoom": 1
+                }
+              },
+              {
+                "id": "setup.runtime",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "setup.actor",
+                "version": 1,
+                "settings": {
+                  "model": "goat",
+                  "motion": "native-gait"
+                }
+              }
+            ],
+            "bindings": {
+              "nautilus.setup-ui": "setup.shell",
+              "nautilus.setup-clock": "retained.vehicle-yard",
+              "nautilus.render-surface": "retained.vehicle-yard",
+              "nautilus.native-actor-view": "setup.actor",
+              "nautilus.player-scene": "retained.vehicle-yard",
+              "nautilus.ui-pause": "retained.vehicle-yard",
+              "nautilus.hud-bounds": "setup.camera",
+              "nautilus.walk-intent": "retained.vehicle-yard",
+              "nautilus.road-vehicle-connector": "retained.vehicle-yard",
+              "nautilus.camera-settings": "setup.camera",
+              "nautilus.actor-pose": "retained.vehicle-yard"
+            }
+          },
+          "actor": {
+            "actorId": "player",
+            "revision": 0,
+            "position": {
+              "x": 4.15,
+              "y": 7.35,
+              "h": 0
+            },
+            "mode": "on-foot"
+          },
+          "native": {
+            "kind": "nautilus-native-pose",
+            "version": 1,
+            "model": "goat",
+            "actorId": "player",
+            "motion": "native-gait",
+            "distanceM": 0,
+            "heading": 0,
+            "blend": 0,
+            "last": {
+              "actorId": "player",
+              "revision": 0,
+              "position": {
+                "x": 4.15,
+                "y": 7.35,
+                "h": 0
+              },
+              "mode": "on-foot"
+            }
+          },
+          "camera": {
+            "settings": {
+              "mode": "follow",
+              "zoom": 1
+            },
+            "bounds": {
+              "version": 1,
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 1100
+              },
+              "occlusions": [
+                {
+                  "id": "status",
+                  "x": 18,
+                  "y": 18,
+                  "width": 183.0625,
+                  "height": 57.59375
+                },
+                {
+                  "id": "tools",
+                  "x": 1468.40625,
+                  "y": 18,
+                  "width": 113.59375,
+                  "height": 44
+                },
+                {
+                  "id": "actions",
+                  "x": 1216,
+                  "y": 833.21875,
+                  "width": 362,
+                  "height": 100.78125
+                },
+                {
+                  "id": "controls",
+                  "x": 1216,
+                  "y": 944,
+                  "width": 362,
+                  "height": 134
+                }
+              ],
+              "safe": {
+                "x": 0,
+                "y": 83.59375,
+                "width": 1208,
+                "height": 1016.40625
+              }
+            }
+          },
+          "screenPoint": {
+            "x": 799.9999999999998,
+            "y": 554.6926579444837
+          },
+          "sharedOwnedProviders": 1
+        },
+        "visuals": {
+          "status": "ready",
+          "failure": null,
+          "profile": "game",
+          "geometry": "game",
+          "bodies": [
+            "hatchback",
+            "pickup"
+          ],
+          "requests": [
+            {
+              "kind": "texture",
+              "id": "running-gear",
+              "profile": "game",
+              "url": "http://127.0.0.1:56701/packages/vehicle-visuals/skins/game/running-gear.png"
+            },
+            {
+              "kind": "texture",
+              "id": "hatchback",
+              "profile": "game",
+              "url": "http://127.0.0.1:56701/packages/vehicle-visuals/skins/game/hatchback.png"
+            },
+            {
+              "kind": "texture",
+              "id": "pickup",
+              "profile": "game",
+              "url": "http://127.0.0.1:56701/packages/vehicle-visuals/skins/game/pickup.png"
+            },
+            {
+              "kind": "mesh",
+              "id": "hatchback",
+              "profile": "game",
+              "url": "http://127.0.0.1:56701/packages/vehicle-visuals/meshes/hatchback.json"
+            },
+            {
+              "kind": "mesh",
+              "id": "pickup",
+              "profile": "game",
+              "url": "http://127.0.0.1:56701/packages/vehicle-visuals/meshes/pickup.json"
+            }
+          ],
+          "ownedResources": 24,
+          "instances": 2,
+          "submissionsPerInstance": {
+            "parked": 2,
+            "driving": 6
+          }
+        },
+        "clock": {
+          "elapsedSeconds": 0,
+          "blocked": false
+        }
+      }
+    },
+    {
+      "name": "hatchback-forward",
+      "motion": {
+        "distanceM": 1.5,
+        "alongM": 1.5,
+        "speedMps": 2.999999999999999
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 8.5,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 2.999999999999999,
+          "steeringRad": 0,
+          "distanceM": 1.4999999999999998,
+          "wheelAngleRad": 5.172413793103449,
+          "revision": 20,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "a773b378-ebdb-489c-8145-3f7d2377bdeb/1",
+          "owner": "vehicle-ui/d78c3d74-8b1b-4517-9e74-1b25ea906c25",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 21,
+          "position": {
+            "x": 5.54,
+            "y": 8.85,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "symmetric-brake-through-zero",
+      "forwardToReverse": [
+        2.499999999999999,
+        2.099999999999999,
+        1.6999999999999993,
+        1.2999999999999994,
+        0.8999999999999994,
+        0.49999999999999933,
+        0.09999999999999931,
+        0,
+        -0.15000000000000002,
+        -0.30000000000000004,
+        -0.45000000000000007,
+        -0.6000000000000001,
+        -0.7500000000000001,
+        -0.9000000000000001,
+        -1.0500000000000003,
+        -1.2000000000000002,
+        -1.35,
+        -1.5,
+        -1.65,
+        -1.7999999999999998,
+        -1.9499999999999997,
+        -2.0999999999999996,
+        -2.2499999999999996,
+        -2.3999999999999995,
+        -2.5499999999999994,
+        -2.6999999999999993,
+        -2.849999999999999,
+        -2.999999999999999,
+        -3,
+        -3
+      ],
+      "reverseToForward": [
+        -2.6,
+        -2.2,
+        -1.8000000000000003,
+        -1.4000000000000004,
+        -1.0000000000000004,
+        -0.6000000000000004,
+        -0.2000000000000004,
+        0,
+        0.15000000000000002,
+        0.30000000000000004,
+        0.45000000000000007,
+        0.6000000000000001,
+        0.7500000000000001,
+        0.9000000000000001,
+        1.0500000000000003,
+        1.2000000000000002,
+        1.35,
+        1.5,
+        1.65,
+        1.7999999999999998,
+        1.9499999999999997,
+        2.0999999999999996,
+        2.2499999999999996,
+        2.3999999999999995,
+        2.5499999999999994,
+        2.6999999999999993,
+        2.849999999999999,
+        2.999999999999999,
+        3.149999999999999,
+        3.299999999999999
+      ]
+    },
+    {
+      "name": "blur-cancels-pending-reversal"
+    },
+    {
+      "name": "touch-steering",
+      "motion": {
+        "distanceM": 1.2063658155073527,
+        "alongM": 1.1839649247280057,
+        "speedMps": 2.3961352657004826
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 5.76860091219167,
+            "y": 10.491464924728009,
+            "h": 0
+          },
+          "headingRad": -0.13817776128386333,
+          "speedMps": 2.3961352657004826,
+          "steeringRad": -0.24957365149290775,
+          "distanceM": 3.505567632850242,
+          "wheelAngleRad": 5.804978944028143,
+          "revision": 110,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "a773b378-ebdb-489c-8145-3f7d2377bdeb/3",
+          "owner": "vehicle-ui/d78c3d74-8b1b-4517-9e74-1b25ea906c25",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 111,
+          "position": {
+            "x": 5.264776875142113,
+            "y": 10.774769248187935,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "pause-stale-context-and-active-component-retirement"
+    },
+    {
+      "name": "held-key-autorepeat-cannot-reacquire-after-pause"
+    },
+    {
+      "name": "visual-quality-independent-and-cancelled-replacement"
+    },
+    {
+      "name": "native-attachment-failure-preserves-accepted-vehicles"
+    },
+    {
+      "name": "exact-complete-reload",
+      "checkpoint": {
+        "kind": "nautilus-playable-vehicle-yard",
+        "version": 1,
+        "host": {
+          "kind": "nautilus-vehicle-yard",
+          "version": 1,
+          "content": {
+            "id": "nautilus-road-yard",
+            "version": 1,
+            "sourcePin": "0000000000000000000000000000000000000000"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "road-yard",
+            "name": "Road vehicle yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 32,
+              "depthM": 32,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "course",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 32,
+                    "y": 32,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3,
+                    "y": 23,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 23.35,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "barrier",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 18,
+                    "y": 14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 22,
+                    "y": 14.35,
+                    "h": 1
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "road-yard",
+            "revision": 0,
+            "doors": [],
+            "stairs": []
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 131,
+              "position": {
+                "x": 5.179525409955509,
+                "y": 11.387807128612428,
+                "h": 0.4
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            },
+            {
+              "id": "observer",
+              "revision": 0,
+              "position": {
+                "x": 12,
+                "y": 20,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            },
+            "observer": {
+              "health": 29,
+              "ap": 2,
+              "inventory": []
+            }
+          },
+          "vehicles": {
+            "kind": "nautilus-road-vehicles",
+            "version": 1,
+            "id": "nautilus-road-yard",
+            "revision": 131,
+            "occupancyRevision": 1,
+            "vehicles": [
+              {
+                "id": "compact",
+                "body": "hatchback",
+                "finish": "sage",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 5.683349447005066,
+                  "y": 11.104502805152501,
+                  "h": 0
+                },
+                "headingRad": -0.13817776128386333,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 4.124504830917876,
+                "wheelAngleRad": 1.6560598370817738,
+                "revision": 130,
+                "wheelbaseM": 2.21
+              },
+              {
+                "id": "truck",
+                "body": "pickup",
+                "finish": "oxide",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 15,
+                  "y": 8,
+                  "h": 0
+                },
+                "headingRad": 0,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 0,
+                "wheelAngleRad": 0,
+                "revision": 0,
+                "wheelbaseM": 3
+              }
+            ],
+            "occupancy": [
+              {
+                "actorId": "player",
+                "vehicleId": "compact",
+                "seatId": "driver"
+              }
+            ]
+          }
+        },
+        "setup": {
+          "kind": "nautilus-player-setup-checkpoint",
+          "version": 1,
+          "configuration": {
+            "kind": "nautilus-player-setup",
+            "version": 1,
+            "engine": {
+              "package": "@nautilus-engine/map-core",
+              "version": "0.10.0",
+              "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+            },
+            "content": {
+              "id": "nautilus-road-yard",
+              "version": 1,
+              "sourcePin": "0000000000000000000000000000000000000000"
+            },
+            "actorId": "player",
+            "components": [
+              {
+                "id": "player.shell",
+                "version": 1,
+                "settings": {
+                  "skin": "farmyard",
+                  "layout": "auto",
+                  "actions": "icon-text"
+                }
+              },
+              {
+                "id": "player.walking",
+                "version": 1,
+                "settings": {
+                  "pace": 1
+                }
+              },
+              {
+                "id": "player.vehicles",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "player.camera",
+                "version": 1,
+                "settings": {
+                  "mode": "follow",
+                  "zoom": 1
+                }
+              },
+              {
+                "id": "setup.runtime",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "setup.actor",
+                "version": 1,
+                "settings": {
+                  "model": "goat",
+                  "motion": "native-gait"
+                }
+              }
+            ],
+            "bindings": {
+              "nautilus.setup-ui": "setup.shell",
+              "nautilus.setup-clock": "retained.vehicle-yard",
+              "nautilus.render-surface": "retained.vehicle-yard",
+              "nautilus.native-actor-view": "setup.actor",
+              "nautilus.player-scene": "retained.vehicle-yard",
+              "nautilus.ui-pause": "retained.vehicle-yard",
+              "nautilus.hud-bounds": "setup.camera",
+              "nautilus.walk-intent": "retained.vehicle-yard",
+              "nautilus.road-vehicle-connector": "retained.vehicle-yard",
+              "nautilus.camera-settings": "setup.camera",
+              "nautilus.actor-pose": "retained.vehicle-yard"
+            }
+          },
+          "ownedWorld": null,
+          "native": {
+            "kind": "nautilus-native-pose",
+            "version": 1,
+            "model": "goat",
+            "actorId": "player",
+            "motion": "native-gait",
+            "distanceM": 0,
+            "heading": 0,
+            "blend": 0,
+            "last": {
+              "actorId": "player",
+              "revision": 131,
+              "position": {
+                "x": 5.179525409955509,
+                "y": 11.387807128612428,
+                "h": 0.4
+              },
+              "mode": "driver"
+            }
+          },
+          "clock": null
+        },
+        "clock": {
+          "elapsedSeconds": 13.650000000000059,
+          "blocked": false
+        },
+        "visuals": {
+          "profile": "full"
+        }
+      }
+    },
+    {
+      "name": "safe-exit-restores-native-visibility"
+    },
+    {
+      "name": "pickup-forward-steering",
+      "motion": {
+        "distanceM": 0.5846570679167307,
+        "alongM": 0.5708624749151774,
+        "speedMps": 1.5336850626844911
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "truck",
+          "body": "pickup",
+          "finish": "oxide",
+          "floorId": "floor-0",
+          "position": {
+            "x": 15.12625340311733,
+            "y": 8.570862474915177,
+            "h": 0
+          },
+          "headingRad": 0.07148374501008989,
+          "speedMps": 1.5336850626844911,
+          "steeringRad": 0.3569047204333332,
+          "distanceM": 0.5751318985066842,
+          "wheelAngleRad": 1.6432339957333837,
+          "revision": 15,
+          "wheelbaseM": 3
+        },
+        "lease": {
+          "id": "33926bcb-58b3-4e1d-96b6-3396b84f36ee/1",
+          "owner": "vehicle-ui/98c1bc09-48d1-4a19-b45b-416130cf8c8a",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 307,
+          "position": {
+            "x": 14.713853058399836,
+            "y": 9.252056981408654,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "pickup-reverse-steering",
+      "motion": {
+        "distanceM": 0.5846570679167339,
+        "alongM": -0.5784219452498431,
+        "speedMps": -1.5336850626844911
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "truck",
+          "body": "pickup",
+          "finish": "oxide",
+          "floorId": "floor-0",
+          "position": {
+            "x": 15.180480472864668,
+            "y": 8.135851398115918,
+            "h": 0
+          },
+          "headingRad": 0.14296749002017978,
+          "speedMps": -1.5336850626844911,
+          "steeringRad": -0.3569047204333332,
+          "distanceM": 0.1483948859697859,
+          "wheelAngleRad": 0.4239853884851029,
+          "revision": 34,
+          "wheelbaseM": 3
+        },
+        "lease": {
+          "id": "33926bcb-58b3-4e1d-96b6-3396b84f36ee/2",
+          "owner": "vehicle-ui/98c1bc09-48d1-4a19-b45b-416130cf8c8a",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 326,
+          "position": {
+            "x": 14.817786221383663,
+            "y": 8.844761039708297,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "ordinary-passenger-and-driver-only-authority"
+    },
+    {
+      "name": "acknowledged-but-unmoved-control-rejected",
+      "before": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 7,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 0,
+          "wheelbaseM": 2.21
+        },
+        "lease": null,
+        "actor": {
+          "id": "player",
+          "revision": 1,
+          "position": {
+            "x": 5.54,
+            "y": 7.35,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "after": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 7,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 0,
+          "wheelbaseM": 2.21
+        },
+        "lease": null,
+        "actor": {
+          "id": "player",
+          "revision": 1,
+          "position": {
+            "x": 5.54,
+            "y": 7.35,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "blocked-exit-preserves-occupancy-and-exact-resources",
+      "receipt": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "VEHICLE_EXIT_BLOCKED",
+        "reason": "The way is blocked by exit-wall."
+      }
+    },
+    {
+      "name": "swept-vehicle-stops-before-visible-native-actor",
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 10.870000000000001,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 3.869999999999999,
+          "wheelAngleRad": 0.778456971847725,
+          "revision": 39,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "4bbbc9de-003b-4aa9-b3d1-32233551b1e4/1",
+          "owner": "vehicle-ui/89688930-e900-48c7-807b-91896ccf4c2c",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 40,
+          "position": {
+            "x": 5.54,
+            "y": 11.22,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "obstructions": [
+        {
+          "vehicleId": "compact",
+          "code": "VEHICLE_ACTOR_BLOCKED",
+          "reason": "The swept vehicle is blocked by actor observer."
+        }
+      ]
+    },
+    {
+      "name": "mixed-components-select-exact-car-input-owner",
+      "motion": {
+        "distanceM": 0.3750000000000009,
+        "alongM": 0.3750000000000009,
+        "speedMps": 1.5
+      }
+    },
+    {
+      "name": "mixed-controls-retire-only-the-actual-owner",
+      "result": {
+        "removedInactive": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null,
+          "observerErrors": 0
+        },
+        "removedOwner": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "CONTROL_COMPONENT_REQUIRED",
+          "reason": "Exit the occupied transport before removing player.vehicles."
+        },
+        "controls": {
+          "version": 1,
+          "context": {
+            "version": 1,
+            "revision": 1,
+            "mode": "driver",
+            "actorId": "player",
+            "contextId": "[\"nautilus-road-yard\",\"player\",\"compact\",\"driver\",1]",
+            "token": "1/[\"driver\",\"player\",\"[\\\"nautilus-road-yard\\\",\\\"player\\\",\\\"compact\\\",\\\"driver\\\",1]\"]",
+            "blocked": false
+          },
+          "train": null,
+          "vehicle": {
+            "version": 1,
+            "blocked": false,
+            "owner": "vehicle-ui/16beae9b-c8eb-4a98-9835-a6bac6708522",
+            "snapshot": {
+              "version": 1,
+              "connectorId": "nautilus-road-yard",
+              "actorId": "player",
+              "mode": "driver",
+              "contextId": "[\"nautilus-road-yard\",\"player\",\"compact\",\"driver\",1]",
+              "position": {
+                "x": 5.54,
+                "y": 7.8675000000000015,
+                "h": 0.4
+              },
+              "floorId": "floor-0",
+              "walkingAllowed": false,
+              "vehicle": {
+                "id": "compact",
+                "body": "hatchback",
+                "finish": "sage",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 6,
+                  "y": 7.517500000000002,
+                  "h": 0
+                },
+                "headingRad": 0,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 0.5175000000000001,
+                "wheelAngleRad": 1.7844827586206904,
+                "revision": 14,
+                "wheelbaseM": 2.21
+              },
+              "vehicleId": "compact",
+              "seatId": "driver",
+              "expected": {
+                "actorRevision": 15,
+                "occupancyRevision": 1,
+                "vehicleId": "compact",
+                "seatId": "driver",
+                "leaseId": null
+              },
+              "lease": null
+            },
+            "offer": "{\"actorRevision\":15,\"occupancyRevision\":1,\"vehicleId\":\"compact\",\"seatId\":\"driver\",\"leaseId\":null}"
+          },
+          "inputOwner": "road-vehicle"
+        },
+        "old": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "DISPOSED",
+          "reason": "Player setup retired."
+        },
+        "commands": 0,
+        "mode": "driver",
+        "lease": null
+      }
+    },
+    {
+      "name": "direct-human-preview-normal-clock-and-real-touch",
+      "motion": {
+        "distanceM": 0.5344444994471981,
+        "alongM": 0.5300862645329909,
+        "speedMps": 1.6359917356580154
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 5.931886307229559,
+            "y": 7.530086264532991,
+            "h": 0
+          },
+          "headingRad": -0.050629708802718346,
+          "speedMps": 1.6359917356580154,
+          "steeringRad": -0.20741586638341425,
+          "distanceM": 0.531697314088855,
+          "wheelAngleRad": 1.8334390140995003,
+          "revision": 27,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "9040662c-031b-4f45-a67a-8b50d0d6adaf/1",
+          "owner": "vehicle-ui/07bf68da-1c6a-4713-b9e0-06d2ca74c527",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 28,
+          "position": {
+            "x": 5.454762927401362,
+            "y": 7.856358053723105,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "requested": [
+    "/examples/vehicle-yard/",
+    "/examples/vehicle-yard/main.js",
+    "/packages/game-ui/style.css",
+    "/packages/game-ui/title.js",
+    "/packages/interactions/actions.js",
+    "/packages/interactions/index.js",
+    "/packages/interactions/queries.js",
+    "/packages/interactions/state.js",
+    "/packages/map-core/railway-traffic.js",
+    "/packages/map-core/railway-train.js",
+    "/packages/native-actors/body.js",
+    "/packages/native-actors/catalogue.js",
+    "/packages/native-actors/data.js",
+    "/packages/native-actors/index.js",
+    "/packages/native-actors/locomotion.js",
+    "/packages/native-actors/three.js",
+    "/packages/player-setup/browser.js",
+    "/packages/player-setup/clock.js",
+    "/packages/player-setup/configuration.js",
+    "/packages/player-setup/index.js",
+    "/packages/player-setup/retained.js",
+    "/packages/player-setup/styles.js",
+    "/packages/player-setup/surface.js",
+    "/packages/player-setup/world.js",
+    "/packages/player-ui/actions.js",
+    "/packages/player-ui/configuration.js",
+    "/packages/player-ui/context.js",
+    "/packages/player-ui/data.js",
+    "/packages/player-ui/descriptors.js",
+    "/packages/player-ui/hud-bounds.js",
+    "/packages/player-ui/index.js",
+    "/packages/player-ui/menu.js",
+    "/packages/player-ui/resources.js",
+    "/packages/player-ui/style.css",
+    "/packages/player-ui/train-provider.js",
+    "/packages/player-ui/transport.js",
+    "/packages/player-ui/vehicle-provider.js",
+    "/packages/player-ui/view.js",
+    "/packages/player-ui/walking.js",
+    "/packages/railway-visuals/catalogue.js",
+    "/packages/railway-visuals/entrances.js",
+    "/packages/railway-visuals/route.js",
+    "/packages/railway-visuals/stock-profile.js",
+    "/packages/render-effects/three.js",
+    "/packages/runtime-core/index.js",
+    "/packages/runtime-core/lifecycle.js",
+    "/packages/runtime-core/planner.js",
+    "/packages/train-core/circuit-traffic.js",
+    "/packages/train-core/contract.js",
+    "/packages/train-core/data.js",
+    "/packages/train-core/index.js",
+    "/packages/train-ui/compact-input.js",
+    "/packages/train-ui/compact-model.js",
+    "/packages/train-ui/compact.css",
+    "/packages/train-ui/feedback.js",
+    "/packages/train-ui/index.js",
+    "/packages/train-ui/reverse-intent.js",
+    "/packages/train-ui/style.css",
+    "/packages/train-ui/view.js",
+    "/packages/traversal-core/index.js",
+    "/packages/vehicle-core/catalogue.js",
+    "/packages/vehicle-core/data.js",
+    "/packages/vehicle-core/example.js",
+    "/packages/vehicle-core/index.js",
+    "/packages/vehicle-core/motion.js",
+    "/packages/vehicle-core/queries.js",
+    "/packages/vehicle-core/session.js",
+    "/packages/vehicle-core/yard.js",
+    "/packages/vehicle-ui/index.js",
+    "/packages/vehicle-ui/yard.js",
+    "/packages/vehicle-visuals/meshes/hatchback.json",
+    "/packages/vehicle-visuals/meshes/pickup.json",
+    "/packages/vehicle-visuals/sculpt.js",
+    "/packages/vehicle-visuals/skin.js",
+    "/packages/vehicle-visuals/skins/game/hatchback.png",
+    "/packages/vehicle-visuals/skins/game/pickup.png",
+    "/packages/vehicle-visuals/skins/game/running-gear.png",
+    "/packages/vehicle-visuals/three.js",
+    "/packages/world-core/index.js",
+    "/packages/world-core/legacy.js",
+    "/packages/world-core/parts-refusal.js",
+    "/packages/world-core/queries.js",
+    "/packages/world-core/state.js",
+    "/packages/world-core/validation.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/goat-worker-model-paint-v1.png",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-10k-data.json",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+    "/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+    "/vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8/sites/tactical-animal/dist/assets/ui/industrial-switches/switch-skins-v2.webp",
+    "/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/hatchback.png",
+    "/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/pickup.png",
+    "/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/running-gear.png"
+  ],
+  "nativeVerifiedPaintBlobRequests": 14,
+  "limits": [
+    "Phone viewport/touch emulation; no handset FPS measurement."
+  ]
+}

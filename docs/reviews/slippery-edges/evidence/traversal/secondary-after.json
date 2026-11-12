@@ -1,0 +1,263 @@
+{
+  "source": {
+    "commit": "999d97a1c2032f2448a8f71e6eec8c9c025cd577",
+    "dirty": false
+  },
+  "vehicle": {
+    "initial": {
+      "min": {
+        "x": 6.15,
+        "y": 7.015,
+        "h": 0
+      },
+      "max": {
+        "x": 10.25,
+        "y": 8.985,
+        "h": 1.46
+      }
+    },
+    "wall": {
+      "min": {
+        "x": 6.205,
+        "y": 9.02,
+        "h": 0
+      },
+      "max": {
+        "x": 6.22,
+        "y": 9.025,
+        "h": 2
+      }
+    },
+    "result": {
+      "ok": true,
+      "vehicle": {
+        "id": "compact",
+        "body": "hatchback",
+        "finish": "sage",
+        "floorId": "floor-0",
+        "position": {
+          "x": 8.055775815483656,
+          "y": 8.034999318848959,
+          "h": 0
+        },
+        "headingRad": 1.5707963267948966,
+        "speedMps": 8,
+        "steeringRad": 0,
+        "distanceM": 0.009277229852294922,
+        "wheelAngleRad": 1.3793103448275863,
+        "revision": 1,
+        "wheelbaseM": 2.21
+      },
+      "contacts": [
+        {
+          "id": "corner-actor",
+          "normal": {
+            "x": -0.6811510417522323,
+            "y": 0.7321429220581518
+          },
+          "depthM": 2.4826139699563043e-8
+        },
+        {
+          "id": "secondary-wall",
+          "time": 0.24947528830778012,
+          "normal": {
+            "x": 0,
+            "y": -1
+          },
+          "initialOverlap": false
+        },
+        {
+          "id": "corner-actor",
+          "time": 0.10897529786673849,
+          "normal": {
+            "x": -0.5150828018440904,
+            "y": 0.8571404244605673
+          },
+          "initialOverlap": false
+        }
+      ],
+      "distanceM": 0.0695390114595746,
+      "blocked": true,
+      "sweeps": [
+        {
+          "id": "compact",
+          "points": [
+            {
+              "x": 6.15,
+              "y": 7.015
+            },
+            {
+              "x": 9.85,
+              "y": 7.015
+            },
+            {
+              "x": 9.85,
+              "y": 8.985
+            },
+            {
+              "x": 6.15,
+              "y": 8.985
+            }
+          ],
+          "radiusM": 0,
+          "minH": 0,
+          "maxH": 1.46
+        },
+        {
+          "id": "compact",
+          "points": [
+            {
+              "x": 6.15,
+              "y": 7.015
+            },
+            {
+              "x": 9.859277229852294,
+              "y": 7.015
+            },
+            {
+              "x": 9.859277229852294,
+              "y": 8.985
+            },
+            {
+              "x": 6.15,
+              "y": 8.985
+            }
+          ],
+          "radiusM": 0,
+          "minH": 0,
+          "maxH": 1.46
+        },
+        {
+          "id": "compact",
+          "points": [
+            {
+              "x": 6.159277229852295,
+              "y": 7.015
+            },
+            {
+              "x": 9.859277229852294,
+              "y": 7.015
+            },
+            {
+              "x": 9.89689664463907,
+              "y": 7.0499993188489585
+            },
+            {
+              "x": 9.89689664463907,
+              "y": 9.019999318848958
+            },
+            {
+              "x": 6.19689664463907,
+              "y": 9.019999318848958
+            },
+            {
+              "x": 6.159277229852295,
+              "y": 8.985
+            }
+          ],
+          "radiusM": 0,
+          "minH": 0,
+          "maxH": 1.46
+        },
+        {
+          "id": "compact",
+          "points": [
+            {
+              "x": 6.19689664463907,
+              "y": 7.0499993188489585
+            },
+            {
+              "x": 9.905775815483656,
+              "y": 7.0499993188489585
+            },
+            {
+              "x": 9.905775815483656,
+              "y": 9.019999318848958
+            },
+            {
+              "x": 6.19689664463907,
+              "y": 9.019999318848958
+            }
+          ],
+          "radiusM": 0,
+          "minH": 0,
+          "maxH": 1.46
+        }
+      ]
+    },
+    "endpointOverlap": null,
+    "secondarySweptOverlap": null
+  },
+  "simultaneous": {
+    "state": {
+      "revision": 3,
+      "occupancyRevision": 2,
+      "vehicles": [
+        {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 8,
+            "y": 8,
+            "h": 0
+          },
+          "headingRad": 1.5707963267948966,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 1,
+          "wheelbaseM": 2.21
+        },
+        {
+          "id": "other",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 4.25,
+            "y": 10.17,
+            "h": 0
+          },
+          "headingRad": 1.5707963267948966,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 1,
+          "wheelbaseM": 2.21
+        }
+      ],
+      "occupancy": [
+        {
+          "actorId": "player",
+          "vehicleId": "compact",
+          "seatId": "driver"
+        },
+        {
+          "actorId": "driver-b",
+          "vehicleId": "other",
+          "seatId": "driver"
+        }
+      ],
+      "obstructions": [
+        {
+          "vehicleId": "compact",
+          "code": "VEHICLE_ROUTE_CONFLICT",
+          "reason": "Resolved swept routes conflict with other."
+        },
+        {
+          "vehicleId": "other",
+          "code": "VEHICLE_ROUTE_CONFLICT",
+          "reason": "Resolved swept routes conflict with compact."
+        }
+      ],
+      "observerErrors": 0,
+      "contacts": [],
+      "collisionProfile": "oriented-slide-v1"
+    },
+    "overlap": null
+  }
+}
