@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "node": "v24.15.0",
+  "tests": 23,
+  "types": {
+    "strict": true,
+    "negativeControls": 5,
+    "compiler": "Version 5.9.3"
+  },
+  "package": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73",
+    "bytes": 35655714,
+    "files": 501,
+    "publicExports": 61
+  },
+  "extentComparison": [
+    {
+      "extentM": 16,
+      "queriesPerSample": 1000,
+      "samplesMs": [
+        24.402300000000004,
+        18.37020000000001,
+        19.46119999999999,
+        18.137299999999996,
+        22.40639999999999
+      ],
+      "medianMs": 19.46119999999999
+    },
+    {
+      "extentM": 64,
+      "queriesPerSample": 1000,
+      "samplesMs": [
+        24.36329999999998,
+        17.226500000000016,
+        25.725600000000014,
+        14.904500000000013,
+        15.361800000000017
+      ],
+      "medianMs": 17.226500000000016
+    }
+  ],
+  "performanceScope": "Same flat panel, actor dimensions and query segment; only world extent differs. Not a GPU/FPS, extra-scenery or physical-phone benchmark."
+}
