@@ -1,6 +1,6 @@
 import {compileWorld} from '../world-core/index.js';
 import {bodyFor} from './motion.js';
-import {contactShape,boundsContactShape,contactOverlap,contactSeparation,moveWithContacts} from '../traversal-core/index.js';
+import {contactShape,boundsContactShape,contactOverlap,contactSeparation,moveWithContacts,translateContactShape} from '../traversal-core/index.js';
 const epsilon=1e-7,copy=structuredClone;
 export const overlap=(a,b)=>['x','y','h'].every(k=>a.min[k]<b.max[k]-epsilon&&a.max[k]>b.min[k]+epsilon);
 export const transform=(v,x,z,h=0)=>({x:v.position.x+x*Math.cos(v.headingRad)+z*Math.sin(v.headingRad),y:v.position.y-x*Math.sin(v.headingRad)+z*Math.cos(v.headingRad),h:v.position.h+h});
@@ -34,6 +34,16 @@ function poseAt(a,b,t){
  const position=Math.abs(k)<1e-10?{x:a.position.x+ds*Math.sin(theta),y:a.position.y+ds*Math.cos(theta),h:a.position.h}:{x:a.position.x+rear*Math.sin(theta)+(Math.cos(theta)-Math.cos(nextTheta))/k-rear*Math.sin(nextTheta),y:a.position.y+rear*Math.cos(theta)+(Math.sin(nextTheta)-Math.sin(theta))/k-rear*Math.cos(nextTheta),h:a.position.h};
  return {...b,position,headingRad:nextTheta,distanceM:a.distanceM+ds};
 }
+export function contactBounds(shape){const r=shape.radiusM;return {min:{x:Math.min(...shape.points.map(p=>p.x))-r,y:Math.min(...shape.points.map(p=>p.y))-r,h:shape.minH},max:{x:Math.max(...shape.points.map(p=>p.x))+r,y:Math.max(...shape.points.map(p=>p.y))+r,h:shape.maxH}};}
+function reachableBounds(a,b){
+ const bounds=sweptVehicleBounds(a,b),k=Math.tan(b.steeringRad)/a.wheelbaseM,rear=bodyFor(a.body).axlesM[0];
+ // Generated bicycle proposals have centre arc length |ds|*hypot(1,rear*k).
+ // Each prefix is in the original continuous sweep; its subsequent frozen-yaw
+ // slide is no longer than the remaining intended arc. Expanding by this full
+ // travel budget therefore covers every accepted deflected body segment.
+ const reach=Math.max(Math.hypot(b.position.x-a.position.x,b.position.y-a.position.y),Math.abs(b.distanceM-a.distanceM)*Math.hypot(1,rear*k));
+ return {min:{...bounds.min,x:bounds.min.x-reach,y:bounds.min.y-reach},max:{...bounds.max,x:bounds.max.x+reach,y:bounds.max.y+reach}};
+}
 function covered(rect,panels){
  const cuts=[rect.min.x,rect.max.x,...panels.flatMap(p=>[Math.max(rect.min.x,p.min.x),Math.min(rect.max.x,p.max.x)])].filter(x=>x>=rect.min.x&&x<=rect.max.x).sort((a,b)=>a-b);
  for(let i=1;i<cuts.length;i++){if(cuts[i]-cuts[i-1]<epsilon)continue;const x=(cuts[i]+cuts[i-1])/2,spans=panels.filter(p=>p.min.x<=x&&p.max.x>=x).map(p=>[p.min.y,p.max.y]).sort((a,b)=>a[0]-b[0]);let edge=rect.min.y;for(const [lo,hi]of spans){if(lo>edge+epsilon)break;edge=Math.max(edge,hi);}if(edge<rect.max.y-epsilon)return false;}return true;
@@ -55,16 +65,16 @@ export function createVehicleQueries(world,{obstacles=()=>[]}={}){
    return hit?{ok:false,code:'VEHICLE_BLOCKED',reason:'The swept body is blocked by '+hit.id+'.'}:{ok:true};
  },checkVehicle,
  resolve(a,b,{obstacles:additional=[]}={}){
-   const bounds=sweptVehicleBounds(a,b),boxes=[...solids(bounds),...additional],angle=Math.abs(b.headingRad-a.headingRad),count=Math.max(1,Math.ceil(angle/.01));
+   const bounds=reachableBounds(a,b),boxes=[...solids(bounds),...additional],angle=Math.abs(b.headingRad-a.headingRad),count=Math.max(1,Math.ceil(angle/.01)),envelopeSteering=Math.max(Math.abs(a.steeringRad),Math.abs(b.steeringRad));
    if(count>64)throw Error('VEHICLE_CONTACT_STEP_LIMIT');
-   let safe=a,contacts=[],distanceM=0,collided=false;
+   let safe=a,contacts=[],distanceM=0,collided=false;const sweeps=[vehicleContactShape(a,envelopeSteering)];
    for(let i=1;i<=count;i++){
      const target=poseAt(a,b,i/count),sweep=sweptVehicleShape(safe,target),hits=boxes.map(o=>({obstacle:o,hit:contactOverlap(sweep,o)})).filter(r=>r.hit).sort((x,y)=>x.obstacle.id<y.obstacle.id?-1:x.obstacle.id>y.obstacle.id?1:0);
-     if(!hits.length){distanceM+=Math.hypot(target.position.x-safe.position.x,target.position.y-safe.position.y);safe=target;continue;}
+     if(!hits.length){sweeps.push(sweep);distanceM+=Math.hypot(target.position.x-safe.position.x,target.position.y-safe.position.y);safe=target;continue;}
      let lo=(i-1)/count,hi=i/count;
      for(let n=0;n<22;n++){const mid=(lo+hi)/2,hull=sweptVehicleShape(safe,poseAt(a,b,mid));if(hits.some(r=>contactOverlap(hull,r.obstacle)))hi=mid;else lo=mid;}
      const prefix=poseAt(a,b,Math.max((i-1)/count,lo-1e-6)),impact=sweptVehicleShape(prefix,poseAt(a,b,hi));
-     distanceM+=Math.hypot(prefix.position.x-safe.position.x,prefix.position.y-safe.position.y);safe=prefix;
+     sweeps.push(sweptVehicleShape(safe,prefix));distanceM+=Math.hypot(prefix.position.x-safe.position.x,prefix.position.y-safe.position.y);safe=prefix;
      const touching=hits.map(r=>contactOverlap(impact,r.obstacle)).filter(Boolean);
      // Refining a curved hull also removes its larger-interval sagitta. Its
      // conservative first contact can therefore be a few micrometres ahead of
@@ -75,11 +85,12 @@ export function createVehicleQueries(world,{obstacles=()=>[]}={}){
      let delta={x:b.position.x-safe.position.x,y:b.position.y-safe.position.y};
      for(const {normal}of touching){const inward=delta.x*normal.x+delta.y*normal.y;if(inward<0){delta.x-=inward*normal.x;delta.y-=inward*normal.y;}}
      delta={x:delta.x*.72,y:delta.y*.72};
-     const moved=moveWithContacts(vehicleContactShape(safe,Math.max(Math.abs(a.steeringRad),Math.abs(b.steeringRad))),delta,boxes);
+     const sliding=vehicleContactShape(safe,envelopeSteering),moved=moveWithContacts(sliding,delta,boxes);
+     for(const segment of moved.segments){const start=translateContactShape(sliding,segment.from),end=translateContactShape(sliding,segment.to);sweeps.push(contactShape({id:a.id,points:[...start.points,...end.points],minH:sliding.minH,maxH:sliding.maxH}));}
      distanceM+=moved.distanceM;contacts.push(...moved.contacts);safe={...safe,position:{x:safe.position.x+moved.delta.x,y:safe.position.y+moved.delta.y,h:safe.position.h}};break;
    }
-   const supported=support(sweptVehicleBounds(a,safe),a.floorId);if(!supported.ok)return {...supported,vehicle:a,contacts:[],distanceM:0};
-   const verified=checkVehicle(safe,additional);if(!verified.ok)return {...verified,vehicle:a,contacts,distanceM:0};
-   return {ok:true,vehicle:collided?safe:b,contacts,distanceM,blocked:collided};
+   for(const sweep of sweeps){const supported=support(contactBounds(sweep),a.floorId);if(!supported.ok)return {...supported,vehicle:a,contacts:[],distanceM:0,sweeps:[vehicleContactShape(a)]};}
+   const verified=checkVehicle(safe,additional);if(!verified.ok)return {...verified,vehicle:a,contacts,distanceM:0,sweeps:[vehicleContactShape(a)]};
+   return {ok:true,vehicle:collided?safe:b,contacts,distanceM,blocked:collided,sweeps};
  },snapshot:()=>copy(state)});
 }

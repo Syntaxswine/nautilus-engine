@@ -18,6 +18,17 @@ cost from this result, never from requested or rejected displacement. Support an
 world bounds are still required along every segment. The default
 `legacy-box-stop-v1` retains the existing square stop behavior.
 
+Static candidate queries cover the full bounded reachable travel envelope. A
+rounded contact can deflect motion outside its original straight sweep; every
+secondary segment must still see walls there. Cars return their accepted
+continuous `sweeps` (at most 70 shapes per substep), including turning prefixes
+and frozen-yaw slides. Support is checked along each accepted segment. The
+session first resolves against other cars' initial bodies, then compares actual
+resolved routes using route and segment AABB broad phases. Intersecting routes
+cancel both substeps without charging distance; this conservatively reserves
+space across the whole substep rather than predicting exact contact timing.
+Disjoint close parallel routes remain free to move.
+
 `createVehicleSession({collisionProfile:'oriented-slide-v1', ...bindings})` selects
 oriented continuous contact and sliding. World AABBs remain the broad phase and
 conservative flat-support query. Oriented swept hulls with analytic arc padding

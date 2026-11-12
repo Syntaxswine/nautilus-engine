@@ -4,6 +4,7 @@
   "profile": "flat-low-speed-v1",
   "collisionProfiles": {"default":"legacy-aabb-stop-v1","optIn":"oriented-slide-v1","legacySaveVersion":1,"orientedSaveVersion":2,"policy":"retain native body/wheel/mirror envelope; broad AABB, continuous oriented contact, bounded slower tangents, explicit support; no implicit saved-policy migration"},
   "stagedActorTransaction": "actors.transact(updates, accept, stagedVehicleCheckpoint) may persist the complete candidate before synchronously publishing actor and vehicle authority; failures before accept change neither",
+  "resolvedContactRoute": "oriented-slide-v1 query resolvers return sweeps: 1..70 accepted continuous shapes owned by the vehicle; bounded reachable static candidates and per-segment support; actual intersecting simultaneous routes cancel both substeps without distance charge",
   "component": "player.vehicles",
   "service": {"id": "nautilus.road-vehicle-connector", "version": 1},
   "schema": "urn:nautilus:road-vehicle-connector:1",

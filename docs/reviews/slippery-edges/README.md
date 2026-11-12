@@ -35,6 +35,19 @@ only used when a requested wider angle cannot fit. This costs more than an AABB
 overlap, less structure than a mesh/rigid-body solver. No CPU/FPS advantage is
 claimed. Geometry measurements and test durations are not frame-rate benchmarks.
 
+Architect review found a candidate-completeness defect in the first finished
+commit `6761077583b402b3edbacc1fab41ef42b60a0b09`: a secondary slide could leave
+the original static query. Ordinary walking then penetrated a second wall by
+0.0749279731 m. A car could cross a thin second wall and end clear beyond it;
+two independently deflected cars could overlap by 0.0347004882 m. These are
+reproduced geometry measurements, not performance estimates. The correction
+queries a bounded reachable envelope and validates every accepted continuous
+segment. Cars resolve against initial bodies, then reserve their actual swept
+routes through two AABB broad phases and convex contact tests. Conflicting
+routes cancel both substeps; nearby disjoint parallel routes still move. Pair
+arbitration is conservative about timing, with at most 70 segments per route.
+The added regression fixtures cover all three failures and the parallel case.
+
 **Narrative:** Night Ledger benefits when brushing an edge reads as slower
 progress, head-on/closed corners stop, and visible clearances are usable. This is
 a subjective preference supported by native browser review. Games centred on

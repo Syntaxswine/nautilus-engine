@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import fs from 'node:fs';
 export const TRAVERSAL_BASE='98064c34c7bb4fc3c1343f2e450d570ec38615f2';
 export const TRAVERSAL_REGISTRATION='docs/reviews/slippery-edges/registration.json';
-const manifestSHA='3381e1913576299f1224277d6b2563915d3cf08912870b0db0ab223fd62c8820',sha=b=>createHash('sha256').update(b).digest('hex');
+const manifestSHA='12c83fa56095ef73e88f69214cf2461d7f3b362baa49d6489db3faca5f18550b',sha=b=>createHash('sha256').update(b).digest('hex');
 export function checkTraversalRegistration(ports){
  const {read,object,indexed=()=>{},distribution}=ports,raw=read(TRAVERSAL_REGISTRATION);assert.equal(sha(raw),manifestSHA,'Traversal registration metadata changed.');const m=JSON.parse(raw);assert.equal(m.base,TRAVERSAL_BASE);indexed(TRAVERSAL_REGISTRATION,raw);indexed('tools/traversal-registration.mjs',read('tools/traversal-registration.mjs'));
  const before={},actual={};for(const row of m.files){const bytes=read(row.path);assert.equal(bytes.length,row.bytes,'Traversal source changed / root bytes changed: '+row.path);assert.equal(sha(bytes),row.sha256,'Traversal source changed / root bytes changed: '+row.path);indexed(row.path,bytes);if(row.beforeSha256){const old=object(TRAVERSAL_BASE,row.path);assert.equal(sha(old),row.beforeSha256,'Traversal accepted preimage changed: '+row.path);before[row.path]=old;actual[row.path]=bytes;}}

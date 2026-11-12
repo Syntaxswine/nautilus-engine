@@ -59,7 +59,11 @@ export function createInteractionQueries(input,{actors=()=>[],obstacles=()=>[],m
   function discMove({state,actor,from,to},slide){
     if(Math.abs(from.h-to.h)>epsilon)return bad('UNSUPPORTED_WALK_HEIGHT','Disc sliding requires flat supported ground; use a stair binding.');
     const delta={x:to.x-from.x,y:to.y-from.y},shape=contactShape({id:actor.id,points:[from],radiusM:actor.radiusM,minH:from.h,maxH:from.h+actor.heightM});
-    const bounds={min:{x:Math.min(from.x,to.x)-actor.radiusM,y:Math.min(from.y,to.y)-actor.radiusM,h:from.h},max:{x:Math.max(from.x,to.x)+actor.radiusM,y:Math.max(from.y,to.y)+actor.radiusM,h:from.h+actor.heightM}};
+    // Any accepted slide has total length <= the requested displacement. Query
+    // that bounded reachable envelope, not only the original straight strip:
+    // a rounded corner can deflect a secondary segment outside that strip.
+    const reach=slide?Math.hypot(delta.x,delta.y):0;
+    const bounds=slide?{min:{x:from.x-actor.radiusM-reach,y:from.y-actor.radiusM-reach,h:from.h},max:{x:from.x+actor.radiusM+reach,y:from.y+actor.radiusM+reach,h:from.h+actor.heightM}}:{min:{x:Math.min(from.x,to.x)-actor.radiusM,y:Math.min(from.y,to.y)-actor.radiusM,h:from.h},max:{x:Math.max(from.x,to.x)+actor.radiusM,y:Math.max(from.y,to.y)+actor.radiusM,h:from.h+actor.heightM}};
     const boxes=world.queryBounds(bounds).surfaces.map(s=>boundsContactShape(s.id,s.bounds));
     for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;if(bounds)boxes.push(boundsContactShape(door.id,bounds));}
     for(const other of occupants(actor))if(other.id!==actor.id)boxes.push(contactShape({id:other.id,points:[other.position],radiusM:other.radiusM,minH:other.position.h,maxH:other.position.h+other.heightM}));

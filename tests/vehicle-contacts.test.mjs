@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createWorld,openWorld} from '../packages/world-core/index.js';
-import {createVehicleYard,vehicleYardContent,createVehicle,createVehicleQueries,vehicleContactShape,transform,vehicleBounds,stepVehicle} from '../packages/vehicle-core/index.js';
-import {contactOverlap,boundsContactShape} from '../packages/traversal-core/index.js';
+import {createVehicleYard,vehicleYardContent,createVehicle,createVehicleQueries,vehicleContactShape,sweptVehicleShape,sweptVehicleBounds,transform,vehicleBounds,stepVehicle} from '../packages/vehicle-core/index.js';
+import {contactShape,contactOverlap,boundsContactShape,moveWithContacts} from '../packages/traversal-core/index.js';
 import {createInteractionQueries,createInteractionActor,createInteractionState,walkActor,previewInteraction} from '../packages/interactions/index.js';
 const profiles={collisionProfile:'oriented-slide-v1',movementProfile:'disc-slide-v1'};
 const solid=(id,x,y,w,d)=>({id,floorId:'floor-0',role:'solid',bounds:{min:{x,y,h:0},max:{x:x+w,y:y+d,h:2}},supports:false,supportFloorId:null});
@@ -83,4 +83,47 @@ test('leaving a glancing edge cannot apply accumulated demand as an acceleration
  try{assert.ok(board(h).ok);assert.ok(drive(h,1).ok);for(let i=0;i<100;i++){const before=h.connector.read().vehicles[0];h.advance(.025);const state=h.connector.read(),v=state.vehicles[0];if(state.contacts.length)sawContact=true;else if(sawContact){sawClear=true;assert.ok(v.speedMps<=before.speedMps+3*.025+1e-7,JSON.stringify({before,v}));}assert.ok(Math.abs(v.speedMps)<=8);}
   assert.ok(sawContact&&sawClear);h.connector.release('test');for(let i=0;i<60;i++)h.advance(.025);assert.equal(h.connector.read().vehicles[0].speedMps,0);
  }finally{h.dispose();}
+});
+
+test('ordinary walking queries secondary walls outside the requested straight strip',()=>{
+ const c=content(),corner=solid('corner',4,4,1,1),wall=solid('secondary-wall',0,3.5,16,.01),w=createWorld({...c.world,widthM:16,depthM:16});
+ w.surfaces=[{...c.surfaces[0],bounds:{min:{x:0,y:0,h:0},max:{x:16,y:16,h:0}}},corner,wall];
+ const world=openWorld(w),state=createInteractionState({worldId:w.id}),a=createInteractionActor({id:'walker',floorId:'floor-0',position:{x:3.8,y:3.8,h:0},radiusM:.28,heightM:1.8,speedMps:2.4}),shape=contactShape({id:a.id,points:[a.position],radiusM:a.radiusM,minH:0,maxH:1.8}),boxes=[corner,wall].map(s=>boundsContactShape(s.id,s.bounds));
+ assert.ok(wall.bounds.max.y<a.position.y-a.radiusM,'The secondary wall is outside the original straight east sweep.');for(const box of boxes)assert.equal(contactOverlap(shape,box),null);
+ const expected=moveWithContacts(shape,{x:.24,y:0},boxes),r=walkActor(state,a,{direction:{x:1,y:0},seconds:.1},createInteractionQueries(world,{movementProfile:'disc-slide-v1'}));
+ assert.ok(r.ok);assert.deepEqual(new Set(r.movement.contacts.map(c=>c.id)),new Set(['corner','secondary-wall']));
+ assert.ok(Math.abs(r.actor.position.x-a.position.x-expected.delta.x)<1e-10);assert.ok(Math.abs(r.actor.position.y-a.position.y-expected.delta.y)<1e-10);assert.ok(r.movement.distanceM>0&&r.movement.distanceM<.24);
+ const end=contactShape({...shape,points:[r.actor.position]});for(const box of boxes)assert.equal(contactOverlap(end,box),null);
+});
+
+test('a car cannot cross a thin secondary wall outside its original sweep and finish clear beyond it',()=>{
+ const c=content({x:8,y:8,h:0},Math.PI/2),wall=solid('secondary-wall',6.205,9.02,.015,.005),actor=contactShape({id:'corner-actor',points:[{x:10.05,y:6.81}],radiusM:.28,minH:0,maxH:1.8}),w=createWorld(c.world);w.surfaces=c.surfaces;
+ const a={...createVehicle(c.vehicles[0]),speedMps:8},b=stepVehicle(a,{held:true,throttle:1,steering:0},.05),wallShape=boundsContactShape(wall.id,wall.bounds),unwalled=createVehicleQueries(openWorld(w)).resolve(a,b,{obstacles:[actor]});
+ assert.ok(sweptVehicleBounds(a,b).max.y<wall.bounds.min.y);assert.equal(contactOverlap(vehicleContactShape(a),wallShape),null);assert.equal(contactOverlap(vehicleContactShape(unwalled.vehicle),wallShape),null,'Endpoint-only checking misses this wall.');
+ const prefix={...a,position:{x:a.position.x+unwalled.vehicle.distanceM-a.distanceM,y:a.position.y,h:0}};assert.ok(contactOverlap(sweptVehicleShape(prefix,unwalled.vehicle),wallShape),'The deflected continuous route crosses the secondary wall.');
+ w.surfaces.push(wall);const r=createVehicleQueries(openWorld(w)).resolve(a,b,{obstacles:[actor]});assert.ok(r.ok);assert.ok(r.distanceM>0&&r.distanceM<unwalled.distanceM);assert.deepEqual(new Set(r.contacts.map(c=>c.id)),new Set(['corner-actor','secondary-wall']));
+ assert.equal(contactOverlap(vehicleContactShape(r.vehicle),wallShape),null);for(const sweep of r.sweeps){assert.equal(contactOverlap(sweep,wallShape),null);assert.equal(contactOverlap(sweep,actor),null);}
+});
+
+function movingPair(c){
+ let h=createVehicleYard(c,profiles);for(const [actorId,vehicleId]of [['player','compact'],['driver-b','other']])assert.ok(h.connector.dispatch({version:1,type:'board',actorId,vehicleId,seatId:'driver',expected:h.connector.readForActor(actorId).expected}).ok);
+ const saved=h.checkpoint();h.dispose();for(const v of saved.vehicles.vehicles)v.speedMps=8;
+ h=createVehicleYard(c,{...profiles,checkpoint:saved});for(const actorId of ['player','driver-b'])assert.ok(h.connector.dispatch({version:1,type:'control',actorId,owner:actorId,expected:h.connector.readForActor(actorId).expected,held:true,throttle:1,steering:0}).ok);return h;
+}
+
+test('two independently clear deflections cannot commit intersecting actual car routes',()=>{
+ const c=content({x:8,y:8,h:0},Math.PI/2);c.vehicles.push({id:'other',position:{x:4.25,y:10.17,h:0},headingRad:Math.PI/2});c.actors.push({...c.actors[0],id:'driver-b',position:transform(createVehicle(c.vehicles[1]),-1.45,.35)},{...c.actors[0],id:'corner-a',position:{x:10.05,y:6.81,h:0}},{...c.actors[0],id:'corner-b',position:{x:6.3,y:11.405,h:0}});c.resources=Object.fromEntries(c.actors.map(a=>[a.id,{health:37,ap:3,stamina:11}]));
+ const w=createWorld(c.world);w.surfaces=c.surfaces;const q=createVehicleQueries(openWorld(w)),cars=c.vehicles.map(v=>({...createVehicle(v),speedMps:8})),actors=c.actors.slice(2).map(a=>contactShape({id:a.id,points:[a.position],radiusM:a.radiusM,minH:0,maxH:a.heightM})),routes=cars.map((a,i)=>q.resolve(a,stepVehicle(a,{held:true,throttle:1,steering:0},.05),{obstacles:[...actors,vehicleContactShape(cars[1-i])]}));
+ assert.equal(contactOverlap(vehicleContactShape(cars[0]),vehicleContactShape(cars[1])),null);for(const r of routes){assert.ok(r.ok&&r.blocked&&r.distanceM>0);}
+ assert.ok(contactOverlap(vehicleContactShape(routes[0].vehicle),vehicleContactShape(routes[1].vehicle)),'Independent resolved endpoints overlap, although both avoided the other initial car.');
+ const h=movingPair(c);try{const before=h.checkpoint();h.advance(.05);const after=h.checkpoint(),state=h.connector.read();assert.deepEqual(new Set(state.obstructions.map(o=>o.code)),new Set(['VEHICLE_ROUTE_CONFLICT']));for(let i=0;i<2;i++){assert.deepEqual(after.vehicles.vehicles[i].position,before.vehicles.vehicles[i].position);assert.equal(after.vehicles.vehicles[i].distanceM,before.vehicles.vehicles[i].distanceM);assert.equal(after.vehicles.vehicles[i].speedMps,0);}for(let i=0;i<after.actors.length;i++)assert.deepEqual(after.actors[i].position,before.actors[i].position);assert.deepEqual(after.resources,before.resources);assert.equal(contactOverlap(...state.vehicles.map(v=>vehicleContactShape(v))),null);}finally{h.dispose();}
+});
+
+test('nearby parallel cars retain their real clearance instead of reserving inflated future bodies',()=>{
+ const c=content({x:15,y:10,h:0});c.vehicles.push({id:'other',position:{x:17.1,y:10,h:0}});c.actors.push({...c.actors[0],id:'driver-b',position:transform(createVehicle(c.vehicles[1]),1.45,.35)});c.resources['driver-b']=structuredClone(c.resources.player);
+ // Board the right car before moving it into the narrow parallel lane. Both
+ // seated actors are then restored at the exact public driver-seat transform.
+ c.vehicles[1].position.x=25;c.actors[1].position=transform(createVehicle(c.vehicles[1]),-1.45,.35);
+ let h=movingPair(c),saved=h.checkpoint();h.dispose();saved.vehicles.vehicles[1].position.x=17.1;saved.actors.find(a=>a.id==='driver-b').position.x-=7.9;
+ h=createVehicleYard(c,{...profiles,checkpoint:saved});try{for(const actorId of ['player','driver-b'])assert.ok(h.connector.dispatch({version:1,type:'control',actorId,owner:actorId,expected:h.connector.readForActor(actorId).expected,held:true,throttle:1,steering:0}).ok);const before=h.connector.read().vehicles;h.advance(.05);const after=h.connector.read();assert.deepEqual(after.obstructions,[]);for(let i=0;i<2;i++)assert.ok(after.vehicles[i].position.y>before[i].position.y+.39);assert.equal(contactOverlap(...after.vehicles.map(v=>vehicleContactShape(v))),null);}finally{h.dispose();}
 });

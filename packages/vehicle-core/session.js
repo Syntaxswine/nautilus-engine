@@ -1,5 +1,5 @@
 import {bodyFor,createVehicle,stepVehicle,neutralControl,finite,VEHICLE_MOTION_PROFILE} from './motion.js';
-import {vehicleBounds,sweptVehicleBounds,vehicleContactShape,sweptVehicleShape,overlap,transform} from './queries.js';
+import {vehicleBounds,sweptVehicleBounds,vehicleContactShape,contactBounds,overlap,transform} from './queries.js';
 import {contactShape,contactOverlap} from '../traversal-core/index.js';
 import {keys,identifier,vehicleData} from './data.js';
 const clone=structuredClone,good=(committed=false)=>({version:1,ok:true,committed,code:null,reason:null}),bad=(code,reason)=>({version:1,ok:false,committed:false,code,reason});
@@ -87,14 +87,31 @@ export function createVehicleSession({id='road-yard',vehicles,actors,queries,can
    }),sweeps=proposals.map((v,i)=>sweptVehicleBounds(cars[i],v)),blocked=new Map();
      let next;lastContacts=[];
      if(collisionProfile==='oriented-slide-v1'){
-       const bodies=actors.list().filter(a=>!occupied(a.id)).map(a=>contactShape({id:a.id,points:[a.position],radiusM:a.radiusM,minH:a.position.h,maxH:a.position.h+a.heightM})),moving=cars.map((v,i)=>sweptVehicleShape(v,proposals[i]));
-       next=proposals.map((v,i)=>{
-         const obstacles=[...bodies,...moving.filter((_,j)=>j!==i)];let result=queries.resolve(cars[i],v,{obstacles});
+       const bodies=actors.list().filter(a=>!occupied(a.id)).map(a=>contactShape({id:a.id,points:[a.position],radiusM:a.radiusM,minH:a.position.h,maxH:a.position.h+a.heightM})),initial=cars.map(v=>vehicleContactShape(v));
+       const plans=proposals.map((v,i)=>{
+         // Every candidate first avoids all other initial bodies. If a later
+         // pair conflict cancels a route, the remaining routes are still safe
+         // against that now-stationary car.
+         const obstacles=[...bodies,...initial.filter((_,j)=>j!==i)];let result=queries.resolve(cars[i],v,{obstacles});
          // The held pedal retains its bounded longitudinal demand during contact;
          // repeatedly damping the confirmed speed would make progress depend on
          // frame rate. Demand is transient lease input, never saved momentum.
          // Once clear, integrate confirmed speed again to avoid an exit speed jump.
          if(result.ok&&!result.blocked&&usingDemand.has(i)){v=propose(cars[i],dt);result=queries.resolve(cars[i],v,{obstacles});}
+         let routes=[initial[i]];
+         if(result.ok){try{if(!Array.isArray(result.sweeps)||!result.sweeps.length||result.sweeps.length>70)throw Error('Supply at most 70 actual resolved swept segments.');routes=result.sweeps.map(s=>{if(s.id!==v.id)throw Error('A resolved route belongs to another vehicle.');return contactShape(s);});}catch(e){result=bad('VEHICLE_CONTACT_ROUTE_REQUIRED',e.message);}}
+         const bounds=routes.map(contactBounds),envelope={min:{x:Math.min(...bounds.map(b=>b.min.x)),y:Math.min(...bounds.map(b=>b.min.y)),h:Math.min(...bounds.map(b=>b.min.h))},max:{x:Math.max(...bounds.map(b=>b.max.x)),y:Math.max(...bounds.map(b=>b.max.y)),h:Math.max(...bounds.map(b=>b.max.h))}};
+         return {proposal:v,result,routes,bounds,envelope};
+       }),conflicts=new Map();
+       // Spatial route overlap is deliberately conservative about timing, but
+       // uses the resolved deflections rather than the abandoned nominal path.
+       // Both broad phases are cheap; convex tests only run for nearby segments.
+       for(let i=0;i<plans.length;i++)for(let j=0;j<i;j++){
+         const a=plans[i],b=plans[j];if(!overlap(a.envelope,b.envelope))continue;
+         if(a.routes.some((shape,si)=>b.routes.some((other,sj)=>overlap(a.bounds[si],b.bounds[sj])&&contactOverlap(shape,other)))){conflicts.set(i,j);conflicts.set(j,i);}
+       }
+       next=plans.map(({proposal:v,result},i)=>{
+         if(conflicts.has(i)){driveDemand.delete(v.id);blocked.set(i,bad('VEHICLE_ROUTE_CONFLICT','Resolved swept routes conflict with '+cars[conflicts.get(i)].id+'.'));return {...cars[i],speedMps:0,revision:cars[i].revision+(cars[i].speedMps!==0?1:0)};}
          if(!result.ok){driveDemand.delete(v.id);blocked.set(i,result);return {...cars[i],speedMps:0,revision:cars[i].revision+(cars[i].speedMps!==0?1:0)};}
          if(!result.blocked){driveDemand.delete(v.id);return v;}
          const wanted=Math.hypot(v.position.x-cars[i].position.x,v.position.y-cars[i].position.y),fraction=wanted>1e-10?Math.min(1,result.distanceM/wanted):0,ds=(v.distanceM-cars[i].distanceM)*fraction,body=bodyFor(v.body);
