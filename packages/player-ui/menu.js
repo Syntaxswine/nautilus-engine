@@ -1,0 +1,31 @@
+import {data} from './data.js';
+import {PLAYER_COMPONENTS,PLAYER_PRESETS} from './descriptors.js';
+import {presetConfiguration} from './configuration.js';
+
+export function createSetupMenu(doc,{read,apply,validate,close,connections,descriptors=PLAYER_COMPONENTS}) {
+  const dialog=doc.createElement('dialog');dialog.className='pui-setup';dialog.setAttribute('aria-label','Player setup');
+  const make=(tag,text)=>{const n=doc.createElement(tag);if(text)n.textContent=text;return n;};
+  const heading=make('h2','Make it yours'),intro=make('p','Choose, change, try. These settings use the same recipe exported for a game or agent.'),presets=make('div'),fields=make('div'),status=make('p');status.setAttribute('role','status');presets.className='pui-presets';
+  let draft=null,busy=false;
+  for(const p of PLAYER_PRESETS){const button=make('button',p.label);button.type='button';button.dataset.preset=p.id;button.onclick=()=>{if(busy)return;draft=presetConfiguration(draft,p.id);renderFields();};presets.append(button);}
+  function renderFields(){fields.replaceChildren();for(const descriptor of descriptors){const entry=draft.components.find(c=>c.id===descriptor.id),group=make('fieldset');group.append(make('legend',descriptor.label));
+    if(descriptor.id!=='player.shell'){const toggle=make('input'),label=make('label');toggle.type='checkbox';toggle.checked=!!entry;toggle.dataset.module=descriptor.id;label.append(make('span','Include '+descriptor.label),toggle);group.append(label);
+      if(!entry){const candidate=data(draft);candidate.components.push({id:descriptor.id,version:descriptor.version,settings:Object.fromEntries(descriptor.settings.map(s=>[s.id,s.default]))});const ready=validate(candidate);toggle.disabled=!ready.ok;if(!ready.ok)group.append(make('small',ready.errors.map(e=>e.message).join(' ')));}
+      toggle.onchange=()=>{if(busy)return;if(toggle.checked)draft.components.push({id:descriptor.id,version:descriptor.version,settings:Object.fromEntries(descriptor.settings.map(s=>[s.id,s.default]))});else {draft.components=draft.components.filter(c=>c.id!==descriptor.id);const needed=new Set(draft.components.flatMap(c=>descriptors.find(d=>d.id===c.id).ports.map(p=>p.id)));for(const id of Object.keys(draft.bindings))if(!needed.has(id))delete draft.bindings[id];}renderFields();};}
+    if(!entry){fields.append(group);continue;}for(const setting of descriptor.settings){const label=make('label'),text=make('span',setting.label),input=make(setting.type==='enum'?'select':'input');input.dataset.component=entry.id;input.dataset.setting=setting.id;
+      if(setting.type==='enum')for(const value of setting.values){const option=make('option',value);option.value=value;input.append(option);}
+      else if(setting.type==='boolean')input.type='checkbox';else {input.type='range';input.min=setting.min;input.max=setting.max;input.step=setting.step;}
+      if(setting.type==='boolean')input.checked=entry.settings[setting.id];else input.value=entry.settings[setting.id];
+      const output=make('small',String(entry.settings[setting.id])+' · '+(setting.change==='pause'?'changes while paused':'live setting'));
+      input.oninput=()=>{entry.settings[setting.id]=setting.type==='boolean'?input.checked:setting.type==='number'?Number(input.value):input.value;output.textContent=String(entry.settings[setting.id])+' · '+(setting.change==='pause'?'changes while paused':'live setting');};
+      label.append(text,input,output);group.append(label);}
+      if(!descriptor.settings.length)group.append(make('p','Connected through its retained provider.'));fields.append(group);}}
+  const inspector=make('details'),inspection=make('pre');inspector.append(make('summary','Connections for builders'),inspection);
+  const transfer=make('details'),json=make('textarea'),importButton=make('button','Load recipe into menu'),exportButton=make('button','Export accepted recipe');json.setAttribute('aria-label','Player UI recipe JSON');json.spellcheck=false;importButton.type=exportButton.type='button';
+  importButton.onclick=()=>{if(busy)return;try{const ready=validate(JSON.parse(json.value));if(!ready.ok)throw Error(ready.errors.map(e=>e.message).join(' '));draft=ready.configuration;renderFields();status.textContent='Recipe loaded for review. Apply validates connections before activation.';}catch(error){status.textContent='Recipe not loaded: '+error.message;}};
+  exportButton.onclick=()=>{json.value=JSON.stringify(read(),null,2);json.focus();json.select();};transfer.append(make('summary','Save or load recipe'),json,importButton,exportButton);
+  const actions=make('div'),cancel=make('button','Return'),accept=make('button','Apply & try');actions.className='pui-menu-actions';cancel.type=accept.type='button';cancel.onclick=()=>{if(!busy)close();};accept.onclick=async()=>{if(busy)return;busy=true;accept.disabled=cancel.disabled=true;status.textContent='Preparing selected parts…';try{const result=await apply(draft);status.textContent=result.ok?'Applied.':result.reason;if(result.ok)close();}catch(error){status.textContent=error.message;}finally{busy=false;accept.disabled=cancel.disabled=false;}};
+  actions.append(cancel,accept);dialog.append(heading,intro,presets,fields,status,inspector,transfer,actions);
+  dialog.addEventListener('cancel',event=>{event.preventDefault();if(!busy)close();});
+  return {element:dialog,show(){draft=read();status.textContent='';renderFields();inspection.textContent=JSON.stringify(connections(),null,2);dialog.showModal();cancel.focus();},hide(){if(dialog.open)dialog.close();},dispose(){if(dialog.open)dialog.close();dialog.remove();}};
+}

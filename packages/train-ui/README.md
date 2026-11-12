@@ -1,5 +1,17 @@
 # Train controls
 
+The [Stage 1 shared-player candidate](../player-ui/README.md) adds an opt-in
+`actionPresentation: 'external'` hook. It removes internal actionable Enter/Exit
+nodes and disables the widget's E shortcut. The composing presenter uses
+`readActionView()` / `requestAction(id, offer, nativeEvent?)` and
+`readControlView()` / `requestControl(intent, offer, nativeEvent?)`.
+Opaque offers retain the displayed Expected/tuple or actual mount/cab/lease;
+stale offers refuse instead of refreshing into another command. Core still
+validates every command. Native audio activation requires a branded trusted event
+during delivery; agent data and retained events cannot forge it. Internal
+presentation remains the standalone default. This hook's focused evidence lives
+with the shared-player candidate; the historical reverse review below is unchanged.
+
 Classic and compact steam controls are integrated in fixed engine base
 `db656a6d717ad36aabe32955b47a09b8badb116e`. This bounded revision adds automatic
 brake-before-opposite-direction assistance to **compact-notched**, adapted from Tinderbox commit
