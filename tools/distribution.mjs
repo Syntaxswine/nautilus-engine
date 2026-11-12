@@ -75,6 +75,11 @@ function npm(args, cwd) {
   if (!npmCli) throw Error('Run through npm, or use a Node installation containing npm, to create the offline distribution.');
   return execFileSync(process.execPath, [npmCli, ...args], {cwd, encoding:'utf8', windowsHide:true, maxBuffer:8*1024*1024});
 }
+export function packageProvenance(profile,records,{version=sourcePackage().version}={}) {
+  const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+  const source={kind:'git-worktree',commit:git(['rev-parse','HEAD']),tree:git(['rev-parse','HEAD^{tree}']),dirty:!!git(['status','--porcelain']),payloadSHA256:createHash('sha256').update(JSON.stringify(records)).digest('hex')};
+  return {schemaVersion:1,profile,version,source,files:records};
+}
 export function packProfile(profile) {
   const {exports, files, name} = distribution(profile), source = sourcePackage(), output = path.join(root, 'artifacts/distribution');
   const stage = path.join(output, 'stage-' + profile); fs.mkdirSync(stage, {recursive:true});
@@ -83,9 +88,7 @@ export function packProfile(profile) {
     files:npmFilePatterns([...files, 'package-provenance.json'])};
   fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
   const records=files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}));
-  const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
-  const engineSource={kind:'git-worktree',commit:git(['rev-parse','HEAD']),tree:git(['rev-parse','HEAD^{tree}']),dirty:!!git(['status','--porcelain']),payloadSHA256:createHash('sha256').update(JSON.stringify(records)).digest('hex')};
-  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify({schemaVersion:1, profile, version:source.version,source:engineSource,files:records}, null, 2));
+  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify(packageProvenance(profile,records,{version:source.version}), null, 2));
   const packed = JSON.parse(npm(['pack', '--ignore-scripts', '--json', '--pack-destination', output], stage))[0];
   const result = {profile, name, version:source.version, file:path.join(output,packed.filename), compressedBytes:packed.size, unpackedBytes:packed.unpackedSize, fileCount:packed.entryCount, integrity:packed.integrity};
   fs.writeFileSync(path.join(output, profile + '-report.json'), JSON.stringify(result, null, 2)); return result;

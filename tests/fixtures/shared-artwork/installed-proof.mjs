@@ -15,9 +15,12 @@ const previousFetch=globalThis.fetch;let fetchCalls=0;globalThis.fetch=()=>{fetc
 let Assets;try{Assets=await import(expected.specifier);}finally{globalThis.fetch=previousFetch;}assert.equal(fetchCalls,0);assert.equal(typeof globalThis.window,'undefined');assert.equal(typeof globalThis.document,'undefined');
 const records=Assets.listSharedArtwork();assert.equal(token(records),fixture.canonicalRecordsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkDefaults(p))),fixture.defaultGraphicsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkImage(p))),fixture.imageDeliveryDigest);
 const all=Assets.listSharedAssets(),railway=Assets.listSharedAssets({category:'Railway'}),reviewed=fixture.railway;
-assert.equal(all.length,reviewed.precedingRows+reviewed.ids.length);
+const railwayEnd=reviewed.precedingRows+reviewed.ids.length,vehicles=all.slice(railwayEnd);
+assert.equal(all.length,railwayEnd+24);
 assert.equal(token(all.slice(0,reviewed.precedingRows)),reviewed.precedingRowsDigest,'Complete catalogue before Railway');
-assert.deepEqual(all.slice(reviewed.precedingRows),railway,'Railway adds only its reviewed rows at the end');
+assert.deepEqual(all.slice(reviewed.precedingRows,railwayEnd),railway,'Railway retains only its reviewed rows after the preceding catalogue');
+assert.equal(vehicles.length,24);assert.equal(token(vehicles),'a07ef3419bf0533f7fc0c925c210653bb1a0d21862825526bacc4fcbbdda7658','Exactly the approved eight road bodies and three finishes');
+assert.ok(vehicles.every(row=>row.id.startsWith('vehicle:')&&row.source.commit==='5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee'));
 assert.deepEqual(railway.map(row=>row.id),reviewed.ids);
 assert.equal(token(railway),reviewed.rowsDigest,'Reviewed Railway rows');
 assert.equal(token(all.slice(0,407)),fixture.originalAssetRowsDigest);assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),fixture.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);

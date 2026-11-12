@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
 import fs from 'node:fs';
 export const VEHICLE_REGISTRATION='docs/reviews/road-driving/registration.json';
-const manifestSHA='63cfdffd8009e5ee70ffe05d7b83b042210004c81a23f9d2b67c4a0f6f69df7f',sha=b=>createHash('sha256').update(b).digest('hex');
+const manifestSHA='e5e6f6b8de3bf4f55a6bc04ddf79a6c75220de3cb76051d5f308864672a18cde',sha=b=>createHash('sha256').update(b).digest('hex');
 export function authenticatedVehicleImages(profile,{read,indexed=()=>{}}){if(!['renderer','compatibility'].includes(profile))return [];const raw=read(VEHICLE_REGISTRATION);assert.equal(sha(raw),manifestSHA,'Vehicle registration metadata changed.');const m=JSON.parse(raw),rows=m.files.filter(r=>r.path.endsWith('.png')&&(r.path.startsWith('packages/vehicle-visuals/skins/game/')||r.path.startsWith('vendor/nautilus-road-vehicles/'+m.art+'/packages/vehicle-visuals/skins/')));assert.equal(rows.length,18,'Authenticate exactly nine full and nine derived skins.');for(const r of rows){const bytes=read(r.path);assert.equal(bytes.length,r.bytes);assert.equal(sha(bytes),r.sha256,'Unreviewed vehicle skin: '+r.path);indexed(r.path,bytes);}return rows.map(r=>r.path);}
 export function historicalVehicleBytes(object,file,current){
  const base='579706bf415a9664e4541db9ec6b5fe6adb334d7';
