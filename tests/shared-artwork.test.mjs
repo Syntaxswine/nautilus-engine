@@ -7,7 +7,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),expec
 
 test('generated palette appends30 rows without changing any of the407 existing asset records',()=>{
  checkSharedAssets();assert.equal(sharedAssetCatalogueSource(),fs.readFileSync(path.join(root,'packages/assets/catalogue.js'),'utf8'));
- const all=Assets.listSharedAssets();assert.equal(all.length,439);assert.equal(token(all.slice(0,407)),expected.originalAssetRowsDigest);assert.equal(new Set(all.map(r=>r.id)).size,all.length);
+ const all=Assets.listSharedAssets();assert.equal(all.length,439+24);assert.equal(all.slice(439).filter(r=>r.source.commit==='5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee'&&r.id.startsWith('vehicle:')).length,24);assert.equal(token(all.slice(0,407)),expected.originalAssetRowsDigest);assert.equal(new Set(all.map(r=>r.id)).size,all.length);
  assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),expected.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);assert.equal(listBuildingAssets().length,48);
 });
 test('all canonical record bodies, original defaults, ResourceRefs and image/frame/locator metadata stay exact',()=>{

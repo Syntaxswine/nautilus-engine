@@ -4,9 +4,9 @@ import {data,exact,issue,frozen} from './data.js';
 
 export const UI_MODULE='player-ui.shell',VIEW_SERVICE='nautilus.player-ui-view';
 export const PLAYER_ENGINE_BASE=frozen({package:'@nautilus-engine/map-core',version:'0.10.0',sourcePin:'7f50cb2a48aef87a16fc0465997549be9ed88dc2'});
-export function createPlayerConfiguration({content,actorId='player',camera=false,title=false}={}) {
+export function createPlayerConfiguration({content,actorId='player',camera=false,title=false,vehicles=false}={}) {
   return {kind:'nautilus-player-ui-configuration',version:1,engine:data(PLAYER_ENGINE_BASE),content:data(content),actorId,
-    components:PLAYER_COMPONENTS.filter(d=>!['player.camera','player.title'].includes(d.id)||d.id==='player.camera'&&camera||d.id==='player.title'&&title).map(d=>({id:d.id,version:d.version,settings:Object.fromEntries(d.settings.map(s=>[s.id,s.default]))})),bindings:{}};
+    components:PLAYER_COMPONENTS.filter(d=>!['player.camera','player.title','player.vehicles'].includes(d.id)||d.id==='player.camera'&&camera||d.id==='player.title'&&title||d.id==='player.vehicles'&&vehicles).map(d=>({id:d.id,version:d.version,settings:Object.fromEntries(d.settings.map(s=>[s.id,s.default]))})),bindings:{}};
 }
 export function validatePlayerConfiguration(input,{providers=[],descriptors=PLAYER_COMPONENTS}={}) {
   const errors=[];let config;

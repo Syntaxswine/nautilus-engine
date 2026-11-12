@@ -3,6 +3,7 @@ import type {ConfirmedActorPose,NativePoseCheckpoint} from '../native-actors/ind
 import type {NativeActorRoot,SharedNativeRenderer} from '../native-actors/three.js';
 import type {PlayerUI,PlayerIntent,CameraProvider,HudBounds} from '../player-ui/index.js';
 import type {TrainConnector} from '../train-core/index.js';
+import type {VehicleYard} from '../vehicle-core/index.js';
 export {createSetupConfiguration,bindSetupProvider,flatYardContent,validatePlayerSetup} from './index.js';
 export interface FramePhase {phase:'before'|'after';seconds:number;blocked:boolean}
 export interface RetainedFrameSource {subscribe(fn:(event:FramePhase)=>void):()=>void;beforeStep(seconds:number,blocked?:boolean):void;afterStep(seconds:number,blocked?:boolean):void}
@@ -14,6 +15,8 @@ export interface RetainedTrainHost {connector:TrainConnector;walk(x:number,y:num
 export function createRetainedFrameSource():RetainedFrameSource;
 /** Borrows existing authority, time, rendering and saves. It does not own a host disposer. */
 export function retainTrainYard(options:{host:RetainedTrainHost;content:ContentIdentity;surface:SetupSurface;clock:Pick<RetainedFrameSource,'subscribe'>;setUIPaused(blocked:boolean):void;camera?:CameraProvider;onHudBounds?:(bounds:HudBounds)=>void;id?:string}):SetupProvider;
+/** Borrows one car authority/world, host frame source and renderer. */
+export function retainVehicleYard(options:{host:VehicleYard;content:ContentIdentity;surface:SetupSurface;clock:Pick<RetainedFrameSource,'subscribe'>;setUIPaused(blocked:boolean):void;camera?:CameraProvider;onHudBounds?:(bounds:HudBounds)=>void;id?:string}):SetupProvider;
 export interface SetupCheckpoint {kind:'nautilus-player-setup-checkpoint';version:1;configuration:SetupConfiguration;ownedWorld:OwnedWorldCheckpoint|null;native:NativePoseCheckpoint;clock:{elapsedSeconds:number;blocked:boolean}|null}
 export type SetupIntent=Exclude<PlayerIntent,{type:'configuration'}>|{version:1;type:'configuration';configuration:SetupConfiguration};
 export interface PlayerSetup {

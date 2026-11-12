@@ -1,4 +1,5 @@
 import {createTrainPlayerProvider} from '../player-ui/index.js';
+import {createVehiclePlayerProvider} from '../player-ui/vehicle-provider.js';
 import {SETUP_PORTS,output} from './configuration.js';
 import {plain} from '../native-actors/data.js';
 export {createRetainedFrameSource} from './clock.js';
@@ -16,4 +17,12 @@ export function retainTrainYard({host,content,surface,clock,setUIPaused,camera,o
   const ports=provider.descriptor.ports.filter(p=>!['nautilus.hud-bounds','nautilus.camera-settings'].includes(p.id));
   if(camera){ports.push(...provider.descriptor.ports.filter(p=>['nautilus.hud-bounds','nautilus.camera-settings'].includes(p.id)));}
   return Object.freeze({descriptor:{id,version:1,ports:[...ports,output(SETUP_PORTS.surface),output(SETUP_PORTS.clock),output(SETUP_PORTS.pose)]},services});
+}
+
+export function retainVehicleYard({host,content,surface,clock,setUIPaused,camera,onHudBounds,id='retained.vehicle-yard'}={}){
+  if(!surface?.renderer||!surface?.scene||!surface?.camera||!surface?.canvas||typeof clock?.subscribe!=='function')throw Error('RETAINED_SERVICES: bind the shared surface and phased host clock.');
+  if(camera&&typeof onHudBounds!=='function')throw Error('RETAINED_HUD_BOUNDS: bind camera framing together.');
+  const provider=createVehiclePlayerProvider({host,content,inputElement:surface.canvas,setUIPaused,onHudBounds:onHudBounds||(()=>{}),...(camera?{camera}:{}),id});
+  const ports=provider.descriptor.ports.filter(p=>camera||!['nautilus.hud-bounds','nautilus.camera-settings'].includes(p.id));
+  return Object.freeze({descriptor:{id,version:1,ports:[...ports,output(SETUP_PORTS.world),output(SETUP_PORTS.surface),output(SETUP_PORTS.clock),output(SETUP_PORTS.pose)]},services:{...provider.services,[SETUP_PORTS.world.id]:host,[SETUP_PORTS.surface.id]:surface,[SETUP_PORTS.clock.id]:clock,[SETUP_PORTS.pose.id]:{read:id=>host.readPose(id)}}});
 }

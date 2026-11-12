@@ -21,8 +21,8 @@ export const SETUP_COMPONENTS=immutable([...plain(PLAYER_COMPONENTS),
   {id:'setup.actor',version:1,label:'Native actor',ports:[SETUP_PORTS.pose,SETUP_PORTS.surface],settings:[
     {id:'model',label:'Native model',type:'enum',values:listNativeActors().map(a=>a.id),default:'goat',change:'pause'},
     {id:'motion',label:'Confirmed movement animation',type:'enum',values:['native-gait','neutral-only'],default:'native-gait',change:'pause'}],guide:'packages/native-actors/README.md',usageCard:'packages/native-actors/usage-card.json'}]);
-export function createSetupConfiguration({content,actorId='player',model='goat',trains=false,title=false}={}){
-  const config=createPlayerConfiguration({content,actorId,camera:true,title});if(!trains)config.components=config.components.filter(c=>c.id!=='player.trains');
+export function createSetupConfiguration({content,actorId='player',model='goat',trains=false,title=false,vehicles=false}={}){
+  const config=createPlayerConfiguration({content,actorId,camera:true,title,vehicles});if(!trains)config.components=config.components.filter(c=>c.id!=='player.trains');
   config.kind='nautilus-player-setup';config.components.push(...SETUP_COMPONENTS.filter(c=>c.id.startsWith('setup.')).map(c=>({id:c.id,version:1,settings:Object.fromEntries(c.settings.map(s=>[s.id,s.id==='model'?model:s.default]))})));return config;
 }
 export const settings=(config,name)=>config.components.find(c=>c.id===name)?.settings;

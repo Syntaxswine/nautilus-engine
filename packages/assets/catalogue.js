@@ -7191,5 +7191,845 @@ export const SHARED_ASSETS = [
     "factory": "createRailwayKit",
     "guide": "docs/railway-track-kit.md",
     "note": "Rounded gravel bed, timber ties and steel rails. The host owns train routes, collision and map placement."
+  },
+  {
+    "id": "vehicle:hatchback-sage",
+    "name": "Compact hatchback · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 3.7,
+      "height": 1.46,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      4
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-hatchback-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "hatchback"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:hatchback-oxide",
+    "name": "Compact hatchback · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 3.7,
+      "height": 1.46,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      4
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-hatchback-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "hatchback"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:hatchback-teal",
+    "name": "Compact hatchback · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 3.7,
+      "height": 1.46,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      4
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-hatchback-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "hatchback"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:sedan-sage",
+    "name": "Family sedan · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.54,
+      "height": 1.44,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-sedan-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "sedan"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:sedan-oxide",
+    "name": "Family sedan · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.54,
+      "height": 1.44,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-sedan-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "sedan"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:sedan-teal",
+    "name": "Family sedan · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.54,
+      "height": 1.44,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-sedan-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "sedan"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:pickup-sage",
+    "name": "Regular cab pickup · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.84,
+      "height": 1.77,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-pickup-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:pickup-oxide",
+    "name": "Regular cab pickup · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.84,
+      "height": 1.77,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-pickup-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:pickup-teal",
+    "name": "Regular cab pickup · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.84,
+      "height": 1.77,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-pickup-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crew-pickup-sage",
+    "name": "Crew cab pickup · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 5.54,
+      "height": 1.84,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      6
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crew-pickup-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crew-pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crew-pickup-oxide",
+    "name": "Crew cab pickup · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 5.54,
+      "height": 1.84,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      6
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crew-pickup-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crew-pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crew-pickup-teal",
+    "name": "Crew cab pickup · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 5.54,
+      "height": 1.84,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      6
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crew-pickup-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crew-pickup"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:cargo-van-sage",
+    "name": "Panel cargo van · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.8,
+      "height": 2.1,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-cargo-van-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "cargo-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:cargo-van-oxide",
+    "name": "Panel cargo van · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.8,
+      "height": 2.1,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-cargo-van-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "cargo-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:cargo-van-teal",
+    "name": "Panel cargo van · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.8,
+      "height": 2.1,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-cargo-van-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "cargo-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:passenger-van-sage",
+    "name": "Passenger van · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.64,
+      "height": 1.94,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-passenger-van-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "passenger-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:passenger-van-oxide",
+    "name": "Passenger van · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.64,
+      "height": 1.94,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-passenger-van-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "passenger-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:passenger-van-teal",
+    "name": "Passenger van · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.64,
+      "height": 1.94,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-passenger-van-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "passenger-van"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:utility-suv-sage",
+    "name": "Boxy utility SUV · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.42,
+      "height": 1.92,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-utility-suv-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "utility-suv"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:utility-suv-oxide",
+    "name": "Boxy utility SUV · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.42,
+      "height": 1.92,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-utility-suv-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "utility-suv"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:utility-suv-teal",
+    "name": "Boxy utility SUV · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.42,
+      "height": 1.92,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-utility-suv-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "utility-suv"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crossover-sage",
+    "name": "Compact crossover · sage",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.44,
+      "height": 1.69,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crossover-sage",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crossover"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crossover-oxide",
+    "name": "Compact crossover · oxide red",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.44,
+      "height": 1.69,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crossover-oxide",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crossover"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
+  },
+  {
+    "id": "vehicle:crossover-teal",
+    "name": "Compact crossover · petrol blue",
+    "category": "Vehicles",
+    "dimensions": {
+      "width": 1.97,
+      "depth": 4.44,
+      "height": 1.69,
+      "metresPerUnit": 1
+    },
+    "tiles": [
+      2,
+      5
+    ],
+    "source": {
+      "project": "nautilus",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "profile": "painted-road-vehicles",
+      "version": 1
+    },
+    "availability": "shared-road-vehicle-renderer",
+    "entry": "./assets/three",
+    "factory": "createRoadVehicleKit",
+    "modelId": "vehicle-crossover-teal",
+    "guide": "docs/road-vehicles.md",
+    "usageCard": "packages/vehicle-core/usage-card.json",
+    "logicEntry": "./vehicles",
+    "factoryOptions": {
+      "bodies": [
+        "crossover"
+      ],
+      "purpose": "authoring"
+    },
+    "note": "Parked vehicle with a whole-metre placement reservation. The host owns driving and interactions."
   }
 ];

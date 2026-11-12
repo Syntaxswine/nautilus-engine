@@ -2,6 +2,7 @@
 // checks. Known current bytes are authenticated before exposing old preimages.
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';
 import {npmFilePatterns} from './npm-files.mjs';
+import {checkVehicleRegistration,historicalVehicleBytes} from './vehicle-registration.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),sha=b=>createHash('sha256').update(b).digest('hex');
 export const PLAYER_SETUP_BASE='3165bd2741884f67030f034f056b6fa6abd6e9e7';
 export const PLAYER_SETUP_REVIEW='62f2fe90210b10985f80d75d9e4425f424a51c6b';
@@ -64,11 +65,12 @@ export function playerSetupRootBytes(file,before,{baseProfiles}={}){
 // The full checker below still authenticates all actual runtime/profile/index
 // bytes; callers keep indexing their actual bytes, never these preimages.
 export function historicalPlayerRegistrationBytes(object,file,current){
+  current=historicalVehicleBytes(object,file,current);
   if(!['upstream.json','tools/build.mjs',c1Collector.path].includes(file))return current;
   const before=object(PLAYER_SETUP_BASE,file);if(current.equals(before))return current;
   assert.ok(current.equals(playerSetupRootBytes(file,before)),'Unreviewed player registration root bytes: '+file);return before;
 }
-export function checkPlayerSetupRegistration(ports){
+function checkHistoricalPlayerSetupRegistration(ports){
   const {object,read,indexed=()=>{},distribution}=ports,preimageBytes=read(preimagesFile);assert.equal(sha(preimageBytes),preimagesSha,'Player registration preimages changed.');const baseline=JSON.parse(preimageBytes);assert.equal(baseline.base,PLAYER_SETUP_BASE);indexed(preimagesFile,preimageBytes);
   const setup=JSON.parse(object(PLAYER_SETUP_REVIEW,'packages/player-setup/source.json')),native=JSON.parse(object(PLAYER_SETUP_REVIEW,'packages/native-actors/source.json'));
   for(const row of [...setup.runtime,...setup.resources,...setup.publicTypes,...native.publicTypes]){const b=read(row.path);assert.equal(b.length,row.bytes,'Reviewed player bytes changed: '+row.path);assert.equal(sha(b),row.sha256,'Reviewed player bytes changed: '+row.path);indexed(row.path,b);}
@@ -82,3 +84,5 @@ export function checkPlayerSetupRegistration(ports){
   for(const profile of ['core','renderer','assets','compatibility']){const current=distribution(profile),before=baseline.profiles[profile];assert.deepEqual(current.exports,{...before.exports,...playerSetupExports(profile)},'Unreviewed player profile exports: '+profile);assert.equal(current.name,before.name);assert.deepEqual(current.files,[...new Set([...before.files,...profileAdditions(profile,setup,native)])].sort(),'Unreviewed player profile files: '+profile);}
   return {historicalPorts:{...ports,read:file=>Object.hasOwn(preimages,file)?preimages[file]:read(file),indexed(file,bytes){if(Object.hasOwn(preimages,file)){assert.ok(bytes.equals(preimages[file]),'Player historical assertion must use the exact named preimage: '+file);indexed(file,actual[file]);}else indexed(file,bytes);},distribution:(profile='compatibility')=>baseline.profiles[profile]},report:{status:'authenticated-player-setup-registration',base:PLAYER_SETUP_BASE,reviewedRuntime:PLAYER_SETUP_REVIEW,compatibilityBaseline:PLAYER_COMPATIBILITY_BASE,requiredGitCommits:[PLAYER_SETUP_BASE,PLAYER_SETUP_REVIEW,PLAYER_UI_REVIEW],historicalRootFiles:Object.keys(preimages),runtimeFiles:setup.runtime.length,resourceFiles:setup.resources.length,actualBytesPassedToIndexedPort:true,indexEnforcement:'Caller-owned; tracked guards verify actual current Git index bytes.',releaseStamped:false}};
 }
+
+export function checkPlayerSetupRegistration(ports){const vehicle=checkVehicleRegistration(ports),historical=checkHistoricalPlayerSetupRegistration(vehicle.historicalPorts);return {...historical,report:{...historical.report,vehicles:vehicle.report}};}
