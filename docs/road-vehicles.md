@@ -38,17 +38,29 @@ Original procedural sculpts live in `packages/vehicle-visuals/sculpt.js`. Finish
 | --- | ---: | ---: |
 | Hatchback | 55,680 | 11,198 |
 | Sedan | 55,680 | 11,198 |
-| Regular pickup | 63,104 | 11,197 |
+| Regular pickup | 68,336 | 11,199 |
 | Crew pickup | 63,104 | 11,197 |
-| Cargo van | 55,680 | 11,198 |
+| Cargo van | 60,288 | 11,198 |
 | Passenger van | 55,680 | 11,198 |
-| Utility SUV | 62,592 | 11,197 |
+| Utility SUV | 67,200 | 11,197 |
 | Crossover | 62,592 | 11,198 |
 
-Windows are **painted into the image skin on the continuous body surface**. There are no window overlay polygons or projecting seam/handle/lamp boxes. Door seams, handles, grille, lamps, bumpers, window gaskets, reflections, bed corrugation and wheel fasteners are skin details. Geometry supplies the silhouette and the open bed. The two-sided side layout is symmetric; these are opaque painted windows, without interiors or glass simulation.
+Windows are **painted into the image skin on the continuous body surface**. There are no window overlay polygons or projecting seam/handle/lamp boxes. Door seams, handles, grille, lamps, bumper finishes, window gaskets, reflections, bed corrugation and wheel fasteners are skin details. Geometry supplies the silhouette, open bed and substantial rounded bumpers. The two-sided side layout is symmetric; these are opaque painted windows, without interiors or glass simulation.
 
 `tools/vehicle-art/paint-master.png` is original imagegen brushwork using the existing pinned AFT paint sheet as a style reference. Its exact prompt is in `prompt.json`. `node tools/vehicle-art/skins.mjs` fits the brushwork and authored detail shapes to each model's registered side/top/front/rear UV layout. It requires Sharp, either installed locally or available through `CODEX_NODE_MODULES`. Skin RGB stores painted colour; alpha stores the body-finish mask. The standard material's colour sample uses this mask to tint enamel while leaving glass/trim colours intact. The PNG alpha is not rendered as transparency. `running-gear.png` is shared by every vehicle. Run `node tools/vehicle-art/record.mjs` after baking/painting to refresh the explicit source/asset hashes. Unmodified simplifier source, embedded WASM, README and MIT notice are preserved under the full commit in `vendor/meshoptimizer/` and are used only by authoring/tests.
 
 The body styles are fictional, with proportions selected for readable silhouettes on the metre grid. The preferred revision for these parked tactical assets uses smooth silhouette geometry and painted detail: it improves curved panel/window alignment and matches the existing truck's painterly treatment (subjective visual judgment). The earlier roughly 10,600 → 4,900 approach had lower mesh cost but did not meet the requested sculpt workflow or close-up paint standard. The new triangle counts above are measured. A full set uses eight shared 2048² body skins and one 1024² running-gear skin; RGBA textures with full mipmaps would use about 176 MiB if all are uploaded (code-based estimate). Finishes share these maps. No frame-rate improvement is claimed. The high-detail sculpt remains available for art inspection; the reduced mesh is the gameplay default. No donor or consumer pin changes.
 
 The built Workshop selects two separately named scenery modules through its import map. Its raw pinned scenery catalogue and scene remain byte-preserved for isolated tools. `tools/road-vehicle-registration.mjs` replays the explicit vehicle additions after the authenticated artwork and railway changes.
+
+## Approved design study 01
+
+The regular-cab pickup, panel cargo van and utility SUV follow the user-approved sheet at `docs/art/road-vehicles/design-study-01.png`. Their art revision is **study-01**. The preceding art is preserved at commit `5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee`. Prop IDs, metre dimensions, reservations and saved maps retain their existing contracts. Each body still has sage, oxide and teal finishes; the sheet's principal choices are pickup/sage, cargo-van/oxide and utility-suv/teal. The other five body designs retain their earlier geometry and skins.
+
+The revised bodies use flatter windscreen planes with small fillets, fuller fender crowns, more upright rear profiles, dark wheel-well liners, a closed pickup cab back, and rounded projecting bumpers. The pickup has an open bed and one passenger door per side; the van has closed cargo panels and rear doors; the SUV has two passenger doors per side, a rear quarter window and one rear hatch window. Door hardware is painted and the doors remain fixed.
+
+Each selected body has its own imagegen-painted UV skin based on the approved drawing. The painting follows the registered side, top, front and rear coordinates: quiet enamel panels, narrow highlights, cloud reflections, worn rims, small rust chips, door tracks, grille and lamp detail. Original 1254² paintings, 2048² registration templates, tint masks, exact prompts and the review viewer are retained in `tools/vehicle-art/study-01/`. Runtime packing resizes the paintings to 2048² and adds the finish mask. Warm rust and blue glass retain their own pigments; the finish tint compensates for the warm primer so petrol blue stays blue-green. Source paintings are required; the packer refuses to silently substitute a flat guide.
+
+To prepare a revised paint registration, run `node tools/vehicle-art/skins.mjs --study-01 --registration-only`. Edit that exact template with the built-in imagegen tool and the approved sheet as reference, save the resulting `BODY-painted.png`, then run `node tools/vehicle-art/skins.mjs --study-01`, `node tools/vehicle-art/bake.mjs` and `node tools/vehicle-art/record.mjs`. The runtime image guard pins the exact visually reviewed skin hashes separately from the authoring ledger.
+
+`node tools/review-vehicle-study.mjs` captures front, side, rear, top and underside views, the three-car lineup, a metre grid and the native daylight treatment. It also checks all three finishes on each body with rendered pixels: enamel changes colour while glass stays consistent. Its timing report names the actual renderer and measures complete local render calls. The submission counters describe the main view; additional shadow submissions were not separately accumulated. This is a controlled local review rather than a target-device frame-rate claim. `--installed` runs the same studio captures against an extracted renderer package with its own Three, public asset facade, meshes and image URLs. Review helpers close automatically after capture.

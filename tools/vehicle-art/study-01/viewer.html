@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,"><title>Vehicle design study 01 — 3D review</title>
+<style>html,body{margin:0;overflow:hidden;background:#dad8cd}canvas{display:block;width:100vw;height:100vh}</style><canvas id="view"></canvas>
+<script type="module">
+const installed=new URLSearchParams(location.search).has('installed');
+const base=installed?'/artifacts/vehicle-installed-proof/node_modules/@nautilus-engine/renderer':'';
+const T=await import(base+'/packages/render-effects/three.js');
+const {createRoadVehicleKit}=await import(base+'/packages/assets/three.js');
+const {VEHICLE_BODIES}=await import(base+'/packages/vehicle-visuals/catalogue.js');
+const {sideWidth,vehicleProfile}=await import(base+'/packages/vehicle-visuals/sculpt.js');
+const {DaylightRig}=installed?{}:await import('/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/daylight-rig.js');
+const renderer=new T.WebGLRenderer({canvas:document.getElementById('view'),antialias:true});
+renderer.setSize(1600,1000);renderer.outputColorSpace=T.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+const scene=new T.Scene(),camera=new T.OrthographicCamera(),studio=new T.Group();scene.add(studio);
+const ambient=new T.HemisphereLight(0xe9f0ef,0xb7af91,2.1),key=new T.DirectionalLight(0xfff4dc,2.7);key.position.set(4,8,7);key.castShadow=true;
+key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-12,right:12,top:12,bottom:-12,near:.1,far:35});key.shadow.bias=-.0002;studio.add(ambient,key);
+const plane=new T.Mesh(new T.PlaneGeometry(42,30),new T.MeshStandardMaterial({color:0xcac8b9,roughness:1}));plane.rotation.x=-Math.PI/2;plane.position.y=-.012;plane.receiveShadow=true;scene.add(plane);
+const grid=new T.GridHelper(40,40,0x8e9587,0xb5b8a8);grid.position.y=-.008;scene.add(grid);
+const kit=createRoadVehicleKit(T);await kit.ready;
+const ids=['pickup','cargo-van','utility-suv'],finishes=['sage','oxide','teal'],models=[];
+for(let i=0;i<ids.length;i++){const model=kit.create('vehicle-'+ids[i]+'-'+finishes[i]);model.root.position.x=(i-1)*4.7;scene.add(model.root);models.push(model);}
+let daylight;
+function draw({id='all',pose='front',lighting='studio',showGrid=false}={}){
+ let x=0;for(let i=0;i<models.length;i++){const root=models[i].root;root.visible=id==='all'||ids[i]===id;if(root.visible&&id!=='all')x=root.position.x;}
+ const target=new T.Vector3(x,.83,0);let span=id==='all'?10:pose==='side'?3.3:3.8;
+ const direction=id==='all'?[10,7,15]:pose==='side'?[8,0,0]:pose==='rear'?[4.8,2.6,-6.8]:pose==='top'?[.01,10,0]:pose==='under'?[5,-3,6]:[4.8,2.6,6.8];
+ camera.up.set(0,1,0);if(pose==='top')camera.up.set(0,0,-1);
+ camera.position.copy(target).add(new T.Vector3(...direction));camera.lookAt(target);
+ camera.left=-span*1.6/2;camera.right=span*1.6/2;camera.top=span/2;camera.bottom=-span/2;camera.near=.1;camera.far=80;camera.updateProjectionMatrix();
+ grid.visible=showGrid;plane.visible=pose!=='under';studio.visible=lighting==='studio';
+ if(lighting==='game'){
+  if(!daylight)daylight=new DaylightRig(scene,renderer);daylight.update(670,camera,0,true);
+ }else{
+  if(daylight){daylight.dispose();daylight=null;}
+  scene.background=new T.Color(0xdad8cd);renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
+ }
+ renderer.render(scene,camera);return {drawCalls:renderer.info.render.calls,submittedTriangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};
+}
+function checkPaint(){
+ const gl=renderer.getContext(),result=[];
+ for(let i=0;i<models.length;i++){
+  const body=VEHICLE_BODIES.find(b=>b.id===ids[i]),spec=vehicleProfile(body),z=(spec.windows.at(-1)[0]+spec.windows.at(-1)[1])/2;
+  const mesh=models[i].root.getObjectByName('Painted body'),original=mesh.material,rows=[];
+  const sample=y=>{const q=new T.Vector3(sideWidth(body,z,y),y,z).applyMatrix4(models[i].root.matrixWorld).project(camera),pixel=new Uint8Array(4);gl.readPixels(Math.round((q.x+1)*gl.drawingBufferWidth/2),Math.round((q.y+1)*gl.drawingBufferHeight/2),1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);return [...pixel];};
+  try{for(const finish of ['sage','oxide','teal']){const m=kit.create('vehicle-'+ids[i]+'-'+finish);mesh.material=m.root.children[0].material;draw({id:ids[i],pose:'side'});rows.push({finish,glass:sample(spec.belt+.25),body:sample(spec.belt-.22)});m.dispose();}}
+  finally{mesh.material=original;}result.push({id:ids[i],rows});
+ }return result;
+}
+const first=draw();window.review={T,renderer,scene,camera,kit,models,ids,finishes,draw,first,checkPaint,dispose(){for(const m of models)m.dispose();kit.dispose();daylight?.dispose();plane.geometry.dispose();plane.material.dispose();grid.geometry.dispose();grid.material.dispose();key.shadow.dispose();renderer.dispose();}};window.ready=true;
+</script>

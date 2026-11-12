@@ -13,6 +13,28 @@
     },
     "encoding": "Skin RGB is opaque painted colour. Alpha stores finish tint coverage: 1 for body enamel, 0 for glass/trim. The renderer ignores alpha for opacity."
   },
+  "designStudy01": {
+    "approval": "User approved the 2D sheet and requested matching pickup, panel van and utility SUV models.",
+    "reference": "docs/art/road-vehicles/design-study-01.png",
+    "source": "tools/vehicle-art/study-01",
+    "previousArtCommit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+    "bodies": [
+      "pickup",
+      "cargo-van",
+      "utility-suv"
+    ],
+    "method": "Individual imagegen edits of registered UV templates using the approved concept sheet; original painted images and exact prompts retained. Runtime packing resizes to 2048 squared and adds the finish tint mask.",
+    "originalPaintSizePx": [
+      1254,
+      1254
+    ],
+    "runtimeSkinSizePx": [
+      2048,
+      2048
+    ],
+    "geometry": "Flat windscreen planes with small fillets, revised cab/roof profiles, fender crowns, closed wheel-well liners and cab back, open pickup bed, and projecting rounded bumpers. Fine details remain painted.",
+    "material": "Warm primer is white-balanced in the body finish tint. Painted glass, lights, rubber and warm rust retain their pigment."
+  },
   "simplifier": {
     "repository": "https://github.com/zeux/meshoptimizer",
     "commit": "7b2d4f4c817aea55d74dcd65d9763ac2ca608026",
@@ -42,13 +64,13 @@
     },
     {
       "path": "tools/vehicle-art/skins.mjs",
-      "bytes": 10159,
-      "sha256": "dbefd71685787fe2d02f753274d75bdb5f0b24e2b82948f8338180c8d7330bc1"
+      "bytes": 12223,
+      "sha256": "72a9c3780958cc8643dea7c2d44b3d43fe0518b6a5dc5fd147c261d05b5d06a2"
     },
     {
       "path": "tools/vehicle-art/record.mjs",
-      "bytes": 2452,
-      "sha256": "9cc3a56f403f0e727ece5273e78b4e5c2a67cf17155c85f150ca9dd6c43ca5be"
+      "bytes": 3648,
+      "sha256": "01515d2ad91dad07ab5441185418ec8974d11bf48f099cf7c716a94117fb06ad"
     },
     {
       "path": "tools/vehicle-art/paint-master.png",
@@ -59,6 +81,86 @@
       "path": "tools/vehicle-art/prompt.json",
       "bytes": 1658,
       "sha256": "6c2a4b58a00596d50ab8b697ec869c2818d34495a98dcdc44ccf1a4961bd73ac"
+    },
+    {
+      "path": "docs/art/road-vehicles/design-study-01.png",
+      "bytes": 2535750,
+      "sha256": "f4931773e69d9be7f310dd67970ed3b31600f0139792a5b6c04cd99dade9d7e8"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/cargo-van-painted.png",
+      "bytes": 2514138,
+      "sha256": "c6cbdcd8db7f6153f85ce4c618befb811c40802412aef7defa15bbc93b7c5376"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/cargo-van-prompt.json",
+      "bytes": 2855,
+      "sha256": "bf75375345d8086737b6b76838ea0c9bbc8878a7c646cf3e90af8d04030d5763"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/cargo-van-registration.png",
+      "bytes": 559800,
+      "sha256": "e6ae74225c08232b840ac3ce62188fa8f8b91ea2fc6bdc8078ce1435a1f1c45a"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/cargo-van-tint-mask.png",
+      "bytes": 57051,
+      "sha256": "c28fbbbfd176fd86326f7ea245f7c4b2aa8f43bfe3b1498ca1e12839aabec783"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/design-prompt.json",
+      "bytes": 4935,
+      "sha256": "bedc8eaae694c9a2709b2c157dfa2964cb6f9e4f6602269ed6ebb9b20a6801a3"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/pickup-painted.png",
+      "bytes": 2547885,
+      "sha256": "80fe49e4156e9706aac446137ae4a8acbba09a8bd9f157c289e03d65b14ee4b1"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/pickup-prompt.json",
+      "bytes": 2872,
+      "sha256": "d08cd2ef16ee79ab0f07c4231158c300530e61d2078464569896035d5ca7571a"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/pickup-registration.png",
+      "bytes": 559088,
+      "sha256": "368de59f50eb4bdea279927c8f2b70669dcaf9311ec2a1c995772f978c7dcfa9"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/pickup-tint-mask.png",
+      "bytes": 54724,
+      "sha256": "5f2df72d4caca7995fbeef9612a9099701e670e324f02c128cf3f8f2eb23ce83"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/utility-suv-painted.png",
+      "bytes": 2468634,
+      "sha256": "57e7740e8b8b9fb211c53ae8277b584fe0a05b5e7035e71f5e3472f348782260"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/utility-suv-prompt.json",
+      "bytes": 2706,
+      "sha256": "f40fc60cb375868bca8448569d670bdf2e4201f1cdae5f8b91459370e9f157dd"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/utility-suv-registration.png",
+      "bytes": 782788,
+      "sha256": "e12716c3fbf7b93f207f9de4d0435db849d083a945f022095c482744f0d83d1f"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/utility-suv-tint-mask.png",
+      "bytes": 60362,
+      "sha256": "0edbea0650731f7c7f3a3fbed3a18fd3b5dccaad5780973a5f4cd81ed1d9ef47"
+    },
+    {
+      "path": "tools/vehicle-art/study-01/viewer.html",
+      "bytes": 4858,
+      "sha256": "1a73b4447dadcf63c21e2751c0f0725c1817cbfa864c3ffa00db93fcf493af49"
+    },
+    {
+      "path": "tools/review-vehicle-study.mjs",
+      "bytes": 3234,
+      "sha256": "68e1c20a1460d33efa88e23919babf0c5ab338cc0dcf2f5a9f463c54cc573dfc"
     },
     {
       "path": "vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/meshopt_simplifier.module.js",
@@ -77,13 +179,13 @@
     },
     {
       "path": "packages/vehicle-visuals/reduced-data.js",
-      "bytes": 2999660,
-      "sha256": "c89bb61aabe7c9224dcaa8905ead1552af68171c31dce12d29f6501cbcbfdb28"
+      "bytes": 3025704,
+      "sha256": "b768e203c0a199505deab5eee6f3ec088ec7e9dda825193e7da3fe7c0cca77fb"
     },
     {
       "path": "packages/vehicle-visuals/reduction.json",
-      "bytes": 7588,
-      "sha256": "2458f425dc890fc28770201b048a83faf9d73c8969e0ebfee14f3cae36f6b0ad"
+      "bytes": 7589,
+      "sha256": "22057cfeb41ab4bd59605ee3995375cbbee5838a4596f9dc9e9a060811a2310b"
     },
     {
       "path": "packages/vehicle-visuals/skins/hatchback.png",
@@ -97,8 +199,8 @@
     },
     {
       "path": "packages/vehicle-visuals/skins/pickup.png",
-      "bytes": 3930842,
-      "sha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac"
+      "bytes": 7774713,
+      "sha256": "7608069824532607cd9ad0fe77e5ac25e675ed8d15e4d1784ce726ec70183022"
     },
     {
       "path": "packages/vehicle-visuals/skins/crew-pickup.png",
@@ -107,8 +209,8 @@
     },
     {
       "path": "packages/vehicle-visuals/skins/cargo-van.png",
-      "bytes": 3999313,
-      "sha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea"
+      "bytes": 7563586,
+      "sha256": "d5d4ca4c4b21fe7332105bd5cc59961960a81e07da6c7e8d980652bc63ebba5b"
     },
     {
       "path": "packages/vehicle-visuals/skins/passenger-van.png",
@@ -117,8 +219,8 @@
     },
     {
       "path": "packages/vehicle-visuals/skins/utility-suv.png",
-      "bytes": 4136879,
-      "sha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101"
+      "bytes": 7189922,
+      "sha256": "a153f3a76c3343861d134562611e3d919909e748123b8765fbf34ca7ee06206b"
     },
     {
       "path": "packages/vehicle-visuals/skins/crossover.png",

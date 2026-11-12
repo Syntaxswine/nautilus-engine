@@ -12,9 +12,19 @@ import {roadVehicleSceneryCopy, roadVehicleImportMap} from '../tools/editor-road
 import {MeshoptSimplifier} from '../vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/meshopt_simplifier.module.js';
 import {authenticatedRoadVehicleImages} from '../tools/road-vehicle-registration.mjs';
 import {distribution} from '../tools/distribution.mjs';
+import {roofHeight,vehicleProfile} from '../packages/vehicle-visuals/sculpt.js';
 
 const near = (a, b, tolerance = 2e-6) => assert.ok(Math.abs(a - b) <= tolerance, a + ' vs ' + b);
 const triangles = root => root.children.reduce((sum, mesh) => sum + mesh.geometry.index.count / 3, 0);
+
+test('approved utility designs retain planar windscreens and the correct passenger door counts',()=>{
+  for(const id of ['pickup','cargo-van','utility-suv']){
+    const body=VEHICLE_BODIES.find(b=>b.id===id),p=vehicleProfile(body),a=p.roof.at(-2),b=p.roof.at(-1);
+    // Check the central glass, away from the intentional small corner fillets.
+    for(const t of [.2,.4,.6,.8])near(roofHeight(body,a[0]+(b[0]-a[0])*t),a[1]+(b[1]-a[1])*t,1e-6);
+    assert.equal(p.handles.length,id==='utility-suv'?2:1);
+  }
+});
 
 test('renderer packages include only the nine explicitly authenticated vehicle images',()=>{
   const read=file=>fs.readFileSync(new URL('../'+file,import.meta.url));

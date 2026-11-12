@@ -8,11 +8,11 @@ import {createHash} from 'node:crypto';
 const skinHashes = {
   "packages/vehicle-visuals/skins/hatchback.png": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
   "packages/vehicle-visuals/skins/sedan.png": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190",
-  "packages/vehicle-visuals/skins/pickup.png": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+  "packages/vehicle-visuals/skins/pickup.png": "7608069824532607cd9ad0fe77e5ac25e675ed8d15e4d1784ce726ec70183022",
   "packages/vehicle-visuals/skins/crew-pickup.png": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710",
-  "packages/vehicle-visuals/skins/cargo-van.png": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea",
+  "packages/vehicle-visuals/skins/cargo-van.png": "d5d4ca4c4b21fe7332105bd5cc59961960a81e07da6c7e8d980652bc63ebba5b",
   "packages/vehicle-visuals/skins/passenger-van.png": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2",
-  "packages/vehicle-visuals/skins/utility-suv.png": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101",
+  "packages/vehicle-visuals/skins/utility-suv.png": "a153f3a76c3343861d134562611e3d919909e748123b8765fbf34ca7ee06206b",
   "packages/vehicle-visuals/skins/crossover.png": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c",
   "packages/vehicle-visuals/skins/running-gear.png": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7"
 };

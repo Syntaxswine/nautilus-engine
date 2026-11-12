@@ -12,33 +12,45 @@ export function vehicleProfile(body) {
   const h = body.heightM - (body.kind === 'suv' ? .064 : 0);
   if (body.id === 'hatchback') return {belt: .82, roof: [[-1.56,.90],[-1.12,h],[.29,h],[.87,.86]], windows: [[-1.25,-.46],[-.37,.62]], doors: [-.42,.66]};
   if (body.id === 'sedan') return {belt: .83, roof: [[-1.51,.89],[-.96,h],[.44,h],[1.11,.88]], windows: [[-1.16,-.35],[-.25,.78]], doors: [-.31,.80]};
-  if (body.id === 'pickup') return {belt: 1.05, roof: [[-.09,1.15],[.10,h],[.98,h],[1.52,1.08]], windows: [[.07,1.22]], doors: [1.29], bedEnd: -.19};
+  if (body.id === 'pickup') return {study01:true,belt:1.06,roof:[[-.16,1.09],[-.06,h],[.72,h],[1.25,1.10]],windows:[[-.025,1.12]],doors:[-.13,1.20],handles:[.12],bedEnd:-.26};
   if (body.id === 'crew-pickup') return {belt: 1.10, roof: [[-.68,1.19],[-.42,h],[1.11,h],[1.72,1.13]], windows: [[-.44,.20],[.29,1.39]], doors: [.24,1.45], bedEnd: -.78};
-  if (body.id === 'cargo-van') return {belt: 1.09, roof: [[-2.22,1.83],[-2.03,h],[1.02,h],[1.89,1.13]], windows: [[.84,1.52]], doors: [.60,1.59], cargo: true};
+  if (body.id === 'cargo-van') return {study01:true,belt:1.09,rearHeight:1.97,roof:[[-2.35,2.00],[-2.15,h],[.94,h],[1.71,1.16]],windows:[[.64,1.47]],doors:[.53,1.55],handles:[.76],cargo:true};
   if (body.id === 'passenger-van') return {belt: 1.04, roof: [[-2.12,1.61],[-1.84,h],[.80,h],[1.62,1.08]], windows: [[-1.84,-.84],[-.73,.29],[.40,1.27]], doors: [.34,1.34]};
-  if (body.id === 'utility-suv') return {belt: 1.07, roof: [[-1.92,1.61],[-1.73,h],[.61,h],[1.18,1.11]], windows: [[-1.70,-.88],[-.77,-.09],[.02,.90]], doors: [-.84,-.04,.96]};
+  if (body.id === 'utility-suv') return {study01:true,belt:1.07,rearHeight:1.78,roof:[[-2.07,1.81],[-1.88,h],[.61,h],[1.20,1.12]],windows:[[-1.83,-1.03],[-.91,-.11],[.01,.93]],doors:[-.97,-.055,1.0],handles:[-.72,.16]};
   return {belt: .96, roof: [[-1.91,1.13],[-1.36,h],[.44,h],[1.25,1]], windows: [[-1.55,-.46],[-.35,.95]], doors: [-.41,1.01]};
 }
 
 export function roofHeight(body, z) {
   const spec = vehicleProfile(body), half = body.lengthM / 2;
-  const rear = spec.bedEnd ? spec.belt : Math.max(spec.belt-.09,spec.roof[0][1]-.10);
-  const nodes = [[-half,rear], ...spec.roof, [half,spec.belt - .07]];
+  const rear = spec.rearHeight ?? (spec.bedEnd ? spec.belt : Math.max(spec.belt-.09,spec.roof[0][1]-.10));
+  const nodes = [[-half,rear], ...spec.roof, [half,spec.belt - (spec.study01 ? .01 : .07)]];
+  if(spec.study01){
+    // Flat windscreen and bonnet planes with small corner fillets, rather than
+    // easing the whole windscreen into an S curve. Coordinates remain metres.
+    const linear=at=>{at=clamp(at,-half,half);let j=nodes.findIndex(([z])=>z>=at);j=Math.max(1,j<0?nodes.length-1:j);const a=nodes[j-1],b=nodes[j];return a[1]+(b[1]-a[1])*clamp((at-a[0])/(b[0]-a[0]));};
+    return (linear(z-.018)+2*linear(z)+linear(z+.018))/4;
+  }
   const i = Math.max(0, nodes.findIndex(([at]) => at >= z) - 1), a = nodes[i], b = nodes[i + 1] ?? a;
   const t = ease(clamp((z-a[0]) / Math.max(.001,b[0]-a[0])));
   return a[1] + (b[1]-a[1]) * t;
 }
 
 export function sideWidth(body, z, y) {
-  const {belt} = vehicleProfile(body), half = body.lengthM / 2;
+  const spec=vehicleProfile(body),{belt}=spec, half = body.lengthM / 2;
   const end = ease(clamp((Math.abs(z) - half + .32) / .32));
   const cabin = clamp((y-belt) / Math.max(.05,roofHeight(body,z)-belt));
   const rocker = .046 * (1-clamp((y-.25)/.26));
   const swell = .013 * Math.sin(clamp((y-.26)/Math.max(.1,belt-.26))*Math.PI);
+  if(spec.study01){
+    const arch=Math.max(...body.axlesM.map(c=>Math.exp(-(((z-c)/.45)**4))));
+    const crown=.027*arch*Math.exp(-(((y-body.wheelRadiusM-.30)/.30)**2));
+    return body.widthM/2-.025-.065*end-.14*cabin-rocker+swell*.55+crown;
+  }
   return body.widthM/2 - .14*end - .15*ease(cabin) - rocker + swell;
 }
 
 export function skinUV(body, face, [x,y,z]) {
+  if(face.endsWith('-bumper'))return skinUV(body,face.slice(0,-7),[x*.84,clamp(y,.35,.45),z]);
   let u,v;
   if (face==='side') {u=z/body.lengthM+.5;v=1-y/2.12;}
   else if (face==='top') {u=z/body.lengthM+.5;v=x/body.widthM+.5;}
@@ -124,8 +136,9 @@ class Author {
 
 export function sculptRoadVehicle(T,id){
   const body=VEHICLE_BODIES.find(b=>b.id===id);if(!body)throw new RangeError('Unknown vehicle body: '+id);
-  const a=new Author(T,body),spec=vehicleProfile(body),half=body.lengthM/2,r=body.wheelRadiusM;
-  const bottom=z=>Math.max(.26,...body.axlesM.map(c=>Math.abs(z-c)<r+.078?r+Math.sqrt((r+.078)**2-(z-c)**2):.26));
+  const a=new Author(T,body),spec=vehicleProfile(body),half=body.lengthM/2-(spec.study01 ? .07 : 0),r=body.wheelRadiusM;
+  const sill=spec.study01?(body.id==='cargo-van'?.30:.34):.26;
+  const bottom=z=>Math.max(sill,...body.axlesM.map(c=>Math.abs(z-c)<r+.078?r+Math.sqrt((r+.078)**2-(z-c)**2):sill));
   // Continuous sheet metal: windows are painted UV regions of these surfaces.
   for(const side of [-1,1]){
     a.surface('body',192,32,(u,v)=>{
@@ -134,19 +147,20 @@ export function sculptRoadVehicle(T,id){
     },q=>skinUV(body,'side',q),[side,0,0]);
   }
   const topStart=spec.bedEnd??-half;
-  a.surface('body',192,24,(u,v)=>{
-    const z=topStart+(half-topStart)*u,y=roofHeight(body,z),x=(v*2-1)*sideWidth(body,z,y-.055);
+  const topRanges=spec.study01&&spec.bedEnd?[[topStart,spec.roof[0][0],'top'],[spec.roof[0][0],spec.roof[1][0],'rear'],[spec.roof[1][0],half,'top']]:[[topStart,half,'top']];
+  for(const [start,end,face]of topRanges)a.surface('body',Math.max(8,Math.round(192*(end-start)/(half-topStart))),24,(u,v)=>{
+    const z=start+(end-start)*u,y=roofHeight(body,z),x=(v*2-1)*sideWidth(body,z,y-.055);
     return [x,y-.055*(2*v-1)**4,z];
-  },q=>skinUV(body,'top',q),[0,1,0]);
+  },q=>skinUV(body,face,q),face==='rear'?[0,.1,-1]:[0,1,0]);
   for(const side of [-1,1]){
     const z=side*half;
     a.surface('body',32,20,(u,v)=>{
       const top=roofHeight(body,z)-.055*(u*2-1)**4;
-      const y=.26+(top-.26)*v;return [(u*2-1)*sideWidth(body,z,y),y,z];
+      const y=sill+(top-sill)*v;return [(u*2-1)*sideWidth(body,z,y),y,z];
     },q=>skinUV(body,side===1?'front':'rear',q),[0,0,side]);
   }
   if(spec.bedEnd){
-    const rear=-half+.055,end=spec.bedEnd-.015,floor=.72;
+    const rear=-half+.055,end=spec.bedEnd-.015,floor=spec.study01?.78:.72;
     a.surface('body',48,24,(u,v)=>[(v*2-1)*(body.widthM/2-.095),floor,rear+(end-rear)*u],q=>skinUV(body,'top',q),[0,1,0]);
     for(const side of [-1,1])a.surface('body',64,8,(u,v)=>{
       const z=rear+(end-rear)*u,y=floor+(roofHeight(body,z)-floor)*v;
@@ -154,6 +168,10 @@ export function sculptRoadVehicle(T,id){
     },(q,u,v)=>skinUV(body,'side',[0,1.96+v*.08,q[2]]),[-side,0,0]);
     for(const z of [rear,end])a.surface('body',24,8,(u,v)=>[(u*2-1)*(body.widthM/2-.095),floor+(spec.belt-floor)*v,z],(_,u,v)=>skinUV(body,'side',[0,1.96+v*.08,(u*2-1)*half]),[0,0,z===rear?1:-1]);
     for(const side of [-1,1])a.roundBox([side*(body.widthM/2-.05),spec.belt-.025,(rear+end)/2],[.085,.065,end-rear],.025);
+    if(spec.study01){
+      const z=spec.roof[0][0];
+      a.surface('body',24,12,(u,v)=>{const y=sill+(roofHeight(body,z)-.055-sill)*v;return[(u*2-1)*sideWidth(body,z,y),y,z];},(_,u,v)=>skinUV(body,'side',[0,1.96+v*.08,(u*2-1)*half]),[0,0,-1]);
+    }
   }
   for(const z of body.axlesM)for(const side of [-1,1]){
     const x=side*(body.widthM/2-.102);
@@ -167,10 +185,17 @@ export function sculptRoadVehicle(T,id){
     a.rim(x,r,z,side);
     a.surface('details',64,8,(u,v)=>{
       const angle=u*Math.PI,rad=r+.078;
-      return [side*(body.widthM/2-.025-v*.16),r+rad*Math.sin(angle),z+rad*Math.cos(angle)];
+      const zz=z+rad*Math.cos(angle),yy=r+rad*Math.sin(angle);
+      return [side*((spec.study01?sideWidth(body,zz,yy):body.widthM/2-.025)-v*.16),yy,zz];
     },(_,u,v)=>[.02+.46*u,.02+.46*v],[-side,0,0]);
+    if(spec.study01)a.surface('details',48,6,(u,v)=>{
+      const rad=r+.078,zz=(u*2-1)*rad;
+      return[side*(body.widthM/2-.235),r+v*Math.sqrt(Math.max(0,rad*rad-zz*zz)),z+zz];
+    },(_,u,v)=>[.20+.04*u,.20+.04*v],[side,0,0]);
   }
-  a.roundBox([0,.27,0],[body.widthM-.27,.12,body.lengthM-.24],.04,'details');
+  if(spec.study01)a.roundBox([0,.30,0],[body.widthM-.45,.07,body.lengthM-.42],.025,'details');
+  else a.roundBox([0,.27,0],[body.widthM-.27,.12,body.lengthM-.24],.04,'details');
+  if(spec.study01)for(const side of [-1,1])a.roundBox([0,.405,side*(body.lengthM/2-.055)],[body.widthM-.065,.17,.11],.035,'body',side===1?'front-bumper':'rear-bumper');
   for(const side of [-1,1]){
     const z=spec.windows.at(-1)[1]-.12,y=spec.belt+.14;
     const at=sideWidth(body,z,y)-.018,reach=.945-at;

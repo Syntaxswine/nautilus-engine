@@ -7,6 +7,9 @@ const root=fileURLToPath(new URL('../../',import.meta.url));
 const pin='7b2d4f4c817aea55d74dcd65d9763ac2ca608026';
 const files=['tools/vehicle-art/bake.mjs','tools/vehicle-art/skins.mjs','tools/vehicle-art/record.mjs',
  'tools/vehicle-art/paint-master.png','tools/vehicle-art/prompt.json',
+ 'docs/art/road-vehicles/design-study-01.png',
+ ...fs.readdirSync(path.join(root,'tools/vehicle-art/study-01')).filter(f=>/\.(png|json|html)$/.test(f)).sort().map(f=>'tools/vehicle-art/study-01/'+f),
+ 'tools/review-vehicle-study.mjs',
  ...['meshopt_simplifier.module.js','LICENSE.md','README.md'].map(f=>'vendor/meshoptimizer/'+pin+'/'+f),
  'packages/vehicle-visuals/reduced-data.js','packages/vehicle-visuals/reduction.json',
  ...[...VEHICLE_BODIES.map(b=>b.id),'running-gear'].map(id=>'packages/vehicle-visuals/skins/'+id+'.png')];
@@ -17,6 +20,13 @@ const record={schema:1,author:'Original Nautilus procedural vehicle sculpts and 
   prompt:'tools/vehicle-art/prompt.json',master:'tools/vehicle-art/paint-master.png',
   styleReference:row('vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/environment/painted-study/material-atlas-v2.png'),
   encoding:'Skin RGB is opaque painted colour. Alpha stores finish tint coverage: 1 for body enamel, 0 for glass/trim. The renderer ignores alpha for opacity.'},
+ designStudy01:{approval:'User approved the 2D sheet and requested matching pickup, panel van and utility SUV models.',
+  reference:'docs/art/road-vehicles/design-study-01.png',source:'tools/vehicle-art/study-01',
+  previousArtCommit:'5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee',
+  bodies:['pickup','cargo-van','utility-suv'],method:'Individual imagegen edits of registered UV templates using the approved concept sheet; original painted images and exact prompts retained. Runtime packing resizes to 2048 squared and adds the finish tint mask.',
+  originalPaintSizePx:[1254,1254],runtimeSkinSizePx:[2048,2048],
+  geometry:'Flat windscreen planes with small fillets, revised cab/roof profiles, fender crowns, closed wheel-well liners and cab back, open pickup bed, and projecting rounded bumpers. Fine details remain painted.',
+  material:'Warm primer is white-balanced in the body finish tint. Painted glass, lights, rubber and warm rust retain their pigment.'},
  simplifier:{repository:'https://github.com/zeux/meshoptimizer',commit:pin,tag:'v0.24',license:'MIT',
   imports:[{local:'meshopt_simplifier.module.js',upstream:'js/meshopt_simplifier.module.js'},
    {local:'README.md',upstream:'js/README.md'},{local:'LICENSE.md',upstream:'LICENSE.md'}],

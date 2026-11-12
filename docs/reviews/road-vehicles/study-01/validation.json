@@ -1,0 +1,268 @@
+{
+  "startingCommit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+  "approved2D": "docs/art/road-vehicles/design-study-01.png",
+  "bodies": [
+    {
+      "id": "pickup",
+      "sourceTriangles": 68336,
+      "triangles": 11199
+    },
+    {
+      "id": "cargo-van",
+      "sourceTriangles": 60288,
+      "triangles": 11198
+    },
+    {
+      "id": "utility-suv",
+      "sourceTriangles": 67200,
+      "triangles": 11197
+    }
+  ],
+  "gates": {
+    "check": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-12T21:40:35.3615652Z"
+    },
+    "test": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-12T21:39:45.3941665Z"
+    },
+    "test-upstream": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-12T21:39:49.6776045Z"
+    },
+    "build": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-12T21:40:34.5318401Z"
+    }
+  },
+  "tests": {
+    "passed": 1230,
+    "failed": 0,
+    "concurrency": 2,
+    "initialRun": "One package child hit its 120 s timeout under heavy concurrent load; unchanged isolated structural suite passed all 35 tests, then the full 1230-test rerun passed."
+  },
+  "upstreamTests": 32,
+  "sourceAndPackageComparison": {
+    "status": "pass",
+    "captures": 16,
+    "pixelIdentical": true,
+    "scope": "Same studio cameras, lighting, dimensions, public factory, reduced meshes and skins in source and actual packed renderer."
+  },
+  "studio": {
+    "checks": [
+      {
+        "id": "pickup",
+        "triangles": 11199,
+        "boundsM": [
+          1.9700000286102295,
+          1.769999974966049,
+          4.840000152587891
+        ],
+        "meshes": 2
+      },
+      {
+        "id": "cargo-van",
+        "triangles": 11198,
+        "boundsM": [
+          1.9695767164230347,
+          2.099999897480011,
+          4.800000190734863
+        ],
+        "meshes": 2
+      },
+      {
+        "id": "utility-suv",
+        "triangles": 11197,
+        "boundsM": [
+          1.9700000286102295,
+          1.91998433470726,
+          4.420000076293945
+        ],
+        "meshes": 2
+      }
+    ],
+    "paint": [
+      {
+        "id": "pickup",
+        "rows": [
+          {
+            "finish": "sage",
+            "glass": [
+              85,
+              94,
+              94,
+              255
+            ],
+            "body": [
+              70,
+              77,
+              52,
+              255
+            ]
+          },
+          {
+            "finish": "oxide",
+            "glass": [
+              85,
+              94,
+              94,
+              255
+            ],
+            "body": [
+              112,
+              55,
+              36,
+              255
+            ]
+          },
+          {
+            "finish": "teal",
+            "glass": [
+              85,
+              94,
+              94,
+              255
+            ],
+            "body": [
+              43,
+              71,
+              67,
+              255
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cargo-van",
+        "rows": [
+          {
+            "finish": "sage",
+            "glass": [
+              70,
+              85,
+              88,
+              255
+            ],
+            "body": [
+              74,
+              81,
+              56,
+              255
+            ]
+          },
+          {
+            "finish": "oxide",
+            "glass": [
+              70,
+              85,
+              88,
+              255
+            ],
+            "body": [
+              116,
+              58,
+              39,
+              255
+            ]
+          },
+          {
+            "finish": "teal",
+            "glass": [
+              70,
+              85,
+              88,
+              255
+            ],
+            "body": [
+              45,
+              74,
+              73,
+              255
+            ]
+          }
+        ]
+      },
+      {
+        "id": "utility-suv",
+        "rows": [
+          {
+            "finish": "sage",
+            "glass": [
+              70,
+              81,
+              81,
+              255
+            ],
+            "body": [
+              65,
+              73,
+              52,
+              255
+            ]
+          },
+          {
+            "finish": "oxide",
+            "glass": [
+              70,
+              81,
+              81,
+              255
+            ],
+            "body": [
+              104,
+              52,
+              35,
+              255
+            ]
+          },
+          {
+            "finish": "teal",
+            "glass": [
+              70,
+              81,
+              81,
+              255
+            ],
+            "body": [
+              40,
+              67,
+              67,
+              255
+            ]
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "samples": 16,
+      "meanMs": 1.9312500059604645,
+      "maxMs": 3.700000286102295,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "scope": "Controlled local review timing; not a target-device frame-rate claim"
+    },
+    "submissionScope": "renderer.info main-view counters; shadow submissions not separately accumulated. Timing includes complete render calls."
+  },
+  "workshop": {
+    "variants": 24,
+    "saveReload": true,
+    "exportImport": true,
+    "undoRedo": true,
+    "blockTurns": [
+      90,
+      180,
+      270,
+      0
+    ],
+    "unsupportedHandoff": {
+      "error": "This game adapter needs the road vehicle scenery binding (nautilus-road-vehicles-v1).",
+      "calls": 0
+    },
+    "lifecycle": {
+      "oneCarPreservesOther": true,
+      "sharedGeometryDisposedOnce": true,
+      "rendererContextAlive": true
+    }
+  },
+  "scope": "Three original parked art models and nine finish variants in the existing 24-vehicle library. Other five body meshes and six existing skin files stay unchanged. Game driving, damage and consumer pins are unchanged."
+}

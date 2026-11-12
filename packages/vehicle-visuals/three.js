@@ -36,6 +36,11 @@ export function createRoadVehicleKit(THREE,{loadSkin}={}){
       for(const finish of VEHICLE_FINISHES){
         const material=own(new T.MeshStandardMaterial({map,roughness:.87}));
         const tint=new T.Color(finish.colour);
+        if(['pickup','cargo-van','utility-suv'].includes(body.id)){
+          // Neutralise the warm primer before applying the library finish;
+          // alpha-zero glass, lamps, rubber and exposed rust keep their pigment.
+          tint.multiplyScalar(1.25);tint.r*=.90;tint.b*=1.35;
+        }
         // Skin RGB contains painted glass/trim. Alpha is the BODY TINT MASK, not
         // transparency. Windows stay blue-gray for every finish, on the same hull.
         material.onBeforeCompile=shader=>{

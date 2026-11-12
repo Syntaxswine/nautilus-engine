@@ -30,7 +30,8 @@ const line=points=>'M'+points.map(p=>p.map(fmt).join(',')).join('L');
 const report=[];
 for(const body of VEHICLE_BODIES){
  const spec=vehicleProfile(body),w=body.widthM/2,half=body.lengthM/2;
- const color=['<rect width="2048" height="2048" fill="url(#enamel)"/>'],mask=['<rect width="2048" height="2048" fill="white"/>'];
+ if((process.argv.includes('--study-01')||process.argv.includes('--registration-only'))&&!spec.study01)continue;
+ const color=['<rect width="2048" height="2048" fill="'+(spec.study01?'#dad7cc':'url(#enamel)')+'"/>'],mask=['<rect width="2048" height="2048" fill="white"/>'];
  const xy=(face,z,y)=>{const [a,b,ww,hh]=SKIN_RECTS[face];return [a+(z/body.lengthM+.5)*ww,b+(1-y/2.12)*hh];};
  const top=(z,x)=>{const [a,b,ww,hh]=SKIN_RECTS.top;return[a+(z/body.lengthM+.5)*ww,b+(x/body.widthM+.5)*hh];};
  const end=(face,x,y)=>{const[a,b,ww,hh]=SKIN_RECTS[face];return[a+(x/body.widthM+.5)*ww,b+(1-y/2.12)*hh];};
@@ -61,7 +62,9 @@ for(const body of VEHICLE_BODIES){
  ink([xy('side',-half+.23,.315),xy('side',half-.23,.315)],'#454d49',8,.9);
  for(const z of spec.doors){
   ink([xy('side',z,spec.belt+.055),xy('side',z+.018,.51),xy('side',z-.06,.36)],'#464e49',2.4,.88);
-  const handle=[xy('side',z-.25,spec.belt-.10),xy('side',z-.10,spec.belt-.10)];
+ }
+ for(const z of (spec.handles??spec.doors.map(z=>z-.25))){
+  const handle=[xy('side',z,spec.belt-.10),xy('side',z+.15,spec.belt-.10)];
   ink(handle,'#303d3c',9);ink(handle.map(([x,y])=>[x,y-2]),'#aab2aa',4);
  }
  if(spec.cargo){
@@ -82,6 +85,7 @@ for(const body of VEHICLE_BODIES){
  // Windscreens are top-skin regions on the sloping bonnet/roof/hatch surface.
  for(const front of [true,false]){
   if(!front&&spec.cargo)continue;
+  if(!front&&spec.study01&&(spec.bedEnd||body.id==='utility-suv'))continue;
   const segment=front?spec.roof.slice(-2):spec.roof.slice(0,2);
   const z0=segment[0][0]+.045,z1=segment[1][0]-.045;
   if(z1-z0>.04){
@@ -105,10 +109,12 @@ for(const body of VEHICLE_BODIES){
   ink([end(face,-w+.19,.465),end(face,w-.19,.465)],'#b1b5a6',5);
   rect(face,-.17,.335,.17,.425,'#c1bea0','#424b45',3);
   for(const side of [-1,1]){
-   const centre=side*(w-.32),hw=body.kind==='car'?.22:.18;
-   rect(face,centre-hw,y-.07,centre+hw,y+.085,front?'#dcd8b4':'#99483b','#333e3c',6);
-   for(let j=0;j<4;j++)ink([end(face,centre-hw+.018,y-.045+j*.028),end(face,centre+hw-.018,y-.045+j*.028)],front?'#f0e5c8':'#c16c52',1.7,.7);
-   rect(face,centre+side*.12-.027,y-.06,centre+side*.12+.027,y+.073,front?'#b89155':'#c48c60','#5c5b4b',1);
+   const centre=side*(w-(spec.study01&&!front?.15:.32)),hw=spec.study01&&!front?.063:body.kind==='car'?.22:.18;
+   const lightY=spec.study01&&!front?(body.id==='cargo-van'?1.02:.86):y;
+   const lightH=spec.study01?(front?.115:body.id==='cargo-van'?.29:.21):.0775;
+   rect(face,centre-hw,lightY-lightH,centre+hw,lightY+lightH,front?'#dcd8b4':'#99483b','#333e3c',6);
+   for(let j=0;j<4;j++)ink([end(face,centre-hw+.018,lightY-lightH*.7+j*lightH*.45),end(face,centre+hw-.018,lightY-lightH*.7+j*lightH*.45)],front?'#f0e5c8':'#c16c52',1.7,.7);
+   if(front)rect(face,centre+side*.12-.027,y-.06,centre+side*.12+.027,y+.073,'#b89155','#5c5b4b',1);
   }
   if(front){
    rect(face,-w*.34,y-.09,w*.34,y+.10,'url(#rubber)','#48524b',4);
@@ -116,17 +122,39 @@ for(const body of VEHICLE_BODIES){
   }else{
    ink([end(face,-w+.16,spec.belt-.02),end(face,w-.16,spec.belt-.02)],'#5b665c',2.5);
    ink([end(face,-.08,spec.belt-.12),end(face,.08,spec.belt-.12)],'#454f49',7);
-   if(body.kind==='van'||body.id==='utility-suv'){
+   if(spec.study01&&spec.bedEnd){
+    rect(face,-.62,1.18,.62,body.heightM-.16,'url(#glass)','#354141',6);
+    for(const x of [-.18,.18])ink([end(face,x,1.19),end(face,x,body.heightM-.17)],'#354141',3);
+   }else if(spec.study01&&body.id==='utility-suv'){
+    rect(face,-.65,1.15,.65,rearRoof(body)-.12,'url(#glass)','#354141',6);
+    ink([end(face,-.44,1.18),end(face,.34,1.25)],'#354141',3.5);
+   }else if(body.kind==='van'||body.id==='utility-suv'){
     const rearTop=roofHeight(body,-half);
     if(!spec.cargo)for(const side of [-1,1])rect(face,side*.36-.29,spec.belt+.04,side*.36+.29,rearTop-.13,'url(#glass)','#354141',7);
     ink([end(face,0,.49),end(face,0,rearTop-.07)],'#515e56',3);
    }
   }
  }
- const rgb=await sharp(svg(2048,2048,color.join(''))).removeAlpha().raw().toBuffer();
+ const guide=await sharp(svg(2048,2048,color.join(''))).removeAlpha().png().toBuffer();
  const alpha=await sharp(svg(2048,2048,mask.join(''))).removeAlpha().greyscale().raw().toBuffer();
+ let rgb;
+ if(spec.study01){
+  const study=path.join(root,'tools/vehicle-art/study-01');fs.mkdirSync(study,{recursive:true});
+  fs.writeFileSync(path.join(study,body.id+'-registration.png'),guide);
+  await sharp(alpha,{raw:{width:2048,height:2048,channels:1}}).png().toFile(path.join(study,body.id+'-tint-mask.png'));
+  if(process.argv.includes('--registration-only'))continue;
+  const painted=path.join(study,body.id+'-painted.png');
+  if(!fs.existsSync(painted))throw Error('Missing painted study skin: '+painted+'. Use --registration-only to prepare a new paint template.');
+  rgb=await sharp(painted).resize(2048,2048).removeAlpha().raw().toBuffer();
+ }else rgb=await sharp(guide).raw().toBuffer();
  const rgba=Buffer.alloc(2048*2048*4);
- for(let i=0;i<alpha.length;i++){rgba[i*4]=rgb[i*3];rgba[i*4+1]=rgb[i*3+1];rgba[i*4+2]=rgb[i*3+2];rgba[i*4+3]=alpha[i];}
+ for(let i=0;i<alpha.length;i++){
+  const r=rgb[i*3],g=rgb[i*3+1],b=rgb[i*3+2];rgba[i*4]=r;rgba[i*4+1]=g;rgba[i*4+2]=b;
+  // Include the painted reflection edge, even where an artist's brush extends
+  // a few pixels beyond the registered glass mask; retain warm rust pigment.
+  const pigment=spec.study01&&((r-b>55&&r-g>25)||(b-r>6&&b>g&&Math.max(r,g,b)<195));
+  rgba[i*4+3]=pigment?0:alpha[i];
+ }
  const target=path.join(dir,body.id+'.png');
  await sharp(rgba,{raw:{width:2048,height:2048,channels:4}}).png().toFile(target);
  if(body.id==='hatchback')await sharp(rgb,{raw:{width:2048,height:2048,channels:3}}).jpeg({quality:92}).toFile(path.join(root,'artifacts/road-vehicles/hatchback-skin.jpg'));
@@ -134,6 +162,7 @@ for(const body of VEHICLE_BODIES){
  console.log('Painted '+body.id+' skin');
 }
 // Shared rubber/metal skin. Rim holes, dish rings and nuts are painted here.
+if(!process.argv.includes('--study-01')&&!process.argv.includes('--registration-only')){
 let detail='<rect width="1024" height="1024" fill="url(#rubber)"/><rect x="512" y="512" width="512" height="512" fill="url(#metal)"/>';
 for(let x=0;x<512;x+=24)detail+='<path d="M'+x+',744l10,23l-5,32M'+(x+10)+',745l-4,22l9,31" fill="none" stroke="#252f2d" stroke-width="3" opacity=".8"/>';
 detail+='<circle cx="768" cy="768" r="221" fill="none" stroke="#bfc4b6" stroke-width="14"/><circle cx="768" cy="768" r="194" fill="none" stroke="#555e59" stroke-width="6"/>';
@@ -144,4 +173,6 @@ for(let j=0;j<5;j++){
 }
 detail+='<circle cx="768" cy="768" r="31" fill="#919b91" stroke="#424e48" stroke-width="6"/>';
 await sharp(svg(1024,1024,detail)).png().toFile(path.join(dir,'running-gear.png'));
+}
 fs.writeFileSync(path.join(root,'artifacts/road-vehicles/skin-hashes.json'),JSON.stringify(report,null,2)+'\n');
+function rearRoof(body){return roofHeight(body,-body.lengthM/2);}
