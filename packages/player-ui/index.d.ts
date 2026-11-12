@@ -14,9 +14,17 @@ export interface PlayerSceneState {version:1;actorId:string;mode:'on-foot'|'driv
 export interface PlayerScene {content:ContentIdentity;actorIds:readonly string[];inputElement?:HTMLElement;read(actorId:string):PlayerSceneState;subscribe(fn:()=>void):()=>void}
 export interface HudRect {x:number;y:number;width:number;height:number}
 export interface HudBounds {version:1;viewport:HudRect;occlusions:Array<HudRect&{id:string}>;safe:HudRect}
-export interface CameraProvider {prepare(settings:{mode:'follow'|'overview';zoom:number},options:{signal:AbortSignal}):Promise<{commit():void;dispose():void}>|{commit():void;dispose():void}}
+export interface CameraStage {
+  /** Non-cancellable acceptance: atomically update, then notify. Settle refusals
+   * in prepare. Errors after the update are committed observer errors. */
+  commit():void;
+  /** Retire staging only; never undo accepted camera state. */
+  dispose():void;
+}
+export interface CameraProvider {prepare(settings:{mode:'follow'|'overview';zoom:number},options:{signal:AbortSignal}):Promise<CameraStage>|CameraStage}
 export interface TitleOptions {title:string;onStart(options:{signal:AbortSignal;save:{available:boolean;summary:string}|null}):void|Promise<void>;onContinue?:(options:{signal:AbortSignal;save:{available:boolean;summary:string}|null})=>void|Promise<void>;checkSave?:(options:{signal:AbortSignal})=>{available:boolean;summary?:string}|Promise<{available:boolean;summary?:string}>;eyebrow?:string;tagline?:string;edition?:string;art?:{src:string;alt?:string;caption?:string};labels?:Record<string,string>;credits?:string[];newGameWarning?:string;menuLabel?:string}
 export interface ActionIntent {version:1;type:'action';providerId:string;actionId:string;context:string;offer:string}
+/** id is an opaque stable provider/action-pair key; use the separate identities. */
 export interface PlayerAction {version:1;id:string;providerId:string;actionId:string;target:Record<string,unknown>;verb:string;label:string;icon:string|null;enabled:boolean;reason:string|null;intent:ActionIntent}
 export interface ActionProvider {id:string;read():{context:string;actions:Array<{id:string;target:Record<string,unknown>;verb:string;label:string;icon?:string|null;enabled:boolean;reason?:string|null}>};request(actionId:string,offer:string,event?:Event):TrainUIOutcome}
 export type PlayerIntent=ActionIntent|{version:1;type:'control';context:string;offer:string;control:TrainUIControlIntent}|{version:1;type:'walk';context:string;vector:{x:number;y:number};seconds:number}|{version:1;type:'menu';open:boolean}|{version:1;type:'pause';paused:boolean}|{version:1;type:'title';visible:boolean}|{version:1;type:'configuration';configuration:PlayerConfiguration};

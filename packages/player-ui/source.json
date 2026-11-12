@@ -2,6 +2,7 @@
   "kind": "nautilus-player-ui-stage1-candidate",
   "version": 1,
   "baseCommit": "7f50cb2a48aef87a16fc0465997549be9ed88dc2",
+  "reviewParent": "03096098ec51da1bca822a892e7cfe48638e39c5",
   "publicRegistration": "Architect owned; not registered",
   "guide": "README.md",
   "sourceInputs": [
@@ -180,8 +181,8 @@
   "files": [
     {
       "path": "actions.js",
-      "bytes": 2640,
-      "sha256": "a2b4d29de741c798aba7ddb0106a928c8228bd0f6d966252a983e6f257a7538a"
+      "bytes": 3171,
+      "sha256": "7204c1c5463970b0f710fc24f7754a8749d4b601293dd806338f2a97f814fdcf"
     },
     {
       "path": "configuration.js",
@@ -210,13 +211,43 @@
     },
     {
       "path": "evidence/checks.json",
-      "bytes": 7772,
-      "sha256": "0d6be8896edcb06460c436c0b10c301920b8d54746b1f606aa6ca4c601c815b2"
+      "bytes": 8378,
+      "sha256": "16b3635f2f8254d133587d90ce5698962fad8b63910fa5ee43171e66cb6f9414"
     },
     {
       "path": "evidence/cleanup-receipt.json",
       "bytes": 633,
       "sha256": "76c3f7be1a950089b57cc8d6f7bd3cee80d39b81b6f3628ec5e87de0084297cf"
+    },
+    {
+      "path": "evidence/corrections/browser.json",
+      "bytes": 17088,
+      "sha256": "912dba37f89e4f09e462ddd0754351601abd41d0e67beb31240a6a97fcf3b05e"
+    },
+    {
+      "path": "evidence/corrections/cleanup-receipt.json",
+      "bytes": 638,
+      "sha256": "87a1e16f4da5a16252916015f340c13001e0f1e28b305d0ac6bbc5a9b4974dfe"
+    },
+    {
+      "path": "evidence/corrections/helper-cleanup-history.jsonl",
+      "bytes": 560,
+      "sha256": "f460cd8c0b1c097c399b3b960655973af68f9e7bf649772430343edab1531ce4"
+    },
+    {
+      "path": "evidence/corrections/helper-history.jsonl",
+      "bytes": 1424,
+      "sha256": "4aaee74ea382b50c2cca530c9e864393d69b58db07276248337b2e4166b3d662"
+    },
+    {
+      "path": "evidence/corrections/helper-process.json",
+      "bytes": 1595,
+      "sha256": "fd5655265a5ce799f06487e0175d3fca6d6ec425ccee047e04c5d247474bfdd7"
+    },
+    {
+      "path": "evidence/corrections/REVIEW.md",
+      "bytes": 2927,
+      "sha256": "96c64af3bff8840bd8263b944ad9532b6aa2679ede3de8378c291fb41bcc1afc"
     },
     {
       "path": "evidence/farmyard-desktop.png",
@@ -250,8 +281,8 @@
     },
     {
       "path": "evidence/node.tap",
-      "bytes": 9635,
-      "sha256": "331a55eff9fccb7afaa88a9004c71f00bb9e075d577fc09eea86fc4985a8173f"
+      "bytes": 10145,
+      "sha256": "e1b19ca80c08af68d20bccd76d36298b89389d0fafaad83ff58547db4b2972e8"
     },
     {
       "path": "evidence/REVIEW.md",
@@ -295,13 +326,13 @@
     },
     {
       "path": "index.d.ts",
-      "bytes": 8152,
-      "sha256": "b418dbfc6fd039f23f91bbdc9463f249ce01740b5eb32d6ce157d726a2944c51"
+      "bytes": 8488,
+      "sha256": "dfe93266fa154e5de42e9a1cc5d9850d1cbe124ba7c78e562b26a211b4aa797a"
     },
     {
       "path": "index.js",
-      "bytes": 20978,
-      "sha256": "1612b45cc96fcba0e6b2d47e506a0348b112b70beb9d4a7e889d8eb2399a4ce0"
+      "bytes": 21636,
+      "sha256": "0a8876bb258b1e0a375a4028e548f60d0a38ccbb1b53efdf8b4190d96de35258"
     },
     {
       "path": "menu.js",
@@ -310,8 +341,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13323,
-      "sha256": "0a72bb6d3fb56782f0c6a6deb0fa9d9918f55f07916db163960b41b02d97383f"
+      "bytes": 14926,
+      "sha256": "256921d5d89510a3e09c814d6d6c8c0df891b481fce80b7cfb157b7b65774462"
     },
     {
       "path": "resources.js",
@@ -325,8 +356,8 @@
     },
     {
       "path": "tests/player-ui.test.mjs",
-      "bytes": 10233,
-      "sha256": "531d25a97706e3aca09a4c6563a4c3174abc43c3e74200d52f8adad761edf8c5"
+      "bytes": 11991,
+      "sha256": "83a041d4b8fbc428bed0a4773d012957306d0cf890ab419fc2b3059a961bb758"
     },
     {
       "path": "tests/types.ts",
@@ -334,14 +365,19 @@
       "sha256": "e545e55bbbcf1efe3754b92be73cfc07d45b4b95502d026eaa665297ca2b5f0e"
     },
     {
+      "path": "tools/review-corrections.mjs",
+      "bytes": 14000,
+      "sha256": "6cf949346c346a0414ce002b82186e513bf8a7cd5025953eeef8eb4cb5547941"
+    },
+    {
       "path": "tools/review.mjs",
-      "bytes": 27539,
-      "sha256": "de0212260346ae01ef18715d882b4ff86c0f382fb1ff43fddd2b952de83f613b"
+      "bytes": 27571,
+      "sha256": "ea693c3a8739913c8fc38e70575e026906106a3211f76243c1685293bffd132a"
     },
     {
       "path": "tools/verify.mjs",
-      "bytes": 10697,
-      "sha256": "8d6c148dd9c744002c44b5f67726b0ae0ee4badf84f3c2bfebd67c505b07aff7"
+      "bytes": 12947,
+      "sha256": "5a50b643e45fed0de30796337bd2b0c239f7e27c640f85cd70747070324aad76"
     },
     {
       "path": "train-provider.js",

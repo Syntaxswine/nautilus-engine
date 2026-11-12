@@ -65,7 +65,7 @@ unavailable component choices and explains the connection that is missing.
 | `nautilus.ui-pause` | `acquire(owner)` returns an initially unblocked independent `setBlocked`/`dispose` gate. Its acquisition must not change world/input authority. |
 | `nautilus.hud-bounds` | `publish({version:1,viewport,occlusions,safe})`, measured CSS pixels in viewport client coordinates. Rectangles include full readouts, actions, notifications and nonempty extension slots. |
 | `nautilus.train-connector` | Existing v1 retained connector: confirmed `readForActor`/`subscribe`, authoritative `dispatch`. Requests still carry exact Expected data, actor, car and lease identities. |
-| `nautilus.camera-settings` | Optional `prepare(settings,{signal})` stages UI-only follow/overview and relative zoom. Return `commit()` and `dispose()`; commit must be synchronous and atomic, and disposal frees staging without reverting accepted settings. |
+| `nautilus.camera-settings` | Optional `prepare(settings,{signal})` stages UI-only follow/overview and relative zoom. Resolve readiness/refusals here. Return `commit()` and `dispose()`; commit synchronously accepts the prepared state before notifying observers, and disposal frees staging without reverting accepted settings. |
 | `nautilus.title-flow` | Optional `options` for existing `mountTitleScreen`, including required title/onStart and optional saved-game metadata/continue/art/credits. Callbacks must honor cancellation. The shell owns visibility, setup, focus and pause hooks. |
 
 Ports also record semantic service/version, request/confirmed/event role, schema,
@@ -107,10 +107,18 @@ Cancellation, a newer request (even an invalid one), missing resources or failed
 preparation retains the accepted config/view. Behavior changes release old input
 before transfer. Failure never replays it. Ownership transfers before retiring
 old widgets, so their disposal/visibility callbacks cannot reactivate a new view.
-Callback-producing activation is checked again for cancellation/disposal.
-Configuration-observer errors after commit are reported through `onError`; the
-configuration remains committed. A camera adapter must keep its staged commit
-atomic; arbitrary host writes cannot be rolled back by a DOM shell.
+Owned DOM attachment is checked again for cancellation/disposal before acceptance.
+The shell then publishes the accepted config and view, ends preparation
+cancellation, and enters the prepared camera's non-cancellable `commit()`. That
+method must atomically accept its prepared settings before post-update
+notifications; readiness refusals belong in `prepare`, not `commit`. Notifications
+can re-enter configuration, abort the caller's signal, throw or dispose the UI.
+They observe the accepted setup, and the outer result stays `committed:true`.
+A newer valid request starts from that setup; a newer invalid request cannot
+undo it. Post-update exceptions are reported as committed observer errors through
+`onError`. Cancellation before this point keeps the accepted camera/config/view.
+Arbitrary host writes outside this staged contract cannot be rolled back by a DOM
+shell. Disposal synchronously blocks owned native input, then retires resources.
 
 `mountPlayerUI` accepts an initial AbortSignal; `applyConfiguration` accepts its
 own signal. Title metadata may still be pending when mounting returns. `ui.ready`
@@ -136,6 +144,12 @@ Generic `actionProviders` let a retained door/item adapter provide that same
 descriptor/request contract; its authoritative provider still decides permissions,
 costs and confirmation. The Node test uses a door action to exercise this contract.
 Real door/item scene adoption remains Stage 4.
+
+`action.id` is an opaque stable key for the provider/action pair, encoded without
+slash ambiguity. Use `providerId` and `actionId` separately rather than parsing
+that key. Provider IDs and per-provider action IDs are nonempty strings; repeated
+IDs within one provider reject the complete offer before presentation. DOM
+buttons also expose separate `data-action-provider` and `data-action-id` metadata.
 
 The composed train widget uses `actionPresentation:'external'`, which removes its
 internal actionable Enter/Exit nodes and E shortcut. Its standalone default stays
@@ -186,6 +200,13 @@ the existing train Node tests, TypeScript negative controls, and
 `node packages/player-ui/tools/review.mjs`. The verifier records source closure,
 scope, resources, exact helper lifetimes and released ports. Review browsers and
 servers are bounded and close in finally; none is retained.
+
+The [review corrections](evidence/corrections/REVIEW.md) add focused identity and
+camera reentry proof on top of `03096098ec51da1bca822a892e7cfe48638e39c5`.
+Run `node packages/player-ui/tools/review-corrections.mjs`, then the verifier with
+`--corrections --tsc=PATH_TO_EXISTING_COMPILER`. Unaffected baseline evidence is
+retained byte-for-byte; the previous camera-disposal expectation is superseded by
+the explicit commit point and the focused checks of both activation paths.
 
 - [x] Retained cab entry/control, coach ride/exit and walking/focus; shared UI/agent requests.
 - [x] Generated component/settings/preset menu, camera changes and recipe validation/export/import.

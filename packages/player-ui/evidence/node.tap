@@ -2,249 +2,261 @@ TAP version 13
 # Subtest: HUD bounds choose usable space beside landscape controls and avoid every measured occlusion
 ok 1 - HUD bounds choose usable space beside landscape controls and avoid every measured occlusion
   ---
-  duration_ms: 2.126
+  duration_ms: 1.1548
   type: 'test'
   ...
 # Subtest: descriptors/configuration import without DOM and compile only strict supported module fields
 ok 2 - descriptors/configuration import without DOM and compile only strict supported module fields
   ---
-  duration_ms: 86.8553
+  duration_ms: 35.118
   type: 'test'
   ...
 # Subtest: numeric values cannot bypass semantic service, role, units, frame, schema or version compatibility
 ok 3 - numeric values cannot bypass semantic service, role, units, frame, schema or version compatibility
   ---
-  duration_ms: 0.3248
+  duration_ms: 0.2796
   type: 'test'
   ...
 # Subtest: missing, ambiguous, explicit and incompatible connections have actionable diagnostics
 ok 4 - missing, ambiguous, explicit and incompatible connections have actionable diagnostics
   ---
-  duration_ms: 100.1363
+  duration_ms: 18.4615
   type: 'test'
   ...
 # Subtest: invalid JSON, unknown fields/versions, accessors and sparse arrays reject without executing code
 ok 5 - invalid JSON, unknown fields/versions, accessors and sparse arrays reject without executing code
   ---
-  duration_ms: 75.2028
+  duration_ms: 30.6531
   type: 'test'
   ...
 # Subtest: presets modify selected UI settings only and preserve exact content, bindings and actor
 ok 6 - presets modify selected UI settings only and preserve exact content, bindings and actor
   ---
-  duration_ms: 69.4089
+  duration_ms: 15.4403
   type: 'test'
   ...
 # Subtest: recipes retain an exact engine base and explicit null settings cannot become defaults
 ok 7 - recipes retain an exact engine base and explicit null settings cannot become defaults
   ---
-  duration_ms: 45.1203
+  duration_ms: 18.1545
   type: 'test'
   ...
 # Subtest: control ownership assigns the new identity before release and cannot replay an old gesture
 ok 8 - control ownership assigns the new identity before release and cannot replay an old gesture
   ---
-  duration_ms: 1.029
+  duration_ms: 0.7055
   type: 'test'
   ...
 # Subtest: reentrant ownership callbacks settle on the newest context and disposal blocks installation
 ok 9 - reentrant ownership callbacks settle on the newest context and disposal blocks installation
   ---
-  duration_ms: 0.4476
+  duration_ms: 0.3454
   type: 'test'
   ...
 # Subtest: one generic action path preserves displayed offer, stale context, eligibility and provider receipts
 ok 10 - one generic action path preserves displayed offer, stale context, eligibility and provider receipts
   ---
-  duration_ms: 0.927
+  duration_ms: 0.9758
+  type: 'test'
+  ...
+# Subtest: action identities preserve distinct provider/action pairs containing slashes, quotes and escapes
+ok 11 - action identities preserve distinct provider/action pairs containing slashes, quotes and escapes
+  ---
+  duration_ms: 0.6658
+  type: 'test'
+  ...
+# Subtest: duplicate action identities within one provider reject a complete offer before presentation
+ok 12 - duplicate action identities within one provider reject a complete offer before presentation
+  ---
+  duration_ms: 0.3065
   type: 'test'
   ...
 # Subtest: retained adapter borrows real authority and owns only its independent UI pause gates
-ok 11 - retained adapter borrows real authority and owns only its independent UI pause gates
+ok 13 - retained adapter borrows real authority and owns only its independent UI pause gates
   ---
-  duration_ms: 34.4734
+  duration_ms: 10.2131
   type: 'test'
   ...
 # Subtest: walking receipts report the retained mover confirmation without inventing a commit for idle input
-ok 12 - walking receipts report the retained mover confirmation without inventing a commit for idle input
+ok 14 - walking receipts report the retained mover confirmation without inventing a commit for idle input
   ---
-  duration_ms: 23.921
+  duration_ms: 13.9555
   type: 'test'
   ...
 # Subtest: existing runtime lifecycle rolls back a failed preparation before activation and preserves borrowed services
-ok 13 - existing runtime lifecycle rolls back a failed preparation before activation and preserves borrowed services
+ok 15 - existing runtime lifecycle rolls back a failed preparation before activation and preserves borrowed services
   ---
-  duration_ms: 25.3204
+  duration_ms: 10.3857
   type: 'test'
   ...
 # Subtest: four fixed notches retain the donor direction/power policy
-ok 14 - four fixed notches retain the donor direction/power policy
+ok 16 - four fixed notches retain the donor direction/power policy
   ---
-  duration_ms: 1.8605
+  duration_ms: 1.2607
   type: 'test'
   ...
 # Subtest: 62% hysteresis holds both sides of each detent and clamps a bounded input
-ok 15 - 62% hysteresis holds both sides of each detent and clamps a bounded input
+ok 17 - 62% hysteresis holds both sides of each detent and clamps a bounded input
   ---
-  duration_ms: 0.338
+  duration_ms: 0.232
   type: 'test'
   ...
 # Subtest: confirmed brake and neutral render N; other controls retain donor notch mapping
-ok 16 - confirmed brake and neutral render N; other controls retain donor notch mapping
+ok 18 - confirmed brake and neutral render N; other controls retain donor notch mapping
   ---
-  duration_ms: 0.1931
+  duration_ms: 0.1348
   type: 'test'
   ...
 # Subtest: real retained authority persists power across ticks, permits coasting and refuses moving reverse without changing controls
-ok 17 - real retained authority persists power across ticks, permits coasting and refuses moving reverse without changing controls
+ok 19 - real retained authority persists power across ticks, permits coasting and refuses moving reverse without changing controls
   ---
-  duration_ms: 126.2697
+  duration_ms: 38.8684
   type: 'test'
   ...
 # Subtest: real checkpoint restore revokes the latch and cannot resurrect its retired lease
-ok 18 - real checkpoint restore revokes the latch and cannot resurrect its retired lease
+ok 20 - real checkpoint restore revokes the latch and cannot resurrect its retired lease
   ---
-  duration_ms: 103.2873
+  duration_ms: 36.1272
   type: 'test'
   ...
 # Subtest: mount and restored/subscribed movement allocate no audio device and emit no cue
-ok 19 - mount and restored/subscribed movement allocate no audio device and emit no cue
+ok 21 - mount and restored/subscribed movement allocate no audio device and emit no cue
   ---
-  duration_ms: 2.2733
+  duration_ms: 1.9294
   type: 'test'
   ...
 # Subtest: only a trusted gesture unlocks audio; unlock itself is silent
-ok 20 - only a trusted gesture unlocks audio; unlock itself is silent
+ok 22 - only a trusted gesture unlocks audio; unlock itself is silent
   ---
-  duration_ms: 0.9973
+  duration_ms: 0.8057
   type: 'test'
   ...
 # Subtest: steam cue follows accepted own lease and first confirmed departure, once per boarding
-ok 21 - steam cue follows accepted own lease and first confirmed departure, once per boarding
+ok 23 - steam cue follows accepted own lease and first confirmed departure, once per boarding
   ---
-  duration_ms: 0.4696
+  duration_ms: 0.3164
   type: 'test'
   ...
 # Subtest: refused, repeated and unconfirmed drive requests never arm a departure
-ok 22 - refused, repeated and unconfirmed drive requests never arm a departure
+ok 24 - refused, repeated and unconfirmed drive requests never arm a departure
   ---
-  duration_ms: 0.5887
+  duration_ms: 0.4663
   type: 'test'
   ...
 # Subtest: actor, cab, occupancy and lease replacement invalidate a pending whistle
-ok 23 - actor, cab, occupancy and lease replacement invalidate a pending whistle
+ok 25 - actor, cab, occupancy and lease replacement invalidate a pending whistle
   ---
-  duration_ms: 0.9074
+  duration_ms: 0.6749
   type: 'test'
   ...
 # Subtest: cancelled input cannot sound a later motion update
-ok 24 - cancelled input cannot sound a later motion update
+ok 26 - cancelled input cannot sound a later motion update
   ---
-  duration_ms: 0.3242
+  duration_ms: 0.2151
   type: 'test'
   ...
 # Subtest: electric boarding and exit chime require matching committed occupancy transitions
-ok 25 - electric boarding and exit chime require matching committed occupancy transitions
+ok 27 - electric boarding and exit chime require matching committed occupancy transitions
   ---
-  duration_ms: 0.4048
+  duration_ms: 0.2442
   type: 'test'
   ...
 # Subtest: mute stops sound, cancels pending cue and never replays it on unmute
-ok 26 - mute stops sound, cancels pending cue and never replays it on unmute
+ok 28 - mute stops sound, cancels pending cue and never replays it on unmute
   ---
-  duration_ms: 13.1158
+  duration_ms: 0.944
   type: 'test'
   ...
 # Subtest: a suspended context does not queue a stale confirmation for later resume
-ok 27 - a suspended context does not queue a stale confirmation for later resume
+ok 29 - a suspended context does not queue a stale confirmation for later resume
   ---
-  duration_ms: 0.7405
+  duration_ms: 0.3366
   type: 'test'
   ...
 # Subtest: disposal closes the owned device and makes further callbacks inert
-ok 28 - disposal closes the owned device and makes further callbacks inert
+ok 30 - disposal closes the owned device and makes further callbacks inert
   ---
-  duration_ms: 0.587
+  duration_ms: 0.4486
   type: 'test'
   ...
 # Subtest: missing optional WebAudio support leaves controls silent and usable
-ok 29 - missing optional WebAudio support leaves controls silent and usable
+ok 31 - missing optional WebAudio support leaves controls silent and usable
   ---
-  duration_ms: 0.2877
+  duration_ms: 0.2699
   type: 'test'
   ...
 # Subtest: notch clicks require a trusted accepted own change and exact confirmed controls
-ok 30 - notch clicks require a trusted accepted own change and exact confirmed controls
+ok 32 - notch clicks require a trusted accepted own change and exact confirmed controls
   ---
-  duration_ms: 0.5804
+  duration_ms: 0.3888
   type: 'test'
   ...
 # Subtest: notch click shares mute, device ownership and bounded voice cleanup
-ok 31 - notch click shares mute, device ownership and bounded voice cleanup
+ok 33 - notch click shares mute, device ownership and bounded voice cleanup
   ---
-  duration_ms: 0.3613
+  duration_ms: 0.2726
   type: 'test'
   ...
 # Subtest: deferred shift cues retain only trusted intent and still require a real accepted transition and live audio owner
-ok 32 - deferred shift cues retain only trusted intent and still require a real accepted transition and live audio owner
+ok 34 - deferred shift cues retain only trusted intent and still require a real accepted transition and live audio owner
   ---
-  duration_ms: 0.3784
+  duration_ms: 0.3364
   type: 'test'
   ...
 # Subtest: opposite travel follows signed cab-relative speed and ignores neutral/stopped requests
-ok 33 - opposite travel follows signed cab-relative speed and ignores neutral/stopped requests
+ok 35 - opposite travel follows signed cab-relative speed and ignores neutral/stopped requests
   ---
-  duration_ms: 1.5234
+  duration_ms: 1.3298
   type: 'test'
   ...
 # Subtest: actual retained forward motion brakes at full power and reverses on the same owner without another input
-ok 34 - actual retained forward motion brakes at full power and reverses on the same owner without another input
+ok 36 - actual retained forward motion brakes at full power and reverses on the same owner without another input
   ---
-  duration_ms: 175.0869
+  duration_ms: 53.6419
   type: 'test'
   ...
 # Subtest: actual retained reverse motion symmetrically brakes then engages the selected forward notch
-ok 35 - actual retained reverse motion symmetrically brakes then engages the selected forward notch
+ok 37 - actual retained reverse motion symmetrically brakes then engages the selected forward notch
   ---
-  duration_ms: 76.614
+  duration_ms: 30.9039
   type: 'test'
   ...
 # Subtest: repeated stopped notifications schedule one job and consume intent before its committed notifications
-ok 36 - repeated stopped notifications schedule one job and consume intent before its committed notifications
+ok 38 - repeated stopped notifications schedule one job and consume intent before its committed notifications
   ---
-  duration_ms: 105.3527
+  duration_ms: 38.2966
   type: 'test'
   ...
 # Subtest: cancelling a scheduled token prevents stale callbacks from affecting a replacement intent
-ok 37 - cancelling a scheduled token prevents stale callbacks from affecting a replacement intent
+ok 39 - cancelling a scheduled token prevents stale callbacks from affecting a replacement intent
   ---
-  duration_ms: 60.2256
+  duration_ms: 26.6877
   type: 'test'
   ...
 # Subtest: revocation and a new real source owner cannot be taken over by a queued callback
-ok 38 - revocation and a new real source owner cannot be taken over by a queued callback
+ok 40 - revocation and a new real source owner cannot be taken over by a queued callback
   ---
-  duration_ms: 45.833
+  duration_ms: 21.1913
   type: 'test'
   ...
 # Subtest: a failed completion is consumed once and leaves confirmed full braking
-ok 39 - a failed completion is consumed once and leaves confirmed full braking
+ok 41 - a failed completion is consumed once and leaves confirmed full braking
   ---
-  duration_ms: 90.2721
+  duration_ms: 40.6746
   type: 'test'
   ...
 # Subtest: checkpoint reload and disposal never reconstruct or execute an old local direction intent
-ok 40 - checkpoint reload and disposal never reconstruct or execute an old local direction intent
+ok 42 - checkpoint reload and disposal never reconstruct or execute an old local direction intent
   ---
-  duration_ms: 69.8651
+  duration_ms: 26.92
   type: 'test'
   ...
-1..40
-# tests 40
+1..42
+# tests 42
 # suites 0
-# pass 40
+# pass 42
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 1319.8683
+# duration_ms 444.4256

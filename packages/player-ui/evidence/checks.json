@@ -7,14 +7,27 @@
     "version": "0.10.0",
     "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
   },
-  "nodeTests": 40,
-  "playerNodeTests": 13,
+  "nodeTests": 42,
+  "playerNodeTests": 15,
   "existingTrainNodeTests": 27,
   "types": {
     "typescript": "Version 5.8.3",
     "negativeControls": 15
   },
-  "browserGroups": 24,
+  "browserGroups": 15,
+  "correctionProof": {
+    "parentCommit": "03096098ec51da1bca822a892e7cfe48638e39c5",
+    "focusedGroups": 15,
+    "record": "evidence/corrections/browser.json",
+    "inheritedBrowserProof": {
+      "commit": "03096098ec51da1bca822a892e7cfe48638e39c5",
+      "reportedGroups": 24,
+      "applicableGroups": 23,
+      "supersededGroup": "disposal during staged activation cannot attach a late view or revive input",
+      "reason": "Camera notification disposal now truthfully reports the crossed commit point; both paths are covered by the focused correction run."
+    },
+    "newReviewLifetimes": 1
+  },
   "captures": 7,
   "importWithoutDOM": true,
   "scope": "player-ui candidate plus train presentation hooks/guide/source only",
@@ -35,7 +48,7 @@
       "view.js",
       "walking.js"
     ],
-    "runtimeBytes": 74065,
+    "runtimeBytes": 75590,
     "skinResources": [
       {
         "skin": "farmyard",
@@ -72,7 +85,7 @@
     "newImportedBytes": 0
   },
   "helpers": {
-    "recordedBrowserLifetimes": 10,
+    "recordedBrowserLifetimes": 11,
     "exactLifetimesExited": true,
     "portsReleased": true,
     "retained": []

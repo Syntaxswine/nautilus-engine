@@ -1,13 +1,21 @@
 import {data,refusal,exact} from './data.js';
 
 export function createActionRouter({providers,readContext}) {
+  if(providers.some(p=>typeof p.id!=='string'||!p.id))throw TypeError('Action provider IDs must be nonempty strings.');
   if(new Set(providers.map(p=>p.id)).size!==providers.length)throw TypeError('Action provider IDs must be unique.');
   const entries=new Map(providers.map(p=>[p.id,p]));let retired=false;
   function read() {
-    const context=readContext(),actions=[];
+    const context=readContext(),actions=[],seen=new Set();
     for(const provider of entries.values()) {
       const view=provider.read();
-      for(const action of view.actions)actions.push({version:1,id:provider.id+'/'+action.id,providerId:provider.id,actionId:action.id,target:data(action.target),verb:action.verb,label:action.label,icon:action.icon||null,enabled:!retired&&!context.blocked&&action.enabled,reason:context.blocked?'Close the menu or restore the player context.':action.reason||null,intent:{version:1,type:'action',providerId:provider.id,actionId:action.id,context:context.token,offer:view.context}});
+      for(const action of view.actions){
+        if(typeof action.id!=='string'||!action.id)throw TypeError('Action IDs must be nonempty strings.');
+        // JSON's string tuple encoding preserves both identities, including
+        // slashes, quotes and escapes. Consumers treat the combined ID as opaque.
+        const id=JSON.stringify([provider.id,action.id]);
+        if(seen.has(id))throw Error('DUPLICATE_ACTION_ID: '+id);seen.add(id);
+        actions.push({version:1,id,providerId:provider.id,actionId:action.id,target:data(action.target),verb:action.verb,label:action.label,icon:action.icon||null,enabled:!retired&&!context.blocked&&action.enabled,reason:context.blocked?'Close the menu or restore the player context.':action.reason||null,intent:{version:1,type:'action',providerId:provider.id,actionId:action.id,context:context.token,offer:view.context}});
+      }
     }
     return {version:1,context:data(context),actions};
   }
