@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '24'
       - run: node tools/vehicle-art/intake.mjs --verify
-      - run: node --test tests/vehicles.test.mjs tests/vehicle-visuals.test.mjs
+      - run: node --test tests/vehicles.test.mjs tests/vehicle-visuals.test.mjs tests/vehicle-follow.test.mjs
       - name: Prepare pinned public declaration compiler
         run: npm install --prefix "$RUNNER_TEMP/road-types" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@5.9.3
       - run: node tools/test-road-vehicles-package.mjs --typescript "$RUNNER_TEMP/road-types/node_modules/typescript/lib/tsc.js"
@@ -81,6 +81,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -181,6 +182,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -364,6 +366,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -440,6 +443,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -519,6 +523,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -595,6 +600,7 @@ jobs:
           62f2fe90210b10985f80d75d9e4425f424a51c6b
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

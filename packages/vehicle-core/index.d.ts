@@ -2,7 +2,9 @@ export type VehicleBodyID='hatchback'|'sedan'|'pickup'|'crew-pickup'|'cargo-van'
 export type VehicleFinishID='sage'|'oxide'|'teal';
 export interface VehiclePoint {x:number;y:number;h:number}
 export interface VehicleBody {readonly id:VehicleBodyID;readonly name:string;readonly lengthM:number;readonly widthM:number;readonly heightM:number;readonly wheelRadiusM:number;readonly axlesM:readonly [number,number];readonly cells:readonly number[];readonly kind:string}
+/** Heading is right-handed Three +Y yaw: local +Z forward, positive turns left. */
 export interface VehicleSeed {id:string;body?:VehicleBodyID;finish?:VehicleFinishID;position:VehiclePoint;headingRad?:number}
+/** steeringRad is physical wheel yaw about +Y, so right input produces negative yaw. */
 export interface VehicleState extends Required<VehicleSeed> {floorId:string;speedMps:number;steeringRad:number;wheelbaseM:number;distanceM:number;wheelAngleRad:number;revision:number}
 /** Normalised car-relative axes: +throttle forward, +steering right. */
 export interface VehicleControl {throttle:number;steering:number;held:boolean}

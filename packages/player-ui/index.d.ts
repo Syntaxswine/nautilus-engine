@@ -25,7 +25,11 @@ export interface SetupMenuAdapter {
   preset?:(recipe:SetupMenuRecipe,presetId:string)=>SetupMenuRecipe;
 }
 export interface ControlContext {readonly version:1;readonly revision:number;readonly mode:'on-foot'|'driver'|'rider'|'menu'|'paused'|'unavailable';readonly actorId:string|null;readonly contextId:string|null;readonly token:string;readonly blocked:boolean}
-export interface PlayerSceneState {version:1;actorId:string;mode:'on-foot'|'driver'|'rider';contextId:string;transport?:{kind:'train'|'road-vehicle';connectorId:string;vehicleId:string;seatId?:string}|null;walkingAllowed:boolean;position:{x:number;y:number;h:number};status:Array<{id:string;label:string;value:string}>}
+/** Confirmed ground centre and conservative whole-vehicle envelope, in metres.
+ * Heading is right-handed Three +Y yaw; +Z is forward, positive yaw turns left
+ * from behind. The optional frame is derived by the host and is never saved input. */
+export interface RoadVehicleCameraFrame {version:1;kind:'road-vehicle';connectorId:string;vehicleId:string;centre:{x:number;y:number;h:number};headingRad:number;bounds:{min:{x:number;y:number;h:number};max:{x:number;y:number;h:number}}}
+export interface PlayerSceneState {version:1;actorId:string;mode:'on-foot'|'driver'|'rider';contextId:string;transport?:{kind:'train'|'road-vehicle';connectorId:string;vehicleId:string;seatId?:string}|null;cameraFrame?:RoadVehicleCameraFrame|null;walkingAllowed:boolean;position:{x:number;y:number;h:number};status:Array<{id:string;label:string;value:string}>}
 export interface PlayerScene {content:ContentIdentity;actorIds:readonly string[];inputElement?:HTMLElement;read(actorId:string):PlayerSceneState;subscribe(fn:()=>void):()=>void}
 export interface HudRect {x:number;y:number;width:number;height:number}
 export interface HudBounds {version:1;viewport:HudRect;occlusions:Array<HudRect&{id:string}>;safe:HudRect}

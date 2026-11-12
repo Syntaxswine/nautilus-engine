@@ -11,6 +11,8 @@
   "lifetime": "composition",
   "units": "metres; m/s; radians; normalised throttle/steering",
   "frame": "world-x-y-h; car-relative +forward/+right",
+  "yaw": "headingRad and steeringRad use right-handed Three +Y rotation; visual +Z is forward; positive yaw turns left from behind; normalized positive steering requests right and converts once to negative wheel yaw",
+  "cameraFrame": {"property":"PlayerSceneState.cameraFrame","schema":"urn:nautilus:road-vehicle-camera-frame:1","version":1,"role":"confirmed-state","ownership":"borrowed host data","units":"metres; right-handed Three +Y radians","fields":["connectorId","vehicleId","centre","headingRad","bounds"],"limits":"finite x/y/h and heading within +/-1e6; conservative envelope sides <=128 metres; identities match occupied road transport","policy":"default follow is elevated behind body heading for driver/passenger; overview stays explicit; on-foot uses its existing camera; no velocity flip or saved camera authority"},
   "intent": {"version": 1, "type": "vehicle-control", "role": "request", "required": ["context", "offer", "control"], "control": ["throttle", "steering", "held"], "authority": ["actorId", "vehicleId", "seatId", "occupancyRevision", "leaseId", "owner"]},
   "clock": "borrowed phased host clock; 0 <= step <= 0.1 seconds, internal bounded substeps <= 0.05 seconds",
   "save": {"kind": "nautilus-road-vehicles", "version": 1, "transient": ["held controls", "input owners", "driver leases"], "visualQuality": "separate presentation setting"},
