@@ -1,0 +1,526 @@
+{
+  "version": 1,
+  "status": "finished candidate for Architect review",
+  "createdAt": "2026-11-12T20:05:18.953Z",
+  "base": "7234f1c963099046a405183591bd161c1a410797",
+  "implementationCommit": "7328421830836f35f4d795d45047a24059d5a7ae",
+  "implementationTree": "6705b2c3007517f212a8ed2c3118235ad918c8b3",
+  "source": {
+    "kind": "git-worktree",
+    "commit": "7328421830836f35f4d795d45047a24059d5a7ae",
+    "tree": "6705b2c3007517f212a8ed2c3118235ad918c8b3",
+    "dirty": false,
+    "payloadSHA256": "9b5bc47b2ffa3231c50b1fa8f903bcf9c5baa96832dd46be77d1d23f52cf5923"
+  },
+  "package": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "87e0dbc0cab2e52e0b48f0a207b55a2098f3fa526950948b64410ac7ac2afe78",
+    "bytes": 74089285,
+    "files": 555,
+    "publicExports": 65,
+    "payloadSHA256": "9b5bc47b2ffa3231c50b1fa8f903bcf9c5baa96832dd46be77d1d23f52cf5923"
+  },
+  "allInstalledBytesVerified": true,
+  "registration": {
+    "path": "registration.json",
+    "sha256": "cb04c3e0eb6caeef50e3d0b52341e89d68edf59b039a55dfe2c541996753fffb",
+    "files": 20
+  },
+  "acceptedRecordsUnchanged": [
+    {
+      "path": "docs/reviews/road-driving/registration.json",
+      "bytes": 211276,
+      "sha256": "e5e6f6b8de3bf4f55a6bc04ddf79a6c75220de3cb76051d5f308864672a18cde"
+    },
+    {
+      "path": "packages/player-setup/source.json",
+      "bytes": 27840,
+      "sha256": "41675bd7c389c6fbae0471bc6cd6f34f7b542ab04b10724a7ad72bb3714772ea"
+    },
+    {
+      "path": "packages/player-ui/source.json",
+      "bytes": 15913,
+      "sha256": "f8931d1ae903d283d732d112d64a3731fea73db17fa617c162a3684344a44e2b"
+    },
+    {
+      "path": "packages/native-actors/source.json",
+      "bytes": 12290,
+      "sha256": "84b018a29554240b42cdef882fcc9f9e11df608fcf9250dcc81ed9a1f2388afe"
+    },
+    {
+      "path": "packages/vehicle-visuals/profiles.json",
+      "bytes": 7340,
+      "sha256": "f7db3796b7d72d6cd07b5f50d002533772b9d1ba80fd88685f905d5d104e21a4"
+    }
+  ],
+  "launch": {
+    "path": "/examples/vehicle-yard/",
+    "query": "",
+    "normalClock": true,
+    "defaultRearFollowForDriverAndPassenger": true,
+    "overviewExplicit": true,
+    "previewOwnerAfterApproval": "Architect, Nautilus Engine",
+    "retainedBuilderService": false
+  },
+  "checks": {
+    "gates": {
+      "trackedSource": {
+        "log": "gates/check.log",
+        "command": "npm run check -- --tracked",
+        "indexedFiles": 22,
+        "exitCode": 0
+      },
+      "tests": {
+        "exitCode": 0,
+        "fail": 0,
+        "durationMs": 1209938.9792,
+        "command": "node --test --test-concurrency=2 tests/*.test.mjs",
+        "log": "gates/tests.log",
+        "skipped": 0,
+        "pass": 1285,
+        "tests": 1285,
+        "initialNpmAttempt": {
+          "command": "npm test",
+          "isolatedPassMs": 43419.828,
+          "exitCode": 1,
+          "boundedFullCasePassMs": 19825.7683,
+          "pass": 1284,
+          "reason": "Existing structural-package subprocess reached its unchanged120-second limit under default concurrency",
+          "tests": 1285,
+          "assertionsAndTimeoutsChanged": false
+        }
+      },
+      "upstream": {
+        "tests": 32,
+        "pass": 32,
+        "command": "npm run test:upstream",
+        "log": "gates/upstream.log",
+        "exitCode": 0
+      },
+      "build": {
+        "log": "gates/build.log",
+        "command": "npm run build",
+        "exitCode": 0,
+        "source": "7328421830836f35f4d795d45047a24059d5a7ae",
+        "modulePaths": 646,
+        "clean": true
+      },
+      "focused": {
+        "pass": 51,
+        "log": "gates/focused.log",
+        "command": "node --test tests/vehicles.test.mjs tests/vehicle-follow.test.mjs tests/road-chase-registration.test.mjs tests/player-setup-registration.test.mjs tests/shared-artwork-registration.test.mjs",
+        "exitCode": 0
+      },
+      "publicPackage": {
+        "bodies": 8,
+        "command": "node tools/test-road-vehicles-package.mjs --typescript <read-only TypeScript5.8.3>",
+        "files": 555,
+        "negativeTypeControls": 9,
+        "exitCode": 0
+      },
+      "sourceBrowser": {
+        "command": "node tools/review-vehicle-follow.mjs",
+        "groups": 18,
+        "exitCode": 0
+      },
+      "installedBrowser": {
+        "command": "node tools/review-vehicle-follow.mjs --installed",
+        "groups": 18,
+        "exitCode": 0
+      },
+      "builtBrowser": {
+        "command": "node tools/review-vehicle-follow.mjs --built",
+        "groups": 18,
+        "exitCode": 0
+      },
+      "existingCar": {
+        "command": "node tools/review-road-driving.mjs --candidate",
+        "groups": 20,
+        "exitCode": 0
+      },
+      "trains": {
+        "command": "node tools/review-player-yard.mjs --built",
+        "groups": 9,
+        "exitCode": 0
+      },
+      "nightLedger": {
+        "typeNegativeControls": 5,
+        "nodeTests": 23,
+        "command": "accepted isolated installation/focused/browser tools; only browser harness import and owner adapted",
+        "browserGroups": 20,
+        "exitCode": 0
+      }
+    },
+    "sourceFollowGroups": 18,
+    "installedFollowGroups": 18,
+    "builtFollowGroups": 18,
+    "spatialKeyboardHeadings": [
+      0,
+      1.5707963267948966
+    ],
+    "gears": [
+      "forward",
+      "reverse"
+    ],
+    "normalClockActualTouchViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "framingConfigurations": 512,
+    "installedHeadlessBodies": 8,
+    "publicTypeNegativeControls": 9,
+    "existingCarBrowserGroups": 20,
+    "realTrainCircuits": 2,
+    "trainBrowserGroups": 9,
+    "nightLedgerNodeTests": 23,
+    "nightLedgerBrowserGroups": 20
+  },
+  "regressionIdentity": {
+    "source": "Precommit candidate explicitly labelled with synthetic fixture content; actual full payload equals the final fixed package.",
+    "candidateCommit": "7234f1c963099046a405183591bd161c1a410797",
+    "candidateDirty": true,
+    "payloadSHA256": "9b5bc47b2ffa3231c50b1fa8f903bcf9c5baa96832dd46be77d1d23f52cf5923",
+    "files": 555
+  },
+  "helpers": {
+    "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+    "recordedLifetimes": 14,
+    "originalIdentitiesExited": true,
+    "originalListenersAbsent": true,
+    "retained": 0
+  },
+  "limits": [
+    "Default chase uses a perspective surface; explicit retained camera/HUD providers keep their own policy.",
+    "Unchanged flat low-speed bicycle model and conservative collision policy; no new terrain, crash, tire/suspension, resource or game-adoption capability.",
+    "Phone tests are browser viewport/touch emulation; no physical-device timing or FPS claim.",
+    "Additional spatial cases use explicit public-host starting-pose fixtures; ordinary initial and phone loops use the direct example."
+  ],
+  "evidenceHashScope": "Exact normalized LF text and unchanged binary bytes; verify against actual Git index before evidence commit.",
+  "evidence": [
+    {
+      "path": "README.md",
+      "bytes": 7466,
+      "sha256": "1317fa1d8f41dbd2d2e3a7468c04d359572dd7cf8279e3bcb81f31f3a659690e",
+      "source": "artifacts/chase-review-README.md"
+    },
+    {
+      "path": "source/browser.json",
+      "bytes": 53424,
+      "sha256": "4b83b531c2cb10eeaaac263254caebc40522a84872f975cdc39e9e2fc4f88ac2",
+      "source": "artifacts/vehicle-follow-source/browser.json"
+    },
+    {
+      "path": "source/default-rear.png",
+      "bytes": 193259,
+      "sha256": "0ef9c68d8f0803462a77373c7830a82c33f7dfad89b7a098ccbf92f8e4a57cda",
+      "source": "artifacts/vehicle-follow-source/default-rear.png"
+    },
+    {
+      "path": "source/right-heading-0.00.png",
+      "bytes": 119712,
+      "sha256": "6a67ac96c5da214cfff74b0d5dd19ed83b02d86ee37935d01353b2039b212caf",
+      "source": "artifacts/vehicle-follow-source/right-heading-0.00.png"
+    },
+    {
+      "path": "source/right-heading-1.57.png",
+      "bytes": 125435,
+      "sha256": "085d22b8811db58c91ea66bdb8b9fe23543571eb7eb647506b56fdd58c82ba32",
+      "source": "artifacts/vehicle-follow-source/right-heading-1.57.png"
+    },
+    {
+      "path": "source/safe-exit.png",
+      "bytes": 138269,
+      "sha256": "d5e48a6bb144fa5bddf8337214ec79956f2a61d5fa43995e4a2e2d6dacb5fe9b",
+      "source": "artifacts/vehicle-follow-source/safe-exit.png"
+    },
+    {
+      "path": "source/phone-forward-right.png",
+      "bytes": 65854,
+      "sha256": "d9ff02612d79b3c502e4a3c4911f1596bc9082d82f265eac1e98aeafa6b2e248",
+      "source": "artifacts/vehicle-follow-source/phone-forward-right.png"
+    },
+    {
+      "path": "source/phone-reverse-right.png",
+      "bytes": 65816,
+      "sha256": "98a17ef4dd52d09c54c8723281d49f75e2a98ca8868e541891828474618bb69e",
+      "source": "artifacts/vehicle-follow-source/phone-reverse-right.png"
+    },
+    {
+      "path": "source/phone-safe-exit.png",
+      "bytes": 83217,
+      "sha256": "e26358c184a1a043e0e843baa1e02e19171d9f938360f825f97831e3e4d69c5d",
+      "source": "artifacts/vehicle-follow-source/phone-safe-exit.png"
+    },
+    {
+      "path": "installed/browser.json",
+      "bytes": 63253,
+      "sha256": "1c243d5791d75f00f3f931959b2277f323218cda2eb95308890088e54e529e36",
+      "source": "artifacts/vehicle-follow-installed/browser.json"
+    },
+    {
+      "path": "installed/default-rear.png",
+      "bytes": 193259,
+      "sha256": "0ef9c68d8f0803462a77373c7830a82c33f7dfad89b7a098ccbf92f8e4a57cda",
+      "source": "artifacts/vehicle-follow-installed/default-rear.png"
+    },
+    {
+      "path": "installed/right-heading-0.00.png",
+      "bytes": 119712,
+      "sha256": "6a67ac96c5da214cfff74b0d5dd19ed83b02d86ee37935d01353b2039b212caf",
+      "source": "artifacts/vehicle-follow-installed/right-heading-0.00.png"
+    },
+    {
+      "path": "installed/right-heading-1.57.png",
+      "bytes": 125435,
+      "sha256": "085d22b8811db58c91ea66bdb8b9fe23543571eb7eb647506b56fdd58c82ba32",
+      "source": "artifacts/vehicle-follow-installed/right-heading-1.57.png"
+    },
+    {
+      "path": "installed/safe-exit.png",
+      "bytes": 138269,
+      "sha256": "d5e48a6bb144fa5bddf8337214ec79956f2a61d5fa43995e4a2e2d6dacb5fe9b",
+      "source": "artifacts/vehicle-follow-installed/safe-exit.png"
+    },
+    {
+      "path": "installed/phone-forward-right.png",
+      "bytes": 65854,
+      "sha256": "d9ff02612d79b3c502e4a3c4911f1596bc9082d82f265eac1e98aeafa6b2e248",
+      "source": "artifacts/vehicle-follow-installed/phone-forward-right.png"
+    },
+    {
+      "path": "installed/phone-reverse-right.png",
+      "bytes": 65858,
+      "sha256": "640f4b72cf8d492b84ecb74651883b9d5bfe149c36259dcfeb3809e14da4a8e7",
+      "source": "artifacts/vehicle-follow-installed/phone-reverse-right.png"
+    },
+    {
+      "path": "installed/phone-safe-exit.png",
+      "bytes": 83181,
+      "sha256": "239273521f176e3591c8c0ad31bc95fb6f3b184c221a8ba419f8e445f294cf42",
+      "source": "artifacts/vehicle-follow-installed/phone-safe-exit.png"
+    },
+    {
+      "path": "built/browser.json",
+      "bytes": 53435,
+      "sha256": "363102fb511f260c274ff2e1c02bb9c910397067cba4a612cf6dad2691fe4c35",
+      "source": "artifacts/vehicle-follow-built/browser.json"
+    },
+    {
+      "path": "built/default-rear.png",
+      "bytes": 193259,
+      "sha256": "0ef9c68d8f0803462a77373c7830a82c33f7dfad89b7a098ccbf92f8e4a57cda",
+      "source": "artifacts/vehicle-follow-built/default-rear.png"
+    },
+    {
+      "path": "built/right-heading-0.00.png",
+      "bytes": 119712,
+      "sha256": "6a67ac96c5da214cfff74b0d5dd19ed83b02d86ee37935d01353b2039b212caf",
+      "source": "artifacts/vehicle-follow-built/right-heading-0.00.png"
+    },
+    {
+      "path": "built/right-heading-1.57.png",
+      "bytes": 125435,
+      "sha256": "085d22b8811db58c91ea66bdb8b9fe23543571eb7eb647506b56fdd58c82ba32",
+      "source": "artifacts/vehicle-follow-built/right-heading-1.57.png"
+    },
+    {
+      "path": "built/safe-exit.png",
+      "bytes": 138269,
+      "sha256": "d5e48a6bb144fa5bddf8337214ec79956f2a61d5fa43995e4a2e2d6dacb5fe9b",
+      "source": "artifacts/vehicle-follow-built/safe-exit.png"
+    },
+    {
+      "path": "built/phone-forward-right.png",
+      "bytes": 65854,
+      "sha256": "d9ff02612d79b3c502e4a3c4911f1596bc9082d82f265eac1e98aeafa6b2e248",
+      "source": "artifacts/vehicle-follow-built/phone-forward-right.png"
+    },
+    {
+      "path": "built/phone-reverse-right.png",
+      "bytes": 65789,
+      "sha256": "319233431eca69598121a558c68e323559c55d48ef1aaa828085f7cd5550e462",
+      "source": "artifacts/vehicle-follow-built/phone-reverse-right.png"
+    },
+    {
+      "path": "built/phone-safe-exit.png",
+      "bytes": 83014,
+      "sha256": "ca7d1433adb075393abc36ed400792c02a67f4e39e322e74a66474189ede2b16",
+      "source": "artifacts/vehicle-follow-built/phone-safe-exit.png"
+    },
+    {
+      "path": "built/package-provenance.json",
+      "bytes": 367,
+      "sha256": "520e3f5380e47222dd8d9631f264c90471d6dabcdc857d979b2ec37345de3913",
+      "source": "dist/package-provenance.json"
+    },
+    {
+      "path": "installed/package.json",
+      "bytes": 3089,
+      "sha256": "932b172a5599dcabd3e4cde607b82f81527666af42bc2d6abfa2843e3ee9563e",
+      "source": "artifacts/road-installed/latest.json"
+    },
+    {
+      "path": "source/steering-before.json",
+      "bytes": 701,
+      "sha256": "1a9420db450fb1ade555c1f9cbedbed287c49a6bc4bd090caa4b3f2a4f0082bb",
+      "source": "artifacts/steering-before.json"
+    },
+    {
+      "path": "gates/check.log",
+      "bytes": 28009,
+      "sha256": "a7fbc6b36f8ca081a40fd53c5b315a913ed941e7cffbf69594d9d994144d17a1",
+      "source": "artifacts/chase-check.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/tests.log",
+      "bytes": 138872,
+      "sha256": "d07a35b8307d181db750344822531c24d1221bf21198cbc5d1ed5f6555fa240c",
+      "source": "artifacts/chase-tests-bounded.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/tests-initial-timeout.log",
+      "bytes": 140234,
+      "sha256": "2dc82f073e992e87d0348826dde31b88823a1876d320ea8ac97e7ddb7130ff7f",
+      "source": "artifacts/chase-tests.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/procedural-package-isolated.log",
+      "bytes": 238,
+      "sha256": "aed8d91927c9a94afb6fee6dc8d80bbd5a1336966b24a964aa8d6cbc5b31cc6b",
+      "source": "artifacts/chase-procedural-package-isolated.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/upstream.log",
+      "bytes": 3082,
+      "sha256": "fe037e8ac4ce730eb1b5d277cbd955fcb61e1adec5dcbd2ac79ab798f5ce756b",
+      "source": "artifacts/chase-upstream.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/build.log",
+      "bytes": 372,
+      "sha256": "2206a08a13ecb5f7cca68cfdeefe95578fc8ac8c1c278462d9b0d5314e93344b",
+      "source": "artifacts/chase-final-clean-build.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/focused.log",
+      "bytes": 4970,
+      "sha256": "5dd3f354c86bedbcc6cc115206c23065b45b40eeee10205d3a0281e26479c736",
+      "source": "artifacts/chase-focused.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/index.json",
+      "bytes": 263,
+      "sha256": "dc01952cbc699bfec57deaefc86a530e31b77a2a7308e6fce7813f42782e0324",
+      "source": "artifacts/chase-index.json"
+    },
+    {
+      "path": "regressions/road.json",
+      "bytes": 40808,
+      "sha256": "c1a3aafcae557eec9b5946ada020dbd267d50afdcb904c558d2917cdbbd75a23",
+      "source": "artifacts/road-yard-review/browser.json"
+    },
+    {
+      "path": "regressions/trains.json",
+      "bytes": 1251,
+      "sha256": "003b5109d1b06f04bf9d8a31bb0e6c923a74c526fb29e220d2f6fade7aec5f12",
+      "source": "artifacts/player-setup-yard-built/browser.json"
+    },
+    {
+      "path": "regressions/night-ledger-browser.json",
+      "bytes": 20603,
+      "sha256": "6e2791f4146f8e68ba7203fff731f9dba1abdfe5b41ec8d99dec272d0fb06f38",
+      "source": "artifacts/night-ledger-review/browser.json"
+    },
+    {
+      "path": "regressions/night-ledger-node-types.json",
+      "bytes": 1129,
+      "sha256": "97ce45aebd95ffdd34526ecd2a2b387ef178ca75ca87f52038ab168454ac6c4b",
+      "source": "artifacts/night-ledger-focused/checks.json"
+    },
+    {
+      "path": "regressions/night-ledger-installation.json",
+      "bytes": 3014,
+      "sha256": "bf939cb1cc04e5df20c473e3b40e876878d79424bdabbe9ff39d8fd2ac3bfa81",
+      "source": "artifacts/night-ledger-installed/latest.json"
+    },
+    {
+      "path": "regressions/train-build-source.json",
+      "bytes": 366,
+      "sha256": "76307aed9de9e1720039ca6f46cbc4341cbea27019cd9153764c7a3406bfb508",
+      "source": "artifacts/chase-regression-build-source.json"
+    },
+    {
+      "path": "regressions/candidate-package.json",
+      "bytes": 3054,
+      "sha256": "78db8349f758c42b8139b4f0b0db5f125bd442f0844646b982f2317112f1b99a",
+      "source": "artifacts/chase-candidate-installation.json"
+    },
+    {
+      "path": "regressions/night-ledger-harness.json",
+      "bytes": 370,
+      "sha256": "53346543d8454d72b85476dab33c88fc4760136e9bd08af92357ee578e1d6177",
+      "source": "artifacts/night-ledger-review-adaptation.json"
+    },
+    {
+      "path": "lifecycle/cli-process-audit.json",
+      "bytes": 266,
+      "sha256": "7528458dbd2d338dbcbbf9b8010db90743a1d914417c47e5b1987904d5b27a40",
+      "source": "artifacts/chase-cli-process-audit.json",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "lifecycle/lifetimes.json",
+      "bytes": 34376,
+      "sha256": "3713ecf4d6042e97ec946f8795956737fd784cf079929c73f0e9d8b573378802",
+      "source": "artifacts/chase-helper-lifetimes.json"
+    },
+    {
+      "path": "lifecycle/verification.json",
+      "bytes": 28014,
+      "sha256": "e1f51818004dab1519ed268145875d4cf87cf212eee666139c9465394288611f",
+      "source": "artifacts/chase-helper-verification.json",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "restart/4537584d4aca-review-night-ledger-regression.mjs.original",
+      "bytes": 19064,
+      "sha256": "4537584d4aca677e5d8203f33328349f5424b928d751e43fb56a679f5a7af198",
+      "source": "artifacts/review-night-ledger-regression.mjs"
+    },
+    {
+      "path": "restart/0f99c66bb464-collect-chase-helpers.mjs.original",
+      "bytes": 1159,
+      "sha256": "0f99c66bb464ecee32aa8e2a340426c02bc740810169eaa1ae8601f85929b086",
+      "source": "artifacts/collect-chase-helpers.mjs"
+    },
+    {
+      "path": "restart/00644188ce80-verify-chase-helpers.ps1.original",
+      "bytes": 2392,
+      "sha256": "00644188ce809363cc4dde8d01f50ed3bd84ece6423b7d133057d743256189f1",
+      "source": "artifacts/verify-chase-helpers.ps1"
+    },
+    {
+      "path": "restart/095cd0f23619-collect-chase-delivery.mjs.original",
+      "bytes": 9174,
+      "sha256": "095cd0f2361991771d968d59d037457cfe95c90ede24c8dc65449f18733ed89d",
+      "source": "artifacts/collect-chase-delivery.mjs"
+    },
+    {
+      "path": "restart/records.json",
+      "bytes": 15629,
+      "sha256": "833f4e1efc7f803d21c7a7ad9b957595715fd219dadd4924c02fcfa628db5fdb"
+    }
+  ],
+  "evidenceIndexValidation": {
+    "status": "passed",
+    "files": 53,
+    "method": "Exact actual Git index bytes, after LF normalization, independently compared against all recorded sizes and SHA256 hashes."
+  }
+}
