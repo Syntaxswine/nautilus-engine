@@ -99,6 +99,34 @@ an observation is evidence for its declared scope, not proof of every subsystem.
 Keep transient input and one-shot effects out of replay. Restarting a sandbox
 fixture is an explicit operation distinct from resuming a saved game.
 
+## Golden fixture checklist
+
+The next reuse tranche adds a registry-generated checklist of named, versioned
+golden fixtures. Selection loads compatible plots, components, objectives and
+observations through the same real recipe/menu/agent path, supporting quick manual
+try-out and **Run selected**. Initially only accepted door/item fixtures work;
+movement/heights, combat, environment and train families follow as their services
+are accepted. Use real native dimensions/heights and retain one simulation authority.
+
+Each fixture records a stable ID/version, reviewed baseline/source pins,
+seed/checkpoint, required capabilities/ports, placement/dependency/conflict rules,
+expected observations, reset policy and evidence references. Golden means a
+reviewed, committed, reproducible starting situation with explicit expectations;
+never silently regenerate or bless expectations from the latest output.
+
+Checkbox selection is separate from verification: off means disabled/not run,
+never passed. Show pending, running, pass, fail and unavailable/inconclusive with
+reasons. Unsupported providers disable selection with an actionable explanation.
+Changing a fixture or relevant dependency invalidates its previous result; a changed
+recipe cannot retain a stale green tick. Run from known isolated baselines, keeping
+deliberate linked/interference tests explicit. Fixture setup must not reset/refill a
+real save. Check gameplay state, public geometry and committed observations; render
+captures supplement them with declared tolerance, not pixel identity across devices.
+Include a deliberately broken outcome that the verifier catches. Export selected
+IDs/versions, full recipe/seed, expectation/observer versions and evidence/results
+for reproduction. Report only supported coverage actually exercised. This section
+is scope for the following builder, not a fixture runner delivered by Stage 3.
+
 ## Sequential delivery and acceptance
 
 Finish and review the existing Stage 2 setup candidate, then Root's installed

@@ -9,6 +9,7 @@ import {moduleReferenceGraph} from './module-references.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import {trainPackageFiles} from './train-registration.mjs';
 import {npmFilePatterns} from './npm-files.mjs';
+import {withPlayerSetupExports,playerSetupPackageFiles} from './player-setup-registration.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
@@ -55,6 +56,8 @@ export function distribution(profile = 'compatibility') {
   if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
   if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
   extras.push(...trainPackageFiles(profile));
+  exports=withPlayerSetupExports(exports,profile);
+  extras.push(...playerSetupPackageFiles(profile));
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

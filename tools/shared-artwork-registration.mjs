@@ -11,6 +11,7 @@ import assert from 'node:assert/strict';import fs from 'node:fs';import path fro
 import {checkRailwayRenderer, railwayPackageFiles, registeredRailwayBytes} from './railway-registration.mjs';
 import {RAILWAY_ROUTE_BASE, verifyRailwayRouteFiles} from './railway-route-registration.mjs';
 import {trainPackageExports} from './train-registration.mjs';
+import {checkPlayerSetupRegistration} from './player-setup-registration.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v),token=v=>sha(canonical(v));
 const prefix='candidates/tile-authoring/artwork-discovery-proposal/',payloadRoot='assets/artwork/local-graphics-v1',metadata=['packages/assets/artwork.js','packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md'];
 const publicHeader='// Shared original artwork metadata; immutable source06dee5b, canonical Core432 / Artist57. Encoded delivery is separate.';
@@ -25,7 +26,7 @@ export function sharedArtworkBuildBytes({object}){
 }
 export function historicalArtworkNotice({object,current}){const before=object(SHARED_ARTWORK_BASE,'NOTICE.md'),expected=Buffer.concat([before,Buffer.from(NOTICE_SUFFIX)]);assert.ok(current.equals(expected),'Shared artwork NOTICE must be exactly the fixed preimage plus the single reviewed suffix');return before;}
 function actualPayloadFiles(){const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),folder=path.join(root,payloadRoot),walk=(dir,relative)=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>{assert.equal(e.isSymbolicLink(),false,'No symlinked artwork input');const f=relative+'/'+e.name;return e.isDirectory()?walk(path.join(dir,e.name),f):[f];});return walk(folder,payloadRoot).sort();}
-export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()=>{},moduleClosure,distribution,listArtworkFiles=actualPayloadFiles}){
+function checkHistoricalSharedArtworkRegistration({object:rawObject,read,indexed=()=>{},moduleClosure,distribution,listArtworkFiles=actualPayloadFiles}){
  const cache=new Map(),object=(commit,file)=>{const k=commit+':'+file;if(!cache.has(k))cache.set(k,rawObject(commit,file));const b=cache.get(k);assert.ok(Buffer.isBuffer(b));return b;},baseFile=f=>object(SHARED_ARTWORK_BASE,f),sourceFile=f=>object(SHARED_ARTWORK_SOURCE,prefix+f),expect=(f,b)=>{const actual=read(f);assert.ok(actual.equals(registeredRailwayBytes(f,b)),'Unreviewed shared artwork or railway bytes: '+f);indexed(f,actual);return actual;};
  indexed('tools/shared-artwork-registration.mjs',read('tools/shared-artwork-registration.mjs'));
  checkRailwayRenderer({baseFile,read,indexed});
@@ -67,3 +68,5 @@ export function checkSharedArtworkRegistration({object:rawObject,read,indexed=()
  const historicalRead=f=>Object.hasOwn(preimages,f)?preimages[f]:read(f),historicalIndexed=(f,b)=>{if(Object.hasOwn(preimages,f)){assert.ok(b.equals(preimages[f]),'Historical assertion must name the exact known preimage: '+f);return indexed(f,actual[f]);}return indexed(f,b);};
  return{historicalPorts:{object,read:historicalRead,indexed:historicalIndexed,moduleClosure,distribution:(profile='compatibility')=>{assert.ok(Object.hasOwn(oldPlans,profile));return oldPlans[profile];}},report:{status:'authenticated-shared-artwork-metadata-and-encoded-delivery',source:SHARED_ARTWORK_SOURCE,base:SHARED_ARTWORK_BASE,records:30,oldRows:407,stamps:29,repeatDetail:1,payloadFiles:6,payloadBytes:2608334,profiles,historicalMappings:Object.keys(artworkPreimages),railwayRouteHistoricalFiles:Object.keys(railwayRoutes.preimages),actualBytesPassedToIndexedPort:true,indexEnforcement:'Caller-owned; tracked guards verify actual current Git index bytes',privateSourceAdopted:false,rendererOrHostAdopted:false,requiredGitCommits:[SHARED_ARTWORK_SOURCE,SHARED_ARTWORK_BASE,RAILWAY_ROUTE_BASE,'43227894c50ec62b71806978195fff2c650eb388','57c651fb0a7ed0b01c1435ba18e87efde290443a','f5bfda9ec0f639018ccfee2415b1f70502e77cae']}};
 }
+
+export function checkSharedArtworkRegistration(ports){const player=checkPlayerSetupRegistration(ports),historical=checkHistoricalSharedArtworkRegistration(player.historicalPorts);return {...historical,report:{...historical.report,playerSetup:player.report,requiredGitCommits:[...new Set([...historical.report.requiredGitCommits,...player.report.requiredGitCommits])]}};}

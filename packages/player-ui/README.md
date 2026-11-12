@@ -1,20 +1,26 @@
-# Shared player interface — Stage 1 candidate
+# Shared player interface
 
-This optional source candidate assembles status, one contextual action presenter,
+This optional public component assembles status, one contextual action presenter,
 walking input, existing train controls, the existing title flow, notifications,
 setup and owned map/inventory slots. It borrows a retained game host. It creates
 no actor, world, renderer, game clock, persistence, geometry or rules kernel.
 
 API, configuration and component versions are **1**. The reviewed engine base is
 `7f50cb2a48aef87a16fc0465997549be9ed88dc2`, package version `0.10.0`.
+That is the recipe compatibility baseline, not the commit containing the new API.
+The implementation is reviewed at `62f2fe90210b10985f80d75d9e4425f424a51c6b`.
+Public entries are `@nautilus-engine/map-core/player-ui` and `/player-ui/style.css`.
+Use `/player-setup/browser` for executable defaults and native startup; this UI
+entry continues to borrow retained services. See [integration](../../docs/player-setup.md).
 The exact engine base, content identity/source pin, actor, component versions,
-settings and resolved service bindings travel in exported recipes. This is a
-candidate layered on that base; its own files/hashes are in [source.json](source.json).
-Architect owns public registration and the final integrated engine pin. No public
-`/player-ui` entry or installed-package acceptance is claimed yet.
+settings and resolved service bindings travel in exported recipes. The component's
+own source hashes are in [source.json](source.json); final assembled distribution
+provenance is separate from the reviewed compatibility baseline.
 
-Start with the [usage card](usage-card.json), [source fixture](fixture/index.html),
-[executable consumer](fixture/main.js) and [review evidence](evidence/checks.json).
+Start with the [usage card](usage-card.json) and the public assembly example in
+[the integration guide](../../docs/player-setup.md). Fixed source-only fixtures and
+evidence remain in the repository at the reviewed implementation commit; tools,
+fixtures and captured proof are excluded from runtime distributions.
 Each component descriptor points back to this guide and card. A renderer-only or
 headless consumer can import descriptors/configuration without creating DOM.
 
@@ -25,9 +31,9 @@ walking joystick, key listener, contextual button or setup form. Its only
 gameplay-input call per host tick is `ui.advanceInput(seconds)`.
 
 ```js
-// Source candidate imports, relative to packages/player-ui/fixture/main.js.
+// Public optional UI entry; use player-setup/browser for supplied defaults.
 import {mountPlayerUI, createPlayerConfiguration,
-  createTrainPlayerProvider} from '../index.js';
+  createTrainPlayerProvider} from '@nautilus-engine/map-core/player-ui';
 
 const content = {id: 'my-retained-yard', version: 1, sourcePin: reviewedCommit40};
 const provider = createTrainPlayerProvider({

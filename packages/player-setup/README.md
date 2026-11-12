@@ -1,6 +1,6 @@
-# Executable player setup candidate
+# Executable player setup
 
-Stage 2 on accepted UI commit `578a86113395ea3ebcb76c636ce8f0882600d03e`. Architect owns final public registration, complete package build, yard integration and delivery. This candidate adds no root exports or consumer pins. Proposed entries are `@nautilus-engine/map-core/player-setup` (headless) and `/player-setup/browser` (DOM/shared Three). The installed overlay proof registers those names only in an isolated test package.
+Public entries are `@nautilus-engine/map-core/player-setup` (headless) and `/player-setup/browser` (DOM/shared Three), with the shared UI and native actor entries described in [the integration guide](../../docs/player-setup.md). Runtime implementation is reviewed at `62f2fe90210b10985f80d75d9e4425f424a51c6b`, based on accepted UI `578a86113395ea3ebcb76c636ce8f0882600d03e`. The recipe's `7f50cb2a48aef87a16fc0465997549be9ed88dc2` identity is the reviewed compatibility baseline; it does not identify a commit containing these new APIs. Registration/package provenance identifies the integrated modules separately. Package version remains `0.10.0`; no npm release or consumer pin is changed.
 
 ## New game
 

@@ -50,12 +50,13 @@ assert.ok(provenance.files.every(row => !/^vendor\/tinderbox-train-controls\/[^/
 // simulation and native train/actor art. It does not claim a packaged game.
 const yard = path.join(reportRoot, 'yard'); fs.mkdirSync(yard, {recursive: true});
 const installedBase = '/artifacts/installed-train-controls/' + archiveDigest + '/node_modules/@nautilus-engine/map-core/packages/train-ui/';
-for (const name of ['train-yard.html', 'train-yard.css', 'train-yard.js', 'train-yard-host.js']) {
+const installedPackage=installedBase.replace(/packages\/train-ui\/$/,'');
+for (const name of ['train-yard.html', 'train-yard.css', 'train-yard.js', 'train-yard-application.js', 'train-yard-host.js']) {
   let body = fs.readFileSync(path.join(root, 'examples', name), 'utf8');
-  if (name.endsWith('.html')) body = body.replace('href="../packages/train-ui/style.css"', 'href="' + installedBase + 'style.css"');
+  if (name.endsWith('.html')) body = body.replaceAll('"../packages/', '"'+installedPackage+'packages/');
   if (name.endsWith('.js')) body = body
     .replace("from '../packages/train-ui/public.js'", "from '" + installedBase + "public.js'")
-    .replaceAll("from '../packages/", "from '/packages/")
+    .replaceAll("from '../packages/", "from '"+installedPackage+"packages/")
     .replaceAll("from '../vendor/", "from '/vendor/")
     .replaceAll("new URL('../vendor/", "new URL('/vendor/");
   fs.writeFileSync(path.join(yard, name), body);

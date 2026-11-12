@@ -56,6 +56,9 @@ jobs:
           5577773727b757c3142cb2ded0a10315e25cd41d
           004d244397fc88a2c411388dd9046858772c020e
           d99fcf85256c90474cf570185159669caaed8070
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -152,12 +155,26 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
       - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - run: npm run build
+      - run: node tools/review-player-yard.mjs --built
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-player-yard
+      - name: Prepare pinned player type-checking tool
+        run: npm install --prefix "$RUNNER_TEMP/player-types" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@5.9.3
+      - run: node tools/test-player-setup-package.mjs --typescript "$RUNNER_TEMP/player-types/node_modules/typescript/lib/tsc.js"
+      - run: node tools/review-player-installed.mjs
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-player-installed
       - run: npm run review:integration
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
@@ -239,6 +256,9 @@ jobs:
         with:
           name: authoring-browser-evidence
           path: |
+            artifacts/player-setup-yard-built/
+            artifacts/player-setup-installed-full/
+            artifacts/installed-player-setup/latest.json
             artifacts/tile-visuals-source/
             artifacts/tile-visuals-built/
             artifacts/tile-visuals-installed/
@@ -317,6 +337,9 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -389,6 +412,9 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -464,6 +490,9 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -536,6 +565,9 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

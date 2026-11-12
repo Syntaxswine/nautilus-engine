@@ -7,6 +7,7 @@ import {createTrainSession, TRAIN_SESSION_CONTRACT} from '@nautilus-engine/map-c
 import {mountTrainControls, TRAIN_CONTROLS_CARD} from '@nautilus-engine/map-core/trains/ui';
 import {moduleClosure, distribution, root} from '../tools/distribution.mjs';
 import {authenticatedTrainImages, trainVisualResourcePaths} from '../tools/train-registration.mjs';
+import {reviewedTrainSource} from '../tools/player-setup-registration.mjs';
 import {tileAuthoringReviewInputModel} from '../tools/tile-authoring-editor-review-inputs.mjs';
 
 test('optional train entries retain a headless runtime and keep UI/reference artifacts out of core packages', () => {
@@ -39,12 +40,11 @@ test('the actual CI tile-authoring preflight accepts the registered train build 
 });
 
 test('the integrated HUD retains the exact reviewed input and view implementation', () => {
-  const pin = 'd99fcf85256c90474cf570185159669caaed8070';
   const digest = bytes => createHash('sha256').update(bytes).digest('hex');
   const runtime = moduleClosure(['packages/train-ui/public.js']).filter(file => file.startsWith('packages/train-ui/') && !file.endsWith('/public.js'));
   const support = ['index.d.ts', 'style.css', 'art/steam-cab-surface.svg', 'art/references.json', 'compact.css', 'compact-source.json'].map(name => 'packages/train-ui/' + name);
   for (const file of new Set([...runtime, ...support])) {
-    assert.equal(digest(fs.readFileSync(file)), digest(execFileSync('git', ['-c', 'core.longpaths=true', 'show', pin + ':' + file])));
+    assert.equal(digest(fs.readFileSync(file)), digest(execFileSync('git', ['-c', 'core.longpaths=true', 'show', reviewedTrainSource(file) + ':' + file])));
   }
   const read = file => fs.readFileSync(file);
   const wood = trainVisualResourcePaths().find(file => file.endsWith('.png'));

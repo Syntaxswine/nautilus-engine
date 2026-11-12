@@ -1,9 +1,31 @@
 {
-  "id":"nautilus-native-actors","version":1,"status":"candidate; architect registration pending",
-  "headlessEntry":"@nautilus-engine/map-core/native-actors","visualEntry":"@nautilus-engine/map-core/native-actors/three",
-  "guide":"README.md","types":["index.d.ts","three.d.ts"],"models":["goat","donkey"],"roles":["idle","walk"],"outfits":["normal"],
-  "input":"confirmed actor pose in world-x-y-h metres; never an input request",
-  "owns":"native model geometry/material/skeleton, projected paint and temporary URLs",
-  "borrows":"existing shared Nautilus Three renderer, scene and authoritative actor",
-  "source":"source.json","notices":"NOTICE.md","evidence":"../player-setup/evidence/checks.json"
+  "id": "nautilus-native-actors",
+  "version": 1,
+  "status": "registered optional component; reviewed compatibility baseline and implementation recorded separately",
+  "headlessEntry": "@nautilus-engine/map-core/native-actors",
+  "visualEntry": "@nautilus-engine/map-core/native-actors/three",
+  "guide": "README.md",
+  "types": [
+    "index.d.ts",
+    "three.d.ts"
+  ],
+  "models": [
+    "goat",
+    "donkey"
+  ],
+  "roles": [
+    "idle",
+    "walk"
+  ],
+  "outfits": [
+    "normal"
+  ],
+  "input": "confirmed actor pose in world-x-y-h metres; never an input request",
+  "owns": "native model geometry/material/skeleton, projected paint and temporary URLs",
+  "borrows": "existing shared Nautilus Three renderer, scene and authoritative actor",
+  "source": "source.json",
+  "notices": "NOTICE.md",
+  "evidence": "Source-only accepted review and docs/player-setup.md integration handoff",
+  "reviewedRuntime": "62f2fe90210b10985f80d75d9e4425f424a51c6b",
+  "compatibilityBaseline": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
 }
