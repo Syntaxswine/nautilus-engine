@@ -1,0 +1,470 @@
+{
+  "version": 1,
+  "status": "finished candidate for Architect review",
+  "createdAt": "2026-11-12T15:54:21.266Z",
+  "base": "579706bf415a9664e4541db9ec6b5fe6adb334d7",
+  "art": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+  "implementationCommit": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa",
+  "implementationTree": "10895a440e6ae96f06c02a6354138e96abf8e68f",
+  "originalRuntimeCommit": "4626000aaab94c802aeda935fff683d2bd23d817",
+  "runtimePayloadSHA256": "6aa7a1e0c8feba13d1aa2f6749d3fb8d76246bd44acbc99a26ff56df11ba08be",
+  "package": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "84da1f940511c0ce10dc3e4185590f546e72cbc04cbcb2e807a5cdee316a187a",
+    "bytes": 74088655,
+    "files": 555,
+    "publicExports": 65,
+    "payloadSHA256": "6aa7a1e0c8feba13d1aa2f6749d3fb8d76246bd44acbc99a26ff56df11ba08be"
+  },
+  "source": {
+    "kind": "git-worktree",
+    "commit": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa",
+    "tree": "10895a440e6ae96f06c02a6354138e96abf8e68f",
+    "dirty": false,
+    "payloadSHA256": "6aa7a1e0c8feba13d1aa2f6749d3fb8d76246bd44acbc99a26ff56df11ba08be"
+  },
+  "allInstalledBytesVerified": true,
+  "registration": {
+    "path": "registration.json",
+    "sha256": "e5e6f6b8de3bf4f55a6bc04ddf79a6c75220de3cb76051d5f308864672a18cde",
+    "sourceFiles": 90,
+    "adaptedFiles": 29
+  },
+  "launch": {
+    "path": "/examples/vehicle-yard/",
+    "query": "",
+    "normalClock": true,
+    "ordinaryContextualActionsAndJoystick": true,
+    "buildCommit": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa",
+    "retainedService": false,
+    "previewOwnerAfterApproval": "Architect, Nautilus Engine"
+  },
+  "checks": {
+    "gates": {
+      "trackedSource": {
+        "command": "npm run check -- --tracked",
+        "exitCode": 0,
+        "log": "gates/check.log",
+        "indexedFiles": 121
+      },
+      "tests": {
+        "durationMs": 387942.7198,
+        "log": "gates/tests.log",
+        "tests": 1273,
+        "command": "npm test",
+        "pass": 1273,
+        "exitCode": 0
+      },
+      "upstream": {
+        "command": "npm run test:upstream",
+        "tests": 32,
+        "exitCode": 0,
+        "pass": 32,
+        "log": "gates/upstream.log"
+      },
+      "build": {
+        "command": "npm run build",
+        "exitCode": 0,
+        "modulePaths": 646,
+        "log": "gates/build.log"
+      },
+      "artwork": {
+        "command": "node tools/vehicle-art/intake.mjs --verify",
+        "exitCode": 0,
+        "bytes": 38941917,
+        "files": 28
+      },
+      "installedPackage": {
+        "command": "node tools/test-road-vehicles-package.mjs --typescript <existing read-only TypeScript5.8.3>",
+        "negativeTypeControls": 7,
+        "exitCode": 0,
+        "headlessBodyProofs": 8
+      },
+      "artworkProfiles": {
+        "command": "node tools/test-shared-artwork-package.mjs --typescript <existing read-only TypeScript5.8.3>",
+        "profiles": 4,
+        "exitCode": 0
+      },
+      "installedStack": {
+        "command": "node tools/review-tile-stack-editor.mjs --installed",
+        "captures": 11,
+        "exitCode": 0,
+        "checks": 19
+      },
+      "installedAuthoring": {
+        "command": "node tools/editor-review-tile-authoring-c1.mjs --installed",
+        "captures": 3,
+        "exitCode": 0,
+        "checks": 12
+      },
+      "sourceDriving": {
+        "command": "node tools/review-road-driving.mjs",
+        "groups": 20,
+        "exitCode": 0
+      },
+      "installedDriving": {
+        "command": "node tools/review-road-driving.mjs --installed",
+        "groups": 20,
+        "exitCode": 0
+      },
+      "defaultPreview": {
+        "command": "node artifacts/review-road-built-default.mjs",
+        "exitCode": 0,
+        "path": "/examples/vehicle-yard/",
+        "query": "",
+        "normalClock": true,
+        "ordinaryJoystick": true
+      }
+    },
+    "sourceBrowserGroups": 20,
+    "installedBrowserGroups": 20,
+    "installedHeadlessBodies": 8,
+    "publicTypeNegativeControls": 7,
+    "visualCombinations": 48,
+    "realTrainCircuitBrowserGroups": 9,
+    "nightLedgerNodeTests": 23,
+    "nightLedgerBrowserGroups": 20,
+    "installedEditorWorkflows": [
+      {
+        "name": "stack",
+        "status": "pass",
+        "checks": 19,
+        "captures": 11
+      },
+      {
+        "name": "authoring",
+        "status": "pass",
+        "checks": 12,
+        "captures": 3
+      }
+    ],
+    "installedArtworkProfiles": [
+      "core",
+      "renderer",
+      "assets",
+      "compatibility"
+    ]
+  },
+  "provenanceLimits": [
+    "Regression train and Night Ledger proofs use the earlier fixed runtime commit recorded in their evidence; every one of its 555 payload files equals this final implementation package.",
+    "The gallery covers unchanged approved art/derivative bytes; captures do not establish GPU timing or handset FPS.",
+    "Mixed-component vehicle proof uses an inactive train UI contract fixture; real two-circuit train simulation has its separate proof."
+  ],
+  "helpers": {
+    "launchedBy": "01a1810c-62da-7210-a1ca-b72b449ce024",
+    "lifetimes": 27,
+    "originalIdentitiesExited": true,
+    "originalListenersAbsent": true,
+    "retained": 0
+  },
+  "limitations": [
+    "Flat low-speed kinematic course only; conservative turning envelopes may refuse narrow clearances early.",
+    "No non-flat terrain, tire/suspension model, crashes, fuel, damage or AI.",
+    "No game consumer pin update or adoption claim."
+  ],
+  "evidence": [
+    {
+      "path": "README.md",
+      "bytes": 6414,
+      "sha256": "0e14f7b516bd44889d88363e402436aad49bf7ae078b45eedb684f2da677c467",
+      "from": "artifacts/road-review-README.md"
+    },
+    {
+      "path": "source/actor-obstruction.png",
+      "bytes": 170010,
+      "sha256": "238a06185b6cc8e0fb0a82ad185f9f8e230c7655e183c67a0e9baf5ae97ddbd5",
+      "from": "artifacts\\road-yard-review\\actor-obstruction.png"
+    },
+    {
+      "path": "source/blocked-exit.png",
+      "bytes": 190525,
+      "sha256": "5525ae46414d5e84521831a16d46cc2ad3ceb474bdd3b1b313cf7ec28a1275cb",
+      "from": "artifacts\\road-yard-review\\blocked-exit.png"
+    },
+    {
+      "path": "source/browser.json",
+      "bytes": 40786,
+      "sha256": "e5c08fe214b21590f8a14a188b528e0e13cefe73024e6ac88d731fc3a61ada55",
+      "from": "artifacts\\road-yard-review\\browser.json"
+    },
+    {
+      "path": "source/on-foot.png",
+      "bytes": 144954,
+      "sha256": "ec6a70e40132ca1d310a67102b84e382c4d01235831f5061264102840578b813",
+      "from": "artifacts\\road-yard-review\\on-foot.png"
+    },
+    {
+      "path": "source/phone-safe-exit.png",
+      "bytes": 82385,
+      "sha256": "cec291441a56f714b6eca6ea963aecbd62c5d8ff6d95897ee14aacace3759b95",
+      "from": "artifacts\\road-yard-review\\phone-safe-exit.png"
+    },
+    {
+      "path": "source/phone-touch-driving.png",
+      "bytes": 71985,
+      "sha256": "d3e284bac9d190a04bd2872ddaeeec3d20ffe8262c69b9abc0607a37eab8d1db",
+      "from": "artifacts\\road-yard-review\\phone-touch-driving.png"
+    },
+    {
+      "path": "source/pickup-driving.png",
+      "bytes": 204562,
+      "sha256": "fe354e6a7eb0278b90283fafcdd2b0c38cd8e87bbd6f197aafefb2d537d02f46",
+      "from": "artifacts\\road-yard-review\\pickup-driving.png"
+    },
+    {
+      "path": "source/safe-exit.png",
+      "bytes": 197163,
+      "sha256": "0188bf8a3eac1ef15e3535c416ad5feabcaa0d8983d0057a53a367b51a826c8c",
+      "from": "artifacts\\road-yard-review\\safe-exit.png"
+    },
+    {
+      "path": "source/touch-driving.png",
+      "bytes": 172932,
+      "sha256": "05e6ff29a2f84c6c9513ec3390c61ed83cfa57d7d5ebfd2fd3e5eafc8a1dac17",
+      "from": "artifacts\\road-yard-review\\touch-driving.png"
+    },
+    {
+      "path": "installed/actor-obstruction.png",
+      "bytes": 170010,
+      "sha256": "238a06185b6cc8e0fb0a82ad185f9f8e230c7655e183c67a0e9baf5ae97ddbd5",
+      "from": "artifacts\\road-yard-installed-review\\actor-obstruction.png"
+    },
+    {
+      "path": "installed/blocked-exit.png",
+      "bytes": 190525,
+      "sha256": "5525ae46414d5e84521831a16d46cc2ad3ceb474bdd3b1b313cf7ec28a1275cb",
+      "from": "artifacts\\road-yard-installed-review\\blocked-exit.png"
+    },
+    {
+      "path": "installed/browser.json",
+      "bytes": 52312,
+      "sha256": "5d0484868a32c1d973d233958a3fab803b2973860f485dbc35306bd6784b1daa",
+      "from": "artifacts\\road-yard-installed-review\\browser.json"
+    },
+    {
+      "path": "installed/on-foot.png",
+      "bytes": 144954,
+      "sha256": "ec6a70e40132ca1d310a67102b84e382c4d01235831f5061264102840578b813",
+      "from": "artifacts\\road-yard-installed-review\\on-foot.png"
+    },
+    {
+      "path": "installed/phone-safe-exit.png",
+      "bytes": 82344,
+      "sha256": "1cae15baebe72af2e401eebd669f243da59f6cdaffc0c03af559ba3672fb08df",
+      "from": "artifacts\\road-yard-installed-review\\phone-safe-exit.png"
+    },
+    {
+      "path": "installed/phone-touch-driving.png",
+      "bytes": 71985,
+      "sha256": "d3e284bac9d190a04bd2872ddaeeec3d20ffe8262c69b9abc0607a37eab8d1db",
+      "from": "artifacts\\road-yard-installed-review\\phone-touch-driving.png"
+    },
+    {
+      "path": "installed/pickup-driving.png",
+      "bytes": 204562,
+      "sha256": "fe354e6a7eb0278b90283fafcdd2b0c38cd8e87bbd6f197aafefb2d537d02f46",
+      "from": "artifacts\\road-yard-installed-review\\pickup-driving.png"
+    },
+    {
+      "path": "installed/safe-exit.png",
+      "bytes": 197163,
+      "sha256": "0188bf8a3eac1ef15e3535c416ad5feabcaa0d8983d0057a53a367b51a826c8c",
+      "from": "artifacts\\road-yard-installed-review\\safe-exit.png"
+    },
+    {
+      "path": "installed/touch-driving.png",
+      "bytes": 172932,
+      "sha256": "05e6ff29a2f84c6c9513ec3390c61ed83cfa57d7d5ebfd2fd3e5eafc8a1dac17",
+      "from": "artifacts\\road-yard-installed-review\\touch-driving.png"
+    },
+    {
+      "path": "default-preview/browser.json",
+      "bytes": 12537,
+      "sha256": "9ee74ce18e35422c0fbbe1a4a275e3cc153ef1a28c6c0aad9a164fca271c121d",
+      "from": "artifacts\\road-default-built-review\\browser.json"
+    },
+    {
+      "path": "default-preview/default-forward.png",
+      "bytes": 176191,
+      "sha256": "053a9a1efd4a27635d383ced3260b3b0adb8a5e7cc9acfe871cdaafe37ebee5a",
+      "from": "artifacts\\road-default-built-review\\default-forward.png"
+    },
+    {
+      "path": "default-preview/default-reverse.png",
+      "bytes": 174992,
+      "sha256": "51fd657a5c25e517008386f54f5c6dfed73d5897fe0c34d2493966fcbc215fb8",
+      "from": "artifacts\\road-default-built-review\\default-reverse.png"
+    },
+    {
+      "path": "default-preview/default-safe-exit.png",
+      "bytes": 173384,
+      "sha256": "624bf1532b1afafe7c1a21488749af6262c44903163f0a56c6bfb037634c16c6",
+      "from": "artifacts\\road-default-built-review\\default-safe-exit.png"
+    },
+    {
+      "path": "installed/package.json",
+      "bytes": 3079,
+      "sha256": "d77aa334c7a43eb4e8e1debcfe9fb5566779cbe041d4c5584e689028b034e8d6",
+      "from": "artifacts/road-installed/latest.json"
+    },
+    {
+      "path": "gates/runtime-payload-equality.json",
+      "bytes": 336,
+      "sha256": "1cd0e2c0d52cf48ec2f91f345863f44ab5133c51c17ceb50d93d84cd26a02d92",
+      "from": "artifacts/road-ci-payload-equality.json"
+    },
+    {
+      "path": "gates/index.json",
+      "bytes": 309,
+      "sha256": "20e174bfbd8ed853ef1823d70c346a6f5134bd89be835277edba94f513d056f2",
+      "from": "artifacts/road-index.json"
+    },
+    {
+      "path": "gates/check.log",
+      "bytes": 27788,
+      "sha256": "0276e0baea547162b9368b3fdaee5995e5a1ad3d10c437217540194f9eae9572",
+      "from": "artifacts/road-ci-correction-check.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/tests.log",
+      "bytes": 137915,
+      "sha256": "a00a0bd8bcb5f30a75290742a5e6d9e387aa731d810da8b5316aa814f5ae2e0d",
+      "from": "artifacts/road-ci-correction-tests.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/upstream.log",
+      "bytes": 3081,
+      "sha256": "d89d2876d8e8f052631abe5c28796d00e2a526eab4a56f74d45b74116cfbc69f",
+      "from": "artifacts/road-ci-correction-upstream.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "gates/build.log",
+      "bytes": 372,
+      "sha256": "2206a08a13ecb5f7cca68cfdeefe95578fc8ac8c1c278462d9b0d5314e93344b",
+      "from": "artifacts/road-final-clean-build.log",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "visual/costs.json",
+      "bytes": 21171,
+      "sha256": "f787adb843d9c162957b7094ea0babca93f93b803335a6f98eb0495f3cce6cbe",
+      "from": "artifacts/road-costs/costs.json"
+    },
+    {
+      "path": "visual/browser.json",
+      "bytes": 47772,
+      "sha256": "2835ac998a1c91f28f4b08e2a89817916debcad95baa0436672414e84b469641",
+      "from": "artifacts/road-library-review/browser.json"
+    },
+    {
+      "path": "visual/contact-full.png",
+      "bytes": 1529387,
+      "sha256": "a04de873029c075f2bf50ae855a3eb627ff8252ded428c1fafb6a37676ae3de9",
+      "from": "artifacts/road-library-review/contact-full.png"
+    },
+    {
+      "path": "visual/contact-game.png",
+      "bytes": 1531117,
+      "sha256": "834a70916e96d37798c1099e982d54e44903761ce4f0504f77c2f240c20c53cb",
+      "from": "artifacts/road-library-review/contact-game.png"
+    },
+    {
+      "path": "regressions/trains.json",
+      "bytes": 1251,
+      "sha256": "003b5109d1b06f04bf9d8a31bb0e6c923a74c526fb29e220d2f6fade7aec5f12",
+      "from": "artifacts/player-setup-yard-built/browser.json"
+    },
+    {
+      "path": "regressions/night-ledger-browser.json",
+      "bytes": 19411,
+      "sha256": "bed7e84bee6e2f02b33fc21bb41a7369ed7245febe85f35703af31ff3159ea49",
+      "from": "artifacts/night-ledger-review/browser.json"
+    },
+    {
+      "path": "regressions/night-ledger-node-types.json",
+      "bytes": 1122,
+      "sha256": "005d96512d8339ce68c0d00652d375d64b2d1b0c65a146d8b2655aea40819b14",
+      "from": "artifacts/night-ledger-focused/checks.json"
+    },
+    {
+      "path": "regressions/night-ledger-installation.json",
+      "bytes": 3051,
+      "sha256": "c08e2d8359a17fff097e242cb0c892be6830188f11ae4db7ccd02f260002342e",
+      "from": "artifacts/night-ledger-installed/latest.json"
+    },
+    {
+      "path": "gates/shared-artwork-package.json",
+      "bytes": 323776,
+      "sha256": "6157b4544657327396283d8ca6bc18d95d8ba501526a4053cd2187b798efa05b",
+      "from": "artifacts/shared-artwork-package/d5e45c65-78ea-4b36-a4b6-4c5b15f44414/report.json"
+    },
+    {
+      "path": "gates/installed-editors.json",
+      "bytes": 692514,
+      "sha256": "c6b054b1b4313f1109eea8bb9196e6611bd699976319c7008124b243ec4051b6"
+    },
+    {
+      "path": "lifecycle/lifetimes.json",
+      "bytes": 65686,
+      "sha256": "600ce6ec737a623d390e0ff9a763ecb2a8bc726729928a6a9314d5a43dba6ce5",
+      "from": "artifacts/road-helper-lifetimes.json"
+    },
+    {
+      "path": "lifecycle/verification.json",
+      "bytes": 50809,
+      "sha256": "01eef9220b44b16da31451726e4ab6dfa029563d5cff8df1f663a5764092cc39",
+      "from": "artifacts/road-helper-verification.json",
+      "textLineEndings": "LF"
+    },
+    {
+      "path": "restart/dda125bf90a5-review-road-built-default.mjs.original",
+      "bytes": 3843,
+      "sha256": "dda125bf90a5b239fc9fef086ef44f110e53fbf57ae0cbf4ef449db7f3a34c00",
+      "from": "artifacts/review-road-built-default.mjs"
+    },
+    {
+      "path": "restart/c8ca864f8a5e-repro-road-repeat.mjs.original",
+      "bytes": 1522,
+      "sha256": "c8ca864f8a5e5b5cf761dc3c9fd44e67ee8fe9b958d2d00d5a0e14d9fef1bd9f",
+      "from": "artifacts/repro-road-repeat.mjs"
+    },
+    {
+      "path": "restart/1b74f888031e-collect-road-helpers.mjs.original",
+      "bytes": 1087,
+      "sha256": "1b74f888031ec3cf91121fec65f7d9b2efcd95d3c1885e482e1d3a250fdcc1cd",
+      "from": "artifacts/collect-road-helpers.mjs"
+    },
+    {
+      "path": "restart/bbf4cd041c87-verify-road-helpers.ps1.original",
+      "bytes": 2343,
+      "sha256": "bbf4cd041c87363cb54824f7f3fa823dfa5bcfcbcf1c9beb4fe39dd9915832eb",
+      "from": "artifacts/verify-road-helpers.ps1"
+    },
+    {
+      "path": "restart/a794bf061f28-verify-road-index.mjs.original",
+      "bytes": 1374,
+      "sha256": "a794bf061f28ebcb18a29fc82bf565309182f4817bb83c59cc60bcc8ba2b2d0f",
+      "from": "artifacts/verify-road-index.mjs"
+    },
+    {
+      "path": "restart/6e84510aa8a1-collect-road-delivery.mjs.original",
+      "bytes": 8672,
+      "sha256": "6e84510aa8a162f4031fb3232c116d7387e958762f8a41a9c6907e2ffcd63249",
+      "from": "artifacts/collect-road-delivery.mjs"
+    },
+    {
+      "path": "restart/records.json",
+      "bytes": 28534,
+      "sha256": "9372d0718685784f720a625b055e15b86912daa44dd33d2acb84451adc4cab7f"
+    },
+    {
+      "path": "lifecycle/artwork-package-children.json",
+      "bytes": 7523,
+      "sha256": "d69810ea4960811b1b7677eb61035dae354fd97c05b787657481a598b7dbba5c"
+    }
+  ],
+  "evidenceHashScope": "Exact Git/index bytes; normalized text uses LF. Only current proof captures are included."
+}

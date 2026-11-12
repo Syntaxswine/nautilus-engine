@@ -1,4 +1,5 @@
 import {mountTrainControls} from '../train-ui/index.js';
+import {mountVehicleControls} from '../vehicle-ui/index.js';
 import {mountTitleScreen} from '../game-ui/title.js';
 import {mountWalkingControl} from './walking.js';
 import {componentSettings,VIEW_SERVICE} from './configuration.js';
@@ -19,7 +20,7 @@ export function assertScene(scene,configuration) {
 // detached owned DOM only; activation is the shell's single pointer transfer.
 export function viewFactory({doc,configuration,signal,resourceURL,inScope,isCurrent,onVisibility,onFocus,onSettings,onError,titleVisible}) {
   return () => {
-    const view={active:false,stage:null,titleStage:null,walking:null,train:null,title:null,camera:null,services:null};let disposed=false;
+    const view={active:false,stage:null,titleStage:null,walking:null,train:null,vehicle:null,title:null,camera:null,services:null};let disposed=false;
     const handle={services:{[VIEW_SERVICE]:view},
       async prepare({services}) {
         view.services=services;assertScene(endpoint(services,'scene'),configuration);
@@ -33,6 +34,7 @@ export function viewFactory({doc,configuration,signal,resourceURL,inScope,isCurr
         else {const placeholder=doc.createElement('div');placeholder.hidden=true;view.stage.append(placeholder);view.walking={element:placeholder,release(){},setEnabled(){placeholder.hidden=true;},read:()=>({x:0,y:0}),focus(){},dispose(){placeholder.remove();}};}
         const trains=componentSettings(configuration,'player.trains');
         if(trains){view.train=mountTrainControls(view.stage,{session:endpoint(services,'trains'),actorId:configuration.actorId,walkingElement:view.walking.element,steamProfile:trains.steamProfile,muted:trains.muted,actionPresentation:'external',setWalkingEnabled:enabled=>{if(!enabled)view.walking.setEnabled(false);},focusWalking:()=>{if(view.active&&isCurrent(view))onFocus();},onError});view.train.setBlocked(true);}
+        if(componentSettings(configuration,'player.vehicles'))view.vehicle=mountVehicleControls(view.stage,{connector:endpoint(services,'vehicles'),actorId:configuration.actorId,inScope:node=>view.active&&isCurrent(view)&&inScope(node),onError});
         view.walking.setEnabled(false);
         if(componentSettings(configuration,'player.title')){
           const title=endpoint(services,'title');if(!title||typeof title.options?.onStart!=='function')throw Error('TITLE_NOT_READY: bind the existing title-flow callbacks.');
@@ -43,8 +45,8 @@ export function viewFactory({doc,configuration,signal,resourceURL,inScope,isCurr
         if(signal.aborted)throw Error('PREPARATION_CANCELLED');
       },
       start(){},
-      stop(){view.active=false;view.walking?.release();view.train?.releaseInput('view-stopped');},
-      dispose(){if(disposed)return;disposed=true;view.active=false;const errors=[];for(const close of [()=>view.title?.dispose(),()=>view.train?.dispose(),()=>view.walking?.dispose(),()=>view.camera?.dispose(),()=>view.stage?.remove(),()=>view.titleStage?.remove()])try{close();}catch(error){errors.push(error);}if(errors.length)throw new AggregateError(errors,'Player view cleanup failed.');}
+      stop(){view.active=false;view.walking?.release();view.train?.releaseInput('view-stopped');view.vehicle?.releaseInput();},
+      dispose(){if(disposed)return;disposed=true;view.active=false;const errors=[];for(const close of [()=>view.title?.dispose(),()=>view.train?.dispose(),()=>view.vehicle?.dispose(),()=>view.walking?.dispose(),()=>view.camera?.dispose(),()=>view.stage?.remove(),()=>view.titleStage?.remove()])try{close();}catch(error){errors.push(error);}if(errors.length)throw new AggregateError(errors,'Player view cleanup failed.');}
     };
     return handle;
   };

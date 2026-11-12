@@ -1,0 +1,17 @@
+{
+  "id": "nautilus-road-vehicles",
+  "status": "candidate for Architect review",
+  "apiVersion": 1,
+  "profile": "flat-low-speed-v1",
+  "entries": ["./vehicles", "./vehicles/three", "./vehicles/browser"],
+  "guide": "docs/road-vehicles.md",
+  "example": "examples/vehicle-yard/index.html",
+  "source": {"base": "579706bf415a9664e4541db9ec6b5fe6adb334d7", "art": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee"},
+  "contract": "packages/vehicle-core/contract.json",
+  "connections": ["authoritative actor read/atomic pose transaction", "static world and ordinary walk queries", "one host clock", "optional shared Three and player setup"],
+  "space": "native metres, world x/y ground and h height; visual local +Z forward, +Y up, ground-centre pivot; heading and steering positive right",
+  "ownership": "headless session owns car/seat/control state; host owns actors/resources/world/time/persistence; optional kit owns selected GPU resources; UI borrows authority",
+  "persistence": "complete version1 yard/session snapshots preserve resources and physical state; held controls/leases are transient; visual profile is separate",
+  "gameDecisions": ["content and cast", "supported flat course", "permissions and any costs", "clock scheduling", "persistence policy", "full or game presentation"],
+  "acceptance": ["board with ordinary contextual action", "verify actual signed movement and steering", "brake through zero both ways", "cancel/pause releases original driver", "passenger cannot steer", "swept walls/actors/vehicles block", "blocked exit refuses", "exact reload without held inputs", "reject acknowledged-but-unmoved command", "close disposable helpers"]
+}

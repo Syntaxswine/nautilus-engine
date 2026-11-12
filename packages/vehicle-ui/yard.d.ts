@@ -1,0 +1,6 @@
+import type {VehicleYard,VehicleYardContent,VehicleYardCheckpoint} from '../vehicle-core/index.js';
+import type {PlayerSetup,SetupCheckpoint} from '../player-setup/browser.js';
+import type {VehicleKit,VehicleKitOptions} from '../vehicle-visuals/three.js';
+export interface PlayableVehicleCheckpoint {kind:'nautilus-playable-vehicle-yard';version:1;host:VehicleYardCheckpoint;setup:SetupCheckpoint;clock:{elapsedSeconds:number;blocked:boolean};visuals:{profile:'game'|'full'}}
+export interface PlayableVehicleYard {host:VehicleYard;setup:PlayerSetup;surface:any;clock:any;setVisualProfile(profile:'game'|'full',options?:{signal?:AbortSignal}):Promise<{ok:true;profile:string}>;step(seconds:number):void;read():{state:ReturnType<VehicleYard['connector']['read']>;player:ReturnType<PlayerSetup['read']>;visuals:ReturnType<VehicleKit['read']>;clock:{elapsedSeconds:number;blocked:boolean}};checkpoint():PlayableVehicleCheckpoint;dispose():Promise<void>}
+export function mountVehicleYard(container:HTMLElement,options?:{content?:VehicleYardContent;profile?:'game'|'full';autoClock?:boolean;checkpoint?:PlayableVehicleCheckpoint;signal?:AbortSignal;onError?:(error:unknown,context:{phase:string})=>void;visualOptions?:Partial<VehicleKitOptions>}):Promise<PlayableVehicleYard>;

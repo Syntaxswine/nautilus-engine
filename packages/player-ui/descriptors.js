@@ -8,6 +8,7 @@ export const PLAYER_PORTS=frozen({
   pause:port('nautilus.ui-pause','output','request','urn:nautilus:ui-pause-gate:1'),
   bounds:port('nautilus.hud-bounds','output','confirmed-state','urn:nautilus:hud-safe-bounds:1','CSS pixels','viewport-client'),
   trains:port('nautilus.train-connector','input','confirmed-state','urn:nautilus:train-connector:1','metres; m/s','world-x-y-h'),
+  vehicles:port('nautilus.road-vehicle-connector','input','confirmed-state','urn:nautilus:road-vehicle-connector:1','metres; m/s; radians; normalised throttle/steering','world-x-y-h; car-relative +forward/+right'),
   camera:port('nautilus.camera-settings','output','request','urn:nautilus:camera-settings:1','relative zoom','view'),
   title:port('nautilus.title-flow','input','confirmed-state','urn:nautilus:title-flow:1')
 });
@@ -16,9 +17,10 @@ export const PLAYER_COMPONENTS=frozen([
   {id:'player.shell',version:1,label:'Player interface',ports:[PLAYER_PORTS.scene,PLAYER_PORTS.pause,PLAYER_PORTS.bounds],settings:[choice('skin','Material',['farmyard','tinderbox'],'farmyard'),choice('layout','Controls layout',['auto','desktop','phone'],'auto','pause'),choice('actions','Action presentation',['text','icon-text','pictogram'],'icon-text')]},
   {id:'player.walking',version:1,label:'Walking',ports:[PLAYER_PORTS.walking],settings:[{id:'pace',label:'Walking pace',type:'number',min:.5,max:1,step:.1,default:1,change:'live',units:'request scale; no actor-stat changes'}]},
   {id:'player.trains',version:1,label:'Train controls',ports:[PLAYER_PORTS.trains],settings:[choice('steamProfile','Steam controls',['compact-notched','classic'],'compact-notched','pause'),{id:'muted',label:'Mute train sounds',type:'boolean',default:false,change:'live'}]},
+  {id:'player.vehicles',version:1,label:'Road vehicle controls',ports:[PLAYER_PORTS.vehicles],settings:[]},
   {id:'player.camera',version:1,label:'Camera',ports:[PLAYER_PORTS.camera],settings:[choice('mode','Camera',['follow','overview'],'follow'),{id:'zoom',label:'View distance',type:'number',min:.7,max:1.5,step:.1,default:1,change:'live',units:'relative zoom'}]},
   {id:'player.title',version:1,label:'Title flow',ports:[PLAYER_PORTS.title],settings:[]}
-].map(component=>({...component,guide:'packages/player-ui/README.md',usageCard:'packages/player-ui/usage-card.json'})));
+].map(component=>({...component,guide:component.id==='player.vehicles'?'docs/road-vehicles.md':'packages/player-ui/README.md',usageCard:component.id==='player.vehicles'?'packages/vehicle-core/usage-card.json':'packages/player-ui/usage-card.json'})));
 export function playerDescriptors() {return data(PLAYER_COMPONENTS);}
 export function providerPort(port) {return {...data(port),direction:port.direction==='input'?'output':'input'};}
 export function compatiblePort(consumer,provider) {

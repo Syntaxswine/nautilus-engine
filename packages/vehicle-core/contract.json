@@ -1,0 +1,21 @@
+{
+  "id": "nautilus-road-vehicle-connector",
+  "version": 1,
+  "profile": "flat-low-speed-v1",
+  "component": "player.vehicles",
+  "service": {"id": "nautilus.road-vehicle-connector", "version": 1},
+  "schema": "urn:nautilus:road-vehicle-connector:1",
+  "role": "confirmed-state",
+  "cardinality": "one",
+  "ownership": "borrowed endpoint",
+  "lifetime": "composition",
+  "units": "metres; m/s; radians; normalised throttle/steering",
+  "frame": "world-x-y-h; car-relative +forward/+right",
+  "intent": {"version": 1, "type": "vehicle-control", "role": "request", "required": ["context", "offer", "control"], "control": ["throttle", "steering", "held"], "authority": ["actorId", "vehicleId", "seatId", "occupancyRevision", "leaseId", "owner"]},
+  "clock": "borrowed phased host clock; 0 <= step <= 0.1 seconds, internal bounded substeps <= 0.05 seconds",
+  "save": {"kind": "nautilus-road-vehicles", "version": 1, "transient": ["held controls", "input owners", "driver leases"], "visualQuality": "separate presentation setting"},
+  "capabilities": ["flat supported ground", "driver and passenger", "swept conservative AABB obstruction", "brake through zero before reversal", "safe declared side-door exit"],
+  "unsupported": ["non-flat terrain", "suspension", "tire dynamics", "crashes", "damage", "fuel", "generic vehicle AI"],
+  "guide": "docs/road-vehicles.md",
+  "usageCard": "packages/vehicle-core/usage-card.json"
+}

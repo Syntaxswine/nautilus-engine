@@ -9,7 +9,7 @@ export function createTrainPlayerProvider({host,inputElement,setUIPaused,onHudBo
   const identity=data(content);
   const scene={content:identity,actorIds:actors,inputElement,
     read(actorId){if(!actors.includes(actorId))throw Error('RETAINED_ACTOR_UNAVAILABLE: this yard walking binding supplies player only.');const s=host.connector.readForActor(actorId),actor=host.actors.find(a=>a.id===actorId);
-      return {version:1,actorId,mode:s.mode,contextId:JSON.stringify([s.actorId,s.mode,s.trainId,s.carId,s.entranceId,s.cabFacing,s.expected.occupancyRevision,s.floorId]),walkingAllowed:s.walkingAllowed,position:data(s.position),train:s.train?{id:s.trainId,stock:s.train.stock,speedMps:s.train.speedMps}:null,status:[{id:'health',label:'Health',value:String(actor.health)},{id:'ap',label:'AP',value:String(actor.ap)}]};},
+      return {version:1,actorId,mode:s.mode,contextId:JSON.stringify([s.actorId,s.mode,s.trainId,s.carId,s.entranceId,s.cabFacing,s.expected.occupancyRevision,s.floorId]),walkingAllowed:s.walkingAllowed,position:data(s.position),transport:s.mode==='on-foot'?null:{kind:'train',connectorId:s.connectorId||'train',vehicleId:s.trainId},train:s.train?{id:s.trainId,stock:s.train.stock,speedMps:s.train.speedMps}:null,status:[{id:'health',label:'Health',value:String(actor.health)},{id:'ap',label:'AP',value:String(actor.ap)}]};},
     subscribe:fn=>host.connector.subscribe(fn)
   };
   function publishGate(){const next=owners.size>0;if(next!==gateValue){gateValue=next;setUIPaused(next);}}

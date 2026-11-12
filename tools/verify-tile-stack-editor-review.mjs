@@ -104,7 +104,7 @@ export function tileStackInstalledHostPlan(projectRoot){
 
 export async function tileStackReviewInputModel({projectRoot}={}){
   assert.equal(typeof projectRoot,'string','Pass the actual projectRoot explicitly from the draft.');const root=path.resolve(projectRoot);
-  const {moduleClosure,distribution,root:distributionRoot}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);assert.equal(path.resolve(distributionRoot),root);
+  const {moduleClosure,distribution,packageProvenance,root:distributionRoot}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);assert.equal(path.resolve(distributionRoot),root);
   const pkg=json(root,'package.json'),plans=Object.fromEntries(['core','renderer'].map(p=>[p,distribution(p)]));assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Current Root whitelist must be exact.');
   for(const b of TILE_STACK_REVIEW_BINDINGS){assert.equal(pkg.exports[b.entry],'./'+b.file);assert.equal(plans[b.profile].exports[b.entry],'./'+b.file);}
   // Only the actual browser/public runtime entries enter moduleClosure.
@@ -115,7 +115,7 @@ export async function tileStackReviewInputModel({projectRoot}={}){
   for(const [profile,plan]of Object.entries(plans)){
     const files=plan.files.map(file=>row(root,file));for(const r of files)profileInputs.push({profile,...r});
     const manifest={name:plan.name,version:pkg.version,private:true,type:'module',description:pkg.description,engines:pkg.engines,exports:plan.exports,files:npmFilePatterns([...plan.files,'package-provenance.json'])};
-    const provenance={schemaVersion:1,profile,version:pkg.version,files:files.map(r=>({path:r.file,bytes:r.bytes,sha256:r.sha256}))};
+    const provenance=packageProvenance(profile,files.map(r=>({path:r.file,bytes:r.bytes,sha256:r.sha256})),{version:pkg.version});
     const generated=[['package.json',manifest,true],['package-provenance.json',provenance,false]].map(([file,data,newline])=>{const b=Buffer.from(JSON.stringify(data,null,2)+(newline?'\n':''));return {file,bytes:b.length,sha256:sha(b),data:JSON.parse(b)};});
     packages[profile]={name:plan.name,version:pkg.version,manifest:generated[0],provenance:generated[1],physicalFiles:[...files,...generated.map(({data,...r})=>r)].sort((a,b)=>a.file.localeCompare(b.file))};
   }

@@ -1,0 +1,9 @@
+import type {VehicleBodyID,VehicleState} from '../vehicle-core/index.js';
+export interface VehicleModel {root:any;update(state:Pick<VehicleState,'steeringRad'|'wheelAngleRad'>):void;dispose():void}
+export interface VehicleKitOptions {bodies:readonly VehicleBodyID[];purpose?:'authoring'|'gameplay';profile?:'game'|'full';geometry?:'game'|'sculpt';signal?:AbortSignal;loadSkin?:(url:string,options:{signal:AbortSignal;id:string;profile:string})=>Promise<any>;loadMesh?:(url:string,options:{signal:AbortSignal;id:string})=>Promise<object>}
+export interface VehicleKit {ready:Promise<unknown>;create(id:string,options?:{driving?:boolean}):VehicleModel;createDriving(id:string):VehicleModel;read():{status:string;failure:{name:string;message:string}|null;profile:string;geometry:string;bodies:string[];requests:Array<{kind:string;id:string;profile:string;url:string}>;ownedResources:number;instances:number;submissionsPerInstance:{parked:2;driving:6}};dispose():string[]|undefined}
+export function createRoadVehicleKit(THREE:any,options:VehicleKitOptions):VehicleKit;
+/** Explicit legacy eager all-body closure; await ready before creating models. */
+export function createLegacyRoadVehicleKit(THREE:any,options?:{loadSkin?:(url:string)=>Promise<any>}):{ready:Promise<unknown>;create(id:string,options?:{lod?:'game'|'sculpt'}):Pick<VehicleModel,'root'|'dispose'>;build(id:string,options?:{lod?:'game'|'sculpt'}):Pick<VehicleModel,'root'|'dispose'>;readonly skinsAvailable:boolean;compatibility:'all-bodies-v1';dispose():void};
+export function vehicleTextureURL(id:string,profile:'full'|'game'):string;
+export function splitRunningGear(THREE:any,geometry:any,body:import('../vehicle-core/index.js').VehicleBody):{pieces:Map<string,any>;wheels:Array<{id:string;pivot:number[];front:boolean}>;triangles:number};

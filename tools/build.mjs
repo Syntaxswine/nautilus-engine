@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import {exampleYard} from '../packages/map-core/example.js';
 import {adaptWallEditor} from './editor-wall-adapter.mjs';
 import {LAUNCH_PLAYTEST, SEND_CLICK} from './editor-game-handoff.mjs';
@@ -22,6 +23,7 @@ import {PARTS_CONTRACT,PARTS_RUNTIME_PROFILE} from '../packages/parts-core/index
 import {moduleReferenceGraph} from './module-references.mjs';
 import {trainStaticResourcePaths} from './train-registration.mjs';
 import {playerSetupBuildPath,playerSetupStaticResourcePaths,playerSetupStaticMetadataPaths,playerSetupBuildProvenance} from './player-setup-registration.mjs';
+import {vehicleStaticFiles} from './vehicle-package.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import './build-building-assets.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -79,6 +81,9 @@ for(const file of [...Object.values(FARMYARD_DOOR_VISUAL_RESOURCE_PATHS),sources
 fs.cpSync(path.join(root, 'packages'), path.join(output, 'packages'), {recursive: true, filter: source => playerSetupBuildPath(path.relative(path.join(root, 'packages'), source).split(path.sep).join('/'))});
 for (const file of trainStaticResourcePaths()) write(file, fs.readFileSync(path.join(root, file)));
 for(const file of [...playerSetupStaticResourcePaths(),...playerSetupStaticMetadataPaths()])write(file,fs.readFileSync(path.join(root,file)));
+for(const file of vehicleStaticFiles())write(file,fs.readFileSync(path.join(root,file)));
+const sourceGit=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+write('package-provenance.json',JSON.stringify({schemaVersion:1,profile:'static-preview',version,source:{kind:'git-worktree',commit:sourceGit(['rev-parse','HEAD']),tree:sourceGit(['rev-parse','HEAD^{tree}']),dirty:!!sourceGit(['status','--porcelain'])},scope:'Static preview source identity; complete installed payload hashes are recorded by packProfile.'},null,2));
 fs.cpSync(path.join(root, 'schemas'), path.join(output, 'schemas'), {recursive: true});
 // Keep reproducible Node-only review tools in source; deploy reports and images.
 fs.cpSync(path.join(root, 'docs'), path.join(output, 'docs'), {recursive: true,filter:source=>!source.endsWith('.mjs')});
@@ -90,7 +95,7 @@ fs.cpSync(path.join(root,'apps/editor/tile-stack'),path.join(output,'apps/editor
 fs.cpSync(path.join(root,'apps/editor/tile-authoring'),path.join(output,'apps/editor/tile-authoring'),{recursive:true});
 const haloManifest=JSON.parse(fs.readFileSync(path.join(root,sources.searchHalo.root,'provenance.json')));
 write(sources.searchHalo.root+'/provenance.json',JSON.stringify(haloManifest,null,2));
-const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples')).map(name=>({path:'examples/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
+const renderEffects={sourceCommit:sources.searchHalo.commit,referenceManifest:sources.searchHalo.root+'/provenance.json',examples:fs.readdirSync(path.join(root,'examples'),{recursive:true}).filter(name=>fs.statSync(path.join(root,'examples',name)).isFile()).map(name=>({path:'examples/'+name.replaceAll('\\','/'),sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'examples',name))).digest('hex')})),files:fs.readdirSync(path.join(root,'packages/render-effects')).map(name=>({path:'packages/render-effects/'+name,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,'packages/render-effects',name))).digest('hex')}))};
 fs.cpSync(path.join(root, 'assets/buildings'), path.join(output, 'assets/buildings'), {recursive: true});
 for(const file of sharedArtworkPayloadPaths())write(file,fs.readFileSync(path.join(root,file)));
 fs.cpSync(path.join(root, 'apps/buildings'), path.join(output, 'buildings'), {recursive: true});

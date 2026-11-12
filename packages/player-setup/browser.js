@@ -9,7 +9,7 @@ import {createDefaultSurface,createSetupCamera} from './surface.js';
 import {prepareSetupStyles,untilReady} from './styles.js';
 import {Vector3} from '../render-effects/three.js';
 export {createSetupConfiguration,bindSetupProvider,flatYardContent,validatePlayerSetup} from './index.js';
-export {retainTrainYard,createRetainedFrameSource} from './retained.js';
+export {retainTrainYard,retainVehicleYard,createRetainedFrameSource} from './retained.js';
 
 const pool=()=>{const entries=new Map();return {acquire(key,create){let e=entries.get(key);if(!e){e={value:create(),refs:0};entries.set(key,e);}e.refs++;let released=false;return {value:e.value,release(){if(released)return;released=true;if(!--e.refs){entries.delete(key);e.value.dispose();}}};},size:()=>entries.size};};
 const uiPart=config=>config.components.filter(c=>PLAYER_COMPONENTS.some(d=>d.id===c.id));
@@ -46,6 +46,7 @@ export async function mountPlayerSetup(container,{configuration,content,provider
           if(need.id===PLAYER_PORTS.bounds.id)wrapped[need.id]={publish(bounds){if(contextCurrent(ctx))value.publish(bounds);else ctx.pendingBounds=plain(bounds);}};
           if(need.id===PLAYER_PORTS.camera.id)wrapped[need.id]={async prepare(next,options){const stage=await value.prepare(next,options);if(typeof stage?.commit!=='function'||typeof stage?.dispose!=='function')throw Error('CAMERA_SCHEMA');let disposed=false;const proxy={commit(){if(disposed)throw Error('CAMERA_STAGE_RETIRED');if(contextCurrent(ctx))stage.commit();else ctx.pendingCameras.push(proxy);},accept(){if(!disposed)stage.commit();},dispose(){if(disposed)return;disposed=true;stage.dispose();}};return proxy;}};
           if(need.id===PLAYER_PORTS.trains.id)wrapped[need.id]={contract:value.contract,readForActor:id=>value.readForActor(id),subscribe:fn=>value.subscribe(fn),dispatch:command=>contextCurrent(ctx)?value.dispatch(command):{ok:false,committed:false,code:'SETUP_NOT_ACTIVE',reason:'This setup does not own train input.',commandId:command.commandId,repeated:false,observerErrors:0}};
+          if(need.id===PLAYER_PORTS.vehicles.id)wrapped[need.id]={contract:value.contract,readForActor:id=>value.readForActor(id),subscribe:fn=>value.subscribe(fn),release:owner=>value.release(owner),dispatch:command=>contextCurrent(ctx)?value.dispatch(command):receipt(false,'SETUP_NOT_ACTIVE','This setup does not own vehicle input.'),actions(actorId){const actions=value.actions(actorId);return {id:actions.id,read:()=>actions.read(),request:(id,offer)=>contextCurrent(ctx)?actions.request(id,offer):receipt(false,'SETUP_NOT_ACTIVE','This setup does not own vehicle actions.')};}};
         }
         const provider={descriptor:{id:'setup.ui-inputs',version:1,ports:needs.map(output)},services:wrapped};subset.bindings=Object.fromEntries(needs.map(p=>[p.id,provider.descriptor.id]));
         const menu={descriptors:SETUP_COMPONENTS,read:readConfiguration,validate:next=>validatePlayerSetup(next,{providers,registry,content}),apply:next=>applyConfiguration(next),connections:()=>({version:1,connections:current?.valid.connections||valid.connections}),presets:PLAYER_PRESETS.map(({id,label})=>({id,label})),preset:setupPreset};
@@ -77,6 +78,7 @@ export async function mountPlayerSetup(container,{configuration,content,provider
         if(ownsClock){fields(restore.clock,['elapsedSeconds','blocked']);if(!Number.isFinite(restore.clock.elapsedSeconds)||restore.clock.elapsedSeconds<0||typeof restore.clock.blocked!=='boolean')throw Error('CHECKPOINT_CLOCK_INVALID');}
         else if(restore.clock!==null)throw Error('CHECKPOINT_CLOCK_OWNERSHIP');}
       if(current){const before=readConfiguration();if(before.actorId!==next.actorId||!same(before.content,next.content))return receipt(false,'SCENE_RESTART_REQUIRED','Stage a deliberate new-scene start; never reset a retained actor through settings.');
+        const owner=current.root.ui.readControls().inputOwner,required=owner==='road-vehicle'?'player.vehicles':owner==='train'?'player.trains':null;if(required&&!settings(next,required))return receipt(false,'CONTROL_COMPONENT_REQUIRED','Exit the occupied transport before removing '+required+'.');
         const sameNative=same(settings(before,'setup.actor'),settings(next,'setup.actor')),sameBindings=same(before.bindings,next.bindings),sameComponents=same(before.components.map(c=>c.id).sort(),next.components.map(c=>c.id).sort());
         if(!restore&&sameNative&&sameBindings&&sameComponents){const subset=uiConfiguration(next);subset.bindings=Object.fromEntries(Object.keys(subset.bindings).map(key=>[key,'setup.ui-inputs']));const result=await current.root.ui.applyConfiguration(subset,{signal:controller.signal});return result;}
         if(!current.root.ui.readContext().blocked)return receipt(false,'PAUSE_REQUIRED','Open setup or pause before replacing providers or native actor roles.');}

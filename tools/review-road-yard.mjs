@@ -1,0 +1,21 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
+import {withArtReview} from './art-review-browser.mjs';
+await withArtReview('Road vehicles: native board-drive-reverse-exit proof',async({page,baseURL,out})=>{
+ await page.goto(baseURL+'/examples/vehicle-yard/?manual=1&contentPin=0000000000000000000000000000000000000000');await page.waitForFunction(()=>window.vehicleYard,{timeout:90000});
+ const results=[];const record=(name,data)=>{results.push({name,...data});};
+ record('startup',await page.evaluate(()=>({mode:vehicleYard.host.readPose().mode,actions:vehicleYard.setup.readActions(),read:vehicleYard.read()})));
+ await page.screenshot({path:path.join(out,'on-foot.png')});
+ const entry=page.getByRole('button',{name:'Enter Compact hatchback · driver',exact:true});await entry.click();
+ assert.equal(await page.evaluate(()=>vehicleYard.host.readPose().mode),'driver');
+ const stick=page.getByRole('application',{name:/Car joystick/});await stick.focus();await page.keyboard.down('ArrowUp');
+ await page.evaluate(()=>{for(let i=0;i<20;i++)vehicleYard.step(.05);});
+ record('forward',await page.evaluate(()=>({mode:vehicleYard.host.readPose().mode,vehicle:vehicleYard.host.connector.read().vehicles[0],native:vehicleYard.setup.read().native})));
+ assert.ok(results.at(-1).vehicle.position.y>7.5,'A button acknowledgement is not movement.');
+ await page.keyboard.up('ArrowUp');await page.evaluate(()=>{for(let i=0;i<20;i++)vehicleYard.step(.05);});
+ await stick.focus();await page.keyboard.down('ArrowDown');await page.keyboard.down('ArrowRight');await page.evaluate(()=>{for(let i=0;i<15;i++)vehicleYard.step(.05);});
+ record('reverse-steering',await page.evaluate(()=>({vehicle:vehicleYard.host.connector.read().vehicles[0]})));assert.ok(results.at(-1).vehicle.speedMps<0);assert.ok(results.at(-1).vehicle.headingRad<0);
+ await page.screenshot({path:path.join(out,'driving.png')});await page.keyboard.up('ArrowDown');await page.keyboard.up('ArrowRight');await page.evaluate(()=>{for(let i=0;i<20;i++)vehicleYard.step(.05);});
+ await page.getByRole('button',{name:'Exit Compact hatchback',exact:true}).click();assert.equal(await page.evaluate(()=>vehicleYard.host.readPose().mode),'on-foot');
+ record('safe-exit',await page.evaluate(()=>({read:vehicleYard.read()})));await page.screenshot({path:path.join(out,'safe-exit.png')});
+ await page.evaluate(()=>vehicleYard.dispose());fs.writeFileSync(path.join(out,'browser.json'),JSON.stringify({version:1,results},null,2));console.log(JSON.stringify({checks:results.map(r=>r.name),directory:out}));
+},{source:true,owner:'01a1810c-62da-7210-a1ca-b72b449ce024',output:'road-yard-review',timeoutMs:240000});

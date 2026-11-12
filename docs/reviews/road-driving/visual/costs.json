@@ -1,0 +1,694 @@
+{
+  "version": 1,
+  "sourceArt": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+  "measurements": [
+    "encoded PNG/JSON file sizes",
+    "PNG dimensions",
+    "mesh/index counts and typed-array lengths",
+    "requested resource identities in browser reports"
+  ],
+  "estimates": [
+    "GPU RGBA8 textures with full mip chain, uncompressed",
+    "geometry attribute/index buffers; excludes driver allocation/alignment and renderer internals"
+  ],
+  "notMeasured": [
+    "GPU timing",
+    "frame rate",
+    "physical handset performance",
+    "driver memory allocation"
+  ],
+  "results": [
+    {
+      "profile": "full",
+      "geometry": "approved sculpt",
+      "bodies": [
+        {
+          "id": "hatchback",
+          "lengthM": 3.7,
+          "widthM": 1.72,
+          "heightM": 1.46,
+          "wheelRadiusM": 0.29,
+          "axlesM": [
+            -1.08,
+            1.13
+          ],
+          "wheelbaseM": 2.21,
+          "triangles": 55680,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1293152,
+            "driving": 1293152
+          }
+        },
+        {
+          "id": "sedan",
+          "lengthM": 4.54,
+          "widthM": 1.8,
+          "heightM": 1.44,
+          "wheelRadiusM": 0.3,
+          "axlesM": [
+            -1.37,
+            1.39
+          ],
+          "wheelbaseM": 2.76,
+          "triangles": 55680,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1293152,
+            "driving": 1293152
+          }
+        },
+        {
+          "id": "pickup",
+          "lengthM": 4.84,
+          "widthM": 1.88,
+          "heightM": 1.77,
+          "wheelRadiusM": 0.35,
+          "axlesM": [
+            -1.48,
+            1.52
+          ],
+          "wheelbaseM": 3,
+          "triangles": 63104,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1473664,
+            "driving": 1473664
+          }
+        },
+        {
+          "id": "crew-pickup",
+          "lengthM": 5.54,
+          "widthM": 1.9,
+          "heightM": 1.84,
+          "wheelRadiusM": 0.36,
+          "axlesM": [
+            -1.71,
+            1.76
+          ],
+          "wheelbaseM": 3.4699999999999998,
+          "triangles": 63104,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1473664,
+            "driving": 1473664
+          }
+        },
+        {
+          "id": "cargo-van",
+          "lengthM": 4.8,
+          "widthM": 1.9,
+          "heightM": 2.1,
+          "wheelRadiusM": 0.32,
+          "axlesM": [
+            -1.46,
+            1.47
+          ],
+          "wheelbaseM": 2.9299999999999997,
+          "triangles": 55680,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1293152,
+            "driving": 1293152
+          }
+        },
+        {
+          "id": "passenger-van",
+          "lengthM": 4.64,
+          "widthM": 1.84,
+          "heightM": 1.94,
+          "wheelRadiusM": 0.31,
+          "axlesM": [
+            -1.39,
+            1.45
+          ],
+          "wheelbaseM": 2.84,
+          "triangles": 55680,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1293152,
+            "driving": 1293152
+          }
+        },
+        {
+          "id": "utility-suv",
+          "lengthM": 4.42,
+          "widthM": 1.88,
+          "heightM": 1.92,
+          "wheelRadiusM": 0.35,
+          "axlesM": [
+            -1.3,
+            1.33
+          ],
+          "wheelbaseM": 2.63,
+          "triangles": 62592,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1469408,
+            "driving": 1469408
+          }
+        },
+        {
+          "id": "crossover",
+          "lengthM": 4.44,
+          "widthM": 1.82,
+          "heightM": 1.69,
+          "wheelRadiusM": 0.32,
+          "axlesM": [
+            -1.35,
+            1.38
+          ],
+          "wheelbaseM": 2.73,
+          "triangles": 62592,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 1469408,
+            "driving": 1469408
+          }
+        }
+      ],
+      "selections": {
+        "hatchbackAndPickup": {
+          "bodyIds": [
+            "hatchback",
+            "pickup"
+          ],
+          "textures": [
+            {
+              "id": "hatchback",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3867823,
+              "sha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "sourceSha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "pickup",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3930842,
+              "sha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "sourceSha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "running-gear",
+              "profile": "full",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 1584458,
+              "sha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "sourceSha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "estimatedRGBA8MipBytes": 5592406
+            }
+          ],
+          "textureRequests": 3,
+          "encodedTextureBytes": 9383123,
+          "estimatedRGBA8MipBytes": 50331650,
+          "meshRequests": 0,
+          "encodedMeshBytes": 0
+        },
+        "all": {
+          "bodyIds": [
+            "hatchback",
+            "sedan",
+            "pickup",
+            "crew-pickup",
+            "cargo-van",
+            "passenger-van",
+            "utility-suv",
+            "crossover"
+          ],
+          "textures": [
+            {
+              "id": "hatchback",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3867823,
+              "sha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "sourceSha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "sedan",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3957575,
+              "sha256": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190",
+              "sourceSha256": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "pickup",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3930842,
+              "sha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "sourceSha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "crew-pickup",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3991487,
+              "sha256": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710",
+              "sourceSha256": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "cargo-van",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 3999313,
+              "sha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea",
+              "sourceSha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "passenger-van",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 4234724,
+              "sha256": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2",
+              "sourceSha256": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "utility-suv",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 4136879,
+              "sha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101",
+              "sourceSha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "crossover",
+              "profile": "full",
+              "width": 2048,
+              "height": 2048,
+              "bytes": 4023235,
+              "sha256": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c",
+              "sourceSha256": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c",
+              "estimatedRGBA8MipBytes": 22369622
+            },
+            {
+              "id": "running-gear",
+              "profile": "full",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 1584458,
+              "sha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "sourceSha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "estimatedRGBA8MipBytes": 5592406
+            }
+          ],
+          "textureRequests": 9,
+          "encodedTextureBytes": 33726336,
+          "estimatedRGBA8MipBytes": 184549382,
+          "meshRequests": 0,
+          "encodedMeshBytes": 0
+        }
+      }
+    },
+    {
+      "profile": "game",
+      "geometry": "approved reduced data",
+      "bodies": [
+        {
+          "id": "hatchback",
+          "lengthM": 3.7,
+          "widthM": 1.72,
+          "heightM": 1.46,
+          "wheelRadiusM": 0.29,
+          "axlesM": [
+            -1.08,
+            1.13
+          ],
+          "wheelbaseM": 2.21,
+          "triangles": 11198,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 277748,
+            "driving": 277748
+          }
+        },
+        {
+          "id": "sedan",
+          "lengthM": 4.54,
+          "widthM": 1.8,
+          "heightM": 1.44,
+          "wheelRadiusM": 0.3,
+          "axlesM": [
+            -1.37,
+            1.39
+          ],
+          "wheelbaseM": 2.76,
+          "triangles": 11198,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 277332,
+            "driving": 277332
+          }
+        },
+        {
+          "id": "pickup",
+          "lengthM": 4.84,
+          "widthM": 1.88,
+          "heightM": 1.77,
+          "wheelRadiusM": 0.35,
+          "axlesM": [
+            -1.48,
+            1.52
+          ],
+          "wheelbaseM": 3,
+          "triangles": 11197,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 283406,
+            "driving": 283406
+          }
+        },
+        {
+          "id": "crew-pickup",
+          "lengthM": 5.54,
+          "widthM": 1.9,
+          "heightM": 1.84,
+          "wheelRadiusM": 0.36,
+          "axlesM": [
+            -1.71,
+            1.76
+          ],
+          "wheelbaseM": 3.4699999999999998,
+          "triangles": 11197,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 282926,
+            "driving": 282926
+          }
+        },
+        {
+          "id": "cargo-van",
+          "lengthM": 4.8,
+          "widthM": 1.9,
+          "heightM": 2.1,
+          "wheelRadiusM": 0.32,
+          "axlesM": [
+            -1.46,
+            1.47
+          ],
+          "wheelbaseM": 2.9299999999999997,
+          "triangles": 11198,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 276852,
+            "driving": 276852
+          }
+        },
+        {
+          "id": "passenger-van",
+          "lengthM": 4.64,
+          "widthM": 1.84,
+          "heightM": 1.94,
+          "wheelRadiusM": 0.31,
+          "axlesM": [
+            -1.39,
+            1.45
+          ],
+          "wheelbaseM": 2.84,
+          "triangles": 11198,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 277012,
+            "driving": 277012
+          }
+        },
+        {
+          "id": "utility-suv",
+          "lengthM": 4.42,
+          "widthM": 1.88,
+          "heightM": 1.92,
+          "wheelRadiusM": 0.35,
+          "axlesM": [
+            -1.3,
+            1.33
+          ],
+          "wheelbaseM": 2.63,
+          "triangles": 11197,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 286478,
+            "driving": 286478
+          }
+        },
+        {
+          "id": "crossover",
+          "lengthM": 4.44,
+          "widthM": 1.82,
+          "heightM": 1.69,
+          "wheelRadiusM": 0.32,
+          "axlesM": [
+            -1.35,
+            1.38
+          ],
+          "wheelbaseM": 2.73,
+          "triangles": 11198,
+          "submissions": {
+            "parked": 2,
+            "driving": 6,
+            "additional": 4
+          },
+          "estimatedGeometryBufferBytes": {
+            "parked": 287124,
+            "driving": 287124
+          }
+        }
+      ],
+      "selections": {
+        "hatchbackAndPickup": {
+          "bodyIds": [
+            "hatchback",
+            "pickup"
+          ],
+          "textures": [
+            {
+              "id": "hatchback",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 273468,
+              "sha256": "f75c69306b9033459235d59aa086270f0d085e4e71f2e652607f107aa86f4f0c",
+              "sourceSha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "pickup",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 288677,
+              "sha256": "925d235195084e8ee8cdfaa1c3cd9bd1f2402deb56a6e8498f9ff9adc009fb4f",
+              "sourceSha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "running-gear",
+              "profile": "game",
+              "width": 256,
+              "height": 256,
+              "bytes": 100713,
+              "sha256": "f706e7558d64dffafaadef706682e14761b37fbe2cf29e0a92592bb30cbc06f2",
+              "sourceSha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "estimatedRGBA8MipBytes": 349526
+            }
+          ],
+          "textureRequests": 3,
+          "encodedTextureBytes": 662858,
+          "estimatedRGBA8MipBytes": 3145730,
+          "meshRequests": 2,
+          "encodedMeshBytes": 748438
+        },
+        "all": {
+          "bodyIds": [
+            "hatchback",
+            "sedan",
+            "pickup",
+            "crew-pickup",
+            "cargo-van",
+            "passenger-van",
+            "utility-suv",
+            "crossover"
+          ],
+          "textures": [
+            {
+              "id": "hatchback",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 273468,
+              "sha256": "f75c69306b9033459235d59aa086270f0d085e4e71f2e652607f107aa86f4f0c",
+              "sourceSha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "sedan",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 278354,
+              "sha256": "e56130131f17b5c1e5739882736e692412bff67f0736ed3e91f26f3262e3b797",
+              "sourceSha256": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "pickup",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 288677,
+              "sha256": "925d235195084e8ee8cdfaa1c3cd9bd1f2402deb56a6e8498f9ff9adc009fb4f",
+              "sourceSha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "crew-pickup",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 290886,
+              "sha256": "6ad94e48264cebb45261a40ab413a817330f974abde97530f44c6668e609b98e",
+              "sourceSha256": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "cargo-van",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 285576,
+              "sha256": "48a767caecb4ae12fd6dee97310b1412b91286d624916bbf7d094284144508dc",
+              "sourceSha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "passenger-van",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 305935,
+              "sha256": "3cf31300405447aeefce11668b67c6e1263d673e5acd015a73d8add3b63a1ac1",
+              "sourceSha256": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "utility-suv",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 298563,
+              "sha256": "13ae3d09033ba1b812dad5d90a10a9bd6eb834d1e89cabc320c13452803894e5",
+              "sourceSha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "crossover",
+              "profile": "game",
+              "width": 512,
+              "height": 512,
+              "bytes": 286502,
+              "sha256": "786e54a0fb5f58df4043e8cf50c61920397c7693dabb5f9b90a3a2847987d705",
+              "sourceSha256": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c",
+              "estimatedRGBA8MipBytes": 1398102
+            },
+            {
+              "id": "running-gear",
+              "profile": "game",
+              "width": 256,
+              "height": 256,
+              "bytes": 100713,
+              "sha256": "f706e7558d64dffafaadef706682e14761b37fbe2cf29e0a92592bb30cbc06f2",
+              "sourceSha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7",
+              "estimatedRGBA8MipBytes": 349526
+            }
+          ],
+          "textureRequests": 9,
+          "encodedTextureBytes": 2408674,
+          "estimatedRGBA8MipBytes": 11534342,
+          "meshRequests": 8,
+          "encodedMeshBytes": 2999432
+        }
+      }
+    }
+  ]
+}

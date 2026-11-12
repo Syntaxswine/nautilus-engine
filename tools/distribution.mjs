@@ -9,6 +9,7 @@ import {moduleReferenceGraph} from './module-references.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import {trainPackageFiles} from './train-registration.mjs';
 import {npmFilePatterns} from './npm-files.mjs';
+import {withVehicleExports,vehiclePackageFiles} from './vehicle-package.mjs';
 import {withPlayerSetupExports,playerSetupPackageFiles} from './player-setup-registration.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -58,6 +59,8 @@ export function distribution(profile = 'compatibility') {
   extras.push(...trainPackageFiles(profile));
   exports=withPlayerSetupExports(exports,profile);
   extras.push(...playerSetupPackageFiles(profile));
+  exports=withVehicleExports(exports,profile);
+  extras.push(...vehiclePackageFiles(profile));
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
@@ -72,6 +75,11 @@ function npm(args, cwd) {
   if (!npmCli) throw Error('Run through npm, or use a Node installation containing npm, to create the offline distribution.');
   return execFileSync(process.execPath, [npmCli, ...args], {cwd, encoding:'utf8', windowsHide:true, maxBuffer:8*1024*1024});
 }
+export function packageProvenance(profile,records,{version=sourcePackage().version}={}) {
+  const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+  const source={kind:'git-worktree',commit:git(['rev-parse','HEAD']),tree:git(['rev-parse','HEAD^{tree}']),dirty:!!git(['status','--porcelain']),payloadSHA256:createHash('sha256').update(JSON.stringify(records)).digest('hex')};
+  return {schemaVersion:1,profile,version,source,files:records};
+}
 export function packProfile(profile) {
   const {exports, files, name} = distribution(profile), source = sourcePackage(), output = path.join(root, 'artifacts/distribution');
   const stage = path.join(output, 'stage-' + profile); fs.mkdirSync(stage, {recursive:true});
@@ -79,8 +87,8 @@ export function packProfile(profile) {
   const manifest = {name, version: source.version, private:true, type:'module', description:source.description, engines:source.engines, exports,
     files:npmFilePatterns([...files, 'package-provenance.json'])};
   fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
-  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify({schemaVersion:1, profile, version:source.version,
-    files:files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}))}, null, 2));
+  const records=files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}));
+  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify(packageProvenance(profile,records,{version:source.version}), null, 2));
   const packed = JSON.parse(npm(['pack', '--ignore-scripts', '--json', '--pack-destination', output], stage))[0];
   const result = {profile, name, version:source.version, file:path.join(output,packed.filename), compressedBytes:packed.size, unpackedBytes:packed.unpackedSize, fileCount:packed.entryCount, integrity:packed.integrity};
   fs.writeFileSync(path.join(output, profile + '-report.json'), JSON.stringify(result, null, 2)); return result;

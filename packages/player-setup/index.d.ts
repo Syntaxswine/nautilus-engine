@@ -4,7 +4,7 @@ export interface ContentIdentity {id:string;version:number;sourcePin:string}
 export interface SetupPort {id:string;service:{id:string;version:number};direction:'input'|'output';role:'request'|'confirmed-state'|'committed-event';schema:string;units:string;frame:string;cardinality:'one';ownership:string;lifetime:'composition';required:boolean}
 export interface SetupSetting {id:string;label:string;type:'enum'|'boolean'|'number';default:string|number|boolean;change:'live'|'pause'|'restart';values?:readonly string[];min?:number;max?:number;step?:number;units?:string}
 export interface SetupComponent {id:string;version:1;label:string;ports:readonly SetupPort[];settings:readonly SetupSetting[];guide:string;usageCard:string}
-export type SetupComponentID='player.shell'|'player.walking'|'player.trains'|'player.camera'|'player.title'|'setup.runtime'|'setup.actor';
+export type SetupComponentID='player.shell'|'player.walking'|'player.trains'|'player.vehicles'|'player.camera'|'player.title'|'setup.runtime'|'setup.actor';
 export interface SetupConfiguration {
   kind:'nautilus-player-setup';version:1;engine:{package:string;version:string;sourcePin:string};content:ContentIdentity;actorId:string;
   components:Array<{id:SetupComponentID;version:1;settings:Record<string,string|number|boolean>}>;bindings:Record<string,string>;
@@ -38,7 +38,7 @@ export interface DefaultPlayerWorld {
 }
 export const SETUP_PORTS:Readonly<Record<'world'|'pose'|'surface'|'clock'|'native'|'ui'|'runtime',SetupPort>>;
 export const SETUP_COMPONENTS:readonly SetupComponent[];
-export function createSetupConfiguration(options:{content:ContentIdentity;actorId?:string;model?:NativeModel;trains?:boolean;title?:boolean}):SetupConfiguration;
+export function createSetupConfiguration(options:{content:ContentIdentity;actorId?:string;model?:NativeModel;trains?:boolean;title?:boolean;vehicles?:boolean}):SetupConfiguration;
 export function validatePlayerSetup(input:unknown,options?:{providers?:readonly SetupProvider[];registry?:readonly SetupRegistration[];content?:{identity:ContentIdentity}}):SetupValidation;
 export function defaultSetupRegistry(config:SetupConfiguration):SetupRegistration[];
 export function bindSetupProvider(config:SetupConfiguration,provider:SetupProvider):SetupConfiguration;
