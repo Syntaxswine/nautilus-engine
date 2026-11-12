@@ -1,5 +1,6 @@
 import {compileWorld} from '../world-core/index.js';
 import {openInteractionState,openInteractionActor,axes,copy,point,fail} from './state.js';
+import {contactShape,boundsContactShape,contactOverlap,firstContact,moveWithContacts} from '../traversal-core/index.js';
 const epsilon=1e-7;
 const good=()=>({ok:true});
 const bad=(code,reason)=>({ok:false,code,reason});
@@ -31,7 +32,9 @@ function covered(rect,panels){
   return true;
 }
 /** Reference provider for authored AABB worlds. Replace it for curved/mesh worlds. */
-export function createInteractionQueries(input,{actors=()=>[]}={}){
+export function createInteractionQueries(input,{actors=()=>[],obstacles=()=>[],movementProfile='legacy-box-stop-v1'}={}){
+  if(!['legacy-box-stop-v1','disc-slide-v1'].includes(movementProfile))fail('MOVEMENT_PROFILE_UNSUPPORTED','Bind a supported explicit walking profile.');
+  if(typeof obstacles!=='function')fail('MISSING_BINDING','Obstacles must return current contact shapes.');
   const world=compileWorld(input),snapshot=world.snapshot(),inside=p=>p.x>=0&&p.y>=0&&p.h>=snapshot.bounds.minHeightM&&p.x<=snapshot.bounds.widthM&&p.y<=snapshot.bounds.depthM&&p.h<=snapshot.bounds.heightM;
   if(typeof actors!=='function')throw Error('actors must return the current authoritative interaction actors.');
   function occupants(actor){return [actor,...actors().map(openInteractionActor).filter(other=>other.id!==actor.id)];}
@@ -53,6 +56,23 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
     const hit=boxes.find(box=>intersects(from,to,box.bounds,actor));
     return hit?bad('BLOCKED','The way is blocked by '+hit.id+'.'):good();
   }
+  function discMove({state,actor,from,to},slide){
+    if(Math.abs(from.h-to.h)>epsilon)return bad('UNSUPPORTED_WALK_HEIGHT','Disc sliding requires flat supported ground; use a stair binding.');
+    const delta={x:to.x-from.x,y:to.y-from.y},shape=contactShape({id:actor.id,points:[from],radiusM:actor.radiusM,minH:from.h,maxH:from.h+actor.heightM});
+    const bounds={min:{x:Math.min(from.x,to.x)-actor.radiusM,y:Math.min(from.y,to.y)-actor.radiusM,h:from.h},max:{x:Math.max(from.x,to.x)+actor.radiusM,y:Math.max(from.y,to.y)+actor.radiusM,h:from.h+actor.heightM}};
+    const boxes=world.queryBounds(bounds).surfaces.map(s=>boundsContactShape(s.id,s.bounds));
+    for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;if(bounds)boxes.push(boundsContactShape(door.id,bounds));}
+    for(const other of occupants(actor))if(other.id!==actor.id)boxes.push(contactShape({id:other.id,points:[other.position],radiusM:other.radiusM,minH:other.position.h,maxH:other.position.h+other.heightM}));
+    boxes.push(...obstacles());
+    const initialHit=boxes.find(box=>contactOverlap(shape,box));if(initialHit)return bad('BLOCKED','The body overlaps '+initialHit.id+'.');
+    if(!slide){const hit=firstContact(shape,delta,boxes);return hit?bad('BLOCKED','The way is blocked by '+hit.id+'.'):good();}
+    const moved=moveWithContacts(shape,delta,boxes),position={x:from.x+moved.delta.x,y:from.y+moved.delta.y,h:from.h};
+    for(const segment of moved.segments){const a={x:from.x+segment.from.x,y:from.y+segment.from.y,h:from.h},b={x:from.x+segment.to.x,y:from.y+segment.to.y,h:from.h};
+      if(!inside({x:b.x-actor.radiusM,y:b.y-actor.radiusM,h:b.h})||!inside({x:b.x+actor.radiusM,y:b.y+actor.radiusM,h:b.h+actor.heightM}))return bad('OUTSIDE_WORLD','Stay within the authored world.');
+      const supported=support({from:a,to:b,actor,floorId:actor.floorId});if(!supported.ok)return supported;
+    }
+    return {ok:true,position,distanceM:moved.distanceM,contacts:moved.contacts};
+  }
   function doorClearance(state,door){
     const solid=world.queryBounds(door.motionBounds).surfaces.find(surface=>overlap(door.motionBounds,surface.bounds));
     if(solid)return bad('DOOR_BLOCKED','Door '+door.id+' needs a clear motion envelope; static surface '+solid.id+' occupies it. Correct the authored clearance or bind an exact geometry provider.');
@@ -62,6 +82,8 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
     return other?bad('DOOR_BLOCKED','Door '+door.id+' overlaps the reserved motion clearance of '+other.id+'. Separate the clearances or use an explicitly compatible provider.'):good();
   }
   return Object.freeze({
+    movementProfile,
+    ...(movementProfile==='disc-slide-v1'?{move:value=>discMove(value,true)}:{}),
     worldId:snapshot.id,
     validateBindings(value){
       const state=openInteractionState(value);
@@ -80,9 +102,10 @@ export function createInteractionQueries(input,{actors=()=>[]}={}){
     },
     landing({actor,landing}){return support({from:landing.position,actor,floorId:landing.floorId,surfaceId:landing.surfaceId});},
     sweep,
-    walk({state,actor,from,to}){return support({from,to,actor,floorId:actor.floorId}).ok?sweep({state,actor,from,to}):bad('NO_SUPPORT','Walk on a supported floor; use a declared stair route to change height.');},
+    walk(value){return support({...value,floorId:value.actor.floorId}).ok?(movementProfile==='disc-slide-v1'?discMove(value,false):sweep(value)):bad('NO_SUPPORT','Walk on a supported floor; use a declared stair route to change height.');},
     canSetDoor({state,actor,door}){
       const clearance=doorClearance(state,door);if(!clearance.ok)return clearance;
+      if(obstacles().some(shape=>contactOverlap(boundsContactShape(door.id,door.motionBounds),shape)))return bad('DOOR_OCCUPIED','A traversal body occupies the door motion envelope.');
       return occupants(actor).some(other=>overlap(door.motionBounds,actorBounds(other)))?bad('DOOR_OCCUPIED','Someone is in the doorway. Move clear before operating it.'):good();
     }
   });

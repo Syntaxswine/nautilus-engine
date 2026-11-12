@@ -11,6 +11,7 @@ function query(bindings,name,value){
   const result=bindings[name](copy(value));
   if(!result||typeof result.ok!=='boolean')fail('INVALID_BINDING','Queries must return {ok, code?, reason?}.');
   if(!result.ok)fail(result.code||'BLOCKED',result.reason||'This action is currently blocked.');
+  return result;
 }
 const event=(state,actor,type,targetId)=>({id:state.worldId+'/interactions/'+state.revision,type,targetId,actorId:actor.id,worldId:state.worldId});
 // Shared flag transition. Callers validate their own authority/geometry profile;
@@ -88,8 +89,12 @@ export function walkActor(input,actorInput,options={},bindings){
     const length=Math.hypot(direction.x,direction.y);
     if(!length||!elapsed)return {ok:true,state,actor,events:[]};
     const step=actor.speedMps*elapsed/Math.max(1,length),to={x:actor.position.x+direction.x*step,y:actor.position.y+direction.y*step,h:actor.position.h};
-    query(bindings,'walk',{state,actor,from:actor.position,to});actor.position=to;bump(actor);
-    return {ok:true,state,actor,events:[]};
+    const moved=typeof bindings?.move==='function'?query(bindings,'move',{state,actor,from:actor.position,to}):null;
+    if(!moved)query(bindings,'walk',{state,actor,from:actor.position,to});
+    const position=moved?moved.position:to;point(position);
+    if(position.h!==actor.position.h||distance(position,actor.position)>distance(to,actor.position)+1e-7)fail('INVALID_BINDING','Movement must retain height and stay within the requested distance.');
+    if(!samePoint(position,actor.position)){actor.position=copy(position);bump(actor);}
+    return {ok:true,state,actor,events:[],...(moved?{movement:{profile:bindings.movementProfile,distanceM:moved.distanceM,contacts:copy(moved.contacts)}}:{})};
   });
 }
 /** Explicit host time only; follows every crossed route segment and checks live blockers. */

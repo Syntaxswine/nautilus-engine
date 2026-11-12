@@ -1,10 +1,11 @@
 import * as T from '@nautilus-engine/map-core/render-effects/three';
 import {createRockModel} from '@nautilus-engine/map-core/items/three';
+import {createRoadVehicleKit} from '@nautilus-engine/map-core/vehicles/three';
 import {REGISTRY,slotById,plotById} from './registry.js';
 import {canonical,insist} from './data.js';
 
 // Content rendering only. Never creates actor movement, door state or gameplay input.
-export function createGroundSurface(document,host) {
+export async function createGroundSurface(document,host,{signal}={}) {
   const element=document.createElement('div');element.className='ground-surface';const canvas=document.createElement('canvas');canvas.tabIndex=0;canvas.setAttribute('aria-label','Night Ledger test ground');element.append(canvas);
   const renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(document.defaultView.devicePixelRatio,1.5));renderer.outputColorSpace=T.SRGBColorSpace;
   const scene=new T.Scene();scene.background=new T.Color(0x9cb5ad);const camera=new T.PerspectiveCamera(45,1,.05,400);
@@ -17,7 +18,10 @@ export function createGroundSurface(document,host) {
   slab(8,48,48,16,0x6f8068,-.025);
   const grid=new T.GridHelper(64,32,0x8a9a79,0x77866b);grid.position.set(32,.005,32);base.add(grid);shared.push(grid.geometry,grid.material);
   function sign(text,x,y,size=2) {const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.fillStyle='#eadab5';ctx.fillRect(0,0,512,128);ctx.fillStyle='#263c35';ctx.font='bold 34px Georgia';ctx.textAlign='center';ctx.fillText(text,256,76);const texture=new T.CanvasTexture(c),m=new T.MeshBasicMaterial({map:texture,side:T.DoubleSide}),g=new T.PlaneGeometry(size*3,size*.75),mesh=new T.Mesh(g,m);mesh.rotation.x=-Math.PI/2;mesh.position.set(x,.012,y);base.add(mesh);shared.push(texture,m,g);}
-  sign('SAFE COURT · 64 × 64 m',32,45,1.4);sign('OPEN RESERVE · NO DRIVING PROVIDER',32,57,1.4);sign('RAILWAY RESERVE → 240 × 180 m',53,44,.9);
+  sign('SAFE COURT · 64 × 64 m',32,45,1.4);sign('SHARED WALKING + DRIVING COURSE',32,50,1.1);sign('RAILWAY RESERVE → 240 × 180 m',53,44,.9);
+  const barrierPaint=mat(0xaa9875);for(const s of host.read().world.surfaces.filter(s=>s.id.startsWith('driving-')))box(base,s.bounds,barrierPaint,shared);
+  sign('HEAD ON → STOP',15,60.4,.55);sign('CLEAR WALL TIP',29.2,52.7,.55);sign('WALK · SLIDE',23.5,54,.5);sign('GLANCE · SLIDE',42,60.5,.55);sign('REAL OBSTRUCTION',33.3,61,.55);
+  const kit=createRoadVehicleKit(T,{bodies:['hatchback','pickup'],profile:'game',signal}),cars=[];
   function makePlot(s,selection) {
     const slot=slotById(selection.slot),root=new T.Group(),resources=[],{x,y}=slot.origin,doors=new Map(),rocks=new Map();root.name=selection.slot+' '+plotById(selection.fixture).name;
     const tint=selection.slot==='west'?0xd9ae61:0x82b4ab,paint=mat(tint,resources),wall=mat(0xa69876,resources),leaf=mat(0x526e57,resources);
@@ -36,8 +40,8 @@ export function createGroundSurface(document,host) {
   function fit(mesh,bounds){mesh.visible=!!bounds;if(!bounds)return;const {min:a,max:b}=bounds;mesh.position.set((a.x+b.x)/2,(a.h+b.h)/2,(a.y+b.y)/2);mesh.scale.set(b.x-a.x,b.h-a.h,b.y-a.y);}
   const surface={element,canvas,renderer,scene,camera,prepare,
     resize(){const r=canvas.getBoundingClientRect(),width=Math.max(1,r.width),height=Math.max(1,r.height),ratio=renderer.getPixelRatio();if(canvas.width!==Math.floor(width*ratio)||canvas.height!==Math.floor(height*ratio))renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();return {width,height};},
-    draw(){if(retired)return;const s=host.read();for(const p of plots.values()){for(const [id,mesh]of p.doors){const door=s.interactions.doors.find(d=>d.id===id);if(door)fit(mesh,door.open?door.openBounds:door.closedBounds);}for(const [id,model]of p.rocks){const rock=s.rocks.find(r=>r.id===id.replace('/marker',''));model.root.visible=rock?.phase==='world';if(!id.endsWith('/marker')&&rock?.position)model.root.position.set(rock.position.x,rock.position.h,rock.position.y);}}renderer.render(scene,camera);},
+    draw(){if(retired)return;const s=host.read();for(const {id,model}of cars){const v=s.vehicles.vehicles.find(v=>v.id===id);model.root.position.set(v.position.x,v.position.h,v.position.y);model.root.rotation.y=v.headingRad;model.update(v);}for(const p of plots.values()){for(const [id,mesh]of p.doors){const door=s.interactions.doors.find(d=>d.id===id);if(door)fit(mesh,door.open?door.openBounds:door.closedBounds);}for(const [id,model]of p.rocks){const rock=s.rocks.find(r=>r.id===id.replace('/marker',''));model.root.visible=rock?.phase==='world';if(!id.endsWith('/marker')&&rock?.position)model.root.position.set(rock.position.x,rock.position.h,rock.position.y);}}renderer.render(scene,camera);},
     read(){return {stages,commits,retiredPlots,plotRoots:Object.fromEntries([...plots].map(([id,p])=>[id,p.root.uuid])),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};},
-    dispose(){if(retired)return;retired=true;plots.forEach(p=>p.dispose());plots.clear();shared.forEach(r=>r.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();element.remove();}};
-  try{prepare(host.read()).commit();return Object.freeze(surface);}catch(e){surface.dispose();throw e;}
+    dispose(){if(retired)return;retired=true;cars.forEach(c=>c.model.dispose());cars.length=0;kit.dispose();plots.forEach(p=>p.dispose());plots.clear();shared.forEach(r=>r.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();element.remove();}};
+  try{await kit.ready;if(signal?.aborted)throw Error('GROUND_SURFACE_ABORTED');for(const v of host.read().vehicles.vehicles){const model=kit.createDriving('vehicle-'+v.body+'-'+v.finish);scene.add(model.root);cars.push({id:v.id,model});}prepare(host.read()).commit();return Object.freeze(surface);}catch(e){surface.dispose();throw e;}
 }

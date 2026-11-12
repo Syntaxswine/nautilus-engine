@@ -3,11 +3,13 @@ import {createSetupConfiguration} from '@nautilus-engine/map-core/player-setup';
 import {REGISTRY,CONTENT_SOURCE,defaultRecipe,fixtureById,objectiveById,plotById,slotById,validateRecipe,goldenRecipe,fixtureSpawn,observerCapabilities} from './registry.js';
 import {createGroundHost} from './host.js';
 import {clone,canonical,fields,insist,refusal,accepted} from './data.js';
+import {verifyDriving,exerciseDriving} from './driving.js';
 
 export const RUNNER_VERSION=1;
 const available=(fixture,recipe)=>{if(recipe.conditions.id!=='transition')return 'This golden fixture requires new-transition observations. A current-state audit does not exercise the transition.';const objective=objectiveById(fixture.objective),caps=observerCapabilities(recipe.observers.profile),missing=objective.requires.filter(c=>!caps.includes(c));return missing.length?'Missing observations: '+missing.join(', ')+'. Select the full observer profile.':null;};
 const port=c=>({service:c,version:1,role:c.includes('event')?'committed-event':'confirmed-state',units:c==='passage-query-v1'?'metres; upright body':'native record',frame:'world-x-y-h',lifetime:'sandbox',cardinality:'one authoritative provider'});
 export function evaluateObjective({objective,slot,baseline,observed,conditions='transition'}) {
+  if(slot==='driving')return verifyDriving(objective,baseline,observed.state);
   const transition=conditions==='transition';
   const failures=[],checks=[];const expect=(name,expected,value)=>{const ok=canonical(expected)===canonical(value);checks.push({name,expected:clone(expected),observed:clone(value),ok});if(!ok)failures.push(name+' expected '+JSON.stringify(expected)+' but observed '+JSON.stringify(value));};
   const target=slot+(objective.id==='door-passage'?'/door':':rock'),priorIDs=new Set(baseline.events.map(e=>e.id)),events=[...new Map(observed.state.events.filter(e=>!priorIDs.has(e.id)&&e.targetId===target||!priorIDs.has(e.id)&&e.rockId===target).map(e=>[e.id,e])).values()];
@@ -26,11 +28,16 @@ export function evaluateObjective({objective,slot,baseline,observed,conditions='
   return {status:failures.length?'failed':'passed',scope:transition?'new-transition':'current-state-only',missionComplete,checks,failures,eventIds:events.map(e=>e.id)};
 }
 export function runFixture(fixture,recipe,runId,setupConfiguration=null,executionSource=null) {
-  const objective=objectiveById(fixture.objective),sandboxRecipe=goldenRecipe(fixture,recipe),reason=available(fixture,sandboxRecipe),record={fixture:{id:fixture.id,version:fixture.version,sourcePin:CONTENT_SOURCE},source:{engineCommit:REGISTRY.engineSource,registry:'content-data.json',baseline:fixture.baseline},seed:recipe.seed,recipe:clone(sandboxRecipe),requiredPorts:objective.requires.map(port),placement:{slot:clone(slotById(fixture.slot)),plot:clone(plotById(fixture.plot)),rules:['fixed footprint and floor','no occupied replacement','no carried-item retirement','no silent resource reset']},objective:clone(objective),observer:{...objective.observer,profile:recipe.observers.profile,runnerVersion:RUNNER_VERSION},expectationVersion:fixture.expectationVersion,runId};
+  const objective=objectiveById(fixture.objective),sandboxRecipe=goldenRecipe(fixture,recipe),reason=available(fixture,sandboxRecipe),record={fixture:{id:fixture.id,version:fixture.version,sourcePin:CONTENT_SOURCE,sourceRole:'original Night Ledger content lineage; current registry is identified by executionSource.consumer'},source:{engineBaseline:REGISTRY.engineSource,engineCommit:executionSource?.engine?.dirty===false?executionSource.engine.commit:null,registry:'content-data.json',baseline:fixture.baseline},seed:recipe.seed,recipe:clone(sandboxRecipe),requiredPorts:objective.requires.map(port),placement:{slot:fixture.slot==='driving'?{id:'driving',boundsM:[8,48,56,64]}:clone(slotById(fixture.slot)),plot:fixture.slot==='driving'?{id:'collision-course',version:1,course:fixture.course}:clone(plotById(fixture.plot)),rules:['fixed footprint and floor','no occupied replacement','no carried-item retirement','no silent resource reset']},objective:clone(objective),observer:{...objective.observer,profile:recipe.observers.profile,runnerVersion:RUNNER_VERSION},expectationVersion:fixture.expectationVersion,runId};
   record.playerSetup=clone(setupConfiguration);record.executionSource=clone(executionSource);record.executionProfile='isolated public command authority; rendering and native controls are separate browser evidence';
   if(reason)return {...record,status:'unavailable',missionComplete:false,reason,checks:[],command:null};
   const host=createGroundHost({recipe:sandboxRecipe,spawn:fixtureSpawn(fixture)});
   try {
+    if(fixture.slot==='driving'){
+      const baseline=host.read(),command=exerciseDriving(host,fixture),observed={state:host.read(),passage:null},verification=evaluateObjective({objective,slot:'driving',baseline,observed});
+      const refused=command.receipts.filter(r=>!r.ok);if(refused.length){verification.status='failed';verification.missionComplete=false;verification.failures.push(...refused.map(r=>r.code+': '+r.reason));}
+      return {...record,...verification,reason:verification.failures.join('; ')||null,baseline,observed,command};
+    }
     const baseline=host.read(),commandId=runId+':'+fixture.id,provider={...host.actions,request:(actionId,offer)=>host.requestAction({commandId,actionId,offer})};
     const router=createActionRouter({providers:[provider],readContext:()=>({token:runId,blocked:false})});
     try {

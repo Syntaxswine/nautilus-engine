@@ -1,5 +1,19 @@
 # Road vehicles and the playable yard
 
+The actual modular Night Ledger ground now lives at `apps/test-ground/` in the
+ordinary static build. **Try road handling** starts at a driver door; its checklist
+also includes wall clearance, glancing driving/walking and real obstructions.
+See [the consumer guide](../apps/test-ground/README.md).
+
+Optional `oriented-slide-v1` collision retains the native body/wheel/mirror
+envelope while using an oriented continuous narrow phase. Walking can select
+`disc-slide-v1`. Both share the pure [contact API](../packages/traversal-core/README.md).
+Head-on/closed corners stop; glancing input retains a slower safe tangent.
+Vehicle checkpoints v2 save the explicit collision profile, never held input or
+leases. Old v1 checkpoints keep the original AABB stop meaning; implicit profile
+changes are refused. The existing vehicle-yard example remains the compatibility
+reference for its original composition.
+
 Candidate API v1, `flat-low-speed-v1`; Architect review owns release. Artwork is the byte-preserved reviewed commit `5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee`. The implementation starts at main `579706bf415a9664e4541db9ec6b5fe6adb334d7`. Package provenance identifies the actual packed engine source and payload, independently of the older player recipe compatibility identity. No game consumer is pinned or declared integrated by this example.
 
 Open `examples/vehicle-yard/` directly. A native goat starts beside the hatchback's driver door; the pickup, an observer, a wall and a barrier share the open course. Approach a door, use the ordinary contextual Enter action, and drive with the visible shared joystick or WASD/arrows. Up is forward, down brakes to zero before reversing, left/right steer the front wheels relative to the car. Release stops; Exit requires confirmed zero speed and a clear supported side-door route. Passenger entry is on the other side. The ordinary Setup menu retains native model/camera/UI choices.

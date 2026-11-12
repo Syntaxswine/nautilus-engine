@@ -18,14 +18,21 @@ jobs:
         with:
           node-version: '24'
       - run: node tools/vehicle-art/intake.mjs --verify
-      - run: node --test tests/vehicles.test.mjs tests/vehicle-visuals.test.mjs tests/vehicle-follow.test.mjs
+      - run: node --test --test-concurrency=2 tests/vehicles.test.mjs tests/vehicle-visuals.test.mjs tests/vehicle-follow.test.mjs tests/traversal-contacts.test.mjs tests/vehicle-contacts.test.mjs tests/traversal-registration.test.mjs
       - name: Prepare pinned public declaration compiler
         run: npm install --prefix "$RUNNER_TEMP/road-types" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@5.9.3
       - run: node tools/test-road-vehicles-package.mjs --typescript "$RUNNER_TEMP/road-types/node_modules/typescript/lib/tsc.js"
+      - run: node apps/test-ground/tools/install.mjs --fresh
+      - run: node apps/test-ground/tools/focused.mjs "$RUNNER_TEMP/road-types/node_modules/typescript/lib/tsc.js"
+      - run: node apps/test-ground/tools/run.mjs --output artifacts/night-ledger-agent.json
       - uses: actions/upload-artifact@v4
         with:
           name: installed-road-vehicle-proof
-          path: artifacts/road-installed/latest.json
+          path: |
+            artifacts/road-installed/latest.json
+            artifacts/night-ledger-installed/latest.json
+            artifacts/night-ledger-focused/
+            artifacts/night-ledger-agent.json
   map-workshop:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -82,6 +89,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -183,6 +191,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -367,6 +376,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -444,6 +454,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -524,6 +535,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -601,6 +613,7 @@ jobs:
           578a86113395ea3ebcb76c636ce8f0882600d03e
           579706bf415a9664e4541db9ec6b5fe6adb334d7
           7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
