@@ -1,0 +1,329 @@
+{
+  "kind": "nautilus-native-actors-candidate",
+  "version": 1,
+  "baseline": "578a86113395ea3ebcb76c636ce8f0882600d03e",
+  "modelSource": "781246a668c723d5a4c5463e70534cc04b6a5641",
+  "motionSource": {
+    "sourceId": "farmyard",
+    "repository": "https://github.com/Syntaxswine/farmyard-commando",
+    "commit": "279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+    "path": "sites/tactical-animal/dist/aft/tactics/worker-locomotion.js",
+    "gitBlob": "336e6d7553b846d8c3016c9db73f1319afdb0309",
+    "bytes": 3755,
+    "sha256": "7316b2dde70672a7fbfc7ff7708d5db9e2bdea5fff2e7215d3ef3a3d839336b0"
+  },
+  "original": {
+    "path": "source/worker-locomotion.js.original",
+    "bytes": 3755,
+    "sha256": "7316b2dde70672a7fbfc7ff7708d5db9e2bdea5fff2e7215d3ef3a3d839336b0"
+  },
+  "adapted": {
+    "path": "locomotion.js",
+    "bytes": 3098,
+    "sha256": "0971b640628a787d98924d0ed2257580ab0b1ffeff39fc6b088570ba520da245",
+    "changes": [
+      "Use the existing shared Three namespace.",
+      "Remove the unsupported hen branch and its import.",
+      "Unarmed mammal role uses worker.pose(neutral,0) instead of roof-mantle/equipment carry; equipment roles are refused.",
+      "Retain the source gaitState and mammal IK/stride equations."
+    ]
+  },
+  "resources": [
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+      "bytes": 410861,
+      "sha256": "71d31781159f782447cacd8c133d094408b9d13d1b6f35ac31af5ac8cd452b81"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/goat-worker-model-paint-v1.png",
+      "bytes": 1622867,
+      "sha256": "50e63428f990f31cdb2f6df0bee6a9ccb678860bf12dbc95a3fd6e87db73afea"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-10k-data.json",
+      "bytes": 804201,
+      "sha256": "5dfdf29fbe6df27c820367dccaf105b23f9470d1dddaa3a08b2db26c329e70bd"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png",
+      "bytes": 1570318,
+      "sha256": "671f63654e5afcb1bb8a61e6267086c3fb8839c78d59dc4750c53f56b8d9968b"
+    }
+  ],
+  "notice": "NOTICE.md",
+  "publicRegistration": "Architect-owned candidate; not yet registered.",
+  "runtime": [
+    {
+      "path": "packages/native-actors/body.js",
+      "bytes": 4359,
+      "sha256": "d50fd4c6a350ec9248ceadfa51aacb462de254453d4605dc8f09cfca31fd052d",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+        "../render-effects/three.js",
+        "./data.js",
+        "./index.js",
+        "./locomotion.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/catalogue.js",
+      "bytes": 3288,
+      "sha256": "426cdf0da6ea28c491e32ca5a6e8f32e97dd02a13a074a73e6c14acbf266d467",
+      "imports": []
+    },
+    {
+      "path": "packages/native-actors/data.js",
+      "bytes": 2629,
+      "sha256": "6405d75e2581a437c9cf988f950b01c904daa9d09a8e37579cbc28c3d53ae0e4",
+      "imports": []
+    },
+    {
+      "path": "packages/native-actors/index.js",
+      "bytes": 1559,
+      "sha256": "064d8e4e41fe06161ae6cc30304f42dfd6500e7349ad5d67054c39ab60e73d66",
+      "imports": [
+        "./catalogue.js",
+        "./data.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/locomotion.js",
+      "bytes": 3098,
+      "sha256": "0971b640628a787d98924d0ed2257580ab0b1ffeff39fc6b088570ba520da245",
+      "imports": [
+        "../render-effects/three.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/three.js",
+      "bytes": 4003,
+      "sha256": "f749d7e87ce384fbd4eacea6289a9d54a91e7064cf99aa9a522861157710d6ad",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+        "../render-effects/three.js",
+        "./body.js",
+        "./data.js",
+        "./index.js"
+      ]
+    },
+    {
+      "path": "packages/render-effects/three.js",
+      "bytes": 202,
+      "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+      "bytes": 3476,
+      "sha256": "99b48a737092c9e9c51478e3b068c131dabdb69ff302f140fe16ae840509ac9d",
+      "imports": [
+        "./animal-motion-repair-paint.js",
+        "./cow-neck-paint.js",
+        "./dog-motion-paint.js",
+        "./dog-paint-layers.js",
+        "./donkey-hawaiian.js",
+        "./donkey-straw-hat.js",
+        "./hen-paint-layers.js",
+        "./horse-model-paint.js",
+        "./rabbit-paint-layers.js",
+        "./red-hat-tailored-paint.js",
+        "./red-hat-uniform.js",
+        "./sheep-paint-layers.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+      "bytes": 4832,
+      "sha256": "f98467281dc0fe362a2a6bdc056540552a6728c387244b30a71c72721f9b3acb",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+      "bytes": 3163,
+      "sha256": "4cb753baaef7f6f98c2e035c871f1f16ae87a8ddf7e90da43e231a9f1e827765",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+      "bytes": 713,
+      "sha256": "b1e14e4f512fda7394af82f7ec427e5bc2802bf91607e092683f270368a239c1",
+      "imports": [
+        "./dog-paint-layers.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+      "bytes": 3982,
+      "sha256": "ac53bdf81fb3ef12b24f748d8c021fd4e86b51d616c2060fb5fd07c5253e263d",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+      "bytes": 2374,
+      "sha256": "8059368f37bc0e2698ad482b13dd402617759b2b264b5a069d2659d3cd8c0c14",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+      "bytes": 2941,
+      "sha256": "cb96953634ba9d28de11daa02bfd943ed1d058df3fc6ae2540478d4ab3c6de53",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+      "bytes": 869,
+      "sha256": "9269e670185f2fa40ea436d6251ac3e9c49af4eb86e87914daa8e8c8e88a7e4a",
+      "imports": [
+        "./horse-light-model.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+      "bytes": 818,
+      "sha256": "a66d29db4b734bb7c65014ed7bf4411792e06807e36953549f3417951356eb19",
+      "imports": [
+        "./horse-light-model.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+      "bytes": 5336,
+      "sha256": "497e991b93ffd05f85f5f03df7be19c74c825ca43b48be5a8151b0d5a70e6107",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+      "bytes": 4279,
+      "sha256": "716ccefe8f989fe8b50828de3afbe60979bf9c8a952b3d6b45871deb3e87e5e6",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+      "bytes": 36325,
+      "sha256": "1abe555c9775bf3e3ce953c5d532cea36ef165c664b41b321ce5f0dd32b512d1",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+      "bytes": 3379,
+      "sha256": "a715e4761c72d70d35fd13e88463926bfb67ce87e417d70460363760c75209e6",
+      "imports": [
+        "./horse-grip-hand-data.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+      "bytes": 25286,
+      "sha256": "9306a065aed75f3408fd1d5799164241fcfe9add59a6d1dad2568a615e469baa",
+      "imports": [
+        "./horse-graphic-paint.js",
+        "./horse-grip-hand.js",
+        "./horse-rifle.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+      "bytes": 47101,
+      "sha256": "3e4db27f7267fa1d370b96688f6c695c3e98e5bbc022c655b9e776c20734f407",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+      "bytes": 2708,
+      "sha256": "4435a50527433057aeafc3bbf48a35ac9a69c292302da558a76de914c6b7ce24",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+      "bytes": 2979,
+      "sha256": "48f65698a5c2a84a2f24935f198b6ba1bab537dcc6e7d45d9b1f3f9c4a49da3c",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+      "bytes": 5590,
+      "sha256": "79e5b0d5c20563324c9c0406dcf5d60ad99237205e214220e9ef14bcd68396e5",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+      "bytes": 6000,
+      "sha256": "df6b9c7e6104674f8454bb4cd2968b43ea8e10f88d979f080ff5888d52c1c207",
+      "imports": [
+        "./horse-light-model.js",
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+      "bytes": 4550,
+      "sha256": "b569f4560849ecc747cf4daead3e7a9c0e7c3c65845fe3db3caf037f2e668cf7",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "bytes": 1403454,
+      "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "bytes": 603412,
+      "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+      "imports": [
+        "./three.core.js"
+      ]
+    }
+  ],
+  "publicTypes": [
+    {
+      "path": "packages/native-actors/index.d.ts",
+      "bytes": 1700,
+      "sha256": "54ede522a9dfb463800c9a885bea16f7e1ad0d26803e1b175b595a25dc00c6e0"
+    },
+    {
+      "path": "packages/native-actors/three.d.ts",
+      "bytes": 1178,
+      "sha256": "d0c5e704fb7e651eb451f2d4b193c61c268b1828053e136d15853781d3795119"
+    }
+  ],
+  "guide": {
+    "path": "packages/native-actors/README.md",
+    "bytes": 4495,
+    "sha256": "bcefb874860bee41951465e6548dcb68e42f6f0247100e68f96ad5d625151648"
+  },
+  "card": {
+    "path": "packages/native-actors/usage-card.json",
+    "bytes": 707,
+    "sha256": "03505d477fbf3a415bbaef8bf6e26c553fb2a5c0b1b9fadf72fef7fe63ee421b"
+  }
+}

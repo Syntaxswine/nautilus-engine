@@ -1,0 +1,9 @@
+{
+  "id":"nautilus-native-actors","version":1,"status":"candidate; architect registration pending",
+  "headlessEntry":"@nautilus-engine/map-core/native-actors","visualEntry":"@nautilus-engine/map-core/native-actors/three",
+  "guide":"README.md","types":["index.d.ts","three.d.ts"],"models":["goat","donkey"],"roles":["idle","walk"],"outfits":["normal"],
+  "input":"confirmed actor pose in world-x-y-h metres; never an input request",
+  "owns":"native model geometry/material/skeleton, projected paint and temporary URLs",
+  "borrows":"existing shared Nautilus Three renderer, scene and authoritative actor",
+  "source":"source.json","notices":"NOTICE.md","evidence":"../player-setup/evidence/checks.json"
+}
