@@ -10,11 +10,12 @@ export function createDefaultSurface({document,world,content}){
   const material=(color)=>{const m=new T.MeshStandardMaterial({color,roughness:.9});resources.push(m);return m;};
   const ground=material(content.appearance.ground),solid=material(0x8b785e),leaf=material(0x546d59);
   function box(bounds,mat){const {min:a,max:b}=bounds,geometry=new T.BoxGeometry(Math.max(.02,b.x-a.x),Math.max(.02,b.h-a.h),Math.max(.02,b.y-a.y));resources.push(geometry);const mesh=new T.Mesh(geometry,mat);mesh.position.set((a.x+b.x)/2,(a.h+b.h)/2,(a.y+b.y)/2);scene.add(mesh);return mesh;}
-  try{for(const surface of world.read().world.surfaces)box(surface.bounds,surface.supports?ground:solid);for(const door of world.read().interactions.doors)doors.set(door.id,box(door.closedBounds,leaf));}
+  function fitDoor(mesh,bounds){mesh.visible=!!bounds;if(!bounds)return;const {min:a,max:b}=bounds;mesh.position.set((a.x+b.x)/2,(a.h+b.h)/2,(a.y+b.y)/2);mesh.scale.set(b.x-a.x,b.h-a.h,b.y-a.y);}
+  try{for(const surface of world.read().world.surfaces)box(surface.bounds,surface.supports?ground:solid);let geometry;for(const door of world.read().interactions.doors){if(!geometry){geometry=new T.BoxGeometry(1,1,1);resources.push(geometry);}const mesh=new T.Mesh(geometry,leaf);mesh.name='Door '+door.id;fitDoor(mesh,door.open?door.openBounds:door.closedBounds);scene.add(mesh);doors.set(door.id,mesh);}}
   catch(error){resources.forEach(r=>r.dispose());renderer.dispose();throw error;}
   return Object.freeze({kind:'owned-player-surface',element,canvas,renderer,scene,camera,
     resize(){const r=canvas.getBoundingClientRect(),width=Math.max(1,r.width),height=Math.max(1,r.height),ratio=renderer.getPixelRatio();if(canvas.width!==Math.floor(width*ratio)||canvas.height!==Math.floor(height*ratio))renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();return {width,height};},
-    draw(){if(retired)return;for(const door of world.read().interactions.doors){const mesh=doors.get(door.id),b=door.open?door.openBounds:door.closedBounds;mesh.visible=!!b;if(b)mesh.position.set((b.min.x+b.max.x)/2,(b.min.h+b.max.h)/2,(b.min.y+b.max.y)/2);}renderer.render(scene,camera);},
+    draw(){if(retired)return;for(const door of world.read().interactions.doors)fitDoor(doors.get(door.id),door.open?door.openBounds:door.closedBounds);renderer.render(scene,camera);},
     dispose(){if(retired)return;retired=true;const errors=[];for(const close of [()=>element.remove(),...resources.map(r=>()=>r.dispose()),()=>renderer.dispose()])try{close();}catch(error){errors.push(error);}scene.clear();if(errors.length)throw new AggregateError(errors,'Owned surface cleanup failed.');}});
 }
 

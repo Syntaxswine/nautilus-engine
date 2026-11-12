@@ -1,67 +1,30 @@
 {
   "status": "passed",
-  "acceptedUI": "578a86113395ea3ebcb76c636ce8f0882600d03e",
-  "authoredContent": {
-    "id": "nautilus-flat-player-yard",
-    "version": 1,
-    "sourcePin": "290926270b04c739e78efb427f330db9483ec847",
-    "path": "packages/player-setup/world.js"
+  "baseline": {
+    "commit": "7a019ed555f6b263dc675e9e43349a1d15bf99fb",
+    "checks": "corrections-r1/baseline-checks.json"
+  },
+  "correction": {
+    "checks": "corrections-r1/checks.json",
+    "nodeTests": 10,
+    "browserGroups": 8
   },
   "engineIdentity": {
     "package": "@nautilus-engine/map-core",
     "version": "0.10.0",
     "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
   },
-  "nodeTests": 7,
-  "sourceBrowserGroups": 10,
-  "installedBrowserGroups": 5,
-  "compiler": "Version 5.9.3",
-  "headlessTypesWithoutDOM": true,
-  "negativeTypeControls": 10,
+  "authoredContent": {
+    "id": "nautilus-flat-player-yard",
+    "version": 1,
+    "sourcePin": "290926270b04c739e78efb427f330db9483ec847",
+    "path": "packages/player-setup/world.js"
+  },
   "counts": {
     "runtimeFiles": 70,
-    "runtimeBytes": 2442685,
+    "runtimeBytes": 2443433,
     "resourceFiles": 13,
     "resourceBytes": 7928238
   },
-  "installedOverlay": {
-    "package": {
-      "name": "@nautilus-engine/map-core",
-      "version": "0.10.0",
-      "exports": [
-        "./player-setup",
-        "./player-setup/browser",
-        "./native-actors",
-        "./native-actors/three"
-      ],
-      "tarball": "artifacts/player-setup-installed-overlay/run-1794456863602/nautilus-engine-map-core-0.10.0.tgz",
-      "bytes": 7527553,
-      "sha256": "5fd0d2fccd744091a9e14ec8a6c64157007da768fa69d42788b8394b0952b64b",
-      "npmIntegrity": "sha512-tQ+fL3PWU4yHBuamf+yIHs/cOwNWYBalkgNb9WXTHxGJNPXhyqnXTNYQz2BAg808b2CzTp2N5xmuawxKXhiRww==",
-      "fileCount": 117,
-      "unpackedBytes": 10718447
-    },
-    "definitiveArchitectTarball": false,
-    "allSelectedBytesMatch": true,
-    "headlessConsumer": {
-      "status": "passed",
-      "bareImports": true,
-      "dom": false,
-      "exactWorldRoundtrip": true,
-      "headlessClosureFiles": 22
-    }
-  },
-  "helpers": {
-    "lifetimes": 6,
-    "exactLifetimesExited": true,
-    "portsReleased": true,
-    "retained": []
-  },
-  "broaderChecks": "Architect owns the four engine gates and definitive assembled package. No redundant broad sweep in builder checkout.",
-  "limits": [
-    "browser phone viewport/touch emulation, no physical handset performance",
-    "no fresh-builder setup time claim",
-    "retained host conformance only; real yard startup integration remains Stage 3",
-    "no modular map, objective executor or objective verification pass claim"
-  ]
+  "broaderChecks": "Architect-owned; baseline workflow proof retained, no broad sweep."
 }

@@ -53,10 +53,12 @@ export function validatePlayerSetup(input,{providers=[],registry,content}={}){
     if(!Array.isArray(config.components)||config.components.length>32)throw Error('Select at most32 components.');fields(config.bindings,Object.keys(config.bindings));Object.values(config.bindings).forEach(id);
   }catch(error){errors.push(issue('INVALID_SETUP','/',error.message,'Supply the bounded version1 setup recipe and exact content/engine identities.'));return failed();}
   const seen=new Set();for(const [index,c]of config.components.entries()){
+    try{fields(c,['id','version','settings']);id(c.id);}catch(error){errors.push(issue('INVALID_COMPONENT','/components/'+index,error.message,'Supply a component record with id, version and settings.'));continue;}
     const d=SETUP_COMPONENTS.find(d=>d.id===c.id);if(!d||c.version!==d.version||seen.has(c.id)){errors.push(issue('COMPONENT_UNAVAILABLE','/components/'+index,'Unknown, duplicate or incompatible component.'));continue;}seen.add(c.id);
-    try{fields(c,['id','version','settings']);fields(c.settings,d.settings.map(s=>s.id));for(const s of d.settings){const v=c.settings[s.id];if(!(s.type==='enum'?s.values.includes(v):s.type==='boolean'?typeof v==='boolean':Number.isFinite(v)&&v>=s.min&&v<=s.max))throw Error('Unsupported setting '+c.id+'.'+s.id);}}catch(error){errors.push(issue('INVALID_SETTING','/components/'+index,error.message));}
+    try{fields(c.settings,d.settings.map(s=>s.id));for(const s of d.settings){const v=c.settings[s.id];if(!(s.type==='enum'?s.values.includes(v):s.type==='boolean'?typeof v==='boolean':Number.isFinite(v)&&v>=s.min&&v<=s.max))throw Error('Unsupported setting '+c.id+'.'+s.id);}}catch(error){errors.push(issue('INVALID_SETTING','/components/'+index,error.message));}
   }
   for(const required of ['player.shell','setup.runtime','setup.actor'])if(!seen.has(required))errors.push(issue('COMPONENT_REQUIRED','/components','Keep '+required+' or select a reviewed replacement recipe.'));
+  if(errors.length)return failed();
   try{nativeActor(settings(config,'setup.actor')?.model);}catch(error){errors.push(issue(error.code||'ACTOR_MODEL_UNAVAILABLE','/components',error.message));}
   if(errors.length)return failed();
   let modules,hostMetadata;

@@ -1,0 +1,2242 @@
+{
+  "status": "passed",
+  "baseline": "7a019ed555f6b263dc675e9e43349a1d15bf99fb",
+  "browser": "157.0.4341.46",
+  "groups": [
+    "source: malformed imported components return diagnostics through validate/apply/generated menu and preserve accepted state",
+    "source: stale door offers and advancement cannot mutate retired world",
+    "source: real Three Box3 matches confirmed closed/open/close-again and initially/restored-open bounds; null open bounds hide the leaf",
+    "source: door geometry is reused and each owned geometry/material/renderer retires once",
+    "installed: malformed imported components return diagnostics through validate/apply/generated menu and preserve accepted state",
+    "installed: stale door offers and advancement cannot mutate retired world",
+    "installed: real Three Box3 matches confirmed closed/open/close-again and initially/restored-open bounds; null open bounds hide the leaf",
+    "installed: door geometry is reused and each owned geometry/material/renderer retires once"
+  ],
+  "scopes": [
+    {
+      "label": "source",
+      "retired": {
+        "offer": {
+          "context": "[0,0]",
+          "actions": [
+            {
+              "id": "yard-gate",
+              "target": {
+                "id": "yard-gate"
+              },
+              "verb": "open-door",
+              "label": "Open yard gate",
+              "enabled": true,
+              "reason": null
+            },
+            {
+              "id": "deck-stairs",
+              "target": {
+                "id": "deck-stairs"
+              },
+              "verb": "interact",
+              "label": "deck stairs",
+              "enabled": false,
+              "reason": "Move to the stair landing."
+            }
+          ]
+        },
+        "before": {
+          "kind": "nautilus-default-player-world",
+          "version": 1,
+          "content": {
+            "id": "setup-review-threshold-yard",
+            "version": 1,
+            "sourcePin": "290926270b04c739e78efb427f330db9483ec847"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "threshold-yard",
+            "name": "The threshold yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 14,
+              "depthM": 10,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              },
+              {
+                "id": "floor-1",
+                "index": 1,
+                "label": "2",
+                "elevationM": 2.12
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "upper-deck",
+                "floorId": "floor-1",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 0,
+                    "h": 2.12
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 2.12
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-1"
+              },
+              {
+                "id": "west-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 4.14,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 5.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 10,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "threshold-yard",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "yard-gate",
+                "label": "yard gate",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 3.7,
+                  "y": 5,
+                  "h": 0
+                },
+                "reachM": 1.6,
+                "closedBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.2,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.06,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 4.26,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "open": false,
+                "locked": false
+              }
+            ],
+            "stairs": [
+              {
+                "id": "deck-stairs",
+                "label": "deck stairs",
+                "from": {
+                  "floorId": "floor-0",
+                  "surfaceId": "ground",
+                  "position": {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  }
+                },
+                "to": {
+                  "floorId": "floor-1",
+                  "surfaceId": "upper-deck",
+                  "position": {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                },
+                "path": [
+                  {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  },
+                  {
+                    "x": 9.3,
+                    "y": 5,
+                    "h": 2.12
+                  },
+                  {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                ],
+                "widthM": 1.2,
+                "clearanceM": 2,
+                "bidirectional": true,
+                "reachM": 0.75
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 0,
+              "position": {
+                "x": 2.5,
+                "y": 5,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            }
+          }
+        },
+        "after": {
+          "kind": "nautilus-default-player-world",
+          "version": 1,
+          "content": {
+            "id": "setup-review-threshold-yard",
+            "version": 1,
+            "sourcePin": "290926270b04c739e78efb427f330db9483ec847"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "threshold-yard",
+            "name": "The threshold yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 14,
+              "depthM": 10,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              },
+              {
+                "id": "floor-1",
+                "index": 1,
+                "label": "2",
+                "elevationM": 2.12
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "upper-deck",
+                "floorId": "floor-1",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 0,
+                    "h": 2.12
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 2.12
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-1"
+              },
+              {
+                "id": "west-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 4.14,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 5.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 10,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "threshold-yard",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "yard-gate",
+                "label": "yard gate",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 3.7,
+                  "y": 5,
+                  "h": 0
+                },
+                "reachM": 1.6,
+                "closedBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.2,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.06,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 4.26,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "open": false,
+                "locked": false
+              }
+            ],
+            "stairs": [
+              {
+                "id": "deck-stairs",
+                "label": "deck stairs",
+                "from": {
+                  "floorId": "floor-0",
+                  "surfaceId": "ground",
+                  "position": {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  }
+                },
+                "to": {
+                  "floorId": "floor-1",
+                  "surfaceId": "upper-deck",
+                  "position": {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                },
+                "path": [
+                  {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  },
+                  {
+                    "x": 9.3,
+                    "y": 5,
+                    "h": 2.12
+                  },
+                  {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                ],
+                "widthM": 1.2,
+                "clearanceM": 2,
+                "bidirectional": true,
+                "reachM": 0.75
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 0,
+              "position": {
+                "x": 2.5,
+                "y": 5,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            }
+          }
+        },
+        "refused": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "WORLD_RETIRED",
+          "reason": "World retired."
+        },
+        "advanceCode": "WORLD_RETIRED"
+      },
+      "samples": [
+        {
+          "name": "closed-open-closed",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9400000000000004,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "closed-open-closed",
+          "state": "open",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "closed-open-closed",
+          "state": "closed",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9400000000000004,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "initially-open",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "restored-open",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "initially-null-open-bounds",
+          "state": "initial-before-draw",
+          "visible": false,
+          "expected": null,
+          "actual": null,
+          "sameGeometry": true
+        },
+        {
+          "name": "restored-null-open-bounds",
+          "state": "initial-before-draw",
+          "visible": false,
+          "expected": null,
+          "actual": null,
+          "sameGeometry": true
+        }
+      ],
+      "cleanups": [
+        {
+          "name": "closed-open-closed",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "initially-open",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "restored-open",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "initially-null-open-bounds",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "restored-null-open-bounds",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        }
+      ]
+    },
+    {
+      "label": "installed",
+      "retired": {
+        "offer": {
+          "context": "[0,0]",
+          "actions": [
+            {
+              "id": "yard-gate",
+              "target": {
+                "id": "yard-gate"
+              },
+              "verb": "open-door",
+              "label": "Open yard gate",
+              "enabled": true,
+              "reason": null
+            },
+            {
+              "id": "deck-stairs",
+              "target": {
+                "id": "deck-stairs"
+              },
+              "verb": "interact",
+              "label": "deck stairs",
+              "enabled": false,
+              "reason": "Move to the stair landing."
+            }
+          ]
+        },
+        "before": {
+          "kind": "nautilus-default-player-world",
+          "version": 1,
+          "content": {
+            "id": "setup-review-threshold-yard",
+            "version": 1,
+            "sourcePin": "290926270b04c739e78efb427f330db9483ec847"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "threshold-yard",
+            "name": "The threshold yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 14,
+              "depthM": 10,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              },
+              {
+                "id": "floor-1",
+                "index": 1,
+                "label": "2",
+                "elevationM": 2.12
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "upper-deck",
+                "floorId": "floor-1",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 0,
+                    "h": 2.12
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 2.12
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-1"
+              },
+              {
+                "id": "west-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 4.14,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 5.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 10,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "threshold-yard",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "yard-gate",
+                "label": "yard gate",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 3.7,
+                  "y": 5,
+                  "h": 0
+                },
+                "reachM": 1.6,
+                "closedBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.2,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.06,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 4.26,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "open": false,
+                "locked": false
+              }
+            ],
+            "stairs": [
+              {
+                "id": "deck-stairs",
+                "label": "deck stairs",
+                "from": {
+                  "floorId": "floor-0",
+                  "surfaceId": "ground",
+                  "position": {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  }
+                },
+                "to": {
+                  "floorId": "floor-1",
+                  "surfaceId": "upper-deck",
+                  "position": {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                },
+                "path": [
+                  {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  },
+                  {
+                    "x": 9.3,
+                    "y": 5,
+                    "h": 2.12
+                  },
+                  {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                ],
+                "widthM": 1.2,
+                "clearanceM": 2,
+                "bidirectional": true,
+                "reachM": 0.75
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 0,
+              "position": {
+                "x": 2.5,
+                "y": 5,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            }
+          }
+        },
+        "after": {
+          "kind": "nautilus-default-player-world",
+          "version": 1,
+          "content": {
+            "id": "setup-review-threshold-yard",
+            "version": 1,
+            "sourcePin": "290926270b04c739e78efb427f330db9483ec847"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "threshold-yard",
+            "name": "The threshold yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 14,
+              "depthM": 10,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              },
+              {
+                "id": "floor-1",
+                "index": 1,
+                "label": "2",
+                "elevationM": 2.12
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "upper-deck",
+                "floorId": "floor-1",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 0,
+                    "h": 2.12
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 10,
+                    "h": 2.12
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-1"
+              },
+              {
+                "id": "west-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 4.14,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 5.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.1,
+                    "y": 10,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "threshold-yard",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "yard-gate",
+                "label": "yard gate",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 3.7,
+                  "y": 5,
+                  "h": 0
+                },
+                "reachM": 1.6,
+                "closedBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.2,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 4.06,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 3.94,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 4.26,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 3.9,
+                    "y": 4.14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 5.6,
+                    "y": 5.8,
+                    "h": 2
+                  }
+                },
+                "open": false,
+                "locked": false
+              }
+            ],
+            "stairs": [
+              {
+                "id": "deck-stairs",
+                "label": "deck stairs",
+                "from": {
+                  "floorId": "floor-0",
+                  "surfaceId": "ground",
+                  "position": {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  }
+                },
+                "to": {
+                  "floorId": "floor-1",
+                  "surfaceId": "upper-deck",
+                  "position": {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                },
+                "path": [
+                  {
+                    "x": 6,
+                    "y": 5,
+                    "h": 0
+                  },
+                  {
+                    "x": 9.3,
+                    "y": 5,
+                    "h": 2.12
+                  },
+                  {
+                    "x": 11,
+                    "y": 5,
+                    "h": 2.12
+                  }
+                ],
+                "widthM": 1.2,
+                "clearanceM": 2,
+                "bidirectional": true,
+                "reachM": 0.75
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 0,
+              "position": {
+                "x": 2.5,
+                "y": 5,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            }
+          }
+        },
+        "refused": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "WORLD_RETIRED",
+          "reason": "World retired."
+        },
+        "advanceCode": "WORLD_RETIRED"
+      },
+      "samples": [
+        {
+          "name": "closed-open-closed",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9400000000000004,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "closed-open-closed",
+          "state": "open",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "closed-open-closed",
+          "state": "closed",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9400000000000004,
+              "y": 4.2,
+              "h": 0
+            },
+            "max": {
+              "x": 4.06,
+              "y": 5.8,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "initially-open",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "restored-open",
+          "state": "initial-before-draw",
+          "visible": true,
+          "expected": {
+            "min": {
+              "x": 3.94,
+              "y": 4.14,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "actual": {
+            "min": {
+              "x": 3.9399999999999995,
+              "y": 4.139999999999999,
+              "h": 0
+            },
+            "max": {
+              "x": 5.6,
+              "y": 4.26,
+              "h": 2
+            }
+          },
+          "sameGeometry": true
+        },
+        {
+          "name": "initially-null-open-bounds",
+          "state": "initial-before-draw",
+          "visible": false,
+          "expected": null,
+          "actual": null,
+          "sameGeometry": true
+        },
+        {
+          "name": "restored-null-open-bounds",
+          "state": "initial-before-draw",
+          "visible": false,
+          "expected": null,
+          "actual": null,
+          "sameGeometry": true
+        }
+      ],
+      "cleanups": [
+        {
+          "name": "closed-open-closed",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "initially-open",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "restored-open",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "initially-null-open-bounds",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        },
+        {
+          "name": "restored-null-open-bounds",
+          "geometries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "materials": [
+            1,
+            1,
+            1
+          ],
+          "rendererDisposals": 1,
+          "removed": true,
+          "worldStillReadable": true
+        }
+      ]
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/game-ui/title.js",
+      "bytes": 9430,
+      "sha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d",
+      "imports": []
+    },
+    {
+      "path": "packages/interactions/actions.js",
+      "bytes": 9901,
+      "sha256": "eb6fe5be66b21abbc86fe6a6a477ce265e2d3e470b2a3398121f31db27594e63",
+      "imports": [
+        "./state.js"
+      ]
+    },
+    {
+      "path": "packages/interactions/index.js",
+      "bytes": 360,
+      "sha256": "56a886bb528aa6b6cb4449f3e3c8ac9d0c42b1541907f988a777504694cb5604",
+      "imports": [
+        "./actions.js",
+        "./queries.js",
+        "./state.js"
+      ]
+    },
+    {
+      "path": "packages/interactions/queries.js",
+      "bytes": 7267,
+      "sha256": "749e82ecd94807ab90f6ac42f2e6b5e2d2b96326760367b99f874bb861b2f626",
+      "imports": [
+        "../world-core/index.js",
+        "./state.js"
+      ]
+    },
+    {
+      "path": "packages/interactions/state.js",
+      "bytes": 9204,
+      "sha256": "8097a5721c8f18373121b781664ff3a04468a5b7dcefcfdfe80623b7bd5a3f9e",
+      "imports": [
+        "../world-core/validation.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/body.js",
+      "bytes": 4359,
+      "sha256": "d50fd4c6a350ec9248ceadfa51aacb462de254453d4605dc8f09cfca31fd052d",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+        "../render-effects/three.js",
+        "./data.js",
+        "./index.js",
+        "./locomotion.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/catalogue.js",
+      "bytes": 3288,
+      "sha256": "426cdf0da6ea28c491e32ca5a6e8f32e97dd02a13a074a73e6c14acbf266d467",
+      "imports": []
+    },
+    {
+      "path": "packages/native-actors/data.js",
+      "bytes": 2629,
+      "sha256": "6405d75e2581a437c9cf988f950b01c904daa9d09a8e37579cbc28c3d53ae0e4",
+      "imports": []
+    },
+    {
+      "path": "packages/native-actors/index.js",
+      "bytes": 1559,
+      "sha256": "064d8e4e41fe06161ae6cc30304f42dfd6500e7349ad5d67054c39ab60e73d66",
+      "imports": [
+        "./catalogue.js",
+        "./data.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/locomotion.js",
+      "bytes": 3098,
+      "sha256": "0971b640628a787d98924d0ed2257580ab0b1ffeff39fc6b088570ba520da245",
+      "imports": [
+        "../render-effects/three.js"
+      ]
+    },
+    {
+      "path": "packages/native-actors/three.js",
+      "bytes": 4003,
+      "sha256": "f749d7e87ce384fbd4eacea6289a9d54a91e7064cf99aa9a522861157710d6ad",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+        "../render-effects/three.js",
+        "./body.js",
+        "./data.js",
+        "./index.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/browser.js",
+      "bytes": 19728,
+      "sha256": "9734f3e6843a5abede2521e073d82da5acf73492e7b465e3afaae853a7ab0bfd",
+      "imports": [
+        "../native-actors/data.js",
+        "../native-actors/three.js",
+        "../player-ui/index.js",
+        "../render-effects/three.js",
+        "../runtime-core/index.js",
+        "./clock.js",
+        "./configuration.js",
+        "./index.js",
+        "./retained.js",
+        "./styles.js",
+        "./surface.js",
+        "./world.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/clock.js",
+      "bytes": 2244,
+      "sha256": "228cb07b54c9cbe8c94e139c886507970b6b445de0301b0f8399fa6d0aaad597",
+      "imports": [
+        "../native-actors/data.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/configuration.js",
+      "bytes": 12314,
+      "sha256": "7d4237f46825fdd7e754c81ae054b706a5dccc55c90f92f16bc64066564f8d7a",
+      "imports": [
+        "../native-actors/data.js",
+        "../native-actors/index.js",
+        "../player-ui/configuration.js",
+        "../player-ui/descriptors.js",
+        "../runtime-core/index.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/index.js",
+      "bytes": 258,
+      "sha256": "af23a8b02f6e59c853e6adfc81dbbafae7f085e48893658150ca4dc3ae0b3cee",
+      "imports": [
+        "./configuration.js",
+        "./world.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/retained.js",
+      "bytes": 1943,
+      "sha256": "b8966a17f011648a3cd68b1116f519446a67f1e0e882b6c1c439d5de4ac6f8e7",
+      "imports": [
+        "../native-actors/data.js",
+        "../player-ui/index.js",
+        "./clock.js",
+        "./configuration.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/styles.js",
+      "bytes": 1671,
+      "sha256": "332356578a1c97eeb1e6b6a95b31a2fbf05f957a060ec62b2bd999ca22d77296",
+      "imports": []
+    },
+    {
+      "path": "packages/player-setup/surface.js",
+      "bytes": 4794,
+      "sha256": "9d85d494d780eae70cc179ec489429d7ec6a5fc90ee73935790a9ae9fc21a6d5",
+      "imports": [
+        "../native-actors/data.js",
+        "../render-effects/three.js"
+      ]
+    },
+    {
+      "path": "packages/player-setup/world.js",
+      "bytes": 5792,
+      "sha256": "3dcfef8492996d28d06cb76452769acf69ad824bbadee3c7c0b18013c97ddc57",
+      "imports": [
+        "../interactions/index.js",
+        "../native-actors/data.js",
+        "../world-core/index.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/actions.js",
+      "bytes": 3171,
+      "sha256": "7204c1c5463970b0f710fc24f7754a8749d4b601293dd806338f2a97f814fdcf",
+      "imports": [
+        "./data.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/configuration.js",
+      "bytes": 6516,
+      "sha256": "fff2177bf730e6e596f13c3f762da918ce5fd2c01e307aaf976282fa3906567d",
+      "imports": [
+        "../runtime-core/index.js",
+        "./data.js",
+        "./descriptors.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/context.js",
+      "bytes": 1543,
+      "sha256": "2c490c6c1ade2a953bd688024f54bfbe2d37a08fb62b434729d6cbc780beeff9",
+      "imports": [
+        "./data.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/data.js",
+      "bytes": 1883,
+      "sha256": "ed8445d5c922e03f7ce4e07d29f13b3e3486af207dd9e2897ec8953c5fffe254",
+      "imports": []
+    },
+    {
+      "path": "packages/player-ui/descriptors.js",
+      "bytes": 3965,
+      "sha256": "0d888099f5f3a42e5ebf4e2a426d26c7af6c1b57121897d8cb259f59ca87109a",
+      "imports": [
+        "./data.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/hud-bounds.js",
+      "bytes": 1145,
+      "sha256": "ec934f29c63fa11fc7ae387e8b5514a230100fbbfb851dbbaacca88e76e78fd1",
+      "imports": []
+    },
+    {
+      "path": "packages/player-ui/index.js",
+      "bytes": 22110,
+      "sha256": "e575fa668b278eaeafe1fdb627ef110533d0683dff5ad0222a0f11169b55aedd",
+      "imports": [
+        "../runtime-core/index.js",
+        "./actions.js",
+        "./configuration.js",
+        "./context.js",
+        "./data.js",
+        "./descriptors.js",
+        "./hud-bounds.js",
+        "./menu.js",
+        "./resources.js",
+        "./train-provider.js",
+        "./view.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/menu.js",
+      "bytes": 6899,
+      "sha256": "def6b3f04bcedf12b51797cd03050c7bb9e6086a416a1b50d645aa482a1ea37a",
+      "imports": [
+        "./configuration.js",
+        "./data.js",
+        "./descriptors.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/resources.js",
+      "bytes": 1624,
+      "sha256": "43c5136e3988f8239b5ff4f1ba6adcb7b789163202a6fbc4829bb07cccb132ac",
+      "imports": []
+    },
+    {
+      "path": "packages/player-ui/train-provider.js",
+      "bytes": 2849,
+      "sha256": "953d397da877c84de06bd747e2d298c1d12d3295a379f4fee195d3ab4ce90eba",
+      "imports": [
+        "./data.js",
+        "./descriptors.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/view.js",
+      "bytes": 5309,
+      "sha256": "935cfc3ac36cd64f53562a2f8190d1a22a1c04e508dc02187a3ef54c80ea7051",
+      "imports": [
+        "../game-ui/title.js",
+        "../train-ui/index.js",
+        "./configuration.js",
+        "./descriptors.js",
+        "./resources.js",
+        "./walking.js"
+      ]
+    },
+    {
+      "path": "packages/player-ui/walking.js",
+      "bytes": 3236,
+      "sha256": "1c2c6ae1aee75ae6e6043f48e47a8ec47253d61b52a3a0fa9c2c277b9ebac28d",
+      "imports": []
+    },
+    {
+      "path": "packages/render-effects/three.js",
+      "bytes": 202,
+      "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264",
+      "imports": [
+        "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "packages/runtime-core/index.js",
+      "bytes": 669,
+      "sha256": "94846e754caf777bbff8b8316a4a6057ebf80df76fe5a56debe85969d7db31d9",
+      "imports": [
+        "./lifecycle.js",
+        "./planner.js"
+      ]
+    },
+    {
+      "path": "packages/runtime-core/lifecycle.js",
+      "bytes": 7014,
+      "sha256": "2e841fbbc4c53263bbae77bc8394521450efaac7646ef7adad4b0132629e0653",
+      "imports": [
+        "./planner.js"
+      ]
+    },
+    {
+      "path": "packages/runtime-core/planner.js",
+      "bytes": 14382,
+      "sha256": "b1637d0841d62a0cccbb01702a0a08f371ee8f13d5477394f26aa072c8b6a117",
+      "imports": []
+    },
+    {
+      "path": "packages/train-core/contract.js",
+      "bytes": 460,
+      "sha256": "fec8a1cc2e5912fe4dbe2dbd8c5164d3d0a79fa0c75758d386cfcade8bae8fba",
+      "imports": []
+    },
+    {
+      "path": "packages/train-ui/compact-input.js",
+      "bytes": 2474,
+      "sha256": "623053ae65012d7da88cfb82d487f0a4c2a5d358313552d46ba61b78a19a29d2",
+      "imports": [
+        "./compact-model.js"
+      ]
+    },
+    {
+      "path": "packages/train-ui/compact-model.js",
+      "bytes": 1035,
+      "sha256": "4c9b7d6c858adb519f7fe360833362bec1465fff229a33e7248b3ca1e7916df9",
+      "imports": []
+    },
+    {
+      "path": "packages/train-ui/feedback.js",
+      "bytes": 6463,
+      "sha256": "56c34c591a5d7beb44f080c10861f2ee27cfba4906f6fb1e32500b8eafae2d46",
+      "imports": [
+        "./compact-model.js"
+      ]
+    },
+    {
+      "path": "packages/train-ui/index.js",
+      "bytes": 34733,
+      "sha256": "fcaeba2c34a2d0ac0ab39f7449114c2cd1cbabf060ce7ac32db3b1b2a0991a8f",
+      "imports": [
+        "../train-core/contract.js",
+        "./compact-input.js",
+        "./compact-model.js",
+        "./feedback.js",
+        "./reverse-intent.js",
+        "./view.js"
+      ]
+    },
+    {
+      "path": "packages/train-ui/reverse-intent.js",
+      "bytes": 2725,
+      "sha256": "24d9dd0bdc3f028614c5f65044bdc6c750958f1ec9d6ba8e17f4b2726c937ced",
+      "imports": [
+        "./compact-model.js"
+      ]
+    },
+    {
+      "path": "packages/train-ui/view.js",
+      "bytes": 7171,
+      "sha256": "5a355e25e50ec036721a5094d9342213b01bd87f64c159030f508003c22f9bd2",
+      "imports": [
+        "./compact-model.js"
+      ]
+    },
+    {
+      "path": "packages/world-core/index.js",
+      "bytes": 488,
+      "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df",
+      "imports": [
+        "./legacy.js",
+        "./queries.js",
+        "./state.js",
+        "./validation.js"
+      ]
+    },
+    {
+      "path": "packages/world-core/legacy.js",
+      "bytes": 4186,
+      "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce",
+      "imports": [
+        "./state.js",
+        "./validation.js"
+      ]
+    },
+    {
+      "path": "packages/world-core/parts-refusal.js",
+      "bytes": 901,
+      "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+      "imports": []
+    },
+    {
+      "path": "packages/world-core/queries.js",
+      "bytes": 5880,
+      "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457",
+      "imports": [
+        "./state.js",
+        "./validation.js"
+      ]
+    },
+    {
+      "path": "packages/world-core/state.js",
+      "bytes": 11145,
+      "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc",
+      "imports": [
+        "./parts-refusal.js",
+        "./validation.js"
+      ]
+    },
+    {
+      "path": "packages/world-core/validation.js",
+      "bytes": 5846,
+      "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+      "bytes": 3476,
+      "sha256": "99b48a737092c9e9c51478e3b068c131dabdb69ff302f140fe16ae840509ac9d",
+      "imports": [
+        "./animal-motion-repair-paint.js",
+        "./cow-neck-paint.js",
+        "./dog-motion-paint.js",
+        "./dog-paint-layers.js",
+        "./donkey-hawaiian.js",
+        "./donkey-straw-hat.js",
+        "./hen-paint-layers.js",
+        "./horse-model-paint.js",
+        "./rabbit-paint-layers.js",
+        "./red-hat-tailored-paint.js",
+        "./red-hat-uniform.js",
+        "./sheep-paint-layers.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+      "bytes": 4832,
+      "sha256": "f98467281dc0fe362a2a6bdc056540552a6728c387244b30a71c72721f9b3acb",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+      "bytes": 3163,
+      "sha256": "4cb753baaef7f6f98c2e035c871f1f16ae87a8ddf7e90da43e231a9f1e827765",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+      "bytes": 713,
+      "sha256": "b1e14e4f512fda7394af82f7ec427e5bc2802bf91607e092683f270368a239c1",
+      "imports": [
+        "./dog-paint-layers.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+      "bytes": 3982,
+      "sha256": "ac53bdf81fb3ef12b24f748d8c021fd4e86b51d616c2060fb5fd07c5253e263d",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+      "bytes": 2374,
+      "sha256": "8059368f37bc0e2698ad482b13dd402617759b2b264b5a069d2659d3cd8c0c14",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+      "bytes": 2941,
+      "sha256": "cb96953634ba9d28de11daa02bfd943ed1d058df3fc6ae2540478d4ab3c6de53",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+      "bytes": 869,
+      "sha256": "9269e670185f2fa40ea436d6251ac3e9c49af4eb86e87914daa8e8c8e88a7e4a",
+      "imports": [
+        "./horse-light-model.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+      "bytes": 818,
+      "sha256": "a66d29db4b734bb7c65014ed7bf4411792e06807e36953549f3417951356eb19",
+      "imports": [
+        "./horse-light-model.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+      "bytes": 5336,
+      "sha256": "497e991b93ffd05f85f5f03df7be19c74c825ca43b48be5a8151b0d5a70e6107",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+      "bytes": 4279,
+      "sha256": "716ccefe8f989fe8b50828de3afbe60979bf9c8a952b3d6b45871deb3e87e5e6",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+      "bytes": 36325,
+      "sha256": "1abe555c9775bf3e3ce953c5d532cea36ef165c664b41b321ce5f0dd32b512d1",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+      "bytes": 3379,
+      "sha256": "a715e4761c72d70d35fd13e88463926bfb67ce87e417d70460363760c75209e6",
+      "imports": [
+        "./horse-grip-hand-data.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+      "bytes": 25286,
+      "sha256": "9306a065aed75f3408fd1d5799164241fcfe9add59a6d1dad2568a615e469baa",
+      "imports": [
+        "./horse-graphic-paint.js",
+        "./horse-grip-hand.js",
+        "./horse-rifle.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+      "bytes": 47101,
+      "sha256": "3e4db27f7267fa1d370b96688f6c695c3e98e5bbc022c655b9e776c20734f407",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+      "bytes": 2708,
+      "sha256": "4435a50527433057aeafc3bbf48a35ac9a69c292302da558a76de914c6b7ce24",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+      "bytes": 2979,
+      "sha256": "48f65698a5c2a84a2f24935f198b6ba1bab537dcc6e7d45d9b1f3f9c4a49da3c",
+      "imports": [
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+      "bytes": 5590,
+      "sha256": "79e5b0d5c20563324c9c0406dcf5d60ad99237205e214220e9ef14bcd68396e5",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+      "bytes": 6000,
+      "sha256": "df6b9c7e6104674f8454bb4cd2968b43ea8e10f88d979f080ff5888d52c1c207",
+      "imports": [
+        "./horse-light-model.js",
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+      "bytes": 4550,
+      "sha256": "b569f4560849ecc747cf4daead3e7a9c0e7c3c65845fe3db3caf037f2e668cf7",
+      "imports": [
+        "./horse-model-paint.js",
+        "./vendor/three.module.js"
+      ]
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "bytes": 1403454,
+      "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+      "imports": []
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "bytes": 603412,
+      "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+      "imports": [
+        "./three.core.js"
+      ]
+    }
+  ],
+  "fixture": {
+    "path": "packages/player-setup/tests/review-fixtures.mjs",
+    "bytes": 717,
+    "sha256": "205c6f3cebd969269e237788e32e1e929ebea341664cee8b690a6f725ddf8022"
+  },
+  "installedPackage": {
+    "name": "@nautilus-engine/map-core",
+    "version": "0.10.0",
+    "exports": [
+      "./player-setup",
+      "./player-setup/browser",
+      "./native-actors",
+      "./native-actors/three"
+    ],
+    "tarball": "artifacts/player-setup-installed-overlay/run-1794458505856/nautilus-engine-map-core-0.10.0.tgz",
+    "bytes": 7528189,
+    "sha256": "df6966c1b514e96354a4d7fc008d98cd8bebd5d5f335c7594c088149ac956401",
+    "npmIntegrity": "sha512-3HGqwrpjIVoaXNz9uioNw6eftYckCwO0cva3Q4o3cpS8nzfwzerLC6OUtuuvEq15/naajxRPTR0q/CDAIEh9GQ==",
+    "fileCount": 117,
+    "unpackedBytes": 10720536
+  },
+  "physicalHandset": false
+}

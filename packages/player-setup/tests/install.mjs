@@ -4,7 +4,11 @@ import fs from 'node:fs';import path from 'node:path';import assert from 'node:a
 import {execFileSync} from 'node:child_process';
 import {root,inventory,record,sha} from './inventory.mjs';
 const contentSource=process.argv[2];assert.match(contentSource||'',/^[a-f0-9]{40}$/);
-assert.equal(sha(execFileSync('git',['show',contentSource+':packages/player-setup/world.js'],{cwd:root})),record('packages/player-setup/world.js').sha256,'Pin must contain the exact authored content source.');
+// Content identity pins the authored fixture definition. Runtime provider
+// corrections in the same file have their own current dependency hashes.
+const definition=text=>{const start=text.indexOf('export function flatYardContent('),end=text.indexOf('\nexport function createDefaultWorld(',start);assert.ok(start>=0&&end>start);return text.slice(start,end);};
+const pinnedDefinition=definition(execFileSync('git',['show',contentSource+':packages/player-setup/world.js'],{cwd:root,encoding:'utf8'}));
+assert.equal(definition(fs.readFileSync(path.join(root,'packages/player-setup/world.js'),'utf8')),pinnedDefinition,'Pin must contain the exact authored content definition.');
 const selected=inventory(),base=path.join(root,'artifacts/player-setup-installed-overlay'),run=path.join(base,'run-'+Date.now()),stage=path.join(run,'package'),consumer=path.join(run,'consumer');
 fs.mkdirSync(stage,{recursive:true});fs.mkdirSync(consumer);
 for(const r of selected.files){const target=path.join(stage,r.path);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(root,r.path),target);}
