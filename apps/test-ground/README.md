@@ -211,3 +211,30 @@ The immutable declarative source was committed at the historical path
 The final consumer lives under `apps/test-ground/` because the existing static
 build intentionally treats `examples/` as a flat file directory. The content blob
 is preserved byte-for-byte; no engine build/runtime change is required.
+
+## Pause ownership follow-up
+
+The app now joins its checklist, composition, runner and preparation pause scopes
+with explicit caller pause requests through the existing public setup bindings.
+Each scope releases only its own token. `testGround.setup.dispatch` and its public
+`ui.dispatch` facade retain the caller's explicit pause separately from app scopes;
+the SDK still owns its menu, title and visibility conditions. Derived `blocked`
+state is never used as the saved pause owner.
+When the SDK replaces its UI, the app reasserts its joined pause and moves its own
+existing extension nodes to the replacement public slots.
+
+Accepted, refused and cancelled composition changes keep an open checklist paused.
+Closing the checklist restores the current caller request, including an earlier
+explicit pause, while the normal unpaused close resumes walking. Failed/cancelled
+reloads preserve the accepted scene's pause. Superseded cleanup remains bound to
+its original entry and cannot unpause a later operation, dialog or accepted scene.
+Pause ownership is transient; checkpoint/resource and golden schemas are unchanged.
+
+Run `node apps/test-ground/tools/review-pause.mjs` after installation for the actual
+browser ownership regressions, including a delayed genuine asset response that
+settles after a newer scene is accepted. The full workflow review still checks all
+prior state/resource/save/golden/phone/cleanup assertions. Follow-up evidence lives
+in `evidence/pause-ownership/`; the existing evidence remains the original
+`664137714e4b891e70e828af6b6d542afd8e20bf` baseline rather than being relabelled.
+For app-only proof iterations, `tools/refresh-pause.mjs` revalidates all 501 files
+of the exact installed engine and updates only the consumer's application copy.

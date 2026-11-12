@@ -6,12 +6,34 @@ import {createGroundHost} from './host.js';import {createGroundSurface} from './
 import {clone,canonical,fields,insist,refusal,accepted} from './data.js';
 
 const SAVE_KEY='nautilus-night-ledger-ground-v1',TRANSACTION_KEY='nautilus-night-ledger-last-transaction-v1';
+
+// The public setup exposes one explicit pause flag. This consumer joins its own
+// scopes with caller requests instead of borrowing the derived "blocked" state
+// (which also includes the SDK's independent menu/title/visibility owners).
+function ownPauseScopes(raw,initialPaused=false) {
+  const owners=new Set();let requested=initialPaused,disposed=false,lastUI,uiFacade;
+  const refresh=()=>disposed?null:raw.dispatch({version:1,type:'pause',paused:requested||owners.size>0});
+  function route(intent,dispatch,isCurrent=()=>true) {
+    if(!disposed&&isCurrent()&&intent?.version===1&&intent.type==='pause'&&typeof intent.paused==='boolean') {requested=intent.paused;return refresh();}
+    return dispatch(intent);
+  }
+  const setup=Object.freeze({...raw,dispatch:intent=>route(intent,raw.dispatch),get ui(){
+    const ui=raw.ui;if(ui!==lastUI){lastUI=ui;uiFacade=Object.freeze({...ui,dispatch:intent=>route(intent,ui.dispatch,()=>raw.ui===ui)});}return uiFacade;
+  }});
+  return Object.freeze({setup,refresh,get requested(){return requested;},
+    setRequested(value){if(!disposed){requested=value;refresh();}},
+    acquire(){insist(!disposed,'APPLICATION_RETIRED','This scene no longer owns pause.');const owner=Symbol('ground pause');owners.add(owner);refresh();let released=false;
+      return ()=>{if(released)return;released=true;if(owners.delete(owner))refresh();};},
+    dispose(){disposed=true;owners.clear();}
+  });
+}
+
 export async function createGroundApplication(container,{installation,storage=container.ownerDocument.defaultView.localStorage}={}) {
   const document=container.ownerDocument;let current=null,retired=false,pending=null,epoch=0,disposePromise;
   function persist(snapshot){storage.setItem(TRANSACTION_KEY,JSON.stringify(snapshot));}
-  async function prepare({recipe=defaultRecipe(),spawn,packet,signal}={}) {
+  async function prepare({recipe=defaultRecipe(),spawn,packet,signal,initialPaused=false}={}) {
     const stage=document.createElement('section');stage.className='ground-scene';stage.style.visibility='hidden';container.append(stage);
-    let host,surface,setup,entry;
+    let host,surface,setup,pause,entry;
     try {
       host=createGroundHost({recipe,spawn,checkpoint:packet?.host,persist});surface=createGroundSurface(document,host);
       const services={
@@ -19,13 +41,14 @@ export async function createGroundApplication(container,{installation,storage=co
         [PLAYER_PORTS.scene.id]:host.scene,[PLAYER_PORTS.walking.id]:host.walking};
       const provider={descriptor:{id:'ground.services',version:1,ports:[SETUP_PORTS.world,SETUP_PORTS.pose,SETUP_PORTS.surface,PLAYER_PORTS.scene,PLAYER_PORTS.walking].map(output)},services};
       const configuration=packet?.setup.configuration||bindSetupProvider(createSetupConfiguration({content:clone(identity)}),provider);
-      setup=await mountPlayerSetup(stage,{content:contentFor(recipe,spawn),configuration,providers:[provider],signal,...(packet?{checkpoint:packet.setup}:{}),onConfigurationChange:config=>entry?.checklist.setPlayerSetup(config),onError:(error,context)=>{document.defaultView.console.warn('Test ground observer',context.phase,error.message);}});
-      const checklist=createChecklist(recipe,packet?.checklist,setup.readConfiguration(),{engineArchiveSHA:installation.package.sha256,consumer:installation.runtime.map(({path,sha256})=>({path,sha256}))});entry={stage,host,surface,setup,checklist,missionBaseline:packet?.missionBaseline||host.read(),unsubscribe:()=>{},dialog:null,closeDialog:null};
+      const raw=await mountPlayerSetup(stage,{content:contentFor(recipe,spawn),configuration,providers:[provider],signal,...(packet?{checkpoint:packet.setup}:{}),onConfigurationChange:config=>{if(entry){entry.pause.refresh();const slots=entry.setup.ui.slots;if(entry.map&&entry.map.parentNode!==slots.map)slots.map.append(entry.map);if(entry.inventoryCard&&entry.inventoryCard.parentNode!==slots.inventory)slots.inventory.append(entry.inventoryCard);entry.checklist.setPlayerSetup(config);}},onError:(error,context)=>{document.defaultView.console.warn('Test ground observer',context.phase,error.message);}});
+      setup=raw;pause=ownPauseScopes(raw,initialPaused);setup=pause.setup;pause.refresh();
+      const checklist=createChecklist(recipe,packet?.checklist,setup.readConfiguration(),{engineArchiveSHA:installation.package.sha256,consumer:installation.runtime.map(({path,sha256})=>({path,sha256}))});entry={stage,host,surface,setup,pause,checklist,missionBaseline:packet?.missionBaseline||host.read(),unsubscribe:()=>{},dialog:null,closeDialog:null};
       entry.unsubscribe=host.scene.subscribe(()=>{if(current===entry)render(entry);});
       return entry;
-    }catch(e){await setup?.dispose();surface?.dispose();host?.dispose();stage.remove();throw e;}
+    }catch(e){pause?.dispose();await setup?.dispose();surface?.dispose();host?.dispose();stage.remove();throw e;}
   }
-  async function retire(entry){entry.closeDialog?.();entry.dialog?.remove();entry.unsubscribe();await entry.setup.dispose();entry.surface.dispose();entry.host.dispose();entry.stage.remove();}
+  async function retire(entry){entry.pause.dispose();entry.closeDialog?.();entry.dialog?.remove();entry.unsubscribe();await entry.setup.dispose();entry.surface.dispose();entry.host.dispose();entry.stage.remove();}
   function checkpoint(){insist(current&&!retired,'APPLICATION_RETIRED','No accepted sandbox.');return clone({kind:'nautilus-test-ground-checkpoint',version:1,installationSHA:installation.package.sha256,recipe:current.host.read().recipe,host:current.host.read(),setup:current.setup.checkpoint(),checklist:current.checklist.read(),missionBaseline:current.missionBaseline});}
   function readMission(entry){const state=entry.host.read(),recipe=state.recipe,objective=objectiveById(recipe.objective.id),missing=objective.requires.filter(c=>!observerCapabilities(recipe.observers.profile).includes(c));if(missing.length)return {status:'unavailable',missionComplete:false,reason:'Missing observations: '+missing.join(', ')};
     const result=evaluateObjective({objective,slot:recipe.objective.slot,conditions:recipe.conditions.id,baseline:entry.missionBaseline,observed:{state,passage:objective.id==='door-passage'?entry.host.passage(recipe.objective.slot):null}});
@@ -43,27 +66,27 @@ export async function createGroundApplication(container,{installation,storage=co
     const button=(name,fn)=>{const b=document.createElement('button');b.type='button';b.textContent=name;b.addEventListener('click',()=>Promise.resolve(fn()).catch(e=>{entry.mission.textContent=e.message;}));map.append(b);};
     button('Fixtures & golden checks',()=>openFixtures(entry));button('Save sandbox',()=>dispatch({version:1,type:'save'}));button('Reload save',async()=>{const r=await dispatch({version:1,type:'reload'});if(!r.ok)entry.mission.textContent=r.reason;});
     const help=document.createElement('details');help.className='ground-help';const summary=document.createElement('summary');summary.textContent='How to try';const prose=document.createElement('p');prose.textContent='WASD / arrows or the shared joystick. E or a contextual action button operates a nearby target. Enter opens player setup. Fixture Try explicitly resets this sandbox. The rock keeps its native 5.5 cm radius; the ring marks it.';help.append(summary,prose);map.append(help);entry.setup.ui.slots.map.append(map);entry.map=map;
-    const inventory=document.createElement('section');inventory.className='ground-card ground-inventory';inventory.setAttribute('aria-label','Recovered inventory');const heading=document.createElement('strong');heading.textContent='Recovered rock';entry.inventory=document.createElement('p');inventory.append(heading,entry.inventory);entry.setup.ui.slots.inventory.append(inventory);render(entry);
+    const inventory=document.createElement('section');inventory.className='ground-card ground-inventory';inventory.setAttribute('aria-label','Recovered inventory');const heading=document.createElement('strong');heading.textContent='Recovered rock';entry.inventory=document.createElement('p');inventory.append(heading,entry.inventory);entry.inventoryCard=inventory;entry.setup.ui.slots.inventory.append(inventory);render(entry);
   }
   async function replace({recipe,spawn,packet,signal}={}) {
     if(retired)return refusal('APPLICATION_RETIRED','The ground has retired.');const request=++epoch;pending?.abort();const controller=new AbortController();pending=controller;
     const abort=()=>controller.abort();signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();
-    const prior=current;prior?.setup.dispatch({version:1,type:'pause',paused:true});let next,committed=false;
+    const prior=current,releasePause=prior?.pause.acquire();let next,committed=false;
     try {
-      insist(!controller.signal.aborted,'PREPARATION_CANCELLED','Sandbox preparation cancelled.');next=await prepare({recipe,spawn,packet,signal:controller.signal});
+      insist(!controller.signal.aborted,'PREPARATION_CANCELLED','Sandbox preparation cancelled.');next=await prepare({recipe,spawn,packet,signal:controller.signal,initialPaused:prior?.pause.requested||false});
       insist(!retired&&request===epoch&&!controller.signal.aborted,'PREPARATION_CANCELLED','A newer request or cancellation owns preparation.');
-      current=next;committed=true;next.stage.style.visibility='';extensions(next);next.surface.canvas.focus();
+      next.pause.setRequested(prior?.pause.requested||false);current=next;committed=true;next.stage.style.visibility='';extensions(next);if(!next.setup.readControls().context.blocked)next.surface.canvas.focus();
       if(prior)await retire(prior);return accepted();
     }catch(e){if(committed)return accepted({observerErrors:1,reason:e.message});if(next)await retire(next);return refusal(e.code||'PREPARATION_FAILED',e.message);}
-    finally{signal?.removeEventListener('abort',abort);if(pending===controller)pending=null;if(!committed&&current===prior)prior?.setup.dispatch({version:1,type:'pause',paused:false});}
+    finally{signal?.removeEventListener('abort',abort);if(pending===controller)pending=null;releasePause?.();}
   }
   async function applyRecipe(input,{signal}={}) {
-    const valid=validateRecipe(input);if(!valid.ok)return valid;const entry=current;entry.setup.dispatch({version:1,type:'pause',paused:true});let candidate,visual;
+    const valid=validateRecipe(input);if(!valid.ok)return valid;const entry=current,releasePause=entry.pause.acquire();let candidate,visual;
     try{insist(!signal?.aborted,'PREPARATION_CANCELLED','Composition preparation cancelled.');candidate=entry.host.prepareRecipe(valid.recipe);if(!candidate.ok)return candidate;visual=entry.surface.prepare(candidate.snapshot);await Promise.resolve();
       insist(current===entry&&!signal?.aborted,'PREPARATION_CANCELLED','Composition preparation cancelled.');const r=candidate.commit();if(!r.ok)return r;
       // Acceptance is now durable. Presentation/notification errors cannot undo it.
       let observerErrors=0;try{visual.commit();entry.checklist.configure(valid.recipe);entry.missionBaseline=entry.host.read();render(entry);entry.setup.ui.refresh();}catch{observerErrors++;}return {...r,observerErrors};
-    }catch(e){return refusal(e.code||'PREPARATION_FAILED',e.message);}finally{visual?.dispose();candidate?.dispose?.();if(current===entry)entry.setup.dispatch({version:1,type:'pause',paused:false});}
+    }catch(e){return refusal(e.code||'PREPARATION_FAILED',e.message);}finally{try{visual?.dispose();candidate?.dispose?.();}finally{releasePause();}}
   }
   function validatePacket(value) {
     fields(value,['kind','version','installationSHA','recipe','host','setup','checklist','missionBaseline']);insist(value.kind==='nautilus-test-ground-checkpoint'&&value.version===1,'SAVE_VERSION','Use a complete ground checkpoint v1.');
@@ -79,7 +102,7 @@ export async function createGroundApplication(container,{installation,storage=co
       switch(command.type) {
         case 'recipe': return applyRecipe(command.recipe,options);
         case 'selection': return current.checklist.select(command.ids);
-        case 'run-selected': {const prior=current.setup.readControls().context.blocked;current.setup.dispatch({version:1,type:'pause',paused:true});try{const results=current.checklist.run();return accepted({checklist:results});}finally{current.setup.dispatch({version:1,type:'pause',paused:prior});}}
+        case 'run-selected': {const entry=current,releasePause=entry.pause.acquire();try{const results=entry.checklist.run();return accepted({checklist:results});}finally{releasePause();}}
         case 'try': {const f=fixtureById(command.fixtureId);insist(f,'FIXTURE_UNAVAILABLE','This fixture is deferred.');return replace({recipe:goldenRecipe(f,current.host.read().recipe),spawn:fixtureSpawn(f),signal:options.signal});}
         case 'reset': return replace({recipe:command.recipe||current.host.read().recipe,signal:options.signal});
         case 'save': {const saved=checkpoint();storage.setItem(SAVE_KEY,JSON.stringify(saved));return accepted({checkpoint:saved});}
@@ -91,7 +114,7 @@ export async function createGroundApplication(container,{installation,storage=co
     }catch(e){return refusal(e.code||'COMMAND_FAILED',e.message);}
   }
   function openFixtures(entry) {
-    if(entry!==current)return;entry.setup.dispatch({version:1,type:'pause',paused:true});const dialog=document.createElement('dialog');dialog.className='fixture-dialog';dialog.setAttribute('aria-label','Golden fixture checklist');entry.dialog=dialog;
+    if(entry!==current||retired)return;if(entry.dialog?.open){entry.dialog.focus();return;}const releasePause=entry.pause.acquire(),dialog=document.createElement('dialog');dialog.className='fixture-dialog';dialog.setAttribute('aria-label','Golden fixture checklist');entry.dialog=dialog;let closed=false;
     const h=document.createElement('h2');h.textContent='Choose · try · verify';const p=document.createElement('p');p.textContent='Registry v1 · two committed golden fixtures. Run selected uses isolated baselines and preserves your current sandbox. Try / Reset explicitly starts a fresh sandbox with 37 health, 9 AP and 11 stamina.';dialog.append(h,p);
     const form=document.createElement('fieldset'),legend=document.createElement('legend');legend.textContent='Independent composition';form.append(legend);const selects={},recipe=entry.host.read().recipe;
     const choose=(key,label,options,value)=>{const wrap=document.createElement('label');wrap.textContent=label;const s=document.createElement('select');s.setAttribute('aria-label',label);for(const [id,name]of options){const o=document.createElement('option');o.value=id;o.textContent=name;s.append(o);}s.value=value;wrap.append(s);form.append(wrap);selects[key]=s;};
@@ -108,8 +131,9 @@ export async function createGroundApplication(container,{installation,storage=co
     button('Explicit sandbox reset',async()=>{close();await dispatch({version:1,type:'reset'});});button('Return to ground',close);
     const text=document.createElement('textarea');text.setAttribute('aria-label','Exact recipe and result JSON');button('Export recipe & results',async()=>{const r=await dispatch({version:1,type:'export'});text.value=r.json;});button('Import exact report',async()=>{const json=text.value;close();const r=await dispatch({version:1,type:'import',json});if(!r.ok)current.mission.textContent=r.reason;});dialog.append(text,feedback);
     const deferred=document.createElement('p');deferred.className='deferred';deferred.textContent='Railway: adjoining 240 × 180 m reserved, unbuilt. Driving: open south strip only. Combat, fire and height fixtures await reviewed providers and golden baselines. No historical ledger asset is supplied.';dialog.append(deferred);
-    function close(){if(!dialog.isConnected)return;dialog.close();dialog.remove();if(entry.dialog===dialog)entry.dialog=null;if(current===entry){entry.setup.dispatch({version:1,type:'pause',paused:false});entry.surface.canvas.focus();}}
-    entry.closeDialog=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});document.body.append(dialog);renderTable();dialog.showModal();
+    function close(){if(closed)return;closed=true;if(dialog.open)dialog.close();dialog.remove();if(entry.dialog===dialog){entry.dialog=null;entry.closeDialog=null;}releasePause();if(current===entry&&!retired&&!entry.setup.readControls().context.blocked)entry.surface.canvas.focus();}
+    entry.closeDialog=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});dialog.addEventListener('close',close);
+    try{document.body.append(dialog);renderTable();dialog.showModal();}catch(e){close();throw e;}
   }
   const first=await replace();if(!first.ok)throw Object.assign(Error(first.reason),{code:first.code});
   return Object.freeze({dispatch,checkpoint,read(){return {world:current.host.read(),setup:current.setup.read(),checklist:current.checklist.read(),mission:readMission(current),surface:current.surface.read()};},
