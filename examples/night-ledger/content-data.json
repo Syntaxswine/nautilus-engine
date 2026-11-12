@@ -5,37 +5,276 @@
   "name": "Night Ledger · proving ground",
   "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
   "seed": 1947,
-  "dimensionsM": [64, 64],
+  "dimensionsM": [
+    64,
+    64
+  ],
   "storyHeightM": 2.12,
-  "spawn": {"x": 32, "y": 40, "h": 0},
-  "resources": {"health": 37, "ap": 9, "stamina": 11, "inventory": []},
-  "policy": {"id": "test-ground-costs", "version": 1, "openDoorAP": 1, "closeDoorAP": 1, "pickupRockAP": 2, "inventoryCapacity": 4},
+  "spawn": {
+    "x": 32,
+    "y": 40,
+    "h": 0
+  },
+  "resources": {
+    "health": 37,
+    "ap": 9,
+    "stamina": 11,
+    "inventory": []
+  },
+  "policy": {
+    "id": "test-ground-costs",
+    "version": 1,
+    "openDoorAP": 1,
+    "closeDoorAP": 1,
+    "pickupRockAP": 2,
+    "inventoryCapacity": 4
+  },
   "slots": [
-    {"id": "west", "name": "West plot", "origin": {"x": 8, "y": 16}, "sizeM": 16, "floorId": "floor-0", "elevationM": 0},
-    {"id": "east", "name": "East plot", "origin": {"x": 40, "y": 16}, "sizeM": 16, "floorId": "floor-0", "elevationM": 0}
+    {
+      "id": "west",
+      "name": "West plot",
+      "origin": {
+        "x": 8,
+        "y": 16
+      },
+      "sizeM": 16,
+      "floorId": "floor-0",
+      "elevationM": 0
+    },
+    {
+      "id": "east",
+      "name": "East plot",
+      "origin": {
+        "x": 40,
+        "y": 16
+      },
+      "sizeM": 16,
+      "floorId": "floor-0",
+      "elevationM": 0
+    }
   ],
   "plots": [
-    {"id": "gatehouse", "version": 1, "name": "Gatehouse passage", "footprintM": [16,16], "floorId": "floor-0", "elevationM": 0, "capabilities": ["door-state-v1", "passage-query-v1", "interaction-event-v1"], "entrance": {"x": 8, "y": 15}, "owns": ["walls", "door"], "effects": "No fire, sound, guard or cross-plot effects are bound."},
-    {"id": "supply-store", "version": 1, "name": "Rock recovery store", "footprintM": [16,16], "floorId": "floor-0", "elevationM": 0, "capabilities": ["door-state-v1", "passage-query-v1", "interaction-event-v1", "rock-state-v1", "inventory-state-v1", "item-event-v1"], "entrance": {"x": 12, "y": 15}, "owns": ["walls", "door", "rock"], "effects": "No fire, sound, guard or cross-plot effects are bound."}
+    {
+      "id": "gatehouse",
+      "version": 1,
+      "name": "Gatehouse passage",
+      "footprintM": [
+        16,
+        16
+      ],
+      "floorId": "floor-0",
+      "elevationM": 0,
+      "capabilities": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1"
+      ],
+      "entrance": {
+        "x": 8,
+        "y": 15
+      },
+      "owns": [
+        "walls",
+        "door"
+      ],
+      "effects": "No fire, sound, guard or cross-plot effects are bound."
+    },
+    {
+      "id": "supply-store",
+      "version": 1,
+      "name": "Rock recovery store",
+      "footprintM": [
+        16,
+        16
+      ],
+      "floorId": "floor-0",
+      "elevationM": 0,
+      "capabilities": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1",
+        "rock-state-v1",
+        "inventory-state-v1",
+        "item-event-v1"
+      ],
+      "entrance": {
+        "x": 12,
+        "y": 15
+      },
+      "owns": [
+        "walls",
+        "door",
+        "rock"
+      ],
+      "effects": "No fire, sound, guard or cross-plot effects are bound."
+    }
   ],
   "objectives": [
-    {"id": "door-passage", "version": 1, "name": "Open the marked passage", "requires": ["door-state-v1", "passage-query-v1", "interaction-event-v1"], "observer": {"id": "door-observer", "version": 1}, "conditions": ["current-door-open", "current-passage-clear", "new-door-event-after-baseline"], "expected": {"open": true, "passage": true, "newEvents": 1, "apSpent": 1}},
-    {"id": "rock-recovery", "version": 1, "name": "Recover the marked rock", "requires": ["rock-state-v1", "inventory-state-v1", "item-event-v1"], "observer": {"id": "rock-observer", "version": 1}, "conditions": ["current-owner-player", "current-world-position-removed", "new-inventory-gain-after-baseline", "new-pickup-event-after-baseline"], "expected": {"phase": "carried", "ownerId": "player", "position": null, "inventoryGain": 1, "newEvents": 1, "apSpent": 2}}
+    {
+      "id": "door-passage",
+      "version": 1,
+      "name": "Open the marked passage",
+      "requires": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1"
+      ],
+      "observer": {
+        "id": "door-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-door-open",
+        "current-passage-clear",
+        "new-door-event-after-baseline"
+      ],
+      "expected": {
+        "open": true,
+        "passage": true,
+        "newEvents": 1,
+        "apSpent": 1
+      }
+    },
+    {
+      "id": "rock-recovery",
+      "version": 1,
+      "name": "Recover the marked rock",
+      "requires": [
+        "rock-state-v1",
+        "inventory-state-v1",
+        "item-event-v1"
+      ],
+      "observer": {
+        "id": "rock-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-owner-player",
+        "current-world-position-removed",
+        "new-inventory-gain-after-baseline",
+        "new-pickup-event-after-baseline"
+      ],
+      "expected": {
+        "phase": "carried",
+        "ownerId": "player",
+        "position": null,
+        "inventoryGain": 1,
+        "newEvents": 1,
+        "apSpent": 2
+      }
+    }
   ],
   "golden": [
-    {"id": "golden-door-passage", "version": 1, "name": "Door opens and passage clears", "slot": "west", "plot": "gatehouse", "objective": "door-passage", "baseline": "closed-door-clear-approach-v1", "spawnLocal": {"x":8,"y":13.4,"h":0}, "expectationVersion": 1, "resetPolicy": "new-isolated-sandbox-only", "evidence": ["confirmed door state", "public body-aware passage query", "one new door-opened event", "fixture AP cost"]},
-    {"id": "golden-rock-recovery", "version": 1, "name": "Rock transfers exactly once", "slot": "east", "plot": "supply-store", "objective": "rock-recovery", "baseline": "world-rock-empty-inventory-v1", "spawnLocal": {"x":12,"y":15,"h":0}, "expectationVersion": 1, "resetPolicy": "new-isolated-sandbox-only", "evidence": ["carried rock owner", "old world position removed", "exactly one inventory instance", "one new rock-picked-up event", "fixture AP cost"]}
+    {
+      "id": "golden-door-passage",
+      "version": 1,
+      "name": "Door opens and passage clears",
+      "slot": "west",
+      "plot": "gatehouse",
+      "objective": "door-passage",
+      "baseline": "closed-door-clear-approach-v1",
+      "spawnLocal": {
+        "x": 8,
+        "y": 13.4,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed door state",
+        "public body-aware passage query",
+        "one new door-opened event",
+        "fixture AP cost"
+      ]
+    },
+    {
+      "id": "golden-rock-recovery",
+      "version": 1,
+      "name": "Rock transfers exactly once",
+      "slot": "east",
+      "plot": "supply-store",
+      "objective": "rock-recovery",
+      "baseline": "world-rock-empty-inventory-v1",
+      "spawnLocal": {
+        "x": 12,
+        "y": 15,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "carried rock owner",
+        "old world position removed",
+        "exactly one inventory instance",
+        "one new rock-picked-up event",
+        "fixture AP cost"
+      ]
+    }
   ],
   "deferred": [
-    {"id": "movement-height", "name": "Movement and heights", "reason": "No reviewed golden fixture or upper-floor baseline in this tranche."},
-    {"id": "combat", "name": "Combat and guard response", "reason": "No combat/guard observation provider is bound."},
-    {"id": "environment", "name": "Fire and environment", "reason": "No environment or cross-plot effect provider is bound."},
-    {"id": "trains", "name": "Railway circuits", "reason": "Needs the adjoining 240 × 180 m reservation and retained railway host; not a 16 m plot."},
-    {"id": "cars", "name": "Road vehicles", "reason": "Queued independent tranche; no road driving provider is bound."}
+    {
+      "id": "movement-height",
+      "name": "Movement and heights",
+      "reason": "No reviewed golden fixture or upper-floor baseline in this tranche."
+    },
+    {
+      "id": "combat",
+      "name": "Combat and guard response",
+      "reason": "No combat/guard observation provider is bound."
+    },
+    {
+      "id": "environment",
+      "name": "Fire and environment",
+      "reason": "No environment or cross-plot effect provider is bound."
+    },
+    {
+      "id": "trains",
+      "name": "Railway circuits",
+      "reason": "Needs the adjoining 240 × 180 m reservation and retained railway host; not a 16 m plot."
+    },
+    {
+      "id": "cars",
+      "name": "Road vehicles",
+      "reason": "Queued independent tranche; no road driving provider is bound."
+    }
   ],
   "reservations": [
-    {"id": "railway", "boundsM": [64, 0, 304, 180], "status": "adjoining-unbuilt", "runtime": false},
-    {"id": "driving", "boundsM": [8, 48, 56, 64], "status": "open-space-only", "runtime": false}
+    {
+      "id": "railway",
+      "boundsM": [
+        64,
+        0,
+        304,
+        180
+      ],
+      "status": "adjoining-unbuilt",
+      "runtime": false
+    },
+    {
+      "id": "driving",
+      "boundsM": [
+        8,
+        48,
+        56,
+        64
+      ],
+      "status": "open-space-only",
+      "runtime": false
+    }
   ],
-  "sourceBoundary": "Original Nautilus test content inspired by the retained Night Ledger situation. No donor runtime, historical ledger art, consumer pin or original fixture modification. Golden expectations require review before main integration."
+  "sourceBoundary": "Original Nautilus test content inspired by the retained Night Ledger situation. No donor runtime, historical ledger art, consumer pin or original fixture modification. Golden expectations require review before main integration.",
+  "conditionProfiles": [
+    {
+      "id": "transition",
+      "version": 1,
+      "name": "New transition after baseline",
+      "scope": "Current outcome plus exactly one new committed event and declared resource cost. Required for golden runs."
+    },
+    {
+      "id": "current-state",
+      "version": 1,
+      "name": "Current-state audit only",
+      "scope": "Current door/passage or current item owner/location/inventory. No claim of a new action, event, gain or AP spend."
+    }
+  ]
 }
