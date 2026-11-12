@@ -1,10 +1,37 @@
 import assert from 'node:assert/strict';
 import {ROAD_VEHICLE_ASSETS} from '../packages/vehicle-visuals/catalogue.js';
 import {roadVehicleBuildSource} from './editor-road-vehicles.mjs';
+import {createHash} from 'node:crypto';
 
-const runtime = ['catalogue.js', 'sculpt.js', 'three.js'].map(file => 'packages/vehicle-visuals/' + file);
+// Exact skin bytes reviewed on the finished bodies in Map Workshop. Keep this
+// allowlist separate from the authoring tool's mutable provenance ledger.
+const skinHashes = {
+  "packages/vehicle-visuals/skins/hatchback.png": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40",
+  "packages/vehicle-visuals/skins/sedan.png": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190",
+  "packages/vehicle-visuals/skins/pickup.png": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac",
+  "packages/vehicle-visuals/skins/crew-pickup.png": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710",
+  "packages/vehicle-visuals/skins/cargo-van.png": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea",
+  "packages/vehicle-visuals/skins/passenger-van.png": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2",
+  "packages/vehicle-visuals/skins/utility-suv.png": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101",
+  "packages/vehicle-visuals/skins/crossover.png": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c",
+  "packages/vehicle-visuals/skins/running-gear.png": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7"
+};
+export function authenticatedRoadVehicleImages(profile,{read,indexed=()=>{}}){
+  if(profile!=='renderer'&&profile!=='compatibility')return [];
+  for(const [file,sha]of Object.entries(skinHashes)){
+    const bytes=read(file);
+    assert.equal(createHash('sha256').update(bytes).digest('hex'),sha,'Unreviewed road vehicle skin: '+file);
+    indexed(file,bytes);
+  }
+  return Object.keys(skinHashes);
+}
+
+const runtime = ['catalogue.js', 'sculpt.js', 'three.js', 'reduced.js', 'reduced-data.js', 'reduction.json',
+  ...['hatchback','sedan','pickup','crew-pickup','cargo-van','passenger-van','utility-suv','crossover','running-gear'].map(id=>'skins/'+id+'.png')]
+  .map(file => 'packages/vehicle-visuals/' + file);
 export function roadVehiclePackageFiles(profile) {
-  return ['docs/road-vehicles.md', ...(profile === 'renderer' || profile === 'compatibility' ? runtime : [])];
+  return ['docs/road-vehicles.md', 'vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/LICENSE.md',
+    ...(profile === 'renderer' || profile === 'compatibility' ? runtime : [])];
 }
 function once(text, anchor, replacement, label = anchor) {
   assert.equal(text.split(anchor).length, 2, 'Expected one vehicle registration anchor: ' + label);
@@ -49,4 +76,11 @@ export function checkRoadVehicleRegistration({read, indexed}) {
     assert.ok(bytes.length, 'Empty road vehicle registration file: ' + file);
     indexed(file, bytes);
   }
+  const provenance=JSON.parse(read('tools/vehicle-art/provenance.json'));
+  for(const row of provenance.files){
+    const bytes=read(row.path);
+    assert.equal(createHash('sha256').update(bytes).digest('hex'),row.sha256,'Vehicle artwork source hash: '+row.path);
+    indexed(row.path,bytes);
+  }
+  indexed('tools/vehicle-art/provenance.json',read('tools/vehicle-art/provenance.json'));
 }

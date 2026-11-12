@@ -4,10 +4,11 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {withArtReview, projectRoot} from './art-review-browser.mjs';
 import {ROAD_VEHICLES, VEHICLE_BODIES, ROAD_VEHICLE_FEATURE} from '../packages/vehicle-visuals/catalogue.js';
+import {roadVehiclePackageFiles} from './road-vehicle-registration.mjs';
 
 const output = process.argv[2] || 'road-vehicle-workshop-review';
-const hashes = Object.fromEntries(['packages/vehicle-visuals/catalogue.js', 'packages/vehicle-visuals/sculpt.js',
-  'packages/vehicle-visuals/three.js', 'apps/editor/assets.js', 'apps/editor/asset-catalog.js'].map(file =>
+const hashes = Object.fromEntries([...roadVehiclePackageFiles('compatibility'),
+  'tools/editor-road-vehicles.mjs', 'apps/editor/assets.js', 'apps/editor/asset-catalog.js'].map(file =>
   [file, createHash('sha256').update(fs.readFileSync(path.join(projectRoot, file))).digest('hex')]));
 const report = await withArtReview('Place, rotate, save and reopen all painted road vehicles in Map Workshop',
   async ({page, baseURL, out}) => {
@@ -155,10 +156,54 @@ const report = await withArtReview('Place, rotate, save and reopen all painted r
     await artwork('lineup.png',11,10,17);
     await artwork('cars-and-pickups.png',11,6,10.8);
     await artwork('vans-and-suvs.png',11,14,10.8);
+    for(const body of VEHICLE_BODIES){
+      const at=await page.evaluate(form=>{
+        let at;
+        for(const item of window.editor3d.scene.sceneryAssets.items.values()){
+          item.root.visible=item.root.userData.form===form;
+          if(item.root.visible)at={x:item.root.position.x,y:item.root.position.z};
+        }
+        if(!at)throw Error('Missing close-up vehicle '+form);return at;
+      },body.id);
+      await artwork(body.id+'-close.png',at.x,at.y,4.8);
+    }
+    const paint=await page.evaluate(async()=>{
+      const T=await import('/packages/render-effects/three.js');
+      const {createRoadVehicleKit}=await import('/packages/vehicle-visuals/three.js');
+      const {VEHICLE_BODIES}=await import('/packages/vehicle-visuals/catalogue.js');
+      const {sideWidth,vehicleProfile}=await import('/packages/vehicle-visuals/sculpt.js');
+      const scene=window.editor3d.scene,renderer=scene.renderer,gl=renderer.getContext();
+      const item=[...scene.sceneryAssets.items.values()].find(i=>i.root.userData.form==='hatchback');
+      for(const i of scene.sceneryAssets.items.values())i.root.visible=i===item;
+      const body=VEHICLE_BODIES.find(b=>b.id==='hatchback'),spec=vehicleProfile(body);
+      Object.assign(window.editor3d.view,{x:item.root.position.x,y:item.root.position.z,span:4.8,preset:'0'});
+      scene.changed();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      const side=Math.sign(scene.camera.position.x-item.root.position.x),z=.125;
+      const sample=y=>{
+        const q=new T.Vector3(side*sideWidth(body,z,y),y,z).applyMatrix4(item.root.matrixWorld).project(scene.camera);
+        const pixel=new Uint8Array(4);
+        gl.readPixels(Math.round((q.x+1)*gl.drawingBufferWidth/2),Math.round((q.y+1)*gl.drawingBufferHeight/2),1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);
+        return [...pixel];
+      };
+      const kit=createRoadVehicleKit(T),mesh=item.root.getObjectByName('Painted body'),original=mesh.material,rows=[];
+      try{
+        await kit.ready;
+        for(const finish of ['sage','oxide','teal']){
+          const model=kit.create('vehicle-hatchback-'+finish);mesh.material=model.root.getObjectByName('Painted body').material;
+          scene.lights.render(renderer,scene.camera);
+          rows.push({finish,window:sample(spec.belt+.22),body:sample(spec.belt-.16)});model.dispose();
+        }
+        if(gl.getError()!==gl.NO_ERROR)throw Error('Vehicle skin WebGL upload failed.');
+      }finally{mesh.material=original;kit.dispose();for(const i of scene.sceneryAssets.items.values())i.root.visible=true;scene.changed();}
+      return rows;
+    });
+    for(const row of paint.slice(1))for(let c=0;c<3;c++)assert.ok(Math.abs(row.window[c]-paint[0].window[c])<=2,'Finish must not tint painted glass: '+JSON.stringify(paint));
+    assert.ok(paint.some(row=>row.body.slice(0,3).reduce((sum,v,i)=>sum+Math.abs(v-paint[0].body[i]),0)>15),'Body finish must tint enamel: '+JSON.stringify(paint));
     const lifecycle=await page.evaluate(async()=>{
       const {createRoadVehicleKit}=await import('/packages/vehicle-visuals/three.js');
       const T=await import('/packages/render-effects/three.js');
       const scene=window.editor3d.scene,renderer=scene.renderer,context=renderer.getContext(),kit=createRoadVehicleKit(T);
+      await kit.ready;
       const a=kit.create('vehicle-sedan-teal'),b=kit.create('vehicle-sedan-sage');
       a.root.visible=b.root.visible=false;scene.scene.add(a.root,b.root);
       const geometry=a.root.children[0].geometry;let disposals=0;
@@ -171,7 +216,7 @@ const report = await withArtReview('Place, rotate, save and reopen all painted r
       return {oneCarPreservesOther:true,sharedGeometryDisposedOnce:true,rendererContextAlive:true};
     });
     return {bodyCount:VEHICLE_BODIES.length,variants:ROAD_VEHICLES.length,poses,blockTurns:block,
-      saveReload:true,exportImport:true,undoRedo:true,unsupportedHandoff:rejection,lifecycle,hashes};
+      saveReload:true,exportImport:true,undoRedo:true,unsupportedHandoff:rejection,lifecycle,paint,hashes};
   },{output,owner:'01a18109-8bdd-73a2-b61a-3d2cd8f8fcb3',timeoutMs:240000});
 fs.writeFileSync(path.join(projectRoot,'artifacts',output,'review.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({output,variants:report.variants,lifecycle:report.lifecycle}));

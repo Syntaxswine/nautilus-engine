@@ -9,6 +9,7 @@ import {historicalRailwayRouteBytes} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {authenticatedTrainImages} from './train-registration.mjs';
+import {authenticatedRoadVehicleImages} from './road-vehicle-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_CORRECTION_SOURCE,TILE_SURFACE_CORRECTION_BASE,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
 
 export const TILE_FINISHES_ACCEPTED_ARTIST='6df9c11fc6cf7fabf0e7a7d0e8acc4ee753e6c03';
@@ -113,6 +114,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     const d=distribution(name),hasHeadless=name==='core'||name==='compatibility',hasRenderer=name==='renderer'||name==='compatibility';
     const authenticatedArtworkImages=registration.sharedArtworkRegistration.profiles[name].addedFiles.filter(image);
     const trainImages=authenticatedTrainImages(name,{read,indexed});
+    const vehicleImages=authenticatedRoadVehicleImages(name,{read,indexed});
     assert.equal(d.exports['./tiles/finishes'],hasHeadless?entries['./tiles/finishes']:undefined,name+' headless finish entry');
     assert.equal(d.exports['./tiles/finishes/three'],hasRenderer?entries['./tiles/finishes/three']:undefined,name+' native finish entry');
     const wantedRuntime=name==='core'?headless:name==='renderer'||name==='compatibility'?runtimeFiles:[],wantedSupport=name==='assets'?[]:[guideFile,sourceFile];
@@ -121,9 +123,9 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     if(hasRenderer||name==='assets')assert.ok(d.files.includes(atlas.path),name+' old atlas');
     for(const file of d.files){
       assert.equal(file.startsWith('candidates/')||file.startsWith('tests/')||file.startsWith('docs/reviews/tile-stack/')||file.startsWith('tools/tile-stack-'),false,'Private candidate/proof source leaked into '+name+': '+file);
-      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file)||trainImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
+      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file)||trainImages.includes(file)||vehicleImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
     }
-    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages,separatelyAuthenticatedTrainImages:trainImages};
+    profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages,separatelyAuthenticatedTrainImages:trainImages,separatelyAuthenticatedRoadVehicleImages:vehicleImages};
   }
   return {
     status:'pass',registered:true,id:source.id,acceptedArtist:TILE_FINISHES_ACCEPTED_ARTIST,catalogue:{...TILE_FINISHES_CATALOGUE},privateCatalogue:{...TILE_FINISHES_PRIVATE_CATALOGUE},

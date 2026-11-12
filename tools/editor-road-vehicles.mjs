@@ -9,7 +9,7 @@ export function adaptRoadVehicles(file, text, once) {
   if (file.endsWith('/scenery-scene.js')) {
     text = "import {createRoadVehicleKit} from '" + root + "three.js';\n" + text;
     const anchor = "  const paths=family==='helicopter'?";
-    const loaded = "  if(family==='road-vehicle'){const pending=Promise.resolve().then(()=>{if(this.disposed)return;const library=createRoadVehicleKit(T);this.loaded.set(family,{library});this.preview(this.previewProp);this.onReady();}).catch(error=>{if(!this.disposed)this.onError(error);});this.pending.set(family,pending);return;}\n";
+    const loaded = "  if(family==='road-vehicle'){const pending=Promise.resolve().then(async()=>{if(this.disposed)return;const library=createRoadVehicleKit(T);try{await library.ready;}catch(error){library.dispose();throw error;}if(this.disposed){library.dispose();return;}this.loaded.set(family,{library});this.preview(this.previewProp);this.onReady();}).catch(error=>{if(!this.disposed)this.onError(error);});this.pending.set(family,pending);return;}\n";
     text = once(text, anchor, loaded + anchor, 'Shared road vehicle library');
     return once(text, 'gameplayIntegrated:true', "gameplayIntegrated:family!=='road-vehicle'", 'Road vehicle host binding');
   }

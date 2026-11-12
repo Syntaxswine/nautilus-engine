@@ -15,9 +15,12 @@ const previousFetch=globalThis.fetch;let fetchCalls=0;globalThis.fetch=()=>{fetc
 let Assets;try{Assets=await import(expected.specifier);}finally{globalThis.fetch=previousFetch;}assert.equal(fetchCalls,0);assert.equal(typeof globalThis.window,'undefined');assert.equal(typeof globalThis.document,'undefined');
 const records=Assets.listSharedArtwork();assert.equal(token(records),fixture.canonicalRecordsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkDefaults(p))),fixture.defaultGraphicsDigest);assert.equal(token(fixture.pins.map(p=>Assets.sharedArtworkImage(p))),fixture.imageDeliveryDigest);
 const all=Assets.listSharedAssets(),railway=Assets.listSharedAssets({category:'Railway'}),reviewed=fixture.railway;
-assert.equal(all.length,reviewed.precedingRows+reviewed.ids.length);
+const vehicles=Assets.listSharedAssets({category:'Vehicles'}),vehiclePins=fixture.roadVehicles,vehicleStart=reviewed.precedingRows+reviewed.ids.length;
+assert.equal(vehicles.length,vehiclePins.count);assert.equal(token(vehicles),vehiclePins.rowsDigest,'Reviewed complete vehicle metadata');
+assert.equal(all.length,vehicleStart+vehiclePins.count);
 assert.equal(token(all.slice(0,reviewed.precedingRows)),reviewed.precedingRowsDigest,'Complete catalogue before Railway');
-assert.deepEqual(all.slice(reviewed.precedingRows),railway,'Railway adds only its reviewed rows at the end');
+assert.deepEqual(all.slice(reviewed.precedingRows,vehicleStart),railway,'Railway retains its exact two reviewed rows');
+assert.deepEqual(all.slice(vehicleStart),vehicles,'Only the reviewed 24 vehicle rows follow Railway');
 assert.deepEqual(railway.map(row=>row.id),reviewed.ids);
 assert.equal(token(railway),reviewed.rowsDigest,'Reviewed Railway rows');
 assert.equal(token(all.slice(0,407)),fixture.originalAssetRowsDigest);assert.equal(token(Assets.listSharedAssets({category:'Artwork'})),fixture.discoveryRowsDigest);assert.equal(Assets.listSharedAssets({category:'Buildings'}).length,61);
