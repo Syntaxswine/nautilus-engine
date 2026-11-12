@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {historicalPlayerRegistrationBytes} from './player-setup-registration.mjs';
 
 export const RAILWAY_ROUTE_BASE = 'e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35';
 export const RAILWAY_ROUTE_SCHEMA = 'schemas/railway-routes-v1.schema.json';
@@ -64,6 +65,7 @@ const additions = {
 };
 
 export function historicalRailwayRouteBytes(object, file, current) {
+  current=historicalPlayerRegistrationBytes(object,file,current);
   if (!Object.hasOwn(additions, file)) return current;
   const before = object(RAILWAY_ROUTE_BASE, file);
   assert.ok(current.equals(Buffer.from(additions[file](before.toString('utf8')))),

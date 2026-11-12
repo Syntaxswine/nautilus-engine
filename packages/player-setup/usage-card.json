@@ -1,0 +1,35 @@
+{
+  "id": "nautilus-player-setup",
+  "version": 1,
+  "status": "registered optional component; reviewed compatibility baseline and implementation recorded separately",
+  "headlessEntry": "@nautilus-engine/map-core/player-setup",
+  "browserEntry": "@nautilus-engine/map-core/player-setup/browser",
+  "guide": "README.md",
+  "types": [
+    "index.d.ts",
+    "browser.d.ts"
+  ],
+  "configuration": "nautilus-player-setup:1",
+  "checkpoint": "nautilus-player-setup-checkpoint:1",
+  "provides": [
+    "executable registered defaults",
+    "unique semantic provider closure",
+    "generated full-recipe menu and agent API",
+    "guarded replacement",
+    "native actor startup",
+    "retained train-yard service bridge"
+  ],
+  "owns": "only newly created providers, UI and native view",
+  "borrows": "retained command/world/time/render/save authority",
+  "verification": "Command receipts do not verify mission objectives; authoritative observations are separate and are not supplied by this candidate.",
+  "unsupported": [
+    "universal objectives",
+    "unreviewed models or animation roles",
+    "implicit reset or healing",
+    "silent unsupported map features"
+  ],
+  "source": "source.json",
+  "evidence": "Source-only accepted review and docs/player-setup.md integration handoff",
+  "reviewedRuntime": "62f2fe90210b10985f80d75d9e4425f424a51c6b",
+  "compatibilityBaseline": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+}

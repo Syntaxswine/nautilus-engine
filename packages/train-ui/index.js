@@ -10,17 +10,18 @@ const sameContract = value => value?.id === TRAIN_SESSION_CONTRACT.id && value?.
 const keyOf = s => JSON.stringify([s.actorId, s.mode, s.trainId, s.carId, s.entranceId, s.cabFacing, s.expected.occupancyRevision]);
 const clone = value => structuredClone(value);
 const clamp = value => Math.max(0, Math.min(1, value));
+let presenterSequence=0;
 
 /** Candidate DOM client for frozen connector32cce61. It owns no train clock,
  * occupancy, permission, walking implementation, renderer or persistence. */
 export function mountTrainControls(container, {
   session, actorId, walkingElement, setWalkingEnabled, focusWalking = () => walkingElement.focus(),
   newId = kind => `train-ui/${kind}/${globalThis.crypto.randomUUID()}`,
-  initialPower = .35, muted = false, steamProfile = 'classic', onError = () => {}
+  initialPower = .35, muted = false, steamProfile = 'classic', actionPresentation = 'internal', onError = () => {}
 } = {}) {
   const doc = container?.ownerDocument, win = doc?.defaultView;
   if (!doc || !sameContract(session?.contract) || typeof session?.readForActor !== 'function' || typeof session?.dispatch !== 'function' || typeof session?.subscribe !== 'function') throw failure('Bind the version1 train connector and an owned HUD slot.');
-  if (typeof actorId !== 'string' || !actorId || !walkingElement || walkingElement.parentNode !== container || typeof setWalkingEnabled !== 'function' || typeof focusWalking !== 'function' || typeof newId !== 'function' || typeof muted !== 'boolean' || !['classic','compact-notched'].includes(steamProfile) || !Number.isFinite(initialPower) || initialPower < 0 || initialPower > 1) throw failure('Supply one actor, the borrowed walking element/input callback, and valid UI options.');
+  if (typeof actorId !== 'string' || !actorId || !walkingElement || walkingElement.parentNode !== container || typeof setWalkingEnabled !== 'function' || typeof focusWalking !== 'function' || typeof newId !== 'function' || typeof muted !== 'boolean' || !['classic','compact-notched'].includes(steamProfile) || !['internal','external'].includes(actionPresentation) || !Number.isFinite(initialPower) || initialPower < 0 || initialPower > 1) throw failure('Supply one actor, the borrowed walking element/input callback, and valid UI options.');
   const element = doc.createElement('div');
   element.className = 'nautilus-train-controls';
   element.innerHTML = VIEW_HTML;
@@ -97,6 +98,7 @@ export function mountTrainControls(container, {
     try { setWalkingEnabled(enabled); } catch (error) { fault = true;walkingElement.hidden = true;walkingElement.inert = true;report(error, 'walking-input'); }
   }
   function renderActions(target, list, unavailable) {
+    if (actionPresentation==='external') {target.hidden=true;target.replaceChildren();return;}
     const key = JSON.stringify([unavailable, list, context]);
     if (target.dataset.renderKey === key) return;
     target.dataset.renderKey = key;target.replaceChildren();
@@ -135,7 +137,7 @@ export function mountTrainControls(container, {
     // The callback must clear held walking keys when disabled. Hidden controls
     // alone do not retire the game's movement input.
     setWalking(snapshot.mode === 'on-foot' && snapshot.walkingAllowed && !unavailable);
-    entry.hidden = snapshot.mode !== 'on-foot' || !snapshot.actions.some(a => a.command.type === 'enter');
+    entry.hidden = actionPresentation==='external' || snapshot.mode !== 'on-foot' || !snapshot.actions.some(a => a.command.type === 'enter');
     renderActions(actions, snapshot.actions.filter(a => a.command.type === 'enter'), unavailable);
     const exits = snapshot.actions.filter(a => a.command.type === 'exit');
     renderActions(part('exit-actions'), exits, unavailable);renderActions(part('rider-exit-actions'), exits, unavailable);
@@ -194,7 +196,7 @@ export function mountTrainControls(container, {
     if (inputBlocked() || stamp !== context || dispatching) return false;
     if (command.type==='exit') reverseIntent?.cancel();
     const id = newId(command.type);if (stamp !== context || disposed) return false;
-    const result = send({...clone(command), commandId: id});flushReleases();return result?.committed === true;
+    const result = send({...clone(command), commandId: id});flushReleases();return result;
   }
   function drive(event,shiftBefore = snapshot) {
     const held = lease;if (!held || inputBlocked()) return;
@@ -303,7 +305,7 @@ export function mountTrainControls(container, {
     const editable = event.target.closest('input, select, textarea, [contenteditable="true"]');if (editable && editable !== power) return;
     const key = event.key.toLowerCase();
     feedback.unlock(event);
-    if (key === 'e' && !event.repeat) { const eligible = snapshot?.actions.filter(a => a.enabled && a.command.type === (snapshot.mode === 'on-foot' ? 'enter' : 'exit')) || [];if (eligible.length === 1) { event.preventDefault();performAction(eligible[0].command); }else if (eligible.length > 1) tell('Choose an entrance button.');return; }
+    if (actionPresentation==='internal' && key === 'e' && !event.repeat) { const eligible = snapshot?.actions.filter(a => a.enabled && a.command.type === (snapshot.mode === 'on-foot' ? 'enter' : 'exit')) || [];if (eligible.length === 1) { event.preventDefault();performAction(eligible[0].command); }else if (eligible.length > 1) tell('Choose an entrance button.');return; }
     if (snapshot?.mode !== 'driver') return;
     if (['f', 'n', 'r'].includes(key) && !event.repeat) { event.preventDefault();if (compact()) chooseNotch({f:1,n:2,r:3}[key],event);else chooseDirection({f: 'forward', n: 'neutral', r: 'reverse'}[key]); }
     else if ((key === 'arrowup' || key === 'arrowdown') && event.target !== power) { event.preventDefault();if (compact()) {if(!event.repeat)chooseNotch(Math.max(0,Math.min(3,notch+(key==='arrowup'?-1:1))),event);}else choosePower(presetPower + (key === 'arrowup' ? .1 : -.1)); }
@@ -319,7 +321,45 @@ export function mountTrainControls(container, {
   try { unsubscribe = session.subscribe(refresh);if (typeof unsubscribe !== 'function') throw failure('The connector subscription must return its disposer.'); }
   catch (error) { events.abort();reverseIntent.dispose();feedback.dispose();element.remove();throw error; }
   refresh();
+  const reject=(code,reason)=>({version:1,ok:false,committed:false,code,reason});
+  // Custom command-ID hosts do not need randomUUID/secure-context support.
+  const presenterId=typeof win.crypto?.getRandomValues==='function'?Array.from(win.crypto.getRandomValues(new Uint32Array(4)),n=>n.toString(36)).join('/') : prefix+'/presenter/'+(++presenterSequence);let offeredKey='',offerRevision=0;
+  function actionToken() {const key=JSON.stringify([context,snapshot?.expected,snapshot?.actions]);if(key!==offeredKey){offeredKey=key;offerRevision++;}return presenterId+'/actions/'+offerRevision;}
+  const controlToken=()=>context===null?null:presenterId+'/control/'+JSON.stringify([context,lease?.id||null,snapshot?.train?.controls.leaseId||null,snapshot?.expected.controlRevision]);
+  function presenterEvent(event) {
+    // Public intent data cannot manufacture audio/user activation. Require a
+    // branded native event currently being delivered in this document.
+    try {Object.getOwnPropertyDescriptor(win.Event.prototype,'type').get.call(event);return event instanceof win.Event&&event.isTrusted&&event.eventPhase>0?event:undefined;}catch{return undefined;}
+  }
+  function requestGuard(token,actions=false) {
+    if(disposed)return reject('DISPOSED','This train control has retired.');
+    refresh();
+    if(inputBlocked())return reject('INPUT_BLOCKED','Close the menu or reconnect before acting.');
+    if(token!==(actions?actionToken():controlToken()))return reject('STALE_CONTEXT','Read the current action/control view and try again.');
+    return null;
+  }
   return Object.freeze({element, refresh, releaseInput,
+    readActionView() {refresh();return Object.freeze({version:1,actorId:currentActor,context:actionToken(),mode:snapshot?.mode||null,blocked:inputBlocked(),actions:clone(snapshot?.actions||[])});},
+    requestAction(actionId,token,event) {
+      const denied=requestGuard(token,true);if(denied)return denied;
+      const action=snapshot.actions.find(a=>a.id===actionId);if(!action)return reject('UNKNOWN_ACTION','This action is no longer offered.');
+      if(!action.enabled)return reject(action.code||'INELIGIBLE',action.reason||'This action is unavailable.');
+      feedback.unlock(presenterEvent(event));const result=performAction(action.command);return result?{version:1,...clone(result)}:reject('CONNECTION_FAULT','The action could not be acknowledged.');
+    },
+    readControlView() {refresh();return Object.freeze({version:1,actorId:currentActor,context:controlToken(),mode:snapshot?.mode||null,compact:compact(),blocked:inputBlocked()});},
+    requestControl(intent,token,event) {
+      const denied=requestGuard(token);if(denied)return denied;
+      if(snapshot.mode!=='driver')return reject('NOT_DRIVER','Only the active driver can use train controls.');
+      event=presenterEvent(event);const before=lastResult;feedback.unlock(event);
+      if(intent?.kind==='notch'&&compact()&&Number.isInteger(intent.notch)&&intent.notch>=0&&intent.notch<=3)chooseNotch(intent.notch,event);
+      else if(intent?.kind==='direction'&&!compact()&&['forward','neutral','reverse'].includes(intent.direction))chooseDirection(intent.direction);
+      else if(intent?.kind==='power'&&!compact()&&Number.isFinite(intent.power)&&intent.power>=0&&intent.power<=1)choosePower(intent.power);
+      else if(intent?.kind==='brake'){if(begin('brake',event))releaseInput('requested-brake-pulse');}
+      else if(intent?.kind==='pulse-power'&&!compact()){if(begin('power',event))releaseInput('requested-power-pulse');}
+      else if(intent?.kind==='release')releaseInput('requested-release');
+      else return reject('UNSUPPORTED_CONTROL','Use a control supported by this driving profile.');
+      return lastResult!==before?{version:1,...clone(lastResult)}:{version:1,ok:!fault,committed:false,code:fault?'CONNECTION_FAULT':null,reason:fault?'Train input is unavailable.':null};
+    },
     setBlocked(value) { if (disposed) return;blocked = !!value;if (blocked) releaseInput('modal-or-paused');render(); },
     setMuted(value) { if (disposed) return;feedback.setMuted(value);render(); },
     setActor(value) { if (disposed) return;if (typeof value !== 'string' || !value) throw failure('Supply the current actor ID.');if (value === currentActor) return;releaseInput('actor-change');currentActor = value;context = null;selectedDirection = 'neutral';message = '';refresh(); },

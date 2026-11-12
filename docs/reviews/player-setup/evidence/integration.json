@@ -1,0 +1,755 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-11-12T07:08:46.918Z",
+  "implementationCommit": "ec41dbca26b7df26336a20d84e22fe47b6db9d2d",
+  "workingTip": "ec41dbca26b7df26336a20d84e22fe47b6db9d2d",
+  "gates": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "evidence": {
+        "path": "artifacts/player-setup-integration/check.log",
+        "bytes": 27497,
+        "sha256": "b276ac31650bced66a856466ba116e8f4397e8d805101611df173219819a2161"
+      },
+      "recordedLog": {
+        "path": "docs/reviews/player-setup/evidence/check.log",
+        "bytes": 27497,
+        "sha256": "b276ac31650bced66a856466ba116e8f4397e8d805101611df173219819a2161"
+      }
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "evidence": {
+        "path": "artifacts/player-setup-integration/test.log",
+        "bytes": 137152,
+        "sha256": "06fbcc058978b4b0366b5cf34f58314c607c8228b63f302524cf88a94af18aea"
+      },
+      "recordedLog": {
+        "path": "docs/reviews/player-setup/evidence/test.log",
+        "bytes": 137152,
+        "sha256": "06fbcc058978b4b0366b5cf34f58314c607c8228b63f302524cf88a94af18aea"
+      }
+    },
+    {
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "evidence": {
+        "path": "artifacts/player-setup-integration/test-upstream.log",
+        "bytes": 3143,
+        "sha256": "844529511db90888f4f880257becfa79c24eb3a895e958dcc07179123414609f"
+      },
+      "recordedLog": {
+        "path": "docs/reviews/player-setup/evidence/test-upstream.log",
+        "bytes": 3143,
+        "sha256": "844529511db90888f4f880257becfa79c24eb3a895e958dcc07179123414609f"
+      }
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "evidence": {
+        "path": "artifacts/player-setup-integration/build.log",
+        "bytes": 378,
+        "sha256": "ff08479ca7c004e2c91a506cbb126712bd9e9ef3e8c661465554a2044fc0992b"
+      },
+      "recordedLog": {
+        "path": "docs/reviews/player-setup/evidence/build.log",
+        "bytes": 378,
+        "sha256": "ff08479ca7c004e2c91a506cbb126712bd9e9ef3e8c661465554a2044fc0992b"
+      }
+    }
+  ],
+  "proof": [
+    {
+      "path": "artifacts/player-setup-yard/browser.json",
+      "bytes": 1252,
+      "sha256": "f490665cdf89a0db6ff5a13360086be953abd0432188e8c33bea1c303351b2c1"
+    },
+    {
+      "path": "artifacts/player-setup-yard-built/browser.json",
+      "bytes": 1251,
+      "sha256": "003b5109d1b06f04bf9d8a31bb0e6c923a74c526fb29e220d2f6fade7aec5f12"
+    },
+    {
+      "path": "artifacts/installed-player-setup/latest.json",
+      "bytes": 1857,
+      "sha256": "e7b3f43511457173e37e3c2d5914858c02e1b9f641870cadc941c798c24a9d96"
+    },
+    {
+      "path": "artifacts/player-setup-installed-full/browser.json",
+      "bytes": 18396,
+      "sha256": "92d7895f695a3212fd00a914cfeb3ac32c9184846647dd472529d1e36e9416a8"
+    }
+  ],
+  "reviewedRuntime": "62f2fe90210b10985f80d75d9e4425f424a51c6b",
+  "compatibilityBaseline": "7f50cb2a48aef87a16fc0465997549be9ed88dc2",
+  "runtimeFiles": 70,
+  "runtimeBytes": 2443433,
+  "resourceFiles": 13,
+  "resourceBytes": 7928238,
+  "runtimeUnchanged": true,
+  "retainedHostUnchanged": true,
+  "registration": {
+    "path": "docs/reviews/player-setup/registration.json",
+    "bytes": 4510,
+    "sha256": "793ca0a2f2083cbc3b24e96be6cd8ed9d6c44e211ed164d7ec9beccf086b88bb"
+  },
+  "applicationCode": [
+    {
+      "path": "examples/train-yard.js",
+      "bytes": 454,
+      "sha256": "c574241ea57ad65b42cb6af9b68045c300d0b0d32ad6ada2a50889ea8d7710e7"
+    },
+    {
+      "path": "examples/train-yard-application.js",
+      "bytes": 16195,
+      "sha256": "4962daf775cceda69e0bb32fefc633ce612290cdfb5224007426ffb4160d8fd1"
+    },
+    {
+      "path": "examples/train-yard-host.js",
+      "bytes": 13382,
+      "sha256": "902090288dd3c5ff9a4d122884355b5dc5a60e82cb35f48859b14c2a38a0a0aa"
+    },
+    {
+      "path": "tests/fixtures/player-setup/consumer-main.js",
+      "bytes": 2760,
+      "sha256": "5d9879dcf6d3d52412f986fc468f63cfb2e8c80bd99295162765c71cb63e43e3"
+    },
+    {
+      "path": "tests/fixtures/player-setup/consumer-host.js",
+      "bytes": 3698,
+      "sha256": "751b48dfc2cbc4e7e13eb60b31c02e60bf223f8ae002c7db68d351d1d686df4d"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/reviews/player-setup/evidence/yard-default.png",
+      "bytes": 320316,
+      "sha256": "07340786a7ad8b34ef636e7d13981665d0d47be60da22d3fdd2d9924c6c63fe6"
+    },
+    {
+      "path": "docs/reviews/player-setup/evidence/steam-shared-cab.png",
+      "bytes": 319304,
+      "sha256": "d3d1ff31e5a1a38d5b0e09501b21d2501320dcc263fc96ea9c423fedb7b5fa19"
+    },
+    {
+      "path": "docs/reviews/player-setup/evidence/yard-tinderbox-overview.png",
+      "bytes": 155165,
+      "sha256": "fe580d6c5ecb06cc100a53f10e313deacae9c47460b6feef157e694485774390"
+    },
+    {
+      "path": "docs/reviews/player-setup/evidence/phone-steam-cab.png",
+      "bytes": 109905,
+      "sha256": "29d1235911587c162481607fd95b4be07416aa6e6def434651581835b0c06036"
+    },
+    {
+      "path": "docs/reviews/player-setup/evidence/phone-electric-rider.png",
+      "bytes": 113645,
+      "sha256": "742010113d230c294a52ba3af861591dbcff0cb9cb50accdf2df886f881d7b12"
+    },
+    {
+      "path": "docs/reviews/player-setup/evidence/installed-complete-sdk.png",
+      "bytes": 473536,
+      "sha256": "828904d9194b4730143fc82a47f820e79a3c4f89a96e29e27eaa90f8a09529a5"
+    }
+  ],
+  "helpers": {
+    "lifetimes": 10,
+    "allExactLifetimesExited": true,
+    "allRecordedPortsReleased": true,
+    "retained": 0,
+    "records": [
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 35552,
+            "creationFiletime": "134389349535539863",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 70816,
+            "creationFiletime": "134389349540451039",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 52028,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T05:29:14.448Z",
+          "expiresAt": "2026-11-12T05:32:14.448Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T05:29:51.055Z",
+          "process": {
+            "pid": 35552,
+            "creationFiletime": "134389349535539863",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 70816,
+            "creationFiletime": "134389349540451039",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 52028,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 39356,
+            "creationFiletime": "134389350878272491",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 14428,
+            "creationFiletime": "134389350882615172",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 52871,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T05:31:28.641Z",
+          "expiresAt": "2026-11-12T05:34:28.641Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T05:31:40.193Z",
+          "process": {
+            "pid": 39356,
+            "creationFiletime": "134389350878272491",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 14428,
+            "creationFiletime": "134389350882615172",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 52871,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 39808,
+            "creationFiletime": "134389352600244659",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 57388,
+            "creationFiletime": "134389352603808803",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 51799,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T05:34:20.692Z",
+          "expiresAt": "2026-11-12T05:37:20.692Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T05:34:31.505Z",
+          "process": {
+            "pid": 39808,
+            "creationFiletime": "134389352600244659",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 57388,
+            "creationFiletime": "134389352603808803",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 51799,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 35828,
+            "creationFiletime": "134389371630241113",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 3876,
+            "creationFiletime": "134389371634947294",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 61181,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:06:03.892Z",
+          "expiresAt": "2026-11-12T06:11:03.892Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:07:29.356Z",
+          "process": {
+            "pid": 35828,
+            "creationFiletime": "134389371630241113",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 3876,
+            "creationFiletime": "134389371634947294",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 61181,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 70188,
+            "creationFiletime": "134389373112192206",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 35304,
+            "creationFiletime": "134389373116679467",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 49790,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:08:32.076Z",
+          "expiresAt": "2026-11-12T06:13:32.076Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:10:07.870Z",
+          "process": {
+            "pid": 70188,
+            "creationFiletime": "134389373112192206",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 35304,
+            "creationFiletime": "134389373116679467",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 49790,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 10424,
+            "creationFiletime": "134389377143281957",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 34664,
+            "creationFiletime": "134389377148069508",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 62069,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:15:15.230Z",
+          "expiresAt": "2026-11-12T06:20:15.230Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:15:25.723Z",
+          "process": {
+            "pid": 10424,
+            "creationFiletime": "134389377143281957",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 34664,
+            "creationFiletime": "134389377148069508",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 62069,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 66384,
+            "creationFiletime": "134389382653246502",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 16852,
+            "creationFiletime": "134389382657442233",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 51004,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:24:26.162Z",
+          "expiresAt": "2026-11-12T06:29:26.162Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:24:41.308Z",
+          "process": {
+            "pid": 66384,
+            "creationFiletime": "134389382653246502",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 16852,
+            "creationFiletime": "134389382657442233",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 51004,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 64496,
+            "creationFiletime": "134389390508979994",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 42608,
+            "creationFiletime": "134389390512463603",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 60881,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-yard",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:37:31.531Z",
+          "expiresAt": "2026-11-12T06:42:31.531Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:38:06.783Z",
+          "process": {
+            "pid": 64496,
+            "creationFiletime": "134389390508979994",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 42608,
+            "creationFiletime": "134389390512463603",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 60881,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 51628,
+            "creationFiletime": "134389397120812166",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 20344,
+            "creationFiletime": "134389397133592537",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 57669,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-yard-built\\STOP",
+          "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-yard.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-yard.mjs",
+              "--built"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Static dist/ tree built from project source",
+            "outputs": "artifacts/player-setup-yard-built",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T06:48:34.393Z",
+          "expiresAt": "2026-11-12T06:53:34.393Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Public player composition in the real two-circuit yard",
+          "stoppedAt": "2026-11-12T06:49:33.866Z",
+          "process": {
+            "pid": 51628,
+            "creationFiletime": "134389397120812166",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 20344,
+            "creationFiletime": "134389397133592537",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 57669,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      },
+      {
+        "record": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Definitive full package: independent public player/native/retained consumer",
+          "project": "Nautilus Engine",
+          "process": {
+            "pid": 66648,
+            "creationFiletime": "134389407869791841",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 21220,
+            "creationFiletime": "134389407885391129",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 54092,
+          "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\artifacts\\player-setup-installed-full\\STOP",
+          "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+          "sourceFiles": [
+            "tools/art-review-browser.mjs",
+            "tools/review-player-installed.mjs",
+            "package.json"
+          ],
+          "restart": {
+            "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+              "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\pintegration-builder\\tools\\review-player-installed.mjs"
+            ],
+            "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+            "inputs": "Project source tree and its referenced local assets",
+            "outputs": "artifacts/player-setup-installed-full",
+            "pendingWork": "Stateless review; no in-memory state is needed",
+            "secretReferences": []
+          },
+          "startedAt": "2026-11-12T07:06:29.615Z",
+          "expiresAt": "2026-11-12T07:09:29.615Z"
+        },
+        "receipt": {
+          "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+          "purpose": "Definitive full package: independent public player/native/retained consumer",
+          "stoppedAt": "2026-11-12T07:06:49.009Z",
+          "process": {
+            "pid": 66648,
+            "creationFiletime": "134389407869791841",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          "browser": {
+            "pid": 21220,
+            "creationFiletime": "134389407885391129",
+            "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "port": 54092,
+          "httpClosed": true,
+          "browserClosed": true,
+          "method": "Supported Playwright browser close and HTTP close in finally"
+        }
+      }
+    ]
+  },
+  "limits": {
+    "phone": "390px emulation; no physical-handset performance measurement",
+    "consumer": "Independent public manual-cab fixture; unsupported operator-driven rider service explicitly refuses",
+    "freshBuilderTimeMeasured": false,
+    "releaseStamped": false,
+    "consumerPinsChanged": false,
+    "futureGoldenFixtures": "Checklist documentation only; no fixture runner implemented"
+  }
+}

@@ -77,7 +77,7 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   // The reviewed private C2a source updates precisely these three unregistered
   // schemas. Every other headless/window/authoring/schema byte stays at3f602.
   for(const file of frozen){const expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,actual);}
-  const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=json('upstream.json'),{farmyardWindowArt:pin,...existing}=upstream;
+  const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=JSON.parse(historicalRailwayRouteBytes(object,'upstream.json',read('upstream.json'))),{farmyardWindowArt:pin,...existing}=upstream;
   assert.deepEqual(existing,before,'Pre-existing upstream pins must remain unchanged.');
   assert.ok(pin,'Register the explicit reference-only farmyardWindowArt pin.');
   for(const [key,value]of Object.entries({repository:manifest.repository,commit:sourceCommit,root:vendorRoot,manifest:referenceManifest}))assert.equal(pin[key],value,'farmyardWindowArt '+key);

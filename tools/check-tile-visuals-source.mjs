@@ -72,7 +72,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   });
   unchanged('packages/tiles-core/NOTICE.md',TILE_ART_ROOT_BASE);
   unchanged('packages/map-core/contract-manifest.js',TILE_ART_ROOT_BASE);
-  const currentUpstream=json('upstream.json'),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
+  const currentUpstream=JSON.parse(historicalRailwayRouteBytes(object,'upstream.json',read('upstream.json'))),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
   assert.deepEqual(currentUpstream,baseUpstream,'This registration adds no donor/game pin.');
   const optionalRegistration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
   const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports=withoutTileStackRegistration(optionalRegistration.historicalView.exports);

@@ -1,0 +1,13 @@
+import * as T from '@nautilus-engine/map-core/render-effects/three';
+import {createRailwayKit,createRailwayTrainView} from '@nautilus-engine/map-core/assets/three';
+import {mountPlayerSetup,createSetupConfiguration,bindSetupProvider,retainTrainYard,createRetainedFrameSource} from '@nautilus-engine/map-core/player-setup/browser';
+import {createConsumerHost} from './consumer-host.js';
+const fixture=await (await fetch('./fixture.json')).json(),host=createConsumerHost(fixture),canvas=document.querySelector('canvas'),renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(1);renderer.outputColorSpace=T.SRGBColorSpace;
+const scene=new T.Scene();scene.background=new T.Color(0x91ada5);scene.add(new T.HemisphereLight(0xf2eed8,0x3a5034,2.3));const sun=new T.DirectionalLight(0xffdfb2,3);sun.position.set(8,11,-3);scene.add(sun);const camera=new T.PerspectiveCamera(45,1,.1,700),kit=createRailwayKit(T),views=new Map();for(const r of fixture.routes)scene.add(kit.createCircuit(r.waypoints,r.radiusM).root);for(const t of host.read().trains){const v=createRailwayTrainView(T,t.state);views.set(t.stock,v);scene.add(v.root);}
+let paused=false,frame=0,last=0,stopped=false,rendererDisposals=0;const originalDispose=renderer.dispose.bind(renderer);renderer.dispose=()=>{rendererDisposals++;originalDispose();};
+const frames=createRetainedFrameSource(),surface={renderer,scene,camera,canvas,resize(){const r=canvas.getBoundingClientRect();if(canvas.width!==r.width||canvas.height!==r.height)renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();},draw(){for(const t of host.read().trains)views.get(t.stock).update(t.state);renderer.render(scene,camera);}};
+const provider=retainTrainYard({host,content:fixture.identity,surface,clock:frames,setUIPaused:v=>{paused=v;}}),configuration=bindSetupProvider(createSetupConfiguration({content:fixture.identity,trains:true}),provider);
+const setup=await mountPlayerSetup(document.querySelector('#game'),{content:{identity:fixture.identity,world:{widthM:240,depthM:180}},configuration,providers:[provider]});
+function tick(now){if(stopped)return;const seconds=Math.min(.05,(now-(last||now))/1000);last=now;frames.beforeStep(seconds,paused);if(!paused)host.advance(seconds);frames.afterStep(seconds,paused);frame=requestAnimationFrame(tick);}frame=requestAnimationFrame(tick);
+window.consumerPlayer={setup,host,renderer,fixture,read:()=>({rendererDisposals,hostDisposals:host.disposals}),stop(){stopped=true;cancelAnimationFrame(frame);},async dispose(){this.stop();await setup.dispose();views.forEach(v=>v.dispose());kit.dispose();host.dispose();renderer.dispose();}};
+addEventListener('pagehide',()=>{void window.consumerPlayer.dispose();},{once:true});
