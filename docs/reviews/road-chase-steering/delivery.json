@@ -195,7 +195,7 @@
     "Phone tests are browser viewport/touch emulation; no physical-device timing or FPS claim.",
     "Additional spatial cases use explicit public-host starting-pose fixtures; ordinary initial and phone loops use the direct example."
   ],
-  "evidenceHashScope": "Exact normalized LF text and unchanged binary bytes; verify against actual Git index before evidence commit.",
+  "evidenceHashScope": "Exact canonical LF text and unchanged binary bytes; the captured initial failure log also strips trailing horizontal whitespace. All sizes/hashes independently verified against Git index.",
   "evidence": [
     {
       "path": "README.md",
@@ -381,10 +381,11 @@
     },
     {
       "path": "gates/tests-initial-timeout.log",
-      "bytes": 140234,
-      "sha256": "2dc82f073e992e87d0348826dde31b88823a1876d320ea8ac97e7ddb7130ff7f",
+      "bytes": 140230,
+      "sha256": "462b53efa12b7638c01a4ce397bab7a311474ff584917bf2abbf6a9a64a9727c",
       "source": "artifacts/chase-tests.log",
-      "textLineEndings": "LF"
+      "textLineEndings": "LF",
+      "textNormalization": "LF; trailing horizontal whitespace removed from the captured assertion log"
     },
     {
       "path": "gates/procedural-package-isolated.log",
