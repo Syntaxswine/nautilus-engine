@@ -87,6 +87,7 @@ export function tileAuthoringInstalledHostPlan({files}){
 }
 
 const extraVerificationFiles=[
+ 'tools/c1-checkpoint-fixture.mjs',
  'tools/shared-artwork-registration.mjs',
  'tools/train-registration.mjs',
  'tools/editor-review-tile-authoring-c1.mjs','tools/verify-tile-authoring-editor-review.mjs',
@@ -108,7 +109,7 @@ export async function tileAuthoringReviewInputModel({projectRoot}={}){
  assert.equal(c1.sourceCommit,TILE_AUTHORING_REVIEW_LINEAGE.editor);assert.equal(c1.uiOrigin,TILE_AUTHORING_REVIEW_LINEAGE.ui);assert.equal(c1.coreSource,TILE_AUTHORING_REVIEW_LINEAGE.core);assert.equal(c1.coreEvidence,TILE_AUTHORING_REVIEW_LINEAGE.coreEvidence);assert.equal(c1.status,TILE_AUTHORING_REVIEW_LINEAGE.sourceModelStatus);
  assert.equal(c1.runtimeCheckpoint,TILE_AUTHORING_REVIEW_LINEAGE.editorRuntime);assert.equal(c1.runtimeFiles.length,14);assert.equal(c1.files.length,39);assert.equal(c1.namespaceFiles.length,10);assert.deepEqual(Object.keys(c1.sharedOverrides),['apps/editor/smart-tile/checkpoint.js','apps/editor/smart-tile/session.js']);
  const artworkBuild=sharedArtworkBuildBytes({object:(commit,file)=>execFileSync('git',['-c','safe.directory='+root.replaceAll('\\','/'),'-C',root,'show',commit+':'+file],{windowsHide:true,timeout:30000,maxBuffer:2*1024*1024})});assert.ok(artworkBuild.before.equals(c1.buildAdaptation.expectedBuffer));
- for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(r.path==='tools/build.mjs'?playerSetupRootBytes('tools/build.mjs',trainBuildBytes(artworkBuild.expected)):r.expectedBuffer),'Unauthenticated C1 input: '+r.path);
+ for(const r of [...c1.files,...c1.coreFiles,...c1.dependencyEvidenceFiles,...c1.helperFiles,c1.metadata])assert.ok(reviewRead(root,r.path).equals(['tools/build.mjs','tools/editor-review-tile-authoring-c1.mjs'].includes(r.path)?playerSetupRootBytes(r.path,r.path==='tools/build.mjs'?trainBuildBytes(artworkBuild.expected):r.expectedBuffer):r.expectedBuffer),'Unauthenticated C1 input: '+r.path);
  assert.deepEqual(namespace(root,c1Namespace),c1Runtime.sort());
  const hostFiles=tileAuthoringReviewHostFiles(b2.hostFiles);assert.equal(hostFiles.length,44);const hostPlan=tileAuthoringInstalledHostPlan({files:new Map(hostFiles.map(f=>[f,reviewRead(root,f)]))});
  const {moduleClosure,distribution}=await import(pathToFileURL(path.join(root,'tools/distribution.mjs')).href);

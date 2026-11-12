@@ -19,6 +19,7 @@ test('registration refuses an extra root export and an unrelated profile delta',
   const p=ports();p.read=file=>{if(file!=='package.json')return read(file);const pkg=JSON.parse(read(file));pkg.exports['./unreviewed']='./packages/player-setup/browser.js';return Buffer.from(JSON.stringify(pkg,null,2)+'\n');};assert.throws(()=>checkPlayerSetupRegistration(p),/root bytes/);
   const q=ports();q.distribution=profile=>{const d=plan(profile);if(profile==='core')d.exports['./player-ui']='./packages/player-ui/index.js';return d;};assert.throws(()=>checkPlayerSetupRegistration(q),/profile exports/);
   const upstream=JSON.parse(read('upstream.json'));upstream.aft.commit='0'.repeat(40);assert.throws(()=>historicalPlayerRegistrationBytes(object,'upstream.json',Buffer.from(JSON.stringify(upstream,null,2)+'\n')),/root bytes/);
+  for(const file of ['tools/c1-checkpoint-fixture.mjs','tools/editor-review-tile-authoring-c1.mjs']){const changed=ports();changed.read=name=>name===file?Buffer.concat([read(name),Buffer.from('changed')]):read(name);assert.throws(()=>checkPlayerSetupRegistration(changed),/C1 fixture source changed|root bytes/);}
 });
 test('composed historical artwork checks still reject unrelated immutable payload drift',()=>{
   const p=ports(),file='assets/artwork/local-graphics-v1/resources/organic-marks-v1.png';p.read=name=>name===file?Buffer.concat([read(name),Buffer.from('changed')]):read(name);assert.throws(()=>checkSharedArtworkRegistration(p),/shared artwork|railway bytes/i);
