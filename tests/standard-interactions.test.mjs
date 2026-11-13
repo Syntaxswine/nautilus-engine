@@ -43,8 +43,8 @@ test('opening ignores the opener and another actor in the swing area; closing st
 test('an overlapping open leaf never relocates its operator and permits ordinary escape on either side',()=>{
  for(const movementProfile of ['legacy-box-stop-v1','disc-slide-v1'])for(const direction of [-1,1]){
   const {state,actor,world}=setup();actor.position={x:4.7,y:4.2,h:0};const queries=createInteractionQueries(world,{movementProfile});const p=previewInteraction(state,actor,{targetId:'yard-gate'},queries),r=applyInteraction(state,actor,p.command,queries);assert.ok(r.ok);assert.deepEqual(r.actor.position,actor.position);assert.equal(r.actor.revision,actor.revision+1);assert.equal(queries.walk({state:r.state,actor:r.actor,from:r.actor.position,to:r.actor.position}).ok,true,'The exact open-overlap save pose remains valid.');
-  const moved=walkActor(r.state,r.actor,{direction:{x:0,y:direction},seconds:.5},queries);assert.ok(moved.ok);assert.equal(moved.actor.position.y,4.2+direction);assert.deepEqual(moved.events,[]);assert.deepEqual(moved.state,r.state);
-  const back=walkActor(r.state,moved.actor,{direction:{x:0,y:-direction},seconds:.5},queries);assert.ok(Math.abs(back.actor.position.y-4.2)>=.31-1e-6);assert.equal(back.state.doors[0].open,true);
+  const moved=walkActor(r.state,r.actor,{direction:{x:0,y:direction},seconds:1/r.actor.speedMps},queries);assert.ok(moved.ok);assert.equal(moved.actor.position.y,4.2+direction);assert.deepEqual(moved.events,[]);assert.deepEqual(moved.state,r.state);
+  const back=walkActor(r.state,moved.actor,{direction:{x:0,y:-direction},seconds:1/r.actor.speedMps},queries);assert.ok(Math.abs(back.actor.position.y-4.2)>=.31-1e-6);assert.equal(back.state.doors[0].open,true);
  }
 });
 test('swept movement stops at a closed door; opening makes the portal usable',()=>{
@@ -59,7 +59,7 @@ test('stairs move continuously, preserve a mid-flight save and confirm a floor o
   const {state,actor,queries}=setup();actor.position.x=5.5;
   const p=previewInteraction(state,actor,{targetId:'deck-stairs'},queries);assert.equal(p.ok,true);
   let step=applyInteraction(state,actor,p.command,queries);assert.equal(step.actor.position.x,5.5);
-  step=advanceTraversal(step.state,step.actor,{seconds:.75},queries);assert.ok(step.actor.position.h>0&&step.actor.position.h<2.12);assert.equal(step.actor.floorId,'floor-0');
+  step=advanceTraversal(step.state,step.actor,{seconds:1.5/step.actor.speedMps},queries);assert.ok(step.actor.position.h>0&&step.actor.position.h<2.12);assert.equal(step.actor.floorId,'floor-0');
   let a={state:openInteractionState(serializeInteractionState(step.state)),actor:openInteractionActor(serializeInteractionActor(step.actor))},b=structuredClone(a);
   for(let index=0;index<20&&a.actor.traversal;index++){
     a=advanceTraversal(a.state,a.actor,{seconds:.25},queries);b=advanceTraversal(b.state,b.actor,{seconds:.25},queries);assert.equal(a.ok,true);assert.deepEqual(a,b);
@@ -108,7 +108,7 @@ test('invalid saves, changed routes, stale actor positions and nonfinite time re
 });
 test('the reference host restores closed/open doors and a complete mid-stair save',()=>{
   let host=createStarterHost();assert.equal(host.interact('yard-gate').ok,true);
-  for(let i=0;i<6;i++)assert.equal(host.walk(1,0).ok,true);
+  for(let i=0;i<6;i++)assert.equal(host.walk(1,0,.5/host.actor.speedMps).ok,true);
   assert.equal(host.interact('deck-stairs').ok,true);host.advance(.75);
   const saved=host.save(),restored=createStarterHost(saved);assert.deepEqual(restored.actor,host.actor);assert.deepEqual(restored.state,host.state);
   assert.equal(restored.state.doors[0].open,true);assert.equal(host.save(),saved);
@@ -120,7 +120,7 @@ test('revision exhaustion returns unchanged state and all successful movement ca
  const bad=applyInteraction(f.state,f.actor,{...p.command,actorRevision:0,kind:undefined},f.queries);assert.equal(bad.ok,false);assert.deepEqual(bad.state,f.state);
 });
 
-function atStarterStairs(){const host=createStarterHost();assert.equal(host.interact('yard-gate').ok,true);for(let index=0;index<6;index++)assert.equal(host.walk(1,0).ok,true);return host;}
+function atStarterStairs(){const host=createStarterHost();assert.equal(host.interact('yard-gate').ok,true);for(let index=0;index<6;index++)assert.equal(host.walk(1,0,.5/host.actor.speedMps).ok,true);return host;}
 for(const [action,prepare,run]of [
  ['door interaction',()=>createStarterHost(),host=>host.interact('yard-gate')],
  ['walking',()=>createStarterHost(),host=>host.walk(-1,0,.1)],

@@ -38,7 +38,7 @@ export function verifyDriving(objective,baseline,state){
 export function exerciseDriving(host,fixture){
  const connector=host.connector,expected=()=>connector.readForActor('player').expected,command=(type,rest={})=>connector.dispatch({version:1,type,actorId:'player',expected:expected(),...rest});
  const receipts=[],step=(count,throttle,steering=0)=>{receipts.push(command('control',{owner:'golden',held:true,throttle,steering}));for(let i=0;i<count;i++)host.advance(.05);};
- if(fixture.course==='walking-slide'){for(let i=0;i<30;i++){receipts.push(host.walk('player',{x:1,y:1},.05));host.advance(.05);}return {receipts};}
+ if(fixture.course==='walking-slide'){for(let i=0;i<30;i++){receipts.push(host.walk('player',{x:1,y:1},.15/host.read().actor.speedMps));host.advance(.05);}return {receipts};}
  receipts.push(command('board',{vehicleId:'compact',seatId:'driver'}));
  if(fixture.course==='handling'){
   step(18,1);step(10,1,1);step(10,1,-1);connector.release('golden');for(let i=0;i<20;i++)host.advance(.05);step(18,-1);connector.release('golden');for(let i=0;i<20;i++)host.advance(.05);receipts.push(command('exit'));

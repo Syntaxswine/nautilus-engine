@@ -1,4 +1,5 @@
 import raw from './content-data.json' with {type:'json'};
+import {DEFAULT_WALK_SPEED_MPS} from '@nautilus-engine/map-core/interactions';
 import {clone,freeze,insist,fields,canonical} from './data.js';
 import {DRIVING_CAPABILITIES,drivingContent,drivingSpawn} from './driving.js';
 
@@ -59,7 +60,7 @@ export function plotContent(selection) {
 export function contentFor(recipe,spawn=REGISTRY.spawn) {
   return {kind:'nautilus-player-content',version:1,identity:clone(identity),world:{id:'night-ledger-ground',name:REGISTRY.name,widthM:64,depthM:64,floorCount:1,storyHeightM:REGISTRY.storyHeightM,groundHeightM:0,heightM:6},
     surfaces:[box('ground',0,0,0,64,64,0,true),...recipe.plots.flatMap(p=>plotContent(p).surfaces),...drivingContent(REGISTRY,recipe,box).surfaces],
-    interactions:{doors:recipe.plots.map(p=>plotContent(p).door),stairs:[]},actors:[{id:'player',floorId:'floor-0',position:clone(spawn),radiusM:.28,heightM:1.8,speedMps:3}],
+    interactions:{doors:recipe.plots.map(p=>plotContent(p).door),stairs:[]},actors:[{id:'player',floorId:'floor-0',position:clone(spawn),radiusM:.28,heightM:1.8,speedMps:DEFAULT_WALK_SPEED_MPS}],
     resources:{player:clone(REGISTRY.resources)},vehicles:drivingContent(REGISTRY,recipe,box).vehicles,appearance:{ground:0x667c61,sky:0x92aca5}};
 }
 export function goldenRecipe(fixture,recipe) {
