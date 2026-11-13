@@ -18,6 +18,13 @@ cost from this result, never from requested or rejected displacement. Support an
 world bounds are still required along every segment. The default
 `legacy-box-stop-v1` retains the existing square stop behavior.
 
+Standard door opening ignores actor occupancy of its swing envelope; closing
+retains occupancy protection. An actor already overlapped by an open leaf may
+move out voluntarily, without relocation or new saved state. The exception ends
+on clearing the leaf; subsequent segments cannot re-enter it. Other geometry,
+actors, traversal bodies, support and world bounds remain authoritative. Exact
+saved open-leaf overlaps retain this same escape behavior on reload.
+
 Static candidate queries cover the full bounded reachable travel envelope. A
 rounded contact can deflect motion outside its original straight sweep; every
 secondary segment must still see walls there. Cars return their accepted

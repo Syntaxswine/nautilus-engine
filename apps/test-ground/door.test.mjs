@@ -1,0 +1,27 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {createGroundHost} from './host.js';import {runFixture} from './runner.js';
+import {REGISTRY,defaultRecipe,fixtureById,fixtureSpawn} from './registry.js';
+const near=()=>fixtureSpawn(fixtureById('golden-door-threshold'));
+
+test('near-threshold East door opens once, retains closing protection and permits actual passage',()=>{
+ const h=createGroundHost({spawn:near()});try{const before=h.read(),offer=h.actions.read().actions.find(a=>a.id==='east/door/open');assert.equal(offer.enabled,true);assert.equal(h.passage('east').ok,false);const cmd={commandId:'threshold-open',actionId:offer.id,offer:h.offer()},receipt=h.requestAction(cmd);assert.ok(receipt.ok);const opened=h.read();assert.equal(opened.resources.ap,before.resources.ap-REGISTRY.policy.openDoorAP);assert.equal(opened.events.filter(e=>e.type==='door-opened').length,1);assert.equal(h.passage('east').ok,true);assert.deepEqual(opened.actor.position,before.actor.position);
+  const closing=h.actions.read().actions.find(a=>a.id==='east/door/close');assert.equal(closing.enabled,false);assert.equal(h.requestAction({commandId:'blocked-close',actionId:closing.id,offer:h.offer()}).code,'DOOR_OCCUPIED');assert.deepEqual(h.read(),opened);assert.equal(h.requestAction(cmd).repeated,true);assert.deepEqual(h.read(),opened);assert.equal(h.requestAction({...cmd,commandId:'stale-open'}).code,'STALE_ACTION');
+  for(let i=0;i<5;i++)assert.ok(h.walk('player',{x:0,y:-1},.1).ok);const crossed=h.read();assert.ok(crossed.actor.position.y+crossed.actor.radiusM<crossed.interactions.doors[1].position.y);assert.ok(crossed.traversal.walkDistanceM>=1.4);assert.deepEqual(crossed.resources,opened.resources);assert.deepEqual(crossed.events,opened.events);
+ }finally{h.dispose();}
+});
+
+test('failed opening persistence rolls back all authority and exact retry/save reload cannot duplicate cost or events',()=>{
+ let fail=true,saved;const h=createGroundHost({spawn:near(),persist:s=>{if(fail)throw Error('opening storage refused');saved=s;}});try{const cmd={commandId:'durable-open',actionId:'east/door/open',offer:h.offer()},before=h.save();assert.equal(h.requestAction(cmd).ok,false);assert.equal(h.save(),before);fail=false;assert.ok(h.requestAction(cmd).ok);assert.deepEqual(saved,h.read());const exact=h.save(),restored=createGroundHost({checkpoint:JSON.parse(exact)});try{assert.equal(restored.save(),exact);assert.equal(restored.requestAction(cmd).repeated,true);assert.equal(restored.save(),exact);assert.equal(restored.read().events.length,1);assert.equal(restored.read().resources.ap,8);}finally{restored.dispose();}}finally{h.dispose();}
+});
+
+test('an operator overlapped by the genuine East open leaf can save/reload exactly and walk out without relocation',()=>{
+ const h=createGroundHost({spawn:{x:47.45,y:27.3,h:0}});try{const before=h.read();assert.ok(h.requestAction({commandId:'overlap-open',actionId:'east/door/open',offer:h.offer()}).ok);const open=h.read(),d=open.interactions.doors[1];assert.ok(open.actor.position.x>d.openBounds.min.x&&open.actor.position.x<d.openBounds.max.x);assert.deepEqual(open.actor.position,before.actor.position);const saved=h.save(),loaded=createGroundHost({checkpoint:JSON.parse(saved)});try{assert.equal(loaded.save(),saved);for(let i=0;i<4;i++)assert.ok(loaded.walk('player',{x:1,y:0},.1).ok);assert.ok(loaded.read().actor.position.x>48.6);assert.deepEqual(loaded.read().resources,open.resources);assert.deepEqual(loaded.read().events,open.events);for(let i=0;i<5;i++)loaded.walk('player',{x:-1,y:0},.1);assert.ok(loaded.read().actor.position.x>=d.openBounds.max.x+open.actor.radiusM-1e-6,'The cleared open leaf is solid on re-entry.');}finally{loaded.dispose();}}finally{h.dispose();}
+});
+
+test('opening still refuses locked, out-of-reach and permission-denied commands without spending resources',()=>{
+ for(const scenario of ['locked','reach','permission']){const source=createGroundHost({spawn:near()}),checkpoint=source.read();source.dispose();if(scenario==='locked')checkpoint.interactions.doors[1].locked=true;if(scenario==='reach')checkpoint.actor.position.y=30;const h=createGroundHost({checkpoint,permissions:()=>scenario!=='permission'});try{const before=h.save(),result=h.requestAction({commandId:'refused-open',actionId:'east/door/open',offer:h.offer()});assert.equal(result.code,{locked:'LOCKED',reach:'OUT_OF_REACH',permission:'PERMISSION_DENIED'}[scenario]);assert.equal(h.save(),before);}finally{h.dispose();}}
+});
+
+test('threshold golden requires real walking after opening and refuses missing walking observations',()=>{
+ const f=fixtureById('golden-door-threshold'),normal=runFixture(f,defaultRecipe(),'threshold');assert.equal(normal.status,'passed');assert.ok(normal.command.walking.every(r=>r.ok));assert.ok(normal.checks.some(c=>c.name==='baseline.opener-in-swing-area'&&c.ok));assert.ok(normal.checks.some(c=>c.name.startsWith('confirmed.walk-distance')&&c.ok));const broken=defaultRecipe();broken.probe='acknowledge-without-motion';const r=runFixture(f,broken,'no-walk');assert.ok(r.command.receipt.ok&&r.command.walking.every(r=>r.ok));assert.equal(r.status,'failed');assert.equal(r.missionComplete,false);assert.match(r.reason,/confirmed.walk-distance/);const missing=defaultRecipe();missing.observers.profile='without-traversal';const u=runFixture(f,missing,'no-observer');assert.equal(u.status,'unavailable');assert.equal(u.command,null);assert.match(u.reason,/walking-state-v1/);
+});
