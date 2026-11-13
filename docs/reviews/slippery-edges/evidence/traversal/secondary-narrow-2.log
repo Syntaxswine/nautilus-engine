@@ -1,0 +1,44 @@
+✔ disc sweeps thin wall, slides requested tangent more slowly and stops head-on (2.6568ms)
+✔ actual rounded corners pass where the inherited square body refused (0.2307ms)
+✔ glancing both sides, reverse and flush recovery have no invented shoulder (1.3257ms)
+✔ closed corners, circles and a second blocker stop every slide segment (0.3612ms)
+✔ oriented bodies use convex narrow phase instead of final world AABB (0.2936ms)
+✔ deterministic sustained tangential motion stays outside and bounded (5.9512ms)
+✔ contact normals and saved movement round-trip through ordinary JSON without negative zero (0.968ms)
+✔ deterministic screenshot-like visible gap: broad box refuses, oriented body passes unchanged envelope (22.3893ms)
+✔ both sides glancing forward and reverse make reduced sustained progress; flush head-on has no shoulder (226.4299ms)
+✔ thin walls, current actors, other oriented cars and unsupported ground remain solid (142.6714ms)
+✔ opt-in checkpoints retain spent state, reject implicit policy changes and never restore held controls (5.3095ms)
+✔ walking slide returns only accepted distance, legacy stop remains exact and support cannot be pushed off (1.8707ms)
+✔ steering away from an initially flush side limits wheel yaw safely and recovers on either side (29.3778ms)
+✔ simultaneous cars reserve continuous oriented routes and keep both actors at confirmed seats (39.2951ms)
+✔ a dynamic oriented vehicle reserves door motion without replacing door authority (1.9086ms)
+✔ rotating forward and reverse sweeps catch a sub-millimetre obstacle inside the intermediate corner arc (14.0165ms)
+✔ sustained contact progress is independent of host cadence and saved contact cannot replay pedal demand (249.6357ms)
+✔ leaving a glancing edge cannot apply accumulated demand as an acceleration jump (38.1634ms)
+✔ ordinary walking queries secondary walls outside the requested straight strip (1.1253ms)
+✔ a car cannot cross a thin secondary wall outside its original sweep and finish clear beyond it (1.0744ms)
+✔ two independently clear deflections cannot commit intersecting actual car routes (4.5687ms)
+✔ nearby parallel cars retain their real clearance instead of reserving inflated future bodies (2.7597ms)
+✔ all native bodies use their own wheelbase; zero-speed steering cannot slide a car (1.9486ms)
+✔ both direction changes brake maximally through a published zero and release cancels reversal (0.3491ms)
+✔ forward and reverse follow steered wheels symmetrically (0.1543ms)
+✔ ordinary board, signed drive, stop and safe exit preserve exact resources (15.9276ms)
+✔ passengers and stale/replaced leases cannot steer; failed seats are transactional (4.2807ms)
+✔ continuous swept course collision stops before wall and actor, including large host steps (33.4323ms)
+✔ blocked exit refuses without changing occupancy, pose or resources (2.6822ms)
+✔ moving checkpoint reload preserves physical/resources state and drops held throttle/lease (4.123ms)
+✔ curved continuous bounds contain intermediate forward/reverse body and wheel envelopes (44.5352ms)
+✔ simultaneous opposing vehicles reserve both swept routes before committing (12.6223ms)
+✔ reverse sweeps block rear walls and ordinary walking cannot cross a parked car (11.5593ms)
+✔ restore refuses unknown state, impossible seats/poses, wrong dimensions and unsupported terrain (7.8376ms)
+✔ observer failures report a committed board without rolling back or replaying it (1.3544ms)
+✔ stale actor revisions refuse held commands while exact-owner safety release remains available (1.4765ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 942.8073

@@ -1,6 +1,9 @@
 import raw from './content-data.json' with {type:'json'};
 import {clone,freeze,insist,fields,canonical} from './data.js';
+import {DRIVING_CAPABILITIES,drivingContent,drivingSpawn} from './driving.js';
 
+// Compatibility/content lineage. Current registry bytes are identified by the
+// exact consumer hashes and clean engine commit in each executionSource record.
 export const CONTENT_SOURCE = '81ddf363e524e967159703246e49ef334d0d1e65';
 export const REGISTRY = freeze(clone(raw));
 export const identity = freeze({id:REGISTRY.id,version:REGISTRY.version,sourcePin:CONTENT_SOURCE});
@@ -8,16 +11,18 @@ export const slotById = id => REGISTRY.slots.find(p=>p.id===id);
 export const plotById = id => REGISTRY.plots.find(p=>p.id===id);
 export const objectiveById = id => REGISTRY.objectives.find(p=>p.id===id);
 export const fixtureById = id => REGISTRY.golden.find(p=>p.id===id);
-export const observerCapabilities = profile => profile==='full' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))] : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1'] : [];
+export const observerCapabilities = profile => profile==='full' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])] : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1',...DRIVING_CAPABILITIES] : profile==='without-traversal' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))] : [];
 export function defaultRecipe() {
   return {kind:'nautilus-test-ground-recipe',version:1,content:clone(identity),engineSource:REGISTRY.engineSource,seed:REGISTRY.seed,
     plots:[{slot:'west',fixture:'gatehouse',version:1},{slot:'east',fixture:'supply-store',version:1}],
-    objective:{id:'door-passage',version:1,slot:'west'},conditions:{id:'transition',version:1},observers:{profile:'full',version:1},probe:'ordinary'};
+    objective:{id:'door-passage',version:1,slot:'west'},conditions:{id:'transition',version:1},observers:{profile:'full',version:1},probe:'ordinary',driving:{id:'handling',version:1},traversalProfile:REGISTRY.traversalProfile};
 }
 export function validateRecipe(input) {
   try {
     const recipe=clone(typeof input==='string'?JSON.parse(input):input);
-    fields(recipe,['kind','version','content','engineSource','seed','plots','objective','conditions','observers','probe']);
+    fields(recipe,['kind','version','content','engineSource','seed','plots','objective','conditions','observers','probe','driving','traversalProfile']);
+    insist(recipe.traversalProfile==='shared-slide-v1','TRAVERSAL_PROFILE_UNSUPPORTED','Keep the explicit shared slide policy; older installations retain their original profiles.');
+    fields(recipe.driving,['id','version']);insist(REGISTRY.drivingCourses.some(c=>c.id===recipe.driving.id&&c.version===recipe.driving.version),'DRIVING_COURSE_UNAVAILABLE','Select a committed driving course and version.');
     insist(recipe.kind==='nautilus-test-ground-recipe'&&recipe.version===1,'RECIPE_VERSION','Use test ground recipe v1.');
     insist(canonical(recipe.content)===canonical(identity)&&recipe.engineSource===REGISTRY.engineSource,'SOURCE_MISMATCH','Use this exact content and installed engine baseline.');
     insist(Number.isInteger(recipe.seed)&&recipe.seed>=0&&recipe.seed<=0xffffffff,'INVALID_SEED','Use an unsigned seed.');
@@ -30,12 +35,12 @@ export function validateRecipe(input) {
       insist(plot.footprintM.every(n=>n===slot.sizeM)&&plot.elevationM===slot.elevationM&&plot.floorId===slot.floorId,'UNSUPPORTED_PLACEMENT','Plot footprint, native elevation and floor identity must match.');
     }
     fields(recipe.objective,['id','version','slot']);const objective=objectiveById(recipe.objective.id),chosen=recipe.plots.find(p=>p.slot===recipe.objective.slot);
-    insist(objective&&objective.version===recipe.objective.version&&chosen,'OBJECTIVE_UNAVAILABLE','Select a versioned objective and target plot.');
-    const plot=plotById(chosen.fixture),missing=objective.requires.filter(c=>!plot.capabilities.includes(c));
+    insist(objective&&objective.version===recipe.objective.version&&(chosen||recipe.objective.slot==='driving'),'OBJECTIVE_UNAVAILABLE','Select a versioned objective and target plot.');
+    const plot=chosen?plotById(chosen.fixture):{capabilities:DRIVING_CAPABILITIES},missing=objective.requires.filter(c=>!plot.capabilities.includes(c));
     insist(!missing.length,'OBJECTIVE_INCOMPATIBLE','Target plot lacks '+missing.join(', ')+'.');
     fields(recipe.conditions,['id','version']);insist(REGISTRY.conditionProfiles.some(c=>c.id===recipe.conditions.id&&c.version===recipe.conditions.version),'CONDITIONS_UNAVAILABLE','Choose a reviewed expectation profile and version.');
-    fields(recipe.observers,['profile','version']);insist(['full','without-passage'].includes(recipe.observers.profile)&&recipe.observers.version===1,'OBSERVER_UNAVAILABLE','Use a registered observer profile/version.');
-    insist(['ordinary','acknowledge-without-door-effect'].includes(recipe.probe),'PROBE_UNAVAILABLE','Use an explicit reviewed verifier probe.');
+    fields(recipe.observers,['profile','version']);insist(['full','without-passage','without-traversal'].includes(recipe.observers.profile)&&recipe.observers.version===1,'OBSERVER_UNAVAILABLE','Use a registered observer profile/version.');
+    insist(['ordinary','acknowledge-without-door-effect','acknowledge-without-motion'].includes(recipe.probe),'PROBE_UNAVAILABLE','Use an explicit reviewed verifier probe.');
     return {ok:true,recipe};
   } catch(error) {return {ok:false,code:error.code||'INVALID_RECIPE',reason:error.message};}
 }
@@ -52,12 +57,13 @@ export function plotContent(selection) {
 }
 export function contentFor(recipe,spawn=REGISTRY.spawn) {
   return {kind:'nautilus-player-content',version:1,identity:clone(identity),world:{id:'night-ledger-ground',name:REGISTRY.name,widthM:64,depthM:64,floorCount:1,storyHeightM:REGISTRY.storyHeightM,groundHeightM:0,heightM:6},
-    surfaces:[box('ground',0,0,0,64,64,0,true),...recipe.plots.flatMap(p=>plotContent(p).surfaces)],
+    surfaces:[box('ground',0,0,0,64,64,0,true),...recipe.plots.flatMap(p=>plotContent(p).surfaces),...drivingContent(REGISTRY,recipe,box).surfaces],
     interactions:{doors:recipe.plots.map(p=>plotContent(p).door),stairs:[]},actors:[{id:'player',floorId:'floor-0',position:clone(spawn),radiusM:.28,heightM:1.8,speedMps:3}],
-    resources:{player:clone(REGISTRY.resources)},appearance:{ground:0x667c61,sky:0x92aca5}};
+    resources:{player:clone(REGISTRY.resources)},vehicles:drivingContent(REGISTRY,recipe,box).vehicles,appearance:{ground:0x667c61,sky:0x92aca5}};
 }
 export function goldenRecipe(fixture,recipe) {
+  if(fixture.slot==='driving'){const next=clone(recipe);next.driving={id:fixture.course,version:1};next.objective={id:fixture.objective,version:1,slot:'driving'};return next;}
   const next=clone(recipe);next.plots=next.plots.map(p=>p.slot===fixture.slot?{slot:p.slot,fixture:fixture.plot,version:1}:p);
   next.objective={id:fixture.objective,version:1,slot:fixture.slot};return next;
 }
-export function fixtureSpawn(fixture) {const s=slotById(fixture.slot);return {x:s.origin.x+fixture.spawnLocal.x,y:s.origin.y+fixture.spawnLocal.y,h:fixture.spawnLocal.h};}
+export function fixtureSpawn(fixture) {if(fixture.slot==='driving')return drivingSpawn(REGISTRY,{driving:{id:fixture.course}});const s=slotById(fixture.slot);return {x:s.origin.x+fixture.spawnLocal.x,y:s.origin.y+fixture.spawnLocal.y,h:fixture.spawnLocal.h};}

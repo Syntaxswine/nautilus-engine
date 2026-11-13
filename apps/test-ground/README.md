@@ -1,9 +1,38 @@
 # Night Ledger independent test ground
 
+Open `apps/test-ground/` in the ordinary static build. Choose **Try road handling**,
+then **Enter Compact hatchback · driver**. The shared joystick or WASD/arrows
+drive; down brakes through zero and reverses. Release stops. Exit restores walking
+and its camera when the stopped car has a clear supported side-door route. No
+user installation/configuration is required for this page.
+
+The actual south strip now contains nine selectable golden baselines alongside
+the two modular plots: original door/rock, road handling, visible wall clearance,
+glancing driving on either side, head-on stopping, walking slide and a genuinely
+blocked corner. Run selected verifies confirmed poses, distance and contacts;
+successful acknowledgements alone cannot pass. Missing traversal observations
+are unavailable. Try/reset selects a course without silently replacing live cars.
+
+Walking `disc-slide-v1` and driving `oriented-slide-v1` are explicit opt-in engine
+profiles. Ground state v2 retains complete vehicle checkpoint v2 and the original
+resource/recipe/pause ownership boundaries. Old package installations retain v1
+saves and stop profiles; implicit policy migration is refused. Seat persistence
+prepares the complete actor/vehicle candidate before publishing either authority.
+Traversal costs zero AP in this ground and charges no rejected displacement.
+
+Run `node tools/review-traversal.mjs` for source proof, add `--built` for the
+ordinary static page or `--installed` after the fresh offline install below.
+Focused installed proof now has 29 Node tests and nine negative type controls.
+Source/static identities are explicitly distinguished from real archive digests.
+New review evidence is in `docs/reviews/slippery-edges/evidence/`; the older local
+`evidence/` records remain historical. Review helpers honor `NAUTILUS_REVIEW_OWNER`,
+own bounded isolated browser/server lifetimes, close in finally and leave receipts.
+No new preview is retained; Architect owns the existing user preview.
+
 This is a **test-only independent consumer**, separate from the retained Night
 Ledger fixture and shipped engine packages. Architect owns review, registration
 and main integration. It uses the complete installed compatibility package at
-accepted engine baseline `0640dab2f8dfe5d9facbe9ded831855e0376d22a`, through public
+accepted engine baseline `98064c34c7bb4fc3c1343f2e450d570ec38615f2`, through public
 setup, native actor, interaction, item and Three entries. It does not open a donor,
 an editor runtime or a sibling game. No consumer pin or historical fixture changes.
 
@@ -15,8 +44,7 @@ The rock uses the public native model at its original 0.055 m radius; its larger
 ground ring is a locator, not the item mesh or collision body. Walls/paths/signs
 are original procedural test scenery. No ledger, crate or cabinet artwork is
 claimed. An adjoining 240 × 180 m railway area is reserved outside this runtime
-world, and the south strip remains open for later driving work. Neither runs a
-transport provider.
+world. The south strip now runs the optional shared road vehicle provider.
 
 ## Reproduce from an installed package
 
@@ -76,7 +104,7 @@ changes are refused. No matching texture implies a semantic connection.
   Neighbouring roots, door/item records, player pose/resources and durable receipts
   are preserved. Only replaced plot visuals are retired. Objective/expectation
   changes do not rebuild scenery. Cancelled/refused preparation keeps the old scene.
-* **Run selected** executes the two committed golden baselines in isolated
+* **Run selected** executes the nine committed golden baselines in isolated
   headless instances of the same public host/action provider. It does not reset
   the accepted manual sandbox. The runner requests through the public action
   router, then reads real confirmed state and passage queries. The renderer/native
@@ -203,14 +231,15 @@ authority/input/renderer avoid a duplicate runtime; timing scope is stated above
 **Narrative:** a safe court and two contrasting marked plots retain the readable
 small-mission structure within a larger ground (subjective preference). Warm
 Farmyard/Tinderbox materials remain selectable without changing action meaning.
-Movement/heights, combat, fire, trains and road vehicles are visibly deferred with
+Movement/heights, combat, fire, trains and richer road/crash physics are deferred with
 specific missing-provider/baseline reasons.
 
 The immutable declarative source was committed at the historical path
 `examples/night-ledger/content-data.json` in `81ddf363e524e967159703246e49ef334d0d1e65`.
-The final consumer lives under `apps/test-ground/` because the existing static
-build intentionally treats `examples/` as a flat file directory. The content blob
-is preserved byte-for-byte; no engine build/runtime change is required.
+The final consumer lives under `apps/test-ground/`, now also an ordinary static
+build entry. That original content blob remains historical lineage. New course
+and registry bytes are identified by current consumer hashes and the fixed
+implementation commit, rather than falsely attributed to the old content blob.
 
 ## Pause ownership follow-up
 

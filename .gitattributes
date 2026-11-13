@@ -1,5 +1,7 @@
 * text=auto eol=lf
 vendor/** -text
+# Original committed traversal evidence retains CRLF/trailing bytes verbatim.
+vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd/original/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
 
 tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1/** -text
 tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe/** -text

@@ -3,7 +3,92 @@
   "version": 1,
   "id": "night-ledger-independent-ground",
   "name": "Night Ledger · proving ground",
-  "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+  "engineSource": "98064c34c7bb4fc3c1343f2e450d570ec38615f2",
+  "traversalProfile": "shared-slide-v1",
+  "drivingCourses": [
+    {
+      "id": "handling",
+      "version": 1,
+      "name": "Board · steer · reverse · exit",
+      "position": {
+        "x": 15,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0
+    },
+    {
+      "id": "visible-gap",
+      "version": 1,
+      "name": "Visible gap beside wall tip",
+      "position": {
+        "x": 30.5,
+        "y": 54,
+        "h": 0
+      },
+      "headingRad": 0.7853981633974483
+    },
+    {
+      "id": "car-slide-east",
+      "version": 1,
+      "name": "Driving glance · east wall",
+      "position": {
+        "x": 38.74959894315684,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0.15
+    },
+    {
+      "id": "car-slide-west",
+      "version": 1,
+      "name": "Driving glance · west wall",
+      "position": {
+        "x": 45.27040105684316,
+        "y": 59,
+        "h": 0
+      },
+      "headingRad": 3.291592653589793
+    },
+    {
+      "id": "head-on",
+      "version": 1,
+      "name": "Head-on thin-wall refusal",
+      "position": {
+        "x": 15,
+        "y": 57,
+        "h": 0
+      },
+      "headingRad": 0
+    },
+    {
+      "id": "walking-slide",
+      "version": 1,
+      "name": "Walk and slide along an edge",
+      "position": {
+        "x": 15,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0,
+      "walkSpawn": {
+        "x": 21.72,
+        "y": 53,
+        "h": 0
+      }
+    },
+    {
+      "id": "obstructed-gap",
+      "version": 1,
+      "name": "Genuine obstruction · negative control",
+      "position": {
+        "x": 30.5,
+        "y": 54,
+        "h": 0
+      },
+      "headingRad": 0.7853981633974483
+    }
+  ],
   "seed": 1947,
   "dimensionsM": [
     64,
@@ -111,6 +196,128 @@
   ],
   "objectives": [
     {
+      "id": "road-handling",
+      "version": 1,
+      "name": "Board, turn both ways, reverse and exit",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-poses-since-baseline"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 0.8,
+          "leftYawRad": 0.03,
+          "rightYawRad": 0.03,
+          "reverseDistanceM": 0.3,
+          "exits": 1
+        }
+      }
+    },
+    {
+      "id": "road-gap",
+      "version": 1,
+      "name": "Pass the visible wall clearance",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-clearance-destination"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 1.5
+        },
+        "destination": {
+          "minX": 32,
+          "minY": 55.5
+        }
+      }
+    },
+    {
+      "id": "road-slide",
+      "version": 1,
+      "name": "Drive along glancing contact more slowly",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-tangential-motion-and-contact"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleSlideDistanceM": 0.3
+        }
+      }
+    },
+    {
+      "id": "road-stop",
+      "version": 1,
+      "name": "Stop at a genuine obstruction",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-blocked-body-and-zero-speed"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 0.1,
+          "headOnStops": 3
+        }
+      }
+    },
+    {
+      "id": "walking-slide",
+      "version": 1,
+      "name": "Walk along glancing contact more slowly",
+      "requires": [
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-walking-contact-and-distance"
+      ],
+      "expected": {
+        "minimums": {
+          "walkSlideDistanceM": 0.3
+        }
+      }
+    },
+    {
       "id": "door-passage",
       "version": 1,
       "name": "Open the marked passage",
@@ -209,6 +416,123 @@
         "one new rock-picked-up event",
         "fixture AP cost"
       ]
+    },
+    {
+      "id": "golden-road-handling",
+      "version": 1,
+      "name": "Road handling and safe exit",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "handling",
+      "objective": "road-handling",
+      "baseline": "south-strip-driver-door-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed occupied seat",
+        "both physical turn signs",
+        "reverse displacement",
+        "safe on-foot exit"
+      ]
+    },
+    {
+      "id": "golden-road-gap",
+      "version": 1,
+      "name": "Visible wall gap actually passes",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "visible-gap",
+      "objective": "road-gap",
+      "baseline": "rotated-body-clear-wall-tip-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "unchanged native collision envelope",
+        "confirmed destination past clear wall tip"
+      ]
+    },
+    {
+      "id": "golden-car-slide-east",
+      "version": 1,
+      "name": "Car slides along east wall",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "car-slide-east",
+      "objective": "road-slide",
+      "baseline": "flush-glancing-car-east-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "public contact normal",
+        "accepted tangential distance",
+        "reduced travel"
+      ]
+    },
+    {
+      "id": "golden-car-slide-west",
+      "version": 1,
+      "name": "Car slides along west wall",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "car-slide-west",
+      "objective": "road-slide",
+      "baseline": "flush-glancing-car-west-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "opposite-heading contact normal",
+        "accepted tangential distance"
+      ]
+    },
+    {
+      "id": "golden-road-stop",
+      "version": 1,
+      "name": "Head-on thin wall stops the car",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "head-on",
+      "objective": "road-stop",
+      "baseline": "thin-head-on-wall-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "actual approach",
+        "repeated confirmed stop",
+        "no crossing"
+      ]
+    },
+    {
+      "id": "golden-walking-slide",
+      "version": 1,
+      "name": "Walker slides along the edge",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "walking-slide",
+      "objective": "walking-slide",
+      "baseline": "flush-walking-disc-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "public disc contacts",
+        "actual accepted distance"
+      ]
+    },
+    {
+      "id": "golden-obstructed-gap",
+      "version": 1,
+      "name": "Real obstruction remains blocked",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "obstructed-gap",
+      "objective": "road-stop",
+      "baseline": "true-obstruction-after-clear-gap-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "actual approach",
+        "contact evidence",
+        "no tunnelling"
+      ]
     }
   ],
   "deferred": [
@@ -233,9 +557,9 @@
       "reason": "Needs the adjoining 240 × 180 m reservation and retained railway host; not a 16 m plot."
     },
     {
-      "id": "cars",
-      "name": "Road vehicles",
-      "reason": "Queued independent tranche; no road driving provider is bound."
+      "id": "curved-roads",
+      "name": "Curved terrain and high-speed crashes",
+      "reason": "Flat low-speed road profile only; no suspension, crash damage or sloped support provider."
     }
   ],
   "reservations": [
@@ -258,8 +582,8 @@
         56,
         64
       ],
-      "status": "open-space-only",
-      "runtime": false
+      "status": "collision-course-v1",
+      "runtime": true
     }
   ],
   "sourceBoundary": "Original Nautilus test content inspired by the retained Night Ledger situation. No donor runtime, historical ledger art, consumer pin or original fixture modification. Golden expectations require review before main integration.",

@@ -1,0 +1,348 @@
+{
+  "status": "passed",
+  "base": "664137714e4b891e70e828af6b6d542afd8e20bf",
+  "browser": "157.0.4341.46",
+  "package": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "fd3799149540d85b3e841d6b1c211bf8a354eb0238528d4a5150cf59bf78b3b8",
+    "bytes": 74104965,
+    "files": 562,
+    "publicExports": 66
+  },
+  "runtime": [
+    {
+      "path": "data.js",
+      "bytes": 1043,
+      "sha256": "0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434"
+    },
+    {
+      "path": "registry.js",
+      "bytes": 7492,
+      "sha256": "98f1af805015e7d58694ac228407f5c1c801001207db00f6136aaba58be791cc"
+    },
+    {
+      "path": "driving.js",
+      "bytes": 5438,
+      "sha256": "73edca1316e96c367169086c49908afe7be3f275c88062536dda839b9ba4e5f2"
+    },
+    {
+      "path": "content-data.json",
+      "bytes": 14413,
+      "sha256": "9d96847561c50da3939b1ff22ac7c315f970132295b66a6753ec8bb85dfda2b4"
+    },
+    {
+      "path": "host.js",
+      "bytes": 21314,
+      "sha256": "2b4ba5beab77d81c9c664d9001da8db0e37446ac42b88f397722342a447faaf9"
+    },
+    {
+      "path": "runner.js",
+      "bytes": 11672,
+      "sha256": "1dd6a9b1eb06284b0c9a61487d85e3cd53850532fb6055ca67ac3bcad855ee3a"
+    },
+    {
+      "path": "surface.js",
+      "bytes": 7735,
+      "sha256": "29a77ce3d9765c1cf8c991a588100123b3f87cc93ae2d65bc2589a381ad17fd5"
+    },
+    {
+      "path": "application.js",
+      "bytes": 22780,
+      "sha256": "3cc1d5f9ebdcfa63631a7580a4976e071dd9f0aa35e01dd525ae73be7afa5062"
+    },
+    {
+      "path": "main.js",
+      "bytes": 548,
+      "sha256": "1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9"
+    },
+    {
+      "path": "ground.css",
+      "bytes": 4243,
+      "sha256": "b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034"
+    }
+  ],
+  "groups": [
+    "open checklist keeps input and clock blocked through accepted composition and Run selected; public and keyboard walking cannot mutate the host",
+    "composition cancellation before acceptance retains the dialog pause and all accepted state",
+    "normal unpaused checklist close restores walking without changing resources",
+    "checklist close preserves an earlier explicit setup pause; the public UI dispatch facade can release that caller pause",
+    "a caller unpause while the checklist is open updates only its own request and takes effect after the checklist closes",
+    "public SDK UI replacement preserves app pause; a cached retired UI cannot clear the new owner",
+    "an SDK setup-menu pause remains independent; cancelled app preparation cannot turn it into a sticky explicit pause",
+    "pre-cancelled reload restores both paused and unpaused accepted scenes exactly",
+    "actual native asset verification failure restores prior pause and preserves the accepted host, roots, resources and single scene/UI",
+    "refused occupied composition retains the checklist pause and preserves normal close behavior",
+    "overlapping reload cleanup releases only its own token; a newer preparation and later checklist stay blocked",
+    "a late old-scene preparation cleanup cannot unpause the newly accepted scene or its checklist",
+    "disposing the scene retires all app scopes, native UI, roots and dialogs"
+  ],
+  "observations": [
+    {
+      "label": "opened checklist",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "accepted composition retains checklist pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "golden runner releases only its own scope",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "cancelled composition retains checklist pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "normal close resumes",
+      "blocked": false,
+      "result": {
+        "version": 1,
+        "ok": true,
+        "committed": true,
+        "code": null,
+        "reason": null,
+        "movement": {
+          "profile": "disc-slide-v1",
+          "distanceM": 0.29999999999999716,
+          "contacts": []
+        }
+      },
+      "from": {
+        "x": 32,
+        "y": 40,
+        "h": 0
+      },
+      "to": {
+        "x": 32.3,
+        "y": 40,
+        "h": 0
+      },
+      "resourcesRetained": true
+    },
+    {
+      "label": "close restores earlier explicit pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": false
+    },
+    {
+      "label": "caller unpause cannot release checklist owner",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "SDK UI replacement retains app owner and rejects retired UI pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "original model restored without losing app pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "pre-cancelled reload",
+      "prior": false,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "PREPARATION_CANCELLED",
+        "reason": "Sandbox preparation cancelled."
+      },
+      "blocked": false,
+      "sameHost": true,
+      "unchanged": true
+    },
+    {
+      "label": "pre-cancelled reload",
+      "prior": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "PREPARATION_CANCELLED",
+        "reason": "Sandbox preparation cancelled."
+      },
+      "blocked": true,
+      "sameHost": true,
+      "unchanged": true
+    },
+    {
+      "label": "native preparation failure",
+      "prior": false,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "NAUTILUS_MODULE_START",
+        "reason": "Module setup.actor failed during prepare: ACTOR_RESOURCE_HASH: vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json"
+      },
+      "blocked": false,
+      "sameHost": true,
+      "unchanged": true,
+      "rootsRetained": true,
+      "scenes": 1,
+      "widgets": 1
+    },
+    {
+      "label": "native preparation failure",
+      "prior": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "NAUTILUS_MODULE_START",
+        "reason": "Module setup.actor failed during prepare: ACTOR_RESOURCE_HASH: vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json"
+      },
+      "blocked": true,
+      "sameHost": true,
+      "unchanged": true,
+      "rootsRetained": true,
+      "scenes": 1,
+      "widgets": 1
+    },
+    {
+      "label": "refused occupied swap retains checklist pause",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "superseded cleanup cannot release newer preparation",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": false
+    },
+    {
+      "label": "newer cancellation cannot release checklist owner",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    },
+    {
+      "label": "stale scene cleanup cannot release current checklist",
+      "blocked": true,
+      "clockBlocked": true,
+      "result": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "STALE_CONTEXT",
+        "reason": "Read current controls after restoring the player context."
+      },
+      "unchanged": true,
+      "dialogOpen": true
+    }
+  ],
+  "cleanup": {
+    "scenes": 0,
+    "widgets": 0,
+    "dialogs": 0,
+    "children": 0
+  },
+  "limits": [
+    "desktop isolated browser; unchanged phone/manual coverage remains in the full regression proof",
+    "app-owned public pause routing only; no SDK/runtime changes"
+  ]
+}
