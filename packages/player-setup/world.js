@@ -1,11 +1,11 @@
 import {createWorld,openWorld} from '../world-core/index.js';
-import {createInteractionState,openInteractionState,createInteractionActor,openInteractionActor,createInteractionQueries,walkActor,previewInteraction,applyInteraction,advanceTraversal} from '../interactions/index.js';
+import {DEFAULT_WALK_SPEED_MPS,createInteractionState,openInteractionState,createInteractionActor,openInteractionActor,createInteractionQueries,walkActor,previewInteraction,applyInteraction,advanceTraversal} from '../interactions/index.js';
 import {plain,fields,receipt} from '../native-actors/data.js';
 
 export function flatYardContent({sourcePin}={}){return {kind:'nautilus-player-content',version:1,identity:{id:'nautilus-flat-player-yard',version:1,sourcePin},
   world:{id:'flat-player-yard',name:'Player workshop',widthM:14,depthM:10,floorCount:1,storyHeightM:2.12,groundHeightM:0,heightM:6},
   surfaces:[{id:'yard',floorId:'floor-0',role:'floor',bounds:{min:{x:0,y:0,h:0},max:{x:14,y:10,h:0}},supports:true,supportFloorId:'floor-0'}],
-  interactions:{doors:[],stairs:[]},actors:[{id:'player',floorId:'floor-0',position:{x:6,y:5,h:0},radiusM:.28,heightM:1.8,speedMps:3}],
+  interactions:{doors:[],stairs:[]},actors:[{id:'player',floorId:'floor-0',position:{x:6,y:5,h:0},radiusM:.28,heightM:1.8,speedMps:DEFAULT_WALK_SPEED_MPS}],
   resources:{player:{health:37,ap:3,stamina:11,inventory:[{id:'yard-key',count:1}]}},appearance:{ground:0x75815a,sky:0x91ada5}};}
 
 export function createDefaultWorld(content,{actorId,checkpoint}={}){

@@ -51,7 +51,7 @@ export function runFixture(fixture,recipe,runId,setupConfiguration=null,executio
       const actionId=fixture.slot+(isDoorObjective(objective)?'/door/open':':rock/pickup'),action=router.read().actions.find(a=>a.actionId===actionId);
       if(!action?.enabled)return {...record,baseline,status:'unavailable',missionComplete:false,reason:action?.reason||'No compatible ordinary action is offered.',checks:[],command:null};
       const command=clone(action.intent),receipt=router.request(command),walking=[];
-      if(objective.id==='door-threshold-passage')for(let i=0;i<5;i++)walking.push(host.walk('player',{x:0,y:-1},.1));
+      if(objective.id==='door-threshold-passage')for(let i=0;i<5;i++)walking.push(host.walk('player',{x:0,y:-1},.3/host.read().actor.speedMps));
       const after=host.read(),observation={state:after,passage:isDoorObjective(objective)?host.passage(fixture.slot):null},verification=evaluateObjective({objective,slot:fixture.slot,baseline,observed:observation});
       if(walking.some(r=>!r.ok)){verification.status='failed';verification.failures.push('Ordinary threshold walking refused.');}
       if(!receipt.ok){verification.status='failed';verification.failures.unshift('Command refused: '+receipt.reason);}
