@@ -1,0 +1,1867 @@
+{
+  "engineVersion": "0.10.0",
+  "sources": {
+    "schemaVersion": 1,
+    "traversalReference": {
+      "repository": "https://github.com/Syntaxswine/farmyard-fighters.git",
+      "commit": "7cd3d56e62a8087133a9fdf2f521cf92d310d6fd",
+      "root": "vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd",
+      "manifest": "vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd/source.json",
+      "purpose": "Original reference-only traversal module/static source closure and notices; separate engine-owned contact adaptation. No donor runtime or consumer pin adoption."
+    },
+    "aft": {
+      "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+      "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "root": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641",
+      "purpose": "Map editor, map/block formats, validation, connection rules, generation, rendering closure and regression tests"
+    },
+    "aftAssets": {
+      "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+      "commit": "781246a668c723d5a4c5463e70534cc04b6a5641",
+      "root": "vendor/aft-assets/781246a668c723d5a4c5463e70534cc04b6a5641",
+      "purpose": "Supplemental factory-machine paint closure for the existing immutable editor snapshot"
+    },
+    "farmyard": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "b2f2b6bd033cc3dbc8b572caa251244d283829c8",
+      "root": "vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8",
+      "purpose": "Painted industrial switches and map frame"
+    },
+    "rulesReview": {
+      "manifest": "docs/reviews/2026-10-28-rules-sources.json",
+      "purpose": "Three-game character, skill, combat and simulation comparison; algorithms reused from the existing immutable AFT snapshot"
+    },
+    "tinderbox": {
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "observedCommit": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+      "purpose": "First bounded adapter target; production runtime adoption remains separate from the test-only conformance closure below"
+    },
+    "searchHalo": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "7db49df29a9ff412d06d205f4bc48f75297bce51",
+      "root": "vendor/farmyard/7db49df29a9ff412d06d205f4bc48f75297bce51",
+      "purpose": "Reviewed golden contour shaders/renderer reference; engine-owned extraction reuses the existing Three instance and excludes game policy"
+    },
+    "tinderboxPrefabs": {
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "commit": "6693bfa3fea2edec77649d830de5ac68ba4c1a50",
+      "root": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50",
+      "purpose": "Reviewed Gross catalogue house assemblies, plans, materials and source plates; visual authoring prefabs, not a game runtime or gameplay compiler"
+    },
+    "tinderboxConformance": {
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "commit": "8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+      "root": "tests/fixtures/consumers/tinderbox/8a8405681614662a92f9b98fb9b9600bd06d3ad1",
+      "purpose": "Test-only byte-preserved compiler/simulation closure proving the bounded flat-yard adapter; production game adoption pending."
+    },
+    "farmyardRulesConformance": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+      "root": "tests/fixtures/consumers/farmyard-rules/279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+      "manifest": "docs/reviews/2026-10-29-farmyard-rules.sources.json",
+      "purpose": "Test-only stat-v2 parity evidence for the public calculation adapter; no game runtime or pin adoption"
+    },
+    "farmyardGrenades": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "root": "vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "manifest": "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
+      "purpose": "Immutable original grenade/control/game conformance and reference sources; engine-owned planar static extraction is separate, and the full donor game is not a runtime dependency"
+    },
+    "farmyardGrenadeVisuals": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "root": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "manifest": "vendor/farmyard-grenade-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "purpose": "Two immutable reference inputs for the optional native throw adapter; runtime uses selected adapted choreography, horse-only balance and the existing AFT art/Three closure."
+    },
+    "farmyardDoors": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "root": "vendor/farmyard-grenades/251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "manifest": "docs/reviews/farmyard-doors.sources.json",
+      "purpose": "Shared immutable test-only Farmyard source subset; engine-owned single-ground-leaf door adapter retains host movement, resources and persistence. No game pin adoption."
+    },
+    "farmyardDoorVisuals": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "root": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "manifest": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "purpose": "Two original door-view/wood inputs with hash-only mixed-view dependency inventory; optional native leaf reuses shared Three. Only wood is a runtime resource, not the mixed donor view."
+    },
+    "farmyardWindowArt": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "root": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "manifest": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "purpose": "Reference-only native window geometry/art conformance closure and original MIT notice. Runtime presenter borrows the host core, Three and materials; original reference JavaScript/Three and donor gameplay are excluded from distributions."
+    },
+    "farmyardNativeGait": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+      "root": "vendor/farmyard-native-gait/279d2d34786b3e6e5c5baeeac6898e60030afdbe",
+      "manifest": "vendor/farmyard-native-gait/279d2d34786b3e6e5c5baeeac6898e60030afdbe/provenance.json",
+      "purpose": "Reference-only original mammal gait for the reviewed public native actor adapter; selected goat/donkey data/paint retain the existing AFT pin. No donor game/runtime or extra Three adoption."
+    },
+    "roadVehicles": {
+      "repository": "https://github.com/Syntaxswine/nautilus-engine",
+      "commit": "5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "root": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee",
+      "manifest": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/source.json",
+      "purpose": "Byte-preserved approved native road bodies/paint and meshoptimizer notice; selected visual adapters, deterministic smaller textures and optional headless driving are engine-owned."
+    }
+  },
+  "renderEffects": {
+    "sourceCommit": "7db49df29a9ff412d06d205f4bc48f75297bce51",
+    "referenceManifest": "vendor/farmyard/7db49df29a9ff412d06d205f4bc48f75297bce51/provenance.json",
+    "examples": [
+      {
+        "path": "examples/canonical-tile-art.html",
+        "sha256": "74398dd08a6dfe4268a4553e24f1422d4503bb8fdf5dabe424da1422ae74b1dd"
+      },
+      {
+        "path": "examples/canonical-tile-art.js",
+        "sha256": "b4e265e36820aa7ce3352385ce6e40e374254b7cd398e111d8fa288739d4e574"
+      },
+      {
+        "path": "examples/character-development-host.js",
+        "sha256": "bc36bcfa7840782f1c7da4c1d196dda5bfd8ec9de1ce90e66a580fd7a649ee4d"
+      },
+      {
+        "path": "examples/character-development.css",
+        "sha256": "90994979e171793ace710eea7a2dfe93aa190d71752e04feef7971afc6e0225f"
+      },
+      {
+        "path": "examples/character-development.html",
+        "sha256": "dc1688dc5e013e975caa45a06733cd903e586e749966c4ffb7dfa8936cbf016d"
+      },
+      {
+        "path": "examples/character-development.js",
+        "sha256": "8b0ef4e27e0a23879bfe67d15815ffa48f1485eab13cbc3ea854aadfbb3a0d9f"
+      },
+      {
+        "path": "examples/curve-tile-art.html",
+        "sha256": "3dff4fc9351dbd19eb2d13daf08b19b551aec26417a10110eb9f7cf145f747f8"
+      },
+      {
+        "path": "examples/curve-tile-art.js",
+        "sha256": "92906a77852c5a2c3513020e2db50ede35018bd133d252b8acd774a23be82dfc"
+      },
+      {
+        "path": "examples/extended-world-entry.js",
+        "sha256": "170a63f63a112311a56c9562b5be525c56e992879c327f74f6e454d1d51b93dd"
+      },
+      {
+        "path": "examples/extended-world.css",
+        "sha256": "42751b57ad3b6d86e227e83d9d4e46a34c07940a6abf870f7fa93e8af07b040f"
+      },
+      {
+        "path": "examples/extended-world.html",
+        "sha256": "248f1c7cf1561d7f43a2b97dd42ae86a889ab122dcb9249f7cf8c4da1412a095"
+      },
+      {
+        "path": "examples/farmyard-door-reference-controls.js",
+        "sha256": "d4d1526460094880f382ba86107326c3ad34a70478cc7a18ddd87e4a94d4af44"
+      },
+      {
+        "path": "examples/farmyard-door-reference-host.js",
+        "sha256": "e89f4f2d87fb410277ff40c70a5b6117a6c331c7ea14483a15ee5b1c946526a0"
+      },
+      {
+        "path": "examples/farmyard-door-reference-view.js",
+        "sha256": "691d51b44ff69ff649d84da6c61b429b42677982254b07aae3d25aa4939395f3"
+      },
+      {
+        "path": "examples/farmyard-door-reference.css",
+        "sha256": "0ccfcc7d2c7bc0723bca93a08e803fd96417f2c9ed831e486dddd0d5a084d8de"
+      },
+      {
+        "path": "examples/farmyard-door-reference.fixture.json",
+        "sha256": "ea063223f5c3178104799d4c32486cad904808c15582ce0974e5e1329996112f"
+      },
+      {
+        "path": "examples/farmyard-door-reference.html",
+        "sha256": "2d359acc587b67667b0b2f7ef5b815dcddd4d1ded68b40b933fe8b9bfec54c78"
+      },
+      {
+        "path": "examples/farmyard-door-reference.js",
+        "sha256": "50ae39c94940e058d57373c262b19be66f98df8d69522e83260a0ec4df2647bd"
+      },
+      {
+        "path": "examples/floor-navigation.css",
+        "sha256": "6e07f42f14e5cd585a23b5a53c32292e89bc340c8142129468b2bd7c68f2bd7d"
+      },
+      {
+        "path": "examples/floor-navigation.html",
+        "sha256": "f737b1e4f7ad5718a3de11ac27f193f1f2b2d039b9ac75879d2336663800593d"
+      },
+      {
+        "path": "examples/floor-navigation.js",
+        "sha256": "d55ae28e808379111d3e4f2bc433bc59f76f27a11389f40586a7d98c9734464b"
+      },
+      {
+        "path": "examples/game-starter-host.js",
+        "sha256": "7b79efe74d8ea6463e4290344c71eead54b2a4e37897397a4ffecfcff7a41bda"
+      },
+      {
+        "path": "examples/game-starter.css",
+        "sha256": "5ad2bc15d690ec1bf90004b45a4e1be61d05142cc9d5df3959db5ba7387125e7"
+      },
+      {
+        "path": "examples/game-starter.html",
+        "sha256": "dbc3bd2bd89606b6a4cb2e0e1169b13de0fdcb96a63acffb573149d286917a12"
+      },
+      {
+        "path": "examples/game-starter.js",
+        "sha256": "6f2db33f023fe131c5d6d336ff2fb9ebbb45780d25b1302b96eccd8a2586afe2"
+      },
+      {
+        "path": "examples/grenade-controls-preparation.css",
+        "sha256": "cdba8bfa6dcfee7fc6de2607ea6638255f9b23b6149ed1e688e863c4ae6e6829"
+      },
+      {
+        "path": "examples/grenade-controls-preparation.html",
+        "sha256": "1816c7b6d075cca9bd308bc9c5a90873af8377b759af2ee618dc922b12d4ec3b"
+      },
+      {
+        "path": "examples/grenade-controls-preparation.js",
+        "sha256": "4fb9419d6596b2fc3e607893852277454e1684e5aa7feb6e659bd67fc9384b77"
+      },
+      {
+        "path": "examples/grenade-reference-host.js",
+        "sha256": "26205e99b68a9633365fbae85becaf8f48b21296e0bb7c5e5dc5f33f3bc505e7"
+      },
+      {
+        "path": "examples/grenade-reference-view.js",
+        "sha256": "16f03085bfdfed0940fa1388a394632e910b500d194c1146e0c3c00c3fa8abf9"
+      },
+      {
+        "path": "examples/grenade-reference.css",
+        "sha256": "879533b49d56419d1575bed62ae25be29b72ed9784f44f93a5de6d54cd99dd09"
+      },
+      {
+        "path": "examples/grenade-reference.html",
+        "sha256": "3f6df0111716085ded3347cd2f16f29727fb3dada8aa69be6a75d16feb0d551d"
+      },
+      {
+        "path": "examples/grenade-reference.js",
+        "sha256": "06c54dd7093d3187ad21fb1eb17717f21209aff528296b0b51f75538a2449d43"
+      },
+      {
+        "path": "examples/halo-wall-fixture.js",
+        "sha256": "e5f91f4fc02bacea04c08fe3ca30fc85d9f9c15ca7d085544a6c3e2db1b91b70"
+      },
+      {
+        "path": "examples/native-fifteen-story.world.json",
+        "sha256": "378d84964f67b0ac9fbd8077d666709c80975dcdc6577b2f366045cb217d7df4"
+      },
+      {
+        "path": "examples/native-window-host.js",
+        "sha256": "37797b7463f12e2f8a26ca9bc402a301e5f84e4bf8ed27a3abfa46f00600b7aa"
+      },
+      {
+        "path": "examples/native-window-materials.js",
+        "sha256": "d8135957f384a8e93b23d43bb3f9186a5b63c8098693414284feb57817c67bc0"
+      },
+      {
+        "path": "examples/native-window-presenter.html",
+        "sha256": "b886f03fc4eef3358636b2fdd2d2980a5fb22541cd0cd5ef3895b019507f3d7c"
+      },
+      {
+        "path": "examples/native-window-presenter.js",
+        "sha256": "d667900fa62495498fc24981a0e9dea62570436041c8eb01845aef6e78f1c47a"
+      },
+      {
+        "path": "examples/rock-distraction-host.js",
+        "sha256": "a4067890fa0842750561e3bd169e6ce8acded524fbc1121f48c598d3ae9092ed"
+      },
+      {
+        "path": "examples/rock-distraction.css",
+        "sha256": "a228b9616ac455ae2a39f3917f1a18b96457e9bea609baa917092df03e63317e"
+      },
+      {
+        "path": "examples/rock-distraction.html",
+        "sha256": "8d34e1d5bf8c8ff137e5e5f963336ed7c73e70c0e970d8481eb9465beb3ad006"
+      },
+      {
+        "path": "examples/rock-distraction.js",
+        "sha256": "bc0afba2ccff7f1800f2b8c80c3dc223cbaed25b93b068bcc6929b4e25f5e30a"
+      },
+      {
+        "path": "examples/search-halo.html",
+        "sha256": "aa012f446ad8de910f8960f886bcd181a7bba031233e8a692ed7d6b5581f4824"
+      },
+      {
+        "path": "examples/search-halo.js",
+        "sha256": "a02da21d405c3adc11c1117ecb946494019fd1b5f523fc210da59da6346298d5"
+      },
+      {
+        "path": "examples/smart-tile-editor.html",
+        "sha256": "c9b5fc9f614020a339486daa4d2711f4214bbb8ef93d8e1e0c577a9adee55c72"
+      },
+      {
+        "path": "examples/smart-tile-editor.js",
+        "sha256": "47faf8bfdf1716bfd1585b1424ba1be82b5e703ad1eefeae40ad146ff0e6fbe8"
+      },
+      {
+        "path": "examples/threshold-art.svg",
+        "sha256": "ef72ad129d1dff3f9c4839a2714b010eeefd368532d05d98dcd3562a9cad0777"
+      },
+      {
+        "path": "examples/tile-authoring-editor.html",
+        "sha256": "2afeb0e7efe83372f3b6802d5693916a2fd0484a5796aa5201023ec0d342b803"
+      },
+      {
+        "path": "examples/tile-authoring-editor.js",
+        "sha256": "faa8d3b49a610997f04edc551c7ed1e32e672d4f418b168e7021995e80e37d09"
+      },
+      {
+        "path": "examples/tile-stack-editor.html",
+        "sha256": "7efc9bd8da15cda676a773e9925ab610951f8e06721b2540ab91cc05930fca0c"
+      },
+      {
+        "path": "examples/tile-stack-editor.js",
+        "sha256": "82f50522ad4c513b47f7bb20abf3b09d62597eb90930e60e9e2b6c7493addcda"
+      },
+      {
+        "path": "examples/tile-workshop.html",
+        "sha256": "51fde34a149477edb386cdecca9c6501ef493ceb8fd678922f6c37a9fc3abb2e"
+      },
+      {
+        "path": "examples/train-yard-application.js",
+        "sha256": "4962daf775cceda69e0bb32fefc633ce612290cdfb5224007426ffb4160d8fd1"
+      },
+      {
+        "path": "examples/train-yard-host.js",
+        "sha256": "902090288dd3c5ff9a4d122884355b5dc5a60e82cb35f48859b14c2a38a0a0aa"
+      },
+      {
+        "path": "examples/train-yard.css",
+        "sha256": "d1bb15bd760ee13c9d160557b16a0d0b906f85dee46a09f70ec76f64a0431ad6"
+      },
+      {
+        "path": "examples/train-yard.html",
+        "sha256": "429691ec5216db92be19ccdb2107eb70788a946666c2b8747d4fb2da890676a2"
+      },
+      {
+        "path": "examples/train-yard.js",
+        "sha256": "c574241ea57ad65b42cb6af9b68045c300d0b0d32ad6ada2a50889ea8d7710e7"
+      },
+      {
+        "path": "examples/vehicle-library.html",
+        "sha256": "0aa430ec4fd38d4efa0d1ab3e90f3d51bea126d1f7c24cdb7b82f988ce7edd11"
+      },
+      {
+        "path": "examples/vehicle-library.js",
+        "sha256": "746847fcf45e12a8738e5e525ba383b40d835f7fbec7571e13eb8a5980dd7a1b"
+      },
+      {
+        "path": "examples/vehicle-yard/index.html",
+        "sha256": "a0ae4f0b454aed3004902248dd2fd98fac98fe74af4ed7c1a22ec6fa4f5091a6"
+      },
+      {
+        "path": "examples/vehicle-yard/main.js",
+        "sha256": "a0b1f5002ae07b3c393b04f17eec8de4d40d5ba56e1f61bd49479c57b3422942"
+      }
+    ],
+    "files": [
+      {
+        "path": "packages/render-effects/index.js",
+        "sha256": "d5fea03e1e60a720c6eafdd486e7649e8deae89875fa910dc48e99b3a87f94a1"
+      },
+      {
+        "path": "packages/render-effects/search-halo.js",
+        "sha256": "9279396c4a721f3f9ad68800843818b489d6b381d6c57123e8959df3dc489e02"
+      },
+      {
+        "path": "packages/render-effects/three.js",
+        "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264"
+      }
+    ]
+  },
+  "playerSetup": {
+    "compatibilityBaseline": "7f50cb2a48aef87a16fc0465997549be9ed88dc2",
+    "reviewedRuntime": "62f2fe90210b10985f80d75d9e4425f424a51c6b",
+    "registrationBase": "3165bd2741884f67030f034f056b6fa6abd6e9e7",
+    "releaseStamped": false,
+    "source": "packages/player-setup/source.json",
+    "runtime": [
+      {
+        "path": "packages/game-ui/title.js",
+        "bytes": 9430,
+        "sha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d",
+        "imports": []
+      },
+      {
+        "path": "packages/interactions/actions.js",
+        "bytes": 9901,
+        "sha256": "eb6fe5be66b21abbc86fe6a6a477ce265e2d3e470b2a3398121f31db27594e63",
+        "imports": [
+          "./state.js"
+        ]
+      },
+      {
+        "path": "packages/interactions/index.js",
+        "bytes": 360,
+        "sha256": "56a886bb528aa6b6cb4449f3e3c8ac9d0c42b1541907f988a777504694cb5604",
+        "imports": [
+          "./actions.js",
+          "./queries.js",
+          "./state.js"
+        ]
+      },
+      {
+        "path": "packages/interactions/queries.js",
+        "bytes": 7267,
+        "sha256": "749e82ecd94807ab90f6ac42f2e6b5e2d2b96326760367b99f874bb861b2f626",
+        "imports": [
+          "../world-core/index.js",
+          "./state.js"
+        ]
+      },
+      {
+        "path": "packages/interactions/state.js",
+        "bytes": 9204,
+        "sha256": "8097a5721c8f18373121b781664ff3a04468a5b7dcefcfdfe80623b7bd5a3f9e",
+        "imports": [
+          "../world-core/validation.js"
+        ]
+      },
+      {
+        "path": "packages/native-actors/body.js",
+        "bytes": 4359,
+        "sha256": "d50fd4c6a350ec9248ceadfa51aacb462de254453d4605dc8f09cfca31fd052d",
+        "imports": [
+          "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+          "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+          "../render-effects/three.js",
+          "./data.js",
+          "./index.js",
+          "./locomotion.js"
+        ]
+      },
+      {
+        "path": "packages/native-actors/catalogue.js",
+        "bytes": 3288,
+        "sha256": "426cdf0da6ea28c491e32ca5a6e8f32e97dd02a13a074a73e6c14acbf266d467",
+        "imports": []
+      },
+      {
+        "path": "packages/native-actors/data.js",
+        "bytes": 2629,
+        "sha256": "6405d75e2581a437c9cf988f950b01c904daa9d09a8e37579cbc28c3d53ae0e4",
+        "imports": []
+      },
+      {
+        "path": "packages/native-actors/index.js",
+        "bytes": 1559,
+        "sha256": "064d8e4e41fe06161ae6cc30304f42dfd6500e7349ad5d67054c39ab60e73d66",
+        "imports": [
+          "./catalogue.js",
+          "./data.js"
+        ]
+      },
+      {
+        "path": "packages/native-actors/locomotion.js",
+        "bytes": 3098,
+        "sha256": "0971b640628a787d98924d0ed2257580ab0b1ffeff39fc6b088570ba520da245",
+        "imports": [
+          "../render-effects/three.js"
+        ]
+      },
+      {
+        "path": "packages/native-actors/three.js",
+        "bytes": 4003,
+        "sha256": "f749d7e87ce384fbd4eacea6289a9d54a91e7064cf99aa9a522861157710d6ad",
+        "imports": [
+          "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+          "../render-effects/three.js",
+          "./body.js",
+          "./data.js",
+          "./index.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/browser.js",
+        "bytes": 19728,
+        "sha256": "9734f3e6843a5abede2521e073d82da5acf73492e7b465e3afaae853a7ab0bfd",
+        "imports": [
+          "../native-actors/data.js",
+          "../native-actors/three.js",
+          "../player-ui/index.js",
+          "../render-effects/three.js",
+          "../runtime-core/index.js",
+          "./clock.js",
+          "./configuration.js",
+          "./index.js",
+          "./retained.js",
+          "./styles.js",
+          "./surface.js",
+          "./world.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/clock.js",
+        "bytes": 2244,
+        "sha256": "228cb07b54c9cbe8c94e139c886507970b6b445de0301b0f8399fa6d0aaad597",
+        "imports": [
+          "../native-actors/data.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/configuration.js",
+        "bytes": 12314,
+        "sha256": "7d4237f46825fdd7e754c81ae054b706a5dccc55c90f92f16bc64066564f8d7a",
+        "imports": [
+          "../native-actors/data.js",
+          "../native-actors/index.js",
+          "../player-ui/configuration.js",
+          "../player-ui/descriptors.js",
+          "../runtime-core/index.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/index.js",
+        "bytes": 258,
+        "sha256": "af23a8b02f6e59c853e6adfc81dbbafae7f085e48893658150ca4dc3ae0b3cee",
+        "imports": [
+          "./configuration.js",
+          "./world.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/retained.js",
+        "bytes": 1943,
+        "sha256": "b8966a17f011648a3cd68b1116f519446a67f1e0e882b6c1c439d5de4ac6f8e7",
+        "imports": [
+          "../native-actors/data.js",
+          "../player-ui/index.js",
+          "./clock.js",
+          "./configuration.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/styles.js",
+        "bytes": 1671,
+        "sha256": "332356578a1c97eeb1e6b6a95b31a2fbf05f957a060ec62b2bd999ca22d77296",
+        "imports": []
+      },
+      {
+        "path": "packages/player-setup/surface.js",
+        "bytes": 4794,
+        "sha256": "9d85d494d780eae70cc179ec489429d7ec6a5fc90ee73935790a9ae9fc21a6d5",
+        "imports": [
+          "../native-actors/data.js",
+          "../render-effects/three.js"
+        ]
+      },
+      {
+        "path": "packages/player-setup/world.js",
+        "bytes": 5792,
+        "sha256": "3dcfef8492996d28d06cb76452769acf69ad824bbadee3c7c0b18013c97ddc57",
+        "imports": [
+          "../interactions/index.js",
+          "../native-actors/data.js",
+          "../world-core/index.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/actions.js",
+        "bytes": 3171,
+        "sha256": "7204c1c5463970b0f710fc24f7754a8749d4b601293dd806338f2a97f814fdcf",
+        "imports": [
+          "./data.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/configuration.js",
+        "bytes": 6516,
+        "sha256": "fff2177bf730e6e596f13c3f762da918ce5fd2c01e307aaf976282fa3906567d",
+        "imports": [
+          "../runtime-core/index.js",
+          "./data.js",
+          "./descriptors.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/context.js",
+        "bytes": 1543,
+        "sha256": "2c490c6c1ade2a953bd688024f54bfbe2d37a08fb62b434729d6cbc780beeff9",
+        "imports": [
+          "./data.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/data.js",
+        "bytes": 1883,
+        "sha256": "ed8445d5c922e03f7ce4e07d29f13b3e3486af207dd9e2897ec8953c5fffe254",
+        "imports": []
+      },
+      {
+        "path": "packages/player-ui/descriptors.js",
+        "bytes": 3965,
+        "sha256": "0d888099f5f3a42e5ebf4e2a426d26c7af6c1b57121897d8cb259f59ca87109a",
+        "imports": [
+          "./data.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/hud-bounds.js",
+        "bytes": 1145,
+        "sha256": "ec934f29c63fa11fc7ae387e8b5514a230100fbbfb851dbbaacca88e76e78fd1",
+        "imports": []
+      },
+      {
+        "path": "packages/player-ui/index.js",
+        "bytes": 22110,
+        "sha256": "e575fa668b278eaeafe1fdb627ef110533d0683dff5ad0222a0f11169b55aedd",
+        "imports": [
+          "../runtime-core/index.js",
+          "./actions.js",
+          "./configuration.js",
+          "./context.js",
+          "./data.js",
+          "./descriptors.js",
+          "./hud-bounds.js",
+          "./menu.js",
+          "./resources.js",
+          "./train-provider.js",
+          "./view.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/menu.js",
+        "bytes": 6899,
+        "sha256": "def6b3f04bcedf12b51797cd03050c7bb9e6086a416a1b50d645aa482a1ea37a",
+        "imports": [
+          "./configuration.js",
+          "./data.js",
+          "./descriptors.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/resources.js",
+        "bytes": 1624,
+        "sha256": "43c5136e3988f8239b5ff4f1ba6adcb7b789163202a6fbc4829bb07cccb132ac",
+        "imports": []
+      },
+      {
+        "path": "packages/player-ui/train-provider.js",
+        "bytes": 2849,
+        "sha256": "953d397da877c84de06bd747e2d298c1d12d3295a379f4fee195d3ab4ce90eba",
+        "imports": [
+          "./data.js",
+          "./descriptors.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/view.js",
+        "bytes": 5309,
+        "sha256": "935cfc3ac36cd64f53562a2f8190d1a22a1c04e508dc02187a3ef54c80ea7051",
+        "imports": [
+          "../game-ui/title.js",
+          "../train-ui/index.js",
+          "./configuration.js",
+          "./descriptors.js",
+          "./resources.js",
+          "./walking.js"
+        ]
+      },
+      {
+        "path": "packages/player-ui/walking.js",
+        "bytes": 3236,
+        "sha256": "1c2c6ae1aee75ae6e6043f48e47a8ec47253d61b52a3a0fa9c2c277b9ebac28d",
+        "imports": []
+      },
+      {
+        "path": "packages/render-effects/three.js",
+        "bytes": 202,
+        "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264",
+        "imports": [
+          "../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "packages/runtime-core/index.js",
+        "bytes": 669,
+        "sha256": "94846e754caf777bbff8b8316a4a6057ebf80df76fe5a56debe85969d7db31d9",
+        "imports": [
+          "./lifecycle.js",
+          "./planner.js"
+        ]
+      },
+      {
+        "path": "packages/runtime-core/lifecycle.js",
+        "bytes": 7014,
+        "sha256": "2e841fbbc4c53263bbae77bc8394521450efaac7646ef7adad4b0132629e0653",
+        "imports": [
+          "./planner.js"
+        ]
+      },
+      {
+        "path": "packages/runtime-core/planner.js",
+        "bytes": 14382,
+        "sha256": "b1637d0841d62a0cccbb01702a0a08f371ee8f13d5477394f26aa072c8b6a117",
+        "imports": []
+      },
+      {
+        "path": "packages/train-core/contract.js",
+        "bytes": 460,
+        "sha256": "fec8a1cc2e5912fe4dbe2dbd8c5164d3d0a79fa0c75758d386cfcade8bae8fba",
+        "imports": []
+      },
+      {
+        "path": "packages/train-ui/compact-input.js",
+        "bytes": 2474,
+        "sha256": "623053ae65012d7da88cfb82d487f0a4c2a5d358313552d46ba61b78a19a29d2",
+        "imports": [
+          "./compact-model.js"
+        ]
+      },
+      {
+        "path": "packages/train-ui/compact-model.js",
+        "bytes": 1035,
+        "sha256": "4c9b7d6c858adb519f7fe360833362bec1465fff229a33e7248b3ca1e7916df9",
+        "imports": []
+      },
+      {
+        "path": "packages/train-ui/feedback.js",
+        "bytes": 6463,
+        "sha256": "56c34c591a5d7beb44f080c10861f2ee27cfba4906f6fb1e32500b8eafae2d46",
+        "imports": [
+          "./compact-model.js"
+        ]
+      },
+      {
+        "path": "packages/train-ui/index.js",
+        "bytes": 34733,
+        "sha256": "fcaeba2c34a2d0ac0ab39f7449114c2cd1cbabf060ce7ac32db3b1b2a0991a8f",
+        "imports": [
+          "../train-core/contract.js",
+          "./compact-input.js",
+          "./compact-model.js",
+          "./feedback.js",
+          "./reverse-intent.js",
+          "./view.js"
+        ]
+      },
+      {
+        "path": "packages/train-ui/reverse-intent.js",
+        "bytes": 2725,
+        "sha256": "24d9dd0bdc3f028614c5f65044bdc6c750958f1ec9d6ba8e17f4b2726c937ced",
+        "imports": [
+          "./compact-model.js"
+        ]
+      },
+      {
+        "path": "packages/train-ui/view.js",
+        "bytes": 7171,
+        "sha256": "5a355e25e50ec036721a5094d9342213b01bd87f64c159030f508003c22f9bd2",
+        "imports": [
+          "./compact-model.js"
+        ]
+      },
+      {
+        "path": "packages/world-core/index.js",
+        "bytes": 488,
+        "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df",
+        "imports": [
+          "./legacy.js",
+          "./queries.js",
+          "./state.js",
+          "./validation.js"
+        ]
+      },
+      {
+        "path": "packages/world-core/legacy.js",
+        "bytes": 4186,
+        "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce",
+        "imports": [
+          "./state.js",
+          "./validation.js"
+        ]
+      },
+      {
+        "path": "packages/world-core/parts-refusal.js",
+        "bytes": 901,
+        "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d",
+        "imports": []
+      },
+      {
+        "path": "packages/world-core/queries.js",
+        "bytes": 5880,
+        "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457",
+        "imports": [
+          "./state.js",
+          "./validation.js"
+        ]
+      },
+      {
+        "path": "packages/world-core/state.js",
+        "bytes": 11145,
+        "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc",
+        "imports": [
+          "./parts-refusal.js",
+          "./validation.js"
+        ]
+      },
+      {
+        "path": "packages/world-core/validation.js",
+        "bytes": 5846,
+        "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+        "bytes": 3476,
+        "sha256": "99b48a737092c9e9c51478e3b068c131dabdb69ff302f140fe16ae840509ac9d",
+        "imports": [
+          "./animal-motion-repair-paint.js",
+          "./cow-neck-paint.js",
+          "./dog-motion-paint.js",
+          "./dog-paint-layers.js",
+          "./donkey-hawaiian.js",
+          "./donkey-straw-hat.js",
+          "./hen-paint-layers.js",
+          "./horse-model-paint.js",
+          "./rabbit-paint-layers.js",
+          "./red-hat-tailored-paint.js",
+          "./red-hat-uniform.js",
+          "./sheep-paint-layers.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+        "bytes": 4832,
+        "sha256": "f98467281dc0fe362a2a6bdc056540552a6728c387244b30a71c72721f9b3acb",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+        "bytes": 3163,
+        "sha256": "4cb753baaef7f6f98c2e035c871f1f16ae87a8ddf7e90da43e231a9f1e827765",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+        "bytes": 713,
+        "sha256": "b1e14e4f512fda7394af82f7ec427e5bc2802bf91607e092683f270368a239c1",
+        "imports": [
+          "./dog-paint-layers.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+        "bytes": 3982,
+        "sha256": "ac53bdf81fb3ef12b24f748d8c021fd4e86b51d616c2060fb5fd07c5253e263d",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+        "bytes": 2374,
+        "sha256": "8059368f37bc0e2698ad482b13dd402617759b2b264b5a069d2659d3cd8c0c14",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+        "bytes": 2941,
+        "sha256": "cb96953634ba9d28de11daa02bfd943ed1d058df3fc6ae2540478d4ab3c6de53",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+        "bytes": 869,
+        "sha256": "9269e670185f2fa40ea436d6251ac3e9c49af4eb86e87914daa8e8c8e88a7e4a",
+        "imports": [
+          "./horse-light-model.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+        "bytes": 818,
+        "sha256": "a66d29db4b734bb7c65014ed7bf4411792e06807e36953549f3417951356eb19",
+        "imports": [
+          "./horse-light-model.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+        "bytes": 5336,
+        "sha256": "497e991b93ffd05f85f5f03df7be19c74c825ca43b48be5a8151b0d5a70e6107",
+        "imports": [
+          "./horse-model-paint.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+        "bytes": 4279,
+        "sha256": "716ccefe8f989fe8b50828de3afbe60979bf9c8a952b3d6b45871deb3e87e5e6",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+        "bytes": 36325,
+        "sha256": "1abe555c9775bf3e3ce953c5d532cea36ef165c664b41b321ce5f0dd32b512d1",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+        "bytes": 3379,
+        "sha256": "a715e4761c72d70d35fd13e88463926bfb67ce87e417d70460363760c75209e6",
+        "imports": [
+          "./horse-grip-hand-data.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+        "bytes": 25286,
+        "sha256": "9306a065aed75f3408fd1d5799164241fcfe9add59a6d1dad2568a615e469baa",
+        "imports": [
+          "./horse-graphic-paint.js",
+          "./horse-grip-hand.js",
+          "./horse-rifle.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+        "bytes": 47101,
+        "sha256": "3e4db27f7267fa1d370b96688f6c695c3e98e5bbc022c655b9e776c20734f407",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+        "bytes": 2708,
+        "sha256": "4435a50527433057aeafc3bbf48a35ac9a69c292302da558a76de914c6b7ce24",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+        "bytes": 2979,
+        "sha256": "48f65698a5c2a84a2f24935f198b6ba1bab537dcc6e7d45d9b1f3f9c4a49da3c",
+        "imports": [
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+        "bytes": 5590,
+        "sha256": "79e5b0d5c20563324c9c0406dcf5d60ad99237205e214220e9ef14bcd68396e5",
+        "imports": [
+          "./horse-model-paint.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+        "bytes": 6000,
+        "sha256": "df6b9c7e6104674f8454bb4cd2968b43ea8e10f88d979f080ff5888d52c1c207",
+        "imports": [
+          "./horse-light-model.js",
+          "./horse-model-paint.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+        "bytes": 4550,
+        "sha256": "b569f4560849ecc747cf4daead3e7a9c0e7c3c65845fe3db3caf037f2e668cf7",
+        "imports": [
+          "./horse-model-paint.js",
+          "./vendor/three.module.js"
+        ]
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+        "bytes": 1403454,
+        "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47",
+        "imports": []
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+        "bytes": 603412,
+        "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d",
+        "imports": [
+          "./three.core.js"
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "path": "packages/game-ui/style.css",
+        "bytes": 3705,
+        "sha256": "719d89bd8eaeb2e0f62c79b5c94aa7cda4770d328459f382dd5bc2423508e0b4"
+      },
+      {
+        "path": "packages/player-ui/style.css",
+        "bytes": 8629,
+        "sha256": "f9e481ce163b386795fa100870bb952057caea3d9392f6c745825ed07163ebc7"
+      },
+      {
+        "path": "packages/train-ui/art/steam-cab-surface.svg",
+        "bytes": 1370,
+        "sha256": "cc7479604e0eb2fdcc5f9a6ed1971a283b5c24dd1f4aa17b441bb7f24c8f7567"
+      },
+      {
+        "path": "packages/train-ui/compact.css",
+        "bytes": 10885,
+        "sha256": "f1fadd48b75915ee7049acba9c1e3141ef54ae105b7177211bd274580842dcff"
+      },
+      {
+        "path": "packages/train-ui/style.css",
+        "bytes": 17332,
+        "sha256": "e75a31db0349ae04f0ec5187dceb71e681cc0dc9d7ffd8f40db2dd1a75210b35"
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png",
+        "bytes": 1570318,
+        "sha256": "671f63654e5afcb1bb8a61e6267086c3fb8839c78d59dc4750c53f56b8d9968b"
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/goat-worker-model-paint-v1.png",
+        "bytes": 1622867,
+        "sha256": "50e63428f990f31cdb2f6df0bee6a9ccb678860bf12dbc95a3fd6e87db73afea"
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-10k-data.json",
+        "bytes": 804201,
+        "sha256": "5dfdf29fbe6df27c820367dccaf105b23f9470d1dddaa3a08b2db26c329e70bd"
+      },
+      {
+        "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+        "bytes": 410861,
+        "sha256": "71d31781159f782447cacd8c133d094408b9d13d1b6f35ac31af5ac8cd452b81"
+      },
+      {
+        "path": "vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8/sites/tactical-animal/dist/assets/ui/industrial-switches/switch-skins-v2.webp",
+        "bytes": 361972,
+        "sha256": "2894c3ebed7ffd229aea9dbc632a7ccac76b50130d98ab4ee6050eeb60f19f2b"
+      },
+      {
+        "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf",
+        "bytes": 108640,
+        "sha256": "71f352d8859c787631a0978161d48497a72caa69dcae6996d6712a564df86c1e"
+      },
+      {
+        "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf",
+        "bytes": 249668,
+        "sha256": "42717a1280b523a506ca2b0285cca380e77fe214b1f6e3d75a8b925005f19eac"
+      },
+      {
+        "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+        "bytes": 2757790,
+        "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+      }
+    ]
+  },
+  "sharedArtwork": {
+    "source": "packages/assets/artwork-source.json",
+    "files": [
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+        "bytes": 2481966,
+        "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+        "bytes": 78234,
+        "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/PROVENANCE.md",
+        "bytes": 2042,
+        "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6"
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources.json",
+        "bytes": 39166,
+        "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa"
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+        "bytes": 2068,
+        "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98"
+      },
+      {
+        "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg",
+        "bytes": 4858,
+        "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90"
+      }
+    ]
+  },
+  "farmyardDoorVisuals": {
+    "source": {
+      "repository": "https://github.com/Syntaxswine/farmyard-commando",
+      "commit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "reference": "sites/tactical-animal/dist/interaction-view.js",
+      "profile": "farmyard-single-ground-leaf-endpoint-v1",
+      "nativeMetres": {
+        "width": 1.12,
+        "height": 2,
+        "thickness": 0.16
+      },
+      "wood": {
+        "originalPath": "sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+        "bytes": 2757790,
+        "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+      },
+      "material": {
+        "type": "MeshStandardMaterial",
+        "color": 11906438,
+        "roughness": 0.9,
+        "metalness": 0
+      },
+      "triangles": 12,
+      "instantEndpoint": true,
+      "fog": "known-only; visible does not recolor the source leaf",
+      "sharedThree": "../render-effects/three.js",
+      "presentationOnly": true
+    },
+    "referenceManifest": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+    "files": [
+      {
+        "path": "packages/door-visuals/three.js",
+        "bytes": 13064,
+        "sha256": "ad53568eeeaa5b7b25318cb224bd89352abffecc7d5e1a1b72ac8c37b43b8228"
+      },
+      {
+        "path": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+        "bytes": 2757790,
+        "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+      }
+    ]
+  },
+  "functionalParts": {
+    "contract": {
+      "schemaId": "nautilus-functional-parts",
+      "definitionSchemaId": "nautilus-part-definition",
+      "compiledSchemaId": "nautilus-compiled-parts",
+      "runtimeSchemaId": "nautilus-parts-runtime-save",
+      "version": 1,
+      "profileId": "native-quarter-turn-parts-v1",
+      "definitionProfileId": "native-aabb-parts-v1",
+      "renderProfileId": "native-part-bindings-v1",
+      "capability": "nautilus-functional-parts-v1",
+      "metresPerUnit": 1,
+      "standardStoryHeightM": 2.12
+    },
+    "runtimeProfile": {
+      "id": "bounded-parts-runtime-v1",
+      "version": 1,
+      "maxJournal": 4096,
+      "queriesProfile": "bounded-kinematic-v1"
+    },
+    "files": [
+      {
+        "path": "packages/parts-core/index.js",
+        "bytes": 1789,
+        "sha256": "dbd2d8fa227303d644d5c5459bdd54a3974c33d71a5041e1e6c07dc46c240335"
+      },
+      {
+        "path": "packages/parts-core/clearance.js",
+        "bytes": 1272,
+        "sha256": "750b445ae131a2052e24f61f3521c1d2dc72fc542e8404716e43bce43db4e42a"
+      },
+      {
+        "path": "packages/world-core/validation.js",
+        "bytes": 5846,
+        "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+      },
+      {
+        "path": "packages/parts-core/compiler.js",
+        "bytes": 26064,
+        "sha256": "256742ecc07ba672d8a6d5e09f020744d72ca438c57e256ec3c66e57d0ea5a96"
+      },
+      {
+        "path": "packages/interactions/index.js",
+        "bytes": 384,
+        "sha256": "19524b172b83bf5f832f0c8ee72cd259c10cb9471706da28534718eeb40b9dd0"
+      },
+      {
+        "path": "packages/interactions/actions.js",
+        "bytes": 10479,
+        "sha256": "d12cec043b46b3019744d3b978783612bf88caffa8f5270ad31f690225dc3dca"
+      },
+      {
+        "path": "packages/interactions/state.js",
+        "bytes": 9356,
+        "sha256": "0bde0c86fd8a8040c93c3b04cafeea0c41e4829777cfa6f356be3527f993a2ca"
+      },
+      {
+        "path": "packages/interactions/queries.js",
+        "bytes": 11569,
+        "sha256": "405db17fb852314fbf3c5a7fd741699ac8c1afd8e5841f546a7065cedea6e9e6"
+      },
+      {
+        "path": "packages/traversal-core/index.js",
+        "bytes": 7342,
+        "sha256": "a94290b4b022140ff2b033c8ffb478bff23efd4fa954ac1d03acc4697e21abfc"
+      },
+      {
+        "path": "packages/world-core/index.js",
+        "bytes": 488,
+        "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df"
+      },
+      {
+        "path": "packages/world-core/legacy.js",
+        "bytes": 4186,
+        "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce"
+      },
+      {
+        "path": "packages/world-core/state.js",
+        "bytes": 11145,
+        "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc"
+      },
+      {
+        "path": "packages/world-core/parts-refusal.js",
+        "bytes": 901,
+        "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+      },
+      {
+        "path": "packages/world-core/queries.js",
+        "bytes": 5880,
+        "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457"
+      },
+      {
+        "path": "packages/map-core/requirements.js",
+        "bytes": 5642,
+        "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657"
+      },
+      {
+        "path": "packages/map-core/contract-manifest.js",
+        "bytes": 13164,
+        "sha256": "62860c74c08c66e1e81d795a0f81494bedca0d0031d56d3283f6454e5ddf229d"
+      },
+      {
+        "path": "packages/railway-visuals/route.js",
+        "bytes": 18311,
+        "sha256": "036760c3e390f002e7269911b572a66d9bb36d93243493d094b256a53d041ebc"
+      },
+      {
+        "path": "packages/railway-visuals/catalogue.js",
+        "bytes": 1434,
+        "sha256": "f5ff0bc1798702e98f41901c84779ea5abfa845db08b8a0d379e68f4b49af963"
+      },
+      {
+        "path": "packages/parts-core/data.js",
+        "bytes": 16686,
+        "sha256": "51ad8cbc6a73d2e58cac9cae360298ed29b62dcd0479146645d5d21854ae67e3"
+      },
+      {
+        "path": "packages/parts-core/geometry.js",
+        "bytes": 5001,
+        "sha256": "6ff50e6f6be5406912dd77ad79b511f8b24043349a8173798e9a16cea41ca22e"
+      },
+      {
+        "path": "packages/parts-core/identity.js",
+        "bytes": 2435,
+        "sha256": "99b6a2605d64cbaf6ace50ea90459cff9cc708d051c95f3241291030e6f4158f"
+      },
+      {
+        "path": "packages/parts-core/hash.js",
+        "bytes": 2105,
+        "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+      },
+      {
+        "path": "packages/parts-core/runtime.js",
+        "bytes": 19571,
+        "sha256": "9a1c241126efa7584fa50a7b86101433b3316298b57c7a77f91e328444f6b9be"
+      },
+      {
+        "path": "packages/parts-core/fixtures.js",
+        "bytes": 5289,
+        "sha256": "aad83cfefd721f76459d28bd9bc9213d16846bc5023db8b34a3bb53fff0e35fe"
+      }
+    ]
+  },
+  "farmyardDoors": {
+    "contract": {
+      "id": "door:farmyard-single-leaf",
+      "version": 1,
+      "schemaId": "nautilus-farmyard-door-state",
+      "schemaVersion": 1,
+      "commandVersion": 1,
+      "profileId": "farmyard-single-ground-leaf-endpoint-v1",
+      "capability": "nautilus-farmyard-doors-v1",
+      "maximumReceipts": 128,
+      "maximumBytes": 8000000,
+      "maximumNodes": 500000,
+      "maximumDepth": 24,
+      "actors": 128,
+      "doors": 256,
+      "boxes": 8192,
+      "queue": 1024
+    },
+    "profile": {
+      "id": "farmyard-single-ground-leaf-endpoint-v1",
+      "version": 1,
+      "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "widthM": 1.12,
+      "heightM": 2,
+      "thicknessM": 0.16,
+      "reachM": 1.65,
+      "actorRadiusM": 0.23,
+      "reachStepM": 0.1,
+      "epsilon": 1e-7,
+      "combatCost": 1,
+      "authority": "retained-host-context",
+      "clearance": "destination-pose-living-circles",
+      "refresh": "farmyard-post-door-force-fog-v1"
+    },
+    "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "sourceSnapshotDistributed": false,
+    "files": [
+      {
+        "path": "packages/adapters/farmyard/doors.js",
+        "bytes": 946,
+        "sha256": "281865d49cdb1b52efdc44e08a77741c39ec4c0905b8c3e195348b16fdf98540"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/data.js",
+        "bytes": 5565,
+        "sha256": "99347d5fe6daced8305d15d09718af52d6782ea5fd0c34c9f591a48879862b28"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/profile.js",
+        "bytes": 2828,
+        "sha256": "8d9f939c98281f0ba92c89d8060e22b7ce2ddec2e3d41533a22a11526b0fd652"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/host.js",
+        "bytes": 15702,
+        "sha256": "813ad8235608d9da9eccd2d3daa6c01a1b6ecd3bf72b2178991dc610a66eeddb"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/model.js",
+        "bytes": 8474,
+        "sha256": "3a7f3a10ab362fbc6658959263ac18ff8a5a5252b93e92eb63e8244a9abe2907"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/projection.js",
+        "bytes": 10337,
+        "sha256": "56f5e9de8008c864d35857e7cebd4f596578caf3f9d8e92eac23a024bd6fbaf7"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/world.js",
+        "bytes": 5632,
+        "sha256": "56e2d96128d43b2f69b60535683e76e8cbff33d2c5688217b2f2b85d722213e1"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/state.js",
+        "bytes": 7253,
+        "sha256": "ff13a6f380ef1d4932b3185a01bc8a187c147851fde4a5194cffe98e9bc8e0fc"
+      },
+      {
+        "path": "packages/map-core/requirements.js",
+        "bytes": 5642,
+        "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657"
+      },
+      {
+        "path": "packages/map-core/contract-manifest.js",
+        "bytes": 13164,
+        "sha256": "62860c74c08c66e1e81d795a0f81494bedca0d0031d56d3283f6454e5ddf229d"
+      },
+      {
+        "path": "packages/railway-visuals/route.js",
+        "bytes": 18311,
+        "sha256": "036760c3e390f002e7269911b572a66d9bb36d93243493d094b256a53d041ebc"
+      },
+      {
+        "path": "packages/railway-visuals/catalogue.js",
+        "bytes": 1434,
+        "sha256": "f5ff0bc1798702e98f41901c84779ea5abfa845db08b8a0d379e68f4b49af963"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/mechanics.js",
+        "bytes": 3344,
+        "sha256": "c97451eb3737b51d333474d52c897f962b99f20684f4d04a452e3a14afca7da0"
+      },
+      {
+        "path": "packages/interactions/actions.js",
+        "bytes": 10479,
+        "sha256": "d12cec043b46b3019744d3b978783612bf88caffa8f5270ad31f690225dc3dca"
+      },
+      {
+        "path": "packages/interactions/state.js",
+        "bytes": 9356,
+        "sha256": "0bde0c86fd8a8040c93c3b04cafeea0c41e4829777cfa6f356be3527f993a2ca"
+      },
+      {
+        "path": "packages/world-core/validation.js",
+        "bytes": 5846,
+        "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+      }
+    ],
+    "schemas": [
+      {
+        "path": "packages/adapters/farmyard/doors/door-state-v1.schema.json",
+        "bytes": 57340,
+        "sha256": "f426e829f56cbf555f27999c7116094cbf9dcc95b295ec493cf0d3953f2edaa7"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors/door-host-save-v1.schema.json",
+        "bytes": 1508,
+        "sha256": "c1ca9fb5dfc567c90f617b5bc854c823bd764e64633e37270356b9727a7ad61d"
+      }
+    ]
+  },
+  "gameKit": {
+    "interactionSchema": "nautilus-standard-interactions",
+    "version": 1,
+    "profile": "bounded-kinematic-v1",
+    "scope": "Optional standard door/stair behavior and title UI; no consumer adoption",
+    "files": [
+      {
+        "path": "packages/interactions/actions.js",
+        "bytes": 10479,
+        "sha256": "d12cec043b46b3019744d3b978783612bf88caffa8f5270ad31f690225dc3dca"
+      },
+      {
+        "path": "packages/interactions/index.js",
+        "bytes": 384,
+        "sha256": "19524b172b83bf5f832f0c8ee72cd259c10cb9471706da28534718eeb40b9dd0"
+      },
+      {
+        "path": "packages/interactions/queries.js",
+        "bytes": 11569,
+        "sha256": "405db17fb852314fbf3c5a7fd741699ac8c1afd8e5841f546a7065cedea6e9e6"
+      },
+      {
+        "path": "packages/interactions/state.js",
+        "bytes": 9356,
+        "sha256": "0bde0c86fd8a8040c93c3b04cafeea0c41e4829777cfa6f356be3527f993a2ca"
+      },
+      {
+        "path": "packages/game-ui/index.js",
+        "bytes": 1580,
+        "sha256": "cabc745318a761f82c9447bbbf33a96fa09decfb1d627f28240db90d664f2e9a"
+      },
+      {
+        "path": "packages/game-ui/style.css",
+        "bytes": 3705,
+        "sha256": "719d89bd8eaeb2e0f62c79b5c94aa7cda4770d328459f382dd5bc2423508e0b4"
+      },
+      {
+        "path": "packages/game-ui/title.js",
+        "bytes": 9430,
+        "sha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d"
+      }
+    ]
+  },
+  "modularFoundation": {
+    "configuration": {
+      "id": "nautilus-module-configuration",
+      "version": 1
+    },
+    "world": {
+      "id": "nautilus-extended-world",
+      "version": 1
+    },
+    "nativeKitStoryHeightM": 2.12,
+    "maximumFloorPositions": 32,
+    "scope": "Optional composition, static authored AABB world, floor UI and Farmyard calculation seam; no game pin or live movement adoption",
+    "files": [
+      {
+        "path": "packages/runtime-core/index.js",
+        "bytes": 669,
+        "sha256": "94846e754caf777bbff8b8316a4a6057ebf80df76fe5a56debe85969d7db31d9"
+      },
+      {
+        "path": "packages/runtime-core/lifecycle.js",
+        "bytes": 7014,
+        "sha256": "2e841fbbc4c53263bbae77bc8394521450efaac7646ef7adad4b0132629e0653"
+      },
+      {
+        "path": "packages/runtime-core/planner.js",
+        "bytes": 14382,
+        "sha256": "b1637d0841d62a0cccbb01702a0a08f371ee8f13d5477394f26aa072c8b6a117"
+      },
+      {
+        "path": "packages/world-core/extended-world-v1.schema.json",
+        "bytes": 4925,
+        "sha256": "5dd5db04270b4ad1ce35791a22b8723bfeebc10c1dda46c411e26fd63f6628c9"
+      },
+      {
+        "path": "packages/world-core/index.js",
+        "bytes": 488,
+        "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df"
+      },
+      {
+        "path": "packages/world-core/legacy.js",
+        "bytes": 4186,
+        "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce"
+      },
+      {
+        "path": "packages/world-core/parts-refusal.js",
+        "bytes": 901,
+        "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+      },
+      {
+        "path": "packages/world-core/queries.js",
+        "bytes": 5880,
+        "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457"
+      },
+      {
+        "path": "packages/world-core/state.js",
+        "bytes": 11145,
+        "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc"
+      },
+      {
+        "path": "packages/world-core/validation.js",
+        "bytes": 5846,
+        "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+      },
+      {
+        "path": "packages/floor-navigation/dom.js",
+        "bytes": 5334,
+        "sha256": "cee14d8c517b024227ce637a6ba35f037354488376914c1f55170655b99457c7"
+      },
+      {
+        "path": "packages/floor-navigation/index.js",
+        "bytes": 6336,
+        "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d"
+      },
+      {
+        "path": "packages/floor-navigation/style.css",
+        "bytes": 3011,
+        "sha256": "3d20868bc3fcfabc9e313d15051e9f7c3b0a653cbc51c3d331aec01fe6ce8eda"
+      },
+      {
+        "path": "packages/adapters/farmyard/doors.js",
+        "bytes": 946,
+        "sha256": "281865d49cdb1b52efdc44e08a77741c39ec4c0905b8c3e195348b16fdf98540"
+      },
+      {
+        "path": "packages/adapters/farmyard/rules.js",
+        "bytes": 6855,
+        "sha256": "71ccd2b31a2a5de806967ba729a06443da2a4fff102abc8d4c0e5ef5a5545405"
+      },
+      {
+        "path": "packages/adapters/farmyard/windows.js",
+        "bytes": 5511,
+        "sha256": "3efcb20364ec83474ebf6c3aa0118bb50107d579cb5531a2da02c824a9fe4c4d"
+      }
+    ]
+  },
+  "progression": {
+    "schema": "nautilus-progression",
+    "version": 1,
+    "profile": {
+      "id": "basic-progression-v1",
+      "version": 1,
+      "featureId": "nautilus-basic-progression-v1",
+      "pointsPerLevel": 15,
+      "xpPerLevelFactor": 100,
+      "statCap": 100,
+      "practiceThresholdBase": 1000,
+      "practiceThresholdPerStat": 100,
+      "maxXPGrant": 1000000,
+      "maxPracticeGrant": 1000,
+      "maxReceipts": 4096,
+      "maxSkillPoints": 1000000,
+      "maxSerializedCharacters": 8000000
+    },
+    "files": [
+      {
+        "path": "packages/rules-core/progression.js",
+        "bytes": 19311,
+        "sha256": "be4a5c6847adc54b66823dbd1037f14149849a531f4bdc4e71c020cada9cea07"
+      },
+      {
+        "path": "packages/rules-core/characters.js",
+        "bytes": 4498,
+        "sha256": "c2559097d664f3769a70f2f122044864dad87648037f9eb03890a697ebe66811"
+      }
+    ]
+  },
+  "items": {
+    "capability": "nautilus-rock-items-v1",
+    "version": 1,
+    "files": [
+      {
+        "path": "packages/items-core/actions.js",
+        "bytes": 3420,
+        "sha256": "ffdbbb27ff9d407194e555e9b21f3a6e17dad9c9c20a25690254e0e84861974b"
+      },
+      {
+        "path": "packages/items-core/flight.js",
+        "bytes": 5214,
+        "sha256": "6c60e5d16134c08a504bb5ce890b25b65913c8d8d797362107d4367939c182c4"
+      },
+      {
+        "path": "packages/items-core/index.js",
+        "bytes": 364,
+        "sha256": "0d571cb37622d731393032fda29687008951a7c0d673001e4655b5966fbbc29f"
+      },
+      {
+        "path": "packages/items-core/lob.js",
+        "bytes": 1261,
+        "sha256": "095aa05a4c9c9162f6ba2b2b29df56c265c5d3a8f8735ed951ae29b186bb50ff"
+      },
+      {
+        "path": "packages/items-core/noise.js",
+        "bytes": 2058,
+        "sha256": "33bfcadf18a4ad086dc88377b0aa7b240f5bd34884f560a0fe03a64ae5bc887f"
+      },
+      {
+        "path": "packages/items-core/profile.js",
+        "bytes": 1580,
+        "sha256": "ab0587943de648c10cf92f48f6d500223f08e48670a3b1d613f8cfc477b7e0ea"
+      },
+      {
+        "path": "packages/items-core/state.js",
+        "bytes": 7268,
+        "sha256": "ff50d256f03c8a71a60f0683423f5d90fcfa9d74bb56d080b59a9e45a03ef1a2"
+      },
+      {
+        "path": "packages/items-core/transactions.js",
+        "bytes": 1275,
+        "sha256": "55e6413ee20d45900aeca6bdd905f88670aa08154e1e2a854c0e1b97ec0c8079"
+      },
+      {
+        "path": "packages/items-core/validation.js",
+        "bytes": 2402,
+        "sha256": "1a32d4bfd0ce07fbcd5c53b027550ecc07c560c6ebeebf8d5c6038086ee279c7"
+      },
+      {
+        "path": "packages/item-visuals/rock.js",
+        "bytes": 3586,
+        "sha256": "c60f3ea05657a79642b39042bf3e88ed96f20c809a527c51d5b549e29f0bcab0"
+      }
+    ]
+  },
+  "grenades": {
+    "contract": {
+      "id": "item:grenade",
+      "version": 1,
+      "schemaId": "nautilus-grenade-state",
+      "schemaVersion": 1,
+      "commandVersion": 1,
+      "capability": "nautilus-grenades-static-planar-v1",
+      "aimCapability": "nautilus-grenade-aim-v1",
+      "maximumReceipts": 128,
+      "guide": "docs/grenades.md",
+      "aimEntry": "./grenades/aim",
+      "authority": "command-time",
+      "presentation": "transient-not-saved"
+    },
+    "profile": {
+      "id": "farmyard-static-same-plane-v1",
+      "version": 1,
+      "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+      "cost": 5,
+      "discountCost": 2.5,
+      "range": 10,
+      "blast": 5,
+      "damage": 120,
+      "initialStock": 3,
+      "epsilon": 1e-7,
+      "trajectoryPoints": 33,
+      "footprintPoints": 97,
+      "groundFloor": 0,
+      "consequences": "ordinary-casualty-alert-v1",
+      "engagement": "farmyard-contact-refill-v1"
+    },
+    "sourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "sourceSnapshotDistributed": false,
+    "visualSourceCommit": "251bf8094b5f9ebe44208443084c1a6d6658512a",
+    "visualResources": [
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-10k-data.json",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png",
+      "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/equipment/painted-ui/grenade-surface.png"
+    ],
+    "files": [
+      {
+        "path": "packages/grenades-core/aim.js",
+        "bytes": 3299,
+        "sha256": "9261d57bcd9838eff21e3359ea20cd561fa3459a9af7e11015a3d04f3de2709d"
+      },
+      {
+        "path": "packages/grenades-core/example.js",
+        "bytes": 1194,
+        "sha256": "3de77a10e4e24d7dc999d90e309a53e9ae4ff01e7311c5901ec79b5709ec9620"
+      },
+      {
+        "path": "packages/grenades-core/farmyard.js",
+        "bytes": 10011,
+        "sha256": "c46f3f62ecfbe44307ac9dc7fd447ca3cba6ec31bbe943b1e3f688faaf61f2c6"
+      },
+      {
+        "path": "packages/grenades-core/geometry.js",
+        "bytes": 3318,
+        "sha256": "7dd1f2a04625034648653d3d0e32eab3adbc17904ba34f69784281b721ae3526"
+      },
+      {
+        "path": "packages/grenades-core/index.js",
+        "bytes": 622,
+        "sha256": "d5868b208c40ff01061c8f35724b5892798f96d47d81183de132b650848c7883"
+      },
+      {
+        "path": "packages/grenades-core/mechanics.js",
+        "bytes": 6918,
+        "sha256": "e030033935054e988c9e10d275ad3c6d743508c759750144da273a024bdd6615"
+      },
+      {
+        "path": "packages/grenades-core/model.js",
+        "bytes": 7924,
+        "sha256": "c4b9e9445dcb48e0ba0f8fc3242259c75459544f6dec40ca9d8d7b8064374569"
+      },
+      {
+        "path": "packages/grenades-core/profile.js",
+        "bytes": 2472,
+        "sha256": "df51312a207d896623de1b1f8848b6b8962889acc411262043f14b5bccad52bf"
+      },
+      {
+        "path": "packages/grenades-core/state.js",
+        "bytes": 10091,
+        "sha256": "f89e9fde410b6a1824695432def3943d750faf8930c6fe3921a21f5acc8b2aa2"
+      },
+      {
+        "path": "packages/grenades-core/validation.js",
+        "bytes": 5298,
+        "sha256": "1e0935ac2a9592a328ef8a254ad02a1efdcea1b5e7c2b63a412525296686794f"
+      },
+      {
+        "path": "packages/grenade-ui/controls.js",
+        "bytes": 15860,
+        "sha256": "1229e302e5af1befd006db755221ec5c67d2c6280559eca0ea3c47d433bd4077"
+      },
+      {
+        "path": "packages/grenade-ui/style.css",
+        "bytes": 2671,
+        "sha256": "5824960272be5b31406c3860eda4cd2f0743c1e42375eab3a0c05c6433113e5d"
+      },
+      {
+        "path": "packages/grenade-ui/view.js",
+        "bytes": 4187,
+        "sha256": "86a6957f0a5971f46dfdc4ea07ff0636ba25d665a687c07c0edbf23c74aeb897"
+      },
+      {
+        "path": "packages/grenade-visuals/horse-balance.js",
+        "bytes": 48967,
+        "sha256": "1efdd676bbc51546e66f07d84d1262cd3042c8646d1172a7f1b30736068f34e8"
+      },
+      {
+        "path": "packages/grenade-visuals/paint.js",
+        "bytes": 4204,
+        "sha256": "492f582852f54d34e04f3bda2dd5a43e79f992fae90dc4461396e244039a3a60"
+      },
+      {
+        "path": "packages/grenade-visuals/source.json",
+        "bytes": 917,
+        "sha256": "beba14c59df020bd0fc1e54710a9f00baa0bfa771fcd64ebc3396b5e0355391c"
+      },
+      {
+        "path": "packages/grenade-visuals/three.js",
+        "bytes": 17914,
+        "sha256": "fa985505f6563458cfc5f2f059df0e5c29fa43deb59cdf4266c8328366d67478"
+      },
+      {
+        "path": "packages/grenade-visuals/throw-motion.js",
+        "bytes": 41285,
+        "sha256": "cf944b32ead565b4f47b065c8fb38c03ab0b34867374499acf8efef11448265c"
+      }
+    ]
+  },
+  "editorAssets": {
+    "catalog": "editor-assets.json",
+    "count": 346
+  },
+  "buildingPrefabs": {
+    "catalog": "building-prefabs.json",
+    "count": 61,
+    "catalogues": [
+      "tinderbox-gross-housing-v1@6693bfa3fea2edec77649d830de5ac68ba4c1a50",
+      "nautilus-gross-original-v1@6693bfa3fea2edec77649d830de5ac68ba4c1a50+ee7c18ecdc2669168247b94a82156634b2c4ffe5"
+    ],
+    "originalSourceCommit": "ee7c18ecdc2669168247b94a82156634b2c4ffe5"
+  },
+  "adaptations": [
+    "Nautilus title and navigation",
+    "Isolated browser storage namespaces",
+    "Game-adapter handoff instead of bundled combat runtime",
+    "Authored opening yard",
+    "Farmyard switch and map-frame materials",
+    "Portable native-scale wall runs, measured wall tools, oriented preview and block preservation",
+    "Optional reviewed golden contour effect and standalone example",
+    "Catalog-derived asset library with inspection-scene previews",
+    "Biome swatches sample the pinned ground atlas",
+    "Whole-building prefab references, native shared-renderer assemblies and deterministic lot placement"
+  ],
+  "patches": [
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-library.js",
+      "sourceSha256": "0105a001acca7c0887a0d304c2d6996a96c7fb193acf7152b6db6a6f9039269b",
+      "builtSha256": "3d1aaf5286851ca8e10786814788cfcbdd8403e8330834683a296775be9847e9"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js",
+      "sourceSha256": "f0e3b4e544dfa82638a308413ac466ea292f257cab8579399a03a6a2d6bc6e38",
+      "builtSha256": "8a000896dbacb1a7b77eeb0b984498e6c38dd66a0928f0b471842a5aa1dfedbf"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-store.js",
+      "sourceSha256": "dd77f432bb5625ffaee08aaba34340e80f1e7e1fedb1ae78edaf80ac3e733ee8",
+      "builtSha256": "744043f357e1b2c86d986b3631f14952ccf7af116a84309f68a6a728fd84b134"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-tools.js",
+      "sourceSha256": "11f22367631f287166996e28106d6d7884172dc1e22dcfbcd5e380fe7740579f",
+      "builtSha256": "f52e70435a5a113c01321a0579db5531c3b42c68cb484c05e517ef221590db33"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d.js",
+      "sourceSha256": "f4b01707f92afbb3c688168391ce0bd1559745574bab2611752f5a163d2a7bf6",
+      "builtSha256": "41b86506a129b1833f3c23952b6a6e336f4a03e587507b1393dc556abd5465a9"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-playtest.js",
+      "sourceSha256": "5d7f0e2295d88658e918667cd67a354b0775f5e1a3c8441bd12a6990f7ebdab7",
+      "builtSha256": "473bb4a9be91ef2ae13ee47cd083ff1327a8438703b1d3950ce70ebb69abcff8"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-sector-save.js",
+      "sourceSha256": "b2f0d33394aaefcbfa7c00b31c2ffd96e4d0676827c5aba208104c5fd0332f8d",
+      "builtSha256": "829a830ea55d183940762b5ea4ac801c3ff9943afef03b2bcf81b5136607c1e3"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-workbench.js",
+      "sourceSha256": "8a570f3c0b7cef9c9226d9a6e57868971cfa4fa888d68b68a822ae0592202fe6",
+      "builtSha256": "a5d05889879e33cfca22a0564dde1fda81d0f50bf8840dca9342f34665e9f24c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-preview.js",
+      "sourceSha256": "a19727c9272bdf9998e0b8d0cde8e7372f41870422cf20a8e75adf0a54b7fd42",
+      "builtSha256": "1f1f73837fa0d9c820023ff6e31fc419104d8262c79856bb5addf943f5473386"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-machine-paint.js",
+      "sourceSha256": "ebaa29f8ddaec3eec6de6c0bed050820b6b0ee3f3e8a76293ff29a56ac6f6ad4",
+      "builtSha256": "8d26a8b252363f0aa0102a90c5379c5ef6f94208e5878bdba19b1a566bda29da"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-folder.js",
+      "sourceSha256": "1f379e3d3d042b12b833d051686e9ddda8eae26bd45f5f842034445899332439",
+      "builtSha256": "a6b3b60e2737061ee7c7cf6cb15486e2336516e06e8a200452a9cc4d9e153722"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/settings-3d.js",
+      "sourceSha256": "a4fd208a4d90815ba6561a2d2d00568a0e3fc9f1095fabc195548d2ae3dbeb2f",
+      "builtSha256": "d4e5e150aca81c775ba7165221fd0d1d2272ea52e0ca150b0094616b411f98a6"
+    }
+  ]
+}
