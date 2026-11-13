@@ -1,7 +1,7 @@
 import {mountPlayerSetup,createSetupConfiguration,bindSetupProvider} from '@nautilus-engine/map-core/player-setup/browser';
 import {SETUP_PORTS,output} from '@nautilus-engine/map-core/player-setup';
 import {PLAYER_PORTS} from '@nautilus-engine/map-core/player-ui';
-import {REGISTRY,identity,defaultRecipe,validateRecipe,contentFor,fixtureById,goldenRecipe,fixtureSpawn,objectiveById,observerCapabilities} from './registry.js';
+import {REGISTRY,identity,defaultRecipe,validateRecipe,contentFor,fixtureById,goldenRecipe,fixtureSpawn,objectiveById,observerCapabilities,isDoorObjective} from './registry.js';
 import {createGroundHost} from './host.js';import {createGroundSurface} from './surface.js';import {createChecklist,evaluateObjective} from './runner.js';
 import {clone,canonical,fields,insist,refusal,accepted} from './data.js';
 
@@ -51,7 +51,7 @@ export async function createGroundApplication(container,{installation,storage=co
   async function retire(entry){entry.pause.dispose();entry.closeDialog?.();entry.dialog?.remove();entry.unsubscribe();await entry.setup.dispose();entry.surface.dispose();entry.host.dispose();entry.stage.remove();}
   function checkpoint(){insist(current&&!retired,'APPLICATION_RETIRED','No accepted sandbox.');return clone({kind:'nautilus-test-ground-checkpoint',version:1,installationSHA:installation.package.sha256,recipe:current.host.read().recipe,host:current.host.read(),setup:current.setup.checkpoint(),checklist:current.checklist.read(),missionBaseline:current.missionBaseline});}
   function readMission(entry){const state=entry.host.read(),recipe=state.recipe,objective=objectiveById(recipe.objective.id),missing=objective.requires.filter(c=>!observerCapabilities(recipe.observers.profile).includes(c));if(missing.length)return {status:'unavailable',missionComplete:false,reason:'Missing observations: '+missing.join(', ')};
-    const result=evaluateObjective({objective,slot:recipe.objective.slot,conditions:recipe.conditions.id,baseline:entry.missionBaseline,observed:{state,passage:objective.id==='door-passage'?entry.host.passage(recipe.objective.slot):null}});
+    const result=evaluateObjective({objective,slot:recipe.objective.slot,conditions:recipe.conditions.id,baseline:entry.missionBaseline,observed:{state,passage:isDoorObjective(objective)?entry.host.passage(recipe.objective.slot):null}});
     if(recipe.objective.slot!=='driving'&&recipe.conditions.id==='transition'&&state.receipts.length===entry.missionBaseline.receipts.length)result.status='pending';return result;
   }
   function render(entry) {if(!entry.map)return;const s=entry.host.read(),mission=readMission(entry);entry.mission.dataset.state=mission.status;entry.mission.textContent=(mission.missionComplete?'Mission complete':'Mission pending')+' · '+(mission.missionComplete&&mission.status==='passed'?'verified':mission.status==='unavailable'?'observations unavailable':'awaiting confirmed outcome');

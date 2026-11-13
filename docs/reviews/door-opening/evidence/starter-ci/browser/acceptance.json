@@ -1,0 +1,121 @@
+{
+  "sourceCommit": "63d930655cc84a626813a0c3fca5c984f23a51b4",
+  "sourceMode": false,
+  "reviewedFiles": [
+    {
+      "path": "examples/game-starter-host.js",
+      "servedSha256": "7b79efe74d8ea6463e4290344c71eead54b2a4e37897397a4ffecfcff7a41bda",
+      "workingTreeSha256": "7b79efe74d8ea6463e4290344c71eead54b2a4e37897397a4ffecfcff7a41bda"
+    },
+    {
+      "path": "examples/game-starter.js",
+      "servedSha256": "0e6245ea8f9ac50680471ab83752e49a410d89c79b73fec72d042938b490071c",
+      "workingTreeSha256": "0e6245ea8f9ac50680471ab83752e49a410d89c79b73fec72d042938b490071c"
+    },
+    {
+      "path": "examples/game-starter.html",
+      "servedSha256": "dbc3bd2bd89606b6a4cb2e0e1169b13de0fdcb96a63acffb573149d286917a12",
+      "workingTreeSha256": "dbc3bd2bd89606b6a4cb2e0e1169b13de0fdcb96a63acffb573149d286917a12"
+    },
+    {
+      "path": "packages/game-ui/title.js",
+      "servedSha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d",
+      "workingTreeSha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d"
+    },
+    {
+      "path": "packages/world-core/validation.js",
+      "servedSha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53",
+      "workingTreeSha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+    }
+  ],
+  "reviewScriptSha256": "6f4a57ad3278df9659fe797c803a312eec235c8a8b8535404058d4fa0e00e75b",
+  "buildProvenanceSha256": "7f740ca568e1029873ed7e2bced080773fb3c78d9bafd03606d662647c8073e3",
+  "checks": [
+    {
+      "name": "native queued close preserves deliberate New game focus while ordinary Escape restores Credits",
+      "passed": true,
+      "method": "Native dialog.close() and New game focus in one browser task, followed by trusted close delivery; no synthetic close or timing sleep."
+    },
+    {
+      "name": "keyboard start and swept closed-door blocking",
+      "passed": true
+    },
+    {
+      "name": "locked/key feedback, actor-tolerant opening and occupied closing protection",
+      "passed": true,
+      "occupiedClose": {
+        "previewCode": "DOOR_OCCUPIED",
+        "code": "DOOR_OCCUPIED",
+        "events": [],
+        "unchanged": true
+      }
+    },
+    {
+      "name": "mid-stair save, reload, export/import and atomic invalid-import rejection",
+      "passed": true,
+      "heightM": 0.2702499259765206
+    },
+    {
+      "name": "menu input isolation, confirmation focus trap and cancellation",
+      "passed": true
+    },
+    {
+      "name": "continuous automatic stair travel in both directions",
+      "passed": true
+    },
+    {
+      "name": "confirmed new game creates a fresh yard",
+      "passed": true
+    },
+    {
+      "name": "before-write new-game failure preserves the previous live host and checkpoint",
+      "passed": true
+    },
+    {
+      "name": "after-write exception is reconciled with the stored candidate before new-game adoption",
+      "passed": true
+    },
+    {
+      "name": "loading, failed-save retry, latest-check wins, single start, stale completion and disposal",
+      "passed": true
+    },
+    {
+      "name": "failed continue preserves menu and succeeds on retry",
+      "passed": true
+    },
+    {
+      "name": "menu-open mid-stair retirement blocks disposal scheduling, cancelled RAF callbacks and stale inputs",
+      "passed": true,
+      "method": "Injected pagehide, native RAF tracking, controlled invocation of a cancelled callback and synthetic stale inputs; not a navigation test."
+    },
+    {
+      "name": "native touch start/door, 44px menu controls, 320px phone and 640px reflow",
+      "passed": true,
+      "titleTargets": [
+        {
+          "label": "Continue",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "New game",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Settings",
+          "width": 316,
+          "height": 48
+        },
+        {
+          "label": "Credits",
+          "width": 316,
+          "height": 48
+        }
+      ],
+      "reflowNote": "640 CSS pixels represents the width available after 200% browser zoom on a 1280px display; it is a reflow equivalent, not a native zoom measurement."
+    }
+  ],
+  "errors": [],
+  "failedRequests": []
+}

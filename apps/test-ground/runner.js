@@ -1,6 +1,6 @@
 import {createActionRouter} from '@nautilus-engine/map-core/player-ui';
 import {createSetupConfiguration} from '@nautilus-engine/map-core/player-setup';
-import {REGISTRY,CONTENT_SOURCE,defaultRecipe,fixtureById,objectiveById,plotById,slotById,validateRecipe,goldenRecipe,fixtureSpawn,observerCapabilities} from './registry.js';
+import {REGISTRY,CONTENT_SOURCE,defaultRecipe,fixtureById,objectiveById,plotById,slotById,validateRecipe,goldenRecipe,fixtureSpawn,observerCapabilities,isDoorObjective} from './registry.js';
 import {createGroundHost} from './host.js';
 import {clone,canonical,fields,insist,refusal,accepted} from './data.js';
 import {verifyDriving,exerciseDriving} from './driving.js';
@@ -12,12 +12,19 @@ export function evaluateObjective({objective,slot,baseline,observed,conditions='
   if(slot==='driving')return verifyDriving(objective,baseline,observed.state);
   const transition=conditions==='transition';
   const failures=[],checks=[];const expect=(name,expected,value)=>{const ok=canonical(expected)===canonical(value);checks.push({name,expected:clone(expected),observed:clone(value),ok});if(!ok)failures.push(name+' expected '+JSON.stringify(expected)+' but observed '+JSON.stringify(value));};
-  const target=slot+(objective.id==='door-passage'?'/door':':rock'),priorIDs=new Set(baseline.events.map(e=>e.id)),events=[...new Map(observed.state.events.filter(e=>!priorIDs.has(e.id)&&e.targetId===target||!priorIDs.has(e.id)&&e.rockId===target).map(e=>[e.id,e])).values()];
+  const target=slot+(isDoorObjective(objective)?'/door':':rock'),priorIDs=new Set(baseline.events.map(e=>e.id)),events=[...new Map(observed.state.events.filter(e=>!priorIDs.has(e.id)&&e.targetId===target||!priorIDs.has(e.id)&&e.rockId===target).map(e=>[e.id,e])).values()];
   let missionComplete=false;
-  if(objective.id==='door-passage') {
+  if(isDoorObjective(objective)) {
     const before=baseline.interactions.doors.find(d=>d.id===target),door=observed.state.interactions.doors.find(d=>d.id===target);missionComplete=door?.open===true;
     if(transition)expect('baseline.door-closed',false,before?.open??null);expect('door.open',objective.expected.open,door?.open??null);expect('passage.clear',objective.expected.passage,observed.passage?.ok??null);
     if(transition)expect('new.door-opened-events',objective.expected.newEvents,events.filter(e=>e.type==='door-opened').length);
+    if(objective.id==='door-threshold-passage'){
+      const actor=observed.state.actor,p=actor.position,b=before.motionBounds,a=baseline.actor;
+      const occupied=a.position.x+a.radiusM>b.min.x&&a.position.x-a.radiusM<b.max.x&&a.position.y+a.radiusM>b.min.y&&a.position.y-a.radiusM<b.max.y;
+      const inside=!!door&&Math.abs(p.x-door.position.x)+actor.radiusM<.7&&p.y+actor.radiusM<door.position.y;
+      expect('actor.inside-doorway',objective.expected.actorInside,inside);missionComplete=missionComplete&&inside;
+      if(transition){expect('baseline.opener-in-swing-area',objective.expected.openerInSwingArea,occupied);const distance=observed.state.traversal.walkDistanceM-baseline.traversal.walkDistanceM;expect('confirmed.walk-distance-at-least-'+objective.expected.minimumWalkDistanceM,true,distance>=objective.expected.minimumWalkDistanceM);missionComplete=missionComplete&&distance>=objective.expected.minimumWalkDistanceM;}
+    }
   } else {
     const before=baseline.rocks.find(r=>r.id===target),rock=observed.state.rocks.find(r=>r.id===target),count=s=>s.resources.inventory.filter(i=>i.instanceId===target).reduce((n,i)=>n+i.quantity,0);
     missionComplete=rock?.phase==='carried'&&rock.ownerId==='player'&&count(observed.state)===1;
@@ -41,14 +48,17 @@ export function runFixture(fixture,recipe,runId,setupConfiguration=null,executio
     const baseline=host.read(),commandId=runId+':'+fixture.id,provider={...host.actions,request:(actionId,offer)=>host.requestAction({commandId,actionId,offer})};
     const router=createActionRouter({providers:[provider],readContext:()=>({token:runId,blocked:false})});
     try {
-      const actionId=fixture.slot+(fixture.objective==='door-passage'?'/door/open':':rock/pickup'),action=router.read().actions.find(a=>a.actionId===actionId);
+      const actionId=fixture.slot+(isDoorObjective(objective)?'/door/open':':rock/pickup'),action=router.read().actions.find(a=>a.actionId===actionId);
       if(!action?.enabled)return {...record,baseline,status:'unavailable',missionComplete:false,reason:action?.reason||'No compatible ordinary action is offered.',checks:[],command:null};
-      const command=clone(action.intent),receipt=router.request(command),after=host.read(),observation={state:after,passage:fixture.objective==='door-passage'?host.passage(fixture.slot):null},verification=evaluateObjective({objective,slot:fixture.slot,baseline,observed:observation});
+      const command=clone(action.intent),receipt=router.request(command),walking=[];
+      if(objective.id==='door-threshold-passage')for(let i=0;i<5;i++)walking.push(host.walk('player',{x:0,y:-1},.1));
+      const after=host.read(),observation={state:after,passage:isDoorObjective(objective)?host.passage(fixture.slot):null},verification=evaluateObjective({objective,slot:fixture.slot,baseline,observed:observation});
+      if(walking.some(r=>!r.ok)){verification.status='failed';verification.failures.push('Ordinary threshold walking refused.');}
       if(!receipt.ok){verification.status='failed';verification.failures.unshift('Command refused: '+receipt.reason);}
       // A same-ID retry is deliberately checked through the same consumer service.
       const request={commandId,actionId,offer:command.offer},retry=host.requestAction(request),afterRetry=host.read();
       if(!retry.repeated||canonical(after)!==canonical(afterRetry)){verification.status='failed';verification.failures.push('Retry duplicated a command, cost or effect.');}
-      return {...record,...verification,reason:verification.failures.join('; ')||null,baseline,observed:observation,command:{intent:command,commandId,receipt,retry},evidence:{eventIds:verification.eventIds,receiptId:receipt.receiptId||null,expectations:'committed registry data; never derived from this run',scope:'public pure simulation outcomes; manual native scene reviewed separately'}};
+      return {...record,...verification,reason:verification.failures.join('; ')||null,baseline,observed:observation,command:{intent:command,commandId,receipt,retry,...(walking.length?{walking}: {})},evidence:{eventIds:verification.eventIds,receiptId:receipt.receiptId||null,expectations:'committed registry data; never derived from this run',scope:'public pure simulation outcomes; manual native scene reviewed separately'}};
     }finally{router.dispose();}
   }finally{host.dispose();}
 }

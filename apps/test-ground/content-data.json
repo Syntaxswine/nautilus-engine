@@ -152,7 +152,8 @@
       "capabilities": [
         "door-state-v1",
         "passage-query-v1",
-        "interaction-event-v1"
+        "interaction-event-v1",
+        "walking-state-v1"
       ],
       "entrance": {
         "x": 8,
@@ -180,7 +181,8 @@
         "interaction-event-v1",
         "rock-state-v1",
         "inventory-state-v1",
-        "item-event-v1"
+        "item-event-v1",
+        "walking-state-v1"
       ],
       "entrance": {
         "x": 12,
@@ -369,6 +371,35 @@
         "newEvents": 1,
         "apSpent": 2
       }
+    },
+    {
+      "id": "door-threshold-passage",
+      "version": 1,
+      "name": "Open beside the door and walk through",
+      "requires": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1",
+        "walking-state-v1"
+      ],
+      "observer": {
+        "id": "door-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-door-open",
+        "current-passage-clear",
+        "new-door-event-after-baseline"
+      ],
+      "expected": {
+        "open": true,
+        "passage": true,
+        "newEvents": 1,
+        "apSpent": 1,
+        "openerInSwingArea": true,
+        "minimumWalkDistanceM": 1.4,
+        "actorInside": true
+      }
     }
   ],
   "golden": [
@@ -532,6 +563,28 @@
         "actual approach",
         "contact evidence",
         "no tunnelling"
+      ]
+    },
+    {
+      "id": "golden-door-threshold",
+      "version": 1,
+      "name": "Near-threshold East door opens and passes",
+      "slot": "east",
+      "plot": "supply-store",
+      "objective": "door-threshold-passage",
+      "baseline": "Closed East door; operator body overlaps its swing envelope but clears the closed leaf; no prior opening or walking.",
+      "spawnLocal": {
+        "x": 8,
+        "y": 12.34,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed door state",
+        "public body-aware passage query",
+        "one new door-opened event",
+        "fixture AP cost"
       ]
     }
   ],

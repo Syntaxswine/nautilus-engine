@@ -1,6 +1,6 @@
 import {compileWorld} from '../world-core/index.js';
 import {openInteractionState,openInteractionActor,axes,copy,point,fail} from './state.js';
-import {contactShape,boundsContactShape,contactOverlap,firstContact,moveWithContacts} from '../traversal-core/index.js';
+import {contactShape,boundsContactShape,contactOverlap,firstContact,moveWithContacts,translateContactShape} from '../traversal-core/index.js';
 const epsilon=1e-7;
 const good=()=>({ok:true});
 const bad=(code,reason)=>({ok:false,code,reason});
@@ -51,7 +51,11 @@ export function createInteractionQueries(input,{actors=()=>[],obstacles=()=>[],m
       max={x:Math.max(from.x,to.x)+actor.radiusM,y:Math.max(from.y,to.y)+actor.radiusM,h:Math.max(from.h,to.h)+actor.heightM};
     if(!inside(min)||!inside(max))return bad('OUTSIDE_WORLD','Stay within the authored world bounds.');
     const boxes=world.queryBounds({min,max}).surfaces.map(s=>({id:s.id,bounds:s.bounds}));
-    for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;if(bounds)boxes.push({id:door.id,bounds});}
+    for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;
+      // Opening may place the leaf over a body. Let that body leave under its
+      // own movement. A straight segment cannot exit and re-enter a convex box.
+      const leaving=door.open&&Math.abs(from.h-to.h)<epsilon&&bounds&&overlap(actorBounds({...actor,position:from}),bounds);
+      if(bounds&&!leaving)boxes.push({id:door.id,bounds});}
     for(const other of occupants(actor))if(other.id!==actor.id)boxes.push({id:other.id,bounds:actorBounds(other)});
     const hit=boxes.find(box=>intersects(from,to,box.bounds,actor));
     return hit?bad('BLOCKED','The way is blocked by '+hit.id+'.'):good();
@@ -64,13 +68,20 @@ export function createInteractionQueries(input,{actors=()=>[],obstacles=()=>[],m
     // a rounded corner can deflect a secondary segment outside that strip.
     const reach=slide?Math.hypot(delta.x,delta.y):0;
     const bounds=slide?{min:{x:from.x-actor.radiusM-reach,y:from.y-actor.radiusM-reach,h:from.h},max:{x:from.x+actor.radiusM+reach,y:from.y+actor.radiusM+reach,h:from.h+actor.heightM}}:{min:{x:Math.min(from.x,to.x)-actor.radiusM,y:Math.min(from.y,to.y)-actor.radiusM,h:from.h},max:{x:Math.max(from.x,to.x)+actor.radiusM,y:Math.max(from.y,to.y)+actor.radiusM,h:from.h+actor.heightM}};
-    const boxes=world.queryBounds(bounds).surfaces.map(s=>boundsContactShape(s.id,s.bounds));
-    for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;if(bounds)boxes.push(boundsContactShape(door.id,bounds));}
+    const boxes=world.queryBounds(bounds).surfaces.map(s=>boundsContactShape(s.id,s.bounds)),leaves=[];
+    for(const door of state.doors){const bounds=door.open?door.openBounds:door.closedBounds;if(bounds){const leaf=boundsContactShape(door.id,bounds);if(door.open&&contactOverlap(shape,leaf))leaves.push(leaf);else boxes.push(leaf);}}
     for(const other of occupants(actor))if(other.id!==actor.id)boxes.push(contactShape({id:other.id,points:[other.position],radiusM:other.radiusM,minH:other.position.h,maxH:other.position.h+other.heightM}));
     boxes.push(...obstacles());
     const initialHit=boxes.find(box=>contactOverlap(shape,box));if(initialHit)return bad('BLOCKED','The body overlaps '+initialHit.id+'.');
     if(!slide){const hit=firstContact(shape,delta,boxes);return hit?bad('BLOCKED','The way is blocked by '+hit.id+'.'):good();}
     const moved=moveWithContacts(shape,delta,boxes),position={x:from.x+moved.delta.x,y:from.y+moved.delta.y,h:from.h};
+    // The exception is only the initial contiguous overlap with an open leaf.
+    // Sliding may bend a route: once clear, sweep every later segment against
+    // that leaf again. Other doors, actors, cars and static solids stay solid.
+    for(const leaf of leaves){let clear=false;for(const segment of moved.segments){const a=translateContactShape(shape,segment.from),b=translateContactShape(shape,segment.to),d={x:segment.to.x-segment.from.x,y:segment.to.y-segment.from.y};
+      if((clear||!contactOverlap(a,leaf))&&firstContact(a,d,[leaf]))return bad('BLOCKED','The route re-enters open door '+leaf.id+'.');
+      if(!contactOverlap(b,leaf))clear=true;
+    }}
     for(const segment of moved.segments){const a={x:from.x+segment.from.x,y:from.y+segment.from.y,h:from.h},b={x:from.x+segment.to.x,y:from.y+segment.to.y,h:from.h};
       if(!inside({x:b.x-actor.radiusM,y:b.y-actor.radiusM,h:b.h})||!inside({x:b.x+actor.radiusM,y:b.y+actor.radiusM,h:b.h+actor.heightM}))return bad('OUTSIDE_WORLD','Stay within the authored world.');
       const supported=support({from:a,to:b,actor,floorId:actor.floorId});if(!supported.ok)return supported;
@@ -107,10 +118,10 @@ export function createInteractionQueries(input,{actors=()=>[],obstacles=()=>[],m
     landing({actor,landing}){return support({from:landing.position,actor,floorId:landing.floorId,surfaceId:landing.surfaceId});},
     sweep,
     walk(value){return support({...value,floorId:value.actor.floorId}).ok?(movementProfile==='disc-slide-v1'?discMove(value,false):sweep(value)):bad('NO_SUPPORT','Walk on a supported floor; use a declared stair route to change height.');},
-    canSetDoor({state,actor,door}){
+    canSetDoor({state,actor,door,open}){
       const clearance=doorClearance(state,door);if(!clearance.ok)return clearance;
       if(obstacles().some(shape=>contactOverlap(boundsContactShape(door.id,door.motionBounds),shape)))return bad('DOOR_OCCUPIED','A traversal body occupies the door motion envelope.');
-      return occupants(actor).some(other=>overlap(door.motionBounds,actorBounds(other)))?bad('DOOR_OCCUPIED','Someone is in the doorway. Move clear before operating it.'):good();
+      return !open&&occupants(actor).some(other=>overlap(door.motionBounds,actorBounds(other)))?bad('DOOR_OCCUPIED','Someone is in the doorway. Move clear before closing it.'):good();
     }
   });
 }

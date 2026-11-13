@@ -23,12 +23,29 @@ test('locked doors require explicit permission; unsupported bindings fail action
   const unlocked=applyInteraction(state,actor,p.command,allowed);assert.equal(unlocked.state.doors[0].locked,false);assert.equal(unlocked.state.doors[0].open,false);
   assert.equal(previewInteraction(state,actor,{targetId:'yard-gate'}).code,'LOCKED');
 });
-test('door commit rechecks occupancy and never crushes an actor',()=>{
+test('closing commit rechecks occupancy and never crushes an actor',()=>{
   const {state,actor,world}=setup();let others=[];
+  state.doors[0].open=true;
   const queries=createInteractionQueries(world,{actors:()=>others}),p=previewInteraction(state,actor,{targetId:'yard-gate'},queries);
   others=[createInteractionActor({id:'other',floorId:'floor-0',position:{x:4,y:5,h:0}})];
   const blocked=applyInteraction(state,actor,p.command,queries);
-  assert.equal(blocked.code,'DOOR_OCCUPIED');assert.equal(blocked.state.doors[0].open,false);assert.deepEqual(blocked.events,[]);
+  assert.equal(blocked.code,'DOOR_OCCUPIED');assert.equal(blocked.state.doors[0].open,true);assert.deepEqual(blocked.events,[]);
+});
+
+test('opening ignores the opener and another actor in the swing area; closing still refuses',()=>{
+ for(const movementProfile of ['legacy-box-stop-v1','disc-slide-v1']){
+  const {state,actor,world}=setup();actor.position={x:3.69,y:5,h:0};const other=createInteractionActor({id:'other',floorId:'floor-0',position:{x:5,y:4.2,h:0}}),queries=createInteractionQueries(world,{movementProfile,actors:()=>[other]});
+  const p=previewInteraction(state,actor,{targetId:'yard-gate'},queries);assert.equal(p.ok,true);const r=applyInteraction(state,actor,p.command,queries);assert.equal(r.ok,true);assert.equal(r.events.length,1);assert.equal(r.events[0].type,'door-opened');assert.deepEqual(r.actor.position,actor.position);assert.equal(r.actor.revision,actor.revision+1);assert.equal(previewInteraction(r.state,r.actor,{targetId:'yard-gate'},queries).code,'DOOR_OCCUPIED');
+  const escaped=walkActor(r.state,other,{direction:{x:0,y:-1},seconds:.5},queries);assert.equal(escaped.ok,true);assert.ok(escaped.actor.position.y<3.3);const reentry=walkActor(r.state,escaped.actor,{direction:{x:0,y:1},seconds:.5},queries);assert.ok(reentry.actor.position.y<3.91,'After clearing the leaf it is solid again.');
+ }
+});
+
+test('an overlapping open leaf never relocates its operator and permits ordinary escape on either side',()=>{
+ for(const movementProfile of ['legacy-box-stop-v1','disc-slide-v1'])for(const direction of [-1,1]){
+  const {state,actor,world}=setup();actor.position={x:4.7,y:4.2,h:0};const queries=createInteractionQueries(world,{movementProfile});const p=previewInteraction(state,actor,{targetId:'yard-gate'},queries),r=applyInteraction(state,actor,p.command,queries);assert.ok(r.ok);assert.deepEqual(r.actor.position,actor.position);assert.equal(r.actor.revision,actor.revision+1);assert.equal(queries.walk({state:r.state,actor:r.actor,from:r.actor.position,to:r.actor.position}).ok,true,'The exact open-overlap save pose remains valid.');
+  const moved=walkActor(r.state,r.actor,{direction:{x:0,y:direction},seconds:.5},queries);assert.ok(moved.ok);assert.equal(moved.actor.position.y,4.2+direction);assert.deepEqual(moved.events,[]);assert.deepEqual(moved.state,r.state);
+  const back=walkActor(r.state,moved.actor,{direction:{x:0,y:-direction},seconds:.5},queries);assert.ok(Math.abs(back.actor.position.y-4.2)>=.31-1e-6);assert.equal(back.state.doors[0].open,true);
+ }
 });
 test('swept movement stops at a closed door; opening makes the portal usable',()=>{
   const f=setup();f.actor.position.x=3.5;

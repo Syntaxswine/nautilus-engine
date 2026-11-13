@@ -10,8 +10,9 @@ export const identity = freeze({id:REGISTRY.id,version:REGISTRY.version,sourcePi
 export const slotById = id => REGISTRY.slots.find(p=>p.id===id);
 export const plotById = id => REGISTRY.plots.find(p=>p.id===id);
 export const objectiveById = id => REGISTRY.objectives.find(p=>p.id===id);
+export const isDoorObjective = objective => ['door-passage','door-threshold-passage'].includes(objective.id);
 export const fixtureById = id => REGISTRY.golden.find(p=>p.id===id);
-export const observerCapabilities = profile => profile==='full' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])] : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1',...DRIVING_CAPABILITIES] : profile==='without-traversal' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))] : [];
+export const observerCapabilities = profile => profile==='full' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])] : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1','walking-state-v1',...DRIVING_CAPABILITIES] : profile==='without-traversal' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))].filter(c=>c!=='walking-state-v1') : [];
 export function defaultRecipe() {
   return {kind:'nautilus-test-ground-recipe',version:1,content:clone(identity),engineSource:REGISTRY.engineSource,seed:REGISTRY.seed,
     plots:[{slot:'west',fixture:'gatehouse',version:1},{slot:'east',fixture:'supply-store',version:1}],

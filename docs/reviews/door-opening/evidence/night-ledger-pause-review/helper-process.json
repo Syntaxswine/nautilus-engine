@@ -1,0 +1,37 @@
+{
+  "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+  "purpose": "Installed test-ground app pause ownership correction: nested, failed, cancelled and stale scopes",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 23000,
+    "creationFiletime": "134390081567551031",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 33124,
+    "creationFiletime": "134390081570689696",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 55222,
+  "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\door\\artifacts\\night-ledger-pause-review\\STOP",
+  "stopMethod": "STOP marker, bounded 360000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "apps/test-ground/tools/review-pause.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\door",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\door\\apps\\test-ground\\tools\\review-pause.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/night-ledger-pause-review",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-13T01:49:17.339Z",
+  "expiresAt": "2026-11-13T01:55:17.339Z"
+}
