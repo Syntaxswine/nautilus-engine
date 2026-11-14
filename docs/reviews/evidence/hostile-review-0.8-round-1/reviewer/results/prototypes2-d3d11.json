@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-10-30T03:28:34.609Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only.",
+    "browser": "156.0.4314.50",
+    "angle": "d3d11",
+    "gpuString": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "deviceScaleFactor": 1
+  },
+  "method": "As prototypes.mjs; ESTIMATES only. Note: PrefabLayer.setView is not re-run during these measurements.",
+  "results": {
+    "control-no-change-w1": {
+      "before": {
+        "calls": 4155,
+        "ms": {
+          "n": 20,
+          "median": 15.65,
+          "min": 11.4,
+          "max": 20.1,
+          "spreadPct": 55.591
+        }
+      },
+      "after": {
+        "calls": 4155,
+        "ms": {
+          "n": 20,
+          "median": 13.75,
+          "min": 11.4,
+          "max": 19.2,
+          "spreadPct": 56.727
+        }
+      },
+      "detail": {
+        "changed": 0
+      },
+      "pixels": {
+        "differingPixels": 0,
+        "totalPixels": 967296,
+        "maxChannelDelta": 0
+      },
+      "drawCallReductionPct": 0,
+      "frameMsReductionPct": 12.1
+    },
+    "inst-opaque-w1": {
+      "before": {
+        "calls": 4155,
+        "ms": {
+          "n": 20,
+          "median": 16.6,
+          "min": 11.4,
+          "max": 20.4,
+          "spreadPct": 54.217
+        }
+      },
+      "after": {
+        "calls": 1495,
+        "ms": {
+          "n": 20,
+          "median": 8.4,
+          "min": 6.2,
+          "max": 9.5,
+          "spreadPct": 39.286
+        }
+      },
+      "detail": {
+        "instancedOpaqueMeshes": 43,
+        "glassMeshesLeftAsClones": 3
+      },
+      "pixels": {
+        "differingPixels": 363,
+        "totalPixels": 967296,
+        "maxChannelDelta": 60
+      },
+      "drawCallReductionPct": 64,
+      "frameMsReductionPct": 49.4
+    },
+    "doors-w2": {
+      "before": {
+        "calls": 4480,
+        "ms": {
+          "n": 20,
+          "median": 24,
+          "min": 21.4,
+          "max": 26,
+          "spreadPct": 19.167
+        }
+      },
+      "after": {
+        "calls": 2683,
+        "ms": {
+          "n": 20,
+          "median": 17.6,
+          "min": 13.9,
+          "max": 21.3,
+          "spreadPct": 42.045
+        }
+      },
+      "detail": {
+        "doorLeafMeshes": 982,
+        "instancedMeshes": 72,
+        "mismatched": 0
+      },
+      "pixels": {
+        "differingPixels": 0,
+        "totalPixels": 967296,
+        "maxChannelDelta": 0
+      },
+      "drawCallReductionPct": 40.1,
+      "frameMsReductionPct": 26.7
+    }
+  },
+  "browserErrors": []
+}

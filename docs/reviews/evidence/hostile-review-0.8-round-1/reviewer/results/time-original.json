@@ -1,0 +1,2510 @@
+{
+  "generatedAt": "2026-10-30T03:27:54.424Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "method": "No inspector attached. 1 warm-up + 7 timed runs; wall = performance.now(), cpu = process.cpuUsage() (user+system, all threads). createBuildingModel receives the precompiled blueprint so compile time is separate.",
+  "totals": {
+    "compileWallMedianSum": 52,
+    "gameWallMedianSum": 2273,
+    "authoringWallMedianSum": 4006,
+    "gameCpuMedianSum": 2248
+  },
+  "facadeVsTemplate": {
+    "design": "dockside-warehouse",
+    "instances": 32,
+    "facadeCreate32": {
+      "wall": {
+        "n": 7,
+        "median": 6082.998,
+        "min": 3925.816,
+        "max": 9032.517,
+        "spreadPct": 83.95
+      },
+      "cpu": {
+        "n": 7,
+        "median": 5578,
+        "min": 4234,
+        "max": 6329,
+        "spreadPct": 37.558
+      },
+      "uniqueGeometries": 1472
+    },
+    "templatePlusClone32": {
+      "wall": {
+        "n": 7,
+        "median": 134.194,
+        "min": 116.373,
+        "max": 178.271,
+        "spreadPct": 46.126
+      },
+      "cpu": {
+        "n": 7,
+        "median": 156,
+        "min": 94,
+        "max": 234,
+        "spreadPct": 89.744
+      },
+      "uniqueGeometries": 46
+    }
+  },
+  "rows": [
+    {
+      "id": "bramble-ranch",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.143,
+          "min": 0.904,
+          "max": 1.571,
+          "spreadPct": 58.331
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 28.172,
+          "min": 25.668,
+          "max": 32.977,
+          "spreadPct": 25.945
+        },
+        "cpu": {
+          "n": 7,
+          "median": 46,
+          "min": 16,
+          "max": 78,
+          "spreadPct": 134.783
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 44.49,
+          "min": 40.754,
+          "max": 53.756,
+          "spreadPct": 29.227
+        },
+        "cpu": {
+          "n": 7,
+          "median": 64,
+          "min": 47,
+          "max": 140,
+          "spreadPct": 145.313
+        }
+      }
+    },
+    {
+      "id": "cedar-split",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.73,
+          "min": 0.713,
+          "max": 0.756,
+          "spreadPct": 5.848
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 28.273,
+          "min": 27.179,
+          "max": 29.406,
+          "spreadPct": 7.878
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 32,
+          "spreadPct": 54.839
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 61.037,
+          "min": 59.266,
+          "max": 68.113,
+          "spreadPct": 14.494
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 61,
+          "max": 110,
+          "spreadPct": 79.032
+        }
+      }
+    },
+    {
+      "id": "juniper-suite",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.5,
+          "min": 1.368,
+          "max": 2.637,
+          "spreadPct": 84.605
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 52.52,
+          "min": 49.527,
+          "max": 63.963,
+          "spreadPct": 27.486
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 31,
+          "max": 109,
+          "spreadPct": 125.806
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 87.329,
+          "min": 84.114,
+          "max": 93.361,
+          "spreadPct": 10.589
+        },
+        "cpu": {
+          "n": 7,
+          "median": 109,
+          "min": 78,
+          "max": 157,
+          "spreadPct": 72.477
+        }
+      }
+    },
+    {
+      "id": "rowan-family",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.015,
+          "min": 0.946,
+          "max": 1.876,
+          "spreadPct": 91.627
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 44.183,
+          "min": 42.957,
+          "max": 46.065,
+          "spreadPct": 7.033
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 63,
+          "spreadPct": 68.085
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 85.621,
+          "min": 80.974,
+          "max": 113.851,
+          "spreadPct": 38.398
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 77,
+          "max": 141,
+          "spreadPct": 68.085
+        }
+      }
+    },
+    {
+      "id": "willow-pair",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.068,
+          "min": 0.987,
+          "max": 1.589,
+          "spreadPct": 56.413
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 53.012,
+          "min": 47.418,
+          "max": 74.902,
+          "spreadPct": 51.845
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 125,
+          "spreadPct": 200
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 90.029,
+          "min": 89.455,
+          "max": 112.773,
+          "spreadPct": 25.901
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 78,
+          "max": 156,
+          "spreadPct": 82.979
+        }
+      }
+    },
+    {
+      "id": "narrow-court",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.94,
+          "min": 1.849,
+          "max": 3.425,
+          "spreadPct": 81.234
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 60.045,
+          "min": 56.681,
+          "max": 82.155,
+          "spreadPct": 42.425
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 46,
+          "max": 78,
+          "spreadPct": 51.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 121.595,
+          "min": 105.685,
+          "max": 154.453,
+          "spreadPct": 40.106
+        },
+        "cpu": {
+          "n": 7,
+          "median": 125,
+          "min": 110,
+          "max": 156,
+          "spreadPct": 36.8
+        }
+      }
+    },
+    {
+      "id": "mews-corner",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.745,
+          "min": 0.722,
+          "max": 1.886,
+          "spreadPct": 156.284
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 39.907,
+          "min": 38.204,
+          "max": 43.784,
+          "spreadPct": 13.983
+        },
+        "cpu": {
+          "n": 7,
+          "median": 46,
+          "min": 30,
+          "max": 47,
+          "spreadPct": 36.957
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 87.794,
+          "min": 72.038,
+          "max": 114.045,
+          "spreadPct": 47.848
+        },
+        "cpu": {
+          "n": 7,
+          "median": 109,
+          "min": 62,
+          "max": 125,
+          "spreadPct": 57.798
+        }
+      }
+    },
+    {
+      "id": "canal-studio",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.312,
+          "min": 0.292,
+          "max": 0.337,
+          "spreadPct": 14.597
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 15.278,
+          "min": 15.009,
+          "max": 16.321,
+          "spreadPct": 8.592
+        },
+        "cpu": {
+          "n": 7,
+          "median": 16,
+          "min": 15,
+          "max": 16,
+          "spreadPct": 6.25
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 29.649,
+          "min": 27.997,
+          "max": 32.367,
+          "spreadPct": 14.738
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 47,
+          "spreadPct": 103.226
+        }
+      }
+    },
+    {
+      "id": "ochre-patio",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.692,
+          "min": 0.599,
+          "max": 2.074,
+          "spreadPct": 213.194
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 38.407,
+          "min": 34.309,
+          "max": 39.481,
+          "spreadPct": 13.468
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 30,
+          "max": 78,
+          "spreadPct": 102.128
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 46.239,
+          "min": 44.107,
+          "max": 60.254,
+          "spreadPct": 34.92
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 79,
+          "spreadPct": 70.213
+        }
+      }
+    },
+    {
+      "id": "longlight-house",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.126,
+          "min": 0.617,
+          "max": 1.397,
+          "spreadPct": 69.315
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 27.481,
+          "min": 25.738,
+          "max": 30.84,
+          "spreadPct": 18.564
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 32,
+          "spreadPct": 54.839
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 63.292,
+          "min": 51.842,
+          "max": 78.555,
+          "spreadPct": 42.205
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 47,
+          "max": 93,
+          "spreadPct": 58.974
+        }
+      }
+    },
+    {
+      "id": "dogwood-breezeway",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.321,
+          "min": 0.309,
+          "max": 0.329,
+          "spreadPct": 6.197
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 22.102,
+          "min": 19.135,
+          "max": 35.755,
+          "spreadPct": 75.198
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 109,
+          "spreadPct": 303.226
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 43.308,
+          "min": 41.13,
+          "max": 56.033,
+          "spreadPct": 34.411
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 62,
+          "spreadPct": 65.957
+        }
+      }
+    },
+    {
+      "id": "saltmarsh-lean-to",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.809,
+          "min": 0.75,
+          "max": 0.961,
+          "spreadPct": 26.113
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 49.092,
+          "min": 38.403,
+          "max": 61.446,
+          "spreadPct": 46.939
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 79,
+          "spreadPct": 102.128
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 75.599,
+          "min": 72.572,
+          "max": 94.61,
+          "spreadPct": 29.152
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 78,
+          "max": 93,
+          "spreadPct": 19.231
+        }
+      }
+    },
+    {
+      "id": "hearth-cape",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.581,
+          "min": 0.478,
+          "max": 0.727,
+          "spreadPct": 42.882
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 28.964,
+          "min": 24.882,
+          "max": 31.056,
+          "spreadPct": 21.313
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 47,
+          "spreadPct": 100
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 42.022,
+          "min": 40.776,
+          "max": 42.726,
+          "spreadPct": 4.639
+        },
+        "cpu": {
+          "n": 7,
+          "median": 46,
+          "min": 31,
+          "max": 48,
+          "spreadPct": 36.957
+        }
+      }
+    },
+    {
+      "id": "foxglove-bungalow",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.463,
+          "min": 0.435,
+          "max": 0.655,
+          "spreadPct": 47.536
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 24.712,
+          "min": 22.678,
+          "max": 28.301,
+          "spreadPct": 22.755
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 47,
+          "spreadPct": 103.226
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 57.885,
+          "min": 48.411,
+          "max": 87.592,
+          "spreadPct": 67.688
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 46,
+          "max": 157,
+          "spreadPct": 179.032
+        }
+      }
+    },
+    {
+      "id": "elm-cross-gable",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.011,
+          "min": 0.96,
+          "max": 1.252,
+          "spreadPct": 28.797
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 46.219,
+          "min": 44.004,
+          "max": 51.221,
+          "spreadPct": 15.616
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 47,
+          "max": 63,
+          "spreadPct": 34.043
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 104.22,
+          "min": 85.258,
+          "max": 117.658,
+          "spreadPct": 31.088
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 79,
+          "max": 140,
+          "spreadPct": 64.894
+        }
+      }
+    },
+    {
+      "id": "violet-bay-house",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.911,
+          "min": 0.876,
+          "max": 1.038,
+          "spreadPct": 17.72
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 47.779,
+          "min": 44.855,
+          "max": 66.967,
+          "spreadPct": 46.281
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 47,
+          "max": 94,
+          "spreadPct": 100
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 98.741,
+          "min": 88.92,
+          "max": 131.009,
+          "spreadPct": 42.626
+        },
+        "cpu": {
+          "n": 7,
+          "median": 109,
+          "min": 78,
+          "max": 125,
+          "spreadPct": 43.119
+        }
+      }
+    },
+    {
+      "id": "fennel-mansard",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.679,
+          "min": 0.647,
+          "max": 0.81,
+          "spreadPct": 23.992
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 39.649,
+          "min": 36.387,
+          "max": 51.705,
+          "spreadPct": 38.634
+        },
+        "cpu": {
+          "n": 7,
+          "median": 46,
+          "min": 31,
+          "max": 63,
+          "spreadPct": 69.565
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 79.456,
+          "min": 68.592,
+          "max": 100.769,
+          "spreadPct": 40.497
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 63,
+          "max": 140,
+          "spreadPct": 98.718
+        }
+      }
+    },
+    {
+      "id": "cypress-shotgun",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.469,
+          "min": 0.459,
+          "max": 0.52,
+          "spreadPct": 12.903
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 14.258,
+          "min": 13.327,
+          "max": 17.069,
+          "spreadPct": 26.247
+        },
+        "cpu": {
+          "n": 7,
+          "median": 16,
+          "min": 15,
+          "max": 16,
+          "spreadPct": 6.25
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 43.505,
+          "min": 42.737,
+          "max": 47.844,
+          "spreadPct": 11.739
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 48,
+          "spreadPct": 4.255
+        }
+      }
+    },
+    {
+      "id": "sun-well-court",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.619,
+          "min": 0.535,
+          "max": 0.727,
+          "spreadPct": 30.984
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 27.756,
+          "min": 26.983,
+          "max": 47.676,
+          "spreadPct": 74.557
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 47,
+          "spreadPct": 100
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 50.822,
+          "min": 48.684,
+          "max": 56.852,
+          "spreadPct": 16.071
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 63,
+          "spreadPct": 36.17
+        }
+      }
+    },
+    {
+      "id": "prairie-corner",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.001,
+          "min": 0.874,
+          "max": 2.105,
+          "spreadPct": 123.012
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 63.977,
+          "min": 43.22,
+          "max": 66.002,
+          "spreadPct": 35.61
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 31,
+          "max": 141,
+          "spreadPct": 177.419
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 78.273,
+          "min": 74.965,
+          "max": 100.659,
+          "spreadPct": 32.827
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 63,
+          "max": 141,
+          "spreadPct": 100
+        }
+      }
+    },
+    {
+      "id": "alpine-timber",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.14,
+          "min": 0.746,
+          "max": 1.892,
+          "spreadPct": 100.456
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 45.713,
+          "min": 38.283,
+          "max": 59.239,
+          "spreadPct": 45.843
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 63,
+          "spreadPct": 68.085
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 78.912,
+          "min": 76.638,
+          "max": 91.853,
+          "spreadPct": 19.281
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 63,
+          "max": 125,
+          "spreadPct": 79.487
+        }
+      }
+    },
+    {
+      "id": "estuary-cottage",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.654,
+          "min": 0.649,
+          "max": 0.661,
+          "spreadPct": 1.94
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 32.274,
+          "min": 25.178,
+          "max": 33.656,
+          "spreadPct": 26.269
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 47,
+          "spreadPct": 103.226
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 39.483,
+          "min": 38.764,
+          "max": 51.368,
+          "spreadPct": 31.924
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 63,
+          "spreadPct": 68.085
+        }
+      }
+    },
+    {
+      "id": "marlow-courtyard-flats",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 2.743,
+          "min": 2.276,
+          "max": 4.517,
+          "spreadPct": 81.707
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 111.554,
+          "min": 96.142,
+          "max": 148.627,
+          "spreadPct": 47.049
+        },
+        "cpu": {
+          "n": 7,
+          "median": 109,
+          "min": 94,
+          "max": 156,
+          "spreadPct": 56.881
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 174.56,
+          "min": 164.298,
+          "max": 254.512,
+          "spreadPct": 51.681
+        },
+        "cpu": {
+          "n": 7,
+          "median": 172,
+          "min": 171,
+          "max": 250,
+          "spreadPct": 45.93
+        }
+      }
+    },
+    {
+      "id": "market-terrace",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.976,
+          "min": 1.866,
+          "max": 2.142,
+          "spreadPct": 13.996
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 51.342,
+          "min": 48.497,
+          "max": 76.973,
+          "spreadPct": 55.464
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 47,
+          "max": 78,
+          "spreadPct": 65.957
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 90.356,
+          "min": 83.167,
+          "max": 132.452,
+          "spreadPct": 54.546
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 78,
+          "max": 140,
+          "spreadPct": 65.957
+        }
+      }
+    },
+    {
+      "id": "eastfield-school",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.935,
+          "min": 0.924,
+          "max": 1.12,
+          "spreadPct": 20.956
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 39.443,
+          "min": 37.229,
+          "max": 44.238,
+          "spreadPct": 17.771
+        },
+        "cpu": {
+          "n": 7,
+          "median": 46,
+          "min": 16,
+          "max": 47,
+          "spreadPct": 67.391
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 95.639,
+          "min": 76.682,
+          "max": 112.897,
+          "spreadPct": 37.866
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 78,
+          "max": 171,
+          "spreadPct": 98.936
+        }
+      }
+    },
+    {
+      "id": "orchard-schoolhouse",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.344,
+          "min": 0.331,
+          "max": 0.489,
+          "spreadPct": 46.134
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 16.831,
+          "min": 16.564,
+          "max": 17.881,
+          "spreadPct": 7.827
+        },
+        "cpu": {
+          "n": 7,
+          "median": 16,
+          "min": 15,
+          "max": 31,
+          "spreadPct": 100
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 36.91,
+          "min": 36.234,
+          "max": 51.62,
+          "spreadPct": 41.685
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 62,
+          "spreadPct": 65.957
+        }
+      }
+    },
+    {
+      "id": "greywell-chapel",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.667,
+          "min": 0.608,
+          "max": 1.052,
+          "spreadPct": 66.517
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 28.454,
+          "min": 24.402,
+          "max": 37.234,
+          "spreadPct": 45.096
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 32,
+          "spreadPct": 51.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 54.472,
+          "min": 51.546,
+          "max": 76.176,
+          "spreadPct": 45.215
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 47,
+          "max": 79,
+          "spreadPct": 50.794
+        }
+      }
+    },
+    {
+      "id": "bell-court-chapel",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.674,
+          "min": 0.655,
+          "max": 0.855,
+          "spreadPct": 29.74
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 27.478,
+          "min": 26.689,
+          "max": 31.088,
+          "spreadPct": 16.007
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 32,
+          "spreadPct": 51.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 74.391,
+          "min": 55.246,
+          "max": 81.236,
+          "spreadPct": 34.937
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 47,
+          "max": 78,
+          "spreadPct": 39.744
+        }
+      }
+    },
+    {
+      "id": "copper-watch-firehouse",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.445,
+          "min": 1.243,
+          "max": 2.268,
+          "spreadPct": 70.973
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 49.454,
+          "min": 47.425,
+          "max": 50.682,
+          "spreadPct": 6.587
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 63,
+          "spreadPct": 36.17
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 84.652,
+          "min": 80.483,
+          "max": 127.767,
+          "spreadPct": 55.857
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 62,
+          "max": 125,
+          "spreadPct": 67.021
+        }
+      }
+    },
+    {
+      "id": "branchline-depot",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.489,
+          "min": 0.471,
+          "max": 0.764,
+          "spreadPct": 59.824
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 23.535,
+          "min": 22.018,
+          "max": 30.758,
+          "spreadPct": 37.137
+        },
+        "cpu": {
+          "n": 7,
+          "median": 16,
+          "min": 16,
+          "max": 31,
+          "spreadPct": 93.75
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 50.678,
+          "min": 39.266,
+          "max": 56.902,
+          "spreadPct": 34.801
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 47,
+          "max": 109,
+          "spreadPct": 131.915
+        }
+      }
+    },
+    {
+      "id": "alder-reading-room",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.953,
+          "min": 0.653,
+          "max": 1.43,
+          "spreadPct": 81.547
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 33.167,
+          "min": 24.284,
+          "max": 41.667,
+          "spreadPct": 52.411
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 62,
+          "spreadPct": 151.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 48.552,
+          "min": 46.262,
+          "max": 49.98,
+          "spreadPct": 7.658
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 47,
+          "spreadPct": 2.128
+        }
+      }
+    },
+    {
+      "id": "exchange-hall",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.194,
+          "min": 1.06,
+          "max": 2.36,
+          "spreadPct": 108.825
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 67.215,
+          "min": 52.772,
+          "max": 74.007,
+          "spreadPct": 31.593
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 47,
+          "max": 78,
+          "spreadPct": 49.206
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 87.766,
+          "min": 82.021,
+          "max": 111.429,
+          "spreadPct": 33.507
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 78,
+          "max": 172,
+          "spreadPct": 100
+        }
+      }
+    },
+    {
+      "id": "pepper-corner-shop",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.319,
+          "min": 0.927,
+          "max": 1.679,
+          "spreadPct": 57.042
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 31,
+          "spreadPct": 3100
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 49.477,
+          "min": 38.583,
+          "max": 59.611,
+          "spreadPct": 42.5
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 93,
+          "spreadPct": 131.915
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 67.965,
+          "min": 64.291,
+          "max": 83.035,
+          "spreadPct": 27.578
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 61,
+          "max": 141,
+          "spreadPct": 126.984
+        }
+      }
+    },
+    {
+      "id": "batten-general-store",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.678,
+          "min": 1.014,
+          "max": 1.798,
+          "spreadPct": 46.717
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 58.047,
+          "min": 44.368,
+          "max": 69.195,
+          "spreadPct": 42.77
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 31,
+          "max": 109,
+          "spreadPct": 123.81
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 91.8,
+          "min": 83.15,
+          "max": 133.551,
+          "spreadPct": 54.902
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 78,
+          "max": 125,
+          "spreadPct": 50
+        }
+      }
+    },
+    {
+      "id": "linden-clinic",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.16,
+          "min": 0.76,
+          "max": 9.641,
+          "spreadPct": 765.291
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 77,
+          "spreadPct": 7700
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 28.103,
+          "min": 26.545,
+          "max": 42.431,
+          "spreadPct": 56.527
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 48,
+          "spreadPct": 103.226
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 47.51,
+          "min": 46.434,
+          "max": 68.604,
+          "spreadPct": 46.665
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 140,
+          "spreadPct": 200
+        }
+      }
+    },
+    {
+      "id": "coach-yard-inn",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.859,
+          "min": 1.785,
+          "max": 2.407,
+          "spreadPct": 33.436
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 84.899,
+          "min": 73.59,
+          "max": 117.69,
+          "spreadPct": 51.944
+        },
+        "cpu": {
+          "n": 7,
+          "median": 95,
+          "min": 78,
+          "max": 125,
+          "spreadPct": 49.474
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 153.405,
+          "min": 148.518,
+          "max": 211.273,
+          "spreadPct": 40.908
+        },
+        "cpu": {
+          "n": 7,
+          "median": 157,
+          "min": 156,
+          "max": 203,
+          "spreadPct": 29.936
+        }
+      }
+    },
+    {
+      "id": "dockside-warehouse",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 3.133,
+          "min": 2.958,
+          "max": 6.608,
+          "spreadPct": 116.511
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 107.889,
+          "min": 105.799,
+          "max": 133.703,
+          "spreadPct": 25.864
+        },
+        "cpu": {
+          "n": 7,
+          "median": 110,
+          "min": 109,
+          "max": 157,
+          "spreadPct": 43.636
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 171.901,
+          "min": 165.06,
+          "max": 228.585,
+          "spreadPct": 36.954
+        },
+        "cpu": {
+          "n": 7,
+          "median": 188,
+          "min": 156,
+          "max": 235,
+          "spreadPct": 42.021
+        }
+      }
+    },
+    {
+      "id": "northlight-works",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.372,
+          "min": 1.048,
+          "max": 1.795,
+          "spreadPct": 54.39
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 33.438,
+          "min": 32.595,
+          "max": 37.098,
+          "spreadPct": 13.467
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 63,
+          "spreadPct": 151.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 87.039,
+          "min": 66.962,
+          "max": 101.096,
+          "spreadPct": 39.217
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 62,
+          "max": 109,
+          "spreadPct": 50
+        }
+      }
+    },
+    {
+      "id": "glass-garden-hall",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.61,
+          "min": 0.594,
+          "max": 0.787,
+          "spreadPct": 31.737
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 26.895,
+          "min": 25.438,
+          "max": 30.633,
+          "spreadPct": 19.317
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 47,
+          "spreadPct": 100
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 66.868,
+          "min": 46.292,
+          "max": 75.349,
+          "spreadPct": 43.454
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 47,
+          "max": 140,
+          "spreadPct": 147.619
+        }
+      }
+    },
+    {
+      "id": "post-lane-office",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.738,
+          "min": 0.708,
+          "max": 0.789,
+          "spreadPct": 10.899
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 25.609,
+          "min": 19.976,
+          "max": 28.62,
+          "spreadPct": 33.751
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 15,
+          "max": 32,
+          "spreadPct": 54.839
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 34.825,
+          "min": 33.596,
+          "max": 49.985,
+          "spreadPct": 47.059
+        },
+        "cpu": {
+          "n": 7,
+          "median": 32,
+          "min": 31,
+          "max": 47,
+          "spreadPct": 50
+        }
+      }
+    },
+    {
+      "id": "red-crest-barn",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.665,
+          "min": 1.573,
+          "max": 3.282,
+          "spreadPct": 102.625
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 75.084,
+          "min": 59.963,
+          "max": 97.659,
+          "spreadPct": 50.205
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 62,
+          "max": 95,
+          "spreadPct": 42.308
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 127.368,
+          "min": 107.999,
+          "max": 163.825,
+          "spreadPct": 43.831
+        },
+        "cpu": {
+          "n": 7,
+          "median": 125,
+          "min": 94,
+          "max": 219,
+          "spreadPct": 100
+        }
+      }
+    },
+    {
+      "id": "stone-bank-barn",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.743,
+          "min": 1.687,
+          "max": 3.652,
+          "spreadPct": 112.688
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 72.341,
+          "min": 59.942,
+          "max": 91.353,
+          "spreadPct": 43.421
+        },
+        "cpu": {
+          "n": 7,
+          "median": 63,
+          "min": 62,
+          "max": 94,
+          "spreadPct": 50.794
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 117.473,
+          "min": 108.49,
+          "max": 144.889,
+          "spreadPct": 30.985
+        },
+        "cpu": {
+          "n": 7,
+          "median": 125,
+          "min": 109,
+          "max": 157,
+          "spreadPct": 38.4
+        }
+      }
+    },
+    {
+      "id": "longspan-machine-shed",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.693,
+          "min": 0.656,
+          "max": 2.359,
+          "spreadPct": 245.821
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 36.422,
+          "min": 24.09,
+          "max": 60.051,
+          "spreadPct": 98.736
+        },
+        "cpu": {
+          "n": 7,
+          "median": 31,
+          "min": 16,
+          "max": 63,
+          "spreadPct": 151.613
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 71.877,
+          "min": 53.799,
+          "max": 78.602,
+          "spreadPct": 34.507
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 46,
+          "max": 94,
+          "spreadPct": 61.538
+        }
+      }
+    },
+    {
+      "id": "whitegate-dairy",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.976,
+          "min": 0.739,
+          "max": 1.249,
+          "spreadPct": 52.3
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 47.529,
+          "min": 38.487,
+          "max": 52.664,
+          "spreadPct": 29.829
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 32,
+          "max": 63,
+          "spreadPct": 65.957
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 69.529,
+          "min": 64.669,
+          "max": 87.614,
+          "spreadPct": 33.001
+        },
+        "cpu": {
+          "n": 7,
+          "median": 78,
+          "min": 62,
+          "max": 94,
+          "spreadPct": 41.026
+        }
+      }
+    },
+    {
+      "id": "horseshoe-stables",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 0.745,
+          "min": 0.729,
+          "max": 1.402,
+          "spreadPct": 90.391
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "spreadPct": 0
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 48.834,
+          "min": 39.406,
+          "max": 58.73,
+          "spreadPct": 39.572
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 31,
+          "max": 63,
+          "spreadPct": 68.085
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 90.572,
+          "min": 85.676,
+          "max": 131.417,
+          "spreadPct": 50.503
+        },
+        "cpu": {
+          "n": 7,
+          "median": 93,
+          "min": 77,
+          "max": 125,
+          "spreadPct": 51.613
+        }
+      }
+    },
+    {
+      "id": "grainwatch-granary",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.378,
+          "min": 1.14,
+          "max": 3.216,
+          "spreadPct": 150.61
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 189.27,
+          "min": 76.606,
+          "max": 225.664,
+          "spreadPct": 78.754
+        },
+        "cpu": {
+          "n": 7,
+          "median": 95,
+          "min": 62,
+          "max": 141,
+          "spreadPct": 83.158
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 135.501,
+          "min": 131.316,
+          "max": 274.648,
+          "spreadPct": 105.779
+        },
+        "cpu": {
+          "n": 7,
+          "median": 140,
+          "min": 125,
+          "max": 188,
+          "spreadPct": 45
+        }
+      }
+    },
+    {
+      "id": "carriage-court",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.237,
+          "min": 1.22,
+          "max": 1.372,
+          "spreadPct": 12.353
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 16,
+          "spreadPct": 1600
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 47.204,
+          "min": 42.814,
+          "max": 49.26,
+          "spreadPct": 13.655
+        },
+        "cpu": {
+          "n": 7,
+          "median": 47,
+          "min": 46,
+          "max": 78,
+          "spreadPct": 68.085
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 95.775,
+          "min": 92.417,
+          "max": 105.648,
+          "spreadPct": 13.814
+        },
+        "cpu": {
+          "n": 7,
+          "median": 94,
+          "min": 93,
+          "max": 110,
+          "spreadPct": 18.085
+        }
+      }
+    },
+    {
+      "id": "millrace-workhouse",
+      "compile": {
+        "wall": {
+          "n": 7,
+          "median": 1.773,
+          "min": 1.706,
+          "max": 2.69,
+          "spreadPct": 55.562
+        },
+        "cpu": {
+          "n": 7,
+          "median": 0,
+          "min": 0,
+          "max": 15,
+          "spreadPct": 1500
+        }
+      },
+      "game": {
+        "wall": {
+          "n": 7,
+          "median": 63.985,
+          "min": 50.505,
+          "max": 73.029,
+          "spreadPct": 35.202
+        },
+        "cpu": {
+          "n": 7,
+          "median": 62,
+          "min": 47,
+          "max": 78,
+          "spreadPct": 50
+        }
+      },
+      "authoring": {
+        "wall": {
+          "n": 7,
+          "median": 268.868,
+          "min": 177.298,
+          "max": 373.58,
+          "spreadPct": 73.003
+        },
+        "cpu": {
+          "n": 7,
+          "median": 156,
+          "min": 141,
+          "max": 204,
+          "spreadPct": 40.385
+        }
+      }
+    }
+  ]
+}
