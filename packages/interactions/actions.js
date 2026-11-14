@@ -1,4 +1,5 @@
 import {openInteractionState,openInteractionActor,interactionData,copy,object,id,integer,number,point,distance,samePoint,routeLength,routePoint,bump,fail} from './state.js';
+import {SUPPORTED_WALK_CONTRACT,supportedPolicy,supportedQuery,supportPath,openSupportedTravel,floorAfterTravel,activeSupportedStep,activeSupportedStepBounds} from './supported-travel.js';
 const denied=(code,reason)=>({ok:false,code,reason,events:[]});
 function operate(input,actorInput,run){
   let state=null,actor=null;
@@ -81,6 +82,41 @@ export function applyInteraction(input,actorInput,command,bindings){
   });
 }
 function seconds(value){number(value,0,1,'elapsed seconds (maximum one second per step)');}
+/** Explicit capability: real support elevation, bounded steps, resumable 3D travel. */
+export function walkSupportedActor(input,actorInput,options={},bindings){
+ return operate(input,actorInput,(state,actor)=>{
+  const data=interactionData(options);object(data,['direction','seconds','travel'],'supported walk options',['direction','seconds']);object(data.direction,['x','y'],'supported walk direction');number(data.direction.x,-1,1,'supported walk x');number(data.direction.y,-1,1,'supported walk y');seconds(data.seconds);
+  if(actor.traversal)fail('IN_TRANSIT','Advance the active standard stair route before supported walking.');
+  if(bindings?.worldId!==state.worldId||typeof bindings.planSupportedWalk!=='function'||typeof bindings.validateSupportedWalk!=='function')fail('MISSING_BINDING','Bind the explicit supported walking provider.');
+  const policy=supportedPolicy(bindings.supportPolicy),geometryKey=bindings.geometryKey;if(typeof geometryKey!=='string'||!geometryKey||geometryKey.length>256)fail('INVALID_BINDING','Bind an authoritative geometry identity.');
+  let travel=data.travel==null?null:openSupportedTravel(data.travel,{state,actor,policy,geometryKey});
+  const magnitude=Math.hypot(data.direction.x,data.direction.y),budget=actor.speedMps*data.seconds*Math.min(1,magnitude),contacts=[];
+  const validate=(path,segments,fromDistanceM,toDistanceM,position,floorId)=>{
+   const r=supportedQuery(bindings,'validateSupportedWalk',{state,actor,policy,geometryKey,path,segments,fromDistanceM,toDistanceM,position,floorId});
+   if(r.geometryKey!==geometryKey)fail('STALE_SUPPORT','Authoritative support changed before the movement commit.');
+   if(r.contacts!==undefined&&(!Array.isArray(r.contacts)||r.contacts.length+contacts.length>64))fail('INVALID_BINDING','Supply at most 64 plain contact records.');contacts.push(...(r.contacts||[]));
+  };
+  if(!budget){const at=travel?.distanceM??0;validate(travel?.path??null,travel?.segments??null,at,at,actor.position,actor.floorId);return {ok:true,state,actor,events:[],travel,movement:{profile:SUPPORTED_WALK_CONTRACT.profile,policy:copy(policy),geometryKey,distanceM:0,contacts}};}
+  const heading={x:data.direction.x/magnitude,y:data.direction.y/magnitude};let remaining=budget,travelled=0,iterations=0;
+  while(remaining>1e-9&&iterations++<16){
+   if(!travel){const to={x:actor.position.x+heading.x*remaining,y:actor.position.y+heading.y*remaining,h:actor.position.h},plan=supportedQuery(bindings,'planSupportedWalk',{state,actor,from:actor.position,to,direction:heading,policy,geometryKey});
+    supportPath({path:plan.path,segments:plan.segments},policy);if(!samePoint(plan.path[0].position,actor.position)||plan.path[0].floorId!==actor.floorId||typeof plan.stopAtEnd!=='boolean')fail('INVALID_BINDING','Start at the exact retained foot pose/floor and declare the path end policy.');
+    travel={kind:'nautilus-supported-travel',version:1,worldId:state.worldId,worldRevision:state.revision,actorId:actor.id,actorRevision:actor.revision,actorFloorId:actor.floorId,policy,geometryKey,path:copy(plan.path),segments:copy(plan.segments),stopAtEnd:plan.stopAtEnd,distanceM:0,heading};
+   }
+   // Settle the retained physical step, then replan under the current heading.
+   // Completed nodes retain their exact coordinates; interpolation must not invent a slope.
+   const alignment=heading.x*travel.heading.x+heading.y*travel.heading.y,direction=alignment< -1e-7?-1:1,step=activeSupportedStepBounds(travel);
+   const path=travel.path.map(n=>n.position),lengthM=routeLength(path),fromM=travel.distanceM,limitM=direction<0?(step?.startM??0):(step?.endM??lengthM),toM=direction<0?Math.max(limitM,fromM-remaining):Math.min(limitM,fromM+remaining),position=toM===0?copy(path[0]):toM===lengthM?copy(path.at(-1)):step&&toM===limitM?copy(path[step.index+(direction>0?1:0)]):routePoint(path,toM),floorId=floorAfterTravel(travel.path,fromM,toM,actor.floorId);
+   validate(travel.path,travel.segments,fromM,toM,position,floorId);
+   const moved=Math.abs(toM-fromM);actor.position=position;actor.floorId=floorId;travelled+=moved;remaining-=moved;travel.distanceM=toM;travel.actorFloorId=floorId;
+   if(step&&Math.abs(toM-limitM)<=1e-8||toM<=1e-8||toM>=lengthM-1e-8){const stopped=travel.stopAtEnd&&direction>0&&toM>=lengthM-1e-8;travel=null;if(stopped||!moved)remaining=0;}
+  }
+  if(remaining>1e-8)fail('SUPPORTED_WORK_LIMIT','The provider fragmented this bounded movement into too many plans.');
+  if(travelled)bump(actor);if(travel&&!activeSupportedStep(travel))travel=null;if(travel){travel.actorRevision=actor.revision;travel.actorFloorId=actor.floorId;}
+  return {ok:true,state,actor,events:[],travel,movement:{profile:SUPPORTED_WALK_CONTRACT.profile,policy:copy(policy),geometryKey,distanceM:travelled,contacts}};
+ });
+}
+
 export function walkActor(input,actorInput,options={},bindings){
   return operate(input,actorInput,(state,actor)=>{
     const data=interactionData(options);object(data,['direction','seconds'],'walk options');const {direction,seconds:elapsed}=data;

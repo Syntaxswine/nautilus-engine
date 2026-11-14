@@ -142,6 +142,11 @@ export function createWorkshopTrainPreview(T, scene, changed) {
   return {
     read, select: stock => { selectedStock = stock; },
     play: (stock = selectedStock) => start([stock]), playAll: () => start(snapshot.trains.map(train => train.stock)),
-    pause, pauseAll, reset, sync, setVisible, dispose, subscribe: listener => listeners.add(listener)
+    pause, pauseAll, reset, sync, setVisible, dispose, subscribe: listener => listeners.add(listener),
+    advanceDistance(distanceM,stocks=snapshot.trains.map(t=>t.stock)){
+      if(playing.size||!traffic||!Number.isFinite(distanceM)||distanceM<0||distanceM>480)throw Error('Pause the placed trains before a bounded distance step.');render(traffic.advance(distanceM,stocks));notify();return read();
+    },
+    checkpoint(){if(!traffic)throw Error('Place trains before saving preview progress.');return structuredClone({kind:'nautilus-workshop-train-preview',version:1,content:signature,settings:[...switches],traffic:traffic.checkpoint()});},
+    restore(saved){if(playing.size||!traffic||saved?.kind!=='nautilus-workshop-train-preview'||saved.version!==1||saved.content!==signature||JSON.stringify(saved.settings)!==JSON.stringify([...switches]))throw Error('Pause and restore the same authored railway and switch settings.');traffic.restore(saved.traffic);render(traffic.read());notify();return read();}
   };
 }

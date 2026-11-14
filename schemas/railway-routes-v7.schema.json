@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:railway-routes:7",
+  "title": "Nautilus explicit measured railway routes",
+  "type": "object",
+  "required": [
+    "version",
+    "routes",
+    "trains"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 7
+    },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "waypoints"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$"
+          },
+          "waypoints": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 48,
+            "items": {
+              "$ref": "#/$defs/point"
+            }
+          },
+          "turnout": {
+            "type": "object",
+            "required": [
+              "at",
+              "end"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "at": {
+                "$ref": "#/$defs/point"
+              },
+              "end": {
+                "$ref": "#/$defs/point"
+              }
+            }
+          },
+          "radiusM": {
+            "enum": [
+              4,
+              16
+            ]
+          },
+          "geometryProfile": {
+            "enum": [
+              "surveyed-v1"
+            ]
+          }
+        }
+      }
+    },
+    "trains": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "routeId",
+          "stock",
+          "departure",
+          "switchPosition"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "routeId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$"
+          },
+          "stock": {
+            "enum": [
+              "steam",
+              "electric"
+            ]
+          },
+          "departure": {
+            "enum": [
+              "start",
+              "end",
+              "branch"
+            ]
+          },
+          "switchPosition": {
+            "enum": [
+              "main",
+              "branch"
+            ]
+          },
+          "profile": {
+            "enum": [
+              "miniature",
+              "world"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$comment": "Finite measured bearings do not imply a connected town network. The planner validates tangent curves, measured throat stations, turnout clearance, diamonds, departure fit and ground. Missing geometryProfile retains legacy grid rules.",
+  "$defs": {
+    "point": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 239
+      }
+    }
+  }
+}

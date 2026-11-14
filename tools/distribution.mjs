@@ -39,7 +39,7 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
   'docs/window-authoring.md', 'docs/reviews/window-authoring/registration-request.json', 'docs/reviews/window-authoring/dependencies.json',
   'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json', 'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original',
   'packages/tiles-core/NOTICE.md', 'docs/procedural-tiles.md', 'docs/proposals/procedural-tiles-v1.md', 'docs/reviews/procedural-tiles/source-audit.json', 'docs/reviews/procedural-tiles/registration-request.json',
-  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/mount-dora/')||file.startsWith('vendor/mount-dora-handoff/')||file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
   if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view','./trains/ui','./trains/style.css'].includes(id)));
@@ -62,6 +62,7 @@ export function distribution(profile = 'compatibility') {
   exports=withVehicleExports(exports,profile);
   extras.push(...vehiclePackageFiles(profile));
   if(profile==='core'||profile==='compatibility')extras.push('packages/traversal-core/index.d.ts','packages/traversal-core/README.md','packages/traversal-core/source.json');
+  if(profile!=='assets')extras.push('packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');

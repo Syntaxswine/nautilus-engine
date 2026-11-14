@@ -1,9 +1,11 @@
 // Authenticate this bounded correction before exposing exact accepted merged door bytes.
 import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+import {checkMountDoraRegistration} from './mount-dora-registration.mjs';
 export const WALKING_PACE_BASE='a06e80b0312fa259a9c983fa81aa7ca6e669bfeb';
 export const WALKING_PACE_REGISTRATION='docs/reviews/walking-pace/registration.json';
 const manifestSHA='fa33c1276900c1906564067b028af195a075f7e1b0f345701fb7ef21db4ab020',sha=b=>createHash('sha256').update(b).digest('hex');
-export function checkWalkingPaceRegistration(ports){
+export function checkWalkingPaceRegistration(ports){const town=checkMountDoraRegistration(ports),accepted=checkAcceptedWalkingPaceRegistration(town.historicalPorts);return {...accepted,report:{...accepted.report,mountDora:town.report}};}
+function checkAcceptedWalkingPaceRegistration(ports){
  const {read,object,indexed=()=>{},distribution}=ports,raw=read(WALKING_PACE_REGISTRATION);assert.equal(sha(raw),manifestSHA,'Walking pace registration metadata changed.');const m=JSON.parse(raw);assert.equal(m.base,WALKING_PACE_BASE);indexed(WALKING_PACE_REGISTRATION,raw);indexed('tools/walking-pace-registration.mjs',read('tools/walking-pace-registration.mjs'));
  const before={},actual={};for(const row of m.files){const b=read(row.path);assert.equal(b.length,row.bytes,'Walking pace source changed / Door opening source changed / Traversal source changed / root bytes changed: '+row.path);assert.equal(sha(b),row.sha256,'Walking pace source changed / Door opening source changed / Traversal source changed / root bytes changed: '+row.path);indexed(row.path,b);if(row.beforeSha256){const old=object(WALKING_PACE_BASE,row.path);assert.equal(sha(old),row.beforeSha256,'Walking pace accepted preimage changed: '+row.path);before[row.path]=old;actual[row.path]=b;}}
  for(const [profile,expected]of Object.entries(m.profiles)){const d=distribution(profile);assert.equal(d.name,expected.name);assert.deepEqual(d.exports,expected.exports,'Unreviewed vehicle profile exports / Walking pace profile exports changed: '+profile);assert.deepEqual(d.files,expected.files,'Walking pace profile files changed: '+profile);}

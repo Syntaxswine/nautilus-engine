@@ -36,6 +36,7 @@ function leg(track, plan, from, to) {
 }
 
 export function railwayTurnoutStation(plan, turnout) {
+  if(turnout.plan.geometryProfile==='surveyed-v1')return {stationM:turnout.mainStationM,direction:turnout.mainDirection};
   const base = railwayStationAt(plan, turnout.mainStartM);
   const [x, z] = turnout.throat;
   const [dx, dz] = turnout.incoming;
@@ -151,7 +152,7 @@ function pose(path, headM, {id, centreBehindM, wheelbaseM, lengthM, reverse}) {
 // The host supplies travel in metres. A turnout is the only place where the
 // selected route can diverge. Diamonds never appear in this itinerary.
 export function createRailwayTrain(route, placement) {
-  const plan = planRailwayRoute(route.waypoints, route.radiusM);
+  const plan = planRailwayRoute(route.waypoints, route.radiusM,route.geometryProfile);
   const turnout = route.turnout && planRailwayTurnout(plan, route.turnout);
   return createRailwayTrainOnPlan({id: route.id, plan, turnout}, placement);
 }
