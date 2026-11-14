@@ -9,6 +9,7 @@ import {root,moduleClosure,distribution} from './distribution.mjs';
 import {historicalRailwayRouteBytes,RAILWAY_ROUTE_SCHEMAS} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
+import {historicalMountDoraSchemaFiles} from './mount-dora-registration.mjs';
 
 export const TILE_STACK_ACCEPTED_SOURCE='45ecaef16bb39424c8b885d53acb4371654b4fa0';
 export const TILE_STACK_SOURCE_ROOT='candidates/tile-stack/core';
@@ -144,7 +145,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
   const authoringSchemaSupport=registration.authoringRegistration.support.filter(file=>file.endsWith('.schema.json'));
   assert.deepEqual(authoringSchemaSupport,['packages/tile-authoring-core/contract.schema.json'],'Only the separately authenticated authoring contract schema is added.');
   const schemaFiles=listed(TILE_STACK_REGISTRATION_BASE,'packages','schemas').filter(file=>file.endsWith('.schema.json'));
-  const currentSchemas=[...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort();
+  const currentSchemas=historicalMountDoraSchemaFiles([...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort(),{read,indexed});
   assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport,...RAILWAY_ROUTE_SCHEMAS].sort(),'Keep every historical schema plus the authenticated authoring and railway route additions.');
   // The Root C2a fence separately owns the newer accepted private v2 schema
   // bytes. This registration preserves the public schema inventory/content;

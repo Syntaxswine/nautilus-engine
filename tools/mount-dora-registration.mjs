@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';import fs from 'node:fs';import path fro
 import {moduleReferencesBatch,resolveModuleFile} from './module-references.mjs';
 export const MOUNT_DORA_BASE='df22699032263e4489cc6c0128bf8e0570688de3';
 export const MOUNT_DORA_REGISTRATION='docs/reviews/mount-dora/registration.json';
-const manifestSHA='fd2c4941756a153e780e52884127994a0feac077bcb5141d3d05979ba2fb7701',sha=b=>createHash('sha256').update(b).digest('hex'),root=fileURLToPath(new URL('../',import.meta.url));
+const manifestSHA='be69c92b8d0b8c77132224a4656ae8083791310da9fe181888c28dc12347717f',sha=b=>createHash('sha256').update(b).digest('hex'),root=fileURLToPath(new URL('../',import.meta.url));
 function metadata(read){const raw=read(MOUNT_DORA_REGISTRATION);assert.equal(sha(raw),manifestSHA,'Mount Dora registration metadata changed.');const m=JSON.parse(raw);assert.equal(m.base,MOUNT_DORA_BASE);return {raw,m};}
 function virtualClosure(object){const cache=new Map();return entries=>{const seen=new Set(),pending=entries.map(f=>path.resolve(root,f));while(pending.length){const batch=[...new Set(pending.splice(0))].filter(f=>!seen.has(f));for(const f of batch){assert.ok(f.startsWith(root),'Historical module escapes project.');seen.add(f);}const sources=batch.filter(f=>/\.m?js$/.test(f)).map(filename=>{const file=path.relative(root,filename).replaceAll('\\','/');if(!cache.has(file))cache.set(file,object(MOUNT_DORA_BASE,file));return {filename,source:cache.get(file).toString()};});for(const row of moduleReferencesBatch(sources))for(const specifier of row.specifiers){const target=resolveModuleFile(specifier,row.filename,{root});assert.ok(target,'Historical runtime dependency must be relative.');if(!seen.has(target))pending.push(target);}}return [...seen].map(f=>path.relative(root,f).replaceAll('\\','/')).sort();};}
 export function checkMountDoraRegistration(ports){
@@ -18,4 +18,8 @@ export function checkMountDoraRegistration(ports){
 // before they expose an exact accepted preimage. No old ledger is resealed.
 export function historicalMountDoraBytes(object,file,current){
  const {m}=metadata(f=>fs.readFileSync(path.join(root,f))),row=m.files.find(r=>r.path===file);if(!row?.beforeSha256||sha(current)!==row.sha256)return current;const b=object(MOUNT_DORA_BASE,file);assert.equal(sha(b),row.beforeSha256);return b;
+}
+
+export function historicalMountDoraSchemaFiles(files,{read,indexed=()=>{}}){
+ const {m}=metadata(read),schema='schemas/railway-routes-v7.schema.json',row=m.files.find(r=>r.path===schema);assert.ok(row&&!row.beforeSha256,'Authenticate the one additive measured-route schema.');const b=read(schema);assert.equal(b.length,row.bytes);assert.equal(sha(b),row.sha256,'Mount Dora schema source changed.');indexed(schema,b);return files.filter(f=>f!==schema);
 }
