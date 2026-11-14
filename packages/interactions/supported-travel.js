@@ -29,4 +29,5 @@ export function floorAfterTravel(path,fromM,toM,currentFloor){
  const crossed=stations.map((at,i)=>({at,i})).filter(({at})=>toM>=fromM?at>fromM+1e-8&&at<=toM+1e-8:at<fromM-1e-8&&at>=toM-1e-8).sort((a,b)=>toM>=fromM?a.at-b.at:b.at-a.at);
  return crossed.length?path[crossed.at(-1).i].floorId:currentFloor;
 }
-export function activeSupportedStep(travel){let station=0;for(let i=0;i<travel.segments.length;i++){const end=station+distance(travel.path[i].position,travel.path[i+1].position);if(travel.distanceM>station+1e-8&&travel.distanceM<end-1e-8)return travel.segments[i]==='step';station=end;}return false;}
+export function activeSupportedStepBounds(travel){let station=0;for(let i=0;i<travel.segments.length;i++){const end=station+distance(travel.path[i].position,travel.path[i+1].position);if(travel.distanceM>station+1e-8&&travel.distanceM<end-1e-8)return travel.segments[i]==='step'?{startM:station,endM:end,index:i}:null;station=end;}return null;}
+export function activeSupportedStep(travel){return activeSupportedStepBounds(travel)!==null;}

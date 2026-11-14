@@ -1,5 +1,5 @@
 import {openInteractionState,openInteractionActor,interactionData,copy,object,id,integer,number,point,distance,samePoint,routeLength,routePoint,bump,fail} from './state.js';
-import {SUPPORTED_WALK_CONTRACT,supportedPolicy,supportedQuery,supportPath,openSupportedTravel,floorAfterTravel,activeSupportedStep} from './supported-travel.js';
+import {SUPPORTED_WALK_CONTRACT,supportedPolicy,supportedQuery,supportPath,openSupportedTravel,floorAfterTravel,activeSupportedStep,activeSupportedStepBounds} from './supported-travel.js';
 const denied=(code,reason)=>({ok:false,code,reason,events:[]});
 function operate(input,actorInput,run){
   let state=null,actor=null;
@@ -103,11 +103,13 @@ export function walkSupportedActor(input,actorInput,options={},bindings){
     supportPath({path:plan.path,segments:plan.segments},policy);if(!samePoint(plan.path[0].position,actor.position)||plan.path[0].floorId!==actor.floorId||typeof plan.stopAtEnd!=='boolean')fail('INVALID_BINDING','Start at the exact retained foot pose/floor and declare the path end policy.');
     travel={kind:'nautilus-supported-travel',version:1,worldId:state.worldId,worldRevision:state.revision,actorId:actor.id,actorRevision:actor.revision,actorFloorId:actor.floorId,policy,geometryKey,path:copy(plan.path),segments:copy(plan.segments),stopAtEnd:plan.stopAtEnd,distanceM:0,heading};
    }
-   const alignment=heading.x*travel.heading.x+heading.y*travel.heading.y;if(Math.abs(alignment)<1e-7)fail('SUPPORTED_DIRECTION','Complete or reverse the retained support transition before moving sideways.');
-   const path=travel.path.map(n=>n.position),lengthM=routeLength(path),fromM=travel.distanceM,toM=Math.max(0,Math.min(lengthM,fromM+(alignment<0?-remaining:remaining))),position=routePoint(path,toM),floorId=floorAfterTravel(travel.path,fromM,toM,actor.floorId);
+   // Settle the retained physical step, then replan under the current heading.
+   // Completed nodes retain their exact coordinates; interpolation must not invent a slope.
+   const alignment=heading.x*travel.heading.x+heading.y*travel.heading.y,direction=alignment< -1e-7?-1:1,step=activeSupportedStepBounds(travel);
+   const path=travel.path.map(n=>n.position),lengthM=routeLength(path),fromM=travel.distanceM,limitM=direction<0?(step?.startM??0):(step?.endM??lengthM),toM=direction<0?Math.max(limitM,fromM-remaining):Math.min(limitM,fromM+remaining),position=toM===0?copy(path[0]):toM===lengthM?copy(path.at(-1)):step&&toM===limitM?copy(path[step.index+(direction>0?1:0)]):routePoint(path,toM),floorId=floorAfterTravel(travel.path,fromM,toM,actor.floorId);
    validate(travel.path,travel.segments,fromM,toM,position,floorId);
    const moved=Math.abs(toM-fromM);actor.position=position;actor.floorId=floorId;travelled+=moved;remaining-=moved;travel.distanceM=toM;travel.actorFloorId=floorId;
-   if(toM<=1e-8||toM>=lengthM-1e-8){const stopped=travel.stopAtEnd&&alignment>=0;travel=null;if(stopped||!moved)remaining=0;}
+   if(step&&Math.abs(toM-limitM)<=1e-8||toM<=1e-8||toM>=lengthM-1e-8){const stopped=travel.stopAtEnd&&direction>0&&toM>=lengthM-1e-8;travel=null;if(stopped||!moved)remaining=0;}
   }
   if(remaining>1e-8)fail('SUPPORTED_WORK_LIMIT','The provider fragmented this bounded movement into too many plans.');
   if(travelled)bump(actor);if(travel&&!activeSupportedStep(travel))travel=null;if(travel){travel.actorRevision=actor.revision;travel.actorFloorId=actor.floorId;}
