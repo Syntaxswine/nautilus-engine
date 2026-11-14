@@ -216,7 +216,7 @@ function physicalPeer(entry, blocks) {
 // steps give simultaneous arrivals a deterministic tie-break on a clear block.
 export function createRailwayTraffic(routes, placements = []) {
   const plans = routes.map(route => {
-    const plan = planRailwayRoute(route.waypoints, route.radiusM);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM,route.geometryProfile);
     return {id: route.id, plan, turnout: route.turnout && planRailwayTurnout(plan, route.turnout)};
   });
   const crossings = planRailwayCrossings(plans);

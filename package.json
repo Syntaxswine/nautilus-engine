@@ -70,7 +70,9 @@
     "./vehicles": "./packages/vehicle-core/index.js",
     "./vehicles/three": "./packages/vehicle-visuals/three.js",
     "./vehicles/browser": "./packages/vehicle-ui/yard.js",
-    "./vehicles/legacy": "./packages/vehicle-visuals/legacy.js"
+    "./vehicles/legacy": "./packages/vehicle-visuals/legacy.js",
+    "./mount-dora": "./packages/mount-dora-core/index.js",
+    "./mount-dora/three": "./packages/mount-dora-renderer/index.js"
   },
   "files": [
     "CHANGELOG.md",
@@ -96,6 +98,7 @@
     "docs/game-title.md",
     "docs/grenades.md",
     "docs/modular-foundation.md",
+    "docs/mount-dora.md",
     "docs/player-setup.md",
     "docs/procedural-tiles.md",
     "docs/progression.md",
@@ -189,6 +192,7 @@
     "packages/interactions/index.js",
     "packages/interactions/queries.js",
     "packages/interactions/state.js",
+    "packages/interactions/supported-travel.js",
     "packages/item-visuals/rock.js",
     "packages/items-core/actions.js",
     "packages/items-core/flight.js",
@@ -227,6 +231,20 @@
     "packages/map-core/roof-maps.js",
     "packages/map-core/roof-rotation.js",
     "packages/map-core/wall-runs.js",
+    "packages/mount-dora-core/NOTICE.md",
+    "packages/mount-dora-core/README.md",
+    "packages/mount-dora-core/authoring.js",
+    "packages/mount-dora-core/contract.js",
+    "packages/mount-dora-core/data.js",
+    "packages/mount-dora-core/exterior-parts.js",
+    "packages/mount-dora-core/geometry.js",
+    "packages/mount-dora-core/index.js",
+    "packages/mount-dora-core/railways.js",
+    "packages/mount-dora-core/source.json",
+    "packages/mount-dora-core/usage-card.json",
+    "packages/mount-dora-core/world.js",
+    "packages/mount-dora-renderer/exterior.js",
+    "packages/mount-dora-renderer/index.js",
     "packages/native-actors/NOTICE.md",
     "packages/native-actors/README.md",
     "packages/native-actors/body.js",
@@ -481,6 +499,7 @@
     "schemas/railway-routes-v4.schema.json",
     "schemas/railway-routes-v5.schema.json",
     "schemas/railway-routes-v6.schema.json",
+    "schemas/railway-routes-v7.schema.json",
     "schemas/rock-impact-noise-v1.schema.json",
     "schemas/rock-v1.schema.json",
     "schemas/sloped-roofs-v1.schema.json",
@@ -684,7 +703,10 @@
     "review:tiles:stack:installed": "node tools/review-tile-stack-editor.mjs --installed",
     "verify:tiles:stack": "node tools/verify-tile-stack-editor-review.mjs",
     "review:tiles:entry": "node tools/review-tile-workshop-entry.mjs",
-    "test:tiles:authoring": "node tools/test-tile-authoring-core-package.mjs"
+    "test:tiles:authoring": "node tools/test-tile-authoring-core-package.mjs",
+    "pack:mount-dora": "node tools/mount-dora/package.mjs",
+    "build:mount-dora": "node tools/mount-dora/package.mjs --site",
+    "test:mount-dora:installed": "node tools/mount-dora/package.mjs --installed"
   },
   "engines": {
     "node": ">=22"

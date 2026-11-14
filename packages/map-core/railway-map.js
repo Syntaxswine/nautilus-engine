@@ -3,8 +3,9 @@ import * as blocks from './roof-blocks.js';
 import {generateConnectedMap as generate} from './roof-generator.js';
 import {rotateSceneryBlock as rotate} from './roof-rotation.js';
 import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE,
-  RAILWAY_SIGNAL_FEATURE, RAILWAY_WORLD_STOCK_FEATURE} from '../railway-visuals/route.js';
-import {assertRailwayRoutes, refuseRailwayRoutes, railwayTrainsOf} from './railway-routes.js';
+  RAILWAY_SIGNAL_FEATURE, RAILWAY_WORLD_STOCK_FEATURE,RAILWAY_SURVEYED_FEATURE} from '../railway-visuals/route.js';
+import {assertRailwayRoutes, refuseRailwayRoutes as refuseRailways, railwayTrainsOf} from './railway-routes.js';
+function refuseRailwayRoutes(map,workflow){refuseRailways(map,workflow);if(map?.mountDora!==undefined||map?.mountDoraEngine!==undefined)throw Error(workflow+' cannot preserve Mount Dora global source/placement metadata. Keep the complete native sector and its explicit adapter.');}
 
 export {blankMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
 export {blockCanvas, isBlock} from './roof-blocks.js';
@@ -29,6 +30,7 @@ export function parseMap(text, options) {
 
 export function requiredMapFeatures(map) {
   const required = maps.requiredMapFeatures(map);
+  if(map.mountDora!==undefined||map.mountDoraEngine!==undefined)required.push('nautilus-mount-dora-content-v1');
   const {plans, crossings} = assertRailwayRoutes(map);
   if (plans.length) required.push(RAILWAY_ROUTE_FEATURE);
   if (plans.some(route => route.turnout)) required.push(RAILWAY_TURNOUT_FEATURE);
@@ -36,12 +38,14 @@ export function requiredMapFeatures(map) {
   const trains = railwayTrainsOf(map);
   if (trains.length) required.push(RAILWAY_TRAIN_FEATURE);
   if (trains.length > 1) required.push(RAILWAY_SIGNAL_FEATURE);
-  if (map.railwayRoutes?.version === 6) required.push(RAILWAY_WORLD_STOCK_FEATURE);
+  if (map.railwayRoutes?.version >= 6) required.push(RAILWAY_WORLD_STOCK_FEATURE);
+  if(map.railwayRoutes?.routes.some(r=>r.geometryProfile==='surveyed-v1'))required.push(RAILWAY_SURVEYED_FEATURE);
   return required;
 }
 
 export function assertMapCapabilities(map, features = []) {
   maps.assertMapCapabilities(map, features);
+  if((map.mountDora!==undefined||map.mountDoraEngine!==undefined)&&!features.includes('nautilus-mount-dora-content-v1'))throw Error('This game adapter does not support Mount Dora source/content metadata (nautilus-mount-dora-content-v1).');
   const {plans, crossings} = assertRailwayRoutes(map);
   if (plans.length && !features.includes(RAILWAY_ROUTE_FEATURE)) {
     throw new Error(`This game adapter does not support railway routes (${RAILWAY_ROUTE_FEATURE}).`);
@@ -59,9 +63,10 @@ export function assertMapCapabilities(map, features = []) {
   if (trains.length > 1 && !features.includes(RAILWAY_SIGNAL_FEATURE)) {
     throw new Error(`This game adapter does not support shared railway signals (${RAILWAY_SIGNAL_FEATURE}).`);
   }
-  if (map.railwayRoutes?.version === 6 && !features.includes(RAILWAY_WORLD_STOCK_FEATURE)) {
+  if (map.railwayRoutes?.version >= 6 && !features.includes(RAILWAY_WORLD_STOCK_FEATURE)) {
     throw new Error(`This game adapter does not support world-size railways (${RAILWAY_WORLD_STOCK_FEATURE}).`);
   }
+  if(map.railwayRoutes?.routes.some(r=>r.geometryProfile==='surveyed-v1')&&!features.includes(RAILWAY_SURVEYED_FEATURE))throw Error('This game adapter does not support measured railway bearings ('+RAILWAY_SURVEYED_FEATURE+').');
   return map;
 }
 

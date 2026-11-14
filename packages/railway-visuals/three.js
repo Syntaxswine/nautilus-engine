@@ -104,6 +104,9 @@ function timberExtension(site, turnout) {
   if (site.distanceM < turnout.mainStartM || site.distanceM > turnout.mainEndM) return 0;
   const along = turnoutDistance(site, turnout, turnout.incoming);
   if (along <= 0) return 0;
+  if(turnout.plan.geometryProfile==='surveyed-v1'){
+    const arc=turnout.plan.spans[0],radius=arc.radiusM,angle=Math.abs(arc.turn),endAlong=radius*Math.sin(angle),across=along<=endAlong?radius-Math.sqrt(Math.max(0,radius**2-along**2)):radius*(1-Math.cos(angle))+(along-endAlong)*Math.tan(angle),offset=across-turnoutDistance(site,turnout,turnout.outward);return offset<=1.4?Math.max(0,offset):Math.max(0,1.4-(offset-1.4)*3);
+  }
   const radius = turnout.plan.radiusM, arcEnd = radius * Math.SQRT1_2;
   const offset = along <= arcEnd ? radius - Math.sqrt(radius ** 2 - along ** 2)
     : radius - arcEnd + along - arcEnd;
@@ -158,7 +161,7 @@ function overlapsDiamondTies(site, {track, other, angleDeg}) {
 }
 
 function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, branch, crossings = []}, materials, fixtures, own) {
-  const crossingM = turnout && turnoutCrossingM(turnout.plan.radiusM);
+  const crossingM = turnout && (turnout.fittings?.crossingM??turnoutCrossingM(turnout.plan.radiusM));
   const root = new T.Group();
   root.name = id;
   root.userData = {assetId: id, profile: RAIL_TRACK_PROFILE.id, metresPerUnit: 1};
@@ -238,7 +241,7 @@ function trackMesh(T, {id, lengthM, stations, sample, gravelRepeats, turnout, br
     const crossing = railwayStationAt(turnout.plan, crossingM), u = turnout.side * railCentresM / 2;
     const frog = new T.Mesh(fixtures.plate, materials.plate);
     frog.name = 'Turnout crossing plate';
-    frog.position.set(crossing.x + crossing.c * u, tieTop + .003, crossing.z - crossing.s * u);
+    frog.position.set(turnout.fittings?.point[0]??crossing.x + crossing.c * u, tieTop + .003,turnout.fittings?.point[1]?? crossing.z - crossing.s * u);
     frog.rotation.y = crossing.angle;
     frog.scale.set(2, 1, 2.8);
     root.add(frog);
@@ -317,9 +320,9 @@ export function createRailwayKit(T) {
     createCircuit(waypoints, radiusM = RAILWAY_RADIUS_M) {
       return this.createRoute(waypoints, undefined, [], radiusM, true);
     },
-    createRoute(waypoints, split, crossings = [], radiusM = RAILWAY_RADIUS_M, circuit = false) {
+    createRoute(waypoints, split, crossings = [], radiusM = RAILWAY_RADIUS_M, circuit = false, geometryProfile='grid-v1') {
       if (disposed) throw new Error('Railway kit is disposed.');
-      const plan = circuit ? planRailwayCircuit(waypoints, radiusM) : planRailwayRoute(waypoints, radiusM), owned = [];
+      const plan = circuit ? planRailwayCircuit(waypoints, radiusM) : planRailwayRoute(waypoints, radiusM,geometryProfile), owned = [];
       if (circuit && (split !== undefined || crossings.length)) throw Error('This circuit profile has no turnouts or crossings.');
       const turnout = split === undefined ? null : planRailwayTurnout(plan, split);
       if (turnout) assertRailwaySeparation([{id: 'route', plan, turnout}]);
@@ -344,6 +347,12 @@ export function createRailwayKit(T) {
       } catch (error) {
         retire([...owned.reverse().map(resource => () => resource.dispose()), () => { throw error; }]);
       }
+    },
+    createPath(plan,{ballast=true,turnout=null,branch=false}={}){
+      if(disposed)throw Error('Railway kit is disposed.');
+      if(!plan||!Number.isFinite(plan.lengthM)||plan.lengthM<=0||plan.lengthM>480||!Array.isArray(plan.stations)||plan.stations.length>4096||!Array.isArray(plan.spans)||plan.spans.length>95)throw Error('Supply a bounded authoritative railway plan.');
+      if(branch&&!turnout)throw Error('A branch path needs its authoritative turnout.');if(branch){materials.branchGravel??=own(overlayMaterial(materials.gravel));materials.branchRail??=own(overlayMaterial(materials.rail));}
+      const owned=[];try{const root=trackMesh(T,{id:'railway:measured-path',lengthM:plan.lengthM,stations:plan.stations.map(site=>({...site,t:site.distanceM/plan.lengthM})),sample:t=>({...railwayStationAt(plan,t*plan.lengthM),t}),gravelRepeats:2*plan.lengthM,turnout,branch,crossings:[]},materials,fixtures,r=>{owned.push(r);return r;});if(!ballast)root.traverse(o=>{if(o.isMesh&&(o.material===materials.gravel||o.material===materials.branchGravel))o.visible=false;});return retain(root,owned);}catch(error){for(const r of owned.reverse())r.dispose();throw error;}
     },
     dispose() {
       if (disposed) return;

@@ -6,7 +6,7 @@ import {createRailwayKit} from '../../packages/railway-visuals/three.js';
 import {planRailwayRoute, planRailwayTurnout, railwayCrossingsByRoute} from '../../packages/railway-visuals/route.js';
 import {createWorkshopTrainPreview} from './railway-train-preview.js';
 
-const signatureOf = (route, crossings) => JSON.stringify([route.waypoints, route.turnout, route.radiusM, crossings]);
+const signatureOf = (route, crossings) => JSON.stringify([route.waypoints, route.turnout, route.radiusM,route.geometryProfile, crossings]);
 const markerHeight = RAIL_TRACK_PROFILE.railTopM + .045;
 
 export class InspectionScene extends Legacy {
@@ -27,7 +27,7 @@ export class InspectionScene extends Legacy {
 
   makeRailway(route, crossings, name) {
     this.railwayKit ??= createRailwayKit(T);
-    const model = this.railwayKit.createRoute(route.waypoints, route.turnout, crossings, route.radiusM);
+    const model = this.railwayKit.createRoute(route.waypoints, route.turnout, crossings, route.radiusM,false,route.geometryProfile);
     if (name) model.root.name = name;
     model.root.userData.routeId = route.id;
     this.scene.add(model.root);
@@ -112,7 +112,7 @@ export class InspectionScene extends Legacy {
   select(selection) {
     super.select(selection);
     if (selection?.type !== 'railway-route') return;
-    const plan = planRailwayRoute(selection.data.waypoints, selection.data.radiusM);
+    const plan = planRailwayRoute(selection.data.waypoints, selection.data.radiusM,selection.data.geometryProfile);
     const turnout = selection.data.turnout && planRailwayTurnout(plan, selection.data.turnout);
     const vertices = [...plan.segments, ...(turnout?.plan.segments ?? [])]
       .flatMap(({a, b}) => [a[0], markerHeight, a[1], b[0], markerHeight, b[1]]);

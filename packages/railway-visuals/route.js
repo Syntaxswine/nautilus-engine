@@ -6,6 +6,7 @@ export const RAILWAY_CROSSING_FEATURE = 'nautilus-railway-crossings-v1';
 export const RAILWAY_TRAIN_FEATURE = 'nautilus-railway-trains-v1';
 export const RAILWAY_SIGNAL_FEATURE = 'nautilus-railway-signals-v1';
 export const RAILWAY_WORLD_STOCK_FEATURE = 'nautilus-railway-world-stock-v1';
+export const RAILWAY_SURVEYED_FEATURE = 'nautilus-railway-surveyed-v1';
 export const RAILWAY_ROUTE_LIMITS = Object.freeze({routes: 64, waypoints: 48, lengthM: 480, totalLengthM: 1200});
 export const RAILWAY_RADIUS_M = RAIL_TRACK_ASSETS.find(piece => piece.radiusM !== null).radiusM;
 const HALF_BED = RAIL_TRACK_PROFILE.ballastWidthM / 2;
@@ -18,8 +19,14 @@ const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
 const offset = (a, b) => [b[0] - a[0], b[1] - a[1]];
 const directions = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
 const integerPoint = p => Array.isArray(p) && p.length === 2 && [...p].every(Number.isSafeInteger);
+const measuredPoint = p => Array.isArray(p) && p.length === 2 && p.every(n=>Number.isFinite(n)&&Math.abs(n)<=65536);
 
-export function snapRailwayWaypoint(anchor, target) {
+export function snapRailwayWaypoint(anchor, target, {geometryProfile='grid-v1',anchors=[],toleranceM=.6}={}) {
+  if(geometryProfile==='surveyed-v1'){
+    if(!measuredPoint(target)||!Array.isArray(anchors)||anchors.length>256||!anchors.every(measuredPoint)||!Number.isFinite(toleranceM)||toleranceM<0||toleranceM>2)throw Error('Use bounded measured railway snapping inputs.');
+    const near=anchors.map(p=>({p,gap:distance(p,target)})).filter(p=>p.gap<=toleranceM).sort((a,b)=>a.gap-b.gap||a.p[0]-b.p[0]||a.p[1]-b.p[1])[0];return near?[...near.p]:target.map(n=>Math.round(n*10000)/10000);
+  }
+  if(geometryProfile!=='grid-v1')throw Error('Unsupported railway geometry profile.');
   const grid = target.map(Math.round);
   if (!anchor) return grid;
   const [dx, dy] = offset(anchor, grid);
@@ -63,10 +70,11 @@ function corner(at, incoming, outgoing, radiusM = RAILWAY_RADIUS_M) {
   return {kind: 'curve', a, b, incoming, outgoing, turn, trim, center, radiusM, lengthM: radiusM * Math.abs(turn)};
 }
 
-function fit(waypoints, radiusM) {
+function fit(waypoints, radiusM, geometryProfile='grid-v1') {
+  if(!['grid-v1','surveyed-v1'].includes(geometryProfile))throw Error('Unsupported railway geometry profile.');
   if (![4, 16].includes(radiusM)) throw new Error('Choose a 4 m miniature or 16 m world-size railway radius.');
   if (!Array.isArray(waypoints) || waypoints.length < 2 || waypoints.length > RAILWAY_ROUTE_LIMITS.waypoints ||
-      ![...waypoints].every(integerPoint)) {
+      ![...waypoints].every(geometryProfile==='surveyed-v1'?measuredPoint:integerPoint)) {
     throw new Error('Choose 2–48 whole-metre railway waypoints.');
   }
   const used = new Set();
@@ -77,10 +85,11 @@ function fit(waypoints, radiusM) {
   }
   const legs = waypoints.slice(1).map((b, i) => {
     const a = waypoints[i], [dx, dy] = offset(a, b);
-    if (dx && dy && Math.abs(dx) !== Math.abs(dy)) {
+    if (geometryProfile==='grid-v1' && dx && dy && Math.abs(dx) !== Math.abs(dy)) {
       throw new Error(`Railway approach ${i + 1} must follow a cardinal or 45° diagonal heading.`);
     }
     const length = distance(a, b);
+    if(length<.01)throw Error('Keep at least one centimetre between measured railway points.');
     return {a, b, unit: [dx / length, dy / length], length};
   });
   // Preserve authored waypoints while allowing additional points along an approach.
@@ -139,6 +148,10 @@ function sampleSpans(spans, lengthM, radiusM = RAILWAY_RADIUS_M) {
 }
 
 export function snapRailwayTurnoutAnchor(plan, point) {
+  if(plan.geometryProfile==='surveyed-v1'){
+    const vertices=plan.waypoints||[],near=snapRailwayWaypoint(null,point,{geometryProfile:'surveyed-v1',anchors:vertices,toleranceM:.6});if(vertices.some(p=>distance(p,near)<EPS))return near;
+    let best=null;for(const span of plan.spans.filter(s=>s.kind==='straight')){const along=Math.max(0,Math.min(span.lengthM,dot(offset(span.a,point),span.incoming))),at=moved(span.a,span.incoming,along),gap=distance(at,point);if(gap<=.6&&(!best||gap<best.gap))best={gap,at};}return best?.at??null;
+  }
   let closest = null, best = HALF_BED + EPS;
   for (const span of plan.spans) {
     if (span.kind !== 'straight') continue;
@@ -156,6 +169,7 @@ export function snapRailwayTurnoutAnchor(plan, point) {
 }
 
 export function planRailwayTurnout(main, {at, end} = {}) {
+  if(main.geometryProfile==='surveyed-v1')return surveyedTurnout(main,{at,end});
   if (!integerPoint(at) || !integerPoint(end)) throw new Error('Choose whole-metre points for the railway split.');
   const straight = main.spans.find(span => span.kind === 'straight' &&
     pointToRailwaySegment(at, span.a, span.b) < EPS);
@@ -192,6 +206,29 @@ export function planRailwayTurnout(main, {at, end} = {}) {
   };
 }
 
+function surveyedTurnout(main,{at,end}){
+ if(!measuredPoint(at)||!measuredPoint(end)||distance(at,end)<4)throw Error('A surveyed split needs measured points and at least4m of branch.');
+ const run=offset(at,end),length=distance(at,end),outgoing=run.map(n=>n/length),radiusM=main.radiusM,candidates=[];
+ for(const straight of main.spans.filter(s=>s.kind==='straight'))for(const sign of [1,-1]){
+  const incoming=straight.incoming.map(n=>n*sign),angle=Math.acos(Math.max(-1,Math.min(1,dot(incoming,outgoing))));if(angle<Math.PI/180||angle>Math.PI/3)continue;const arc=corner(at,incoming,outgoing,radiusM);if(pointToRailwaySegment(arc.a,straight.a,straight.b)>EPS||length<arc.trim+.5)continue;
+  const stationM=straight.startM+dot(offset(straight.a,arc.a),straight.incoming);if(sign>0?stationM<.5||main.lengthM-stationM<4:main.lengthM-stationM<.5||stationM<4)continue;candidates.push({straight,incoming,arc,stationM});
+ }
+ if(!candidates.length)throw Error('The measured split needs a shared tangent throat on the main route and a1–60° branch.');
+ candidates.sort((a,b)=>Math.abs(a.arc.turn)-Math.abs(b.arc.turn));const {incoming,arc,stationM}=candidates[0],exitLength=length-arc.trim,plan=sampleSpans([{...arc,startM:0},{kind:'straight',gridAnchor:at,a:arc.b,b:end,incoming:outgoing,outgoing,lengthM:exitLength,startM:arc.lengthM}],arc.lengthM+exitLength,radiusM);
+ if(main.lengthM+plan.lengthM>RAILWAY_ROUTE_LIMITS.lengthM)throw Error('Keep the measured main and branch within480m.');plan.geometryProfile='surveyed-v1';
+ // Only the connected overlap corridor is shared. A later recross remains a
+ // non-neighbouring collision and is refused by the unchanged separation check.
+ const overlaps=main.segments.filter(a=>plan.segments.some(b=>railwaySegmentDistance(a.a,a.b,b.a,b.b)<=a.radius+b.radius+EPS)),groups=[];
+ for(const segment of overlaps){const last=groups.at(-1);if(last&&segment.startM<=last.hi+EPS)last.hi=segment.endM;else groups.push({lo:segment.startM,hi:segment.endM});}
+ const corridor=groups.find(g=>stationM>=g.lo-EPS&&stationM<=g.hi+EPS);if(!corridor)throw Error('The measured branch does not share the main throat.');const side=Math.sign(arc.turn);
+ const mainHeading=railwayStationAt(main,stationM),direction=dot(incoming,[mainHeading.s,mainHeading.c])>0?1:-1;
+ const turnout={plan,throat:arc.a,incoming,outward:[-side*incoming[1],side*incoming[0]],side,mainStartM:corridor.lo,mainEndM:corridor.hi,mainStationM:stationM,mainDirection:direction};
+ const half=RAIL_TRACK_PROFILE.railCentresM/2;
+ const rail=(s,u)=>[s.x+s.c*u,s.z-s.s*u],branchSites=plan.stations.map(s=>({point:rail(s,side*half),distanceM:s.distanceM})),mainSites=main.stations.map(s=>rail(s,-side*half*direction));let fitting=null;
+ for(let i=1;i<branchSites.length&&!fitting;i++)for(let j=1;j<mainSites.length;j++){const a=branchSites[i-1],b=branchSites[i],c=mainSites[j-1],d=mainSites[j],ab=offset(a.point,b.point),cd=offset(c,d),det=cross(ab,cd);if(Math.abs(det)<EPS)continue;const ac=offset(a.point,c),t=cross(ac,cd)/det,v=cross(ac,ab)/det;if(t>=0&&t<=1&&v>=0&&v<=1){fitting={crossingM:a.distanceM+t*(b.distanceM-a.distanceM),point:moved(a.point,ab,t),method:'intersection of the actual sampled branch inner and main outer rail centre lines'};break;}}
+ if(!fitting||fitting.crossingM<.55||fitting.crossingM>plan.lengthM-.25)throw Error('The measured branch needs room for its actual rail crossing fitting.');turnout.fittings=fitting;return turnout;
+}
+
 export function pointToRailwaySegment(point, a, b) {
   const [dx, dy] = offset(a, b);
   const lengthSquared = dx * dx + dy * dy;
@@ -217,7 +254,7 @@ export function railwaySegmentBounds(segment) {
     Math.max(a[0], b[0]) + radius, Math.max(a[1], b[1]) + radius];
 }
 
-function diamondAt(a, b, firstId, secondId, halfWidthM = HALF_BED) {
+function diamondAt(a, b, firstId, secondId, halfWidthM = HALF_BED,measured=false) {
   const sin = cross(a.incoming, b.incoming);
   if (Math.abs(sin) < EPS) return null;
   const delta = offset(a.a, b.a);
@@ -226,7 +263,7 @@ function diamondAt(a, b, firstId, secondId, halfWidthM = HALF_BED) {
   if (alongA < -EPS || alongA > a.lengthM + EPS || alongB < -EPS || alongB > b.lengthM + EPS) return null;
   // Integer compass lines intersect on the whole- or half-metre grid. Keep
   // the exact point even when neither route has a waypoint there.
-  const point = moved(a.a, a.incoming, alongA).map(n => Math.round(n * 2) / 2);
+  const rawPoint=moved(a.a,a.incoming,alongA),point = measured?rawPoint:rawPoint.map(n => Math.round(n * 2) / 2);
   const clearanceM = 2 * halfWidthM / Math.abs(sin);
   if (Math.min(alongA, a.lengthM - alongA, alongB, b.lengthM - alongB) < clearanceM - EPS) {
     throw new Error(`Extend both straight approaches at the crossing near ${point.join(', ')}. Leave ${clearanceM.toFixed(2)} m of straight track on each side.`);
@@ -236,6 +273,7 @@ function diamondAt(a, b, firstId, secondId, halfWidthM = HALF_BED) {
     spanStartM: span.startM, spanEndM: span.startM + span.lengthM
   });
   const angleDeg = Math.abs(dot(a.incoming, b.incoming)) < EPS ? 90 : 45;
+  if(measured&&Math.abs(Math.abs(dot(a.incoming,b.incoming))-Math.SQRT1_2)>EPS&&Math.abs(dot(a.incoming,b.incoming))>EPS)throw Error('Measured nonjoining crossings currently support45° or90° diamonds; other angles require an explicit fitting.');
   return {point, angleDeg, clearanceM, tracks: [track(firstId, a, alongA), track(secondId, b, alongB)]};
 }
 
@@ -252,7 +290,7 @@ export function railwayCrossingsByRoute(crossings) {
 }
 
 export function planRailwayCrossings(routes) {
-  const ordered = routes.map(({id, plan}) => ({id, halfWidthM: plan.radiusM === 16 ? 2 : HALF_BED,
+  const ordered = routes.map(({id, plan}) => ({id,measured:plan.geometryProfile==='surveyed-v1', halfWidthM: plan.radiusM === 16 ? 2 : HALF_BED,
     spans: plan.spans.filter(span => span.kind === 'straight')}));
   // The first route owns the crossing fittings. Route order in the file does
   // not affect that choice or the renderer's coplanar ballast priority.
@@ -263,7 +301,7 @@ export function planRailwayCrossings(routes) {
     for (let j = i + 1; j < ordered.length; j++) {
       const second = ordered[j];
       for (const a of first.spans) for (const b of second.spans) {
-        const crossing = diamondAt(a, b, first.id, second.id, Math.max(first.halfWidthM, second.halfWidthM));
+        const crossing = diamondAt(a, b, first.id, second.id, Math.max(first.halfWidthM, second.halfWidthM),first.measured||second.measured);
         if (crossing) crossings.push(crossing);
       }
     }
@@ -331,8 +369,9 @@ export function assertRailwaySeparation(routes, crossings = []) {
   }
 }
 
-export function planRailwayRoute(waypoints, radiusM = RAILWAY_RADIUS_M) {
-  const plan = fit(waypoints, radiusM);
+export function planRailwayRoute(waypoints, radiusM = RAILWAY_RADIUS_M, geometryProfile='grid-v1') {
+  const plan = fit(waypoints, radiusM,geometryProfile);
+  if(geometryProfile==='surveyed-v1'){plan.geometryProfile=geometryProfile;plan.waypoints=waypoints.map(p=>[...p]);}
   assertRailwaySeparation([{id: 'preview', plan}]);
   return plan;
 }

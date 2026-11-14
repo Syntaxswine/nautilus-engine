@@ -35,6 +35,7 @@ export class EditingDocument extends Legacy {
   open(text) {
     if (typeof text === 'string' && text.length <= 4000000) {
       const raw = JSON.parse(text);
+      if(raw?.kind==='red-shift-block'&&(raw.mountDora!==undefined||raw.mountDoraEngine!==undefined))throw Error('The reusable block format cannot preserve Mount Dora global source/placement metadata.');
       if (raw?.kind === 'red-shift-block') refuseRailwayRoutes(raw, 'The reusable block format');
       if (raw?.railwayRoutes !== undefined) parseMap(text, {allowDisconnected: true});
     }
@@ -80,6 +81,7 @@ export class EditingDocument extends Legacy {
       while (routes.some(route => route.id === 'rail-' + next)) next++;
       const route = {id: 'rail-' + next, waypoints: structuredClone(waypoints)};
       if (options.radiusM !== undefined) route.radiusM = options.radiusM;
+      if (options.geometryProfile !== undefined) route.geometryProfile=options.geometryProfile;
       const {plans, crossings} = setRailwayRoutes(map, [...routes, route]);
       return {ok: true, map, cells: [], edges: [], railwayPreview: {route, plan: plans.at(-1).plan, crossings}};
     } catch (error) {

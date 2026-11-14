@@ -2,6 +2,7 @@
 // accepted PR59 preimages to the existing chase, road, player and art guards.
 import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import fs from 'node:fs';
 import {checkDoorOpeningRegistration} from './door-opening-registration.mjs';
+import {historicalMountDoraBytes} from './mount-dora-registration.mjs';
 export const TRAVERSAL_BASE='98064c34c7bb4fc3c1343f2e450d570ec38615f2';
 export const TRAVERSAL_REGISTRATION='docs/reviews/slippery-edges/registration.json';
 const manifestSHA='12c83fa56095ef73e88f69214cf2461d7f3b362baa49d6489db3faca5f18550b',sha=b=>createHash('sha256').update(b).digest('hex');
@@ -14,6 +15,7 @@ function checkAcceptedTraversalRegistration(ports){
 }
 export function checkTraversalRegistration(ports){const door=checkDoorOpeningRegistration(ports),accepted=checkAcceptedTraversalRegistration(door.historicalPorts);return {...accepted,report:{...accepted.report,door:door.report}};}
 export function historicalTraversalBytes(object,file,current){
+ current=historicalMountDoraBytes(object,file,current);
  if(!['upstream.json','tools/build.mjs'].includes(file))return current;
  const raw=fs.readFileSync(new URL('../'+TRAVERSAL_REGISTRATION,import.meta.url));assert.equal(sha(raw),manifestSHA,'Traversal registration metadata changed.');const row=JSON.parse(raw).files.find(r=>r.path===file);if(!row||sha(current)!==row.sha256)return current;const before=object(TRAVERSAL_BASE,file);assert.equal(sha(before),row.beforeSha256);return before;
 }

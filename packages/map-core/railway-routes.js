@@ -40,7 +40,8 @@ export function setRailwayRoutes(map, routes, trains = railwayTrainsOf(map)) {
     return {plans: [], crossings: []};
   }
   let data;
-  if (routes.some(route => route.radiusM !== undefined) || trains.some(train => train.profile !== undefined)) {
+  if(routes.some(route=>route.geometryProfile!==undefined))data={version:7,routes,trains};
+  else if (routes.some(route => route.radiusM !== undefined) || trains.some(train => train.profile !== undefined)) {
     data = {version: 6, routes, trains};
   } else if (trains.length > 1) data = {version: 5, routes, trains};
   else if (trains.length) data = {version: 4, routes, train: trains[0]};
@@ -134,30 +135,32 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
   const keys = ['version', 'routes'];
   if (data?.version === 4) keys.push('train');
   if (data?.version >= 5) keys.push('trains');
-  if (!exact(data, keys) || ![1, 2, 3, 4, 5, 6].includes(data.version) || !Array.isArray(data.routes) ||
+  if (!exact(data, keys) || ![1, 2, 3, 4, 5, 6, 7].includes(data.version) || !Array.isArray(data.routes) ||
       !data.routes.length || data.routes.length > RAILWAY_ROUTE_LIMITS.routes) {
-    throw new Error('Expected railwayRoutes version 1–6 with 1–64 routes.');
+    throw new Error('Expected railwayRoutes version 1–7 with 1–64 routes.');
   }
   const ids = new Set(), plans = [];
-  const mapPoint = point => Array.isArray(point) && point.length === 2 &&
-    Number.isInteger(point[0]) && point[0] >= 0 && point[0] < W &&
-    Number.isInteger(point[1]) && point[1] >= 0 && point[1] < H;
+  const mapPoint = (point,surveyed=false) => Array.isArray(point) && point.length === 2 &&
+    (surveyed?Number.isFinite(point[0]):Number.isInteger(point[0])) && point[0] >= 0 && point[0] < W &&
+    (surveyed?Number.isFinite(point[1]):Number.isInteger(point[1])) && point[1] >= 0 && point[1] < H;
   let totalLength = 0;
   for (const route of data.routes) {
     const hasTurnout = data.version >= 2 && Object.hasOwn(route ?? {}, 'turnout');
     const keys = hasTurnout ? ['id', 'waypoints', 'turnout'] : ['id', 'waypoints'];
-    if (data.version === 6 && Object.hasOwn(route ?? {}, 'radiusM')) keys.push('radiusM');
+    if (data.version >= 6 && Object.hasOwn(route ?? {}, 'radiusM')) keys.push('radiusM');
+    if(data.version===7&&Object.hasOwn(route??{},'geometryProfile'))keys.push('geometryProfile');
+    const surveyed=route?.geometryProfile==='surveyed-v1';if(Object.hasOwn(route??{},'geometryProfile')&&!surveyed)throw Error('Unsupported railway geometry profile.');
     if (!exact(route, keys) || typeof route.id !== 'string' || !idPattern.test(route.id) || ids.has(route.id)) {
       throw new Error('Each railway route needs unique portable ID and waypoints fields.');
     }
     if (!Array.isArray(route.waypoints) || route.waypoints.length < 2 || route.waypoints.length > RAILWAY_ROUTE_LIMITS.waypoints ||
-        ![...route.waypoints].every(mapPoint)) {
+        ![...route.waypoints].every(p=>mapPoint(p,surveyed))) {
       throw new Error(`Railway route ${route.id} needs whole-metre waypoints inside the map.`);
     }
-    const plan = planRailwayRoute(route.waypoints, route.radiusM);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM,route.geometryProfile);
     let turnout;
     if (hasTurnout) {
-      if (!exact(route.turnout, ['at', 'end']) || !mapPoint(route.turnout.at) || !mapPoint(route.turnout.end)) {
+      if (!exact(route.turnout, ['at', 'end']) || !mapPoint(route.turnout.at,surveyed) || !mapPoint(route.turnout.end,surveyed)) {
         throw new Error(`The split on railway route ${route.id} needs whole-metre start and end points inside the map.`);
       }
       turnout = planRailwayTurnout(plan, route.turnout);
@@ -191,7 +194,7 @@ function checkRailwayRoutes(map, data, allowNewCrossings = false) {
     }
     assertRailwayTrainDepartures(plans, crossings, data.trains);
   }
-  if (data.version === 6) {
+  if (data.version >= 6) {
     if (!Array.isArray(data.trains) || data.trains.length > 2 ||
         ![...data.trains].every(train => exact(train, ['routeId', 'stock', 'departure', 'switchPosition',
           ...(Object.hasOwn(train ?? {}, 'profile') ? ['profile'] : [])]) &&
@@ -226,7 +229,7 @@ export function railwayTrackAt(map, x, y) {
     }
   }
   for (const route of railwayRoutesOf(map)) {
-    const plan = planRailwayRoute(route.waypoints, route.radiusM);
+    const plan = planRailwayRoute(route.waypoints, route.radiusM,route.geometryProfile);
     inspect(route, plan, false);
     if (route.turnout) inspect(route, planRailwayTurnout(plan, route.turnout).plan, true);
   }
