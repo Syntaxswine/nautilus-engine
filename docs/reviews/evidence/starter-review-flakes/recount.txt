@@ -1,0 +1,11 @@
+probe-1: 576 reviews, capture failures by model
+  AMD EPYC 7763 64-Core Processor    jobs 4,5,6   28 of 288  old arm 8 of 36
+  AMD EPYC 9V45 96-Core Processor    jobs 1   0 of 96  old arm 0 of 12
+  INTEL(R) XEON(R) PLATINUM 8573C    jobs 2,3   10 of 192  old arm 2 of 24
+probe-2: 994 reviews, capture failures by model
+  AMD EPYC 7763 64-Core Processor    jobs 2,3,4,5   0 of 648
+  AMD EPYC 9V74 80-Core Processor    jobs 1,6   0 of 346
+
+exact paired test
+probe 2: no wait, event wait   pairs  497  first arm only failed  10  second only 0  p = 0.001953125
+merged tree: old, title        pairs  552  first arm only failed  11  second only 0  p = 0.0009765625

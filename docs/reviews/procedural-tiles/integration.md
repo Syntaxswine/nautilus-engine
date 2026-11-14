@@ -103,6 +103,14 @@ skipped assertion or application change is introduced. Scoped independent review
 found no must-fix in its lifecycle/test integrity. Whether paint readiness is the
 Linux cause remains a hypothesis until exact-head CI passes.
 
+Measured afterwards on `ubuntu-latest` ([record](../2026-11-01-starter-review-flakes.md)):
+the old flow failed 10 of 72 reviews and this correction 0 of 72, then 0 of 994.
+No capture failed with the desktop page closed alone or with the paint wait alone
+(0 of 72 each), which is a count in those samples, not proof that either eliminates
+the failure. Activating the page and reading the metrics did not stop it (9 and 6
+of 72). A viewport-only capture reproduced it (13 of 72), so full-page mode is not
+required. Paint readiness as the Linux cause stays an inference.
+
 The unmodified Edge baseline passed. Corrected source and built isolated Edge
 reviews also passed every desktop/touch/reflow assertion; representative phone
 output was visually inspected. Integrity, 673 engine tests, 32 inherited tests and
