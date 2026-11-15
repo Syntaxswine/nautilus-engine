@@ -12,10 +12,11 @@ export interface NativeActorSpec {
   data:NativeResource;paint:NativeResource;
   factory:{sourceId:string;repository:string;commit:string;path:string;gitBlob:string;bytes:number;sha256:string;export:string};
 }
-export interface NativePoseCheckpoint {
-  kind:'nautilus-native-pose';version:1;model:NativeModel;actorId:string;motion:NativeMotion;
+interface NativePoseState {
+  kind:'nautilus-native-pose';model:NativeModel;actorId:string;motion:NativeMotion;
   distanceM:number;heading:number;blend:number;last:ConfirmedActorPose|null;
 }
+export type NativePoseCheckpoint=NativePoseState&({version:1}|{version:2;footSupportId:string});
 export const NATIVE_ACTOR_CONTRACT:Readonly<{id:'nautilus-native-actors';version:1;profile:'native-mammal-walk-v1';units:'metres';frame:'world-x-y-h';roles:readonly NativeRole[];animation:string;guide:string;usageCard:string}>;
 export function listNativeActors():NativeActorSpec[];
 export function nativeActor(model:NativeModel,roles?:readonly NativeRole[]):NativeActorSpec;

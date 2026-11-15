@@ -1,6 +1,6 @@
 import type {SetupConfiguration,SetupContent,ContentIdentity,SetupProvider,SetupRegistration,SetupReceipt,SetupValidation,SetupConnection,OwnedWorldCheckpoint} from './index.js';
 import type {ConfirmedActorPose,NativePoseCheckpoint} from '../native-actors/index.js';
-import type {NativeActorRoot,SharedNativeRenderer} from '../native-actors/three.js';
+import type {NativeActorRoot,SharedNativeRenderer,NativeFootSupport} from '../native-actors/three.js';
 import type {PlayerUI,PlayerIntent,CameraProvider,HudBounds} from '../player-ui/index.js';
 import type {TrainConnector} from '../train-core/index.js';
 import type {VehicleYard} from '../vehicle-core/index.js';
@@ -35,6 +35,8 @@ export interface SetupMountOptions {
   configuration?:SetupConfiguration;content:SetupContent|{identity:ContentIdentity;world?:{widthM:number;depthM:number}};
   providers?:readonly SetupProvider[];registry?:readonly SetupRegistration[];checkpoint?:SetupCheckpoint|string;signal?:AbortSignal;autoClock?:boolean;
   resourceURL?:(packageURL:string)=>string;onError?:(error:unknown,context:{phase:string})=>void;onConfigurationChange?:(configuration:SetupConfiguration)=>void;
+  /** Optional, borrowed, render-only authoritative foot-height binding. */
+  footSupport?:NativeFootSupport;
   /** Reviewed runtime-core lifecycle factories; serialized metadata stays in registry. */
   factories?:Record<string,(context:unknown)=>{services:Record<string,unknown>;prepare?:(context:unknown)=>void|Promise<void>;start?:()=>void|Promise<void>;stop?:()=>void|Promise<void>;dispose?:()=>void|Promise<void>}>;
 }

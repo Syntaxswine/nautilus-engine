@@ -62,7 +62,7 @@ export function distribution(profile = 'compatibility') {
   exports=withVehicleExports(exports,profile);
   extras.push(...vehiclePackageFiles(profile));
   if(profile==='core'||profile==='compatibility')extras.push('packages/traversal-core/index.d.ts','packages/traversal-core/README.md','packages/traversal-core/source.json');
-  if(profile!=='assets')extras.push('packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
+  if(profile!=='assets')extras.push('docs/donnelly-circulation.md','docs/projects/donnelly-house-interior.md','docs/projects/donnelly-house/plan.json','docs/projects/donnelly-house/ground.svg','docs/projects/donnelly-house/upper.svg','docs/projects/donnelly-house/attic.svg','packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
