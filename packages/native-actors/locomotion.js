@@ -24,11 +24,13 @@ export function createWorkerLocomotion(worker,profile){
  const stride=Math.min(.95,...legs.map(({a,b,c})=>(rest.get(a).distanceTo(rest.get(b))+rest.get(b).distanceTo(rest.get(c)))*1.25));
  const supported=profile.footSupport?createSupportedGait(worker,legs,rest,profile.footSupport):null;
  function rotation(b,q){b.quaternion.copy(b.parent.getWorldQuaternion(new T.Quaternion()).invert().multiply(q));worker.root.updateMatrixWorld(true);}
+ function stage(sample){const state=gaitState(sample.distance,sample.blend,stride),commit=supported(sample,state);return ()=>{worker.root.position.set(0,0,0);worker.root.rotation.set(0,0,0);worker.pose('neutral',0);commit(rotation);return state;};}
  return {
+  stage,
   apply(sample){
+   if(supported)return stage(sample)();
    worker.root.position.set(0,0,0);worker.root.rotation.set(0,0,0);worker.pose('neutral',0);
    const state=gaitState(sample.distance,sample.blend,stride),drop=-.065*sample.blend-state.bob;
-   if(supported)return supported(sample,state,rotation);
    if(!sample.blend){worker.root.rotation.y=-sample.heading*Math.PI/180;worker.root.updateMatrixWorld(true);worker.skeleton.update();return state;}
    for(const {side,a,b,c}of legs){
     const f=state.feet[side],start=a.getWorldPosition(V()),ra=rest.get(a),rb=rest.get(b),rc=rest.get(c);

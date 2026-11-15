@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {authenticatedVehicleImages} from './vehicle-registration.mjs';
+import {authenticatedDonnellyCirculationImages} from './donnelly-circulation-registration.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -115,6 +116,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     const authenticatedArtworkImages=registration.sharedArtworkRegistration.profiles[name].addedFiles.filter(image);
     const trainImages=authenticatedTrainImages(name,{read,indexed});
     const vehicleImages=authenticatedVehicleImages(name,{read,indexed});
+    const donnellyImages=authenticatedDonnellyCirculationImages(name,{read,indexed});
     assert.equal(d.exports['./tiles/finishes'],hasHeadless?entries['./tiles/finishes']:undefined,name+' headless finish entry');
     assert.equal(d.exports['./tiles/finishes/three'],hasRenderer?entries['./tiles/finishes/three']:undefined,name+' native finish entry');
     const wantedRuntime=name==='core'?headless:name==='renderer'||name==='compatibility'?runtimeFiles:[],wantedSupport=name==='assets'?[]:[guideFile,sourceFile];
@@ -123,7 +125,7 @@ export function checkTileFinishesSource(projectRoot=root,{tracked=null}={}){
     if(hasRenderer||name==='assets')assert.ok(d.files.includes(atlas.path),name+' old atlas');
     for(const file of d.files){
       assert.equal(file.startsWith('candidates/')||file.startsWith('tests/')||file.startsWith('docs/reviews/tile-stack/')||file.startsWith('tools/tile-stack-'),false,'Private candidate/proof source leaked into '+name+': '+file);
-      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file)||trainImages.includes(file)||vehicleImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
+      if(image(file))assert.ok(baselineImages.has(file)||authenticatedArtworkImages.includes(file)||trainImages.includes(file)||vehicleImages.includes(file)||donnellyImages.includes(file),'An unauthenticated new image entered '+name+': '+file);
     }
     profiles[name]={files:d.files.length,headlessExport:hasHeadless,rendererExport:hasRenderer,runtime:[...wantedRuntime],support:[...wantedSupport],separatelyAuthenticatedArtworkImages:authenticatedArtworkImages,separatelyAuthenticatedTrainImages:trainImages};
   }

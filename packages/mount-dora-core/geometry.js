@@ -73,6 +73,10 @@ export function createMountDoraGeometry(source,{placements,policy,parts=[],profi
   for(let i=0;i<segments.length;i++){const a=path[i].position,b=path[i+1].position,step=segments[i]==='step',rise=b.h-a.h;if(step){if(Math.abs(rise)<EPS||rise>policy.upM+EPS||-rise>policy.downM+EPS||Math.hypot(b.x-a.x,b.y-a.y)>.120001)return bad('STEP_BOUND','A step must cross one bounded authored support edge.');const sa=spans(a,a,actor.radiusM)[0],sb=spans(b,b,actor.radiusM)[0];if(Math.abs(sa.h-a.h)>EPS||Math.abs(sb.h-b.h)>EPS)return bad('STEP_SUPPORT','Step endpoints need actual support.');}const result=validateSpan(a,b,actor,step);if(!result.ok)return result;}
   return {ok:true,geometryKey};
  }
- function sampleFootSupport({points,referenceH}){if(!Number.isFinite(referenceH)||!Array.isArray(points)||points.length!==4||points.some(p=>!Number.isFinite(p.x)||!Number.isFinite(p.y)))throw Error('MOUNT_DORA_FOOT_SAMPLE');const xs=points.map(p=>p.x),ys=points.map(p=>p.y),a=[Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)];return Math.max(0,...supports.filter(s=>s.h<=referenceH+2.12/4+EPS&&s.points.some((p,i)=>{const q=s.points[(i+1)%s.points.length];return Math.min(p[0],q[0])<=a[2]&&Math.max(p[0],q[0])>=a[0]&&Math.min(p[1],q[1])<=a[3]&&Math.max(p[1],q[1])>=a[1];})||s.h<=referenceH+2.12/4+EPS&&supportInterval(s.points,{x:(a[0]+a[2])/2,y:(a[1]+a[3])/2},{x:(a[0]+a[2])/2,y:(a[1]+a[3])/2},0)).map(s=>s.h));}
+ const footShapes=supports.map(s=>({h:s.h,shape:contactShape({id:s.id,points:s.points.map(xy),minH:-1,maxH:1})}));
+ function sampleFootSupport({points,referenceH}){if(!Number.isFinite(referenceH)||!Array.isArray(points)||points.length!==4||points.some(p=>!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)))throw Error('MOUNT_DORA_FOOT_SAMPLE');
+  const sole=contactShape({id:'native-sole',points:points.map(p=>({x:p.x,y:p.y})),minH:-1,maxH:1});let height=0;
+  for(const s of footShapes)if(s.h>height&&s.h<=referenceH+2.12/4+EPS&&contactOverlap(sole,s.shape))height=s.h;return height;
+ }
  return Object.freeze({geometryKey,supports:clone(supports),sampleFootSupport,spans,colliders:(...args)=>clone(colliders(...args)),validateBody,planSupportedWalk:plan,validateSupportedWalk:validate});
 }
