@@ -21,7 +21,7 @@ function deckPoints(p){const [a,b]=p.ends,dx=b[0]-a[0],dy=b[1]-a[1],length=Math.
 export function createMountDoraGeometry(source,{placements,policy,parts=[],profile='source-compatible',nativeRevision='original'}={}){
  policy=clone(policy);
  if(source.artRevision!==MOUNT_DORA_ART||!Array.isArray(placements))throw Error('MOUNT_DORA_GEOMETRY_SOURCE');
- const compatibleDecks=policy.id==='mount-dora-source-deck-v1',suppressed=['photo-guided-v1','photo-guided-v2'].includes(profile)?new Set([MOUNT_DORA_DONNELLY]):new Set(),supports=placements.filter(p=>p.kind==='pier'&&p.deck).map(p=>({id:p.id,kind:'pier',points:deckPoints(p),h:compatibleDecks?p.deck.heightM:p.deck.topM,floorId:'md-deck'}));
+ const compatibleDecks=policy.id==='mount-dora-source-deck-v1',suppressed=['photo-guided-v1','photo-guided-v2','interior-v1'].includes(profile)?new Set([MOUNT_DORA_DONNELLY]):new Set(),supports=placements.filter(p=>p.kind==='pier'&&p.deck).map(p=>({id:p.id,kind:'pier',points:deckPoints(p),h:compatibleDecks?p.deck.heightM:p.deck.topM,floorId:'md-deck'}));
  for(const p of parts)if(p.support)supports.push({id:p.id,points:p.points.map(q=>[...q]),h:p.topH,footMarginM:0,floorId:p.floorId||'md-donnelly-porch'});
  const extra=parts.filter(p=>p.collider&&!p.support).map(p=>({...p,shape:contactShape({id:p.id,points:p.kind==='beam'?[{x:p.from[0],y:p.from[2]},{x:p.to[0],y:p.to[2]}]:p.points.map(xy),radiusM:p.radiusM||p.widthM/2||0,minH:p.kind==='beam'?Math.min(p.from[1],p.to[1])-p.widthM/2:p.minH,maxH:p.kind==='beam'?Math.max(p.from[1],p.to[1])+p.widthM/2:p.topH})}));
  const geometryKey='md:'+dataSHA256({source:MOUNT_DORA_SOURCE,art:MOUNT_DORA_ART,profile,parts,policy,nativeRevision});

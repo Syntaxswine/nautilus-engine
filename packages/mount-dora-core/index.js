@@ -6,3 +6,4 @@ export {createMountDoraWorld} from './world.js';
 export {planOpenPorch,planProfiledCap,planGableTrim,planRisers,planDonnellyExterior} from './exterior-parts.js';
 export {planDonnellyVeranda} from './donnelly-veranda.js';
 export {mountDoraRailConnections,planMountDoraRailGap,mountDoraRailStudy} from './railways.js';
+export {planDonnellyHouse,HOUSE,HOUSE_STAIR,HOUSE_TURRET} from './donnelly-house.js';
