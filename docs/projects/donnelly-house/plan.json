@@ -1,0 +1,137 @@
+{
+  "kind": "nautilus-building-layout-proposal",
+  "version": 1,
+  "status": "design-only; no runtime geometry or surveyed interior claim",
+  "buildingId": "osm-way-547799531",
+  "title": "Donnelly House: domestic layout interpretation",
+  "units": "nominal metres on a one-metre planning grid; wall axes, not finished room clearances",
+  "orientation": "rear left; street/front right; north up; schematic alignment within the retained source envelope",
+  "storyM": 2.12,
+  "slabM": 0.12,
+  "firstFloorH": 0.848,
+  "evidence": {
+    "specificBuilding": "https://npgallery.nps.gov/GetAsset/b9a5d338-3817-43d7-b5a4-78737ba59bde",
+    "periodComparison": "https://archive.org/details/TenthAnnualIllustratedCatalogueOfS.e.GrossFamousCitySubdivisionsAnd/page/n20/mode/1up",
+    "secondComparison": "https://archive.org/details/TenthAnnualIllustratedCatalogueOfS.e.GrossFamousCitySubdivisionsAnd/page/n22/mode/1up",
+    "tinderbox": "e9fbc7bfbb5aa875ecc51f11883d75e65cf1eca3:docs/research/catalogue-block-two/README.md",
+    "hopkins": "https://archive.org/details/DSHopkinsHousesandcottagesbookno40001/page/n20/mode/1up"
+  },
+  "shell": {
+    "main": [6, 0, 16, 12],
+    "rearWing": [0, 4, 6, 13],
+    "frontPorch": [16, 0.8, 18, 12.2],
+    "sidePorch": [6, 12, 17, 14],
+    "approachSteps": [18, 6.5, 20, 8.3],
+    "entry": [16, 7.4],
+    "turret": {"centre": [16, 12], "radiusM": 1.5, "sides": 6, "status": "attached corner bay; upper blind-arcade drum is decorative"},
+    "upperFrontBay": [16, 1, 18, 6],
+    "porchDepthM": 2,
+    "dimensionStatus": "Provisional game dimensions; reconcile the final 0.2m source-envelope remainder in wall/cut-end assembly before authoring."
+  },
+  "stairBrief": {
+    "mainBounds": [7, 5.2, 10, 7.8],
+    "serviceBounds": [0.4, 4.2, 3.6, 6.8],
+    "principal": "Return stair in the recessed stair hall; reuse the existing full-story stair kit.",
+    "secondary": "Optional service stair, inferred; keep a back-hall/store alternative if omitted.",
+    "floorRiseM": 2.12,
+    "riserCountCandidate": 12,
+    "riserM": 0.17666666666666667,
+    "treadRunCandidateM": 0.3,
+    "clearFlightTargetM": 1.2,
+    "clearLandingTargetM": 1.2,
+    "status": "Design reservation only; native tread, slab-hole, handrail and body/support validation decides the implemented kit."
+  },
+  "floors": [
+    {"id":"ground","label":"Ground floor","footH":0.848,"rooms":[
+      {"id":"G01","name":"Entry parlor","short":"Parlor A","bounds":[11,6,16,12],"use":"Receive callers; conversation and music. The off-center front door enters this room.","furnishings":["settee","two occasional chairs","small table","optional piano"],"note":"Attach the turret as a reading/seating bay; keep the door-to-stair path clear."},
+      {"id":"G02","name":"Family sitting parlor","short":"Parlor B","bounds":[11,0,16,6],"use":"Daily reading and family sitting; open the paired doors for larger visits.","furnishings":["comfortable chairs","writing table","book shelves"],"note":"Two front parlors are documented; their proposed individual functions and connecting doors are inferred."},
+      {"id":"G03","name":"Dining room","short":"Dining","bounds":[6,0,11,5],"use":"Formal meals, with a direct service connection toward the kitchen and pantry.","furnishings":["central table","six chairs","sideboard"],"note":"Maintain a clear serving route around the furniture."},
+      {"id":"G04","name":"Study / library","short":"Study","bounds":[6,8,11,12],"use":"Correspondence, accounts and quieter reading away from the front door.","furnishings":["desk","bookcase","armchair"],"note":"The use is proposed; it is not a documented Donnelly room name."},
+      {"id":"G05","name":"Main stair hall","short":"Stair hall","bounds":[6,5,11,8],"use":"Connect the parlors, dining and study to the principal upstairs landing.","furnishings":["return stair","small coat stand"],"note":"The entrance is through a parlor; this hall is set back inside the house."},
+      {"id":"G06","name":"Kitchen","short":"Kitchen","bounds":[0,9,4,13],"use":"Cooking and household work at the rear service entrance.","furnishings":["range or wood stove","work table","wall shelves"],"note":"Reserve a supported flue route; do not add a floating roof chimney."},
+      {"id":"G07","name":"Scullery / wash room","short":"Scullery","bounds":[4,11,6,13],"use":"Dish washing and wet work next to the kitchen.","furnishings":["sink","draining board","wash tub"],"note":"Stack the proposed upstairs bathroom plumbing in this service corner."},
+      {"id":"G08","name":"Dry pantry","short":"Pantry","bounds":[4,9,6,11],"use":"Dry stores, crockery and meal preparation overflow beside the kitchen.","furnishings":["shelves","cupboard"],"note":"Keep this internal cupboard dry; do not claim that it has its own outside ventilation."},
+      {"id":"G09","name":"Ventilated larder","short":"Larder","bounds":[0,7,2,9],"use":"Preserved food and jars in a small store with an exterior ventilation opportunity.","furnishings":["shelves"],"note":"This is a proposed period use; fit an outside vent/window before claiming cooling performance."},
+      {"id":"G10","name":"Service passage","short":"Passage","bounds":[2,7,6,9],"use":"Move meals and supplies between kitchen, pantry and back hall.","furnishings":[],"note":"The service route stays independent of the receiving parlor."},
+      {"id":"G11","name":"Back hall","short":"Back hall","bounds":[4,4,6,7],"use":"Join the rear service circulation to dining and the main stair hall.","furnishings":[],"note":"No required route should pass through a locked bedroom or cupboard."},
+      {"id":"G12","name":"Optional back stair","short":"Back stair","bounds":[0,4,4,7],"use":"A secondary route to the rear upstairs landing; alternatively a household store.","furnishings":["optional return stair"],"note":"This stair is an explicit inference, not a discovered original feature."}
+    ]},
+    {"id":"upper","label":"Upper floor","footH":2.968,"rooms":[
+      {"id":"U01","name":"Principal bedchamber","short":"Chamber A","bounds":[11,6,16,12],"use":"Sleeping and dressing, with a small turret sitting bay and private veranda access.","furnishings":["bed","wardrobe","washstand","dressing table"],"note":"Keep the bay part of the chamber; it is not a detached tower room."},
+      {"id":"U02","name":"Front bedchamber","short":"Chamber B","bounds":[11,0,16,6],"extension":[16,1,18,6],"use":"A second family or guest chamber; the projecting front bay gives the circular window a room behind it.","furnishings":["bed","wardrobe","washstand"],"note":"The 2m bay extension sits above real porch beams/posts."},
+      {"id":"U03","name":"Family bedchamber","short":"Chamber C","bounds":[6,8,11,12],"use":"A family bedroom with a side window and direct landing access.","furnishings":["bed","chest","washstand"],"note":"Do not use a bedroom as the only path to another room."},
+      {"id":"U04","name":"Guest / family bedchamber","short":"Chamber D","bounds":[6,0,11,5],"use":"A quieter bedroom behind the front chamber.","furnishings":["bed","wardrobe","small desk"],"note":"Align its partitions with the dining room below where practical."},
+      {"id":"U05","name":"Principal landing","short":"Landing","bounds":[6,5,11,8],"use":"Independent access to all four main chambers and the rear passage.","furnishings":[],"note":"Reserve the real stairwell hole, rail opening, headroom and turning space."},
+      {"id":"U06","name":"Rear guest / household chamber","short":"Rear chamber","bounds":[0,8,4,13],"use":"A guest or household-worker room, depending on the fictional occupants.","furnishings":["bed","chest","washstand"],"note":"No specific resident or servant household is asserted."},
+      {"id":"U07","name":"Shared bathroom","short":"Bath","bounds":[4,10,6,13],"use":"One shared bath reached from the rear corridor.","furnishings":["bath","basin","WC"],"note":"A period-compatible proposal; plumbing date and original fittings are unverified."},
+      {"id":"U08","name":"Linen store","short":"Linen","bounds":[0,7,4,8],"use":"Store bed linen and household textiles.","furnishings":["cupboards"],"note":"Reach it from the back-stair landing."},
+      {"id":"U09","name":"Rear corridor","short":"Passage","bounds":[4,4,6,10],"use":"Connect the main landing, rear chamber, shared bathroom and optional back stair.","furnishings":[],"note":"The bath is accessible without walking through a bedroom."},
+      {"id":"U10","name":"Optional service landing","short":"Back stair","bounds":[0,4,4,7],"use":"Secondary upstairs circulation if the optional service stair is built.","furnishings":[],"note":"Keep the floor continuous if the back stair is omitted."}
+    ]},
+    {"id":"attic","label":"Attic proposal","footH":5.088,"rooms":[
+      {"id":"A01","name":"Gabled attic workroom","short":"Gable room","bounds":[14,3,18,6],"use":"Mending, hobby work or trunks behind the visible gable windows.","furnishings":["small work table","trunk"],"note":"Inferred use; only the part with verified standing headroom may be walkable."},
+      {"id":"A02","name":"Attic passage","short":"Passage","bounds":[10,5,14,8],"use":"Connect the stair landing to the gabled room within the high roof volume.","furnishings":[],"note":"Clip the proposed route against the actual hipped/cross-gabled roof."},
+      {"id":"A03","name":"Attic stair landing","short":"Landing","bounds":[7,5.2,10,7.8],"use":"Optional continuation of the main stair to the roof space.","furnishings":[],"note":"Do not expose this floor until actual body, floor-hole and roof-clearance checks pass."},
+      {"id":"A04","name":"Low eaves storage","short":"Low eaves","bounds":[8,1,14,4],"access":"storage-only","use":"Trunk and infrequently used storage at the low roof edges.","furnishings":["trunks"],"note":"Not an ordinary standing route; the tower's blind upper drum also stays non-playable unless separately evidenced."}
+    ]}
+  ],
+  "windows": {
+    "ground": [
+      {"at":[16,9.5],"axis":"y","widthM":1.2,"room":"G01"},
+      {"at":[16,3.5],"axis":"y","widthM":1.2,"room":"G02"},
+      {"at":[13,0],"axis":"x","widthM":1.2,"room":"G02"},
+      {"at":[8.5,0],"axis":"x","widthM":1.2,"room":"G03"},
+      {"at":[8.5,12],"axis":"x","widthM":1.2,"room":"G04"},
+      {"at":[2,13],"axis":"x","widthM":1.2,"room":"G06"},
+      {"at":[5,13],"axis":"x","widthM":1,"room":"G07"},
+      {"at":[0,8],"axis":"y","widthM":0.6,"room":"G09"}
+    ],
+    "upper": [
+      {"at":[16,9.5],"axis":"y","widthM":1.2,"room":"U01"},
+      {"at":[18,3.5],"axis":"y","widthM":1.8,"room":"U02","kind":"circular"},
+      {"at":[13,0],"axis":"x","widthM":1.2,"room":"U02"},
+      {"at":[8.5,12],"axis":"x","widthM":1.2,"room":"U03"},
+      {"at":[8.5,0],"axis":"x","widthM":1.2,"room":"U04"},
+      {"at":[2,13],"axis":"x","widthM":1.2,"room":"U06"},
+      {"at":[5,13],"axis":"x","widthM":0.8,"room":"U07"}
+    ],
+    "attic": [
+      {"at":[18,3.8],"axis":"y","widthM":0.55,"room":"A01"},
+      {"at":[18,5.2],"axis":"y","widthM":0.55,"room":"A01"}
+    ]
+  },
+  "doors": {
+    "ground": [
+      {"at":[16,7.4],"axis":"y","widthM":1,"rooms":["outside","G01"]},
+      {"at":[13.5,6],"axis":"x","widthM":1.8,"rooms":["G01","G02"],"kind":"paired opening"},
+      {"at":[11,7],"axis":"y","widthM":1,"rooms":["G01","G05"]},
+      {"at":[11,2.5],"axis":"y","widthM":1,"rooms":["G02","G03"]},
+      {"at":[8.5,5],"axis":"x","widthM":1,"rooms":["G03","G05"]},
+      {"at":[8.5,8],"axis":"x","widthM":1,"rooms":["G04","G05"]},
+      {"at":[6,4.5],"axis":"y","widthM":1,"rooms":["G03","G11"]},
+      {"at":[6,6],"axis":"y","widthM":1,"rooms":["G05","G11"]},
+      {"at":[5,7],"axis":"x","widthM":1,"rooms":["G10","G11"]},
+      {"at":[3,9],"axis":"x","widthM":1,"rooms":["G06","G10"]},
+      {"at":[0,11],"axis":"y","widthM":1,"rooms":["outside","G06"]},
+      {"at":[4,12],"axis":"y","widthM":1,"rooms":["G06","G07"]},
+      {"at":[4,10],"axis":"y","widthM":1,"rooms":["G06","G08"]},
+      {"at":[2,8],"axis":"y","widthM":1,"rooms":["G09","G10"]},
+      {"at":[2.5,7],"axis":"x","widthM":1,"rooms":["G10","G12"]}
+    ],
+    "upper": [
+      {"at":[11,7],"axis":"y","widthM":1,"rooms":["U01","U05"]},
+      {"at":[11,5.5],"axis":"y","widthM":1,"rooms":["U02","U05"]},
+      {"at":[8.5,8],"axis":"x","widthM":1,"rooms":["U03","U05"]},
+      {"at":[8.5,5],"axis":"x","widthM":1,"rooms":["U04","U05"]},
+      {"at":[6,6],"axis":"y","widthM":1,"rooms":["U05","U09"]},
+      {"at":[4,9],"axis":"y","widthM":1,"rooms":["U06","U09"]},
+      {"at":[5,10],"axis":"x","widthM":1,"rooms":["U07","U09"]},
+      {"at":[2,7],"axis":"x","widthM":1,"rooms":["U08","U10"]},
+      {"at":[4,5.5],"axis":"y","widthM":1,"rooms":["U09","U10"]}
+    ],
+    "attic": [
+      {"at":[14,5.5],"axis":"y","widthM":1,"rooms":["A01","A02"]},
+      {"at":[10,6.5],"axis":"y","widthM":1,"rooms":["A02","A03"]}
+    ]
+  }
+}
