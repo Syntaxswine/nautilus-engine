@@ -82,6 +82,9 @@ export function applyInteraction(input,actorInput,command,bindings){
   });
 }
 function seconds(value){number(value,0,1,'elapsed seconds (maximum one second per step)');}
+// Use the same station tolerance as retained-step ownership. A few rounding
+// ulps beyond a node must not create a slope after its receipt is released.
+function supportStation(path,at){let station=0,best=null,error=1e-8;for(let i=0;i<path.length;i++){if(i)station+=Math.hypot(path[i].x-path[i-1].x,path[i].y-path[i-1].y,path[i].h-path[i-1].h);const delta=Math.abs(at-station);if(delta<error){best={distanceM:station,position:copy(path[i])};error=delta;}}return best||{distanceM:at,position:null};}
 /** Explicit capability: real support elevation, bounded steps, resumable 3D travel. */
 export function walkSupportedActor(input,actorInput,options={},bindings){
  return operate(input,actorInput,(state,actor)=>{
@@ -106,7 +109,7 @@ export function walkSupportedActor(input,actorInput,options={},bindings){
    // Settle the retained physical step, then replan under the current heading.
    // Completed nodes retain their exact coordinates; interpolation must not invent a slope.
    const alignment=heading.x*travel.heading.x+heading.y*travel.heading.y,direction=alignment< -1e-7?-1:1,step=activeSupportedStepBounds(travel);
-   const path=travel.path.map(n=>n.position),lengthM=routeLength(path),fromM=travel.distanceM,limitM=direction<0?(step?.startM??0):(step?.endM??lengthM),toM=direction<0?Math.max(limitM,fromM-remaining):Math.min(limitM,fromM+remaining),position=toM===0?copy(path[0]):toM===lengthM?copy(path.at(-1)):step&&toM===limitM?copy(path[step.index+(direction>0?1:0)]):routePoint(path,toM),floorId=floorAfterTravel(travel.path,fromM,toM,actor.floorId);
+   const path=travel.path.map(n=>n.position),lengthM=routeLength(path),fromM=travel.distanceM,limitM=direction<0?(step?.startM??0):(step?.endM??lengthM),targetM=direction<0?Math.max(limitM,fromM-remaining):Math.min(limitM,fromM+remaining),station=supportStation(path,targetM),toM=station.distanceM,position=station.position??(toM===0?copy(path[0]):toM===lengthM?copy(path.at(-1)):step&&toM===limitM?copy(path[step.index+(direction>0?1:0)]):routePoint(path,toM)),floorId=floorAfterTravel(travel.path,fromM,toM,actor.floorId);
    validate(travel.path,travel.segments,fromM,toM,position,floorId);
    const moved=Math.abs(toM-fromM);actor.position=position;actor.floorId=floorId;travelled+=moved;remaining-=moved;travel.distanceM=toM;travel.actorFloorId=floorId;
    if(step&&Math.abs(toM-limitM)<=1e-8||toM<=1e-8||toM>=lengthM-1e-8){const stopped=travel.stopAtEnd&&direction>0&&toM>=lengthM-1e-8;travel=null;if(stopped||!moved)remaining=0;}

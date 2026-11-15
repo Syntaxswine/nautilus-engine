@@ -1,5 +1,6 @@
 // Mammal-only extraction; exact original and adaptations are recorded in source.json.
 import * as T from '../render-effects/three.js';
+import {createSupportedGait} from './supported-gait.js';
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
 const smooth=t=>t*t*(3-2*t);
 
@@ -21,9 +22,13 @@ export function createWorkerLocomotion(worker,profile){
  const named=Object.fromEntries(worker.bones.map(b=>[b.name,b])),rest=new Map(worker.bones.map(b=>[b,b.getWorldPosition(V())]));
  const legs=[-1,1].map(side=>({side,a:named['thigh'+side],b:named['shin'+side],c:named['hoof'+side]}));
  const stride=Math.min(.95,...legs.map(({a,b,c})=>(rest.get(a).distanceTo(rest.get(b))+rest.get(b).distanceTo(rest.get(c)))*1.25));
+ const supported=profile.footSupport?createSupportedGait(worker,legs,rest,profile.footSupport):null;
  function rotation(b,q){b.quaternion.copy(b.parent.getWorldQuaternion(new T.Quaternion()).invert().multiply(q));worker.root.updateMatrixWorld(true);}
+ function stage(sample){const state=gaitState(sample.distance,sample.blend,stride),commit=supported(sample,state);return ()=>{worker.root.position.set(0,0,0);worker.root.rotation.set(0,0,0);worker.pose('neutral',0);commit(rotation);return state;};}
  return {
+  stage,
   apply(sample){
+   if(supported)return stage(sample)();
    worker.root.position.set(0,0,0);worker.root.rotation.set(0,0,0);worker.pose('neutral',0);
    const state=gaitState(sample.distance,sample.blend,stride),drop=-.065*sample.blend-state.bob;
    if(!sample.blend){worker.root.rotation.y=-sample.heading*Math.PI/180;worker.root.updateMatrixWorld(true);worker.skeleton.update();return state;}

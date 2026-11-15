@@ -21,7 +21,7 @@ function deckPoints(p){const [a,b]=p.ends,dx=b[0]-a[0],dy=b[1]-a[1],length=Math.
 export function createMountDoraGeometry(source,{placements,policy,parts=[],profile='source-compatible',nativeRevision='original'}={}){
  policy=clone(policy);
  if(source.artRevision!==MOUNT_DORA_ART||!Array.isArray(placements))throw Error('MOUNT_DORA_GEOMETRY_SOURCE');
- const compatibleDecks=policy.id==='mount-dora-source-deck-v1',suppressed=profile==='photo-guided-v1'?new Set([MOUNT_DORA_DONNELLY]):new Set(),supports=placements.filter(p=>p.kind==='pier'&&p.deck).map(p=>({id:p.id,kind:'pier',points:deckPoints(p),h:compatibleDecks?p.deck.heightM:p.deck.topM,floorId:'md-deck'}));
+ const compatibleDecks=policy.id==='mount-dora-source-deck-v1',suppressed=['photo-guided-v1','photo-guided-v2'].includes(profile)?new Set([MOUNT_DORA_DONNELLY]):new Set(),supports=placements.filter(p=>p.kind==='pier'&&p.deck).map(p=>({id:p.id,kind:'pier',points:deckPoints(p),h:compatibleDecks?p.deck.heightM:p.deck.topM,floorId:'md-deck'}));
  for(const p of parts)if(p.support)supports.push({id:p.id,points:p.points.map(q=>[...q]),h:p.topH,footMarginM:0,floorId:p.floorId||'md-donnelly-porch'});
  const extra=parts.filter(p=>p.collider&&!p.support).map(p=>({...p,shape:contactShape({id:p.id,points:p.kind==='beam'?[{x:p.from[0],y:p.from[2]},{x:p.to[0],y:p.to[2]}]:p.points.map(xy),radiusM:p.radiusM||p.widthM/2||0,minH:p.kind==='beam'?Math.min(p.from[1],p.to[1])-p.widthM/2:p.minH,maxH:p.kind==='beam'?Math.max(p.from[1],p.to[1])+p.widthM/2:p.topH})}));
  const geometryKey='md:'+dataSHA256({source:MOUNT_DORA_SOURCE,art:MOUNT_DORA_ART,profile,parts,policy,nativeRevision});
@@ -50,21 +50,22 @@ export function createMountDoraGeometry(source,{placements,policy,parts=[],profi
  function validateSpan(a,b,actor,step=false){const body=validateBody(a,b,actor);if(!body.ok)return body;const sections=spans(a,b,actor.radiusM);if(sections.some(s=>!s.supported))return bad(sections.some(s=>s.missing)?'TOWN_NOT_LOADED':'UNSUPPORTED','Continuous full-foot support is required.');if(!step&&sections.some(s=>Math.abs(s.h-a.h)>EPS))return bad('SUPPORT_CHANGED','A level segment must retain its actual support height.');return ok;}
  function node(position,s){return {position,floorId:s.floorId,supportId:s.id.slice(0,96)};}
  function plan({actor,from,to}){
+  const circulation=profile==='photo-guided-v2',distance=Math.hypot(to.x-from.x,to.y-from.y);if(circulation&&distance>EPS)to={...to,x:to.x+(to.x-from.x)/distance*.24,y:to.y+(to.y-from.y)/distance*.24};
   // Shared rounded-body contact produces the same bounded tangent behavior as
   // ordinary engine walking; each emitted leg is independently support-checked.
   const obstacles=colliders(from,to,actor),moved=moveWithContacts(disc(from,actor.radiusM,from.h,from.h+actor.heightM),{x:to.x-from.x,y:to.y-from.y},obstacles),legs=moved.segments.length?moved.segments:[{from:{x:0,y:0},to:{x:0,y:0}}],path=[{position:clone(from),floorId:actor.floorId,supportId:'retained-foot'}],segments=[];
   let current=clone(from),halt=false;
-  for(const leg of legs){const a={...current},b={x:from.x+leg.to.x,y:from.y+leg.to.y,h:current.h},length=Math.hypot(b.x-a.x,b.y-a.y);if(length<EPS)continue;const sections=spans(a,b,actor.radiusM).reduce((out,s)=>{const old=out.at(-1);if(old&&old.h===s.h&&old.id===s.id&&old.supported===s.supported)old.end=s.end;else out.push({...s});return out;},[]);
-   const append=(t,s,kind)=>{const p=at(a,b,t,s.h);if(Math.hypot(p.x-current.x,p.y-current.y, p.h-current.h)>EPS){path.push(node(p,s));segments.push(kind);current=p;}};
+  walking:for(const leg of legs){const a={...current},b={x:from.x+leg.to.x,y:from.y+leg.to.y,h:current.h},length=Math.hypot(b.x-a.x,b.y-a.y);if(length<EPS)continue;const sections=spans(a,b,actor.radiusM).reduce((out,s)=>{const old=out.at(-1);if(old&&old.h===s.h&&old.id===s.id&&old.supported===s.supported)old.end=s.end;else out.push({...s});return out;},[]);
+   const append=(t,s,kind)=>{let p=at(a,b,t,s.h);if(circulation&&kind==='surface'&&Math.abs(spans(p,p,actor.radiusM)[0].h-s.h)>EPS)p=at(a,b,Math.max(0,t-1e-6/length),s.h);if(Math.hypot(p.x-current.x,p.y-current.y, p.h-current.h)>EPS){path.push(node(p,s));segments.push(kind);current=p;}};
    for(let i=0;i<sections.length;i++){const s=sections[i],next=sections[i+1];if(!s.supported){halt=true;break;}if(Math.abs(s.h-current.h)>EPS)return bad('FOOT_SUPPORT','Start at the confirmed support height.');
     if(next&&(!next.supported||Math.abs(next.h-s.h)>EPS)){
      const before=Math.max(s.start,s.end-.06/length);append(before,s,'surface');
      if(!next.supported){halt=true;break;}const rise=next.h-s.h;if(rise>policy.upM+EPS||-rise>policy.downM+EPS){halt=true;break;}
-     const after=Math.min(next.end,next.start+.06/length);append(after,next,'step');
+     const after=Math.min(next.end,next.start+.06/length);append(after,next,'step');if(circulation)break walking;
     }else append(s.end,s,'surface');
    }if(halt)break;
   }
-  if(path.length>65)return bad('SUPPORTED_WORK_LIMIT','This movement crosses too many support boundaries.');return {ok:true,path,segments,stopAtEnd:halt||moved.blocked,contacts:moved.contacts};
+  if(path.length>65)return bad('SUPPORTED_WORK_LIMIT','This movement crosses too many support boundaries.');return {ok:true,path,segments,stopAtEnd:halt||moved.blocked&&(!circulation||Math.hypot(current.x-(from.x+moved.delta.x),current.y-(from.y+moved.delta.y))<EPS),contacts:moved.contacts};
  }
  function validate(query){const {actor,path,segments,position}=query;if(!path){const support=spans(position,position,actor.radiusM)[0];if(!support.supported||Math.abs(support.h-position.h)>EPS||actor.floorId!==support.floorId)return bad('FOOT_SUPPORT','Restore the exact saved support, floor identity and foot elevation.');return {...validateBody(position,position,actor),geometryKey};}
   if(path.length===1)return validate({...query,path:null});
@@ -72,5 +73,10 @@ export function createMountDoraGeometry(source,{placements,policy,parts=[],profi
   for(let i=0;i<segments.length;i++){const a=path[i].position,b=path[i+1].position,step=segments[i]==='step',rise=b.h-a.h;if(step){if(Math.abs(rise)<EPS||rise>policy.upM+EPS||-rise>policy.downM+EPS||Math.hypot(b.x-a.x,b.y-a.y)>.120001)return bad('STEP_BOUND','A step must cross one bounded authored support edge.');const sa=spans(a,a,actor.radiusM)[0],sb=spans(b,b,actor.radiusM)[0];if(Math.abs(sa.h-a.h)>EPS||Math.abs(sb.h-b.h)>EPS)return bad('STEP_SUPPORT','Step endpoints need actual support.');}const result=validateSpan(a,b,actor,step);if(!result.ok)return result;}
   return {ok:true,geometryKey};
  }
- return Object.freeze({geometryKey,supports:clone(supports),spans,colliders:(...args)=>clone(colliders(...args)),validateBody,planSupportedWalk:plan,validateSupportedWalk:validate});
+ const footShapes=supports.map(s=>({h:s.h,shape:contactShape({id:s.id,points:s.points.map(xy),minH:-1,maxH:1})}));
+ function sampleFootSupport({points,referenceH}){if(!Number.isFinite(referenceH)||!Array.isArray(points)||points.length!==4||points.some(p=>!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)))throw Error('MOUNT_DORA_FOOT_SAMPLE');
+  const sole=contactShape({id:'native-sole',points:points.map(p=>({x:p.x,y:p.y})),minH:-1,maxH:1});let height=0;
+  for(const s of footShapes)if(s.h>height&&s.h<=referenceH+2.12/4+EPS&&contactOverlap(sole,s.shape))height=s.h;return height;
+ }
+ return Object.freeze({geometryKey,supports:clone(supports),sampleFootSupport,spans,colliders:(...args)=>clone(colliders(...args)),validateBody,planSupportedWalk:plan,validateSupportedWalk:validate});
 }
