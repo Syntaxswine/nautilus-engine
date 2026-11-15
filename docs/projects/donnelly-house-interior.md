@@ -1,5 +1,7 @@
 # Donnelly House: layout and architectural review
 
+Implementation status: the separately versioned [interior-v1 house](../donnelly-interior.md) resolves this proposal with an enlarged hall, native fit and its own saves. The original proposal and drawings below remain design evidence.
+
 This is a proposed domestic interpretation for the game's Victorian house. It supplies room uses, circulation and a review standard before interior construction. The current Mount Dora exterior and the published catalogue examples are separate evidence; the proposal does not claim to reproduce a surveyed Donnelly floor plan. The stair/porch correction is a bounded implementation task. Interior walls, doors, furnishing and traversal remain a later construction tranche.
 
 ## Evidence and recommendation
