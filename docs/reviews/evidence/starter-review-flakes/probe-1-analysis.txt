@@ -1,0 +1,53 @@
+iterations 576 jobs 6
+arm             n  capture  other    rate         95 % CI p vs old   median ms since load / capture
+delay          72        0      2   0.0 %       0.0-5.0 % 1.4e-3    1035 / 163.5
+front          72        9      0  12.5 %      5.9-22.4 % 1.0e+0    35 / 393
+state          72        6      3   8.3 %      3.1-17.3 % 4.3e-1    48 / 394
+viewport       72       13      0  18.1 %     10.0-28.9 % 6.5e-1    36 / 401
+old            72       10      1  13.9 %      6.9-24.1 %           33 / 402
+paint          72        0      3   0.0 %       0.0-5.0 % 1.4e-3    178 / 397
+main           72        0      3   0.0 %       0.0-5.0 % 1.4e-3    292 / 147
+close          72        0      2   0.0 %       0.0-5.0 % 1.4e-3    28 / 390.5
+
+by runner (capture failures / iterations, every arm; then the reference arm):
+ job 1 AMD EPYC 9V45 96-Core Processor                0/96   0/12
+ job 2 INTEL(R) XEON(R) PLATINUM 8573C                8/96   2/12
+ job 3 INTEL(R) XEON(R) PLATINUM 8573C                2/96   0/12
+ job 4 AMD EPYC 7763 64-Core Processor                16/96   2/12
+ job 5 AMD EPYC 7763 64-Core Processor                7/96   2/12
+ job 6 AMD EPYC 7763 64-Core Processor                5/96   4/12
+
+where the capture failed: [ [ '163', 38 ] ]
+by cycle (does a failure follow a failure?):
+ after a failure, next iteration failed 3 of 36
+
+retries after the first empty capture (38 with a record):
+ first retry at once ok: 38 ; ok by the last: 38 ; never: 0
+ first capture ms (failed): 125.5  page after: {"visibility":"visible","focused":true,"ready":"complete","now":313.4000000000233,"inner":[390,844],"root":[390,1292]}
+ visibility after failure: [ [ 'visible/true', 38 ] ]
+ OTHER state job 1 n 29 status 1 null at 19
+ OTHER close job 1 n 32 status 1 null at 19
+ OTHER old job 1 n 35 status 1 null at 19
+ OTHER state job 2 n 14 status 1 null at 19
+ OTHER paint job 3 n 6 status 1 null at 19
+ OTHER main job 3 n 9 status 1 null at 19
+ OTHER paint job 3 n 16 status 1 null at 19
+ OTHER close job 3 n 54 status 1 null at 19
+ OTHER main job 3 n 65 status 1 null at 19
+ OTHER delay job 3 n 94 status 1 null at 19
+ OTHER paint job 5 n 4 status 1 null at 19
+ OTHER delay job 6 n 17 status 1 null at 19
+
+since load, failed capture                     n  38  min 23  p25 34  med 38  p75 40  max 59
+since load, passed capture (same arms)         n 246  min 15  p25 28  med 37  p75 45  max 70
+capture ms, failed                             n  38  min 69  p25 107  med 128  p75 145  max 292
+capture ms, passed (same arms)                 n 246  min 202  p25 375  med 411  p75 545  max 641
+page age at the check after failure            n  38  min 227  p25 310  med 319  p75 329  max 481
+first retry ms                                 n  38  min 309  p25 355  med 394  p75 403  max 597
+capture ms, close                              n  70  min 251  p25 358  med 391  p75 404  max 481
+capture ms, paint                              n  69  min 93  p25 366  med 397  p75 427  max 594
+capture ms, main                               n  69  min 86  p25 142  med 147  p75 160  max 386
+capture ms, delay                              n  70  min 106  p25 152  med 165  p75 175  max 189
+arms that still fail: 38 of 288  arms that do not: 0 of 288
+Start key failure (line 19): 14 of 576  by arm: state 3, close 2, old 1, paint 3, main 3, delay 2
+by job: 1: 3  2: 1  3: 6  5: 1  6: 3
