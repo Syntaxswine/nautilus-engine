@@ -87,6 +87,10 @@ The art collection adds **48 original buildings**, 77 floors, 409 described room
 
 Run `npm run build`, then `npm run serve:buildings`; open the printed URL. The preview stops after 30 minutes. See the [catalogue and integration contract](docs/building-catalog.md), [reference notebook](art/buildings/README.md) and [visual review](docs/reviews/2026-10-28-building-catalog.md). Game collision, navigation, fire and persistence remain explicit consumer work.
 
+## Wind field (candidate)
+
+The headless `packages/wind-core` voxelizes those building models and solves the incompressible air around them: a log-law inflow, optional surface-layer gusts and a velocity field that tracers such as smoke can follow. Open `/examples/wind-field.html` after building and serving. Choose buildings and a wind, watch the streaks, and click a roof to release smoke. See [the wind contract, its verification and limits](docs/wind-field.md). No `./wind` export is registered yet, and no game reads the field.
+
 ## Compatibility boundaries
 
 This release retains the existing AFT map v2 and block v1 formats, 240 × 240 maps, 24 × 24 blocks and inherited character/content limits. The shared document/controller still contains AFT-specific content conventions. These are explicit compatibility constraints, not a claim of a fully generic engine.
