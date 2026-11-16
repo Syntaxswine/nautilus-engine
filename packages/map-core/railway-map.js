@@ -5,6 +5,8 @@ import {rotateSceneryBlock as rotate} from './roof-rotation.js';
 import {RAILWAY_ROUTE_FEATURE, RAILWAY_TURNOUT_FEATURE, RAILWAY_CROSSING_FEATURE, RAILWAY_TRAIN_FEATURE,
   RAILWAY_SIGNAL_FEATURE, RAILWAY_WORLD_STOCK_FEATURE,RAILWAY_SURVEYED_FEATURE} from '../railway-visuals/route.js';
 import {assertRailwayRoutes, refuseRailwayRoutes as refuseRailways, railwayTrainsOf} from './railway-routes.js';
+import {FEATURE_IDS} from './contract-manifest.js';
+const FOLIAGE_CAPABILITY=FEATURE_IDS.foliage;
 function refuseRailwayRoutes(map,workflow){refuseRailways(map,workflow);if(map?.mountDora!==undefined||map?.mountDoraEngine!==undefined)throw Error(workflow+' cannot preserve Mount Dora global source/placement metadata. Keep the complete native sector and its explicit adapter.');}
 
 export {blankMap, W, H, SECTOR, LEVELS} from './roof-maps.js';
@@ -30,6 +32,7 @@ export function parseMap(text, options) {
 
 export function requiredMapFeatures(map) {
   const required = maps.requiredMapFeatures(map);
+  if(Object.keys(map.foliage||{}).length)required.push(FOLIAGE_CAPABILITY);
   if(map.mountDora!==undefined||map.mountDoraEngine!==undefined)required.push('nautilus-mount-dora-content-v1');
   const {plans, crossings} = assertRailwayRoutes(map);
   if (plans.length) required.push(RAILWAY_ROUTE_FEATURE);
@@ -45,6 +48,7 @@ export function requiredMapFeatures(map) {
 
 export function assertMapCapabilities(map, features = []) {
   maps.assertMapCapabilities(map, features);
+  if(Object.keys(map.foliage||{}).length&&!features.includes(FOLIAGE_CAPABILITY))throw Object.assign(Error('This game adapter must bind concealment, foliage passability and shot obstruction for painted map.foliage ('+FOLIAGE_CAPABILITY+'). Clear the overlay or choose a capable host.'),{code:'UNSUPPORTED_MAP_FOLIAGE',path:'map.foliage'});
   if((map.mountDora!==undefined||map.mountDoraEngine!==undefined)&&!features.includes('nautilus-mount-dora-content-v1'))throw Error('This game adapter does not support Mount Dora source/content metadata (nautilus-mount-dora-content-v1).');
   const {plans, crossings} = assertRailwayRoutes(map);
   if (plans.length && !features.includes(RAILWAY_ROUTE_FEATURE)) {
