@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-10-30T03:23:51.194Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "treeBefore": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "treeAfter": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rows": {
+    "W3": {
+      "cleanTree": {
+        "claimHolds": true,
+        "observed": "INVALID_TRAVERSAL \"INVALID_TRAVERSAL\""
+      },
+      "underMutant": {
+        "claimHolds": false,
+        "observed": "accepted"
+      },
+      "verdict": "REAL SURVIVOR: claim holds on the clean tree, breaks under the mutant, and no test notices"
+    },
+    "W6": {
+      "cleanTree": {
+        "claimHolds": true,
+        "observed": "INVALID_LANDING"
+      },
+      "underMutant": {
+        "claimHolds": true,
+        "observed": "INVALID_LANDING"
+      },
+      "verdict": "EQUIVALENT MUTANT: the claim is still enforced elsewhere"
+    },
+    "Q4": {
+      "cleanTree": {
+        "claimHolds": true,
+        "observed": {
+          "fromOrigin": true,
+          "fromDestination": false
+        }
+      },
+      "underMutant": {
+        "claimHolds": false,
+        "observed": {
+          "fromOrigin": true,
+          "fromDestination": true
+        }
+      },
+      "verdict": "REAL SURVIVOR: claim holds on the clean tree, breaks under the mutant, and no test notices"
+    },
+    "L3": {
+      "cleanTree": {
+        "claimHolds": true,
+        "observed": "ModuleStartError: Module rules failed during prepare: Undeclared service export: secret.extra"
+      },
+      "underMutant": {
+        "claimHolds": false,
+        "observed": "started with an undeclared export"
+      },
+      "verdict": "REAL SURVIVOR: claim holds on the clean tree, breaks under the mutant, and no test notices"
+    },
+    "X1": {
+      "cleanTree": {
+        "claimHolds": true,
+        "observed": {
+          "undo": 2,
+          "redo": 0,
+          "maxHistoryEntries": 2
+        }
+      },
+      "underMutant": {
+        "claimHolds": false,
+        "observed": {
+          "undo": 3,
+          "redo": 0,
+          "maxHistoryEntries": 2
+        }
+      },
+      "verdict": "REAL SURVIVOR: claim holds on the clean tree, breaks under the mutant, and no test notices"
+    }
+  }
+}

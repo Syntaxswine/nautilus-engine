@@ -1,0 +1,482 @@
+{
+  "generatedAt": "2026-10-30T03:06:49.137Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "consumers": {
+    "aftPin": "781246a668c723d5a4c5463e70534cc04b6a5641 (vendored in Nautilus)",
+    "aftMain": "25d0e91858be0fa5ea7d54132a4a642624bd9aa7",
+    "farmyardMain": "251bf8094b5f9ebe44208443084c1a6d6658512a"
+  },
+  "closures": {
+    "aft": [
+      {
+        "file": "dist/tactics/core/maps.js",
+        "blob": "17840cf1bc16f9a750075499652bd3e181239ef3",
+        "bytes": 23375,
+        "sha256": "ca0aa9d6f3d68dc68fa764d78959922f3e215658e90010ffc1d162bc3a16c7d4"
+      },
+      {
+        "file": "dist/tactics/map-layers.js",
+        "blob": "2ffe4bcf19de4708e5fdb1f148b6c1f4ff0e91c5",
+        "bytes": 666,
+        "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d"
+      },
+      {
+        "file": "dist/tactics/tutorial-mission.js",
+        "blob": "0e77739aa4ee91c41eebe052bbeb115e7573b5f5",
+        "bytes": 2680,
+        "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68"
+      },
+      {
+        "file": "dist/tactics/dialogue-schema.js",
+        "blob": "37ec15945bf79aac370e904b659234fec08c9994",
+        "bytes": 9636,
+        "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523"
+      },
+      {
+        "file": "dist/tactics/hedge-data.js",
+        "blob": "9f5d1a53030ffb53b7b408668f86c166a618e85f",
+        "bytes": 1743,
+        "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884"
+      },
+      {
+        "file": "dist/tactics/climbing-routes.js",
+        "blob": "c3b156d8d91d4d8067377b1cc949af954f0e2d14",
+        "bytes": 945,
+        "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47"
+      },
+      {
+        "file": "dist/tactics/climbing.js",
+        "blob": "ecaac2f49ba5b1cce8ee99e77b8f01a530c0891c",
+        "bytes": 3997,
+        "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c"
+      },
+      {
+        "file": "dist/tactics/map-geometry-cache.js",
+        "blob": "b532973d6222e19c1aaf0d795f6cf348d963ba47",
+        "bytes": 2022,
+        "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb"
+      },
+      {
+        "file": "dist/tactics/environment-regions.js",
+        "blob": "d1d5a585a36bade0fd0e1397db39721b7e80b13e",
+        "bytes": 6511,
+        "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba"
+      },
+      {
+        "file": "dist/tactics/light-sources.js",
+        "blob": "2181f8a832d9be046039b560dd6f1369db6489dc",
+        "bytes": 5475,
+        "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14"
+      },
+      {
+        "file": "dist/tactics/stone-arches.js",
+        "blob": "60429f4a80ff96f831ff51e83b08048f194fdbbe",
+        "bytes": 2845,
+        "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f"
+      },
+      {
+        "file": "dist/tactics/scenery-rules.js",
+        "blob": "8bb435d11ae6612138741373f00d1bc7030725f3",
+        "bytes": 3032,
+        "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941"
+      },
+      {
+        "file": "dist/tactics/scenery-catalog.js",
+        "blob": "de927e94226d50f2c7d84b44af24c87e3b69d941",
+        "bytes": 4614,
+        "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f"
+      },
+      {
+        "file": "dist/tactics/scenery-placement.js",
+        "blob": "d7f2d620e9a665a62fd7fd08f3378d8094b1065a",
+        "bytes": 3010,
+        "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31"
+      },
+      {
+        "file": "dist/tactics/character-patrol.js",
+        "blob": "d35056e45a32f0828ab21d913de8d950e6345054",
+        "bytes": 3095,
+        "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924"
+      },
+      {
+        "file": "dist/tactics/foliage-data.js",
+        "blob": "a8b13ca3890185a7812a0406f44989ae97290a50",
+        "bytes": 6825,
+        "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9"
+      },
+      {
+        "file": "dist/tactics/breach-data.js",
+        "blob": "f066aa495f66a20bbeaa298da98837933f92c9e6",
+        "bytes": 3809,
+        "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c"
+      },
+      {
+        "file": "dist/tactics/strategic-site-rules.js",
+        "blob": "93de05beba772a8927754d3436f0c6093879258a",
+        "bytes": 7744,
+        "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17"
+      },
+      {
+        "file": "dist/tactics/land-paint.js",
+        "blob": "5ac4425a0143937128e72dff4ff0261eec445938",
+        "bytes": 3151,
+        "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95"
+      },
+      {
+        "file": "dist/tactics/bridge-trellis.js",
+        "blob": "4799f0223ca08ab2501744a23a453e4dc6858b49",
+        "bytes": 1888,
+        "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd"
+      },
+      {
+        "file": "dist/tactics/editor-canopies.js",
+        "blob": "2f3cfcb4687384e967021348f02c30522aa6a3ef",
+        "bytes": 2326,
+        "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563"
+      },
+      {
+        "file": "dist/tactics/climbable-roofs.js",
+        "blob": "08d33e249170407ab71041f1f73b9c59ae9c7b38",
+        "bytes": 3494,
+        "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361"
+      },
+      {
+        "file": "dist/tactics/cliff-ramps.js",
+        "blob": "074f47fecdd8f2ec0feb96cd4e8593a136493f99",
+        "bytes": 5856,
+        "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf"
+      },
+      {
+        "file": "dist/tactics/character-properties.js",
+        "blob": "02c17928e0592e97a80ab9f615ec3d201b56c68d",
+        "bytes": 7740,
+        "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329"
+      },
+      {
+        "file": "dist/tactics/tower-geometry.js",
+        "blob": "d3035afc9b0729c54e63501c34816ce203868508",
+        "bytes": 5813,
+        "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a"
+      },
+      {
+        "file": "dist/tactics/cliff-map.js",
+        "blob": "ee1bd72fcf899e13f4a04c990b9685184a5a74ff",
+        "bytes": 1686,
+        "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb"
+      },
+      {
+        "file": "dist/tactics/core/feature-plan.js",
+        "blob": "cd59a1046c264e337dbe980ad898dc71104bec7f",
+        "bytes": 2588,
+        "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3"
+      },
+      {
+        "file": "dist/tactics/core/connections.js",
+        "blob": "afdab7e13ef65efe3379845e46f2a183842abf75",
+        "bytes": 5263,
+        "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29"
+      },
+      {
+        "file": "dist/tactics/core/environment.js",
+        "blob": "30a6f6fcda259063197cfdb006b6ab4a443a8054",
+        "bytes": 6342,
+        "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c"
+      },
+      {
+        "file": "dist/tactics/core/sector-rules.js",
+        "blob": "a2a290a72cce7c49bf6c70abf187be4318f39692",
+        "bytes": 1890,
+        "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a"
+      },
+      {
+        "file": "dist/tactics/character-stats.js",
+        "blob": "5876e9d05149052cbed1cde3a85c8c97f82c79f9",
+        "bytes": 4357,
+        "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d"
+      },
+      {
+        "file": "dist/tactics/core/archetypes.js",
+        "blob": "1539641aef21adde50f83131d5ec0b371a5f7fe9",
+        "bytes": 16205,
+        "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d"
+      },
+      {
+        "file": "dist/tactics/dialogue-variables.js",
+        "blob": "06d158511782242535564f4a018d0896bba4b43e",
+        "bytes": 855,
+        "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39"
+      },
+      {
+        "file": "dist/tactics/core/inventory.js",
+        "blob": "a98b25740ae1d8a673b84abf458bd831621deee3",
+        "bytes": 4333,
+        "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6"
+      },
+      {
+        "file": "dist/tactics/inventory-tools.js",
+        "blob": "ff07c25a094d09eab7277bd2f00b504db5d37cac",
+        "bytes": 1763,
+        "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f"
+      },
+      {
+        "file": "dist/tactics/combat-state.js",
+        "blob": "8d2449800ae4b015b6f06ad085b1784de215b3c1",
+        "bytes": 1944,
+        "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e"
+      },
+      {
+        "file": "dist/tactics/game-clock.js",
+        "blob": "9e5f873c3338434d248c2625ba57cd58ca2f2522",
+        "bytes": 2798,
+        "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493"
+      },
+      {
+        "file": "dist/tactics/spotlight-path.js",
+        "blob": "eabb4a2bf8d64acdd88b6014b4665682ea6eeee8",
+        "bytes": 2296,
+        "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0"
+      },
+      {
+        "file": "dist/tactics/stone-arch-geometry.js",
+        "blob": "456c38ed42264a7059c426015bd6326d8e6fb1b1",
+        "bytes": 3175,
+        "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f"
+      },
+      {
+        "file": "dist/tactics/scenery-index.js",
+        "blob": "5f8ebb8d0c827d85e3c9505075d1036d21e61f8d",
+        "bytes": 1083,
+        "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e"
+      },
+      {
+        "file": "dist/tactics/helicopter-gameplay-data.js",
+        "blob": "09abee349052a17188b3f3245d9d74fb5b550c52",
+        "bytes": 601010,
+        "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e"
+      },
+      {
+        "file": "dist/tactics/scenery-collision.js",
+        "blob": "48a5dae77a5d0731564c67b776181c6499787010",
+        "bytes": 2344,
+        "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec"
+      },
+      {
+        "file": "dist/tactics/factory-gameplay.js",
+        "blob": "a0ef75c4a267336d74dee58f2c0604ecd262bea5",
+        "bytes": 722,
+        "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c"
+      },
+      {
+        "file": "dist/tactics/foliage-presets.js",
+        "blob": "f3dc25eef7aa6c50e493c1bdf515788c9d87a3fb",
+        "bytes": 932,
+        "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f"
+      },
+      {
+        "file": "dist/tactics/biome-family.js",
+        "blob": "651137de69d01408968a8d085db59ee6a8b468ce",
+        "bytes": 942,
+        "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001"
+      },
+      {
+        "file": "dist/tactics/foliage-tree-cover.js",
+        "blob": "ffb10d0dd2d2fb415cf6b99c244798c4013be639",
+        "bytes": 714,
+        "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74"
+      },
+      {
+        "file": "dist/tactics/biome-gameplay-data.js",
+        "blob": "29b5bb7e2d343faa0ab116cabd74440bfe9abcb3",
+        "bytes": 502,
+        "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab"
+      },
+      {
+        "file": "dist/tactics/environment.js",
+        "blob": "4b87516456e79841dac6b2724d5bf47e9c573af3",
+        "bytes": 5648,
+        "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022"
+      },
+      {
+        "file": "dist/tactics/strategic-site-data.js",
+        "blob": "3f9f46121e9d0903393cbfb96cea4687420be2ee",
+        "bytes": 2886480,
+        "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb"
+      },
+      {
+        "file": "dist/tactics/explosive-barrels.js",
+        "blob": "aa127bb4ca2fbea6e92d205b128bb7afa16b9e0d",
+        "bytes": 1859,
+        "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45"
+      },
+      {
+        "file": "dist/tactics/ramp-banks.js",
+        "blob": "4514067b9642eed30931628157c81efa4437bcba",
+        "bytes": 3352,
+        "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d"
+      },
+      {
+        "file": "dist/tactics/diagonal-roads.js",
+        "blob": "f6ff6f372d260106ca757c91928404075ad39080",
+        "bytes": 1150,
+        "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+      },
+      {
+        "file": "dist/tactics/one-handed.js",
+        "blob": "ddddbd62c7cccf817621bf05ed78e08b00b7ac30",
+        "bytes": 1569,
+        "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884"
+      },
+      {
+        "file": "dist/tactics/squad-ammo.js",
+        "blob": "827aef3628bd0f8269452a53a48bdb758540229d",
+        "bytes": 4583,
+        "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5"
+      },
+      {
+        "file": "dist/tactics/movement-timing.js",
+        "blob": "9ab6f2a1ec1c1a3a4cac84679bc09272d038e165",
+        "bytes": 330,
+        "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799"
+      },
+      {
+        "file": "dist/tactics/factory-gameplay-data.js",
+        "blob": "b3303f26dcb4be084d4231447333df97e4ff7b21",
+        "bytes": 1706403,
+        "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40"
+      }
+    ],
+    "farmyard": [
+      {
+        "file": "sites/tactical-animal/dist/aft-sector.js",
+        "blob": "2ead1576d7064db7c39ee8a3653cfb03613d66eb",
+        "bytes": 4358,
+        "sha256": "f617d73a5c75d478b0ff25f17d3c3218935d1c233094f99b3577f67660c54888"
+      },
+      {
+        "file": "sites/tactical-animal/dist/aft-checkpoint-data.js",
+        "blob": "933f10bce178887d01c79b5bc6952655021ac949",
+        "bytes": 4604,
+        "sha256": "ac6614949fec4b4eeda265da688cd811069ec37f67fd5d6354c6933be049478e"
+      },
+      {
+        "file": "sites/tactical-animal/dist/world-grid.js",
+        "blob": "024fb33c8484fd226e1054dee3c2a966bd424386",
+        "bytes": 2266,
+        "sha256": "6f31e4fd4e41f8ccd48d2eb0113640edfd699442530291ceca18facb81c05128"
+      },
+      {
+        "file": "sites/tactical-animal/dist/window-catalogue.js",
+        "blob": "e60e47daaee4df0904c7ec35f7e2478ba74e4d53",
+        "bytes": 805,
+        "sha256": "2addc8ccfc246de62d03b13ef1e01ce84ea37a9433b37a6fcef975e3abeb2592"
+      },
+      {
+        "file": "sites/tactical-animal/dist/art/windows/catalog.js",
+        "blob": "915e0298369703134a353154f7db0d53489a5558",
+        "bytes": 6121,
+        "sha256": "3b542522d18f27ec98f069a546c5f13b5e5b3fe499cead4465b44b965672dd70"
+      },
+      {
+        "file": "sites/tactical-animal/dist/window-system.js",
+        "blob": "5cf3da5f4e33e1c836ceede5f143feb6091693a0",
+        "bytes": 9589,
+        "sha256": "27d8d5d6db9932900a6c068afb0eb9b34fdcb0ecb0f845a80b0252942fc28869"
+      }
+    ]
+  },
+  "nautilusExport": {
+    "bytes": 818395,
+    "validateErrors": [],
+    "requiredFeatures": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-original-buildings-v1",
+      "nautilus-sloped-roofs-v1"
+    ],
+    "version": 2,
+    "topLevelNautilusKeys": [
+      "buildingPrefabs",
+      "slopedRoofs",
+      "wallRuns"
+    ],
+    "carriesRequirementStamp": false
+  },
+  "aftPin": {
+    "probe": {
+      "accepted": true,
+      "nautilusFieldsKeptAsInertData": {
+        "buildingPrefabs": 2,
+        "slopedRoofs": 1,
+        "wallRuns": 1
+      }
+    },
+    "control_version3": {
+      "accepted": false,
+      "error": "Expected a version 2 map: 240 × 240 tiles and 3–6 layers."
+    },
+    "control_unknownSpecies": {
+      "accepted": false,
+      "error": "Use at most 46 guards (50 characters including the squad)."
+    }
+  },
+  "aftMain": {
+    "probe": {
+      "accepted": true,
+      "nautilusFieldsKeptAsInertData": {
+        "buildingPrefabs": 2,
+        "slopedRoofs": 1,
+        "wallRuns": 1
+      }
+    },
+    "control_version3": {
+      "accepted": false,
+      "error": "Expected a version 2 map: 240 × 240 tiles and 3–6 layers."
+    },
+    "control_unknownSpecies": {
+      "accepted": false,
+      "error": "Use at most 46 guards (50 characters including the squad)."
+    }
+  },
+  "farmyardMain": {
+    "requiredFeatures": [
+      "nautilus-wall-runs-v1",
+      "nautilus-building-prefabs-v1",
+      "nautilus-sloped-roofs-v1"
+    ],
+    "probe": {
+      "accepted": true,
+      "obstacles": 0,
+      "edges": 0,
+      "survives": {
+        "building": false,
+        "roof": false,
+        "wall": false
+      }
+    },
+    "control_stairs": {
+      "accepted": false,
+      "error": "This sector requires unsupported vertical traversal."
+    },
+    "control_badOwnExtension": {
+      "accepted": false,
+      "error": "Unsupported Farmyard window extension."
+    }
+  },
+  "verdict": {
+    "aftPinSilentlyAccepts": true,
+    "aftMainSilentlyAccepts": true,
+    "farmyardSilentlyDrops": true,
+    "exportStillPlainV2": true
+  }
+}
