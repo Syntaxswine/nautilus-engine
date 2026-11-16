@@ -1,3 +1,4 @@
+import {checkSharedStealthSource} from './check-shared-stealth.mjs';
 import {checkTileAuthoringCoreSource} from './check-tile-authoring-core-source.mjs';
 import {checkMountDoraSource} from './check-mount-dora.mjs';
 import {distribution} from './distribution.mjs';
@@ -33,6 +34,7 @@ const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
 const pinnedModules = [];
 const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
+console.log('Verified shared stealth: '+JSON.stringify(checkSharedStealthSource({tracked:!!tracked})));
 console.log('Verified optional Mount Dora: '+JSON.stringify(checkMountDoraSource({tracked:!!tracked})));
 for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));

@@ -4,7 +4,9 @@ import {createDonkeyWorker} from '../../vendor/aft/781246a668c723d5a4c5463e70534
 import {createWorkerLocomotion} from './locomotion.js';
 import {nativeActor,confirmedActorPose} from './index.js';
 import {plain,fields,number,point,samePoint} from './data.js';
-export function createNativeBody({model,actorId,data,motion='native-gait',checkpoint,footSupport}){
+import {createNativeCrawlBody} from './crawl-body.js';
+export function createNativeBody({model,actorId,data,motion='native-gait',checkpoint,footSupport,crawl}){
+  if(motion==='native-crawl-v1')return createNativeCrawlBody({model,actorId,data,crawl,checkpoint,footSupport});
   const spec=nativeActor(model);if(!['native-gait','neutral-only'].includes(motion))throw Error('Choose an implemented native motion profile.');
   const worker=({goat:createGoatWorker,donkey:createDonkeyWorker})[model](data),root=new T.Group();root.name='Native actor '+actorId;root.add(worker.root);
   const resources=new Set([worker.material,worker.grey]);root.traverse(n=>{if(n.geometry)resources.add(n.geometry);for(const m of Array.isArray(n.material)?n.material:[n.material])if(m)resources.add(m);});
