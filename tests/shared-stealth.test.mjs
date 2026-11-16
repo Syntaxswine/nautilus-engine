@@ -38,6 +38,33 @@ test('only accepted segments stage atomic costs/noise; durable replay cannot pay
   assert.throws(()=>S.stageStealthMove(state,actor,{...command,id:'upstairs',confirmation:confirmation({to:{x:5,y:10,h:2.12}})}),/same-plane/);
 });
 
+test('footsteps distinguish actor streams, later sequences and worlds across durable retries',()=>{
+  const initial=S.createStealthState(['alpha','beta']),characters=['alpha','beta'].map(id=>({...character(),id})),listener={id:'guard',position:{x:4,y:10,h:0},hearingScale:1,hearingEnabled:true,audible:true,permitted:true,sourceSeen:false,incapacitated:false};
+  const command={version:1,id:'move-1',sequence:1,expectedRevision:0,actorId:'alpha',specification:specification(),confirmation:confirmation()};
+  const alpha=S.stageStealthMove(initial,characters[0],command),beta=S.stageStealthMove(alpha.next,characters[1],{...command,actorId:'beta',expectedRevision:alpha.next.revision});
+  assert.equal(new Set([...alpha.events,...beta.events].map(e=>e.id)).size,2);
+  assert.equal(new Set([...alpha.events,...beta.events].flatMap(e=>S.evaluateStealthNoise(e,[listener])).map(e=>e.eventId)).size,2);
+  assert.deepEqual(alpha.events,S.stageStealthMove(initial,characters[0],command).events,'same confirmed boundary has deterministic identity');
+  const saved=S.exportStealthSave({state:beta.next,characters:[alpha.character,beta.character]}),loaded=S.openStealthSave(saved);
+  assert.deepEqual(loaded.characters.map(c=>c.resources),[alpha.character.resources,beta.character.resources]);
+  const repeat=S.stageStealthMove(loaded.state,loaded.characters[0],command);assert(repeat.repeated);assert.deepEqual(repeat.events,[]);assert.deepEqual(repeat.next,loaded.state);assert.deepEqual(repeat.character,alpha.character);
+  const laterCommand={...command,sequence:2,expectedRevision:loaded.state.revision,confirmation:confirmation({from:{x:5,y:10,h:0},to:{x:6,y:10,h:0}})},later=S.stageStealthMove(loaded.state,loaded.characters[0],laterCommand);
+  assert(later.ok);assert.notEqual(later.events[0].id,alpha.events[0].id,'a higher sequence may reuse the caller ID');assert.equal(later.next.receipts.length,2);
+  assert.deepEqual(later.character.resources,{hp:37,ap:6,stamina:28});
+  const resumed=S.openStealthSave(S.exportStealthSave({state:later.next,characters:[later.character,beta.character]})),latest=S.stageStealthMove(resumed.state,resumed.characters[0],laterCommand);
+  assert(latest.repeated);assert.deepEqual(latest.events,[]);assert.deepEqual(latest.character,later.character);assert.deepEqual(latest.next,resumed.state);
+  assert.throws(()=>S.stageStealthMove(resumed.state,resumed.characters[0],command),e=>e.code==='STEALTH_COMMAND_RETIRED');
+  const otherWorld=S.stageStealthMove(initial,characters[0],{...command,confirmation:confirmation({worldId:'another-yard'})});assert.notEqual(otherWorld.events[0].id,alpha.events[0].id);
+});
+
+test('footstep identity is unambiguous and bounded for maximum world/actor/sequence inputs',()=>{
+  const step=(worldId,actorId,sequence=1)=>S.stageStealthMove(S.createStealthState([actorId]),{...character(),id:actorId},{version:1,id:'M'+'x'.repeat(127),sequence,expectedRevision:0,actorId,specification:specification(),confirmation:confirmation({worldId})}).events[0];
+  assert.notEqual(step('yard:alpha','beta').id,step('yard','alpha:beta').id,'legal ID separators cannot alias world/actor tuples');
+  const event=step('W'+'x'.repeat(127),'A'+'x'.repeat(95),1e9),listener={id:'guard',position:event.position,hearingScale:1,hearingEnabled:true,audible:true,permitted:true,sourceSeen:false,incapacitated:false};
+  assert(event.id.length<=320);assert.equal(S.evaluateStealthNoise(event,[listener])[0].eventId,event.id);
+  assert.throws(()=>S.evaluateStealthNoise({...event,id:'x'.repeat(321)},[listener]),/durable event identity/);
+});
+
 test('awareness rate is source-exact; effective Sneak does not replace raw Sneak',()=>{
   for(const stance of ['standing','kneeling','prone'])for(const mode of ['walk','sneak','run'])for(const cover of [0,.4,4]){
     const args={distance:22,exposure:.75,light:.19,contrast:.2,perception:65,stealth:40,sneaking:mode==='sneak',running:mode==='run',moving:true,stance,alert:false,concealment:cover};assert.equal(S.awarenessRate(args),originalRate(args));

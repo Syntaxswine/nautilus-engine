@@ -52,7 +52,8 @@ export function stageStealthMove(input,characterInput,command){
   if(spec.mode!==a.mode||spec.stance!==a.stance||Math.abs(distance-spec.distanceM)>1e-7||distance<1e-8)fail('STEALTH_BOUNDARY','Retain the committed posture and exact nonzero host segment length.');
   if(!preview.ok)return {ok:false,code:preview.code,repeated:false,next:openStealthState(input),character,events:[]};
   character.resources.ap=Math.max(0,character.resources.ap-preview.costs.ap);character.resources.stamina=Math.max(0,character.resources.stamina-preview.costs.stamina);a.travelM+=distance;
-  return finish(start,command,'move',[{kind:'nautilus-stealth-footstep',version:1,id:command.id+':footstep',actorId:a.actorId,position:copy(c.to),radiusM:preview.noiseRadiusM,worldId:c.worldId,worldRevision:c.worldRevision}],openCharacter(character));
+  // The retained move stream owns sequence; caller labels may repeat.
+  return finish(start,command,'move',[{kind:'nautilus-stealth-footstep',version:1,id:stable(['nautilus-stealth-footstep',1,c.worldId,a.actorId,command.sequence]),actorId:a.actorId,position:copy(c.to),radiusM:preview.noiseRadiusM,worldId:c.worldId,worldRevision:c.worldRevision}],openCharacter(character));
 }
 export function stageStealthAwareness(input,command){
   fields(command,['version','id','sequence','expectedRevision','observation','boundary','confirmed']);if(command.confirmed!==true)fail('STEALTH_BOUNDARY','Awareness requires a confirmed host time/action boundary.');

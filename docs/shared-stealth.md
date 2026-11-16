@@ -75,6 +75,15 @@ Reusing the latest sequence for different input refuses. There is one receipt
 per stream, bounded by the 64-actor profile, rather than an ever-growing frame
 history. Hosts own command ordering and atomic persistence.
 
+Footstep IDs are opaque deterministic strings derived from the event kind,
+version, world ID, actor ID and retained movement sequence, bounded to 320
+characters. Caller command labels may repeat across actors or higher sequences
+without aliasing their events. Staging the same confirmed boundary after reload
+produces the same identity; a committed retry emits no event. Hosts preserve
+stream high-water marks and use a distinct world ID for a fresh world lifetime.
+Geometry revision changes do not restart those sequences. Earlier v1 saves and
+already emitted shorter event IDs remain valid.
+
 ## Exposure and awareness
 
 `previewAwareness` consumes actual visible body zones, ambient light, contrast
