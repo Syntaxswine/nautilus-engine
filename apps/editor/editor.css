@@ -91,7 +91,15 @@ main{display:grid;grid-template-rows:minmax(0,1fr);min-height:0;height:calc(100d
   .building-generator .row{flex-wrap:wrap}
 }
 /* Application handoff wrapper; shared player UI retains its own styles. */
-.nautilus-foliage-handoff{position:relative;flex:none;margin:0 .4rem}
+.nautilus-foliage-handoff{position:relative;flex:none;margin:0 .4rem;padding:0;border:0}
 .nautilus-foliage-handoff>summary{cursor:pointer;padding:.65rem;border:1px solid #80764f;border-radius:2px;font:inherit;color:inherit;list-style:none}
 .nautilus-foliage-handoff>div{position:absolute;right:0;top:calc(100% + .35rem);z-index:70;width:240px;padding:.4rem;background:#193c32;border:1px solid #b5a36f;box-shadow:0 5px 16px #0005}
 .nautilus-foliage-handoff button{display:block;width:100%;text-align:left;margin:.2rem 0}
+@media(max-width:1100px){
+  .nautilus-header nav{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .nautilus-foliage-handoff{min-width:0;margin:0}
+  .nautilus-foliage-handoff>summary{display:flex;align-items:center;justify-content:center;box-sizing:border-box;height:100%;min-height:30px;padding:4px 6px;font:11px/1.2 system-ui,sans-serif;white-space:normal;overflow-wrap:anywhere;text-align:center}
+  .nautilus-foliage-handoff>div{position:fixed;top:calc(var(--nautilus-header-height) + 6px);right:8px;width:min(240px,calc(100vw - 16px));box-sizing:border-box}
+  .nautilus-foliage-handoff>div>button{display:block;min-height:44px;text-align:left}
+}
+@media(max-width:700px){.nautilus-foliage-handoff>summary{min-height:32px;font-size:10px}}

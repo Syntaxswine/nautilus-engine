@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
 export const CRAWL_SETUP_BASE='bbf4f8adfebfd80ae7afe3744b5fab52b8a78366';
 export const CRAWL_SETUP_REGISTRATION='docs/reviews/foliage-night-ledger/registration.json';
-const manifestSHA='cae25221fd8df49a110f4c6e56884482c4e88ebd6b2ee299cd1158d49d51db16',root=fileURLToPath(new URL('../',import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
+const manifestSHA='5d64ed3b775c6e5df1d900d07375df79cc1950b264df68221186a261c0810de5',root=fileURLToPath(new URL('../',import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
 function metadata(read){const raw=read(CRAWL_SETUP_REGISTRATION);assert.equal(sha(raw),manifestSHA,'Crawl setup registration metadata changed.');const m=JSON.parse(raw);assert.equal(m.base,CRAWL_SETUP_BASE);return {raw,m};}
 export function checkCrawlSetupRegistration(ports){
   const {read,object,indexed=()=>{},distribution}=ports,{raw,m}=metadata(read),before={},actual={};indexed(CRAWL_SETUP_REGISTRATION,raw);indexed('tools/crawl-setup-registration.mjs',read('tools/crawl-setup-registration.mjs'));
