@@ -90,3 +90,8 @@ main{display:grid;grid-template-rows:minmax(0,1fr);min-height:0;height:calc(100d
   .asset-turns{flex-wrap:wrap}
   .building-generator .row{flex-wrap:wrap}
 }
+/* Application handoff wrapper; shared player UI retains its own styles. */
+.nautilus-foliage-handoff{position:relative;flex:none;margin:0 .4rem}
+.nautilus-foliage-handoff>summary{cursor:pointer;padding:.65rem;border:1px solid #80764f;border-radius:2px;font:inherit;color:inherit;list-style:none}
+.nautilus-foliage-handoff>div{position:absolute;right:0;top:calc(100% + .35rem);z-index:70;width:240px;padding:.4rem;background:#193c32;border:1px solid #b5a36f;box-shadow:0 5px 16px #0005}
+.nautilus-foliage-handoff button{display:block;width:100%;text-align:left;margin:.2rem 0}

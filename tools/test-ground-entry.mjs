@@ -1,7 +1,7 @@
 // Generate an ordinary source/static entry for the actual modular consumer.
 // Installed proofs continue to use the separately packed offline archive.
 import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
-export const GROUND_RUNTIME=['data.js','registry.js','driving.js','content-data.json','host.js','runner.js','surface.js','application.js','main.js','ground.css'];
+export const GROUND_RUNTIME=['data.js','registry.js','driving.js','stealth-plot.js','stealth-runner.js','content-data.json','host.js','runner.js','surface.js','application.js','main.js','ground.css'];
 const root=fileURLToPath(new URL('../',import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
 export function writeTestGroundEntry(outputRoot,{source=false}={}){
  const sourceDir=path.join(root,'apps/test-ground'),folder=source?path.join(outputRoot,'artifacts/traversal-source'):path.join(outputRoot,'apps/test-ground');fs.mkdirSync(folder,{recursive:true});

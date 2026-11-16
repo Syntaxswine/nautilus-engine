@@ -3,6 +3,7 @@ import {createRockModel} from '@nautilus-engine/map-core/items/three';
 import {createRoadVehicleKit} from '@nautilus-engine/map-core/vehicles/three';
 import {REGISTRY,slotById,plotById} from './registry.js';
 import {canonical,insist} from './data.js';
+import {STEALTH_ORIGIN} from './stealth-plot.js';
 
 // Content rendering only. Never creates actor movement, door state or gameplay input.
 export async function createGroundSurface(document,host,{signal}={}) {
@@ -25,9 +26,13 @@ export async function createGroundSurface(document,host,{signal}={}) {
   function makePlot(s,selection) {
     const slot=slotById(selection.slot),root=new T.Group(),resources=[],{x,y}=slot.origin,doors=new Map(),rocks=new Map();root.name=selection.slot+' '+plotById(selection.fixture).name;
     const tint=selection.slot==='west'?0xd9ae61:0x82b4ab,paint=mat(tint,resources),wall=mat(0xa69876,resources),leaf=mat(0x526e57,resources);
-    for(const surface of s.world.surfaces.filter(f=>f.id.startsWith(selection.slot+'-')))box(root,surface.bounds,wall,resources);
+    for(const surface of s.world.surfaces.filter(f=>f.id.startsWith(selection.slot+'-')&&!f.id.startsWith('west-foliage-')))box(root,surface.bounds,wall,resources);
     for(const [xx,yy,w,d]of [[x,y,16,.07],[x,y+16,16,.07],[x,y,.07,16],[x+16,y,.07,16]])box(root,{min:{x:xx,y:yy,h:.005},max:{x:xx+w,y:yy+d,h:.02}},paint,resources);
-    const g=new T.BoxGeometry(1,1,1);resources.push(g);const mesh=new T.Mesh(g,leaf);root.add(mesh);doors.set(selection.slot+'/door',mesh);
+    if(selection.fixture==='stealth-yard'){
+      const mark=mat(0x356144,resources);mark.transparent=true;mark.opacity=.65;
+      for(const key of Object.keys(s.stealth.map.foliage||{})){const [xx,yy]=key.split(',').map(Number),cx=STEALTH_ORIGIN.x+xx,cy=STEALTH_ORIGIN.y+yy;box(root,{min:{x:cx-.45,y:cy-.45,h:.01},max:{x:cx+.45,y:cy+.45,h:.025}},mark,resources);}
+      box(root,{min:{x:21.25,y:s.stealth.observerY-.25,h:0},max:{x:21.75,y:s.stealth.observerY+.25,h:1.45}},mat(0x635d79,resources),resources);
+    }else{const g=new T.BoxGeometry(1,1,1);resources.push(g);const mesh=new T.Mesh(g,leaf);root.add(mesh);doors.set(selection.slot+'/door',mesh);}
     const rock=s.rocks.find(r=>r.id===selection.slot+':rock');if(rock){const model=createRockModel(T,{seed:s.recipe.seed,radius:rock.profile.radius});root.add(model.root);rocks.set(rock.id,model);resources.push({dispose:()=>model.dispose()});const ringG=new T.RingGeometry(.17,.23,24),ringM=new T.MeshBasicMaterial({color:0xe3bb6e,side:T.DoubleSide}),ring=new T.Mesh(ringG,ringM);ring.rotation.x=-Math.PI/2;ring.position.set(x+12,.008,y+14);root.add(ring);resources.push(ringG,ringM);rocks.set(rock.id+'/marker',{root:ring});}
     let disposed=false;return {root,doors,rocks,key:canonical({selection,generation:s.plotGenerations[selection.slot]}),dispose(){if(disposed)return;disposed=true;root.removeFromParent();resources.forEach(r=>r.dispose());}};
   }

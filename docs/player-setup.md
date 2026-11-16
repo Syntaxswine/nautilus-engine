@@ -1,5 +1,32 @@
 # Public player composition and two-circuit yard
 
+## Optional flat goat crawl profile
+
+The browser entry also exports `createCrawlSetupConfiguration`,
+`validateCrawlPlayerSetup`, `CRAWL_SETUP_PORTS` and `mountCrawlPlayerSetup`.
+The explicit setup **v2** recipe carries
+`nativeProfile: {id:'nautilus-native-goat-crawl-v1',version:1,equipment:'hands'|'rifle',surface:{kind:'flat-plane',floorId:'floor-0',heightM:0}}`.
+Bind the retained world's pose with `CRAWL_SETUP_PORTS.pose`, whose schema is
+`urn:nautilus:confirmed-native-crawl-sample:1`. The owned `setup.actor` provides
+`urn:nautilus:native-crawl-view:1` through the existing runtime lifecycle.
+`setup.actor` settings expose only the normal goat and `native-crawl-v1` motion.
+Unsupported settings, borrowed native providers, custom actor factories and
+foot-support hooks refuse for this profile before activation.
+It also refuses custom registries/factories and train/vehicle components; its
+fixed lifecycle stays on foot. Legacy v1 extension options are unchanged.
+
+`CrawlSetupCheckpoint` uses kind `nautilus-crawl-player-setup-checkpoint` and a
+real `NativeCrawlCheckpoint`. It is incompatible with legacy `SetupCheckpoint` /
+`NativePoseCheckpoint`, at runtime and under strict TypeScript. The app must
+stage the matching host geometry, actor sample and spent resources first; setup
+restores its owned crawler against that sample and commits only the ready
+composition. It does not restore the app's retained world. Failed, cancelled or
+superseded candidates dispose their own native resources and preserve the active
+scene. Equipment/profile changes require an explicit complete scene restart.
+Legacy setup v1 recipes/checkpoints, default actor roles and foot support retain
+their original contracts. Night Ledger supplies the bounded application example;
+its deterministic golden replay is separate from native keyboard/touch evidence.
+
 The optional `@nautilus-engine/map-core/player-setup` headless API and `/player-setup/browser` assembly are registered with `/native-actors`, `/native-actors/three`, `/player-ui` and `/player-ui/style.css`. Read the [setup guide](../packages/player-setup/README.md) and [native startup guide](../packages/native-actors/README.md). The headless core profile exposes only setup/native metadata and world preparation; it does not expose the browser setup, shared DOM UI or renderer.
 
 `7f50cb2a48aef87a16fc0465997549be9ed88dc2` is the reviewed compatibility baseline used by the version 1 recipes, **not a claim that commit contains the new setup API**. The accepted new runtime is `62f2fe90210b10985f80d75d9e4425f424a51c6b`; current per-file source records and assembled package provenance identify its registration. Package version stays `0.10.0`. This integration makes no npm publication, release tag or consumer pin update.

@@ -5,6 +5,7 @@ import {createMapDocument, createBlockDocument, openDocument, placeBuilding, eng
 import {checkGameAdapter, sendMapToGame, createGameHandoff} from '../apps/editor/game-handoff.js';
 
 const editorMap = name => JSON.parse(createMapDocument(name).export());
+test('a synchronous or asynchronous host refusal is surfaced to the real Send handler',async()=>{const map=JSON.stringify(editorMap('Refused scope')),adapter={features:[],openMap:()=>({ok:false,code:'SCOPE_REFUSED',reason:'Unsupported authored geometry.'})};assert.throws(()=>sendMapToGame(map,adapter),/Unsupported authored geometry/);adapter.openMap=async()=>({ok:false,reason:'Stale projection.'});await assert.rejects(sendMapToGame(map,adapter),/Stale projection/);});
 const wallRuns = () => ({version: 1, segments: [{id: 'wall-1', a: [40, 40], b: [46, 40], z: 0, stories: 1, material: 'brick'}]});
 const slopedRoofs = () => ({version: 1, roofs: [{id: 'roof-1', x: 150, y: 150, width: 6, depth: 8, z: 1, style: 'gable', axis: 'x', pitch: 35, overhang: 0.3, material: 'slate', seed: 7}]});
 // A map that needs all four authored features: wall runs, prefab buildings, original buildings and sloped roofs.

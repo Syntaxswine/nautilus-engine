@@ -140,6 +140,14 @@
   ],
   "plots": [
     {
+      "id": "stealth-yard", "version": 1, "name": "Flat foliage stealth plot",
+      "footprintM": [16, 16], "floorId": "floor-0", "elevationM": 0,
+      "capabilities": ["stealth-state-v1", "foliage-query-v1", "stealth-event-v1", "walking-state-v1"],
+      "entrance": {"x": 3.5, "y": 4.5},
+      "owns": ["flat foliage projection", "diagnostic observer"],
+      "effects": "Confirmed public awareness/hearing and foliage concealment/blocking/sight/shot queries. Normal goat; conservative 1.4 m radius in both stances. No guard AI or combat."
+    },
+    {
       "id": "gatehouse",
       "version": 1,
       "name": "Gatehouse passage",
@@ -197,6 +205,13 @@
     }
   ],
   "objectives": [
+    {
+      "id": "foliage-stealth", "version": 1, "name": "Compare bare, brush and quiet movement",
+      "requires": ["stealth-state-v1", "foliage-query-v1", "stealth-event-v1", "walking-state-v1"],
+      "observer": {"id": "foliage-stealth-observer", "version": 1},
+      "conditions": ["confirmed movement and time boundaries", "separate bare/brush/quiet baselines"],
+      "expected": {"brushReducesAwareness": true, "sneakReducesHeardEvents": true, "resourcesNeverRefilled": true}
+    },
     {
       "id": "road-handling",
       "version": 1,
@@ -588,6 +603,14 @@
       ]
     }
   ],
+  "foliageGolden": {
+    "id": "golden-foliage-stealth", "version": 1, "name": "Foliage changes confirmed stealth outcomes",
+    "slot": "west", "plot": "stealth-yard", "objective": "foliage-stealth",
+    "baseline": "flat-west-plot-bare-brush-sneak-v1",
+    "spawnLocal": {"x": 3.5, "y": 4.5, "h": 0}, "expectationVersion": 1,
+    "resetPolicy": "new-isolated-sandbox-only",
+    "evidence": ["confirmed awareness score", "distinct heard movement events", "spent resources", "deterministic replay separate from native input"]
+  },
   "deferred": [
     {
       "id": "movement-height",

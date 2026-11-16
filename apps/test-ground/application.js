@@ -1,9 +1,10 @@
-import {mountPlayerSetup,createSetupConfiguration,bindSetupProvider} from '@nautilus-engine/map-core/player-setup/browser';
+import {mountPlayerSetup,mountCrawlPlayerSetup,createCrawlSetupConfiguration,CRAWL_SETUP_PORTS,createSetupConfiguration,bindSetupProvider} from '@nautilus-engine/map-core/player-setup/browser';
 import {SETUP_PORTS,output} from '@nautilus-engine/map-core/player-setup';
 import {PLAYER_PORTS} from '@nautilus-engine/map-core/player-ui';
 import {REGISTRY,identity,defaultRecipe,validateRecipe,contentFor,fixtureById,goldenRecipe,fixtureSpawn,objectiveById,observerCapabilities,isDoorObjective} from './registry.js';
 import {createGroundHost} from './host.js';import {createGroundSurface} from './surface.js';import {createChecklist,evaluateObjective} from './runner.js';
 import {clone,canonical,fields,insist,refusal,accepted} from './data.js';
+import {hasStealth,stealthBlueprint} from './stealth-plot.js';
 
 const SAVE_KEY='nautilus-night-ledger-ground-v1',TRANSACTION_KEY='nautilus-night-ledger-last-transaction-v1';
 
@@ -28,7 +29,8 @@ function ownPauseScopes(raw,initialPaused=false) {
   });
 }
 
-export async function createGroundApplication(container,{installation,storage=container.ownerDocument.defaultView.localStorage}={}) {
+export async function createGroundApplication(container,{installation,storage=container.ownerDocument.defaultView.localStorage,initialFixture,crawlEquipment='hands'}={}) {
+  insist(['hands','rifle'].includes(crawlEquipment),'STEALTH_EQUIPMENT','The flat native goat binds hands or rifle only.');
   const document=container.ownerDocument;let current=null,retired=false,pending=null,epoch=0,disposePromise;
   function persist(snapshot){storage.setItem(TRANSACTION_KEY,JSON.stringify(snapshot));}
   async function prepare({recipe=defaultRecipe(),spawn,packet,signal,initialPaused=false}={}) {
@@ -36,14 +38,15 @@ export async function createGroundApplication(container,{installation,storage=co
     let host,surface,setup,pause,entry;
     try {
       host=createGroundHost({recipe,spawn,checkpoint:packet?.host,persist});surface=await createGroundSurface(document,host,{signal});
+      const crawl=hasStealth(recipe),ports=crawl?CRAWL_SETUP_PORTS:SETUP_PORTS;
       const services={
         [SETUP_PORTS.world.id]:host,[SETUP_PORTS.pose.id]:{read:()=>host.readPose()},[SETUP_PORTS.surface.id]:surface,
         [PLAYER_PORTS.scene.id]:host.scene,[PLAYER_PORTS.walking.id]:host.walking,[PLAYER_PORTS.vehicles.id]:host.connector};
-      const provider={descriptor:{id:'ground.services',version:1,ports:[SETUP_PORTS.world,SETUP_PORTS.pose,SETUP_PORTS.surface,PLAYER_PORTS.scene,PLAYER_PORTS.walking,PLAYER_PORTS.vehicles].map(output)},services};
-      const configuration=packet?.setup.configuration||bindSetupProvider(createSetupConfiguration({content:clone(identity),vehicles:true}),provider);
-      const raw=await mountPlayerSetup(stage,{content:contentFor(recipe,spawn),configuration,providers:[provider],signal,...(packet?{checkpoint:packet.setup}:{}),onConfigurationChange:config=>{if(entry){entry.pause.refresh();const slots=entry.setup.ui.slots;if(entry.map&&entry.map.parentNode!==slots.map)slots.map.append(entry.map);if(entry.inventoryCard&&entry.inventoryCard.parentNode!==slots.inventory)slots.inventory.append(entry.inventoryCard);entry.checklist.setPlayerSetup(config);}},onError:(error,context)=>{document.defaultView.console.warn('Test ground observer',context.phase,error.message);}});
+      const provider={descriptor:{id:'ground.services',version:1,ports:[SETUP_PORTS.world,ports.pose,SETUP_PORTS.surface,PLAYER_PORTS.scene,PLAYER_PORTS.walking,PLAYER_PORTS.vehicles].map(output)},services};
+      const configuration=packet?.setup.configuration||bindSetupProvider((crawl?createCrawlSetupConfiguration:createSetupConfiguration)({content:clone(identity),vehicles:!crawl,equipment:crawlEquipment}),provider);
+      const raw=await (crawl?mountCrawlPlayerSetup:mountPlayerSetup)(stage,{content:contentFor(recipe,spawn),configuration,providers:[provider],signal,...(packet?{checkpoint:packet.setup}:{}),onConfigurationChange:config=>{if(entry){entry.pause.refresh();const slots=entry.setup.ui.slots;if(entry.map&&entry.map.parentNode!==slots.map)slots.map.append(entry.map);if(entry.inventoryCard&&entry.inventoryCard.parentNode!==slots.inventory)slots.inventory.append(entry.inventoryCard);entry.checklist.setPlayerSetup(config);}},onError:(error,context)=>{document.defaultView.console.warn('Test ground observer',context.phase,error.message);}});
       setup=raw;pause=ownPauseScopes(raw,initialPaused);setup=pause.setup;pause.refresh();
-      const checklist=createChecklist(recipe,packet?.checklist,setup.readConfiguration(),{engine:clone(installation.engineSource),engineDelivery:installation.package.kind||'offline-archive',engineSourceSHA:installation.package.sha256,engineArchiveSHA:installation.package.kind?null:installation.package.sha256,consumer:installation.runtime.map(({path,sha256})=>({path,sha256}))});entry={stage,host,surface,setup,pause,checklist,missionBaseline:packet?.missionBaseline||host.read(),unsubscribe:()=>{},dialog:null,closeDialog:null};
+      const checklist=createChecklist(recipe,packet?.checklist,setup.readConfiguration(),{engine:clone(installation.engineSource),engineDelivery:installation.package.kind||'offline-archive',engineSourceSHA:installation.package.sha256,engineArchiveSHA:installation.package.kind?null:installation.package.sha256,consumer:installation.runtime.map(({path,sha256})=>({path,sha256})),authoredFoliage:host.read().stealth?{map:host.read().stealth.map,revision:host.read().stealth.mapRevision}:null});entry={stage,host,surface,setup,pause,checklist,missionBaseline:packet?.missionBaseline||host.read(),unsubscribe:()=>{},dialog:null,closeDialog:null};
       entry.unsubscribe=host.scene.subscribe(()=>{if(current===entry)render(entry);});
       return entry;
     }catch(e){pause?.dispose();await setup?.dispose();surface?.dispose();host?.dispose();stage.remove();throw e;}
@@ -57,6 +60,7 @@ export async function createGroundApplication(container,{installation,storage=co
   function render(entry) {if(!entry.map)return;const s=entry.host.read(),mission=readMission(entry);entry.mission.dataset.state=mission.status;entry.mission.textContent=(mission.missionComplete?'Mission complete':'Mission pending')+' · '+(mission.missionComplete&&mission.status==='passed'?'verified':mission.status==='unavailable'?'observations unavailable':'awaiting confirmed outcome');
     entry.inventory.textContent=s.resources.inventory.length?s.resources.inventory.map(i=>i.instanceId+' × '+i.quantity).join(', '):'No recovered items';entry.plotText.textContent=s.recipe.plots.map(p=>p.slot+': '+p.fixture).join(' · ');
     entry.objective.textContent=objectiveById(s.recipe.objective.id).name+' · '+s.recipe.objective.slot+' · '+(s.recipe.conditions.id==='transition'?'new transition':'current-state audit');entry.coordinates.textContent='Metres '+s.actor.position.x.toFixed(1)+', '+s.actor.position.y.toFixed(1)+' · main ground 64 × 64';
+    if(entry.stealthMeters){const q=entry.host.readStealth();entry.stealthMeters.textContent=q.pose.stance+' · awareness '+(q.state.contacts[0]?.score??0).toFixed(2)+' · heard '+q.heard.length+' · concealment '+q.observation.concealment.toFixed(2)+' · foliage revision '+q.mapRevision+' · diagnostic sight '+(q.rays.sight?.material||'clear')+' / shot '+(q.rays.shot?.material||'clear');}
   }
   function extensions(entry){
     const map=document.createElement('section');map.className='ground-card';map.setAttribute('aria-label','Ground fixture controls');
@@ -66,6 +70,16 @@ export async function createGroundApplication(container,{installation,storage=co
     const button=(name,fn)=>{const b=document.createElement('button');b.type='button';b.textContent=name;b.addEventListener('click',()=>Promise.resolve(fn()).catch(e=>{entry.mission.textContent=e.message;}));map.append(b);};
     button('Fixtures & golden checks',()=>openFixtures(entry));button('Save sandbox',()=>dispatch({version:1,type:'save'}));button('Reload save',async()=>{const r=await dispatch({version:1,type:'reload'});if(!r.ok)entry.mission.textContent=r.reason;});
     button('Try road handling',()=>dispatch({version:1,type:'try',fixtureId:'golden-road-handling'}));
+    button('Try foliage stealth',()=>dispatch({version:1,type:'try',fixtureId:'golden-foliage-stealth'}));
+    if(hasStealth(entry.host.read().recipe)){
+      const note=document.createElement('p');note.textContent='Flat west plot · local cell (0,0) = metres (8.5,16.5). Density marks and observer are diagnostics. Body radius 1.4 m in both stances. WASD / joystick; use Prone, Sneak and Turn actions.';map.append(note);
+      entry.stealthMeters=document.createElement('p');map.append(entry.stealthMeters);
+      const json=document.createElement('textarea');json.setAttribute('aria-label','Foliage blueprint JSON');json.rows=3;json.style.width='100%';map.append(json);
+      button('Export foliage blueprint',()=>{json.value=JSON.stringify(entry.host.read().stealth.map);});
+      button('Preflight foliage blueprint',()=>{const r=preflightFoliage(json.value);entry.mission.textContent=r.ok?'Compatible flat foliage blueprint.':r.reason;});
+      button('Send foliage blueprint',async()=>{const r=await dispatch({version:1,type:'foliage',json:json.value});entry.mission.textContent=r.ok?'Foliage accepted.':r.reason;});
+      button('Copy blank foliage blueprint',()=>{json.value=JSON.stringify(stealthBlueprint({brush:false}));});
+    }
     const help=document.createElement('details');help.className='ground-help';const summary=document.createElement('summary');summary.textContent='How to try';const prose=document.createElement('p');prose.textContent='Try road handling starts at the car door. Choose Enter driver. WASD / arrows or the shared joystick: up drives, left/right steer, down brakes then reverses. Release to stop; Exit appears when safe. The camera follows behind the car and restores walking on exit. Fixtures & golden checks includes the visible gap, both glancing walls, head-on obstruction and walking slide. Try explicitly resets this sandbox. Enter opens player setup.';help.append(summary,prose);map.append(help);entry.setup.ui.slots.map.append(map);entry.map=map;
     const inventory=document.createElement('section');inventory.className='ground-card ground-inventory';inventory.setAttribute('aria-label','Recovered inventory');const heading=document.createElement('strong');heading.textContent='Recovered rock';entry.inventory=document.createElement('p');inventory.append(heading,entry.inventory);entry.inventoryCard=inventory;entry.setup.ui.slots.inventory.append(inventory);render(entry);
   }
@@ -89,10 +103,24 @@ export async function createGroundApplication(container,{installation,storage=co
       let observerErrors=0;try{visual.commit();entry.checklist.configure(valid.recipe);entry.missionBaseline=entry.host.read();render(entry);entry.setup.ui.refresh();}catch{observerErrors++;}return {...r,observerErrors};
     }catch(e){return refusal(e.code||'PREPARATION_FAILED',e.message);}finally{try{visual?.dispose();candidate?.dispose?.();}finally{releasePause();}}
   }
+  function preflightFoliage(json){let candidate;try{candidate=current.host.prepareFoliage(json);return candidate.ok?accepted({compatible:true,scope:'16 m west plot, flat ground, foliage only'}):candidate;}finally{candidate?.dispose?.();}}
+  async function applyFoliage(json,{signal}={}){
+    const entry=current,releasePause=entry.pause.acquire();let candidate,visual;
+    try{
+      insist(!signal?.aborted,'PREPARATION_CANCELLED','Foliage preparation cancelled.');candidate=entry.host.prepareFoliage(json);if(!candidate.ok)return candidate;
+      visual=entry.surface.prepare(candidate.snapshot);await Promise.resolve();insist(current===entry&&!signal?.aborted,'PREPARATION_CANCELLED','The active scene changed or preparation was cancelled.');
+      const result=candidate.commit();if(!result.ok)return result;
+      let observerErrors=0;
+      try{const source=entry.checklist.read().executionSource,s=entry.host.read().stealth;source.authoredFoliage={map:s.map,revision:s.mapRevision};entry.checklist.setExecutionSource(source);}catch{entry.checklist.invalidate('Foliage changed; previous results are stale.');observerErrors++;}
+      for(const observe of [()=>visual.commit(),()=>entry.refreshDialog?.(),()=>render(entry)])try{observe();}catch{observerErrors++;}
+      return {...result,observerErrors};
+    }catch(e){return refusal(e.code||'FOLIAGE_PREPARATION_FAILED',e.message);}finally{try{visual?.dispose();candidate?.dispose?.();}finally{releasePause();}}
+  }
   function validatePacket(value) {
     fields(value,['kind','version','installationSHA','recipe','host','setup','checklist','missionBaseline']);insist(value.kind==='nautilus-test-ground-checkpoint'&&value.version===1,'SAVE_VERSION','Use a complete ground checkpoint v1.');
     insist(value.installationSHA===installation.package.sha256,'PACKAGE_MISMATCH','Restore with the exact installed engine package.');insist(canonical(value.recipe)===canonical(value.host.recipe)&&canonical(value.recipe)===canonical(value.checklist.recipe),'SAVE_RECIPE','World, setup recipe and checklist must belong together.');
     insist(value.setup.ownedWorld===null&&value.setup.configuration.actorId==='player'&&canonical(value.setup.configuration.content)===canonical(identity),'SAVE_OWNERSHIP','Restore the host-owned world and exact player setup.');
+    if(hasStealth(value.recipe))insist(value.setup.kind==='nautilus-crawl-player-setup-checkpoint'&&value.setup.clock&&value.host.stealth?.elapsedSeconds===value.setup.clock.elapsedSeconds,'SAVE_CLOCK','Restore the matching host and owned setup clock in the complete crawl checkpoint.');
     insist(canonical(value.setup.configuration)===canonical(value.checklist.playerSetup),'SAVE_SETUP','Checklist evidence belongs to another player setup recipe.');
     insist(value.missionBaseline?.kind==='nautilus-test-ground-state','BASELINE_REQUIRED','Keep the objective baseline distinct from current state.');return value;
   }
@@ -102,6 +130,7 @@ export async function createGroundApplication(container,{installation,storage=co
     try {
       switch(command.type) {
         case 'recipe': return applyRecipe(command.recipe,options);
+        case 'foliage': return applyFoliage(command.json,options);
         case 'selection': return current.checklist.select(command.ids);
         case 'run-selected': {const entry=current,releasePause=entry.pause.acquire();try{const results=entry.checklist.run();return accepted({checklist:results});}finally{releasePause();}}
         case 'try': {const f=fixtureById(command.fixtureId);insist(f,'FIXTURE_UNAVAILABLE','This fixture is deferred.');return replace({recipe:goldenRecipe(f,current.host.read().recipe),spawn:fixtureSpawn(f),signal:options.signal});}
@@ -123,21 +152,24 @@ export async function createGroundApplication(container,{installation,storage=co
     choose('objective','Mission objective',REGISTRY.objectives.map(o=>[o.id,o.name]),recipe.objective.id);choose('target','Objective target',[...REGISTRY.slots.map(s=>[s.id,s.name]),['driving','South driving strip']],recipe.objective.slot);
     choose('conditions','Expected observations',REGISTRY.conditionProfiles.map(o=>[o.id,o.name]),recipe.conditions.id);
     choose('observers','Observation support',[['full','All required observations'],['without-passage','Passage observer unavailable'],['without-traversal','Traversal observer unavailable']],recipe.observers.profile);choose('probe','Verifier probe',[['ordinary','Ordinary provider'],['acknowledge-without-door-effect','Broken door acknowledgement · expect FAIL'],['acknowledge-without-motion','Broken movement acknowledgement · expect FAIL']],recipe.probe);
+    selects.observers.add(new document.defaultView.Option('Stealth observer unavailable','without-stealth'));selects.observers.value=recipe.observers.profile;
     dialog.append(form);const feedback=document.createElement('p');feedback.className='feedback';feedback.setAttribute('role','status');const table=document.createElement('table');table.setAttribute('aria-label','Versioned golden fixtures');
     function renderTable(){table.replaceChildren();const head=document.createElement('tr');for(const label of ['Run','Fixture / baseline','Outcome','Try']){const th=document.createElement('th');th.textContent=label;head.append(th);}table.append(head);
       for(const row of entry.checklist.rows()){const tr=document.createElement('tr'),select=document.createElement('td'),info=document.createElement('td'),status=document.createElement('td'),tryCell=document.createElement('td'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=row.selected;checkbox.disabled=!row.available;checkbox.setAttribute('aria-label','Select '+row.name);checkbox.addEventListener('change',()=>{const ids=entry.checklist.rows().filter(r=>r.id===row.id?checkbox.checked:r.selected).map(r=>r.id);dispatch({version:1,type:'selection',ids});renderTable();});select.append(checkbox);info.textContent=row.name+(row.version?' · v'+row.version:'');const detail=document.createElement('small');detail.textContent=row.reason||fixtureById(row.id)?.baseline||'';info.append(detail);const out=document.createElement('output');out.dataset.state=row.status;out.textContent=row.status;status.append(out);if(fixtureById(row.id)){const b=document.createElement('button');b.type='button';b.textContent='Try · reset';b.setAttribute('aria-label','Try '+row.name);b.disabled=!row.available;b.addEventListener('click',async()=>{close();const r=await dispatch({version:1,type:'try',fixtureId:row.id});if(!r.ok)current.mission.textContent=r.reason;});tryCell.append(b);}tr.append(select,info,status,tryCell);table.append(tr);}}
+    entry.refreshDialog=renderTable;
     const button=(text,fn,primary=false)=>{const b=document.createElement('button');b.type='button';b.textContent=text;if(primary)b.className='primary';b.addEventListener('click',()=>Promise.resolve(fn()).catch(e=>feedback.textContent=e.message));dialog.append(b);return b;};
     button('Apply composition',async()=>{const next=clone(entry.host.read().recipe);next.plots=next.plots.map(p=>({...p,fixture:selects[p.slot].value,version:1}));next.objective={id:selects.objective.value,version:1,slot:selects.target.value};next.conditions={id:selects.conditions.value,version:1};next.observers.profile=selects.observers.value;next.probe=selects.probe.value;const r=await dispatch({version:1,type:'recipe',recipe:next});feedback.textContent=r.ok?'Composition accepted. Previous verification results are stale.':r.code+': '+r.reason;renderTable();},true);
     dialog.append(table);button('Run selected',async()=>{const r=await dispatch({version:1,type:'run-selected'});feedback.textContent=r.ok?entry.checklist.rows().filter(row=>fixtureById(row.id)).map(row=>row.id+': '+row.status+(!row.selected?' · not run (not selected)':row.reason?' · '+row.reason:row.lastResult?.reason?' · '+row.lastResult.reason:'')).join('\n'):r.reason;renderTable();},true);
     button('Explicit sandbox reset',async()=>{close();await dispatch({version:1,type:'reset'});});button('Return to ground',close);
     const text=document.createElement('textarea');text.setAttribute('aria-label','Exact recipe and result JSON');button('Export recipe & results',async()=>{const r=await dispatch({version:1,type:'export'});text.value=r.json;});button('Import exact report',async()=>{const json=text.value;close();const r=await dispatch({version:1,type:'import',json});if(!r.ok)current.mission.textContent=r.reason;});dialog.append(text,feedback);
     const deferred=document.createElement('p');deferred.className='deferred';deferred.textContent='South strip: shared low-speed cars and walking contact. Railway remains an adjoining unbuilt 240 × 180 m reservation. Combat, fire and height fixtures await providers and golden baselines.';dialog.append(deferred);
-    function close(){if(closed)return;closed=true;if(dialog.open)dialog.close();dialog.remove();if(entry.dialog===dialog){entry.dialog=null;entry.closeDialog=null;}releasePause();if(current===entry&&!retired&&!entry.setup.readControls().context.blocked)entry.surface.canvas.focus();}
+    function close(){if(closed)return;closed=true;if(dialog.open)dialog.close();dialog.remove();if(entry.dialog===dialog){entry.dialog=null;entry.closeDialog=null;entry.refreshDialog=null;}releasePause();if(current===entry&&!retired&&!entry.setup.readControls().context.blocked)entry.surface.canvas.focus();}
     entry.closeDialog=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});dialog.addEventListener('close',close);
     try{document.body.append(dialog);renderTable();dialog.showModal();}catch(e){close();throw e;}
   }
-  const first=await replace();if(!first.ok)throw Object.assign(Error(first.reason),{code:first.code});
-  return Object.freeze({dispatch,checkpoint,read(){return {world:current.host.read(),setup:current.setup.read(),checklist:current.checklist.read(),mission:readMission(current),surface:current.surface.read()};},
+  const initial=initialFixture?fixtureById(initialFixture):null;insist(!initialFixture||initial,'FIXTURE_UNAVAILABLE','Choose a registered initial fixture.');
+  const first=await replace(initial?{recipe:goldenRecipe(initial,defaultRecipe()),spawn:fixtureSpawn(initial)}:{});if(!first.ok)throw Object.assign(Error(first.reason),{code:first.code});
+  return Object.freeze({dispatch,checkpoint,preflightFoliage,foliageAdapter:Object.freeze({features:['nautilus-foliage-queries-v1'],template:()=>clone(current.host.read().stealth?.map||stealthBlueprint()),preflight:preflightFoliage,openMap:({json})=>dispatch({version:1,type:'foliage',json})}),read(){return {world:current.host.read(),setup:current.setup.read(),checklist:current.checklist.read(),mission:readMission(current),surface:current.surface.read()};},
     get setup(){return current.setup;},get host(){return current.host;},get surface(){return current.surface;},
     dispose(){if(disposePromise)return disposePromise;retired=true;++epoch;pending?.abort();disposePromise=retire(current);return disposePromise;}});
 }
