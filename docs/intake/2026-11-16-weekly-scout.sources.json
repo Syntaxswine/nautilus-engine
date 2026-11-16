@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "kind": "nautilus-weekly-scout-intake",
+  "observedDateEastern": "2026-11-16",
+  "engine": {
+    "repository": "https://github.com/Syntaxswine/nautilus-engine.git",
+    "branch": "codex/weekly-integrations",
+    "scoutBeforeUpdate": "d6a8495bd69b43473ef9b970d2dda1d71068105d",
+    "publishedMain": "7e9052dcf6a2aa00c6d38130f5f2345b86ceb593",
+    "scoutAfterMainMerge": "240c1fde66f2acea314108a100659387750d8019",
+    "publishedMainCI": {
+      "run": 43732349679,
+      "conclusion": "success"
+    }
+  },
+  "publishedUnchanged": [
+    {
+      "id": "aft",
+      "commit": "25d0e91858be0fa5ea7d54132a4a642624bd9aa7"
+    },
+    {
+      "id": "farmyard",
+      "commit": "4a0bd292ee09abb7f61e743289f5a40f09655b2c"
+    }
+  ],
+  "alreadyAdopted": {
+    "farmyardRealtime": "8395204ce6b60aa20cc8936fc89fe4a40192920c",
+    "nautilusMountDoraPRs": [
+      63,
+      64,
+      65
+    ]
+  },
+  "draftOnly": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "pr": 12,
+    "head": "d1118c4005a7f8c4e1b0ed0f93420cf8a4d8b236",
+    "isDraft": true,
+    "independentlyTested": false
+  },
+  "candidates": [
+    {
+      "id": "TB-1f45977-static-image-sources",
+      "priority": "P1",
+      "status": "proposed",
+      "source": "tb"
+    },
+    {
+      "id": "TB-37a7c03-immutable-publications",
+      "priority": "P2",
+      "status": "proposed",
+      "source": "tb",
+      "dependency": "TB-7ba7487-finite-heat state/geometry boundary"
+    },
+    {
+      "id": "FF-ccf5181-overmap-assemblies",
+      "priority": "P2",
+      "status": "proposed",
+      "source": "ff",
+      "dependency": "Explicit flat-sector and foliage capability projection"
+    },
+    {
+      "id": "AFT-25d0e91-grounded-crawl",
+      "priority": "P1",
+      "status": "new implementation evidence for existing assignment",
+      "source": "ff",
+      "dependency": "AFT-781246a-sneak-cover and current native actor/pose ownership"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ff",
+      "repository": "https://github.com/Syntaxswine/farmyard-fighters",
+      "ref": "refs/heads/main",
+      "commit": "541b0facc0597eaa719fd78cf391b417f12473da",
+      "reviewedAncestors": [
+        "7cd3d56e62a8087133a9fdf2f521cf92d310d6fd",
+        "ccf5181413425e9fb26753d1d6aaa5b3634d7750",
+        "1d6d37b3f8db926839c84dac0680fd11ee58bac1",
+        "d4fffafb3bbd6b583b65d6aee093beb638668d8a",
+        "69b4e760d6d951418859790eb4f1f1a30b6d94f9"
+      ],
+      "files": [
+        {
+          "path": "sites/tactical-animal/dist/overmap-elements.js",
+          "gitBlob": "9091b2b7aa380b99183182b482ca7fe45c3e3766",
+          "bytes": 8462,
+          "sha256": "0d1ad61b0410993df88855aa1ce9006bea188922716cd21dda106511ec3dd7f4"
+        },
+        {
+          "path": "sites/tactical-animal/dist/overmap-model.js",
+          "gitBlob": "7816f951d1b543e684624173c93b2f21c2294a42",
+          "bytes": 14620,
+          "sha256": "77a7b0e6decaed79b8125c3950828729fbbbb6368c6927eab2bb82226b198cb4"
+        },
+        {
+          "path": "sites/tactical-animal/dist/overmap-generator.js",
+          "gitBlob": "a69d8b954ef1e5fe45d5215aef5dc218f4a8eee9",
+          "bytes": 6521,
+          "sha256": "142365c2f97ffff2d88278c76c8bd01becc442fbd3755e90e33fcb5a6b7d874c"
+        },
+        {
+          "path": "sites/tactical-animal/dist/overmap-worker.js",
+          "gitBlob": "3423c178b4d2c10bf53464259ae77c8219d0cedf",
+          "bytes": 310,
+          "sha256": "00e88e5b0385df97f65fd0a36cac05653ab1ae9077d3811be74344ca7bb24f37"
+        },
+        {
+          "path": "sites/tactical-animal/dist/overmap-view.js",
+          "gitBlob": "5b7ad2df5f6c26e4a9feb9b78a37e12a6290036d",
+          "bytes": 8616,
+          "sha256": "fb6d6265112a0ee63051e090334c57dfca1e028f6acb76fa86da4c168b3a64a2"
+        },
+        {
+          "path": "sites/tactical-animal/dist/overmap.js",
+          "gitBlob": "eb18976781e3a3a8c6834cb8541cfda62dba63ce",
+          "bytes": 8546,
+          "sha256": "0f359da338eab7c576969767cef91e938d5d0c777df741982338d774b5b04201"
+        },
+        {
+          "path": "sites/tactical-animal/dist/crawl-pose.js",
+          "gitBlob": "73483d10ef3c5aeaf637e820220571bd9e5bce33",
+          "bytes": 989,
+          "sha256": "faf157617ab7542f270536265389a58b467408027fa01c61e816da81865bbd3e"
+        },
+        {
+          "path": "sites/tactical-animal/dist/crawl-motion.js",
+          "gitBlob": "8882c1f31634236e90892351a88212d6927a2296",
+          "bytes": 9938,
+          "sha256": "ba2fb70b525e8d2640653d9a251c54489c372b108e3de29fbbd6c3d3c4c06af4"
+        },
+        {
+          "path": "sites/tactical-animal/dist/crawl-equipment.js",
+          "gitBlob": "6025b65c6534eeeebe54806bf8750e1bb56162c7",
+          "bytes": 5728,
+          "sha256": "717599f827cf107913252773a3167f361e48e9681a7a7ac4f5c8db8e0dc2050f"
+        },
+        {
+          "path": "sites/tactical-animal/dist/locomotion-sample.js",
+          "gitBlob": "e07fa980bf922edbde005825be03152d2c813e1d",
+          "bytes": 1155,
+          "sha256": "9ccf91163a2daf2d19e9bb06bf62ba51cd3419db2d0de7e96e788dbfcc15eec4"
+        },
+        {
+          "path": "sites/tactical-animal/dist/field-view.js",
+          "gitBlob": "844cc9a1a0b696456d9452dc55452de370309418",
+          "bytes": 61425,
+          "sha256": "cf47d93c3458dac62514e9fe461fb11ccb847d6e14cdd504bff586897f38197c"
+        },
+        {
+          "path": "sites/tactical-animal/tests/overmap.test.mjs",
+          "gitBlob": "37ea18d9bcff32969b3b32fcb0129462a4fe5ed3",
+          "bytes": 6742,
+          "sha256": "cebb1d976c1bc380de72241fb6c5f8bb808acc896e276f4c91719c0913a38ca9"
+        },
+        {
+          "path": "sites/tactical-animal/tests/locomotion-timing.test.mjs",
+          "gitBlob": "8f798f6d372f1673385a21b3da7ac12c42b4c16e",
+          "bytes": 5450,
+          "sha256": "2ba97c60007380474652f5c09ac7f24e4e621ecbca8ebf87f68eeb9718be6014"
+        },
+        {
+          "path": "sites/tactical-animal/dist/town-windows.js",
+          "gitBlob": "5a0f8c88440307444bb71890f8922cac525be17c",
+          "bytes": 1253,
+          "sha256": "d8064b7ff9dc7db8d6bb78e036a19686fcfe283bb8f2bfe81b74ef902a1f8692"
+        },
+        {
+          "path": "sites/tactical-animal/dist/town-sight.js",
+          "gitBlob": "2c690ed2f2024843327692015b0c43d660129b03",
+          "bytes": 1208,
+          "sha256": "e4051cc4ec9d9a9798c07b8b3cd36e464f9a39a170a94c5c4830a36f52e088d5"
+        },
+        {
+          "path": "sites/tactical-animal/dist/town-levels.js",
+          "gitBlob": "3c5154bf2b364b5d4f609d28cb848c99fa7d895a",
+          "bytes": 5741,
+          "sha256": "44adae6c478dd8318beca5703c950fcfbde102a7099a33b5ff170e75be3111a4"
+        },
+        {
+          "path": "sites/tactical-animal/tests/town-windows.test.mjs",
+          "gitBlob": "8be3cb3679e18738e0dd8e6696f196cd0b5d7a66",
+          "bytes": 8729,
+          "sha256": "e4c1a643f05d6c77b57ed16657882ab20bc5b859d0a206a6d7a8215fd3e1840e"
+        },
+        {
+          "path": "sites/tactical-animal/tests/town-upper-floors.test.mjs",
+          "gitBlob": "086b982d2a9997a201c33ead34d9b237ab1bf693",
+          "bytes": 14173,
+          "sha256": "42d9637928d1074a814147eeb819c28dee688d1ceedd99d8140a9d7cccab6dd5"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/donnelly-house/provenance.json",
+          "gitBlob": "2207693c17eb0610dbc9d0aa3ceea83423db77ec",
+          "bytes": 1656,
+          "sha256": "6177b25dab6b65a84eb80d81d75302b53df0f7a149b4043e88f4735393afe3d0"
+        },
+        {
+          "path": "sites/tactical-animal/dist/mission-art/mount-dora/provenance.json",
+          "gitBlob": "e71e864d5a096de6cc3ba47dc21bfdca031f08d1",
+          "bytes": 2640,
+          "sha256": "7e3741a654c46822e8d9927ac6ec5d5ae73f59caaaf58bba069325a0dc9d00d5"
+        }
+      ]
+    },
+    {
+      "id": "tb",
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "ref": "refs/heads/master",
+      "commit": "d5b43dd5446d93dd263d1234e12ed1551743de56",
+      "reviewedAncestors": [
+        "4fc97bb5d14fe4f5b5557e0bc3ceee57bb2d1eee",
+        "37a7c038d8748a4307a13ee08f54aac420bf81b8",
+        "92ccd52125cf7156174a9764d229f526b234e1b6",
+        "1f45977d1c0f6d5cb25e3e4302568ff367288279",
+        "80fa4f59aeab2f48ece41af2b4f702833724f2e1",
+        "bee8ce46f076e0f8662267deef610ffdbc4c3b88"
+      ],
+      "files": [
+        {
+          "path": "src/reuse/texture-sources.js",
+          "gitBlob": "039dd4f3e4856d6c94703cfdcef676b9fab88412",
+          "bytes": 2674,
+          "sha256": "e5aafd938088515890f274f5ffbabb8299cd08da8cfd4504c876535b33fd5391"
+        },
+        {
+          "path": "src/reuse/loading.js",
+          "gitBlob": "ee83b9d6bf1db2394d432adf3659debb61205e06",
+          "bytes": 2185,
+          "sha256": "a6c54e58897756bc8f0c00dc758b5675d3a7090918c043f976b236049b2e45ba"
+        },
+        {
+          "path": "src/reuse/civilians.js",
+          "gitBlob": "478ab90b964109ad264e7726288265f13ec4ff39",
+          "bytes": 8839,
+          "sha256": "0b0d05df8d39e83fff555162613c511babf8691031a877cffe5f6e3b4e9a8e75"
+        },
+        {
+          "path": "src/runtime/application.js",
+          "gitBlob": "e169d4c183279050409ad9f70dcfc23c70e1e6c1",
+          "bytes": 4319,
+          "sha256": "be7c3cef58e26bda192c7e86c1e49f72f48cf8dd9fa444ac4e7ad46dd63e27d7"
+        },
+        {
+          "path": "src/runtime/three.js",
+          "gitBlob": "1bf942eb6314d9b420ab91ab5203c1ef88763ebd",
+          "bytes": 315,
+          "sha256": "88fd0a63e9d80a3b179b8329b6f06fd794e433caa445937b067ffdbd89f747c4"
+        },
+        {
+          "path": "workbenches/catalogue-modular/art.js",
+          "gitBlob": "8a784b8881a9096832d4f0bdca34ada1a871afde",
+          "bytes": 10961,
+          "sha256": "05f69d302dc55bf6e1019085943db9fa4fe37574fc9a7e7588497dad57b6b50b"
+        },
+        {
+          "path": "art/source/catalogue-modular/thermal-art.js",
+          "gitBlob": "00b9577a044772bddaac71acb85911dd1be03b56",
+          "bytes": 53052,
+          "sha256": "9a27d9feba26388a8e3c6d348740df3c5976f4373e80b20052275cd1f7594fe4"
+        },
+        {
+          "path": "workbenches/bell-and-alder-sandbox/compose.js",
+          "gitBlob": "fb233aba7c4fad57dd278c873ef92a55e894a718",
+          "bytes": 12024,
+          "sha256": "f5b6c6a86d5cccdcb2cd5db49fa9c16e5a4d77c58ae2cd9627b91e7140bc28d9"
+        },
+        {
+          "path": "src/simulation/field.js",
+          "gitBlob": "cab92f94e4e73bb81967e1c7d9d848e1f67ffabf",
+          "bytes": 14394,
+          "sha256": "a0c34c644c27424be12c3378fdb3e21bfe0aa6fdb69211d7945a5f70f05def99"
+        },
+        {
+          "path": "src/simulation/published-obstacles.js",
+          "gitBlob": "1915b017c1f71c9d23b30952d03a4bdb89e1a4c5",
+          "bytes": 2539,
+          "sha256": "6161fbd5dc32ad45e05119be641a0d542819ad087ebdcbe38a5f6e51250cb370"
+        },
+        {
+          "path": "src/simulation/index.js",
+          "gitBlob": "abe6e977aa86e7642233fbc8546920bf991e4b6b",
+          "bytes": 29937,
+          "sha256": "b35e6d6508da6e3b5bf5871954823cff7ce182373c311f654895c3ebdaba689e"
+        },
+        {
+          "path": "src/art/cell-publication.js",
+          "gitBlob": "6c6740dac6944ec1e979aee6a5da19b9a05a6e08",
+          "bytes": 2514,
+          "sha256": "e787626433f6fceeeed9d8946a25aeba335a851cc84077e819df48f3204df501"
+        },
+        {
+          "path": "src/art/ground-field.js",
+          "gitBlob": "369604e99c4ad3aba69fe425abee54a0709346e6",
+          "bytes": 6102,
+          "sha256": "fe96aa9f150361e5c286dee9ef367ffd1413f4ba4ac10cf5024f20f00e0815b9"
+        },
+        {
+          "path": "src/art/fire.js",
+          "gitBlob": "26ab5dc38a515b40fbcf6e71bd4b484209ccaca8",
+          "bytes": 12342,
+          "sha256": "b4d65aa136a4b40c2e8773d637f8e9f14b0b51ec5d72ef8c8d7f409089f920b4"
+        },
+        {
+          "path": "src/art/street-firelight.js",
+          "gitBlob": "98eee7b1083ec8ad3cbb8bed2e71064d00caef18",
+          "bytes": 6645,
+          "sha256": "c25ad9e91b6df0b9171bab3d9020b57a7bfde43c8c3cc28873ac782274f7ac04"
+        },
+        {
+          "path": "src/art/world.js",
+          "gitBlob": "19b31e165b40ffbb8a03bc984a3d50a19b69e609",
+          "bytes": 6602,
+          "sha256": "0336c5cf68a17fee904b6ada1e53f4bb3897387e0513dba4230cfecaf087b4ee"
+        },
+        {
+          "path": "src/simulation/character-fire.js",
+          "gitBlob": "80b885f4221178155a7c5011fc351f15f232e0c1",
+          "bytes": 1051,
+          "sha256": "ccb5628a1da99c8c0b391ca14190c927add784c7ed6a3d666faf2045c2858818"
+        },
+        {
+          "path": "src/simulation/catalogue-thermal.js",
+          "gitBlob": "9a3db3249dda4a03966a2000290c6f063cd092bc",
+          "bytes": 31666,
+          "sha256": "c480aae621ed8b3e172ebcf7545f2f2962c79f71c111511641340fd09808141d"
+        },
+        {
+          "path": "tests/integration/texture-sources.test.mjs",
+          "gitBlob": "992ab81ebe167e4923d9021ca65451d0774f03e1",
+          "bytes": 4832,
+          "sha256": "181d043d5dc6aa84f681c9eebbfeee074c5d65c15a8b185448e85ce88862a7e7"
+        },
+        {
+          "path": "tests/integration/art-cell-publication.test.mjs",
+          "gitBlob": "d00e53fce5055a9687e43bd92eb1b040c987a2a0",
+          "bytes": 9812,
+          "sha256": "242e3e37782aec25369d90b5cd06921ad2e9d24708b8165a0e395169f2377413"
+        },
+        {
+          "path": "tests/integration/civilian-load.test.mjs",
+          "gitBlob": "40017f1f37fd614d6a19fc65e64a5ab79d6d4cbc",
+          "bytes": 3118,
+          "sha256": "6b231319ffbcc467e017184b6ab53a17726ba0e8087c4f70248b992377ce1726"
+        },
+        {
+          "path": "tests/integration/runtime-lifecycle.test.mjs",
+          "gitBlob": "91d3b795e478a57eeaa9be644a29079b6cddfe8c",
+          "bytes": 10712,
+          "sha256": "556ada4948246296ae26da85086de85b1f6e8cf007daef672176f940efe55ca1"
+        },
+        {
+          "path": "tests/simulation/model.test.js",
+          "gitBlob": "b9ee6d1e8be511aa366f0a7c0d5fa5ce03b4902e",
+          "bytes": 16871,
+          "sha256": "9021be2278507963ddff818558ccc4505596d5ed3e9a46cf8f8c805c060ce73d"
+        },
+        {
+          "path": "tests/sandbox/grass-startup.test.mjs",
+          "gitBlob": "e32d2baf6b9212fbb9a8d4cbb8751af3b19d2ffc",
+          "bytes": 8060,
+          "sha256": "cb7dc5a7654ac12cbb4e7834273f12dbce3b9561305657ae176ce210a03d5f6b"
+        },
+        {
+          "path": "docs/reviews/2026-11-15-fast-grass-mobile-startup.md",
+          "gitBlob": "057a77d95d1b75f1bc35f2f208357510c02e635f",
+          "bytes": 10074,
+          "sha256": "9be2d46841e724766e1afbb598460251cb14f29280ca4526e1c80de97dc1b39f"
+        },
+        {
+          "path": "docs/reviews/2026-11-15-character-fire-shroud.md",
+          "gitBlob": "8371700b53b2bc917c0014bc6ffaf214ed1181e2",
+          "bytes": 11786,
+          "sha256": "544300fa808c05824137ba50eb9947c9978f46b9edfb116d0448369d4aa678a8"
+        },
+        {
+          "path": "docs/engineering/grass-mobile-startup/handoff.md",
+          "gitBlob": "0ca1448b3ec6cd879a4eb4d7878f6162e6a3c81f",
+          "bytes": 7000,
+          "sha256": "347146f01e721228ec02a7769fd933fca2fece0c43f04cbc2d5128a27020afb9"
+        },
+        {
+          "path": "docs/engineering/grass-mobile-startup/measurements.json",
+          "gitBlob": "32875fa86b1b12b042572346518ede7ded1c5036",
+          "bytes": 9248,
+          "sha256": "7fb779a26855bee40d19aebd5cac9ad3870b6dec79b7aa9a3b0bd6f05e328511"
+        },
+        {
+          "path": "docs/engineering/grass-mobile-startup/baseline-cold-start.jpg",
+          "gitBlob": "bf65bc93f675d26f2d3dbc02cd806c24c01a4a52",
+          "bytes": 138652,
+          "sha256": "c20575196f3c4b9bdcffc6e75135dcaf9d4890626a91d50a7bde1cfa5cff3213"
+        },
+        {
+          "path": "docs/engineering/grass-mobile-startup/candidate-cold-start.jpg",
+          "gitBlob": "0ad3e1cca6f0e91f80b3eb113cfd5b544b10453f",
+          "bytes": 138629,
+          "sha256": "1f84a2c971a6475c1dee5a8eb2badf839560a577bf135d17dc54ba339e94ad1c"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "donorTests": [
+      {
+        "source": "ff",
+        "runtime": "Node v24.15.0",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "sites/tactical-animal/tests/overmap.test.mjs",
+          "sites/tactical-animal/tests/locomotion-timing.test.mjs"
+        ],
+        "tests": 13,
+        "passed": 13,
+        "failed": 0,
+        "logSha256": "e80e34617160bd05a02905af8352690848c49c941093e07b07d0ee8098a68fb4",
+        "execution": "Disposable byte-preserved Git-object copies, no donor mutations"
+      },
+      {
+        "source": "tb",
+        "runtime": "Node v24.15.0",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "tests/integration/texture-sources.test.mjs",
+          "tests/integration/art-cell-publication.test.mjs",
+          "tests/integration/civilian-load.test.mjs",
+          "tests/integration/runtime-lifecycle.test.mjs",
+          "tests/simulation/model.test.js",
+          "tests/sandbox/grass-startup.test.mjs"
+        ],
+        "tests": 42,
+        "passed": 42,
+        "failed": 0,
+        "logSha256": "5f1cffe5b7b1825ce8c3dcb6329472754503704c13ac65005994c160c03803bb",
+        "execution": "Disposable byte-preserved Git-object copies, no donor mutations"
+      }
+    ],
+    "engineGates": [
+      {
+        "FinishedAt": "2026-11-16T14:28:24.1616278Z",
+        "StartedAt": "2026-11-16T14:17:48.0047787Z",
+        "Name": "check",
+        "Exit": 0,
+        "logSha256": "56c12b83192d1dcb5b11864d3e3675efa2d35d8ed18359ea3968580e455f17ae"
+      },
+      {
+        "FinishedAt": "2026-11-16T14:39:24.1279412Z",
+        "StartedAt": "2026-11-16T14:28:24.2145404Z",
+        "Name": "test",
+        "Exit": 0,
+        "logSha256": "ed61099688f1e936b8dec81738551a3ee5dc0b08d3c49818d8b4276414c13ef0",
+        "tests": 1381,
+        "pass": 1381,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      {
+        "FinishedAt": "2026-11-16T14:39:28.0798822Z",
+        "StartedAt": "2026-11-16T14:39:24.1445826Z",
+        "Name": "upstream",
+        "Exit": 0,
+        "logSha256": "e387c7f27c8366a110c521dba03d45d0e457afab4a9e86d4f4cd852e92f92ef9",
+        "tests": 32,
+        "pass": 32,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      {
+        "FinishedAt": "2026-11-16T14:40:22.1894763Z",
+        "StartedAt": "2026-11-16T14:39:28.0859825Z",
+        "Name": "build",
+        "Exit": 0,
+        "logSha256": "d1e42333a58d1120ce264131ad6dc9fb21502b1df1ec02c6456bfbe351c3862e",
+        "modulePathsChecked": 674
+      }
+    ],
+    "freshBrowserReview": false,
+    "scoutBenchmark": false,
+    "donorOpeningJPGsViewed": true,
+    "sourceCopiesRemoved": true,
+    "overmapProjectionProbe": {
+      "seed": 7,
+      "settings": {
+        "width": 2,
+        "height": 2,
+        "encounters": 1
+      },
+      "regions": 4,
+      "exportKind": "farmyard-fighters-sector-blueprint",
+      "foliageCells": 9600,
+      "currentPortableMapAccepted": false,
+      "refusal": "Malformed legacy map."
+    },
+    "runtimeAndManifestDiffFromReviewedMain": false
+  }
+}
