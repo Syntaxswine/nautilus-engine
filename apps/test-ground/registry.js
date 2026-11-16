@@ -2,18 +2,19 @@ import raw from './content-data.json' with {type:'json'};
 import {DEFAULT_WALK_SPEED_MPS} from '@nautilus-engine/map-core/interactions';
 import {clone,freeze,insist,fields,canonical} from './data.js';
 import {DRIVING_CAPABILITIES,drivingContent,drivingSpawn} from './driving.js';
+import {STEALTH_BODY,STEALTH_CAPABILITIES,hasStealth} from './stealth-plot.js';
 
 // Compatibility/content lineage. Current registry bytes are identified by the
 // exact consumer hashes and clean engine commit in each executionSource record.
 export const CONTENT_SOURCE = '81ddf363e524e967159703246e49ef334d0d1e65';
-export const REGISTRY = freeze(clone(raw));
+export const REGISTRY = freeze({...clone(raw),golden:[...clone(raw.golden),clone(raw.foliageGolden)]});
 export const identity = freeze({id:REGISTRY.id,version:REGISTRY.version,sourcePin:CONTENT_SOURCE});
 export const slotById = id => REGISTRY.slots.find(p=>p.id===id);
 export const plotById = id => REGISTRY.plots.find(p=>p.id===id);
 export const objectiveById = id => REGISTRY.objectives.find(p=>p.id===id);
 export const isDoorObjective = objective => ['door-passage','door-threshold-passage'].includes(objective.id);
 export const fixtureById = id => REGISTRY.golden.find(p=>p.id===id);
-export const observerCapabilities = profile => profile==='full' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])] : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1','walking-state-v1',...DRIVING_CAPABILITIES] : profile==='without-traversal' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))].filter(c=>c!=='walking-state-v1') : [];
+export const observerCapabilities = profile => profile==='full' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])] : profile==='without-stealth' ? [...new Set([...REGISTRY.plots.flatMap(p=>p.capabilities),...DRIVING_CAPABILITIES])].filter(c=>!STEALTH_CAPABILITIES.includes(c)) : profile==='without-passage' ? ['door-state-v1','interaction-event-v1','rock-state-v1','inventory-state-v1','item-event-v1','walking-state-v1',...DRIVING_CAPABILITIES,...STEALTH_CAPABILITIES] : profile==='without-traversal' ? [...new Set(REGISTRY.plots.flatMap(p=>p.capabilities))].filter(c=>c!=='walking-state-v1') : [];
 export function defaultRecipe() {
   return {kind:'nautilus-test-ground-recipe',version:1,content:clone(identity),engineSource:REGISTRY.engineSource,seed:REGISTRY.seed,
     plots:[{slot:'west',fixture:'gatehouse',version:1},{slot:'east',fixture:'supply-store',version:1}],
@@ -33,15 +34,17 @@ export function validateRecipe(input) {
     for(const p of recipe.plots) {
       fields(p,['slot','fixture','version']);const slot=slotById(p.slot),plot=plotById(p.fixture);
       insist(slot&&!seen.has(p.slot),'PLOT_CONFLICT','Use each registered non-overlapping plot once.');seen.add(p.slot);
-      insist(plot&&p.version===plot.version,'PLOT_UNAVAILABLE','Select a registered fixture and exact version.');
+    insist(plot&&p.version===plot.version,'PLOT_UNAVAILABLE','Select a registered fixture and exact version.');
+      insist(p.fixture!=='stealth-yard'||p.slot==='west','STEALTH_PLACEMENT','The flat stealth plot has one reviewed west-slot origin.');
       insist(plot.footprintM.every(n=>n===slot.sizeM)&&plot.elevationM===slot.elevationM&&plot.floorId===slot.floorId,'UNSUPPORTED_PLACEMENT','Plot footprint, native elevation and floor identity must match.');
     }
     fields(recipe.objective,['id','version','slot']);const objective=objectiveById(recipe.objective.id),chosen=recipe.plots.find(p=>p.slot===recipe.objective.slot);
     insist(objective&&objective.version===recipe.objective.version&&(chosen||recipe.objective.slot==='driving'),'OBJECTIVE_UNAVAILABLE','Select a versioned objective and target plot.');
+    insist(!hasStealth(recipe)||(recipe.objective.id==='foliage-stealth'&&recipe.objective.slot==='west'),'STEALTH_PROFILE_OBJECTIVE','The bounded crawl profile stays inside the west plot. Use Try / reset to return to door, rock or road fixtures.');
     const plot=chosen?plotById(chosen.fixture):{capabilities:DRIVING_CAPABILITIES},missing=objective.requires.filter(c=>!plot.capabilities.includes(c));
     insist(!missing.length,'OBJECTIVE_INCOMPATIBLE','Target plot lacks '+missing.join(', ')+'.');
     fields(recipe.conditions,['id','version']);insist(REGISTRY.conditionProfiles.some(c=>c.id===recipe.conditions.id&&c.version===recipe.conditions.version),'CONDITIONS_UNAVAILABLE','Choose a reviewed expectation profile and version.');
-    fields(recipe.observers,['profile','version']);insist(['full','without-passage','without-traversal'].includes(recipe.observers.profile)&&recipe.observers.version===1,'OBSERVER_UNAVAILABLE','Use a registered observer profile/version.');
+    fields(recipe.observers,['profile','version']);insist(['full','without-passage','without-traversal','without-stealth'].includes(recipe.observers.profile)&&recipe.observers.version===1,'OBSERVER_UNAVAILABLE','Use a registered observer profile/version.');
     insist(['ordinary','acknowledge-without-door-effect','acknowledge-without-motion'].includes(recipe.probe),'PROBE_UNAVAILABLE','Use an explicit reviewed verifier probe.');
     return {ok:true,recipe};
   } catch(error) {return {ok:false,code:error.code||'INVALID_RECIPE',reason:error.message};}
@@ -49,6 +52,7 @@ export function validateRecipe(input) {
 const box = (id,x1,y1,h1,x2,y2,h2,supports=false) => ({id,floorId:'floor-0',role:supports?'floor':'solid',bounds:{min:{x:x1,y:y1,h:h1},max:{x:x2,y:y2,h:h2}},supports,supportFloorId:supports?'floor-0':null});
 export function plotContent(selection) {
   const slot=slotById(selection.slot),plot=plotById(selection.fixture),{x,y}=slot.origin,id=slot.id,h=REGISTRY.storyHeightM;
+  if(plot.id==='stealth-yard')return {surfaces:[],door:null,rock:null};
   const surfaces=[box(id+'-left',x+2,y+11.95,0,x+7.3,y+12.05,h),box(id+'-right',x+8.7,y+11.95,0,x+14,y+12.05,h)];
   if(plot.id==='supply-store')surfaces.push(box(id+'-back',x+2,y+4,0,x+14,y+4.15,h),box(id+'-side',x+2,y+4,0,x+2.15,y+11.9,h));
   return {surfaces,door:{id:id+'/door',label:slot.name+' door',floorId:'floor-0',position:{x:x+8,y:y+12,h:0},reachM:1.8,open:false,locked:false,
@@ -57,13 +61,15 @@ export function plotContent(selection) {
     motionBounds:{min:{x:x+7.4,y:y+10.7,h:0},max:{x:x+8.6,y:y+12.1,h:2.0}}},
     rock:plot.id==='supply-store'?{id:id+':rock',position:{x:x+12,y:y+14,h:.055}}:null};
 }
-export function contentFor(recipe,spawn=REGISTRY.spawn) {
+export function contentFor(recipe,spawn) {
+  spawn??=hasStealth(recipe)?{x:11.5,y:20.5,h:0}:REGISTRY.spawn;
   return {kind:'nautilus-player-content',version:1,identity:clone(identity),world:{id:'night-ledger-ground',name:REGISTRY.name,widthM:64,depthM:64,floorCount:1,storyHeightM:REGISTRY.storyHeightM,groundHeightM:0,heightM:6},
     surfaces:[box('ground',0,0,0,64,64,0,true),...recipe.plots.flatMap(p=>plotContent(p).surfaces),...drivingContent(REGISTRY,recipe,box).surfaces],
-    interactions:{doors:recipe.plots.map(p=>plotContent(p).door),stairs:[]},actors:[{id:'player',floorId:'floor-0',position:clone(spawn),radiusM:.28,heightM:1.8,speedMps:DEFAULT_WALK_SPEED_MPS}],
+    interactions:{doors:recipe.plots.map(p=>plotContent(p).door).filter(Boolean),stairs:[]},actors:[{id:'player',floorId:'floor-0',position:clone(spawn),...(hasStealth(recipe)?STEALTH_BODY:{radiusM:.28,heightM:1.8}),speedMps:hasStealth(recipe)?3.6:DEFAULT_WALK_SPEED_MPS}],
     resources:{player:clone(REGISTRY.resources)},vehicles:drivingContent(REGISTRY,recipe,box).vehicles,appearance:{ground:0x667c61,sky:0x92aca5}};
 }
 export function goldenRecipe(fixture,recipe) {
+  recipe=clone(recipe);if(fixture.id!=='golden-foliage-stealth'&&hasStealth(recipe))recipe.plots=recipe.plots.map(p=>p.fixture==='stealth-yard'?{...p,fixture:'gatehouse',version:1}:p);
   if(fixture.slot==='driving'){const next=clone(recipe);next.driving={id:fixture.course,version:1};next.objective={id:fixture.objective,version:1,slot:'driving'};return next;}
   const next=clone(recipe);next.plots=next.plots.map(p=>p.slot===fixture.slot?{slot:p.slot,fixture:fixture.plot,version:1}:p);
   next.objective={id:fixture.objective,version:1,slot:fixture.slot};return next;

@@ -19,8 +19,16 @@ window.nautilus = {
   export() {if (!this.document) throw Error('The editor is still loading.');return this.document.export();},
   async open(input) {const document = openDocument(input);await window.editor3d.open(document);return describeBlueprint(document.export());},
   connectGame: handoff.connectGame,
+  preflightGame: handoff.preflight,
   sendToGame: handoff.sendToGame
 };
+const foliageActions=document.createElement('details');foliageActions.className='nautilus-foliage-handoff';const foliageSummary=document.createElement('summary');foliageSummary.textContent='Foliage playtest';foliageActions.append(foliageSummary);const foliageMenu=document.createElement('div');foliageActions.append(foliageMenu);
+for(const [label,run]of [
+  ['Open foliage test ground',()=>{const relative=import.meta.url.includes('/apps/editor/')?'../test-ground/':'../apps/test-ground/';const url=new URL(relative,import.meta.url);url.search='?foliage=1&editor=1';if(!window.open(url.href,'nautilus-foliage-ground'))throw Error('Allow the test-ground window to open.');}],
+  ['Load connected foliage blueprint',async()=>{if(window.nautilus.document?.changed&&!confirm('Replace this design with the connected foliage blueprint? Export or save first.'))return;await window.nautilus.open(handoff.template());status('Foliage plot blueprint · paint local cells 0–15 at ground level, then preflight and Send.');}],
+  ['Preflight connected game',async()=>{const r=await handoff.preflight();status(r.ok?'Blueprint is compatible with the connected plot.':r.reason);}]
+]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>Promise.resolve().then(run).then(()=>foliageActions.open=false).catch(e=>status(e.message));foliageMenu.append(b);}
+document.getElementById('nautilus-options')?.parentNode.append(foliageActions);
 function installSettingsFeedback() {
   const heading = document.querySelector('#editor-settings .settings-heading'), source = document.getElementById('status');
   if (!heading || !source || document.getElementById('nautilus-settings-feedback')) return;
